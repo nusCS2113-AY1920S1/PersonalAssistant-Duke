@@ -35,8 +35,6 @@ public class PostponeCommand extends Command {
      * @param newDate  new show date
      */
     public PostponeCommand(String showName, String oldDate, String newDate) {
-        // need to check if both dates are valid if not throw exception
-        // need to check if the event was completed in the past. Past event shouldn't be postponed.
         this.showName = showName;
         this.oldDate = oldDate;
         this.newDate = newDate;

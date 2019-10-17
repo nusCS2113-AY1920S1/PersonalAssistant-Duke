@@ -62,4 +62,8 @@ public class Model {
     public String listShow(String showName) {
         return shows.listShow(showName);
     }
+
+    public String listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
+        return shows.listShow(startOfMonth, endOfMonth);
+    }
 }

@@ -78,6 +78,32 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
     }
 
     /**
+     * Get all the show name and show date that are scheduled for the month in query.
+     * @param startOfMonth First day of the month in query.
+     * @param endOfMonth First day of the next month.
+     * @return String message of all the shows that are scheduled for the month in query.
+     */
+    public String listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
+        StringBuilder message = new StringBuilder();
+
+        int counter = 1;
+
+        while (startOfMonth.compareTo(endOfMonth) != 0) {
+            if (this.containsKey(startOfMonth)) {
+                String date = formatter.toStringDate(startOfMonth);
+                String showName = this.getShowName(startOfMonth);
+
+                message.append(String.format("%d. %s (on: %s)\n", counter, showName, date));
+                counter++;
+            }
+
+            startOfMonth = startOfMonth.plusDays(1);
+        }
+
+        return message.toString();
+    }
+
+    /**
      * Remove a show from the show map.
      * @param key the show to be removed.
      * @return the show that is removed.

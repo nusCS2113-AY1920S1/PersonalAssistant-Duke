@@ -3,7 +3,6 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.ShowMap;
 import optix.ui.Ui;
 
 public class ListShowCommand extends Command {
@@ -13,8 +12,6 @@ public class ListShowCommand extends Command {
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
 
-    private static final String MESSAGE_ENTRY = "%1$d. %2$s\n";
-
     public ListShowCommand(String showName) {
         this.showName = showName;
     }
@@ -22,12 +19,11 @@ public class ListShowCommand extends Command {
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
-        ShowMap shows = model.getShows();
         StringBuilder message = new StringBuilder(String.format(MESSAGE_FOUND_SHOW, showName));
 
         message.append(model.listShow(showName));
 
-        if (hasShow(message.toString())) {
+        if (!hasShow(message.toString())) {
             message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
         }
 
@@ -40,6 +36,6 @@ public class ListShowCommand extends Command {
     }
 
     private boolean hasShow(String message) {
-        return message.equals(String.format(MESSAGE_FOUND_SHOW, showName));
+        return !message.equals(String.format(MESSAGE_FOUND_SHOW, showName));
     }
 }

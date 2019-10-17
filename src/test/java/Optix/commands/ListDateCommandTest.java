@@ -39,8 +39,8 @@ class ListDateCommandTest {
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
                 + "These shows are showing on May 2020: \n"
-                + "1. Dummy Show on 2020-05-05\n"
-                + "2. Dummy Show on 2020-05-06\n"
+                + "1. Dummy Show (on: 05/05/2020)\n"
+                + "2. Dummy Show (on: 06/05/2020)\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
         filePath.deleteOnExit();

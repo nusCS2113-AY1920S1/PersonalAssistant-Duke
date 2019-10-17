@@ -9,7 +9,9 @@ import optix.ui.Ui;
 import java.time.LocalDate;
 
 public class ListCommand extends Command {
+
     private static final String MESSAGE_LIST_FOUND = "Here are the list of shows:\n";
+
     private static final String MESSAGE_LIST_NOT_FOUND = "☹ OOPS!!! There are no shows in the near future.\n";
 
     @Override
