@@ -1,15 +1,15 @@
 package duke.ui;
 
-import duke.task.PriorityList;
 import duke.task.ContactList;
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
+import javafx.util.Pair;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javafx.util.Pair;
 
 /**
  * Represents a ui that informs the user.
@@ -379,6 +379,23 @@ public class Ui {
             out.println(contactList.get(contactList.size() - 1));
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
+    }
+
+    /**
+     * Show the added contacts in GUI.
+     *
+     * @param contactList
+     * @return
+     */
+    public static String showAddedContactGui(ContactList contactList) {
+        String str = "Got it. Contact added:\n";
+        if (contactList.size() == 0) {
+            str += "You have no contacts!";
+        } else {
+            str += contactList.get(contactList.size() - 1);
+            str += "\nNow you have " + contactList.size() + " contacts.";
+        }
+        return str;
     }
 
     public void showBudget(float amount) {

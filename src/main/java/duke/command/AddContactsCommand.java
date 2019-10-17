@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class AddContactsCommand extends Command {
     protected Contacts contactObj;
+    protected ContactList contactList;
+    protected ContactStorage contactStorage;
 
     /**
      * Creates a command with the specified contact.
@@ -22,13 +24,15 @@ public class AddContactsCommand extends Command {
     }
 
     /**
-     * Executes a command with task list and ui.
+     * Adds the user input to a list of contacts.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
      */
     @Override
     public void execute(TaskList items, Ui ui) {
+        contactList.add(contactObj);
+        ui.showAddedContact(contactList);
     }
 
     /**
@@ -38,10 +42,9 @@ public class AddContactsCommand extends Command {
      * @param contactList The contact list that contains a list of contacts.
      * @param ui To tell the user that it is executed successfully.
      */
-    public void execute(TaskList items, ContactList contactList, Ui ui) {
-        contactList.add(contactObj);
-        ui.showAddedContact(contactList);
-    }
+//    public void execute(TaskList items, ContactList contactList, Ui ui) {
+//
+//    }
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
@@ -57,6 +60,20 @@ public class AddContactsCommand extends Command {
     }
 
     /**
+     * Executes a command that adds the contact into contact list and outputs the result (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param contactList The list of contacts.
+     * @param ui To tell the user that it is executed successfully.
+     * @return A string value to be output to GUI.
+     */
+    public String executeGui(TaskList items, ContactList contactList, Ui ui) {
+        contactList.add(contactObj);
+        String str = Ui.showAddedContactGui(contactList);
+        return str;
+    }
+
+    /**
      * Executes a command that overwrites existing storage with the updated task list.
      * (Not in use)
      *
@@ -66,6 +83,7 @@ public class AddContactsCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
+        contactStorage.write(contactList);
     }
 
     /**
@@ -77,8 +95,8 @@ public class AddContactsCommand extends Command {
      * @param contactList The list of contacts.
      * @throws IOException If there is an error reading the file.
      */
-    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
-                               ContactList contactList) throws IOException {
-        contactStorage.write(contactList);
-    }
+//    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
+//                               ContactList contactList) throws IOException {
+//        contactStorage.write(contactList);
+//    }
 }

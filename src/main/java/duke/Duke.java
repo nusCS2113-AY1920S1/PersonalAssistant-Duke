@@ -126,13 +126,17 @@ public class Duke {
      * @return String to be outputted.
      */
     public String executeCommand(Command cmd) {
-        String str = cmd.executeGui(items, ui);
-        return str;
+        if (cmd instanceof AddContactsCommand) {
+            String str = cmd.executeGui(items, contactList, ui);
+            return str;
+        } else {
+            String str = cmd.executeGui(items, ui);
+            return str;
+        }
     }
 
     /**
      * Executes a command and outputs the result to the user (GUI).
-     *
      *
      * @return String to be outputted.
      */
