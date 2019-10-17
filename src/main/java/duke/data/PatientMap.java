@@ -3,13 +3,15 @@ package duke.data;
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PatientMap {
 
-    private HashMap<String, Patient> patientHashMap;
+    private ObservableMap<String, Patient> patientObservableMap;
 
     /**
      * Creates a new PatientMap, loading data from the Storage object provided.
@@ -19,14 +21,16 @@ public class PatientMap {
      * @throws DukeFatalException If unable to write data file.
      */
     public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
-        patientHashMap = storage.loadPatientHashMap();
+
+        HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap(patientHashMap);
+        patientObservableMap = FXCollections.observableMap(patientHashMap);
     }
 
     /**
      * Creates a new, empty TaskList.
      */
     public PatientMap() {
-        patientHashMap = new HashMap<String, Patient>();
+        patientObservableMap = FXCollections.observableMap(new HashMap<String, Patient>());
     }
 
     /**
@@ -36,7 +40,7 @@ public class PatientMap {
      * @return the patient object added.
      */
     public Patient addPatient(Patient newPatient) {
-        patientHashMap.put(newPatient.getBedNo(), newPatient);
+        patientObservableMap.put(newPatient.getBedNo(), newPatient);
         return newPatient;
     }
 
@@ -48,9 +52,9 @@ public class PatientMap {
      * @throws DukeException If bedNo cannot be resolved to a valid bedNo.
      */
     public Patient deletePatient(String keyIdentifier) throws DukeException {
-        if (patientHashMap.containsKey(keyIdentifier)) {
-            Patient deletedP = patientHashMap.get(keyIdentifier);
-            patientHashMap.remove(keyIdentifier);
+        if (patientObservableMap.containsKey(keyIdentifier)) {
+            Patient deletedP = patientObservableMap.get(keyIdentifier);
+            patientObservableMap.remove(keyIdentifier);
             return deletedP;
         } else {
             throw new DukeException("The patient cannot be identified");
@@ -65,8 +69,8 @@ public class PatientMap {
      * @throws DukeException If bedNo cannot be resolved to a valid bedNo.
      */
     public Patient getPatient(String keyIdentifier) throws DukeException {
-        if (patientHashMap.containsKey(keyIdentifier)) {
-            Patient thePatient = patientHashMap.get(keyIdentifier);
+        if (patientObservableMap.containsKey(keyIdentifier)) {
+            Patient thePatient = patientObservableMap.get(keyIdentifier);
             return thePatient;
         } else {
             throw new DukeException("The patient cannot be identified");
@@ -82,7 +86,7 @@ public class PatientMap {
     public PatientMap find(String searchTerm) throws DukeException {
         int i = 1;
         PatientMap filteredList = new PatientMap();
-        for (Map.Entry mapElement : patientHashMap.entrySet()) {
+        for (Map.Entry mapElement : patientObservableMap.entrySet()) {
             Patient value = (Patient)mapElement.getValue();
             if (value.getName().contains(searchTerm)) {
                 filteredList.addPatient(value);
@@ -103,12 +107,17 @@ public class PatientMap {
      * @return A String reporting the current number of tasks.
      */
     public String getPatientCountStr() {
-        int patientCount = patientHashMap.size();
+        int patientCount = patientObservableMap.size();
         String patientCountStr = patientCount + ((patientCount == 1) ? " patient" : " patients");
         return "Now you have " + patientCountStr + " in the map.";
     }
 
     public HashMap<String, Patient> getPatientHashMap() {
+        HashMap<String, Patient> patientHashMap = new HashMap<String, Patient>(patientObservableMap);
         return patientHashMap;
+    }
+
+    public ObservableMap<String, Patient> getPatientObservableMap() {
+        return patientObservableMap;
     }
 }
