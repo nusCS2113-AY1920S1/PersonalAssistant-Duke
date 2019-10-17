@@ -43,7 +43,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |NUS Treasurer |add my deadlines |keep track of the payments to be submitted
 
+|`* * *` |NUS Treasurer |add payees for payments|keep track of the payments made by each payee
+
+|`* * *` |NUS Treasurer |delete payees who made payments|remove payees whom I do not need to track
+
+|`* * *` |NUS Treasurer |add payments made by payees|keep track of the payments made by each payee
+
+|`* * *` |NUS Treasurer |delete payments made by payees|remove payments which I do not need to track
+
+|`* *` |NUS Treasurer |import files to update my payments made by a payee |do not have to manually input it myself
+
+|`* *` |NUS Treasurer |export my payments for a project into a statement of accounts |can submit it to my supervisors
+
 |`* *` |NUS Treasurer |set priorities for each deadline |decide which task to finish first
+
+|`* *` |NUS Treasurer |keep track of projects that I am in-charge of |manage the payments for each project
 
 |`* *` |NUS Treasurer |view the amount of money remaining from my budget |budget my spending better
 
