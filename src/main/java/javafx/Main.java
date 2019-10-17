@@ -2,6 +2,11 @@ package javafx;
 
 import exception.DukeException;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import main.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A GUI for JavaFX.Main.Duke using FXML.
