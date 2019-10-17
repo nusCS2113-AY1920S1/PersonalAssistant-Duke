@@ -2,10 +2,11 @@ package moomoo.command;
 
 import moomoo.task.Budget;
 import moomoo.task.CategoryList;
-import moomoo.task.TransactionList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
 import moomoo.task.MooMooException;
+import moomoo.task.Expenditure;
+import moomoo.task.Category;
 
 
 /**
@@ -30,12 +31,12 @@ public class Command {
      * Executes necessary functions for each different command.
      * @param budget Budget object containing the budget.
      * @param catList CategoryList object containing the categories
-     * @param transList TransactionList object containing transactions within each category.
+     * @param category Category object containing the expenditures
      * @param ui Ui object for interaction with user interface.
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
             throws MooMooException {
 
     }

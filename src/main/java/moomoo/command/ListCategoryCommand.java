@@ -2,10 +2,10 @@ package moomoo.command;
 
 import moomoo.task.Budget;
 import moomoo.task.CategoryList;
-import moomoo.task.TransactionList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
 import moomoo.task.MooMooException;
+import moomoo.task.Category;
 
 public class ListCategoryCommand extends Command {
     public ListCategoryCommand() {
@@ -13,9 +13,9 @@ public class ListCategoryCommand extends Command {
     }
 
     @Override
-    public void execute(Budget budget, CategoryList categoryList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(Budget budget, CategoryList categoryList, Category category, Ui ui, Storage storage)
             throws MooMooException {
-        super.execute(budget, categoryList, transList, ui, storage);
+        super.execute(budget, categoryList, category, ui, storage);
         categoryList.list(ui);
     }
 }
