@@ -50,8 +50,7 @@ public class Parser {
         }
         String command = splitCommand[0];
         command = autocorrect.runOnCommand(command);
-        UserInput = splitCommand[1];
-        UserInput = autocorrect.runOnArgument(UserInput);
+        UserInput = autocorrect.runOnArgument(splitCommand[1]);
         historyCommand.addCommand(command);
 
         switch (command) {

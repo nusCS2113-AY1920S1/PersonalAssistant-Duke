@@ -3,8 +3,6 @@ package duke.parsers;
 import duke.commands.ClearCommand;
 import duke.exceptions.DukeException;
 
-import java.util.zip.DataFormatException;
-
 public class ClearCommandParser implements ParserInterface<ClearCommand> {
 
     @Override
