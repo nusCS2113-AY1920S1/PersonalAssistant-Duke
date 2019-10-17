@@ -29,14 +29,15 @@ public class EmailFormatParser {
      * @throws EmailParsingException the exception of the failure of the response parsing
      */
     public static EmailList parseFetchResponse(String response) throws EmailParsingException {
-        Duke.getUI().showDebug(response);
+        //Duke.getUI().showDebug(response);
         EmailList emailList = new EmailList();
         try {
             JSONObject responseJson = new JSONObject(response);
             JSONArray emailJsonArray = responseJson.getJSONArray("value");
             for (int i = 0; i < emailJsonArray.length(); i++) {
                 JSONObject emailJson = emailJsonArray.getJSONObject(i);
-                emailList.add(parseComponentsToEmail(emailJson));
+                Email email = parseComponentsToEmail(emailJson);
+                emailList.add(email);
             }
         } catch (JSONException e) {
             throw new EmailParsingException("Email fetch response failed to parse");

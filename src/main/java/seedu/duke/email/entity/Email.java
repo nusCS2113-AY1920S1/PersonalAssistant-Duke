@@ -282,6 +282,18 @@ public class Email {
         return input;
     }
 
+    public String toGuiString() {
+        String guiStr = this.subject;
+        if (tags.size() > 0) {
+            guiStr += "\n";
+            for (Tag tag : tags)
+            {
+                guiStr += " #" + tag.getKeywordPair().getKeyword();
+            }
+        }
+        return guiStr;
+    }
+
     /**
      * Tag of an email with both a keyword pair and a score indicating its relevance;
      */
