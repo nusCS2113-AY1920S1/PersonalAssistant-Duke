@@ -3,6 +3,7 @@ package spinbox.commands;
 import spinbox.DateTime;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
+import spinbox.entities.Notepad;
 import spinbox.entities.items.File;
 import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
@@ -24,7 +25,8 @@ import java.util.List;
 public class AddCommand extends Command {
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
-    private static final String MODULE_NOT_EXISTS = "This module does not exist.";
+    private static final String NON_EXISTENT_MODULE = "This module does not exist.";
+    private static final String NOTE_ADDED = "A new note has been successfully added to ";
     private String type;
     private String fullCommand;
 
@@ -74,7 +76,6 @@ public class AddCommand extends Command {
             SpinBoxException {
 
         switch (type) {
-        // add files
         case "file":
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 HashMap<String, Module> modules = moduleContainer.getModules();
@@ -84,8 +85,21 @@ public class AddCommand extends Command {
                 files.add(new File(0, fileName));
                 return "Added into " + module.toString() + " file: " + fileName;
             } else {
-                return MODULE_NOT_EXISTS;
+                return NON_EXISTENT_MODULE;
             }
+
+        case "note":
+            if (moduleContainer.checkModuleExists(moduleCode)) {
+                HashMap<String, Module> modules = moduleContainer.getModules();
+                Module module = modules.get(moduleCode);
+                Notepad notepad = module.getNotepad();
+                String noteContent = content.replace(type.concat(" "), "");
+                notepad.addLine(noteContent);
+                return NOTE_ADDED + moduleCode;
+            } else {
+                return NON_EXISTENT_MODULE;
+            }
+            
         default:
             if (!moduleContainer.checkModuleExists(moduleCode)) {
                 String moduleName = this.content;

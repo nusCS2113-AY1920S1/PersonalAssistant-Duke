@@ -11,6 +11,7 @@ import java.util.List;
 public class Notepad {
     private static final String DIRECTORY_NAME = "SpinBoxData/";
     private static final String NOTEPAD_FILE_NAME = "/notes.txt";
+    private static final String CLI_LIST_HEADER =  "Here are your notes: ";
 
     private Storage localStorage;
     List<String> notes;
@@ -59,6 +60,20 @@ public class Notepad {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
+    }
+
+    /**
+     * Creates a list of notes with a header for CLI output.
+     * @return notes with a header as element zero.
+     */
+    public List<String> viewList() {
+        List<String> outputList = new ArrayList<>();
+        outputList.add(0, CLI_LIST_HEADER);
+
+        for (int i = 0; i < notes.size(); i++) {
+            outputList.add((Integer.toString(i + 1) + ". " + notes.get(i)));
+        }
+        return outputList;
     }
 
     public List<String> getNotes() {
