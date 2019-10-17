@@ -130,7 +130,7 @@ public class ViewCommand extends Command {
                 for (HashMap.Entry<String, Module> entry : moduleContainer.getModules().entrySet()) {
                     currentModules = currentModules.concat(entry.getKey() + "\n");
                 }
-                throw new InputException("Sorry, that module does not exist. These are the current modules\n"
+                throw new InputException("Sorry, that module does not exist. These are the current modules:\n"
                     + currentModules);
             }
         }
