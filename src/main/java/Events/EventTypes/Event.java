@@ -21,7 +21,7 @@ public abstract class Event implements Comparable<Event>{
      * @param isDone      boolean representing state of event completion
      * @param dateAndTime string representing date of event
      */
-    public Event(String description, boolean isDone, String dateAndTime) {
+    public Event(String description, boolean isDone, String dateAndTime) { 
         this.description = description;
         this.isDone = isDone;
         this.startEventDate = new EventDate(dateAndTime);

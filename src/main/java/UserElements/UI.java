@@ -61,15 +61,8 @@ public class UI {
      */
 
     public void printReminder(EventList events) {
-        String systemDateAndTime = new Date().toString();
-    	EventDate limit = new EventDate(systemDateAndTime);
-    	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getEventJavaDate().toString();
-    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
     	System.out.print(lineSeparation);
-    	System.out.print("The time now is " + systemDateAndTime + ".\n");
-    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
-    	System.out.print(events.filteredList(pred, DATE));
+    	System.out.print(events.getReminder());
     	System.out.print(lineSeparation);
     }
 
