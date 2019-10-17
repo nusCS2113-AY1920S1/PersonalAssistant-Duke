@@ -58,4 +58,8 @@ public class Model {
     public String listShow() {
         return shows.listShow();
     }
+
+    public String listShow(String showName) {
+        return shows.listShow(showName);
+    }
 }

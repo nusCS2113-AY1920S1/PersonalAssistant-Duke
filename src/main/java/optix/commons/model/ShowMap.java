@@ -57,6 +57,27 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
     }
 
     /**
+     * Get all the dates that are scheduled for the show in query.
+     * @param showName the name of the show.
+     * @return String message of all the dates for that are scheduled the show in query.
+     */
+    public String listShow(String showName) {
+        StringBuilder message = new StringBuilder();
+
+        int counter = 1;
+
+        for (Map.Entry<LocalDate, Theatre> entry : this.entrySet()) {
+            if (entry.getValue().hasSameName(showName)) {
+                String date = formatter.toStringDate(entry.getKey());
+                message.append(String.format("%d. %s\n", counter, date));
+                counter++;
+            }
+        }
+
+        return message.toString();
+    }
+
+    /**
      * Remove a show from the show map.
      * @param key the show to be removed.
      * @return the show that is removed.
