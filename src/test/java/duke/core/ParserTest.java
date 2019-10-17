@@ -13,7 +13,7 @@ public class ParserTest {
 
     String deletePatientInputWithID = "delete patient #123";
     String deletePatientInputWithName = "delete patient billy joe";
-    String deleteTaskInputWithID = "delete task 10";
+    String deleteTaskInputWithID = "delete task #10";
     String deleteTaskInputWithName = "delete task Take medicine";
 
     @Test

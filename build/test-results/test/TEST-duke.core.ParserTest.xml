@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="duke.core.ParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-10-16T12:50:51" hostname="lmtaek-pc.local" time="0.345">
+  <properties/>
+  <testcase name="parseDeleteTask()" classname="duke.core.ParserTest" time="0.081"/>
+  <testcase name="parseAddPatientTest()" classname="duke.core.ParserTest" time="0.09"/>
+  <testcase name="parseAddTask()" classname="duke.core.ParserTest" time="0.008"/>
+  <testcase name="parseAssignPatientByID()" classname="duke.core.ParserTest" time="0.107"/>
+  <testcase name="parseDeletePatient()" classname="duke.core.ParserTest" time="0.005"/>
+  <system-out><![CDATA[02/02/2002 2222
+02/02/2002 2222
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
