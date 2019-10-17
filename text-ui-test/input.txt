@@ -1,8 +1,0 @@
-delete 1
-todo x
-list
-done 1
-list
-delete 1
-list
-bye
