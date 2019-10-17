@@ -7,6 +7,7 @@ import command.ModCommand;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
@@ -14,6 +15,7 @@ import ui.UI;
 import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -30,12 +32,24 @@ import java.util.concurrent.TimeUnit;
  */
 public class Duke extends Application {
 
+
     private TaskList myList;
     private Storage storage;
     private UI ui;
     private Parser parse;
     private DegreeList lists;
     private CommandList commandList;
+    private DegreeListStorage degreeListStorage;
+    private static ArrayList<String> mydegrees = new ArrayList<>();
+
+    public Duke() {
+
+    }
+
+    public static ArrayList<String> getTasks() {
+        return mydegrees;
+    }
+
 
     /**
      * The constructor that is called when the GUI is starting up.
@@ -54,6 +68,8 @@ public class Duke extends Application {
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.load());
+            DegreeListStorage degreeListStorage = new DegreeListStorage();
+            degreeListStorage.ReadFile();
         } catch (DukeException e) {
             ui.showLoadingError();
             myList = new TaskList();
