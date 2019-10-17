@@ -381,7 +381,7 @@ public class Process {
             String payeename = splitpayments[1];
             Payee payee = PaymentManager.deletePayee(payeename, managermap);
             int payeesize = managermap.size();
-            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize);
+            ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {

@@ -212,13 +212,14 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printdeletePayeeMessage(String name, Payee payee) {
+    public void printdeletePayeeMessage(String name, Payee payee, int payeesize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this payee:");
         System.out.println("\t" + "Payee: " + name);
         System.out.println("\t" + "Email: " + payee.email);
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
         System.out.print(line);
     }
 
