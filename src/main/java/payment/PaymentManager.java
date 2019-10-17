@@ -10,8 +10,10 @@ import java.util.HashMap;
  */
 public abstract class PaymentManager {
     static ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
+
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
+     *
      * @param payee Payee of the item.
      */
 
@@ -111,5 +113,15 @@ public abstract class PaymentManager {
         Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
         managermap.put(payee, payeeNew);
         return payeeNew;
+    }
+
+    /**
+     * Delete Payee object.
+     */
+    public static Payee deletePayee(String payee, String email, String matricNum, String phoneNum,
+                                    HashMap<String, Payee> managermap) {
+        Payee payeeDeleted = new Payee(payee, email, matricNum, phoneNum);
+        managermap.remove(payee);
+        return payeeDeleted;
     }
 }
