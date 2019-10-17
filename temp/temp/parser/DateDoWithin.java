@@ -24,7 +24,6 @@ public class DateDoWithin {
 
         } catch (DateTimeException e) {
             throw new DukeException(" The format for including date and time for a do within is <dd/MM/yyyy>");
-
         }
     }
 }

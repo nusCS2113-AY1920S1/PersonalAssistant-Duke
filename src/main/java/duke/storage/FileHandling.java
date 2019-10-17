@@ -3,22 +3,13 @@ package duke.storage;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import duke.exceptions.DukeException;
-import duke.tasks.Deadline;
-import duke.tasks.DoAfter;
-import duke.tasks.DoWithin;
-import duke.tasks.Event;
-import duke.tasks.FixedDuration;
-import duke.tasks.Recurring;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.tasks.Todo;
+import duke.models.LockerList;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class FileHandling {
     private String file;
@@ -33,12 +24,12 @@ public class FileHandling {
      * @return a list that stores the tasks loaded from the file.
      * @throws DukeException when there are errors while handling the file.
      */
-    public TaskList retrieveData() throws DukeException {
+    public LockerList retrieveData() throws DukeException {
 
         try {
             FileInputStream readFile = new FileInputStream(this.file);
-            TaskList tasks = getObjectMapper().readValue(readFile, TaskList.class);
-            return tasks;
+            LockerList lockers = getObjectMapper().readValue(readFile, LockerList.class);
+            return lockers;
 
         } catch (FileNotFoundException e) {
             throw new DukeException(" Could not find the file. Invalid file name/file path... "
@@ -55,7 +46,7 @@ public class FileHandling {
      * @param storeDataInFile list of tasks that are to be stored in the file.
      * @throws DukeException when there are errors while loading data into the file.
      */
-    public void saveData(TaskList storeDataInFile) throws DukeException {
+    public void saveData(LockerList storeDataInFile) throws DukeException {
 
         try {
             FileOutputStream write = new FileOutputStream(this.file);

@@ -1,18 +1,18 @@
 package duketest.command;
 
-import duke.command.SnoozeCommand;
+import duke.command.AddDoAfterCommand;
 import duke.exceptions.DukeException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.storage.FileHandling;
+import temp.storage.FileHandling;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SnoozeCommandTest {
+public class AddDoAfterCommandTest {
     private final TaskList taskList = new TaskList();
     private final Ui ui = new Ui();
     private final FileHandling storage = new FileHandling("storeData.txt");
@@ -20,19 +20,21 @@ public class SnoozeCommandTest {
     @Test
     public void checkValidCommand() {
         List<String> splitInput = new ArrayList<>();
-        splitInput.add("snooze");
-        SnoozeCommand obj = new SnoozeCommand(splitInput, "snooze");
+        splitInput.add("do-after");
+        AddDoAfterCommand obj = new AddDoAfterCommand(splitInput);
 
         assertThrows(DukeException.class,() ->
                 obj.execute(taskList, ui, storage));
+        splitInput.add("return book");
     }
 
     @Test
     public void checkValidFormat() {
         List<String> splitInput = new ArrayList<>();
-        splitInput.add("reschedule");
-        splitInput.add("1");
-        SnoozeCommand obj = new SnoozeCommand(splitInput,"reschedule");
+        splitInput.add("do-after");
+        splitInput.add("return-book");
+        splitInput.add("exams");
+        AddDoAfterCommand obj = new AddDoAfterCommand(splitInput);
         assertThrows(DukeException.class,() ->
                 obj.execute(taskList, ui, storage));
     }

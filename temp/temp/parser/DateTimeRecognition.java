@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exceptions.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
@@ -15,11 +14,11 @@ public class DateTimeRecognition {
 
     /**
      * This function enables Duke to read dates in a "dd-MM-yyyy HH:mm format".
+     *
      * @throws DukeException when the date format is incorrect.
      */
     public void dateTime() throws DukeException {
         try {
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
         } catch (DateTimeException e) {

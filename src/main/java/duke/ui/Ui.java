@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.tasks.Task;
+import duke.models.Locker;
 
 import java.util.Scanner;
 import java.util.List;
@@ -31,14 +31,10 @@ public class Ui {
      * This function prints the hello message every time Duke is initiated.
      */
     public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        printSpaces(" Hello from\n" + logo);
+        String logo = "SpongeBob";
+        printSpaces(" Hello from " + logo);
         printDash();
-        printSpaces(" Hello! I am Duke");
+        printSpaces(" Hello! I am SpongeBob. I am here to manage lockers for you!");
         printSpaces(" What can I do for you?");
         printDash();
     }
@@ -47,7 +43,7 @@ public class Ui {
      * This function prints the tasks stored in the list.
      * @param printData stores the list of tasks to be printed.
      */
-    public void printList(List<Task> printData) {
+    public void printList(List<Locker> printData) {
         printSpaces(" Here are the tasks in your list:");
         showList(printData);
     }
@@ -67,10 +63,33 @@ public class Ui {
      * @param listOfTasks used for printing the number of tasks in the list.
      * @param taskA stores the task that is to be added to the list.
      */
-    public void printAddTask(List<Task> listOfTasks, String taskA) {
+    public void printAddTask(List<Locker> listOfTasks, String taskA) {
         printSpaces(" Got it. I have added this task:");
         printSpaces("  " + taskA);
         showNumTasks(listOfTasks);
+    }
+
+    /**
+     * This function tells the user that SpongeBob has added the locker into the list.
+     * @param listOfLockers used for printing the number of lockers in the list
+     * @param lockerA stores the locker that is added to the list
+     */
+    public void printAddLocker(List<Locker> listOfLockers, String lockerA) {
+        printSpaces(" Got it. I have added this locker: ");
+        printSpaces(" " + lockerA);
+        printSpaces(" Now, Spongebob is managing " + listOfLockers.size() + " lockers");
+        printDash();
+    }
+
+    /**
+     * This function tells the user that SpongeBob has added a batch of lockers to the list.
+     * @param num  stores the number of lockers that are added
+     * @param serialNumber stores the serial number of the first locker added
+     */
+    public void printBatch(int num,int serialNumber) {
+        printSpaces(" Got it. I have added " + num + " lockers with serial numbers #"
+                + serialNumber + "- #" + (serialNumber + num - 1));
+        printDash();
     }
 
     /**
@@ -97,14 +116,14 @@ public class Ui {
 
     }
 
-    private void showNumTasks(List<Task> listOfTasks) {
+    private void showNumTasks(List<Locker> listOfTasks) {
         printSpaces(" Now you have " + listOfTasks.size()
-                + ((listOfTasks.size() == 1) ? " task in the list." : " tasks in "
+                + ((listOfTasks.size() == 1) ? " locker in the list." : " lockers in "
                 + "the list"));
         printDash();
     }
 
-    private void showList(List<Task> listOfTasks) {
+    private void showList(List<Locker> listOfTasks) {
         for (int i = 0; i < listOfTasks.size(); i++) {
             printSpaces(" " + (i + 1) + ". " + listOfTasks.get(i).toString());
         }
@@ -129,26 +148,36 @@ public class Ui {
     }
 
     /**
-     * This function tells the user that Duke has deleted the task from the list.
-     * @param taskList used for showing the number of tasks left in the list.
-     * @param taskA stores the task that is deleted.
+     * This function tells the user that SpongeBob has deleted the lockers from the list.
+     * @param lockerList used for showing the number of lockers left in the list.
+     * @param lockerA stores the locker that is deleted.
      */
-    public void deleteMessage(List<Task> taskList, String taskA) {
-        printSpaces(" Noted. I have removed this task:");
-        printSpaces("  " + taskA);
-        showNumTasks(taskList);
+    public void deleteMessage(List<Locker> lockerList, String lockerA) {
+        printSpaces(" Noted. I have removed this locker:");
+        printSpaces("  " + lockerA);
+        showNumTasks(lockerList);
+    }
+
+    /**
+     * This function tells the user that SpongeBob has edited the locker from the list.
+     * @param lockerA stores the locker that is edited
+     */
+    public void editMessage(String lockerA) {
+        printSpaces("Noted. I have edited the locker to:");
+        printSpaces(" " + lockerA);
+        printDash();
     }
 
     /**
      * This function prints the tasks that match a given keyword.
      * @param taskList stores the tasks that match a given keyword.
      */
-    public void keywordPrint(List<Task> taskList) {
+    public void keywordPrint(List<Locker> taskList) {
         printSpaces(" Here are the matching tasks in your list:");
         showList(taskList);
     }
 
-    public void getRemindersList(List<Task> taskList) {
+    public void getRemindersList(List<Locker> taskList) {
         printSpaces(" Here are your deadlines:");
         showList(taskList);
     }
