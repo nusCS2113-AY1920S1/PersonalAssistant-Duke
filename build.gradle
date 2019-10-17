@@ -11,6 +11,8 @@ version '0.1.2'
 
 repositories {
     mavenCentral()
+    jcenter()
+    mavenLocal()
 }
 
 sourceSets {
@@ -69,9 +71,9 @@ checkstyle {
     ignoreFailures = true
 }
 
-shadowJar {
+/*shadowJar {
     archiveBaseName = "cube"
     archiveVersion = "0.1.2"
     archiveClassifier = null
     archiveAppendix = null
-}
+}*/

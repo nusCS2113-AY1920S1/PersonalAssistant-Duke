@@ -6,9 +6,9 @@
 package cube.command;
 
 import cube.ui.Ui;
+import cube.util.Parser;
 import cube.util.Storage;
 import cube.task.TaskList;
-import cube.util.Parser;
 import cube.task.Task;
 
 public class FindCommand implements Command{
