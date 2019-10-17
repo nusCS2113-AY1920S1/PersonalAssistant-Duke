@@ -20,13 +20,13 @@ public class CheckAnomaly {
      */
     public static Boolean checkTime(FixedDuration currEvent) {
         double currDuration;
-        currDuration = currEvent.getDuration() * 3600000;
+        currDuration = Integer.parseInt(currEvent.getDuration()) * 3600000;
         ArrayList<Task> curr = TaskList.currentList();
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
             Date checkDate = currEvent.checkDate();
             if( curr.get(i) instanceof FixedDuration ) {
                 double duration;
-                duration = ((FixedDuration) curr.get(i)).getDuration() * 3600000;
+                duration = Integer.parseInt(((FixedDuration) curr.get(i)).getDuration()) * 3600000;
                 Date listDate = ((FixedDuration) curr.get(i)).checkDate();
                 if ( listDate.getYear() == checkDate.getYear() && listDate.getMonth() == checkDate.getMonth() && listDate.getDay() == checkDate.getDay() ) {
                     double checkTime = listDate.getTime();
