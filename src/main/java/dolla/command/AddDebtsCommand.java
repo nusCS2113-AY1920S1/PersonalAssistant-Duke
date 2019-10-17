@@ -18,11 +18,10 @@ public class AddDebtsCommand extends Command {
         this.description = description;
     }
 
-
     @Override
     public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount,description);
-        dollaData.debtList.add(newDebt);
+        dollaData.addToLogList("debt", newDebt);
         Ui.echoAddDebt(newDebt);
     }
 }

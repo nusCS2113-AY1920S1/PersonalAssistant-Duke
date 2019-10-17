@@ -8,6 +8,7 @@ public class Debt extends Log {
     protected String name;
     protected double amount;
     protected String description;
+    protected String saveType;
 
     public Debt(String type, String name, double amount, String description) {
         this.type = type;
@@ -26,5 +27,13 @@ public class Debt extends Log {
 
     public String amountToMoney() {
         return "$" + amount;
+    }
+
+    public String formatSave() {
+        saveType = type.equals("owe") ? "O" : "B";
+        return saveType + " | "
+                + name + " | "
+                + amount + " | "
+                + description;
     }
 }

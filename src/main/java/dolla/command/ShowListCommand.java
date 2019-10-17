@@ -28,19 +28,19 @@ public class ShowListCommand extends Command {
      */
     @Override
     public void execute(DollaData dollaData) {
-        LogList logList = new LogList(new ArrayList<Log>());
+        LogList logList = new LogList(new ArrayList<>());
 
         switch (mode) {
         case "entry":
-            logList = dollaData.entryList;
+            logList = dollaData.getLogList(mode);
             break;
         case "debt":
-            logList = dollaData.debtList;
+            logList = dollaData.getLogList(mode);
             break;
         default:
             break; // TODO: What to do here?
         }
-        
+
         boolean isListEmpty = (logList.size() == 0);
 
         if (isListEmpty) { // TODO: Place this in proper place
@@ -53,6 +53,5 @@ public class ShowListCommand extends Command {
             Ui.printList(mode, logList);
             return;
         }
-
     }
 }

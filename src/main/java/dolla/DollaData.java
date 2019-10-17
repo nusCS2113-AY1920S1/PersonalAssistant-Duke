@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class DollaData {
 
     private String mode = "dolla";
-    public EntryList entryList; // TODO: Find out alternatives to using a public variable
-    public DebtList debtList;
+    private EntryList entryList; // TODO: Find out alternatives to using a public variable
+    private DebtList debtList;
 
     //private EntryList entryList;
 
@@ -26,8 +26,10 @@ public class DollaData {
      * @return The LogList according to the specified mode.
      */
     public LogList getLogList(String mode) {
-        if (mode.equals("entries")) {
+        if (mode.equals("entry")) {
             return entryList;
+        } else if (mode.equals("debt")) {
+            return debtList;
         }
         return null; // placeholder so that Dolla can compile
     }
@@ -38,13 +40,11 @@ public class DollaData {
      * @param newLog The new Log to be added into the relevant LogList.
      */
     public void addToLogList(String mode, Log newLog) {
-        if (mode.equals("entries")) {
-            entryList.add(newLog);
-        }
-    }
-
-    public DebtList getDebtList() {
-        return debtList;
+            if (mode.equals("entry")) {
+                entryList.add(newLog);
+            } else if (mode.equals("debt")) {
+                debtList.add(newLog);
+            }
     }
 
     public String getMode() {
