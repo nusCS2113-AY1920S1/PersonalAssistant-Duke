@@ -1,21 +1,21 @@
 package duke.core;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
- * Junit test for TypoCorrector class
- * @author  HUANG XUAN KUN
+ * Junit test for TypoCorrector class.
+ *
+ * @author HUANG XUAN KUN
  * @version 1.2
  */
 public class TypoCorrectorTest {
 
     @Test
-    void StringMatchTest(){
+    void stringMatchTest() {
         ArrayList<String[]> testCases = new ArrayList<String[]>(
                 Arrays.asList(new String[]{"beyee", "bye"},
                         new String[]{"bqe", "bye"},
@@ -27,12 +27,12 @@ public class TypoCorrectorTest {
                         new String[]{"addd patents name nric room remark", "add patient name nric room remark"},
                         new String[]{"dad tsak a very long task name", "add task a very long task name"},
                         new String[]{"addd task abc", "add task abc"}
-                        ));
-        for (String[] testPair : testCases){
-            String correctedOutput = TypoCorrector.CommandCorrection(testPair[0]);
-            System.out.println("Input Command: "+ testPair[0]);
+                ));
+        for (String[] testPair : testCases) {
+            String correctedOutput = TypoCorrector.commandCorrection(testPair[0]);
+            System.out.println("Input Command: " + testPair[0]);
             System.out.println("Expected Command: " + testPair[1]);
-            System.out.println("Corrected Command: "+ correctedOutput);
+            System.out.println("Corrected Command: " + correctedOutput);
             System.out.println();
             assertEquals(testPair[1], correctedOutput);
         }
