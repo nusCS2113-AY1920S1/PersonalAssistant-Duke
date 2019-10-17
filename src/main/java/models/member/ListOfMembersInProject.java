@@ -39,7 +39,10 @@ public class ListOfMembersInProject implements IMemberList {
 
         for (Member currentMember : memberList) {
             if (currentMember.getIndexNumber() == memberIndexNumber) {
-                currentMember.updateDetails(name, phone, email);
+                String updatedName = ("No name".equals(name)) ? currentMember.getName() : name;
+                String updatedPhone = ("No phone number".equals(phone)) ? currentMember.getPhone() : phone;
+                String updatedEmail = ("No email address".equals(email)) ? currentMember.getEmail() : email;
+                currentMember.updateDetails(updatedName, updatedPhone, updatedEmail);
                 break;
             }
         }
