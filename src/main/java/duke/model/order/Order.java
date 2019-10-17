@@ -102,6 +102,8 @@ public class Order {
     }
 
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
+        requireAllNonNull(inventory);
+
         Map<Ingredient, Double> requiredIngredientAmount = new HashMap<>();
         for (Item<Product> productItem : items) {
             for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {

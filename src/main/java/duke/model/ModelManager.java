@@ -131,6 +131,7 @@ public class ModelManager implements Model {
 
     //================Sale operations=================
 
+
     @Override
     public void addSale(Sale sale) {
         bakingHome.addSale(sale);
@@ -215,30 +216,64 @@ public class ModelManager implements Model {
 
     //========Inventory operations==========
 
+    @Override
     public void addInventory(Item<Ingredient> toAdd) {
         requireNonNull(toAdd);
         bakingHome.addInventory(toAdd);
         updateFilteredInventoryList(PREDICATE_SHOW_ALL_INVENTORY);
     }
 
+    @Override
     public void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate) {
         requireNonNull(predicate);
         filteredInventory.setPredicate(predicate);
     }
 
+    @Override
     public boolean hasInventory(Item<Ingredient> ingredientItem) {
         requireNonNull(ingredientItem);
         return bakingHome.getInventoryList().contains(ingredientItem);
     }
 
+    @Override
     public void deleteInventory(Item<Ingredient> toDelete) {
         requireNonNull(toDelete);
         bakingHome.removeInventory(toDelete);
     }
 
+    @Override
     public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         bakingHome.setInventory(toEdit, edited);
+    }
+
+    @Override
+    public void setInventory(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        bakingHome.setInventory(replacement);
+    }
+
+    @Override
+    public void clearInventory(List<Item<Ingredient>> emptyList) {
+        bakingHome.clearInventory(emptyList);
+    }
+
+    @Override
+    public boolean hasIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        List<Item<Ingredient>> inventoryList = bakingHome.getInventoryList();
+        for (Item<Ingredient> item : inventoryList) {
+            if (item.getItem().equals(ingredient)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deductIngredient(Ingredient ingredient, double amount) {
+        requireAllNonNull(ingredient, amount);
+        return bakingHome.deductIngredient(ingredient, amount);
     }
 
     @Override
@@ -248,30 +283,46 @@ public class ModelManager implements Model {
 
     //========Shopping List operations==========
 
+    @Override
     public void addShoppingList(Item<Ingredient> toAdd) {
         requireNonNull(toAdd);
         bakingHome.addShoppingList(toAdd);
         updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING);
     }
 
+    @Override
     public void updateFilteredShoppingList(Predicate<Item<Ingredient>> predicate) {
         requireNonNull(predicate);
         filteredShoppingList.setPredicate(predicate);
     }
 
+    @Override
     public boolean hasShoppingList(Item<Ingredient> ingredientItem) {
         requireNonNull(ingredientItem);
         return bakingHome.getShoppingList().contains(ingredientItem);
     }
 
+    @Override
     public void deleteShoppingList(Item<Ingredient> toDelete) {
         requireNonNull(toDelete);
         bakingHome.removeShoppingList(toDelete);
     }
 
+    @Override
     public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         bakingHome.setShoppingList(toEdit, edited);
+    }
+
+    @Override
+    public void setShoppingList(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        bakingHome.setShoppingList(replacement);
+    }
+
+    @Override
+    public void clearShoppingList(List<Item<Ingredient>> emptyList) {
+        bakingHome.clearShoppingList(emptyList);
     }
 
     @Override

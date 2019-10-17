@@ -71,13 +71,13 @@ public class IngredientItemListParser {
     }
 
 
-    //private static Item<Ingredient> constructIngredientItem(Map.Entry<String, String> entry) {
-    //    //Todo: Implement search
-    //    if (false) {
-    //        return null;
-    //    }
-    //    return constructNewIngredientItem(entry);
-    //}
+    private static Item<Ingredient> constructIngredientItem(Map.Entry<String, String> entry) {
+        //Todo: Implement search
+        if (false) {
+            return null;
+        }
+        return constructNewIngredientItem(entry);
+    }
 
     public static IngredientItemList getIngredientsInInput(String input) {
         IngredientItemList ingredientItemList = new IngredientItemList();

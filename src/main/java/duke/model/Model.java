@@ -205,6 +205,10 @@ public interface Model {
      */
     boolean hasInventory(Item<Ingredient> inventory);
 
+    boolean hasIngredient(Ingredient ingredient);
+
+    boolean deductIngredient(Ingredient ingredient, double amount);
+
     /**
      * Removes an inventory item from the inventory list
      * @param inventory The inventory item
@@ -217,6 +221,14 @@ public interface Model {
      * @param edited the edited ingredient with changes
      */
     void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
+
+    void setInventory(List<Item<Ingredient>> replacement);
+
+    /**
+     * Clears the inventory list
+     * @param emptyList
+     */
+    void clearInventory(List<Item<Ingredient>> emptyList);
 
     //======Shopping list operations=====
 
@@ -248,6 +260,14 @@ public interface Model {
      * @param edited the edited ingredient with changes
      */
     void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited);
+
+    void setShoppingList(List<Item<Ingredient>> replacement);
+
+    /**
+     * Clears the shopping list
+     * @param emptyList an empty list
+     */
+    void clearShoppingList(List<Item<Ingredient>> emptyList);
 
     //=========Shortcut operations=======
 

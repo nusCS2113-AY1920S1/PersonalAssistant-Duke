@@ -34,7 +34,7 @@ public class ShowProductCommand extends ProductCommand {
      * @throws CommandException If an error occurs during command execution.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public ProductCommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model);
         List<Product> lastShownList = model.getFilteredProductList();
 
@@ -43,7 +43,7 @@ public class ShowProductCommand extends ProductCommand {
         }
 
         Product toShow = lastShownList.get(index.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SHOW_PRODUCT_SUCCESS, toShow.getProductName()),
-                CommandResult.DisplayedPage.PRODUCT);
+        return new ProductCommandResult(String.format(MESSAGE_SHOW_PRODUCT_SUCCESS, toShow.getProductName()),
+                CommandResult.DisplayedPage.PRODUCT, index);
     }
 }

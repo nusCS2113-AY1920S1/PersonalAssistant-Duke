@@ -3,9 +3,11 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
+import duke.commons.core.index.Index;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.product.ProductCommandResult;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
@@ -65,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton inventoryButton;
     @FXML
-    private JFXButton salesButton;
+    private JFXButton saleButton;
 
     /**
      * Creates the Main Window.
@@ -121,6 +123,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(input);
             showPage(commandResult.getDisplayedPage());
+            if (commandResult instanceof ProductCommandResult) {
+                showProductPage(((ProductCommandResult) commandResult).getIndex());
+            }
             showMessagePopUp(commandResult.getFeedbackToUser());
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             showErrorPopUp(e.getMessage());
@@ -195,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleShowSale() {
-        showSalesPage();
+        showSalePage();
     }
 
     /**
@@ -225,7 +230,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showPage(CommandResult.DisplayedPage toDisplay) {
         switch (toDisplay) {
         case SALE:
-            showSalesPage();
+            showSalePage();
             break;
         case ORDER:
             showOrderPage();
@@ -249,7 +254,7 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Orders");
     }
@@ -261,9 +266,14 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Products");
+    }
+
+    private void showProductPage(Index productIndex) {
+        showProductPage();
+        productPage.showProductDetail(productIndex);
     }
 
     private void showInventoryPage() {
@@ -273,19 +283,19 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Inventory");
     }
 
-    private void showSalesPage() {
+    private void showSalePage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(salePage.getRoot());
 
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.RAISED);
+        saleButton.setButtonType(JFXButton.ButtonType.RAISED);
 
         currentPage.setText("Sales");
     }

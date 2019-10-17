@@ -13,6 +13,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
 import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
 public class ShowProductCommandParser implements Parser<ShowProductCommand> {
+
+
     /**
      * Parses {@code userInput} into a command and returns it.
      *

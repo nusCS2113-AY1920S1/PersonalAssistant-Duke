@@ -47,7 +47,6 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
             PREFIX_PRODUCT_RETAIL_PRICE
         );
 
-        Product productInfo = getProductInfoFromMap();
 
       //  return new AddProductCommand(toAdd);
         if (map.getValue(PREFIX_CUSTOMER_NAME).isEmpty() || map.getValue(PREFIX_PRODUCT_NAME) == null) {
@@ -55,7 +54,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         }
 
         IngredientItemList ingredientItemList =
-                IngredientItemListParser.getIngredientItemList(
+                IngredientItemListParser.getIngredientsInInput(
                         map.getValue(PREFIX_PRODUCT_INGREDIENT).orElse("")
                 );
         Product product = new Product(

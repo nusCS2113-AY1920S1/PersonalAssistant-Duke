@@ -1,18 +1,22 @@
 package duke.ui;
 
 import duke.commons.core.LogsCenter;
+import duke.commons.core.index.Index;
+import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
+import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 import org.controlsfx.control.MasterDetailPane;
 
 import java.util.logging.Logger;
@@ -42,15 +46,16 @@ public class ProductPage extends UiPart<AnchorPane> {
 
 
     private void showProductList() {
-        productIngredientPane.setMasterNode(setUpTable());
+        productIngredientPane.setMasterNode(setUpListTable());
         productIngredientPane.setShowDetailNode(false);
     }
 
-    private void showProductIngredient() {
-        productIngredientPane.setMasterNode(setUpTable());
+    public void showProductDetail(Index index) {
+        productIngredientPane.setMasterNode(setUpListTable());
         productIngredientPane.setShowDetailNode(true);
+        productIngredientPane.setDetailNode(setUpIngredientTable(index));
     }
-    private TableView setUpTable() {
+    private TableView setUpListTable() {
         TableView<Product> productListTable = new TableView<>();
         productListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         setProperty(productListTable, productList);
@@ -113,6 +118,27 @@ public class ProductPage extends UiPart<AnchorPane> {
                 costColumn, statusColumn);
     }
 
+    public TableView setUpIngredientTable(Index index) {
+        TableView<Item<Ingredient>> ingredientTable = new TableView<>();
+        ingredientTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        Product product = productList.get(index.getZeroBased());
+        ObservableList<Item<Ingredient>> ingredientObservableList = FXCollections.observableList(product.getIngredients());
+        ingredientTable.setItems(ingredientObservableList);
+        setIndexColumn(ingredientTable);
+
+        TableColumn<Item<Ingredient>, String> ingredientColumn = new TableColumn<>("Ingredient");
+        ingredientColumn.setResizable(true);
+        ingredientColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getName()));
+
+        TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setResizable(true);
+        quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
+
+        ingredientTable.getColumns().addAll(ingredientColumn, quantityColumn);
+        return ingredientTable;
+    }
 
 
 }

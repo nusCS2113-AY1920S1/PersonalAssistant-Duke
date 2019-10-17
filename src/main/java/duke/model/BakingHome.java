@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Order;
@@ -199,6 +200,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Inventory operations==============
 
     /**
+
      * Adds an ingredient to the inventory list.
      * @param toAdd The ingredient to be added to the inventory list
      */
@@ -216,13 +218,43 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     /**
      * Replaces the ingredient toEdit in the inventory list with the edited ingredient.
-     *
      * @param toEdit  the ingredient that needs to be edited
      * @param edited the edited ingredient
      */
     public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         inventory.set(toEdit, edited);
+    }
+
+    public void setInventory(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        inventory.setAll(replacement);
+    }
+
+    public void clearInventory(List<Item<Ingredient>> emptyList) {
+        inventory.setAll(emptyList);
+    }
+
+    public boolean deductIngredient(Ingredient ingredient, double amount) {
+        boolean isDeducted = false;
+
+        for (Item<Ingredient> item : inventory) {
+            if (item.getItem().equals(ingredient)) {
+                Double currentAmount = item.getQuantity().getNumber();
+
+                if (currentAmount >= amount) {
+                    Double newAmount = currentAmount - amount;
+
+                    inventory.set(item, new Item<>(item.getItem(), new Quantity(newAmount)));
+
+                    isDeducted = true;
+                } else {
+                    inventory.set(item, new Item<>(item.getItem(), new Quantity(0.0)));
+                }
+                break;
+            }
+        }
+        return isDeducted;
     }
 
     @Override
@@ -234,7 +266,7 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     /**
      * Adds an ingredient to the shopping list
-     * @param toAdd The ingredient to be added to the shopping list
+     * @param toAdd The ingredient to be added to the shopping list.
      */
     public void addShoppingList(Item<Ingredient> toAdd) {
         shoppingList.add(toAdd);
@@ -242,14 +274,14 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     /**
      * Removes an ingredient from the shopping list
-     * @param toRemove The ingredient to be removed from the shopping list
+     * @param toRemove The ingredient to be removed from the shopping list.
      */
     public void removeShoppingList(Item<Ingredient> toRemove) {
         shoppingList.remove(toRemove);
     }
 
     /**
-     * Replaces the ingredient toEdit in the shopping list with the edited ingredient
+     * Replaces the ingredient toEdit in the shopping list with the edited ingredient.
      *
      * @param toEdit  the ingredient that needs to be edited
      * @param edited the edited ingredient
@@ -257,6 +289,15 @@ public class BakingHome implements ReadOnlyBakingHome {
     public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         shoppingList.set(toEdit, edited);
+    }
+
+    public void setShoppingList(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        shoppingList.setAll(replacement);
+    }
+
+    public void clearShoppingList(List<Item<Ingredient>> emptyList) {
+        shoppingList.setAll(emptyList);
     }
 
     @Override
