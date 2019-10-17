@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.recipebook.dishlist;
+import duke.recipebook.DishList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         for (Task task : taskList.getAllTasks()) {

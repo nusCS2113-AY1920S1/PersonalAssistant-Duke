@@ -154,4 +154,12 @@ public class Ui {
         System.out.println("\t " + removed);
         showOrderListSize(size);
     }
+
+    public void showAddedDishes(String dish, int Nb) {
+        System.out.println("\t you have added the following dish: \n");
+        System.out.println("\t " + dish + " \tamount: " + Nb);
+    }
+    public void showDishes(String Dish, int Nb) {
+        System.out.println(Dish + "\t orders: " + Nb);
+    }
 }

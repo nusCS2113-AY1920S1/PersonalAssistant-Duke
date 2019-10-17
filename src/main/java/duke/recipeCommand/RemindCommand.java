@@ -1,4 +1,4 @@
-package duke.command;
+package duke.recipeCommand;
 
 import duke.exception.DukeException;
 import duke.recipebook.DishList;
@@ -14,7 +14,7 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author 9hafidz6
  */
-public class RemindCommand extends Command {
+public class RemindCommand extends RecipeCommand {
 
     public RemindCommand() {
         //An empty constructor method

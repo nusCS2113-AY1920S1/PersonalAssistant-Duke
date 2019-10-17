@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.recipebook.dishlist;
+import duke.recipebook.DishList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -21,7 +21,7 @@ public class FindToday extends Command {
         return false;
     }
 
-    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList.getAllTasks()) {
