@@ -1,6 +1,6 @@
 package command;
 
-import common.DukeException;
+import common.AlphaNUSException;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
@@ -29,7 +29,7 @@ public class Parser {
      * @param ui Ui that interacts with the user.
      * @param storage Storage for the Tasklist.
      * @return Returns boolean variable to indicate when to stop parsing for input.
-     * @throws DukeException if input is not valid.
+     * @throws AlphaNUSException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui,
                                 Storage storage, HashMap<String, Payee> managermap) {
@@ -91,9 +91,9 @@ public class Parser {
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
             } else {
-                throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (DukeException e) {
+        } catch (AlphaNUSException e) {
             ui.exceptionMessage(e.getMessage());
         }
         return false;

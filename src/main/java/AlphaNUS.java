@@ -7,23 +7,23 @@ import ui.Ui;
 import java.util.HashMap;
 
 /**
- * <h1>Duke</h1>
- * Duke is a program that tracks a list of tasks given by the user.
+ * <h1>AlphaNUS</h1>
+ * AlphaNUS is a program that tracks a list of tasks given by the user.
  *
  * @author Leow Yong Heng
  */
 
-public class Duke {
+public class AlphaNUS {
     private static Ui ui;
     private static TaskList tasklist;
     private static Storage storage;
     private static HashMap<String, Payee> managermap;
 
     /**
-     * Creates a Duke instance and initialises the required attributes.
+     * Creates a AlphaNUS instance and initialises the required attributes.
      * @param filepath Filepath to the storage.
      */
-    private Duke(String filepath) {
+    private AlphaNUS(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
@@ -32,7 +32,7 @@ public class Duke {
     }
 
     /**
-     * Method to run the Duke instance and take in the inputs of the user.
+     * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
     private void run() {
         ui.startMessage();
@@ -45,10 +45,10 @@ public class Duke {
     }
 
     /**
-     * The main method of the Duke program, which instantiates a duke instance with the filepath to the storage.
+     * The main method of the AlphaNUS program, which instantiates a AlphaNUS instance with the filepath to the storage.
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new AlphaNUS("data/AlphaNUS.txt").run();
     }
 }
