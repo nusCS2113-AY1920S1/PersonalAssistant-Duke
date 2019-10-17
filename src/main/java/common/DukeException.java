@@ -1,15 +1,15 @@
 package common;
 
 /**
- * A class for exceptions specific to Duke.
+ * A class for exceptions specific to AlphaNUS.
  */
 
-public class DukeException extends Exception {
+public class AlphaNUSException extends Exception {
     /**
-     * Creates an instance of an exception specific to duke.
+     * Creates an instance of an exception specific to AlphaNUS.
      * @param message Message describing the exception thrown.
      */
-    public DukeException(String message) {
+    public AlphaNUSException(String message) {
         super(message);
     }
 }

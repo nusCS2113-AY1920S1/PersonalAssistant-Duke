@@ -32,18 +32,18 @@ public class Ui {
     }
 
     /**
-     * Prints starting message for the Duke program.
+     * Prints starting message for the AlphaNUS program.
      */
     public void startMessage() {
         String logo = line
-                + "     Hello! I'm Duke\n"
+                + "     Hello! I'm AlphaNUS\n"
                 + "     What can I do for you?\n"
                 + line;
         System.out.print(logo);
     }
 
     /**
-     * Prints ending message for the Duke program.
+     * Prints ending message for the AlphaNUS program.
      */
     public void byeMessage() {
         String output = line + "     Bye. Hope to see you again soon!\n" + line;
