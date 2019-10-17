@@ -1,6 +1,6 @@
 package eggventory;
 
-import eggventory.commands.AddCommand;
+import eggventory.commands.add.AddStockCommand;
 import eggventory.enums.CommandType;
 
 import java.io.File;
@@ -44,7 +44,7 @@ public class Storage {
                 String itemRaw = s.nextLine();
                 String[] item = itemRaw.split("/", 0);
 
-                AddCommand cmd = new AddCommand(CommandType.ADD, item[0], item[1],
+                AddStockCommand cmd = new AddStockCommand(CommandType.ADD, item[0], item[1],
                         Integer.parseInt(item[2]), item[3]);
 
                 /*Todo: In the future, call setMinimum here to update the minimum value (item[4]) instead of defaulting.

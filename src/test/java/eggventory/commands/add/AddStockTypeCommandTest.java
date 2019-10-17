@@ -2,7 +2,7 @@ package eggventory.commands.add;
 
 import eggventory.StockList;
 import eggventory.Storage;
-import eggventory.Ui;
+import eggventory.ui.Cli;
 import eggventory.enums.CommandType;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AddStockTypeCommandTest {
 
     private StockList testStockList = new StockList();
-    private Ui testUi = new Ui();
+    private Cli testCli = new Cli();
     private Storage testStorage = new Storage("");
 
     @Test
@@ -20,7 +20,7 @@ class AddStockTypeCommandTest {
         testList.addStockType("testStockType");
 
         String output = new AddStockTypeCommand(CommandType.ADD, "testStockType")
-                .execute(testList, testUi, testStorage);
+                .execute(testList, testCli, testStorage);
 
         assertEquals("Nice! I have successfully added the stocktype: testStockType", output);
     }

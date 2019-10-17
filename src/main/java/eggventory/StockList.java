@@ -125,7 +125,7 @@ public class StockList {
     }
 
     /**
-     * Prints every stock within stocklist. Should only be called by Ui.
+     * Prints every stock within stocklist. Should only be called by Cli.
      * @return The string of the stocklist.
      */
     public String toString() {

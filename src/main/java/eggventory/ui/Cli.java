@@ -1,4 +1,4 @@
-package eggventory;
+package eggventory.ui;
 
 import java.util.Scanner;
 
@@ -7,12 +7,12 @@ import java.util.Scanner;
  * Prints intro and exit messages, and the standard newline.
  */
 
-public class Ui {
+public class Cli {
 
     private Scanner in;
     private String line = "____________________________________________________________";
 
-    public Ui() {
+    public Cli() {
         this.in = new Scanner(System.in);
     }
 

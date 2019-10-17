@@ -1,9 +1,8 @@
 package eggventory.commands;
 
+import eggventory.ui.Cli;
 import eggventory.StockList;
-import eggventory.items.StockType;
 import eggventory.Storage;
-import eggventory.Ui;
 import eggventory.enums.CommandType;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CommandTest {
     StockList newList = new StockList();
-    Ui ui = new Ui();
+    Cli cli = new Cli();
     Storage storage = new Storage("");
 
     @Test
@@ -33,7 +32,7 @@ class CommandTest {
         PrintStream ps = new PrintStream(os);
         System.setOut(ps);
 
-        new Command(CommandType.LIST).execute(newList, ui, storage);
+        new Command(CommandType.LIST).execute(newList, cli, storage);
         assertEquals("The list is currently empty.\n", os.toString());
     }
 
@@ -43,8 +42,8 @@ class CommandTest {
         PrintStream ps = new PrintStream(os);
         System.setOut(ps);
 
-        new AddCommand(CommandType.TODO, "Test TODO", "").execute(newList, ui, storage);
-        new Command(CommandType.LIST).execute(newList, ui, storage);
+        new AddCommand(CommandType.TODO, "Test TODO", "").execute(newList, cli, storage);
+        new Command(CommandType.LIST).execute(newList, cli, storage);
         assertEquals("1. [T] [X] Test TODO\n", os.toString());
     }*/
 }
