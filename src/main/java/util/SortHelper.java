@@ -96,11 +96,20 @@ public class SortHelper {
      */
     public ArrayList<String> sortTaskMember(ArrayList<Task> taskList, String memberName) {
         ArrayList<String> taskDetails = new ArrayList<>();
-        ArrayList<String> allAssignedTasks = new ArrayList<>();
-        // use member name and compare with all obtained assigned names
+        ArrayList<Task> allAssignedTasks = new ArrayList<>();
         for (Task task: taskList) {
-            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
-            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
+            for (String details : task.getAssignedMembers().getAllMemberDetails()) {
+                if (details.split(" ")[1].equals(memberName)) {
+                    allAssignedTasks.add(task);
+                    break;
+                }
+            }
+        }
+        allAssignedTasks.sort(Comparator.comparing(Task::getTaskName));
+        int taskIndex = 1;
+        for (Task task : allAssignedTasks) {
+            taskDetails.add(taskIndex + ". " + task.getDetails());
+            taskIndex++;
         }
         return taskDetails;
     }
