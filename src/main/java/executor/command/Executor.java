@@ -69,6 +69,18 @@ public class Executor {
             c = new CommandSchedule(userInput);
             break;
 
+        case SORT:
+            c = new CommandSort(userInput);
+            break;
+
+        case IN:
+            c = new CommandIncome(userInput);
+            break;
+
+        case OUT:
+            c = new CommandSpending(userInput);
+            break;
+
         default:
             c = new CommandNewTask(userInput);
             break;
