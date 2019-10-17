@@ -9,8 +9,13 @@ public class InventoryDescriptor {
     private Double quantity;
     private String remarks;
 
-    public InventoryDescriptor() {}
+    public InventoryDescriptor() {
 
+    }
+
+    /**
+     * Creates an InventoryDescriptor constructor and sets its values with toCopy's values
+     */
     public InventoryDescriptor(InventoryDescriptor toCopy) {
         setName(toCopy.name);
         setQuantity(toCopy.quantity);
