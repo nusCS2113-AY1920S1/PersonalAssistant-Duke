@@ -272,11 +272,20 @@ public class UI {
     /**
      * Prints message to show success of edit command.
      *
-     * @param eventIndex The index of the edited event
+     * @param eventIndex The index of the edited event.
+     * @param eventEdited The event after edit.
      */
-    public void printEditedEvent(int eventIndex) {
-        System.out.print(lineSeparation);
-        System.out.println("Successfully edited event " + eventIndex + "!");
-        System.out.print(lineSeparation);
+    public void printEditedEvent(int eventIndex, Event eventEdited) {
+        try {
+            System.out.println(lineSeparation + "Got it. Successfully edited event" + eventIndex + ":");
+            System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
+                    eventEdited.getDescription() + " START: " + eventEdited.getStartDate().getFormattedDateString() +
+                    " END: " + eventEdited.getEndDate().getFormattedDateString());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
+                    eventEdited.getDescription() + " BY: " + eventEdited.getStartDate().getFormattedDateString());
+            System.out.print(lineSeparation);
+        }
     }
 }

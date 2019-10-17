@@ -153,15 +153,8 @@ public class Command {
             String[] splitInfo = continuation.split("/");
             int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
             String newDescription = splitInfo[1];
-            String newStartDateAndTime = splitInfo[2];
-            String newEndDateAndTime;
-            if (splitInfo.length==4) {
-                newEndDateAndTime = splitInfo[3];
-            } else {
-                newEndDateAndTime = "";
-            }
-            events.editEvent(eventIndex, newDescription, newStartDateAndTime, newEndDateAndTime);
-            ui.printEditedEvent(eventIndex);
+            events.editEvent(eventIndex, newDescription);
+            ui.printEditedEvent(eventIndex+1, events.getEvent(eventIndex));
         }
     }
 

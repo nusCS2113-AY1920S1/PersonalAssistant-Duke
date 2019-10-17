@@ -49,15 +49,9 @@ public abstract class Event implements Comparable<Event>{
      * Edit event with new description and two date input
      *
      * @param newDescription new event description
-     * @param newStartDateAndTime string representing new start date of event
-     * @param newEndDateAndTime string representing new end date of event
      */
-    public void editEvent(String newDescription, String newStartDateAndTime, String newEndDateAndTime) {
+    public void editEvent(String newDescription) {
         this.description = newDescription;
-        this.startEventDate = new EventDate(newStartDateAndTime);
-        if(this.eventType != 'T') {
-            this.endEventDate = new EventDate(newEndDateAndTime);
-        }
     }
 
     /**

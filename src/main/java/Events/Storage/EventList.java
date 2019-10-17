@@ -101,12 +101,10 @@ public class EventList {
      *
      * @param eventIndex Index of the event to be edited.
      * @param newDescription The new description.
-     * @param newStartDateAndTime The new start date and time.
-     * @param newEndDateAndTime The new end date and time.
      */
-    public void editEvent(int eventIndex, String newDescription, String newStartDateAndTime, String newEndDateAndTime) {
+    public void editEvent(int eventIndex, String newDescription) {
         Event tempEvent = this.eventArrayList.get(eventIndex);
-        tempEvent.editEvent(newDescription, newStartDateAndTime, newEndDateAndTime);
+        tempEvent.editEvent(newDescription);
         this.eventArrayList.set(eventIndex, tempEvent);
     }
 
