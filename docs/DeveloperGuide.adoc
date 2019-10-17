@@ -208,6 +208,6 @@ Key in view `<date>`, where `<date>` has the format dd/MM/yyyy. +
 Expected: Prints a list of tasks that occurs on the given `<date>`.
 
 === Edit description of an event
-Key in view `<edit> <event index>/<new description>`.+
+Key in `<edit> <event index>/<new description>`.+
 Expected: Prints the success of editing event of index `<event index>`.
   
