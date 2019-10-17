@@ -248,6 +248,14 @@ public class Parser {
 
     private void addSwitch() throws DukeHelpException {
         String newSwitchName = elementBuilder.toString();
+
+        // previous switch was not given an argument
+        if (currSwitchName != null) {
+            if (switchMap.get(currSwitchName).argLevel == ArgLevel.REQUIRED) {
+                throw new DukeHelpException("I need an argument for this switch: " + currSwitchName, currCommand);
+            }
+        }
+
         if (!switchMap.containsKey(newSwitchName)) {
             String findSwitchName = CommandHelpers.findSwitch(newSwitchName, currCommand);
             if (findSwitchName == null) {
@@ -289,10 +297,6 @@ public class Parser {
             Switch checkSwitch = switchEntry.getValue();
             if (!checkSwitch.isOptional && !switchVals.containsKey(checkSwitch.name)) {
                 throw new DukeHelpException("You need to give me this switch: "
-                        + switchEntry.getKey(), currCommand);
-            } else if (switchEntry.getValue().argLevel == ArgLevel.REQUIRED
-                    && switchVals.get(switchEntry.getKey()) == null) {
-                throw new DukeHelpException("I need an argument for this switch: "
                         + switchEntry.getKey(), currCommand);
             }
         }
