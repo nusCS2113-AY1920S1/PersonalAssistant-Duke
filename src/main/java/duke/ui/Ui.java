@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.util.Pair;
 
 /**
  * Represents a ui that informs the user.
@@ -19,6 +20,8 @@ public class Ui {
     protected static final String LINE = "    ____________________________________________________________";
     protected final Scanner in;
     protected final PrintStream out;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
 
     /**
      * Creates an empty ui using default scanner and print stream.
@@ -73,11 +76,11 @@ public class Ui {
     public static void showReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
         System.out.println("     You currently have these upcoming tasks:\n");
-        int currentIndex = 1;
+        int currentIndex = ONE;
         for (Task remaining: taskList) {
             remaining.isTriggerReminder();
             System.out.println("     " + currentIndex + "." + remaining.toString());
-            currentIndex += 1;
+            currentIndex += ONE;
         }
         System.out.println(LINE);
     }
@@ -100,10 +103,11 @@ public class Ui {
      * @param priorities The list of priorities associated with each task.
      */
     public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
+        ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
-        for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
-            out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i + 1, items.get(i));
+        for (int i = ZERO; i < items.size() && i < priorities.getSize(); i++) {
+            out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
 
@@ -136,7 +140,7 @@ public class Ui {
      */
     public void showUpdate(TaskList items, int index) {
         out.println("     Nice! I've updated this task ^^:");
-        out.println("       " + (index + 1) + "." + items.get(index).toString());
+        out.println("       " + (index + ONE) + "." + items.get(index).toString());
     }
 
     /**
@@ -148,7 +152,7 @@ public class Ui {
      */
     public static String showUpdateGui(TaskList items, int index) {
         String str = "     Nice! I've updated this task ^^:\n"
-                + "       " + (index + 1) + "." + items.get(index).toString();
+                + "       " + (index + ONE) + "." + items.get(index).toString();
         return str;
     }
 
@@ -207,7 +211,7 @@ public class Ui {
      */
     public void showAdd(TaskList items) {
         out.println("     Got it. I've added this task:");
-        out.println("       " + items.get(items.size() - 1).toString());
+        out.println("       " + items.get(items.size() - ONE).toString());
         out.println("     Now you have " + items.size() + " tasks in the list.");
     }
 
@@ -219,7 +223,7 @@ public class Ui {
      */
     public static String showAddGui(TaskList items) {
         String str = "     Got it. I've added this task:\n       "
-                + items.get(items.size() - 1).toStringGui() + "\n     Now you have "
+                + items.get(items.size() - ONE).toStringGui() + "\n     Now you have "
                 + items.size() + " tasks in the list.\n";
         return str;
     }
@@ -269,14 +273,14 @@ public class Ui {
      */
     public void showFind(TaskList items, String keyword) {
         out.println("     Here are the matching tasks in your list:");
-        int numFound = 0;
-        for (int i = 0; i < items.size(); i++) {
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                out.println("     " + (i + 1) + "." + items.get(i).toString());
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
             }
         }
-        if (numFound == 0) {
+        if (numFound == ZERO) {
             out.println("     No matching tasks found.");
         }
     }
@@ -290,14 +294,14 @@ public class Ui {
      */
     public static String showFindGui(TaskList items, String keyword) {
         String str = "     Here are the matching tasks in your list:\n";
-        int numFound = 0;
-        for (int i = 0; i < items.size(); i++) {
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                str += "     " + (i + 1) + "." + items.get(i).toStringGui() + "\n";
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             }
         }
-        if (numFound == 0) {
+        if (numFound == ZERO) {
             str += "     No matching tasks found.\n";
         }
         return str;
@@ -339,17 +343,16 @@ public class Ui {
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
-    public void showBeforeBackupMsg() {
-        out.println("     Updating duke.txt...");
+    public void showBackupMessage() {
+        out.println("     Duke Manager has been backed up!");
     }
 
-    /**
-     * Outputs a message to the user to let it know that it has finished updating,
-     * and the file is shown in a folder.
-     */
-    public void showAfterBackupMsg() {
-        out.println("     Updated " + BACKUP_FILENAME + " with the current items in Duke Manager!");
-        out.println("     Directory of the file opened in explorer!");
+    public void showBackupFolderMessage() {
+        out.println("     Duke has opened the backup file location in file explorer!");
+    }
+
+    public String showBackupMessageGui() {
+        return "     Duke Manager has been backed up!";
     }
 
     /**
@@ -360,7 +363,7 @@ public class Ui {
      * @param priority The index of the priority.
      */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
-        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - ONE));
         out.println("     Current priority: " + priority);
     }
 
@@ -371,34 +374,78 @@ public class Ui {
      */
     public void showAddedContact(ContactList contactList) {
         out.println("     Got it. Contact added:");
-        if (contactList.size() == 0) {
+        if (contactList.size() == ZERO) {
             out.println("     You have no contacts!");
         } else {
-            out.println(contactList.get(contactList.size() - 1));
+            out.println(contactList.get(contactList.size() - ONE));
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }
 
+    /**
+     * Shows the current budget of the user.
+     *
+     * @param amount the budget the user currently has.
+     */
     public void showBudget(float amount) {
         out.println("     Your budget is : $" + amount);
     }
 
-    public void rejectBudgetResetMessage() {
-        out.println("     Budget reset cancelled.");
+    /**
+     * Shows the current budget of the user.
+     *
+     * @param amount the budget the user currently has.
+     * @return the message to be shown to the user.
+     */
+    public String showBudgetGui(float amount) {
+        return "     Your current Budget is : $" + amount;
     }
 
     /**
-     * Checks if the user is certain about resetting the budget by prompting the user to confirm his/her actions.
+     * Shows the user the amount that is added/subtracted to the existing budget.
      *
-     * @return returns true if user pressed Y, and false otherwise.
+     * @param amount The amount that is to be added/subtracted.
+     * @param budget The existing budget of the user.
      */
-    public boolean isBudgetResetTrue() {
-        out.println("     You have an existing budget, are you sure you want to do this? Y/N");
-        String choice = readCommand();
-        if (choice.equals("Y") || choice.equals("y")) {
-            return true;
+    public void showAddBudget(float amount, float budget) {
+        if (amount > 0) {
+            out.println("     You are adding $" + amount + " to your current budget of $" + budget);
         } else {
-            return false;
+            out.println("     You are subtracting $" + -amount + " from your current budget of $" + budget);
         }
+    }
+
+    /**
+     * Shows the user the amount that is added/subtracted to the existing budget. (GUI)
+     *
+     * @param amount The amount that is to be added/subtracted.
+     * @param budget The existing budget of the user.
+     * @return String of the text to show user.
+     */
+    public String showAddBudgetGui(float amount, float budget) {
+        if (amount > 0) {
+            return "     You are adding $" + amount + " to your current budget of $" + budget;
+        } else {
+            return "     You are subtracting $" + -amount + " from your current budget of $" + budget;
+        }
+    }
+
+    /**
+     * Shows the budget that the user has before the changes.
+     *
+     * @param budget The budget of the user.
+     */
+    public void showResetBudget(float budget) {
+        out.println("     Your previous budget of $" + budget + " has been reset.");
+    }
+
+    /**
+     * Shows the budget that the user has before the changes.
+     *
+     * @param budget The budget of the user.
+     * @return String of the reset message.
+     */
+    public String showResetBudgetGui(float budget) {
+        return "     Your previous budget of " + budget + " has been reset.";
     }
 }

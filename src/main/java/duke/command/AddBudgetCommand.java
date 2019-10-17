@@ -9,8 +9,9 @@ import duke.dukeexception.DukeException;
 import java.io.IOException;
 
 public class AddBudgetCommand extends Command {
-
+    protected BudgetList budgetList;
     protected Ui ui = new Ui();
+    protected float amount;
 
     /**
      * Adds the amount specified into the budgetList.
@@ -19,26 +20,26 @@ public class AddBudgetCommand extends Command {
      * @param amount amount to be updated in the user's budget.
      */
     public AddBudgetCommand(BudgetList budgetList, float amount) {
-        budgetList.addToBudget(amount);
-        ui.showBudget(budgetList.getBudget());
+        this.budgetList = budgetList;
+        this.amount = amount;
     }
 
 
     /**
-     * Executes a command with task list and ui.
-     * (not used)
+     * Executes the command to add a certain amount to the existing budget.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui    To tell the user that it is executed successfully.
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-
+        ui.showAddBudget(amount, budgetList.getBudget());
+        budgetList.addToBudget(amount);
+        ui.showBudget(budgetList.getBudget());
     }
 
     /**
-     * Executes a command with task list and ui (GUI).
-     * (not used)
+     * Executes the command to add a certain amount to the existing budget.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui    To tell the user that it is executed successfully.
@@ -46,7 +47,8 @@ public class AddBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return null;
+        budgetList.addToBudget(amount);
+        return ui.showAddBudgetGui(amount, budgetList.getBudget()) + "\n" + ui.showBudgetGui(budgetList.getBudget());
     }
 
     /**
