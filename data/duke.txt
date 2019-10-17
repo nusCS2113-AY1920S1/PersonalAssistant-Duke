@@ -3,7 +3,5 @@ I | 1000.0 | chekka | 12/12/2011 1200
 I | 1000.0 | dolla | 12/12/2019 1200
 BU | 1000.0 | WEEKLY
 BU | 100.0 | MONTHLY
-O | tata | 1000.0 | food
-O | yaya | 10000.0 | food
 O | baba | 1000.0 | sushi
 B | dolla | 10000.0 | bushi

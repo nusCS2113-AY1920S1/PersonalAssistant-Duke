@@ -16,4 +16,10 @@ public class DebtList extends LogList {
         super.add(newLog);
         Storage.setDebts(get()); //save
     }
+
+    @Override
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        Storage.setDebts(get()); //save
+    }
 }

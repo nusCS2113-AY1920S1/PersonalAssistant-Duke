@@ -99,6 +99,13 @@ public class Ui {
         System.out.println(line);
     }
 
+    public static void echoRemove (String log) {
+        System.out.println(line);
+        System.out.println("Noted. I've removed this log: ");
+        System.out.println(log);
+        System.out.println(line);
+    }
+
     /**
      * Prints an error message when date in not in the format 'DD/MM/YYYY HHmm'.
      */

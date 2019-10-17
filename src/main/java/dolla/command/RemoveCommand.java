@@ -1,6 +1,9 @@
 package dolla.command;
 
+import dolla.DollaData;
 import dolla.Ui;
+import dolla.task.Log;
+import dolla.task.LogList;
 import dolla.task.TaskList;
 
 import java.util.ArrayList;
@@ -8,11 +11,13 @@ import java.util.ArrayList;
 /**
  * RemoveCommand is a Command used to remove a Task from the TaskList.
  */
-public abstract class RemoveCommand extends Command {
-    protected String taskNumStr;
+public class RemoveCommand extends Command {
+    protected String logNumStr;
+    protected String mode;
 
-    public RemoveCommand(String taskNumStr) {
-        this.taskNumStr = taskNumStr;
+    public RemoveCommand(String mode, String taskNumStr) {
+        this.mode = mode;
+        this.logNumStr = taskNumStr;
     }
 
     /**
@@ -29,15 +34,25 @@ public abstract class RemoveCommand extends Command {
      *     If taskNumInt does not correspond to any task in the specified TaskList, an
      *     alert is printed to the user, and the method will return.
      * </p>
-     * @param tasks The TaskList where the task corresponding to taskNum is to removed.
+     * @param dollaData
      */
     //@Override
-    public void execute(TaskList tasks) {
-        int taskNumInt = stringToInt(taskNumStr);
-        if (taskNumInt == 0) {
-            return; // don't do anything if task number is invalid
+    public void execute(DollaData dollaData) {
+
+        int logNumInt = stringToInt(logNumStr) - 1;
+
+        LogList logList = new LogList(new ArrayList<>());
+        logList = dollaData.getLogList(mode);
+
+        boolean isListEmpty = (logList.size() == 0);
+
+        if (logNumInt < 0 || isListEmpty) {
+            return; // TODO: return error command
         }
 
+        Ui.echoRemove(logList.get().get(logNumInt).getLogText());
+        dollaData.removeFromLogList(mode,logNumInt);
+/*
         ArrayList<String> msg = new ArrayList<String>();
         try {
             tasks.getFromList(taskNumInt - 1); // Check if the task exists first
@@ -50,5 +65,6 @@ public abstract class RemoveCommand extends Command {
             return;
         }
         Ui.printMsg(msg);
+ */
     }
 }

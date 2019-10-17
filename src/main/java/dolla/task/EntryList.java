@@ -18,4 +18,10 @@ public class EntryList extends LogList{
         super.add(newLog);
         Storage.setEntries(get()); //save
     }
+
+    @Override
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        Storage.setEntries(get());
+    }
 }

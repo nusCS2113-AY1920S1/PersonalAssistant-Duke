@@ -40,7 +40,11 @@ public class LimitList extends LogList {
         Storage.setLimits(get()); //save
     }
 
-    //REMOVE FROM LIST
+    @Override
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        Storage.setLimits(get()); //save
+    }
 
     //EDIT LIST
 }

@@ -57,6 +57,16 @@ public class DollaData {
         }
     }
 
+    public void removeFromLogList(String mode, int index) {
+        if (mode.equals("entry")) {
+            entryList.removeFromList(index);
+        } else if (mode.equals("debt")) {
+            debtList.removeFromList(index);
+        } else if (mode.equals("limit")) {
+            limitList.removeFromList(index);
+        }
+    }
+
     public void modifyLogList(Log newLog) {
         if (prevMode.equals("entry")) {
             entryList.removeFromList(modifyIndex);

@@ -19,7 +19,6 @@ public class LogList {
 
     public void add(Log newLog) {
         list.add(newLog);
-//        Storage.setEntries(get()); //save
     }
 
     public int size() {
