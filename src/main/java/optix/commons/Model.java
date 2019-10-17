@@ -51,6 +51,10 @@ public class Model {
         shows.editShowName(showDate, showName);
     }
 
+    public void postponeShow(LocalDate oldDate, LocalDate newDate) {
+        shows.postponeShow(oldDate, newDate);
+    }
+
     public String listShow() {
         return shows.listShow();
     }

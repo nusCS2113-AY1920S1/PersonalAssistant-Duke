@@ -31,6 +31,11 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         this.get(showDate).setShowName(showName);
     }
 
+    public void postponeShow(LocalDate oldDate, LocalDate newDate) {
+        Theatre theatre = this.removeShow(oldDate);
+        this.put(newDate, theatre);
+    }
+
     /**
      * Get all the shows that are scheduled and their dates.
      * @return String message of all the shows that are registered.
@@ -56,7 +61,7 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
      * @param key the show to be removed.
      * @return the show that is removed.
      */
-    public Theatre removeShow(Object key) {
+    private Theatre removeShow(Object key) {
         Theatre show = this.get(key);
         this.remove(key);
 

@@ -3,8 +3,6 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.ShowMap;
-import optix.commons.model.Theatre;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -46,7 +44,6 @@ public class PostponeCommand extends Command {
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
-        ShowMap shows = model.getShows();
         String message = "";
         LocalDate today = storage.getToday();
 
@@ -61,16 +58,14 @@ public class PostponeCommand extends Command {
             if (localNewDate.compareTo(today) <= 0) {
                 message = MESSAGE_INVALID_NEW_DATE;
             } else {
-                if (!shows.containsKey(localOldDate)) {
+                if (!model.containsKey(localOldDate)) {
                     message = MESSAGE_SHOW_NOT_FOUND;
-                } else if (shows.containsKey(localNewDate)) {
+                } else if (model.containsKey(localNewDate)) {
                     message = String.format(MESSAGE_SHOW_CLASH, newDate);
-                } else if (!shows.get(localOldDate).hasSameName(showName)) {
+                } else if (!model.hasSameName(localOldDate, showName)) {
                     message = MESSAGE_DOES_NOT_MATCH;
                 } else {
-                    Theatre postponedShow = shows.removeShow(localOldDate);
-                    shows.put(localNewDate, postponedShow);
-                    model.setShows(shows);
+                    model.postponeShow(localOldDate, localNewDate);
                     message = String.format(MESSAGE_SUCCESSFUL, showName, oldDate, newDate);
                 }
             }
