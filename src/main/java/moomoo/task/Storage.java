@@ -23,7 +23,7 @@ public class Storage {
     /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
-     * @param categoryFilePath File path to store all categories
+     * @param scheduleFilePath File path to store all categories
      */
     public Storage(String budgetFilePath, String scheduleFilePath) {
         this.budgetFilePath = budgetFilePath;
@@ -38,9 +38,7 @@ public class Storage {
      */
     public ArrayList<Category> loadCategories() throws MooMooException {
         ArrayList<Category> categoryArrayList = new ArrayList<Category>();
-        if (Files.isRegularFile(Paths.get(this.categoryFilePath))) {
-            categoryArrayList.add(new Category());
-        }
+
         return categoryArrayList;
     }
 
