@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
 	id 'checkstyle'
-    //id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 group 'cube'
@@ -10,8 +10,6 @@ version '0.1.0'
 
 repositories {
     mavenCentral()
-    jcenter()
-    mavenLocal()
 }
 
 application {
@@ -23,7 +21,7 @@ run {
 }
 
 dependencies {
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind';
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0';
 }
 
 checkstyle {

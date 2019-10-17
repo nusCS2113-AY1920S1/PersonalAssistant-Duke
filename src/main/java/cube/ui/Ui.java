@@ -189,7 +189,7 @@ public class Ui {
 	}
 	//----to be deleted
 
-	public void showRemoveFood(Food removed, FoodList list) {
+	public void showDelete(Food removed, FoodList list) {
 		System.out.println("Nice! I've removed this food:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " food in the list.");
