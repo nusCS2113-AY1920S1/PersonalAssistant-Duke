@@ -47,6 +47,7 @@ public abstract class SpinBoxList<T extends Item> {
      */
     public T add(T element) throws DataReadWriteException {
         list.add(element);
+        this.sort();
         this.saveData();
         return element;
     }
@@ -96,6 +97,7 @@ public abstract class SpinBoxList<T extends Item> {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
+        this.sort();
         this.saveData();
         return element;
     }
@@ -113,6 +115,7 @@ public abstract class SpinBoxList<T extends Item> {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
+        this.sort();
         this.saveData();
         return list.get(index);
     }
