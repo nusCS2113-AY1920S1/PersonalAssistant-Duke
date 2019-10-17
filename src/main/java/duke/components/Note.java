@@ -67,6 +67,14 @@ public class Note {
         }
     }
 
+    /**
+     * Constructor for the Note object, taking in a String and Pitch representation of the note.
+     *
+     * @param duration A String representation of the duration of the Note object
+     *                  E.g. 4 represents a note with the duration of a 1/4 note.
+     * @param pitch A Pitch enum representation of the pitch of the Note object
+     *              E.g. UA represents an A note from the upper octave.
+     */
     public Note(String duration, Pitch pitch) {
         this.duration = duration;
         this.pitch = pitch;

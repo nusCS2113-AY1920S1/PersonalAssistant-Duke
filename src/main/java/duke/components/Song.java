@@ -73,6 +73,10 @@ public class Song {
         return bars.size();
     }
 
+    /**
+     * Updates the Song with the new list of Bar objects.
+     * @param newBars the list of new Bar objects for the Song
+     */
     public void updateBars(ArrayList<Bar> newBars) {
         this.bars = newBars;
         for (Bar bar: newBars) {
@@ -80,10 +84,18 @@ public class Song {
         }
     }
 
+    /**
+     * Updates the SongChart, the string representation of the Song.
+     * @param bar the new Bar to be added to the Song
+     */
     private void updateSongChart(Bar bar) {
         songChart.addAll(bar.getBarChart());
     }
 
+    /**
+     * Returns a String representation of the Song.
+     * @return a String representation of the Song to be viewed by the user
+     */
     public String showSongChart() {
         StringBuilder formattedChart = new StringBuilder();
         for (String chordString: songChart) {
