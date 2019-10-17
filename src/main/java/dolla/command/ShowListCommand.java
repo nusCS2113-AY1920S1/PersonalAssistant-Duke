@@ -3,7 +3,13 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.task.Log;
 import dolla.Ui;
-import dolla.task.*;
+
+import dolla.task.EntryList;
+import dolla.task.DebtList;
+import dolla.task.LogList;
+import dolla.task.Task;
+import dolla.task.TaskList;
+
 
 import java.util.ArrayList;
 
@@ -24,29 +30,45 @@ public class ShowListCommand extends Command {
      */
     @Override
     public void execute(DollaData dollaData) {
-//        LogList logList = new LogList(new ArrayList<Log>());
-        LogList entryList = new EntryList(new ArrayList<Entry>());
+
+////        LogList logList = new LogList(new ArrayList<Log>());
+//        LogList entryList = new EntryList(new ArrayList<Entry>());
+//
+//        switch (mode) {
+//        case "entries":
+////            logList = dollaData.entryList;
+////            entryList = dollaData.entryList;
+//            entryList = dollaData.getLogList(mode);
+
+        LogList logList = new LogList(new ArrayList<>());
 
         switch (mode) {
-        case "entries":
-//            logList = dollaData.entryList;
-//            entryList = dollaData.entryList;
-            entryList = dollaData.getLogList(mode);
+        case "entry":
+            logList = dollaData.getLogList(mode);
+            break;
+        case "debt":
+            logList = dollaData.getLogList(mode);
             break;
         default:
             break; // TODO: What to do here?
         }
+
         
 //        boolean isListEmpty = (logList.size() == 0);
-        boolean isListEmpty = (entryList.size() == 0);
+
+        boolean isListEmpty = (logList.size() == 0);
 
         if (isListEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
             return;
-        } else if (mode.equals("entries")) {
-            Ui.printList(mode, entryList);
+//        } else if (mode.equals("entries")) {
+//            Ui.printList(mode, entryList);
+        } else if (mode.equals("entry")) {
+            Ui.printList(mode, logList);
+            return;
+        } else if (mode.equals("debt")) {
+            Ui.printList(mode, logList);
             return;
         }
-
     }
 }

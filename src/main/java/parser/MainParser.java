@@ -1,8 +1,12 @@
 package parser;
 
 import dolla.Ui;
-import dolla.command.*;
+//import dolla.command.;
 
+import dolla.command.Command;
+import dolla.command.ErrorCommand;
+import dolla.command.SwitchModeCommand;
+import dolla.task.Limit;
 import dolla.task.TaskList;
 
 import java.time.format.DateTimeParseException;
@@ -28,9 +32,9 @@ public class MainParser {
         //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(" ");
         String command = inputArray[0];
-        boolean isSwitchMode = command.equals("dolla") || command.equals("entries")
-                || command.equals("limits") || command.equals("debts")
-                || command.equals("shortcuts");
+        boolean isSwitchMode = command.equals("dolla") || command.equals("entry")
+                || command.equals("limit") || command.equals("debt")
+                || command.equals("shortcut");
 
         if (command.equals("bye")) {
             //return new ExitCommand(); // TODO
@@ -43,9 +47,15 @@ public class MainParser {
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
             return dollaParser.handleInput(mode, inputLine);
-        case "entries":
+        case "entry":
             EntryParser entryParser = new EntryParser(inputLine);
             return entryParser.handleInput(mode, inputLine);
+        case "debt":
+            DebtsParser debtsParser = new DebtsParser(inputLine);
+            return debtsParser.handleInput(mode, inputLine);
+        case "limits":
+            LimitParser limitParser = new LimitParser(inputLine);
+            //return limitParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

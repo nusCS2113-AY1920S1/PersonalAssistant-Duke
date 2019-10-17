@@ -1,16 +1,17 @@
 package sort;
 
 import dolla.task.Entry;
+import dolla.task.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class SortDescription extends Sort {
-    ArrayList<Entry> entriesToSort;
+    ArrayList<Log> entriesToSort;
 //    ArrayList<Limit> limitsToSort;
 //    ArrayList<Debt> debtsToSort;
 
-    public void sortEntry(ArrayList<Entry> entries) {
+    public void sortEntry(ArrayList<Log> entries) {
         System.out.println("sorting desc");
         this.entriesToSort = entries;
         Collections.sort(entriesToSort,DescriptionComparator.entryDescComparator());

@@ -1,9 +1,10 @@
 package dolla;
 
-import dolla.task.Entry;
-import dolla.task.EntryList;
-import dolla.task.LogList;
-import dolla.task.Task;
+
+//import dolla.task.;
+
+
+import dolla.task.*;
 import sort.Sort;
 import sort.SortDate;
 import sort.SortDescription;
@@ -22,7 +23,7 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static String line = "\t____________________________________________________________";
+    public static String line = "\t____________________________________________________________";
 
     public static void showWelcome() {
         System.out.println("Hello from\n" + logo);
@@ -90,6 +91,13 @@ public class Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've added this entry: ");
         System.out.println("\t" + currEntry.getLogText());
+        System.out.println(line);
+    }
+
+    public static void echoAddDebt(Debt currDebt) {
+        System.out.println(line);
+        System.out.println("\tGot it. I've added this debt: ");
+        System.out.println("\t" + currDebt.getLogText());
         System.out.println(line);
     }
 
@@ -243,6 +251,13 @@ public class Ui {
         System.out.println(line);
     }
 
+    public static void printInvalidDebtFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format"
+                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION]'");
+        System.out.println(line);
+    }
+
     /**
      * Prints Dolla's new mode after being updated.
      * @param newMode The new mode to be switched.
@@ -259,14 +274,19 @@ public class Ui {
         System.out.println(line);
     }
 
+
+   // public static void printList(String mode, LogList entryList) {
+   private static LogList entryList;
     public static void printList(String mode, LogList logList) {
+
         System.out.println(line);
         System.out.println("\tHere are the " + mode + " that you have added:");
         for (int i = 0; i < logList.size(); i++) {
             int listNum = i + 1;
-//            System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
         }
         System.out.println(line);
-//        new SortDescription().sortEntry(entryList.get());
+        entryList = new DollaData().getLogList("entry");
+        new SortDescription().sortEntry(entryList.get());
     }
 }

@@ -1,15 +1,16 @@
 package sort;
 
 import dolla.task.Entry;
+import dolla.task.Log;
 
 import java.util.Comparator;
 
 public class DescriptionComparator {
 
-    static Comparator<Entry> entryDescComparator() {
-        return new Comparator<Entry>() {
+    static Comparator<Log> entryDescComparator() {
+        return new Comparator<Log>() {
             @Override
-            public int compare(Entry o1, Entry o2) {
+            public int compare(Log o1, Log o2) {
                 return o1.getDescription().compareTo(o2.getDescription());
             }
         };

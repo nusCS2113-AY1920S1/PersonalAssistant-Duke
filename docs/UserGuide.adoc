@@ -201,7 +201,7 @@ Format: +
 
 Examples:
 
-* `create income shortcut tuition $100`
+* `create shortcut income tuition $100`
 * `create shortcut expense ice-cream $5 food`
 
 ==== Add recurring expense or income: `add recurring expense`, `add recurring income`
@@ -229,7 +229,7 @@ Format: +
 
 Example:
 
-* `set budget $50 every week`
+* `set budget $50 /every week`
 
 ==== Add tag-based expense budget: `set budget`
 
@@ -366,7 +366,9 @@ Example:
 
 {nbsp} +
 
-=== Switch the mode to Settings: `settings` [coming in v2.0]
+== Coming in version 2.0
+
+=== Switch the mode to Settings: `settings`
 
 Users can check and edit the tasks in shortcuts. +
 Format: +

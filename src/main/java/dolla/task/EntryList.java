@@ -11,32 +11,14 @@ import java.util.ArrayList;
  */
 public class EntryList extends LogList{
     protected ArrayList<Entry> entryList;
-    public EntryList(ArrayList<Entry> importEntryList) {
-        this.entryList = importEntryList;
+    public EntryList(ArrayList<Log> importEntryList) {
+        super(importEntryList);
 //        super(importEntryList);
     }
 
-    public ArrayList<Entry> get() {
-        return entryList;
-    }
-
-    public void add(Entry newEntry) {
-        entryList.add(newEntry);
+    @Override
+    public void add(Log newLog) {
+        super.add(newLog);
         Storage.setEntries(get()); //save
     }
-
-    public Entry getFromList(int index) {
-        return entryList.get(index);
-    }
-
-    @Override
-    public int size() {
-        return entryList.size();
-    }
-
-    @Override
-    public void removeFromList(int index) {
-        entryList.remove(index);
-    }
-
 }

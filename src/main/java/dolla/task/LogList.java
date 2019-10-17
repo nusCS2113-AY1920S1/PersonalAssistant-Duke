@@ -33,6 +33,4 @@ public class LogList {
     public void removeFromList(int index) {
         list.remove(index);
     }
-
-
 }

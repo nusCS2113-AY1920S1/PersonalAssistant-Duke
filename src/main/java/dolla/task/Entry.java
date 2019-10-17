@@ -1,5 +1,7 @@
 package dolla.task;
 
+
+import dolla.task.Log;
 import dolla.task.Log;
 import dolla.Time;
 

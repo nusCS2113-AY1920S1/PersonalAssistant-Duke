@@ -1,13 +1,8 @@
 package dolla;
 
+import dolla.task.*;
 
-//import dolla.task.Task;
-import dolla.task.EntryList;
-import dolla.task.LogList;
-import parser.DollaParser;
 import parser.MainParser;
-import dolla.task.Entry;
-import dolla.task.Log;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -77,21 +72,22 @@ public class Storage {
                 int numOfElements = inArray.length;
                 String type = inArray[0];
                 Log newLog = null;
-                Entry newEntry = null;
+//                Entry newEntry = null;
 //                System.out.println(inArray[0] + " ===----"+inArray[1]);
                 switch(type) {
                 case "I": //check if there is a tag
                     if(numOfElements == 4) {
-                        newEntry = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                        newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
 //                    else if (numOfElements == 5) {
 //                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
                     break;
-//                case "E": //check if there is a tag
-//                    if(numOfElements == 4) {
-//                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
-//                    } else if (numOfElements == 5) {
+                case "E": //check if there is a tag
+                    if(numOfElements == 4) {
+                        newLog = new Entry("expense",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
+                    }
+//                    else if (numOfElements == 5) {
 //                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
 //                    break;
@@ -121,12 +117,12 @@ public class Storage {
 //                case "S":
 //                    newLog = new saving(inArray[1],Time.readDate(inArray[2]));
 //                    break;
-//                case "O":
-//                    newLog = new owe(inArray[1],inArray[2],inArray[3]);
-//                    break;
-//                case"B":
-//                    newLog = new borrow(inArray[1],inArray[2],inArray[3]);
-//                    break;
+                case "O":
+                    newLog = new Debt("owe",inArray[1],stringToDouble(inArray[2]),inArray[3]);
+                    break;
+                case"B":
+                    newLog = new Debt("borrow",inArray[1],stringToDouble(inArray[2]),inArray[3]);
+                    break;
 //                case"shortcut"://special case for shortcut,only one string
 //                    newLog = new shortcut(inArray[1]);
 //                    break;
@@ -135,8 +131,8 @@ public class Storage {
                 }
 
                 if(type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
-                    entries.add(newEntry);
-                } else if(type.equals("B") || type.equals("S")) {
+                    entries.add(newLog);
+                } else if(type.equals("BU") || type.equals("S")) {
                     limits.add(newLog);
                 } else if (type.equals("O") || type.equals("B")) {
                     debts.add(newLog);
@@ -162,7 +158,7 @@ public class Storage {
 //                    newTask.markAsDone();
 //                }
                 //list.add(newTask);
-
+                save();
             }
 
         } catch (FileNotFoundException e) {
@@ -181,15 +177,16 @@ public class Storage {
         return entries;
     }
 
-    public static ArrayList<Log> getLimits() {
+    public static ArrayList<Log> getLimitsFromSave() {
         return limits;
     }
 
-    public static ArrayList<Log> getDebts() {
+    public static ArrayList<Log> getDebtsFromSave() {
+
         return debts;
     }
 
-    public static ArrayList<Log> getShortcuts() {
+    public static ArrayList<Log> getShortcutsFromSave() {
         return shortcuts;
     }
 
