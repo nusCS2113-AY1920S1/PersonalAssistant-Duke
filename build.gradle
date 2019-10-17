@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
 	id 'checkstyle'
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    //id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
 group 'cube'
@@ -10,6 +10,8 @@ version '0.1.0'
 
 repositories {
     mavenCentral()
+    jcenter()
+    mavenLocal()
 }
 
 application {
@@ -20,18 +22,18 @@ run {
     standardInput = System.in
 }
 
-dependencies {
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0';
-}
+/*dependencies {
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind';
+}*/
 
 checkstyle {
     toolVersion = '8.23'
     ignoreFailures = true
 }
 
-shadowJar {
+/*shadowJar {
     archiveBaseName = "cube"
     archiveVersion = "0.1.1"
     archiveClassifier = null
     archiveAppendix = null
-}
+}*/

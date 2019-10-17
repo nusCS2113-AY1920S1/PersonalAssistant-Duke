@@ -4,9 +4,9 @@ import cube.model.food.FoodList;
 import cube.ui.Ui;
 import cube.storage.StorageManager;
 
-public class HelpCommand extends Command{ // 'implements' instead of 'extends'?
+public class HelpCommand extends Command{ // 'implements' instead of 'extends'? // now use imeplement --guoquan
 	/*
-	public HelpCommand () { // need this??
+	public HelpCommand () { // need this?? // help command can take parameter, so need a constructor --guoquan
 	}*/
 
 	/**

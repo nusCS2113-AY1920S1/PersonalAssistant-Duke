@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/**
+ * Parse add food command.
+ */
 public class AddCommandParser implements ParserPrototype<AddCommand> {
 
 	public AddCommand parse(String[] args) throws CubeException {
@@ -39,15 +42,15 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 		if (foodNameIndex == -1) {
 			throw new CubeException("Not enough parameter. Please enter food name.");
 		}
-		Food tempFood = new Food(args[foodNameIndex+1]);
+		Food tempFood = new Food(findFullString(args,foodNameIndex));
 		if (foodTypeIndex != -1) {
-			tempFood.setType(args[foodTypeIndex+1]);
+			tempFood.setType(findFullString(args,foodTypeIndex));
 		}
 		if (priceIndex != -1) {
 			tempFood.setPrice(Integer.parseInt(args[priceIndex+1]));
 		}
 		if (stockIndex != -1) {
-			tempFood.updateStock(Integer.parseInt(args[stockIndex+1]));
+			tempFood.setStock(Integer.parseInt(args[stockIndex+1]));
 		}
 		if (expiryDateIndex != -1) {
 			tempFood.setExpiryDate(parseStringToDate(args[priceIndex+1]));
@@ -76,4 +79,23 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 			throw new CubeException(Message.INVALID_DATE_FORMAT);
 		}
 	}
+
+	public String findFullString (String[] inputs, int index) {
+		String fullSring = "";
+
+		for (int i = index + 1; i < inputs.length; i ++) {
+			if(inputs[i].equals("-n")||inputs[i].equals("-t")||inputs[i].equals("-p")
+			||inputs[i].equals("-s")||inputs[i].equals("-e")) {
+				break;
+			}
+
+			if(i != index+1) {
+				fullSring += " ";
+			}
+			fullSring += inputs[i];
+		}
+
+		return fullSring;
+	}
+
 }
