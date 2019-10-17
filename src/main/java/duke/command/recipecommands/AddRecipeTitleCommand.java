@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE_TITLE;
 
-public class AddRecipeTitleCommand extends CommandRecipeTitle {
+public class AddRecipeTitleCommand extends CommandRecipeTitle<RecipeTitleList, Ui, RecipeTitleStorage> {
 
     public AddRecipeTitleCommand(String userInput) {
         this.userInput = userInput;
@@ -38,10 +38,10 @@ public class AddRecipeTitleCommand extends CommandRecipeTitle {
         return arrayList;
     }
 
-    @Override
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
-        return null;
-    }
+//    @Override
+//    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
+//        return null;
+//    }
 
     @Override
     public boolean isExit() {

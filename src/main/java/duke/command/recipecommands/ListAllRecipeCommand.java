@@ -17,7 +17,7 @@ import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListAllRecipeCommand extends CommandRecipeTitle {
+public class ListAllRecipeCommand extends CommandRecipeTitle<RecipeTitleList, Ui, RecipeTitleStorage> {
 
     /**
      * Constructor for class ListCommand.
@@ -45,10 +45,10 @@ public class ListAllRecipeCommand extends CommandRecipeTitle {
         return arrayList;
     }
 
-    @Override
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
-        return null;
-    }
+//    @Override
+//    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
+//        return null;
+//    }
 
     @Override
     public boolean isExit() {

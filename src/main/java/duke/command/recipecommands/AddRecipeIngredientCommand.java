@@ -16,16 +16,16 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class AddRecipeIngredientCommand extends CommandRecipeTitle {
+public class AddRecipeIngredientCommand extends CommandRecipeTitle<RecipeIngredientList, Ui, RecipeIngredientStorage> {
 
     public AddRecipeIngredientCommand(String userInput) {
         this.userInput = userInput;
     }
 
-    @Override
-    public ArrayList<String> execute(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws DukeException, ParseException {
-        return null;
-    }
+//    @Override
+//    public ArrayList<String> execute(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws DukeException, ParseException {
+//        return null;
+//    }
 
     @Override
     public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws ParseException {
