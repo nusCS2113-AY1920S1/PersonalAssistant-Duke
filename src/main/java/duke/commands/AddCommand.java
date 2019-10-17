@@ -56,7 +56,7 @@ public class AddCommand extends Command<TaskList> {
             try {
                 todo = new ToDo(message.trim().substring(5));
                 taskList.add(todo);
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), todo);
             } catch (Exception e) {
                 throw new DukeException(message, "todo"); //empty to-do
@@ -71,7 +71,7 @@ public class AddCommand extends Command<TaskList> {
                 String[] sections = message.substring(9).split(" /by ");
                 deadline = new Deadline(sections[0], sections[1]);
                 taskList.add(deadline);
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), deadline);
             } catch (Exception e) {
                 throw new DukeException(message,"deadline");
@@ -99,7 +99,7 @@ public class AddCommand extends Command<TaskList> {
                     taskList.add(event);
                 }
 
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), event);
             } catch (Exception e) {
                 throw new DukeException("", "conflict");
@@ -116,7 +116,7 @@ public class AddCommand extends Command<TaskList> {
                 doAfter = new DoAfter(sections[0], previousTaskNumber, taskList.getSize() + 1);
                 taskList.add(doAfter);
                 DoAfterList.add(previousTaskNumber);
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), doAfter);
             } catch (Exception e) {
                 throw new DukeException(message, "doafter");
@@ -140,7 +140,7 @@ public class AddCommand extends Command<TaskList> {
                         taskList.remove(itemToDelete);
 
                         taskList.add(event);
-                        storage.updateFile(taskList);
+                        //storage.updateFile(taskList);
                         return ui.formatAdd(taskList.getTaskList(), event);
                     } else if (item.getType() == "D") {
                         String itemDescription = item.getDescription();
@@ -154,7 +154,7 @@ public class AddCommand extends Command<TaskList> {
                                 deadline.setDone();
                             }
                             taskList.add(deadline);
-                            storage.updateFile(taskList);
+                            //storage.updateFile(taskList);
                             return ui.formatAdd(taskList.getTaskList(), deadline);
 
                         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class AddCommand extends Command<TaskList> {
                 String[] periods = sections[1].split("and");
                 betweenTask = new BetweenTask(sections[0].trim(), periods[0].trim(), periods[1].trim());
                 taskList.add(betweenTask);
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), betweenTask);
             } catch (Exception e) {
                 throw new DukeException(message, "between");
@@ -234,7 +234,7 @@ public class AddCommand extends Command<TaskList> {
                     }
                     recurringTask = new RecurringTask(description, date, time, frequency);
                     taskList.add(recurringTask);
-                    storage.updateFile(taskList);
+                    //storage.updateFile(taskList);
                     return ui.formatAdd(taskList.getTaskList(), recurringTask);
                 } else {
                     //invalid frequency input
@@ -253,7 +253,7 @@ public class AddCommand extends Command<TaskList> {
                 String[] sections = message.substring(14).split(" /need ");
                 Task fixedDurationTask = new FixedDurationTask(sections[0], sections[1]);
                 taskList.add(fixedDurationTask);
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
                 return ui.formatAdd(taskList.getTaskList(), fixedDurationTask);
             } catch (Exception e) {
                 throw new DukeException(message, "fixedDuration");

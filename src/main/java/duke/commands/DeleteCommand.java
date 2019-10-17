@@ -98,7 +98,7 @@ public class DeleteCommand extends Command<TaskList> {
 
             ArrayList<Task> oldList = new ArrayList<>(taskList.getTaskList());
             try {
-                storage.updateFile(taskList);
+                //storage.updateFile(taskList);
             } catch (Exception e) {
                 throw new DukeException("","io");
             }

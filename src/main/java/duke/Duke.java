@@ -39,12 +39,12 @@ public class Duke {
         tasks = new TaskList();
         songs = new SongList();
         storage = new Storage(Paths.get("data", "todo_list.txt"));
-        try {
-            storage.loadList(tasks);
-        } catch (DukeException e) {
-            System.out.println(ui.showError(e));
-            tasks = new TaskList();
-        }
+        //        try {
+        //            storage.loadList(tasks);
+        //        } catch (DukeException e) {
+        //            System.out.println(ui.showError(e));
+        //            tasks = new TaskList();
+        //        }
     }
 
     /**
