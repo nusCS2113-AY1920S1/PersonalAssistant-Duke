@@ -1,5 +1,7 @@
 package Farmio;
 
+import Places.Farm;
+import UserCode.Conditions.BooleanCondition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -52,7 +54,8 @@ public class Level {
         return narratives;
     }
 
-    public String checkAnswer(){
-        return "checking answers";
+    public boolean checkAnswer(Farmio farmio){
+        farmio.getUi().show("Checking answers now");
+        return true;
     }
 }
