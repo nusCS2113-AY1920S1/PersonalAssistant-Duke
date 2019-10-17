@@ -3,18 +3,31 @@ package moomoo.task;
 import java.util.ArrayList;
 
 public class Category {
-    //Dummy variable
-    int monthTotal;
+    private int monthTotal;
+
     private String name;
     private ArrayList<Expenditure> expenditure;
 
+    /**
+     * Initializes a new category with a name, an empty list of expenditures, and a monthly total.
+     * @param name category name
+     */
     public Category(String name) {
         this.name = name;
         this.expenditure = new ArrayList<>();
+        this.monthTotal = 0;
     }
 
     public int getExpenditureArraySize() {
         return expenditure.size();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String toString() {
+        return name;
     }
 
     /**
@@ -28,17 +41,10 @@ public class Category {
         }
         return totalCost;
     }
+    
 
-    public String getName() {
-        return name;
-    }
-    
-    //Method
-    public String toString() {
-        return name;
-    }
-    
-    public double getCategoryMonthTotal() {
+    public double getMonthlyTotal(int month) {
+
         return monthTotal;
     }
 
