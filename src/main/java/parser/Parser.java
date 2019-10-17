@@ -21,7 +21,13 @@ public class Parser {
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
     public static String newLine = "\n";
-
+    private static String addCommand;
+    private static String helpCommand;
+    private static String modCommand;
+    private static String printCommand;
+    private static String searchCommand;
+    //public static String custCommand;
+    public static String moduleFormat = "[A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}";
     Parser() {
     }
 
@@ -94,7 +100,7 @@ public class Parser {
     }
 
     /*
-     *//**
+
      * Takes in the taskList to be used for recording tasks.
      * Every time this taskList is updated, it is saved to the save file.
      *
