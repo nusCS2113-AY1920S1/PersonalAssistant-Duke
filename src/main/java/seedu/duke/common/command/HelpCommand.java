@@ -6,13 +6,13 @@ import seedu.duke.gui.MainWindow;
 import java.util.ArrayList;
 
 /**
- * A command to display all help information
+ * A command to display all help information.
  */
 public class HelpCommand extends Command {
     private ArrayList<CommandInfo> commandInfoList = new ArrayList<>();
 
     /**
-     * Initializes help command with pre-determined values
+     * Initializes help command with pre-determined values.
      */
     public HelpCommand() {
         initCommandInfoList();
@@ -101,13 +101,19 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * A class of the syntax and relevant information of each command
+     * A class of the syntax and relevant information of each command.
      */
     public class CommandInfo {
         private String category;
         private String format;
         private String description;
 
+        /**
+         * Constructor instantiate all attributes of a command type.
+         * @param category command category
+         * @param format format of a command
+         * @param description description of the command
+         */
         public CommandInfo(String category, String format, String description) {
             this.category = category;
             this.format = format;
@@ -126,6 +132,10 @@ public class HelpCommand extends Command {
             return this.description;
         }
 
+        /**
+         * Converts all the information of the command into a string.
+         * @return String with information formatted
+         */
         public String toString() {
             String output = "";
             output += "\t$" + description + "\n";

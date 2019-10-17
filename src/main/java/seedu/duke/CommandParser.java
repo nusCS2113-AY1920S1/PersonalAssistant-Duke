@@ -2,7 +2,6 @@ package seedu.duke;
 
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.email.command.EmailTagCommand;
-import seedu.duke.email.entity.Email;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
@@ -14,7 +13,6 @@ import seedu.duke.email.EmailList;
 import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailShowCommand;
-import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
@@ -23,6 +21,7 @@ import seedu.duke.task.command.TaskListCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSetPriorityCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
@@ -180,6 +179,8 @@ public class CommandParser {
             return parseSnoozeCommand(input, taskList, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(taskList, input, optionList);
+        } else if (input.startsWith("update")) {
+            return parseUpdateCommand(taskList, input, optionList);
         } else if (input.startsWith("set")) {
             return parsePriorityCommand(input, taskList, optionList);
         }
@@ -490,8 +491,7 @@ public class CommandParser {
         try {
             priority = extractPriority(optionList);
         } catch (UserInputException e) {
-            if
-            (ui != null) {
+            if (ui != null) {
                 ui.showError(e.getMessage());
             }
             return new InvalidCommand();
@@ -564,6 +564,48 @@ public class CommandParser {
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags, priority);
+    }
+
+    private static Command parseUpdateCommand(TaskList taskList, String input, ArrayList<Option> optionList) {
+        ArrayList<TaskUpdateCommand.Attributes> attributes = new ArrayList<>();
+        ArrayList<String> descriptions = new ArrayList<>();
+        int index;
+        Pattern editPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
+        Matcher editMatcher = editPattern.matcher(input);
+        if (!editMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter an index after \'update\'");
+            }
+            return new InvalidCommand();
+        } else {
+            try {
+                index = parseIndex(editMatcher.group("index"));
+            } catch (NumberFormatException e) {
+                if (ui != null) {
+                    ui.showError("Please enter correct task index: " + editMatcher.group(
+                            "index"));
+                }
+                return new InvalidCommand();
+            }
+        }
+
+        try {
+            if (!extractTime(optionList).equals("")) {
+                descriptions.add(extractTime(optionList));
+                attributes.add(TaskUpdateCommand.Attributes.time);
+            }
+            if (!extractDoAfter(optionList).equals("")) {
+                descriptions.add(extractDoAfter(optionList));
+                attributes.add(TaskUpdateCommand.Attributes.doAfter);
+            }
+            if (!extractPriority(optionList).equals("")) {
+                descriptions.add(extractPriority(optionList));
+                attributes.add(TaskUpdateCommand.Attributes.priority);
+            }
+            return new TaskUpdateCommand(taskList, index, descriptions, attributes);
+        } catch (UserInputException e) {
+            return new InvalidCommand();
+        }
     }
 
     private static ArrayList<String> extractTags(ArrayList<Option> optionList) {

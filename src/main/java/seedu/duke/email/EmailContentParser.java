@@ -21,6 +21,10 @@ public class EmailContentParser {
     private static int INFINITY = 0x3f3f3f;
     private static int FUZZY_LIMIT = 3;
 
+    /**
+     * Finds all keywords in email.
+     * @param email Email to be scanned for keywords
+     */
     public static void allKeywordInEmail(Email email) {
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
@@ -79,14 +83,21 @@ public class EmailContentParser {
         return occurrence;
     }
 
+    /**
+     * Keyword List for searching.
+     */
     public static void initKeywordList() {
         ArrayList<KeywordPair> keywordList = new ArrayList<>();
         keywordList.add(new KeywordPair("CS2113T", new ArrayList<String>(List.of(
-                "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang", "Akshay Narayan"))));
+                "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang", "Akshay Narayan", "Akshay"))));
         keywordList.add(new KeywordPair("CS2101", new ArrayList<String>(List.of(
                 "CS2101", "Anita Toh Ann Lee"))));
         keywordList.add(new KeywordPair("CG2271", new ArrayList<String>(List.of(
                 "CG2271", "Djordje Jevdjic"))));
+        keywordList.add(new KeywordPair("CS2102", new ArrayList<String>(List.of(
+                "CS2102", "Adi Yoga Sidi Prabawa"))));
+        keywordList.add(new KeywordPair("CS3230", new ArrayList<String>(List.of(
+                "CS3230", "Divesh Aggarwal"))));
         keywordList.add(new KeywordPair("CEG Admin", new ArrayList<String>(List.of(
                 "Low Mun Bak"))));
         keywordList.add(new KeywordPair("SEP", new ArrayList<String>(List.of(
