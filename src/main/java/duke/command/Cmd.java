@@ -16,29 +16,14 @@ public enum Cmd {
             return new DoctorCommand();
         }
     },
-    LIST("list") {
-        public Command getCommand() {
-            return new ListCommand();
-        }
-    },
     BYE("bye") {
         public Command getCommand() {
             return new ByeCommand();
         }
     },
-    DONE("done") {
-        public Command getCommand() {
-            return new DoneCommand();
-        }
-    },
-    DEL("delete") {
-        public Command getCommand() {
-            return new DeleteCommand();
-        }
-    },
     FIND("find") {
         public Command getCommand() {
-            return new FindCommand();
+            return new PatientFindCommand();
         }
     },
     NEW("new") {
