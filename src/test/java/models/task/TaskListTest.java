@@ -125,7 +125,7 @@ public class TaskListTest {
                     + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
                     + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE"
                     + "]";
-            assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails("/KANBAN/DONE").toString());
+            assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails("/KANBAN-DONE").toString());
 
 
         } catch (ParseException e) {
