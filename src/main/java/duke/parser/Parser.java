@@ -8,6 +8,11 @@ import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.inventorycommands.DeleteIngredientCommand;
 import duke.command.inventorycommands.ListIngredientsCommand;
 import duke.command.recipecommands.*;
+import duke.list.recipelist.RecipeIngredientList;
+import duke.list.recipelist.RecipeTitleList;
+import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeTitleStorage;
+import duke.ui.Ui;
 
 import static duke.common.BookingMessages.*;
 import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
@@ -30,7 +35,7 @@ public class Parser {
         }
     }
 
-    public static Command parseRecipeTitle(String input) {
+    public static Command<RecipeTitleList, Ui, RecipeTitleStorage> parseRecipeTitle(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
             return new AddRecipeTitleCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE_TITLE)) {
@@ -40,7 +45,7 @@ public class Parser {
         }
     }
 
-    public static Command parseRecipeIngredient(String input) {
+    public static Command<RecipeIngredientList, Ui, RecipeIngredientStorage> parseRecipeIngredient(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
             return new AddRecipeIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
