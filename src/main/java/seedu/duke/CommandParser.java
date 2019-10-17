@@ -567,8 +567,8 @@ public class CommandParser {
     }
 
     private static Command parseUpdateCommand(TaskList taskList, String input, ArrayList<Option> optionList) {
-        TaskUpdateCommand.Attributes attribute = null;
-        String description = null;
+        ArrayList<TaskUpdateCommand.Attributes> attributes = new ArrayList<>();
+        ArrayList<String> descriptions = new ArrayList<>();
         int index;
         Pattern editPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher editMatcher = editPattern.matcher(input);
@@ -590,24 +590,22 @@ public class CommandParser {
         }
 
         try {
-            if (!extractPriority(optionList).equals("") ^ !extractTime(optionList).equals("")
-                    ^ !extractDoAfter(optionList).equals("")) {
-                if (!extractDoAfter(optionList).equals("")) {
-                    description = extractDoAfter(optionList);
-                    attribute = TaskUpdateCommand.Attributes.doAfter;
-                } else if (!extractTime(optionList).equals("")) {
-                    description = extractTime(optionList);
-                    attribute = TaskUpdateCommand.Attributes.time;
-                } else if (!extractPriority(optionList).equals("")) {
-                    description = extractPriority(optionList);
-                    attribute = TaskUpdateCommand.Attributes.priority;
-                }
-                return new TaskUpdateCommand(taskList, index, description, attribute);
+            if (!extractTime(optionList).equals("")) {
+                descriptions.add(extractTime(optionList));
+                attributes.add(TaskUpdateCommand.Attributes.time);
             }
+            if (!extractDoAfter(optionList).equals("")) {
+                descriptions.add(extractDoAfter(optionList));
+                attributes.add(TaskUpdateCommand.Attributes.doAfter);
+            }
+            if (!extractPriority(optionList).equals("")) {
+                descriptions.add(extractPriority(optionList));
+                attributes.add(TaskUpdateCommand.Attributes.priority);
+            }
+            return new TaskUpdateCommand(taskList, index, descriptions, attributes);
         } catch (UserInputException e) {
             return new InvalidCommand();
         }
-        return new InvalidCommand();
     }
 
     private static ArrayList<String> extractTags(ArrayList<Option> optionList) {

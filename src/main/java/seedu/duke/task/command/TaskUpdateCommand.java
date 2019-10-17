@@ -4,6 +4,10 @@ import seedu.duke.CommandParser;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.task.TaskList;
+import seedu.duke.task.entity.Task;
+import seedu.duke.task.entity.ToDo;
+
+import java.util.ArrayList;
 
 /**
  * Edit command to change (or add) certain attributes of a task.
@@ -11,8 +15,8 @@ import seedu.duke.task.TaskList;
 public class TaskUpdateCommand extends Command {
     private TaskList taskList;
     private int index;
-    private String description;
-    private TaskUpdateCommand.Attributes attribute;
+    private ArrayList<String> descriptions;
+    private ArrayList<TaskUpdateCommand.Attributes> attributes;
 
     /**
      * Instantiates a find command with all variables necessary.
@@ -21,11 +25,12 @@ public class TaskUpdateCommand extends Command {
      * @param description   what to modify to
      * @param attribute     what attribute to modify
      */
-    public TaskUpdateCommand(TaskList taskList, int index, String description, TaskUpdateCommand.Attributes attribute) {
+    public TaskUpdateCommand(TaskList taskList, int index, ArrayList<String> descriptions,
+                             ArrayList<TaskUpdateCommand.Attributes> attributes) {
         this.taskList = taskList;
         this.index = index;
-        this.description = description;
-        this.attribute = attribute;
+        this.descriptions = descriptions;
+        this.attributes = attributes;
     }
 
     public enum Attributes {
@@ -40,19 +45,24 @@ public class TaskUpdateCommand extends Command {
     public boolean execute() {
         String msg = "";
         try {
-            switch (attribute) {
-            case time:
-                msg = taskList.setTime(index, description);
-                break;
-            case doAfter:
-                msg = taskList.setDoAfter(index, description);
-                break;
-            case priority:
-                msg = taskList.setPriority(index, description);
-                break;
-            default:
-                msg = "Invalid attribute";
-                break;
+            for (int i = 0; i < descriptions.size(); i++) {
+                switch (attributes.get(i)) {
+                    case time:
+                        if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
+                            throw new CommandParser.UserInputException("Time cannot be added to Todo task.");
+                        }
+                        msg = taskList.setTime(index, descriptions.get(i));
+                        break;
+                    case doAfter:
+                        msg = taskList.setDoAfter(index, descriptions.get(i));
+                        break;
+                    case priority:
+                        msg = taskList.setPriority(index, descriptions.get(i));
+                        break;
+                    default:
+                        msg = "Invalid attribute";
+                        break;
+                }
             }
         } catch (CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
