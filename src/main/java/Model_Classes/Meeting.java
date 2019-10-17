@@ -1,49 +1,35 @@
 package Model_Classes;
 
 import Enums.Priority;
+import Enums.TimeUnit;
 
 import java.util.Date;
 /**
  * An object class representing types of tasks that are events.
  * Stores the description and when the event happens.
  */
-public class Event extends Task {
+public class Meeting extends Task {
     private Date at;
-
+    private boolean isFixedDuration;
+    private String duration;
+    private TimeUnit timeUnit;
     /**
      * Constructor for Event object
      * Takes in inputs for description of the event and the time the event occurs
      * @param description Description of the event
      * @param at Time the event happens
      */
-    public Event(String description, Date at) {
+    public Meeting(String description, Date at) {
         super(description);
         this.at = at;
+        this.isFixedDuration = false;
     }
 
-    /**
-     * Overload Constructor for the Event object
-     * Takes in an input for the user assigned to the event object
-     * @param description Description of the event
-     * @param at Time the event happens
-     * @param user User whom the task is assigned to
-     */
-    public Event(String description, Date at, String user) {
-        super(description, user);
-        this.at = at;
-    }
-
-    /**
-     * Overload Constructor for Event object
-     * Takes in inputs for description of the event and the time the event occurs
-     * @param description Description of the event
-     * @param at Time the event happens
-     * @param done Whether the task is completed
-     * @param priority Priority of the task.
-     */
-    public Event(String description, Date at, boolean done, Priority priority) {
-        super(description, done, priority);
-        this.at = at;
+    public Meeting (String description, String duration, TimeUnit unit) {
+        super(description);
+        this.duration = duration;
+        this.timeUnit = unit;
+        this.isFixedDuration = true;
     }
 
     /**
@@ -103,6 +89,22 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (on: " + at + ")";
+        if (isFixedDuration) {
+            return "[M]" + super.toString() + " (in: " + duration + " " + timeUnit.toString() + ")";
+        } else {
+            return "[M]" + super.toString() + " (on: " + at + ")";
+        }
+    }
+
+    public boolean isFixedDuration() {
+        return isFixedDuration;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public TimeUnit getTimeUnit() {
+        return timeUnit;
     }
 }
