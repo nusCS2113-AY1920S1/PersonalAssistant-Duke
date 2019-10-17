@@ -3,6 +3,7 @@ import Enums.*;
 import Model_Classes.*;
 import Modes.HelpMode;
 import Modes.RecurringMode;
+import Modes.ReportMode;
 import Operations.*;
 
 import java.util.ArrayList;
@@ -17,9 +18,9 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private TaskList deletedList = new TaskList(new ArrayList<>());
     private Parser parser;
     private RecurHandler recurHandler;
+    private TempDeleteList tempDeleteList;
 
 
     /**
@@ -31,6 +32,8 @@ public class RoomShare {
         ui.startUp();
         storage = new Storage();
         parser = new Parser();
+        ArrayList<Task> tempStorage = new ArrayList<>();
+        tempDeleteList = new TempDeleteList(tempStorage);
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
@@ -55,8 +58,6 @@ public class RoomShare {
      */
     public void run() {
         boolean isExit = false;
-        boolean isExitRecur = false;
-        boolean isExitAssign = false;
         while (!isExit) {
             String command = parser.getCommand();
             TaskType type;
@@ -69,6 +70,8 @@ public class RoomShare {
 
             case help:
                 ui.help();
+                HelpMode helpMode = new HelpMode();
+                helpMode.run();
                 break;
 
             case list:
@@ -79,7 +82,6 @@ public class RoomShare {
                     ui.showWriteError();
                 }
                 break;
-
 
             case bye:
                 isExit = true;
@@ -103,11 +105,16 @@ public class RoomShare {
             case delete:
                 try {
                     int[] index = parser.getIndexRange();
-                    taskList.delete(index, deletedList);
+                    taskList.delete(index, tempDeleteList);
                     ui.showDeleted(index);
                 } catch (RoomShareException e) {
                     ui.showIndexError();
                 }
+                break;
+
+             case restore:
+                int restoreIndex = parser.getIndex();
+                tempDeleteList.restore(restoreIndex, taskList);
                 break;
 
             case find:
@@ -174,7 +181,7 @@ public class RoomShare {
                  break;
 
             case event:
-                try {            
+                try {
                     String[] eventArray = parser.getDescriptionWithDate();
                     Date at = parser.formatDate(eventArray[1]);
                     ui.promptForReply();
@@ -188,12 +195,12 @@ public class RoomShare {
                     case yes:
                         ui.promptForDuration();
                         TimeUnit timeUnit = parser.getTimeUnit();
-                        ui.promptForTime();
                         int duration = parser.getAmount();
+                        String unit = timeUnit.toString();
                         ui.promptForAssigning();
                         String response = parser.getResponse();
                         if (response.equals("no")) {
-                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
+                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, unit);
                             //checks for clashes
                             if (CheckAnomaly.checkTime(fixedDuration)) {
                                 taskList.add(fixedDuration);
@@ -201,7 +208,7 @@ public class RoomShare {
                                 throw new RoomShareException(ExceptionType.timeClash);
                             }
                         } else {
-                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, response);
+                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, response, unit);
                             //checks for clashes
                             if (CheckAnomaly.checkTime(fixedDuration)) {
                                 taskList.add(fixedDuration);
@@ -221,14 +228,14 @@ public class RoomShare {
                         case hours:
                             timer.schedule(rt, duration * 1000 * 60 * 60);
                             break;
-                            
+
                         case minutes:
                             timer.schedule(rt, duration * 1000 * 60);
                             break;
                         }
                         ui.showAdd();
                         break; // end yes
-                        
+
                     case no:
                         ui.promptForAssigning();
                         String res = parser.getResponse();
@@ -281,7 +288,12 @@ public class RoomShare {
                 taskList.reorder(firstIndex, secondIndex);
                 break;
 
-            default:             
+            case report:
+                ReportMode report = new ReportMode(taskList);
+                report.run();
+            break;
+
+            default:
                 ui.showCommandError();
                 break;
             }

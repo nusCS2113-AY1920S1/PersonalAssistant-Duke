@@ -7,6 +7,7 @@ import Enums.SaveType;
 import Model_Classes.*;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +47,7 @@ public class Storage {
             for (String list : tempList) {
                 String[] temp = list.split("#");
                 SaveType type;
-                Priority priority = null;
+                Priority priority;
                 try {
                     priority = Priority.valueOf(temp[2]);
                 } catch (IllegalArgumentException e) {
@@ -79,23 +80,31 @@ public class Storage {
                 } else {
                     switch (type) {
                         case T:
-                            ToDo tempToDo = new ToDo(temp[3], done, priority);
+                            ToDo tempToDo = new ToDo(temp[3], temp[4]);
+                            tempToDo.setPriority(priority);
+                            tempToDo.setDone(done);
                             taskArrayList.add(tempToDo);
                             break;
                         case E:
                             Date by = parser.formatDate(temp[4]);
-                            if( temp.length == 6 ){
-                                FixedDuration tempEvent = new FixedDuration(temp[3], by, Integer.parseInt(temp[5]), done, priority);
+                            if (temp.length == 8) {
+                                FixedDuration tempEvent = new FixedDuration(temp[3], by, Integer.parseInt(temp[5]), temp[7], temp[6]);
+                                tempEvent.setDone(done);
+                                tempEvent.setPriority(priority);
                                 taskArrayList.add(tempEvent);
                             } else {
-                                Event tempEvent = new Event(temp[3], by, done, priority);
+                                Event tempEvent = new Event(temp[3], by, temp[5]);
+                                tempEvent.setDone(done);
+                                tempEvent.setPriority(priority);
                                 taskArrayList.add(tempEvent);
                             }
 
                             break;
                         case D:
                             Date deadlineBy = parser.formatDate(temp[4]);
-                            Deadline tempDeadline = new Deadline(temp[3], deadlineBy, done, priority);
+                            Deadline tempDeadline = new Deadline(temp[3], deadlineBy, temp[5]);
+                            tempDeadline.setDone(done);
+                            tempDeadline.setPriority(priority);
                             taskArrayList.add(tempDeadline);
                             break;
                         default:
@@ -127,14 +136,9 @@ public class Storage {
                 String priority = s.getPriority().name();
                 String description = s.getDescription();
                 String time = convertForStorage(s);
-                if( s instanceof FixedDuration ){
-                    String duration = Integer.toString(((FixedDuration) s).getDuration());
-                    String out = type + "#" + done + "#" + priority + "#" + description + "#" + time + "#" + duration;
-                    writer.write(out);
-                } else {
-                    String out = type + "#" + done + "#" + priority + "#" + description + "#" + time;
-                    writer.write(out);
-                }
+                String assignee = s.getUser();
+                String out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
+                writer.write(out);
                 writer.newLine();
             }
             writer.close();
@@ -154,34 +158,39 @@ public class Storage {
      */
     String convertForStorage(Task task) throws RoomShareException {
         try {
-            String type = String.valueOf(task.toString().charAt(1));
             String time = "";
-            if (!task.toString().contains("(R:")) {
-                String[] tempString = task.toString().split("\\s+");
-                if (!type.equals("T")) {
-                    tempString[8] = tempString[8].substring(0, tempString[8].length() - 1);
-                    Date date = new SimpleDateFormat("MMM").parse(tempString[4]);
+            String[] prelimSplit = task.toString().split("\\(");
+            String[] tempString = prelimSplit[2].split("\\s+");
+            if (!(task instanceof RecurringToDo || task instanceof RecurringDeadline || task instanceof RecurringEvent)) {
+                // tasks that enter here are not recurring tasks
+                if (!(task instanceof ToDo)) {
+                    String year = tempString[6].substring(0, tempString[6].length() - 1);
+                    Date date = new SimpleDateFormat("MMM").parse(tempString[2]);
                     DateFormat dateFormat = new SimpleDateFormat("MM");
-                    String dateOut = dateFormat.format(date);
-                    String[] timeArray = tempString[6].split(":", 3);
-                    if( tempString.length == 14 ){
-                        time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1];
-                    } else {
-                        time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1];
-                    }
+                    String month = dateFormat.format(date);
+                    String[] timeArray = tempString[4].split(":", 3);
+                    String day = tempString[3];
+                    time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1] + '#';
+                }
+                if (task instanceof FixedDuration) {
+                    String[] durationArray = prelimSplit[3].split(":");
+                    String temp = durationArray[1].trim();
+                    String[] tempDuration = temp.split("\\s+");
+                    time = time + tempDuration[0].trim() + "#" + tempDuration[1].trim().substring(0, tempDuration[1].length() - 1) + "#";
                 }
             } else {
-                String[] tempString = task.toString().split("\\s+");
-                if (!type.equals("T")) {
-                    tempString[8] = tempString[8].substring(0, tempString[8].length() - 1);
-                    Date date = new SimpleDateFormat("MMM").parse(tempString[4]);
+                // tasks that enter here are recurring tasks
+                if (!(task instanceof RecurringToDo)) {
+                    String year = tempString[6].substring(0, tempString[6].length() - 1);
+                    Date date = new SimpleDateFormat("MMM").parse(tempString[2]);
                     DateFormat dateFormat = new SimpleDateFormat("MM");
-                    String dateOut = dateFormat.format(date);
-                    String[] timeArray = tempString[6].split(":", 3);
-                    String recurringFrame = tempString[10].substring(0, tempString[10].length() - 1);
-                     time = tempString[5] + "/" + dateOut + "/" + tempString[8] + " " + timeArray[0] + ":" + timeArray[1] + "#" + recurringFrame;
+                    String month = dateFormat.format(date);
+                    String day = tempString[3];
+                    String[] timeArray = tempString[4].split(":", 3);
+                    String recurringFrame = prelimSplit[3].substring(3, prelimSplit[3].length() - 1);
+                    time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1] + "#" + recurringFrame + "#";
                 } else {
-                    time = tempString[3].substring(0, tempString[3].length() - 1);
+                    time = prelimSplit[2].substring(3, prelimSplit[2].length() - 1) + "#";
                 }
             }
             return time;
