@@ -81,4 +81,20 @@ public class Bar {
             barChart.add(chord.getChordString());
         }
     }
+
+    /**
+     * Returns a String representation of the Bar to be used in persistent storage.
+     *
+     * @return a storage-friendly String representation
+     */
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("[").toString();
+        for (Chord chord: chords) {
+            result.append(chord.toString()).append(",");
+        }
+        result.append("]");
+        return result.toString();
+    }
+
 }

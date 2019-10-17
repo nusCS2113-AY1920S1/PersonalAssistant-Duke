@@ -45,4 +45,22 @@ public class Chord {
             this.chordString += ("- ");
         }
     }
+
+    /**
+     * Returns a String representation for the Chord to be used in persistent storage.
+     *
+     * @return a storage-friendly String representation
+     */
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        for (int i = 0; i < notes.size(); i++) {
+            result.append(notes.get(i).toString());
+            if (i != notes.size() - 1) {
+                result.append(";");
+            }
+        }
+        return result.toString();
+    }
+
 }

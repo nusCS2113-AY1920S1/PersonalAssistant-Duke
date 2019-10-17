@@ -58,10 +58,10 @@ public class AddOverlayCommand extends Command<SongList> {
                 ArrayList<Bar> barList = song.getBars();
 
                 Bar overlayingBar = barList.get(barIndexToAdd);
-                System.out.println("adjjdsa");
+                //System.out.println("adjjdsa");
                 ArrayList<Chord> chordsToAdd = overlayingBar.getChords();
-                System.out.print("sections length ");
-                System.out.println(sections.length);
+                //System.out.print("sections length ");
+                //System.out.println(sections.length);
                 if (sections.length > 2 && sections[2].equals("repeat")) {
                     for (Bar temp : barList) {
                         ArrayList<Chord> tempChordList = temp.getChords();
