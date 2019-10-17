@@ -369,6 +369,15 @@ public class Process {
                 Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
                 ui.printAddPayeeMessage(splitpayments[1], payee);
             }
+            else if(splitspace[1].startsWith("delete")){
+                String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
+                splitpayments = cleanStrStr(splitpayments);
+                String payeename = splitpayments[1];
+                String email = splitpayments[2];
+                String matricNum = splitpayments[3];
+                String phoneNum = splitpayments[4];
+                Payee payee = PaymentManager.deletePayee(payeename, email, matricNum, phoneNum, managermap);
+            }
             //TODO --> delete payee
             //TODO --> edit payee
 
