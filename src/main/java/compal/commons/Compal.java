@@ -1,7 +1,8 @@
 package compal.commons;
 
 import compal.model.tasks.Task;
-import compal.storage.StorageManager;
+import compal.storage.TaskStorageManager;
+import compal.storage.UserStorageManager;
 import compal.ui.UiPart;
 import compal.logic.parser.ParserManager;
 import compal.storage.Storage;
@@ -22,7 +23,8 @@ public class Compal {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     //objects supporting COMPal.Compal
     public UiPart ui;
-    public Storage storage;
+    public TaskStorageManager taskStorage;
+    public UserStorageManager userStorage;
     public TaskList tasklist;
     public ParserManager parser;
     //----------------------->
@@ -41,10 +43,12 @@ public class Compal {
         //Instantiate objects
         tasklist = new TaskList(this);
 
-        storage = new StorageManager();
+        userStorage = new UserStorageManager("./prefs.txt");
+        taskStorage = new TaskStorageManager("./tasks.txt");
+
 
         tasklist.arrlist = new ArrayList<>();
-        tasklist.arrlist = storage.loadCompal();
+        tasklist.arrlist = taskStorage.loadData();
 
         ui = new UiPart(this, tasklist.arrlist);
 

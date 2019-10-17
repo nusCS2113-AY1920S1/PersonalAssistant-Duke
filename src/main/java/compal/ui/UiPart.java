@@ -386,7 +386,7 @@ public class UiPart {
             printg("Hello! I'm Compal!!", "verdana", 23, Color.BLACK);
             printg("What is your name?");
         } else {
-            username = compal.storage.getUserName();
+            username = compal.userStorage.loadData();
             printg("Hello again "
                     + username
                     + "! ", "verdana", 15, Color.BLACK);
@@ -414,7 +414,7 @@ public class UiPart {
             if (value.matches("(y|Y).*")) {
                 printg("Hello " + username + "! Great to meet you!");
                 compal.parser.setStatus("normal");
-                compal.storage.storeUserName(username); //save the user's name
+                compal.userStorage.saveData(username); //save the user's name
                 break;
             } else {
                 printg("Okay, what is your name then?");

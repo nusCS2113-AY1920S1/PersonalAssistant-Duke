@@ -44,7 +44,7 @@ public class DoneCommand extends Command implements CommandParser {
                 taskList.arrlist.get(toMark).markAsDone();
                 String desc = taskList.arrlist.get(toMark).toString();
                 compal.ui.printg("Nice! I've marked this task as done: \n" + desc);
-                compal.storage.saveCompal(taskList.arrlist);
+                compal.taskStorage.saveData(taskList.arrlist);
                 compal.ui.secondaryScreenRefresh(taskList.arrlist.get(toMark).getDate());
             } else {
                 compal.ui.printg(MESSAGE_INVALID_TASK_NUMBER);

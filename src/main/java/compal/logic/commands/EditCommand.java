@@ -70,6 +70,6 @@ public class EditCommand extends Command implements CommandParser {
         }
 
         //save the changes
-        compal.storage.saveCompal(compal.tasklist.arrlist);
+        compal.taskStorage.saveData(compal.tasklist.arrlist);
     }
 }

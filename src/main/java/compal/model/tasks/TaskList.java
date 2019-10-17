@@ -74,7 +74,7 @@ public class TaskList {
 
         arrlist.add(task);
         sortTask(arrlist);
-        compal.storage.saveCompal(arrlist);
+        compal.taskStorage.saveData(arrlist);
         /*if (compal.ui.dateState.equals(task.getStringDate())) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }*/

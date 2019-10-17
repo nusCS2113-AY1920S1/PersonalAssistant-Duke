@@ -62,7 +62,7 @@ public class DeleteCommand extends Command implements CommandParser {
             taskList.removeTask(indexToRemove);
             compal.ui.secondaryScreenRefresh(removeDate);
             compal.ui.printg("Noted. I've removed this task:\n" + removeDesc);
-            compal.storage.saveCompal(taskList.arrlist);
+            compal.taskStorage.saveData(taskList.arrlist);
             compal.ui.showSize();
 
 

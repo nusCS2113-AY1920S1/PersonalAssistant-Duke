@@ -17,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static compal.model.tasks.Task.Priority.high;
 
-public class StorageManagerTest {
+public class TaskStorageManagerTest {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String userPreferencesFilePath = "./prefs.txt";
 
-    private StorageManager sm;
+    private TaskStorageManager sm;
     private String description = "Test content";
     private String date = "01/10/2019";
     private Task.Priority priority = high;
@@ -39,7 +39,7 @@ public class StorageManagerTest {
      */
     @BeforeEach
     public void setUp() {
-        sm = new StorageManager();
+        sm = new TaskStorageManager();
         deadline = new Deadline(description, priority, date, endTime);
         event = new Event(description, priority, date, startTime, endTime);
     }
