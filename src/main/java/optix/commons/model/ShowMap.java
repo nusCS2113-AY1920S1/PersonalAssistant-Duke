@@ -23,6 +23,8 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         return this.get(key).getShowName();
     }
 
+    //// Commands that deals with shows
+
     public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
         Theatre theatre = new Theatre(showName, seatBasePrice);
         this.put(showDate, theatre);
@@ -131,7 +133,8 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
             ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
             for (Map.Entry<LocalDate, Theatre> entry : this.entrySet()) {
                 if (entry.getValue().hasSameName(show.trim())) {
-                    String showDescription = entry.getKey().toString() + ' ' + entry.getValue().getShowName();
+                    String showDescription = entry.getValue().getShowName() + ' '
+                            + formatter.toStringDate(entry.getKey());
                     entryArrayList.add(entry);
                     deletedShows.add(showDescription);
                     isFound = true;
@@ -162,5 +165,11 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         }
 
         return message.toString();
+    }
+
+    //// Command that deals with seats
+
+    public String sellSeats(LocalDate localDate, String... seats) {
+        return this.get(localDate).sellSeats(seats);
     }
 }

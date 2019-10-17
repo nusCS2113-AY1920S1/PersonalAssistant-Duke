@@ -29,8 +29,8 @@ class DeleteAllCommandTest {
         testCommand.execute(model, ui, storage);
         String expected = "__________________________________________________________________________________\n"
                 + "Noted. These are the deleted entries:\n"
-                + "2020-05-05 Test Show 1\n"
-                + "2020-05-06 Test Show 2\n"
+                + "Test Show 1 05/05/2020\n"
+                + "Test Show 2 06/05/2020\n"
                 + "Sorry, these shows were not found:\n"
                 + "Intentionally missing show\n"
                 + "__________________________________________________________________________________\n";

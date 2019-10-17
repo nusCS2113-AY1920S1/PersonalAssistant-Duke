@@ -43,6 +43,8 @@ public class Model {
         return shows.containsKey(key);
     }
 
+    //// Commands that deals with Shows
+
     public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
         shows.addShow(showName, showDate, seatBasePrice);
     }
@@ -73,5 +75,10 @@ public class Model {
 
     public String deleteShow(String[] showNames) {
         return shows.deleteShow(showNames);
+    }
+
+    //// Commands that deals with Seats.
+    public String sellSeats(LocalDate localDate, String... seats) {
+        return shows.sellSeats(localDate, seats);
     }
 }
