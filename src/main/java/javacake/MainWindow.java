@@ -51,26 +51,20 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        try {
-            scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-            rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
-            topBar.getChildren().add(TopBar.setTitle());
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
+        topBar.getChildren().add(TopBar.setTitle());
 
-            if (duke.isFirstTimeUser) {
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(Ui.showWelcomeMsgA(duke.isFirstTimeUser), dukeImage)
-                );
-            } else {
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(
-                                Ui.showWelcomeMsgA(duke.isFirstTimeUser)
-                                        + Ui.showWelcomeMsgB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
-                                dukeImage)
-                );
-            }
-        } catch (DukeException e) {
+        if (duke.isFirstTimeUser) {
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
+                    DialogBox.getDukeDialog(Ui.showWelcomeMsgA(duke.isFirstTimeUser), dukeImage)
+            );
+        } else {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(
+                            Ui.showWelcomeMsgA(duke.isFirstTimeUser)
+                                    + Ui.showWelcomeMsgB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
+                            dukeImage)
             );
         }
     }
@@ -132,6 +126,7 @@ public class MainWindow extends AnchorPane {
                 }
                 if (response.contains("!@#_QUIZ")) {
                     isQuiz = true;
+                    System.out.println(response);
                     response = getFirstQn(response);
                 }
                 dialogContainer.getChildren().add(
