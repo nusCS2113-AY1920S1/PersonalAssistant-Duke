@@ -7,13 +7,14 @@ import moomoo.task.TransactionList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
 import moomoo.task.Parser;
+import moomoo.task.Category;
 
 /**
  * Runs MooMoo.
  */
 public class MooMoo {
     private Storage storage;
-    private TransactionList transList;
+    private Category category;
     private CategoryList categoryList;
     private Budget budget;
     public ScheduleList calendar;
@@ -34,13 +35,14 @@ public class MooMoo {
             categoryList = new CategoryList();
         }
 
+        /*
         try {
-            transList = new TransactionList(storage.loadTransactions());
+            category = new Category(storage.loadExpenditures());
         } catch (MooMooException e) {
             ui.printException(e);
             ui.showResponse();
-            transList = new TransactionList();
-        }
+            //category = new Category();
+        }*/
 
         try {
             budget = new Budget(storage.loadBudget(categoryList));
@@ -69,8 +71,8 @@ public class MooMoo {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand, ui);
+                c.execute(calendar, budget, categoryList, category, ui, storage);
 
-                c.execute(calendar, budget, categoryList, transList, ui, storage);
                 if (!ui.printResponse().equals("")) {
                     ui.showResponse();
                 }
@@ -93,7 +95,9 @@ public class MooMoo {
         boolean isExit = false;
         try {
             Command c = Parser.parse(input, ui);
+            c.execute(calendar, budget, categoryList, category, ui, storage);
             c.execute(calendar, budget, categoryList, transList, ui, storage);
+
             isExit = c.isExit;
             if (isExit) {
                 ui.showGoodbye();

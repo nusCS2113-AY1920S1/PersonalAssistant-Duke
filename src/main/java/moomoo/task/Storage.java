@@ -21,18 +21,18 @@ import java.util.Map;
 public class Storage {
     private DecimalFormat df;
     private String budgetFilePath;
-    private String transactionFilePath;
+    private String expenditureFilePath;
     private String categoryFilePath;
 
     /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
-     * @param transactionFilePath File path to store all transactions
+     * @param expenditureFilePath File path to store all expenditures
      * @param categoryFilePath File path to store all categories
      */
-    public Storage(String budgetFilePath, String transactionFilePath, String categoryFilePath) {
+    public Storage(String budgetFilePath, String expenditureFilePath, String categoryFilePath) {
         this.budgetFilePath = budgetFilePath;
-        this.transactionFilePath = transactionFilePath;
+        this.expenditureFilePath = expenditureFilePath;
         this.categoryFilePath = categoryFilePath;
         df = new DecimalFormat("#.00");
     }
@@ -49,14 +49,14 @@ public class Storage {
     }
 
     /**
-     * Loads in transactions from an existing file into a created ArrayList object.
-     * @return ArrayList object consisting of the transactions read from the file.
+     * Loads in expenditures from an existing file into a created ArrayList object.
+     * @return ArrayList object consisting of the expenditures read from the file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public ArrayList<Expenditure> loadTransactions() throws MooMooException {
-        ArrayList<Expenditure> transactionArrayList = new ArrayList<Expenditure>();
+    public ArrayList<Expenditure> loadExpenditures() throws MooMooException {
+        ArrayList<Expenditure> expenditureArrayList = new ArrayList<Expenditure>();
 
-        return transactionArrayList;
+        return expenditureArrayList;
     }
 
     /**

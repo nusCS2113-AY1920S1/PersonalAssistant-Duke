@@ -5,7 +5,6 @@ import moomoo.task.Category;
 import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
-import moomoo.task.TransactionList;
 import moomoo.task.ScheduleList;
 import moomoo.task.Ui;
 
@@ -33,14 +32,14 @@ public class BudgetCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, TransactionList transList,
-                        Ui ui, Storage storage)
+
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
             throws MooMooException {
         try {
             if (input.length() == 6) {
-                manageBudgetPrompt(budget, catList, transList, ui, storage);
+                manageBudgetPrompt(budget, catList, category, ui, storage);
             } else {
-                manageBudget(budget, catList, transList, ui, storage);
+                manageBudget(budget, catList, category, ui, storage);
             }
         } catch (MooMooException e) {
             throw new MooMooException(e.getMessage());
@@ -69,32 +68,32 @@ public class BudgetCommand extends Command {
      *
      * @param budget    Budget object containing the budget.
      * @param catList   CategoryList object containing the categories
-     * @param transList TransactionList object containing transactions within each category.
+     * @param category Category object containing expenditures within each category.
      * @param ui        Ui object for interaction with user interface.
      * @param storage   Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    private void manageBudget(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    private void manageBudget(Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
             throws MooMooException {
         input = input.substring(7);
         String outputValue = "";
         if (input.startsWith("set ")) {
             input = input.substring(4);
             String[] splitInput = input.split(" ");
-            String category = "";
+            String cat = "";
             boolean reset = false;
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
-                        category = splitInput[i].substring(2);
+                        cat = splitInput[i].substring(2);
                         if (splitInput[i + 1].startsWith("b/")) {
-                            if (!inCategoryList(category, catList)) { //check if category exists.
+                            if (!inCategoryList(cat, catList)) { //check if category exists.
                                 throw new MooMooException(category + " does not exist. Please create it first.");
                             }
                         }
                     } else {
                         if (!reset) {
-                            category += " " + splitInput[i];
+                            cat += " " + splitInput[i];
                             continue;
                         }
                         throw new MooMooException("Please place the category before the budget "
@@ -103,13 +102,13 @@ public class BudgetCommand extends Command {
                 } else {
                     if (splitInput[i].startsWith("b/")) {
                         reset = true;
-                        if (!inCategoryList(category, catList)) {
+                        if (!inCategoryList(cat, catList)) {
                             throw new MooMooException(category + " does not exist. Please create it first.");
                         }
-                        outputValue += addBudget(budget, splitInput[i].substring(2), category);
+                        outputValue += addBudget(budget, splitInput[i].substring(2), cat);
                     } else {
                         if (!reset) {
-                            category += " " + splitInput[i];
+                            cat += " " + splitInput[i];
                             continue;
                         }
                         throw new MooMooException("Please place the category before the budget "
@@ -127,21 +126,21 @@ public class BudgetCommand extends Command {
         } else if (input.startsWith("edit ")) {
             input = input.substring(5);
             String[] splitInput = input.split(" ");
-            String category = "";
+            String cat = "";
             boolean reset = false;
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
-                        category = splitInput[i].substring(2);
+                        cat = splitInput[i].substring(2);
                         if (splitInput[i + 1].startsWith("b/")) {
-                            if (!inCategoryList(category, catList)) { //check if category exists.
+                            if (!inCategoryList(cat, catList)) { //check if category exists.
                                 throw new MooMooException("The " + category
                                         + " does not exist. Please create it first.");
                             }
                         }
                     } else {
                         if (!reset) {
-                            category += " " + splitInput[i];
+                            cat += " " + splitInput[i];
                             continue;
                         }
                         throw new MooMooException("Please place the category before the budget and "
@@ -150,19 +149,19 @@ public class BudgetCommand extends Command {
                 } else {
                     if (splitInput[i].startsWith("b/")) {
                         reset = true;
-                        if (!inCategoryList(category, catList)) {
+                        if (!inCategoryList(cat, catList)) {
                             throw new MooMooException(category + " does not exist. Please create it first.");
                         }
-                        if (budget.getBudgetFromCategory(category) == 0) {
+                        if (budget.getBudgetFromCategory(cat) == 0) {
                             throw new MooMooException("The budget for " + category + " does not exist."
                                     + " Please set it using budget set.");
                         }
 
-                        outputValue += editBudget(budget, splitInput[i].substring(2), category);
+                        outputValue += editBudget(budget, splitInput[i].substring(2), cat);
 
                     } else {
                         if (!reset) {
-                            category += " " + splitInput[i];
+                            cat += " " + splitInput[i];
                             continue;
                         }
                         throw new MooMooException("Please place the category before the budget "
@@ -186,27 +185,27 @@ public class BudgetCommand extends Command {
             } else {
                 input = input.substring(5);
                 String[] splitInput = input.split(" ");
-                String category = "";
+                String cat = "";
                 boolean reset = false;
                 for (int i = 0; i < splitInput.length; ++i) {
                     if (splitInput[i].startsWith("c/")) {
                         if (i > 0) {
                             reset = true;
                         }
-                        category = splitInput[i].substring(2);
+                        cat = splitInput[i].substring(2);
                         if (i < (splitInput.length - 1) && splitInput[i + 1].startsWith("c/")) {
-                            outputValue += addOutputValue(category, catList, budget);
+                            outputValue += addOutputValue(cat, catList, budget);
                         } else if (i == (splitInput.length - 1)) {
-                            outputValue += addOutputValue(category, catList, budget);
+                            outputValue += addOutputValue(cat, catList, budget);
                         }
                     } else {
                         if (!reset) {
-                            category += " " + splitInput[i];
+                            cat += " " + splitInput[i];
                         }
                         if (i < (splitInput.length - 1) && splitInput[i + 1].startsWith("c/")) {
-                            outputValue += addOutputValue(category, catList, budget);
+                            outputValue += addOutputValue(cat, catList, budget);
                         } else if (i == (splitInput.length - 1)) {
-                            outputValue += addOutputValue(category, catList, budget);
+                            outputValue += addOutputValue(cat, catList, budget);
 
                         }
                     }
@@ -269,12 +268,12 @@ public class BudgetCommand extends Command {
      *
      * @param budget    Budget object containing the budget.
      * @param catList   CategoryList object containing the categories
-     * @param transList TransactionList object containing transactions within each category.
+     * @param category Category object containing expenditures within each category.
      * @param ui        Ui object for interaction with user interface.
      * @param storage   Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    private void manageBudgetPrompt(Budget budget, CategoryList catList, TransactionList transList, Ui ui,
+    private void manageBudgetPrompt(Budget budget, CategoryList catList, Category category, Ui ui,
                                     Storage storage) throws MooMooException {
         String initialInput = "Please select a job to do (1 - 4):\n1. set (sets budget)\n2. edit (changes budget)\n"
                 + "3. list (view budget)\n4. savings (view savings per month)\n5. exit";
@@ -284,14 +283,14 @@ public class BudgetCommand extends Command {
             try {
                 switch (Integer.parseInt(command)) {
                 case 1:
-                    String category = initialPrompt(catList, ui, budget,
+                    String cat = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to set the budget for, "
                                     + "type 0 to exit.");
                     while (!category.equals("0")) {
-                        if (!inCategoryList(category, catList)) {
+                        if (!inCategoryList(cat, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            cat = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to set the budget for, "
                                             + "type 0 to exit.");
                             continue;
@@ -300,10 +299,10 @@ public class BudgetCommand extends Command {
                         inputVal = "\nPlease type in the budget that you would like to set for " + category;
                         String inputBudget = ui.confirmPrompt(inputVal);
 
-                        ui.setOutput(addBudget(budget, inputBudget, category));
+                        ui.setOutput(addBudget(budget, inputBudget, cat));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        cat = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to set the budget for, "
                                         + "type 0 to exit.");
                     }
@@ -318,15 +317,15 @@ public class BudgetCommand extends Command {
                         continue;
                     }
 
-                    category = initialPrompt(catList, ui, budget,
+                    cat = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to change the budget for, "
                                     + "type 0 to exit");
 
                     while (!category.equals("0")) {
-                        if (!inCategoryList(category, catList)) {
+                        if (!inCategoryList(cat, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            cat = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to change the budget for, "
                                             + "type 0 to exit.");
                             continue;
@@ -334,10 +333,10 @@ public class BudgetCommand extends Command {
                         inputVal = "Please type in the budget that you would like to change to for " + category;
                         String inputBudget = ui.confirmPrompt(inputVal);
 
-                        ui.setOutput(editBudget(budget, inputBudget, category));
+                        ui.setOutput(editBudget(budget, inputBudget, cat));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        cat = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to change the budget for, "
                                         + "type 0 to exit.");
                     }
@@ -352,7 +351,7 @@ public class BudgetCommand extends Command {
                         continue;
                     }
 
-                    category = initialPrompt(catList, ui, budget,
+                    cat = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to view the budget for, "
                                     + "type 0 to exit or leave blank to view all categories.");
 
@@ -360,25 +359,25 @@ public class BudgetCommand extends Command {
                         if (category.equals("")) {
                             ui.setOutput(budget.toString().substring(0, budget.toString().length() - 1));
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            cat = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to view the budget for, "
                                             + "type 0 to exit or leave blank to view all categories.");
                             continue;
                         }
 
-                        if (!inCategoryList(category, catList)) {
+                        if (!inCategoryList(cat, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            cat = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to view the budget for, "
                                             + "type 0 to exit or leave blank to view all categories.");
                             continue;
                         }
 
-                        ui.setOutput(budget.toStringCategory(category));
+                        ui.setOutput(budget.toStringCategory(cat));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        cat = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to view the budget for, "
                                         + "type 0 to exit or leave blank to view all categories.");
                     }
@@ -391,15 +390,15 @@ public class BudgetCommand extends Command {
                         inputVal = initialInput;
                         continue;
                     }
-                    category = initialPrompt(catList, ui, budget,
+                    cat = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to view your savings for, "
                                     + "type 0 to exit or leave it blank to view all.");
 
                     while (!category.equals("0")) {
-                        if (!category.equals("") && !inCategoryList(category, catList)) {
+                        if (!category.equals("") && !inCategoryList(cat, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            cat = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to view your savings for, "
                                             + "type 0 to exit or leave it blank to view all.");
                             continue;
@@ -411,10 +410,10 @@ public class BudgetCommand extends Command {
                         inputVal = "Please type in the end period or leave blank to view for a month (10/2019).";
                         String endMonth = ui.confirmPrompt(inputVal);
 
-                        ui.setOutput(viewSavings(budget, ui, catList, startMonth, endMonth, category, null));
+                        ui.setOutput(viewSavings(budget, ui, catList, startMonth, endMonth, cat, null));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        cat = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to view your savings for, "
                                         + "type 0 to exit or leave it blank to view all.");
                     }
