@@ -67,4 +67,45 @@ Switch <.. ArgCommand
 Switch "0..*" <-- ArgSpec
 ArgCommand *-- "1" ArgSpec : < specifies parameters of
 
+class Parser {
+    -commands : Commands
+    -currCommand : ArgCommand 
+    -elementBuilder : StringBuilder 
+    -state : ParseState 
+    -currSwitchName : String 
+    -isEscaped : boolean 
+    -switchMap : Map<String, Switch> 
+    -switchVals : HashMap<String, String>
+    +Parser(Commands commands)   
+    +Parser()   
+    +parse(String inputStr) : Command
+    -parseArgument(String inputStr) : void
+    -handleEmpty() : void
+    -handleArg() : void
+    -handleString() : void
+    -handleSwitch() : void
+    -writeElement() : void
+    -addSwitch() : void
+    -checkInputAllowed() : void
+    -checkCommandValid() : void
+}
+
+class ParseState <<enumeration>> {
+    EMPTY
+    ARG
+    STRING
+    SWITCH
+}
+
+class CommandHelpers {
+    {static} +findSwitch(String word, ArgCommand command) : String
+    {static} +disambiguate(String word, ArrayList<String> suggestions,\nSet<String> valid) : String
+    {static} -stringDistance(String str1, String str2) : int
+}
+
+ParseState <.. Parser
+Switch <.. Parser
+ArgCommand <.. Parser
+CommandHelpers <.. Parser
+
 @enduml

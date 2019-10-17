@@ -80,7 +80,7 @@ public class CommandHelpers {
      * @param str2 The second string to compare.
      * @return The hybrid Damerau-Levenshtein distance between str1 and str2.
      */
-    private int stringDistance(String str1, String str2) {
+    private static int stringDistance(String str1, String str2) {
         return 0;
     }
 }
