@@ -3,10 +3,8 @@ package dolla;
 
 //import dolla.task.;
 
-import dolla.task.Debt;
-import dolla.task.LogList;
-import dolla.task.Entry;
-import dolla.task.Task;
+
+import dolla.task.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -198,7 +196,7 @@ public class Ui {
 
     /**
      * Prints error message when LogNum is not associated to a task.
-     * @param taskNum The Log number that does not exist in the specific list.
+     * @param index The Log number that does not exist in the specific list.
      * @param mode The mode where the list is to be accessed.
      */
     public static void printNoLogAssocError(int index, String mode) {
@@ -281,7 +279,6 @@ public class Ui {
         System.out.println(line);
     }
 
-
     // public static void printList(String mode, LogList entryList) {
 
     /**
@@ -298,6 +295,22 @@ public class Ui {
             System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
         }
         System.out.println(line);
+    }
+
+    public static void printSortedList(ArrayList<Log> list,String type) {
+        System.out.println(line);
+        if (type.equals("date")) {
+            System.out.println("sorting date.........");
+        } else if (type.equals("description")) {
+            System.out.println("sorting description.........");
+        } else if (type.equals("name")) {
+            System.out.println("sorting name.........");
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            int listNum = i + 1;
+            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+        }
     }
 
     public static void printInvalidModifyFormatError() {

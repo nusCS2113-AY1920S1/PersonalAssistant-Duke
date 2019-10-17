@@ -1,6 +1,7 @@
 package dolla.task;
 
-import dolla.Log;
+import dolla.task.Log;
+import dolla.Storage;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class LogList {
 
     public void add(Log newLog) {
         list.add(newLog);
+//        Storage.setEntries(get()); //save
     }
 
     public int size() {

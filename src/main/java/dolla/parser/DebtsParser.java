@@ -1,12 +1,11 @@
 package dolla.parser;
 
 import dolla.Ui;
-import dolla.command.AddDebtsCommand;
-import dolla.command.Command;
-import dolla.command.ErrorCommand;
-import dolla.command.ShowListCommand;
+import dolla.command.*;
+import dolla.task.LogList;
 
 public class DebtsParser extends Parser {
+    private static LogList debtList;
 
     public DebtsParser(String inputLine) {
         super(inputLine);
@@ -31,6 +30,8 @@ public class DebtsParser extends Parser {
                 return new ErrorCommand();
             }
             return new AddDebtsCommand(type, name, amount, description);
+        } else if (commandToRun.equals("sort")) {
+            return new SortCommand(mode, inputArray[1]);
         } else {
             return invalidCommand();
         }

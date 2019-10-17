@@ -18,6 +18,8 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
             } else {
                 return new ErrorCommand();
             }
+        } else if (commandToRun.equals("sort")) {
+            return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("modify")) {
             if (verifyModifyCommand() == true) {
                 return new InitialModifyCommand(inputArray[1]);

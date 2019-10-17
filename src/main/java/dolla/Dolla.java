@@ -1,12 +1,16 @@
 package dolla;
 
 import dolla.command.Command;
+import dolla.task.EntryList;
+import dolla.task.LogList;
 import dolla.task.Task;
 import dolla.task.TaskList;
 import dolla.parser.MainParser;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static dolla.Storage.load;
 
 /**
  * <h1>duke.Dolla</h1>
@@ -20,12 +24,13 @@ public class Dolla {
 
     private TaskList tasks = new TaskList(new ArrayList<Task>());
     private DollaData dollaData = new DollaData();
-
+//    Storage storage = new Storage();
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */
     public Dolla() {
         //tasks = new TaskList(Storage.load());
+        load(); //load from save
     }
 
     /**
@@ -47,7 +52,6 @@ public class Dolla {
                 } else {
                     Command c = MainParser.handleInput(dollaData.getMode(), inputLine);
                     c.execute(dollaData);
-                    //Storage.save(tasks.get());
                 }
             }
         }
