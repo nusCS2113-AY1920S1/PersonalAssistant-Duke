@@ -7,6 +7,7 @@ import dolla.task.LogList;
 import parser.DollaParser;
 import parser.MainParser;
 import dolla.task.Entry;
+import dolla.task.Log;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -25,7 +26,7 @@ import java.util.Arrays;
  */
 public class Storage {
 
-    protected static ArrayList<Entry> entries = new ArrayList<Entry>();
+    protected static ArrayList<Log> entries = new ArrayList<Log>();
     protected static ArrayList<Log> limits = new ArrayList<Log>();
     protected static ArrayList<Log> debts = new ArrayList<Log>();
     protected static ArrayList<Log> shortcuts = new ArrayList<Log>();
@@ -108,7 +109,7 @@ public class Storage {
 //                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
 //                    break;
-//                case "B"://must include 3 additional word, every,for and tag
+//                case "BU"://must include 3 additional word, every,for and tag
 //                    if(inArray[3].equals("every")) {
 //                        newLog = new budgetEvery(inArray[1],Time.readDate(inArray[2]));
 //                    } else if (inArray[3].equals("for")) {
@@ -176,7 +177,7 @@ public class Storage {
 //        return list;
     }
 
-    public static ArrayList<Entry> getEntriesFromSave() {
+    public static ArrayList<Log> getEntriesFromSave() {
         return entries;
     }
 
@@ -192,7 +193,7 @@ public class Storage {
         return shortcuts;
     }
 
-    public static void setEntries(ArrayList<Entry> entries) {
+    public static void setEntries(ArrayList<Log> entries) {
         Storage.entries = entries;
         save();
     }
@@ -226,7 +227,7 @@ public class Storage {
     public static void save() {
         try (FileWriter file = new FileWriter("./data/duke.txt")) {
 
-            for (Entry currEntries : entries) {
+            for (Log currEntries : entries) {
                 String fileContent = currEntries.formatSave();
                 file.write(fileContent);
                 file.write(System.lineSeparator());

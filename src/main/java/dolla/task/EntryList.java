@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.Log;
+import dolla.task.Log;
 import dolla.Storage;
 import sort.Sort;
 

@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.Log;
+import dolla.task.Log;
 import dolla.Time;
 
 import java.time.LocalDateTime;
@@ -13,8 +13,7 @@ public class Entry extends Log{
     protected String type;
     protected String saveType;
     protected double amount;
-    protected String description;
-    protected LocalDateTime date;
+
 
     /**
      * Creates an instance of Entry.
@@ -35,13 +34,6 @@ public class Entry extends Log{
         return "$" + amount;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 
     /**
      * Returns a string to with information about the entry to be displayed

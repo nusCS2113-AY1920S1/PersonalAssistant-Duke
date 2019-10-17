@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Log;
+import dolla.task.Log;
 import dolla.Ui;
 import dolla.task.*;
 
@@ -25,12 +25,13 @@ public class ShowListCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
 //        LogList logList = new LogList(new ArrayList<Log>());
-        EntryList entryList = new EntryList(new ArrayList<Entry>());
+        LogList entryList = new EntryList(new ArrayList<Entry>());
 
         switch (mode) {
         case "entries":
 //            logList = dollaData.entryList;
-            entryList = dollaData.entryList;
+//            entryList = dollaData.entryList;
+            entryList = dollaData.getLogList(mode);
             break;
         default:
             break; // TODO: What to do here?
@@ -43,7 +44,7 @@ public class ShowListCommand extends Command {
             Ui.printEmptyListError(mode);
             return;
         } else if (mode.equals("entries")) {
-            Ui.printList(mode, dollaData.getEntryList());
+            Ui.printList(mode, entryList);
             return;
         }
 

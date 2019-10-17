@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.Log;
+import dolla.task.Log;
 import dolla.Storage;
 
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ public abstract class LogList {
         this.list = importEntryList;
         //this.list = new ArrayList<Log>(); // TODO: UPDATE!
     }
-
 
     public ArrayList<Log> get() {
         return list;

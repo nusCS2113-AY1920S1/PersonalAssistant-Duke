@@ -2,6 +2,7 @@ package dolla;
 
 import dolla.task.Entry;
 import dolla.task.EntryList;
+import dolla.task.LogList;
 import dolla.task.Task;
 import sort.Sort;
 import sort.SortDate;
@@ -258,14 +259,14 @@ public class Ui {
         System.out.println(line);
     }
 
-    public static void printList(String mode, EntryList entryList) {
+    public static void printList(String mode, LogList logList) {
         System.out.println(line);
         System.out.println("\tHere are the " + mode + " that you have added:");
-        for (int i = 0; i < entryList.size(); i++) {
+        for (int i = 0; i < logList.size(); i++) {
             int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + entryList.get().get(i).getLogText());
+//            System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
         }
         System.out.println(line);
-        new SortDescription().sortEntry(entryList.get());
+//        new SortDescription().sortEntry(entryList.get());
     }
 }

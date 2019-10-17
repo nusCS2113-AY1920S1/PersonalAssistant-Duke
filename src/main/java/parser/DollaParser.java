@@ -15,20 +15,20 @@ public class DollaParser extends Parser {
     public Command handleInput(String mode, String inputLine) {
 
         if (commandToRun.equals("add")) {
-            String entryType = null;
-            double amount = 0.0;
-            try {
-                entryType = verifyType(inputArray[1]);
+            if (verifyAddCommand() == true) {
+                /*
+                String entryType = null;
+                double amount = 0.0;
+                entryType = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
-                splitDescTime();
-            } catch (IndexOutOfBoundsException e) {
-                Ui.printInvalidEntryFormatError();
+                return new AddEntryCommand(entryType, amount, description, date);
+                 */
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date);
+                // TODO: ^ Check which is the proper way to write oop
+            } else {
                 return new ErrorCommand();
-            } catch (Exception e) {
-                return new ErrorCommand(); // If error occurs, stop the method!
             }
 
-            return new AddEntryCommand(entryType, amount, description, date);
 
             /*
             switch(commandToRun) {
@@ -45,6 +45,12 @@ public class DollaParser extends Parser {
         }
     }
 
+    /**
+     * Checks if the first word after 'add' is either 'income' or 'expense'.
+     * @param s String to be analysed.
+     * @return Either 'expense' or 'income' if either are passed in.
+     * @throws Exception
+     */
     private String verifyType(String s) throws Exception {
         if (s.equals("income") || s.equals("expense")) {
             return s;
@@ -52,5 +58,25 @@ public class DollaParser extends Parser {
             Ui.printInvalidEntryType();
             throw new Exception("invalid type");
         }
+    }
+
+    /**
+     * Returns true if no error occurs while creating the required variables for 'addEntryCommand'.
+     * Also splits description and time components in the process.
+     * @return true if no error occurs.
+     */
+    private boolean verifyAddCommand() {
+        try {
+            verifyType(inputArray[1]);
+            stringToDouble(inputArray[2]);
+            splitDescTime();
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printInvalidEntryFormatError();
+            return false;
+        } catch (Exception e) {
+            return false; // If error occurs, stop the method!
+        }
+        System.out.println("Add command is ok");
+        return true;
     }
 }
