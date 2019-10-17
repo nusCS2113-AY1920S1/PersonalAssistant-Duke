@@ -110,7 +110,7 @@ public class ProgressStack {
             if (!isJarMode) { //non-jar
                 //System.out.println(filePath);
                 InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
-                System.out.println("hi" + inputStream.available());
+                //System.out.println("hi" + inputStream.available());
 
                 //listOfFiles = folder.listFiles();
                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
