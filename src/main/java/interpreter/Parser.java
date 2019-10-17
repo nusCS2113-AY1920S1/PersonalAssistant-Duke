@@ -40,6 +40,39 @@ public class Parser {
     }
 
     /**
+     * Parses the input to extract the primary input of the user-command.
+     * @param commandType CommandType of the user-command being parsed
+     * @param userInput String representing the user-command
+     * @return String representing the PrimaryInput of the user-command
+     */
+    public static String parseForPrimaryInput(CommandType commandType, String userInput) {
+        String primaryInput = Parser.removeStr(commandType.toString(), userInput);
+        if (primaryInput.contains("/")) {
+            primaryInput = primaryInput.substring(0, primaryInput.indexOf("/")).trim();
+        }
+        return primaryInput;
+    }
+
+    /**
+     * Parses the input to extract a particular flag from the user-command.
+     * @param flag String denoting the flag to be found
+     * @param userInput String representing the user-command
+     * @return String representing the flagDetails if flag is found, null otherwise
+     */
+    public static String parseForFlags(String flag, String userInput) {
+        flag = "/" + flag;
+        if (!userInput.contains(flag)) {
+            return null;
+        }
+        int indexFlag = userInput.indexOf(flag) + flag.length();
+        int indexEndFlag = userInput.indexOf("/", indexFlag);
+        if (indexEndFlag == -1) {
+            indexEndFlag = userInput.length();
+        }
+        return userInput.substring(indexFlag, indexEndFlag).trim();
+    }
+
+    /**
      * Abstract Function that searches for a specific Enum type given an Enum.
      * @param userInput The String to search
      * @param enumTypes String Array containing the Enum Types
