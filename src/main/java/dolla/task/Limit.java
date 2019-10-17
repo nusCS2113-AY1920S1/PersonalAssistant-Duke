@@ -1,6 +1,7 @@
 package dolla.task;
 
-import dolla.Log;
+import dolla.Time;
+import dolla.task.Log;
 import dolla.Ui;
 //import dolla.ui.LimitUi;
 
@@ -13,6 +14,7 @@ public class Limit extends Log {
     protected double amount;
     protected Duration duration;
     protected LimitList limitList;
+    protected String saveType;
 
     public enum LimitType {
         SAVING, BUDGET
@@ -87,4 +89,12 @@ public class Limit extends Log {
     }
 
     //remove
+
+    @Override
+    public String formatSave() {
+        saveType = type.equals("saving") ? "S" : "B";
+        return  saveType + " | "
+                + amount + " | "
+                + duration;
+    }
 }

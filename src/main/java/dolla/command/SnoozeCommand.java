@@ -63,7 +63,7 @@ public abstract class SnoozeCommand extends Command {
                 Ui.printErrorMsg();
             }
         } catch (IndexOutOfBoundsException e) {
-            Ui.printNoTaskAssocError(taskNumInt);
+            //Ui.printNoTaskAssocError(taskNumInt);
             return;
         }
     }

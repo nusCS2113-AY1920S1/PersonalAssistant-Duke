@@ -31,7 +31,7 @@ e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 .  Here are some example command you can try:
 * `entries` : List all the income and expense with the most recently added on the top
 * **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
-* **`set budget`**`/tag food $300` : set a budget for the user on the amount of money they can spend on food
+* **`set budget`**`$300 /tag food` : set a budget for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
 .  Refer to <<Features>> for the details of each command.
 
@@ -235,11 +235,11 @@ Example:
 
 Set expense budget on particular types of spending. +
 Format: +
-`*set budget* /tag [TAG] [AMOUNT]`
+`*set budget* [AMOUNT] /tag [TAG]`
 
 Example:
 
-* `set budget /tag bubble tea $20`
+* `set budget $20 /tag bubble tea`
 
 ==== Set target saving: `set saving`
 
@@ -411,8 +411,8 @@ e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /ta
 * *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
 * *set budget* `set budget [AMOUNT] /every [DURATION]` +
-* *set budget* `set budget /tag [TAG] [AMOUNT]` +
-e.g. `set budget /tag bubble tea $20`
+* *set budget* `set budget [AMOUNT] /tag [TAG]` +
+e.g. `set budget $20 /tag bubble tea`
 e.g. `set budget $50 every week`
 * *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`

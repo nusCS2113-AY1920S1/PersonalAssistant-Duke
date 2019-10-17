@@ -1,6 +1,5 @@
 package dolla.task;
 
-import dolla.Log;
 import dolla.Time;
 
 import java.time.LocalDateTime;
@@ -8,12 +7,12 @@ import java.time.LocalDateTime;
 /**
  * Entry is a Class that stores an instance of the user's expense or income.
  */
-public class Entry extends Log {
+public class Entry extends Log{
     protected char sign; // '+' for income, '-' for expense
     protected String type;
+    protected String saveType;
     protected double amount;
-    protected String description;
-    protected LocalDateTime date;
+
 
     /**
      * Creates an instance of Entry.
@@ -30,6 +29,11 @@ public class Entry extends Log {
         this.date = date;
     }
 
+    public String amountToMoney() {
+        return "$" + amount;
+    }
+
+
     /**
      * Returns a string to with information about the entry to be displayed
      * to the user.
@@ -43,8 +47,17 @@ public class Entry extends Log {
                 + "[/on " + Time.dateTimeToString(date) + "]";
     }
 
-    public String amountToMoney() {
-        return "$" + amount;
+    /**
+     * Returns a string with information about the entry to be saved.
+     * @return String with information of entry in saving format.
+     */
+    @Override
+    public String formatSave() {
+        saveType = type.equals("income") ? "I" : "E";
+        return  saveType + " | "
+                + amount + " | "
+                + description + " | "
+                + Time.dateTimeToString(date);
     }
 
     @Override

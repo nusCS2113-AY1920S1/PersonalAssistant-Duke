@@ -5,25 +5,21 @@ import java.util.ArrayList;
 /**
  * A class that contains methods regarding the Limit List.
  */
-public class LimitList {
+public class LimitList extends LogList {
 
-    protected ArrayList<Limit> BudgetList;
-    protected ArrayList<Limit> SavingList;
-
-    public LimitList(ArrayList<Limit> budgetList, ArrayList<Limit> savingList) {
-        this.BudgetList = budgetList;
-        this.SavingList = savingList;
+    public LimitList(ArrayList<Log> importEntryList) {
+        super(importEntryList);
     }
 
     /**
      * Method to search list for limits pertaining a certain input duration
-     * @param list
+     * @param list the list containing all the limits input by user
      */
-    public boolean limitFinder(ArrayList<Limit> list, Limit.Duration duration) {
+    public boolean limitFinder(ArrayList<Limit> list, Limit limit) {
         boolean limitIsFound = false;
         for (int i = 0; i < list.size(); i++) {
             Limit currLimit = list.get(i);
-            if (duration == currLimit.duration) {
+            if (limit.duration == currLimit.duration && limit.type == currLimit.type) {
                 limitIsFound = true;
             }
         }

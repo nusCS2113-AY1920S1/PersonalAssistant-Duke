@@ -1,9 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Log;
 import dolla.Ui;
-import dolla.task.Entry;
 import dolla.task.LogList;
 
 import java.util.ArrayList;
