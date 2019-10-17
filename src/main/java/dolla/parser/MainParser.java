@@ -52,7 +52,10 @@ public class MainParser {
         case "limits":
             LimitParser limitParser = new LimitParser(inputLine);
             //return limitParser.handleInput(mode, inputLine);
-            return new ErrorCommand();
+            return new ErrorCommand(); // catch
+        case "modify entry":
+            ModifyParser modifyParser = new ModifyParser(inputLine);
+            return modifyParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

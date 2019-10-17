@@ -50,6 +50,13 @@ public class DollaData {
         }
     }
 
+    public void modifyLogList(Log newLog) {
+        if (prevMode.equals("entry")) {
+            entryList.removeFromList(modifyIndex);
+            entryList.addWithIndex(modifyIndex, newLog);
+        }
+    }
+
     public String getMode() {
         return mode;
     }
@@ -61,5 +68,9 @@ public class DollaData {
     public void prepForModify(String prevMode, int index) {
         this.prevMode = prevMode;
         modifyIndex = index;
+    }
+
+    public int getModifyIndex() {
+        return modifyIndex;
     }
 }

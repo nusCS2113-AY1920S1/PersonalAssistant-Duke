@@ -118,7 +118,7 @@ public abstract class Parser {
         try {
             Integer.parseInt(inputArray[1]);
             // TODO: Add support for modifying specific catogories
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             Ui.printInvalidModifyFormatError();
             return false;
         }

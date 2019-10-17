@@ -201,9 +201,9 @@ public class Ui {
      * @param taskNum The Log number that does not exist in the specific list.
      * @param mode The mode where the list is to be accessed.
      */
-    public static void printNoLogAssocError(int taskNum, String mode) {
+    public static void printNoLogAssocError(int index, String mode) {
         System.out.println(line);
-        System.out.println("\t" + mode + " number "+ taskNum + " doesn't seem to exist in my records!");
+        System.out.println("\t" + mode + " number "+ index+1 + " doesn't seem to exist in my records!");
         System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }

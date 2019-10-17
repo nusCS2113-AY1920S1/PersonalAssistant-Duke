@@ -9,7 +9,7 @@ public class InitialModifyCommand extends Command {
     private int index;
 
     public InitialModifyCommand(String indexStr) {
-        this.index = Integer.parseInt(indexStr);
+        this.index = Integer.parseInt(indexStr)-1;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class InitialModifyCommand extends Command {
     }
 
     private boolean isIndexInList(LogList logList) {
-        if (index > logList.size()) {
+        if (index >= logList.size()) {
             return false;
         } else {
             return true;

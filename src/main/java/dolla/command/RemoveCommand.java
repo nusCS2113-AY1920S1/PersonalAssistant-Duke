@@ -46,7 +46,7 @@ public abstract class RemoveCommand extends Command {
             tasks.removeFromList(taskNumInt - 1);
             msg.add("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
-            Ui.printNoTaskAssocError(taskNumInt);
+            //Ui.printNoTaskAssocError(taskNumInt);
             return;
         }
         Ui.printMsg(msg);
