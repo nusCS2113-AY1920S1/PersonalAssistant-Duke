@@ -1,14 +1,1 @@
-<<<<<<< HEAD
-asljfnazdnkvn lkns
-
-ad;lfma
-da,gv ad;v
-alvclad v
-=======
-asljfnazdnkvn lkns
-
-ad;lfma
-da,gv ad;v
-alvclad v
->>>>>>> ed4e35485dbfed07c4d7337b51acfafacc82b2ac
- adk;
+4
