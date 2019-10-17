@@ -38,8 +38,8 @@ class ListCommandTest {
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
                 + "Here are the list of shows:\n"
-                + "1. dummy test 1 (on: 2020-05-05)\n"
-                + "2. dummy test 2 (on: 2020-05-06)\n"
+                + "1. dummy test 1 (on: 05/05/2020)\n"
+                + "2. dummy test 2 (on: 06/05/2020)\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
         filePath.deleteOnExit();

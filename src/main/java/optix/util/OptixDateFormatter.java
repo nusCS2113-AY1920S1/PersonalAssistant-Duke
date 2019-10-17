@@ -47,6 +47,17 @@ public class OptixDateFormatter {
     }
 
     /**
+     * Formate date from LocalDate to String.
+     * @param localDate YYYY-MM-DD.
+     * @return String for the date. Format: DD/MM/YYYY.
+     */
+    public String toStringDate(LocalDate localDate) {
+        String[] splitStr = localDate.toString().split("-", 3);
+
+        return String.format("%s/%s/%s", splitStr[2], splitStr[1], splitStr[0]);
+    }
+
+    /**
      * Checks if date given exists in calendar.
      *
      * @param date String input of the date.

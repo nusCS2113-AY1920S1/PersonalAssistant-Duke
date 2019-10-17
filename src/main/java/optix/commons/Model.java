@@ -51,4 +51,7 @@ public class Model {
         shows.editShowName(showDate, showName);
     }
 
+    public String listShow() {
+        return shows.listShow();
+    }
 }
