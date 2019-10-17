@@ -1,7 +1,6 @@
 package duke.command.logic;
 
 import duke.exceptions.ModException;
-import duke.exceptions.planner.ModNotFoundException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
 import duke.util.CcaList;
@@ -10,14 +9,13 @@ import duke.util.PlannerUi;
 import duke.util.Storage;
 import duke.util.commons.ModuleTasksList;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 
-public class SearchThenAddCommand extends ModuleCommand {
+public class SortCommand extends ModuleCommand {
 
-    private String moduleCode;
-
-    public SearchThenAddCommand(String moduleCode) {
-        this.moduleCode = moduleCode.toUpperCase();
+    public SortCommand() {
     }
 
     @Override
@@ -27,14 +25,10 @@ public class SearchThenAddCommand extends ModuleCommand {
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
-        if (detailedMap.containsKey(moduleCode)) {
-            ModuleInfoDetailed mod = detailedMap.get(moduleCode);
-            ModuleTask temp = new ModuleTask(moduleCode, mod);
-            tasks.getTasks().add(temp);
-            plannerUi.addedMsg(temp);
-            jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
-        } else {
-            throw new ModNotFoundException();
-        }
+        plannerUi.sortModuleMsg();
+        List<ModuleTask> hold = tasks.getTasks();
+        hold.sort(Comparator.comparing(ModuleTask::getModuleCode));
+        //hold.sort(Comparator.comparing(ModuleTask::getModuleCredit));
+        plannerUi.showSortedModules(hold);
     }
 }
