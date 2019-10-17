@@ -3,7 +3,7 @@ package Model_Classes;
 import java.util.Date;
 
 public class FixedDuration extends Meeting {
-    private int duration;
+    private String duration;
     private String unit;
     private Date at;
 
@@ -13,7 +13,7 @@ public class FixedDuration extends Meeting {
      * @param at Date of event
      * @param duration Duration of event
      */
-    public FixedDuration(String description, Date at, int duration, String unit) {
+    public FixedDuration(String description, Date at, String duration, String unit) {
         super(description, at);
         this.duration = duration;
         this.unit = unit;
@@ -23,7 +23,7 @@ public class FixedDuration extends Meeting {
      * Returns duration
      * @return duration of event in DD/MM/YYYY format
      */
-    public int getDuration(){
+    public String getDuration(){
         return duration;
     }
 
