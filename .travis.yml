@@ -3,3 +3,7 @@ jdk: oraclejdk11
 
 before_install:
   - chmod +x gradlew
+
+script:
+  - ./gradlew check
+  - ./gradlew test
