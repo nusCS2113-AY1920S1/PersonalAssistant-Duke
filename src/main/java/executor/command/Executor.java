@@ -74,11 +74,11 @@ public class Executor {
             break;
 
         case IN:
-            c = new CommandIncome(userInput);
+            c = new CommandAddIncomeReceipt(userInput);
             break;
 
         case OUT:
-            c = new CommandSpending(userInput);
+            c = new CommandAddSpendingReceipt(userInput);
             break;
             
         case HELP:

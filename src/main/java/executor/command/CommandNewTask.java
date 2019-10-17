@@ -52,7 +52,7 @@ public class CommandNewTask extends Command {
      */
     public void checkForwardSlash(String input) throws DukeException {
         if (this.taskType.equals(TaskType.FDURATION)) {
-            if (!Parser.checkSlash(input)) {
+            if (!Parser.containsForwardSlash(input)) {
                 throw new DukeException("Check your format!!! Correct format is: fduration <description> / <time>");
             }
         }

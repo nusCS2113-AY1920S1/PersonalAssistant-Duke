@@ -181,7 +181,7 @@ public class Parser {
      * @param userInput this is the user input
      * @return true if there is a slash in the user input
      */
-    public static Boolean checkSlash(String userInput) {
+    public static Boolean containsForwardSlash(String userInput) {
         if (userInput.contains("/")) {
             return true;
         }

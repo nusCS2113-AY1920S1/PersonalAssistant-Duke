@@ -1,11 +1,12 @@
 package ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Receipt {
     private Double cashSpent;
-    private Date date;
+    private LocalDate date;
     private ArrayList<String> tags;
 
     /**
@@ -14,7 +15,7 @@ public class Receipt {
      * @param date Data Object to be set as the date property of Receipt Object
      * @param tags ArrayList to be set as the tags property of Receipt Object
      */
-    public Receipt(Double cashSpent, Date date, ArrayList<String> tags) {
+    public Receipt(Double cashSpent, LocalDate date, ArrayList<String> tags) {
         this.setCashSpent(cashSpent);
         this.setDate(date);
         this.setTags(tags);
@@ -25,7 +26,7 @@ public class Receipt {
      * @param cashSpent Double to be set as cashSpent property of Receipt Object
      * @param date Data Object to be set as the date property of Receipt Object
      */
-    public Receipt(Double cashSpent, Date date) {
+    public Receipt(Double cashSpent, LocalDate date) {
         this.setCashSpent(cashSpent);
         this.setDate(date);
         this.setTags(new ArrayList<String>());
@@ -105,7 +106,7 @@ public class Receipt {
      * Setter for date property.
      * @param date Data Object to be set as the date property of Receipt Object
      */
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -113,7 +114,7 @@ public class Receipt {
      * Getter for date property.
      * @return Date Object of the date property of Receipt Object
      */
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 }
