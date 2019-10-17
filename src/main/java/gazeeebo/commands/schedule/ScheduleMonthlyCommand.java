@@ -1,11 +1,12 @@
-package gazeeebo.commands;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
-import gazeeebo.Tasks.Timebound;
+package gazeeebo.commands.schedule;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.Timebound;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
+import gazeeebo.commands.Command;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

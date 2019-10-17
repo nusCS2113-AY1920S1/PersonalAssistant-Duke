@@ -1,12 +1,12 @@
 package gazeeebo.commands;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import java.io.IOException;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package gazeeebo.Tasks;
+package gazeeebo.tasks;
 
 public class Todo extends Task {
     public Todo(String description) {

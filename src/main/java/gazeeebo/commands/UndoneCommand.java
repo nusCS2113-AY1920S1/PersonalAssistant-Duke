@@ -1,10 +1,10 @@
 package gazeeebo.commands;
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -24,7 +24,7 @@ public class UndoneCommand extends Command {
                 list.get(numberCheck).isDone = false;
             }
 
-            System.out.println("Nice! I've marked this task as UNDONE: ");
+            System.out.println("Nice! I've marked this task as undone: ");
             System.out.println(list.get(numberCheck).listFormat());
 
             StringBuilder sb = new StringBuilder();

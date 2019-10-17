@@ -1,12 +1,12 @@
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
 import gazeeebo.parsers.*;
-import gazeeebo.Exception.DukeException;
-import Storage.NoteStorage;
+import gazeeebo.exception.DukeException;
+import gazeeebo.storage.NoteStorage;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
