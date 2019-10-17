@@ -141,44 +141,44 @@ public class TaskList {
             return;
         }
 
-        if (tasks.get(index) instanceof Event) {
-            Event eventToSnooze = (Event) tasks.get(index);
+        if (tasks.get(index) instanceof Meeting) {
+            Meeting meetingToSnooze = (Meeting) tasks.get(index);
             switch (timeUnit) {
                 case year:
-                    eventToSnooze.snoozeYear(amount);
+                    meetingToSnooze.snoozeYear(amount);
                     break;
                 case month:
-                    eventToSnooze.snoozeMonth(amount);
+                    meetingToSnooze.snoozeMonth(amount);
                     break;
                 case day:
-                    eventToSnooze.snoozeDay(amount);
+                    meetingToSnooze.snoozeDay(amount);
                     break;
                 case hours:
-                    eventToSnooze.snoozeHour(amount);
+                    meetingToSnooze.snoozeHour(amount);
                     break;
                 case minutes:
-                    eventToSnooze.snoozeMinute(amount);
+                    meetingToSnooze.snoozeMinute(amount);
                     break;
             }
         }
 
-        if (tasks.get(index) instanceof Deadline) {
-            Deadline deadlineToSnooze = (Deadline) tasks.get(index);
+        if (tasks.get(index) instanceof Assignment) {
+            Assignment assignmentToSnooze = (Assignment) tasks.get(index);
             switch (timeUnit) {
                 case year:
-                    deadlineToSnooze.snoozeYear(amount);
+                    assignmentToSnooze.snoozeYear(amount);
                     break;
                 case month:
-                    deadlineToSnooze.snoozeMonth(amount);
+                    assignmentToSnooze.snoozeMonth(amount);
                     break;
                 case day:
-                    deadlineToSnooze.snoozeDay(amount);
+                    assignmentToSnooze.snoozeDay(amount);
                     break;
                 case hours:
-                    deadlineToSnooze.snoozeHour(amount);
+                    assignmentToSnooze.snoozeHour(amount);
                     break;
                 case minutes:
-                    deadlineToSnooze.snoozeMinute(amount);
+                    assignmentToSnooze.snoozeMinute(amount);
                     break;
             }
         }
