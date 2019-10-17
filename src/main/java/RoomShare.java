@@ -18,9 +18,9 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
-    private TaskList deletedList = new TaskList(new ArrayList<>());
     private Parser parser;
     private RecurHandler recurHandler;
+    private TempDeleteList tempDeleteList;
 
 
     /**
@@ -32,6 +32,8 @@ public class RoomShare {
         ui.startUp();
         storage = new Storage();
         parser = new Parser();
+        ArrayList<Task> tempStorage = new ArrayList<>();
+        tempDeleteList = new TempDeleteList(tempStorage);
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
@@ -103,11 +105,16 @@ public class RoomShare {
             case delete:
                 try {
                     int[] index = parser.getIndexRange();
-                    taskList.delete(index, deletedList);
+                    taskList.delete(index, tempDeleteList);
                     ui.showDeleted(index);
                 } catch (RoomShareException e) {
                     ui.showIndexError();
                 }
+                break;
+
+             case restore:
+                int restoreIndex = parser.getIndex();
+                tempDeleteList.restore(restoreIndex, taskList);
                 break;
 
             case find:
@@ -188,12 +195,12 @@ public class RoomShare {
                     case yes:
                         ui.promptForDuration();
                         TimeUnit timeUnit = parser.getTimeUnit();
-                        ui.promptForTime();
                         int duration = parser.getAmount();
+                        String unit = timeUnit.toString();
                         ui.promptForAssigning();
                         String response = parser.getResponse();
                         if (response.equals("no")) {
-                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
+                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, unit);
                             //checks for clashes
                             if (CheckAnomaly.checkTime(fixedDuration)) {
                                 taskList.add(fixedDuration);
@@ -201,7 +208,7 @@ public class RoomShare {
                                 throw new RoomShareException(ExceptionType.timeClash);
                             }
                         } else {
-                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, response);
+                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, response, unit);
                             //checks for clashes
                             if (CheckAnomaly.checkTime(fixedDuration)) {
                                 taskList.add(fixedDuration);
