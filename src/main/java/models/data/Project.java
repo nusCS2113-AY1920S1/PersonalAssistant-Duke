@@ -7,7 +7,7 @@ import models.task.TaskList;
 
 public class Project implements IProject {
     private String description;
-    private MemberList listOfMembersInProject;
+    private MemberList memberList;
     private TaskList taskList;
 
     /**
@@ -16,7 +16,7 @@ public class Project implements IProject {
      */
     public Project(String description) {
         this.description = description;
-        this.listOfMembersInProject = new MemberList();
+        this.memberList = new MemberList();
         this.taskList = new TaskList();
     }
 
@@ -27,7 +27,7 @@ public class Project implements IProject {
 
     @Override
     public MemberList getMembers() {
-        return this.listOfMembersInProject;
+        return this.memberList;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Project implements IProject {
 
     @Override
     public int getNumOfMembers() {
-        return this.listOfMembersInProject.getNumOfMembers();
+        return this.memberList.getNumOfMembers();
     }
 
     @Override
@@ -47,17 +47,17 @@ public class Project implements IProject {
 
     @Override
     public void addMember(Member newMember) {
-        this.listOfMembersInProject.addMember(newMember);
+        this.memberList.addMember(newMember);
     }
 
     @Override
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        this.listOfMembersInProject.editMember(memberIndexNumber, updatedMemberDetails);
+        this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
     @Override
     public void removeMember(Member memberToBeRemoved) {
-        this.listOfMembersInProject.removeMember(memberToBeRemoved);
+        this.memberList.removeMember(memberToBeRemoved);
     }
 
     @Override
