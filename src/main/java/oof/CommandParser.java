@@ -1,10 +1,10 @@
 package oof;
 
-import oof.command.Command;
-import oof.command.AddToDoCommand;
-import oof.command.AddEventCommand;
 import oof.command.AddDeadlineCommand;
+import oof.command.AddEventCommand;
+import oof.command.AddToDoCommand;
 import oof.command.CalendarCommand;
+import oof.command.Command;
 import oof.command.CompleteCommand;
 import oof.command.DeleteCommand;
 import oof.command.ExitCommand;
@@ -16,7 +16,7 @@ import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
 import oof.command.SummaryCommand;
-
+import oof.command.ViewWeekCommand;
 import oof.exception.OofException;
 import java.util.InputMismatchException;
 
@@ -121,6 +121,8 @@ public class CommandParser {
             }
         case "calendar":
             return new CalendarCommand(argumentArray);
+        case "viewweek":
+            return new ViewWeekCommand(argumentArray);
         case "free":
             line = line.replaceFirst("free", "").trim();
             return new FreeCommand(line);
