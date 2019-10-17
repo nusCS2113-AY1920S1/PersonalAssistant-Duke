@@ -42,7 +42,7 @@ public class ExitCommand extends Command {
             } else {
                 ui.closeFailure();
             }
-            ui.close();
+            //ui.close();
         }
     }
 }
