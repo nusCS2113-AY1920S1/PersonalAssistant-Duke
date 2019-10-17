@@ -46,7 +46,13 @@ public class Parser {
      * Constructs a new Parser, using the Cmd enum to supply the command names.
      */
     public Parser() {
-        this(Cmd.values());
+        Map<String, Constructor<Command>> tempMap = new HashMap<String, Constructor<Command>>();
+        try {
+            tempMap.put("bye", ByeCommand.class.getConstructor());
+
+        } catch (NoSuchMethodException excp) {
+            
+        }
     }
 
     /**
