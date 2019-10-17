@@ -2,7 +2,6 @@ package command;
 
 import common.TaskList;
 import payment.Payee;
-import payment.PaymentList;
 import payment.PaymentManager;
 import payment.Payments;
 import task.Deadline;
@@ -40,16 +39,11 @@ public class Process {
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-
     public void findPayee(String input, Ui ui, HashMap<String, Payee> managermap) {
-
         try {
             String[] splitspace = input.split(" ", 2);
-            PaymentList payList = new PaymentList();
-            for (Payments payment : managermap.get(splitspace[1]).payments) {
-                payList.addPayments(payment);
-            }
-            ui.printPaymentList(payList);
+            ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
+            ui.printPaymentList(paymentsArrayList);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }

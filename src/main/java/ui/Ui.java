@@ -2,7 +2,6 @@ package ui;
 
 import common.TaskList;
 import payment.Payee;
-import payment.PaymentList;
 import payment.Payments;
 import task.Task;
 
@@ -78,9 +77,9 @@ public class Ui {
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.
      */
-    public void printPaymentList(PaymentList paymentList) {
-        for (int i = 0; i < paymentList.size(); i = i + 1) {
-            System.out.println(paymentList.get(i).givePayments());
+    public void printPaymentList(ArrayList<Payments> paymentList) {
+        for (Payments payments : paymentList) {
+            System.out.println(payments.givePayments());
         }
     }
 
