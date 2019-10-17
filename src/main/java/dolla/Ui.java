@@ -1,13 +1,12 @@
 package dolla;
 
 
-import dolla.task.*;
+//import dolla.task.;
 
-import dolla.task.Entry;
-import dolla.task.EntryList;
+import dolla.task.Debt;
 import dolla.task.LogList;
+import dolla.task.Entry;
 import dolla.task.Task;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
