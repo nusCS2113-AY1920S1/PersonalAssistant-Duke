@@ -1,9 +1,6 @@
 import CustomExceptions.RoomShareException;
 import Enums.*;
 import Model_Classes.*;
-import Modes.HelpMode;
-import Modes.RecurringMode;
-import Modes.ReportMode;
 import Operations.*;
 
 import java.util.ArrayList;
@@ -21,6 +18,7 @@ public class RoomShare {
     private Parser parser;
     private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
+    private TaskCreator taskCreator;
 
 
     /**
@@ -41,16 +39,11 @@ public class RoomShare {
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
-
-
-
         recurHandler = new RecurHandler(taskList);
         if (recurHandler.checkRecurrence()) {
             ui.showChangeInTaskList();
             taskList.list();
         }
-
-
     }
 
     /**
@@ -67,12 +60,6 @@ public class RoomShare {
                 type = TaskType.others;
             }
             switch (type) {
-
-            case help:
-                ui.help();
-                HelpMode helpMode = new HelpMode();
-                helpMode.run();
-                break;
 
             case list:
                 ui.showList();
@@ -139,129 +126,10 @@ public class RoomShare {
                 }
                 break;
 
-             case todo:
-                 try {
-                     String description = parser.getDescription();
-                     ui.promptForAssigning();
-                     String response = parser.getResponse();
-                     if (response.equals("no")) {
-                         ToDo temp = new ToDo(description);
-                         taskList.add(temp);
-                         ui.showAdd();
-                      }
-                     else {
-                         ToDo temp = new ToDo(description, response);
-                         taskList.add(temp);
-                         ui.showAdd();
-                     }
-                 } catch (RoomShareException e) {
-                     ui.showEmptyDescriptionError();
-                 }
-                 break;
-
-             case deadline:
-                 try {
-                     String[] deadlineArray = parser.getDescriptionWithDate();
-                     Date by = parser.formatDate(deadlineArray[1]);
-                     ui.promptForAssigning();
-                     String response = parser.getResponse();
-                     if (response.equals("no")) {
-                         Deadline temp = new Deadline(deadlineArray[0], by);
-                         taskList.add(temp);
-                         ui.showAdd();
-                     }
-                     else {
-                         Deadline temp = new Deadline(deadlineArray[0], by, response);
-                         taskList.add(temp);
-                         ui.showAdd();
-                      }
-                 } catch (RoomShareException e) {
-                     ui.showDateError();
-                 }
-                 break;
-
-            case event:
-                try {
-                    String[] eventArray = parser.getDescriptionWithDate();
-                    Date at = parser.formatDate(eventArray[1]);
-                    ui.promptForReply();
-                    ReplyType replyType;
-                    try {
-                        replyType = parser.getReply();
-                    } catch (IllegalArgumentException e) {
-                        replyType = ReplyType.others;
-                    }
-                    switch (replyType) {
-                    case yes:
-                        ui.promptForDuration();
-                        TimeUnit timeUnit = parser.getTimeUnit();
-                        int duration = parser.getAmount();
-                        String unit = timeUnit.toString();
-                        ui.promptForAssigning();
-                        String response = parser.getResponse();
-                        if (response.equals("no")) {
-                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, unit);
-                            //checks for clashes
-                            if (CheckAnomaly.checkTime(fixedDuration)) {
-                                taskList.add(fixedDuration);
-                            } else {
-                                throw new RoomShareException(ExceptionType.timeClash);
-                            }
-                        } else {
-                            FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, response, unit);
-                            //checks for clashes
-                            if (CheckAnomaly.checkTime(fixedDuration)) {
-                                taskList.add(fixedDuration);
-                            } else {
-                                throw new RoomShareException(ExceptionType.timeClash);
-                            }
-                        }
-                        Timer timer = new Timer();
-                        class RemindTask extends TimerTask {
-                            public void run() {
-                                System.out.println(eventArray[0] + " is completed");
-                                timer.cancel();
-                            }
-                        }
-                        RemindTask rt = new RemindTask();
-                        switch (timeUnit) {
-                        case hours:
-                            timer.schedule(rt, duration * 1000 * 60 * 60);
-                            break;
-
-                        case minutes:
-                            timer.schedule(rt, duration * 1000 * 60);
-                            break;
-                        }
-                        ui.showAdd();
-                        break; // end yes
-
-                    case no:
-                        ui.promptForAssigning();
-                        String res = parser.getResponse();
-                        if (res.equals("no")) {
-                            Event event = new Event(eventArray[0], at);
-                            taskList.add(event);
-                            ui.showAdd();
-                        } else {
-                            Event event = new Event(eventArray[0], at, res);
-                            taskList.add(event);
-                            ui.showAdd();
-                        }
-                        break;
-                     default:
-                        ui.showCommandError();
-                        break;
-               }
-            }
-            catch (RoomShareException e) {
-                ui.showDateError();
-            }
-            break;
-
-            case recur:
-                RecurringMode recurringMode = new RecurringMode(taskList);
-                recurringMode.run();
+            case add:
+                String input = parser.getCommandLine();
+                taskCreator = new TaskCreator();
+                taskList.add(taskCreator.create(input));
                 break;
 
             case snooze :
@@ -287,11 +155,6 @@ public class RoomShare {
                 ui.showReordering();
                 taskList.reorder(firstIndex, secondIndex);
                 break;
-
-            case report:
-                ReportMode report = new ReportMode(taskList);
-                report.run();
-            break;
 
             default:
                 ui.showCommandError();
