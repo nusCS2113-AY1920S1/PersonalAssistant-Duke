@@ -2,7 +2,7 @@ package UserElements;
 
 import Events.Storage.EventList;
 import Events.EventTypes.Event;
-import Events.Formatting.DateObj;
+import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
 
 import java.util.Date;
@@ -62,7 +62,7 @@ public class UI {
 
     public void printReminder(EventList events) {
         String systemDateAndTime = new Date().toString();
-    	DateObj limit = new DateObj(systemDateAndTime);
+    	EventDate limit = new EventDate(systemDateAndTime);
     	limit.addDaysAndSetMidnight(3);
     	String reminderDeadline = limit.getEventJavaDate().toString();
     	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
@@ -122,7 +122,6 @@ public class UI {
             System.out.println("Now you have " + numEvents + " events in the list.");
             System.out.print(lineSeparation);
         } catch (NullPointerException e) {
-            System.out.println(lineSeparation + "Got it. I've added this event:");
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                     eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
             System.out.println("Now you have " + numEvents + " events in the list.");
@@ -214,6 +213,7 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
+        System.out.println("Clashes with: " + event.toString());
         System.out.print(lineSeparation);
     }
 
@@ -249,6 +249,17 @@ public class UI {
         for(int i=0; i<=freeDays.size(); i++) {
             System.out.println(freeDays.poll());
         }
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints message when reschedule an event successfully
+     *
+     * @param event event after rescheduled
+     */
+    public void rescheduleEvent(Event event) {
+        System.out.print(lineSeparation);
+        System.out.println("Rescheduled event to " + event.toString() + " successfully!");
         System.out.print(lineSeparation);
     }
 

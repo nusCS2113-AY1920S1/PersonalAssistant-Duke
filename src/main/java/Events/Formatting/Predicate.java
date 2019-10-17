@@ -19,8 +19,6 @@ public class Predicate<T> {
 	 */
 	static final int JAVA_DATE = 0;
 	static final int STRING = 1;
-	static final int CHECK_VALUE = 0;
-	static final int CHECK_TYPE = 1;
 	
     /**
      * The item used as the reference to check if the predicate is true
@@ -55,7 +53,7 @@ public class Predicate<T> {
 		        break;
 		}
 		this.reference = ref;
-		if (this.reference instanceof DateObj) {
+		if (this.reference instanceof EventDate) {
 			this.variable_type = JAVA_DATE;
 		} else if (this.reference instanceof String) {
 			this.variable_type = STRING;
@@ -66,8 +64,8 @@ public class Predicate<T> {
 	 * Compares the input date against the reference to check if the predicate is true.
 	 */
 	protected boolean compare_dates(T input) {
-		DateObj x = (DateObj) reference;
-		DateObj y = (DateObj) input;
+		EventDate x = (EventDate) reference;
+		EventDate y = (EventDate) input;
 		switch (this.compare_func) {
 		    case EQUAL:
 		    	return x.compare(y) == 0;
