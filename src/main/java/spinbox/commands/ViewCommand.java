@@ -7,7 +7,9 @@ import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ViewCommand extends Command {
     private String page;
@@ -122,11 +124,26 @@ public class ViewCommand extends Command {
             }
         }
 
+        List<String> outputList = new ArrayList<>();
+        outputList.add("First line");
         // add tab
         if (page.equals("modules") && tab != null) {
-            if (tab.equals("tasks") || tab.equals("files") || tab.equals("grades")) {
+            HashMap<String, Module> modules = moduleContainer.getModules();
+            Module module = modules.get(moduleCode);
+            switch (tab) {
+            case "tasks":
                 pageTrace.addFirst(tab);
-            } else {
+                outputList = module.getTasks().viewList();
+                break;
+            case "files":
+                pageTrace.addFirst(tab);
+                outputList = module.getFiles().viewList();
+                break;
+            case "grades":
+                pageTrace.addFirst(tab);
+                outputList = module.getGrades().viewList();
+                break;
+            default:
                 throw new InputException("Sorry, that tab does not exist."
                         + " Please choose 'tasks', 'files', or 'grades'.");
             }
@@ -139,7 +156,9 @@ public class ViewCommand extends Command {
             tempPageTrace.removeLast();
         }
 
-        return ui.showFormatted("Changed from page "
+        outputList.set(0, "Changed from page "
                 + oldTrace.toString() + " to " + newTrace.toString());
+
+        return ui.showFormatted(outputList);
     }
 }

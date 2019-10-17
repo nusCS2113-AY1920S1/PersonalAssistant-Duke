@@ -50,4 +50,14 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         }
         localStorage.saveData(dataToSave);
     }
+
+    @Override
+    public List<String> viewList() {
+        List<String> output = new ArrayList<>();
+        output.add("Here are the graded components in your module:");
+        for (int i = 0; i < list.size(); i++) {
+            output.add((Integer.toString(i + 1) + ". " + list.get(i).toString()));
+        }
+        return output;
+    }
 }

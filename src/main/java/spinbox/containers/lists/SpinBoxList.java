@@ -134,4 +134,9 @@ public abstract class SpinBoxList<T extends Item> {
      * To save current list data into the list's localStorage.
      */
     public abstract void saveData() throws DataReadWriteException;
+
+    /**
+     * To view the list for output.
+     */
+    public abstract List<String> viewList();
 }

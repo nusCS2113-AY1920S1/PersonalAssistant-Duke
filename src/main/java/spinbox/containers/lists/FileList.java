@@ -49,4 +49,14 @@ public class FileList extends SpinBoxList<File> {
         }
         localStorage.saveData(dataToSave);
     }
+
+    @Override
+    public List<String> viewList() {
+        List<String> output = new ArrayList<>();
+        output.add("Here are the files in your module:");
+        for (int i = 0; i < list.size(); i++) {
+            output.add((Integer.toString(i + 1) + ". " + list.get(i).toString()));
+        }
+        return output;
+    }
 }

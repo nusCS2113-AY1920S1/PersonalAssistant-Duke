@@ -58,7 +58,7 @@ public class Parser {
                 }
             }
         // append "modules" + moduleCode from input
-        } else if (pageComponent.length == 2) {
+        } else if (pageComponent.length == 2 || pageComponent.length == 3) {
             if (pageComponent[0].equals("modules")) {
                 pageData.append("modules ").append(pageComponent[1]);
             } else {
