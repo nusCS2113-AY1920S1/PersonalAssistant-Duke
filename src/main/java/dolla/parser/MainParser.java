@@ -1,6 +1,6 @@
 package dolla.parser;
 
-import dolla.Ui;
+import dolla.ui.Ui;
 //import dolla.command.;
 
 import dolla.command.Command;

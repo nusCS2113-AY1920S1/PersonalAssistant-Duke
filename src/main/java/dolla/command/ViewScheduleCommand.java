@@ -1,6 +1,6 @@
 package dolla.command;
 
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.task.Task;
 import dolla.task.TaskList;
 import java.time.LocalDate;

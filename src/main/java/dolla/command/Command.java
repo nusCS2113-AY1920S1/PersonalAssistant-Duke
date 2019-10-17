@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Ui;
+import dolla.ui.Ui;
 
 /**
  * Command is an abstract class which all types of command will inherit from.

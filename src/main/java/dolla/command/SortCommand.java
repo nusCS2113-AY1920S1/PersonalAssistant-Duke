@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Ui;
+import dolla.ui.Ui;
 import dolla.task.LogList;
 import dolla.sort.SortDate;
 import dolla.sort.SortDescription;

@@ -3,6 +3,7 @@ package dolla;
 import dolla.command.Command;
 import dolla.task.Task;
 import dolla.task.TaskList;
+import dolla.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
