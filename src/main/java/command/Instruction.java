@@ -75,4 +75,8 @@ public class Instruction {
     public boolean isgetpayee(String input)  {
         return input.startsWith("getpayee");
     }
+
+    public boolean isInvoice(String input) {
+        return input.startsWith("invoice");
+    }
 }

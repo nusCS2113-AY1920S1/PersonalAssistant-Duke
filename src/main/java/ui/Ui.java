@@ -208,6 +208,16 @@ public class Ui {
     }
 
     /**
+     * Prints message to indicate a deadline with an invoice added.
+     * @param task Task to be edited.
+     */
+    public void printAddInvoiceMessage(Task task) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added invoice to this deadline:");
+        System.out.print("\t" + task.giveTask() + "\n");
+    }
+
+    /**
      * Prints message to indicate a Payment being deleted.
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
