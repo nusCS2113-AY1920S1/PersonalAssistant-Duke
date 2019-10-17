@@ -50,6 +50,9 @@ public abstract class Command {
      */
     public abstract String executeGui(TaskList items, Ui ui);
 
+    public String executeGui(TaskList items, ContactList contactList,Ui ui) {
+        return null;
+    }
     /**
      * Executes a command that overwrites existing storage with the updated task list.
      *

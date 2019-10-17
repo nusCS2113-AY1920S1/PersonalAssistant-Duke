@@ -11,12 +11,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class PriorityStorage {
-
     protected String filePath = "./";
     //protected String filePath = "";
     //String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
-
     /**
      * Creates a storage with a specified filePath.
      *

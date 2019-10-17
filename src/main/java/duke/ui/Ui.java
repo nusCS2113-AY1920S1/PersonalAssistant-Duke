@@ -1,15 +1,15 @@
 package duke.ui;
 
-import duke.task.PriorityList;
 import duke.task.ContactList;
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
+import javafx.util.Pair;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javafx.util.Pair;
 
 /**
  * Represents a ui that informs the user.
@@ -112,7 +112,7 @@ public class Ui {
     }
 
     /**
-     * Outputs all the contacts of the contact list to the user.
+     * Outputs all the contacts of the contact list to user through CLI.
      *
      * @param contactList The list of contacts.
      */
@@ -121,6 +121,17 @@ public class Ui {
         out.print(contactList.getContactList());
     }
 
+    /**
+     * Outputs all the contacts of the contact list to user through GUI.
+     *
+     * @param contactList The list of contacts.
+     */
+    public static String showContactListGui(ContactList contactList) {
+        String str = "";
+        str += "Here are all your contacts:\n";
+        str += contactList.getContactList();
+        return str;
+    }
     /**
      * Outputs all the tasks of the task list to the user (GUI).
      *
@@ -380,6 +391,24 @@ public class Ui {
             out.println(contactList.get(contactList.size() - ONE));
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
+    }
+
+    /**
+    * Show the added contacts in GUI.
+    *
+    * @param contactList The list of contacts.
+    * @return String to output list of contacts to GUI.
+     */
+    public static String showAddedContactGui(ContactList contactList) {
+        String str = "Got it. Contact added:\n";
+        if (contactList.size() == 0) {
+            str += "You have no contacts!";
+        } else {
+            str += contactList.get(contactList.size() - 1);
+            str += "\nNow you have " + contactList.size() + " contacts.";
+        }
+        System.out.println("I was here");
+        return str;
     }
 
     /**
