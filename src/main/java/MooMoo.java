@@ -24,8 +24,7 @@ public class MooMoo {
      */
     MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/budget.txt","data/transactions.txt",
-                "data/category.txt", "data/schedule.txt");
+        storage = new Storage("data/budget.txt","data/schedule.txt");
 
         try {
             categoryList = new CategoryList(storage.loadCategories());
@@ -34,15 +33,6 @@ public class MooMoo {
             ui.showResponse();
             categoryList = new CategoryList();
         }
-
-        /*
-        try {
-            category = new Category(storage.loadExpenditures());
-        } catch (MooMooException e) {
-            ui.printException(e);
-            ui.showResponse();
-            //category = new Category();
-        }*/
 
         try {
             budget = new Budget(storage.loadBudget(categoryList));
@@ -90,9 +80,8 @@ public class MooMoo {
      * @param input Input given by user in the GUI
      * @return String Response to display on GUI by the bot.
      */
-    String getResponse(String input) {
-        String response;
-        boolean isExit = false;
+    public String getResponse(String input) {
+        boolean isExit;
         try {
             Command c = Parser.parse(input, ui);
             c.execute(calendar, budget, categoryList, category, ui, storage);

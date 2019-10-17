@@ -6,9 +6,6 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,21 +18,15 @@ import java.util.Map;
 public class Storage {
     private DecimalFormat df;
     private String budgetFilePath;
-    private String expenditureFilePath;
-    private String categoryFilePath;
     private String scheduleFilePath;
 
     /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
-     * @param expenditureFilePath File path to store all expenditures
-     * @param categoryFilePath File path to store all categories
+     * @param scheduleFilePath File path to store all categories
      */
-    public Storage(String budgetFilePath, String expenditureFilePath, String categoryFilePath,
-                   String scheduleFilePath) {
+    public Storage(String budgetFilePath, String scheduleFilePath) {
         this.budgetFilePath = budgetFilePath;
-        this.expenditureFilePath = expenditureFilePath;
-        this.categoryFilePath = categoryFilePath;
         this.scheduleFilePath = scheduleFilePath;
         df = new DecimalFormat("#.00");
     }
@@ -49,17 +40,6 @@ public class Storage {
         ArrayList<Category> categoryArrayList = new ArrayList<Category>();
 
         return categoryArrayList;
-    }
-
-    /**
-     * Loads in expenditures from an existing file into a created ArrayList object.
-     * @return ArrayList object consisting of the expenditures read from the file.
-     * @throws MooMooException Thrown when the file does not exist
-     */
-    public ArrayList<Expenditure> loadExpenditures() throws MooMooException {
-        ArrayList<Expenditure> expenditureArrayList = new ArrayList<Expenditure>();
-
-        return expenditureArrayList;
     }
 
     /**
@@ -81,7 +61,7 @@ public class Storage {
                         for (int i = 1; i < splitInput.length; ++i) {
                             if (i % 2 == 0) {
 
-                                if (!category.equals("")) {
+                                if (!"".equals(category)) {
                                     budget = Double.parseDouble(splitInput[i]);
                                     loadedBudgets.put(category, budget);
                                 }
@@ -150,25 +130,6 @@ public class Storage {
         }
     }
 
-    private LocalDateTime parseDate(String dateToParse) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(dateToParse, formatter);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Converts the LocalDateTime object into printable string for writing to file.
-     * @param dateTime LocalDateTime object to be converted
-     * @return String format of the LocalDateTime object
-     */
-    private String unparseDate(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return dateTime.format(formatter);
-    }
-
     /**
      * Creates a file if necessary and stores each category and its budget into the file.
      * @param budget Budget object that stores the budget for each category
@@ -180,7 +141,7 @@ public class Storage {
         Iterator budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry)budgetIterator.next();
-            toSave += " | " + mapElement.getKey() + " | " + mapElement.getValue();
+            toSave += " | " + mapElement.getKey() + " | " + df.format(mapElement.getValue());
         }
         try {
             Files.writeString(Paths.get(this.budgetFilePath), toSave);

@@ -20,12 +20,6 @@ public class BudgetCommandTest {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
-        File transactionsFile = File.createTempFile("transactions", ".txt");
-        transactionsFile.deleteOnExit();
-
-        File categoriesFile = File.createTempFile("categories", ".txt");
-        categoriesFile.deleteOnExit();
-
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
 
@@ -38,8 +32,7 @@ public class BudgetCommandTest {
         Category newCategory = new Category();
         Budget newBudget = new Budget();
         Ui newUi = new Ui();
-        Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath(),
-                scheduleFile.getPath());
+        Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
 
         ScheduleList newCalendar = new ScheduleList();
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/shoes b/1000.79 c/food b/500");
