@@ -1,7 +1,5 @@
-import executor.command.CommandIncome;
-import executor.command.CommandSpending;
+import executor.command.*;
 
-import executor.command.CommandType;
 import executor.task.Task;
 import executor.task.TaskList;
 import executor.task.TaskType;
@@ -24,7 +22,7 @@ public class CommandAddReceiptTest {
         assertEquals("3.00", testIncome.getIncome());
         assertEquals("bank robbed crime", testIncome.getTags());
 
-        assertEquals(CommandType.Out, testSpending.getCommandType());
+        assertEquals(CommandType.OUT, testSpending.getCommandType());
         assertEquals("15", testSpending.getSpending());
         assertEquals("fine bank robbed", testSpending.getTags());
     }
