@@ -32,35 +32,33 @@ class Parser {
      * @throws DukeException in the case of parsing errors
      */
     static Command parse(String message) throws DukeException {
-        if (message.equals("bye")) {
-            return new ByeCommand();
-        } else if (message.equals("list")) {
-            return new ListCommand();
-        } else if (message.length() >= 8 && message.substring(0, 6).equals("delete")) {
-            return new DeleteCommand(message);
-        } else if (message.length() >= 6 && message.substring(0, 4).equals("find")) {
-            return new FindCommand(message);
-        } else if (message.length() >= 6 && message.substring(0, 4).equals("done")) {
-            return new DoneCommand(message);
-        } else if (message.length() >= 5 && message.substring(0, 3).equals("new")) {
-            return new NewCommand(message);
-        } else if (message.length() >= 6 && message.substring(0, 4).equals("help")) {
-            return new HelpCommand(message);
-        } else if (message.length() >= 6 && message.substring(0, 4).equals("view")) {
-            return new ViewCommand(message);
-        } else if (message.length() >= 8 && message.substring(0, 6).equals("addbar")) {
-            return new AddBarCommand(message);
-
-        } else if (message.length() >= 8 && message.substring(0, 7).equals("overlay")) {
-            //overlay command
-            //System.out.println("je");
-            return new AddOverlayCommand(message);
-        } else if (message.length() >= 7 && message.substring(0, 5).equals("group")) {
-            return new GroupCommand(message);
-        } else if (message.length() >= 6 && message.substring(0,4).equals("copy")) {
-            return new CopyCommand(message);
-        } else {
-            return new AddCommand(message);
+        switch (message.split(" ")[0]) {
+            case "bye":
+                if (message.length() == 3) return new ByeCommand();
+            case "list":
+                if (message.length() == 4) return new ListCommand();
+            case "delete":
+                if (message.length() >= 8) return new DeleteCommand(message);
+            case "find":
+                if (message.length() >= 6) return new FindCommand(message);
+            case "done":
+                if (message.length() >= 6) return new DoneCommand(message);
+            case "new":
+                if (message.length() >= 5) return new NewCommand(message);
+            case "help":
+                return new HelpCommand(message);
+            case "view":
+                if (message.length() >= 6) return new ViewCommand(message);
+            case "addbar":
+                if (message.length() >= 8) return new AddBarCommand(message);
+            case "overlay":
+                if (message.length() >= 8) return new AddOverlayCommand(message);
+            case "group":
+                if (message.length() >= 7) return new GroupCommand(message);
+            case "copy":
+                if (message.length() >= 6) return new CopyCommand(message);
+            default:
+                return new AddCommand(message);
         }
     }
 }
