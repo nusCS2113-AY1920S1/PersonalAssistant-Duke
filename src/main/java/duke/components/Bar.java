@@ -44,12 +44,14 @@ public class Bar {
         ArrayList<Chord> result = new ArrayList<>();
         for (Note note: noteList) {
             for (int i = 0; i < note.getRelativeUnitDuration(); i++) {
-                Chord chord = new Chord();
+                Chord newChord = new Chord();
                 Note note1 = note.getUnitNote();
                 if (i != 0) {
                     note1.setStart(false);
                 }
-                chord.addToChord(note1);
+
+                newChord.addToChord(note1);
+                result.add(newChord);
             }
         }
         return result;

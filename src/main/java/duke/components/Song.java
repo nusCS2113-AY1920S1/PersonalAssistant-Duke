@@ -22,22 +22,8 @@ public class Song {
         this.name = name;
         this.key = key;
         this.tempo = tempo;
-    }
-
-    /**
-     * Creates a grouping of Bar objects to be easily copied and inserted for repetitions
-     * in music.
-     *
-     * @param name the name of the Group (e.g. Verse, Chorus, Pre-Chorus)
-     * @param startingId ID of the Bar to start copying from
-     * @param endingId ID of the Bar to end the copying
-     */
-    public void createGroup(String name, int startingId, int endingId) {
-        ArrayList<Bar> groupedBars = new ArrayList<>();
-        for (int i = startingId; i <= endingId; i++) {
-            groupedBars.add(bars.get(i - 1));
-        }
-        groups.add(new Group(name, groupedBars));
+        bars = new ArrayList<>();
+        groups = new ArrayList<>();
     }
 
     public String getName() {
@@ -60,6 +46,26 @@ public class Song {
         return groups;
     }
 
+    /**
+     * Creates a grouping of Bar objects to be easily copied and inserted for repetitions
+     * in music.
+     *
+     * @param name the name of the Group (e.g. Verse, Chorus, Pre-Chorus)
+     * @param startingId ID of the Bar to start copying from
+     * @param endingId ID of the Bar to end the copying
+     */
+    public void createGroup(String name, int startingId, int endingId) {
+        ArrayList<Bar> groupedBars = new ArrayList<>();
+        for (int i = startingId; i <= endingId; i++) {
+            groupedBars.add(bars.get(i - 1));
+        }
+        groups.add(new Group(name, groupedBars));
+    }
+
+    public void addBar(Bar bar) {
+        bars.add(bar);
+    }
+
     public int getNumBars() {
         return bars.size();
     }
@@ -67,5 +73,4 @@ public class Song {
     public void updateBars(ArrayList<Bar> newBars) {
         this.bars = newBars;
     }
-
 }
