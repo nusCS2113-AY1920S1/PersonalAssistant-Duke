@@ -6,6 +6,7 @@ public class Bar {
 
     private ArrayList<Chord> chords;
     private int id;
+    private ArrayList<String> barChart;
 
     /**
      * Constructor takes in a String representing a list of notes.
@@ -16,6 +17,8 @@ public class Bar {
     public Bar(int id, String notes) {
         this.id = id;
         this.chords = compileNotesToChords(convertStringToNotes(notes));
+        this.barChart = new ArrayList<>();
+        updateBarChart();
     }
 
     /**
@@ -24,7 +27,7 @@ public class Bar {
      * @param notes the input String representing the list of notes that compose a bar
      * @return an ArrayList of Note objects corresponding to the above notes
      */
-    public ArrayList<Note> convertStringToNotes(String notes) {
+    private ArrayList<Note> convertStringToNotes(String notes) {
         ArrayList<Note> result = new ArrayList<>();
         String[] notesArray = notes.split(" ");
         for (String note: notesArray) {
@@ -40,7 +43,7 @@ public class Bar {
      * @param noteList an ArrayList of Note objects, which can be of different durations
      * @return an ArrayList of Chord objects with the specified duration of an 1/8th note
      */
-    public ArrayList<Chord> compileNotesToChords(ArrayList<Note> noteList) {
+    private ArrayList<Chord> compileNotesToChords(ArrayList<Note> noteList) {
         ArrayList<Chord> result = new ArrayList<>();
         for (Note note: noteList) {
             for (int i = 0; i < note.getRelativeUnitDuration(); i++) {
@@ -63,5 +66,19 @@ public class Bar {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public ArrayList<String> getBarChart() {
+        return barChart;
+    }
+
+    private void updateBarChart() {
+        for (Chord chord: chords) {
+            barChart.add(chord.getChordString());
+        }
     }
 }

@@ -10,6 +10,7 @@ public class Song {
 
     private ArrayList<Bar> bars;
     private ArrayList<Group> groups;
+    private ArrayList<String> songChart;
 
     /**
      * Constructor for Song object, taking in a name, key and tempo.
@@ -22,8 +23,9 @@ public class Song {
         this.name = name;
         this.key = key;
         this.tempo = tempo;
-        bars = new ArrayList<>();
-        groups = new ArrayList<>();
+        this.bars = new ArrayList<>();
+        this.groups = new ArrayList<>();
+        this.songChart = new ArrayList<>();
     }
 
     public String getName() {
@@ -64,13 +66,41 @@ public class Song {
 
     public void addBar(Bar bar) {
         bars.add(bar);
+        updateSongChart(bar);
     }
 
     public int getNumBars() {
         return bars.size();
     }
 
+    /**
+     * Updates the Song with the new list of Bar objects.
+     * @param newBars the list of new Bar objects for the Song
+     */
     public void updateBars(ArrayList<Bar> newBars) {
         this.bars = newBars;
+        for (Bar bar: newBars) {
+            updateSongChart(bar);
+        }
+    }
+
+    /**
+     * Updates the SongChart, the string representation of the Song.
+     * @param bar the new Bar to be added to the Song
+     */
+    private void updateSongChart(Bar bar) {
+        songChart.addAll(bar.getBarChart());
+    }
+
+    /**
+     * Returns a String representation of the Song.
+     * @return a String representation of the Song to be viewed by the user
+     */
+    public String showSongChart() {
+        StringBuilder formattedChart = new StringBuilder();
+        for (String chordString: songChart) {
+            formattedChart.append(chordString).append(" ");
+        }
+        return formattedChart.toString();
     }
 }

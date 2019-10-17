@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Chord {
 
     private ArrayList<Note> notes;
-    private ArrayList<String> chordChart;
+    private String chordString;
 
     /**
      * A Chord has the set relative duration of 1/8, and is comprised of all the Note objects that are to be played
@@ -15,19 +15,34 @@ public class Chord {
      */
     public Chord(ArrayList<Note> notes) {
         this.notes = notes;
+        for (Note note: notes) {
+            updateChordString(note);
+        }
     }
 
     public Chord() {
-        notes = new ArrayList<>();
-        chordChart = new ArrayList<>();
+        this.notes = new ArrayList<>();
+        this.chordString = "";
     }
 
     public ArrayList<Note> getNotes() {
         return notes;
     }
 
-    public void addToChord(Note note) {
-        notes.add(note);
+    public String getChordString() {
+        return chordString;
     }
 
+    public void addToChord(Note note) {
+        notes.add(note);
+        updateChordString(note);
+    }
+
+    private void updateChordString(Note note) {
+        if (note.isStart()) {
+            this.chordString += (note.getPitch() + " ");
+        } else {
+            this.chordString += ("- ");
+        }
+    }
 }
