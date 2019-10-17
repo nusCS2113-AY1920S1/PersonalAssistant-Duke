@@ -1,8 +1,9 @@
 package duke.util;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
-import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
 
 /**
@@ -69,7 +70,7 @@ public class PlannerUi {
         showLine();
         System.out.println(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing get started!"
+                + "Begin typing to get started!"
         );
         showLine();
     }
@@ -105,6 +106,24 @@ public class PlannerUi {
     }
 
     /**
+     * Message to print the sorted module list.
+     */
+    public void sortModuleMsg() {
+        System.out.println("Here are your modules!");
+    }
+
+    /**
+     * Sorts the modules by ascending order and prints to the users.
+     * @param mods List of modules the student is taking
+     */
+    public void showSortedModules(List<ModuleTask> mods) {
+        showLine();
+        for (ModuleTask hold : mods) {
+            System.out.println(hold);
+        }
+    }
+  
+    /** 
      * Message to print out CoreModuleReport.
      */
     public void coreModReport() {

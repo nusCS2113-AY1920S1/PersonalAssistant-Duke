@@ -6,6 +6,7 @@ import duke.command.logic.CoreModuleReportCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.GeneralModuleReportCommand;
 import duke.command.logic.ModuleCommand;
+import duke.command.logic.SortCommand;
 import duke.command.logic.RemoveModCommand;
 import duke.command.logic.SearchThenAddCommand;
 import duke.command.logic.ShowModuleCommand;
@@ -87,6 +88,9 @@ public class ParserWrapper {
             }
             case "cap": {
                 return new CapCommand(input);
+            }
+            case "print": {
+                return new SortCommand();
             }
             case "report": {
                 switch (hold[1]) {
