@@ -1,7 +1,7 @@
 package duke.util;
 
 
-import duke.command.CapCommand;
+import duke.command.logic.CapCommand;
 import duke.command.logic.CoreModuleReportCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.GeneralModuleReportCommand;

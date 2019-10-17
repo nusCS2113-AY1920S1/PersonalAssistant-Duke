@@ -1,4 +1,4 @@
-package duke.command;
+package duke.command.logic;
 
 import duke.command.logic.ModuleCommand;
 import duke.exceptions.ModException;
@@ -12,6 +12,8 @@ import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
 import duke.util.commons.ModuleTasksList;
+import duke.modules.data.ModuleTask;
+
 
 
 import java.util.HashMap;
@@ -68,7 +70,7 @@ public class CapCommand extends ModuleCommand {
         command = input.split(" ");
         if (input.length() <= 4) {
             this.type = CommandType.OVERALL;
-        } else if (command[1].equalsIgnoreCase("semester")) {
+        } else if (command[1].equalsIgnoreCase("semester") || (command[1].equalsIgnoreCase("list"))) {
             this.type = CommandType.SEMESTER;
         } else {
             this.type = CommandType.MODULE;
