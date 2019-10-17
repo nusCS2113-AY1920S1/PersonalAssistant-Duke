@@ -57,10 +57,10 @@ The *_Architecture Diagram_* shown above explains the high-level design of *Dr. 
 [[Design-UI]]
 === UI
 
-
-
 [[Design-Logic]]
 === Parser Logic
+
+
 
 [[Design-Model]]
 === Data Model

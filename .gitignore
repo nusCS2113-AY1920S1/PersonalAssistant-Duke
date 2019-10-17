@@ -16,5 +16,8 @@ bin/
 # User data
 /data/*
 
-# Java build files
+# Misc files
 *.javas
+*.swp
+/docs/**/*.bat
+/docs/**/*.sh
