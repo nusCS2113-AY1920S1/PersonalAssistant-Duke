@@ -91,8 +91,8 @@ public class ProjectInputController implements IController {
                         if (newTask.getDetails() != null) {
                             consoleView.addTask(projectToManage, (Task) newTask);
                         } else {
-                            consoleView.consolePrint("Failed to create new task. Please ensure all" +
-                                    "necessary parameters are given");
+                            consoleView.consolePrint("Failed to create new task. Please ensure all"
+                                    + "necessary parameters are given");
                         }
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
