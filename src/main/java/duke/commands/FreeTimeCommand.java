@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.Model;
@@ -27,7 +28,7 @@ public class FreeTimeCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         TaskWithDates primalTask = new TaskWithDates("earliest", LocalDateTime.now().plusMinutes(1));
         TaskWithDates worldEndTask = new TaskWithDates("latest", LocalDateTime.MAX);
         model.getTasks().add(primalTask);
@@ -39,7 +40,7 @@ public class FreeTimeCommand extends Command {
             if (LocalDateTime.now().compareTo(prev) < 0 && prev.plusHours(duration).compareTo(now) <= 0) {
                 model.getTasks().remove(primalTask);
                 model.getTasks().remove(worldEndTask);
-                return new CommandResult(prev.toString());
+                return new CommandResultText(prev.toString());
             }
         }
         //change to time not found later, but this line of code should nvr be executed

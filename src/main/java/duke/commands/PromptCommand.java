@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.model.Model;
 
 public class PromptCommand extends Command {
@@ -9,7 +10,7 @@ public class PromptCommand extends Command {
         this.prompt = prompt;
     }
 
-    public CommandResult execute(Model model) {
-        return new CommandResult(prompt);
+    public CommandResultText execute(Model model) {
+        return new CommandResultText(prompt);
     }
 }

@@ -1,7 +1,6 @@
 package duke.ui.map;
 
-import duke.commands.results.CommandResultMap;
-import duke.commands.results.CommandResultText;
+import duke.commands.results.CommandResultImage;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.ui.UiPart;
@@ -9,48 +8,37 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.List;
 
-public class MapWindow extends UiPart<Stage> {
+public class StaticMapWindow extends UiPart<Stage> {
     @FXML
     private AnchorPane map;
 
-    private static final String FXML = "MapWindow.fxml";
-    private ObservableList<Venue> locations = FXCollections.observableArrayList();
-
-    private void generateNodes(List<BusStop> routes) {
-        locations.addAll(routes);
-    }
-
-    private void attachListener() {
-        locations.addListener((ListChangeListener<Venue>) c -> {
-            map.getChildren().clear();
-            for (Venue location : locations) {
-                map.getChildren().add(LocationCard.getCard(location));
-            }
-        });
-    }
+    private static final String FXML = "StaticMapWindow.fxml";
 
     /**
      * Creates a new MapWindow.
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    private MapWindow(Stage root, List<BusStop> routes) {
+    private StaticMapWindow(Stage root, Image image) {
         super(FXML, root);
-        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
-        attachListener();
-        generateNodes(routes);
+        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/staticMapStyle.css").toExternalForm());
+        ImageView iv1 = new ImageView();
+        iv1.setImage(image);
+        map.getChildren().add(iv1);
     }
 
     /**
      * Creates a new MapWindow.
      */
-    public MapWindow(CommandResultMap commandResult) {
-        this(new Stage(), commandResult.getRoute());
+    public StaticMapWindow(Image image) {
+        this(new Stage(), image);
     }
 
     /**

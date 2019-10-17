@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.locations.Venue;
@@ -22,7 +23,7 @@ public class RecommendationsCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         // Multiple possibilities with the logic here.
         List<Venue> list = model.getRecommendations();
 
@@ -44,6 +45,6 @@ public class RecommendationsCommand extends Command {
             throw new DukeException("Too many days, enter less than 8 ");
         }
 
-        return new CommandResult(result.toString());
+        return new CommandResultText(result.toString());
     }
 }

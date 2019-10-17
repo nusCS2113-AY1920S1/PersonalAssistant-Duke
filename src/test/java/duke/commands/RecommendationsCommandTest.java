@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.ModelStub;
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.locations.Venue;
 import org.junit.jupiter.api.Test;
@@ -9,15 +10,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 class RecommendationsCommandTest {
 
     @Test
     void execute() throws DukeException {
         ModelStub model = new ModelStub();
         RecommendationsCommand recommendationsCommand = new RecommendationsCommand("5");
-        CommandResult commandResult = recommendationsCommand.execute(model);
-        String result1 = commandResult.toString();
+        CommandResultText commandResult = recommendationsCommand.execute(model);
+        String result1 = commandResult.getMessage();
 
         List<Venue> list = model.getRecommendations();
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in 5 days:\n");

@@ -1,11 +1,19 @@
 package duke.ui;
 
 import duke.Main;
-import duke.commands.CommandResult;
+import duke.commands.Command;
+import duke.commands.results.CommandResult;
+import duke.commands.results.CommandResultCalender;
+import duke.commands.results.CommandResultExit;
+import duke.commands.results.CommandResultImage;
+import duke.commands.results.CommandResultMap;
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
 import duke.ui.calendar.CalendarWindow;
+import duke.ui.dialogbox.DialogBox;
+import duke.ui.dialogbox.DialogBoxImage;
 import duke.ui.map.MapWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -87,13 +95,15 @@ public class MainWindow extends UiPart<Stage> {
             try {
                 CommandResult result = logic.execute(input);
                 dukeShow(result);
-                if (result.isExit()) {
+
+                if (result instanceof CommandResultExit) {
                     tryExitApp();
-                } else if (result.isCalendar()) {
-                    new CalendarWindow(result).show();
-                } else if (result.isMap()) {
-                    new MapWindow(result).show();
+                } else if (result instanceof CommandResultCalender) {
+                    new CalendarWindow((CommandResultCalender) result).show();
+                } else if (result instanceof CommandResultMap) {
+                    new MapWindow((CommandResultMap) result).show();
                 }
+
             } catch (DukeException e) {
                 dukeShow(e.getMessage());
             }
@@ -124,8 +134,26 @@ public class MainWindow extends UiPart<Stage> {
         );
     }
 
+    /**
+     * Shows an image in dialogBoxImage to the user.
+     * @param message
+     * @param image
+     */
+    private void dukeShowImage(String message, Image image) {
+        dialogContainer.getChildren().addAll(
+                DialogBoxImage.getDukeDialog(message, dukeImage, image)
+        );
+    }
+
     private void dukeShow(CommandResult commandResult) {
-        dukeShow(commandResult.toString());
+        if (commandResult instanceof CommandResultImage) {
+            dukeShowImage(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
+            return;
+        }
+
+        if (commandResult != null) {
+            dukeShow(commandResult.getMessage());
+        }
     }
 
     private void tryExitApp() {

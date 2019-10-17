@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
@@ -15,10 +16,10 @@ public class GetBusStopCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
         if (allBus.containsKey(this.buscode)) {
-            return new CommandResult("This is the information for this Bus Stop:\n"
+            return new CommandResultText("This is the information for this Bus Stop:\n"
                     + allBus.get(this.buscode).getAddress() + "\n"
                     + allBus.get(this.buscode).getLatitude() + "\n"
                     + allBus.get(this.buscode).getLongitude());

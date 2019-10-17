@@ -1,6 +1,7 @@
 package duke.commands;
 
 
+import duke.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
@@ -13,7 +14,7 @@ public class ListCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) {
-        return new CommandResult(model.getTasks());
+    public CommandResultText execute(Model model) {
+        return new CommandResultText(model.getTasks());
     }
 }

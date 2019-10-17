@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.transports.BusService;
@@ -15,13 +16,13 @@ public class GetBusRouteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         HashMap<String, BusService> busMap = model.getMap().getBusMap();
         BusService bus = busMap.get(this.bus);
         String result = "";
         for (String busCode : bus.getDirection(1)) {
             result = result.concat(busCode + "\n");
         }
-        return new CommandResult(MESSAGE_BUS_ROUTE + result);
+        return new CommandResultText(MESSAGE_BUS_ROUTE + result);
     }
 }

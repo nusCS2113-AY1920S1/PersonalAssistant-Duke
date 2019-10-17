@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.Model;
@@ -29,7 +30,7 @@ public class RescheduleCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         try {
             Task task =  model.getTasks().get(index);
             if (task instanceof TaskWithDates) {
@@ -38,7 +39,7 @@ public class RescheduleCommand extends Command {
                 throw new DukeException(Messages.TASK_NOT_FOUND);
             }
             model.save();
-            return new CommandResult(MESSAGE_UPDATE + task);
+            return new CommandResultText(MESSAGE_UPDATE + task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         }

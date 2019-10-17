@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.events.Task;
@@ -26,9 +27,9 @@ public class AddCommand extends Command {
      * @param model The model object containing task list.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         model.getTasks().add(task);
         model.save();
-        return new CommandResult(MESSAGE_ADDITION + task);
+        return new CommandResultText(MESSAGE_ADDITION + task);
     }
 }

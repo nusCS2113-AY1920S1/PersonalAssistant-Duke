@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultMap;
 import duke.commons.enumerations.Constraint;
 import duke.logic.PathFinder;
 import duke.commons.Messages;
@@ -64,7 +65,7 @@ public class FindPathCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultMap execute(Model model) throws DukeException {
 
         Event startPoint = getHoliday(this.startPointIndex, model.getTasks());
         Venue startLocation = startPoint.getLocation();
@@ -78,8 +79,7 @@ public class FindPathCommand extends Command {
         PathFinder pathFinder = new PathFinder(model.getMap());
         ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
 
-        CommandResult commandResult = new CommandResult(MESSAGE_FIND_PATH);
-        commandResult.setMap(true);
+        CommandResultMap commandResult = new CommandResultMap(MESSAGE_FIND_PATH);
         commandResult.setRoute(route);
         return commandResult;
     }

@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.TaskList;
@@ -28,7 +29,7 @@ public class ReminderCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         SortedList<Task> tasks = model.getTasks().getChronoList();
         for (Task t : tasks) {
             if (t.isDone()) {
@@ -50,6 +51,6 @@ public class ReminderCommand extends Command {
         for (Task t : upcomingTask) {
             result.append(t.toString());
         }
-        return new CommandResult(result.toString());
+        return new CommandResultText(result.toString());
     }
 }

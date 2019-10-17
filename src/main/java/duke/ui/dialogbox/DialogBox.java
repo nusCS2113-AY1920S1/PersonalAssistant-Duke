@@ -1,5 +1,6 @@
-package duke.ui;
+package duke.ui.dialogbox;
 
+import duke.ui.UiPart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

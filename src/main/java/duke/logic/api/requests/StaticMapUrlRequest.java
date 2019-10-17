@@ -34,12 +34,9 @@ public class StaticMapUrlRequest extends UrlRequest {
             URL url = new URL(URL + param);
             response = ImageIO.read(url);
             image = SwingFXUtils.toFXImage(response, null);
+            assert (image != null);
         } catch (IOException e) {
             throw new DukeException(Messages.DATA_NOT_FOUND);
-        }
-
-        try {
-            assert (image != null);
         } catch (Throwable e) {
             throw new DukeException(Messages.DATA_NULL);
         }

@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.TaskList;
@@ -26,7 +27,7 @@ public class FindCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultText execute(Model model) throws DukeException {
         TaskList tasks = model.getTasks();
         TaskList result = new TaskList();
         for (Task task: tasks) {
@@ -34,6 +35,6 @@ public class FindCommand extends Command {
                 result.add(task);
             }
         }
-        return new CommandResult(result);
+        return new CommandResultText(result);
     }
 }
