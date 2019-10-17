@@ -100,6 +100,19 @@ public class Ui {
     }
 
     /**
+     * Show the size of the order list.
+     * @param size the size
+     */
+    public void showOrderListSize(int size) {
+        System.out.print("\t Now you have " + size);
+        if (size == 1) {
+            System.out.print(" order");
+        } else {
+            System.out.print(" orderss");
+        }
+        System.out.println(" in the list.");
+    }
+    /**
      * Shows that a task has been added.
      * @param command ay
      * @param size ya
@@ -111,6 +124,16 @@ public class Ui {
     }
 
     /**
+     * Shows that a order has been added.
+     * @param command ay
+     * @param size ya
+     */
+    public void showAddOrder(String command, int size) {
+        System.out.println("\t Got it. I've added this order: ");
+        System.out.println("\t " + command);
+        showOrderListSize(size);
+    }
+    /**
      * Show the task that has been removed.
      * @param removed the task
      * @param size size of list
@@ -119,5 +142,16 @@ public class Ui {
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t " + removed);
         showSize(size);
+    }
+
+    /**
+     * Show the order that has been removed.
+     * @param removed the order
+     * @param size size of order list
+     */
+    public void showRemovedOrder(String removed, int size) {
+        System.out.println("\t Noted. I've removed this order:");
+        System.out.println("\t " + removed);
+        showOrderListSize(size);
     }
 }

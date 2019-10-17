@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.recipebook.dishlist;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -23,7 +24,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
             Task removed = taskList.removeTask(taskNb);
             List<String> fileContent = null;
@@ -32,7 +33,7 @@ public class DeleteCommand extends Command {
                 fileContent.remove(taskNb); // changing the file content
                 Files.write(storage.getPath(), fileContent, StandardCharsets.UTF_8);
             } catch (IOException e) {
-                throw new DukeException("Error while deleting the task from the had disc");
+                throw new DukeException("Error while deleting the task from the hard disc");
             }
             ui.showRemovedTask(removed.toString(), taskList.size());
         } else {

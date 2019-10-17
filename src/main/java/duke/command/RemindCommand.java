@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.recipebook.dishlist;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -20,7 +21,7 @@ public class RemindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         int num = 1;
         LocalDate date = LocalDate.now();
         LocalDate date1 = date.plusDays(5);

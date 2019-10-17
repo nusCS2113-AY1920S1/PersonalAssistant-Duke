@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.recipebook.dishlist;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -17,7 +18,7 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
             taskList.markTaskDone(taskNb);
             ui.showMarkDone(taskList.getTask(taskNb).toString());
