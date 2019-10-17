@@ -1,5 +1,5 @@
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Contact.AddContactCommand;

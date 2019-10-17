@@ -1,4 +1,4 @@
-package gazeeebo.Tasks;
+package gazeeebo.tasks;
 
 public class Task {
     public String description;

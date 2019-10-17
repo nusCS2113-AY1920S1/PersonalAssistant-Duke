@@ -1,4 +1,4 @@
-package gazeeebo.Tasks;
+package gazeeebo.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
