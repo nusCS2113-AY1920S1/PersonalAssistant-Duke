@@ -26,9 +26,6 @@ public class ParserHelper {
         for (String s : tempInput) {
             if (s.length() >= 2) {
                 switch (s.substring(0, 2)) {
-                case "n/":
-                    memberDetails[0] = s.substring(2);
-                    break;
                 case "i/":
                     memberDetails[1] = s.substring(2);
                     break;
@@ -43,6 +40,22 @@ public class ParserHelper {
                 }
             }
         }
+        int indexOfNameFlag = input.indexOf("n/");
+        int indexOfPhoneFlag = input.indexOf("i/");
+        int indexOfEmailFlag = input.indexOf("e/");
+        int indexOfMemberIndexFlag = input.indexOf("x/");
+        if (indexOfNameFlag == -1) {
+            return memberDetails;
+        }
+        if (indexOfPhoneFlag != -1) {
+            memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfPhoneFlag - 1);
+        } else if (indexOfEmailFlag != -1) {
+            memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfEmailFlag - 1);
+        } else if (indexOfMemberIndexFlag != -1) {
+            memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfMemberIndexFlag - 1);
+        } else {
+            memberDetails[0] = input.substring(2);
+        }
         return memberDetails;
     }
 
@@ -54,8 +67,9 @@ public class ParserHelper {
      */
     public ArrayList<String> parseSortTaskDetails(ArrayList<Task> taskList, String sortCriteria) {
         ArrayList<String> taskDetails = new ArrayList<>();
-        if (sortCriteria.length() >= 3) {
-            switch (sortCriteria) {
+        if (sortCriteria.length() >= 4) {
+            String[] detailedCriteria = sortCriteria.split("-");
+            switch (detailedCriteria[0]) {
             case "/NAME":
                 taskDetails = this.sortHelper.sortTaskName(taskList);
                 break;
@@ -72,13 +86,10 @@ public class ParserHelper {
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "/WHO":
-                taskDetails = this.sortHelper.sortTaskMembers(taskList);
+                taskDetails = this.sortHelper.sortTaskMember(taskList, detailedCriteria[1]);
                 break;
-            case "/KANBAN/OPEN":
-            case "/KANBAN/TODO":
-            case "/KANBAN/DOING":
-            case "/KANBAN/DONE":
-                taskDetails = this.sortHelper.sortTaskState(taskList, sortCriteria.substring(8));
+            case "/KANBAN":
+                taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
                 break;
             default:
                 break;
