@@ -265,8 +265,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean deductIngredient(Ingredient ingredient, double amount) {
-        requireAllNonNull(ingredient, amount);
-        return deductIngredient(ingredient, amount);
+        return bakingHome.deductIngredient(ingredient, amount);
     }
 
     @Override

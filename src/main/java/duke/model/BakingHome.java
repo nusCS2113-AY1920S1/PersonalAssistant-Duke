@@ -1,8 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
