@@ -1,7 +1,7 @@
 package UserCode.Actions;
 
 import Farmio.Farmio;
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class BuySeedAction extends Action {
@@ -16,7 +16,7 @@ public class BuySeedAction extends Action {
         try {
             farmer.getWheatFarm().buySeeds();
             farmer.changeMoney(-100);
-            new Simulate("BuySeedSimulation", farmio).simulate(0, 4);
+            new Simulation("BuySeedSimulation", farmio).animate(0, 4);
         } catch (Exception e) {
             e.getMessage();
         }

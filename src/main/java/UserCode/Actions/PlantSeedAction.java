@@ -1,7 +1,7 @@
 package UserCode.Actions;
 
 import Farmio.Farmio;
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class PlantSeedAction extends Action {
@@ -19,7 +19,7 @@ public class PlantSeedAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().plantSeeds();
-            new Simulate("PlantSeedSimulation", super.farmio).simulate(0, 15);
+            new Simulation("PlantSeedSimulation", super.farmio).animate(0, 15);
         } catch (Exception e){
             e.getMessage();
         }

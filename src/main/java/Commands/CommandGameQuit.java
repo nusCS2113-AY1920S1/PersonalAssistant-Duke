@@ -2,12 +2,12 @@ package Commands;
 
 import Farmio.Farmio;
 import FarmioExceptions.FarmioException;
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 
 public class CommandGameQuit extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException {
-        new Simulate("GameExit", farmio).showFrame(0);
+        new Simulation("GameExit", farmio).animate(0);
         isExit = true;
     }
 }

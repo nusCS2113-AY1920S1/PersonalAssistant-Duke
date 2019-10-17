@@ -25,8 +25,8 @@ public class Ui {
     }
 
     public void showWelcome(){
-        Simulate welcomeSimulation = new Simulate("Welcome", this);
-        welcomeSimulation.showFullFrame(1);
+        Simulation welcomeSimulation = new Simulation("Welcome", this);
+        welcomeSimulation.animate(1);
         show( "Press ENTER to continue.");
     }
 
@@ -35,10 +35,10 @@ public class Ui {
     }
 
     public void showNarrative(ArrayList<String> narratives, String directory, Farmio farmio) {
-        Simulate narrativeSimulation = new Simulate(directory, farmio);
+        Simulation narrativeSimulation = new Simulation(directory, farmio);
         for(int i = 0; i < narratives.size(); ++i){
             clearScreen();
-            narrativeSimulation.showFrame(i);
+            narrativeSimulation.animate(i);
             typeWriter(narratives.get(i));
             if(i != narratives.size() - 1) {
                 show("Press ENTER to continue.");
@@ -85,11 +85,6 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showAsciiArt(String fileName) {
-        String output = getAsciiArt(fileName);
-        System.out.println(output);
-    }
-
     private String blankSpace(int n) {
         String output = "";
         for (int i = 0; i < n; i ++) {
@@ -98,17 +93,17 @@ public class Ui {
         return output;
     }
 
-    public ArrayList<String> loadStage(String path, int frame) {
+    ArrayList<String> loadStage(String path, int frame, int width, int height) {
         String filepath = "./src/main/resources/asciiArt/" + path + "/frame" + frame + ".txt";
         ArrayList<String> output = new ArrayList<>();
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader(filepath));
             String line;
             while ((line = bufferreader.readLine()) != null) {
-                if (line.length() < 55) {
-                    line = line + blankSpace(55 - line.length());
-                } else if (line.length() > 55) {
-                    line = blankSpace(55);
+                if (line.length() < width) {
+                    line = line + blankSpace(width - line.length());
+                } else if (line.length() > width) {
+                    line = blankSpace(width);
                 }
                 output.add("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + line + AsciiColours.SANE +"|");
             }
@@ -117,36 +112,9 @@ public class Ui {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        if (output.size() < 18) {
-            for (int i = output.size(); i < 18; i ++) {
-                output.add("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + blankSpace(55) + AsciiColours.SANE +"|");
-            }
-        }
-        return output;
-    }
-
-    public ArrayList<String> loadFullStage(String path, int frame) {
-        String filepath = "./src/main/resources/asciiArt/" + path + "/frame" + frame + ".txt";
-        ArrayList<String> output = new ArrayList<>();
-        try {
-            BufferedReader bufferreader = new BufferedReader(new FileReader(filepath));
-            String line;
-            while ((line = bufferreader.readLine()) != null) {
-                if (line.length() < 103) {
-                    line = line + blankSpace(103 - line.length());
-                } else if (line.length() > 103) {
-                    line = blankSpace(103);
-                }
-                output.add("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + line + AsciiColours.SANE +"|");
-            }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        if (output.size() < 22) {
-            for (int i = output.size(); i < 22; i ++) {
-                output.add("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + blankSpace(103) + AsciiColours.SANE +"|");
+        if (output.size() < height) {
+            for (int i = output.size(); i < height; i ++) {
+                output.add("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + blankSpace(width) + AsciiColours.SANE +"|");
             }
         }
         return output;
@@ -156,18 +124,17 @@ public class Ui {
         int i;
         System.out.print(">>> ");
         try{
-            Thread.sleep(1500);//0.5s pause between characters
+            Thread.sleep(150);//0.5s pause between characters
         }catch(InterruptedException ex){
             Thread.currentThread().interrupt();
         }
         for(i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));
             try{
-                Thread.sleep(120);//0.5s pause between characters
+                Thread.sleep(60);//0.5s pause between characters
             }catch(InterruptedException ex){
                 Thread.currentThread().interrupt();
             }
         }
-//        show("typewriter funtion: (for testing this is disabled cos slow af)"+text);
     }
 }

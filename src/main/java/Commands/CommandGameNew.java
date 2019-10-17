@@ -4,7 +4,7 @@ import Farmio.Farmer;
 import Farmio.Farmio;
 import Farmio.Level;
 import FarmioExceptions.FarmioException;
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class CommandGameNew extends Command {
         farmio.setFarmer(new Farmer());
         try {
             farmio.setLevel(new Level(farmio.getStorage().getLevel(1), farmio.getFarmer()));
-            new Simulate("GameNew", farmio).showFrame(0);
+            new Simulation("GameNew", farmio.getUi()).animate(0);
         } catch (IOException | ParseException e) {
             throw new FarmioException("Load level failed! Fatal!");
         }
