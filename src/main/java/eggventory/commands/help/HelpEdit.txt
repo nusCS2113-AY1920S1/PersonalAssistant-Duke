@@ -1,0 +1,9 @@
+Directly modifies the value of a property of a stock.
+
+edit:       edit stock (<Stock Code> | < StockType> | <Quantity> | <Description> ) <New Value>
+
+<Stock Code>        The model number of the existing stock
+<Stock Type>        The category name of the stock
+<Quantity>          The number of stock in the inventory
+<Description>       The description of the stock
+<New Value>         The value of the property mentioned will be replaced by this new value

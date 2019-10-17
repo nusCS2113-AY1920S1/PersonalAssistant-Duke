@@ -64,6 +64,82 @@ public class StockType {
     */
 
     /**
+     * Adds a stock to the stockList.
+     * @return True if item was added successfully.
+     */
+    public boolean addStock(String stockType, String stockCode, int quantity, String description) {
+        stocks.add(new CollectiveStock(stockType, stockCode, quantity, description));
+        //this.quantity++;
+        return true;
+    }
+
+    /**
+     * Deletes a stock of the user's choice.
+     *
+     * @param stockCode The code of the stock to be deleted.
+     * @return true if some stockCode was found and the corresponding stock removed. false if none were found.
+     */
+    public Stock deleteStock(String stockCode) {
+
+        //While this is nice, we are unable to print a confirmation message of the stock deleted.
+        //stocks.removeIf(stock -> stock.getStockCode().equals(stockCode));
+
+        Stock deletedStock;
+
+        for (Stock stock : stocks) {
+            if (stockCode.equals(stock.getStockCode())) {
+                deletedStock = stock; //Not sure if this is a copy or not. Assumes unique stockCodes.
+                stocks.remove(stock);
+                return deletedStock;
+            }
+        }
+        return null;
+        //this.quantity--;
+    }
+
+    /**
+     * Accesses and sets a new stockCode of a stock.
+     * @param oldStockCode The current stockcode referring to this stock.
+     * @param newStockCode The new stockcode to change to.
+     */
+    public void setStockCode(String oldStockCode, String newStockCode) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(oldStockCode)) {
+                stock.setStockCode(newStockCode);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Accesses and sets the quantity of a Stock.
+     * @param stockCode StockCode of the stock to change
+     * @param quantity New quantity of the stock to change
+     */
+    public void setStockQuantity(String stockCode, int quantity) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setQuantity(quantity);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Accesses and sets the description of a Stock.
+     * @param stockCode StockCode of the stock to change
+     * @param description New description of the stock to change
+     */
+    public void setStockDescription(String stockCode, String description) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setDescription(description);
+                return;
+            }
+        }
+    }
+
+    /**
      * Returns the entire stockList.
      * @return the stockList.
      */
@@ -96,38 +172,8 @@ public class StockType {
         return name;
     }
 
-    /**
-     * Adds a stock to the stockList.
-     * @return True if item was added successfully.
-     */
-    public boolean addStock(String stockType, String stockCode, int quantity, String description) {
-        stocks.add(new CollectiveStock(stockType, stockCode, quantity, description));
-        //this.quantity++;
-        return true;
-    }
-
-    /**
-     * Deletes a stock of the user's choice.
-     *
-     * @param stockCode The code of the stock to be deleted.
-     * @return true if some stockCode was found and the corresponding stock removed. false if none were found.
-     */
-    public Stock deleteStock(String stockCode) {
-
-        //While this is nice, we are unable to print a confirmation message of the stock deleted.
-        //stocks.removeIf(stock -> stock.getStockCode().equals(stockCode));
-
-        Stock deletedStock;
-
-        for (Stock stock : stocks) {
-            if (stockCode.equals(stock.getStockCode())) {
-                deletedStock = stock; //Not sure if this is a copy or not. Assumes unique stockCodes.
-                stocks.remove(stock);
-                return deletedStock;
-            }
-        }
-        return null;
-        //this.quantity--;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

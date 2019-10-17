@@ -2,6 +2,7 @@ package eggventory.parsers;
 
 import eggventory.commands.Command;
 import eggventory.commands.FindCommand;
+import eggventory.commands.help.HelpCommand;
 import eggventory.commands.ListCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
@@ -82,6 +83,17 @@ public class Parser {
             } else {
                 command = new Command();
                 throw new BadInputException("Please enter the search description.");
+            }
+            break;
+        }
+
+        case "help": {
+            if (inputArr.length == 1) {
+                //display general help
+                command = new HelpCommand(CommandType.HELP);
+            } else {
+                //display full help.
+                command = new HelpCommand(CommandType.HELP, inputArr[1]);
             }
             break;
         }
