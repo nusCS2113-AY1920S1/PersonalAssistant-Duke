@@ -2,13 +2,8 @@ package duke.commands.results;
 
 import duke.model.TaskList;
 import duke.model.events.Task;
-import duke.model.locations.BusStop;
-
-import java.util.ArrayList;
 
 public class CommandResultText extends CommandResult {
-    private TaskList tasks;
-
     /**
      * Constructs a basic CommandResultImage object.
      *
@@ -29,10 +24,4 @@ public class CommandResultText extends CommandResult {
             i += 1;
         }
     }
-
-
-    public void setTasks(TaskList tasks) {
-        this.tasks = tasks;
-    }
-
 }

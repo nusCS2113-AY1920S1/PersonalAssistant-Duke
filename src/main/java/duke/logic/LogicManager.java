@@ -2,7 +2,6 @@ package duke.logic;
 
 import duke.commands.Command;
 import duke.commands.results.CommandResult;
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.conversations.ConversationManager;
@@ -17,7 +16,7 @@ public class LogicManager extends Logic {
     /**
      * Creates LogicManager instance.
      */
-    public LogicManager() throws DukeException {
+    public LogicManager() {
         conversationManager = new ConversationManager();
         model = new ModelManager();
     }
@@ -36,7 +35,6 @@ public class LogicManager extends Logic {
         } catch (DukeApiException e) {
             throw new DukeException((e.getMessage()));
         } catch (DukeException e) {
-            //if (e.getMessage() == Messages.DATA_NOT_FOUND || e.getMessage() == Messages.DATA_NULL) {
             c = getCommandFromConversationManager(userInput);
         }
         return (CommandResult) c.execute(model);

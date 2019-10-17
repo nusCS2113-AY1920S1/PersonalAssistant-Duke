@@ -1,13 +1,11 @@
 package duke.ui;
 
 import duke.Main;
-import duke.commands.Command;
 import duke.commands.results.CommandResult;
 import duke.commands.results.CommandResultCalender;
 import duke.commands.results.CommandResultExit;
 import duke.commands.results.CommandResultImage;
 import duke.commands.results.CommandResultMap;
-import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
@@ -69,11 +67,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void initialise(Main main) {
         this.main = main;
-        try {
-            logic = new LogicManager();
-        } catch (DukeException e) {
-            dukeShow(e.getMessage());
-        }
+        logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
     }
 

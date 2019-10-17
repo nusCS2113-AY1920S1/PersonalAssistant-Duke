@@ -1,7 +1,6 @@
 package duke.ui.map;
 
 import duke.commands.results.CommandResultMap;
-import duke.commands.results.CommandResultText;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.ui.UiPart;

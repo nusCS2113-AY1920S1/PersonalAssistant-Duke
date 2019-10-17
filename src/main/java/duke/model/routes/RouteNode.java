@@ -9,7 +9,7 @@ public class RouteNode extends Venue {
     private String description;
 
     /**
-     * Creates a routeNode object.
+     * Creates a RouteNode object.
      * @param type The type of transport of node.
      * @param latitude The latitude of node.
      * @param longitude The longitude of node.

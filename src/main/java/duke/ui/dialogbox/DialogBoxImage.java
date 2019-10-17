@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Circle;
 
 import java.util.Collections;
@@ -54,7 +53,6 @@ public class DialogBoxImage extends UiPart<HBox> {
      * @param image The image to display
      */
     private void setPictureView(Image image) {
-        ImagePattern pattern = new ImagePattern(image);
         imageBox.setImage(image);
     }
 

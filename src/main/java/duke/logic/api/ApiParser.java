@@ -115,8 +115,7 @@ public class ApiParser {
      * @throws DukeException Exception thrown by Duke
      */
     public static Image getStaticMap(String param) throws DukeException {
-        StaticMapUrlRequest req = new StaticMapUrlRequest("https://developers.onemap.sg/commonapi/staticmap/getStaticImage?",
-                param);
+        StaticMapUrlRequest req = new StaticMapUrlRequest(param);
         return req.execute();
     }
 

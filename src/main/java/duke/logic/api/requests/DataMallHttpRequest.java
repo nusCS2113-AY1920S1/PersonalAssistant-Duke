@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import duke.commons.exceptions.DukeApiException;
-import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 
 import java.io.BufferedReader;

@@ -14,7 +14,7 @@ public class StaticMapUrlRequest extends UrlRequest {
      * Construct the URL Request.
      * @param param The query
      */
-    public StaticMapUrlRequest(String url, String param) {
+    public StaticMapUrlRequest(String param) {
         super(param.replace(" ", "+"));
     }
 
@@ -26,7 +26,6 @@ public class StaticMapUrlRequest extends UrlRequest {
     @Override
     public Image execute() throws DukeApiException {
         Image image;
-        BufferedImage response;
         try {
             URL url = new URL(URL + param);
             image = new Image(url.toExternalForm());

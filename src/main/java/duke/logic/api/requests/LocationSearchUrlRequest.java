@@ -2,7 +2,6 @@ package duke.logic.api.requests;
 
 import com.google.gson.JsonElement;
 import duke.commons.exceptions.DukeApiException;
-import duke.commons.exceptions.DukeException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +12,6 @@ import java.net.URLConnection;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import duke.commons.Messages;
-
-import javax.annotation.processing.SupportedSourceVersion;
 
 /**
  * URL request to OneMap API to get coordinates of location.

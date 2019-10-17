@@ -1,8 +1,6 @@
 package duke.logic.api.requests;
 
-import com.google.gson.JsonObject;
 import duke.commons.exceptions.DukeApiException;
-import duke.commons.exceptions.DukeException;
 
 /**
  * Abstract class representing individual URL requests.
