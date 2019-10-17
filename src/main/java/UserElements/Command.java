@@ -128,6 +128,14 @@ public class Command {
                 rescheduleEvents(events, ui);
                 break;
 
+            case "details":
+                addEventDetails(events, ui);
+                break;
+
+            case "viewdetails":
+                viewDetails(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -198,6 +206,12 @@ public class Command {
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
+    }
+
+    public void viewDetails(EventList events, UI ui) {
+        int eventNo = Integer.parseInt(continuation);
+        Event currEvent = events.getEvent(eventNo - 1);
+        ui.printEventDetails(currEvent);
     }
 
     public void createNewEvent(EventList events, UI ui, char eventType) {
@@ -287,6 +301,22 @@ public class Command {
             } else {
                 ui.noSuchEvent();
             }
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
+
+    public void addEventDetails(EventList events, UI ui) {
+        try {
+            Parser parser = new Parser();
+            int eventNo = Integer.parseInt(continuation);
+            Event currEvent = events.getEvent(eventNo - 1);
+            ui.inputDetails();
+            String detailsInput = parser.readUserInput();
+            currEvent.addDetails(detailsInput);
+            ui.eventDetailsAdded(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {

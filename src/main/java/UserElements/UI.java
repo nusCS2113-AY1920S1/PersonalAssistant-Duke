@@ -129,6 +129,39 @@ public class UI {
         }
     }
 
+    public void inputDetails() {
+        System.out.println("Please input the event details below in the format" + "\n" +
+                "<venue>/<teachers or assessors>/<pieces to practice>/<performers>. For non-applicable categories please input 'NA'.");
+    }
+
+    public void eventDetailsAdded(Event detailedEvent) {
+        try {
+            System.out.println(lineSeparation + "Got it. I've added the details to this event:");
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " START: " + detailedEvent.getStartDate().getFormattedDateString() +
+                    " END: " + detailedEvent.getEndDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " BY: " + detailedEvent.getStartDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        }
+    }
+
+    public void printEventDetails(Event detailedEvent) {
+        try {
+            System.out.println(lineSeparation + "Here are the details for the event:");
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " START: " + detailedEvent.getStartDate().getFormattedDateString() +
+                    " END: " + detailedEvent.getEndDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " BY: " + detailedEvent.getStartDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        }
+    }
+
     /**
      * prints message when a event is marked as completed
      *
