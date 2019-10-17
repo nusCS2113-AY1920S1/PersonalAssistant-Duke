@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.exceptions.ModInvalidTimePeriodException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -109,17 +110,17 @@ public class TimePeriodWeekly implements TimePeriod {
         return this.isClashing(new TimePeriodWeekly(LocalTime.MIN, LocalTime.MAX, localDate.getDayOfWeek()));
     }
 
-    public boolean isClashing(LocalDateTime begin, LocalDateTime end) {
-        return this.isClashing(begin) || this.isClashing(end);
+    public boolean isClashing(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
+        return this.isClashing(new TimePeriodSpanning(begin, end));
     }
 
     @Override
-    public <E extends TemporalAccessor> boolean isClashing(E begin, E end) {
+    public <E extends TemporalAccessor> boolean isClashing(E begin, E end) throws ModInvalidTimePeriodException {
         return this.isClashing(LocalDateTime.from(begin), LocalDateTime.from(end));
     }
 
     public boolean isClashing(LocalTime begin, LocalTime end) {
-        return this.isClashing(begin) || this.isClashing(end);
+        return this.begin == begin && this.end == end || this.isClashing(begin) || this.isClashing(end);
     }
 
     /**
@@ -151,9 +152,13 @@ public class TimePeriodWeekly implements TimePeriod {
         }
         LocalDateTime otherBeginEndOfDay = LocalDateTime.of(other.getBegin().toLocalDate(), LocalTime.MAX);
         LocalDateTime otherEndBeginOfDay = LocalDateTime.of(other.getBegin().toLocalDate(), LocalTime.MIN);
-        if (this.isClashing(other.getBegin(), otherBeginEndOfDay)
-                || this.isClashing(otherEndBeginOfDay, other.getEnd())) {
-            return true;
+        try {
+            if (this.isClashing(other.getBegin(), otherBeginEndOfDay)
+                    || this.isClashing(otherEndBeginOfDay, other.getEnd())) {
+                return true;
+            }
+        } catch (ModInvalidTimePeriodException ex) {
+            ex.printStackTrace();
         }
         LocalDate begin = other.getBegin().toLocalDate().plusDays(1);
         LocalDate end = other.getEnd().toLocalDate();
@@ -172,7 +177,8 @@ public class TimePeriodWeekly implements TimePeriod {
      */
     public boolean isClashing(TimePeriodWeekly other) {
         return other != null
-                && (this.isClashing(other.begin, other.dayOfWeek)
+                && (this.begin == other.begin && this.end == other.end
+                    || this.isClashing(other.begin, other.dayOfWeek)
                     || this.isClashing(other.end, other.dayOfWeek)
                     || other.isClashing(this.begin, this.dayOfWeek)
                     || other.isClashing(this.end, this.dayOfWeek));
