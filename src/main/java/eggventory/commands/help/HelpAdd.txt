@@ -1,0 +1,10 @@
+Add new items or item types into the database.
+
+add:    add stock <Stock Code> <Quantity> <Description>
+        add stocktype <Stock Type>
+
+<Stock Code>        The model number of the new stock
+<Quantity>          The initial number of stock to be added into Eggventory.
+                    If you intend to increase the quantity of the stock, please use 'edit'
+<Description>       A short description of the stock
+<Stock Type>        The category name of the stock
