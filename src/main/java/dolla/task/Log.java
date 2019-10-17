@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public abstract class Log {
     protected String description;
     protected LocalDateTime date;
+    protected String name;
 
     public abstract String getLogText();
 
@@ -20,5 +21,9 @@ public abstract class Log {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getName() {
+        return name;
     }
 }

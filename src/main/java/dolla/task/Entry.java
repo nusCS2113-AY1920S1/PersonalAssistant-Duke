@@ -1,8 +1,5 @@
 package dolla.task;
 
-
-import dolla.task.Log;
-import dolla.task.Log;
 import dolla.Time;
 
 import java.time.LocalDateTime;
@@ -50,6 +47,10 @@ public class Entry extends Log{
                 + "[/on " + Time.dateTimeToString(date) + "]";
     }
 
+    /**
+     * Returns a string with information about the entry to be saved.
+     * @return String with information of entry in saving format.
+     */
     @Override
     public String formatSave() {
         saveType = type.equals("income") ? "I" : "E";

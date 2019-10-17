@@ -51,21 +51,6 @@ public class DollaData {
             }
     }
 
-    //independent add
-//    public void addToEntryList(Entry newEntry) {
-//            entryList.add(newEntry);
-//    }
-/*
-    //independent add
-    public void addToDebtList(Entry newDebt) {
-        debtList.add(newDebt);
-    }
-
-    //independent add
-    public void addToEntryList(Entry newLimit) {
-        limitList.add(newLimit);
-    }
-*/
     public String getMode() {
         return mode;
     }

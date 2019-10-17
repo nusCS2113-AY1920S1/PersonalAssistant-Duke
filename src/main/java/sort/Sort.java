@@ -1,19 +1,13 @@
 package sort;
 
 import dolla.task.Log;
-import dolla.task.Entry;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Sort {
-//    ArrayList<Entry> entriesToSort;//add arraylist for limit,debt and shortcut
+    ArrayList<Log> list;
 
-//    public Sort(ArrayList<Entry> entriesToSort) {
-//        this.entriesToSort = entriesToSort;
-//    }
-
-//    public void printSortedList(){
-//
-//    }
+    public Sort(ArrayList<Log> list) {
+        this.list = list;
+    }
 }

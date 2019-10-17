@@ -276,7 +276,6 @@ public class Ui {
 
 
    // public static void printList(String mode, LogList entryList) {
-   private static LogList entryList;
     public static void printList(String mode, LogList logList) {
 
         System.out.println(line);
@@ -286,7 +285,22 @@ public class Ui {
             System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
         }
         System.out.println(line);
-        entryList = new DollaData().getLogList("entry");
-        new SortDescription().sortEntry(entryList.get());
+    }
+
+    public static void printSortedList(ArrayList<Log> list,String type) {
+        System.out.println(line);
+        if(type.equals("date")) {
+            System.out.println("sorting date.........");
+        } else if(type.equals("description")) {
+            System.out.println("sorting description.........");
+        } else if(type.equals("name")) {
+            System.out.println("sorting name.........");
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            int listNum = i + 1;
+            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+        }
+        System.out.println(line);
     }
 }

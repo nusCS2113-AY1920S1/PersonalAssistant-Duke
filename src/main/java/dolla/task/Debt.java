@@ -5,9 +5,7 @@ import dolla.task.Log;
 public class Debt extends Log {
 
     protected String type;
-    protected String name;
     protected double amount;
-//    protected String description;
     protected String saveType;
 
     public Debt(String type, String name, double amount, String description) {
@@ -29,6 +27,11 @@ public class Debt extends Log {
         return "$" + amount;
     }
 
+    /**
+     * Returns a string with information about the entry to be saved.
+     * @return String with information of entry in save format.
+     */
+    @Override
     public String formatSave() {
         saveType = type.equals("owe") ? "O" : "B";
         return saveType + " | "

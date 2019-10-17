@@ -1,10 +1,7 @@
 package parser;
 
 import dolla.Ui;
-import dolla.command.AddEntryCommand;
-import dolla.command.Command;
-import dolla.command.ErrorCommand;
-import dolla.command.ShowListCommand;
+import dolla.command.*;
 
 public class EntryParser extends Parser { public EntryParser(String inputLine) {
         super(inputLine);
@@ -30,6 +27,9 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
                 return new ErrorCommand(); // If error occurs, stop the method!
             }
             return new AddEntryCommand(entryType, amount, description, date);
+
+        } else if(commandToRun.equals("sort")) {
+            return new SortCommand(mode,inputArray[1]);
 
         } else {
             return invalidCommand();
