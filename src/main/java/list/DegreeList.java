@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class DegreeList implements Serializable, Cloneable{
     private ArrayList<String> list = new ArrayList<>();
+    private static final String filename = "../data/savedegree.txt";
 
 
     public DegreeList(){}
@@ -66,6 +67,8 @@ public class DegreeList implements Serializable, Cloneable{
         list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
     }
 
+
+
     /**
      * Method to add a degree to degree list.
      * User-friendly method to display the degree added.
@@ -74,16 +77,39 @@ public class DegreeList implements Serializable, Cloneable{
      * @throws DukeException The degree does not exist?
      */
     public void add_custom(String input) throws DukeException {
-        try {
-            list.add(input);
-            System.out.print("Added ");
-            System.out.print(input);
-            System.out.println(" to your choices of degrees");
+
+            BufferedWriter bw = null;
+            FileWriter fw = null;
+            try {
+                File file = new File(filename);
+                if(!file.exists()) {
+                    file.createNewFile();
+                }
+
+                fw = new FileWriter(file.getAbsoluteFile(), true);
+                bw = new BufferedWriter(fw);
+                list.add(input);
+                System.out.print("Added ");
+                System.out.print(input);
+                System.out.println(" to your choices of degrees");
+                String data = "degree-"+input + "\n";
+                bw.write(data);
         }
         catch (Exception e)
         {
             throw new DukeException(e.getLocalizedMessage());
-        }
+        } finally {
+                try {
+                    if (bw != null) {
+                        bw.close();
+                    }
+                    if (fw != null) {
+                        fw.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
     }
 
     /**
