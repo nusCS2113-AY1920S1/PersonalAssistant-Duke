@@ -1,6 +1,5 @@
 package payment;
 
-import java.lang.reflect.GenericDeclaration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,17 +9,21 @@ import java.util.HashMap;
  * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList.
  */
 public abstract class PaymentManager {
+    static ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
 
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
+     *
      * @param payee Payee of the item.
      */
 
-    public void findPayee(String payee, HashMap<String, Payee> managermap) {
+    public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
+
         for (Payments payment : managermap.get(payee).payments) {
+            paymentsArrayList.add(payment);
             //TODO Output payment to UI
         }
-
+        return paymentsArrayList;
     }
 
     /**
@@ -83,7 +86,7 @@ public abstract class PaymentManager {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                Payments deleted = new Payments(payee, managermap.get(payee).payments.get(--i).cost,
+                Payments deleted = new Payments(item, managermap.get(payee).payments.get(--i).cost,
                         managermap.get(payee).payments.get(i).inv);
                 managermap.get(payee).payments.remove(i);
                 return deleted;
@@ -110,5 +113,15 @@ public abstract class PaymentManager {
         Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
         managermap.put(payee, payeeNew);
         return payeeNew;
+    }
+
+    /**
+     * Delete Payee object.
+     */
+    public static Payee deletePayee(String payee, String email, String matricNum, String phoneNum,
+                                    HashMap<String, Payee> managermap) {
+        Payee payeeDeleted = new Payee(payee, email, matricNum, phoneNum);
+        managermap.remove(payee);
+        return payeeDeleted;
     }
 }
