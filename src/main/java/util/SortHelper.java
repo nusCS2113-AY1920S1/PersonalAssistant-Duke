@@ -94,11 +94,14 @@ public class SortHelper {
      * @param taskList The list of tasks.
      * @return The list of tasks sorted by the name of the members assigned to the tasks in alphabetical order.
      */
-    public ArrayList<String> sortTaskMembers(ArrayList<Task> taskList) {
+    public ArrayList<String> sortTaskMember(ArrayList<Task> taskList, String memberName) {
         ArrayList<String> taskDetails = new ArrayList<>();
-        /*
-            Empty method
-         */
+        ArrayList<String> allAssignedTasks = new ArrayList<>();
+        // use member name and compare with all obtained assigned names
+        for (Task task: taskList) {
+            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
+            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
+        }
         return taskDetails;
     }
 
