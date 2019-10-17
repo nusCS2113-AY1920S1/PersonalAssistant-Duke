@@ -1,6 +1,8 @@
 package duke.command;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -34,7 +36,17 @@ public class CommandHelpers {
             return corrStr;
         }
 
-        ArrayList<String> suggestions = new ArrayList<String>();
+        HashMap<String, String> suggestions = new HashMap<String, String>();
+        int minDist = 0;
+        for (Map.Entry<String, String> entry : command.getSwitchAliases().entrySet()) {
+            int dist = stringDistance(entry.getKey(), word, minDist);
+            if (dist < minDist) {
+                suggestions.clear();
+                suggestions.put(entry.getValue(), entry.getKey());
+            }
+            // TODO: finish up
+        }
+
         return null;
         //return disambiguate(word, suggestions, command.getSwitchMap().keySet());
     }
@@ -78,9 +90,12 @@ public class CommandHelpers {
      *
      * @param str1 The first string to compare.
      * @param str2 The second string to compare.
+     * @param minDist The minimum string distance found so far.
      * @return The hybrid Damerau-Levenshtein distance between str1 and str2.
      */
-    private static int stringDistance(String str1, String str2) {
-        return 0;
+    private static int stringDistance(String str1, String str2, int minDist) {
+        //if minDist is 0, run till the end; else break when dist exceeds minDist
+        return str1.length() - str2.length() + minDist; //placeholder to deceive codacy
+        //if dist == 0 throw an error
     }
 }

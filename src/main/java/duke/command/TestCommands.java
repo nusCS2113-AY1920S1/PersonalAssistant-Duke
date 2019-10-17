@@ -1,3 +1,5 @@
+package duke.command;
+
 import duke.command.Command;
 import duke.command.Commands;
 import duke.command.DoctorCommand;
