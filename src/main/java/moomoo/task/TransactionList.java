@@ -3,13 +3,13 @@ package moomoo.task;
 import java.util.ArrayList;
 
 public class TransactionList {
-    private ArrayList<Transaction> transList;
+    private ArrayList<Expenditure> transList;
 
     public TransactionList() {
-        transList = new ArrayList<Transaction>();
+        transList = new ArrayList<Expenditure>();
     }
 
-    public TransactionList(ArrayList<Transaction> inList) {
+    public TransactionList(ArrayList<Expenditure> inList) {
         this.transList = inList;
     }
 }

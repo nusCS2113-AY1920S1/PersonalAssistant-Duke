@@ -9,8 +9,8 @@ import moomoo.task.Ui;
 import moomoo.task.Storage;
 
 public class ListCategoryCommand extends Command {
-    public ListCategoryCommand(boolean isExit, String input) {
-        super(isExit, input);
+    public ListCategoryCommand() {
+        super(false, "");
     }
 
     @Override

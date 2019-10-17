@@ -15,10 +15,9 @@ run {
     standardInput = System.in
 }
 application {
-    mainClassName = "MooMoo"
+    mainClassName = "MooMooLauncher"
 }
 
-sourceSets.main.java.srcDirs = ['src/main/java/Commands','src/main/java','src/main/java/Classes']
 sourceSets.main.resources.srcDirs =['src/main/resources']
 
 test {
@@ -32,7 +31,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "moomoo"
-    archiveVersion = "1.1"
+    archiveVersion = "1.2"
     archiveClassifier = null
     archiveAppendix = null
 }
