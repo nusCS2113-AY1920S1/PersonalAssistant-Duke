@@ -37,7 +37,7 @@ public class EmailList extends ArrayList<Email> {
      */
     public String[] show(int index) {
         Email email = this.get(index);
-        String emailContent = email.getBody();
+        String emailContent = email.colorBodyOnTag();
         String responseMsg = "Showing email in browser: " + email.getSubject();
         String[] responseArray = {responseMsg, emailContent};
         return responseArray;

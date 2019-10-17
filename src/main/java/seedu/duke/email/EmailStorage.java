@@ -1,5 +1,7 @@
 package seedu.duke.email;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.common.network.Http;
 import seedu.duke.email.entity.Email;
@@ -92,28 +94,19 @@ public class EmailStorage {
      * current email list with local storage after that by calling syncEmailListWithHtml().
      */
     public static void syncWithServer() {
-        EmailList serverEmailList = Http.fetchEmail(50);
+        EmailList serverEmailList = Http.fetchEmail(60);
         for (Email serverEmail : serverEmailList) {
             boolean exist = false;
             for (Email localEmail : Duke.getEmailList()) {
-                // Check existence of serverEmail in localEmail by comparing the email subject and
-                // ReceivedDateTime.
-                // If not checked by ReceivedDateTime, emails with same subject is filtered out from being
-                // added to emailList.
-                boolean isEqualSubject = localEmail.getSubject().equals(serverEmail.getSubject());
-                boolean isEqualDateTime =
-                        localEmail.getReceivedDateTime().equals(serverEmail.getReceivedDateTime());
-                if (isEqualSubject && isEqualDateTime) {
+                if (localEmail.getSubject().equals(serverEmail.getSubject())) {
                     exist = true;
                     break;
                 }
             }
             if (!exist) {
+                allKeywordInEmail(serverEmail);
                 Duke.getEmailList().add(serverEmail);
             }
-        }
-        for (Email email : Duke.getEmailList()) {
-            allKeywordInEmail(email);
         }
         saveEmails(Duke.getEmailList());
     }
@@ -133,21 +126,8 @@ public class EmailStorage {
             indexFile.createNewFile();
             FileOutputStream indexOut = new FileOutputStream(indexFile, false);
             String content = "";
-            String separator = " |";
             for (Email email : emailList) {
-                content += email.getFilename() + separator;
-                ArrayList<String> tags = email.getTags();
-
-                // if this email does not have tags, add new line and continue with next email.
-                if (tags == null || tags.size() == 0) {
-                    content += "\n";
-                    continue;
-                }
-
-                for (String tag : tags) {
-                    content += " #" + tag;
-                }
-                content += separator + "\n";
+                content += email.getIndexJson().toString() + "\n";
             }
             indexOut.write(content.getBytes());
             indexOut.close();
@@ -163,6 +143,8 @@ public class EmailStorage {
         } catch (IOException e) {
             e.printStackTrace();
             Duke.getUI().showError("Write to output file IO exception!");
+        } catch (JSONException e) {
+            Duke.getUI().showError("Email index formatting exception!");
         }
     }
 
@@ -249,11 +231,8 @@ public class EmailStorage {
             Scanner scanner = new Scanner(indexIn);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
-                if (input.length() <= 2) {
-                    throw new TaskStorage.StorageException("Invalid Save File!");
-                }
-                String[] splitString = input.split("\\|");
-                String filename = splitString[0].strip();
+                Email indexEmail = EmailFormatParser.parseIndexJson(input);
+                String filename = indexEmail.getFilename();
 
                 String fileDir = getFolderDir() + filename;
                 File emailFile = new File(fileDir);
@@ -263,24 +242,11 @@ public class EmailStorage {
                 while (emailScanner.hasNextLine()) {
                     emailContent += emailScanner.nextLine();
                 }
-                Email email = EmailFormatParser.parseRawJson(emailContent);
-
-                // If this email entry has no tags information, add this email to emailList and continue
-                // with next email iteration.
-                if (splitString.length == 1) {
-                    emailList.add(email);
-                    continue;
+                Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
+                for (Email.Tag tag : indexEmail.getTags()) {
+                    fileEmail.addTag(tag);
                 }
-
-                String[] tags = splitString[1].strip().split("#");
-                for (String tag : tags) {
-                    if (tag.strip().equals("")) {
-                        continue;
-                    }
-                    System.out.println(tag);
-                    email.addTag(tag.strip());
-                }
-                emailList.add(email);
+                emailList.add(fileEmail);
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");
             indexIn.close();
@@ -289,9 +255,6 @@ public class EmailStorage {
             return emailList;
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
-        } catch (TaskStorage.StorageException e) {
-            Duke.getUI().showError(e.getMessage());
-            emailList = new EmailList();
         } catch (EmailFormatParser.EmailParsingException e) {
             Duke.getUI().showError("Email save file is in wrong format");
         }

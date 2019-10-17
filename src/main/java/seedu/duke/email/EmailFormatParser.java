@@ -9,6 +9,7 @@ import seedu.duke.email.entity.Email;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class EmailFormatParser {
@@ -68,6 +69,24 @@ public class EmailFormatParser {
         }
     }
 
+    public static Email parseIndexJson(String jsonString) throws EmailParsingException {
+        try {
+            JSONObject indexJson = new JSONObject(jsonString);
+            String subject = indexJson.getString("subject");
+            Sender sender = new Sender(indexJson.getString("sender"));
+            LocalDateTime receivedDateTime = parseEmailDateTime(indexJson.getString("receivedDateTime"));
+            JSONArray tagArray = indexJson.getJSONArray("tags");
+            ArrayList<Email.Tag> tags = new ArrayList<>();
+            for (int i = 0; i < tagArray.length(); i++) {
+                JSONObject tagObject = tagArray.getJSONObject(i);
+                tags.add(new Email.Tag(tagObject));
+            }
+            return new Email(subject, sender, receivedDateTime, tags);
+        } catch (JSONException e) {
+            throw new EmailParsingException("Email index json failed to parse");
+        }
+    }
+
     /**
      * Parses the email date time string to a LocalDateTime.
      *
@@ -114,6 +133,18 @@ public class EmailFormatParser {
         public Sender(JSONObject senderInfo) throws JSONException {
             this.name = senderInfo.getJSONObject("emailAddress").getString("name");
             this.address = senderInfo.getJSONObject("emailAddress").getString("address");
+        }
+
+        /**
+         * Constructor of the sender based on the string output of a sender;
+         *
+         * @param senderString the string of sender toString() output used to parse a sender
+         */
+        public Sender(String senderString) {
+            String name = senderString.split("=>")[0].strip();
+            String address = senderString.split("=>")[1].strip();
+            this.name = name;
+            this.address = address;
         }
 
         public String toString() {
