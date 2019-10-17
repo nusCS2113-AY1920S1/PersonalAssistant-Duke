@@ -1,6 +1,6 @@
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Edit.EditBothCommand;
 import gazeeebo.commands.Edit.EditDescriptionCommand;

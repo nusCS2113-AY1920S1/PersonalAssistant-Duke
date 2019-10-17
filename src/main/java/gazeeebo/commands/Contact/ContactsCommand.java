@@ -1,7 +1,8 @@
 package gazeeebo.commands.Contact;
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 
@@ -18,7 +19,7 @@ public class ContactsCommand extends Command {
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         System.out.print("CONTACTS PAGE\n\n");
         HashMap<String, String> map = storage.Contact(); //Read the file
 

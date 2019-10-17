@@ -1,10 +1,12 @@
 package gazeeebo.commands;
-import gazeeebo.Tasks.Task;
+
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.*;
+import gazeeebo.tasks.Task;
 import java.io.IOException;
-import gazeeebo.Tasks.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -12,7 +14,7 @@ import java.util.Stack;
 public class ConfirmTentativeCommand extends Command{
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask,TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         try {
             int index = 0;
             Event ev;

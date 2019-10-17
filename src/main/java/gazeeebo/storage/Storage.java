@@ -1,12 +1,16 @@
-package gazeeebo.Storage;
+package gazeeebo.storage;
 
+import java.io.BufferedWriter;
 import java.io.File;
 
-import gazeeebo.Tasks.Task;
-import gazeeebo.Tasks.*;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.*;
+import gazeeebo.TriviaManager.TriviaManager;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -17,7 +21,9 @@ public class Storage {
     private String absolutePath = "Save.txt";
     private String absolutePath_password = "Password.txt";
     private String absolutePath_Contact = "Contact.txt";
+    private String absolutePath_Expenses = "Expenses.txt";
     private String absolutePath_Places = "Places.txt";
+    private String absolutePath_Trivia = "Trivia.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -157,6 +163,7 @@ public class Storage {
         fileWriter.close();
     }
 
+
     /**
      * This method read from the file Contact.txt and put the details into a HashMap
      *
@@ -175,22 +182,84 @@ public class Storage {
         }
         return contactList;
     }
-    public void Storages_Places(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(absolutePath_Places);
+
+    public void Storages_Expenses(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_Expenses);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+
+    }
+        public void Storages_Places (String fileContent) throws IOException {
+            FileWriter fileWriter = new FileWriter(absolutePath_Places);
+            fileWriter.write(fileContent);
+            fileWriter.flush();
+            fileWriter.close();
+        }
+
+        public HashMap<LocalDate, ArrayList<String>> Expenses () throws IOException {
+            HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            if (new File(absolutePath_Expenses).exists()) {
+                File file = new File(absolutePath_Expenses);
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()) {
+                    ArrayList<String> itemAndPriceList = new ArrayList<>();
+                    String[] split = sc.nextLine().split("\\|");
+                    LocalDate dateOfPurchase = LocalDate.parse(split[0], fmt);
+                    boolean isEqual = false;
+                    for (LocalDate key : expenses.keySet()) {
+                        if (dateOfPurchase.equals(key)) { //if date equal
+                            expenses.get(key).add(split[1]);
+                            isEqual = true;
+                        }
+                    }
+
+                    if (isEqual == false) {
+                        itemAndPriceList.add(split[1]);
+                        expenses.put(dateOfPurchase, itemAndPriceList);
+                    }
+                }
+            }
+            return expenses;
+        }
+        public HashMap<String, String> Read_Places () throws IOException {
+            HashMap<String, String> placesList = new HashMap<String, String>();
+            if (new File(absolutePath_Places).exists()) {
+                File file = new File(absolutePath_Places);
+                Scanner sc = new Scanner(file);
+                while (sc.hasNext()) {
+                    String[] split = sc.nextLine().split("\\|");
+                    placesList.put(split[0], split[1]);
+                }
+            }
+            return placesList;
+        }
+
+    public void Read_Trivia(TriviaManager triviamanager) throws IOException {
+        if (new File(absolutePath_Trivia).exists()) {
+            File file = new File(absolutePath_Trivia);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String InputCommand= sc.nextLine();
+                if(triviamanager.CommandMemory.containsKey(InputCommand.split(" ")[0])) {
+                    ArrayList<String> oldlist = new ArrayList<String>(triviamanager.CommandMemory.get(InputCommand.split(" ")[0]));
+                    oldlist.add(InputCommand);
+                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+                }else{
+                    ArrayList<String> newlist = new ArrayList<String>();
+                    newlist.add(InputCommand);
+                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0],newlist);
+                }
+            }
+        }
+    }
+    public void Storage_Trivia(String fileContent) throws IOException{
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia,true));
+        fileWriter.newLine();
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
-    public HashMap<String,String> Read_Places() throws IOException {
-        HashMap<String,String> placesList = new HashMap<String,String>();
-        if (new File(absolutePath_Places).exists()) {
-            File file = new File(absolutePath_Places);
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                String[] split = sc.nextLine().split("\\|");
-                placesList.put(split[0],split[1]);
-            }
-        }
-        return placesList;
-    }
+
 }

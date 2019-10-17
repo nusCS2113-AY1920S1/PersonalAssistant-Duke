@@ -1,11 +1,14 @@
-package gazeeebo.commands;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
-import gazeeebo.Tasks.Timebound;
+package gazeeebo.commands.schedule;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.Timebound;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
+import gazeeebo.commands.Command;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -32,7 +35,7 @@ public class ScheduleDailyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] command = ui.FullCommand.trim().split(" ");
         if (command.length > 2) {

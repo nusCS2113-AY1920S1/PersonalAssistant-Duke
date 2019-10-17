@@ -1,11 +1,12 @@
 package gazeeebo.commands;
 
 
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Tasks.*;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.tasks.*;
+import gazeeebo.storage.Storage;
+import gazeeebo.exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -14,14 +15,14 @@ import java.util.Stack;
 public class TodoCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         try {
             if (ui.FullCommand.length() <= 4) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             } else {
                 description = ui.FullCommand.substring(5);
-
+                triviaManager.learnInput(ui.FullCommand,storage);
         }
         Todo to = new Todo(description);
         list.add(to);
@@ -36,6 +37,8 @@ public class TodoCommand extends Command {
         }
         catch (DukeException e) {
             System.out.println(e.getMessage());
+            triviaManager.showPossibleInputs("todo");
+            //triviaManager.showAllMap();
         }
     }
     public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {

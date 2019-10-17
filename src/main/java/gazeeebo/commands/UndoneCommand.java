@@ -1,9 +1,10 @@
 package gazeeebo.commands;
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,7 +13,7 @@ import java.util.Stack;
 
 public class UndoneCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
 
             if (ui.FullCommand.equals("undo")) {
                 throw new DukeException("The undo task number cannot be empty.");
@@ -23,7 +24,7 @@ public class UndoneCommand extends Command {
                 list.get(numberCheck).isDone = false;
             }
 
-            System.out.println("Nice! I've marked this task as UNDONE: ");
+            System.out.println("Nice! I've marked this task as undone: ");
             System.out.println(list.get(numberCheck).listFormat());
 
             StringBuilder sb = new StringBuilder();

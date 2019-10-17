@@ -1,12 +1,16 @@
 package gazeeebo.commands.note;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+
+import gazeeebo.storage.NoteStorage;
+
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;
-import Storage.NoteStorage;
+
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -104,7 +108,7 @@ public class AddNoteCommand extends Command {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {

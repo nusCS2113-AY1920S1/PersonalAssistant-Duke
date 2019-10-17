@@ -1,10 +1,11 @@
 package gazeeebo.commands;
 
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -13,7 +14,7 @@ import java.util.Stack;
 
 public class DoneListCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         ArrayList<Task> DoneList = new ArrayList<>();
         try {
             if (ui.FullCommand.equals("done")) {

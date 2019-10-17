@@ -1,4 +1,4 @@
-package Storage;
+package gazeeebo.storage;
 
 import gazeeebo.notes.Note;
 import java.io.File;

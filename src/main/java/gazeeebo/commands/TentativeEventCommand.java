@@ -1,10 +1,11 @@
 package gazeeebo.commands;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.storage.Storage;
+import gazeeebo.exception.DukeException;
 import java.io.IOException;
-import gazeeebo.Tasks.*;
+import gazeeebo.tasks.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.Stack;
 
 public class TentativeEventCommand extends Command{
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         try {
             if (ui.FullCommand.length() == 9) {

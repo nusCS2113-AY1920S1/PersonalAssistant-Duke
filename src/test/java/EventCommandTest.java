@@ -1,12 +1,13 @@
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.EventCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -39,6 +40,7 @@ class EventCommandTest {
         //start time of clashing events are the same
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         ui.FullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -48,7 +50,7 @@ class EventCommandTest {
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -64,6 +66,7 @@ class EventCommandTest {
         //start time of new event being added is earlier than old event but clash still occurs
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         ui.FullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -72,7 +75,7 @@ class EventCommandTest {
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -88,6 +91,7 @@ class EventCommandTest {
         //start time of new event being added is after that of old event but clash still occurs
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         ui.FullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -96,7 +100,7 @@ class EventCommandTest {
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }
@@ -111,6 +115,7 @@ class EventCommandTest {
     void execute_scheduleAnomalies_noClash() throws IOException {
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         ui.FullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -119,7 +124,7 @@ class EventCommandTest {
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
-            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
         }

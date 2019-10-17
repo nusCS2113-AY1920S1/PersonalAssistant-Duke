@@ -1,6 +1,7 @@
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.DeadlineCommand;
 import gazeeebo.commands.SnoozeCommand;
@@ -10,7 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,11 +23,12 @@ public class RescheduleCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
-            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
+            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask,triviaManager);
         } catch (DukeException dukeException) {
             dukeException.printStackTrace();
         }

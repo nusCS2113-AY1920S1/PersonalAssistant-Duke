@@ -1,6 +1,5 @@
 package gazeeebo.commands.Contact;
 
-import gazeeebo.Storage.Storage;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;

@@ -17,7 +17,7 @@ As a developer, you write a _build file_ that describes the project. A build fil
 
 * **Plugins** extend the functionality of Gradle. For example, the `java` plugin adds support for `Java` projects.
 
-* **gazeeebo.Tasks** are reusable blocks of logic.  For example, the task `clean` simply deletes the project build directory. gazeeebo.Tasks can be composed of other tasks or be dependent on another task. 
+* **gazeeebo.tasks** are reusable blocks of logic.  For example, the task `clean` simply deletes the project build directory. gazeeebo.tasks can be composed of other tasks or be dependent on another task. 
 
 * **Properties** change the behavior of tasks. For instance, `mainClassName` of the `application` plugin is a compulsory property which tells Gradle which class is the entrypoint to your application.
   As Gradle favors [_convention over configuration_](https://en.wikipedia.org/wiki/Convention_over_configuration), there is not much to you need to configure if you follow the recommended directory structure.
