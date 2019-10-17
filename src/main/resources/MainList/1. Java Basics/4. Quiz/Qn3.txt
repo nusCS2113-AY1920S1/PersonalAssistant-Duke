@@ -1,0 +1,24 @@
+What is the output of this code fragment?
+
+public static void main (String[] args) {
+    try {
+        int x = 0;
+        int y = 5/x;
+    }
+    catch (ArithmeticException ae) {
+        System.out.println("Arithmetic Exception");
+    } catch (Exception e) {
+        System.out.println("Exception");
+    }
+    System.out.println("End");
+}
+
+(1) End
+(2) Arithmetic Exception
+(3) Arithmetic Exception
+    End
+(4) Exception
+    End 
+(5) Arithmetic Exception
+    Exception 
+    End | 3

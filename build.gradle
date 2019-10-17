@@ -17,14 +17,14 @@ shadowJar {
     archiveAppendix = null
 }
 
-//jar {
-//    manifest {
-//        attributes 'Main-Class': 'javacake.Launcher'
-//    }
-//    from {
-//        configurations.runTimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//}
+jar {
+    manifest {
+        attributes 'Main-Class': 'javacake.Launcher'
+    }
+    from {
+        configurations.runTimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 group 'seedu.duke'
 version '0.1.0'

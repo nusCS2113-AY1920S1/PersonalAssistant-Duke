@@ -1,0 +1,4 @@
+The concept of Objects in OOP is an abstraction mechanism because it allows us to abstract away the lower level details and work with bigger granularity entities.
+
+(1) True
+(2) False | 1
