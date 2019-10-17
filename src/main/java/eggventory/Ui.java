@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner in;
+    private String line = "____________________________________________________________";
 
     public Ui() {
         this.in = new Scanner(System.in);
@@ -36,16 +37,35 @@ public class Ui {
      *
      * @param printString String to print (passed in from external objects accessing UI)
      */
-    public void print(String printString) {
-        printNewLine();
+    public String print(String printString) {
+        String output;
+        output = addIndent() + line + "\n";
 
         String[] linesToPrint = printString.split("\n", 0);
         for (int i = 0; i < linesToPrint.length; i++) {
-            System.out.println(addIndent() + linesToPrint[i]);
+            output += (addIndent() + linesToPrint[i]) + "\n";
         }
-
-        printNewLine();
+        output += addIndent() + line + "\n";
+        System.out.print(output);
+        return output;
     }
+
+    //    public PrintType printCommand(PrintType printType, String ... statement) {
+    //        String output;
+    //        switch(printType){
+    //            case SUCCESS_ADD_COMMAND:
+    //                output = (addIndent() + "Nice! I have successfully added the stock: StockType: " + statement[0]);
+    //                System.out.println(output);
+    //                return PrintType.SUCCESS_ADD_COMMAND;
+    //            break;
+    //            case FAIL_ADD_COMMAND:
+    //                output = (addIndent() + "Sorry! There seems to be an error: StockType" + statement[0] );
+    //                System.out.println(output);
+    //                break;
+    //            default:
+    //                output = "Nothing done";
+    //        }
+    //    }
 
     /**
      * Prints error message to CLI.

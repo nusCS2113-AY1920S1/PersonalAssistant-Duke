@@ -1,18 +1,15 @@
 package eggventory;
 
+import eggventory.commands.AddCommand;
+import eggventory.enums.CommandType;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
-import eggventory.StockList;
-import eggventory.commands.AddCommand;
-import eggventory.enums.CommandType;
-import eggventory.items.Stock;
-import eggventory.items.StockType;
 
 /**
  * Handles reading and writing the stockList to file.
@@ -49,6 +46,10 @@ public class Storage {
 
                 AddCommand cmd = new AddCommand(CommandType.ADD, item[0], item[1],
                         Integer.parseInt(item[2]), item[3]);
+
+                /*Todo: In the future, call setMinimum here to update the minimum value (item[4]) instead of defaulting.
+                    Also applies for other optional params that we may add.
+                */
                 cmd.execute(savedList);
             }
         } catch (FileNotFoundException e) {
@@ -59,7 +60,7 @@ public class Storage {
             System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        return savedList; //Returns a StockType.
+        return savedList; //Returns a StockList.
     }
 
     private void writeToFile(String textToAdd) throws IOException {
@@ -72,13 +73,17 @@ public class Storage {
      * Saves existing StockType to a text file.
      */
     public void save(StockList stockList) {
-        StringBuilder tasksToSave = new StringBuilder();
-        int max = stockList.getQuantity();
-        for (int i = 0; i < max; i++) { //index starts from 0.
-            tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
-        }
+        /*
+            StringBuilder tasksToSave = new StringBuilder();
 
-        String taskListToSave = tasksToSave.toString();
+            int max = stockList.getQuantity(); //The number of stockTypes in the stockList.
+
+            for (int i = 0; i < max; i++) { //Index starts from 0.
+                tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
+            }
+        */
+        String taskListToSave = stockList.saveDetailsString();
+
         try {
             writeToFile(taskListToSave);
         } catch (IOException e) {

@@ -154,7 +154,7 @@ public class Stock {
     }
 
     /**
-     * Formats all stock details appropriately for Ui output.
+     * Formats all stock details appropriately for Ui output. Should only be called by Ui and StockType.
      * @return the stock details string.
      */
     @Override

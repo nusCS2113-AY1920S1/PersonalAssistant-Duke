@@ -25,19 +25,17 @@ class StockTypeTest {
     */
 
     @Test
-    void getSize() {
+    void getQuantity() {
         StockType testStockType = new StockType("Resistor");
-        assertEquals(0,testStockType.getSize());
+        assertEquals(0,testStockType.getQuantity());
         testStockType.addStock("Resistor", "R50", 500, "Test Resistor");
-        assertEquals(1,testStockType.getSize());
+        assertEquals(1,testStockType.getQuantity());
     }
 
     @Test
     void addStock() {
         StockType testStockType = new StockType("Resistor");
-        assertTrue(testStockType.addStock("Resistor", "R50", 500,
-
-                "Test Resistor"));
+        assertTrue(testStockType.addStock("Resistor", "R50", 500,"Test Resistor"));
 
     }
 

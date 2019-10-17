@@ -2,6 +2,7 @@ package eggventory.parsers;
 
 import eggventory.commands.Command;
 import eggventory.commands.AddCommand;
+import eggventory.commands.add.AddStockTypeCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
@@ -25,13 +26,10 @@ public class ParseAdd {
 
         if (addInput.length < 4) {
             throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
-                    + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
-        } else {
-
-            if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
-                throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
-                        + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
-            }
+                    + " this format:\nadd stock <StockType> <StockCode> <Quantity> <Description>");
+        } else if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
+            throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
+                    + " this format:\nadd stock <StockType> <StockCode> <Quantity> <Description>");
         }
 
         return new AddCommand(CommandType.ADD, addInput[0], addInput[1],
@@ -47,12 +45,16 @@ public class ParseAdd {
      * @return the command to execute.
      * @throws InsufficientInfoException if there are insufficient details provided.
      */
-    /*
     private Command processAddStockType(String input) throws InsufficientInfoException {
+        String[] addInput = input.split(" +");
 
-        return new AddCommand();
+        if (addInput[0].isBlank()) {
+            throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
+                    + " this format:\nadd stocktype <StockType>");
+        }
+
+        return new AddStockTypeCommand(CommandType.ADD, addInput[0]);
     }
-     */
 
 
 
@@ -77,11 +79,10 @@ public class ParseAdd {
         case "stock":
             addCommand = processAddStock(addInput[1]);
             break;
-        /*
+
         case "stocktype":
             addCommand = processAddStockType(inputString);
             break;
-         */
         default:
             throw new BadInputException("Unexpected value: " + addInput[0]);
         }
