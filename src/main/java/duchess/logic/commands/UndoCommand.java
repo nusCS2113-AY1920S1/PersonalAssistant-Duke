@@ -56,5 +56,6 @@ public class UndoCommand extends Command {
         assert (store.equals(newStore));
         store.setTaskList(newStore.getTaskList());
         store.setModuleList(newStore.getModuleList());
+        store.setDuchessCalendar(newStore.getDuchessCalendar());
     }
 }

@@ -50,5 +50,6 @@ public class RedoCommand extends Command {
         Store newStore = storage.load();
         store.setTaskList(newStore.getTaskList());
         store.setModuleList(newStore.getModuleList());
+        store.setDuchessCalendar(newStore.getDuchessCalendar());
     }
 }

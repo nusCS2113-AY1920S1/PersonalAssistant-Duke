@@ -32,9 +32,6 @@ public class AcademicYear {
         return date.plusYears(years).with(month).with(TemporalAdjusters.dayOfWeekInMonth(2, DayOfWeek.MONDAY));
     }
 
-    public AcademicYear() {
-    }
-
     private String processInformation(LocalDate date) {
         boolean isSemesterOne = date.compareTo(semOneStart) >= 0 && date.compareTo(semOneEnd) <= 0;
         boolean isSemesterTwo = date.compareTo(semTwoStart) >= 0 && date.compareTo(semTwoEnd) <= 0;

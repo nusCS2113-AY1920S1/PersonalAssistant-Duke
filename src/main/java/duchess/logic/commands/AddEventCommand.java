@@ -2,6 +2,7 @@ package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.model.Module;
+import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Event;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -49,7 +50,7 @@ public class AddEventCommand extends Command {
         }
         store.getTaskList().add(task);
         ui.showTaskAdded(store.getTaskList(), task);
-        store.addToCalendar(task);
+        store.setDuchessCalendar(new CalendarManager(store.getDuchessCalendar(), task).addEntry());
         storage.save(store);
     }
 }

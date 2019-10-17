@@ -1,6 +1,7 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -30,7 +31,7 @@ public class DeleteTaskCommand extends Command {
             Task toRemove = store.getTaskList().get(taskNo);
             store.getTaskList().remove(taskNo);
             ui.showDeletedTask(store.getTaskList(), toRemove);
-            store.deleteFromCalendar(toRemove);
+            store.setDuchessCalendar(new CalendarManager(store.getDuchessCalendar(), toRemove).deleteEntry());
             storage.save(store);
         } catch (NumberFormatException e) {
             throw new DuchessException("Please supply a number. Eg: done 2");

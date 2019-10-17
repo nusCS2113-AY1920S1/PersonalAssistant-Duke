@@ -45,6 +45,7 @@ public class Storage {
             fileStream.close();
             return store;
         } catch (IOException | ClassCastException e) {
+            e.printStackTrace();
             throw new DuchessException("Unable to read file, continuing with empty list.");
         }
     }
@@ -95,7 +96,6 @@ public class Storage {
             Store store = getObjectMapper().readValue(jsonVal, Store.class);
             return store;
         } catch (JsonParseException e) {
-            e.printStackTrace();
             throw new DuchessException("JSON parse was unsuccessful.");
         } catch (JsonMappingException e) {
             e.printStackTrace();
