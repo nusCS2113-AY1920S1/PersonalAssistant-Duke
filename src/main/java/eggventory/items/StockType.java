@@ -190,11 +190,9 @@ public class StockType {
     /**
      * Updates the name of the StockType.
      * @param newName String which uniquely identifies a StockType.
-     * @return The name of the StockType, for printing purpose.
      */
-    public String setName(String newName) {
+    public void setName(String newName) {
         this.name = newName;
-        return this.name;
     }
 
     /**
