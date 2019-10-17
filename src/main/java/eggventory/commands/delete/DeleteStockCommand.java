@@ -1,8 +1,9 @@
-package eggventory.commands;
+package eggventory.commands.delete;
 
 import eggventory.StockList;
 import eggventory.Storage;
 import eggventory.Ui;
+import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 import eggventory.items.Stock;
 
@@ -10,17 +11,17 @@ import eggventory.items.Stock;
  * Command objects for deleting stocks.
  * Requires the index (as listed by the system) of the stock. //TODO: Change this to the stock code.
  */
-public class DeleteCommand extends Command {
+public class DeleteStockCommand extends Command {
 
     private String stockCode;
 
-    public DeleteCommand(CommandType type, String stockCode) {
+    public DeleteStockCommand(CommandType type, String stockCode) {
         super(type);
         this.stockCode = stockCode;
     }
 
     @Override
-    public String execute(StockList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public String execute(StockList list, Ui ui, Storage storage) {
 
         Stock deleted = list.deleteStock(stockCode);
         String output;
@@ -37,18 +38,5 @@ public class DeleteCommand extends Command {
             ui.print(output);
             return output;
         }
-
-        /*
-            try {
-                list.deleteStock(stockCode);
-
-                storage.save(list);
-
-            } catch (IndexOutOfBoundsException e) {
-                throw new IndexOutOfBoundsException("That stock doesn't exist! Please check"
-                        + " the available stocks again: ");
-            }
-            return null;
-         */
     }
 }
