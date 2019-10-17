@@ -11,7 +11,6 @@ public class EntryList extends LogList{
     protected ArrayList<Entry> entryList;
     public EntryList(ArrayList<Log> importEntryList) {
         super(importEntryList);
-//        super(importEntryList);
     }
 
     @Override

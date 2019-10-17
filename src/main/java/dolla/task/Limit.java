@@ -53,41 +53,41 @@ public class Limit extends Log {
         return "$" + amount;
     }
 
-    /**
-     * Method to add a new limit.
-     * @param type Budget or Saving
-     * @param amount Amount to be limited.
-     * @param duration Duration of limit.
-     */
-    public void AddLimit(String type, double amount, Duration duration) {
-        if (type.equals(LimitType.BUDGET)) {
-            AddBudget(amount, duration);
-        } else if (type.equals(LimitType.SAVING)) {
-            //AddSaving(amount, duration);
-        } else {
-            Ui.printErrorMsg();
-        }
-    }
+//    /**
+//     * Method to add a new limit.
+//     * @param type Budget or Saving
+//     * @param amount Amount to be limited.
+//     * @param duration Duration of limit.
+//     */
+//    public void AddLimit(String type, double amount, Duration duration) {
+//        if (type.equals(LimitType.BUDGET)) {
+//            AddBudget(amount, duration);
+//        } else if (type.equals(LimitType.SAVING)) {
+//            //AddSaving(amount, duration);
+//        } else {
+//            Ui.printErrorMsg();
+//        }
+//    }
 
-    public void AddBudget(double amount, Duration duration) {
-        boolean alreadyExist = limitList.limitFinder(limitList.BudgetList, duration);
-
-        if (alreadyExist) {
-//            LimitUi.existingLimitPrinter(LimitType.BUDGET);
-        } else {
-
-        }
-    }
-
-    public void EditCurrBudget() {
-        //edit budget after adding in expenses or income
-    }
+//    public void AddBudget(double amount, Duration duration) {
+//        boolean alreadyExist = limitList.limitFinder(limitList.BudgetList, duration);
+//
+//        if (alreadyExist) {
+////            LimitUi.existingLimitPrinter(LimitType.BUDGET);
+//        } else {
+//
+//        }
+//    }
+//
+//    public void EditCurrBudget() {
+//        //edit budget after adding in expenses or income
+//    }
 
     //remove
 
     @Override
     public String formatSave() {
-        saveType = type.equals("saving") ? "S" : "B";
+        saveType = type.equals("saving") ? "S" : "BU";
         return  saveType + " | "
                 + amount + " | "
                 + duration;

@@ -1,6 +1,7 @@
 package dolla.task;
 
-import dolla.Log;
+import dolla.Storage;
+import dolla.task.Log;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,12 @@ public class LimitList extends LogList {
     //ADD TO LIST
     public void addToBudget(ArrayList<Limit> list, Limit.Duration duration, double amount) {
 
+    }
+
+    @Override
+    public void add(Log newLog) {
+        super.add(newLog);
+        Storage.setLimits(get()); //save
     }
 
     //REMOVE FROM LIST
