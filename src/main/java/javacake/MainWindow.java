@@ -51,20 +51,26 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
-        topBar.getChildren().add(TopBar.setTitle());
+        try {
+            scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+            rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
+            topBar.getChildren().add(TopBar.setTitle());
 
-        if (duke.isFirstTimeUser) {
+            if (duke.isFirstTimeUser) {
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(Ui.showWelcomeMsgA(duke.isFirstTimeUser), dukeImage)
+                );
+            } else {
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(
+                                Ui.showWelcomeMsgA(duke.isFirstTimeUser)
+                                        + Ui.showWelcomeMsgB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
+                                dukeImage)
+                );
+            }
+        } catch (DukeException e) {
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(Ui.showWelcomeMsgA(duke.isFirstTimeUser), dukeImage)
-            );
-        } else {
-            dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(
-                            Ui.showWelcomeMsgA(duke.isFirstTimeUser)
-                                    + Ui.showWelcomeMsgB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
-                            dukeImage)
+                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
             );
         }
     }

@@ -10,10 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,31 +25,37 @@ public class AvatarScreen extends VBox {
         HAPPY, SAD, POUT
     }
 
-    private Image avatarHappy1 = new Image(this.getClass().getResourceAsStream("/images/avatar/hapop.png"));
-    private Image avatarHappy2 = new Image(this.getClass().getResourceAsStream("/images/avatar/hapclos.png"));
-    private Image avatarSad1 = new Image(this.getClass().getResourceAsStream("/images/avatar/cryop.png"));
-    private Image avatarSad2 = new Image(this.getClass().getResourceAsStream("/images/avatar/cryclos.png"));
-    private Image avatarPout1 = new Image(this.getClass().getResourceAsStream("/images/avatar/poutop.png"));
-    private Image avatarPout2 = new Image(this.getClass().getResourceAsStream("/images/avatar/poutclos.png"));
-    List<Image> images = new ArrayList<>();
-    private int imageIndex = 0;
+    private List<Image> imageList = new ArrayList<>();
     private int timeFrame = 0;
     public static AvatarMode avatarMode;
 
-    private void initialiseList() {
-        images.add(avatarSad2);
-        images.add(avatarSad1);
-        images.add(avatarHappy2);
-        images.add(avatarHappy1);
-        images.add(avatarPout2);
-        images.add(avatarPout1);
+    private void initialiseList() throws DukeException {
+        try {
+            String mainDir = "images/avatar/";
+            InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(mainDir);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+            List<String> listOfImages = new ArrayList<>();
+            String currentLine;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                listOfImages.add(currentLine);
+                System.out.println(currentLine);
+            }
+            for (String filePath : listOfImages) {
+                String outputFile = "/" + mainDir + filePath;
+                System.out.println(outputFile);
+                Image img = new Image(this.getClass().getResourceAsStream(outputFile));
+                imageList.add(img);
+            }
+        } catch (IOException e) {
+            throw new DukeException("Cannot load image sprites!");
+        }
     }
 
     /**
      * Constructor for setting Avatar's face.
      * @param type Type of face Avatar makes
      */
-    public AvatarScreen(AvatarMode type) {
+    public AvatarScreen(AvatarMode type) throws DukeException {
         initialiseList();
         avatarMode = type;
 
@@ -65,21 +71,21 @@ public class AvatarScreen extends VBox {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
             if (avatarMode == AvatarMode.HAPPY) {
                 if (timeFrame % 4 <= 2) {
-                    avatarImage.setImage(images.get(3));
+                    avatarImage.setImage(imageList.get(3));
                 } else {
-                    avatarImage.setImage(images.get(2));
+                    avatarImage.setImage(imageList.get(2));
                 }
             } else if (avatarMode == AvatarMode.SAD) {
                 if (timeFrame % 4 <= 2) {
-                    avatarImage.setImage(images.get(1));
+                    avatarImage.setImage(imageList.get(1));
                 } else {
-                    avatarImage.setImage(images.get(0));
+                    avatarImage.setImage(imageList.get(0));
                 }
             } else {
                 if (timeFrame % 4 <= 2) {
-                    avatarImage.setImage(images.get(5));
+                    avatarImage.setImage(imageList.get(5));
                 } else {
-                    avatarImage.setImage(images.get(4));
+                    avatarImage.setImage(imageList.get(4));
                 }
             }
             timeFrame++;
@@ -93,7 +99,7 @@ public class AvatarScreen extends VBox {
      * @param type Type of face Avatar makes
      * @return AvatarScreen object
      */
-    public static AvatarScreen setAvatar(AvatarMode type) {
+    public static AvatarScreen setAvatar(AvatarMode type) throws DukeException {
         return new AvatarScreen(type);
     }
 }
