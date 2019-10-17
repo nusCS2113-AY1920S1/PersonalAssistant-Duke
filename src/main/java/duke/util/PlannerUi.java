@@ -103,4 +103,25 @@ public class PlannerUi {
         System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
     }
+
+    /**
+     * Message to print out CoreModuleReport.
+     */
+    public void coreModReport() {
+        System.out.println("Here is your list of core modules being added:");
+    }
+
+    /**
+     * Message to print out GEModuleReport.
+     */
+    public void geModReport() {
+        System.out.println("Here is your list of general education modules being added:");
+    }
+
+    /**
+     * Message to print out GEModuleReport.
+     */
+    public void ueModReport() {
+        System.out.println("Here is your list of unrestricted elective modules being added:");
+    }
 }
