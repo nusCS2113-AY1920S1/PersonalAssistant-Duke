@@ -118,8 +118,6 @@ public class PlannerUi {
      */
     public void showSortedModules(List<ModuleTask> mods) {
         showLine();
-        mods.sort(Comparator.comparing(ModuleTask::getModuleCode));
-        //mods.sort(Comparator.comparing(ModuleTask::getModuleCredit));
         for (ModuleTask hold : mods) {
             System.out.println(hold);
         }

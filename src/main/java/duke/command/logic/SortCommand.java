@@ -8,6 +8,7 @@ import duke.util.PlannerUi;
 import duke.util.Storage;
 import duke.util.commons.ModuleTasksList;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class SortCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper) throws ModException {
         plannerUi.sortModuleMsg();
         List<ModuleTask> hold = tasks.getTasks();
+        hold.sort(Comparator.comparing(ModuleTask::getModuleCode));
+        //hold.sort(Comparator.comparing(ModuleTask::getModuleCredit));
         plannerUi.showSortedModules(hold);
     }
 
