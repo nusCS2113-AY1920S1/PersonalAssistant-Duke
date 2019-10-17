@@ -71,6 +71,10 @@ class TaskFactoryTests {
             assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());
             assertEquals(expectedTask.getTaskCredit(), simulatedTask.getTaskCredit());
             assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
+            assertEquals(expectedTask.getDueDate(), simulatedTask.getDueDate());
+            assertEquals(expectedTask.getTaskState(), simulatedTask.getTaskState());
+            assertEquals(expectedTask.getAssignedMembers(), simulatedTask.getAssignedMembers());
+            assertEquals(expectedTask.getTaskRequirements(), simulatedTask.getTaskRequirements());
         } catch (ParseException e) {
             fail("ParseException was detected when it shouldn't have");
         }
