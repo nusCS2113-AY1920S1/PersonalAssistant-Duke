@@ -213,4 +213,8 @@ Expected: Prints a list of tasks that occurs on the given `<date>`.
 === Edit description of an event
 Key in `<edit> <event index>/<new description>`.+
 Expected: Prints the success of editing event of index `<event index>`.
-  
+
+=== Reschedule an event
+Key in `<reschedule> <event index> <new date> <new start time> <new end time>`,
+where `<new date> <new start time> <new end time>` has the format dd-MM-yyyy HH:mm HH:mm. +
+Expected: Prints the success of rescheduling event of index `<event index>`.
