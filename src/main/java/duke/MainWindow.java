@@ -100,12 +100,12 @@ public class MainWindow extends BorderPane {
         TableColumn<Expense, Boolean> isTentativeColumn = new TableColumn<>("Tentative");
         isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
         expenseTableView.getColumns().setAll(
-                indexColumn,
-                timeColumn,
-                amountColumn,
-                descriptionColumn,
-                tagColumn,
-                isTentativeColumn);
+            indexColumn,
+            timeColumn,
+            amountColumn,
+            descriptionColumn,
+            tagColumn,
+            isTentativeColumn);
         for (Expense expense : duke.expenseList.getExternalList()) {
             expenseTableView.getItems().add(expense);
         }
@@ -117,9 +117,9 @@ public class MainWindow extends BorderPane {
      */
     public void updateTotalSpentLabel() {
         totalSpentLabel.setText("Total: "
-                + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
-                ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
-                + duke.expenseList.getTotalAmount()));
+            + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
+            ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
+            + duke.expenseList.getTotalAmount()));
     }
 
     /**
@@ -134,9 +134,9 @@ public class MainWindow extends BorderPane {
      */
     public void updateRemainingBudget() {
         remainingBudgetLabel.setText("Remaining: "
-                + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
-                ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
-                : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+            + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
+            ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
+            : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
     }
 
     /**
@@ -147,8 +147,8 @@ public class MainWindow extends BorderPane {
         budgetListView.getItems().add("Tag: Spent/Budget");
         for (String tag : duke.budget.getBudgetCategory().keySet()) {
             budgetListView.getItems().add(tag
-                    + ": $" + duke.expenseList.getTagAmount(tag)
-                    + "/$" + duke.budget.getBudgetCategory().get(tag));
+                + ": $" + duke.expenseList.getTagAmount(tag)
+                + "/$" + duke.budget.getBudgetCategory().get(tag));
         }
     }
 

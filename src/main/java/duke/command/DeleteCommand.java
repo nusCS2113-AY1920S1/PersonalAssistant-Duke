@@ -2,7 +2,9 @@ package duke.command;
 
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.parser.CommandParams;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Represents a specified command as DeleteCommand by extending the {@code Command} class.
@@ -10,13 +12,29 @@ import duke.parser.CommandParams;
  * Responses with the result.
  */
 public class DeleteCommand extends Command {
+    private static final String name = "delete";
+    private static final String description = "Deletes an Expense";
+    private static final String usage = "delete $index";
+
+    private enum SecondaryParam {
+        ;
+
+        private String name;
+        private String description;
+
+        SecondaryParam(String name, String description) {
+            this.name = name;
+            this.description = description;
+        }
+    }
 
     /**
      * Constructs a {@code DeleteCommand} object
      * given the index of the task to be deleted.
      */
     public DeleteCommand() {
-        super(null, null, null, null);
+        super(name, description, usage, Stream.of(SecondaryParam.values())
+            .collect(Collectors.toMap(s -> s.name, s -> s.description)));
     }
 
     /**
