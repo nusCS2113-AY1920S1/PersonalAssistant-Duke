@@ -26,7 +26,6 @@ public class HistoryCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         wordHistory = storage.loadHistoryFromFile();
-        ui.showHistory(wordHistory, numberOfWordsToDisplay);
-        return "";
+        return ui.showHistory(wordHistory, numberOfWordsToDisplay);
     }
 }
