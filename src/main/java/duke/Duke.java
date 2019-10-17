@@ -154,7 +154,7 @@ public class Duke {
         //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
         //duke.run();
-        //duke.modRun();
-        duke.modRunArgparse4j();
+        duke.modRun();
+        //duke.modRunArgparse4j();
     }
 }
