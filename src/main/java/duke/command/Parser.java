@@ -3,7 +3,6 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ public class Parser {
         SWITCH //parsing a switch name
     }
 
-    private final Map<String, Enum> commandMap;
+    private final Commands commands;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -36,19 +35,15 @@ public class Parser {
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
      */
-    public Parser(Enum[] CmdEnum) {
-        Map<String, Enum> tempMap = new HashMap<String, Enum>();
-        for (Enum cmd : CmdEnum) {
-            tempMap.put(cmd.toString(), cmd);
-        }
-        commandMap = Collections.unmodifiableMap(tempMap);
+    public Parser(Commands commands) {
+        this.commands = commands;
     }
 
     /**
      * Constructs a new Parser, using the Cmd enum to supply the command names.
      */
     public Parser() {
-        this(Cmd.values());
+        this(new Commands());
     }
 
     /**
@@ -73,11 +68,10 @@ public class Parser {
                 cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
-        Cmd cmd = commandMap.get(cmdStr);
-        if (cmd == null) {
+        Command command = commands.getCommand(cmdStr);
+        if (command == null) {
             throw new DukeException("I'm sorry, but I don't recognise this command: " + cmdStr);
         }
-        Command command = cmd.getCommand();
         // TODO: autocorrect system
         // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise
