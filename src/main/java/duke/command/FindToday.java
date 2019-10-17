@@ -24,6 +24,7 @@ public class FindToday extends Command {
     public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
+
         for (Task task : taskList.getAllTasks()) {
             if (task.getDescription().contains(TodayDate)) {
                 sb.append("\t ").append(i++).append(".").append(task.toString());
