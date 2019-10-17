@@ -1,5 +1,6 @@
 package eggventory;
 
+import eggventory.enums.Property;
 import eggventory.items.Stock;
 import eggventory.items.StockType;
 
@@ -113,6 +114,42 @@ public class StockList {
             deleted = stockType.deleteStock(stockCode);
             if (deleted !=  null) { //If something WAS deleted
                 return deleted;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Edits a Stock object in a StockList.
+     * @param stockCode The unique String that identifies a Stock.
+     * @param property The attribute of the Stock that needs to be modified (Note: for now only 1).
+     * @param newValue  The new value of the property we want to edit.
+     * @return the stock before edits, for printing purposes.
+     */
+    public Stock setStock(String stockCode, Property property, String newValue) {
+        Stock beforeEdits;
+        for (StockType stockType : stockList) {
+            beforeEdits = stockType.setStock(stockCode, property, newValue);
+            if (beforeEdits != null) { //The corresponding stockCode was found in the StockList
+                return beforeEdits;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Edits a StockType object in a StockList. Note, the only edit to StockType in this version is to its name.
+     * @param stockTypeName The unique String that identifies a StockType.
+     * @param newName The newName of the StockType.
+     * @return the stockType before editing, for printing purpose.
+     */
+    public StockType setStockType(String stockTypeName, String newName) {
+        StockType previous;
+        for (StockType stockType : stockList) {
+            if (stockTypeName.equals(stockType.getName())) {
+                previous = stockType;
+                stockType.setName(newName);
+                return previous;
             }
         }
         return null;
