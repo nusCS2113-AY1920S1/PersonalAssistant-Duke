@@ -75,6 +75,7 @@ Parsing rules:
 
 * Switches can be in any order
 * Switches with optional parts of their names can be recognised with any portion of the optional part. E.g. `-crit` matches `-c[ritical]`.
+* If it is ambiguous whether an argument is for the command itself, or one of the switches, it will be presumed to belong to the switch.
 
 == Contexts
 
