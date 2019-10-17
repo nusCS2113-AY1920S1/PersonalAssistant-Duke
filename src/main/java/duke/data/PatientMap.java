@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class PatientMap {
 
-    public HashMap<String, Patient> patientHashMap;
+    private HashMap<String, Patient> patientHashMap;
 
     /**
      * Creates a new PatientMap, loading data from the Storage object provided.

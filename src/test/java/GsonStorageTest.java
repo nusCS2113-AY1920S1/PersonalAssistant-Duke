@@ -89,7 +89,7 @@ public class GsonStorageTest {
         FileWriter fileWriter = new FileWriter(storage.getFilePath());
         fileWriter.write(expected);
         fileWriter.close();
-        patientMap.patientHashMap = storage.loadPatientHashMap();
+        patientMap = new PatientMap(storage);
         assertTrue(identical(patientMap.getPatient("A100"), dummy1));
         assertTrue(identical(patientMap.getPatient("A200"), dummy2));
         assertTrue(identical(patientMap.getPatient("A300"), dummy3));
@@ -104,8 +104,8 @@ public class GsonStorageTest {
     public void identicalDummyPatient() throws IOException, DukeException, DukeFatalException {
         patientMap = storage.resetAllData();
         patientMap.addPatient(dummy1);
-        storage.writeJsonFile(patientMap.patientHashMap);
-        patientMap.patientHashMap = storage.loadPatientHashMap();
+        storage.writeJsonFile(patientMap.getPatientHashMap());
+        patientMap = new PatientMap(storage);
         Patient dummyPatientRecreated = patientMap.getPatient(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
@@ -121,7 +121,7 @@ public class GsonStorageTest {
         patientMap = storage.resetAllData();
         Patient complexPatient = createComplexPatient();
         patientMap.addPatient(complexPatient);
-        storage.writeJsonFile(patientMap.patientHashMap);
+        storage.writeJsonFile(patientMap.getPatientHashMap());
         storage.loadPatientHashMap();
         Patient complexPatientRecreated = patientMap.getPatient("C100");
         boolean equals = identical(complexPatient, complexPatientRecreated);
@@ -137,7 +137,7 @@ public class GsonStorageTest {
         patientMap.addPatient(dummy1);
         patientMap.addPatient(dummy2);
         patientMap.addPatient(dummy3);
-        storage.writeJsonFile(patientMap.patientHashMap);
+        storage.writeJsonFile(patientMap.getPatientHashMap());
         String json = Files.readString(Paths.get(storage.getFilePath()), StandardCharsets.US_ASCII);
         System.out.println(expected);
         System.out.println("\n");
