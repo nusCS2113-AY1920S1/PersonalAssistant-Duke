@@ -61,7 +61,7 @@ public class MooMoo {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand, ui);
                 c.execute(budget, categoryList, transList, ui, storage);
-                if (ui.printResponse() != null) {
+                if (!ui.printResponse().equals("")) {
                     ui.showResponse();
                 }
                 isExit = c.isExit;

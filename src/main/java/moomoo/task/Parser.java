@@ -6,7 +6,10 @@ import moomoo.command.Command;
 import moomoo.command.ExitCommand;
 import moomoo.command.GraphCommand;
 import moomoo.command.ListCategoryCommand;
+import moomoo.command.DeleteCategoryCommand;
+import moomoo.command.TotalCommand;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -21,32 +24,55 @@ public class Parser {
      * @return The command object corresponding to the user input
      * @throws MooMooException Thrown when an invalid input is given
      */
-
     public static Command parse(String input, Ui ui) throws MooMooException {
         Scanner scanner = new Scanner(input);
         String commandType = scanner.next();
         switch (commandType) {
         case ("bye"): return new ExitCommand(true, "");
         case ("budget"): return new BudgetCommand(false, input);
-        case ("categories"): return new ListCategoryCommand(false, "");
         case ("add"): return parseAdd(scanner, ui);
+        case ("delete"): return parseDelete(scanner, ui);
+        case ("list"): return parseList(scanner, ui);
         case ("graph"): return new GraphCommand(input);
+        case ("total") : return new TotalCommand();
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
+    private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
+        String input = parseInput(scanner, ui, "list");
+        switch (input) {
+        case ("category"): return new ListCategoryCommand();
+        default: throw new MooMooException("Sorry I did not recognize that command.");
+        }
+    }
+
+    private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
+        String input = parseInput(scanner, ui, "delete");
+        switch (input) {
+        case ("category"): return new DeleteCategoryCommand();
+        default: throw new MooMooException("Sorry I did not recognize that command.");
+        }
+    }
+
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
-        switch (scanner.next()) {
-        case ("category"): return parseAddCategory(ui);
+        String input = parseInput(scanner, ui, "add");
+        switch (input) {
+        case ("category"): return new AddCategoryCommand();
         default:
             throw new MooMooException("Sorry I did not recognize that command.");
 
         }
     }
 
-    private static Command parseAddCategory(Ui ui) {
-        ui.showAddCategoryMessage();
-        String categoryName = ui.readCommand();
-        return new AddCategoryCommand(false, "", categoryName);
+    private static String parseInput(Scanner scanner, Ui ui, String text) {
+        String input;
+        try {
+            input = scanner.next();
+        } catch (NoSuchElementException e) {
+            ui.showAddMessage(text);
+            input = ui.readCommand();
+        }
+        return input;
     }
 }
