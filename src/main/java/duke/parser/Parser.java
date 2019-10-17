@@ -105,7 +105,7 @@ public class Parser {
             case "addingredient" :
                 String[] getIng = splitAndCheck(splitted[1], " /add ");
                 int listNum = Integer.parseInt(getIng[1]);
-                return new AddIngredientCommand(getIng[0], listNum);
+                return new AddIngredient(getIng[0], listNum);
             case "init" :
                 return new InitCommand();
             default:

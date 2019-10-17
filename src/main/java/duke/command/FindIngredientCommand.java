@@ -1,6 +1,7 @@
 package duke.command;
 
-import duke.recipebook.dishlist;
+import duke.exception.DukeException;
+import duke.recipebook.DishList;
 import duke.storage.Storage;
 import duke.ingredients.*;
 import duke.ingredients.IngredientsList;
@@ -20,4 +21,8 @@ public class FindIngredientCommand extends Command {
     }
 
 
+    @Override
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+
+    }
 }

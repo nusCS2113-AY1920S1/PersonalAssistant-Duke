@@ -7,12 +7,12 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class AddIngredientCommand extends RecipeCommand {
+public class AddIngredient extends RecipeCommand {
 
     private String ingredient;
     private int Nb;
 
-    public AddIngredientCommand(String ingredient, int Nb) {
+    public AddIngredient(String ingredient, int Nb) {
         this.ingredient = ingredient;
         this.Nb = Nb;
     }

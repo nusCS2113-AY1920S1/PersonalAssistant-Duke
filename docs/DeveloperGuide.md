@@ -11,6 +11,8 @@
    5. Storage Component
    6. Task Component
    7. Exception Component
+   8. Recipebook Component
+   9. RecipeCommand Component
 
 3. Implementation
 
@@ -63,14 +65,37 @@ The Application consist of 6 other components
 
 ![sequence]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/UMLsequence.png )
 
+The diagram above shows the program sequence when the user enters the command `todo buy eggs` or `list`. 
+
 #### 2.2 UI
 
 
 API: `Ui.java`
 
-The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
+The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command.
 
-The Ui component,
+The Ui component contains all the messages or replies whenever the User enters a command for example if the user enters:
+
+`dishadd chicken rice /num 2`
+
+`deletedish 1`
+
+The Ui will reply to the User with the following messages:
+
+```
+	 ____________________________________________________________
+	 you have added the following dish: 
+	 chicken rice 	amount: 2
+	 ____________________________________________________________
+```
+
+```
+	 ____________________________________________________________
+	 The following dish have been removed:
+	 chicken rice
+	 ____________________________________________________________
+```
+The Ui class consists of methods that outputs messages to the user as a response when the user enters a certain command
 
 - reads and return s user input using `scanner.nextLine()`
 - outputs messages to the user as a response such as `showAddCommand`, `showRemoveCommand`, etc
@@ -122,7 +147,36 @@ API: `Task.java`
 
 API: `DukeException.java`
 
+#### 2.8 Recipebook Component
 
+The Recipebook contains 2 classes, Dishes Class and DishList Class
+
+**<u>Dishes Class</u>**
+
+| Attributes | Description |
+| ---------- | ----------- |
+|            |             |
+|            |             |
+|            |             |
+
+| Methods | Description |
+| ------- | ----------- |
+|         |             |
+|         |             |
+|         |             |
+
+
+
+#### 2.9 RecipeCommand
+
+The RecipeCommand class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes
+
+- AddDishCommand
+- AddIngredient
+- DeleteDishCommand
+- InitCommand
+- ListDishCommand
+- RemindCommand
 
 ### 3. Implementation
 
@@ -183,7 +237,7 @@ Target user profile: Restaurant Chef
 
     Use case resumes at step 2.
 
-    
+
 
 **Use case:  Show all the tasks**
 
@@ -205,7 +259,7 @@ Target user profile: Restaurant Chef
 
     Use case resumes at step 2.
 
-    
+
 
 **Use case: Mark a task as done**
 
@@ -229,7 +283,7 @@ Target user profile: Restaurant Chef
 
     Use case resumes at step 2.
 
-    
+
 
 **Use case: Create a new todo task**
 
@@ -247,7 +301,7 @@ Target user profile: Restaurant Chef
 
     Use case resumes at step 2.
 
-    
+
 
 **Use case: Create a new deadline task**
 
@@ -283,7 +337,7 @@ Target user profile: Restaurant Chef
 
     Use case resumes at step 2.
 
-    
+
 
 **Use case: Find a task by searching for keyword**
 
@@ -325,10 +379,3 @@ Target user profile: Restaurant Chef
 
 
 ### Appendix G: Instruction for Manual Testing 
-
-
-
-
-
- 
-

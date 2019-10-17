@@ -2,8 +2,8 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.ingredients.Ingredients;
 
-import duke.recipebook.dishes;
-import duke.recipebook.dishlist;
+import duke.recipebook.DishList;
+import duke.recipebook.Dishes;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -11,7 +11,7 @@ import duke.ui.Ui;
 public class AddIngredientCommand extends Command
 {
     private Ingredients ingredients;
-    private dishes dish;
+    private Dishes dish;
 
     public AddIngredientCommand(Ingredients ingredients)
     {
@@ -19,6 +19,8 @@ public class AddIngredientCommand extends Command
     }
 
 
+    @Override
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
 
-
+    }
 }
