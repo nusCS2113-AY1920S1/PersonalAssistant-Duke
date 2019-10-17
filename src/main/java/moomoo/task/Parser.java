@@ -33,7 +33,7 @@ public class Parser {
         switch (commandType) {
         case ("bye"): return new ExitCommand(true, "");
         case ("budget"): return new BudgetCommand(false, input);
-        case ("categories"): return new ListCategoryCommand(false, "");
+        case ("categories"): return new ListCategoryCommand();
         case ("schedule"): return new ScheduleCommand(false, input);
         case ("add"): return parseAdd(scanner, ui);
         case ("delete"): return parseDelete(scanner, ui);

@@ -1,11 +1,12 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.CategoryList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.MooMooException;
 import moomoo.task.Category;
+import moomoo.task.ScheduleList;
+import moomoo.task.Budget;
+import moomoo.task.MooMooException;
+import moomoo.task.CategoryList;
+import moomoo.task.Storage;
+import moomoo.task.Ui;
 
 
 public class TotalCommand extends Command {
@@ -15,9 +16,10 @@ public class TotalCommand extends Command {
     }
 
     @Override
-    public void execute(Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+                        Ui ui, Storage storage)
             throws MooMooException {
-        super.execute(budget, catList, category, ui, storage);
+        super.execute(calendar, budget, catList, category, ui, storage);
         catList.list(ui);
         ui.showEnterCategoryMessage();
         int cat = ui.readNumber() - 1;
