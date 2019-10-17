@@ -32,7 +32,7 @@ public class CheckAnomaly {
                     double checkTime = listDate.getTime();
                     double currTime = checkDate.getTime();
                     if( checkTime <= currTime + currDuration && checkTime >= currTime || checkTime + duration <= currTime + currDuration && checkTime + duration >= currTime ) {
-                        return false;
+                        return true;
                     }
                 }
             } else if( curr.get(i) instanceof Meeting) {
@@ -42,12 +42,12 @@ public class CheckAnomaly {
                     double checkTime = listDate.getTime();
                     double currTime = checkDate.getTime();
                     if( checkTime <= currTime + currDuration && checkTime >= currTime ) {
-                        return false;
+                        return true;
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
