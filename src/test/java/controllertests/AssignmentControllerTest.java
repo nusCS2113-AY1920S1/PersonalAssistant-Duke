@@ -1,4 +1,4 @@
-package models;
+package controllertests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import views.CLIView;
 
-public class AssignmentControllerTest {
+class AssignmentControllerTest {
     private final Project project;
     private final Member member1;
     private final Member member2;
@@ -40,13 +40,13 @@ public class AssignmentControllerTest {
 
     @Test
     @Order(1)
-    public void alwaysTrue() {
+    void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
     @Order(2)
-    public void testSetupOfProjectAndMembers() {
+    void testSetupOfProjectAndMembers() {
         assertEquals("1. Tom (Phone: NIL | Email: NIL)",
             member1.getDetails());
         assertEquals("2. Dick (Phone: NIL | Email: NIL)",
@@ -62,7 +62,7 @@ public class AssignmentControllerTest {
     }
 
     @Test
-    public void testManageAssignment() {
+    void testManageAssignment() {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
         String projectCommand = "assign task i/1 to/ 1 3 rm/ 2 4";
@@ -98,7 +98,7 @@ public class AssignmentControllerTest {
     }
 
     @Test
-    public void testManageAssignmentInvalidTaskNumber() {
+    void testManageAssignmentInvalidTaskNumber() {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
         String projectCommand = "assign task i/200 to/ 1";

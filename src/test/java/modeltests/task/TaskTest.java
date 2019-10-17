@@ -1,5 +1,7 @@
-package models.task;
+package modeltests.task;
 
+import models.task.Task;
+import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 import util.factories.TaskFactory;
@@ -15,12 +17,12 @@ class TaskTest {
     private DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     @Test
-    public void alwaysTrue() {
+    void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
-    public void testGetDetails() {
+    void testGetDetails() {
         ArrayList<String> taskRequirements = new ArrayList<>();
         Task task1 = new Task("task1", 5, null,100, TaskState.OPEN,taskRequirements);
         assertEquals("task1 | Priority: 5 | Due: -- | Credit: 100 | State: OPEN",task1.getDetails());
@@ -34,7 +36,7 @@ class TaskTest {
     }
 
     @Test
-    public void testGetTaskRequirements() {
+    void testGetTaskRequirements() {
         try {
             Date dueDate = dateTimeHelper.formatDate("19/10/2019");
             ArrayList<String> taskRequirements = new ArrayList<>();

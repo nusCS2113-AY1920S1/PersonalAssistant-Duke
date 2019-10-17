@@ -34,8 +34,7 @@ public class ProjectRepository implements IRepository<Project> {
         return this.allProjects.get(projectNumber - 1);
     }
 
-    @Override
-    public void deleteItem() {
-        // TODO yet to be implemented
+    public void deleteItem(int projectNumber) {
+        this.allProjects.remove(projectNumber - 1);
     }
 }
