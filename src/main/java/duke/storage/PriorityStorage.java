@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class PriorityStorage {
 
-    //protected String filePath = "./";
-    protected String filePath = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    protected String filePath = "./";
+    //protected String filePath = "";
+    //String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
 
     /**
@@ -23,14 +23,14 @@ public class PriorityStorage {
      * @param filePath The location of the text file.
      */
     public PriorityStorage(String filePath) {
-        String[] pathSplitter = storageClassPath.split("/");
-        for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
-                this.filePath += directory + "/";
-            } else if (directory.equals("build")) {
-                break;
-            }
-        }
+//        String[] pathSplitter = storageClassPath.split("/");
+//        for (String directory: pathSplitter) {
+//            if (!directory.isEmpty() && !directory.equals("build")) {
+//                this.filePath += directory + "/";
+//            } else if (directory.equals("build")) {
+//                break;
+//            }
+//        }
         this.filePath += filePath;
     }
 
