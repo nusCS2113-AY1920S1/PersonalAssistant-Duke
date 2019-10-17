@@ -94,16 +94,13 @@ public class Ui {
      */
     public static void printContactTable() {
         ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
-        Contact headers = new Contact("Name", "Detail", "Phone");
-        headers.setId(-1);
-        contactListCopy.add(0, headers);
         String dash = "-";
         String lineBreak = dash.repeat(100);
         String headerBreak = dash.repeat(98);
-
         System.out.println("Here are the contacts in your list:");
         System.out.println(lineBreak);
-
+        System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", "ID", "Name", "Phone", "Detail");
+        System.out.println("|" + headerBreak + "|");
         for (Contact c : contactListCopy) {
             String id = Integer.toString(c.getId()).trim();
             String name = c.getName();
@@ -124,10 +121,6 @@ public class Ui {
 
             System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
 
-            //After header
-            if (id.equals("ID")) {
-                System.out.println("|" + headerBreak + "|");
-            }
         }
 
         System.out.println(lineBreak);
