@@ -12,6 +12,14 @@ import java.io.IOException;
  * Bridge between duke and MainWindow.
  */
 public class Main extends Application {
+
+    // The duke object used by all scenes.
+    private Duke duke;
+
+    private void startDuke() {
+        duke = new Duke();
+    }
+
     /**
      * Starts Duke with MainWindow.
      * @param stage The main GUI of Duke
@@ -19,13 +27,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            BorderPane borderPane = fxmlLoader.load();
-            Scene scene = new Scene(borderPane);
-            scene.getStylesheets().add("/layout/MainWindow.css");
+            Scene scene = ScenesSwitcher.getMainScene();
+
             stage.setScene(scene);
             stage.setTitle("Duke++");
-            fxmlLoader.<MainWindow>getController().setDuke(new Duke());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

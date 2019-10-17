@@ -29,6 +29,7 @@ public class TrendingChart {
         DAILY, WEEKLY, MONTHLY, YEARLY;
     }
 
+    /*
     public void updateLineChart() {
         XYChart.Series series = new XYChart.Series();
         series.getData().add()
@@ -42,5 +43,5 @@ public class TrendingChart {
 
         }
     }
-
+    */
 }

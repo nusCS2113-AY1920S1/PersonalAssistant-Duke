@@ -69,6 +69,10 @@ public class MainWindow extends BorderPane {
 
     }
 
+    public Duke returnDuke() {
+        return this.duke;
+    }
+
     /**
      * Populate the ListView with a list of expenses.
      */
