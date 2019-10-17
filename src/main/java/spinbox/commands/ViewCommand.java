@@ -51,12 +51,15 @@ public class ViewCommand extends Command {
                     throw new InputException("Please specify module before tab.\n"
                         + "E.g. 'view : <moduleCode> <tab>'");
                 }
+                page = "modules";
+                moduleCode = pageDataComponents[1];
                 tab = contentComponents[0];
                 break;
             // content is module code
             default:
                 // check that you are on modules page first
                 if (pageDataComponents[0].equals("modules")) {
+                    page = "modules";
                     moduleCode = contentComponents[0];
                 } else {
                     throw new InputException("Please be on modules page first.\n"

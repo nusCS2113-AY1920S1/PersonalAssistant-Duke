@@ -2,6 +2,8 @@ package spinbox.commands;
 
 import spinbox.DateTime;
 import spinbox.containers.ModuleContainer;
+import spinbox.containers.lists.FileList;
+import spinbox.entities.items.File;
 import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -22,6 +24,7 @@ import java.util.List;
 public class AddCommand extends Command {
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
+    private static final String MODULE_NOT_EXISTS = "This module does not exist.";
     private String type;
     private String fullCommand;
 
@@ -70,14 +73,30 @@ public class AddCommand extends Command {
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
             SpinBoxException {
 
-        if (!moduleContainer.checkModuleExists(moduleCode)) {
-            String moduleName = this.content;
-            Module module = new Module(this.moduleCode, moduleName);
-            moduleContainer.addModule(module);
-            return MODULE_ADDED + module.toString();
-        } else {
-            return MODULE_NOT_ADDED;
+        switch (type) {
+        // add files
+        case "file":
+            if (moduleContainer.checkModuleExists(moduleCode)) {
+                HashMap<String, Module> modules = moduleContainer.getModules();
+                Module module = modules.get(moduleCode);
+                FileList files = module.getFiles();
+                String fileName = content.replace(type.concat(" "), "");
+                files.add(new File(0, fileName));
+                return "Added into " + module.toString() + " file: " + fileName;
+            } else {
+                return MODULE_NOT_EXISTS;
+            }
+        default:
+            if (!moduleContainer.checkModuleExists(moduleCode)) {
+                String moduleName = this.content;
+                Module module = new Module(this.moduleCode, moduleName);
+                moduleContainer.addModule(module);
+                return MODULE_ADDED + module.toString();
+            } else {
+                return MODULE_NOT_ADDED;
+            }
         }
+
     }
 
     /**

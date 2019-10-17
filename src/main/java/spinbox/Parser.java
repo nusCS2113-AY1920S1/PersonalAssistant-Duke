@@ -94,7 +94,7 @@ public class Parser {
                 content = colonSeparate[1].trim();
                 String[] frontComponents = colonSeparate[0].split(" ");
                 action = frontComponents[0];
-                pageData = colonSeparate[0].replace(action.concat(" "), "");
+                pageData = colonSeparate[0].replace(action, "").trim();
                 pageData = commandBuilder(pageData);
                 pageDataComponents = pageData.split(" ");
             }

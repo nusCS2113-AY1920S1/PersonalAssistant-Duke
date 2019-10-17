@@ -25,7 +25,7 @@ public class FileList extends SpinBoxList<File> {
     static class FileComparator implements Comparator<File> {
         @Override
         public int compare(File a, File b) {
-            return -1;
+            return a.getName().compareToIgnoreCase(b.getName());
         }
     }
 
