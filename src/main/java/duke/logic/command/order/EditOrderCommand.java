@@ -65,7 +65,7 @@ public class EditOrderCommand extends OrderCommand {
         if (orderToEdit.getStatus().equals(Order.Status.COMPLETED)) {
             throw new CommandException(MESSAGE_CANNOT_EDIT_COMPLETED_ORDER);
         }
-        Order editedOrder = OrderCommandUtil.createNewOrder(
+        Order editedOrder = OrderCommandUtil.modifyOrder(
             orderToEdit,
             orderDescriptor,
             model.getFilteredProductList(),
