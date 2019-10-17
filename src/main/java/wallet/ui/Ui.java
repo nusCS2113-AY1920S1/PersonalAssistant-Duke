@@ -89,6 +89,9 @@ public class Ui {
         System.out.println("Total amount spent: $" + total);
     }
 
+    /**
+     * Displays the contact list in table format.
+     */
     public static void printContactTable() {
         ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
         Contact headers = new Contact("Name", "Detail", "Phone");
