@@ -2,7 +2,6 @@ package dolla.task;
 
 import dolla.Log;
 import dolla.Ui;
-//import dolla.ui.LimitUi;
 
 /**
  * Limit is a class that stores all limit related methods (savings and budgets)
@@ -53,31 +52,19 @@ public class Limit extends Log {
 
     /**
      * Method to add a new limit.
-     * @param type Budget or Saving
-     * @param amount Amount to be limited.
-     * @param duration Duration of limit.
+     * @param limit limit to be added to the limitList.
+     * @param limitList list in which limit is to be added to.
      */
-    public void AddLimit(String type, double amount, Duration duration) {
-        if (type.equals(LimitType.BUDGET)) {
-            AddBudget(amount, duration);
-        } else if (type.equals(LimitType.SAVING)) {
-            //AddSaving(amount, duration);
+    public void AddLimit(Limit limit, LimitList limitList) {
+        if (limit.type.equals(LimitType.BUDGET) || limit.type.equals(LimitType.SAVING)) {
+            //dosmth
+            //check if limit exists in limitlist
         } else {
             Ui.printErrorMsg();
         }
     }
 
-    public void AddBudget(double amount, Duration duration) {
-        boolean alreadyExist = limitList.limitFinder(limitList.BudgetList, duration);
-
-        if (alreadyExist) {
-//            LimitUi.existingLimitPrinter(LimitType.BUDGET);
-        } else {
-
-        }
-    }
-
-    public void EditCurrBudget() {
+    public void EditCurrLimit() {
         //edit budget after adding in expenses or income
     }
 
