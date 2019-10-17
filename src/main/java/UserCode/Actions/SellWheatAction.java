@@ -1,7 +1,7 @@
 package UserCode.Actions;
 
 import Farmio.Farmio;
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class SellWheatAction extends Action {
@@ -14,7 +14,7 @@ public class SellWheatAction extends Action {
     @Override
     public void execute(Ui ui) {
         farmer.getWheatFarm().buySeeds(); //TODO create wheatFarm.sellWheat()
-        new Simulate("SellWheat", super.farmio).simulate(0, 7);
+        new Simulation("SellWheat", super.farmio).animate(0, 7);
         ui.show("Selling wheat!");
     }
 

@@ -1,7 +1,7 @@
 package UserCode.Actions;
 
 import Farmio.Farmio;
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class HarvestWheatAction extends Action {
@@ -19,7 +19,7 @@ public class HarvestWheatAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().harvestWheat();
-            new Simulate("HarvestWheatSimulation", super.farmio).simulate(0, 9);
+            new Simulation("HarvestWheatSimulation", super.farmio).animate(0, 9);
         } catch (Exception e){
             e.getMessage();
         }

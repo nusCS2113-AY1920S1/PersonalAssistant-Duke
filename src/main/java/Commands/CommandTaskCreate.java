@@ -2,8 +2,7 @@ package Commands;
 
 import Farmio.Farmio;
 import FarmioExceptions.FarmioException;
-import FrontEnd.Simulate;
-import Places.Farm;
+import FrontEnd.Simulation;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 import UserCode.Tasks.*;
@@ -41,7 +40,7 @@ public class CommandTaskCreate extends Command {
                     throw new FarmioException("Error Creating Task!");
             }
             farmio.getFarmer().getTasks().addTask(task);
-            new Simulate("TaskCreate", farmio).showFrame(0);
+            new Simulation("TaskCreate", farmio).animate(0);
             farmio.getUi().showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmio.getFarmer().getTasks().size() + " tasks!");
         }catch (Exception e) {
             System.out.println(e.getMessage());

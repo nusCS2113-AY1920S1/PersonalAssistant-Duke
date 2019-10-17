@@ -1,6 +1,6 @@
 package Farmio;
 
-import FrontEnd.Simulate;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 import java.io.IOException;
@@ -34,20 +34,20 @@ public class Menu {
 //        menu.append("Quit Game");
 //        ui.clearScreen();
 //        ui.show(menu.toString());
-        Simulate menuSimulation = new Simulate("Menu", ui);
+        Simulation menuSimulation = new Simulation("Menu", ui);
         if(resume && storage.getFarmerExist()) { //resume, save and load
-            menuSimulation.showFullFrame(2);
+            menuSimulation.animate(2);
             return;
         }
         if(resume){ //resume and save
-            menuSimulation.showFullFrame(4);
+            menuSimulation.animate(4);
             return;
         }
         if(storage.getFarmerExist()){ //load
-            menuSimulation.showFullFrame(3);
+            menuSimulation.animate(3);
             return;
         }
-        menuSimulation.showFullFrame(0); //only new and quit
+        menuSimulation.animate(0); //only new and quit
     }
 
     public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){

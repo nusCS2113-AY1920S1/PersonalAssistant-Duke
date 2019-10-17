@@ -1,13 +1,10 @@
 package FrontEnd;
 
 import Farmio.Farmio;
-import UserCode.Tasks.Task;
-import UserCode.Tasks.TaskList;
 import javafx.util.Pair;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 /*
  load new frame and new Farmio with delay
  */
@@ -18,7 +15,6 @@ public class GameConsole {
     private static final String BOX_BOTTOM_BORDER = "|_______________________________________________________________________|_______________________________|\n";
     private static final String BOX_TOP_BORDER = "|_______________________________________________________________________|_______________________________|\n"; //"|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|\n";
     private static final String CODE_TITLE_FILLER = "|                               |\n";
-    private static final String CODE_BODY_FILLER = "                               |";
     private static final String EMPTY_STAGE_LINE = "                                                       ";
     private static final String LEFT_PANEL_BOTTOM_BORDER = "|_______________";
     private static final String LEFT_PANEL_TOP_BORDER = "|_______________";//"|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
@@ -32,20 +28,8 @@ public class GameConsole {
         }
         return title + content + blankspace;
     }
-    private static ArrayList<String> fillDummyStage() {
-        ArrayList<String> dummyStage = new ArrayList<>();
-        for (int i = 0; i < 18; i ++) {
-            dummyStage.add("|" + AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + EMPTY_STAGE_LINE + AsciiColours.SANE + "|");
-        }
-        return dummyStage;
-    }
-    private static ArrayList<Pair<String, Integer>> fillDummyAsset() {
-        ArrayList<Pair<String, Integer>> assets = new ArrayList<>();
-        assets.add(new Pair<String, Integer>("Seeds", 0));
-        assets.add(new Pair<String, Integer>("Wheat", 0));
-        return assets;
-    }
-    private static ArrayList<String> populateUserCode(ArrayList<String> userCode, int currentTask) {
+
+    private static ArrayList<String> formatAndHighlightCode(ArrayList<String> userCode, int currentTask) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
         while (userCode.size() < 18){
             userCode.add("");
@@ -70,7 +54,7 @@ public class GameConsole {
         int gold = farmio.getFarmer().getMoney();
         ArrayList<String> userCode = farmio.getFarmer().getTasks().toStringArray();
         ArrayList<Pair<String, Integer>> assets = farmio.getFarmer().getAssets();
-        userCode = populateUserCode(userCode, farmio.getFarmer().getCurrentTask());
+        userCode = formatAndHighlightCode(userCode, farmio.getFarmer().getCurrentTask());
         output.append(AsciiColours.SANE + TOP_BORDER);
         output.append("|" + AsciiColours.RED + horizontalPanel("OBJECTIVE:", objective, 71) + AsciiColours.SANE).append(CODE_TITLE_FILLER);
         output.append(BOX_BOTTOM_BORDER);

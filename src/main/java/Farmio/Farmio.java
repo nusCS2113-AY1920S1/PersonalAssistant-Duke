@@ -3,6 +3,7 @@ package Farmio;
 import Commands.Command;
 import FarmioExceptions.FarmioException;
 import FrontEnd.GameConsole;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class Farmio {

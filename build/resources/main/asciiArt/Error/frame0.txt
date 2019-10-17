@@ -1,0 +1,6 @@
+FARMER JOHN LOOKING SAD,
++ DEAD CHICKENS
+ FRAME FOR INVALID COMMAND, TASK CREATION,
+BLAH BLAH ERROR ETC,
+or full list of commands, assets, task types with example,
+ can display valid commands depending on what error was made too..
