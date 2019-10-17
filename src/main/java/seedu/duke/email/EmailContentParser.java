@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A parser to process the content of emails to support automatic management of email
+ * A parser to process the content of emails to support automatic management of email.
  */
 public class EmailContentParser {
     private static int KEYWORD_SUBJECT_WEIGHTAGE = 5;
@@ -17,10 +17,15 @@ public class EmailContentParser {
     private static int KEYWORD_BODY_WEIGHTAGE = 1;
     private static ArrayList<KeywordPair> keywordList;
 
+    /**
+     * Finds all keywords in email.
+     * @param email Email to be scanned for keywords
+     */
     public static void allKeywordInEmail(Email email) {
         for (KeywordPair keywordPair : keywordList) {
             if (keywordInEmail(email, keywordPair) > 0) {
-                Duke.getUI().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair) + " => " + email.getSubject());
+                Duke.getUI().showDebug(keywordPair.getKeyword() + ": "
+                        + keywordInEmail(email, keywordPair) + " => " + email.getSubject());
                 email.addTag(keywordPair.getKeyword());
             }
         }
@@ -75,6 +80,9 @@ public class EmailContentParser {
         return occurrence;
     }
 
+    /**
+     * Keyword List for searching.
+     */
     public static void initKeywordList() {
         ArrayList<KeywordPair> keywordList = new ArrayList<>();
         keywordList.add(new KeywordPair("CS2113T", new ArrayList<String>(List.of(
@@ -92,7 +100,7 @@ public class EmailContentParser {
     }
 
     /**
-     * A pair of keyword with its possible expressions
+     * A pair of keyword with its possible expressions.
      */
     public static class KeywordPair {
         private String keyword;

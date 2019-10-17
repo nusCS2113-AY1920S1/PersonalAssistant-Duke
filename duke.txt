@@ -1,1 +1,5 @@
-0 todo 1
+0 todo buy milk
+0 todo email prof
+0 deadline write user guide -time 22/11/2019 2359
+0 event CS2113T exam -time 23/11/2019 1300
+0 event internship interview -time 12/12/2019 1400

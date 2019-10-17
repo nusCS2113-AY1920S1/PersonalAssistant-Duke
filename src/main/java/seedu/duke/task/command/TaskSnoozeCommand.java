@@ -21,7 +21,7 @@ public class TaskSnoozeCommand extends Command {
     }
 
     /**
-     * Executes the SnoozeCommand to snooze a task for 3 days
+     * Executes the SnoozeCommand to snooze a task for 3 days.
      *
      * @return true
      */

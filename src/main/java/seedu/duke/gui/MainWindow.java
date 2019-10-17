@@ -325,7 +325,7 @@ public class MainWindow extends AnchorPane {
             //if (task.getDoAfterDescription() != null && task.getDoAfterDescription() != "") {
             //    output += "\nAfter which: " + task.getDoAfterDescription();
             //}
-            String output = task.toString();
+            String output = (i + 1) + ". " + task.toString();
             observableList.add(output);
         }
         tasksListView.setItems(observableList);
@@ -354,10 +354,6 @@ public class MainWindow extends AnchorPane {
         AnchorPane outerPane = new AnchorPane();
         ScrollPane scroll = new ScrollPane();
 
-        AnchorPane pane = new AnchorPane();
-        Label label = new Label(text);
-        Button button = new Button("Close");
-
         outerPane.setPrefSize(800, 650);
         outerPane.setStyle("-fx-background-color: #FFFFFF;"
                 + "-fx-border-color: black;");
@@ -366,6 +362,7 @@ public class MainWindow extends AnchorPane {
         scroll.setLayoutX(2);
         scroll.setPadding(new Insets(0, 10, 0, 10));
 
+        Button button = new Button("Close");
         button.setPrefSize(80, 16);
         button.setLayoutX(380);
         button.setLayoutY(610);
@@ -377,6 +374,8 @@ public class MainWindow extends AnchorPane {
             }
         });
 
+        AnchorPane pane = new AnchorPane();
+        Label label = new Label(text);
         pane.getChildren().add(label);
         scroll.setContent(pane);
         outerPane.getChildren().addAll(scroll, button);

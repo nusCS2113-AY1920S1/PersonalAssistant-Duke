@@ -2,6 +2,8 @@ package seedu.duke.task;
 
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.task.entity.Deadline;
+import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
 import java.util.ArrayList;
@@ -11,11 +13,12 @@ import java.util.ArrayList;
  * manipulate the tasks in this list.
  */
 public class TaskList extends ArrayList<Task> {
+
     /**
      * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
      * UI.
      *
-     * @return
+     * @return message that lists all tasks in the list
      */
     @Override
     public String toString() {
@@ -151,7 +154,31 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Adds or modifies task to include a priority level
+     * Modifies task time.
+     *
+     * @param index       Position of task in list
+     * @param description Name of task
+     * @return confirmation message that do after task has been added
+     * @throws CommandParser.UserInputException when input is in wrong format
+     */
+    public String setTime(int index, String description) throws CommandParser.UserInputException {
+        if (index < 0 || index >= this.size()) {
+            throw new CommandParser.UserInputException("Invalid index");
+        }
+        Task task = this.get(index);
+        if (task.getTaskType() == Task.TaskType.Deadline) {
+            Deadline deadline = (Deadline) task;
+            deadline.setTime(Task.parseDate(description));
+        } else if (task.getTaskType() == Task.TaskType.Event) {
+            Event event = (Event) task;
+            event.setTime(Task.parseDate(description));
+        }
+        String msg = "Time for task " + (index + 1) + " has been changed to " + description;
+        return msg;
+    }
+
+    /**
+     * Adds or modifies task to include a priority level.
      *
      * @param index    Position of task in list
      * @param priority Priority level of task

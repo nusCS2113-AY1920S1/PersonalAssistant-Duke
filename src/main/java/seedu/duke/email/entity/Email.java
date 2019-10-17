@@ -59,6 +59,10 @@ public class Email {
         return this.receivedDateTime;
     }
 
+    /**
+     * Adds tag to this email object.
+     * @param tag Tag to categorise email
+     */
     public void addTag(String tag) {
         if (this.tags.contains(tag.strip())) {
             return;
@@ -174,12 +178,15 @@ public class Email {
         return input;
     }
 
+    /**
+     * Converts information about email to string that will be displayed to user.
+     * @return string that will be displayed in GUI
+     */
     public String toGuiString() {
         String guiStr = this.subject;
         if (tags.size() > 0) {
             guiStr += "\n";
-            for (String tag : tags)
-            {
+            for (String tag : tags) {
                 guiStr += " #" + tag;
             }
         }
