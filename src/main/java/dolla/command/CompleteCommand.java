@@ -46,7 +46,7 @@ public abstract class CompleteCommand extends Command {
         try {
             currTask = tasks.getFromList(taskNumInt - 1);
         } catch (IndexOutOfBoundsException e) {
-            Ui.printNoTaskAssocError(taskNumInt);
+            //Ui.printNoLogAssocError(taskNumInt);
             throw new Exception("duke.task.Task number not in list");
         }
 
