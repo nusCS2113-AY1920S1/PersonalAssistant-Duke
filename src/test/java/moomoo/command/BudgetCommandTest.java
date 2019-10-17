@@ -5,7 +5,6 @@ import moomoo.task.Category;
 import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
-import moomoo.task.TransactionList;
 import moomoo.task.ScheduleList;
 import moomoo.task.Ui;
 import org.junit.jupiter.api.Test;
@@ -27,8 +26,8 @@ public class BudgetCommandTest {
         File categoriesFile = File.createTempFile("categories", ".txt");
         categoriesFile.deleteOnExit();
 
-        ScheduleList newCalendar = new ScheduleList();
-        TransactionList newTransList = new TransactionList();
+        File scheduleFile = File.createTempFile("schedule", ".txt");
+        scheduleFile.deleteOnExit();
 
         CategoryList newCatList = new CategoryList();
         newCatList.getCategoryList().add(new Category("shoes"));
@@ -39,8 +38,10 @@ public class BudgetCommandTest {
         Category newCategory = new Category();
         Budget newBudget = new Budget();
         Ui newUi = new Ui();
-        Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath());
+        Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath(),
+                scheduleFile.getPath());
 
+        ScheduleList newCalendar = new ScheduleList();
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/shoes b/1000.79 c/food b/500");
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 

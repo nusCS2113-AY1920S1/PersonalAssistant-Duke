@@ -1,9 +1,10 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
 import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.ScheduleList;
+import moomoo.task.Budget;
 import moomoo.task.MooMooException;
+import moomoo.task.CategoryList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
 
@@ -29,7 +30,8 @@ public class GraphCommand extends Command {
     }
     
     @Override
-    public void execute(Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList,
+                        Category category, Ui ui, Storage storage)
             throws MooMooException {
         if (input.length() < 7) {
             throw new MooMooException("OOPS!!! Please use the total/[CATEGORY} sub-command");

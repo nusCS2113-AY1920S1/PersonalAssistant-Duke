@@ -39,7 +39,8 @@ public class Command {
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+                        Ui ui, Storage storage)
             throws MooMooException {
 
     }

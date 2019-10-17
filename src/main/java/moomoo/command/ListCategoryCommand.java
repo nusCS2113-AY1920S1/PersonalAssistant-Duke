@@ -14,7 +14,8 @@ public class ListCategoryCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
+                        Ui ui, Storage storage)
             throws MooMooException {
         super.execute(calendar, budget, categoryList, category, ui, storage);
         categoryList.list(ui);

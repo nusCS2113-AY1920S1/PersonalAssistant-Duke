@@ -33,7 +33,8 @@ public class BudgetCommand extends Command {
 
     @Override
 
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
+                        Ui ui, Storage storage)
             throws MooMooException {
         try {
             if (input.length() == 6) {
