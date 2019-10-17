@@ -5,6 +5,7 @@ import moomoo.task.Category;
 import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
+import moomoo.task.ScheduleList;
 import moomoo.task.Ui;
 
 import java.text.DecimalFormat;
@@ -31,7 +32,7 @@ public class BudgetCommand extends Command {
     }
 
     @Override
-    public void execute(Budget budget, CategoryList catList, Category catInput, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
             throws MooMooException {
         try {
             if (input.length() == 6) {
