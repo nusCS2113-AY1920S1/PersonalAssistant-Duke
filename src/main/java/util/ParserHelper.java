@@ -67,8 +67,9 @@ public class ParserHelper {
      */
     public ArrayList<String> parseSortTaskDetails(ArrayList<Task> taskList, String sortCriteria) {
         ArrayList<String> taskDetails = new ArrayList<>();
-        if (sortCriteria.length() >= 3) {
-            switch (sortCriteria) {
+        if (sortCriteria.length() >= 4) {
+            String[] detailedCriteria = sortCriteria.split("-");
+            switch (detailedCriteria[0]) {
             case "/NAME":
                 taskDetails = this.sortHelper.sortTaskName(taskList);
                 break;
@@ -85,13 +86,10 @@ public class ParserHelper {
                 taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "/WHO":
-                taskDetails = this.sortHelper.sortTaskMembers(taskList);
+                taskDetails = this.sortHelper.sortTaskMember(taskList, detailedCriteria[1]);
                 break;
-            case "/KANBAN/OPEN":
-            case "/KANBAN/TODO":
-            case "/KANBAN/DOING":
-            case "/KANBAN/DONE":
-                taskDetails = this.sortHelper.sortTaskState(taskList, sortCriteria.substring(8));
+            case "/KANBAN":
+                taskDetails = this.sortHelper.sortTaskState(taskList, detailedCriteria[1]);
                 break;
             default:
                 break;

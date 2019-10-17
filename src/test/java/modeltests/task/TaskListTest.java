@@ -1,5 +1,7 @@
 package modeltests.task;
 
+import models.data.Project;
+import models.member.Member;
 import models.task.Task;
 import models.task.TaskList;
 import models.task.TaskState;
@@ -14,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TaskListTest {
+    private Project project = new Project("Infinity_Gauntlet");
+    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     @Test
     void alwaysTrue() {
@@ -128,8 +132,24 @@ class TaskListTest {
                     + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
                     + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE"
                     + "]";
-            assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails("/KANBAN/DONE").toString());
+            assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails("/KANBAN-DONE").toString());
 
+            project.addTask(new Task("task2",5, null,10,
+                    TaskState.TODO, taskRequirements));
+            project.addTask(new Task("task1",10, null,10,
+                    TaskState.TODO, taskRequirements));
+            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1));
+            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2));
+            project.getTask(1).assignMember(project.getMembers().getMember(1));
+            project.getTask(1).assignMember(project.getMembers().getMember(2));
+            project.getTask(2).assignMember(project.getMembers().getMember(1));
+            String testMemberTaskListString = "[1. task2 | Priority: 5 | Due: -- | Credit: 10 | State: TODO]";
+            String testMemberTaskListString2 = "[1. task1 | Priority: 10 | Due: -- | Credit: 10 | "
+                    + "State: TODO, 2. task2 | Priority: 5 | Due: -- | Credit: 10 | State: TODO]";
+            assertEquals(testMemberTaskListString,
+                    project.getTasks().getAllSortedTaskDetails("/WHO-Jerry").toString());
+            assertEquals(testMemberTaskListString2,
+                    project.getTasks().getAllSortedTaskDetails("/WHO-Dillen").toString());
 
         } catch (ParseException e) {
             e.printStackTrace();
