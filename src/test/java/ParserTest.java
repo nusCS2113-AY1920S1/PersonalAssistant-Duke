@@ -1,4 +1,3 @@
-import executor.command.Command;
 import executor.command.CommandType;
 import interpreter.Parser;
 import org.junit.jupiter.api.Test;
@@ -41,15 +40,15 @@ class ParserTest {
 
     @Test
     void parseForFlagsTest() {
-        assertNull(Parser.parseForFlags("when",
+        assertNull(Parser.parseForFlag("when",
                 "Delete2"));
-        assertEquals("23", Parser.parseForFlags("times",
+        assertEquals("23", Parser.parseForFlag("times",
                 "Recur this /times 23"));
-        assertEquals("somewhere somewhen", Parser.parseForFlags("details",
+        assertEquals("somewhere somewhen", Parser.parseForFlag("details",
                 "Event there /details somewhere somewhen"));
-        assertEquals("Over the moon", Parser.parseForFlags("feeling",
+        assertEquals("Over the moon", Parser.parseForFlag("feeling",
                 "Deadline cry /feeling Over the moon /due 2359, tonight"));
-        assertEquals("bring presents", Parser.parseForFlags("todo",
+        assertEquals("bring presents", Parser.parseForFlag("todo",
                 "Event Birthday Party /when 23-09-2019 /at Mark Zuckerberg's /todo bring presents /dress-code blue"));
     }
 }

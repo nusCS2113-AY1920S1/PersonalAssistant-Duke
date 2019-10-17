@@ -18,7 +18,7 @@ public abstract class CommandAddReceipt extends Command {
     }
 
     LocalDate extractDate(String userInput) {
-        String dateStr = Parser.parseForFlags("date", userInput);
+        String dateStr = Parser.parseForFlag("date", userInput);
         if (dateStr != null) {
             return LocalDate.parse(dateStr);
         } else {
@@ -27,7 +27,7 @@ public abstract class CommandAddReceipt extends Command {
     }
 
     ArrayList<String> extractTags(String userInput) {
-        String tagsStr = Parser.parseForFlags("tags", userInput);
+        String tagsStr = Parser.parseForFlag("tags", userInput);
         if (tagsStr != null) {
             return new ArrayList<String>(Arrays.asList(tagsStr.split(" ")));
         } else {

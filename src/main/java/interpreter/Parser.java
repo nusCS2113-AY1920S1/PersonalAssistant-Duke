@@ -59,7 +59,7 @@ public class Parser {
      * @param userInput String representing the user-command
      * @return String representing the flagDetails if flag is found, null otherwise
      */
-    public static String parseForFlags(String flag, String userInput) {
+    public static String parseForFlag(String flag, String userInput) {
         flag = "/" + flag;
         if (!userInput.contains(flag)) {
             return null;
