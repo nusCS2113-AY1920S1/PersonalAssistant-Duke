@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.recipebook.dishlist;
+import duke.recipebook.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) {
         System.out.println("\t Bye. Hope to see you again soon!");
     }
 }

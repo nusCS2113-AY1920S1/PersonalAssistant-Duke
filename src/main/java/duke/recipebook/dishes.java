@@ -7,30 +7,30 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class dishes{
+public class Dishes{
 
     private String dishname;
     private int total;
     private float rating;
+    private List<String> ingredientsList = null;
 
-    public dishes(String name, int amount) {
+    public Dishes(String name) {
         this.dishname = name;
-        this.total = amount;
     }
 
-    public dishes() {
+    public Dishes() {
         //
     }
 
-    public int getAmount() {
+    public int getTotalNumberOfOrders() {
         return total;
     }
 
-    public void setAmount(int amount) {
+    public void setNumberOfOrders(int amount) {
         total = total + amount;
     }
 
-    public void clearAmount() {
+    public void clearOrders() {
         total = 0;
     }
 
@@ -44,6 +44,10 @@ public class dishes{
 
     public float getRating() {
         return rating;
+    }
+
+    public void addIngredients(String ingredients) {
+        ingredientsList.add(ingredients);
     }
 
     public String toString() {

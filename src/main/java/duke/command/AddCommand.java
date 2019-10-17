@@ -1,8 +1,9 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.recipebook.dishes;
-import duke.recipebook.dishlist;
+import duke.recipebook.DishList;
+import duke.recipebook.Dishes;
+import duke.recipebook.DishList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -16,7 +17,6 @@ import java.io.IOException;
 public class AddCommand extends Command {
 
     private Task task;
-    private dishes dish;
 
     /**
      * The constructor method for AddCommand.
@@ -27,28 +27,24 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    public AddCommand(dishes dish) {
-        this.dish = dish;
-    }
-
     /**
      * Public method used to add the task in the taskList, and write it on the hard disc.
      *
+     *
+     * @param dish1
      * @param taskList the {@link TaskList} to be expanded
      * @param ui       {@link Ui} used for printing the task output
      * @param storage  {@link Storage} writes in the file on the hard disc
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(task);
-        dish1.addDish(dish); // add dish into list found in dishes class
-        System.out.println("\t dish added: " + dish.toString() + "\n\t amount :" + dish.getAmount());
-//        ui.showAddCommand(task.toString(), taskList.size());
-//        try {
-//            storage.addCommandInFile(task.printInFile());
-//        } catch (IOException e) {
-//            throw new DukeException("Error while adding the command to the duke.txt file");
-//        }
+        ui.showAddCommand(task.toString(), taskList.size());
+        try {
+            storage.addCommandInFile(task.printInFile());
+        } catch (IOException e) {
+            throw new DukeException("Error while adding the command to the duke.txt file");
+        }
     }
 }
