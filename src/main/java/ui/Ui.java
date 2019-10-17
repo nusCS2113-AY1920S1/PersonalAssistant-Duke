@@ -178,7 +178,7 @@ public class Ui {
      * @param payee name of entity Payment is directed to
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(String payee, Payments payment) {
+    public void printAddPaymentMessage(String payee, Payments payment, int size) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
         System.out.println("\t" + "Payee: " + payee);
@@ -187,6 +187,7 @@ public class Ui {
         System.out.println("\t" + "Invoice: " + payment.inv);
         System.out.println("\t" + "Deadline: " + payment.deadline);
         System.out.println("\t" + "Status: " + payment.status);
+        System.out.print("\t" + payee + " now has " + size + " payments in the record." + "\n");
         System.out.print(line);
     }
 

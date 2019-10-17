@@ -314,28 +314,24 @@ public class Process {
 */
 
     /**
-     * Processes the payment add command, saves a new payment under a specified payee.
-     * INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
+     * Processes the add payment command, saves a new payment under a specified payee.
+     * INPUT FORMAT: add payment p/payee i/item c/111 v/invoice
      * @param input Input from the user.
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void payment(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void addPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")) {
-                String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
-                splitpayments = cleanStrStr(splitpayments);
-                String payee = splitpayments[1];
-                String item = splitpayments[2];
-                double cost = Double.parseDouble(splitpayments[3]);
-                String invoice = splitpayments[4];
-                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
-                ui.printAddPaymentMessage(splitpayments[1], payment);
-            }
-            //TODO --> delete payment
-            //TODO --> edit payment
-
+            String[] splitspace = input.split("payment ", 2);
+            String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
+            splitpayments = cleanStrStr(splitpayments);
+            String payee = splitpayments[1];
+            String item = splitpayments[2];
+            double cost = Double.parseDouble(splitpayments[3]);
+            String invoice = splitpayments[4];
+            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
+            int paymentsSize = managermap.get(payee).payments.size();
+            ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {

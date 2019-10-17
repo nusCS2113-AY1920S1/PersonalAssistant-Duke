@@ -60,8 +60,8 @@ public class Instruction {
         return input.startsWith("edit");
     }
 
-    public boolean isPayment(String input) {
-        return input.startsWith("payment");
+    public boolean isAddPayment(String input) {
+        return input.startsWith("add payment");
     }
 
     public boolean isPayee(String input) {

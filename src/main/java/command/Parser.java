@@ -80,8 +80,8 @@ public class Parser {
                 //process.reminder(input, tasklist, ui);
             } else if (instr.isEdit(input)) {
                 // process.edit(input,tasklist,ui);
-            } else if (instr.isPayment(input)) {
-                process.payment(input, managermap, ui);
+            } else if (instr.isAddPayment(input)) {
+                process.addPayment(input, managermap, ui);
             } else if (instr.isgetpayee(input)) {
                 process.findPayee(input, ui, managermap);
             } else if (instr.isPayee(input)) {
