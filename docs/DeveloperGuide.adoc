@@ -153,42 +153,45 @@ There are three main components in the overall architecture of the application.
 
 === Add a Task
 . Add Todo +
-   Key in `Todo tdtask` +
+   Key in `todo tdtask /01-01-2011 0100` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [T][x] tdtask +
+   [x][T] tdtask  BY: Sat, 01 Jan 2011, 01:00 +
    Now you have <previous number of items + 1> items in your list. 
 
 . Add Exam +
    Key in `exam Music Rudiments /08-08-2018 0800 0900` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [E][x] Music Rudiments (on 08-08-2018, 0800 - 0900) +
+   [x][E] Music Rudiments  START: Wed, 08 Aug 2018, 08:00 END: Wed, 08 Aug 2018, 09:00 +
    Now you have <previous number of items + 1> tasks in the list.
    
 . Add Practice session +
    Key in `practice morningprac /07-08-2018 0800 0900` +
-   Expected: Added a recurring practice session that lasts for one semester.
+   Expected: Output should be +
+   Got it. I've added this event: +
+   [x][P] morningprac  START: Tue, 07 Aug 2018, 08:00 END: Tue, 07 Aug 2018, 09:00 +
+   Now you have <previous number of items + 1> tasks in the list.
    
 . Add Concert +
    Key in `concert Noon Concert /06-06-2016 1200 1400` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [C][x] Noon Concert (on 06-06-2016, 1200 - 1400) +
+   [x][C] Noon Concert  START: Mon, 06 Jun 2016, 12:00 END: Mon, 06 Jun 2016, 14:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Recital +
    Key in `recital Evening Recital /07-07-2017 1900 2100` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [R][x] Evening Recital (on 07-07-2017, 1900 - 2100) +
+   [x][R] Evening Recital  START: Fri, 07 Jul 2017, 19:00 END: Fri, 07 Jul 2017, 21:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Lesson +
    Key in `lesson Class /09-09-2019 0900 0100` +
    Expected: Output should be +
    Got it. I’ve added this task: +
-   [L][x] Class (on 09-09-2019, 0900 - 1000) +
+   [x][L] Class  START: Mon, 09 Sep 2019, 09:00 END: Mon, 09 Sep 2019, 01:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 === Set a Task as done
