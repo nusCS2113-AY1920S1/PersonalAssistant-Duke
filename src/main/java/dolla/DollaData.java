@@ -34,21 +34,21 @@ public class DollaData {
         return null; // placeholder so that Dolla can compile
     }
 
-//    /**
-//     * Adds a new Log (ie. Entry) into the relevant LogList (ie. EntryList) according to the specified mode.
-//     * @param mode The mode pertaining to the LogList to be retrieved.
-//     * @param newLog The new Log to be added into the relevant LogList.
-//     */
-//    public void addToLogList(String mode, Log newLog) {
-//        if (mode.equals("entries")) {
-//            entryList.add(newLog);
-//        }
-//    }
+    /**
+     * Adds a new Log (ie. Entry) into the relevant LogList (ie. EntryList) according to the specified mode.
+     * @param mode The mode pertaining to the LogList to be retrieved.
+     * @param newLog The new Log to be added into the relevant LogList.
+     */
+    public void addToLogList(String mode, Log newLog) {
+        if (mode.equals("entries")) {
+            entryList.add(newLog);
+        }
+    }
 
     //independent add
-    public void addToEntryList(Entry newEntry) {
-            entryList.add(newEntry);
-    }
+//    public void addToEntryList(Entry newEntry) {
+//            entryList.add(newEntry);
+//    }
 /*
     //independent add
     public void addToDebtList(Entry newDebt) {
