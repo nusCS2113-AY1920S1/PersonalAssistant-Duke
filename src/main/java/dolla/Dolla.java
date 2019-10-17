@@ -3,7 +3,7 @@ package dolla;
 import dolla.command.Command;
 import dolla.task.Task;
 import dolla.task.TaskList;
-import parser.MainParser;
+import dolla.parser.MainParser;
 
 import java.util.ArrayList;
 import java.util.Scanner;

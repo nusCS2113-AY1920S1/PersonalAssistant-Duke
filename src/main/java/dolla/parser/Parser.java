@@ -1,4 +1,4 @@
-package parser;
+package dolla.parser;
 
 import dolla.Time;
 import dolla.Ui;
