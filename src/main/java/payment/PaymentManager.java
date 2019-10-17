@@ -9,20 +9,15 @@ import java.util.HashMap;
  * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList.
  */
 public abstract class PaymentManager {
-    static ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
 
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      *
      * @param payee Payee of the item.
      */
-
     public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
-
-        for (Payments payment : managermap.get(payee).payments) {
-            paymentsArrayList.add(payment);
-            //TODO Output payment to UI
-        }
+        ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
+        paymentsArrayList.addAll(managermap.get(payee).payments);
         return paymentsArrayList;
     }
 
@@ -118,9 +113,8 @@ public abstract class PaymentManager {
     /**
      * Delete Payee object.
      */
-    public static Payee deletePayee(String payee, String email, String matricNum, String phoneNum,
-                                    HashMap<String, Payee> managermap) {
-        Payee payeeDeleted = new Payee(payee, email, matricNum, phoneNum);
+    public static Payee deletePayee(String payee, HashMap<String, Payee> managermap) {
+        Payee payeeDeleted = managermap.get(payee);
         managermap.remove(payee);
         return payeeDeleted;
     }
