@@ -294,4 +294,24 @@ public class UI {
         System.out.println("Error writing to file! Details not saved!");
         System.out.print(lineSeparation);
     }
+
+    /**
+     * Prints message to show success of edit command.
+     *
+     * @param eventIndex The index of the edited event.
+     * @param eventEdited The event after edit.
+     */
+    public void printEditedEvent(int eventIndex, Event eventEdited) {
+        try {
+            System.out.println(lineSeparation + "Got it. Successfully edited event" + eventIndex + ":");
+            System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
+                    eventEdited.getDescription() + " START: " + eventEdited.getStartDate().getFormattedDateString() +
+                    " END: " + eventEdited.getEndDate().getFormattedDateString());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
+                    eventEdited.getDescription() + " BY: " + eventEdited.getStartDate().getFormattedDateString());
+            System.out.print(lineSeparation);
+        }
+    }
 }

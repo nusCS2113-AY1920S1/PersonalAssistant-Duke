@@ -135,6 +135,10 @@ public class Command {
             case "viewdetails":
                 viewDetails(events, ui);
                 break;
+            
+            case "edit":
+                editEvent(events, ui);
+                break;
 
             default:
                 ui.printInvalidCommand();
@@ -144,6 +148,21 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+    }
+
+    /**
+     * Command to edit an event in the list.
+     */
+    private void editEvent(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String[] splitInfo = continuation.split("/");
+            int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
+            String newDescription = splitInfo[1];
+            events.editEvent(eventIndex, newDescription);
+            ui.printEditedEvent(eventIndex+1, events.getEvent(eventIndex));
         }
     }
 
