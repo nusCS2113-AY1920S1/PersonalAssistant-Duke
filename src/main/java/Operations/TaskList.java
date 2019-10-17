@@ -140,22 +140,47 @@ public class TaskList {
             System.out.println("Todo cannot be snoozed");
             return;
         }
-        switch (timeUnit) {
-            case year:
-                tasks.get(index).snoozeYear(amount);
-                break;
-            case month:
-                tasks.get(index).snoozeMonth(amount);
-                break;
-            case day:
-                tasks.get(index).snoozeDay(amount);
-                break;
-            case hours:
-                tasks.get(index).snoozeHour(amount);
-                break;
-            case minutes:
-                tasks.get(index).snoozeMinute(amount);
-                break;
+
+        if (tasks.get(index) instanceof Meeting) {
+            Meeting meetingToSnooze = (Meeting) tasks.get(index);
+            switch (timeUnit) {
+                case year:
+                    meetingToSnooze.snoozeYear(amount);
+                    break;
+                case month:
+                    meetingToSnooze.snoozeMonth(amount);
+                    break;
+                case day:
+                    meetingToSnooze.snoozeDay(amount);
+                    break;
+                case hours:
+                    meetingToSnooze.snoozeHour(amount);
+                    break;
+                case minutes:
+                    meetingToSnooze.snoozeMinute(amount);
+                    break;
+            }
+        }
+
+        if (tasks.get(index) instanceof Assignment) {
+            Assignment assignmentToSnooze = (Assignment) tasks.get(index);
+            switch (timeUnit) {
+                case year:
+                    assignmentToSnooze.snoozeYear(amount);
+                    break;
+                case month:
+                    assignmentToSnooze.snoozeMonth(amount);
+                    break;
+                case day:
+                    assignmentToSnooze.snoozeDay(amount);
+                    break;
+                case hours:
+                    assignmentToSnooze.snoozeHour(amount);
+                    break;
+                case minutes:
+                    assignmentToSnooze.snoozeMinute(amount);
+                    break;
+            }
         }
     }
 
