@@ -15,9 +15,9 @@ public class BudgetTest {
 
     @Test
     public void testBasicOperations() throws IOException, DukeException {
-        Budget budget = new Budget(userDirectory);
+        Budget budget = new Budget(new File(userDirectory, "test.txt"));
         budget.setMonthlyBudget(BigDecimal.TEN);
-        Assertions.assertEquals("$10.00", budget.getMonthlyBudgetString());
+        Assertions.assertEquals("$10", budget.getMonthlyBudgetString());
     }
 
 }

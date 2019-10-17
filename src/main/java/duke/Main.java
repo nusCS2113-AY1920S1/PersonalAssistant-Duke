@@ -22,6 +22,7 @@ public class Main extends Application {
 
     /**
      * Starts Duke with MainWindow.
+     *
      * @param stage The main GUI of Duke
      */
     @Override

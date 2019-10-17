@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.parser.CommandParams;
 
 import java.util.Map;
 
@@ -53,6 +52,5 @@ public abstract class Command {
      * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
      * @param duke          The Duke object.
      */
-    public void execute(CommandParams commandParams, Duke duke) throws DukeException {
-    }
+    public abstract void execute(CommandParams commandParams, Duke duke) throws DukeException;
 }

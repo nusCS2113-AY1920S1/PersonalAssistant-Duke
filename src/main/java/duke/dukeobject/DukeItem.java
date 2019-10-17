@@ -44,8 +44,8 @@ abstract class DukeItem implements Serializable {
      */
     protected static Map<String, String> storageStringToMap(String storageString) {
         return Stream.of(storageString.split(STORAGE_FIELD_DELIMITER))
-                .map(s -> s.split(STORAGE_NAME_SEPARATOR, 2))
-                .collect(Collectors.toMap(s -> s[0], s -> s.length > 1 ? s[1] : ""));
+            .map(s -> s.split(STORAGE_NAME_SEPARATOR, 2))
+            .collect(Collectors.toMap(s -> s[0], s -> s.length > 1 ? s[1] : ""));
     }
 
     /**
@@ -91,7 +91,7 @@ abstract class DukeItem implements Serializable {
         protected Builder(Map<String, String> mappedStorageString) {
             if (mappedStorageString.containsKey("tags")) {
                 invertTags(mappedStorageString.get("tags")
-                        .split(STORAGE_TAG_SEPARATOR));
+                    .split(STORAGE_TAG_SEPARATOR));
             }
         }
 
@@ -167,6 +167,7 @@ abstract class DukeItem implements Serializable {
 
     /**
      * Returns a single string containing all of the tags.
+     *
      * @return single String of all the tags
      */
     public String getTagsString() {
