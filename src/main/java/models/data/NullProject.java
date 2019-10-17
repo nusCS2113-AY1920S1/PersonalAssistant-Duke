@@ -5,6 +5,9 @@ import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class NullProject implements IProject {
     @Override
     public String getDescription() {
@@ -85,6 +88,19 @@ public class NullProject implements IProject {
 
     @Override
     public void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public void assignTaskToMembers(Task task, Member member) {
+        /*
+        Empty method
+         */
+    }
+    @Override
+    public void assignMemberToTasks(Member member, Task task) {
         /*
         Empty method
          */

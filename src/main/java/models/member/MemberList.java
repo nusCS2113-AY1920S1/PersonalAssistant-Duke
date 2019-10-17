@@ -1,7 +1,6 @@
 package models.member;
 
 import util.ParserHelper;
-
 import java.util.ArrayList;
 
 public class MemberList implements IMemberList {
