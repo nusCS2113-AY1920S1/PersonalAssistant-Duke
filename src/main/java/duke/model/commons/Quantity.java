@@ -15,10 +15,6 @@ public class Quantity {
         return number;
     }
 
-    public String getNumberAsString() {
-        return String.valueOf(number);
-    }
-
     public Double getQuantity() {
         return number;
     }

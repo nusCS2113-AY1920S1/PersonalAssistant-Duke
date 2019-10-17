@@ -30,6 +30,13 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("-name");
     public static final Prefix PREFIX_INVENTORY_QUANTITY = new Prefix("-qty");
-    public static final Prefix PREFIX_INVENTORY_UNIT = new Prefix("-unit");
+    public static final Prefix PREFIX_INVENTORY_REMARKS = new Prefix("-rmk");
     public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("-i");
+
+
+    public static final Prefix PREFIX_SHOPPING_NAME = new Prefix("-name");
+    public static final Prefix PREFIX_SHOPPING_QUANTITY = new Prefix("-qty");
+    public static final Prefix PREFIX_SHOPPING_REMARKS = new Prefix("-rmk");
+    public static final Prefix PREFIX_SHOPPING_INDEX = new Prefix("-i");
+    public static final Prefix PREFIX_SHOPPING_COST = new Prefix("-cost");
 }

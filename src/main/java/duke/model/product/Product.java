@@ -1,5 +1,7 @@
 package duke.model.product;
 
+import javafx.beans.property.StringProperty;
+
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;
@@ -12,6 +14,7 @@ public class Product {
         ARCHIVE
     }
 
+
     public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
             + "and should not be blank";
 
@@ -21,10 +24,18 @@ public class Product {
     private double retailPrice;
     private Status status;
 
+
+    public Product() {
+    }
+
     /** Constructor for Order parser.util*/
     public Product(String productName) {
         this.productName = productName;
     }
+
+    //public StringProperty productNameProperty() {
+    //    return productName;
+    //}
 
     /**
      * Creates a Product.
@@ -101,19 +112,32 @@ public class Product {
         return this.status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public IngredientItemList getIngredients() {
         return ingredients;
     }
 
-/*
-    public List<Ingredient> getIngredients() {
-        return this.ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(IngredientItemList ingredients) {
         this.ingredients = ingredients;
     }
-*/
+
+    /*
+        public List<Ingredient> getIngredients() {
+            return this.ingredients;
+        }
+
+        /*
+            public List<Ingredient> getIngredients() {
+                return this.ingredients;
+            }
+
+            public void setIngredients(List<Ingredient> ingredients) {
+                this.ingredients = ingredients;
+            }
+        */
     @Override
     public String toString() {
         return productName + ": " + retailPrice + "$" + ingredients.toString();

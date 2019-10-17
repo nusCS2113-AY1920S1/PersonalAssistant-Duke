@@ -23,6 +23,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
     private final UniqueEntityList<Item<Ingredient>> inventory;
+    private final UniqueEntityList<Item<Ingredient>> shoppingList;
     private final UniqueEntityList<Shortcut> shortcuts;
 
     /**
@@ -33,6 +34,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
         inventory = new UniqueEntityList<>();
+        shoppingList = new UniqueEntityList<>();
         shortcuts = new UniqueEntityList<>();
     }
 
@@ -183,12 +185,11 @@ public class BakingHome implements ReadOnlyBakingHome {
         products.add(p);
     }
 
-    public void setProduct(Product originalProduct, Product editedOrder) {
-        requireNonNull(editedOrder);
+    public void setProduct(Product originalProduct, Product editedProduct) {
+        requireNonNull(editedProduct);
 
-        products.set(originalProduct, editedOrder);
+        products.set(originalProduct, editedProduct);
     }
-
 
     @Override
     public ObservableList<Product> getProductList() {
@@ -196,14 +197,73 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     //============Inventory operations==============
-    public void addInventory(Item<Ingredient> i) {
-        inventory.add(i);
+
+    /**
+     * Adds an ingredient to the inventory list.
+     * @param toAdd The ingredient to be added to the inventory list
+     */
+    public void addInventory(Item<Ingredient> toAdd) {
+        inventory.add(toAdd);
+    }
+
+    /**
+     * Removes an ingredient from the inventory list.
+     * @param toRemove The ingredient to be removed from the inventory list
+     */
+    public void removeInventory(Item<Ingredient> toRemove) {
+        inventory.remove(toRemove);
+    }
+
+    /**
+     * Replaces the ingredient toEdit in the inventory list with the edited ingredient.
+     *
+     * @param toEdit  the ingredient that needs to be edited
+     * @param edited the edited ingredient
+     */
+    public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
+        requireAllNonNull(toEdit, edited);
+        inventory.set(toEdit, edited);
     }
 
     @Override
     public ObservableList<Item<Ingredient>> getInventoryList() {
         return inventory.asUnmodifiableObservableList();
     }
+
+    //============Shopping operations==============
+
+    /**
+     * Adds an ingredient to the shopping list
+     * @param toAdd The ingredient to be added to the shopping list
+     */
+    public void addShoppingList(Item<Ingredient> toAdd) {
+        shoppingList.add(toAdd);
+    }
+
+    /**
+     * Removes an ingredient from the shopping list
+     * @param toRemove The ingredient to be removed from the shopping list
+     */
+    public void removeShoppingList(Item<Ingredient> toRemove) {
+        shoppingList.remove(toRemove);
+    }
+
+    /**
+     * Replaces the ingredient toEdit in the shopping list with the edited ingredient
+     *
+     * @param toEdit  the ingredient that needs to be edited
+     * @param edited the edited ingredient
+     */
+    public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
+        requireAllNonNull(toEdit, edited);
+        shoppingList.set(toEdit, edited);
+    }
+
+    @Override
+    public ObservableList<Item<Ingredient>> getShoppingList() {
+        return shoppingList.asUnmodifiableObservableList();
+    }
+
 
     //// shortcut-related operations
 

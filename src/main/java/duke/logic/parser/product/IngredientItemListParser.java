@@ -1,6 +1,7 @@
 package duke.logic.parser.product;
 
 import duke.logic.parser.exceptions.ParseException;
+import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.commons.Quantity;
@@ -26,7 +27,7 @@ public class IngredientItemListParser {
         this.inputIngredientList = inputIngredientList;
     }
 
-    public static Map<String, String> getIngredientPortion(String input) {
+    private static Map<String, String> getIngredientPortion(String input) {
         String replacement = input;
         Matcher matcher = FORMAT_INGREDIENT_INPUT.matcher(input.trim());
 
@@ -60,13 +61,6 @@ public class IngredientItemListParser {
         String portionString = entry.getValue();
         Ingredient newIngredient = new Ingredient(ingredientName);
         Double portion;
-        //if (isInteger(portionString)) {
-        //    portion = Double.parseDouble(portionString);
-        //} else if (isDouble(portionString)) {
-        //    portion = Double.parseDouble(portionString);
-        //} else {
-        //    throw new ParseException("Ingredient portion must be a number");
-        //}
         try {
             portion = Double.parseDouble(portionString);
         } catch (NumberFormatException e) {
@@ -76,37 +70,20 @@ public class IngredientItemListParser {
         return new Item<Ingredient>(newIngredient, quantity);
     }
 
-    public static boolean isInteger(String input){
-        try{
-            Integer.parseInt(input);
-            return true;
-        }catch(ParseException e){
-            return false;
-        }
-    }
 
-    public static boolean isDouble(String input){
-        try{
-            Double.parseDouble(input);
-            return true;
-        }catch(ParseException e){
-            return false;
-        }
-    }
+    //private static Item<Ingredient> constructIngredientItem(Map.Entry<String, String> entry) {
+    //    //Todo: Implement search
+    //    if (false) {
+    //        return null;
+    //    }
+    //    return constructNewIngredientItem(entry);
+    //}
 
-    private static Item<Ingredient> constructIngredientItem(Map.Entry<String, String> entry) {
-        //Todo: Implement search
-        if (false) {
-            return null;
-        }
-        return constructNewIngredientItem(entry);
-    }
-
-    public static IngredientItemList getIngredientItemList(String input) {
+    public static IngredientItemList getIngredientsInInput(String input) {
         IngredientItemList ingredientItemList = new IngredientItemList();
         Map<String, String> ingredientAndPortion = getIngredientPortion(input);
         for (Map.Entry<String, String> entry : ingredientAndPortion.entrySet()) {
-            Item<Ingredient> ingredientItem = constructIngredientItem(entry);
+            Item<Ingredient> ingredientItem = constructNewIngredientItem(entry);
             ingredientItemList.add(ingredientItem);
         }
         return ingredientItemList;

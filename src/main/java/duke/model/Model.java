@@ -17,6 +17,7 @@ import java.util.function.Predicate;
  */
 public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+
     Predicate<Sale> PREDICATE_SHOW_ALL_SALES = unused -> true;
 
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = product -> true;
@@ -28,6 +29,8 @@ public interface Model {
     };
 
     Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
+
+    Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_SHOPPING = unused -> true;
 
     /**
      * Returns true if the model has previous baking home states to restore.
@@ -183,14 +186,68 @@ public interface Model {
     void updateFilteredSaleList(Predicate<Sale> predicate);
 
     //========Ingredient operations======
-
+    /**
+     * Returns an unmodifiable view of the filtered inventory list.
+     */
     ObservableList<Item<Ingredient>> getFilteredInventoryList();
 
     void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate);
 
+    /**
+     * Adds an inventory item to the inventory list
+     * @param inventory The inventory item
+     */
     void addInventory(Item<Ingredient> inventory);
 
+    /**
+     * Checks if the item with the same name already exists in the inventory list
+     * @return true if the given inventory item already exists in the inventory list
+     */
+    boolean hasInventory(Item<Ingredient> inventory);
+
+    /**
+     * Removes an inventory item from the inventory list
+     * @param inventory The inventory item
+     */
+    void deleteInventory(Item<Ingredient> inventory);
+
+    /**
+     * Edits the ingredient toEdit with the ingredient edited
+     * @param toEdit the ingredient to be edited
+     * @param edited the edited ingredient with changes
+     */
+    void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
+
     //======Shopping list operations=====
+
+    ObservableList<Item<Ingredient>> getFilteredShoppingList();
+
+    void updateFilteredShoppingList(Predicate<Item<Ingredient>> predicate);
+
+    /**
+     * Adds an ingredient to the shopping list
+     * @param toAdd the ingredient to be added
+     */
+    void addShoppingList(Item<Ingredient> toAdd);
+
+    /**
+     * Checks if the item with the same name already exists in the shopping list
+     * @return true if the given ingredient item already exists in the shopping list
+     */
+    boolean hasShoppingList(Item<Ingredient> ingredientItem);
+
+    /**
+     * Removes an ingredient item from the shopping list
+     * @param toDelete the ingredient item
+     */
+    void deleteShoppingList(Item<Ingredient> toDelete);
+
+    /**
+     * Edits the ingredient toEdit with the ingredient edited
+     * @param toEdit the ingredient to be edited
+     * @param edited the edited ingredient with changes
+     */
+    void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
     //=========Shortcut operations=======
 
@@ -215,5 +272,4 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
-
 }
