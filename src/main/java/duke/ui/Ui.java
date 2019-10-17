@@ -132,6 +132,7 @@ public class Ui {
         str += contactList.getContactList();
         return str;
     }
+
     /**
      * Outputs all the tasks of the task list to the user (GUI).
      *
@@ -401,10 +402,10 @@ public class Ui {
      */
     public static String showAddedContactGui(ContactList contactList) {
         String str = "Got it. Contact added:\n";
-        if (contactList.size() == 0) {
+        if (contactList.size() == ZERO) {
             str += "You have no contacts!";
         } else {
-            str += contactList.get(contactList.size() - 1);
+            str += contactList.get(contactList.size() - ONE);
             str += "\nNow you have " + contactList.size() + " contacts.";
         }
         System.out.println("I was here");

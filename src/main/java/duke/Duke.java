@@ -131,11 +131,10 @@ public class Duke {
             String str = cmd.executeGui(items, contactList, ui);
             cmd.executeStorage(items, ui, contactStorage, contactList);
             return str;
-        } else if(cmd instanceof ListContactsCommand){
+        } else if (cmd instanceof ListContactsCommand) {
             String str = cmd.executeGui(items, contactList, ui);
             return str;
-        }
-        else {
+        } else {
             String str = cmd.executeGui(items, ui);
             return str;
         }
