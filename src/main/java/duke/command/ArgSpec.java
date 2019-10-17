@@ -33,11 +33,12 @@ public abstract class ArgSpec {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();
         Map<String, String> tempSwitchAliases = new HashMap<String, String>();
 
-        // extract argument requirement levels and generate aliases
         for (Switch aSwitch : switches) {
+            // create map of switch names to switch objects
             String name = aSwitch.name;
             tempSwitchMap.put(name, aSwitch);
 
+            // extract prefixes to build lookup table
             assert (name.startsWith(aSwitch.root));
             for (int j = aSwitch.root.length(); j <= name.length(); ++j) {
                 tempSwitchAliases.put(name.substring(0, j), name);
