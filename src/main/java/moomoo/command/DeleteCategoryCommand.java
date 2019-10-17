@@ -8,9 +8,9 @@ import moomoo.task.MooMooException;
 import moomoo.task.Category;
 import moomoo.task.Ui;
 
-public class AddCategoryCommand extends Command {
+public class DeleteCategoryCommand extends Command {
 
-    public AddCategoryCommand() {
+    public DeleteCategoryCommand() {
         super(false, "");
     }
 
@@ -20,10 +20,9 @@ public class AddCategoryCommand extends Command {
         super.execute(budget, categoryList, transList, ui, storage);
 
         categoryList.list(ui);
-        ui.showAddCategoryMessage();
-        String categoryName = ui.readCommand();
-        Category newCategory = new Category(categoryName);
-        categoryList.add(newCategory);
-        ui.showNewCategoryMessage(categoryName);
+        ui.showEnterCategoryMessage();
+        int categoryNumber = ui.readNumber() - 1;
+        ui.showRemovedCategoryMessage(categoryList.get(categoryNumber));
+        categoryList.deleteCategory(categoryNumber);
     }
 }
