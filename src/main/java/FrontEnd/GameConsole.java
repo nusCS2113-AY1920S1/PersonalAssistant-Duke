@@ -38,12 +38,7 @@ public class GameConsole {
         }
         return dummyStage;
     }
-    private static ArrayList<Pair<String, Integer>> fillDummyAsset() {
-        ArrayList<Pair<String, Integer>> assets = new ArrayList<>();
-        assets.add(new Pair<String, Integer>("Seeds", 0));
-        assets.add(new Pair<String, Integer>("Wheat", 0));
-        return assets;
-    }
+
     private static ArrayList<String> populateUserCode(ArrayList<String> userCode) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
         while (userCode.size() < 18){

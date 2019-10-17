@@ -66,9 +66,32 @@ public class Farmer {
 
     public ArrayList<Pair<String, Integer>> getAssets() {
         ArrayList<Pair<String, Integer>> assets = new ArrayList<Pair<String, Integer>>();
-        assets.add(new Pair<>("Dummy", 0));
+
+        if(level == 1)
+        {
+            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
+            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
+            level++;
+        }
+        else if(level == 2)
+        {
+            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
+            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
+            assets.add(new Pair<>("Chicken",0));
+            assets.add(new Pair<>("Eggs",0));
+            level++;
+        }
+        else if(level == 3)
+        {
+            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
+            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
+            assets.add(new Pair<>("Chicken",0));
+            assets.add(new Pair<>("Eggs",0));
+            assets.add(new Pair<>("Milk",0));
+        }
         return assets;
     }
+
 
     public WheatFarm getWheatFarm() { return  wheatFarm; }
 
