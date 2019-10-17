@@ -17,7 +17,7 @@ public class TaskFactory {
      */
     public Task createTask(String input) throws ParseException {
         String [] taskDetails = input.split("[tpdcsr]\\/");
-        Task newTask = null;
+        Task newTask;
         String newTaskName = taskDetails[1].trim();
         DateTimeHelper dateTimeHelper = new DateTimeHelper();
         int newTaskPriority = Integer.parseInt(taskDetails[2].trim());
@@ -46,7 +46,7 @@ public class TaskFactory {
                 newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, taskRequirements);
             }
-        } else if (!hasDueDateFlag && hasStateFlag) {
+        } else if (!hasDueDateFlag) {
             TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
             if (taskDetails.length == 5) {
                 newTask = new Task(newTaskName, newTaskPriority,
@@ -57,7 +57,7 @@ public class TaskFactory {
                         null, Integer.parseInt(taskDetails[3].trim()), newTaskState, taskRequirements);
             }
 
-        } else if (hasDueDateFlag && hasStateFlag) {
+        } else {
             Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
             TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
             if (taskDetails.length == 6) {
