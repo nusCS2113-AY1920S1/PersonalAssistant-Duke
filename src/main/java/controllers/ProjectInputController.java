@@ -10,7 +10,6 @@ import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import views.CLIView;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;

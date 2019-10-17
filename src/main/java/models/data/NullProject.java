@@ -6,7 +6,6 @@ import models.task.Task;
 import models.task.TaskList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class NullProject implements IProject {
     @Override
