@@ -11,20 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ProjectRepositoryTest {
-    private CLIView consoleView;
-    private ConsoleInputController consoleInputController;
     private ProjectRepository projectRepository;
-    private ProjectInputController projectInputController;
     private String simulatedUserinput;
 
     /**
      * Junit Tests for Project Repository. This is to test the creation of projects.
      */
     ProjectRepositoryTest() {
-        this.consoleView = new CLIView();
-        this.consoleInputController = new ConsoleInputController(consoleView);
         this.projectRepository = new ProjectRepository();
-        this.projectInputController = new ProjectInputController(consoleView, projectRepository);
     }
 
     /**
