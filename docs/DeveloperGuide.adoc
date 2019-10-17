@@ -1,4 +1,4 @@
-= NAME - Developer Guide
+= MisterMusik - Developer Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
