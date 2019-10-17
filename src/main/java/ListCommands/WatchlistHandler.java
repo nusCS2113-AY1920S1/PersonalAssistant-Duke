@@ -12,9 +12,15 @@ public class WatchlistHandler {
     public WatchlistHandler() {
         this.watch = new ArrayList<>();
     }
+
+    /**
+     *
+     * @param t: the task list to store the movies
+     */
     public static void add(Tasks t) {
         watch.add(t);
     }
+    
     public static void print_list(MovieHandler handle) {
         String result = "";
         result += "Here are the tasks in your list: \n";
