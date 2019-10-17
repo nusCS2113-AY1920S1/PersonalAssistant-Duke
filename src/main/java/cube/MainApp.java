@@ -10,7 +10,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         MainWindow mwc = new MainWindow(stage);
-
+        mwc.initComponents();
         mwc.show();
     }
 }

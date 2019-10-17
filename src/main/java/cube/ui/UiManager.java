@@ -1,7 +1,6 @@
 package cube.ui;
 
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import cube.MainApp;
 
@@ -9,31 +8,57 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class UiManager<Type> {
+public abstract class UiManager<Type> {
 
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = File.separator + "view" + File.separator;
 
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
+    /**
+     * Main Constructor for Root
+     * @param FXML File name for the FXML user interface design file.
+     * @param root Type of the JavaFX Object type to load.
+     */
     public UiManager(String FXML, Type root) {
         super();
         URL fxmlUrl = getFxmlUrl(FXML);
-        loadFxmlFile(fxmlUrl, root);
+        setRoot(root);
+        loadFxmlFile(fxmlUrl);
     }
 
     /**
-     * Returns the root object of the scene graph of this UiPart.
+     * Secondary Constructor
+     * @param FXML File name for the FXML user interface design file.
+     */
+    public UiManager(String FXML) {
+        super();
+        URL fxmlUrl = getFxmlUrl(FXML);
+        loadFxmlFile(fxmlUrl);
+    }
+
+    /**
+     * Returns the root object of the FXML Loader.
      */
     public Type getRoot() {
         return fxmlLoader.getRoot();
     }
 
+    /**
+     * Sets he root object of the FXML Loader.
+     * @param root The root FXML Object to be set.
+     */
+    private void setRoot(Type root) {
+        fxmlLoader.setRoot(root);
+    }
 
-    private void loadFxmlFile (URL location, Type root) {
+    /**
+     * Loads the FXML object of the provided type.
+     * @param location Location where the FXML files are being stored.
+     */
+    private void loadFxmlFile(URL location) {
         fxmlLoader.setLocation(location);
         fxmlLoader.setController(this);
-        fxmlLoader.setRoot(root);
 
         try {
             fxmlLoader.load();
@@ -43,7 +68,7 @@ public class UiManager<Type> {
     }
 
     /**
-     * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
+     * Returns the FXML file URL for the specified FXML file name within FXML_FILE_FOLDER.
      */
     private static URL getFxmlUrl(String FXML) {
         String fxmlPath = FXML_FILE_FOLDER + FXML;
