@@ -5,12 +5,10 @@ import ui.Ui;
 import ui.Wallet;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
-public class CommandDisplayBalance extends Command {
+public class CommandDisplayExpenditure extends Command {
 
-    // Constructor
-    public CommandDisplayBalance() {
+    public CommandDisplayExpenditure() {
     }
 
     @Override
@@ -19,9 +17,10 @@ public class CommandDisplayBalance extends Command {
 
     @Override
     public void execute(Wallet wallet) {
+        double totalExpenses = wallet.getTotalExpenses();
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        System.out.println("Your Balance: $"
-                + decimalFormat.format(wallet.getBalance())
+        System.out.println("Total Expenditure: $"
+                + decimalFormat.format(totalExpenses)
         );
     }
 }

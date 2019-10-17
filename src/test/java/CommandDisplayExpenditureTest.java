@@ -1,15 +1,14 @@
 import executor.command.Command;
-import executor.command.CommandDisplayBalance;
-import org.junit.jupiter.api.BeforeEach;
+import executor.command.CommandDisplayExpenditure;
 import org.junit.jupiter.api.Test;
+import ui.Receipt;
 import ui.Wallet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CommandDisplayBalanceTest {
+public class CommandDisplayExpenditureTest {
 
     private ByteArrayOutputStream outContent;
     private ByteArrayOutputStream errContent;
@@ -31,20 +30,23 @@ public class CommandDisplayBalanceTest {
     }
 
     @Test
-    void executeTest() {
+    void execute() {
         resetTextTracker();
         assertEquals("", outContent.toString().trim());
 
         resetTextTracker();
+        Command c = new CommandDisplayExpenditure();
         Wallet wallet = new Wallet();
-        Command c = new CommandDisplayBalance();
         c.execute(wallet);
-        assertEquals("Your Balance: $0.00", outContent.toString().trim());
+        assertEquals("Total Expenditure: $0.00", outContent.toString().trim());
 
         resetTextTracker();
-        wallet.setBalance(500.0);
+        for (double x = 0.00; x < 11.0; ++x) {
+            Receipt receipt = new Receipt(x);
+            wallet.addReceipt(receipt);
+        }
         c.execute(wallet);
-        assertEquals("Your Balance: $500.00", outContent.toString().trim());
+        assertEquals("Total Expenditure: $55.00", outContent.toString().trim());
 
         endTextTracker();
     }
