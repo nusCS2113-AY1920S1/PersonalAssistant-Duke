@@ -22,7 +22,7 @@ public class TypoCorrector {
     //Sets of "Dictionaries" for the command matching, categorised by number of keywords contain in a supported commands.
     private final static ArrayList<String> oneKeywordCommand = new ArrayList<String>(Arrays.asList("bye"));
     private final static ArrayList<String> twoKeywordsCommands = new ArrayList<String>(Arrays.asList("list patients", "list tasks"));
-    private final static ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("update patient", "update command", "delete patient", "delete task", "add task", "add patient", "assign by"));
+    private final static ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("update patient", "update task", "delete patient", "delete task", "add task", "add patient", "assign by"));
 
     /**
      * This method take in an user input command with typo and return a possible matches
