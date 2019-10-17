@@ -104,15 +104,17 @@ public class ViewCommand extends Command {
     @Override
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui)
             throws SpinBoxException {
+        ArrayDeque<String> tempPageTrace = pageTrace.clone();
         StringBuilder oldTrace = new StringBuilder();
-        while (pageTrace.size() > 0) {
-            oldTrace.append("/").append(pageTrace.getLast());
-            pageTrace.removeLast();
+        while (tempPageTrace.size() > 0) {
+            oldTrace.append("/").append(tempPageTrace.getLast());
+            tempPageTrace.removeLast();
         }
 
+        ArrayDeque<String> newPageTrace = new ArrayDeque<>();
         // add page
         if (page.equals("main") || page.equals("calendar") || page.equals("modules")) {
-            pageTrace.addFirst(page);
+            newPageTrace.addFirst(page);
         } else {
             throw new InputException("Sorry, that page does not exist."
                     + " Please choose 'main', 'calendar', or 'modules'.");
@@ -122,7 +124,7 @@ public class ViewCommand extends Command {
         if (page.equals("modules") && moduleCode != null) {
             // check if module exists
             if (moduleContainer.checkModuleExists(moduleCode)) {
-                pageTrace.addFirst(moduleCode);
+                newPageTrace.addFirst(moduleCode);
             } else {
                 String currentModules = "";
                 for (HashMap.Entry<String, Module> entry : moduleContainer.getModules().entrySet()) {
@@ -141,15 +143,15 @@ public class ViewCommand extends Command {
             Module module = modules.get(moduleCode);
             switch (tab) {
             case "tasks":
-                pageTrace.addFirst(tab);
+                newPageTrace.addFirst(tab);
                 outputList = module.getTasks().viewList();
                 break;
             case "files":
-                pageTrace.addFirst(tab);
+                newPageTrace.addFirst(tab);
                 outputList = module.getFiles().viewList();
                 break;
             case "grades":
-                pageTrace.addFirst(tab);
+                newPageTrace.addFirst(tab);
                 outputList = module.getGrades().viewList();
                 break;
             default:
@@ -158,10 +160,13 @@ public class ViewCommand extends Command {
             }
         }
 
+        pageTrace.clear();
+
         StringBuilder newTrace = new StringBuilder();
-        ArrayDeque<String> tempPageTrace = pageTrace.clone();
+        tempPageTrace = newPageTrace.clone();
         while (tempPageTrace.size() > 0) {
             newTrace.append("/").append(tempPageTrace.getLast());
+            pageTrace.addFirst(tempPageTrace.getLast());
             tempPageTrace.removeLast();
         }
 
