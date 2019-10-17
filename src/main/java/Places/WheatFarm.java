@@ -17,7 +17,7 @@ public class WheatFarm extends Farm {
     }
 
     public WheatFarm() {
-        seeds = 100;
+        seeds = 0;
         greenWheat = 0;
         ripeWheat = 0;
     }

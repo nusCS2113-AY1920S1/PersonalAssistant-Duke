@@ -13,6 +13,7 @@ import java.util.Arrays;
  */
 public class GameConsole {
     private static final String TOP_BORDER = "._______________________________________________________________________________________________________.\n";
+    private static final String BOTTOM_FULL_BORDER = "|_______________________________________________________________________________________________________|\n";
     private static final String MENU_PROMPT_AND_CODE_TITLE = "|-----------------"+ AsciiColours.CYAN + "<MENU>" + AsciiColours.SANE + " for instruction list or settings---------------|---------"+ AsciiColours.CYAN + "<USER CODE>" + AsciiColours.SANE + "-----------|\n";
     private static final String BOX_BOTTOM_BORDER = "|_______________________________________________________________________|_______________________________|\n";
     private static final String BOX_TOP_BORDER = "|_______________________________________________________________________|_______________________________|\n"; //"|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|\n";
@@ -44,14 +45,14 @@ public class GameConsole {
         assets.add(new Pair<String, Integer>("Wheat", 0));
         return assets;
     }
-    private static ArrayList<String> populateUserCode(ArrayList<String> userCode, int highlightedLine) {
+    private static ArrayList<String> populateUserCode(ArrayList<String> userCode, int currentTask) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
         while (userCode.size() < 18){
             userCode.add("");
         }
-        int i = 1;
+        int i = 0;
         for (String s: userCode) {
-            if (i == highlightedLine) {
+            if (i == currentTask) {
                 userCodeOutput.add(AsciiColours.RED + AsciiColours.HIGH_INTENSITY + horizontalPanel("", s, 31) + AsciiColours.SANE + "|");
             } else {
                 userCodeOutput.add(horizontalPanel("", s, 31) + "|");
@@ -69,7 +70,7 @@ public class GameConsole {
         int gold = farmio.getFarmer().getMoney();
         ArrayList<String> userCode = farmio.getFarmer().getTasks().toStringArray();
         ArrayList<Pair<String, Integer>> assets = farmio.getFarmer().getAssets();
-        userCode = populateUserCode(userCode, 1);
+        userCode = populateUserCode(userCode, farmio.getFarmer().getCurrentTask());
         output.append(AsciiColours.SANE + TOP_BORDER);
         output.append("|" + AsciiColours.RED + horizontalPanel("OBJECTIVE:", objective, 71) + AsciiColours.SANE).append(CODE_TITLE_FILLER);
         output.append(BOX_BOTTOM_BORDER);
@@ -90,6 +91,23 @@ public class GameConsole {
             }
         }
         output.append(BOTTOM_BORDER);
+        StringBuilder output2 = new StringBuilder();
+        for (int i = 0; i < output.length(); i ++) {
+            if (output.charAt(i) == '\n') {
+                output2.append(AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK + "\n" + AsciiColours.SANE);
+            } else {
+                output2.append(output.charAt(i));
+            }
+        }
+        return output2.toString() + AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK;
+    }
+    static String blankConsole(ArrayList<String> stage) {
+        StringBuilder output = new StringBuilder();
+        output.append(AsciiColours.SANE + TOP_BORDER);
+        for (int i = 0; i < 22; i ++) {
+            output.append(horizontalPanel("", stage.get(i), 103)).append("\n");
+        }
+        output.append(BOTTOM_FULL_BORDER);
         StringBuilder output2 = new StringBuilder();
         for (int i = 0; i < output.length(); i ++) {
             if (output.charAt(i) == '\n') {

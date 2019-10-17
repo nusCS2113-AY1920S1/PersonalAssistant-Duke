@@ -42,7 +42,7 @@ public class Farmio {
     }
 
     public static enum Stage {
-        WELCOME, MENU_START, LOAD_LEVEL, TASK_ADD, RUNNING_DAY, CHECK_OBJECTIVES
+        WELCOME, MENU_START, TASK_ADD, RUNNING_DAY, CHECK_OBJECTIVES, END_OF_DAY, START_OF_DAY
     }
 
     public Storage getStorage() {

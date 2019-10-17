@@ -22,6 +22,10 @@ class Parser {
                 return new CommandTasksRun();
             case CHECK_OBJECTIVES:
                 return new CommandCheckObjectives();
+            case END_OF_DAY:
+                return new CommandDayEnd();
+            case START_OF_DAY:
+                return new CommandDayNew();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;
@@ -47,7 +51,7 @@ class Parser {
             return new CommandMenuStart();
         }
         if (userInput.toLowerCase().equals("start")) {
-            return new CommandStart();
+            return new CommandDayStart();
         }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);

@@ -15,12 +15,13 @@ public class GotoMarketAction extends Action {
         try {
             Simulate GotoMarketSimulation = new Simulate("GotoMarketSimulation", super.farmio);
             farmer.changeLocation("-Traveling-");
-            GotoMarketSimulation.simulate(0, 1);
+            GotoMarketSimulation.simulate(0, 11);
             farmer.changeLocation("Market");
-            GotoMarketSimulation.showFrame(2);
+            GotoMarketSimulation.showFrame(12, 1000);
             ui.typeWriter("You have arrived at the market");
         } catch (Exception e){
             e.getMessage();
         }
     }
 }
+
