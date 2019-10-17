@@ -1,11 +1,6 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.CategoryList;
-import moomoo.task.TransactionList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.MooMooException;
+import moomoo.task.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -28,7 +23,7 @@ public class BudgetCommand extends Command {
     }
 
     @Override
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
             throws MooMooException {
         if (input.length() < 7) {
             throw new MooMooException("OOPS!!! Please use set/edit/savings/list sub command");

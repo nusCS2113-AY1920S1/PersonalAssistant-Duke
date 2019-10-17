@@ -5,6 +5,7 @@ import moomoo.command.Command;
 import moomoo.command.ExitCommand;
 import moomoo.command.ListCategoryCommand;
 import moomoo.command.AddCategoryCommand;
+import moomoo.command.ScheduleCommand;
 
 import java.util.Scanner;
 
@@ -27,6 +28,7 @@ public class Parser {
         case ("bye"): return new ExitCommand(true, "");
         case ("budget"): return new BudgetCommand(false, input);
         case ("categories"): return new ListCategoryCommand(false, "");
+        case ("schedule"): return new ScheduleCommand(false, input);
         case ("add"): return parseAdd(scanner, ui);
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

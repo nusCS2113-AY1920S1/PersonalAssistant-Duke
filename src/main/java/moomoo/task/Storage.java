@@ -74,6 +74,33 @@ public class Storage {
         }
     }
 
+    public ArrayList<SchedulePayment> loadCalendar() throws MooMooException {
+        ArrayList<SchedulePayment> scheduleArray = new ArrayList<>();
+        try {
+            if (Files.isRegularFile(Paths.get(this.filePath))) {
+                List<String> input = Files.readAllLines(Paths.get(this.filePath));
+                for (String s : input) {
+                    if (s.startsWith("d/")) {
+                        String[] splitInput = s.split(" ", 2);
+                        String date = splitInput[0].replace("d/","");
+                        String task = splitInput[1].replace("t/", "");
+                        SchedulePayment day = new SchedulePayment(date, task);
+                        scheduleArray.add(day);
+                    }
+                }
+//                System.out.println("What is saved in scheduled array: \n");
+//                for (SchedulePayment s : scheduleArray) {
+//                    System.out.println("date: " + s.date + " task: " + s.tasks);
+//                }
+                return scheduleArray;
+            } else {
+                throw new MooMooException("File not found. New file will be created");
+            }
+        } catch (IOException e) {
+            throw new MooMooException("Unable to read file. Please retry again.");
+        }
+    }
+
     /**
      * Creates the directory and file as given by the file path initialized in the constructor.
      */
@@ -119,6 +146,21 @@ public class Storage {
             Files.writeString(Paths.get(this.filePath), toSave);
         } catch (Exception e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
+        }
+    }
+
+    public void saveScheduleToFile(ScheduleList calendar) throws MooMooException {
+        createFileAndDirectory();
+
+        String list = "Schedule: \n";
+        System.out.println(calendar.fullSchedule.size());
+        for (SchedulePayment c : calendar.fullSchedule) {
+            list += "d/" + c.date + " t/" + c.tasks + "\n";
+        }
+        try {
+            Files.writeString(Paths.get(this.filePath), list);
+        } catch (Exception e) {
+            throw new MooMooException("Unable to write to file. Please try again.");
         }
     }
 }

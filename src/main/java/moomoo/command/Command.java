@@ -1,11 +1,6 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
-import moomoo.task.CategoryList;
-import moomoo.task.TransactionList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.MooMooException;
+import moomoo.task.*;
 
 
 /**
@@ -35,7 +30,7 @@ public class Command {
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public void execute(Budget budget, CategoryList categoryList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, TransactionList transList, Ui ui, Storage storage)
             throws MooMooException {
 
     }
