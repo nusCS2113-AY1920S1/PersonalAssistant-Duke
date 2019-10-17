@@ -33,6 +33,34 @@ public class StockList {
     }
 
     /**
+     * Adds a new StockType to the list.
+     * @param name Name of new stocktype being added.
+     */
+    public void addStockType(String name) {
+        stockList.add(new StockType(name, false));
+    }
+
+    /**
+     * Prints every stock within stocklist. Should only be called by Ui.
+     * Deletes a StockType object, and all the stocks under it.
+     * @param name Name of StockType to be deleted
+     * @return The object if it was deleted, null if nothing waas deleted.
+     */
+    public StockType deleteStockType(String name) {
+        StockType deleted;
+
+        for (StockType stocktype : stockList) {
+            if (stocktype.getName().equals(name)) {
+                deleted = stocktype;
+                stockList.remove(stocktype);
+                return deleted;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Returns a stockType from stockList if it exits else retuns a null StockType.
      * @param stockType The unique string that identifies a stockType
      * @return stockType of stockList
@@ -56,24 +84,7 @@ public class StockList {
     }
 
     /**
-     * Gets the total number of stocks in this stockList. This sums the number of stocks across stockTypes.
-     * @return the total number of stocks.
-     */
-    public int getStockQuantity() { //The number of stocks in the list, across all stockTypes.
-        int total = 0;
-        for (StockType stockType : stockList) {
-            total += stockType.getQuantity();
-        }
-
-        return total;
-    }
-
-    public void addStockType(String name) {
-        stockList.add(new StockType(name, false));
-    }
-
-    /**
-     * Checks whether mentioned stockType already exists.
+     * Adds a Stock to the specified StockType in the list.
      * @param stockType A String matching exactly the StockType to add the new Stock object under.
      * @param stockCode A unique String that identifies the Stock.
      * @param quantity Quantity of the stock.
@@ -94,7 +105,7 @@ public class StockList {
     /**
      * Deletes a Stock object from a list.
      * @param stockCode The unique String that identifies a Stock.
-     * @return true if some stock was deleted, and false if the stock could not be found.
+     * @return the stock that was deleted, for printing purposes.
      */
     public Stock deleteStock(String stockCode) {
         Stock deleted;
@@ -108,7 +119,20 @@ public class StockList {
     }
 
     /**
-     * Prints every stock within stocklist. Should only be called by Ui.
+     * Gets the total number of stocks in this stockList. This sums the number of stocks across stockTypes.
+     * @return the total number of stocks.
+     */
+    public int getStockQuantity() { //The number of stocks in the list, across all stockTypes.
+        int total = 0;
+        for (StockType stockType : stockList) {
+            total += stockType.getQuantity();
+        }
+
+        return total;
+    }
+
+    /**
+     * Prints every stock within stocklist. Should only be called by Cli.
      * @return The string of the stocklist.
      */
     public String toString() {
@@ -120,6 +144,40 @@ public class StockList {
             ret += stocktype.toString() + "\n";
         }
 
+        return ret;
+    }
+
+    /**
+     * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
+     * @return The string of the stocklist whose stocktype matches query.
+     */
+    public String findStock(String query) {
+        String ret = "";
+        boolean found = false;
+        for (StockType stocktype : stockList) {
+            if (stocktype.getName().equals(query)) {
+                if (found == false) {
+                    ret += query + " INVENTORY\n";
+                    ret += "------------------------\n";
+                    found = true;
+                }
+                ret += stocktype.toString() + "\n";
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Prints all the stocktypes that are currently handled by Eggventory. Should only be called by Cli.
+     * @return The string of all the stocktypes
+     */
+    public String toStocktypeString() {
+        String ret = "";
+        ret += "QUERY INVENTORY\n";
+        for (StockType stocktype : stockList) {
+            ret += "------------------------\n";
+            ret += stocktype.getName() + "\n";
+        }
         return ret;
     }
 

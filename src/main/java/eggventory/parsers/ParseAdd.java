@@ -1,7 +1,7 @@
 package eggventory.parsers;
 
 import eggventory.commands.Command;
-import eggventory.commands.AddCommand;
+import eggventory.commands.add.AddStockCommand;
 import eggventory.commands.add.AddStockTypeCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
@@ -32,7 +32,7 @@ public class ParseAdd {
                     + " this format:\nadd stock <StockType> <StockCode> <Quantity> <Description>");
         }
 
-        return new AddCommand(CommandType.ADD, addInput[0], addInput[1],
+        return new AddStockCommand(CommandType.ADD, addInput[0], addInput[1],
                 Integer.parseInt(addInput[2]), addInput[3]);
     }
 
@@ -81,7 +81,7 @@ public class ParseAdd {
             break;
 
         case "stocktype":
-            addCommand = processAddStockType(inputString);
+            addCommand = processAddStockType(addInput[1]);
             break;
         default:
             throw new BadInputException("Unexpected value: " + addInput[0]);

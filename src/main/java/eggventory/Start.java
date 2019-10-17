@@ -1,5 +1,6 @@
 package eggventory;
 
+import eggventory.ui.Gui;
 import javafx.application.Application;
 
 
@@ -14,6 +15,6 @@ public class Start {
 
         Thread cliThread = new Thread(new Eggventory(filePath));
         cliThread.start();
-        Application.launch(GuiLauncher.class, args);
+        Application.launch(Gui.class, args);
     }
 }

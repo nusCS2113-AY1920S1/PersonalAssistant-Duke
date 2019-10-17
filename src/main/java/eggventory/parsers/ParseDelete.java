@@ -1,7 +1,8 @@
 package eggventory.parsers;
 
 import eggventory.commands.Command;
-import eggventory.commands.DeleteCommand;
+import eggventory.commands.delete.DeleteStockCommand;
+import eggventory.commands.delete.DeleteStockTypeCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
@@ -27,13 +28,11 @@ public class ParseDelete {
 
         case "stock":
             deleteInput[1] = deleteInput[1].strip();
-            deleteCommand = new DeleteCommand(CommandType.DELETE, deleteInput[1]);
+            deleteCommand = new DeleteStockCommand(CommandType.DELETE, deleteInput[1]);
             break;
-        /*
         case "stocktype":
-            addCommand = processDeleteStockType(inputString);
+            deleteCommand = new DeleteStockTypeCommand(CommandType.DELETE, deleteInput[1]);
             break;
-         */
         default:
             throw new BadInputException("Unexpected value: " + deleteInput[0]);
         }

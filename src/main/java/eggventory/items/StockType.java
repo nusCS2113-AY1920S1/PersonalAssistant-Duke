@@ -64,39 +64,6 @@ public class StockType {
     */
 
     /**
-     * Returns the entire stockList.
-     * @return the stockList.
-     */
-    public ArrayList<Stock> getStockList() {
-        return stocks;
-    }
-
-    /**
-     * Returns a stock of the user's choice.
-     *
-     * @param i the index of the stock selected.
-     */
-    public Stock getStock(int i) {
-        return stocks.get(i);
-    }
-
-    /**
-     * Gets the total number of stocks.
-     * @return the number of stocks in this stockType.
-     */
-    public int getQuantity() {
-        return stocks.size();
-    }
-
-    /**
-     * Gets the name of this stockType.
-     * @return the name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Adds a stock to the stockList.
      * @return True if item was added successfully.
      */
@@ -131,7 +98,86 @@ public class StockType {
     }
 
     /**
-     * A string of all the stock objects within this stocktype. Should only be called by Ui and StockList.
+     * Accesses and sets a new stockCode of a stock.
+     * @param oldStockCode The current stockcode referring to this stock.
+     * @param newStockCode The new stockcode to change to.
+     */
+    public void setStockCode(String oldStockCode, String newStockCode) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(oldStockCode)) {
+                stock.setStockCode(newStockCode);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Accesses and sets the quantity of a Stock.
+     * @param stockCode StockCode of the stock to change
+     * @param quantity New quantity of the stock to change
+     */
+    public void setStockQuantity(String stockCode, int quantity) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setQuantity(quantity);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Accesses and sets the description of a Stock.
+     * @param stockCode StockCode of the stock to change
+     * @param description New description of the stock to change
+     */
+    public void setStockDescription(String stockCode, String description) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                stock.setDescription(description);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Returns the entire stockList.
+     * @return the stockList.
+     */
+    public ArrayList<Stock> getStockList() {
+        return stocks;
+    }
+
+    /**
+     * Returns a stock of the user's choice.
+     *
+     * @param i the index of the stock selected.
+     */
+    public Stock getStock(int i) {
+        return stocks.get(i);
+    }
+
+    /**
+     * Gets the total number of stocks.
+     * @return the number of stocks in this stockType.
+     */
+    public int getQuantity() {
+        return stocks.size();
+    }
+
+    /**
+     * Gets the name of this stockType.
+     * @return the name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * A string of all the stock objects within this stocktype. Should only be called by Cli and StockList.
      * @return A string list of all the stock objects and their details.
      */
     public String toString() {
