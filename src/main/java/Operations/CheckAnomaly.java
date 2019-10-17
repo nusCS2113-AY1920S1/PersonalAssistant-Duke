@@ -1,8 +1,7 @@
 package Operations;
 
-import Model_Classes.Deadline;
-import Model_Classes.Event;
 import Model_Classes.FixedDuration;
+import Model_Classes.Meeting;
 import Model_Classes.Task;
 
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ public class CheckAnomaly {
                         return false;
                     }
                 }
-            } else if( curr.get(i) instanceof Event ) {
-                Date listDate = ((Event) curr.get(i)).checkDate();
+            } else if( curr.get(i) instanceof Meeting) {
+                Date listDate = ((Meeting) curr.get(i)).checkDate();
                 // Checks if both events are on the same day
                 if ( listDate.getYear() == checkDate.getYear() && listDate.getMonth() == checkDate.getMonth() && listDate.getDay() == checkDate.getDay() ) {
                     double checkTime = listDate.getTime();
@@ -62,7 +61,7 @@ public class CheckAnomaly {
     public static Boolean checkTime(Date at){
         ArrayList<Task> curr = TaskList.currentList();
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
-            if( curr.get(i) instanceof Event && ((Event) curr.get(i)).checkDate().equals(at) ) {
+            if( curr.get(i) instanceof Meeting && ((Meeting) curr.get(i)).checkDate().equals(at) ) {
                 return true;
             } else if( curr.get(i) instanceof FixedDuration ) {
                 return true;

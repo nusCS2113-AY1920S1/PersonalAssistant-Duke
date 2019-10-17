@@ -1,5 +1,5 @@
 package Enums;
 
 public enum RecurrenceScheduleType {
-    day, week, month
+    day, week, month, none
 }
