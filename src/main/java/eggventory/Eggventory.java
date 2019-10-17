@@ -3,6 +3,7 @@ package eggventory;
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 import eggventory.parsers.Parser;
+import eggventory.ui.Cli;
 
 import java.io.IOException;
 
@@ -16,14 +17,14 @@ public class Eggventory implements Runnable {
     private static Storage storage;
     private static Parser parser;
     private static StockList stockList;
-    private static Ui ui;
+    private static Cli cli;
 
     /**
      * Eggventory does somethings.
      * @param filePath which stores path of persistent storage
      */
     public Eggventory(String filePath) {
-        ui = new Ui();
+        cli = new Cli();
         storage = new Storage(filePath);
         stockList = storage.load(); //Will always return the right object even if empty.
         parser = new Parser();
@@ -31,21 +32,21 @@ public class Eggventory implements Runnable {
 
     @Override
     public void run() {
-        ui.printIntro();
+        cli.printIntro();
         String userInput;
 
         while (true) {
-            userInput = ui.read();
+            userInput = cli.read();
 
             try {
                 Command command = parser.parse(userInput);
-                command.execute(stockList, ui, storage);
+                command.execute(stockList, cli, storage);
 
                 if (command.getType() == CommandType.BYE) {
                     break;
                 }
             } catch (Exception e) {
-                ui.printError(e);
+                cli.printError(e);
             }
         }
     }

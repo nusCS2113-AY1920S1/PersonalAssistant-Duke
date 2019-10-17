@@ -131,7 +131,7 @@ public class StockType {
     }
 
     /**
-     * A string of all the stock objects within this stocktype. Should only be called by Ui and StockList.
+     * A string of all the stock objects within this stocktype. Should only be called by Cli and StockList.
      * @return A string list of all the stock objects and their details.
      */
     public String toString() {

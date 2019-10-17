@@ -2,7 +2,7 @@ package eggventory.commands;
 
 import eggventory.StockList;
 import eggventory.Storage;
-import eggventory.Ui;
+import eggventory.ui.Cli;
 import eggventory.enums.CommandType;
 
 public class ListCommand extends Command {
@@ -11,14 +11,14 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(StockList list, Ui ui, Storage storage) {
+    public String execute(StockList list, Cli cli, Storage storage) {
         String output;
         int max = list.getStockQuantity();
         String listString = "";
 
         if (max == 0) {
             output = "The list is currently empty.";
-            ui.print(output);
+            cli.print(output);
             return output;
         }
 
@@ -32,7 +32,7 @@ public class ListCommand extends Command {
          */
 
         output = listString;
-        ui.print(output);
+        cli.print(output);
         return output;
     }
 }

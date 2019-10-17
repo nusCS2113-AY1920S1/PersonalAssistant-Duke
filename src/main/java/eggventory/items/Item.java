@@ -108,7 +108,7 @@ public class Item {
     }
 
     /**
-     * Formats item details appropriately for Ui output. (Only for output of a single UniqueStock.)
+     * Formats item details appropriately for Cli output. (Only for output of a single UniqueStock.)
      * @return the item details string.
      */
     @Override

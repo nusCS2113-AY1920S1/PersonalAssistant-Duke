@@ -1,16 +1,15 @@
 package eggventory.commands;
 
+import eggventory.ui.Cli;
 import eggventory.StockList;
-import eggventory.items.StockType;
 import eggventory.Storage;
-import eggventory.Ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 
 class FindCommandTest {
-    Ui ui = new Ui();
+    Cli cli = new Cli();
     Storage storage = new Storage("");
     StockList stockList = new StockList();
 
@@ -21,7 +20,7 @@ class FindCommandTest {
         PrintStream ps = new PrintStream(os);
         System.setOut(ps);
         stockType.addItem(TaskType.TODO, "Test FIND");
-        new FindCommand(CommandType.FIND, "FIND").execute(stockType, ui, storage);
+        new FindCommand(CommandType.FIND, "FIND").execute(stockType, cli, storage);
         assertEquals("1. [T] " + stockType.getTask(0).getStatusIcon() + "Test FIND", os.toString().trim());
     }*/
 }
