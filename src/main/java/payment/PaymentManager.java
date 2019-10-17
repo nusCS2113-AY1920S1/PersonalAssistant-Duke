@@ -1,6 +1,5 @@
 package payment;
 
-import java.lang.reflect.GenericDeclaration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,10 +14,10 @@ public abstract class PaymentManager {
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      * @param payee Payee of the item.
      */
-    public void findPayee(String payee, HashMap<String, Payee> managermap) {
-        for (Payments payment : managermap.get(payee).payments) {
-            //TODO add output to UI and add parser command
-        }
+    public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
+        ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
+        paymentsArrayList.addAll(managermap.get(payee).payments);
+        return paymentsArrayList;
     }
 
     /**
@@ -81,7 +80,7 @@ public abstract class PaymentManager {
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
             if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                Payments deleted = new Payments(payee, managermap.get(payee).payments.get(--i).cost,
+                Payments deleted = new Payments(item, managermap.get(payee).payments.get(--i).cost,
                         managermap.get(payee).payments.get(i).inv);
                 managermap.get(payee).payments.remove(i);
                 return deleted;

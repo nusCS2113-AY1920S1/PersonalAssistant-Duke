@@ -3,10 +3,10 @@ package ui;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentList;
-import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -73,6 +73,11 @@ public class Ui {
         }
         System.out.print(line);
     }
+
+    /**
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
+     */
     public void printPaymentList(PaymentList paymentList) {
         for (int i = 0; i < paymentList.size(); i = i + 1) {
             System.out.println(paymentList.get(i).givePayments());
