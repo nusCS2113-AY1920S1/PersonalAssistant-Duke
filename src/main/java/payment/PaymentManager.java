@@ -116,14 +116,8 @@ public abstract class PaymentManager {
     }
 
     /**
-     * @param payee payee name.
-     * @param email email id of payee.
-     * @param matricNum matriculation number of payee.
-     * @param phoneNum phone number of payee.
-     * @param managermap Hashmap consisting of payee and their details.
-     * @return payeeDeleted Payee object of the payee being deleted.
+     * Delete Payee object.
      */
-
     public static Payee deletePayee(String payee, String email, String matricNum, String phoneNum,
                                     HashMap<String, Payee> managermap) {
         Payee payeeDeleted = new Payee(payee, email, matricNum, phoneNum);
