@@ -1,14 +1,13 @@
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
 import gazeeebo.parsers.*;
-import gazeeebo.Exception.DukeException;
-import Storage.NoteStorage;
-
-import java.io.IOException;
+import gazeeebo.exception.DukeException;
+import gazeeebo.storage.NoteStorage;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -20,9 +19,9 @@ public class Duke {
      * @param args a String array that takes in input from the command line
      * @throws DukeException | ParseException | IOException | NullPointerException
      */
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
         ArrayList<Task> list;
-        Stack<String> commandStack = new Stack<String>();
+        Stack<String> CommandStack = new Stack<String>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         TriviaManager triviaManager = new TriviaManager();
@@ -30,7 +29,7 @@ public class Duke {
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.readFile();
+            list = store.ReadFile();
             store.Read_Trivia(triviaManager);
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
@@ -40,9 +39,9 @@ public class Duke {
                 ui.readCommand();
                 String command = ui.fullCommand.trim();
                 Command c = Parser.parse(command);
-                c.execute(list, ui, store, commandStack, deletedTask, triviaManager);
+                c.execute(list, ui, store, CommandStack, deletedTask,triviaManager);
                 if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                    commandStack.push(command);
+                    CommandStack.push(command);
                 }
 
                 isExit = c.isExit();

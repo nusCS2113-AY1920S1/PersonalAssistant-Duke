@@ -1,8 +1,8 @@
 package gazeeebo.commands.places;
 
-import gazeeebo.Exception.DukeException;
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.exception.DukeException;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;

@@ -1,6 +1,6 @@
 package gazeeebo.commands.Contact;
 
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.Tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

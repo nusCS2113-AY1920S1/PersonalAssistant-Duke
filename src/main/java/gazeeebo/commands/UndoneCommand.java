@@ -1,10 +1,10 @@
 package gazeeebo.commands;
 
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.Tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import java.io.IOException;
 import java.text.ParseException;

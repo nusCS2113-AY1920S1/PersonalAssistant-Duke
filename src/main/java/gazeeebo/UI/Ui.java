@@ -1,9 +1,9 @@
 package gazeeebo.UI;
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,12 +17,12 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Ui {
-    public String fullCommand;
+    public String FullCommand;
 
 
-    public void readCommand() throws IOException {
+    public void ReadCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        fullCommand = reader.readLine();
+        FullCommand = reader.readLine();
     }
 
     /**
@@ -43,11 +43,11 @@ public class Ui {
                 + "\n__________________________________________\n";
 
         while (true) {
-            readCommand();
-            ArrayList<String> passwordList;
+            ReadCommand();
+            ArrayList<String> password_list;
             Storage store = new Storage();
-            passwordList = store.password();
-            if (fullCommand.equals(passwordList.get(0))) {
+            password_list = store.Password();
+            if (FullCommand.equals(password_list.get(0))) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -59,34 +59,34 @@ public class Ui {
         return welcomemessage;
     }
 
-    public void UpcomingTask(final ArrayList<Task> list) throws ParseException {
-        ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
-        ArrayList<Event> arrayList = new ArrayList<Event>();
+    public void UpcomingTask(ArrayList<Task> list) throws ParseException {
+        ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
+        ArrayList<Event> EventList = new ArrayList<Event>();
 
         for (Task task : list) {
             if (task.getClass().getName().equals("gazeeebo.Tasks.Deadline") && !task.isDone) {
                 Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
                 deadline.isDone = task.isDone;
-                deadlineList.add(deadline);
+                DeadlineList.add(deadline);
             } else if (task.getClass().getName().equals("gazeeebo.Tasks.Event") && !task.isDone) {
                 Event event = new Event(task.description, task.toString().split("at:")[1].trim());
                 event.isDone = task.isDone;
-                arrayList.add(event);
+                EventList.add(event);
             }
         }
-        Collections.sort(deadlineList, Comparator.comparing(u -> u.by));
-        Collections.sort(arrayList, Comparator.comparing(u -> u.date));
+        Collections.sort(DeadlineList, Comparator.comparing(u -> u.by));
+        Collections.sort(EventList, Comparator.comparing(u -> u.date));
         System.out.println("Upcoming deadlines:");
-        for (int i = 0; i < deadlineList.size(); i++) {
-            System.out.println(i + 1 + "." + deadlineList.get(i).listFormat());
+        for (int i = 0; i < DeadlineList.size(); i++) {
+            System.out.println(i + 1 + "." + DeadlineList.get(i).listFormat());
         }
         System.out.println("Upcoming events:");
-        for (int i = 0; i < arrayList.size(); i++) {
-            System.out.println(i + 1 + "." + arrayList.get(i).listFormat());
+        for (int i = 0; i < EventList.size(); i++) {
+            System.out.println(i + 1 + "." + EventList.get(i).listFormat());
         }
     }
 
-    public void showProgessiveBar(final ArrayList<Task> list) throws IOException {
+    public void showProgessiveBar(ArrayList<Task> list) throws IOException {
         int UndoneNumber = 0;
         int DoneNumber = 0;
 
@@ -123,11 +123,11 @@ public class Ui {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }
 
-    public void showIOErrorMessage(final Exception e) {
+    public void showIOErrorMessage(Exception e) {
         System.err.println("An IOException was caught :" + e.getMessage());
     }
 
-    public void showErrorMessage(final Exception e) {
+    public void showErrorMessage(Exception e) {
         System.out.println(e.getMessage());
     }
 

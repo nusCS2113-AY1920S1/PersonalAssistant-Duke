@@ -2,12 +2,12 @@ package gazeeebo.commands.note;
 
 import Storage.NoteStorage;
 
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.Tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.notes.Note;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import gazeeebo.notes.NoteList;
 
 import java.io.IOException;

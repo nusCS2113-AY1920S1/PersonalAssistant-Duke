@@ -1,4 +1,4 @@
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.Tasks.Deadline;
 import gazeeebo.Tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

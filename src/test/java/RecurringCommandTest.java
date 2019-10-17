@@ -1,5 +1,5 @@
 
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.Tasks.Deadline;
 import gazeeebo.Tasks.Task;
 import gazeeebo.UI.Ui;

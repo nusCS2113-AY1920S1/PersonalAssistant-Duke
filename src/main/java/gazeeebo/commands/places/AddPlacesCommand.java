@@ -1,6 +1,6 @@
 package gazeeebo.commands.places;
 
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;

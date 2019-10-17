@@ -2,7 +2,7 @@ package gazeeebo.parsers;
 
 import gazeeebo.commands.expenses.ExpenseCommand;
 
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
 import gazeeebo.commands.Contact.ContactsCommand;
 import gazeeebo.commands.Edit.EditCommand;

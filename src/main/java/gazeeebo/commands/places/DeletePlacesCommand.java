@@ -1,6 +1,7 @@
+
 package gazeeebo.commands.places;
 
-import gazeeebo.Storage.Storage;
+import gazeeebo.storage.Storage;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;
@@ -8,13 +9,12 @@ import java.util.Map;
 
 public class DeletePlacesCommand {
     /**
-     *
-     * @param ui the object that deals with printing things to the user.
+     * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data.
-     * @param places Map each name to its own phone number
+     * @param places  Map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public DeletePlacesCommand(Ui ui, Storage storage, Map<String,String> places) throws IOException {
+    public DeletePlacesCommand(Ui ui, Storage storage, Map<String, String> places) throws IOException {
         String placeToDelete = ui.fullCommand.split("-")[1];
         if (ui.fullCommand.equals("delete")) {
             System.out.println("You need to indicate what you want to delete, Format: delete name");
