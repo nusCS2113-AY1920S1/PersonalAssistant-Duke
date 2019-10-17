@@ -1,11 +1,13 @@
 package Farmio;
 
+import FrontEnd.AsciiColours;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Storage {
 
@@ -41,6 +43,26 @@ public class Storage {
     public static void storeFarmer(Farmer farmer) throws IOException {
         FileWriter file = new FileWriter(appDir.concat("\\data\\save.json"));
         file.write(farmer.toJSON().toJSONString());
+    }
+
+    public void loadStage(String path, int frame) throws IOException {
+        FileReader fileReader = new FileReader(getResourceFile("asciiArt/" + path + "/frame" + frame + ".txt"));
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            if (line.length() < 55) {
+//                line = line + blankSpace(55 - line.length());
+            } else if (line.length() > 55) {
+//                line = blankSpace(55);
+            }
+            stringBuilder.append("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + line + AsciiColours.SANE +"|");
+        }
+        if (stringBuilder.length() < 18) {
+            for (int i = stringBuilder.length(); i < 18; i ++) {
+                stringBuilder.append("|"+ AsciiColours.BACKGROUND_WHITE + AsciiColours.BLACK + blankSpace(55) + AsciiColours.SANE +"|");
+            }
+        }
     }
 
     public String getAsciiArt(String name) throws IOException {
