@@ -1,8 +1,11 @@
 package dolla;
 
-import dolla.task.*;
 
-import parser.MainParser;
+
+import dolla.parser.MainParser;
+import dolla.task.Debt;
+import dolla.task.Entry;
+import dolla.task.Log;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

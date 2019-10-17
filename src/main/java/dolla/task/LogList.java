@@ -33,4 +33,8 @@ public class LogList {
     public void removeFromList(int index) {
         list.remove(index);
     }
+
+    public void addWithIndex(int modifyIndex, Log newLog) {
+        list.add(modifyIndex, newLog);
+    }
 }

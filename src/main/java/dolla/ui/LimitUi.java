@@ -4,7 +4,7 @@ import dolla.Ui;
 import dolla.task.Limit;
 
 /**
- * LimitUi is a class that handles all limit related user interactions
+ * LimitUi is a class that handles all limit related user interactions.
  */
 public class LimitUi extends Ui {
 

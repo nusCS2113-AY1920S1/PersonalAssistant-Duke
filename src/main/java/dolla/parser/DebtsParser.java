@@ -1,10 +1,8 @@
-package parser;
+package dolla.parser;
 
-import dolla.DollaData;
 import dolla.Ui;
 import dolla.command.*;
 import dolla.task.LogList;
-import sort.SortDescription;
 
 public class DebtsParser extends Parser {
     private static LogList debtList;

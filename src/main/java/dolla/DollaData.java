@@ -17,6 +17,10 @@ public class DollaData {
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
     private DebtList debtList;
 
+    private String prevMode;
+    private int modifyIndex;
+    //private EntryList entryList;
+
     public DollaData() {
  //       this.entryList = new EntryList(new ArrayList<Log>());
          this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
@@ -44,11 +48,18 @@ public class DollaData {
      * @param newLog The new Log to be added into the relevant LogList.
      */
     public void addToLogList(String mode, Log newLog) {
-            if (mode.equals("entry")) {
-                entryList.add(newLog);
-            } else if (mode.equals("debt")) {
-                debtList.add(newLog);
-            }
+        if (mode.equals("entry")) {
+            entryList.add(newLog);
+        } else if (mode.equals("debt")) {
+            debtList.add(newLog);
+        }
+    }
+
+    public void modifyLogList(Log newLog) {
+        if (prevMode.equals("entry")) {
+            entryList.removeFromList(modifyIndex);
+            entryList.addWithIndex(modifyIndex, newLog);
+        }
     }
 
     public String getMode() {
@@ -57,5 +68,14 @@ public class DollaData {
 
     public void updateMode(String newMode) {
         mode = newMode;
+    }
+
+    public void prepForModify(String prevMode, int index) {
+        this.prevMode = prevMode;
+        modifyIndex = index;
+    }
+
+    public int getModifyIndex() {
+        return modifyIndex;
     }
 }

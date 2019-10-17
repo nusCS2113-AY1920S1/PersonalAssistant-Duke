@@ -3,9 +3,9 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.Ui;
 import dolla.task.LogList;
-import sort.SortDate;
-import sort.SortDescription;
-import sort.SortName;
+import dolla.sort.SortDate;
+import dolla.sort.SortDescription;
+import dolla.sort.SortName;
 
 import java.util.ArrayList;
 

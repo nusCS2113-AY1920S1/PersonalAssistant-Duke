@@ -5,7 +5,7 @@ import dolla.task.EntryList;
 import dolla.task.LogList;
 import dolla.task.Task;
 import dolla.task.TaskList;
-import parser.MainParser;
+import dolla.parser.MainParser;
 
 import java.util.ArrayList;
 import java.util.Scanner;

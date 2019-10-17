@@ -1,4 +1,4 @@
-package parser;
+package dolla.parser;
 
 import dolla.Ui;
 //import dolla.command.;
@@ -6,13 +6,9 @@ import dolla.Ui;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
-import dolla.task.Limit;
-import dolla.task.TaskList;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * MainParser checks the current mode and user input
@@ -22,7 +18,7 @@ public class MainParser {
 
     /**
      * Returns a command corresponding to the user input by directing
-     * the input to the relevant parser.
+     * the input to the relevant dolla.parser.
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
@@ -56,10 +52,15 @@ public class MainParser {
         case "limits":
             LimitParser limitParser = new LimitParser(inputLine);
             //return limitParser.handleInput(mode, inputLine);
+            return new ErrorCommand(); // catch
+        case "modify entry":
+            ModifyParser modifyParser = new ModifyParser(inputLine);
+            return modifyParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();
         }
+
 
         /*
         String[] inputArray = inputLine.split(" ");

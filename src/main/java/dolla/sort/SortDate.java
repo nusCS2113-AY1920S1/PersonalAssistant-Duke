@@ -1,7 +1,6 @@
-package sort;
+package dolla.sort;
 
 import dolla.Ui;
-import dolla.task.Entry;
 import dolla.task.Log;
 
 import java.util.ArrayList;

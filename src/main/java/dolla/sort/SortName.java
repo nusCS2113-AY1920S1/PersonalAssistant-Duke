@@ -1,4 +1,4 @@
-package sort;
+package dolla.sort;
 
 import dolla.Ui;
 import dolla.task.Log;

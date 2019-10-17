@@ -1,8 +1,5 @@
 package dolla.action;
 
-import dolla.command.Command;
-import parser.MainParser;
-
 import java.util.Stack;
 
 public class undo {
@@ -58,7 +55,7 @@ public class undo {
         } else if(parser[0].equals("borrow") || parser[0].equals("owe")) {
             redoInput = "remove" + undoInput;
         } else if(parser[0].equals("remove")) {
-            
+
         }
 //        switch(parser[0]) {
 //            case("add"):
