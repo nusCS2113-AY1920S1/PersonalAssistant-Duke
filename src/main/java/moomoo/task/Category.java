@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Category {
     //Dummy variable
-    int monthTotal;
+    private int monthTotal;
     private String name;
     private ArrayList<Expenditure> expenditure;
 
@@ -19,7 +19,7 @@ public class Category {
 
     /**
      * Calculates the total expenditure for every entry in the category.
-     * @return total
+     * @return totalCost
      */
     public double getTotalExpenditure() {
         double totalCost = 0;
@@ -27,10 +27,6 @@ public class Category {
             totalCost += entry.cost;
         }
         return totalCost;
-    }
-
-    public String getName() {
-        return name;
     }
     
     //Method
@@ -53,4 +49,13 @@ public class Category {
     void deleteExpenditure() {
 
     }
+    
+    /**
+     * Set the month total (FOR TESTING PURPOSES).
+     * @param value The value to be set
+     */
+    public void setMonthTotal(int value) {
+        monthTotal = value;
+    }
+    
 }

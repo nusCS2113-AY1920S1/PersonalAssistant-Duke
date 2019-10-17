@@ -25,8 +25,8 @@ public class GraphCommand extends Command {
         verticalAxis = new ArrayList<String>();
     }
     
-    public static double roundToHalf(double d) {
-        return Math.round(d * 2) / 2.0;
+    public static double roundToTwoDp(double d) {
+        return Math.floor(d * 100) / 100;
     }
     
     @Override
@@ -37,41 +37,48 @@ public class GraphCommand extends Command {
         }
         input = input.substring(6);
         if (input.equals("total")) {
+            //testPopulate
+            catList.testPopulate();
             if (catList.size() == 0) {
                 throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
             }
             for (int i = 0; i < catList.size(); i += 1) {
                 String categoryName = catList.get(i).toString();
                 if (categoryName.length() > 14) {
-                    categoryName = categoryName.substring(0, 10) + "...";
+                    categoryName = categoryName.substring(0, 11) + "...";
                 }
                 verticalAxis.add(categoryName);
             }
             double grandTotal = catList.getGrandMonthTotal();
-            int maxAxisUnit = (int) (grandTotal / catList.getLargestExpenditure()) + 1;
+            int maxAxisUnit = (int) ((catList.getLargestExpenditure() / grandTotal) * 100) + 1;
             for (int i = 0; i < maxAxisUnit; i += 1) {
                 horizontalAxisTop += topBorder;
                 horizontalAxisBottom += bottomBorder;
             }
-            //15 spaces before xAxisTop
-            output = "               " + horizontalAxisTop + "\n";
-            System.out.println(catList.size());
+            String topSpace = "";
+            for (int i = 0; i < catList.getLongestCategory(); i += 1) {
+                topSpace += " ";
+            }
+            output += topSpace + horizontalAxisTop + "\n";
             for (int i = 0; i < catList.size(); i += 1) {
                 Category category = catList.get(i);
-                double percentage = 10 * (category.getCategoryMonthTotal() / grandTotal);
-                percentage = roundToHalf(percentage);
+                double percentage = 100 * (category.getCategoryMonthTotal() / grandTotal);
+                percentage = roundToTwoDp(percentage);
                 int noOfFullBars = (int) percentage;
-                int noOfHalfBars = (int) Math.round(percentage % 1);
-                System.out.println(verticalAxis.get(i));
-                output = output + verticalAxis.get(i) + " \n";
+                output = output + verticalAxis.get(i);
+                for (int j = 0; j < (catList.getLongestCategory() - verticalAxis.get(i).length() + 1); j += 1) {
+                    output += " ";
+                }
                 for (int j = 0; j < noOfFullBars; j += 1) {
                     output = output + fullBlock;
                 }
+                int noOfHalfBars = (int) Math.round(percentage % 1);
                 if (noOfHalfBars == 1) {
-                    output = output + halfBlock + "\n";
+                    output = output + halfBlock;
                 }
+                output = output + "  " + percentage + "%\n";
             }
-            output = "               " + horizontalAxisBottom + "\n";
+            output += topSpace + horizontalAxisBottom + "\n";
             ui.setOutput(output);
         } else {
             throw new MooMooException("OOPS!!! Wrong sub-command! Please use the total/[CATEGORY} sub-command");

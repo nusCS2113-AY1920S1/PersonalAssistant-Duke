@@ -163,7 +163,7 @@ public class Storage {
      */
     private boolean inCategoryList(CategoryList catList, String value) {
         for (Category cat : catList.getCategoryList()) {
-            if (cat.getName().equals(value)) {
+            if (cat.toString().equals(value)) {
                 return true;
             }
         }
