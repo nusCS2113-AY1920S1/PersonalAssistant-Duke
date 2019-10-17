@@ -3,7 +3,7 @@ package UserCode.Conditions;
 import Farmio.Farmio;
 
 public class BooleanCondition extends Condition {
-    BooleanConditionType type;
+    private BooleanConditionType type;
 
     public BooleanCondition (BooleanConditionType conditionType) {
         this.type = conditionType;
@@ -12,5 +12,9 @@ public class BooleanCondition extends Condition {
     @Override
     public boolean check(Farmio farmio) {
         return ConditionChecker.check(type, farmio);
+    }
+
+    public String toString () {
+        return type.name();
     }
 }
