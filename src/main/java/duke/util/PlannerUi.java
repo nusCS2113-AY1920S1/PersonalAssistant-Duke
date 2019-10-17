@@ -1,8 +1,11 @@
 package duke.util;
 
+import java.util.Comparator;
+import java.util.List;
 import duke.modules.Cca;
 import java.util.Scanner;
 
+import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
 
 /**
@@ -99,7 +102,7 @@ public class PlannerUi {
         showLine();
         System.out.println(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing get started!"
+                + "Begin typing to get started!"
         );
         showLine();
     }
@@ -132,5 +135,44 @@ public class PlannerUi {
         showLine();
         System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
+    }
+
+    /**
+     * Message to print the sorted module list.
+     */
+    public void sortModuleMsg() {
+        System.out.println("Here are your modules!");
+    }
+
+    /**
+     * Sorts the modules by ascending order and prints to the users.
+     * @param mods List of modules the student is taking
+     */
+    public void showSortedModules(List<ModuleTask> mods) {
+        showLine();
+        for (ModuleTask hold : mods) {
+            System.out.println(hold);
+        }
+    }
+
+    /**
+     * Message to print out CoreModuleReport.
+     */
+    public void coreModReport() {
+        System.out.println("Here is your list of core modules being added:");
+    }
+
+    /**
+     * Message to print out GEModuleReport.
+     */
+    public void geModReport() {
+        System.out.println("Here is your list of general education modules being added:");
+    }
+
+    /**
+     * Message to print out GEModuleReport.
+     */
+    public void ueModReport() {
+        System.out.println("Here is your list of unrestricted elective modules being added:");
     }
 }
