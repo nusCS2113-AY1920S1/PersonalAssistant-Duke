@@ -16,42 +16,22 @@ public class Deadline extends Task implements Serializable {
     /**
      * Creates a Deadline instance and initialises the required attributes.
      * @param description Description of the deadline.
-     * @param by Deadline of the task in format "dd/MM/yyyy HHmm".
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description) {
         super(description);
         this.by = null;
         this.type = "D";
-        this.inVoice = false;
+        this.inVoice = null;
+        this.isInVoice = false;
     }
 
     /**
      * set the value of inVoice as true.
      */
-    public void setInVoice() {
-        this.inVoice = true;
-        setBy(inVoice);
-    }
-
-    /*
-    public void setBy(boolean inVoice){
-        if(inVoice==true){
-            Date date = new Date(System.currentTimeMillis());
-            java.util.Calendar calendar = java.util.Calendar.getInstance();
-            calendar.setTime(date);
-            calendar.add(Calendar.DAY_OF_MONTH,30);
-            Date newDate = calendar.getTime();
-            this.by = dataformat.format(newDate);
-        }
-    }
-    */
-
-    /**
-     * return the boolean value (true or false) of the invoice.
-     * @return the task's invoice value.
-     */
-    public boolean getInVoice() {
-        return inVoice;
+    public void setInVoice(String inVoice) {
+        this.isInVoice = true;
+        setBy(isInVoice);
+        this.inVoice = inVoice;
     }
 
     /**
@@ -60,6 +40,6 @@ public class Deadline extends Task implements Serializable {
      */
     @Override
     public String giveTask() {
-        return "[D]" + super.giveTask() + "(by: " + by + ")";
+        return "[D]" + super.giveTask() + "(by: " + by + ")" + " (invoice: " + inVoice + ")";
     }
 }

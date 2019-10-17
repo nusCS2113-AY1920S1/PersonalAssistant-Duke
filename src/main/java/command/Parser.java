@@ -88,6 +88,8 @@ public class Parser {
                 process.addPayee(input, managermap, ui);
             } else if (instr.isDeletePayee(input)) {
                 process.deletePayee(input, managermap, ui);
+            } else if (instr.isInvoice(input)) {
+                process.inVoice(input, tasklist, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

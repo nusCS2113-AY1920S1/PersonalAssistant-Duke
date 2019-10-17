@@ -16,7 +16,8 @@ public class Task implements Serializable {
     protected String at;
     protected String after;
     protected String period;
-    protected Boolean inVoice;
+    protected Boolean isInVoice;
+    protected String inVoice;
 
     private static SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
@@ -42,7 +43,7 @@ public class Task implements Serializable {
      * @return The status icon of the Task based on isDone.
      */
     public String getStatusIcon() {
-        return (isDone ? "✓" : "✘"); //return tick or X symbols
+        return (isInVoice ? "✓" : "✘"); //return tick or X symbols
     }
 
     /**
@@ -50,6 +51,15 @@ public class Task implements Serializable {
      */
     public void setDone() {
         this.isDone = true;
+    }
+
+    /**
+     * set the value of inVoice as true.
+     */
+    public void setInVoice(String inVoice) {
+        this.isInVoice = true;
+        setBy(isInVoice);
+        this.inVoice = inVoice;
     }
 
     /**
@@ -115,9 +125,25 @@ public class Task implements Serializable {
 
     /**
      * Gets the invoice status of the Task.
-     * @return a boolean value invoice.
+     * @return a boolean value isInvoice.
      */
-    public boolean getInVoice() {
+    public Boolean statusInVoice() {
+        return this.isInVoice;
+    }
+
+    /**
+     * return the boolean value (true or false) of the invoice.
+     * @return the task's invoice value.
+     */
+    public boolean getIsInVoice() {
+        return this.isInVoice;
+    }
+
+    /**
+     * Gets the invoice string of the Task.
+     * @return a string represents invoice.
+     */
+    public String getInVoice() {
         return this.inVoice;
     }
 }
