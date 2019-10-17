@@ -2,6 +2,7 @@ package factorytests;
 
 import models.member.IMember;
 import models.member.Member;
+import models.member.NullMember;
 import org.junit.jupiter.api.Test;
 import util.factories.MemberFactory;
 
@@ -46,6 +47,16 @@ public class MemberFactoryTest {
         simulatedFactoryInput = "n/Dr Strange x/3";
         simulatedMember = memberFactory.create(simulatedFactoryInput);
         expectedMember = new Member("Dr Strange", "No phone number", "No email address", 3);
+        assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
+        assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
+        assertEquals(expectedMember.getName(), simulatedMember.getName());
+    }
+
+    @Test
+    void memberCreation_wrongInputs_errorReturned() {
+        simulatedFactoryInput = "i/12341234 x/1";
+        IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
+        NullMember expectedMember = new NullMember();
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());

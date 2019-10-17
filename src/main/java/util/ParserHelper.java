@@ -44,6 +44,9 @@ public class ParserHelper {
         int indexOfPhoneFlag = input.indexOf("i/");
         int indexOfEmailFlag = input.indexOf("e/");
         int indexOfMemberIndexFlag = input.indexOf("x/");
+        if (indexOfNameFlag == -1) {
+            return memberDetails;
+        }
         if (indexOfPhoneFlag != -1) {
             memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfPhoneFlag - 1);
         } else if (indexOfEmailFlag != -1) {
