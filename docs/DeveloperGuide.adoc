@@ -98,6 +98,13 @@ Extension 1.1: System detects a clash with the examination date entered and anot
 . User rates the efficiency of the practice session and takes down any notes or feedback from their instructor
 . System saves the entry onto the hard disk
 
+=== Edit descriptions of any existing event
+. User enters a command to edit the description of an event
+. System edits corresponding description and prompts user of success
+
+Extension 1: System detects a clash of incorrect format entered by the user.
+1.1. System will prompt the user that the entered format was incorrect.
+
 Extensions 4.1: Selected practice session has already been rated.
 4.1.1. If the selected practice session has already been rated, the system notifies the user and allows them to edit.
 4.1.2. The user edits the rating and notes of the practice session accordingly
@@ -200,4 +207,7 @@ Expected: Prints a list of tasks to be completed in the next three days.
 Key in view `<date>`, where `<date>` has the format dd/MM/yyyy. +
 Expected: Prints a list of tasks that occurs on the given `<date>`.
 
+=== Edit description of an event
+Key in `<edit> <event index>/<new description>`.+
+Expected: Prints the success of editing event of index `<event index>`.
   
