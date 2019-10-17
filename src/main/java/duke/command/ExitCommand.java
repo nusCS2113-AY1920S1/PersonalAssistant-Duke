@@ -24,8 +24,7 @@ public class ExitCommand extends Command {
     /**
      * Indicates whether Duke should exist.
      *
-     * @return A boolean. True if the command tells Duke to exit, false
-     *         otherwise.
+     * @return A boolean. True if the command tells Duke to exit, false otherwise.
      */
     @Override
     public boolean isExit() {
@@ -35,12 +34,13 @@ public class ExitCommand extends Command {
     /**
      * run the command with the respect TaskList, UI, and storage.
      *
-     * @param tasks   The task list where tasks are saved.
-     * @param ui      The user interface.
-     * @param  patientList object that handles local text file update
+     * @param tasks       The task list where tasks are saved.
+     * @param ui          The user interface.
+     * @param patientList object that handles local text file update
      */
-
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage){
+    public void execute(PatientTaskList patientTask, TaskManager tasks,
+                        PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage,
+                        TaskStorage taskStorage, PatientStorage patientStorage) {
         ui.exitInformation();
     }
 }

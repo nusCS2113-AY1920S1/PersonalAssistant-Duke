@@ -77,7 +77,7 @@ public class Ui {
                 + "  Id: "
                 + patient.getID()
                 + "\nNRIC: "
-                + patient.getNRIC()
+                + patient.getNric()
                 + "  Room: "
                 + patient.getRoom()
                 + "\nRemark: "
@@ -344,7 +344,8 @@ public class Ui {
      * Shows Duke logo and welcome message, and user input instructions.
      */
     public void showWelcome() {
-        String logo = " _____        _              _ _        _ \n" +
+        String logo = " _____        _              _ _        _ \n"
+                +
                 "|  __ \\      | |            (_) |      | |\n"
                 +
                 "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n"

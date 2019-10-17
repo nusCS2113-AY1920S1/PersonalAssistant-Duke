@@ -35,13 +35,14 @@ public class Duke {
      * A Ui object that deals with interactions with the user.
      */
     private Ui ui = Ui.getUi();
+
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
+     *
      * @param filePath A string that represents the path of the local file
-     *          used for storing tasks.
+     *                 used for storing tasks.
      */
-
     public Duke(String filePath) {
         taskStorage = new TaskStorage(filePath + "/standardTasks.csv");
         patientStorage = new PatientStorage(filePath + "/patients.csv");
@@ -70,7 +71,8 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
-                c.execute(patientTaskList,taskManager,patientManager, ui, patientTaskStorage, taskStorage, patientStorage);
+                c.execute(patientTaskList, taskManager, patientManager,
+                        ui, patientTaskStorage, taskStorage, patientStorage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -85,9 +87,9 @@ public class Duke {
      * Starts the Duke thread and Reminder thread concurrently
      * by passing a filepath to duke and a global ui object&
      * task list to Reminder.
+     *
      * @param args The command line arguments.
      */
-
     public static void main(String[] args) {
         new Duke("./data").run();
     }

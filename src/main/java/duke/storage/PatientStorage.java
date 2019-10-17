@@ -85,7 +85,7 @@ public class PatientStorage {
             for (Patient patient : patients) {
                 int id = patient.getID();
                 String room = patient.getRoom();
-                String nric = patient.getNRIC();
+                String nric = patient.getNric();
                 String name = patient.getName();
                 String remark = patient.getRemark();
                 csvPrinter.printRecord(id, name, nric, room, remark);
