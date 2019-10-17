@@ -70,7 +70,7 @@ public class DollaParser extends Parser {
      * Checks if the first word after 'add' is either 'income' or 'expense'.
      * @param s String to be analysed.
      * @return Either 'expense' or 'income' if either are passed in.
-     * @throws Exception
+     * @throws Exception ???
      */
     public static String verifyType(String s) throws Exception {
         if (s.equals("income") || s.equals("expense")) {

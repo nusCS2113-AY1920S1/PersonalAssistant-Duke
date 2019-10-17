@@ -235,6 +235,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message when the user did not properly specify the type of entry to add.
+     */
     public static void printInvalidEntryType() {
         System.out.println("\tPlease specify the type of entry you want to add: income or expense.");
     }
@@ -267,6 +270,10 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message when user wants to list down items in the specific list but it's empty.
+     * @param mode The mode that is used when the 'list' is input
+     */
     public static void printEmptyListError(String mode) {
         System.out.println(line);
         System.out.println("\tYou haven't added any " + mode + " yet!");
@@ -274,8 +281,13 @@ public class Ui {
     }
 
 
-   // public static void printList(String mode, LogList entryList) {
+    // public static void printList(String mode, LogList entryList) {
 
+    /**
+     * Prints out a list depending on the mode where 'list' is called.
+     * @param mode The mode that is used when 'list' is input.
+     * @param logList The LogList containing the data of the list to be printed.
+     */
     public static void printList(String mode, LogList logList) {
 
         System.out.println(line);

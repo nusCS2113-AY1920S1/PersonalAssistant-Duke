@@ -52,6 +52,7 @@ public class MainParser {
         case "limits":
             LimitParser limitParser = new LimitParser(inputLine);
             //return limitParser.handleInput(mode, inputLine);
+            break; //TODO: Check if this is correct?
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

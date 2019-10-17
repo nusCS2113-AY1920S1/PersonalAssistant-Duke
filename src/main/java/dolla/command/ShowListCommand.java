@@ -24,7 +24,7 @@ public class ShowListCommand extends Command {
 
     /**
      * Prints out the logs from the specified LogList in dollaData.
-     * @param dollaData
+     * @param dollaData Data to be manipulated.
      */
     @Override
     public void execute(DollaData dollaData) {

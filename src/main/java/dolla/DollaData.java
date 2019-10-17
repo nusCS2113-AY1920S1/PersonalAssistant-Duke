@@ -40,11 +40,11 @@ public class DollaData {
      * @param newLog The new Log to be added into the relevant LogList.
      */
     public void addToLogList(String mode, Log newLog) {
-            if (mode.equals("entry")) {
-                entryList.add(newLog);
-            } else if (mode.equals("debt")) {
-                debtList.add(newLog);
-            }
+        if (mode.equals("entry")) {
+            entryList.add(newLog);
+        } else if (mode.equals("debt")) {
+            debtList.add(newLog);
+        }
     }
 
     public String getMode() {
