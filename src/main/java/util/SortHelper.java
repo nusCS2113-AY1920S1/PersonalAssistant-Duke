@@ -105,13 +105,7 @@ public class SortHelper {
                 }
             }
         }
-        allAssignedTasks.sort(Comparator.comparing(Task::getTaskName));
-        int taskIndex = 1;
-        for (Task task : allAssignedTasks) {
-            taskDetails.add(taskIndex + ". " + task.getDetails());
-            taskIndex++;
-        }
-        return taskDetails;
+        return this.sortTaskName(allAssignedTasks);
     }
 
     /**
