@@ -1,8 +1,6 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.list.tasklist.TaskList;
 import duke.ui.*;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -36,8 +34,6 @@ import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 public class MainWindow extends AnchorPane {
 
     private Duke duke;
-    private Storage storage;
-    private TaskList taskList;
     private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));

@@ -1,16 +1,11 @@
 package duke.command.recipecommands;
 
-import duke.command.CommandRecipeIngredient;
-import duke.command.CommandRecipeTitle;
-import duke.exception.DukeException;
+import duke.command.Command;
 import duke.list.recipelist.RecipeIngredientList;
-import duke.list.recipelist.RecipeTitleList;
 import duke.storage.RecipeIngredientStorage;
-import duke.storage.RecipeTitleStorage;
 import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.*;
@@ -20,7 +15,7 @@ import static duke.common.RecipeMessages.ERROR_MESSAGE_INVALID_RECIPE_INDEX;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListRecipeIngredientCommand extends CommandRecipeTitle<RecipeIngredientList, Ui, RecipeIngredientStorage> {
+public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, RecipeIngredientStorage> {
 
     /**
      * Constructor for class ListCommand.
@@ -29,11 +24,6 @@ public class ListRecipeIngredientCommand extends CommandRecipeTitle<RecipeIngred
     public ListRecipeIngredientCommand(String userInput) {
         this.userInput = userInput;
     }
-
-//    @Override
-//    public ArrayList<String> execute(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws DukeException, ParseException {
-//        return null;
-//    }
 
     public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) {
         ArrayList<String> arrayList = new ArrayList<>();

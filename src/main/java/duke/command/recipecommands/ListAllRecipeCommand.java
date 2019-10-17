@@ -1,14 +1,10 @@
 package duke.command.recipecommands;
 
-import duke.command.CommandRecipeTitle;
-import duke.exception.DukeException;
-import duke.list.recipelist.RecipeIngredientList;
+import duke.command.Command;
 import duke.list.recipelist.RecipeTitleList;
-import duke.storage.RecipeIngredientStorage;
 import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.*;
@@ -17,7 +13,7 @@ import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListAllRecipeCommand extends CommandRecipeTitle<RecipeTitleList, Ui, RecipeTitleStorage> {
+public class ListAllRecipeCommand extends Command<RecipeTitleList, Ui, RecipeTitleStorage> {
 
     /**
      * Constructor for class ListCommand.

@@ -1,9 +1,8 @@
 package duke.parser;
 
+import duke.command.Command;
 import duke.command.CommandBooking;
 import duke.command.CommandIngredients;
-import duke.command.CommandRecipeIngredient;
-import duke.command.CommandRecipeTitle;
 import duke.command.bookingcommands.*;
 import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.inventorycommands.DeleteIngredientCommand;
@@ -31,7 +30,7 @@ public class Parser {
         }
     }
 
-    public static CommandRecipeTitle parseRecipeTitle(String input) {
+    public static Command parseRecipeTitle(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
             return new AddRecipeTitleCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE_TITLE)) {
@@ -41,7 +40,7 @@ public class Parser {
         }
     }
 
-    public static CommandRecipeTitle parseRecipeIngredient(String input) {
+    public static Command parseRecipeIngredient(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
             return new AddRecipeIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {

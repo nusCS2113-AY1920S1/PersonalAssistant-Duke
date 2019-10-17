@@ -1,13 +1,8 @@
 package duke.command.recipecommands;
 
-import duke.command.CommandRecipeIngredient;
-import duke.command.CommandRecipeTitle;
-import duke.exception.DukeException;
+import duke.command.Command;
 import duke.list.recipelist.RecipeIngredientList;
-
-import duke.list.recipelist.RecipeTitleList;
 import duke.storage.RecipeIngredientStorage;
-import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -16,7 +11,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class AddRecipeIngredientCommand extends CommandRecipeTitle<RecipeIngredientList, Ui, RecipeIngredientStorage> {
+public class AddRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, RecipeIngredientStorage> {
 
     public AddRecipeIngredientCommand(String userInput) {
         this.userInput = userInput;
