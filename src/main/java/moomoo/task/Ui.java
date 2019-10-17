@@ -133,7 +133,7 @@ public class Ui {
      * Prints the list of categories.
      * @param categories list of current categories
      */
-    void showCategoryList(String categories) {
+    public void showCategoryList(String categories) {
         print("These are your current categories:"
                 + "\n_______________________________________________"
                 + categories
