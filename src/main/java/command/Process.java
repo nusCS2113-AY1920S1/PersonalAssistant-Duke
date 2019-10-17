@@ -359,7 +359,7 @@ public class Process {
     }
 
     /**
-     * process the invoice command, set invoice status as true, update invoice value and set the deadline
+     * process the invoice command, set invoice status as true, update invoice value and set the deadline.
      * INPUT FORMAT: invoice id i/invoice_num
      * @param input Input from the user.
      * @param tasklist Tasklist of the user.
