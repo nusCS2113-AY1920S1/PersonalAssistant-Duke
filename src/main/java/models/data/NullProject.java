@@ -1,7 +1,7 @@
 package models.data;
 
 import models.member.Member;
-import models.member.ListOfMembersInProject;
+import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -12,7 +12,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public ListOfMembersInProject getMembers() {
+    public MemberList getMembers() {
         return null;
     }
 

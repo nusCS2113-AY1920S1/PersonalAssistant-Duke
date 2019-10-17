@@ -1,13 +1,13 @@
 package models.data;
 
 import models.member.Member;
-import models.member.ListOfMembersInProject;
+import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
 
 public class Project implements IProject {
     private String description;
-    private ListOfMembersInProject listOfMembersInProject;
+    private MemberList listOfMembersInProject;
     private TaskList taskList;
 
     /**
@@ -16,7 +16,7 @@ public class Project implements IProject {
      */
     public Project(String description) {
         this.description = description;
-        this.listOfMembersInProject = new ListOfMembersInProject();
+        this.listOfMembersInProject = new MemberList();
         this.taskList = new TaskList();
     }
 
@@ -26,7 +26,7 @@ public class Project implements IProject {
     }
 
     @Override
-    public ListOfMembersInProject getMembers() {
+    public MemberList getMembers() {
         return this.listOfMembersInProject;
     }
 
