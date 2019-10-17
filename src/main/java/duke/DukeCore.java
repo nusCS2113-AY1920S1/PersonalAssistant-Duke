@@ -23,11 +23,15 @@ public class DukeCore extends Application {
     public PatientMap patientMap;
     public Ui ui;
 
+    public String context;
+
     /**
      * Construct a DukeCore object.
      */
     public DukeCore() {
         ui = new UiManager(this);
+        context = "Home";
+
         try {
             try {
                 storage = new GsonStorage(FILE_PATH);
