@@ -254,7 +254,7 @@ public class Ui {
      * @return the formatted String to be displayed
      */
     public String formatView(Song song) {
-        return song.getBars().toString();
+        return song.showSongChart();
     }
 
     /**

@@ -70,10 +70,15 @@ public class Note {
     public Note(String duration, Pitch pitch) {
         this.duration = duration;
         this.pitch = pitch;
+        this.isStart = true;
     }
 
     public void setStart(boolean val) {
         this.isStart = val;
+    }
+
+    public boolean isStart() {
+        return isStart;
     }
 
     public Pitch getPitch() {
@@ -85,7 +90,7 @@ public class Note {
     }
 
     public Note getUnitNote() {
-        return new Note("1", this.pitch);
+        return new Note("8", this.pitch);
     }
 
     /**
