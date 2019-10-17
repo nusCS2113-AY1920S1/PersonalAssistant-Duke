@@ -1,6 +1,13 @@
 package moomoo.command;
 
-import moomoo.task.*;
+import moomoo.task.SchedulePayment;
+import moomoo.task.ScheduleList;
+import moomoo.task.Budget;
+import moomoo.task.MooMooException;
+import moomoo.task.CategoryList;
+import moomoo.task.TransactionList;
+import moomoo.task.Ui;
+import moomoo.task.Storage;
 
 /**
  * Represents the command to create a scheduled payment event in advance.
@@ -16,13 +23,11 @@ public class ScheduleCommand extends Command {
     }
 
     @Override
-    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage) throws MooMooException
-    {
-        String task;
-        String date;
-        String amount;
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, TransactionList transList,
+                        Ui ui, Storage storage) throws MooMooException {
         if (input.length() < 8) {
-            throw new MooMooException("OOPS!!! To create a schedule payment, please indicate the d/<date in dd/mm/yyyy> a/<amount> t/<type of payment>.");
+            throw new MooMooException("OOPS!!! To create a schedule payment, "
+                    + "please indicate the d/<date in dd/mm/yyyy> a/<amount> t/<type of payment>.");
         }
         input = input.substring(8);
         if (!input.contains("t/")) {
@@ -37,9 +42,12 @@ public class ScheduleCommand extends Command {
         add scheduled tasks on a particular date to a list
          */
         String[] arr = input.split(" ", 4);
+        String task;
+        String date;
         task = arr[3];
         date = arr[1];
         date = date.replace("d/", "");
+        String amount;
         amount = arr[2];
         task = task.replace("t/", "") + " " + amount.replace("a/", "");
         SchedulePayment list = new SchedulePayment(date, task);

@@ -1,6 +1,13 @@
 package moomoo.command;
 
-import moomoo.task.*;
+import moomoo.task.ScheduleList;
+import moomoo.task.Budget;
+import moomoo.task.MooMooException;
+import moomoo.task.CategoryList;
+import moomoo.task.TransactionList;
+import moomoo.task.Ui;
+import moomoo.task.Storage;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;

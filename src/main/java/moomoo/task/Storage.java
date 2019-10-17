@@ -74,6 +74,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads scheduled payments from file into an ArrayList object.
+     * @return ArrayList object consisting of the scheduled payments read from the file
+     * @throws MooMooException Thrown when file does not exist
+     */
     public ArrayList<SchedulePayment> loadCalendar() throws MooMooException {
         ArrayList<SchedulePayment> scheduleArray = new ArrayList<>();
         try {
@@ -88,10 +93,6 @@ public class Storage {
                         scheduleArray.add(day);
                     }
                 }
-//                System.out.println("What is saved in scheduled array: \n");
-//                for (SchedulePayment s : scheduleArray) {
-//                    System.out.println("date: " + s.date + " task: " + s.tasks);
-//                }
                 return scheduleArray;
             } else {
                 throw new MooMooException("File not found. New file will be created");
@@ -149,6 +150,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes scheduled payments to file.
+     */
     public void saveScheduleToFile(ScheduleList calendar) throws MooMooException {
         createFileAndDirectory();
 
