@@ -22,6 +22,7 @@ public class GraphCommand extends Command {
     
     public GraphCommand(String input) {
         super(false, input);
+        verticalAxis = new ArrayList<String>();
     }
     
     public static double roundToHalf(double d) {
@@ -54,12 +55,14 @@ public class GraphCommand extends Command {
             }
             //15 spaces before xAxisTop
             output = "               " + horizontalAxisTop + "\n";
+            System.out.println(catList.size());
             for (int i = 0; i < catList.size(); i += 1) {
                 Category category = catList.get(i);
                 double percentage = 10 * (category.getMonthlyTotal(1) / grandTotal);
                 percentage = roundToHalf(percentage);
                 int noOfFullBars = (int) percentage;
                 int noOfHalfBars = (int) Math.round(percentage % 1);
+                System.out.println(verticalAxis.get(i));
                 output = output + verticalAxis.get(i) + " \n";
                 for (int j = 0; j < noOfFullBars; j += 1) {
                     output = output + fullBlock;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Category {
     private int monthTotal;
+
     private String name;
     private ArrayList<Expenditure> expenditure;
 
@@ -41,6 +42,7 @@ public class Category {
         return totalCost;
     }
     
+
     public double getMonthlyTotal(int month) {
 
         return monthTotal;
