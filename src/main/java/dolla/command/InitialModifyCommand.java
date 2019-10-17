@@ -17,7 +17,7 @@ public class InitialModifyCommand extends Command {
         String currMode = dollaData.getMode();
         if (isIndexInList(dollaData.getLogList(currMode)) == true) {
             Ui.printInitialModifyMsg();
-            dollaData.updateMode("modify");
+            dollaData.updateMode("modify " + currMode);
             dollaData.prepForModify(currMode, index);
         } else {
             Ui.printNoLogAssocError(index, currMode);
