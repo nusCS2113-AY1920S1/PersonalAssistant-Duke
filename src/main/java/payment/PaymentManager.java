@@ -12,6 +12,7 @@ public abstract class PaymentManager {
 
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
+     *
      * @param payee Payee of the item.
      */
     public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
@@ -107,5 +108,14 @@ public abstract class PaymentManager {
         Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
         managermap.put(payee, payeeNew);
         return payeeNew;
+    }
+
+    /**
+     * Delete Payee object.
+     */
+    public static Payee deletePayee(String payee, HashMap<String, Payee> managermap) {
+        Payee payeeDeleted = managermap.get(payee);
+        managermap.remove(payee);
+        return payeeDeleted;
     }
 }

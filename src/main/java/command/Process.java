@@ -20,11 +20,13 @@ import java.util.Calendar;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+
     /**
-     * Trims leading and trailing whitespace of an array of strings
-     * @param arr The array of Strings to clean
-     * @return cleanArr The array of Strings after cleaning
+     * Trims leading and trailing whitespace of an array of strings.
+     * @param arr The array of Strings to clean.
+     * @return cleanArr The array of Strings after cleaning.
      */
+
     private String[] cleanStrStr(String[] arr) {
         String[] cleanArr = arr.clone();
         for (int i = 0; i < arr.length; i++) {
@@ -65,7 +67,7 @@ public class Process {
                 }
             }
             ArrayList<String> time = new ArrayList<String>();
-            for (Task tasks: findlist.returnArrayList()) {
+            for (Task tasks : findlist.returnArrayList()) {
                 String[] splitcolon = tasks.giveTask().split(":");
                 String[] splitspaces = splitcolon[1].split(" ");
                 time.add(splitspaces[2]);
@@ -73,7 +75,7 @@ public class Process {
             Collections.sort(time);
             TaskList finalList = new TaskList();
             for (int i = 0; i < time.size(); i = i + 1) {
-                for (Task tasks: findlist.returnArrayList()) {
+                for (Task tasks : findlist.returnArrayList()) {
                     if (tasks.giveTask().contains(time.get(i))) {
                         finalList.addTask(tasks);
                     }
@@ -203,7 +205,6 @@ public class Process {
     }
 
 
-
     /**
      * Process the snooze command and automatically postpone the selected deadline task by 1 hour.
      * @param input Input from the user.
@@ -219,7 +220,7 @@ public class Process {
                 Date formattedtime = dataformat.parse(taskTime);
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
                 calendar.setTime(formattedtime);
-                calendar.add(Calendar.HOUR_OF_DAY,1);
+                calendar.add(Calendar.HOUR_OF_DAY, 1);
                 Date newDate = calendar.getTime();
                 tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getInVoice());
                 ui.printSnoozeMessage(tasklist.get(nsnooze));
@@ -251,7 +252,7 @@ public class Process {
                 Date formattedtime = dataformat.parse(taskTime);
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
                 calendar.setTime(formattedtime);
-                calendar.add(Calendar.HOUR_OF_DAY,delaytime);
+                calendar.add(Calendar.HOUR_OF_DAY, delaytime);
                 Date newDate = calendar.getTime();
                 tasklist.get(npostpone).setBy(tasklist.get(npostpone).getInVoice());
                 ui.printPostponeMessage(tasklist.get(npostpone));
@@ -356,6 +357,29 @@ public class Process {
             String matricNum = splitpayments[3];
             String phoneNum = splitpayments[4];
             Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
+            int payeesize = managermap.size();
+            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        }
+    }
+
+    /**
+     * Processes the delete payee command, saves a new payee inside managermap.
+     * INPUT FORMAT: delete payee p/payee
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    public void deletePayee(String input, HashMap<String, Payee> managermap, Ui ui) {
+        try {
+            String[] splitspace = input.split("payee ", 2);
+            String[] splitpayments = splitspace[1].split("p/");
+            splitpayments = cleanStrStr(splitpayments);
+            String payeename = splitpayments[1];
+            Payee payee = PaymentManager.deletePayee(payeename, managermap);
             int payeesize = managermap.size();
             ui.printAddPayeeMessage(splitpayments[1], payee, payeesize);
         } catch (ArrayIndexOutOfBoundsException e) {

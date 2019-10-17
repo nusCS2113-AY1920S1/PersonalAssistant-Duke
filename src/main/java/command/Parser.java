@@ -86,6 +86,8 @@ public class Parser {
                 process.findPayee(input, ui, managermap);
             } else if (instr.isAddPayee(input)) {
                 process.addPayee(input, managermap, ui);
+            } else if (instr.isDeletePayee(input)) {
+                process.deletePayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
