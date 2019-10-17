@@ -16,6 +16,12 @@ import executor.command.CommandReminder;
 import executor.task.Task;
 import executor.task.TaskType;
 
+/**
+ * Parser will parse through user inputs.
+ * User inputs will follow the following Structure:
+ * "CommandType PrimaryInput /flag1 flag1Details /flag2 flag2Details ..."
+ * Parser will NOT return a changed user input.
+ */
 public class Parser {
 
     public static final String PARSE_MARKER_IS_DONE = "####";
@@ -25,6 +31,25 @@ public class Parser {
      * Constructor for 'Parser' Class.
      */
     public Parser() {
+    }
+
+    /**
+     * Parses the input to classify the Command requested.
+     * @param userInput The input that the user types from the CLI
+     * @return CommandType enum that identifies the Command requested
+     */
+    public static CommandType parseCommandType(String userInput) {
+        //user enter an empty command ( like a blank )
+        if (userInput.trim() == "") {
+            return CommandType.BLANK;
+        }
+        String commandStr = parseForEnum(userInput, CommandType.getNames());
+        // Default
+        // type of command not as specified inside the enum types
+        if (commandStr == "") {
+            return CommandType.TASK;
+        }
+        return CommandType.valueOf(commandStr);
     }
 
     /**
@@ -46,41 +71,6 @@ public class Parser {
             }
         }
         return enumType;
-    }
-
-    /**
-     * Parses the input to classify the Command requested.
-     *
-     * @param userInput The input that the user types from the CLI
-     * @return CommandType enum that identifies the Command requested
-     */
-    public static CommandType parseCommandType(String userInput) {
-        //user enter an empty command ( like a blank )
-        if (userInput.trim() == "") {
-            return CommandType.BLANK;
-        }
-        String commandStr = parseForEnum(userInput, CommandType.getNames());
-        // Default
-        // type of command not as specified inside the enum types
-        if (commandStr == "") {
-            return CommandType.TASK;
-        }
-        return CommandType.valueOf(commandStr);
-    }
-
-    /**
-     * Parses the input to decide what 'Task' subclass is requested.
-     *
-     * @param userInput The input that the user types from the CLI
-     * @return taskType TaskType enum that specifies the subclass to create
-     */
-    public static TaskType parseTaskType(String userInput) {
-        String taskStr = parseForEnum(userInput, TaskType.getNames());
-        // Default
-        if (taskStr == "") {
-            return TaskType.BLANK;
-        }
-        return TaskType.valueOf(taskStr);
     }
 
     /**
@@ -116,7 +106,7 @@ public class Parser {
         String[] returnArray = new String[3];
         String[] holder = taskString.split(PARSE_MARKER_IS_DONE, 2);
 
-        returnArray[0] = String.valueOf(parseTaskType(holder[0]));
+        returnArray[0] = String.valueOf(parseCommandType(holder[0]));
         returnArray[1] = holder[0].replace(returnArray[0], "").trim();
         returnArray[2] = holder[1].replace(PARSE_MARKER_IS_DONE.substring(1), "").trim();
         return returnArray;

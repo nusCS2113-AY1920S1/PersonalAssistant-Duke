@@ -83,7 +83,7 @@ public class TaskList {
         case FDURATION:
             newTask = new FixedDuration(taskDesc);
             break;
-        case RECURRING:
+        case RECUR:
             newTask = new Recurring(taskDesc);
             break;
         default:

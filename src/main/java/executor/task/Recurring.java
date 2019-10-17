@@ -11,7 +11,7 @@ public class Recurring extends Task {
     // Initialization
     Recurring(String name) {
         super(name);
-        this.taskType = TaskType.RECURRING;
+        this.taskType = TaskType.RECUR;
         this.detailDesc = "for";
         this.recordTaskDetails(name);
     }

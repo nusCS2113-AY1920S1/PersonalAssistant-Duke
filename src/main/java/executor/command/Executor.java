@@ -97,8 +97,17 @@ public class Executor {
             c = new CommandDisplayExpenditure();
             break;
 
+            //Create Tasks
+        case DEADLINE:
+        case TODO:
+        case EVENT:
+        case RECUR:
+        case FDURATION:
+            c = new CommandNewTask(userInput, commandType);
+            break;
+
         default:
-            c = new CommandNewTask(userInput);
+            c = new CommandError();
             break;
         }
         return c;

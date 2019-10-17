@@ -1,4 +1,6 @@
-import executor.command.*;
+import executor.command.CommandAddIncomeReceipt;
+import executor.command.CommandAddSpendingReceipt;
+import executor.command.CommandType;
 
 import executor.task.Task;
 import executor.task.TaskList;
