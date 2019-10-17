@@ -54,11 +54,13 @@ public class GraphCommand extends Command {
                 horizontalAxisTop += topBorder;
                 horizontalAxisBottom += bottomBorder;
             }
+
             String topSpace = "";
             for (int i = 0; i < catList.getLongestCategory(); i += 1) {
                 topSpace += " ";
             }
             output += topSpace + horizontalAxisTop + "\n";
+
             for (int i = 0; i < catList.size(); i += 1) {
                 Category category = catList.get(i);
                 double percentage = 100 * (category.getMonthlyTotal(1) / grandTotal);
