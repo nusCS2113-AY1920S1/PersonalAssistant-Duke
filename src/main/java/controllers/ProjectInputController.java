@@ -86,7 +86,8 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
                         TaskFactory taskFactory = new TaskFactory();
-                        consoleView.addTask(projectToManage, taskFactory.createTask(projectCommand.substring(9)));
+                        consoleView.addTask(projectToManage,
+                                (Task) taskFactory.createTask(projectCommand.substring(9)));
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }

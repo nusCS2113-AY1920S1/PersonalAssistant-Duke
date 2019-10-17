@@ -1,5 +1,7 @@
 package factorytests;
 
+import models.task.ITask;
+import models.task.NullTask;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TaskFactoryTests {
+class TaskFactoryTests {
     private TaskFactory taskFactory = new TaskFactory();
     private DateTimeHelper dateTimeHelper = new DateTimeHelper();
     private String simulatedFactoryInput;
@@ -29,7 +31,7 @@ public class TaskFactoryTests {
     void taskCreation_fullCorrectInputs_creationSuccess() {
         simulatedFactoryInput = "t/Killing Thanos p/1 d/28/09/2019 c/100 s/done r/Use Iron Man";
         try {
-            Task simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
             ArrayList<String> expectedRequirements = new ArrayList<>();
             expectedRequirements.add("Use Iron Man");
             Task expectedTask = new Task("Killing Thanos", 1,
@@ -47,7 +49,7 @@ public class TaskFactoryTests {
     void taskCreation_correctPartialInputs_creationSuccess() {
         simulatedFactoryInput = "t/Turning back time p/5 c/5";
         try {
-            Task simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
             Task expectedTask = new Task("Turning back time", 5,
                     null, 5, TaskState.OPEN, null);
             assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
@@ -63,8 +65,12 @@ public class TaskFactoryTests {
     void taskCreation_wrongInputs_creationFailed() {
         simulatedFactoryInput = "t/Missing priority c/5";
         try {
-            Task simulatedTask = taskFactory.createTask(simulatedFactoryInput);
-            System.out.println(simulatedTask);
+            ITask simulatedTask = taskFactory.createTask(simulatedFactoryInput);
+            NullTask expectedTask = new NullTask();
+            assertEquals(expectedTask.getDetails(), simulatedTask.getDetails());
+            assertEquals(expectedTask.getTaskName(),simulatedTask.getTaskName());
+            assertEquals(expectedTask.getTaskCredit(), simulatedTask.getTaskCredit());
+            assertEquals(expectedTask.getTaskPriority(), simulatedTask.getTaskPriority());
         } catch (ParseException e) {
             fail("ParseException was detected when it shouldn't have");
         }

@@ -1,5 +1,7 @@
 package util.factories;
 
+import models.task.ITask;
+import models.task.NullTask;
 import models.task.Task;
 import models.task.TaskState;
 import util.date.DateTimeHelper;
@@ -15,14 +17,17 @@ public class TaskFactory {
      * @param input Input containing the information about the task and priority.
      * @return Task as an object
      */
-    public Task createTask(String input) throws ParseException {
+    public ITask createTask(String input) throws ParseException {
         String [] taskDetails = input.split("[tpdcsr]\\/");
-        Task newTask;
+        ITask newTask;
         String newTaskName = taskDetails[1].trim();
         DateTimeHelper dateTimeHelper = new DateTimeHelper();
         int newTaskPriority = Integer.parseInt(taskDetails[2].trim());
         boolean hasDueDateFlag = input.contains(" d/");
         boolean hasStateFlag = input.contains(" s/");
+        if (!input.contains("t/") || !input.contains("p/") || !input.contains("c/")) {
+            return new NullTask();
+        }
         if (!hasDueDateFlag && !hasStateFlag) {
             if (taskDetails.length == 4) {
                 newTask = new Task(newTaskName, newTaskPriority,
@@ -79,7 +84,7 @@ public class TaskFactory {
      * @return ArrayList of type String containing task requirements.
      */
     private ArrayList<String> parseTaskRequirements(String[] taskDetails, int startIndexOfTaskRequirements) {
-        ArrayList<String> taskRequirements = new ArrayList<String>();
+        ArrayList<String> taskRequirements = new ArrayList<>();
         for (int i = startIndexOfTaskRequirements; i < taskDetails.length; i++) {
             taskRequirements.add(taskDetails[i].trim());
         }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
-interface ITask {
+public interface ITask {
     String getTaskName();
 
     int getTaskPriority();

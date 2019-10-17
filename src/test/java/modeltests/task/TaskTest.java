@@ -1,5 +1,6 @@
 package modeltests.task;
 
+import models.task.ITask;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class TaskTest {
             ArrayList<String> taskRequirements = new ArrayList<>();
             taskRequirements.add("requirement1");
             Task dummyTask = new Task("task1",1,dueDate,10, TaskState.TODO, taskRequirements);
-            Task task = consoleInputFactory.createTask("t/task1 p/1 d/19/10/2019 c/10 s/todo r/requirement1");
+            ITask task = consoleInputFactory.createTask("t/task1 p/1 d/19/10/2019 c/10 s/todo r/requirement1");
             assertEquals(dummyTask.getDetails(),task.getDetails());
             assertEquals(dummyTask.getTaskRequirements(), task.getTaskRequirements());
 
@@ -50,7 +51,7 @@ class TaskTest {
             taskRequirements2.add("requirement1");
             taskRequirements2.add("requirement2");
             Task dummyTask2 = new Task("task2",2,null,10, TaskState.OPEN, taskRequirements2);
-            Task task2 = consoleInputFactory.createTask("t/task2 p/2 c/10 r/requirement1 r/requirement2");
+            ITask task2 = consoleInputFactory.createTask("t/task2 p/2 c/10 r/requirement1 r/requirement2");
             assertEquals(dummyTask2.getDetails(),task2.getDetails());
             assertEquals(dummyTask2.getTaskRequirements(), task2.getTaskRequirements());
         } catch (ParseException e) {
