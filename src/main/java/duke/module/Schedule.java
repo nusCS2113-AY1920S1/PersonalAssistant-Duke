@@ -16,11 +16,15 @@ import java.util.Date;
 public class Schedule {
 
     /**
-     * Input  scan
+     * Input scan.
      */
     private ArrayList<TimeSlot> list;
 
-    public Schedule(ArrayList<TimeSlot> timeSlots) {
+    /**
+     * The constructor for Schedule objects.
+     * @param timeSlots The details of a time slot that needs to be scheduled.
+     */
+    public Schedule(final ArrayList<TimeSlot> timeSlots) {
         this.list = timeSlots;
     }
 
@@ -31,7 +35,9 @@ public class Schedule {
      * @param numberOfDays days in the month
      * @param startDay     beginning day in the month
      */
-    private static void printMonth(int numberOfDays, int startDay) {
+    private static void printMonth(final int numberOfDays,
+                                   final int startDay) {
+        final int numberOfDaysInAWeek = 7;
         int weekdayIndex = 0;
         System.out.println("Su  Mo  Tu  We  Th  Fr  Sa");
 
@@ -43,7 +49,7 @@ public class Schedule {
         for (int day = 1; day <= numberOfDays; day++) {
             System.out.printf("%1$2d", day);
             weekdayIndex++;
-            if (weekdayIndex == 7) {
+            if (weekdayIndex == numberOfDaysInAWeek) {
                 weekdayIndex = 0;
                 System.out.println();
             } else {
@@ -68,7 +74,8 @@ public class Schedule {
         // Print dates of the current week starting on Monday
         DateFormat df = new SimpleDateFormat("MMM");
         System.out.println("--------------------------");
-        System.out.println(df.format(cal.getTime()) + " " + cal.get(Calendar.YEAR));
+        System.out.println(df.format(cal.getTime()) + " "
+            + cal.get(Calendar.YEAR));
         printMonth(numDays, cal.get(Calendar.DAY_OF_MONTH));
         return "--------------------------";
     }
@@ -89,7 +96,8 @@ public class Schedule {
         // Print dates of the current week starting on Monday
         DateFormat df = new SimpleDateFormat("EEE dd MMM");
         for (int i = 0; i < numDays; i++) {
-            week.append("[").append(i + 1).append("]. ").append(df.format(cal.getTime())).append("\n");
+            week.append("[").append(i + 1).append("]. ").
+                append(df.format(cal.getTime())).append("\n");
             cal.add(Calendar.DATE, 1);
         }
         return week.toString();
@@ -101,19 +109,27 @@ public class Schedule {
      *
      * @param dayOfClass The selected day of the month. e.g 5/10/2019
      * @return String of every hour from 8am inside the day.
+     * @throws ParseException if dayOfClass is in wrong format
      */
-    public String getDay(String dayOfClass) throws ParseException {
+    public String getDay(final String dayOfClass) throws ParseException {
+        final int numberOfHoursInADay = 24;
+        final int tempInt = 10;
         String message = "";
-        for (int i = 0; i <= 24; i++) {
-            String time = (i < 10) ? "0" + i + "00" : i + "00";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        for (int i = 0; i <= numberOfHoursInADay; i++) {
+            String time = (i < tempInt) ? "0" + i + "00" : i + "00";
+            SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date now = simpleDateFormat.parse(dayOfClass + " " + time);
             DateFormat df = new SimpleDateFormat("HH:mm");
             boolean isAssignedClass = false;
             for (TimeSlot t : this.list) {
                 if (now.equals(t.getStartTime())) {
                     isAssignedClass = true;
-                    message += df.format(now) + " " + t.getClassName() + " from " + df.format(t.getStartTime()) + " to " + df.format(t.getEndTime()) + " at " + t.getLocation() + "\n";
+                    message += df.format(now)
+                        + " " + t.getClassName() + " from "
+                        + df.format(t.getStartTime())
+                        + " to " + df.format(t.getEndTime()) + " at "
+                        + t.getLocation() + "\n";
                 }
             }
             if (!isAssignedClass) {
@@ -124,9 +140,22 @@ public class Schedule {
         return message;
     }
 
-    public String addClass(String startTime, String endTime,
-                           String location, String className,
-                           TaskList taskList, Storage scheduleStorage) {
+    /**
+     * Method to add a class.
+     * @param startTime The start time of the class
+     * @param endTime The end time of the class
+     * @param location The location where the class is held
+     * @param className The name of the class
+     * @param taskList The list of tasks
+     * @param scheduleStorage The object responsible for storing the class
+     * @return The outcome of the opeation,whether the class was added or not
+     */
+    public String addClass(final String startTime,
+                           final String endTime,
+                           final String location,
+                           final String className,
+                           final TaskList taskList,
+                           final Storage scheduleStorage) {
         Date start = taskList.dateConvert(startTime);
         Date end = taskList.dateConvert(endTime);
         boolean hasClash = false;
@@ -143,7 +172,9 @@ public class Schedule {
                         break;
                     }
                     long curTimeInMs = temp.getTime();
-                    temp = new Date(curTimeInMs + 60000);
+                    final int numberOfMillisecondsInAMinute = 60000;
+                    temp = new Date(curTimeInMs
+                        + numberOfMillisecondsInAMinute);
                 }
             }
         }
@@ -154,19 +185,34 @@ public class Schedule {
             scheduleStorage.updateSchedule(this.list);
             return "New class has been added";
         } else {
-            return "Unable to add class. There is already another class in the same timeslot.";
+            return "Unable to add class."
+                + "There is already another class in the same timeslot.";
         }
     }
 
-    public String delClass(String startTime, String name, Storage scheduleStorage) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    /**
+     * Method to delete a class.
+     * @param startTime The start time of the class
+     * @param name The name of the class
+     * @param scheduleStorage The object responsible for storing the class
+     * @return The outcome of the opeation,whether the class was deleted or not
+     * @throws ParseException if the start time of the class is
+     * in the wrong format
+     */
+    public String delClass(final String startTime,
+                           final String name,
+                           final Storage scheduleStorage)
+        throws ParseException {
+        SimpleDateFormat simpleDateFormat =
+            new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date start = simpleDateFormat.parse(startTime);
         int index = 0;
         if (this.list.isEmpty()) {
             return "No class available";
         }
         for (TimeSlot i : this.list) {
-            if (i.getClassName().equals(name) && i.getStartTime().equals(start)) {
+            if (i.getClassName().equals(name)
+                && i.getStartTime().equals(start)) {
                 this.list.remove(index);
                 scheduleStorage.updateSchedule(this.list);
                 return "Class removed";
@@ -183,7 +229,8 @@ public class Schedule {
      * @param scheduleStorage Where the save file will be located.
      * @return Success string
      */
-    public String delAllClass(String date, Storage scheduleStorage) {
+    public String delAllClass(final String date,
+                              final Storage scheduleStorage) {
         for (TimeSlot i : this.list) {
             DateFormat df = new SimpleDateFormat("HHmm");
             String today = df.format(i.getStartTime());
