@@ -3,6 +3,7 @@ package duke.logic;
 import duke.commands.Command;
 import duke.commands.results.CommandResult;
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
@@ -32,10 +33,10 @@ public class LogicManager extends Logic {
         try {
             c = Parser.parseSingleCommand(userInput);
             conversationManager.clearContext();
+        } catch (DukeApiException e) {
+            throw new DukeException((e.getMessage()));
         } catch (DukeException e) {
-            if (e.getMessage() == Messages.DATA_NOT_FOUND || e.getMessage() == Messages.DATA_NULL) {
-                throw new DukeException((e.getMessage()));
-            }
+            //if (e.getMessage() == Messages.DATA_NOT_FOUND || e.getMessage() == Messages.DATA_NULL) {
             c = getCommandFromConversationManager(userInput);
         }
         return (CommandResult) c.execute(model);

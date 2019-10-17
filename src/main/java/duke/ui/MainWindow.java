@@ -134,17 +134,6 @@ public class MainWindow extends UiPart<Stage> {
         );
     }
 
-    /**
-     * Shows an image in dialogBoxImage to the user.
-     * @param message
-     * @param image
-     */
-    private void dukeShowImage(String message, Image image) {
-        dialogContainer.getChildren().addAll(
-                DialogBoxImage.getDukeDialog(message, dukeImage, image)
-        );
-    }
-
     private void dukeShow(CommandResult commandResult) {
         if (commandResult instanceof CommandResultImage) {
             dukeShowImage(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
@@ -155,6 +144,19 @@ public class MainWindow extends UiPart<Stage> {
             dukeShow(commandResult.getMessage());
         }
     }
+
+    /**
+     * Shows an image in dialogBoxImage to the user.
+     * @param message The message to show.
+     * @param image The image to show.
+     */
+    private void dukeShowImage(String message, Image image) {
+        dialogContainer.getChildren().addAll(
+                DialogBoxImage.getDukeDialog(message, dukeImage, image)
+        );
+    }
+
+
 
     private void tryExitApp() {
         try {

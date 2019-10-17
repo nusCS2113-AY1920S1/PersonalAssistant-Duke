@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.commands.results.CommandResultText;
+import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.transports.BusService;
@@ -17,12 +18,18 @@ public class GetBusRouteCommand extends Command {
 
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        HashMap<String, BusService> busMap = model.getMap().getBusMap();
-        BusService bus = busMap.get(this.bus);
-        String result = "";
-        for (String busCode : bus.getDirection(1)) {
-            result = result.concat(busCode + "\n");
+        try {
+            assert (this.bus.matches("-?\\d+(\\.\\d+)?"));
+            HashMap<String, BusService> busMap = model.getMap().getBusMap();
+            BusService bus = busMap.get(this.bus);
+            String result = "";
+            for (String busCode : bus.getDirection(1)) {
+                result = result.concat(busCode + "\n");
+            }
+            return new CommandResultText(MESSAGE_BUS_ROUTE + result);
+
+        } catch (Throwable e) {
+            throw new DukeException(MessagesPrompt.PROMPT_NOT_INT);
         }
-        return new CommandResultText(MESSAGE_BUS_ROUTE + result);
     }
 }

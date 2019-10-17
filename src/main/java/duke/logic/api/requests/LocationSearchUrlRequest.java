@@ -1,6 +1,7 @@
 package duke.logic.api.requests;
 
 import com.google.gson.JsonElement;
+import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 
 import java.io.BufferedReader;
@@ -38,7 +39,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
      * @return JSONObject The response from request
      */
     @Override
-    public JsonObject execute() throws DukeException {
+    public JsonObject execute() throws DukeApiException {
         String response;
         try {
             URL url = new URL(URL + paramType + "=" + param + optionalVariables);
@@ -50,7 +51,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.DATA_NOT_FOUND);
+            throw new DukeApiException(Messages.DATA_NOT_FOUND);
         }
 
         JsonObject result;
@@ -60,7 +61,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
             JsonElement root = jp.parse(response);
             result = root.getAsJsonObject();
         } catch (Throwable e) {
-            throw new DukeException(Messages.DATA_NULL);
+            throw new DukeApiException(Messages.DATA_NULL);
         }
 
         return result;

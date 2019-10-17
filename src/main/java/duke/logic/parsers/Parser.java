@@ -39,43 +39,43 @@ public class Parser {
     public static Command parseComplexCommand(String input) throws DukeException {
         String commandWord = getCommandWord(input);
         switch (commandWord) {
-            case "todo":
-                return new AddCommand(ParserUtil.createTodo(input));
-            case "deadline":
-                return new AddCommand(ParserUtil.createDeadline(input));
-            case "done":
-                return new MarkDoneCommand(ParserUtil.getIndex(input));
-            case "delete":
-                return new DeleteCommand(ParserUtil.getIndex(input));
-            case "find":
-                return new FindCommand(getWord(input));
-            case "findtime":
-                return new FreeTimeCommand(ParserUtil.getIndex(input));
-            case "fetch":
-                return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(input)));
-            case "within":
-                return new AddCommand(ParserUtil.createWithin(input));
-            case "reschedule":
-                return new RescheduleCommand(ParserUtil.getSafeIndex(input), ParserUtil.getScheduleDate(input));
-            case "search":
-                return new LocationSearchCommand(getWord(input));
-            case "busStop":
-                return new GetBusStopCommand(getWord(input));
-            case "busRoute":
-                return new GetBusRouteCommand(getWord(input));
-            case "event":
-                return new AddCommand(ParserUtil.createEvent(input));
-            case "findPath":
-                return new FindPathCommand(getWord(input), getHolidayIndexInList(1, input),
-                        getHolidayIndexInList(2, input));
-            case "recommend":
-                return new RecommendationsCommand(getWord(input));
-            case "cancel":
-                return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
-            case "map":
-                return new StaticMapCommand(getWord(input));
-            default:
-                throw new DukeException(Messages.UNKNOWN_COMMAND);
+        case "todo":
+            return new AddCommand(ParserUtil.createTodo(input));
+        case "deadline":
+            return new AddCommand(ParserUtil.createDeadline(input));
+        case "done":
+            return new MarkDoneCommand(ParserUtil.getIndex(input));
+        case "delete":
+            return new DeleteCommand(ParserUtil.getIndex(input));
+        case "find":
+            return new FindCommand(getWord(input));
+        case "findtime":
+            return new FreeTimeCommand(ParserUtil.getIndex(input));
+        case "fetch":
+            return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(input)));
+        case "within":
+            return new AddCommand(ParserUtil.createWithin(input));
+        case "reschedule":
+            return new RescheduleCommand(ParserUtil.getSafeIndex(input), ParserUtil.getScheduleDate(input));
+        case "search":
+            return new LocationSearchCommand(getWord(input));
+        case "busStop":
+            return new GetBusStopCommand(getWord(input));
+        case "busRoute":
+            return new GetBusRouteCommand(getWord(input));
+        case "event":
+            return new AddCommand(ParserUtil.createEvent(input));
+        case "findPath":
+            return new FindPathCommand(getWord(input), getHolidayIndexInList(1, input),
+                    getHolidayIndexInList(2, input));
+        case "recommend":
+            return new RecommendationsCommand(getWord(input));
+        case "cancel":
+            return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
+        case "map":
+            return new StaticMapCommand(getWord(input));
+        default:
+            throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
     }
 
@@ -88,16 +88,16 @@ public class Parser {
      */
     public static Command parseSingleCommand(String userInput) throws DukeException {
         switch (userInput) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "reminder":
-                return new ReminderCommand();
-            case "help":
-                return new HelpCommand();
-            default:
-                return parseComplexCommand(userInput);
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "reminder":
+            return new ReminderCommand();
+        case "help":
+            return new HelpCommand();
+        default:
+            return parseComplexCommand(userInput);
         }
     }
 

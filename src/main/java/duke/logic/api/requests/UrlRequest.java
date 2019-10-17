@@ -1,6 +1,7 @@
 package duke.logic.api.requests;
 
 import com.google.gson.JsonObject;
+import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 
 /**
@@ -17,5 +18,5 @@ public abstract class UrlRequest<T> {
      * Executes and sends the given URL request.
      * @return response The response from the request
      */
-    public abstract T execute() throws DukeException;
+    public abstract T execute() throws DukeApiException;
 }

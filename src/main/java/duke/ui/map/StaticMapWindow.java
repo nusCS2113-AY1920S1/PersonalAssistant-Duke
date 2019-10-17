@@ -28,7 +28,8 @@ public class StaticMapWindow extends UiPart<Stage> {
      */
     private StaticMapWindow(Stage root, Image image) {
         super(FXML, root);
-        root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/staticMapStyle.css").toExternalForm());
+        root.getScene().getStylesheets().addAll(
+                this.getClass().getResource("/css/staticMapStyle.css").toExternalForm());
         ImageView iv1 = new ImageView();
         iv1.setImage(image);
         map.getChildren().add(iv1);

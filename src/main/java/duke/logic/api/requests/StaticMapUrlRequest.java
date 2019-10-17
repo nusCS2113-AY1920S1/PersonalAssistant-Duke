@@ -1,6 +1,7 @@
 package duke.logic.api.requests;
 
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -24,10 +25,10 @@ public class StaticMapUrlRequest extends UrlRequest {
     /**
      * Executes the URL request to StaticMap API.
      * @return image The static map image
-     * @throws DukeException IO or null response exceptions
+     * @throws DukeApiException IO or null response exceptions
      */
     @Override
-    public Image execute() throws DukeException {
+    public Image execute() throws DukeApiException {
         Image image;
         BufferedImage response;
         try {
@@ -36,9 +37,9 @@ public class StaticMapUrlRequest extends UrlRequest {
             image = SwingFXUtils.toFXImage(response, null);
             assert (image != null);
         } catch (IOException e) {
-            throw new DukeException(Messages.DATA_NOT_FOUND);
+            throw new DukeApiException(Messages.DATA_NOT_FOUND);
         } catch (Throwable e) {
-            throw new DukeException(Messages.DATA_NULL);
+            throw new DukeApiException(Messages.DATA_NULL);
         }
 
         return image;

@@ -3,6 +3,7 @@ package duke.logic.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeApiException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.requests.DataMallHttpRequest;
@@ -40,7 +41,7 @@ public class ApiParser {
                     arr.get(0).getAsJsonObject().get("Y").getAsDouble());
 
         } catch (Throwable e) {
-            throw new DukeException(Messages.DATA_NULL);
+            throw new DukeApiException(Messages.DATA_NULL);
         }
     }
 
@@ -211,8 +212,8 @@ public class ApiParser {
      */
     public static String createStaticMapPoint(String latitude, String longitude,
                                               String r, String g, String b, String label) {
-        return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\"" +
-                (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
+        return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
+                + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
     }
 
     /**

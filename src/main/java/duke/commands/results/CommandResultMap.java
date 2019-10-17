@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class CommandResultMap extends CommandResult {
     private ArrayList<BusStop> route;
+
     /**
      * Constructs a basic CommandResultMap object.
      *
