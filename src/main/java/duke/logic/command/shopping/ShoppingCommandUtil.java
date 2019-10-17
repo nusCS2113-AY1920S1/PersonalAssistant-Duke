@@ -15,4 +15,14 @@ public class ShoppingCommandUtil {
 
         return new Item<Ingredient>((new Ingredient(name, unitCost, remarks)), new Quantity(quantity));
     }
+
+    public static Item<Ingredient> createNewIngredient(Item<Ingredient> toEdit, Double newQuantity) {
+        assert toEdit != null;
+        String name = toEdit.getItem().getName();
+        Double quantity = newQuantity;
+        String remarks = toEdit.getItem().getRemarks();
+        Double unitCost = toEdit.getItem().getUnitPrice();
+
+        return new Item<Ingredient>((new Ingredient(name, unitCost, remarks)), new Quantity(quantity));
+    }
 }

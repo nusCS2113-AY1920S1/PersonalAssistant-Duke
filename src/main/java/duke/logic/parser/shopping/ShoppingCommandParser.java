@@ -5,6 +5,7 @@ import duke.logic.command.shopping.AddShoppingCommand;
 import duke.logic.command.shopping.DeleteShoppingCommand;
 import duke.logic.command.shopping.EditShoppingCommand;
 import duke.logic.command.shopping.ClearShoppingCommand;
+import duke.logic.command.shopping.BuyShoppingCommand;
 import duke.logic.command.shopping.ShoppingCommand;
 
 import duke.logic.parser.commons.SubCommandParser;
@@ -26,6 +27,8 @@ public class ShoppingCommandParser implements SubCommandParser<ShoppingCommand> 
             return new EditShoppingCommandParser().parse(args);
         case ClearShoppingCommand.COMMAND_WORD:
             return new ClearShoppingCommandParser().parse(args);
+        case BuyShoppingCommand.COMMAND_WORD:
+            return new BuyShoppingCommandParser().parse(args);
 
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);

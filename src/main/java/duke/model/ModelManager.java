@@ -242,18 +242,49 @@ public class ModelManager implements Model {
         bakingHome.setInventory(toEdit, edited);
     }
 
+    public void setInventory(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        bakingHome.setInventory(replacement);
+    }
+
     public void clearInventory(List<Item<Ingredient>> emptyList) {
         bakingHome.clearInventory(emptyList);
     }
 
     @Override
     public boolean hasIngredient(Ingredient ingredient) {
+        requireNonNull(ingredient);
+        List<Item<Ingredient>> inventoryList = bakingHome.getInventoryList();
+        for (Item<Ingredient> item : inventoryList) {
+            if (item.getItem().getName().equals(ingredient.getName())) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean deductIngredient(Ingredient ingredient, double amount) {
-        return false;
+        requireAllNonNull(ingredient, amount);
+        List<Item<Ingredient>> inventoryList = bakingHome.getInventoryList();
+        boolean isDeducted = false;
+
+        for (Item<Ingredient> item : inventoryList) {
+            if (item.getItem().getName().equals(ingredient.getName())) {
+                Double currentAmount = item.getQuantity().getNumber();
+
+                if (currentAmount >= amount) {
+                    Double newAmount = currentAmount - amount;
+                    item.getQuantity().setQuantity(newAmount);
+                    isDeducted = true;
+                }
+                else {
+                    item.getQuantity().setQuantity(0.0);
+                }
+                break;
+            }
+        }
+        return isDeducted;
     }
 
     @Override
@@ -287,6 +318,11 @@ public class ModelManager implements Model {
     public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         bakingHome.setShoppingList(toEdit, edited);
+    }
+
+    public void setShoppingList(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        bakingHome.setShoppingList(replacement);
     }
 
     public void clearShoppingList(List<Item<Ingredient>> emptyList) {

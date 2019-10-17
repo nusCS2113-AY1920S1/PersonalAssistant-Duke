@@ -10,6 +10,7 @@ import duke.model.inventory.Ingredient;
 
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 public class EditShoppingCommand extends ShoppingCommand {
@@ -29,7 +30,7 @@ public class EditShoppingCommand extends ShoppingCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireAllNonNull(model);
+        requireNonNull(model);
         List<Item<Ingredient>> lastShownList = model.getFilteredShoppingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

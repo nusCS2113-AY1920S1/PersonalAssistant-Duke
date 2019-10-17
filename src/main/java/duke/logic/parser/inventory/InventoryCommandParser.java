@@ -1,6 +1,7 @@
 package duke.logic.parser.inventory;
 
 import duke.commons.core.Message;
+
 import duke.logic.command.inventory.AddInventoryCommand;
 import duke.logic.command.inventory.DeleteInventoryCommand;
 import duke.logic.command.inventory.EditInventoryCommand;

@@ -8,6 +8,7 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import static duke.logic.parser.commons.CliSyntax.*;
 
@@ -23,7 +24,7 @@ public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
         );
 
         Ingredient ingredient = new Ingredient(
-                map.getValue(PREFIX_SHOPPING_NAME).orElse(""),
+                StringUtils.capitalize(map.getValue(PREFIX_SHOPPING_NAME).orElse("").toLowerCase()),
                 Double.parseDouble(map.getValue(PREFIX_SHOPPING_COST).orElse(String.valueOf(0))),
                 map.getValue(PREFIX_SHOPPING_REMARKS).orElse("")
         );
