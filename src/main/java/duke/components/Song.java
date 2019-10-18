@@ -131,7 +131,6 @@ public class Song {
                 Iterator<Note> iterator2 = notesAnalyse.iterator();
                 while (iterator2.hasNext()) {
                     Note tempNote = iterator2.next();
-                    //System.out.println("hello");
                     formattedChart.append(tempNote.getPitch());
                     formattedChart.append(" ");
                 }
@@ -143,6 +142,8 @@ public class Song {
             i += 1;
         }
         return formattedChart.toString();
+
+
     }
 
     /**
