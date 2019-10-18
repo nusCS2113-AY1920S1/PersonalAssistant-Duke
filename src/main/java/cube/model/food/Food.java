@@ -1,9 +1,8 @@
 package cube.model.food;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Food implements Serializable {
+public class Food {
 	protected String name;
 	protected String type;
 	protected static double revenue;
@@ -163,13 +162,12 @@ public class Food implements Serializable {
 	 *
 	 * @return the String printout of the food product.
 	 */
-
+	@Override
 	public String toString() {
 		return name + "\n  Type: " + type +
-				"\n  Price: " + price +
+				"\n  Price: $" + price +
 				"\n  Stock: " + stock +
-				"\n  Expiry Date: " + expiryDate +
-				"\n  Revenue: " + revenue; // revenue should not be shown by individual food --guoquan
-
+				"\n  Expiry Date: " + expiryDate;
 	}
+
 }

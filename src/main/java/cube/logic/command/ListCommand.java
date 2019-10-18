@@ -16,7 +16,9 @@ public class ListCommand extends Command{
 
 	@Override
 	public void execute(FoodList list, Ui ui, StorageManager storage) {
-		list.sort(sortType);
+		if (sortType != null) {
+			list.sort(sortType);
+		}
 		ui.showListFood(list);
 	}
 }

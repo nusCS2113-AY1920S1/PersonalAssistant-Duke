@@ -101,6 +101,7 @@ public class Ui {
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println((i + 1) + "." + list.get(i));
 		}
+		System.out.println("The total revenue so far is $" + Food.getRevenue());
 	}
 
 	/**
@@ -249,9 +250,6 @@ public class Ui {
 				+ "Show task list:\n"
 				+ String.format("%1$-50s", "  'list'") + "shows the list of food products\n"
 				+ String.format("%1$-50s", "  'reminder'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
-				//+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
-				//+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"
-				//+ String.format("%1$-50s", "  'ViewSchedule /at <dd/mm/yy>'") + "show the list of tasks that falls within specified date\n"
 				+ "Miscellaneous:\n"
 				+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
