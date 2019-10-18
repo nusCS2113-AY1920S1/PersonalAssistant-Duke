@@ -24,7 +24,7 @@ public class MooMoo {
     /**
      * Initializes different Category, Transaction Lists, Budget, Storage and Ui.
      */
-    MooMoo() {
+    public MooMoo() {
         ui = new Ui();
         storage = new Storage("data/budget.txt","data/schedule.txt");
 
