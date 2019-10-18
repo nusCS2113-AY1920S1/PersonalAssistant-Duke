@@ -1,6 +1,5 @@
 package duke.data;
 
-
 import duke.module.Goal;
 import duke.module.Lesson;
 import duke.module.Reminder;
@@ -18,7 +17,12 @@ import duke.sports.MyStudent;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Date;
 
 /**
  * Parser is the controller for the string inputs received
@@ -301,7 +305,7 @@ public class Parser {
                     System.out.println(
                         "Please enter the details in the correct format.");
                 }
-                }
+            }
                 break;
 
         /**
@@ -380,28 +384,28 @@ public class Parser {
              * Delete: training delete-all|training delete [plan number]
              */
             case "training":
-                switch(word[1]) {
-                    case "view": {
+                switch (word[1]) {
+                    case "view":
                         System.out.println("TBC");
                         System.out.println(plan.viewPlan());
                         break;
-                    }
-                    case "add-plan": {
+                    case "add-plan":
                         //pass
                         break;
-                    }
-                    case "add-activity": {
-                        System.out.println(plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5])));
+                    case "add-activity":
+                        int num = 2;
+                        System.out.println(plan.addActivity(word[num],
+                                Integer.parseInt(word[++num]),
+                                Integer.parseInt(word[++num])));
                         break;
-                    }
-                    case "delete": {
-                        //pass
+                    case "delete":
+                        System.out.println("To be added.");
                         break;
-                    }
-                    case "delete-all": {
-                        //pass
+                    case "delete-all":
+                        System.out.println("To be added");
                         break;
-                    }
+                    default:
+                        break;
                 }
                 break;
 
@@ -462,13 +466,14 @@ public class Parser {
                         String name = splitByComma[0];
                         String age = splitByComma[1];
                         String address = splitByComma[2];
-                        MyStudent myNewStudent = new MyStudent(name, age, address);
+                        MyStudent myNewStudent = new MyStudent(
+                                name, age, address);
                         students.addStudent(myNewStudent);
                         break;
 
                         // Format: student delete [index]
                     case "delete":
-                        index = Integer.parseInt(word[2]); // Convert string into int
+                        index = Integer.parseInt(word[2]);
                         students.deleteStudent(index);
                         break;
 
@@ -494,31 +499,31 @@ public class Parser {
                         break;
 
                     case "search":
-                        String searchName = input.substring(15);
+                        final int limit = 15;
+                        String searchName = input.substring(limit);
                         students.findName(searchName);
                         break;
+                    default:
+                        System.out.println("(Add statement here?)");
                     }
                     storage.updateStudentList(students.getStudentList());
                 break;
 
-            /**
-             * Command is in the form: plan new [intensity level]
-             * or plan view [intensity] plan/[plan number]
-             */
             case "plan":
                 if (word[1].equals("view")) {
-                    plan.loadPlan(word[2].toLowerCase(), word[3]);
-                    plan.viewPlan();
+                    //int num = 2;
+                    //plan.loadPlan(word[num].toLowerCase(), word[++num]);
+                    System.out.println(plan.viewPlan());
                 } else if (word[1].equals("new")) {
                     plan.createPlan(word[2].toLowerCase());
                 } else if (word[1].equals("edit")) {
-                    System.out.println("not yet created");
+                    System.out.println("To be created...");
                 }
                 break;
 
             default:
-                System.out.println("\u2639 OOPS!!! "
-                    + "I'm sorry, but I don't know what that means :-(");
+                System.out.println("\u2639 OOPS!!! I'm sorry,"
+                        + "but I don't know what that means :-(");
                 break;
         }
     }
