@@ -8,6 +8,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 public class Join implements ArgumentAction {
 
     @Override
+    @SuppressWarnings("unchecked")
     public void run(ArgumentParser parser, Argument arg, Map<String, Object> attrs, String flag, Object value) {
         if (value instanceof Iterable) {
             attrs.put(arg.getDest(), String.join(" ", (Iterable) value));
