@@ -3,13 +3,16 @@ package cube.logic.command;
 import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.ui.Ui;
-import cube.ui.Message;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
+import cube.logic.command.exception.CommandErrorMessage;
 
 public class SoldCommand extends Command{
 	String foodName;
 	int quantity;
+
+	private final String MESSAGE_SUCCESS = "%1$d of %2$s have been sold\n"
+		+ "you have earn %3$f, the total revenue is %4$f";	
 
 	public SoldCommand (String foodName, int quantity) {
 		this.foodName = foodName;
@@ -17,15 +20,15 @@ public class SoldCommand extends Command{
 
 	public void checkValid(Food foodSold, FoodList list) throws CommandException {
 		if (!list.exists(foodName)) {
-			throw new CommandException(Message.FOOD_NOT_EXISTS);
+			throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
 		}
 		if (quantity < 0 || quantity > foodSold.getStock()) {
-			throw new CommandException(Message.INVALID_QUANTITY_SOLD);
+			throw new CommandException(CommandErrorMessage.INVALID_QUANTITY_SOLD);
 		}
 	}
 
 	@Override
-	public void execute(FoodList list, Ui ui, StorageManager storage) throws CommandException {
+	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
 		Food foodSold = list.get(foodName);
 		checkValid(foodSold, list);
 		
@@ -34,6 +37,6 @@ public class SoldCommand extends Command{
 		double profit = quantity * foodSold.getPrice();
 		Food.updateRevenue(Food.getRevenue() + profit);
 		storage.storeRevenue(Food.getRevenue());
-		ui.showSold(foodName, quantity, profit, Food.getRevenue());
+		return new CommandResult(String.format(MESSAGE_SUCCESS, quantity, foodName, profit, Food.getRevenue()));
 	}
 }

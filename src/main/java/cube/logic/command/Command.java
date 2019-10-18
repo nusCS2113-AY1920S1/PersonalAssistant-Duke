@@ -12,5 +12,5 @@ public abstract class Command {
 		return false;
 	}
 
-	public abstract void execute(FoodList list, Ui ui, StorageManager storage) throws CommandException;
+	public abstract CommandResult execute(FoodList list, StorageManager storage) throws CommandException;
 }
