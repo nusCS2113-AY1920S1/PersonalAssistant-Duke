@@ -165,8 +165,9 @@ public class Ui {
      * @param num    Represents the numbering of the bond.
      * @param name   Represents the bond name.
      * @param amount Represents the amount of the bond.
-     * @param rate   Represents the date of purchase for the bond.
-     * @param date   Represents the year for the bond.
+     * @param rate   Represents the rate for the bond.
+     * @param date   Represents the date of purchase for the bond.
+     * @param year   Represents the year for the bond.
      */
     public void printBond(int num, String name, String amount, String rate, String date, int year) {
         System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", num, name, amount, rate, date, year);
