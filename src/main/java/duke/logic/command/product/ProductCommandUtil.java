@@ -22,8 +22,10 @@ public class ProductCommandUtil {
         Double newRetailPrice = productDescriptor.getRetailPrice().orElse(toEdit.getRetailPrice());
         Double newIngredientCost =
                 productDescriptor.getIngredientCost().orElse(toEdit.getIngredientCost());
+        IngredientItemList ingredientItemList =
+                productDescriptor.getIngredientItemList().orElse(toEdit.getIngredients());
         Product.Status newStatus = productDescriptor.getStatus().orElse(toEdit.getStatus());
-        return new Product(newProductName, newRetailPrice, newIngredientCost, newStatus);
+        return new Product(newProductName, newRetailPrice, newIngredientCost, ingredientItemList, newStatus);
     }
 
     /**

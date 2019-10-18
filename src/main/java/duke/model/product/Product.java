@@ -20,8 +20,8 @@ public class Product {
 
     private String productName;
     private IngredientItemList ingredients;
-    private double ingredientCost;
-    private double retailPrice;
+    private Double ingredientCost;
+    private Double retailPrice;
     private Status status;
 
 
@@ -63,6 +63,22 @@ public class Product {
             this.ingredientCost = Double.parseDouble(ingredientCost);
             this.retailPrice = Double.parseDouble(retailPrice);
             this.status = Status.ACTIVE;
+            this.ingredients = ingredientItemList;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Product(String productName, Double retailPrice, Double ingredientCost,
+                   IngredientItemList ingredientItemList, Product.Status status) {
+        requireAllNonNull(productName);
+        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+
+        try {
+            this.productName = productName;
+            this.ingredientCost = ingredientCost;
+            this.retailPrice = retailPrice;
+            this.status = status;
             this.ingredients = ingredientItemList;
         } catch (NumberFormatException e) {
             e.printStackTrace();

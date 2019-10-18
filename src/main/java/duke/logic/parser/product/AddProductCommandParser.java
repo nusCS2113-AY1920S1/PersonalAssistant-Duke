@@ -57,7 +57,6 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).orElse(String.valueOf(0)),
                 ingredientItemList
         );
-        System.out.println(product.toString());
         return new AddProductCommand(product);
     }
 

@@ -56,7 +56,6 @@ public class ProductPage extends UiPart<AnchorPane> {
         IngredientCard ingredientCard = new IngredientCard(product);
         config(ingredientCard);
         AnchorPane.setRightAnchor(ingredientCard, 0.0);
-       // splitPane.getItems().add(ingredientCard);
         cardPane.getChildren().clear();
         cardPane.getChildren().add(ingredientCard);
         splitPane.setDividerPositions(HALF_PAGE);
@@ -74,7 +73,6 @@ public class ProductPage extends UiPart<AnchorPane> {
         productListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         setProperty(productListTable, productList);
         TableUtil.setUpIndexColumn(productListTable);
-        //setIndexColumn(productListTable);
         setProductInfoColumns(productListTable);
         return productListTable;
     }
@@ -82,34 +80,6 @@ public class ProductPage extends UiPart<AnchorPane> {
     private void setProperty(TableView table, ObservableList observableList) {
         table.setItems(observableList);
         table.getColumns().clear();
-    }
-    void setIndexColumn(TableView table) {
-        TableColumn<Product, Void> indexColumn = new TableColumn<>("S/N");
-        indexColumn.setResizable(true);
-
-        //Solution below adapted from: https://stackoverflow.com/questions/31212400/adding-index-of-records-in-a-javafx-tableview-column
-        ///////////////////////////////////////////////////////index column
-        {
-            indexColumn.setCellFactory(col -> {
-
-                // just a default table cell:
-                TableCell<Product, Void> cell = new TableCell<>();
-
-                cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                    if (cell.isEmpty()) {
-                        return null;
-                    } else {
-                        return Integer.toString(cell.getIndex() + 1);
-                    }
-                }, cell.emptyProperty(), cell.indexProperty()));
-                return cell;
-            });
-        }
-        ////////////////////////////////index column created
-        table.getColumns().add(indexColumn);
-        indexColumn.setMinWidth(80);
-        indexColumn.setMaxWidth(80);
-
     }
 
     void setProductInfoColumns(TableView table) {
