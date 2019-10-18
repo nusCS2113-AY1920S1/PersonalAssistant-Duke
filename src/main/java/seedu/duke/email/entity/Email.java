@@ -301,7 +301,7 @@ public class Email {
      * Tag of an email with both a keyword pair and a score indicating its relevance.
      */
     public static class Tag {
-        private final int INFINITY = 0x3f3f3f;
+        private static final int INFINITY = 0x3f3f3f;
         private EmailContentParser.KeywordPair keywordPair;
         private int relevance = INFINITY;
 

@@ -114,8 +114,8 @@ public class EmailContentParser {
     }
 
     /**
-     * Computes the edit distance between first and second, which is the number of steps required to transform first to second
-     * if only addition, deletion, update of a single character is allowed for each step.
+     * Computes the edit distance between first and second, which is the number of steps required to transform
+     * first to second if only addition, deletion, update of a single character is allowed for each step.
      *
      * @param first first string
      * @param second second string
