@@ -10,7 +10,9 @@ import javafx.collections.ObservableList;
 
 import java.util.*;
 
+import static duke.commons.util.AppUtil.checkArgument;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
+import static duke.commons.util.StringUtil.isValidString;
 
 /**
  * Represents an order in order list.
@@ -42,6 +44,7 @@ public class Order {
 
         this.id = generateId();
         this.creationDate = generateCreationDate();
+
         this.customer = customer;
         this.deliveryDate = deliveryDate;
         this.status = status;
@@ -145,14 +148,13 @@ public class Order {
         //Iterate through all ingredients needed.
         requiredIngredients.forEach((requiredIngredient, requiredAmount) -> {
             boolean isFound = false;
-            //Ierate through inventory to find the required ingredient.
+            //Iterate through inventory to find the required ingredient.
             for (Item<Ingredient> ingredientItem : inventory) {
                 Ingredient inventoryIngredient = ingredientItem.getItem();
                 double inventoryAmount = ingredientItem.getQuantity().getNumber();
                 if (requiredIngredient.equals(inventoryIngredient)) {
                     isFound = true;
                     if (requiredAmount > inventoryAmount) {
-                        //System.out.println("111");
                         isIngredientEnough.setValue(false);
                         break;
                     }
