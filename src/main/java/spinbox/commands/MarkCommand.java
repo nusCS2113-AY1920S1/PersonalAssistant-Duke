@@ -16,6 +16,7 @@ import java.util.HashMap;
 public class MarkCommand extends Command {
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String FILE_MARKED = "Marked file: ";
+    private static final String TASK_MARKED = "Marked task: ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
     private static final String INVALID_MARK_FORMAT = "Please use valid remove format:\n"
             + "mark <pageContent> : <type> <index>";
@@ -73,7 +74,7 @@ public class MarkCommand extends Command {
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     Task taskMarked = tasks.get(index);
                     tasks.mark(index);
-                    outputMessage.append(FILE_MARKED).append(taskMarked.toString()).append("\n");
+                    outputMessage.append(TASK_MARKED).append(taskMarked.toString()).append("\n");
                     tasks.remove(index);
                     outputMessage.append("This task has been removed from the list.\n");
                     outputMessage.append("You currently have ").append(tasks.getList().size()).append((

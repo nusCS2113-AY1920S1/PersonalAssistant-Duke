@@ -53,7 +53,7 @@ public class MultipleCommand extends Command {
         for (int i = 0; i < finalIndexes.size(); i++) {
             File fileRemoved = files.remove(finalIndexes.get(i));
             if (i == 0) {
-                outputMessage.append("Noted. I've removed these tasks:\n");
+                outputMessage.append("Noted. I've removed these files:\n");
                 outputMessage.append(fileRemoved.toString()).append("\n");
             } else {
                 outputMessage.append(fileRemoved.toString()).append("\n");
