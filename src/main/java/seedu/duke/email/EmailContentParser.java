@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A parser to process the content of emails to support automatic management of email
+ * A parser to process the content of emails to support automatic management of email.
  */
 public class EmailContentParser {
     private static int KEYWORD_SUBJECT_WEIGHTAGE = 5;
@@ -29,7 +29,8 @@ public class EmailContentParser {
         for (KeywordPair keywordPair : keywordList) {
             int relevance = keywordInEmail(email, keywordPair);
             if (relevance > 0) {
-                Duke.getUI().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair) + " => " + email.getSubject());
+                Duke.getUI().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair)
+                        + " => " + email.getSubject());
                 email.addTag(keywordPair, relevance);
             }
         }
@@ -113,43 +114,43 @@ public class EmailContentParser {
     }
 
     /**
-     * Computes the edit distance between A and B, which is the number of steps required to transform A to B
+     * Computes the edit distance between first and second, which is the number of steps required to transform first to second
      * if only addition, deletion, update of a single character is allowed for each step.
      *
-     * @param A first string
-     * @param B second string
-     * @return edit distance between A and B
+     * @param first first string
+     * @param second second string
+     * @return edit distance between first and second
      */
-    public static int editDistance(String A, String B) {
-        if (A.length() == 0 || B.length() == 0) {
-            return A.length() + B.length();
+    public static int editDistance(String first, String second) {
+        if (first.length() == 0 || second.length() == 0) {
+            return first.length() + second.length();
         }
-        A = A.toLowerCase();
-        B = B.toLowerCase();
+        first = first.toLowerCase();
+        second = second.toLowerCase();
         //Prepare a distance array for DP
-        int[][] dist = new int[A.length() + 1][B.length() + 1];
+        int[][] dist = new int[first.length() + 1][second.length() + 1];
         //Initialize distance array with all zeros
         for (int[] row : dist) {
             Arrays.fill(row, 0);
         }
         //Initialize starting positions for DP
-        for (int i = 0; i <= A.length(); i++) {
+        for (int i = 0; i <= first.length(); i++) {
             dist[i][0] = i;
         }
-        for (int j = 0; j <= B.length(); j++) {
+        for (int j = 0; j <= second.length(); j++) {
             dist[0][j] = j;
         }
         //Start DP
-        for (int i = 1; i <= A.length(); i++) {
-            for (int j = 1; j <= B.length(); j++) {
+        for (int i = 1; i <= first.length(); i++) {
+            for (int j = 1; j <= second.length(); j++) {
                 int min = INFINITY;
-                min = Math.min(min, dist[i - 1][j - 1] + (A.charAt(i - 1) == B.charAt(j - 1) ? 0 : 1));
+                min = Math.min(min, dist[i - 1][j - 1] + (first.charAt(i - 1) == second.charAt(j - 1) ? 0 : 1));
                 min = Math.min(min, dist[i - 1][j] + 1);
                 min = Math.min(min, dist[i][j - 1] + 1);
                 dist[i][j] = min;
             }
         }
-        return dist[A.length()][B.length()];
+        return dist[first.length()][second.length()];
     }
 
     /**
@@ -179,7 +180,7 @@ public class EmailContentParser {
     }
 
     /**
-     * A pair of keyword with its possible expressions
+     * A pair of keyword with its possible expressions.
      */
     public static class KeywordPair {
         private String keyword;
