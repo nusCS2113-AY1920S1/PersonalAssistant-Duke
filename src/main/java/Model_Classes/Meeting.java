@@ -38,7 +38,6 @@ public class Meeting extends Task {
      */
     public Date checkDate() { return this.at; }
 
-
     /**
      * Snoozes the Event by set amount of months
      * @param amount number of months to snooze

@@ -32,7 +32,7 @@ public class CheckAnomaly {
                     double checkTime = listDate.getTime();
                     double currTime = checkDate.getTime();
                     if( checkTime <= currTime + currDuration && checkTime >= currTime || checkTime + duration <= currTime + currDuration && checkTime + duration >= currTime ) {
-                        return false;
+                        return true;
                     }
                 }
             } else if( curr.get(i) instanceof Meeting) {
@@ -42,12 +42,12 @@ public class CheckAnomaly {
                     double checkTime = listDate.getTime();
                     double currTime = checkDate.getTime();
                     if( checkTime <= currTime + currDuration && checkTime >= currTime ) {
-                        return false;
+                        return true;
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -64,7 +64,15 @@ public class CheckAnomaly {
             if( curr.get(i) instanceof Meeting && ((Meeting) curr.get(i)).checkDate().equals(at) ) {
                 return true;
             } else if( curr.get(i) instanceof FixedDuration ) {
-                return true;
+                Date listDate = ((FixedDuration) curr.get(i)).checkDate();
+                if( listDate.getYear() == at.getYear() && listDate.getMonth() == at.getMonth() && listDate.getDay() == at.getDay() ) {
+                    double checkTime = listDate.getTime();
+                    double currTime = at.getTime();
+                    double listDuration = ((FixedDuration) curr.get(i)).getDuration();
+                    if(checkTime <= currTime + listDuration && checkTime >= currTime || checkTime + listDuration <= currTime + listDuration && checkTime + listDuration >= currTime) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
