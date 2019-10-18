@@ -39,14 +39,6 @@ public class Meeting extends Task {
     public Date checkDate() { return this.at; }
 
     /**
-     * Snoozes the Event by set amount of years
-     * @param amount number of years to snooze
-     */
-    public void snoozeYear(int amount) {
-        this.at.setYear(this.at.getYear() + amount);;
-    }
-
-    /**
      * Snoozes the Event by set amount of months
      * @param amount number of months to snooze
      */
@@ -84,7 +76,7 @@ public class Meeting extends Task {
      */
     @Override
     public String toString() {
-        if (isFixedDuration) {
+        if (isFixedDuration){
             return "[M]" + super.toString() + " (in: " + duration + " " + timeUnit.toString() + ")";
         } else {
             return "[M]" + super.toString() + " (on: " + at + ")";
@@ -102,4 +94,6 @@ public class Meeting extends Task {
     public TimeUnit getTimeUnit() {
         return timeUnit;
     }
+
+
 }

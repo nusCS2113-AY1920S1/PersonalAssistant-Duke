@@ -29,7 +29,7 @@ public class Parser {
      * @return command The command given by the user to Duke.
      */
     public String getCommand() {
-        String command = scanner.next().toLowerCase();
+        String command = scanner.next().toLowerCase().trim();
         return command;
     }
 
@@ -64,29 +64,6 @@ public class Parser {
     }
 
     /**
-     * Returns the description the user inputs for tasks. Will not accept empty descriptions
-     * @return temp The description that the user has specified for the task. Cannot be null.
-     * @throws RoomShareException If temp is empty.
-     */
-    public String getDescription() throws RoomShareException {
-        String temp = scanner.nextLine().trim();
-        if (temp.equals("")) {
-            throw new RoomShareException(ExceptionType.empty);
-        }
-        return temp;
-    }
-
-    /**
-     * Returns an array of strings that stores the raw description and date Strings to be stored in Duke.
-     * @return array An array of String containing the description and date information. Index 0 stores the description,
-     *               index 1 stores the date String.
-     */
-    public String[] getDescriptionWithDate() {
-        String[] array = scanner.nextLine().trim().split("/", 2);
-        return array;
-    }
-
-    /**
      * Returns a Date object from a raw date that is stored as a String.
      * If the format of the input string is unacceptable, will throw a DukeException and will not return anything.
      * @param by Input String containing the date information.
@@ -101,18 +78,13 @@ public class Parser {
         }
     }
 
-
     /**
      * Returns the keyword to be searched for.
      * @return key A string of the keyword to be searched for
      */
     public String getKey() {
-        String key = scanner.nextLine().toLowerCase();
+        String key = scanner.nextLine().trim();
         return key;
-    }
-
-    public String getRecurrence() {
-        return scanner.nextLine().trim().toLowerCase();
     }
 
     /**
@@ -134,25 +106,11 @@ public class Parser {
     }
 
     /**
-     * Gets a yes or no answer from the user
-     * @return the response of the user. Either yes or no.
-     */
-    public ReplyType getReply() {
-        String temp = scanner.nextLine().trim();
-        return ReplyType.valueOf(temp);
-    }
-
-    /**
      * Returns the index of the task and priority the user wants to set it to
      * @return the index and priority of the task the user wants to set
      */
     public String[] getPriority() {
-        String empty = scanner.nextLine();
         return scanner.nextLine().trim().split(" ", 2);
-    }
-
-    public String getResponse() {
-        return scanner.next();
     }
 
 }
