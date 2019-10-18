@@ -53,6 +53,7 @@ public class ProductPage extends UiPart<AnchorPane> {
     public void showProductDetail(Index index) {
         productIngredientPane.setMasterNode(setUpListTable());
         productIngredientPane.setShowDetailNode(true);
+        productIngredientPane.setDividerPosition(0);
         productIngredientPane.setDetailNode(setUpIngredientTable(index));
     }
     private TableView setUpListTable() {
