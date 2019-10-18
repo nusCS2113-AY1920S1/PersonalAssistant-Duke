@@ -69,6 +69,12 @@ public class EmailFormatParser {
         }
     }
 
+    /**
+     * Parses JSON file to produce email objects todo write proper description.
+     * @param jsonString JSON string that contains email data
+     * @return email from JSON
+     * @throws EmailParsingException when JSON cannot parse
+     */
     public static Email parseIndexJson(String jsonString) throws EmailParsingException {
         try {
             JSONObject indexJson = new JSONObject(jsonString);
@@ -136,7 +142,7 @@ public class EmailFormatParser {
         }
 
         /**
-         * Constructor of the sender based on the string output of a sender;
+         * Constructor of the sender based on the string output of a sender.
          *
          * @param senderString the string of sender toString() output used to parse a sender
          */

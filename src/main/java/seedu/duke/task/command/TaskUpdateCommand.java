@@ -20,10 +20,10 @@ public class TaskUpdateCommand extends Command {
 
     /**
      * Instantiates a find command with all variables necessary.
-     * @param taskList      list of tasks
-     * @param index         position of task as specified by input
-     * @param description   what to modify to
-     * @param attribute     what attribute to modify
+     * @param taskList       list of tasks
+     * @param index          position of task as specified by input
+     * @param descriptions   what to modify to
+     * @param attributes     what attribute to modify
      */
     public TaskUpdateCommand(TaskList taskList, int index, ArrayList<String> descriptions,
                              ArrayList<TaskUpdateCommand.Attributes> attributes) {
@@ -47,21 +47,21 @@ public class TaskUpdateCommand extends Command {
         try {
             for (int i = 0; i < descriptions.size(); i++) {
                 switch (attributes.get(i)) {
-                    case time:
-                        if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
-                            throw new CommandParser.UserInputException("Time cannot be added to Todo task.");
-                        }
-                        msg = taskList.setTime(index, descriptions.get(i));
-                        break;
-                    case doAfter:
-                        msg = taskList.setDoAfter(index, descriptions.get(i));
-                        break;
-                    case priority:
-                        msg = taskList.setPriority(index, descriptions.get(i));
-                        break;
-                    default:
-                        msg = "Invalid attribute";
-                        break;
+                case time:
+                    if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
+                        throw new CommandParser.UserInputException("Time cannot be added to Todo task.");
+                    }
+                    msg = taskList.setTime(index, descriptions.get(i));
+                    break;
+                case doAfter:
+                    msg = taskList.setDoAfter(index, descriptions.get(i));
+                    break;
+                case priority:
+                    msg = taskList.setPriority(index, descriptions.get(i));
+                    break;
+                default:
+                    msg = "Invalid attribute";
+                    break;
                 }
             }
         } catch (CommandParser.UserInputException e) {
