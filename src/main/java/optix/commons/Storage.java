@@ -67,7 +67,9 @@ public class Storage {
                         continue;
                     }
 
-                    shows.addShow(showName, date, revenue, seatBasePrice);
+                    Theatre theatre = new Theatre(showName, revenue, seatBasePrice);
+                    loadSeat(br, theatre);
+                    shows.put(date, theatre);
                 }
             }
 
@@ -185,7 +187,6 @@ public class Storage {
                 LocalDate date = entry.getKey();
 
                 wr.write(String.format("%s | %s | %s\n", date, theatre.getShowName(), theatre.getProfit()));
-
             }
             wr.close();
         } catch (IOException e) {

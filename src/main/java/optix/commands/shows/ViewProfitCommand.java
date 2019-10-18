@@ -21,7 +21,7 @@ public class ViewProfitCommand extends Command {
     private static final String MESSAGE_DOES_NOT_MATCH = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
             + "Try again!\n";
 
-    private static final String MESSAGE_SUCCESSFUL = "The profit for %1$s on %2$s is %3$s\n";
+    private static final String MESSAGE_SUCCESSFUL = "The profit for %1$s on %2$s is %3$.2f\n";
 
     /**
      * Views the profit made from a show on a certain date.
