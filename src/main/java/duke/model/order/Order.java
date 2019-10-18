@@ -114,7 +114,7 @@ public class Order {
 
 
     /**
-     * Updates the {@code isIngredientEnough} property based on {@code inventory}
+     * Updates the {@code isIngredientEnough} property based on {@code inventory}.
      */
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
@@ -132,7 +132,8 @@ public class Order {
 
                 //The amount of an ingredient required by an order item =
                 //the amount of that ingredient required to make one copy of that item * number of copies in the order.
-                //For example, if 2 units of milk are needed to make one cheese cake, and the order contains 5 cheese cakes,
+                //For example, if 2 units of milk are needed to make one cheese cake,
+                // and the order contains 5 cheese cakes,
                 //then milk needed for cheese cake = 2 * 5 = 10.
                 requiredIngredients.computeIfPresent(ingredientNeeded, (k, v) -> v + amountNeeded * numberOfCopies);
                 requiredIngredients.putIfAbsent(ingredientNeeded, amountNeeded * numberOfCopies);
@@ -150,7 +151,7 @@ public class Order {
                 double inventoryAmount = ingredientItem.getQuantity().getNumber();
                 if (requiredIngredient.equals(inventoryIngredient)) {
                     isFound = true;
-                    if (requiredAmount> inventoryAmount) {
+                    if (requiredAmount > inventoryAmount) {
                         //System.out.println("111");
                         isIngredientEnough.setValue(false);
                         break;
