@@ -25,6 +25,15 @@ graph expenditure trend
 graph income trend
 graph monthly report
 init 30000 200 (only works if is a new user)
+withdraw 232 OCBC /at 3/3/2050
+withdraw 10 DBS /at 5/5/2020
+list bank trackers
+change icon
+graph monthly report
+graph income trend
+graph expenditure trend
+graph finance status /until 12/12/2019
+graph finance status /until 5/7/2019
 lent mah bitches /amt 500 /on ytd
 list all income
 list all expenditure

@@ -68,7 +68,7 @@ public interface DataTransfer {
             dateList[i] = endDate.minusMonths(NUMBEROFMONTHS-i);
         }
         for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
-            xData.add(String.valueOf(endDate.getMonthValue()-i));
+            xData.add(String.valueOf(endDate.minusMonths(i).getMonthValue()));
             yData1.add((float) 0);
             yData2.add((float) 0);
         }
