@@ -9,7 +9,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -39,7 +38,7 @@ public class Order {
     public Order(Customer customer, Date deliveryDate, Status status,
                  String remarks, Set<Item<Product>> items, double total,
                  ObservableList<Item<Ingredient>> inventory) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
+        requireAllNonNull(customer, deliveryDate, status, remarks, items, total, inventory);
 
         this.id = generateId();
         this.creationDate = generateCreationDate();
@@ -51,6 +50,9 @@ public class Order {
         this.total = total;
 
         this.isIngredientEnough = new SimpleBooleanProperty();
+
+        this.id = generateId();
+        this.creationDate = Calendar.getInstance().getTime();
 
         updateIsIngredientEnough(inventory);
 
@@ -69,6 +71,10 @@ public class Order {
 
     public long getId() {
         return id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public Date getDeliveryDate() {
@@ -106,6 +112,7 @@ public class Order {
     private long generateId() {
         return System.currentTimeMillis();
     }
+
 
     private Date generateCreationDate() {
         return Calendar.getInstance().getTime();

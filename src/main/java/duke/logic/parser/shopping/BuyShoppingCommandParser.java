@@ -9,6 +9,8 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
+import java.util.Set;
+
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
 
 public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
@@ -17,14 +19,14 @@ public class BuyShoppingCommandParser implements Parser<BuyShoppingCommand> {
     public BuyShoppingCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_SHOPPING_INDEX);
 
-        Index index;
+        Set<Index> indices;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_SHOPPING_INDEX).orElse(""));
+            indices = ParserUtil.getIndices(map.getValue(PREFIX_SHOPPING_INDEX).orElse(""));
         } catch (ParseException e) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        return new BuyShoppingCommand(index);
+        return new BuyShoppingCommand(indices);
     }
 }

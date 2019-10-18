@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
-   // private List<Item<Ingredient>> ingredientItemList = new ArrayList<Item<Ingredient>>();
 
     public Double getIngredientCost() {
         Double ingredientCost = 0.0;

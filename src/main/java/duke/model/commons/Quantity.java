@@ -1,6 +1,7 @@
 package duke.model.commons;
 
 public class Quantity {
+    private static final Double DEFAULT_NUMBER = 0.0;
     private Double number;
 
     public Quantity(double number) {
@@ -25,5 +26,9 @@ public class Quantity {
 
     public void setQuantity(Double number) {
         this.number = number;
+    }
+
+    public static Quantity getDefaultQuantity() {
+        return new Quantity(DEFAULT_NUMBER);
     }
 }

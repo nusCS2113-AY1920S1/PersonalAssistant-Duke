@@ -1,5 +1,9 @@
 package duke.logic.command;
 
+import duke.logic.parser.commons.ParserUtil;
+
+import java.util.function.Predicate;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -41,7 +45,13 @@ public class CommandResult {
         ORDER,
         INVENTORY,
         SALE,
-        SAME
+        SAME;
+
+        //public DisplayedPage.PRODUCT getProductPage() {
+        //    return PRODUCT.GENERAL;
+        //}
+        //
+
     }
 
     public String getFeedbackToUser() {

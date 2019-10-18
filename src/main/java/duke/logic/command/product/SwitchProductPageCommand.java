@@ -4,8 +4,9 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 
-public class ShowProductPageCommand extends ProductCommand {
+public class SwitchProductPageCommand extends ProductCommand {
 
+    public static final String COMMAND_WORD = "";
     public static final String MESSAGE_SUCCESS = "Products are listed";
 
     /**

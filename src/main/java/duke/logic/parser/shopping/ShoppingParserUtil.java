@@ -3,9 +3,18 @@ package duke.logic.parser.shopping;
 import duke.logic.command.shopping.ShoppingDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
 
 public class ShoppingParserUtil {
+    /**
+     * Creates a ShoppingDescriptor constructor with edited values.
+     *
+     * @param map Map of all the arguments of the sub commands
+     * @return ShoppingDescriptor with edited values
+     */
     public static ShoppingDescriptor createShoppingDescriptor(ArgumentMultimap map) {
         ShoppingDescriptor shoppingDescriptor = new ShoppingDescriptor();
 

@@ -24,6 +24,8 @@ public class OrderCard extends UiPart<AnchorPane> {
     @FXML
     private Label id;
     @FXML
+    private Label creationDate;
+    @FXML
     private Label index;
     @FXML
     private Label deadline;
