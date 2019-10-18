@@ -213,6 +213,87 @@ The use of ArrayList offers flexibility due to its unconfined size. This allows 
 The use of an Array will allow increased efficiency given the smaller number of `Command` we had in our earlier versions, such as `v1.1`.
 However, this is not a beneficial solution in the long run as we create extensions and expand upon `OOF`.
 
+=== View tasks for the week feature
+
+image::ViewWeekLarge.png[]
+
+==== Implementation
+
+The `ViewWeekCommand` class extends `Command` by providing methods to display tasks for a particular week.
+
+[NOTE]
+The command can be run in the `OOF` program without a specific `date` e.g. `viewweek` instead of `viewweek 01 01 2019`. In this case, the `ViewWeek` command prints tasks for the current week. The same applies if the date entered by the user is invalid.
+
+Features elaborated:
+
+* The output of the `ViewWeekCommand` is ANSI colour enabled.This distinguishes the different days of the week in the output.
+
+[WARNING]
+As the output is ANSI colour enabled, there is a need to enable ANSI colour support on Windows machines.
+
+[cols="30%, 70%"]
+|===
+|*Type of fix*|*Description*
+|Permanent fix|
+Enter the command `CMD / POWERSHELL: reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1` in either `CMD` / `POWERSHELL`.
+
+Launch a new console window to activate the changes.
+
+_Disable line wrapping in terminal for optimal view._|
+Adhoc fix for `POWERSHELL`|
+run `OOF` with the command `java -jar .\v1.X.jar \| Out-Host`|
+|===
+
+* The output of `ViewWeekCommand` resizes automatically based on the length of the `description` of tasks.
+
+image::ViewWeekEmpty.png[]
+
+Given below is an example usage scenario and how the 'ViewWeekCommand` class behaves at each step.
+
+[NOTE]
+Due to heavy abstraction in the Ui and the limitation of the software used to draw UML diagrams, trivial helper functions in the Ui to print the output will be omitted.
+
+*Step 1.* +
+The user types in `viewweek`. The `parse` method in the `CommandParser` class returns a new `ViewWeekCommand` object.
+
+*Step 2.* +
+Since no date is passed by the user, the constructor for `ViewWeekCommand` class retrieves the current date using the `calendar.get()` methods. The `execute` method in `ViewWeekCommand` class is then called by the `Oof.run()` method in the main class `Oof`.
+
+*Step 3.* +
+In the `execute` method, the first day of the week is retrieved using the `getStartDate()` method in  the current class for indexing purposes. Tasks are to be sorted into the data structure of `ArrayList<ArrayList<String[]>>` called `calendarTasks`. The size of `calendarTasks` is `7` which represents each day in the current week. Each index in `calendarTasks` is an `arrayList`of `string[]` which represents the tasks in that respective day of the week in the form of `{TIME, DESCRIPTION}`.
+
+*Step 4.* +
+The `execute` method iterates through the current list of tasks and parses the `date`, `time` and `description` of each task. The `dateMatches()` method is then called to verify if the task falls in the same week as the current week. If the current task falls in the current week, the `date` of the task is compared with the first day of the week to obtain an `index` to slot the task into calendarTasks.
+
+*Step 5.* +
+The task is then added to calendarTask using the `addEntry()` method. After iterating through the current list of tasks, the `printViewWeek() method` in `Ui` class is then called to print the tasks for the current week.
+
+*Step 6.* +
+In the `printViewWeek()` method, 3 main methods are being called to print the final output. Firstly, `printViewWeekHeader()` method is called to print the header of the output which consists of the top border and the days of the current week.
+
+*Step 7.* +
+Secondly, `printViewWeekBody()` method is called to print the dates of the current week in the next line of output.
+
+*Step 8.* +
+Lastly, `printViewWeekDetails()` method is called to print relevant empty lines, tasks and the bottom border of the final output.
+
+The following object diagram summarises what happens when a user executes a new command:
+
+image::ViewWeekObjectDiagram.png[]
+_todo_
+
+==== Design Considerations
+
+* *Resizing column size instead of wrapping description of tasks*
+** Rationale: +
+Each task has a different description length and timing. Thus, it may be difficult to come up with a logic to wrap at indexes that make the output sensible. Furthermore, it is more difficult to find a one size fits all logic than to resize the columns to fit the task `description` and `time`.
+** Alternatives considered: +
+Truncating the description of tasks so that no resizing nor wrapping is needed. A lot of information may be lost in this process and the `ViewWeekCommand` may not be very useful to the user in this case.
+* *Coloured output instead of plain output*
+** Rationale: +
+It clearly demarcates the header and borders of the output and highlights the dates shown in the `ViewWeekCommand` output. Without the coloured scheme, users still need to scan through the headers to realise the useful task information is located below it.
+** Alternatives considered: +
+The tasks in each day can be classified into visual blocks to aid the users into visualising the timeline in each day. In addition to that, the tasks in each day has already been chronologically sorted in the `ViewWeekCommand` class. This alternative can be an extension to be used in conjunction with `Find free time slots` in future milestones.
 === Logging
 
 === Configuration
