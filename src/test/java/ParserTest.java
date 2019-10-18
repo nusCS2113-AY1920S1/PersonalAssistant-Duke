@@ -35,6 +35,4 @@ public class ParserTest {
             fail("Exception thrown while extracting valid commands!");
         }
     }
-
-
 }

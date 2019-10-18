@@ -2,7 +2,9 @@ package duke.command;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class ArgSpec {
     protected String emptyArgMsg;
@@ -29,14 +31,18 @@ public abstract class ArgSpec {
     protected void initSwitches(Switch... switches) {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();
         Map<String, String> tempSwitchAliases = new HashMap<String, String>();
+        Set<String> switchRootSet = new HashSet<String>();
 
         for (Switch currSwitch : switches) {
             // create map of switch names to switch objects
             String name = currSwitch.name;
+            assert(!tempSwitchMap.containsKey(name));
             tempSwitchMap.put(name, currSwitch);
 
             // extract prefixes to build lookup table
-            assert (name.startsWith(currSwitch.root));
+            assert(name.startsWith(currSwitch.root));
+            assert(!switchRootSet.contains(currSwitch.root));
+            switchRootSet.add(currSwitch.root);
             for (int j = currSwitch.root.length(); j <= name.length(); ++j) {
                 tempSwitchAliases.put(name.substring(0, j), name);
             }
