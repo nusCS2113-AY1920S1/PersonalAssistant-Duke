@@ -23,7 +23,7 @@ public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
     /**
-     * Trims leading and trailing whitespace of an array of strings
+     * Trims leading and trailing whitespace of an array of strings.
      * @param arr The array of Strings to clean
      * @return cleanArr The array of Strings after cleaning
      */
@@ -91,8 +91,8 @@ public class Process {
     }
 
     /**
-     * Processes the delete command.
-     * INPUT FORMAT: delete p/payee i/item
+     * Processes the delete command. Removes payment record from payee's list
+     * INPUT FORMAT: delete p/payee v/invoice
      * @param input Input from the user.
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
@@ -301,22 +301,19 @@ public class Process {
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
+    */
 
-    public void edit(String input, TaskList tasklist, Ui ui) {
-        try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splitedit = splitspace[1].split(" d/", 2);
-            int nedit = Integer.parseInt(splitedit[0]) - 1;
-            String description = splitedit[1];
-            tasklist.get(nedit).setDescription(description);
-            ui.printEditMessage(tasklist.get(nedit));
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        }
+    /**
+     * Process the edit command and modifies specific fields that had already been set
+     * edit f/field 
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    public void edit(String input, HashMap<String, Payee> managermap, Ui ui) {
+        String[] splitspace = input.split(" ", 2);
+
     }
-*/
 
     /**
      * Processes the payment add command, saves a new payment under a specified payee.
