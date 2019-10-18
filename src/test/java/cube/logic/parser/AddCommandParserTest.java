@@ -1,12 +1,10 @@
-package ParserTest;
+package cube.logic.parser;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import cube.logic.parser.AddCommandParser;
 
-public class AddParserTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-
+class AddCommandParserTest {
     @Test
     public void findFullStringTest () {
         String test1 = "add -n super banana";
