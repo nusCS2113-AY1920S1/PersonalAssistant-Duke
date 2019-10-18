@@ -14,11 +14,12 @@ import java.util.Arrays;
  */
 public class Ui {
 
-    private static String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    private static String logo =
+              " ____    _   _  _   _       \n"
+            + "|  _  \\/ _ \\| || | /  \\      \n"
+            + "| | | | | | | || |/ /\\ \\  \n"
+            + "| |_| | |_| | || |  __  | \n"
+            + "|____/ \\ _ /|_||_|_|  |_|       \n";
 
     //to be changed back to private after class is moved to dolla.ui package
     public static String line = "\t____________________________________________________________";
