@@ -66,12 +66,7 @@ public class ListCommand extends Command {
             //else fallthrough
 
         case "contact":
-            counter = 1;
-            System.out.println(MESSAGE_LIST_CONTACTS);
-            for (Contact c : wallet.getContactList().getContactList()) {
-                System.out.println(counter + "." + c.toString());
-                counter++;
-            }
+            Ui.printContactTable();
             if (!isListAll) {
                 break;
             }

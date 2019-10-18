@@ -102,6 +102,14 @@ public class Contact {
      */
     @Override
     public String toString() {
+
+        if (this.detail == null) {
+            this.detail = "";
+        }
+
+        if (this.phoneNum == null) {
+            this.phoneNum = "";
+        }
         return "[ID: " + this.id + "]" + this.name + " " + this.detail + " " + this.phoneNum;
     }
 
@@ -111,6 +119,15 @@ public class Contact {
      * @return The String to be written in contact.txt.
      */
     public String writeToFile() {
+
+        if (this.detail == null) {
+            this.detail = "";
+        }
+
+        if (this.phoneNum == null) {
+            this.phoneNum = "";
+        }
+
         return getId() + "," + this.name + "," + this.detail + "," + this.phoneNum;
     }
 
