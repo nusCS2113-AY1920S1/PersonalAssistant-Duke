@@ -28,7 +28,7 @@ public class ProductDescriptor {
         setProductName(toCopy.productName);
         setIngredientCost(toCopy.ingredientCost);
         setRetailPrice(toCopy.retailPrice);
-        System.out.println(toCopy.retailPrice);
+        setIngredientItemList(toCopy.ingredientItemList);
         setStatus(toCopy.status);
     }
 
@@ -48,12 +48,20 @@ public class ProductDescriptor {
         this.status = newStatus;
     }
 
+    public void setIngredientItemList(IngredientItemList ingredientItemList) {
+        this.ingredientItemList = ingredientItemList;
+    }
+
     public Optional<String> getProductName() {
         return Optional.ofNullable(productName);
     }
 
     public Optional<Double> getIngredientCost() {
         return Optional.ofNullable(ingredientCost);
+    }
+
+    public Optional<IngredientItemList> getIngredientItemList() {
+        return Optional.ofNullable(ingredientItemList);
     }
 
     public Optional<Double> getRetailPrice() {

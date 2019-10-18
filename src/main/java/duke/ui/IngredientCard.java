@@ -42,7 +42,6 @@ public class IngredientCard extends AnchorPane {
         }
         this.product = product;
         setUpCard();
-       // config(this);
     }
 
     private void config(Node node) {
