@@ -10,24 +10,44 @@ import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
 import duke.task.TaskManager;
 
-public class UpdateTaskCommand extends Command{
+public class UpdateTaskCommand extends Command {
     private String command;
 
-    public UpdateTaskCommand(String command) { this.command = command; }
+    /**
+     * .
+     *
+     * @param command .
+     */
+    public UpdateTaskCommand(String command) {
+        this.command = command;
+    }
 
+    /**
+     * .
+     *
+     * @param patientTask        .
+     * @param taskManager        .
+     * @param patientManager     .
+     * @param ui                 .
+     * @param patientTaskStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
+     * @throws DukeException .
+     */
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+    public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
+                        Ui ui, PatientTaskStorage patientTaskStorage,
+                        TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
-        if (firstChar == '#'){
+        if (firstChar == '#') {
             int id;
             try {
                 id = Integer.parseInt(tempCommand[0].substring(1, tempCommand[0].length()));
                 Task taskToBeUpdated = taskManager.getTask(id);
                 if (tempCommand[1].toLowerCase().equals("description")) {
                     taskToBeUpdated.setDescription(tempCommand[2]);
-                }
-                else {
+                } else {
                     throw new DukeException("You can only update 'Description' of the task");
                 }
 
@@ -35,8 +55,9 @@ public class UpdateTaskCommand extends Command{
 
                 ui.showUpdatedSuccessfully();
                 ui.showTaskInfo(taskToBeUpdated);
-            }catch(Exception e) {
-                throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+            } catch (Exception e) {
+                throw new DukeException(
+                        "Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
             }
 
         }

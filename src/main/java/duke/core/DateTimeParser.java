@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 public class DateTimeParser {
 
     /**
-     * update the <code> LocalDateTime </code> constructor to save the date and time
+     * update the <code> LocalDateTime </code> constructor to save the date and time.
      *
      * @param timeBeforeFormat the time retrieved from user input.
      * @return A LocalDateTime object that contains date and time information.
@@ -55,7 +55,12 @@ public class DateTimeParser {
         }
     }
 
-    public static String convertToEnglishDateTimeBeforeParse(LocalDateTime localDateTime)  {
+    /**
+     *  .
+     * @param localDateTime .
+     * @return .
+     */
+    public static String convertToEnglishDateTimeBeforeParse(LocalDateTime localDateTime) {
         DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
         DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
         DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");

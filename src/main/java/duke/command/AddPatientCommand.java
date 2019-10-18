@@ -14,6 +14,12 @@ public class AddPatientCommand extends Command {
 
     private Patient newPatient;
 
+    /**
+     * .
+     *
+     * @param patientInfo .
+     * @throws DukeException .
+     */
     public AddPatientCommand(String[] patientInfo) throws DukeException {
         super();
         try {
@@ -24,7 +30,9 @@ public class AddPatientCommand extends Command {
     }
 
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
+                        PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
+                        PatientStorage patientStorage) throws DukeException {
         patientList.addPatient(newPatient);
         patientStorage.save(patientList.getPatientList());
         ui.patientAdded(newPatient);
