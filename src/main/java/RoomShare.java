@@ -19,6 +19,7 @@ public class RoomShare {
     private RecurHandler recurHandler;
     private TempDeleteList tempDeleteList;
     private TaskCreator taskCreator;
+    private Help help;
 
 
     /**
@@ -27,6 +28,7 @@ public class RoomShare {
      */
     public RoomShare() throws RoomShareException {
         ui = new Ui();
+        help = new Help();
         ui.startUp();
         storage = new Storage();
         parser = new Parser();
@@ -60,6 +62,9 @@ public class RoomShare {
                 type = TaskType.others;
             }
             switch (type) {
+            case help:
+                help.showHelp(parser.getCommandLine());
+                break;
 
             case list:
                 ui.showList();
@@ -130,6 +135,7 @@ public class RoomShare {
                 String input = parser.getCommandLine();
                 taskCreator = new TaskCreator();
                 taskList.add(taskCreator.create(input));
+                ui.showAdd();
                 break;
 
             case snooze :

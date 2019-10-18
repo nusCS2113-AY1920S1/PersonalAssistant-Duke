@@ -38,20 +38,11 @@ public class Meeting extends Task {
      */
     public Date checkDate() { return this.at; }
 
-    /**
-     * Snoozes the Event by set amount of years
-     * @param amount number of years to snooze
-     */
-    @Override
-    public void snoozeYear(int amount) {
-        this.at.setYear(this.at.getYear() + amount);;
-    }
 
     /**
      * Snoozes the Event by set amount of months
      * @param amount number of months to snooze
      */
-    @Override
     public void snoozeMonth(int amount) {
         this.at.setMonth(this.at.getMonth() + amount);;
     }
@@ -60,7 +51,6 @@ public class Meeting extends Task {
      * Snoozes the Event by set amount of days
      * @param amount number of days to snooze
      */
-    @Override
     public void snoozeDay(int amount) {
         this.at.setDate(this.at.getDate() + amount);;
     }
@@ -69,7 +59,6 @@ public class Meeting extends Task {
      * Snoozes the Event by set amount of hours
      * @param amount number of hours to snooze
      */
-    @Override
     public void snoozeHour(int amount){
         this.at.setHours(this.at.getHours() + amount);
     }
@@ -78,7 +67,6 @@ public class Meeting extends Task {
      * Snoozes the Event by set amount of hours
      * @param amount number of minutes to snooze
      */
-    @Override
     public void snoozeMinute(int amount){
         this.at.setMinutes(this.at.getMinutes() + amount);
     }
@@ -89,7 +77,7 @@ public class Meeting extends Task {
      */
     @Override
     public String toString() {
-        if (isFixedDuration) {
+        if (isFixedDuration){
             return "[M]" + super.toString() + " (in: " + duration + " " + timeUnit.toString() + ")";
         } else {
             return "[M]" + super.toString() + " (on: " + at + ")";
@@ -107,4 +95,6 @@ public class Meeting extends Task {
     public TimeUnit getTimeUnit() {
         return timeUnit;
     }
+
+
 }
