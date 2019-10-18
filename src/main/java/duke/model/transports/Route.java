@@ -1,4 +1,4 @@
-package duke.model.routes;
+package duke.model.transports;
 
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;

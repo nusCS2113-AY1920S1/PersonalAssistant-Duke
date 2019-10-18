@@ -1,4 +1,4 @@
-package duke.model.routes;
+package duke.model.transports;
 
 import duke.commons.enumerations.Constraint;
 import duke.model.locations.Venue;
