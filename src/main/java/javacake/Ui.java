@@ -17,59 +17,11 @@ public class Ui {
     }
 
     /**
-     * The message that pops up when first starting the program.
-     * @param isFirstTime true for first time users
-     * @param userName The name of the user using JavaCake
-     * @param progress The progress of the user in viewing the whole content
-     * @return String containing username
-     */
-    public String showWelcome(boolean isFirstTime, String userName, int progress) throws DukeException {
-        StringBuilder welcomePhaseA = new StringBuilder();
-        welcomePhaseA.append(border).append("\nWelcome to JavaCake! ");
-        welcomePhaseA.append("where learning Java can be a Piece of Cake!\n");
-        try {
-            welcomePhaseA.append(getTextFile(new BufferedReader(
-                    new FileReader("src/main/resources/content/cake.txt"))));
-        } catch (IOException e) {
-            throw new DukeException("Unable to Load Cake");
-        }
-
-        System.out.println(welcomePhaseA.toString());
-
-        if (isFirstTime) {
-            welcomePhaseA = new StringBuilder();
-            welcomePhaseA.append("I see this is your first time here! ");
-            welcomePhaseA.append("What name would you like to be called?\n").append(border);
-
-            System.out.println(welcomePhaseA.toString());
-
-            userName = readCommand();
-        }
-
-        StringBuilder welcomePhaseB = new StringBuilder();
-        if (isFirstTime) {
-            welcomePhaseB.append(border);
-            welcomePhaseB.append("\nWelcome to JavaCake, ").append(userName).append("! ");
-            welcomePhaseB.append("Now let's help you get started with Java! :3\n");
-            welcomePhaseB.append(helpMessage()).append(border);
-        } else {
-            welcomePhaseB.append("Hello ").append(userName).append("!\n");
-
-            welcomePhaseB.append(getQuizResults(progress));
-
-            welcomePhaseB.append("\nWhat do you want to do today?\n");
-            welcomePhaseB.append(helpMessage()).append(border);
-        }
-        System.out.println(welcomePhaseB.toString());
-        return userName;
-    }
-
-    /**
      * Method to obtain Welcome Message Part 1.
      * @param isFirstTime boolean to check if first time
      * @return String containing first part of welcome message for GUI
      */
-    public static String showWelcomeMsgA(boolean isFirstTime) {
+    public static String showWelcomeMsgPhaseA(boolean isFirstTime) {
         StringBuilder strA = new StringBuilder();
         strA.append("\nWelcome to JavaCake! ");
         strA.append("where learning Java can be a Piece of Cake!\n");
@@ -88,7 +40,7 @@ public class Ui {
      * @param progress progress of user
      * @return String containing first part of welcome message for GUI
      */
-    public static String showWelcomeMsgB(boolean isFirstTime, String userName, int progress) {
+    public static String showWelcomeMsgPhaseB(boolean isFirstTime, String userName, int progress) {
         StringBuilder strA = new StringBuilder();
         if (isFirstTime) {
             strA.append("\nWelcome to JavaCake, ").append(userName).append("! ");
@@ -171,7 +123,7 @@ public class Ui {
      * @param reader BufferedReader to read in text from file
      * @throws DukeException Error thrown when unable to close reader
      */
-    public String getTextFile(BufferedReader reader) throws DukeException {
+    public static String getTextFile(BufferedReader reader) throws DukeException {
         String lineBuffer;
         String output = "";
         try {

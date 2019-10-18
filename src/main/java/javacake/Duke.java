@@ -1,59 +1,67 @@
 package javacake;
 
 import javacake.commands.Command;
-import javacake.commands.QuizCommand;
-import javacake.quiz.Question;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Duke  {
-    private static boolean isCliMode = true;
-    private static String savedDataPath = "data/saved_data.txt";
+    private static String savedDataPath = "data/";
     private static Ui ui;
     private static Storage storage;
     private static ProgressStack progressStack;
+    private static boolean isCliMode = true;
+
     public static Profile profile;
     public static boolean isFirstTimeUser;
     public static String userName;
     public static int userProgress = 0;
+    public static Logger logger = Logger.getLogger("JavaCake");
 
 
     /**
      * Constructor for main class to initialise the settings.
      */
-
     public Duke(String filePath) {
+        logger.log(Level.INFO, "Starting Duke Constructor!");
         ui = new Ui();
         try {
             progressStack = new ProgressStack();
             //storage = new Storage(filePath);
             //tasks = new TaskList(storage.load());
-            profile = new Profile("data/save/savefile.txt", ui);
+            profile = new Profile(filePath);
             userProgress = profile.getTotalProgress();
             userName = profile.getUsername();
             // Default username when creating new profile
-            if (userName.equals("NEW_USER_!@#")) {
-                isFirstTimeUser = true;
-            } else {
-                isFirstTimeUser = false;
-            }
+            checkIfNewUser("NEW_USER_!@#");
         } catch (DukeException e) {
             ui.showLoadingError();
+            logger.log(Level.WARNING, "Profile set-up failed.");
         }
     }
 
+    private void checkIfNewUser(String defaultUsername) {
+        if (userName.equals(defaultUsername)) {
+            isFirstTimeUser = true;
+        } else {
+            isFirstTimeUser = false;
+        }
+    }
 
     /**
-     * Run the rest of the code here. CLI MODE.
+     * CLI method to overwrite username if initially default
+     * and print the required welcome messages.
      */
-    private void run() {
-        try {
-            userName = ui.showWelcome(isFirstTimeUser, userName, userProgress);
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
+    private void initialiseWelcomeCliMode() {
+        ui.showMessage(Ui.showWelcomeMsgPhaseA(isFirstTimeUser));
+        if (isFirstTimeUser) {
+            userName = ui.readCommand();
+        } else {
+            loadCake();
         }
         //To overwrite "NEW_USER_!@# with new inputted username if needed
         if (isFirstTimeUser) {
@@ -62,9 +70,33 @@ public class Duke  {
                 ui.showLine();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
+                logger.log(Level.WARNING, "Profile overwrite failed.");
             }
         }
+
+        ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, userProgress));
+    }
+
+    /**
+     * Method to load cake ASCII.
+     */
+    private void loadCake() {
+        try {
+            ui.showMessage(Ui.getTextFile(new BufferedReader(
+                    new FileReader("src/main/resources/content/cake.txt"))));
+        } catch (DukeException | FileNotFoundException e) {
+            ui.showError(e.getMessage());
+            logger.log(Level.WARNING, "Failed to load cake.txt!");
+        }
+    }
+
+
+    /**
+     * Run the rest of the code here: CLI MODE.
+     */
+    private void runAsCli() {
         boolean isExit = false;
+        initialiseWelcomeCliMode();
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
@@ -72,7 +104,6 @@ public class Duke  {
                 Command c = Parser.parse(fullCommand);
                 ui.showMessage(c.execute(progressStack, ui, storage, profile));
                 isExit = c.isExit();
-                //System.out.println("Current progress is " + progressStack.checkProgress());
             } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {
@@ -82,17 +113,10 @@ public class Duke  {
     }
 
     /**
-     * Program Start.
-     */
-    public static void main(String[] args) {
-        new Duke(savedDataPath).run();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * GUI MODE.
+     * Public Method to get String response: GUI MODE.
      */
     public String getResponse(String input) {
+        logger.log(Level.INFO, "Getting response from input...");
         if (isCliMode) {
             isCliMode = false;
         }
@@ -104,7 +128,18 @@ public class Duke  {
         }
     }
 
+    /**
+     * Public Method to get type of mode being run.
+     * @return true if is CLI mode
+     */
     public static boolean isCliMode() {
         return isCliMode;
+    }
+
+    /**
+     * Program Start.
+     */
+    public static void main(String[] args) {
+        new Duke(savedDataPath).runAsCli();
     }
 }

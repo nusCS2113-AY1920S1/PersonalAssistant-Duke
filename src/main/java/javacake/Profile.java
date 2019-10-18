@@ -9,22 +9,21 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Profile {
-    private String filepath;
+    private String filepath = "save/savefile.txt";
     private String username;
     private ArrayList<Integer> topicsDone = new ArrayList<>();
 
-    public Profile() {
-
+    public Profile() throws DukeException {
+        this("data/");
     }
 
     /**
      * Constructor for profile.
      * @param filename String of filepath
-     * @param ui the Ui
      * @throws DukeException when unable to create profile
      */
-    public Profile(String filename, Ui ui) throws DukeException {
-        filepath = filename;
+    public Profile(String filename) throws DukeException {
+        filepath = filename + File.separator + filepath;
         try {
             File file = new File(filepath);
             try {
@@ -44,7 +43,6 @@ public class Profile {
             String line;
             int count = -1;
             while ((line = reader.readLine()) != null) {
-                //ui.showMessage(line);
                 if (count == -1) {
                     username = line;
                 } else {
@@ -55,33 +53,6 @@ public class Profile {
             reader.close();
         } catch (IOException e) {
             throw new DukeException("Failed to close reader");
-        }
-    }
-
-    private void initialiseUser() throws DukeException {
-        username = "NEW_USER_!@#";
-        try {
-            PrintWriter out = new PrintWriter(filepath);
-            out.println(username);
-            for (int i = 0; i < 4; ++i) {
-                out.println("0");
-            }
-            out.close();
-        } catch (FileNotFoundException e) {
-            throw new DukeException("Cannot initialise file");
-        }
-    }
-
-    private void writeProgress() throws DukeException {
-        try {
-            PrintWriter out = new PrintWriter(filepath);
-            out.println(username);
-            for (int i : topicsDone) {
-                out.println("" + i);
-            }
-            out.close();
-        } catch (FileNotFoundException e) {
-            throw new DukeException("Cannot initialise file");
         }
     }
 
@@ -128,5 +99,32 @@ public class Profile {
             count += i;
         }
         return count;
+    }
+
+    private void initialiseUser() throws DukeException {
+        username = "NEW_USER_!@#";
+        try {
+            PrintWriter out = new PrintWriter(filepath);
+            out.println(username);
+            for (int i = 0; i < 4; ++i) {
+                out.println("0");
+            }
+            out.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException("Cannot initialise file");
+        }
+    }
+
+    private void writeProgress() throws DukeException {
+        try {
+            PrintWriter out = new PrintWriter(filepath);
+            out.println(username);
+            for (int i : topicsDone) {
+                out.println("" + i);
+            }
+            out.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException("Cannot initialise file");
+        }
     }
 }

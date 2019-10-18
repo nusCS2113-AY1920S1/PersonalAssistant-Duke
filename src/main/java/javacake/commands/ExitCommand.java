@@ -20,6 +20,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!\n";
     }
 }
