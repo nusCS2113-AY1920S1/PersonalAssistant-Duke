@@ -43,48 +43,48 @@ public class Parser {
      * @throws DukeException when the command is not recognized or command syntax is invalid
      */
     public Command parse(String fullCommand) throws DukeException {
-        String UserInput = "";
+        String userInput = "";
         String[] splitCommand = fullCommand.split(" ", 2);
         if (splitCommand.length != 2) {
             splitCommand = new String[] {splitCommand[0], ""};
         }
         String command = splitCommand[0];
         command = autocorrect.runOnCommand(command);
-        UserInput = autocorrect.runOnArgument(splitCommand[1]);
+        userInput = autocorrect.runOnArgument(splitCommand[1]);
         historyCommand.addCommand(command);
 
         switch (command) {
             case "bye":
                 return new ExitCommand();
             case "breakfast":
-                return new AddBreakfastCommandParser().parse(UserInput);
+                return new AddBreakfastCommandParser().parse(userInput);
             case "lunch":
-                return new AddLunchCommandParser().parse(UserInput);
+                return new AddLunchCommandParser().parse(userInput);
             case "dinner":
-                return new AddDinnerCommandParser().parse(UserInput);
+                return new AddDinnerCommandParser().parse(userInput);
             case "add" :
-                return new AddItemCommandParser().parse(UserInput);
+                return new AddItemCommandParser().parse(userInput);
             case "list":
-                return new ListCommandParser().parse(UserInput);
+                return new ListCommandParser().parse(userInput);
             case "done":
-                return new DoneCommandParser().parse(UserInput);
+                return new DoneCommandParser().parse(userInput);
             case "find":
-                return new FindCommandParser().parse(UserInput);
+                return new FindCommandParser().parse(userInput);
             case "delete":
-                return new DeleteCommandParser().parse(UserInput);
+                return new DeleteCommandParser().parse(userInput);
             case "update":
-                return new UpdateWeightCommand(UserInput);
+                return new UpdateWeightCommand(userInput);
             case "clear":
-                return new ClearCommandParser().parse(UserInput);
+                return new ClearCommandParser().parse(userInput);
             case "edit":
-                return new EditCommandParser().parse(UserInput);
+                return new EditCommandParser().parse(userInput);
             case "setgoal":
-                return new SetgoalCommandParser().parse(UserInput);
+                return new SetgoalCommandParser().parse(userInput);
             case "help":
-                return new HelpCommandParser().parse(UserInput);
+                return new HelpCommandParser().parse(userInput);
             case "history":
                 // clear history if requested
-                if (!UserInput.isEmpty() && UserInput.equals("clear")) {
+                if (!userInput.isEmpty() && userInput.equals("clear")) {
                     historyCommand.clearHistory();
                 }
                 return historyCommand;
