@@ -70,6 +70,7 @@ public class Task{
     public String getUser() {
         return this.user;
     }
+
     /**
      * Returns String of the time Task was created
      * @return time the task was created
