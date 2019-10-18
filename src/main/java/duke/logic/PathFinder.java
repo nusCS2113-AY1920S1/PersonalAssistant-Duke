@@ -1,20 +1,24 @@
 package duke.logic;
 
+import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiConstraintParser;
 import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
-import duke.model.transports.BusService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class PathFinder {
-    private HashMap<String, BusService> busMap;
-    private HashMap<String, BusStop> busStopMap;
+    private CreateMap map;
     private HashSet<BusStop> visited;
     private HashMap<String, String> path;
+    private Constraint constraint;
     private boolean found = false;
 
     /**
@@ -22,11 +26,9 @@ public class PathFinder {
      *
      */
     public PathFinder(CreateMap map) throws DukeException {
-        this.busStopMap = map.getBusStopMap();
-        this.busMap = map.getBusMap();
+        this.map = map;
         this.visited = new HashSet<>();
         this.path = new HashMap<>();
-
     }
 
 
@@ -37,9 +39,68 @@ public class PathFinder {
      * @param end ending location.
      * @return path.
      */
-    public ArrayList<BusStop> execute(Venue start, Venue end) {
-        BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.busStopMap);
-        BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.busStopMap);
+    public ArrayList<Venue> execute(Venue start, Venue end, Constraint constraint) {
+        found = false;
+        System.out.println("run");
+        switch (constraint) {
+        case BUS:
+            return findBusRoute(start, end);
+        case MRT:
+            return findTrainRoute(start, end);
+        default:
+            return findMixedRoute(start, end);
+        }
+    }
+
+    private ArrayList<Venue> findMixedRoute(Venue start, Venue end) {
+        return null;
+    }
+
+    private ArrayList<Venue> findTrainRoute(Venue start, Venue end) {
+        TrainStation startTrainStation = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
+        TrainStation endTrainStation = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
+        ArrayList<Venue> path = new ArrayList<>();
+        path.add(startTrainStation);
+        if (!onSameLine(startTrainStation, endTrainStation)) {
+            ArrayList<TrainStation> curTrainLine;
+            for (String line : startTrainStation.getTrainCode()) {
+                curTrainLine = this.map.getTrainLine(line.substring(0,2));
+                assert curTrainLine != null : "Train Code does not exist";
+                for (TrainStation trainStation : curTrainLine) {
+                    if (onSameLine(trainStation, endTrainStation)) {
+                        path.add(trainStation);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    break;
+                }
+            }
+        }
+        path.add(endTrainStation);
+        if (found) {
+            return path;
+        } else {
+            return null;
+        }
+
+    }
+
+    private boolean onSameLine(TrainStation cur, TrainStation endTrainStation) {
+        for (String code : cur.getTrainCode()) {
+            for (String code2 : endTrainStation.getTrainCode()) {
+                if (code2.contains(code.substring(0,2))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private ArrayList<Venue> findBusRoute(Venue start, Venue end) {
+        BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.map.getBusStopMap());
+        BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.map.getBusStopMap());
 
         BusStop cur = startBusStop;
         int depthLimit = 0;
@@ -51,13 +112,13 @@ public class PathFinder {
             depthLimit += 1;
         }
         if (!this.found) {
-            return new ArrayList<>();
+            return null;
         } else {
             cur = endBusStop;
-            ArrayList<BusStop> ans = new ArrayList<>();
+            ArrayList<Venue> ans = new ArrayList<>();
             while (!cur.getBusCode().equals(startBusStop.getBusCode())) {
                 ans.add(cur);
-                cur = busStopMap.get(path.get(cur.getBusCode()));
+                cur = this.map.getBusStopMap().get(path.get(cur.getBusCode()));
             }
             ans.add(cur);
             return ans;
@@ -73,19 +134,20 @@ public class PathFinder {
         this.visited.add(cur);
 
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
-            for (String busCode : this.busMap.get(bus).getDirection(1)) { // depth search the bus route
-                if (!this.found) {
-                    if (busCode.equals(cur.getBusCode())) {
-                        continue;
-                    }
-                    path.put(busCode, cur.getBusCode());
-                    if (haveSameBus(this.busStopMap.get(busCode), endBusStop)) {
-                        path.put(endBusStop.getBusCode(), busCode);
-                        this.found = true;
-                        return;
-                    } else {
-                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, depthLimit - 1);
-                    }
+            for (String busCode : this.map.getBusMap().get(bus).getDirection(1)) { // depth search the bus route
+                if (this.found) {
+                    break;
+                }
+                if (busCode.equals(cur.getBusCode())) {
+                    continue;
+                }
+                path.put(busCode, cur.getBusCode());
+                if (haveSameBus(this.map.getBusStopMap().get(busCode), endBusStop)) {
+                    path.put(endBusStop.getBusCode(), busCode);
+                    this.found = true;
+                    return;
+                } else {
+                    depthFirstSearch(this.map.getBusStopMap().get(busCode), endBusStop, depthLimit - 1);
                 }
             }
         }

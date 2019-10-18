@@ -7,6 +7,7 @@ import duke.model.TaskList;
 import duke.model.events.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 import java.io.File;
@@ -28,7 +29,7 @@ public class Storage {
     private TaskList tasks;
     private CreateMap map;
     private static final String BUS_FILE_PATH = "data/bus.txt";
-    private static final String TRAIN_FILE_PATH = "data/train.txt";
+    private static final String TRAIN_FILE_PATH = "memory/train.txt";
     private static final String EVENTS_FILE_PATH = "data/events.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "memory/recommendations.txt";
     private static final String ROUTES_FILE_PATH = "data/routes.txt";
@@ -53,13 +54,34 @@ public class Storage {
      */
     private void read() throws DukeException {
         readEvent();
-        readMap();
+        readBus();
+        readTrain();
     }
 
     /**
-     * Reads duke.data.map from filepath. Creates empty duke.data.tasks if file cannot be read.
+     * Reads tasks from filepath. Creates empty tasks if file cannot be read.
      */
-    private void readMap() throws DukeException {
+    protected void readTrain() throws DukeException {
+        HashMap<String, TrainStation> trainMap = new HashMap<>();
+        try {
+            File f = new File(TRAIN_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                TrainStation newTrain = ParserStorageUtil.createTrainFromStorage(s.nextLine());
+                trainMap.put(newTrain.getAddress(), newTrain);
+            }
+            s.close();
+            this.map.setTrainMap(trainMap);
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "Train file path does not exists.");
+            throw new DukeException(Messages.FILE_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Reads bus from filepath. Api call to creates busData if file cannot be read.
+     */
+    private void readBus() throws DukeException {
         HashMap<String, BusStop> busStopData = new HashMap<>();
         HashMap<String, BusService> busData = new HashMap<>();
         try {
@@ -86,6 +108,7 @@ public class Storage {
                 this.map = new CreateMap();
                 writeMap();
             } catch (DukeException err) {
+                logger.log(Level.WARNING, "Unable to create BusData");
                 throw new DukeException(err.getMessage());
             }
             throw new DukeException(Messages.FILE_NOT_FOUND);

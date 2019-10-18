@@ -20,7 +20,7 @@ public class MapWindow extends UiPart<Stage> {
     private static final String FXML = "MapWindow.fxml";
     private ObservableList<Venue> locations = FXCollections.observableArrayList();
 
-    private void generateNodes(List<BusStop> routes) {
+    private void generateNodes(List<Venue> routes) {
         locations.addAll(routes);
     }
 
@@ -38,7 +38,7 @@ public class MapWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    private MapWindow(Stage root, List<BusStop> routes) {
+    private MapWindow(Stage root, List<Venue> routes) {
         super(FXML, root);
         root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/mapStyle.css").toExternalForm());
         attachListener();

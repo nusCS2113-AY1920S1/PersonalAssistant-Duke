@@ -3,6 +3,7 @@ package duke.commands;
 import duke.model.TaskList;
 import duke.model.events.Task;
 import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class CommandResult {
     private boolean isMap;
     private boolean isCalendar;
     private TaskList tasks;
-    private ArrayList<BusStop> route;
+    private ArrayList<Venue> route;
 
     /**
      * Constructs a basic CommandResult object.
@@ -38,11 +39,11 @@ public class CommandResult {
         }
     }
 
-    public ArrayList<BusStop> getRoute() {
+    public ArrayList<Venue> getRoute() {
         return route;
     }
 
-    public void setRoute(ArrayList<BusStop> route) {
+    public void setRoute(ArrayList<Venue> route) {
         this.route = route;
     }
 

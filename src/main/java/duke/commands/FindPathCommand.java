@@ -32,6 +32,7 @@ public class FindPathCommand extends Command {
      */
 
     public FindPathCommand(String constraint, String startPointIndex, String endPointIndex) {
+        System.out.println(constraint);
         switch (constraint) {
         case "onlyMRT":
             this.constraint = Constraint.MRT;
@@ -70,13 +71,11 @@ public class FindPathCommand extends Command {
         Venue startLocation = startPoint.getLocation();
         Event endPoint = getHoliday(this.endPointIndex, model.getTasks());
         Venue endLocation = endPoint.getLocation();
-        startPoint = ApiConstraintParser.getConstraintLocation(startPoint, this.constraint);
-        endPoint = ApiConstraintParser.getConstraintLocation(endPoint, this.constraint);
 
         // calculate the shortest path using algorithm with 2 locations as parameters
 
         PathFinder pathFinder = new PathFinder(model.getMap());
-        ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
+        ArrayList<Venue> route = pathFinder.execute(startLocation, endLocation, this.constraint);
 
         CommandResult commandResult = new CommandResult(MESSAGE_FIND_PATH);
         commandResult.setMap(true);

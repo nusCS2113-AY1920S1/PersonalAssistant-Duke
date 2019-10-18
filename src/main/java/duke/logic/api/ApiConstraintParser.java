@@ -4,6 +4,7 @@ import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
 import duke.model.events.Event;
 import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 
 import java.util.HashMap;
@@ -13,69 +14,6 @@ import java.util.Map;
  * Class to handle all API constraint parsing.
  */
 public class ApiConstraintParser {
-
-    /**
-     * Parses the userInput and return a new Holiday constructed from it.
-     *
-     * @param holiday The holiday object which needs to subject to constraint
-     * @param constraint The constraint to be applied
-     * @return The updated Holiday object with constraint
-     */
-    public static Event getConstraintLocation(Event holiday, Constraint constraint) throws DukeException {
-        switch (constraint) {
-        case BUS:
-            return getBus(holiday);
-        case MRT:
-            return getMrt(holiday);
-        case MIXED:
-            return getHybrid(holiday);
-        default:
-            return holiday;
-        }
-    }
-
-    private static Event getHybrid(Event holiday) throws DukeException {
-
-        // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest constraint;
-
-        /*
-        double latitude = 1; dummy value
-        double longitude = 0; dummy value
-        holiday.setLocation(holiday.getLocation().setLatitude(latitude));
-        holiday.setLocation(holiday.getLocation().setLongitude(longitude));
-        */
-
-        return holiday;
-    }
-
-    private static Event getBus(Event holiday) {
-
-        // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest busstop;
-
-        /*
-        double latitude = 1; dummy value
-        double longitude = 0; dummy value
-        holiday.setLocation(holiday.getLocation().setLatitude(latitude));
-        holiday.setLocation(holiday.getLocation().setLongitude(longitude));
-        */
-
-
-        return holiday;
-    }
-
-    private static Event getMrt(Event holiday) {
-
-        // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest mrt;
-
-        /*
-        double latitude = 1; dummy value
-        double longitude = 0; dummy value
-        holiday.setLocation(holiday.getLocation().setLatitude(latitude));
-        holiday.setLocation(holiday.getLocation().setLongitude(longitude));
-        */
-
-        return holiday;
-    }
 
     /**
      * Get nearest bus stop to location.
@@ -90,9 +28,7 @@ public class ApiConstraintParser {
         BusStop nearestBusStop = null;
         for (Map.Entry mapElement : busStopMap.entrySet()) {
             BusStop cur = (BusStop)mapElement.getValue();
-            double displacement = Math.pow(Math.abs(placeLatitude - cur.getLatitude()), 2)
-                    + Math.pow(Math.abs(placeLongitude - cur.getLongitude()), 2);
-            displacement = Math.sqrt(displacement);
+            double displacement = getDisplacement(placeLatitude, placeLongitude, cur.getLatitude(), cur.getLongitude());
             if (displacement < minimumDisplacement) {
                 minimumDisplacement = displacement;
                 nearestBusStop = cur;
@@ -100,5 +36,35 @@ public class ApiConstraintParser {
         }
 
         return nearestBusStop;
+    }
+
+    private static double getDisplacement(double latitude, double longitude, double curLatitude, double curLongitude) {
+        double displacement = Math.pow(Math.abs(latitude - curLatitude), 2)
+                + Math.pow(Math.abs(longitude - curLongitude), 2);
+        displacement = Math.sqrt(displacement);
+        return displacement;
+    }
+
+    /**
+     * Get nearest Train Station to location.
+     * @param place Starting location
+     * @param trainMap Map of all Train Station
+     * @return nearest Train Station
+     */
+    public static TrainStation getNearestTrainStation(Venue place, HashMap<String, TrainStation> trainMap) {
+        double placeLatitude = place.getLatitude();
+        double placeLongitude = place.getLongitude();
+        double minimumDisplacement = 1000;
+        TrainStation nearestTrainStation = null;
+        for (Map.Entry mapElement : trainMap.entrySet()) {
+            TrainStation cur = (TrainStation)mapElement.getValue();
+            double displacement = getDisplacement(placeLatitude, placeLongitude, cur.getLatitude(), cur.getLongitude());
+            if (displacement < minimumDisplacement) {
+                minimumDisplacement = displacement;
+                nearestTrainStation = cur;
+            }
+        }
+
+        return nearestTrainStation;
     }
 }

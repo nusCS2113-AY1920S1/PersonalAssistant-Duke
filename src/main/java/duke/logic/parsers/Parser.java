@@ -120,7 +120,7 @@ public class Parser {
      */
     private static String getWord(String userInput) throws DukeException {
         try {
-            return userInput.strip().split(" ", 2)[1];
+            return userInput.strip().split(" ", 3)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
