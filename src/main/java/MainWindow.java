@@ -1,6 +1,7 @@
 import autocomplete.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -57,6 +58,13 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
         userIcon = new UserIcon();
         userImage = userIcon.getIcon();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userInput.requestFocus();
+            }
+        });
     }
 
     public void setDuke(Duke d) {
@@ -117,16 +125,18 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
-        String[] response = duke.getResponse("find " + input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response[0], dukeImage)
-        );
-        if(!response[1].equals("")){
+        if(input.equals("")){
+           graphContainer.getChildren().clear();
+        }else{
+            String[] response = duke.getResponse("find " + input);
             graphContainer.getChildren().clear();
-            graphContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(response[1], dukeImage));
+            if(!response[1].equals("")){
+                graphContainer.getChildren().clear();
+                graphContainer.getChildren().addAll(
+                        DialogBox.getDukeDialog(response[1], dukeImage));
+            }
         }
+
     }
 
     @FXML

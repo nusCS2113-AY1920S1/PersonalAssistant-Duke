@@ -4,7 +4,7 @@ import moneycommands.*;
 
 import moneycommands.AddExpenditureCommand;
 import moneycommands.AddIncomeCommand;
-import moneycommands.AddShortGoalCommand;
+import moneycommands.AddGoalCommand;
 import moneycommands.CreateBankAccountCommand;
 import moneycommands.DeleteExpenditureCommand;
 import moneycommands.DeleteGoalCommand;
@@ -60,7 +60,7 @@ public class Parser {
         } else if (cmd.startsWith("withdraw ") || cmd.startsWith("deposit")) {
             moneyCommand = new InternalTransferCommand(cmd);
         } else if (cmd.startsWith("goal")) {
-            moneyCommand = new AddShortGoalCommand(cmd);
+            moneyCommand = new AddGoalCommand(cmd);
         } else if (cmd.equals("list goals")) {
             moneyCommand = new ListGoalsCommand();
         } else if (cmd.startsWith("delete goal")) {
