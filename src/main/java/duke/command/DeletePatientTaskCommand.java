@@ -41,7 +41,7 @@ public class DeletePatientTaskCommand extends Command {
                 this.patientId = Integer.parseInt(tempCommand1[0].substring(1));
                 String[] tempCommand2 = tempCommand1[1].split(" from ", 2);
                 this.taskId = Integer.parseInt(tempCommand2[0]);
-                String[] tempCommand3 = tempCommand2[1].split("to", 2);
+                String[] tempCommand3 = tempCommand2[1].split(" to ", 2);
                 this.from = DateTimeParser.convertToLocalDateTime(tempCommand3[0]);
                 this.to = DateTimeParser.convertToLocalDateTime(tempCommand3[1]);
             }
@@ -58,7 +58,7 @@ public class DeletePatientTaskCommand extends Command {
                     this.deletedPatientInfo = tempCommand1[0];
                     String[] tempCommand2 = tempCommand1[1].split(" from ", 2);
                     this.deletedTaskInfo = tempCommand2[0];
-                    String[] tempCommand3 = tempCommand2[1].split("to", 2);
+                    String[] tempCommand3 = tempCommand2[1].split(" to ", 2);
                     this.from = DateTimeParser.convertToLocalDateTime(tempCommand3[0]);
                     this.to = DateTimeParser.convertToLocalDateTime(tempCommand3[1]);
                 } else if (tempCommand0[0].equals("S")) {
@@ -85,16 +85,18 @@ public class DeletePatientTaskCommand extends Command {
                 Task ToBeDeletedTask = tasks.getTask(taskId);
                 for (PatientTask patientTask1: ToBeDeleted){
                     if (patientTask1 instanceof EventPatientTask && patientTask1.getTaskID().equals(taskId) && ((EventPatientTask) patientTask1).getStartTime().equals(this.from) && ((EventPatientTask) patientTask1).getEndTime().equals(this.to)) {
-                        ui.patientTaskDeleted(patientTask1, ToBeDeletedPatient, ToBeDeletedTask);
                         patientTask.deletePatientTask(patientId,taskId,from,to);
+                        ui.patientTaskDeleted(patientTask1, ToBeDeletedPatient, ToBeDeletedTask);
                     }
                     else if (patientTask1 instanceof StandardPatientTask && patientTask1.getTaskID().equals(taskId) && ((StandardPatientTask) patientTask1).getDeadline().equals(this.deadline)){
-                        ui.patientTaskDeleted(patientTask1, ToBeDeletedPatient, ToBeDeletedTask);
                         patientTask.deletePatientTask(patientId,taskId,deadline);
+                        ui.patientTaskDeleted(patientTask1, ToBeDeletedPatient, ToBeDeletedTask);
                     }
                 }
             }catch(Exception e) {
+                e.printStackTrace();
                 throw new DukeException("Task or patient is not found!" + e.getMessage());
+
             }
         } else {
             try{

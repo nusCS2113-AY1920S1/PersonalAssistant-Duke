@@ -38,6 +38,7 @@ public class PatientTaskList {
             for (PatientTask patientTask : patientTaskIdMap.get(pid)) {
                 if ((patientTask instanceof EventPatientTask) && patientTask.getTaskID().equals(tid) && ((EventPatientTask) patientTask).getStartTime().equals(s) && ((EventPatientTask) patientTask).getEndTime().equals(e)) {
                     patientTaskIdMap.remove(pid, patientTask);
+                    return;
                 } else {
                     throw new DukeException("The patient with id: " + pid + " has not been assigned with such task: " + tid);
                 }
@@ -47,12 +48,13 @@ public class PatientTaskList {
         }
     }
 
-    public void deletePatientTask(Integer pid, Integer tid, LocalDateTime end) throws DukeException {
+    public void deletePatientTask(int pid, int tid, LocalDateTime end) throws DukeException {
         if (patientTaskIdMap.containsKey(pid)) {
             for (PatientTask patientTask : patientTaskIdMap.get(pid)) {
                 if ((patientTask instanceof StandardPatientTask)) {
                     if (patientTask.getTaskID().equals(tid)&& ((StandardPatientTask) patientTask).getDeadline().equals(end)){
                         this.patientTaskIdMap.remove(pid, patientTask);
+                        return;
                     }
                     else{
                         throw new DukeException("The patient with id: " + pid + " has not been assigned with such task: " + tid);
