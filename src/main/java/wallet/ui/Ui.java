@@ -121,9 +121,7 @@ public class Ui {
             }
 
             System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
-
         }
-
         System.out.println(lineBreak);
     }
 }
