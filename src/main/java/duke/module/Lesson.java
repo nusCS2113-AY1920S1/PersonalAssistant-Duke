@@ -16,19 +16,21 @@ public class Lesson {
 
     /**
      * Constructor for Lesson objects.
-     * @param dateArrayListMap The hash map of lessons learnt for the day from loading the lessons.txt text file.
+     * @param dateArrayListMap The hash map of lessons learnt for the day from
+     *                         loading the lessons.txt text file.
      */
-    public Lesson(Map<Date, ArrayList<String>> dateArrayListMap) {
+    public Lesson(final Map<Date, ArrayList<String>> dateArrayListMap) {
         this.lessons = dateArrayListMap;
     }
 
     /**
      * Shows all lessons learnt for a specific day.
      * @param day The day to view all lessons learnt.
-     * @return A message containing all the lessons learnt for the day to be printed.
+     * @return A message containing all the lessons learnt for the day
+     * to be printed.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String viewLesson(String day) throws ParseException {
+    public String viewLesson(final String day) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         String message = "";
@@ -54,10 +56,13 @@ public class Lesson {
      * Adds a lesson learnt to the lessons hash map.
      * @param date The date to add the lesson learnt to.
      * @param message The lesson learnt to add to the lessons hash map.
+     * @param lessonStorage The object responsible for storing
+     *                      the lessons hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String addLesson(String date, String message, Storage lessonStorage) throws ParseException {
+    public String addLesson(final String date, final String message,
+                            final Storage lessonStorage) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(date);
         boolean alreadyHaveDate = false;
@@ -80,10 +85,14 @@ public class Lesson {
      * Removes a lesson learnt from the lessons hash map.
      * @param day The date to remove the lesson learnt from.
      * @param message The specific lesson learnt to remove from the hash map.
+     * @param lessonStorage The object responsible for storing
+     *                      the lessons hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String removeLesson(String day, String message, Storage lessonStorage) throws ParseException {
+    public String removeLesson(final String day, final String message,
+                               final Storage lessonStorage)
+        throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         if (lessons.containsKey(today)) {
@@ -99,18 +108,24 @@ public class Lesson {
     /**
      * Removes all the lessons learnt from the lessons hash map for a day.
      * @param day The date to remove all the lessons learnt from.
+     * @param lessonStorage The object responsible for storing
+     *                      the lessons hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String removeAllLesson(String day, Storage lessonStorage) throws ParseException {
+    public String removeAllLesson(final String day,
+                                  final Storage lessonStorage)
+        throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         if (lessons.containsKey(today)) {
             lessons.remove(today);
             lessonStorage.updateLesson(lessons);
-            return "All the lessons learnt for the day " + day + " have been cleared";
+            return "All the lessons learnt for the day " + day
+                + " have been cleared";
         } else {
-            return "There are no lessons learnt for the day, " + day + ", to remove.";
+            return "There are no lessons learnt for the day, " + day
+                + ", to remove.";
         }
     }
 }
