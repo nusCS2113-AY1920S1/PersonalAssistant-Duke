@@ -8,6 +8,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
+import Events.Storage.CalendarTable;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -140,6 +141,10 @@ public class Command {
                 editEvent(events, ui);
                 break;
 
+            case "calendar":
+                printCalendar(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -149,6 +154,12 @@ public class Command {
             events.sortList();
             storage.saveToFile(events, ui);
         }
+    }
+
+    private void printCalendar(EventList events, UI ui) {
+        CalendarTable calendarTable = new CalendarTable(events);
+        calendarTable.setCalendarInfo();
+        ui.printCalendar(calendarTable.getCalendarInfo());
     }
 
     /**

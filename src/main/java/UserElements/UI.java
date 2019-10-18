@@ -314,4 +314,10 @@ public class UI {
             System.out.print(lineSeparation);
         }
     }
+
+    public void printCalendar(String calendarInfo) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the calendar of the next 7 days!");
+        System.out.println(calendarInfo);
+    }
 }

@@ -7,17 +7,24 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CalendarTable {
-    ArrayList<Queue<Event>> eventsOfTheWeek;
-    ArrayList<String> dayOfWeek;
-    ArrayList<String> dateOfWeek;
-    String calendarInfo;
+    private List<Queue<Event>> eventsOfTheWeek = new ArrayList<Queue<Event>>(7);
+
+    private ArrayList<String> dayOfWeek = new ArrayList<String>();
+    private ArrayList<String> dateOfWeek = new ArrayList<String>();
+    private String calendarInfo;
 
     public CalendarTable(EventList eventList) {
         ArrayList<Event> eventArrayList = eventList.getEventArrayList();
-
+        for (int i = 0; i < 7; i++) {
+            eventsOfTheWeek.add(new LinkedList<Event>());
+        }
         EventDate today = new EventDate(new Date());
         setDaysAndDatesList(today);
         getEventsOfTheWeek(eventArrayList, today);
+    }
+
+    public String getCalendarInfo() {
+        return calendarInfo;
     }
 
     /**
@@ -26,7 +33,7 @@ public class CalendarTable {
      * @param eventArrayList List of all events.
      * @param today The current day.
      */
-    public void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate today) {
+    private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate today) {
         EventDate yesterday = today;
         yesterday.addDaysAndSetMidnight(-1);
         EventDate endOfWeek = today;
@@ -54,10 +61,10 @@ public class CalendarTable {
      *
      * @param today The current day.
      */
-    public void setDaysAndDatesList(EventDate today) {
+    private void setDaysAndDatesList(EventDate today) {
         String dayOfToday = today.getEventJavaDate().toString().split(" ")[0];
-        List weekdays = Arrays.asList("    <Monday>    ", "    <Tuesday>    ", "   <Wednsday>   ",
-                "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    ");
+        String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednsday>   ",
+                "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
         int startDay;
         if (dayOfToday.equals("Mon")) {
             startDay = 1;
@@ -75,7 +82,7 @@ public class CalendarTable {
             startDay = 7;
         }
         for(int i=0; i<7; i++) {
-            this.dayOfWeek.set(i, (String)weekdays.get((startDay + i) % 8 + 1));
+            this.dayOfWeek.add(weekdays[(startDay + i) % 7]);
         }
 
         EventDate tempDay = today;
@@ -90,6 +97,7 @@ public class CalendarTable {
         String calendarInfo = "";
         int maxNumOfEvent = 0;
         for (Queue<Event> thisQue : eventsOfTheWeek) {
+            System.out.println(thisQue.size()); //for debug
             if (thisQue.size() > maxNumOfEvent) {
                 maxNumOfEvent = thisQue.size();
             }
@@ -101,20 +109,20 @@ public class CalendarTable {
                 "|                                                  Events of the week                                                  |\n" +
                 "________________________________________________________________________________________________________________________\n";
 
-        // days
+        // row of days
         for(int i=0; i<7; i++) {
             calendarInfo += "|" + this.dayOfWeek.get(i);
         }
         calendarInfo += "|\n";
 
-        // dates
+        // row of dates
         for(int i=0; i<7; i++) {
             calendarInfo += "|" + this.dateOfWeek.get(i);
         }
         calendarInfo += "|\n" +
                 "________________________________________________________________________________________________________________________\n";;
 
-        // events
+        // rows of events
         for(int idxOfEventRow=0; idxOfEventRow<maxNumOfEvent; idxOfEventRow++) {
             String[][] eventsLine = null;
             eventsLine = getEventsOfOneRow(idxOfEventRow);
@@ -139,8 +147,8 @@ public class CalendarTable {
      * @param idxOfEventRow the current row of calendar where we wish to get events' info
      * @return the String info of this row of events
      */
-    public String[][] getEventsOfOneRow(int idxOfEventRow) {
-        String[][] eventsLine = null;
+    private String[][] getEventsOfOneRow(int idxOfEventRow) {
+        String[][] eventsLine = new String[3][7];
         String emptySection = "                ";
         for(int day=0; day<7; day++) {
             String thisTime = emptySection;
