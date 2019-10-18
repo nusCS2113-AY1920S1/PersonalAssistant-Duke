@@ -1,9 +1,9 @@
 package gazeeebo.commands;
 
 import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class RescheduleCommand extends Command {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                     }
-                    storage.storages(sb.toString());
+                    storage.Storages(sb.toString());
                 } else {
                     System.out.println("It's fine. Nothing has been changed.");
                 }

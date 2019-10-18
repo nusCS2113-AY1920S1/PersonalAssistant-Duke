@@ -3,9 +3,9 @@ import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Edit.EditBothCommand;
-import gazeeebo.commands.Edit.EditDescriptionCommand;
-import gazeeebo.commands.Edit.EditTimeCommand;
+import gazeeebo.commands.edit.EditBothCommand;
+import gazeeebo.commands.edit.EditDescriptionCommand;
+import gazeeebo.commands.edit.EditTimeCommand;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -35,6 +35,7 @@ public class Duke {
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             ui.UpcomingTask(list);
+            ui.MajorCategories();
             while (!isExit) {
                 ui.readCommand();
                 String command = ui.fullCommand.trim();

@@ -1,8 +1,8 @@
 package gazeeebo.commands;
 
 import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.FixedDuration;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 
@@ -40,7 +40,7 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.storages(sb.toString());
+        storage.Storages(sb.toString());
     }
 
     public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
@@ -54,7 +54,7 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.storages(sb.toString());
+        storage.Storages(sb.toString());
     }
     /**
      * Tells the main Duke class that the system

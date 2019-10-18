@@ -1,12 +1,12 @@
 import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Contact.AddContactCommand;
-import gazeeebo.commands.Contact.ContactsCommand;
+import gazeeebo.commands.contact.AddContactCommand;
+import gazeeebo.commands.contact.ContactsCommand;
 
-import gazeeebo.commands.Contact.DeleteContactCommand;
-import gazeeebo.commands.Contact.ListContactCommand;
+import gazeeebo.commands.contact.DeleteContactCommand;
+import gazeeebo.commands.contact.ListContactCommand;
+import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

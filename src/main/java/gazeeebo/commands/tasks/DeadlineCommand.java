@@ -1,12 +1,13 @@
 package gazeeebo.commands;
 
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
 
+import gazeeebo.tasks.*;
 import gazeeebo.exception.DukeException;
 
 import java.text.ParseException;
@@ -34,7 +35,7 @@ public class DeadlineCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.storages(sb.toString());
+            storage.Storages(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("deadline");
@@ -53,7 +54,7 @@ public class DeadlineCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.storages(sb.toString());
+        storage.Storages(sb.toString());
     }
     @Override
     public boolean isExit() {

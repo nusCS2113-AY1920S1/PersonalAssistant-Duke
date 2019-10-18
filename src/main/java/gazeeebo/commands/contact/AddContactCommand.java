@@ -1,4 +1,4 @@
-package gazeeebo.commands.Contact;
+package gazeeebo.commands.contact;
 import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;

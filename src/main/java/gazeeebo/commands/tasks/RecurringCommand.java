@@ -1,9 +1,9 @@
 package gazeeebo.commands;
 
 import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -45,7 +45,7 @@ public class RecurringCommand {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             } else if (listDescription.charAt(0) == 'D') {
                 splitstring = listDescription.split("\\|by: ");
                 datesplitstring = splitstring[1].split(" ");
@@ -62,7 +62,7 @@ public class RecurringCommand {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             }
         } else if (listDescription.contains("monthly")) {
             if (listDescription.charAt(0) == 'E') {
@@ -81,7 +81,7 @@ public class RecurringCommand {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             } else if (listDescription.charAt(0) == 'D') {
                 splitstring = listDescription.split("\\|by: ");
                 datesplitstring = splitstring[1].split(" ");
@@ -98,7 +98,7 @@ public class RecurringCommand {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             }
         } else if (listDescription.contains("yearly")) {
             if (listDescription.charAt(0) == 'E') {
@@ -117,7 +117,7 @@ public class RecurringCommand {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             } else if (listDescription.charAt(0) == 'D') {
                 splitstring = listDescription.split("\\|by: ");
                 datesplitstring = splitstring[1].split(" ");
@@ -134,7 +134,7 @@ public class RecurringCommand {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             }
         }
     }

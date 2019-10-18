@@ -1,10 +1,11 @@
 package gazeeebo.commands;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
 import java.io.IOException;
+import gazeeebo.tasks.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class TentativeEventCommand extends Command{
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.storages(sb.toString());
+                storage.Storages(sb.toString());
             }
         }
         catch (DukeException e) {
@@ -55,7 +56,7 @@ public class TentativeEventCommand extends Command{
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.storages(sb.toString());
+        storage.Storages(sb.toString());
     }
     @Override
     public boolean isExit() {

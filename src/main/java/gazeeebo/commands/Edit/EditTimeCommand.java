@@ -1,12 +1,9 @@
-package gazeeebo.commands.Edit;
-
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
-import gazeeebo.Tasks.Todo;
-import gazeeebo.Tasks.FixedDuration;
-import gazeeebo.Tasks.Timebound;
-import gazeeebo.Tasks.DoAfter;
+package gazeeebo.commands.edit;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Timebound;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;

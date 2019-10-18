@@ -1,34 +1,30 @@
 package gazeeebo.commands;
 
-import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.DoAfter;
-import gazeeebo.Tasks.Task;
+
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
+import gazeeebo.tasks.*;
+import gazeeebo.storage.Storage;
 import gazeeebo.exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class DoAfterCommand extends Command {
-    /**
-     *
-     * @param list task lists
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
-     * @throws ParseException
-     * @throws IOException
-     * @throws NullPointerException if tDate doesn't get updated.
-     */
+public class TodoCommand extends Command {
+
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
-        String before = "";
-        String after = "";
-        String[] splitstring = ui.fullCommand.split("/after");
-        before = splitstring[1];
-        after = splitstring[0];
-        DoAfter to = new DoAfter(before, before, after);
+        String description = "";
+        try {
+            if (ui.fullCommand.length() <= 4) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+            } else {
+                description = ui.fullCommand.substring(5);
+                triviaManager.learnInput(ui.fullCommand,storage);
+        }
+        Todo to = new Todo(description);
         list.add(to);
         System.out.println("Got it. I've added this task:");
         System.out.println(to.listFormat());
@@ -37,16 +33,16 @@ public class DoAfterCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.storages(sb.toString());
+        storage.Storages(sb.toString());
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            triviaManager.showPossibleInputs("todo");
+            //triviaManager.showAllMap();
+        }
     }
     public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
-        String before = "";
-        String after = "";
-        String[] splitstring = command.split("/after");
-        before = splitstring[1];
-        after = splitstring[0];
         for (Task it : list) {
-            if (it.listFormat().contains(after + "(/after:" + before + ")")) {
+            if (it.description.contains(command.substring(6).trim())) {
                 list.remove(it);
                 break;
             }
@@ -55,15 +51,11 @@ public class DoAfterCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.storages(sb.toString());
+        storage.Storages(sb.toString());
     }
-    /**
-     * Tells the main Duke class that the system should not exit and continue running.
-     *
-     * @return false
-     */
     @Override
     public boolean isExit() {
         return false;
     }
+
 }

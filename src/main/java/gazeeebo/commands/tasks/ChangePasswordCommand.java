@@ -1,7 +1,8 @@
+
 package gazeeebo.commands;
 
 import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
@@ -19,14 +20,15 @@ public class ChangePasswordCommand extends Command {
      * @throws IOException
      */
     @Override
-    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask,TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Enter your current password:");
         ui.readCommand();
-        while (!ui.fullCommand.equals("esc")) {
-            if (ui.fullCommand.equals(storage.password().get(0))) {
+        ArrayList<String> password_list = new ArrayList<>();
+        while(!ui.fullCommand.equals("esc")) {
+            if (ui.fullCommand.equals(storage.Password().get(0))) {
                 System.out.println("Enter new password:");
                 ui.readCommand();
-                storage.storagesPassword(ui.fullCommand);
+                storage.Storages_password(ui.fullCommand);
                 System.out.println("Password successfully changed :)");
                 break;
             } else {

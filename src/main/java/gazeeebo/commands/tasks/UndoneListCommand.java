@@ -1,6 +1,6 @@
 package gazeeebo.commands;
 
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
@@ -35,7 +35,7 @@ public class UndoneListCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.storages(sb.toString());
+            storage.Storages(sb.toString());
         }
         catch (DukeException e) {
             System.out.println(e.getMessage());

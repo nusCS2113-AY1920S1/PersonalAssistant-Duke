@@ -1,6 +1,6 @@
 import gazeeebo.storage.Storage;
-import gazeeebo.Tasks.Event;
-import gazeeebo.Tasks.Task;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.EventCommand;
@@ -40,12 +40,8 @@ class EventCommandTest {
         //start time of clashing events are the same
         Ui ui = new Ui();
         Storage storage = new Storage();
-<<<<<<< HEAD
-        ui.fullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
-=======
         TriviaManager triviaManager = new TriviaManager();
-        ui.FullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
+        ui.fullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Stack<String> CommandStack = new Stack<>();
@@ -70,12 +66,8 @@ class EventCommandTest {
         //start time of new event being added is earlier than old event but clash still occurs
         Ui ui = new Ui();
         Storage storage = new Storage();
-<<<<<<< HEAD
-        ui.fullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
-=======
         TriviaManager triviaManager = new TriviaManager();
-        ui.FullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
+        ui.fullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Stack<String> CommandStack = new Stack<>();
@@ -99,12 +91,8 @@ class EventCommandTest {
         //start time of new event being added is after that of old event but clash still occurs
         Ui ui = new Ui();
         Storage storage = new Storage();
-<<<<<<< HEAD
-        ui.fullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
-=======
         TriviaManager triviaManager = new TriviaManager();
-        ui.FullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
+        ui.fullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Stack<String> CommandStack = new Stack<>();
@@ -127,12 +115,8 @@ class EventCommandTest {
     void execute_scheduleAnomalies_noClash() throws IOException {
         Ui ui = new Ui();
         Storage storage = new Storage();
-<<<<<<< HEAD
-        ui.fullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
-=======
         TriviaManager triviaManager = new TriviaManager();
-        ui.FullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
+        ui.fullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Stack<String> CommandStack = new Stack<>();
