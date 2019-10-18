@@ -6,7 +6,7 @@ import duke.commons.exceptions.DukeException;
 
 import java.util.ArrayList;
 
-public class Route {
+public class Road {
     private Constraint type;
     private ArrayList<RouteNode> nodes;
     private String name;
@@ -18,7 +18,7 @@ public class Route {
      * @param name The name of the route.
      * @param description The description of the route.
      */
-    public Route(Constraint type, String name, String description) {
+    public Road(Constraint type, String name, String description) {
         this.type = type;
         this.nodes = new ArrayList<RouteNode>();
         this.name = name;
@@ -32,7 +32,7 @@ public class Route {
      * @param name The name of the route.
      * @param description The description of the route.
      */
-    public Route(Constraint type, ArrayList<RouteNode> nodes, String name, String description) {
+    public Road(Constraint type, ArrayList<RouteNode> nodes, String name, String description) {
         this.type = type;
         this.nodes = nodes;
         this.name = name;
