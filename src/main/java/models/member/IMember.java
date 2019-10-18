@@ -10,4 +10,8 @@ public interface IMember {
     int getIndexNumber();
 
     String getName();
+
+    String getPhone();
+
+    String getEmail();
 }

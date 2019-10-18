@@ -29,8 +29,8 @@ class ListOfMembersInProjectTest {
         listOfMembersInProject.editMember(1,"n/John i/91177777 e/john@gmail.com");
         assertEquals("1. John (Phone: 91177777 | Email: john@gmail.com)",
                 listOfMembersInProject.getMember(1).getDetails());
-        listOfMembersInProject.editMember(1,"n/John e/john@gmail.com");
-        assertEquals("1. John (Phone: No phone number | Email: john@gmail.com)",
+        listOfMembersInProject.editMember(1,"n/Matthew e/matthew@gmail.com");
+        assertEquals("1. Matthew (Phone: 91177777 | Email: matthew@gmail.com)",
                 listOfMembersInProject.getMember(1).getDetails());
     }
 

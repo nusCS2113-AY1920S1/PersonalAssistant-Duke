@@ -45,6 +45,16 @@ public class Member implements IMember {
     }
 
     @Override
+    public String getPhone() {
+        return this.phone;
+    }
+
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    @Override
     public void updateDetails(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;

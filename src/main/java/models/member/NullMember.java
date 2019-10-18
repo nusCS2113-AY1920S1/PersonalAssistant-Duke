@@ -30,4 +30,14 @@ public class NullMember implements IMember {
     public String getName() {
         return null;
     }
+
+    @Override
+    public String getPhone() {
+        return null;
+    }
+
+    @Override
+    public String getEmail() {
+        return null;
+    }
 }
