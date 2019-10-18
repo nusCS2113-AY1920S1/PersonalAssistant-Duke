@@ -22,7 +22,6 @@ public class AddExpenditureCommand extends Command {
     private final String category;
     private final String type;
 
-
     /**
      * Constructor to create an instance of AddExpenditureCommand.
      *

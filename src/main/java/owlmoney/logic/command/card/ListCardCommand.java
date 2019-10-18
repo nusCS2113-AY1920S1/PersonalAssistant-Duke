@@ -14,7 +14,7 @@ public class ListCardCommand extends Command {
      * Executes the function to list cards in the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      * @throws CardException If CardList is empty.
      */

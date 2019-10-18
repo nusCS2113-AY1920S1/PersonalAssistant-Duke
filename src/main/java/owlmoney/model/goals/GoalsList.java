@@ -4,6 +4,7 @@ import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.ui.Ui;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
  */
 public class GoalsList {
     private ArrayList<Goals> goalList;
+    private static final int ONE_INDEX = 1;
+    private static final boolean ISMULTIPLE = true;
+    private static final boolean ISSINGLE = false;
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
@@ -30,9 +34,11 @@ public class GoalsList {
         if (goalList.size() <= 0) {
             ui.printError("There are no goals set");
         } else {
+            ui.printGoalHeader();
             for (int i = 0; i < goalList.size(); i++) {
-                ui.printMessage((i + 1) + ":\n" + goalList.get(i).getGoalsDetails());
+                printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
             }
+            ui.printDivider();
         }
     }
 
@@ -48,7 +54,8 @@ public class GoalsList {
             throw new GoalsException("There is already a goal with the same name " + goals.getGoalsName());
         }
         goalList.add(goals);
-        ui.printMessage("Added goals: \n" + goals.getGoalsDetails());
+        ui.printMessage("Added a new goal with the below details: ");
+        printOneGoal(ONE_INDEX, goals, ISSINGLE, ui);
     }
 
     /**
@@ -64,9 +71,10 @@ public class GoalsList {
         } else {
             for (int i = 0; i < goalList.size(); i++) {
                 if (goalList.get(i).getGoalsName().equals(goalName)) {
-                    ui.printMessage("Removing " + goalList.get(i).getGoalsName());
+                    Goals temp = goalList.get(i);
                     goalList.remove(i);
-                    ui.printMessage("Removed!");
+                    ui.printMessage("Details of the goal being removed:");
+                    printOneGoal(ONE_INDEX, temp, ISSINGLE, ui);
                     break;
                 }
             }
@@ -134,10 +142,31 @@ public class GoalsList {
                     }
                 }
                 ui.printMessage("New details of goals changed: ");
-                ui.printMessage(goalList.get(i).getGoalsDetails());
+                printOneGoal(ONE_INDEX, goalList.get(i), ISSINGLE, ui);
                 return;
             }
         }
         throw new GoalsException("There are no goals with the name: " + goalName);
+    }
+
+    /**
+     * Prints goal details.
+     *
+     * @param num                Represents the numbering of the goal.
+     * @param goal               The goal object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or multiple
+     *                           time
+     * @param ui                 The object use for printing.
+     */
+    private void printOneGoal(int num, Goals goal, boolean isMultiplePrinting, Ui ui) {
+        if (!isMultiplePrinting) {
+            ui.printGoalHeader();
+        }
+        ui.printGoal(num, goal.getGoalsName(), "$"
+                        + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
+                goal.getGoalsDate().toString());
+        if (!isMultiplePrinting) {
+            ui.printDivider();
+        }
     }
 }

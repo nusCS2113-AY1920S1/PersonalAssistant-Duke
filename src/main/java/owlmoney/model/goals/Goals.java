@@ -17,9 +17,9 @@ public class Goals {
     /**
      * Creates an instance of Goals.
      *
-     * @param name The name used to understand the goal.
+     * @param name   The name used to understand the goal.
      * @param amount The target amount to reach for the goal.
-     * @param date The targeted date to meet the goal.
+     * @param date   The targeted date to meet the goal.
      */
     public Goals(String name, double amount, Date date) {
         this.name = name;

@@ -16,7 +16,7 @@ public class ListBondCommand extends Command {
     /**
      * Constructor to create an instance of ListBondCommand.
      *
-     * @param bankName       Bank account name.
+     * @param bankName   Bank account name.
      * @param displayNum Number of expenditures to display.
      */
     public ListBondCommand(String bankName, int displayNum) {

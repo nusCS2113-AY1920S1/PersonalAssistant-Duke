@@ -20,11 +20,11 @@ public class ParseListExpenditure extends ParseExpenditure {
      */
     public ParseListExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(TRANSNO,LIST);
-        checkRedundantParameter(AMOUNT,LIST);
-        checkRedundantParameter(DATE,LIST);
-        checkRedundantParameter(DESCRIPTION,LIST);
-        checkRedundantParameter(CATEGORY,LIST);
+        checkRedundantParameter(TRANSNO, LIST);
+        checkRedundantParameter(AMOUNT, LIST);
+        checkRedundantParameter(DATE, LIST);
+        checkRedundantParameter(DESCRIPTION, LIST);
+        checkRedundantParameter(CATEGORY, LIST);
     }
 
     /**
