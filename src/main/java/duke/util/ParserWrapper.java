@@ -72,22 +72,22 @@ public class ParserWrapper {
         //TODO: update the parsing below with a more robust Argsj4 library
         switch (hold[0]) {
             //case "add": {
-                //return new SearchThenAddCommand(hold[hold.length - 1]);
+            //    return new SearchThenAddCommand(hold[hold.length - 1]);
             //}
             //case "show": {
-                //return new ShowCommand();
+            //    return new ShowCommand();
             //}
             //case "bye": {
-                //return new EndCommand();
+            //    return new EndCommand();
             //}
             //case "remove": {
-                //return new RemoveCommand(Integer.parseInt(hold[hold.length - 1]));
+            //    return new RemoveCommand(Integer.parseInt(hold[hold.length - 1]));
             //}
             case "cap": {
                 return new CapCommand(input);
             }
             //case "print": {
-                //return new SortCommand(hold[hold.length - 1]);
+            //    return new SortCommand(hold[hold.length - 1]);
             //}
             case "report": {
                 switch (hold[1]) {
