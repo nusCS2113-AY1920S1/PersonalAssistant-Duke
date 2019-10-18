@@ -4,15 +4,27 @@ public class Parser {
 
     String userInput;
 
+    /**
+     * .
+     *
+     * @param userInput .
+     */
     public Parser(String userInput) {
         this.userInput = userInput;
     }
 
+    /**
+     * .
+     *
+     * @return .
+     * @throws DukeException .
+     */
     public String[] parseAdd() throws DukeException {
         String[] parsedCommand = userInput.toLowerCase().split("\\s+", 3);
         try {
             if (parsedCommand[1].equals("patient")) {
-                String[] patientInfo = userInput.replace("add patient ", "").trim().split("\\s+", 4);
+                String[] patientInfo = userInput.replace(
+                        "add patient ", "").trim().split("\\s+", 4);
                 return patientInfo;
             } else if (parsedCommand[1].equals("task")) {
                 String[] taskInfo = new String[1];
@@ -25,17 +37,24 @@ public class Parser {
         throw new DukeException("Failed to parse 'add' command.");
     }
 
+    /**
+     * .
+     *
+     * @return .
+     * @throws DukeException .
+     */
     public String[] parseAssign() throws DukeException {
         String[] formattedInput = new String[5];
         try {
             String[] parsedCommand = userInput.toLowerCase().split("\\s+", 4);
             if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
 
-                String[] tempInput = userInput.replace("assign by id: ", "").split("\\s+", 4);
+                String[] tempInput = userInput.replace(
+                        "assign by id: ", "").split("\\s+", 4);
                 if (tempInput[0].equals("E")) {
                     String[] parsedTimes = tempInput[3].split(" to ", 2);
 
-                    for (int i=0; i<3; i++) {
+                    for (int i = 0; i < 3; i++) {
                         formattedInput[i] = tempInput[i];
                     }
                     formattedInput[3] = parsedTimes[0];
@@ -45,8 +64,6 @@ public class Parser {
                         formattedInput[i] = tempInput[i];
                     }
                 }
-
-
             } else {
                 throw new DukeException("Please use proper 'assign by ID' command format. ");
             }
@@ -57,6 +74,11 @@ public class Parser {
         }
     }
 
+    /**
+     *  .
+     * @return .
+     * @throws DukeException .
+     */
     public String parseDeletePatient() throws DukeException {
         String formattedInput;
         String inputToParse = userInput.replaceAll("(?i)delete patient ", "").trim();
@@ -64,6 +86,11 @@ public class Parser {
         return formattedInput;
     }
 
+    /**
+     *  .
+     * @return .
+     * @throws DukeException .
+     */
     public String parseDeleteTask() throws DukeException {
         String formattedInput;
         String inputToParse = userInput.replaceAll("(?i)delete task ", "").trim();
@@ -71,6 +98,11 @@ public class Parser {
         return formattedInput;
     }
 
+    /**
+     *  .
+     * @return .
+     * @throws DukeException .
+     */
     public String parseUpdatePatient() throws DukeException {
         String formattedInput;
         String inputToParse = userInput.replaceAll("(?i)update patient ", "").trim();
@@ -78,6 +110,11 @@ public class Parser {
         return formattedInput;
     }
 
+    /**
+     *  .
+     * @return .
+     * @throws DukeException .
+     */
     public String parseUpdateTask() throws DukeException {
         String formattedInput;
         String inputToParse = userInput.replaceAll("(?i)update task ", "").trim();

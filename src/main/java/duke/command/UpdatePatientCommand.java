@@ -14,27 +14,45 @@ public class UpdatePatientCommand extends Command {
 
     private String command;
 
-    public UpdatePatientCommand(String command) { this.command = command; }
+    /**
+     * .
+     *
+     * @param command .
+     */
+    public UpdatePatientCommand(String command) {
+        this.command = command;
+    }
 
+    /**
+     * .
+     *
+     * @param patientTask        .
+     * @param tasks              .
+     * @param patientManager     .
+     * @param ui                 .
+     * @param patientTaskStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
+     * @throws DukeException .
+     */
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
+                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
+                        PatientStorage patientStorage) throws DukeException {
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
-        if (firstChar == '#'){
+        if (firstChar == '#') {
             int id;
             try {
                 id = Integer.parseInt(tempCommand[0].substring(1, tempCommand[0].length()));
                 Patient patientToBeUpdated = patientManager.getPatient(id);
                 if (tempCommand[1].toLowerCase().equals("name")) {
                     patientToBeUpdated.setName(tempCommand[2]);
-                }
-                else if (tempCommand[1].toLowerCase().equals("nric")) {
+                } else if (tempCommand[1].toLowerCase().equals("nric")) {
                     patientToBeUpdated.setNric(tempCommand[2]);
-                }
-                else if (tempCommand[1].toLowerCase().equals("room")) {
+                } else if (tempCommand[1].toLowerCase().equals("room")) {
                     patientToBeUpdated.setRoom(tempCommand[2]);
-                }
-                else {
+                } else {
                     throw new DukeException("You can only update 'Name', 'NRIC', or 'Room' of the patient");
                 }
 
@@ -42,15 +60,21 @@ public class UpdatePatientCommand extends Command {
 
                 ui.showUpdatedSuccessfully();
                 ui.showPatientInfo(patientToBeUpdated);
-            }catch(Exception e) {
-                throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+            } catch (Exception e) {
+                throw new DukeException(
+                        "Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
             }
-        }
-        else {
-            throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+        } else {
+            throw new DukeException(
+                    "Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
         }
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     @Override
     public boolean isExit() {
         return false;

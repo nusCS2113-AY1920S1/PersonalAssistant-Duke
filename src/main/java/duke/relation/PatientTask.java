@@ -7,12 +7,28 @@ public abstract class PatientTask {
     private boolean isRecurrsive = false;
     private String taskType;
 
+    /**
+     * .
+     *
+     * @param pid  .
+     * @param tid  .
+     * @param type .
+     */
     public PatientTask(int pid, int tid, String type) {
         this.patientId = pid;
         this.taskID = tid;
         this.taskType = type;
     }
 
+    /**
+     * .
+     *
+     * @param pid          .
+     * @param tid          .
+     * @param isdone       .
+     * @param isrecurrsive .
+     * @param type         .
+     */
     public PatientTask(int pid, int tid, boolean isdone, boolean isrecurrsive, String type) {
         this.patientId = pid;
         this.taskID = tid;
@@ -21,55 +37,122 @@ public abstract class PatientTask {
         this.isRecurrsive = isrecurrsive;
     }
 
-    public Integer getPatientId(){
+    /**
+     * .
+     *
+     * @return .
+     */
+    public Integer getPatientId() {
         return patientId;
     }
 
-    public Integer getTaskID(){
+    /**
+     * .
+     *
+     * @return .
+     */
+    public Integer getTaskID() {
         return taskID;
     }
 
-    public String getTaskType(){
-        return  taskType;
+    /**
+     * .
+     *
+     * @return .
+     */
+    public String getTaskType() {
+        return taskType;
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     public boolean isDone() {
         return this.isDone;
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     public boolean isRecurrsive() {
         return isRecurrsive;
     }
 
-    public void markDone() {this.isDone = true;}
+    /**
+     * .
+     */
+    public void markDone() {
+        this.isDone = true;
+    }
 
-    public void markRecurr() {this.isRecurrsive = true;}
+    /**
+     * .
+     */
+    public void markRecurr() {
+        this.isRecurrsive = true;
+    }
 
-    public void undoRecurr(){
+    /**
+     * .
+     */
+    public void undoRecurr() {
         this.isRecurrsive = false;
     }
 
-    public void undoIsDone(){
+    /**
+     * .
+     */
+    public void undoIsDone() {
         this.isDone = false;
     }
 
-    public void updateId(int pid, int tid){
+    /**
+     * .
+     *
+     * @param pid .
+     * @param tid .
+     */
+    public void updateId(int pid, int tid) {
         this.patientId = pid;
         this.taskID = tid;
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718");
+        return (isDone ? "\u2713" : "\u2718"); // unicode icon
     }
 
-    public String getRecurrsiveIcon(){
-        return (isRecurrsive ? "\u0298" : "\u0275");
+    /**
+     * .
+     *
+     * @return .
+     */
+    public String getRecurrsiveIcon() {
+        return (isRecurrsive ? "\u0298" : "\u0275"); // unicode icon
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     public String printStatus() {
         return "[" + this.getStatusIcon() + "] " + "[" + this.getRecurrsiveIcon() + "] ";
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     public abstract String toString();
 
 

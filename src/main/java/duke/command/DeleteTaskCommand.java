@@ -12,10 +12,16 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class DeleteTaskCommand extends Command{
+public class DeleteTaskCommand extends Command {
     private int id;
     private String deletedTaskInfo;
 
+    /**
+     * .
+     *
+     * @param deletedTaskInfo .
+     * @throws DukeException .
+     */
     public DeleteTaskCommand(String deletedTaskInfo) throws DukeException {
 
         this.deletedTaskInfo = deletedTaskInfo;
@@ -29,12 +35,26 @@ public class DeleteTaskCommand extends Command{
         }
     }
 
+    /**
+     * .
+     *
+     * @param patientTask        .
+     * @param taskManager        .
+     * @param patientManager     .
+     * @param ui                 .
+     * @param patientTaskStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
+     * @throws DukeException .
+     */
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+    public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
+                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
+                        PatientStorage patientStorage) throws DukeException {
         if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);
-            if (toDelete){
+            if (toDelete) {
                 taskManager.deleteTask(id);
                 ui.taskDeleted();
                 taskStorage.save(taskManager.getTaskList());
@@ -44,10 +64,10 @@ public class DeleteTaskCommand extends Command{
             ui.tasksFoundByDescription(tasksWithSameDescription, deletedTaskInfo);
             if (tasksWithSameDescription.size() >= 1) {
                 int numberChosen = ui.chooseTaskToDelete(tasksWithSameDescription.size());
-                if (numberChosen >= 1){
-                    boolean toDelete = ui.confirmTaskToBeDeleted(tasksWithSameDescription.get(numberChosen-1));
-                    if (toDelete){
-                        taskManager.deleteTask(tasksWithSameDescription.get(numberChosen-1).getID());
+                if (numberChosen >= 1) {
+                    boolean toDelete = ui.confirmTaskToBeDeleted(tasksWithSameDescription.get(numberChosen - 1));
+                    if (toDelete) {
+                        taskManager.deleteTask(tasksWithSameDescription.get(numberChosen - 1).getID());
                         ui.taskDeleted();
                         taskStorage.save(taskManager.getTaskList());
                     }
