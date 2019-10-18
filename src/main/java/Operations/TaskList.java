@@ -3,14 +3,14 @@ package Operations;
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.Priority;
-import Model_Classes.*;
+import Enums.TimeUnit;
+import Model_Classes.Assignment;
+import Model_Classes.Meeting;
+import Model_Classes.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-
-import Enums.TimeUnit;
 
 /**
  * A class to perform operations on the task list in Duke
@@ -130,36 +130,6 @@ public class TaskList {
     }
 
     /**
-     * Snooze a specific task indicated by user
-     * @param index the index of the task to be snoozed
-     * @param amount the amount of time to snooze
-     * @param timeUnit unit for snooze time: year, month, day, hour, minute
-     */
-    public void snooze (int index, int amount, TimeUnit timeUnit){
-        if (tasks.get(index) instanceof ToDo){
-            System.out.println("Todo cannot be snoozed");
-            return;
-        }
-        switch (timeUnit) {
-            case year:
-                tasks.get(index).snoozeYear(amount);
-                break;
-            case month:
-                tasks.get(index).snoozeMonth(amount);
-                break;
-            case day:
-                tasks.get(index).snoozeDay(amount);
-                break;
-            case hours:
-                tasks.get(index).snoozeHour(amount);
-                break;
-            case minutes:
-                tasks.get(index).snoozeMinute(amount);
-                break;
-        }
-    }
-
-    /**
      * Sets priority of task
      */
     public void setPriority(String[] info) throws RoomShareException {
@@ -195,88 +165,56 @@ public class TaskList {
      * Sorts the list based on priority
      */
     public void sortPriority() {
-        tasks.sort(new Comparator<>() {
-            @Override
-            public int compare(Task task1, Task task2) {
-                return Integer.compare(getValue(task1), getValue(task2));
-            }
-        });
+        tasks.sort(Comparator.comparingInt(this::getValue));
     }
 
     public void reorder(int first, int second) {
         Collections.swap(tasks, first, second);
     }
 
-    public double listDone() throws RoomShareException {
-        if( tasks.size() != 0 ){
-            int listCount = 1;
-            double doneCount = 0.0;
-            for (Task output : tasks) {
-                if (output.getDone()) {
-                    System.out.println("\t" + listCount + ". " + output.toString());
-                    doneCount += 1.0;
-                }
-                listCount += 1;
+    /**
+     * Snooze a specific task indicated by user
+     * @param index the index of the task to be snoozed
+     * @param amount the amount of time to snooze
+     * @param timeUnit unit for snooze time: year, month, day, hour, minute
+     */
+    public void snooze (int index, int amount, TimeUnit timeUnit){
+
+        if (tasks.get(index) instanceof Meeting) {
+            Meeting meetingToSnooze = (Meeting) tasks.get(index);
+            switch (timeUnit) {
+                case month:
+                    meetingToSnooze.snoozeMonth(amount);
+                    break;
+                case day:
+                    meetingToSnooze.snoozeDay(amount);
+                    break;
+                case hours:
+                    meetingToSnooze.snoozeHour(amount);
+                    break;
+                case minutes:
+                    meetingToSnooze.snoozeMinute(amount);
+                    break;
             }
-            return (doneCount/tasks.size()) * 100.0;
-        } else {
-            throw new RoomShareException(ExceptionType.emptylist);
+        }
+
+        if (tasks.get(index) instanceof Assignment) {
+            Assignment assignmentToSnooze = (Assignment) tasks.get(index);
+            switch (timeUnit) {
+                case month:
+                    assignmentToSnooze.snoozeMonth(amount);
+                    break;
+                case day:
+                    assignmentToSnooze.snoozeDay(amount);
+                    break;
+                case hours:
+                    assignmentToSnooze.snoozeHour(amount);
+                    break;
+                case minutes:
+                    assignmentToSnooze.snoozeMinute(amount);
+                    break;
+            }
         }
     }
 
-    public double listNotDone() throws RoomShareException {
-        if( tasks.size() != 0 ){
-            int listCount = 1;
-            double notDoneCount = 0.0;
-            for (Task output : tasks) {
-                if (!output.getDone()) {
-                    System.out.println("\t" + listCount + ". " + output.toString());
-                    notDoneCount += 1.0;
-                }
-                listCount += 1;
-            }
-            return (notDoneCount/tasks.size()) * 100.0;
-        } else {
-            throw new RoomShareException(ExceptionType.emptylist);
-        }
-    }
-
-    public int listUpcoming(String currentDate) throws RoomShareException {
-        if( tasks.size() != 0 ){
-            Parser parser = new Parser();
-            Date dateNow = parser.formatDate(currentDate);
-            int listCount = 1;
-            int upcomingCount = 0;
-            for (Task output : tasks) {
-                if (!(output instanceof ToDo)) {
-                    String date = new Storage().convertForStorage(output);
-                    date = date.substring(0, 16);
-                    Date storedDate = parser.formatDate(date);
-                    if (storedDate.compareTo(dateNow) > 0) {
-                        // the date the task should be done by has not passed the current date
-                        System.out.println("\t" + listCount + ". " + output.toString());
-                        upcomingCount += 1;
-                    }
-                }
-                listCount += 1;
-            }
-            return upcomingCount;
-        } else {
-            throw new RoomShareException(ExceptionType.emptylist);
-        }
-    }
-
-    public int listRecurringReport() {
-        int listCount = 1;
-        int recurringCount = 0;
-        for (Task output : tasks) {
-            if (output instanceof RecurringEvent || output instanceof RecurringDeadline
-                    || output instanceof RecurringToDo) {
-                System.out.println("\t" + listCount + ". " + output.toString());
-                recurringCount += 1;
-            }
-            listCount += 1;
-        }
-        return recurringCount;
-    }
 }
