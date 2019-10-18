@@ -3,8 +3,7 @@ package moneycommands;
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
-import money.Account;
-import money.Goal;
+import money.*;
 
 import java.text.ParseException;
 
@@ -36,8 +35,56 @@ public class FindCommand extends MoneyCommand{
                 }
             }
             String descSearchOutput = descSearch.toString();
-            ui.appendToGraphContainer(descSearchOutput);
+            ui.appendToGraphContainer(("Goals Found:\n"));
+            ui.appendToGraphContainer(descSearchOutput + "\n");
 
+            findCounter = 0;
+            descSearch.setLength(0);
+            for(Income income: account.getIncomeListTotal()){
+                if(income.getDescription().contains(find)){
+                    findCounter++;
+                    descSearch.append(findCounter).append(".").append(income.toString()).append("\n");
+                }
+            }
+            descSearchOutput = descSearch.toString();
+            ui.appendToGraphContainer(("Income Items Found:\n"));
+            ui.appendToGraphContainer(descSearchOutput + "\n");
+
+            findCounter = 0;
+            descSearch.setLength(0);
+            for(Expenditure expenditure: account.getExpListTotal()){
+                if(expenditure.getDescription().contains(find)){
+                    findCounter++;
+                    descSearch.append(findCounter).append(".").append(expenditure.toString()).append("\n");
+                }
+            }
+            descSearchOutput = descSearch.toString();
+            ui.appendToGraphContainer(("Expenditure Items Found:\n"));
+            ui.appendToGraphContainer(descSearchOutput + "\n");
+
+            findCounter = 0;
+            descSearch.setLength(0);
+            for(Loan loan: account.getLoans()){
+                if(loan.getDescription().contains(find)){
+                    findCounter++;
+                    descSearch.append(findCounter).append(".").append(loan.toString()).append("\n");
+                }
+            }
+            descSearchOutput = descSearch.toString();
+            ui.appendToGraphContainer(("Loan Items Found:\n"));
+            ui.appendToGraphContainer(descSearchOutput + "\n");
+
+            findCounter = 0;
+            descSearch.setLength(0);
+            for(Instalment instalment: account.getInstalments()){
+                if(instalment.getDescription().contains(find)){
+                    findCounter++;
+                    descSearch.append(findCounter).append(".").append(instalment.toString()).append("\n");
+                }
+            }
+            descSearchOutput = descSearch.toString();
+            ui.appendToGraphContainer(("Instalment Items Found:\n"));
+            ui.appendToGraphContainer(descSearchOutput + "\n");
         }
 
 
