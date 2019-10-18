@@ -3,7 +3,6 @@ package duke.parser;
 import duke.command.Command;
 import duke.command.CommandBooking;
 import duke.command.CommandIngredients;
-import duke.command.*;
 import duke.command.bookingcommands.*;
 import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.inventorycommands.DeleteIngredientCommand;

@@ -1,8 +1,6 @@
 package duke.command.recipecommands;
 
 import duke.command.Command;
-import duke.list.recipelist.RecipeTitleList;
-import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
 import duke.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
@@ -48,11 +46,6 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         }
         return arrayList;
     }
-
-//    @Override
-//    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
-//        return null;
-//    }
 
     @Override
     public boolean isExit() {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class RequiredIngredients {
 
-    ArrayList<RecipeIngredient> requiredIngredientList;
+    private ArrayList<RecipeIngredient> requiredIngredientList;
 
     public RequiredIngredients() {
         this.requiredIngredientList = new ArrayList<RecipeIngredient>();
