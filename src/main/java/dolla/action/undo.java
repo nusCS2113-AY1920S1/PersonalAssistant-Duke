@@ -13,6 +13,7 @@ public class undo {
     private static String redoInput;
     private static String mode;
     private static int index;
+    private static int prevPosition;
 
     private static Stack<String> undoEntryCommand = new Stack<>();
     private static Stack<String> undoDebtCommand = new Stack<>();
@@ -22,17 +23,55 @@ public class undo {
 //        undo.userInput = userInput;
 //        undo.command = command;
 //    }
-    public undo(String mode, int index) {
-        this.mode = mode;
-        this.index = index;
+    public static void removeCommand(String mode, int index) {
+        undo.mode = mode;
+        undo.index = index;
+        remove();
     }
 
+    public static void addCommand(String mode, String userInput, int prevPosition) {
+        undo.mode = mode;
+        undo.userInput = userInput;
+        undo.prevPosition = prevPosition;
+        add();
+    }
 
+    public static void remove() {
+        undoInput = "remove " + index;
+        if(mode.equals("entry")) {
+            undoEntryCommand.push(undoInput);
+        } else if(mode.equals("debt")) {
+            undoDebtCommand.push(undoInput);
+        } else {
+            undoLimitCommand.push(undoInput);
+        }
+    }
 
+    public static void add() {
+        if(mode.equals("entry")) {
+            undoInput = prevPosition + " " + "add " + userInput;
+            undoEntryCommand.push(undoInput);
+        } else if(mode.equals("debt")) {
+            undoInput = prevPosition + " " + userInput;
+            undoDebtCommand.push(undoInput);
+        } else {
+            undoInput = prevPosition + " " + "set " + userInput;
+            undoLimitCommand.push(undoInput);
+        }
+    }
 
-
-
-
+    public static String processCommand(String mode) {
+        if(mode.equals("entry")) {
+            undoInput = undoEntryCommand.pop();
+        } else if(mode.equals("debt")) {
+            undoInput = undoDebtCommand.pop();
+        } else {
+            undoInput = undoDebtCommand.pop();
+        }
+//        String parser[] = undoInput.split(" ",3);
+//        redo.setRedoFlag(1);
+        return undoInput;
+    }
 
 
 //    public static void addUndoCommand(boolean isFromRedo) {

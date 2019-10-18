@@ -13,6 +13,7 @@ public class Debt extends Log {
         this.name = name;
         this.amount = amount;
         this.description = description;
+        this.userInput = type + " " + name + " " + amount + " " + description;
     }
 
     @Override
@@ -43,5 +44,10 @@ public class Debt extends Log {
                 + name + " | "
                 + amount + " | "
                 + description;
+    }
+
+    @Override
+    public String getUserInput() {
+        return userInput;
     }
 }

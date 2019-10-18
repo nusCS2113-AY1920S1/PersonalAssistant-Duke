@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.undo;
 import dolla.task.Log;
 import dolla.task.LogList;
 import dolla.task.TaskList;
@@ -49,6 +50,8 @@ public class RemoveCommand extends Command {
         if (logNumInt < 0 || isListEmpty) {
             return; // TODO: return error command
         }
+
+        undo.addCommand(mode,logList.get().get(logNumInt).getUserInput(),logNumInt);
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);

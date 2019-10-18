@@ -21,6 +21,10 @@ public class LogList {
         list.add(newLog);
     }
 
+    public void insertPrevPosition(int prevPosition, Log newLog) {
+        list.add(prevPosition, newLog);
+    }
+
     public int size() {
         return list.size();
     }

@@ -2,7 +2,6 @@ package dolla;
 
 import dolla.task.*;
 
-import java.util.ArrayList;
 
 import static dolla.Storage.getDebtsFromSave;
 import static dolla.Storage.getEntriesFromSave;
@@ -17,7 +16,6 @@ public class DollaData {
 
     private String prevMode;
     private int modifyIndex;
-    //private EntryList entryList;
 
     public DollaData() {
  //       this.entryList = new EntryList(new ArrayList<Log>());
@@ -54,6 +52,16 @@ public class DollaData {
             debtList.add(newLog);
         } else if (mode.equals("limit")) {
             limitList.add(newLog);
+        }
+    }
+
+    public void addToPrevPosition(String mode, Log newLog, int prevPosition) {
+        if (mode.equals("entry")) {
+            entryList.insertPrevPosition(prevPosition,newLog);
+        } else if (mode.equals("debt")) {
+            debtList.insertPrevPosition(prevPosition,newLog);
+        } else if (mode.equals("limit")) {
+            limitList.insertPrevPosition(prevPosition,newLog);
         }
     }
 

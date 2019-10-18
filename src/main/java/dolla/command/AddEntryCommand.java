@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.undo;
 import dolla.task.Entry;
 
 import java.time.LocalDateTime;
@@ -35,7 +36,7 @@ public class AddEntryCommand extends Command {
         Entry newEntry = new Entry(type, amount, description, date);
         dollaData.addToLogList("entry", newEntry);
         index = dollaData.getLogList("entry").size();
-        
+        undo.removeCommand("entry",index);
         Ui.echoAddEntry(newEntry);
     }
 }

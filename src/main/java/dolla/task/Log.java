@@ -10,6 +10,7 @@ public abstract class Log {
     protected String description;
     protected LocalDateTime date;
     protected String name;
+    protected String userInput;
 
     public abstract String getLogText();
 
@@ -25,5 +26,9 @@ public abstract class Log {
 
     public String getName() {
         return name;
+    }
+
+    public String getUserInput() {
+        return userInput;
     }
 }

@@ -18,6 +18,11 @@ public class DebtList extends LogList {
     }
 
     @Override
+    public void insertPrevPosition(int prevPosition, Log newLog) {
+        super.insertPrevPosition(prevPosition, newLog);
+    }
+
+    @Override
     public void removeFromList(int index) {
         super.removeFromList(index);
         Storage.setDebts(get()); //save

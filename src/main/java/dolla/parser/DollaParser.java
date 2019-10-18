@@ -66,7 +66,7 @@ public class DollaParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            return new AddDebtsCommand(type, name, amount, description);
+            return new AddDebtsCommand(type, name, amount, description, -1);
         } else {
             return invalidCommand();
         }

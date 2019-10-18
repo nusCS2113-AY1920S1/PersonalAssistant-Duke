@@ -19,7 +19,7 @@ public class redo {
 
     public String processRedo() {
         userInput = redoCommand.pop();
-        undo.addUndoCommand(true);
+//        undo.addUndoCommand(true);
         return userInput;
     }
 

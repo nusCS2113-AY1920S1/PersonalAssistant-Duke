@@ -2,12 +2,15 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.action.undo;
+import dolla.parser.DebtsParser;
 import dolla.parser.MainParser;
+import dolla.parser.Parser;
 
 public class AddActionCommand extends Command{
     private String mode;
     private String command;
     private String UserInput;
+    private int prevPosition;
 
     public AddActionCommand(String mode, String command) {
         this.mode = mode;
@@ -15,7 +18,11 @@ public class AddActionCommand extends Command{
     }
 
     public void undoCommand() {
-        UserInput = undo.processUndo();
+        UserInput = undo.processCommand(mode);
+        String[] parser = UserInput.split(" ",2);
+        prevPosition = Integer.parseInt(parser[0]);
+        UserInput = parser[1];
+
     }
 
     //process redo
@@ -27,7 +34,7 @@ public class AddActionCommand extends Command{
         } else if (command.equals("redo")) {
             //redo
         }
-        System.out.println(UserInput);
+        DebtsParser.setPrePosition(prevPosition);
         Command c = MainParser.handleInput(mode, UserInput);
         c.execute(dollaData);
     }
