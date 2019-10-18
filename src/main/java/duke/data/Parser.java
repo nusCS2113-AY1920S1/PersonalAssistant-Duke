@@ -173,7 +173,7 @@ public class Parser {
              * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
              */
             case "schedule":
-                Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
+                Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt");
 
                 try {
                     if (word[1].equals("view-week")) {
@@ -211,7 +211,7 @@ public class Parser {
              * Delete: goal delete-all 5/10/2019|goal delete 5/10/2019 Makes sure every student masters freestyle
              */
             case "goal":
-                Storage goalStorage = new Storage(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                Storage goalStorage = new Storage(".\\src\\main\\java\\duke\\data\\goals.txt");
                 Goal goal = new Goal(goalStorage.loadGoal());
                 try {
                     switch (word[1]) {
@@ -261,7 +261,7 @@ public class Parser {
          * Delete: lesson delete-all 5/10/2019|lesson delete 5/10/2019 Makes sure every student masters freestyle
          */
         case "lesson":
-            Storage lessonStorage = new Storage(".\\src\\main\\java\\duke\\Module\\lessons.txt");
+            Storage lessonStorage = new Storage(".\\src\\main\\java\\duke\\data\\lessons.txt");
             Lesson lesson = new Lesson(lessonStorage.loadLesson());
             try {
                 switch (word[1]) {
@@ -386,6 +386,7 @@ public class Parser {
             case "student":
                 switch (word[1]) {
                     case "add":
+                        System.out.println("Insert Name, Age, Address:\n");
                         Scanner sc = new Scanner(System.in);
                         String newStudent = sc.nextLine();
                         String[] splitByComma = newStudent.split(",");

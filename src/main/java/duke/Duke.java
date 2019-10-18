@@ -51,6 +51,7 @@ public class Duke extends Application {
     public void run() throws FileNotFoundException, ParseException {
         ui.welcome();
         tasks.addAllList(storage);
+        ui.mainMenu();
         while (true) {
             Scanner sc = new Scanner(System.in);
             if (sc.hasNextLine()) {

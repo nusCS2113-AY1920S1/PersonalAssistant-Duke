@@ -47,7 +47,11 @@ public class Ui {
      */
     public void manageStudentsHeading() {
         System.out.flush();
-        System.out.println("MANAGE STUDENTS:\n");
+        System.out.println("MANAGE STUDENTS:\n" +
+                        "1. Student List - View all students available and edit student particulars (cmd: student list)\n" +
+                        "2. Add student - Adding a new student to the list with main details (Cmd: student add [name],[age],[address]) (\n" +
+                        "3. Remove Student - Remove a student in a list (Cmd: student delete [index of student in the list])\n" +
+                        "4. Search Student - Finding a particular student in the list (Cmd: student search [name])");
     }
 
     /**
