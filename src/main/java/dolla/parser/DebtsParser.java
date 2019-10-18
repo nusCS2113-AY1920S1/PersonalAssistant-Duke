@@ -6,7 +6,7 @@ import dolla.task.LogList;
 
 
 public class DebtsParser extends Parser {
-    private static int prePosition;
+    private static int prevPosition;
     private static int undoFlag = 0;
 
     public DebtsParser(String inputLine) {
@@ -15,6 +15,7 @@ public class DebtsParser extends Parser {
 
     @Override
     public Command handleInput(String mode, String inputLine) {
+
         if (commandToRun.equals("debts")) { //show debt list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
@@ -36,7 +37,7 @@ public class DebtsParser extends Parser {
             }
             if(undoFlag == 1) {//undo input
                 undoFlag = 0;
-                return new AddDebtsCommand(type, name, amount, description, prePosition);
+                return new AddDebtsCommand(type, name, amount, description, prevPosition);
             } else {//normal input, prePosition is -1
                 return new AddDebtsCommand(type, name, amount, description, -1);
             }
@@ -55,7 +56,7 @@ public class DebtsParser extends Parser {
     }
 
     public static void setPrePosition(int prePosition) {
-        DebtsParser.prePosition = prePosition;
+        DebtsParser.prevPosition = prePosition;
         undoFlag = 1;
     }
 }

@@ -3,6 +3,7 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.action.undo;
 import dolla.parser.DebtsParser;
+import dolla.parser.EntryParser;
 import dolla.parser.MainParser;
 import dolla.parser.Parser;
 
@@ -34,7 +35,11 @@ public class AddActionCommand extends Command{
         } else if (command.equals("redo")) {
             //redo
         }
-        DebtsParser.setPrePosition(prevPosition);
+        if(mode.equals("debt")) {
+            DebtsParser.setPrePosition(prevPosition);
+        } else if(mode.equals("entry")) {
+            EntryParser.setPrePosition(prevPosition);
+        }
         Command c = MainParser.handleInput(mode, UserInput);
         c.execute(dollaData);
     }
