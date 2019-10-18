@@ -71,4 +71,8 @@ public class Ui {
         parser.parseInput(input, tasks, storage, students, schedule, plan);
     }
 
+    public String printFoundStudent(String foundStudent) {
+        return "Here are the matching names in your list: " + foundStudent;
+    }
+
 }

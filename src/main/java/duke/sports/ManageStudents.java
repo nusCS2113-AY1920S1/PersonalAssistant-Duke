@@ -15,9 +15,9 @@ public class ManageStudents implements Details {
      */
     private ArrayList<MyStudent> studentList;
 
-    public String detailType;
+    private String detailType;
 
-    public String detailMessage;
+    private String detailMessage;
 
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
@@ -25,6 +25,7 @@ public class ManageStudents implements Details {
     public ManageStudents() {
         studentList = new ArrayList<>();
     }
+
 
 
 
@@ -38,14 +39,6 @@ public class ManageStudents implements Details {
     public ArrayList<MyStudent> getStudentList() {
         return studentList;
     }
-
-//    public void addStudentList (Storage storage) {
-//        try {
-//            setStudentList((Objects.requireNonNull(storage.loadFile())));
-//        } catch (NullPointerException e) {
-//            System.out.println("No previous list loaded");
-//        }
-//    }
 
     /**
      * Method to list all the names of the students in the list.
@@ -71,8 +64,8 @@ public class ManageStudents implements Details {
      * @param index of the student in the list.
      * @return name of student.
      */
-    public MyStudent getStudentName(int index) {
-        return getStudentList().get(index - 1);
+    public void getStudentName(int index) {
+        System.out.println(studentList.get(index - 1).getName());
     }
 
     /**
@@ -128,55 +121,57 @@ public class ManageStudents implements Details {
         }
     }
 
-    public void findName(String name) {
-        int cnt = 1;
+    /**
+     * A method to find a specific student in the list
+     * @param name of student to search
+     * @return
+     */
+    public String findName(String name) {
+        StringBuilder listString = new StringBuilder();
+        int index = 1;
         for (MyStudent i : getStudentList()) {
             if (i.getName().contains(name)) {
-                if (cnt == 1) {
+                if (index == 1) {
                     System.out.println("Here are the matching names in your list:");
                 }
-                System.out.println(cnt++ + ". " + i.toString());
+                System.out.println(index++ + ". " + i.getName());
             }
         }
 
-        if (cnt == 1) {
+        if (index == 1) {
             System.out.println("Sorry, there are no names matching your search");
         }
+        return name;
     }
 
     @Override
-    public String getName() {
+    public String getDetails() {
         return null;
     }
 
     @Override
-    public String getAge() {
+    public void updateDetails(String name, String age, String address) {
+
+    }
+
+    @Override
+    public void getIndexNumber() {
+
+    }
+
+    @Override
+    public String getParticulars() {
         return null;
     }
 
     @Override
-    public String getAddress() {
+    public String updateParticulars() {
         return null;
     }
 
     @Override
-    public String getGender() {
-        return null;
-    }
+    public void updateParticulars(String contact, String gender, String email, String DOB) {
 
-    @Override
-    public String getContactNumber() {
-        return null;
-    }
-
-    @Override
-    public String getEmail() {
-        return null;
-    }
-
-    @Override
-    public String getDOB() {
-        return null;
     }
 
     @Override
@@ -194,8 +189,4 @@ public class ManageStudents implements Details {
         return null;
     }
 
-    @Override
-    public String getNOK() {
-        return null;
-    }
 }
