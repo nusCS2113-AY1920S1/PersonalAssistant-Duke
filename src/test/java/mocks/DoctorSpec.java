@@ -1,4 +1,8 @@
-package duke.command;
+package mocks;
+
+import duke.command.ArgLevel;
+import duke.command.ArgSpec;
+import duke.command.Switch;
 
 public class DoctorSpec extends ArgSpec {
 

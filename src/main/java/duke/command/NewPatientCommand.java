@@ -7,7 +7,7 @@ import duke.exception.DukeException;
 public class NewPatientCommand extends ArgCommand {
 
     @Override
-    ArgSpec getSpec() {
+    protected ArgSpec getSpec() {
         return NewPatientSpec.getSpec();
     }
 

@@ -1,6 +1,6 @@
 package duke.command;
 
-enum ArgLevel {
+public enum ArgLevel {
     NONE,
     REQUIRED,
     OPTIONAL

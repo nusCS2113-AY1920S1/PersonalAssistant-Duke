@@ -26,27 +26,27 @@ public abstract class ArgCommand extends Command {
         }
     }
 
-    void setSwitchValsMap(HashMap<String, String> switchVals) {
+    protected void setSwitchValsMap(HashMap<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
     }
 
-    void setSwitchVal(String switchName, String value) {
+    protected void setSwitchVal(String switchName, String value) {
         switchVals.put(switchName, value);
     }
 
-    String getSwitchVal(String switchName) {
+    protected String getSwitchVal(String switchName) {
         return switchVals.get(switchName);
     }
 
-    void setArg(String arg) {
+    protected void setArg(String arg) {
         this.arg = arg;
     }
 
-    String getArg() {
+    protected String getArg() {
         return arg;
     }
 
-    abstract ArgSpec getSpec();
+    protected abstract ArgSpec getSpec();
 
     // I hate Java
 
