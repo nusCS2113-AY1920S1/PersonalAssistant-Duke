@@ -57,7 +57,7 @@ public class Duke {
         ccas = new CcaList();
         if (gui) {
             this.redirectOutput();
-            ui.helloMsg();
+            modUi.helloMsg();
         }
     }
 
