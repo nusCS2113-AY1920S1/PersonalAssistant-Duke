@@ -3,7 +3,7 @@ package moomoo.task;
 import java.util.ArrayList;
 
 public class CategoryList {
-
+    
     private ArrayList<Category> categoryList;
     
     public CategoryList() {
@@ -24,6 +24,7 @@ public class CategoryList {
     
     /**
      * Return the total sum of all expenditure across all categories for the current month.
+     *
      * @return total The total sum
      */
     public double getGrandMonthTotal(int month) {
@@ -36,6 +37,7 @@ public class CategoryList {
     
     /**
      * Find the category with the largest total expenditure and return the value of that expenditure.
+     *
      * @return expenditure The value of the largest expenditure
      */
     public double getLargestExpenditure(int month) {
@@ -55,11 +57,33 @@ public class CategoryList {
     public void list(Ui ui) {
         String categoryList = "";
         for (int i = 0; i < this.categoryList.size(); i++) {
-            categoryList = categoryList.concat("\n" + (i + 1) + ". " + this.categoryList.get(i).getName());
+            categoryList = categoryList.concat("\n" + i + ". "
+                    + this.categoryList.get(i).toString()
+                    + " [ $" + this.categoryList.get(i).getCategoryMonthTotal() + " ]");
         }
         ui.showCategoryList(categoryList);
     }
-  
+    
+    /**
+     * Get the length of the name of the Category with the longest name.
+     *
+     * @return Length of the name of the Category with the longest name
+     */
+    public int getLongestCategory() {
+        int longestName = 0;
+        for (Category category : categoryList) {
+            if (category.toString().length() > longestName) {
+                longestName = category.toString().length();
+            }
+            if (longestName >= 14) {
+                longestName = 14;
+                break;
+            }
+        }
+        
+        return longestName;
+    }
+    
     public ArrayList<Category> getCategoryList() {
         return categoryList;
     }
@@ -83,5 +107,22 @@ public class CategoryList {
 
     public void deleteCategory(int categoryNumber) {
         categoryList.remove(categoryNumber);
+    }
+    
+    /**
+     * Populate the categoryList array with dummy variables. FOT TESTING PURPOSES
+     */
+    public void testPopulate() {
+        ArrayList<String> population = new ArrayList<String>();
+        population.add("Games");
+        population.add("Food");
+        population.add("Transportation");
+        population.add("Individualistically");
+        population.add("Compartmentalisation");
+        for (int i = 0; i < 5; i += 1) {
+            Category newCategory = new Category(population.get(i));
+            newCategory.setMonthTotal(i * 100 / (i + 3));
+            categoryList.add(newCategory);
+        }
     }
 }

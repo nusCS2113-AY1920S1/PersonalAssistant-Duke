@@ -3,58 +3,74 @@ package moomoo.task;
 import java.util.ArrayList;
 
 public class Category {
-    private int monthTotal;
-    private String name;
-    private ArrayList<Expenditure> expenditure;
+    private double monthTotal;
+    private String categoryName;
+    private ArrayList<Expenditure> category;
+
+    public Category() {
+
+    }
 
     /**
      * Initializes a new category with a name, an empty list of expenditures, and a monthly total.
      * @param name category name
      */
     public Category(String name) {
-        this.name = name;
-        this.expenditure = new ArrayList<>();
-        this.monthTotal = 0;
+        this.categoryName = name;
+        this.category = new ArrayList<>();
+        this.monthTotal = 0.00;
     }
 
-    public int getExpenditureArraySize() {
-        return expenditure.size();
+    public int getCategoryArraySize() {
+        return category.size();
     }
 
-    public String getName() {
-        return name;
+    public Expenditure get(int i) {
+        return category.get(i);
     }
 
     public String toString() {
-        return name;
+        return categoryName;
+    }
+
+    public void add(Expenditure newExpenditure) {
+        category.add(newExpenditure);
     }
 
     /**
      * Calculates the total expenditure for every entry in the category.
-     * @return total
+     * @return totalCost
      */
-    public double getTotalExpenditure() {
-        double totalCost = 0;
-        for (Expenditure entry : expenditure) {
-            totalCost += entry.cost;
+    public double getCategoryMonthTotal() {
+        double totalCost = 0.00;
+        for (int i = 0; i < category.size(); i++) {
+            totalCost += category.get(i).amount();
         }
         return totalCost;
     }
     
     public double getMonthlyTotal(int month) {
-
         return monthTotal;
     }
 
-    void addExpenditure() {
+    public void addExpenditure() {
 
     }
 
-    void editExpenditure() {
+    public void editExpenditure() {
 
     }
 
-    void deleteExpenditure() {
+    public void deleteExpenditure() {
 
     }
+    
+    /**
+     * Set the month total (FOR TESTING PURPOSES).
+     * @param value The value to be set
+     */
+    public void setMonthTotal(int value) {
+        monthTotal = value;
+    }
+    
 }

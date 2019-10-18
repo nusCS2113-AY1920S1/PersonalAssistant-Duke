@@ -10,8 +10,8 @@ import java.util.Map;
  */
 public class Budget {
 
-    HashMap<String, Double> categoryBudgets;
-    DecimalFormat df;
+    private HashMap<String, Double> categoryBudgets;
+    private DecimalFormat df;
 
     public Budget() {
         this.categoryBudgets = new HashMap<String, Double>();

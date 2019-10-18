@@ -1,11 +1,14 @@
 package moomoo.task;
 
+import moomoo.command.AddExpenditureCommand;
 import moomoo.command.AddCategoryCommand;
 import moomoo.command.BudgetCommand;
 import moomoo.command.Command;
+import moomoo.command.DeleteCategoryCommand;
 import moomoo.command.ExitCommand;
 import moomoo.command.GraphCommand;
 import moomoo.command.ListCategoryCommand;
+import moomoo.command.ScheduleCommand;
 import moomoo.command.DeleteCategoryCommand;
 import moomoo.command.TotalCommand;
 
@@ -30,6 +33,8 @@ public class Parser {
         switch (commandType) {
         case ("bye"): return new ExitCommand(true, "");
         case ("budget"): return new BudgetCommand(false, input);
+        case ("categories"): return new ListCategoryCommand();
+        case ("schedule"): return new ScheduleCommand(false, input);
         case ("add"): return parseAdd(scanner, ui);
         case ("delete"): return parseDelete(scanner, ui);
         case ("list"): return parseList(scanner, ui);
@@ -56,13 +61,25 @@ public class Parser {
     }
 
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
-        String input = parseInput(scanner, ui, "add");
-        switch (input) {
+        //String input = parseInput(scanner, ui, "add");
+        //switch (input) {
+        switch (scanner.next()) {
         case ("category"): return new AddCategoryCommand();
+        case ("expenditure"): return parseAddExpenditure(ui);
         default:
             throw new MooMooException("Sorry I did not recognize that command.");
 
         }
+    }
+
+    private static Command parseAddExpenditure(Ui ui) {
+        ui.showAddExpenditureMessage();
+        String input = ui.readCommand();
+        String[] parts = input.split("-");
+        String expenditureName = parts[0];
+        String amount = parts[1];
+
+        return new AddExpenditureCommand(false, amount, expenditureName);
     }
 
     private static String parseInput(Scanner scanner, Ui ui, String text) {

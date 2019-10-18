@@ -62,7 +62,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (input.equals("bye")) {
+        if ("bye".equals(input)) {
             Thread exitThread = new Thread() {
                 public void run() {
                     try {
