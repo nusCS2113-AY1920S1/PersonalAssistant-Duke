@@ -235,7 +235,8 @@ public class MyPlan {
         StringBuilder message = new StringBuilder();
         int x = 1;
         for (MyTraining i : getList()) {
-            message.append("Activity ").append(x).append(": ").append(i.toString());
+            message.append("Activity ");
+            message.append(x).append(": ").append(i.toString());
             if (x < getList().size() - 1) {
                 message.append("\n");
             }
