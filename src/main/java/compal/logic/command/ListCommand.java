@@ -1,6 +1,7 @@
 package compal.logic.command;
 
 import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +14,9 @@ public class ListCommand extends Command {
     private static final String LIST_PREFIX = "Here are the tasks in your list: \n";
 
     @Override
-    public CommandResult commandExecute(ArrayList<Task> taskList) {
+    public CommandResult commandExecute(TaskList taskList) {
         Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
-        ArrayList<Task> toList = taskList;
+        ArrayList<Task> toList = taskList.getArrList();
         Collections.sort(toList, compareByDateTime);
         String finalList = LIST_PREFIX;
         int count = 1;

@@ -5,11 +5,9 @@ import compal.logic.command.Command;
 import compal.logic.command.CommandResult;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.ParserManager;
-import compal.logic.parser.exceptions.ParseException;
-import compal.model.tasks.Task;
+import compal.logic.parser.exceptions.ParserException;
+import compal.model.tasks.TaskList;
 import compal.ui.UiUtil;
-
-import java.util.ArrayList;
 
 /**
  * The LogicManager Class handles the logic of Wallet.
@@ -36,10 +34,10 @@ public class LogicManager {
      * Passes user input to parserManager to be processed. parserManager returns suitable
      * command object to carry out the user's aim.
      */
-    public void logicExecute(String fullCommand, ArrayList<Task> taskArrList) throws CommandException, ParseException {
+    public void logicExecute(String fullCommand, TaskList tasklist) throws CommandException, ParserException {
 
         Command command = parserManager.processCmd(fullCommand);
-        CommandResult cmdResult = command.commandExecute(taskArrList);
+        CommandResult cmdResult = command.commandExecute(tasklist);
         uiUtil.printg(cmdResult.feedbackToUser);
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
             System.exit(0);

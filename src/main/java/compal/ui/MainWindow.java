@@ -2,8 +2,9 @@ package compal.ui;
 
 import compal.logic.LogicManager;
 import compal.logic.command.exceptions.CommandException;
-import compal.logic.parser.exceptions.ParseException;
+import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 import compal.storage.TaskStorageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -21,6 +22,7 @@ public class MainWindow extends AnchorPane {
     private TaskStorageManager taskStorageManager;
 
     private ArrayList<Task> taskArrList;
+    private TaskList taskList;
 
     @FXML
     private TextField userInput;
@@ -32,6 +34,7 @@ public class MainWindow extends AnchorPane {
         this.taskStorageManager = new TaskStorageManager();
         this.logicManager = new LogicManager();
         this.taskArrList = new ArrayList<>();
+
     }
 
     /**
@@ -39,15 +42,18 @@ public class MainWindow extends AnchorPane {
      * Called by the enter button inside MainWindow.fxml.
      */
     @FXML
-    private void handleUserInput() throws ParseException, CommandException {
+    private void handleUserInput() throws ParserException, CommandException {
         String cmd = userInput.getText();
         init();
-        logicManager.logicExecute(cmd, taskArrList);
+
+        logicManager.logicExecute(cmd, taskList);
         userInput.clear();
     }
 
     private void init() {
         taskArrList = taskStorageManager.loadData();
+        this.taskList = new TaskList();
+        this.taskList.setArrList(taskArrList);
     }
 
 

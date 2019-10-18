@@ -3,7 +3,7 @@ package compal.logic.parser;
 
 import compal.commons.Messages;
 import compal.logic.command.Command;
-import compal.logic.parser.exceptions.ParseException;
+import compal.logic.parser.exceptions.ParserException;
 
 import java.util.Scanner;
 
@@ -39,9 +39,9 @@ public class ParserManager {
      * and executes the respective methods implemented.
      *
      * @param userInput Entire user string input.
-     * @throws ParseException If command input is unknown or user input is empty.
+     * @throws ParserException If command input is unknown or user input is empty.
      */
-    public Command processCmd(String userInput) throws ParseException {
+    public Command processCmd(String userInput) throws ParserException {
         Scanner sc = new Scanner(userInput);
         if (sc.hasNext()) {
             sc.next();
@@ -55,10 +55,10 @@ public class ParserManager {
                 ByeCommandParser byeCommandParser = new ByeCommandParser();
                 return byeCommandParser.parseCommand(CMD_DEFAULT_EMPTY_REST_OF_INPUT);
             default:
-                throw new ParseException(Messages.MESSAGE_INVALID_COMMAND);
+                throw new ParserException(Messages.MESSAGE_INVALID_COMMAND);
             }
         } else {
-            throw new ParseException(Messages.MESSAGE_EMPTY_INPUT);
+            throw new ParserException(Messages.MESSAGE_EMPTY_INPUT);
         }
     }
 

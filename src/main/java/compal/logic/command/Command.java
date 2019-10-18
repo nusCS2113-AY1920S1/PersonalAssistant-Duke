@@ -2,6 +2,7 @@ package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
 
@@ -12,5 +13,5 @@ public abstract class Command {
      * @param task {@code Model} which the command should operate on.
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult commandExecute(ArrayList<Task> task) throws CommandException;
+    public abstract CommandResult commandExecute(TaskList task) throws CommandException;
 }

@@ -8,12 +8,12 @@ import compal.ui.UiUtil;
  * It is thrown when command is unknown or when there are invalid arguments.
  */
 
-public class ParseException extends Exception {
+public class ParserException extends Exception {
 
     String description;
     private UiUtil uiUtil;
 
-    public ParseException(String description) {
+    public ParserException(String description) {
         this.description = description;
         uiUtil = new UiUtil();
     }
