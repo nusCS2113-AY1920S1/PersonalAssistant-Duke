@@ -1,12 +1,16 @@
-import autocomplete.AutoComplete;
+import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import javafx.application.Platform;
+import help.MemorisePreviousFunctions;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.TextFields;
@@ -44,7 +48,9 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private AutoComplete autoComplete = new AutoComplete();
+
+    private MemorisePreviousFunctions previousFunctions = new MemorisePreviousFunctions();
+
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
@@ -58,13 +64,6 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
         userIcon = new UserIcon();
         userImage = userIcon.getIcon();
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                userInput.requestFocus();
-            }
-        });
     }
 
     public void setDuke(Duke d) {
@@ -119,44 +118,49 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             graphContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
+        previousFunctions.addingCommandsEntered(userInput.getText());
+        previousFunctions.setCurrIndex();
         userInput.clear();
     }
 
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
-        if(input.equals("")){
-           graphContainer.getChildren().clear();
-        }else{
-            String[] response = duke.getResponse("find " + input);
-            graphContainer.getChildren().clear();
-            if(!response[1].equals("")){
-                graphContainer.getChildren().clear();
-                graphContainer.getChildren().addAll(
-                        DialogBox.getDukeDialog(response[1], dukeImage));
-            }
-        }
-
-    }
-
-    @FXML
-    private void autoCompleteSuggestion() {
-        List<String> commands = autoComplete.Populate(userInput.getText());
-        TextFields.bindAutoCompletion(userInput, commands);
-    }
-
-    @FXML
-    private void handleSuggestion() {
-        String input = userInput.getText();
         String[] response = duke.getResponse("find " + input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response[0], dukeImage)
         );
         if(!response[1].equals("")){
-            PopUpContainer.getChildren().clear();
-            PopUpContainer.getChildren().addAll(
+            graphContainer.getChildren().clear();
+            graphContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
+    }
+
+    @FXML
+    private void autoCompleteSuggestion() {
+        userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode() == KeyCode.UP) {
+                    userInput.clear();
+                    previousFunctions.setFlagTrue();
+                    userInput.setText(previousFunctions.getPreviousCommand());
+                } else if(ke.getCode() == KeyCode.DOWN) {
+                    if(previousFunctions.getCurrIndex() == previousFunctions.getMaxIndex() - 1) {
+                        userInput.clear();
+                        previousFunctions.setFlagForFirstPress();
+                    } else {
+                        userInput.clear();
+                        previousFunctions.setFlagFalse();
+                        userInput.setText(previousFunctions.getNextCommand());
+                    }
+                }
+            }
+        });
+        AutoComplete autoComplete = new AutoComplete();
+        List<String> commands = autoComplete.Populate(userInput.getText());
+        TextFields.bindAutoCompletion(userInput, commands);
     }
 }
