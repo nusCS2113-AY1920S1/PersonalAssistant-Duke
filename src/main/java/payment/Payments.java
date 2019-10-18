@@ -30,6 +30,7 @@ public class Payments {
     }
 
     public String givePayments() {
+
         return item + "/n" + cost + "/n" + inv + "/n" + status + "/n" + deadline;
     }
 }

@@ -1,9 +1,18 @@
 package command;
 
-import common.DukeException;
+import common.AlphaNUSException;
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentManager;
+import payment.Payments;
+import task.Deadline;
+import task.DoAfterTasks;
+import task.Task;
+import task.WithinPeriodTask;
 import ui.Ui;
+
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -20,7 +29,7 @@ public class Parser {
      * @param ui Ui that interacts with the user.
      * @param storage Storage for the Tasklist.
      * @return Returns boolean variable to indicate when to stop parsing for input.
-     * @throws DukeException if input is not valid.
+     * @throws AlphaNUSException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui,
                                 Storage storage, HashMap<String, Payee> managermap) {
@@ -44,9 +53,9 @@ public class Parser {
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
-            } else if (instr.isDelete(input)) {
-                process.delete(input, managermap, ui);
-                storage.save(tasklist.returnArrayList());
+            } else if (instr.isDeletePayment(input)) {
+                process.deletePayment(input, managermap, ui);
+                //storage.save(tasklist.returnArrayList());
 
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
@@ -71,16 +80,20 @@ public class Parser {
                 //process.reminder(input, tasklist, ui);
             } else if (instr.isEdit(input)) {
                 // process.edit(input,tasklist,ui);
-            } else if (instr.isPayment(input)) {
-                process.payment(input, managermap, ui);
+            } else if (instr.isAddPayment(input)) {
+                process.addPayment(input, managermap, ui);
             } else if (instr.isgetpayee(input)) {
                 process.findPayee(input, ui, managermap);
-            } else if (instr.isPayee(input)) {
-                process.payee(input, managermap, ui);
+            } else if (instr.isAddPayee(input)) {
+                process.addPayee(input, managermap, ui);
+            } else if (instr.isDeletePayee(input)) {
+                process.deletePayee(input, managermap, ui);
+            } else if (instr.isInvoice(input)) {
+                process.inVoice(input, tasklist, ui);
             } else {
-                throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (DukeException e) {
+        } catch (AlphaNUSException e) {
             ui.exceptionMessage(e.getMessage());
         }
         return false;

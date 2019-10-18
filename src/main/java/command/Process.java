@@ -2,7 +2,6 @@ package command;
 
 import common.TaskList;
 import payment.Payee;
-import payment.PaymentList;
 import payment.PaymentManager;
 import payment.Payments;
 import task.Deadline;
@@ -24,9 +23,10 @@ public class Process {
 
     /**
      * Trims leading and trailing whitespace of an array of strings.
-     * @param arr The array of Strings to clean
-     * @return cleanArr The array of Strings after cleaning
+     * @param arr The array of Strings to clean.
+     * @return cleanArr The array of Strings after cleaning.
      */
+
     private String[] cleanStrStr(String[] arr) {
         String[] cleanArr = arr.clone();
         for (int i = 0; i < arr.length; i++) {
@@ -44,11 +44,8 @@ public class Process {
     public void findPayee(String input, Ui ui, HashMap<String, Payee> managermap) {
         try {
             String[] splitspace = input.split(" ", 2);
-            PaymentList payList = new PaymentList();
-            for (Payments payment : managermap.get(splitspace[1]).payments) {
-                payList.addPayments(payment);
-            }
-            ui.printPaymentList(payList);
+            ArrayList<Payments> paymentsArrayList = PaymentManager.findPayee(splitspace[1], managermap);
+            ui.printPaymentList(paymentsArrayList);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
@@ -70,7 +67,7 @@ public class Process {
                 }
             }
             ArrayList<String> time = new ArrayList<String>();
-            for (Task tasks: findlist.returnArrayList()) {
+            for (Task tasks : findlist.returnArrayList()) {
                 String[] splitcolon = tasks.giveTask().split(":");
                 String[] splitspaces = splitcolon[1].split(" ");
                 time.add(splitspaces[2]);
@@ -78,7 +75,7 @@ public class Process {
             Collections.sort(time);
             TaskList finalList = new TaskList();
             for (int i = 0; i < time.size(); i = i + 1) {
-                for (Task tasks: findlist.returnArrayList()) {
+                for (Task tasks : findlist.returnArrayList()) {
                     if (tasks.giveTask().contains(time.get(i))) {
                         finalList.addTask(tasks);
                     }
@@ -91,18 +88,18 @@ public class Process {
     }
 
     /**
-     * Processes the delete command. Removes payment record from payee's list
-     * INPUT FORMAT: delete p/payee v/invoice
+     * Processes the delete command.
+     * INPUT FORMAT: delete payment p/payee i/item
      * @param input Input from the user.
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void delete(String input, HashMap<String, Payee> managermap, Ui ui) {
-        String[] arr = input.split(" ", 2);
+    public void deletePayment(String input, HashMap<String, Payee> managermap, Ui ui) {
+        String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
-        ui.printDeleteMessage(split[1], deleted, managermap.get(split[1]).payments.size());
+        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size());
     }
 
     /**
@@ -132,18 +129,12 @@ public class Process {
     public void deadline(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
-            String[] splitslash = splitspace[1].split("/", 2);
-            String taskDescription = splitslash[0];
-            String[] splittime = splitslash[1].split(" ", 2);
-            String taskTime = splittime[1];
-            Date formattedtime = dataformat.parse(taskTime);
-            Deadline deadline = new Deadline(taskDescription, dataformat.format(formattedtime));
+            String taskDescription = splitspace[1];
+            Deadline deadline = new Deadline(taskDescription);
             tasklist.addTask(deadline);
             ui.printAddedMessage(deadline, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
-        } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -208,7 +199,6 @@ public class Process {
     }
 
 
-
     /**
      * Process the snooze command and automatically postpone the selected deadline task by 1 hour.
      * @param input Input from the user.
@@ -224,9 +214,9 @@ public class Process {
                 Date formattedtime = dataformat.parse(taskTime);
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
                 calendar.setTime(formattedtime);
-                calendar.add(Calendar.HOUR_OF_DAY,1);
+                calendar.add(Calendar.HOUR_OF_DAY, 1);
                 Date newDate = calendar.getTime();
-                tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getInVoice());
+                tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getIsInVoice());
                 ui.printSnoozeMessage(tasklist.get(nsnooze));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to snooze.");
@@ -256,9 +246,9 @@ public class Process {
                 Date formattedtime = dataformat.parse(taskTime);
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
                 calendar.setTime(formattedtime);
-                calendar.add(Calendar.HOUR_OF_DAY,delaytime);
+                calendar.add(Calendar.HOUR_OF_DAY, delaytime);
                 Date newDate = calendar.getTime();
-                tasklist.get(npostpone).setBy(tasklist.get(npostpone).getInVoice());
+                tasklist.get(npostpone).setBy(tasklist.get(npostpone).getIsInVoice());
                 ui.printPostponeMessage(tasklist.get(npostpone));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to postpone.");
@@ -301,43 +291,42 @@ public class Process {
                     + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
-    */
 
-    /**
-     * Process the edit command and modifies specific fields that had already been set
-     * edit f/field 
-     * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
-     * @param ui Ui that interacts with the user.
-     */
-    public void edit(String input, HashMap<String, Payee> managermap, Ui ui) {
-        String[] splitspace = input.split(" ", 2);
-
-    }
-
-    /**
-     * Processes the payment add command, saves a new payment under a specified payee.
-     * INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
-     * @param input Input from the user.
-     * @param managermap HashMap containing all Payees and their Payments.
-     * @param ui Ui that interacts with the user.
-     */
-    public void payment(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void edit(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")) {
-                String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
-                splitpayments = cleanStrStr(splitpayments);
-                String payee = splitpayments[1];
-                String item = splitpayments[2];
-                double cost = Double.parseDouble(splitpayments[3]);
-                String invoice = splitpayments[4];
-                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
-                ui.printAddPaymentMessage(splitpayments[1], payment);
-            }
-            //TODO --> delete payment
-            //TODO --> edit payment
+            String[] splitedit = splitspace[1].split(" d/", 2);
+            int nedit = Integer.parseInt(splitedit[0]) - 1;
+            String description = splitedit[1];
+            tasklist.get(nedit).setDescription(description);
+            ui.printEditMessage(tasklist.get(nedit));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
+    }
+*/
 
+    /**
+     * Processes the add payment command, saves a new payment under a specified payee.
+     * INPUT FORMAT: add payment p/payee i/item c/111 v/invoice
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    public void addPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
+        try {
+            String[] splitspace = input.split("payment ", 2);
+            String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
+            splitpayments = cleanStrStr(splitpayments);
+            String payee = splitpayments[1];
+            String item = splitpayments[2];
+            double cost = Double.parseDouble(splitpayments[3]);
+            String invoice = splitpayments[4];
+            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
+            int paymentsSize = managermap.get(payee).payments.size();
+            ui.printAddPaymentMessage(splitpayments[1], payment, paymentsSize);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
@@ -346,32 +335,77 @@ public class Process {
     }
 
     /**
-     * Processes the payee add command, saves a new payee inside managermap.
-     * INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
+     * Processes the add payee command, saves a new payee inside managermap.
+     * INPUT FORMAT: add payee p/payee e/email m/matricNum ph/phoneNum
      * @param input Input from the user.
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void payee(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void addPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")) {
-                String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
-                splitpayments = cleanStrStr(splitpayments);
-                String payeename = splitpayments[1];
-                String email = splitpayments[2];
-                String matricNum = splitpayments[3];
-                String phoneNum = splitpayments[4];
-                Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
-                ui.printAddPayeeMessage(splitpayments[1], payee);
-            }
-            //TODO --> delete payee
-            //TODO --> edit payee
-
+            String[] splitspace = input.split("payee ", 2);
+            String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
+            splitpayments = cleanStrStr(splitpayments);
+            String payeename = splitpayments[1];
+            String email = splitpayments[2];
+            String matricNum = splitpayments[3];
+            String phoneNum = splitpayments[4];
+            Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
+            int payeesize = managermap.size();
+            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        }
+    }
+
+    /**
+     * Processes the delete payee command, saves a new payee inside managermap.
+     * INPUT FORMAT: delete payee p/payee
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    public void deletePayee(String input, HashMap<String, Payee> managermap, Ui ui) {
+        try {
+            String[] splitspace = input.split("payee ", 2);
+            String[] splitpayments = splitspace[1].split("p/");
+            splitpayments = cleanStrStr(splitpayments);
+            String payeename = splitpayments[1];
+            Payee payee = PaymentManager.deletePayee(payeename, managermap);
+            int payeesize = managermap.size();
+            ui.printdeletePayeeMessage(splitpayments[1], payee, payeesize);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        }
+    }
+
+    /**
+     * process the invoice command, set invoice status as true, update invoice value and set the deadline.
+     * INPUT FORMAT: invoice id i/invoice_num
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void inVoice(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitInvoice = splitspace[1].split(" i/");
+            int id = Integer.parseInt(splitInvoice[0]) - 1;
+            if (tasklist.get(id).getType().equals("D")) {
+                String invoice = splitInvoice[1];
+                tasklist.get(id).setInVoice(invoice);
+                ui.printAddInvoiceMessage(tasklist.get(id));
+            } else {
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
 }

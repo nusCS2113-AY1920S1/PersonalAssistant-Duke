@@ -2,11 +2,10 @@ package ui;
 
 import common.TaskList;
 import payment.Payee;
-import payment.PaymentList;
-import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -33,18 +32,18 @@ public class Ui {
     }
 
     /**
-     * Prints starting message for the Duke program.
+     * Prints starting message for the AlphaNUS program.
      */
     public void startMessage() {
         String logo = line
-                + "     Hello! I'm Duke\n"
+                + "     Hello! I'm AlphaNUS\n"
                 + "     What can I do for you?\n"
                 + line;
         System.out.print(logo);
     }
 
     /**
-     * Prints ending message for the Duke program.
+     * Prints ending message for the AlphaNUS program.
      */
     public void byeMessage() {
         String output = line + "     Bye. Hope to see you again soon!\n" + line;
@@ -75,12 +74,12 @@ public class Ui {
     }
 
     /**
-     * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
-     * @param paymentList Representation of the Payment that is deleted.
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
      */
-    public void printPaymentList(PaymentList paymentList) {
-        for (int i = 0; i < paymentList.size(); i = i + 1) {
-            System.out.println(paymentList.get(i).givePayments());
+    public void printPaymentList(ArrayList<Payments> paymentList) {
+        for (Payments payments : paymentList) {
+            System.out.println(payments.givePayments());
         }
     }
 
@@ -90,7 +89,7 @@ public class Ui {
      * @param payee the name of the payee to whom Payment was being made to
      * @param size the number of payments in the record for this Payee after deletion
      */
-    public void printDeleteMessage(String payee, Payments payment, int size) {
+    public void printDeletePaymentMessage(String payee, Payments payment, int size) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
         System.out.println("\t" + "Payee: " + payee);
         System.out.println("\t" + "Item: " + payment.item);
@@ -179,7 +178,7 @@ public class Ui {
      * @param payee name of entity Payment is directed to
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(String payee, Payments payment) {
+    public void printAddPaymentMessage(String payee, Payments payment, int size) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
         System.out.println("\t" + "Payee: " + payee);
@@ -188,6 +187,7 @@ public class Ui {
         System.out.println("\t" + "Invoice: " + payment.inv);
         System.out.println("\t" + "Deadline: " + payment.deadline);
         System.out.println("\t" + "Status: " + payment.status);
+        System.out.print("\t" + payee + " now has " + size + " payments in the record." + "\n");
         System.out.print(line);
     }
 
@@ -196,13 +196,40 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printAddPayeeMessage(String name, Payee payee) {
+    public void printAddPayeeMessage(String name, Payee payee, int payeesize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
         System.out.println("\t" + "Payee: " + name);
         System.out.println("\t" + "Email: " + payee.email);
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate a deadline with an invoice added.
+     * @param task Task to be edited.
+     */
+    public void printAddInvoiceMessage(Task task) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added invoice to this deadline:");
+        System.out.print("\t" + task.giveTask() + "\n");
+    }
+
+    /**
+     * Prints message to indicate a Payment being deleted.
+     * @param payee Payee containing identification information of Payee.
+     * @param name the name of Payee to make Payments to.
+     */
+    public void printdeletePayeeMessage(String name, Payee payee, int payeesize) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've deleted this payee:");
+        System.out.println("\t" + "Payee: " + name);
+        System.out.println("\t" + "Email: " + payee.email);
+        System.out.println("\t" + "Matric No: " + payee.matricNum);
+        System.out.println("\t" + "Phone No: " + payee.phoneNum);
+        System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
         System.out.print(line);
     }
 
