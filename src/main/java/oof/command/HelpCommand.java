@@ -29,20 +29,40 @@ public class HelpCommand extends Command {
     private String individualQuery(String keyword, ArrayList<String> commands) throws OofException {
         String description = null;
         for (int i = COMMANDS_BEGIN; i < commands.size(); i++) {
-            int keywordEnd = commands.get(i).indexOf("  ");
-            if (keywordEnd > 0) {
-                String command = commands.get(i).substring(0, keywordEnd).toUpperCase();
-                keyword = keyword.toUpperCase();
-                if (keyword.equals(command)) {
-                    description = commands.get(i);
-                    break;
-                }
+            if (isMatchCommand(keyword, commands.get(i))) {
+                description = commands.get(i);
+                break;
             }
         }
         if (description == null) {
             throw new OofException("Invalid keyword!");
         }
         return description;
+    }
+
+    /**
+     * Check if keyword and command String values match.
+     * @param keyword       given by user.
+     * @param command       stored in manual.txt.
+     * @return              boolean True if String values match.
+     */
+    private boolean isMatchCommand(String keyword, String command) {
+        int keywordEnd = command.indexOf("  ");
+        String instruction = null;
+        if (isKeyword(keywordEnd)) {
+            instruction = command.substring(0, keywordEnd).toUpperCase();
+            keyword = keyword.toUpperCase();
+        }
+        return keyword.equals(instruction);
+    }
+
+    /**
+     * Check if keyword exists.
+     * @param index     supposed end of keyword
+     * @return          boolean True if end of keyword is more than zero (ie exists).
+     */
+    private boolean isKeyword(int index) {
+        return index > 0;
     }
 
     /**
