@@ -2,6 +2,9 @@ package duke.data;
 
 import duke.module.TimeSlot;
 import duke.sports.MyClass;
+import duke.sports.MyStudent;
+//import duke.sports.MyTraining;
+//import duke.sports.MyPlan;
 import duke.task.After;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -12,6 +15,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +35,7 @@ public class Storage {
     private String filePath;
     private Scanner fileInput;
 
-    public Storage(String filePath) throws FileNotFoundException {
+    public Storage(final String filePath) throws FileNotFoundException {
         this.filePath = filePath;
         File f = new File(filePath);
         fileInput = new Scanner(f);
@@ -222,9 +228,9 @@ public class Storage {
      * @return A hash map of goals.
      * @throws ParseException if the user input is in wrong format.
      */
-    public Map<Date,ArrayList<String>> loadGoal() throws ParseException {
+    public Map<Date, ArrayList<String>> loadGoal() throws ParseException {
         try {
-            Map<Date,ArrayList<String>> temp = new HashMap<>();
+            Map<Date, ArrayList<String>> temp = new HashMap<>();
             while (fileInput.hasNextLine()) {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
@@ -236,7 +242,7 @@ public class Storage {
                         temp2.add(str);
                     }
                 }
-                temp.put(date,temp2);
+                temp.put(date, temp2);
             }
             fileInput.close();
             return temp;
@@ -251,7 +257,7 @@ public class Storage {
      * @param goals The updated hash map that must be used to recreate the updated goals.txt
      * @throws IOException io if the file cannot be found.
      */
-    public void updateGoal(Map<Date,ArrayList<String>> goals) {
+    public void updateGoal(Map<Date, ArrayList<String>> goals) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -263,7 +269,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(filePath, true);
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            for (Map.Entry<Date,ArrayList<String>> entry : goals.entrySet()) {
+            for (Map.Entry<Date, ArrayList<String>> entry : goals.entrySet()) {
                 String extra = "";
                 ArrayList<String> temp = entry.getValue();
                 for (String str : temp) {
@@ -282,9 +288,9 @@ public class Storage {
      * @return A hash map of lessons learnt for the day.
      * @throws ParseException if the user input is in wrong format.
      */
-    public Map<Date,ArrayList<String>> loadLesson() throws ParseException {
+    public Map<Date, ArrayList<String>> loadLesson() throws ParseException {
         try {
-            Map<Date,ArrayList<String>> temp = new HashMap<>();
+            Map<Date, ArrayList<String>> temp = new HashMap<>();
             while (fileInput.hasNextLine()) {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
@@ -296,7 +302,7 @@ public class Storage {
                         temp2.add(str);
                     }
                 }
-                temp.put(date,temp2);
+                temp.put(date, temp2);
             }
             fileInput.close();
             return temp;
@@ -311,7 +317,7 @@ public class Storage {
      * @param lessons The updated hash map that must be used to recreate the updated lessons.txt
      * @throws IOException io if the file cannot be found.
      */
-    public void updateLesson(Map<Date,ArrayList<String>> lessons) {
+    public void updateLesson(Map<Date, ArrayList<String>> lessons) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -323,7 +329,7 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(filePath, true);
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            for (Map.Entry<Date,ArrayList<String>> entry : lessons.entrySet()) {
+            for (Map.Entry<Date, ArrayList<String>> entry : lessons.entrySet()) {
                 String extra = "";
                 ArrayList<String> temp = entry.getValue();
                 for (String str : temp) {
@@ -337,15 +343,65 @@ public class Storage {
         }
     }
 
+    public void updateStudentList(ArrayList<MyStudent> student) {
+        File studentListFile = new File(".\\src\\main\\java\\duke\\data\\studentList.txt");
+        try {
+            PrintWriter printWriter = new PrintWriter(studentListFile);
+            for (MyStudent x: student) {
+                printWriter.println(x.toString() + "\n");
+            }
+            printWriter.close();
+            printWriter.write("");
+            printWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found: " + io.getMessage());
+        }
+    }
+
+    public void readStudentListFile(ArrayList<MyStudent> student) {
+        String fileName = "studentList.txt";
+        String line;
+        ArrayList loadStudent = new ArrayList();
+
+        try {
+            FileReader fr = new FileReader(".\\src\\main\\java\\duke\\data\\studentList.txt");
+            BufferedReader input = new BufferedReader(fr);
+            if (!input.ready()) {
+                throw new IOException();
+            }
+            while ((line = input.readLine()) != null) {
+                String[] splitter = line.split("\n");
+                for (int i = 0; i < splitter.length; i++) {
+                    splitter[i] = splitter[i].trim();
+                }
+                MyStudent studentInfo = new MyStudent(splitter[0], splitter[1], splitter[2]);
+                student.add(studentInfo);
+            }
+            fr.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+//
+//        int listSize = loadStudent.size();
+//        for (int i = 0; i < listSize; i++) {
+//            System.out.println(student.get(i).toString());
+//        }
+
+    }
+
 /*
-    public int loadPlans (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
+    public ArrayList<String> loadPlans(final Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
         MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
-        int division = Integer.parseInt(fileInput.nextLine().split(": ")[1]);
-
+        ArrayList<String> toc = new ArrayList<>();
+        if (fileInput.hasNextLine()) {
+            String[] content = fileInput.nextLine().split("/");
+        } else {
+            System.out.println("File is empty.");
+        }
         int index = 1;
         int intensity = 1;
-        int plan_num = 0;
+        int planNum = 0;
 
         while (fileInput.hasNextLine()) {
             String in = fileInput.nextLine();
@@ -353,35 +409,37 @@ public class Storage {
                 String[] line = in.split(": ");
                 if (line[1].equals("high")) {
                     MyPlan.Intensity x = MyPlan.Intensity.high;
-                    intensity = x.getValue();
+                    intensity = x.getVal();
                 } else if (line[1].equals("moderate")) {
                     MyPlan.Intensity x = MyPlan.Intensity.moderate;
-                    intensity = x.getValue();
+                    intensity = x.getVal();
                 } else if (line[1].equals("relaxed")) {
                     MyPlan.Intensity x = MyPlan.Intensity.relaxed;
-                    intensity = x.getValue();
+                    intensity = x.getVal();
                 } else {
                     MyPlan.Intensity y = MyPlan.Intensity.valueOf(intensity);
-                    int key = plan.createKey(y.name(), plan_num);
-                    map.put(key,list);
+                    int key = plan.createKey(y.name(), planNum);
+                    map.put(key, list);
                     list.clear();
-                    plan_num = Integer.parseInt(line[1]);
+                    planNum = Integer.parseInt(line[1]);
                 }
             } else {
                 if (!in.equals("")) {
                     String[] line = in.split(" \\| ");
-                    MyTraining ac = new MyTraining(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]));
+                    MyTraining ac = new MyTraining(line[0],
+                            Integer.parseInt(line[1]),
+                            Integer.parseInt(line[2]));
                     list.add(ac);
                 }
             }
             if (!fileInput.hasNextLine()) {
                 MyPlan.Intensity y = MyPlan.Intensity.valueOf(intensity);
                 int key = plan.createKey(y.name(), plan_num);
-                map.put(key,list);
+                map.put(key, list);
             }
             index++;
         }
-        return division;
+        return toc;
     }
 
     public void updatePlans() {

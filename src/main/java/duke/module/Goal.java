@@ -17,9 +17,10 @@ public class Goal {
 
     /**
      * Constructor for Goal objects.
-     * @param dateArrayListMap The hash map of goals of the day from loading the goals.txt text file.
+     * @param dateArrayListMap The hash map of goals of the day from loading
+     *                         the goals.txt text file.
      */
-    public Goal(Map<Date, ArrayList<String>> dateArrayListMap) {
+    public Goal(final Map<Date, ArrayList<String>> dateArrayListMap) {
         this.goals = dateArrayListMap;
     }
 
@@ -29,7 +30,7 @@ public class Goal {
      * @return A message containing all the goals of the day to be printed.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String viewGoal(String day) throws ParseException {
+    public String viewGoal(final String day) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         String message = "";
@@ -55,10 +56,12 @@ public class Goal {
      * Adds a goal to the goals hash map.
      * @param date The date to add the goal to.
      * @param message The goal to add to the goals hash map.
+     * @param goalStorage The object responsible for storing the goals hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String addGoal(String date, String message, Storage goalStorage) throws ParseException {
+    public String addGoal(final String date, final String message,
+                          final Storage goalStorage) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(date);
         boolean alreadyHaveDate = false;
@@ -81,10 +84,12 @@ public class Goal {
      * Removes a goal from the goals hash map.
      * @param day The date to remove the goal from.
      * @param message The specific goal to remove from the hash map.
+     * @param goalStorage The object responsible for storing the goals hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String removeGoal(String day, String message, Storage goalStorage) throws ParseException {
+    public String removeGoal(final String day, final String message,
+                             final Storage goalStorage) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         if (goals.containsKey(today)) {
@@ -100,10 +105,13 @@ public class Goal {
     /**
      * Removes all the goals from the goals hash map for a day.
      * @param day The date to remove all the goals from.
+     * @param goalStorage The object responsible for storing the goals hash map.
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String removeAllGoal(String day, Storage goalStorage) throws ParseException {
+    public String removeAllGoal(final String day,
+                                final Storage goalStorage)
+        throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         if (goals.containsKey(today)) {

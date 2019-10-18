@@ -1,4 +1,4 @@
-= Sports Manager - Developer Guide
+= Coach Manager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ endif::[]
 toc::[]
 
 == Introduction
-Sports Manager is an app designed for busy sports trainers. The app is optimized to track what classes a trainer has to teach and the progress of his students. He is able to view his schedule and his lessons and can even adjust his training plans as needed depending on the class and students ability level. In addition, the planner helps the trainer to track his student’s progress by comparing their current standards to their personal best.
+Coach Manager is an app designed for busy sports trainers. The app is optimized to track what classes a trainer has to teach and the progress of his students. He is able to view his schedule and his lessons and can even adjust his training plans as needed depending on the class and students ability level. In addition, the planner helps the trainer to track his student’s progress by comparing their current standards to their personal best.
 
 == Setting Up
 == Design
