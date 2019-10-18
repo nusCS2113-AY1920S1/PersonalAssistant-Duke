@@ -64,4 +64,8 @@ public class Member implements IMember {
     public void assignTask(Task task) {
         this.listOfTasksAssignedToMember.addAssignedTask(task);
     }
+
+    public boolean isAlreadyAssigned(Task task) {
+        return listOfTasksAssignedToMember.contains(task);
+    }
 }

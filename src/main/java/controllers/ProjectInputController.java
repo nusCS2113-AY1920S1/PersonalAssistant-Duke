@@ -148,7 +148,7 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                    assignTask(projectToManage,projectCommand.substring(12));
+                    assignTasks(projectToManage, projectCommand.substring(12));
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {
@@ -160,23 +160,57 @@ public class ProjectInputController implements IController {
         }
     }
 
-    private void assignTask(IProject projectToManage, String details) {
+    private void assignTasks(IProject projectToManage, String details) {
         String [] options = details.split("-");
         ArrayList<String> listOfTaskIndex  =  new ArrayList<>(Arrays.asList(options[1].split("\\s+")));
         ArrayList<String> listOfMemberIndex  =  new ArrayList<>(Arrays.asList(options[2].split("\\s+")));
         ArrayList<String> viewTaskAssignedTo = new ArrayList<>();
+        ArrayList<String> viewUnsuccessfulMessages = new ArrayList<>();
 
         if (listOfTaskIndex.get(0).equals("i") && listOfMemberIndex.get(0).equals("t")) {
             listOfTaskIndex.remove(0);
             listOfMemberIndex.remove(0);
             for (String taskIndex : listOfTaskIndex) {
-                Task task = projectToManage.getTask(Integer.parseInt(taskIndex));
-                viewTaskAssignedTo.add("The tasks: " + task.getTaskName() + " has been assign to :");
-                for (String memberIndex : listOfMemberIndex) {
-                    Member member = projectToManage.getMembers().getMember(Integer.parseInt(memberIndex));
-                    viewTaskAssignedTo.add(member.getName());
-                    projectToManage.assignTaskToMembers(task,member);
-                    projectToManage.assignMemberToTasks(member,task);
+                try {
+                    int taskNumber = Integer.parseInt(taskIndex);
+                    if (taskNumber <= 0 || taskNumber > projectToManage.getNumOfTasks()) {
+                        viewUnsuccessfulMessages.add("The task with index number "
+                            + taskNumber
+                            + " does not exist!" );
+                    } else {
+                        Task task = projectToManage.getTask(taskNumber);
+                        viewTaskAssignedTo.add("The task: " + task.getTaskName() + " has been assigned to:");
+                        for (String memberIndex : listOfMemberIndex) {
+                            try {
+                                int memberIndexNumber = Integer.parseInt(memberIndex);
+                                if (memberIndexNumber <= 0 || memberIndexNumber > projectToManage.getNumOfMembers()) {
+                                    viewUnsuccessfulMessages.add("The member with index number "
+                                    + memberIndexNumber
+                                    + " does not exist, and cannot be assigned the task.");
+                                } else {
+                                    Member member = projectToManage.getMembers().getMember(memberIndexNumber);
+                                    //Check if member has already been assigned task
+                                    if (member.isAlreadyAssigned(task)) {
+                                        viewUnsuccessfulMessages.add(
+                                            "Member with index " + memberIndexNumber
+                                            + " (" + member.getName()
+                                            + ") has already been assigned the task: "
+                                            + task.getTaskName());
+                                    } else {
+                                        projectToManage.assignTaskToMembers(task,member);
+                                        projectToManage.assignMemberToTasks(member,task);
+                                        viewTaskAssignedTo.add(member.getName());
+                                    }
+                                }
+                            } catch (NumberFormatException e) {
+                                viewUnsuccessfulMessages.add("The member with index " + taskIndex + " is unrecognised.");
+                                viewUnsuccessfulMessages.add("Please check and input the member index number as an integer.");
+                            }
+                        }
+                    }
+                } catch (NumberFormatException e) {
+                    viewUnsuccessfulMessages.add("The task with index " + taskIndex + " is unrecognised.");
+                    viewUnsuccessfulMessages.add("Please check and input the task index number as an integer.");
                 }
             }
             consoleView.consolePrint(viewTaskAssignedTo.toArray(new String[0]));

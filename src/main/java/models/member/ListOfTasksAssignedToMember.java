@@ -13,4 +13,7 @@ public class ListOfTasksAssignedToMember {
         this.memberTaskList.addTask(task);
     }
 
+    public boolean contains(Task task) {
+        return memberTaskList.contains(task);
+    }
 }
