@@ -46,7 +46,8 @@ public class AddCommand extends Command {
     @Override
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
             SpinBoxException {
-        Task added;
+        File fileAdded;
+        Task taskAdded;
         DateTime start;
         DateTime end;
         try {
@@ -57,8 +58,10 @@ public class AddCommand extends Command {
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
                     String fileName = content.replace(type.concat(" "), "");
-                    files.add(new File(0, fileName));
-                    return "Added into " + module.toString() + " file: " + fileName;
+                    fileAdded = files.add(new File(0, fileName));
+                    return "Added into " + module.toString() + " file: " + fileAdded.toString() + "\n"
+                            + "You currently have " + files.getList().size()
+                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.");
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
@@ -84,8 +87,8 @@ public class AddCommand extends Command {
                     if (taskDescription.equals("todo")) {
                         throw new InputException("☹ OOPS!!! The description of a task cannot be empty.");
                     }
-                    added = tasks.add(new Todo(taskDescription));
-                    return "Added into " + module.toString() + " task: " + added.toString() + "\n"
+                    taskAdded = tasks.add(new Todo(taskDescription));
+                    return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
                             + "You currently have " + tasks.getList().size()
                             + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
                 } else {
@@ -102,9 +105,9 @@ public class AddCommand extends Command {
                         throw new InputException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
                     start = new DateTime(taskDescription.split("/by ")[1]);
-                    added = tasks.add(new Deadline(taskDescription.substring(0, taskDescription.lastIndexOf(" /by")),
-                            start));
-                    return "Added into " + module.toString() + " task: " + added.toString() + "\n"
+                    taskAdded = tasks.add(new Deadline(taskDescription.substring(0,
+                            taskDescription.lastIndexOf(" /by")), start));
+                    return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
                             + "You currently have " + tasks.getList().size()
                             + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
                 } else {
@@ -144,9 +147,9 @@ public class AddCommand extends Command {
                             }
                         }
                     }
-                    added = tasks.add(new Event(taskDescription.substring(0, taskDescription.lastIndexOf(" /at")),
+                    taskAdded = tasks.add(new Event(taskDescription.substring(0, taskDescription.lastIndexOf(" /at")),
                             start, end));
-                    return "Added into " + module.toString() + " task: " + added.toString() + "\n"
+                    return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
                             + "You currently have " + tasks.getList().size()
                             + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
                 } else {

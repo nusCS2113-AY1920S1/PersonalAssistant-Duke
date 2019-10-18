@@ -6,6 +6,7 @@ import spinbox.commands.ExitCommand;
 import spinbox.commands.MarkCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.ViewCommand;
+import spinbox.commands.MultipleCommand;
 
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -120,6 +121,9 @@ public class Parser {
             break;
         case "mark":
             command = new MarkCommand(pageDataComponents[1], content);
+            break;
+        case "remove-multiple":
+            command = new MultipleCommand(pageDataComponents[1], content);
             break;
         default:
         }
