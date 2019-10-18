@@ -1,5 +1,7 @@
 package com.algosenpai.app.command;
 
+import com.algosenpai.app.exceptions.DukeExceptions;
+
 public class ResultCommand extends Command {
 
     private int chap;
@@ -9,7 +11,7 @@ public class ResultCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws DukeExceptions {
 
     }
 }

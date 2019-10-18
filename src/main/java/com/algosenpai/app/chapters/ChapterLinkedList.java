@@ -227,7 +227,7 @@ class ChapterLinkedList {
      * pushed into the queue.
      * 
      * @param instructions The list of instructions given.
-     * @param queue        The list which would be editted according to the
+     * @param queue        The list which would be edited according to the
      *                     instructions given.
      */
     private void changeQueue(ArrayList<String> instructions, LinkedList<Integer> queue) {

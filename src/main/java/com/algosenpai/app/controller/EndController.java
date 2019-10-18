@@ -113,4 +113,5 @@ public class EndController extends SceneController implements Initializable {
             userInput.getParent().requestFocus();
         }
     }
+
 }

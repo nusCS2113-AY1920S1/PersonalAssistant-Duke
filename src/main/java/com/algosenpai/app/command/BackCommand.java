@@ -1,8 +1,10 @@
 package com.algosenpai.app.command;
 
+import com.algosenpai.app.exceptions.DukeExceptions;
+
 public class BackCommand extends Command {
     @Override
-    public void execute() {
+    public void execute() throws DukeExceptions {
 
     }
 }
