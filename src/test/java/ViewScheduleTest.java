@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Test;
 import spinbox.DateTime;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Event;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ViewScheduleTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testDateCheckDeadline() {
         DateTime inputDate = new DateTime(new Date(2019, 9,20));
         Schedulable task = new Deadline("Test", inputDate);
@@ -19,7 +20,7 @@ public class ViewScheduleTest {
         assertFalse(task.compareEquals(inputDateTwo));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testDateCheckEvent() {
         DateTime inputDate = new DateTime(new Date(2019, 9,20));
         DateTime startDate = new DateTime(new Date(2019, 9,19));
