@@ -2,7 +2,8 @@ package duke.commands.results;
 
 import javafx.scene.image.Image;
 
-public class CommandResultImage extends CommandResult {
+public class CommandResultImage extends CommandResult implements Imageable {
+    private String message;
     private Image image;
 
     /**
@@ -15,7 +16,13 @@ public class CommandResultImage extends CommandResult {
         this.image = image;
     }
 
+    @Override
     public Image getImage() {
         return image;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

@@ -3,7 +3,6 @@ package duke.logic.api.requests;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeApiException;
 import javafx.scene.image.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
