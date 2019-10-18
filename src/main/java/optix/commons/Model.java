@@ -1,12 +1,11 @@
 package optix.commons;
 
-import optix.commons.model.ShowHistoryMap;
 import optix.commons.model.ShowMap;
 
 import java.time.LocalDate;
 
 public class Model {
-    private ShowHistoryMap showsHistory = new ShowHistoryMap();
+    private ShowMap showsHistory = new ShowMap();
     private ShowMap shows = new ShowMap();
 
     /**
@@ -23,7 +22,7 @@ public class Model {
         return shows;
     }
 
-    public ShowHistoryMap getShowsHistory() {
+    public ShowMap getShowsHistory() {
         return showsHistory;
     }
 
@@ -31,7 +30,7 @@ public class Model {
         this.shows = shows;
     }
 
-    public void setShowsHistory(ShowHistoryMap showsHistory) {
+    public void setShowsHistory(ShowMap showsHistory) {
         this.showsHistory = showsHistory;
     }
 

@@ -1,8 +1,6 @@
 package optix.commons;
 
 import optix.commons.model.Seat;
-import optix.commons.model.Show;
-import optix.commons.model.ShowHistoryMap;
 import optix.commons.model.ShowMap;
 import optix.commons.model.Theatre;
 
@@ -48,7 +46,7 @@ public class Storage {
     /**
      * Load the data from the save file into model.
      */
-    public void loadShows(ShowMap shows, ShowHistoryMap showsHistory) {
+    public void loadShows(ShowMap shows, ShowMap showsHistory) {
         try {
             FileReader rd = new FileReader(showMapFilePath);
             BufferedReader br = new BufferedReader(rd);
@@ -65,15 +63,11 @@ public class Storage {
                     double seatBasePrice = Double.parseDouble(arrStr[4]);
 
                     if (date.compareTo(today) <= 0) {
-                        Show show = new Show(showName, revenue);
-                        showsHistory.put(date, show);
+                        showsHistory.addShowHistory(date, showName, revenue);
                         continue;
                     }
 
-                    Theatre theatre = new Theatre(showName, revenue, seatBasePrice);
-                    loadSeat(br, theatre);
-
-                    shows.put(date, theatre);
+                    shows.addShow(showName, date, revenue, seatBasePrice);
                 }
             }
 
@@ -111,7 +105,7 @@ public class Storage {
      *
      * @param showsHistory Map of shows.
      */
-    public void loadArchive(ShowHistoryMap showsHistory) {
+    public void loadArchive(ShowMap showsHistory) {
         try {
             FileReader rd = new FileReader(archiveFilePath);
             BufferedReader br = new BufferedReader(rd);
@@ -125,9 +119,7 @@ public class Storage {
                 String showName = arrStr[1].trim();
                 double revenue = Double.parseDouble(arrStr[2]);
 
-                Show show = new Show(showName, revenue);
-
-                showsHistory.put(date, show);
+                showsHistory.addShowHistory(date, showName, revenue);
             }
 
             br.close();
@@ -182,17 +174,18 @@ public class Storage {
      *
      * @param showsHistory Map of shows.
      */
-    public void writeArchive(ShowHistoryMap showsHistory) {
+    public void writeArchive(ShowMap showsHistory) {
         try {
             archiveFilePath.delete();
             archiveFilePath.createNewFile();
             FileWriter wr = new FileWriter(archiveFilePath, true);
 
-            for (Map.Entry<LocalDate, Show> entry : showsHistory.entrySet()) {
-                Show show = entry.getValue();
+            for (Map.Entry<LocalDate, Theatre> entry : showsHistory.entrySet()) {
+                Theatre theatre = entry.getValue();
                 LocalDate date = entry.getKey();
 
-                wr.write(String.format("%s | %s | %s\n", date, show.getShowName(), show.getProfit()));
+                wr.write(String.format("%s | %s | %s\n", date, theatre.getShowName(), theatre.getProfit()));
+
             }
             wr.close();
         } catch (IOException e) {
@@ -202,9 +195,7 @@ public class Storage {
 
     private LocalDate localDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //Convert string to localdate
-        LocalDate localDate = LocalDate.parse(date, formatter);
-        return localDate;
+        return LocalDate.parse(date, formatter);
     }
 
     /**

@@ -25,8 +25,25 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     //// Commands that deals with shows
 
+    /**
+     * Add shows into Archive.
+     * @param showDate The date of the show.
+     * @param showName The name of the show.
+     * @param revenue The money earned from the show.
+     */
+    public void addShowHistory(LocalDate showDate, String showName, double revenue) {
+        Show show = new Show(showName, revenue);
+        Theatre theatre = new Theatre(show);
+        this.put(showDate, theatre);
+    }
+
     public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
         Theatre theatre = new Theatre(showName, seatBasePrice);
+        this.put(showDate, theatre);
+    }
+
+    public void addShow(String showName, LocalDate showDate, double revenue, double seatBasePrice) {
+        Theatre theatre = new Theatre(showName, revenue, seatBasePrice);
         this.put(showDate, theatre);
     }
 

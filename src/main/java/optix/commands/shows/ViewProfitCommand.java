@@ -1,15 +1,13 @@
 package optix.commands.shows;
 
-import optix.commons.Model;
-import optix.commons.model.Show;
-import optix.commons.model.ShowHistoryMap;
-import optix.ui.Ui;
 import optix.commands.Command;
+import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.Theatre;
-import optix.exceptions.OptixInvalidDateException;
-import optix.util.OptixDateFormatter;
 import optix.commons.model.ShowMap;
+import optix.exceptions.OptixInvalidDateException;
+import optix.ui.Ui;
+import optix.util.OptixDateFormatter;
+
 import java.time.LocalDate;
 
 public class ViewProfitCommand extends Command {
@@ -48,7 +46,7 @@ public class ViewProfitCommand extends Command {
             LocalDate localDate = formatter.toLocalDate(showDate);
 
             if (localDate.compareTo(storage.getToday()) <= 0) { //in archive list
-                ShowHistoryMap showsHistory = model.getShowsHistory();
+                ShowMap showsHistory = model.getShowsHistory();
                 if (!showsHistory.containsKey(localDate)) { //date not found
                     message = MESSAGE_SHOW_NOT_FOUND;
                 } else if (!showsHistory.get(localDate).hasSameName(showName)) {

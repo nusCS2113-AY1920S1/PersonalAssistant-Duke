@@ -41,6 +41,10 @@ public class Theatre {
         initializeLayout();
     }
 
+    public Theatre(Show show) {
+        this.show = show;
+    }
+
     // can have multiple layouts to be added for future extensions.
 
     private void initializeLayout() {

@@ -3,8 +3,6 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.Show;
-import optix.commons.model.ShowHistoryMap;
 import optix.commons.model.ShowMap;
 import optix.commons.model.Theatre;
 import optix.exceptions.OptixInvalidDateException;
@@ -27,7 +25,7 @@ public class ViewMonthlyCommand extends Command {
 
     private static final String MESSAGE_SUCCESSFUL_ARCHIVE = "The amount earned in %1$s %2$s is %3$s.\n";
 
-    private static final String MESSAGE_SUCCESSFUL_LIST = "The projected earnings for %1$s %2$s is %3$s.\n";
+    private static final String MESSAGE_SUCCESSFUL_LIST = "The projected earnings for %1$s %2$s is %3$.2f.\n";
 
     /**
      * Views the profit for a certain month.
@@ -92,53 +90,16 @@ public class ViewMonthlyCommand extends Command {
     }
 
     /**
-     * Calculates the earnings for a certain month from the archive file.
-     * @param model The model containing the shows stored in the archive file.
-     * @param mth The month in numerical form.
-     * @param yr The year.
-     * @return A message String that contains the profit to show to the user.
-     */
-    private String findFromArchive(Model model, int mth, int yr) {
-        String message = "";
-        double profit = 0.0;
-
-        ShowHistoryMap shows = model.getShowsHistory();
-        ShowHistoryMap showsWanted = new ShowHistoryMap();
-        LocalDate key;
-        Show value;
-        for (Map.Entry<LocalDate, Show> entry : shows.entrySet()) {
-            key = entry.getKey();
-            value = entry.getValue();
-            showsWanted.put(key, value);
-        }
-
-        showsWanted.entrySet().removeIf(entry -> entry.getKey().getMonthValue() != mth
-                || entry.getKey().getYear() != yr);
-
-        if (showsWanted.isEmpty()) {
-            message = String.format(MESSAGE_NO_SHOW_FOUND, month, year);
-        } else {
-            for (Map.Entry<LocalDate, Show> entry : showsWanted.entrySet()) {
-                profit += entry.getValue().getProfit();
-            }
-            message = String.format(MESSAGE_SUCCESSFUL_ARCHIVE, month, year, profit);
-        }
-
-        return message;
-    }
-
-    /**
      * Calculates the earnings for a certain month from the Optix file.
-     * @param model The model containing the shows stored in the Optix file.
+     * @param shows All shows found in ShowMap.
      * @param mth The month in numerical form.
      * @param yr The year.
      * @return A message String that contains the profit to show to the user.
      */
-    private String findFromList(Model model, int mth, int yr) {
+    private String findFromList(ShowMap shows, int mth, int yr) {
         String message = "";
         double profit = 0.0;
 
-        ShowMap shows = model.getShows();
         ShowMap showsWanted = new ShowMap();
         LocalDate key;
         Theatre value;
@@ -176,14 +137,14 @@ public class ViewMonthlyCommand extends Command {
 
             if (yr <= storage.getToday().getYear()) {
                 if (mth < storage.getToday().getMonthValue()) {
-                    message = findFromArchive(model, mth, yr);
+                    message = findFromList(model.getShowsHistory(), mth, yr);
                 } else if (mth == storage.getToday().getMonthValue()) {
                     message = String.format(MESSAGE_NOT_YET_CALCULATED, month, year);
                 } else {
-                    message = findFromList(model, mth, yr);
+                    message = findFromList(model.getShows(), mth, yr);
                 }
             } else {
-                message = findFromList(model, mth, yr);
+                message = findFromList(model.getShows(), mth, yr);
             }
         } catch (OptixInvalidDateException e) {
             message = e.getMessage();
