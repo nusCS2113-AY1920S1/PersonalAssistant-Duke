@@ -93,7 +93,7 @@ public class Ui {
         ChartThread chartThread = new ChartThread();
         System.out.println("Please wait while we draw the pie chart...");
     }
-
+    
     /**
      * Displays the contact list in table format.
      */
