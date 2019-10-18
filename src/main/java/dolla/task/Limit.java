@@ -66,7 +66,7 @@ public class Limit extends Log {
      */
     public void AddLimit(String type, double amount, Duration duration) {
         if (type.equals(LimitType.BUDGET)) {
-            AddBudget(amount, duration);
+            //AddBudget(amount, duration);
         } else if (type.equals(LimitType.SAVING)) {
             //AddSaving(amount, duration);
         } else {
@@ -74,7 +74,7 @@ public class Limit extends Log {
         }
     }
 
-    public void AddBudget(double amount, Duration duration) {
+    /*public void AddBudget(double amount, Duration duration) {
         boolean alreadyExist = limitList.limitFinder(limitList.BudgetList, duration);
 
         if (alreadyExist) {
@@ -82,7 +82,7 @@ public class Limit extends Log {
         } else {
 
         }
-    }
+    }*/
 
     public void EditCurrBudget() {
         //edit budget after adding in expenses or income

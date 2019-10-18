@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.Time;
 import dolla.Ui;
 import dolla.command.*;
 import dolla.task.LogList;
@@ -25,7 +26,9 @@ public class DebtsParser extends Parser {
                 amount = stringToDouble(inputArray[2]);
 
                 String[] desc = inputLine.split(inputArray[2] + " ");
-                description = desc[1];
+                String dateString[] = desc[1].split(" /due ");
+                description = dateString[0];
+                date = Time.readDateTime(dateString[1]);
 
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
@@ -33,7 +36,7 @@ public class DebtsParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            return new AddDebtsCommand(type, name, amount, description);
+            return new AddDebtsCommand(type, name, amount, description, date);
 
         } else if (commandToRun.equals("search")) {
             String content = inputArray[1];

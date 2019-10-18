@@ -1,7 +1,4 @@
 I | 1000.0 | bala | 12/12/2020 1200
 I | 1000.0 | chekka | 12/12/2011 1200
 I | 1000.0 | dolla | 12/12/2019 1200
-O | tata | 1000.0 | food
-O | yaya | 10000.0 | food
-O | baba | 1000.0 | sushi
-B | dolla | 10000.0 | bushi
+I | 120.0 | tata tata | 12/09/2019 1230
