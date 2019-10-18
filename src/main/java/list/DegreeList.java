@@ -9,7 +9,12 @@ import java.util.ArrayList;
 
 
 public class DegreeList implements Serializable, Cloneable{
-    private ArrayList<String> list = new ArrayList<>();
+    private static ArrayList<String> list = new ArrayList<>();
+
+    public static ArrayList<String> getDegrees(){
+        return list;
+    }
+
     private static final String filename = "../data/savedegree.txt";
 
 

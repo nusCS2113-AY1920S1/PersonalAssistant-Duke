@@ -11,8 +11,7 @@ import java.util.ArrayList;
 public class DegreeListStorage {
     private static final String filename = "../data/savedegree.txt"; //text file that stores all the information
     File file = new File(filename);
-    Duke dj = new Duke(); //new instance of the main class Duke
-    ArrayList<String> mydegrees1 = Duke.getTasks(); //gets the dynamic array from Duke to add tasks to it
+    ArrayList<String> list = DegreeList.getDegrees();
 
     public void ReadFile() {
         try {
@@ -21,7 +20,7 @@ public class DegreeListStorage {
             while ((st = br.readLine()) != null) {
                 String[] data = st.split("-");
                 if (data[0].equals("degree")) {
-                   mydegrees1.add(data[1]);
+                   list.add(data[1]);
                 }
             }
         } catch (IOException e) {

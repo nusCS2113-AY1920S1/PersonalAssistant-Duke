@@ -40,16 +40,16 @@ public class Duke extends Application {
     private DegreeList lists;
     private CommandList commandList;
     private DegreeListStorage degreeListStorage;
-    private static ArrayList<String> mydegrees = new ArrayList<>();
+    //private static ArrayList<String> mydegrees = new ArrayList<>();
 
     public Duke() {
 
     }
 
-    public static ArrayList<String> getTasks() {
+    /*public static ArrayList<String> getTasks() {
         return mydegrees;
     }
-
+    */
 
     /**
      * The constructor that is called when the GUI is starting up.
