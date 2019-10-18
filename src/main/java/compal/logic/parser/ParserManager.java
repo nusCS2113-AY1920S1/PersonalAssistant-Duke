@@ -45,7 +45,7 @@ public class ParserManager {
         Scanner sc = new Scanner(userInput);
         if (sc.hasNext()) {
             sc.next();
-            String[] args = userInput.split(" ", 2);
+            String[] args = userInput.split(" ", 1);
             String commandWord = args[0];
             switch (commandWord) {
             case CMD_LIST:
@@ -54,6 +54,10 @@ public class ParserManager {
             case CMD_EXIT:
                 ByeCommandParser byeCommandParser = new ByeCommandParser();
                 return byeCommandParser.parseCommand(CMD_DEFAULT_EMPTY_REST_OF_INPUT);
+            case CMD_VIEW:
+                //System.out.println(args[0]);
+                //ViewCommandParser viewCommandParser = new ViewCommandParser();
+                //return viewCommandParser.parseCommand(userInput);
             default:
                 throw new ParserException(Messages.MESSAGE_INVALID_COMMAND);
             }
