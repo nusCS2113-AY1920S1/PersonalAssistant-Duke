@@ -6,11 +6,13 @@ import controlpanel.Parser;
 import controlpanel.Ui;
 import money.Account;
 import money.BankTracker;
+import money.Income;
 
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * This class create a bank account tracker for the user to track their
@@ -66,6 +68,17 @@ public class CreateBankAccountCommand extends MoneyCommand {
             }
         }
         account.getBankTrackerList().add(newTracker);
+        Income newIncome = new Income(newTracker.getAmt(), "Initialize account: " + newTracker.getDescription(), newTracker.getLatestDate());
+        account.getIncomeListTotal().add(newIncome);
+
+        Calendar currDate = Calendar.getInstance();
+        int currMonth = currDate.get(Calendar.MONTH) + 1;
+        int currYear = currDate.get(Calendar.YEAR);
+        LocalDate date = newTracker.getLatestDate();
+        if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
+            account.getIncomeListCurrMonth().add(newIncome);
+        }
+
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");
     }

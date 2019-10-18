@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * This command adds a short-term goal to the Short-Term Goals List.
  */
-public class AddShortGoalCommand extends MoneyCommand {
+public class AddGoalCommand extends MoneyCommand {
 
     private String inputString;
     private DateTimeFormatter dateTimeFormatter;
@@ -24,7 +24,7 @@ public class AddShortGoalCommand extends MoneyCommand {
      * with the goal data within the user input.
      * @param cmd add command inputted from user.
      */
-    public AddShortGoalCommand(String cmd) {
+    public AddGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }

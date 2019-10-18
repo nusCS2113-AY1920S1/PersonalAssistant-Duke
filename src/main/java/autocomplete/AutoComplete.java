@@ -54,8 +54,8 @@ public class AutoComplete {
     }
 
     public List<String> Populate(String prefix) {
-        //populatePopup(prefix);
-        return CommandList;
+        populatePopup(prefix);
+        return PopUpList;
     }
 
     public void populatePopup(String prefix) {
@@ -86,5 +86,7 @@ public class AutoComplete {
             }
             lastIndex = i;
         }
+
+        //something here
     }
 }
