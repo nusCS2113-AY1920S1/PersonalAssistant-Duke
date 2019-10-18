@@ -8,14 +8,19 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
  * TaskStorage.java - a class for writing/reading info of task associated with patient info to/from local in csv format.
- * @author  HUANG XUAN KUN
+ *
+ * @author HUANG XUAN KUN
  * @version 1.2
  */
 public class PatientTaskStorage {
@@ -36,7 +41,7 @@ public class PatientTaskStorage {
     }
 
     /**
-     * Load the task info with associated patient from local csv files
+     * Load the task info with associated patient from local csv files.
      *
      * @return A arrayList of PatientTask which contain info of task with associated patient
      * @throws DukeException throw a dukeException with error message for debugging
@@ -59,24 +64,28 @@ public class PatientTaskStorage {
                     String startTime = record.get("STARTTIME");
                     String endTime = record.get("ENDTIME");
                     String taskType = record.get("TASKTYPE");
-                    if (taskType.equals("S")){
-                        patientTaskList.add(new StandardPatientTask(pid,tid,isDone,isRecursive,deadline,taskType));
-                    }
-                    else if (taskType.equals("E")){
-                        patientTaskList.add(new EventPatientTask(pid,tid,isDone,isRecursive,startTime,endTime,taskType));
+                    int uniqueId = Integer.parseInt(record.get("uuid"));
+                    if (taskType.equals("S")) {
+                        patientTaskList.add(new StandardPatientTask(pid, tid, isDone, isRecursive, deadline, taskType,
+                                uniqueId));
+                    } else if (taskType.equals("E")) {
+                        patientTaskList.add(new EventPatientTask(pid, tid, isDone, isRecursive,
+                                startTime, endTime, taskType, uniqueId));
                     }
                 }
             }
             return patientTaskList;
         } catch (Exception e) {
-            throw new DukeException("Loading of " + filePath + "is unsuccessful." +
-                    "e.getMessage()");
+            throw new DukeException("Loading of "
+                    + filePath
+                    + "is unsuccessful."
+                    + "e.getMessage()");
         }
     }
 
 
     /**
-     * Write info of task with associated patient to local csv files
+     * Write info of task with associated patient to local csv files.
      *
      * @param patientTask A list of patients containing info of patients to be written
      * @throws DukeException throw exception with error message when i/o fails
@@ -85,26 +94,25 @@ public class PatientTaskStorage {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("PID", "TID", "DONE", "RECURRENCE", "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE" ));
+                    .withHeader("PID", "TID", "DONE", "RECURRENCE", "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"));
             for (PatientTask patient : patientTask) {
                 int pid = patient.getPatientId();
                 int tid = patient.getTaskID();
+                int uniqueId = patient.getUid();
                 boolean isDone = patient.isDone();
                 boolean isRecurr = patient.isRecurrsive();
                 String deadline = null;
                 String startTime = null;
                 String endTime = null;
                 String type = patient.getTaskType();
-                if (patient instanceof  StandardPatientTask)
-                {
+                if (patient instanceof StandardPatientTask) {
                     deadline = ((StandardPatientTask) patient).getDeadlineRaw();
-                }
-                else if (patient instanceof EventPatientTask)
-                {
+                } else if (patient instanceof EventPatientTask) {
                     startTime = ((EventPatientTask) patient).getStartTimeRaw();
                     endTime = ((EventPatientTask) patient).getEndTimeRaw();
                 }
-                csvPrinter.printRecord(pid, tid, String.valueOf(isDone), String.valueOf(isRecurr), deadline, startTime,endTime,type);
+                csvPrinter.printRecord(pid, tid, String.valueOf(isDone), String.valueOf(isRecurr),
+                        deadline, startTime, endTime, type, uniqueId);
             }
             csvPrinter.flush();
         } catch (IOException e) {

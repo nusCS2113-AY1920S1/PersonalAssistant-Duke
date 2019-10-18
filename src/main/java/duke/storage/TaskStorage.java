@@ -6,14 +6,19 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
  * TaskStorage.java - a simple class for writing/reading taskInfo to/from local in csv format.
- * @author  HUANG XUAN KUN
+ *
+ * @author HUANG XUAN KUN
  * @version 1.2
  */
 public class TaskStorage {
@@ -27,7 +32,7 @@ public class TaskStorage {
      * Constructs a Storage object with a specific file path.
      *
      * @param filePath A string that represents the path of the file to read or
-     *             write.
+     *                 write.
      */
     public TaskStorage(String filePath) {
         this.filePath = filePath;
@@ -57,8 +62,10 @@ public class TaskStorage {
             }
             return taskList;
         } catch (Exception e) {
-            throw new DukeException("Loading of " + filePath + "is unsuccessful.\n" +
-                    "e.getMessage()");
+            throw new DukeException("Loading of "
+                    + filePath
+                    + "is unsuccessful.\n"
+                    + "e.getMessage()");
         }
     }
 
@@ -69,18 +76,17 @@ public class TaskStorage {
      * @throws DukeException throw with error message if writing to the local file failed.
      */
     public void save(ArrayList<Task> tasks) throws DukeException {
-        try{
+        try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                     .withHeader("Id", "Description"));
-            for (Task task : tasks){
+            for (Task task : tasks) {
                 int id = task.getID();
                 String description = task.getDescription();
                 csvPrinter.printRecord(id, description);
             }
             csvPrinter.flush();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
     }

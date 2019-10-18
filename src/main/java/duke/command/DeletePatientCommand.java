@@ -17,6 +17,12 @@ public class DeletePatientCommand extends Command {
     private int id;
     private String deletedPatientInfo;
 
+    /**
+     * .
+     *
+     * @param deletedPatientInfo .
+     * @throws DukeException .
+     */
     public DeletePatientCommand(String deletedPatientInfo) throws DukeException {
 
         this.deletedPatientInfo = deletedPatientInfo;
@@ -30,12 +36,27 @@ public class DeletePatientCommand extends Command {
         }
     }
 
+    /**
+     * .
+     *
+     * @param patientTask        .
+     * @param tasks              .
+     * @param patientManager     .
+     * @param ui                 .
+     * @param patientTaskStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
+     * @throws DukeException .
+     */
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException { ;
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
+                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
+                        PatientStorage patientStorage) throws DukeException {
+        ;
         if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
             boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);
-            if (toDelete){
+            if (toDelete) {
                 patientManager.deletePatient(id);
                 ui.patientDeleted();
                 patientStorage.save(patientManager.getPatientList());
@@ -45,10 +66,10 @@ public class DeletePatientCommand extends Command {
             ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
             if (patientsWithSameName.size() >= 1) {
                 int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
-                if (numberChosen >= 1){
-                    boolean toDelete = ui.confirmPatientToBeDeleted(patientsWithSameName.get(numberChosen-1));
-                    if (toDelete){
-                        patientManager.deletePatient(patientsWithSameName.get(numberChosen-1).getID());
+                if (numberChosen >= 1) {
+                    boolean toDelete = ui.confirmPatientToBeDeleted(patientsWithSameName.get(numberChosen - 1));
+                    if (toDelete) {
+                        patientManager.deletePatient(patientsWithSameName.get(numberChosen - 1).getID());
                         ui.patientDeleted();
                         patientStorage.save(patientManager.getPatientList());
                     }
@@ -57,6 +78,11 @@ public class DeletePatientCommand extends Command {
         }
     }
 
+    /**
+     * .
+     *
+     * @return .
+     */
     @Override
     public boolean isExit() {
         return false;
