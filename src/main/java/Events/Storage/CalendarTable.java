@@ -129,7 +129,7 @@ public class CalendarTable {
                 for (int day=0; day<7; day++) {
                     calendarInfo += "|" + eventsLine[row][day];
                 }
-                calendarInfo += "\n";
+                calendarInfo += "|\n";
             }
         }
 
@@ -167,6 +167,8 @@ public class CalendarTable {
                         thisEndTime = tempEvent.getEndDate().getFormattedDateString().split(", ")[2];
                         thisTime += " ~ " + thisEndTime + " ";
                     }
+                } else if (tempEvent.getType() == 'T') {
+                    thisTime = "* TODO          ";
                 }
 
                 //description
@@ -184,9 +186,9 @@ public class CalendarTable {
                 //dashes
                 thisDashes = "----------------";
             }
-            eventsLine[0+idxOfEventRow*3][day] = thisTime;
-            eventsLine[1+idxOfEventRow*3][day] = thisDescription;
-            eventsLine[2+idxOfEventRow*3][day] = thisDashes;
+            eventsLine[0][day] = thisTime;
+            eventsLine[1][day] = thisDescription;
+            eventsLine[2][day] = thisDashes;
         }
         return eventsLine;
     }
