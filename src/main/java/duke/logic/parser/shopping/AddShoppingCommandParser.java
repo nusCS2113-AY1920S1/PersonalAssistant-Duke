@@ -10,7 +10,10 @@ import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
 
 public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
 

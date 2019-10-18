@@ -26,7 +26,7 @@ public class ShoppingCommandParser implements SubCommandParser<ShoppingCommand> 
         case EditShoppingCommand.COMMAND_WORD:
             return new EditShoppingCommandParser().parse(args);
         case ClearShoppingCommand.COMMAND_WORD:
-            return new ClearShoppingCommandParser().parse(args);
+            return new ClearShoppingCommand();
         case BuyShoppingCommand.COMMAND_WORD:
             return new BuyShoppingCommandParser().parse(args);
 

@@ -11,7 +11,9 @@ import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 
 public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
 
