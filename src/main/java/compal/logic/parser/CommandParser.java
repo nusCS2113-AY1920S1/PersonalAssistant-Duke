@@ -1,9 +1,11 @@
 package compal.logic.parser;
 
-import compal.commons.Compal;
+import compal.logic.command.Command;
 
 import java.text.ParseException;
 
+
 public interface CommandParser {
-    void parseCommand(String userIn) throws Compal.DukeException, ParseException;
+    Command parseCommand(String input) throws ParseException, compal.logic.parser.exceptions.ParseException;
+
 }

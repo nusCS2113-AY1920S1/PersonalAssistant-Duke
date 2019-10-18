@@ -9,7 +9,8 @@ import java.util.Date;
 public class Messages {
 
 
-    public static final String MESSAGE_INVALID_COMMAND = "CommandError: Unknown command input detected!";
+    public static final String MESSAGE_INVALID_COMMAND = "Error: Unknown command input detected!";
+    public static final String MESSAGE_MISSING_INPUTS = "Error: Missing input detected";
     public static final String MESSAGE_INVALID_RANGE = "RangeError: Invalid range detected for execution of command!";
     public static final String MESSAGE_INVALID_DATE_FORMATTING = "DateFormattingError: Date format input is invalid! "
             + "Please make sure is dd/mm/yyyy format.";
@@ -28,7 +29,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_HOUR = "Empty Hour Error: Required hour input!";
     public static final String MESSAGE_MISSING_MIN = "Empty Min Error: Required minute input!";
     public static final String MESSAGE_MISSING_DATE = "Empty Date Error: Required date input!";
-    public static final String MESSAGE_MISSING_INPUT = "Empty Input: Empty input detected!";
+    public static final String MESSAGE_EMPTY_INPUT = "Empty Input: Empty input detected!";
     public static final String MESSAGE_MISSING_TIME = "MissingTimeError: Time field cannot be empty."
             + " Please enter a valid time.";
     public static final String MESSAGE_MISSING_PRIORITY = "MissingPriorityError: Priority "
