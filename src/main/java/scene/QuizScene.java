@@ -2,10 +2,7 @@ package scene;
 
 import Dictionary.WordBank;
 import command.QuizCommand;
-import exception.ChangeSceneException;
-import exception.InvalidAnswerException;
-import exception.WordBankNotEnoughForQuizException;
-import exception.WordUpException;
+import exception.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -29,14 +26,19 @@ public class QuizScene extends NewScene {
 
     @Override
     public String getResponse(String fullCommand)
-            throws ChangeSceneException, InvalidAnswerException, WordBankNotEnoughForQuizException
+            throws ChangeSceneException, InvalidAnswerException,
+            WordBankNotEnoughForQuizException, CommandInvalidException
     {
         if (fullCommand.equals("exit_quiz")) {
             throw new ChangeSceneException();
         }
-        if (!startQuiz && fullCommand.equals("start")) {
-            generateQuiz();
-            return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+        if (!startQuiz) {
+            if (fullCommand.equals("start")) {
+                generateQuiz();
+                return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+            } else {
+              throw new CommandInvalidException(fullCommand);
+            }
         }
         else {
             startQuiz = true;
@@ -70,7 +72,7 @@ public class QuizScene extends NewScene {
         Label dukeText;
         try {
             dukeText = new Label(getResponse(userInput.getText()));
-        } catch (InvalidAnswerException | WordBankNotEnoughForQuizException e) {
+        } catch (InvalidAnswerException | WordBankNotEnoughForQuizException | CommandInvalidException e) {
             dukeText = new Label(e.showError());
         }
         dialogContainer.getChildren().addAll(
