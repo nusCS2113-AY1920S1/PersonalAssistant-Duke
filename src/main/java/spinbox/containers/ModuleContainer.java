@@ -76,7 +76,6 @@ public class ModuleContainer {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
             Module temp = new Module(datum);
-            temp.loadData();
             this.modules.put(temp.getModuleCode(), temp);
         }
     }

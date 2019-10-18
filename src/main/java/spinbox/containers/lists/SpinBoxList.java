@@ -53,6 +53,17 @@ public abstract class SpinBoxList<T extends Item> {
     }
 
     /**
+     * Add element into list, without an intermediate save step.
+     * @param element to be added from storage.
+     * @return added element.
+     */
+    public T addFromStorage(T element) {
+        list.add(element);
+        this.sort();
+        return element;
+    }
+
+    /**
      * Remove element at index from list.
      * @param index index of element.
      * @return element removed.

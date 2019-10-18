@@ -63,16 +63,16 @@ public class TaskList extends SpinBoxList<Task> {
             String[] arguments = datum.split(DELIMITER_FILTER);
             switch (arguments[0]) {
             case "T":
-                this.add(new Todo(Integer.parseInt(arguments[1]), arguments[2]));
+                this.addFromStorage(new Todo(Integer.parseInt(arguments[1]), arguments[2]));
                 break;
             case "D":
                 start = new DateTime(arguments[3]);
-                this.add(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
+                this.addFromStorage(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
                 break;
             default:
                 start = new DateTime(arguments[3]);
                 end = new DateTime(arguments[4]);
-                this.add(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                this.addFromStorage(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
             }
         }
     }
