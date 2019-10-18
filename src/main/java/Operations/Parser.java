@@ -92,7 +92,7 @@ public class Parser {
      * @return the amount of time the customer request to snooze
      */
     public int getAmount(){
-        String temp = scanner.nextLine().trim();
+        String temp = scanner.next().trim();
         return Integer.parseInt(temp);
     }
 
