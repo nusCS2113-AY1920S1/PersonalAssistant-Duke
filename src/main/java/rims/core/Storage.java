@@ -44,10 +44,10 @@ public class Storage {
             if (line[0].equals("I")) {
                 Item newItem;
                 if (isBooked) {
-                    newItem = new Item(line[2], Integer.parseInt(line[1]), isBooked, Integer.parseInt(line[4]), line[5], line[6]);
+                    newItem = new Item(line[2], Integer.parseInt(line[1]), Integer.parseInt(line[4]), line[5], line[6]);
                 }
                 else {
-                    newItem = new Item(line[2], Integer.parseInt(line[1]), isBooked);
+                    newItem = new Item(line[2], Integer.parseInt(line[1]));
                 }
                 if (resources.containsKey(line[2])) {
                     resources.get(line[2]).add(newItem);
@@ -59,10 +59,10 @@ public class Storage {
             else if (line[0].equals("R")) {
                 Room newRoom;
                 if (isBooked) {
-                    newRoom = new Room(line[2], Integer.parseInt(line[1]), isBooked, Integer.parseInt(line[4]), line[5], line[6]);
+                    newRoom = new Room(line[2], Integer.parseInt(line[1]), Integer.parseInt(line[4]), line[5], line[6]);
                 }
                 else {
-                    newRoom = new Room(line[2], Integer.parseInt(line[1]), isBooked);
+                    newRoom = new Room(line[2], Integer.parseInt(line[1]));
                 }
                 resources.put(line[2], new ArrayList<Resource>(Arrays.asList(newRoom)));
             }
@@ -81,9 +81,9 @@ public class Storage {
             ArrayList<Resource> thisResourceArray = entry.getValue();
             for (int i = 0; i < thisResourceArray.size(); i++) {
                 Resource thisResource = thisResourceArray.get(i);
-                int isBooked = (thisResource.isBooked() == true) ? 1 : 0;
+                int isBooked = (thisResource.isBookedOrReserved() == true) ? 1 : 0;
                 String line = thisResource.getType() + "`" + thisResource.getId() + "`" + thisResource.getName() + "`" + isBooked;
-                if (thisResource.isBooked()) {
+                if (thisResource.isBookedOrReserved()) {
                     line += "`";
                     line += thisResource.getLoanId();
                     line += "`";
