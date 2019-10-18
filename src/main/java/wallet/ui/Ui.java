@@ -1,6 +1,5 @@
 package wallet.ui;
 
-import wallet.logic.LogicManager;
 import wallet.model.record.Expense;
 import wallet.thread.ChartThread;
 
@@ -12,8 +11,6 @@ public class Ui {
      * Scanner object used for reading input from user.
      */
     private Scanner sc;
-
-    private ChartThread chartThread;
 
     /**
      * Constructs a new ui.Ui object.
@@ -91,7 +88,7 @@ public class Ui {
     }
 
     public void drawPieChart() {
-        chartThread = new ChartThread();
+        ChartThread chartThread = new ChartThread();
         System.out.println("Please wait while we draw the pie chart...");
     }
 }

@@ -4,7 +4,6 @@ import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
-import wallet.model.record.Loan;
 import wallet.model.task.Task;
 import wallet.ui.Ui;
 
