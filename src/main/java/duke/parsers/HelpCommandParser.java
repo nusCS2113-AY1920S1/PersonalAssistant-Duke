@@ -6,9 +6,9 @@ import duke.exceptions.DukeException;
 public class HelpCommandParser implements ParserInterface<HelpCommand> {
 
     @Override
-    public HelpCommand parse(String UserInput) throws DukeException {
-        if (UserInput.trim().length() >= 0) {
-            return new HelpCommand(UserInput);
+    public HelpCommand parse(String userInput) throws DukeException {
+        if (userInput.trim().length() >= 0) {
+            return new HelpCommand(userInput);
         }
         return new HelpCommand();
     }

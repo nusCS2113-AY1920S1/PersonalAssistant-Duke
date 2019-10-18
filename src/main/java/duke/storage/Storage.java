@@ -11,7 +11,7 @@ import duke.autocorrect.Autocorrect;
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  * @author Ivan Andika Lie
  */
-public class Storage implements StorageInterface{
+public class Storage implements StorageInterface {
     private Load loader = new Load();
     private Write writer = new Write();
 

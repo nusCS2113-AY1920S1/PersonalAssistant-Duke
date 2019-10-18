@@ -39,10 +39,10 @@ public class Autocorrect {
         return getWord();
     }
 
-    public String runOnArgument(String UserInput) {
-        if (UserInput.trim().length() != 0) {
+    public String runOnArgument(String userInput) {
+        if (userInput.trim().length() != 0) {
             String correctedInput = "";
-            String[] splitString1 = UserInput.split("/");
+            String[] splitString1 = userInput.split("/");
             if (splitString1.length > 1) {
                 for (String data : splitString1) {
                     if (data.trim().length() != 0) {
@@ -50,13 +50,13 @@ public class Autocorrect {
                         setWord(partitionedData[0]);
                         execute();
                         String nutrient = getWord();
-                        UserInput.replace("/" + partitionedData[0], "/" + nutrient);
+                        userInput.replace("/" + partitionedData[0], "/" + nutrient);
                     }
                 }
             } else {
-                return UserInput;
+                return userInput;
             }
-            return UserInput;
+            return userInput;
         } else {
             return "";
         }

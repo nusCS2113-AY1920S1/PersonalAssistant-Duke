@@ -71,12 +71,12 @@ public class Duke {
         }
         boolean isExit = false;
         ui.showWelcome();
-        Parser UserParser = new Parser(autocorrect);
+        Parser userParser = new Parser(autocorrect);
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(in);
                 ui.showLine();
-                Command c = UserParser.parse(fullCommand);
+                Command c = userParser.parse(fullCommand);
                 c.execute(tasks, ui, storage, user, in);
                 isExit = c.isExit();
             } catch (DukeException e) {
