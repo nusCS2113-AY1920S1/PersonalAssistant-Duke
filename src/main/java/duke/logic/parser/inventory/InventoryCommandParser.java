@@ -26,7 +26,7 @@ public class InventoryCommandParser implements SubCommandParser<InventoryCommand
         case EditInventoryCommand.COMMAND_WORD:
             return new EditInventoryCommandParser().parse(args);
         case ClearInventoryCommand.COMMAND_WORD:
-            return new ClearInventoryCommandParser().parse(args);
+            return new ClearInventoryCommand();
 
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);

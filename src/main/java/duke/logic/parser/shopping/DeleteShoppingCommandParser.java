@@ -9,7 +9,7 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_INDEX;
 
 public class DeleteShoppingCommandParser implements Parser<DeleteShoppingCommand> {
 
