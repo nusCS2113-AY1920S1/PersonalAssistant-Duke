@@ -22,6 +22,10 @@ public class LogicManager {
     private Messages messages;
     private ParserManager parserManager;
 
+
+    /**
+     * Construct logic manager class.
+     */
     public LogicManager() {
         this.parserManager = new ParserManager();
         this.messages = new Messages();
