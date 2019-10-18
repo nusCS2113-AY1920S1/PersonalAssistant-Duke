@@ -78,7 +78,7 @@ public class Duke extends Application {
             stage.setScene(new Scene(root, 1280,720));
             stage.setTitle("Sports Manager");
             stage.show();
-            studentRead.readStudentListFile(students.getStudentList());
+//            studentRead.readStudentListFile(students.getStudentList());
 
         }
         catch (IOException e) {
