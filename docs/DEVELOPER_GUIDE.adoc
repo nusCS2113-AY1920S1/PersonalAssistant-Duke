@@ -1,4 +1,4 @@
-= Spongebob - Developer Guide
+= SpongeBob - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2113T-F11-1/main
 
 By: `Team F11-1/` +
-Updated As: `02/10/2019`
+Updated As: `17/10/2019`
 
 == Setting Up
 Refer to the guide https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/SETTING_UP.md[here] for setting up.
@@ -59,42 +59,42 @@ Priorities:
 
 [width="59%",cols="22%,<22%,<28%,<28%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|:star::star::star: |SoC club member |know the number of members in the club |account for the strength of the club
-|:star::star::star: |SoC club member |check the list of members |easily contact whoever I want to
-|:star::star::star: |SoC club member | know the hierarchical structure of the club |easily follow the chain of command
-|:star::star::star: |SoC club member |check the list of events/meetings organised by the SoC club |add them to my schedule
-|:star::star::star: |SoC club member |know the location and the description of the event/meeting |know what to expect from the meeting
-|:star::star::star: |SoC club member |be reminded of club events/meetings that are taking place within one week of the current date |remember to attend those events/meetings
-|:star::star::star: |SoC club member |keep track of the club inventory in the form of a list |access them whenever I want
-|:star::star::star: |SoC club member |have access to the user manual |check all the commands that I can use
-|:star::star::star: |SoC club member who is responsible for managing the inventory list |add/delete entries into the list |efficiently maintain a record of the club accessories
-|:star::star::star: |SoC club Head of Student Life |store some credentials of the owner of the locker |easily contact him in case of any unforeseen situations
-|:star::star::star: |SoC club Head of Student Life |tag labels as in-use, broken or unauthorized |track-down unauthorized lockers and repair the broken ones
-|:star::star::star: |SoC club Head of Student Life |keep proper track of the ownership of the lockers |track the status and availability of lockers
-|:star::star::star: |SoC club Head of Student Life |be reminded one day before the expiration of the ownership of a locker |efficiently mark the locker as unused
-|:star::star::star: |SoC club Head of Department |store details such as Year of Study and Major for all the members of the club |refer to members' details when needed
-|:star::star::star: |SoC club Head of Department |add/delete entries from the list of members |the club manpower information is accurate and to the point
-|:star::star::star: |SoC club Head of Finance |make sure that the club expenditure does not exceed the budget |ensure that the Club is never in debt
-|:star::star::star: |member of SoC club Finance Team |keep track of the division of the club budget among different cells |have an overview of the financial status of the fund
-|:star::star::star: |SoC club Head of Human Resources |tag events and meetings based on their priority |ensure that club members do not miss out on important meetings
-|:star::star::star: |member of SoC club Human Resources Team |add/delete events/meetings to the list of events |maintain an up-to-date schedule
-|:star::star: |SoC club member |sort the club members as per the hierarchical structure (President -> Vice President -> Various Committee heads) |easily follow the chain of command
-|:star::star: |SoC club member |easily update/modify the entries in SpongeBob |not to follow the delete-add cycle for small modifications
-|:star::star: |SoC club member |sort the events/meetings either according to their priorities or according to their dates |easily schedule my timetable
-|:star::star: |SoC club member |filter events/meetings based on their priorities |only attend the important ones when I'm busy
-|:star::star: |SoC club member |see the history of my commands |keep track of my activity in SpongeBob
-|:star::star: |SoC club member |store the Agenda and the minutes for each of the meetings |refer to them any time I want _[Version 2.0]_
-|:star::star: |Head within the SoC club |export the data in SpongeBob into humanly editable CSV files |easily send/analyze the Club data and activities
-|:star::star: |SoC club Head of Department |filter/find club members according to various criteria such as name, major, year of study, part of Exco committee |ease my administration process 
-|:star::star: |SoC club Head of Marketing |store email templates and email-ids of sponsors, students in SoC and various companies |send a mass mail just by one command
-|:star::star: |user who is prone to make mistakes while typing|be able to undo/redo my previous commands easily |change the mistakes easily
-|:star::star: |experienced user of SpongBob who prefer typing over mouse input |have single-line command syntax instead of multi-line command syntax |I'm able to accomplish tasks faster
-|:star: |SoC club member who is not fluent in English |translate the various details of the club in another language |clearly understand the contents in Spongebob
-|:star: |user who prefers good visuals |have a nice GUI experience |get the best of both worlds
-|:star: |tech-savvy user |save the club data over cloud |use less local memory
-|:star: |advanced user of Spongebob |add my own shortcuts/hot keys for various commands |I can do things faster
-|:star: |administrator of Spongebob |specify/restrict the access of information on SpongBob the club members |hide the non-essential features from them
+|Priority |As a ...|I want to ...|So that I can...
+|:star::star::star: |a SoC club member|auto allocate lockers to the students based on their preferences|I do not have to waste time in check each and every locker for its availability
+|:star::star::star: |a locker manager for the SoC club|edit the information of a particular student who has been assigned to a locker|I can make sure that the students particulars are correct
+|:star::star::star: |locker manager for the SoC club |edit the various fields associated with a locker like serial number, usage, area|I can ensure that the information in SpongeBob meets accurately with real world status of the lockers
+|:star::star::star: |a SoC  club member|check the number of unused lockers|I know how many lockers are available for rental at any given time
+|:star::star::star: |locker manager for the SoC club|tag labels on the lockers as available|I can assign those lockers to the student who applies for it
+|:star::star::star: |locker manager for the SoC club|tag labels on the lockers as in-use|I can make sure those lockers are not assigned to others again
+|:star::star::star: |locker manager for the SoC club|tag labels on the lockers as broken|I can call the respective authorities to repair the locker
+|:star::star::star: |locker manager for the SoC club|tag labels on the lockers as unauthorized |I can track down unauthorized lockers
+|:star::star::star: |locker manager for the SoC club|be reminded of the expiry date of a students subscription 3 days before the expiration date|I can inform the student to clear his belongings
+|:star::star::star: |locker manager|be reminded of the lockers that are broken|I don't forget to inform the respective authorities responsible for repairing the locker
+|:star::star::star: |locker manager for the SoC club|find the student subscribed to a locker through the stored credentials|I can use it for administrative purposes and to make sure the student has been assigned to the correct locker
+|:star::star::star: |locker manager for the SoC club|view the details of a student who is assigned a locker|I can contact him as when needed
+|:star::star::star: |locker manager for the SoC club|view the status, serial number of lockers in an area|I can keep track of the number of lockers and their status in an area
+|:star::star::star: |locker manager|export the data in SpongeBob into human-editable CSV files|I can easily edit or store the data in any other software
+|:star::star::star: |user |have access to the user manual |check all the commands that I can use
+|:star::star: |productive user who wants to keep track of my commands|view the history of commands|I can view the changes I made
+|:star::star: |locker manager of SoC club|be reminded when lockers in an area are all rented out|I can update the application page on the website accordingly so as to avoid students from selecting that area as a preference
+|:star::star: |locker manager of SoC club|have a “auto reallocate” feature|I can easily reallocate the locker to the student in case his current locker is broken
+|:star::star: |forgetful locker manager of SoC club|have a partial search feature|I can find attributes that match a keyword partially
+|:star::star: |locker manager for the SoC club|view the statistics on the usage of lockers|I know the percentage usage of the lockers in SoC
+|:star::star: |locker manager for the SoC club|compare the statistics on the usage of lockers between different areas|I know which area is more popular in demand of lockers
+|:star::star:|locker manager for the SoC club|view the statistics of number of new subscriptions,number of expiring lockers in the last 30 days|I'm able to analyse and report the usage of lockers to the concerned authorities
+|:star::star: |locker manager for the SoC club|add/remove lockers displayed in an area|I can update the addition/removal of lockers accordingly
+|:star::star: |as a locker manager|want to sort the lockers as per their expiration|to efficiently track all expiring lockers and not miss any
+|:star::star: |as a locker manager who likes visuals|have a calendar view of the upcoming expiring lockers and new subscriptions in a month|I can visualize and keep track of locker subscriptions in a better way
+|:star::star: |user who prefer typing over mouse input|access all the features of SpongeBob without a mouse|accomplish tasks faster through typing
+|:star::star: |user who is prone to make mistakes while typing|be able to undo/redo my previous commands easily|amend mistakes easily
+|:star::star: |user who is prone to making minor typos while typing|show a list of suggested commands for the typo|I can check and rectify the mistake easily
+|:star::star: |user who prefers good visuals |have a nice GUI experience|enjoy using SpongeBob
+|:star: |locker manager for the SoC club |add/remove/move lockers in bulk in a specific location|can be updated with the current state of the lockers in SoC club
+|:star: |advanced user|add my own shortcuts/hot keys for various commands|I can do things in SpongeBob faster
+|:star: |administrator|specify/restrict users’ access on information of SpongeBob|I can hide the non-essential features from them
+|:star: |lousy locker manager who likes everything to be automated|have a feature that automatically sends an email to the student whose locker subscription is ending|it can ease my work
+|:star: |first time user of SpongeBob|want SpongeBob to load some sample data|can easily understand the working of SpongeBob
+
 |=======================================================================
 
 [appendix]

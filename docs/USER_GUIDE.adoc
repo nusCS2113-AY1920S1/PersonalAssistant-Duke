@@ -1,5 +1,5 @@
 
-= Spongebob - User Guide
+= SpongeBob - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -20,7 +20,7 @@ Updated As: `03/10/2019`
 
 == https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/README.adoc[Introduction]
 
-Spongebob is an integrated solution to manage logistics,members and operations of the NUS SoC club. The current solution adopted
+SpongeBob is an integrated solution to manage logistics,members and operations of the NUS SoC club. The current solution adopted
 by the club is to use various platforms like google docs, Microsoft Excel and emails. These solutions face difficulty in integrating
 details and thus hinder management. Our solution, is an approach to integrate the basic functionalities of all the above platforms into one so as to assist the club with their management.
 
