@@ -4,6 +4,7 @@ import models.data.IProject;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
+import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
 import util.factories.MemberFactory;
@@ -86,7 +87,13 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
                         TaskFactory taskFactory = new TaskFactory();
-                        consoleView.addTask(projectToManage, taskFactory.createTask(projectCommand.substring(9)));
+                        ITask newTask = taskFactory.createTask(projectCommand.substring(9));
+                        if (newTask.getDetails() != null) {
+                            consoleView.addTask(projectToManage, (Task) newTask);
+                        } else {
+                            consoleView.consolePrint("Failed to create new task. Please ensure all"
+                                    + "necessary parameters are given");
+                        }
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
