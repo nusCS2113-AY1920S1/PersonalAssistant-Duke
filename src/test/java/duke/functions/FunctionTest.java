@@ -52,19 +52,19 @@ public class FunctionTest {
         boolean exceptionThrown2 = false;
         setup();
         Command c;
-        Parser Parser = new Parser(autocorrect);
+        Parser parser = new Parser(autocorrect);
         try {
-            c = Parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
+            c = parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
             c.execute(tasks, ui, storage, user, in);
-            c = Parser.parse("breakfast burger");
+            c = parser.parse("breakfast burger");
             c.execute(tasks, ui, storage, user, in);
-            c = Parser.parse("breakfast burger /calorie 100");
+            c = parser.parse("breakfast burger /calorie 100");
             c.execute(tasks, ui, storage, user, in);
         } catch (DukeException e) {
             exceptionThrown1 = true;
         }
         try {
-            c = Parser.parse("breakfast taco");
+            c = parser.parse("breakfast taco");
             c.execute(tasks, ui, storage, user, in);
         } catch (DukeException e) {
             exceptionThrown2 = true;
