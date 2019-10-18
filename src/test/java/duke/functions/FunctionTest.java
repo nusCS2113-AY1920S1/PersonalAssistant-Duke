@@ -52,6 +52,7 @@ public class FunctionTest {
         boolean exceptionThrown2 = false;
         setup();
         Command c;
+        Parser Parser = new Parser(autocorrect);
         try {
             c = Parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
             c.execute(tasks, ui, storage, user, in);

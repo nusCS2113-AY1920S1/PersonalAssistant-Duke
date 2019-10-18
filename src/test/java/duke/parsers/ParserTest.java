@@ -13,6 +13,7 @@ class ParserTest {
     @Test
     void parse() {
         try {
+            Parser Parser = new Parser(autocorrect);
             assertTrue(Parser.parse("bye") instanceof ExitCommand);
             assertTrue(Parser.parse("breakfast burger") instanceof AddCommand);
             assertTrue(Parser.parse("breakfast burger /calories 100") instanceof AddCommand);
