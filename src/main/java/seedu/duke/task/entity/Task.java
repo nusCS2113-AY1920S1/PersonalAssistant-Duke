@@ -154,26 +154,28 @@ public class Task {
      * @param parsedDay    an input that contains the day of the task to be done.
      * @param parsedTiming an input that contains the time of the task to be done.
      * @return dateTime that gives the date and time of the input.
+     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     *                                          wrong format
      */
-    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming) {
+    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming) throws CommandParser.UserInputException {
         LocalDate date = LocalDate.now();
-        LocalDateTime dateTime;
-        if (parsedTiming == null || parsedTiming.isEmpty()) { //if no timing is inputted, set time as 0000
-            dateTime = date.atStartOfDay();
-        } else {
-            LocalTime timing = LocalTime.parse(parsedTiming, DateTimeFormatter.ofPattern("HHmm"));
-            dateTime = date.atTime(timing);
-        }
-        DayOfWeek dow = dateTime.getDayOfWeek();
-        String day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
+        LocalDateTime dateTime = null;
         try {
+            if (parsedTiming == null || parsedTiming.isEmpty()) { //if no timing is inputted, set time as 0000
+                dateTime = date.atStartOfDay();
+            } else {
+                LocalTime timing = LocalTime.parse(parsedTiming, DateTimeFormatter.ofPattern("HHmm"));
+                dateTime = date.atTime(timing);
+            }
+            DayOfWeek dow = dateTime.getDayOfWeek();
+            String day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
             while (!day.contains(parsedDay)) {
                 dateTime = dateTime.plusDays(1);
                 dow = dateTime.getDayOfWeek();
                 day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
             }
-        } catch (Exception e) {
-            Duke.getUI().showError("Error");
+        } catch (DateTimeParseException e) {
+            throw new CommandParser.UserInputException("Wrong Date Time format");
         }
         return dateTime;
     }
