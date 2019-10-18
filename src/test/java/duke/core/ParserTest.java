@@ -92,8 +92,8 @@ public class ParserTest {
         String testOutputName = testParserName.parseDeleteTask();
 
 
-        /*assertTrue(testOutputID.charAt(0) == '#' && testOutputID.equals("#10"),
-                "Delete task by ID parsing failed. Expected '#10' but got: " + testOutputID);*/
+        assertTrue(testOutputID.charAt(0) == '#' && testOutputID.equals("#10"),
+                "Delete task by ID parsing failed. Expected '#10' but got: " + testOutputID);
         assertTrue(testOutputName.equals("Take medicine"),
                 "Delete task by name parsing failed. Expected 'Take medicine' but got: " + testOutputName);
     }
