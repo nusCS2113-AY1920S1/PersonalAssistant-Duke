@@ -9,14 +9,14 @@ public class Menu {
     private static final String ART_NAME = "menu";
     private static final String BULLET = "\t\u2022 ";
     public static void show(Ui ui, Storage storage, boolean resume){
-        ui.clearScreen();
-        ui.show("Loading...");
-        StringBuilder menu = new StringBuilder();
-        try{
-            menu.append(storage.getAsciiArt(ART_NAME));
-        } catch (IOException e) {
-            ui.showWarning(ART_NAME.substring(0, 1).toUpperCase() + ART_NAME.substring(1) + " ascii art missing!\n");
-        }
+//        ui.clearScreen();
+//        ui.show("Loading...");
+//        StringBuilder menu = new StringBuilder();
+//        try{
+//            menu.append(storage.getAsciiArt(ART_NAME));
+//        } catch (IOException e) {
+//            ui.showWarning(ART_NAME.substring(0, 1).toUpperCase() + ART_NAME.substring(1) + " ascii art missing!\n");
+//        }
 //        menu.append("\nMenu:\n");
 //        if(resume){
 //            menu.append(BULLET);
@@ -35,7 +35,7 @@ public class Menu {
 //        ui.clearScreen();
 //        ui.show(menu.toString());
         Simulation menuSimulation = new Simulation("Menu", ui);
-        if(resume && storage.getFarmerExist()) { //resume, save and load
+        if(resume && storage.getSaveExist()) { //resume, save and load
             menuSimulation.animate(2);
             return;
         }
@@ -43,7 +43,7 @@ public class Menu {
             menuSimulation.animate(4);
             return;
         }
-        if(storage.getFarmerExist()){ //load
+        if(storage.getSaveExist()){ //load
             menuSimulation.animate(3);
             return;
         }

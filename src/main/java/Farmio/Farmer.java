@@ -35,7 +35,7 @@ public class Farmer {
         this.hasfailedCurrentTask = false;
     }
 
-    public Farmer(JSONObject jsonObject) throws FarmioException {
+    public Farmer(JSONObject jsonObject) {
         this.level = (Integer) jsonObject.get("level");
         this.money = (Integer) jsonObject.get("money");
         this.wheatFarm = new WheatFarm((JSONObject) jsonObject.get("farm_wheat"));

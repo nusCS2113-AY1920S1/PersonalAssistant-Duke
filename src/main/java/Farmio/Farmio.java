@@ -2,6 +2,7 @@ package Farmio;
 
 import Commands.Command;
 import Exceptions.FarmioException;
+import Exceptions.FarmioFatalException;
 import FrontEnd.Ui;
 
 public class Farmio {
@@ -23,13 +24,17 @@ public class Farmio {
     private void run() {
         ui.showWelcome();
         Command command;
-        while(!isExit){
+        while (!isExit) {
             try {
                 command = Parser.parse(ui.getInput(), stage);
                 command.execute(this);
                 isExit = command.isExit;
             } catch (FarmioException e) {
                 ui.showWarning(e.getMessage());
+            } catch (FarmioFatalException e) {
+                ui.showError(e.getMessage());
+                ui.showInfo("Encounterd fatal error. Exiting program.");
+                isExit = true;
             }
         }
         //save the game before quitting
@@ -60,7 +65,7 @@ public class Farmio {
         return stage;
     }
 
-    public Level getLevel(){
+    public Level getLevel() {
         return level;
     }
 
@@ -68,15 +73,15 @@ public class Farmio {
         this.farmer = farmer;
     }
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setLevel(Level level){
+    public void setLevel(Level level) {
         this.level = level;
     }
 
-    public void setExit(){
+    public void setExit() {
         this.isExit = true;
     }
 }

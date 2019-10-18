@@ -1,5 +1,6 @@
 package Commands;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmer;
 import Farmio.Farmio;
 import Farmio.Level;
@@ -11,14 +12,10 @@ import java.io.IOException;
 
 public class CommandGameNew extends Command {
     @Override
-    public void execute(Farmio farmio) throws FarmioException {
+    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         farmio.setFarmer(new Farmer());
-        try {
-            farmio.setLevel(new Level(farmio.getStorage().getLevel(1), farmio.getFarmer()));
-            new Simulation("GameNew", farmio.getUi()).animate(0);
-        } catch (IOException | ParseException e) {
-            throw new FarmioException("Load level failed! Fatal!");
-        }
+        farmio.setLevel(new Level(farmio.getStorage().getLevel(1), farmio.getFarmer()));
+        new Simulation("GameNew", farmio.getUi()).animate(0);
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }

@@ -1,5 +1,6 @@
 package Farmio;
 
+import Exceptions.FarmioFatalException;
 import FrontEnd.AsciiColours;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +18,7 @@ public class Storage {
         appDir = System.getProperty("user.dir");
     }
 
-    public boolean getFarmerExist() {
+    public boolean getSaveExist() {
         return new File(appDir.concat("\\data\\save.json")).exists();
     }
 
@@ -40,34 +41,65 @@ public class Storage {
      * @param farmer Farmio.Farmer object to be stored in to save file.
      * @throws IOException Fail to save farmer object into save file.
      */
-    public static void storeFarmer(Farmer farmer) throws IOException {
-        FileWriter file = new FileWriter(appDir.concat("\\data\\save.json"));
-        file.write(farmer.toJSON().toJSONString());
+    public static boolean storeFarmer(Farmer farmer) {
+        FileWriter file;
+        try {
+            file = new FileWriter(appDir.concat("\\data\\save.json"));
+            file.write(farmer.toJSON().toJSONString());
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 
-    public String getAsciiArt(String name) throws IOException {
+    public String getAsciiArt(String name) throws FarmioFatalException {
+        String path = "asciiArt/" + name + ".txt";
         StringBuilder art = new StringBuilder();
-        FileReader fileReader = new FileReader(getResourceFile("asciiArt/" + name + ".txt"));
+        FileReader fileReader;
+        try {
+            fileReader = new FileReader(getResourceFile(path));
+        } catch (FileNotFoundException e) {
+            throw new FarmioFatalException(formatFatalMessage(path));
+        }
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line;
-        while ((line = bufferedReader.readLine()) != null) {
+        while (true) {
+            try {
+                if ((line = bufferedReader.readLine()) == null) break;
+            } catch (IOException e) {
+                throw new FarmioFatalException(formatFatalMessage(path));
+            }
             art.append(line).append("\n");
         }
         return art.toString();
     }
 
-    public JSONObject getLevel(int level) throws IOException, ParseException {
-        Reader reader = new FileReader(getResourceFile("levels/" + level + ".json"));
+    public JSONObject getLevel(int level) throws FarmioFatalException {
+        String path = "levels/" + level + ".json";
+        Reader reader;
+        try {
+            reader = new FileReader(getResourceFile(path));
+        } catch (FileNotFoundException e) {
+            throw new FarmioFatalException(formatFatalMessage(path));
+        }
         JSONParser parser = new JSONParser();
-        return (JSONObject) parser.parse(reader);
+        try {
+            return (JSONObject) parser.parse(reader);
+        } catch (IOException | ParseException e) {
+            throw new FarmioFatalException(formatFatalMessage(path));
+        }
     }
 
-    private File getResourceFile(String path) throws IOException {
+    private File getResourceFile(String path) throws FarmioFatalException {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(path);
         if (resource == null) {
-            throw new IOException("Game is corrupted!");
+            throw new FarmioFatalException(formatFatalMessage(path));
         }
         return new File(resource.getFile());
+    }
+
+    private String formatFatalMessage(String path){
+        return "\"" + path + "\" not found!";
     }
 }
