@@ -2,26 +2,21 @@ package duke.module;
 
 public interface Details {
 
-    String getName();
+    String getDetails();
 
-    String getAge();
+    void updateDetails(String name, String age, String address);
 
-    String getAddress();
+    void getIndexNumber();
 
-    String getGender();
+    String getParticulars();
 
-    String getContactNumber();
+    String updateParticulars();
 
-    String getEmail();
-
-    String getDOB();
+    void updateParticulars(String contact, String gender, String email, String DOB);
 
     String getPersonalBest();
 
     String getDietaryPlan();
 
     String getNotes();
-
-    String getNOK();
-
 }
