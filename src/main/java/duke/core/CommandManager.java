@@ -1,18 +1,6 @@
 package duke.core;
 
-import duke.command.AddPatientCommand;
-import duke.command.AddStandardTaskCommand;
-import duke.command.AssignTaskToPatientCommand;
-import duke.command.Command;
-import duke.command.DeletePatientCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.FindPatientCommand;
-import duke.command.FindPatientTaskCommand;
-import duke.command.ListPatientsCommand;
-import duke.command.ListTasksCommand;
-import duke.command.UpdatePatientCommand;
-import duke.command.UpdateTaskCommand;
+import duke.command.*;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -66,6 +54,8 @@ public class CommandManager {
                     return new DeletePatientCommand(formattedInput);
                 } else if (secondKeyword.equals("task")) {
                     return new DeleteTaskCommand(parser.parseDeleteTask());
+                } else if (secondKeyword.equals("patienttask")) {
+                    return new DeletePatientTaskCommand(parser.parseDeletePatientTask());
                 } else {
                     throw new Exception("Invalid format. ");
                 }
