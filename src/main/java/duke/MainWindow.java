@@ -104,7 +104,7 @@ public class MainWindow extends AnchorPane {
                 showMessage(arrayList.get(0));
 //                showMessage(duke.runProgram(input).get(0));
 //                resultDisplay.setText(duke.runProgram(input).get(0));
-                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT) || input.trim().contains("vieworders")) {
                     listViewResult.getItems().clear();
                     for (int i = 1; i < arrayList.size(); i++) {
                         listViewResult.getItems().add(arrayList.get(i));

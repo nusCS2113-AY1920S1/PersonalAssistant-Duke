@@ -216,6 +216,16 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
+        } else if (userInput.contains("vieworders")) {
+            System.out.println("stuck here 25");
+            if (userInput.trim().substring(0, 10).equals("vieworders")) {
+                System.out.println("stuck here 25.1");
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         } else {
             System.out.println("stuck here 99");
             arrayList.add(ERROR_MESSAGE_RANDOM);

@@ -14,8 +14,8 @@ public class AddBookingCommand extends CommandBooking {
 
     private static String msg = "";
 
-    public AddBookingCommand(String userInputCommand){
-            this.userInputCommand = userInputCommand;
+    public AddBookingCommand(String userInputCommand) {
+        this.userInputCommand = userInputCommand;
     }
 
     private static boolean isDateParsable(String bookingDate) {
@@ -43,24 +43,29 @@ public class AddBookingCommand extends CommandBooking {
             String bookingDate = temp[4].trim();
             String orderName = temp[5].trim();
 
-            if(isDateParsable(bookingDate)) {
-                bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
-                bookingStorage.saveFile(bookingList);
 
-                int size = bookingList.getSize();
-                if (size == 1) {
-                    msg = " booking in the list.";
+            if (orderName.contains("orders/")) {
+                if (isDateParsable(bookingDate)) {
+                    bookingList.addBooking(customerName, customerContact, numberOfPax, bookingDate, orderName);
+                    bookingStorage.saveFile(bookingList);
+
+                    int size = bookingList.getSize();
+                    if (size == 1) {
+                        msg = " booking in the list.";
+                    } else {
+                        msg = " bookings in the list.";
+                    }
+                    arrayList.add("New booking added:\n" + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
                 } else {
-                    msg = " bookings in the list.";
+                    arrayList.add("Invalid booking date entered.\n Please enter again in the format: dd/MM/yyyy");
                 }
-                arrayList.add("New booking added:\n" + "       " + bookingList.getBookingList().get(size - 1) + "\n" + "Now you have " + size + msg);
-            }else {
-                arrayList.add("Invalid booking date entered.\n Please enter again in the format: dd/MM/yyyy");
+            } else {
+                arrayList.add("Invalid orders entered.\n Please enter again in the format: orders/ <order_name_1>, <order_name_2>");
             }
         } else {
             arrayList.add("Incorrect Booking details.\n" +
                     "       Please enter in the following format:\n" +
-                    "       addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> <order_name>");
+                    "       addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> orders/ <order_name_1>, <order_name_2>");
         }
         return arrayList;
     }
