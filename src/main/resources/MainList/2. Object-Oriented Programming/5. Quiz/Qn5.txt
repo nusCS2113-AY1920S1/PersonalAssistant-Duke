@@ -1,3 +1,0 @@
-Interfaces cannot be instantiated—they can only be implemented by classes.
-(1) True
-(2) False | 1
