@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
     private String command;
 
     private static final String ADD_MENU = "To add a new show:                            "
-                                           + "add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE\n";
+                                           + "add SHOW_NAME|SCHEDULED_DATE|SEATS_BASE_PRICE\n";
 
     private static String DELETE_MENU = "To delete shows with particular name:         "
                                         + "delete-all SHOW_NAME_1|SHOW_NAME_2 | ...\n"
@@ -22,7 +22,7 @@ public class HelpCommand extends Command {
     private static String VIEW_MENU = "To view availability of seats for a show:     view SHOW_NAME | SHOW_DATE\n";
 
     private static String SELL_MENU = "To sell seats to the audience:                "
-                                      + "sell SHOW_NAME | SHOW_DATE | BUYER_NAME\n";
+                                      + "sell SHOW_NAME | SHOW_DATE | SEAT1 SEAT2 SEAT3 ...\n";
 
     private static String LIST_MENU = "To list all shows for viewing:                list\n"
                                       + "To list all dates for a specific show:        list SHOW_NAME\n"
@@ -34,8 +34,25 @@ public class HelpCommand extends Command {
     private static String EDIT_MENU = "To edit show name:                            "
                                       + "edit OLD_SHOW_NAME | SHOW_DATE | NEW_SHOW_NAME\n";
 
+    private static String ALIAS_MENU = "To add Alias:                                 "
+                                        + "add-alias ALIAS | COMMAND\n"
+                                        + "To remove Alias:                              "
+                                        + "remove-alias ALIAS | COMMAND\n"
+                                        + "To reset Alias:                               "
+                                        + "reset-alias\n";
+
+    private static String PROFIT_MENU = "To view profits for a show:                   "
+                                        + "view-profit SHOW_NAME | SHOW_DATE\n"
+                                        + "To view monthly profits:                      "
+                                        + "view-monthly MONTH YEAR\n";
+
     private static String MESSAGE_MENU = "Here are the Commands to use Optix: \n"
-            + ADD_MENU + DELETE_MENU + LIST_MENU + SELL_MENU + POSTPONE_MENU + VIEW_MENU + EDIT_MENU;
+                                        + "\nShow related Commands:\n"
+                                        + ADD_MENU + DELETE_MENU + LIST_MENU + POSTPONE_MENU + EDIT_MENU + PROFIT_MENU
+                                        + "\nSeat related Commands:\n"
+                                        + SELL_MENU  + VIEW_MENU
+                                        + "\nMiscellaneous Commands:\n"
+                                        + ALIAS_MENU;
 
     public HelpCommand() {
         command = "";
@@ -95,6 +112,12 @@ public class HelpCommand extends Command {
             break;
         case "edit":
             message.append(EDIT_MENU);
+            break;
+        case "profit":
+            message.append(PROFIT_MENU);
+            break;
+        case "alias":
+            message.append(ALIAS_MENU);
             break;
         default:
             throw new OptixInvalidCommandException();

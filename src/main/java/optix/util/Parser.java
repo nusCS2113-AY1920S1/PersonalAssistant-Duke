@@ -144,8 +144,8 @@ public class Parser {
 
     private static Command parseAddAlias(String splitStr) throws OptixException {
         String[] aliasDetails = splitStr.split("\\|",2);
-        String alias = aliasDetails[0];
-        String command = aliasDetails[1];
+        String alias = aliasDetails[0].trim();
+        String command = aliasDetails[1].trim();
         if (commandAliasMap.containsValue(command) && !commandAliasMap.containsKey(alias)) {
             return new AddAliasCommand(alias, command, commandAliasMap);
         } else {
