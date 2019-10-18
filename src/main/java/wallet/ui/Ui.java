@@ -2,6 +2,7 @@ package wallet.ui;
 
 import wallet.logic.LogicManager;
 import wallet.model.record.Expense;
+import wallet.thread.ChartThread;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,6 +12,8 @@ public class Ui {
      * Scanner object used for reading input from user.
      */
     private Scanner sc;
+
+    private ChartThread chartThread;
 
     /**
      * Constructs a new ui.Ui object.
@@ -62,8 +65,7 @@ public class Ui {
     /**
      * Displays the expense list in table format.
      */
-    public static void printExpenseTable() {
-        ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
+    public static void printExpenseTable(ArrayList<Expense> expenseList) {
         System.out.println("Here are the expenses in your list:");
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------\n"
@@ -86,5 +88,10 @@ public class Ui {
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------");
         System.out.println("Total amount spent: $" + total);
+    }
+
+    public void drawPieChart() {
+        chartThread = new ChartThread();
+        System.out.println("Please wait while we draw the pie chart...");
     }
 }
