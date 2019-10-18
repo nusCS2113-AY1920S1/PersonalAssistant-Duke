@@ -1,9 +1,5 @@
 package compal.storage;
 
-import compal.model.tasks.Task;
-
-import java.util.ArrayList;
-
 /**
  * API of the Storage component.
  */

@@ -1,8 +1,5 @@
 package compal.commons;
 
-import compal.ui.Ui;
-import compal.ui.UiUtil;
-
 import java.util.Date;
 
 /**

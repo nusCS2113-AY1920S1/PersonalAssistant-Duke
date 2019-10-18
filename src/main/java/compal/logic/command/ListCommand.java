@@ -1,6 +1,7 @@
 package compal.logic.command;
 
 import compal.model.tasks.Task;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

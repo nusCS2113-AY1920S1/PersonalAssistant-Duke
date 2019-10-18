@@ -1,6 +1,11 @@
 package compal.storage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class UserStorageManager implements Storage<String> {
 
@@ -42,7 +47,7 @@ public class UserStorageManager implements Storage<String> {
     }
 
     /**
-     * Saves the user's name
+     * Saves the user's name.
      *
      * @param toSave user's name
      */

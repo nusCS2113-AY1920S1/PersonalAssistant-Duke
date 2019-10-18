@@ -1,18 +1,13 @@
 package compal.model.tasks;
 
-import compal.storage.TaskStorageManager;
-import compal.storage.UserStorageManager;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Date;
-
-import static compal.commons.Messages.MESSAGE_INVALID_TASK_ID;
 
 
 public class TaskList {
@@ -79,7 +74,7 @@ public class TaskList {
     /**
      * Returns a task that has an id value of id.
      */
-    public Task getTaskById(int id)  {
+    public Task getTaskById(int id) {
 
         //search for task with id of id
         for (Task t : arrlist) {
@@ -93,7 +88,7 @@ public class TaskList {
     /**
      * Removes a task that has an id value of id.
      */
-    public Task removeTaskById(int id){
+    public Task removeTaskById(int id) {
 
         //search for task with id of id
         for (Task t : arrlist) {
@@ -123,7 +118,7 @@ public class TaskList {
         idBitSet.clear(id);
     }
 
-    public ArrayList<Task> returnTaskList(){
+    public ArrayList<Task> returnTaskList() {
         return this.arrlist;
     }
 

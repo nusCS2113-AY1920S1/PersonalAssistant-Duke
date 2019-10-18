@@ -1,8 +1,9 @@
 package compal.storage;
 
-import compal.model.tasks.*;
-
-import java.util.ArrayList;
+import compal.model.tasks.Deadline;
+import compal.model.tasks.Event;
+import compal.model.tasks.RecurringTask;
+import compal.model.tasks.Task;
 
 /**
  * Returns Task object based on parts of data stored in the string array.

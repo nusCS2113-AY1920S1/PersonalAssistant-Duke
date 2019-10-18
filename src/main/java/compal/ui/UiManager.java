@@ -1,8 +1,6 @@
 package compal.ui;
 
 import compal.Main;
-import compal.logic.LogicManager;
-import compal.storage.TaskStorageManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -24,7 +22,7 @@ public class UiManager implements Ui {
     private UiParts uiParts;
 
     public UiManager(UiParts uiParts) {
-        this.uiParts =uiParts;
+        this.uiParts = uiParts;
     }
 
 
@@ -84,7 +82,7 @@ public class UiManager implements Ui {
             fxmlLoader.<MainWindow>getController();
 
             primaryStage.show();
-            // System.out.println("Main:LOG: Primary Stage Initialized. Setting Scene and running initialization code.");
+
             //uiParts.printg("HI WORKING?");
             //userName.checkInit();
 

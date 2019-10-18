@@ -1,10 +1,8 @@
 package compal;
 
-import compal.logic.LogicManager;
-import compal.storage.TaskStorageManager;
-import compal.storage.UserStorageManager;
-import compal.ui.*;
-
+import compal.ui.Ui;
+import compal.ui.UiManager;
+import compal.ui.UiParts;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

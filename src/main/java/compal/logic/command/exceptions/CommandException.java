@@ -8,7 +8,7 @@ import compal.ui.UiUtil;
  * It is thrown when command is unknown or when there are invalid arguments.
  */
 
-public class CommandException extends Exception  {
+public class CommandException extends Exception {
 
     String description;
     private UiUtil uiUtil;

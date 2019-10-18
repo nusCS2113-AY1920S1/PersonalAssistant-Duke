@@ -5,9 +5,8 @@ import compal.logic.command.Command;
 import compal.logic.command.CommandResult;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.ParserManager;
-import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParseException;
-import compal.ui.UiUtil;
+import compal.model.tasks.Task;
 
 import java.util.ArrayList;
 

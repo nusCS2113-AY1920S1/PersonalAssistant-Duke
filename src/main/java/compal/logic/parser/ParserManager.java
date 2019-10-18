@@ -2,14 +2,9 @@ package compal.logic.parser;
 
 
 import compal.commons.Messages;
-
 import compal.logic.command.Command;
 import compal.logic.parser.exceptions.ParseException;
-import compal.model.tasks.Task;
-import compal.storage.TaskStorageManager;
-import compal.ui.UiUtil;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
