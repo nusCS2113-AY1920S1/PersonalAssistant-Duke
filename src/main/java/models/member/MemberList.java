@@ -1,17 +1,16 @@
 package models.member;
 
 import util.ParserHelper;
-
 import java.util.ArrayList;
 
-public class ListOfMembersInProject implements IMemberList {
+public class MemberList implements IMemberList {
     private ArrayList<Member> memberList;
     private ParserHelper parserHelper;
 
     /**
      * Class representing a list with all members and their details.
      */
-    public ListOfMembersInProject() {
+    public MemberList() {
         this.memberList = new ArrayList<>();
         this.parserHelper = new ParserHelper();
     }

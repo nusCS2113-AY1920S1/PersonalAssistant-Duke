@@ -13,7 +13,7 @@ public class MemberFactoryTest {
     private String simulatedFactoryInput;
 
     /**
-     * Alwqys true test just to test if jUnit is working.
+     * Always true test just to test if jUnit is working.
      */
     @Test
     void alwaysTrue() {
@@ -53,7 +53,7 @@ public class MemberFactoryTest {
     }
 
     @Test
-    void memberCreation_wrongInputs_errorReturned() {
+    void memberCreation_wrongInputs_creationFailed() {
         simulatedFactoryInput = "i/12341234 x/1";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
         NullMember expectedMember = new NullMember();

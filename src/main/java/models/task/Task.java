@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
-public class Task {
+public class Task implements ITask {
     private String taskName;
     private int taskPriority;
     private Date dueDate;
