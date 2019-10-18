@@ -1,10 +1,7 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
-import Enums.ExceptionType;
-import Enums.Priority;
-import Enums.RecurrenceScheduleType;
-import Enums.SaveType;
+import Enums.*;
 import Model_Classes.*;
 
 import java.io.*;
@@ -45,17 +42,27 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                String[] temp = list.split("#", 7);
+                String[] temp = list.split("#");
                 SaveType type;
                 Priority priority;
                 String description = temp[3];
                 String rawDate = temp[4];
                 String user = temp[6];
+                boolean isFixedDuration = false;
+                String duration = "";
+                TimeUnit unit = TimeUnit.hours;
                 Date by = new Date();
-                try {
-                    by = parser.formatDate(rawDate);
-                } catch (RoomShareException e) {
-                    System.out.println("error in loading file: date format error");
+                if (temp.length != 9) {
+                    try {
+                        by = parser.formatDate(rawDate);
+                    } catch (RoomShareException e) {
+                        System.out.println("error in loading file: date format error");
+                    }
+                } else {
+                    // fixed duration task
+                    isFixedDuration = true;
+                    duration = temp[7];
+                    unit = TimeUnit.valueOf(temp[8]);
                 }
                 try {
                     priority = Priority.valueOf(temp[2]);
@@ -71,38 +78,79 @@ public class Storage {
                 if (temp[5].isEmpty()) {
                     // no recurring type
                     if (type.equals(SaveType.A)) {
-                        Assignment assignment = new Assignment(description, by);
-                        assignment.setPriority(priority);
-                        assignment.setUser(user);
-                        assignment.setRecurrenceSchedule(RecurrenceScheduleType.none);
-                        assignment.setDone(done);
-                        taskArrayList.add(assignment);
+                        // Assignment type
+                        if (isFixedDuration) {
+                            // fixed duration assignment
+                            Assignment assignment = new Assignment(description, duration, unit);
+                            assignment.setPriority(priority);
+                            assignment.setUser(user);
+                            assignment.setRecurrenceSchedule(RecurrenceScheduleType.none);
+                            assignment.setDone(done);
+                            taskArrayList.add(assignment);
+                        } else {
+                            // regular assignment
+                            Assignment assignment = new Assignment(description, by);
+                            assignment.setPriority(priority);
+                            assignment.setUser(user);
+                            assignment.setRecurrenceSchedule(RecurrenceScheduleType.none);
+                            assignment.setDone(done);
+                            taskArrayList.add(assignment);
+                        }
                     } else {
-                        Meeting meeting = new Meeting(description, by);
-                        meeting.setRecurrenceSchedule(RecurrenceScheduleType.none);
-                        meeting.setPriority(priority);
-                        meeting.setUser(user);
-                        meeting.setDone(done);
-                        taskArrayList.add(meeting);
+                        if (isFixedDuration) {
+                            Meeting meeting = new Meeting(description, duration, unit);
+                            meeting.setPriority(priority);
+                            meeting.setUser(user);
+                            meeting.setRecurrenceSchedule(RecurrenceScheduleType.none);
+                            meeting.setDone(done);
+                            taskArrayList.add(meeting);
+                        } else {
+                            Meeting meeting = new Meeting(description, by);
+                            meeting.setRecurrenceSchedule(RecurrenceScheduleType.none);
+                            meeting.setPriority(priority);
+                            meeting.setUser(user);
+                            meeting.setDone(done);
+                            taskArrayList.add(meeting);
+                        }
                     }
                 } else {
                     // recurring type task
                     if (type.equals(SaveType.A)) {
-                        Assignment assignment = new Assignment(description, by);
-                        RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
-                        assignment.setRecurrenceSchedule(recurrenceScheduleType);
-                        assignment.setDone(done);
-                        assignment.setUser(user);
-                        assignment.setPriority(priority);
-                        taskArrayList.add(assignment);
+                        if (isFixedDuration) {
+                            Assignment assignment = new Assignment(description, duration, unit);
+                            RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
+                            assignment.setRecurrenceSchedule(recurrenceScheduleType);
+                            assignment.setDone(done);
+                            assignment.setUser(user);
+                            assignment.setPriority(priority);
+                            taskArrayList.add(assignment);
+                        } else {
+                            Assignment assignment = new Assignment(description, by);
+                            RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
+                            assignment.setRecurrenceSchedule(recurrenceScheduleType);
+                            assignment.setDone(done);
+                            assignment.setUser(user);
+                            assignment.setPriority(priority);
+                            taskArrayList.add(assignment);
+                        }
                     } else {
-                        Meeting meeting = new Meeting(description, by);
-                        RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
-                        meeting.setRecurrenceSchedule(recurrenceScheduleType);
-                        meeting.setDone(done);
-                        meeting.setUser(user);
-                        meeting.setPriority(priority);
-                        taskArrayList.add(meeting);
+                        if (isFixedDuration) {
+                            Meeting meeting = new Meeting(description, duration, unit);
+                            RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
+                            meeting.setRecurrenceSchedule(recurrenceScheduleType);
+                            meeting.setDone(done);
+                            meeting.setUser(user);
+                            meeting.setPriority(priority);
+                            taskArrayList.add(meeting);
+                        } else {
+                            Meeting meeting = new Meeting(description, by);
+                            RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
+                            meeting.setRecurrenceSchedule(recurrenceScheduleType);
+                            meeting.setDone(done);
+                            meeting.setUser(user);
+                            meeting.setPriority(priority);
+                            taskArrayList.add(meeting);
+                        }
                     }
                 }
             }
@@ -125,13 +173,35 @@ public class Storage {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             for (Task s : list) {
+                String out = "";
                 String done = s.getDone() ? "y" : "n";
                 String type = String.valueOf(s.toString().charAt(1));
                 String priority = s.getPriority().name();
                 String description = s.getDescription();
-                String time = convertForStorage(s);
                 String assignee = s.getUser();
-                String out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
+                if (s instanceof Assignment) {
+                    if (((Assignment) s).isFixedDuration()) {
+                        String duration = ((Assignment) s).getDuration();
+                        String unit = ((Assignment) s).getTimeUnit().toString();
+                        String recurrence = s.getRecurrenceSchedule().toString();
+                        out = type + "#" + done + "#" + priority + "#" + description + "#"
+                                + "F" + "#" + recurrence + "#" + assignee+ "#" + duration + "#" + unit;
+                    } else {
+                        String time = convertForStorage(s);
+                        out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
+                    }
+                } else if (s instanceof Meeting){
+                    if (((Meeting) s).isFixedDuration()) {
+                        String duration = ((Meeting) s).getDuration();
+                        String unit = ((Meeting) s).getTimeUnit().toString();
+                        String recurrence = s.getRecurrenceSchedule().toString();
+                        out = type + "#" + done + "#" + priority + "#" + description + "#"
+                                + "F" + "#" + recurrence + "#" + assignee+ "#" + duration + "#" + unit;
+                    } else {
+                        String time = convertForStorage(s);
+                        out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
+                    }
+                }
                 writer.write(out);
                 writer.newLine();
             }
@@ -175,4 +245,5 @@ public class Storage {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
+
 }
