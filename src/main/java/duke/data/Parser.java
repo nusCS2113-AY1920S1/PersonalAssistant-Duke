@@ -1,6 +1,5 @@
 package duke.data;
 
-
 import duke.module.Goal;
 import duke.module.Lesson;
 import duke.module.Reminder;
@@ -18,10 +17,15 @@ import duke.sports.MyStudent;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Date;
 
 /**
- * Parser is the controller for the string inputs received by the standard input.
+ * The controller for the string inputs received by the standard input.
  */
 public class Parser {
 
@@ -49,17 +53,16 @@ public class Parser {
                     tasks.doneTask(index);
                     storage.updateFile(tasks.getList());
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("\u2639 OOPS!!! The following task does not exist!");
+                    System.out.println("\u2639 OOPS!!! The following task "
+                            + "does not exist!");
                 }
                 break;
 
-            /**
-             * Creates task with a duration
-             */
             case "todo":
                 try {
                     String[] tempString = input.split(" ");
-                    List<String> listString = new ArrayList<String>(Arrays.asList(tempString));
+                    List<String> listString = new ArrayList<String>(
+                            Arrays.asList(tempString));
                     listString.remove(0);
                     String info1 = String.join(" ", listString);
                     String[] parseString = info1.split("/in");
@@ -67,7 +70,8 @@ public class Parser {
                     tasks.addTask(todo, "T");
                     storage.saveFile("T", todo, todo.getDate());
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("\u2639 OOPS!!! The description"
+                            + "of a todo cannot be empty.");
                 }
                 break;
 
@@ -80,7 +84,8 @@ public class Parser {
                     tasks.addTask(deadline, "D");
                     storage.saveFile("D", deadline, deadline.getDate());
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("\u2639 OOPS!!! The task needs a deadline");
+                    System.out.println("\u2639 OOPS!!! The task needs a "
+                            + "deadline");
                 }
                 break;
 
@@ -93,11 +98,13 @@ public class Parser {
                     tasks.addTask(event, "E");
                     storage.saveFile("E", event, event.getDate());
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("\u2639 OOPS!!! The task needs a deadline");
+                    System.out.println("\u2639 OOPS!!! The task needs a "
+                            + "deadline");
                 }
                 break;
             /**
-             * Command should be in the form: reminder deadlines before 18/09/2019 1900
+             * Command should be in the form:
+             * reminder deadlines before 18/09/2019 1900
              * Push date before date into
              */
             case "reminder":
@@ -215,43 +222,42 @@ public class Parser {
                 Goal goal = new Goal(goalStorage.loadGoal());
                 try {
                     switch (word[1]) {
-                        case "view": {
+                        case "view":
                             String date = word[2];
                             System.out.print(goal.viewGoal(date));
                             break;
-                        }
-                        case "add": {
-                            String date = word[2];
+
+                        case "add":
+                            date = word[2];
                             index = input.indexOf(word[3]);
                             String message = input.substring(index);
                             System.out.println(goal.addGoal(date, message, goalStorage));
                             break;
-                        }
-                        case "delete": {
-                            String date = word[2];
+
+                        case "delete":
+                            date = word[2];
                             index = input.indexOf(word[3]);
-                            String message = input.substring(index);
+                            message = input.substring(index);
                             System.out.println(goal.removeGoal(date, message, goalStorage));
                             break;
-                        }
-                        case "delete-all": {
-                            String date = word[2];
+
+                        case "delete-all":
+                            date = word[2];
                             System.out.println(goal.removeAllGoal(date, goalStorage));
                             break;
-                        }
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please enter the full command.\n" +
-                        "To view a goal of the day, enter input in the format: goal view dd/MM/yyyy\n" +
-                        "To add a goal to a day, enter input in the format: goal add dd/MM/yyyy {goal}\n" +
-                        "To delete all goals of a day, enter input in the format: goal delete-all dd/MM/yyyy\n" +
-                        "To delete a goal of the day, enter input in the format: goal delete dd/MM/yyyy {goal}");
+                    System.out.println("Please enter the full command.\n"
+                        + "To view a goal of the day, enter input in the format: goal view dd/MM/yyyy\n"
+                        + "To add a goal to a day, enter input in the format: goal add dd/MM/yyyy {goal}\n"
+                        + "To delete all goals of a day, enter input in the format: goal delete-all dd/MM/yyyy\n"
+                        + "To delete a goal of the day, enter input in the format: goal delete dd/MM/yyyy {goal}");
                 } catch (ParseException e) {
-                    System.out.println("Please enter the details in the correct format.\n" +
-                        "To view a goal of the day, enter input in the format: goal view dd/MM/yyyy\n" +
-                        "To add a goal to a day, enter input in the format: goal add dd/MM/yyyy {goal}\n" +
-                        "To delete all goals of a day, enter input in the format: goal delete-all dd/MM/yyyy\n" +
-                        "To delete a goal of the day, enter input in the format: goal delete dd/MM/yyyy {goal}");
+                    System.out.println("Please enter the details in the correct format.\n"
+                        + "To view a goal of the day, enter input in the format: goal view dd/MM/yyyy\n"
+                        + "To add a goal to a day, enter input in the format: goal add dd/MM/yyyy {goal}\n"
+                        + "To delete all goals of a day, enter input in the format: goal delete-all dd/MM/yyyy\n"
+                        + "To delete a goal of the day, enter input in the format: goal delete dd/MM/yyyy {goal}");
                 }
                 break;
 
@@ -265,43 +271,47 @@ public class Parser {
             Lesson lesson = new Lesson(lessonStorage.loadLesson());
             try {
                 switch (word[1]) {
-                case "view": {
+                case "view":
                     String date = word[2];
                     System.out.print(lesson.viewLesson(date));
                     break;
-                }
-                case "add": {
-                    String date = word[2];
+
+                case "add":
+                    date = word[2];
                     index = input.indexOf(word[3]);
                     String message = input.substring(index);
                     System.out.println(lesson.addLesson(date, message, lessonStorage));
                     break;
-                }
-                case "delete": {
-                    String date = word[2];
+
+                case "delete":
+                    date = word[2];
                     index = input.indexOf(word[3]);
-                    String message = input.substring(index);
+                    message = input.substring(index);
                     System.out.println(lesson.removeLesson(date, message, lessonStorage));
                     break;
-                }
-                case "delete-all": {
-                    String date = word[2];
+
+                case "delete-all":
+                    date = word[2];
                     System.out.println(lesson.removeAllLesson(date, lessonStorage));
                     break;
                 }
-                }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter the full command.\n" +
-                    "To view a lesson learnt for the day, enter input in the format: lesson view dd/MM/yyyy\n" +
-                    "To add a lesson learnt for the day, enter input in the format: lesson add dd/MM/yyyy {lesson}\n" +
-                    "To delete all lessons learnt for the day, enter input in the format: lesson delete-all dd/MM/yyyy\n" +
-                    "To delete a lesson learnt for the day, enter input in the format: lesson delete dd/MM/yyyy {lesson}");
+                System.out.println("Please enter the full command.\n"
+                    + "To view a lesson learnt for the day, enter input in the format: lesson view dd/MM/yyyy\n"
+                    + "To add a lesson learnt for the day, enter input in the format: lesson add dd/MM/yyyy {lesson}\n"
+                    + "To delete all lessons learnt for the day, enter input in the format: lesson delete-all dd/MM/yyyy\n"
+                    + "To delete a lesson learnt for the day, enter input in the format: lesson delete dd/MM/yyyy {lesson}");
             } catch (ParseException e) {
-                System.out.println("Please enter the details in the correct format.\n" +
-                    "To view a lesson learnt for the day, enter input in the format: lesson view dd/MM/yyyy\n" +
-                    "To add a lesson learnt for the day, enter input in the format: lesson add dd/MM/yyyy {lesson}\n" +
-                    "To delete all lessons learnt for the day, enter input in the format: lesson delete-all dd/MM/yyyy\n" +
-                    "To delete a lesson learnt for the day, enter input in the format: lesson delete dd/MM/yyyy {lesson}");
+                System.out.println("Please enter the details in the correct "
+                        + "format.\n"
+                    + "To view a lesson learnt for the day, enter input "
+                        + "in the format: lesson view dd/MM/yyyy\n"
+                    + "To add a lesson learnt for the day, enter input "
+                        + "in the format: lesson add dd/MM/yyyy {lesson}\n"
+                    + "To delete all lessons learnt for the day, enter input "
+                        + "in the format: lesson delete-all dd/MM/yyyy\n"
+                    + "To delete a lesson learnt for the day, enter input "
+                       + "in the format: lesson delete dd/MM/yyyy {lesson}");
             }
             break;
 
@@ -311,28 +321,28 @@ public class Parser {
              * Delete: training delete-all|training delete [plan number]
              */
             case "training":
-                switch(word[1]) {
-                    case "view": {
+                switch (word[1]) {
+                    case "view":
                         System.out.println("TBC");
                         System.out.println(plan.viewPlan());
                         break;
-                    }
-                    case "add-plan": {
+                    case "add-plan":
                         //pass
                         break;
-                    }
-                    case "add-activity": {
-                        System.out.println(plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5])));
+                    case "add-activity":
+                        int num = 2;
+                        System.out.println(plan.addActivity(word[num],
+                                Integer.parseInt(word[++num]),
+                                Integer.parseInt(word[++num])));
                         break;
-                    }
-                    case "delete": {
-                        //pass
+                    case "delete":
+                        System.out.println("To be added.");
                         break;
-                    }
-                    case "delete-all": {
-                        //pass
+                    case "delete-all":
+                        System.out.println("To be added");
                         break;
-                    }
+                    default:
+                        break;
                 }
                 break;
 
@@ -393,13 +403,14 @@ public class Parser {
                         String name = splitByComma[0];
                         String age = splitByComma[1];
                         String address = splitByComma[2];
-                        MyStudent myNewStudent = new MyStudent(name, age, address);
+                        MyStudent myNewStudent = new MyStudent(
+                                name, age, address);
                         students.addStudent(myNewStudent);
                         break;
 
                         // Format: student delete [index]
                     case "delete":
-                        index = Integer.parseInt(word[2]); // Convert string into int
+                        index = Integer.parseInt(word[2]);
                         students.deleteStudent(index);
                         break;
 
@@ -425,29 +436,30 @@ public class Parser {
                         break;
 
                     case "search":
-                        String searchName = input.substring(15);
+                        final int limit = 15;
+                        String searchName = input.substring(limit);
                         students.findName(searchName);
                         break;
+                    default:
+                        System.out.println("(Add statement here?)");
                     }
                     storage.updateStudentList(students.getStudentList());
                 break;
-
-            /**
-             * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
-             */
             case "plan":
                 if (word[1].equals("view")) {
-                    plan.loadPlan(word[2].toLowerCase(), word[3]);
-                    plan.viewPlan();
+                    //int num = 2;
+                    //plan.loadPlan(word[num].toLowerCase(), word[++num]);
+                    System.out.println(plan.viewPlan());
                 } else if (word[1].equals("new")) {
                     plan.createPlan(word[2].toLowerCase());
                 } else if (word[1].equals("edit")) {
-                    //not yet created
+                    System.out.println("To be created...");
                 }
                 break;
 
             default:
-                System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\u2639 OOPS!!! I'm sorry,"
+                        + "but I don't know what that means :-(");
                 break;
         }
     }
