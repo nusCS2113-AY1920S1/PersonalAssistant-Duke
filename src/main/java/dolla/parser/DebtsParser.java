@@ -1,6 +1,6 @@
 package dolla.parser;
 
-import dolla.ui.Ui;
+import dolla.Ui;
 import dolla.command.*;
 import dolla.task.LogList;
 

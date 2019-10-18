@@ -1,6 +1,6 @@
 package dolla.task;
 
-import dolla.ui.Ui;
+import dolla.Ui;
 
 /**
  * Limit is a class that stores all limit related methods (savings and budgets)

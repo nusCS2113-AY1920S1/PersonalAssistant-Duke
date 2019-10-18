@@ -1,4 +1,4 @@
-package dolla.ui;
+package dolla;
 
 import dolla.task.*;
 

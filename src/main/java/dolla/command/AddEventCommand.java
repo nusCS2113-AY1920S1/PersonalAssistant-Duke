@@ -1,6 +1,6 @@
 package dolla.command;
 
-import dolla.ui.Ui;
+import dolla.Ui;
 import dolla.task.Event;
 import dolla.task.Task;
 import dolla.task.TaskList;

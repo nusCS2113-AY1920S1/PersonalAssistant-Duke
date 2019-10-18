@@ -1,7 +1,7 @@
 package dolla.parser;
 
 import dolla.Time;
-import dolla.ui.Ui;
+import dolla.Ui;
 import dolla.command.AddDeadlineCommand;
 import dolla.command.AddEventCommand;
 import dolla.command.Command;

@@ -1,7 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.ui.Ui;
+import dolla.Ui;
 
 import dolla.task.LogList;
 
