@@ -31,18 +31,18 @@ public class ChartThread implements Runnable {
         percentage[3] = 0.1f;
 
         for (float y = -radius; y < radius; y++) {
-            char t = '-';
+            char character = '-';
             for (float x = -radius; x < radius; x++) {
                 if (x * x + y * y < radius * radius) {
-                    double a = Math.atan2(y, x) / Math.PI / 2 + .5f;
-                    t = set(fill, percentage, a);
-                    System.out.print(t); //Prints circle content
+                    double angle = Math.atan2(y, x) / Math.PI / 2 + .5f;
+                    character = set(fill, percentage, angle);
+                    System.out.print(character); //Prints circle content
                 } else {
-                    t = ' ';
-                    System.out.print(t); //Prints spaces
+                    character = ' ';
+                    System.out.print(character); //Prints spaces
                 }
             }
-            System.out.println(t); //Form new line
+            System.out.println(character); //Form new line
         }
     }
 
