@@ -21,6 +21,13 @@ public class Storage {
     private String scheduleFilePath;
 
     /**
+     * Initializes empty Storage object.
+     */
+    public Storage() {
+
+    }
+
+    /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
      * @param scheduleFilePath File path to store all categories
@@ -47,7 +54,7 @@ public class Storage {
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public HashMap<String, Double> loadBudget(CategoryList catList) throws MooMooException {
+    public HashMap<String, Double> loadBudget(ArrayList<Category> catList) throws MooMooException {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
@@ -172,8 +179,8 @@ public class Storage {
      * Checks if a category is found in the list of categories.
      * @return true if it exists.
      */
-    private boolean inCategoryList(CategoryList catList, String value) {
-        for (Category cat : catList.getCategoryList()) {
+    private boolean inCategoryList(ArrayList<Category> catList, String value) {
+        for (Category cat : catList) {
             if (cat.toString().equals(value)) {
                 return true;
             }

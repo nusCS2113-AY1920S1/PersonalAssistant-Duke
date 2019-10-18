@@ -37,7 +37,7 @@ public class MooMoo {
         }
 
         try {
-            budget = new Budget(storage.loadBudget(categoryList));
+            budget = new Budget(storage.loadBudget(categoryList.getCategoryList()));
         } catch (MooMooException e) {
             ui.printException(e);
             ui.showResponse();
