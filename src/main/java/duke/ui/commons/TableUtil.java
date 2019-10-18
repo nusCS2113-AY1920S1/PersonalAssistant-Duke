@@ -2,11 +2,9 @@ package duke.ui.commons;
 
 import duke.model.product.Product;
 import javafx.beans.binding.Bindings;
-import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 
 public class TableUtil {
 

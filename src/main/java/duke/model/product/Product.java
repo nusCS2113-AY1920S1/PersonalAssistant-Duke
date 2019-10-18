@@ -54,6 +54,9 @@ public class Product {
         }
     }
 
+    /**
+     * Creates a Product.
+     */
     public Product(String productName, String retailPrice, String ingredientCost, IngredientItemList ingredientItemList) {
         requireAllNonNull(productName);
         checkEmpty(productName, MESSAGE_CONSTRAINTS);
@@ -69,6 +72,9 @@ public class Product {
         }
     }
 
+    /**
+     * Creates a Product.
+     */
     public Product(String productName, Double retailPrice, Double ingredientCost,
                    IngredientItemList ingredientItemList, Product.Status status) {
         requireAllNonNull(productName);

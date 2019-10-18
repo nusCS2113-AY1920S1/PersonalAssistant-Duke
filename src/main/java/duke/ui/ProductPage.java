@@ -4,18 +4,15 @@ import duke.commons.core.LogsCenter;
 import duke.commons.core.index.Index;
 import duke.model.product.Product;
 import duke.ui.commons.TableUtil;
-import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import org.controlsfx.control.MasterDetailPane;
 
 import java.util.logging.Logger;
 
