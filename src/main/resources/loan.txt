@@ -1,25 +1,25 @@
 --View Loans--
-command	,list loan [/sortby TYPE]
-TYPE,lend OR borrow OR date OR category
-desc,list all loans
+command	|list loan [/sortby TYPE]
+TYPE|lend OR borrow OR date OR category
+desc|list all loans
 --Add Loan--
-command	,add loan <DETAILS> <AMOUNT> [DATE] </l OR /b>
-DATE,dd/mm/yyyy
-/l,use this if entry indicates the amount you lend others
-/b,use this if entry indicates the amount you borrow from others
-desc,add new loan entry
-example,add loan lunch $5.00 01/01/2019 /b
+command	|add loan <DETAILS> <AMOUNT> [DATE] </l OR /b>
+DATE|dd/mm/yyyy
+/l|use this if entry indicates the amount you lend others
+/b|use this if entry indicates the amount you borrow from others
+desc|add new loan entry
+example|add loan lunch $5.00 01/01/2019 /b
 --Edit Loan--
-command	,edit loan <INDEX in loan list> </d new DETAILS> </a new AMOUNT> [/l OR /b] [/c INDEX of contact from contact list]
-/l,use this if entry indicates the amount you lend others
-/b,use this if entry indicates the amount you borrow from others
-desc,edit existing loan entry
-example,edit loan 0 /d dinner /a $50.00 /l /c 3
+command	|edit loan <INDEX in loan list> </d new DETAILS> </a new AMOUNT> [/l OR /b] [/c INDEX of contact from contact list]
+/l|use this if entry indicates the amount you lend others
+/b|use this if entry indicates the amount you borrow from others
+desc|edit existing loan entry
+example|edit loan 0 /d dinner /a $50.00 /l /c 3
 --Delete Loan --
-command	,delete loan <INDEX in loan list>
-desc,delete existing loan entry
-example,delete loan 2
+command	|delete loan <INDEX in loan list>
+desc|delete existing loan entry
+example|delete loan 2
 --Settled--
-command	,done loan <INDEX in loan list>
-desc,indicate that loan has been settled
-example,done loan 6
+command	|done loan <INDEX in loan list>
+desc|indicate that loan has been settled
+example|done loan 6

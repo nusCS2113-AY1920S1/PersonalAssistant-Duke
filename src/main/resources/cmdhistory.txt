@@ -1,9 +1,9 @@
 --Undo Previous Command--
-command	,undo
-desc,undo previous command executed
+command	|undo
+desc|undo previous command executed
 --Redo Previous Command--
-command	,redo
-desc,redo previous command executed
+command	|redo
+desc|redo previous command executed
 --Command History--
-command	,history
-desc,view command history
+command	|history
+desc|view command history

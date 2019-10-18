@@ -65,13 +65,13 @@ public class HelpStorage {
             String str;
             while ((str = br.readLine()) != null) {
                 ;
-                String[] data = str.split(",");
+                String[] data = str.split("\\|");
                 if (data.length == 2) {
-                    String row = String.format("%-20s %s", data[0], data[1]);
+                    String row = String.format("%-20s %s", data[0].trim(), data[1].trim());
                     System.out.println(row);
                 } else {
                     System.out.println();
-                    System.out.println(data[0]);
+                    System.out.println(data[0].trim());
                 }
             }
             br.close();
