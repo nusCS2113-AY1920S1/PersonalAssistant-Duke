@@ -52,7 +52,8 @@ public final class CommandSyntaxMessage {
     public static String getMessage() {
         StringBuilder output = new StringBuilder();
         for (Map.Entry<String, String> entry : nameToSyntax.entrySet()) {
-            output.append(entry.getKey() + "\nFormat: " + entry.getValue());
+            output.append(entry.getKey() + "\nFormat: " + entry.getValue())
+                    .append("\n");
         }
         return output.toString();
     }
@@ -66,7 +67,7 @@ public final class CommandSyntaxMessage {
     public static String getMessage(String helpMessage) throws DukeException {
         if (nameToSyntax.containsKey(helpMessage)) {
             StringBuilder output = new StringBuilder();
-            output.append(helpMessage + "Format: " + nameToSyntax.get(helpMessage));
+            output.append(helpMessage + "\nFormat: " + nameToSyntax.get(helpMessage));
             return output.toString();
         } else {
             throw new DukeException("", "Other");
