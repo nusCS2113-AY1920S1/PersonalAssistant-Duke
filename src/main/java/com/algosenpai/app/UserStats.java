@@ -59,7 +59,6 @@ public class UserStats {
      * @return A pair of (correct answers , total Qs answered), or null if no such chapter found.
      */
     public Pair<Integer,Integer> getStats(String chapterName) {
-
         ChapterStat target = getStatsByName(chapterName);
         if (target == null) {
             return null;
