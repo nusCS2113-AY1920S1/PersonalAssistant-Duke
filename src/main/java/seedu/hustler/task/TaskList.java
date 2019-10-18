@@ -80,6 +80,14 @@ public class TaskList {
         return list.isEmpty();
     }
 
+    public TaskList createCopy() {
+        ArrayList<Task> AL = new ArrayList<Task>();
+	    for (int i = 0; i < this.list.size(); i += 1) {
+            AL.add(this.list.get(i));
+        }
+        return new TaskList(AL);
+    }
+
     /**
      * Adds a task to the ArrayList based on the task type and task description.
      * Parses the description in case of event or deadline.
