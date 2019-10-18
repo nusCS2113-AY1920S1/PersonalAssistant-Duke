@@ -35,6 +35,7 @@ run {
     standardInput = System.in
 }
 
+
 test {
     useJUnitPlatform()
 }
@@ -71,6 +72,7 @@ dependencies {
 javafx {
     version = "11.0.2"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
+
 }
 
 checkstyle {

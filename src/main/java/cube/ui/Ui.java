@@ -7,16 +7,14 @@ package cube.ui;
 
 import cube.logic.parser.AddCommandParser;
 import cube.logic.parser.Parser;
+import cube.logic.parser.ParserUtil;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.task.TaskList;
 import cube.task.Task;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import cube.logic.command.CommandResult;
 import java.util.Scanner;
 import java.util.Date;
-import java.util.TimeZone;
 
 
 public class Ui {
@@ -158,7 +156,7 @@ public class Ui {
 		System.out.println("Here are the upcoming expiry dates:");
 		for(int i = 0; i < list.size(); i++) {
 			Food food = list.get(i);
-			System.out.println(food.getName() + " due in " + parseDateToString(food.getExpiryDate()));
+			System.out.println(food.getName() + " due in " + ParserUtil.parseDateToString(food.getExpiryDate()));
 		}
 	}
 
@@ -189,7 +187,7 @@ public class Ui {
 	}
 	//----to be deleted
 
-	public void showRemoveFood(Food removed, FoodList list) {
+	public void showDelete(Food removed, FoodList list) {
 		System.out.println("Nice! I've removed this food:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " food in the list.");
@@ -216,7 +214,7 @@ public class Ui {
 	 * @param date date of the free day.
 	 */
 	public void showFreeDay(Date date) {
-		System.out.println("Your next free day is: " + parseDateToString(date));
+		System.out.println("Your next free day is: " + ParserUtil.parseDateToString(date));
 	}
 	//----to be deleted
 
@@ -256,17 +254,8 @@ public class Ui {
 		System.out.print(help);
 	}
 
-	/**
-	 * Returns the string of date by parsing a date.
-	 * @param date the date to be parsed.
-	 * @return the string of date.
-	 */
-	public static String parseDateToString(Date date) {
-		if (date == null) {
-			return "";
-		}
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
-		return formatter.format(date);
+	// temporary use before GUI finish
+	public void showCommandResult(CommandResult result) {
+		System.out.println(result.getFeedbackToUser());
 	}
 }
