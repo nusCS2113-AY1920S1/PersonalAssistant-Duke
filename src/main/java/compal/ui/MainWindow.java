@@ -19,7 +19,6 @@ public class MainWindow extends AnchorPane {
     //Class Properties/Variables
     private LogicManager logicManager;
     private TaskStorageManager taskStorageManager;
-    private UiUtil uiUtil;
 
     private ArrayList<Task> taskArrList;
 
