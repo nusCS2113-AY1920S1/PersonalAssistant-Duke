@@ -1,7 +1,8 @@
 package compal.ui;
 
 import compal.Main;
-import compal.commons.Compal;
+import compal.logic.LogicManager;
+import compal.storage.TaskStorageManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -16,18 +17,16 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UiManager implements Ui {
+    private UiParts uiParts;
 
-    private Compal compal;
-
-    public UiManager(Compal compal) {
-        super();
-        this.compal = compal;
+    public UiManager(UiParts uiParts) {
+        this.uiParts =uiParts;
     }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,7 +37,7 @@ public class UiManager implements Ui {
             AnchorPane ap = fxmlLoader.load();
 
             TabPane tabReference = (TabPane) ap.getChildren().get(2);
-            compal.ui.tabWindow = tabReference;
+            uiParts.setTabWindow(tabReference);
 
             //Create MainWindow Pane
             VBox root = new VBox();
@@ -51,18 +50,18 @@ public class UiManager implements Ui {
             tabReference.getTabs().add(0, mainTab);
 
             //Create DailyCalUI Pane
-            DailyCalUI dc = new DailyCalUI(compal);
-            String datePattern = "dd/MM/yyyy";
-            compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
-            ScrollPane dailyPane = dc.init(compal.ui.dateState);
+            /**DailyCalUI dc = new DailyCalUI(compal);
+             String datePattern = "dd/MM/yyyy";
+             compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
+             ScrollPane dailyPane = dc.init(compal.ui.dateState);
 
-            Tab dailyTab = new Tab();
-            dailyTab.setText(compal.ui.dateState);
-            dailyTab.setContent(dailyPane);
-            tabReference.getTabs().add(1, dailyTab);
+             Tab dailyTab = new Tab();
+             dailyTab.setText(compal.ui.dateState);
+             dailyTab.setContent(dailyPane);
+             tabReference.getTabs().add(1, dailyTab);**/
 
-            compal.ui.mainWindow = mainPane; //gets a reference to the main display viewport
-            compal.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //get reference to secondary viewport
+            uiParts.setMainWindow(mainPane);
+            uiParts.setSecondaryWindow(((ScrollPane) ap.getChildren().get(3)));  //get reference to secondary viewport
             Scene s1 = new Scene(ap);
 
             //Sets up primary stage --------------------------------------------------------------->
@@ -75,24 +74,22 @@ public class UiManager implements Ui {
             //Gets and shows the current user system time ------------------------------------------------------->
             Label date = (Label) ap.getChildren().get(6);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date d = new Date();
 
             date.setText("Today's Date:" + formatter.format(d));
             //------------------------------------------------------------------------------------------------->
 
             //Passes the initialized Compal object to the controller class to link them up
-            fxmlLoader.<MainWindow>getController().setCompal(compal);
+            fxmlLoader.<MainWindow>getController();
 
             primaryStage.show();
-            System.out.println("Main:LOG: Primary Stage Initialized. Setting Scene and running initialization code.");
+            // System.out.println("Main:LOG: Primary Stage Initialized. Setting Scene and running initialization code.");
+            //uiParts.printg("HI WORKING?");
+            //userName.checkInit();
 
-            //Runs ui's initialization code
-            compal.ui.checkInit();
-
-        } catch (IOException | ParseException | Compal.DukeException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }
