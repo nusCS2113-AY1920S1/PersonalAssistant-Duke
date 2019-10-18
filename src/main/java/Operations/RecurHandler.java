@@ -42,7 +42,6 @@ public class RecurHandler {
         for (Task check : TaskList.currentList()) {
             if (check.hasRecurring()) {
                 // task is a recurring task
-                String temp = check.toString();
                 RecurrenceScheduleType type;
                 String description = check.getDescription();
                 type = check.getRecurrenceSchedule();

@@ -42,9 +42,7 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                System.out.println(list);
                 String[] temp = list.split("#");
-                System.out.println(temp.length);
                 SaveType type;
                 Priority priority;
                 String description = temp[3];
