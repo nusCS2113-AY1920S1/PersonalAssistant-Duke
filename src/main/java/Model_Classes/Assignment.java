@@ -1,5 +1,6 @@
 package Model_Classes;
 
+
 import Enums.Priority;
 import Enums.TimeUnit;
 
@@ -34,18 +35,33 @@ public class Assignment extends Task {
     }
 
 
+   
     public void snoozeMonth(int amount) {
         this.by.setMonth(this.by.getMonth() + amount);;
     }
 
+    /**
+     * Snoozes the Event by set amount of days
+     * @param amount number of days to snooze
+     */
     public void snoozeDay(int amount) {
         this.by.setDate(this.by.getDate() + amount);;
     }
 
+
+    /**
+     * Snoozes the Event by set amount of hours
+     * @param amount number of hours to snooze
+     */
     public void snoozeHour(int amount){
         this.by.setHours(this.by.getHours() + amount);
     }
 
+
+    /**
+     * Snoozes the Event by set amount of hours
+     * @param amount number of minutes to snooze
+     */
     public void snoozeMinute(int amount){
         this.by.setMinutes(this.by.getMinutes() + amount);
     }
