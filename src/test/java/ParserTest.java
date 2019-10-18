@@ -1,8 +1,10 @@
+import duke.command.ArgCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
+import mocks.DoctorCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +32,11 @@ public class ParserTest {
     @Test
     public void parseCommands_fullSwitchNames_argumentsExtracted() {
         try {
-            Command testCommand = uut.parse("doctor Hello -switch World");
+            Command testCmd = uut.parse("doctor Hello -switch World -optswitch Optional");
+            DoctorCommand docCmd = (DoctorCommand) testCmd;
+            assertEquals(docCmd.getArg(), "Hello");
+            assertEquals(docCmd.getSwitchVal("switch"), "World");
+            assertEquals(docCmd.getSwitchVal("optswitch"), "Optional");
         } catch (DukeException excp) {
             fail("Exception thrown while extracting valid commands!");
         }
