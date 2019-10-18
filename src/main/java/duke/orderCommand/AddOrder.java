@@ -84,7 +84,7 @@ public class AddOrder extends OrderCommand{
         } catch (IOException e) {
             throw new DukeException("Error while adding the command to the orders.txt file");
         }
-    }
+    } //category
 
 
     public void printStartMsg(Ui ui) {
