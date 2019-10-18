@@ -3,6 +3,7 @@ package dolla.task;
 import dolla.Time;
 import dolla.task.Log;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Debt extends Log {
@@ -10,9 +11,9 @@ public class Debt extends Log {
     protected String type;
     protected double amount;
     protected String saveType;
-    protected LocalDateTime date;
+    protected LocalDate date;
 
-    public Debt(String type, String name, double amount, String description, LocalDateTime date) {
+    public Debt(String type, String name, double amount, String description, LocalDate date) {
         this.type = type;
         this.name = name;
         this.amount = amount;
@@ -26,7 +27,7 @@ public class Debt extends Log {
                 + "[" + name + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "
-                + "[/due" + Time.dateTimeToString(date) + "]";
+                + "[/due " + Time.dateToString(date) + "]";
     }
 
     @Override
@@ -49,6 +50,6 @@ public class Debt extends Log {
                 + name + " | "
                 + amount + " | "
                 + description + " | "
-                + Time.dateTimeToString(date);
+                + Time.dateToString(date);
     }
 }

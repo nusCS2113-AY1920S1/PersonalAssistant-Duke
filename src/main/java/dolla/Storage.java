@@ -120,10 +120,10 @@ public class Storage {
 //                    newLog = new saving(inArray[1],Time.readDate(inArray[2]));
 //                    break;
                 case "O":
-                    newLog = new Debt("owe",inArray[1],stringToDouble(inArray[2]),inArray[3],Time.readDateTime(inArray[4]));
+                    newLog = new Debt("owe",inArray[1],stringToDouble(inArray[2]),inArray[3],Time.readDate(inArray[4]));
                     break;
                 case"B":
-                    newLog = new Debt("borrow",inArray[1],stringToDouble(inArray[2]),inArray[3],Time.readDateTime(inArray[4]));
+                    newLog = new Debt("borrow",inArray[1],stringToDouble(inArray[2]),inArray[3],Time.readDate(inArray[4]));
                     break;
 //                case"shortcut"://special case for shortcut,only one string
 //                    newLog = new shortcut(inArray[1]);

@@ -4,6 +4,7 @@ import dolla.DollaData;
 import dolla.Ui;
 import dolla.task.Debt;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class AddDebtsCommand extends Command {
@@ -12,9 +13,9 @@ public class AddDebtsCommand extends Command {
     private String name;
     private double amount;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
 
-    public AddDebtsCommand(String type, String name, double amount, String description, LocalDateTime date) {
+    public AddDebtsCommand(String type, String name, double amount, String description, LocalDate date) {
         this.type = type;
         this.name = name;
         this.amount = amount;

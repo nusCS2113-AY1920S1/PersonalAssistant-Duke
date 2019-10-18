@@ -5,6 +5,8 @@ import dolla.Ui;
 import dolla.command.*;
 import dolla.task.LogList;
 
+import java.time.LocalDate;
+
 
 public class DebtsParser extends Parser {
     private static LogList debtList;
@@ -21,6 +23,7 @@ public class DebtsParser extends Parser {
             String type = commandToRun;
             String name = null;
             double amount = 0.0;
+            LocalDate date = null;
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
@@ -28,7 +31,7 @@ public class DebtsParser extends Parser {
                 String[] desc = inputLine.split(inputArray[2] + " ");
                 String dateString[] = desc[1].split(" /due ");
                 description = dateString[0];
-                date = Time.readDateTime(dateString[1]);
+                date = Time.readDate(dateString[1]);
 
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();

@@ -7,6 +7,8 @@ import dolla.command.AddEntryCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
+import java.time.LocalDate;
+
 public class DollaParser extends Parser {
 
     public DollaParser(String inputLine) {
@@ -54,6 +56,7 @@ public class DollaParser extends Parser {
             String type = commandToRun;
             String name = null;
             double amount = 0.0;
+            LocalDate date = null;
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
@@ -61,7 +64,7 @@ public class DollaParser extends Parser {
                 String[] desc = inputLine.split(inputArray[2] + " ");
                 String dateString[] = desc[1].split(" /due ");
                 description = dateString[0];
-                date = Time.readDateTime(dateString[1]);
+                date = Time.readDate(dateString[1]);
 
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
