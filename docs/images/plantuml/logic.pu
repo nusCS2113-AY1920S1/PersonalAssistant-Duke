@@ -1,0 +1,111 @@
+@startuml
+' disable fancy icons for access modifiers
+skinparam classAttributeIconSize 0 
+
+abstract class Command {
+  {abstract} +execute(DukeCore core) : void
+  +getHelp() : String
+}
+
+abstract class ArgCommand {
+  -arg : String
+  -switchVals : HashMap<String, String>
+  +execute(DukeCore core) : void
+  +getHelp() : String 
+  ~setSwitchValsMap(HashMap<String, String> switchVals) : void
+  ~setSwitchVal(String switchName, String value) : void
+  ~getSwitchVal(String switchName) : String
+  ~setArg(String arg) : void
+  ~getArg() : String
+  {abstract} ~getSpec() : ArgSpec
+  {abstract} +getEmptyArgMsg() : String
+  {abstract} +getCmdArgLevel() : ArgLevel
+  {abstract} +getSwitchMap() : Map<String, Switch>
+  {abstract} +getSwitchAliases() : Map<String, String>
+}
+
+note "ArgCommand accesses its\ncorresponding ArgSpec\nsingleton via getSpec()" as specCommandNote
+specCommandNote .. ArgCommand
+specCommandNote .. ArgSpec
+
+class ArgLevel <<enumeration>> {
+  NONE
+  OPTIONAL
+  REQUIRED
+}
+
+class Switch {
+  +String name
+  +Class type 
+  +boolean isOptional
+  +ArgLevel argLevel
+  +String root, 
+  +List<String> aliases
+  +Switch(String name, Class type, boolean isOptional,\nArgLevel argLevel, String root, String[] aliases)
+}
+
+abstract class ArgSpec <<Singleton>> {
+    #emptyArgMsg : String
+    #cmdArgLevel : ArgLevel 
+    #switchMap : Map<String, Switch> 
+    #switchAliases : Map<String, String> 
+    -spec : ArgSpec {static}
+    -ArgSpec()
+    +getSpec() : ArgSpec {static}
+    +getCmdArgLevel() : ArgLevel
+    +getSwitchMap() : Map<String, Switch>
+    +getSwitchAliases() : Map<String, String>
+    +getEmptyArgMsg() : String 
+    #initSwitches(Switch[] switches) : void
+}
+
+note right of ArgSpec : This is a simplification;\nall static fields and\nsingleton behaviour have to\nbe implemented in subclasses.
+
+Command <|-- ArgCommand 
+ArgLevel <.. ArgCommand
+Switch <.. ArgCommand
+Switch "0..*" <-- ArgSpec
+ArgCommand *-- "1" ArgSpec : < specifies parameters of
+
+class Parser {
+    -commands : Commands
+    -currCommand : ArgCommand 
+    -elementBuilder : StringBuilder 
+    -state : ParseState 
+    -currSwitchName : String 
+    -isEscaped : boolean 
+    -switchMap : Map<String, Switch> 
+    -switchVals : HashMap<String, String>
+    +Parser(Commands commands)   
+    +Parser()   
+    +parse(String inputStr) : Command
+    -parseArgument(String inputStr) : void
+    -handleEmpty() : void
+    -handleArg() : void
+    -handleString() : void
+    -handleSwitch() : void
+    -writeElement() : void
+    -addSwitch() : void
+    -checkInputAllowed() : void
+    -checkCommandValid() : void
+}
+
+class ParseState <<enumeration>> {
+    EMPTY
+    ARG
+    STRING
+    SWITCH
+}
+
+class CommandHelpers {
+    {static} +findSwitch(String word, ArgCommand command) : String
+    {static} +disambiguate(String word, ArrayList<String> suggestions,\nSet<String> valid) : String
+    {static} -stringDistance(String str1, String str2) : int
+}
+
+ParseState <.. Parser
+Switch <.. Parser
+ArgCommand <.. Parser
+CommandHelpers <.. Parser
+
+@enduml

@@ -1,9 +1,6 @@
 package duke.command;
 
-enum ArgLevel {
-
-    // TODO: fix conceptual error
-
+public enum ArgLevel {
     NONE,
     REQUIRED,
     OPTIONAL

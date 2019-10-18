@@ -40,7 +40,7 @@ image::Ui.png[]
 * The different screens you can view are referred to as contexts. Each context is associated with a particular set of data to display, and has its own set of commands.
 * `priority` refers to how critical a Treatment or Evidence is. 0 means not urgent, excluding the item from the criticality system, 1 means critical. The other values are not defined specifically but the greater they are, the lower the priority. These lower priority levels are meant to remain flexible for the user to provide his desired level of fine-graining and task management.
 ** `priority` 1 generally refers to something that needs to be followed up on or investigated immediately, e.g. signs of severe complications. `priority` 1 items will be displayed prominently to remind the user to respond to it when treating the patient. 
-* `status` refers to the stage of completion of a Treatment. The textual descriptions for each stage of completion are stored in the `statusArr` (and referred to as `<status name>`). 
+* `status` refers to the stage of completion of a Treatment. `<status name>` refers to the textual description for each stage of completion. 
 
 = Specifying Commands
 

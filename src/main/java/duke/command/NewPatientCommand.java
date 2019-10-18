@@ -1,15 +1,17 @@
 package duke.command;
 
 import duke.DukeCore;
-import duke.exception.DukeException;
 import duke.data.Patient;
+import duke.exception.DukeException;
 
 public class NewPatientCommand extends ArgCommand {
 
     @Override
-    ArgSpec getSpec() {
+    protected ArgSpec getSpec() {
         return NewPatientSpec.getSpec();
-    };
+    }
+
+    ;
 
     @Override
     public void execute(DukeCore core) throws DukeException {
