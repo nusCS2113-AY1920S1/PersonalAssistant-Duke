@@ -37,6 +37,8 @@ public class OrderCard extends UiPart<AnchorPane> {
     private Label status;
     @FXML
     private Label total;
+    @FXML
+    private Label creationDate;
 
     /**
      * Creates a card displaying the {@code order}.
@@ -48,6 +50,7 @@ public class OrderCard extends UiPart<AnchorPane> {
         super(FXML);
 
         id.setText(Long.toString(order.getId()));
+        creationDate.setText(order.getCreationDate().toString());
         index.setText(displayedIndex + ".");
         deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
         name.setText(order.getCustomer().name);
