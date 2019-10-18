@@ -24,7 +24,7 @@ public class ParserTest {
             assertEquals(actualParser.parse("bye").getClass(), ByeCommand.class);
             assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
                     NewPatientCommand.class);
-       } catch (DukeException excp) {
+        } catch (DukeException excp) {
             fail("Exception thrown while extracting valid commands!");
         }
     }

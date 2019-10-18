@@ -32,5 +32,6 @@ public class DoctorCommand extends ArgCommand {
     public String getSwitchVal(String switchName) {
         return super.getSwitchVal(switchName);
     }
+
     ;
 }
