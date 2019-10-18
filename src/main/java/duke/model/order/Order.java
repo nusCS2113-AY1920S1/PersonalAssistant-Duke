@@ -51,9 +51,6 @@ public class Order {
 
         this.isIngredientEnough = new SimpleBooleanProperty();
 
-        this.id = generateId();
-        this.creationDate = Calendar.getInstance().getTime();
-
         updateIsIngredientEnough(inventory);
 
         inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
@@ -105,9 +102,6 @@ public class Order {
         return isIngredientEnough;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
 
     private long generateId() {
         return System.currentTimeMillis();

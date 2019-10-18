@@ -39,8 +39,6 @@ public class OrderCard extends UiPart<AnchorPane> {
     private Label status;
     @FXML
     private Label total;
-    @FXML
-    private Label creationDate;
 
     /**
      * Creates a card displaying the {@code order}.
