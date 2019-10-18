@@ -19,8 +19,7 @@ public class TaskList {
     /**
      * Constructs TaskList object.
      */
-    public TaskList(ArrayList<Task> task) {
-        this.arrlist = task;
+    public TaskList() {
         BitSet bs = readIdBitSet();
         if (bs != null) {
             idBitSet = (BitSet) readIdBitSet().clone();
@@ -29,6 +28,15 @@ public class TaskList {
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits (hard limit of no. of tasks)
         }
     }
+
+    public ArrayList<Task> getArrList() {
+        return this.arrlist;
+    }
+
+    public void setArrList(ArrayList<Task> arrlist) {
+        this.arrlist = arrlist;
+    }
+
 
     //----------------------->
 
