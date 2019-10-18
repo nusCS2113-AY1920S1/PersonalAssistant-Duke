@@ -7,11 +7,11 @@ import controlpanel.Ui;
 import money.Account;
 import money.BankTracker;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * This class allow user to estimate their future balance in an account
@@ -59,12 +59,14 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
             throw new DukeException("The input date is invalid! It should be a date later then the latest update date.");
         }
         Period period = Period.between(currDate, futureDate);
-        int length = period.getMonths();
-        double balance = bankTracker.getAmt();
+        int length = period.getMonths() + period.getYears()*12;
+        float balance = bankTracker.getAmt();
         double rate = bankTracker.getRate();
         balance *=  Math.pow((1+rate),length);
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        String stringBalance = decimalFormat.format(balance);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        ui.appendToOutput("  The future balance in " + description + " :\n    " + balance + " at "
+        ui.appendToOutput("  The future balance in " + description + " :\n    " + stringBalance + " at "
                 + dateTimeFormatter.format(futureDate) + "\n");
     }
 
