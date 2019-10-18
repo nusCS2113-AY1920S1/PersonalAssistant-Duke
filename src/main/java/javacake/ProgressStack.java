@@ -181,14 +181,10 @@ public class ProgressStack {
      * Used for BackCommand.
      */
     public void backToPreviousPath() {
-        System.out.println("CURR: " + currentFilePath);
-        System.out.println("Default: " + defaultFilePath);
         if (!currentFilePath.equals(defaultFilePath)) {
             if (!currentFilePath.contains(".txt")) {
-                System.out.println("case a");
                 currentFilePath = gotoParentFilePath(currentFilePath);
             } else {
-                System.out.println("case b");
                 currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
             }
         }

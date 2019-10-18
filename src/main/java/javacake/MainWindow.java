@@ -57,13 +57,13 @@ public class MainWindow extends AnchorPane {
 
         if (duke.isFirstTimeUser) {
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(Ui.showWelcomeMsgA(duke.isFirstTimeUser), dukeImage)
+                    DialogBox.getDukeDialog(Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser), dukeImage)
             );
         } else {
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(
-                            Ui.showWelcomeMsgA(duke.isFirstTimeUser)
-                                    + Ui.showWelcomeMsgB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
+                            Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser)
+                                    + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
                             dukeImage)
             );
         }
@@ -97,7 +97,7 @@ public class MainWindow extends AnchorPane {
                 duke.userName = input;
                 duke.profile.overwriteName(duke.userName);
                 dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(Ui.showWelcomeMsgB(
+                        DialogBox.getDukeDialog(Ui.showWelcomeMsgPhaseB(
                                 duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
                 );
                 isStarting = false;
