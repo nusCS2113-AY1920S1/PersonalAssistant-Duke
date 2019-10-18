@@ -1,6 +1,7 @@
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
+import javafx.application.Platform;
 import help.MemorisePreviousFunctions;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -47,8 +48,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    private MemorisePreviousFunctions previousFunctions = new MemorisePreviousFunctions();
+    private AutoComplete autoComplete = new AutoComplete();
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
@@ -116,7 +116,6 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             graphContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
-        previousFunctions.addingCommandsEntered(input);
         userInput.clear();
     }
 
@@ -137,22 +136,6 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     @FXML
     private void autoCompleteSuggestion() {
-        userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent ke) {
-                if(previousFunctions.getMaxIndex() == 0) {
-                    return;
-                }
-                previousFunctions.setCurrIndex();
-                if (ke.getCode() == KeyCode.UP && previousFunctions.getCurrIndex() != 0) {
-                    userInput.clear();
-                    //userInput.setText(previousFunctions.getPreviousCommand());
-                } else if(ke.getCode() == KeyCode.DOWN && previousFunctions.getCurrIndex() != previousFunctions.getMaxIndex()) {
-                    userInput.clear();
-                    //userInput.setText(previousFunctions.getNextCommand());
-                }
-            }
-        });
-        AutoComplete autoComplete = new AutoComplete();
         List<String> commands = autoComplete.Populate(userInput.getText());
         TextFields.bindAutoCompletion(userInput, commands);
     }
