@@ -1,7 +1,7 @@
 package Commands;
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 import FrontEnd.Simulation;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;

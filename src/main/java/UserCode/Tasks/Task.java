@@ -1,13 +1,9 @@
 package UserCode.Tasks;
 
 import Farmio.Farmio;
-import Places.Farm;
 import UserCode.Actions.Action;
-import UserCode.Actions.PlantSeedAction;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 import UserCode.Conditions.Condition;
-import FrontEnd.Ui;
-import org.json.simple.JSONObject;
 
 public abstract class Task {
     protected Condition condition;

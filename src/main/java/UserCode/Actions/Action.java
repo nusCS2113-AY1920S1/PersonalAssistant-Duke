@@ -2,14 +2,9 @@ package UserCode.Actions;
 
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
-import Places.ChickenFarm;
-import Places.CowFarm;
-import Places.WheatFarm;
-import Places.Market;
+import Exceptions.FarmioException;
 import FrontEnd.Ui;
 import Farmio.Farmer;
-import org.json.simple.JSONObject;
 
 public abstract class Action {
     Farmer farmer;

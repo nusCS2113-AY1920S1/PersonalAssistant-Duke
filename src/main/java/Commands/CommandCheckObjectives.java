@@ -1,7 +1,7 @@
 package Commands;
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 
 public class CommandCheckObjectives extends Command {
     @Override

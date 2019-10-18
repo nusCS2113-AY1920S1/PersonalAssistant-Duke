@@ -93,7 +93,7 @@ public class Ui {
         return output;
     }
 
-    ArrayList<String> loadStage(String path, int frame, int width, int height) {
+    public ArrayList<String> loadStage(String path, int frame, int width, int height) {
         String filepath = "./src/main/resources/asciiArt/" + path + "/frame" + frame + ".txt";
         ArrayList<String> output = new ArrayList<>();
         try {

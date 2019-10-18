@@ -3,7 +3,7 @@ package Commands;
 import Farmio.Farmer;
 import Farmio.Farmio;
 import Farmio.Level;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 import FrontEnd.Simulation;
 import org.json.simple.parser.ParseException;
 

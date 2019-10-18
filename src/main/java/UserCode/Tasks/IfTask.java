@@ -1,11 +1,9 @@
 package UserCode.Tasks;
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
-import FrontEnd.Simulation;
+import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
-import FrontEnd.Ui;
 
 public class IfTask extends Task {
 

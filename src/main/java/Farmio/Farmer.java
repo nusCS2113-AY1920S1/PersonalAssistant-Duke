@@ -1,7 +1,6 @@
 package Farmio;
 
-import FarmioExceptions.FarmioException;
-import FrontEnd.Ui;
+import Exceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;

@@ -1,7 +1,7 @@
 package Commands;
 
 import Farmio.*;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 
 public class CommandMenuStart extends Command {
     @Override

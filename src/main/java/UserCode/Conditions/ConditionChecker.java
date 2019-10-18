@@ -1,11 +1,7 @@
 package UserCode.Conditions;
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
-import Places.ChickenFarm;
-import Places.CowFarm;
-import Places.Market;
-import Places.WheatFarm;
+import Exceptions.FarmioException;
 
 public class ConditionChecker {
 
