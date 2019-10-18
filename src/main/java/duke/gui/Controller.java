@@ -26,11 +26,6 @@ public final class Controller implements Initializable {
      * Height of scene.
      */
     private final int height = 720;
-    public Button btnDay;
-    public Button btnHome;
-    public Button btnSchedule;
-    public Button btnStudents;
-    public Button btnTraining;
 
     @Override
     public void initialize(final URL location,

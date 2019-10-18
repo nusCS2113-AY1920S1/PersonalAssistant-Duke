@@ -176,7 +176,7 @@ public class Parser {
              * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
              */
             case "schedule":
-                Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
+                Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt");
 
                 try {
                     if (word[1].equals("view-week")) {
