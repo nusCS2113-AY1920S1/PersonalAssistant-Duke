@@ -36,13 +36,8 @@ class DeleteNoteCommandTest extends DeleteNoteCommand {
         Note note = new Note("2020-09-11", "note 1");
         note.notes.add("note 2");
         NoteList.daily.add(note);
-<<<<<<< HEAD
         ui.fullCommand = "deleteNote day 2020-09-11 2";
-        execute(null, ui, null, null, null);
-=======
-        ui.FullCommand = "deleteNote day 2020-09-11 2";
-        execute(null, ui, null, null, null,null);
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
+        execute(null, ui, null, null, null, null);
         assertEquals("Got it. I've deleted this note for that day:\r\n"
                 + "note 2\r\n", output.toString());
     }
@@ -52,13 +47,8 @@ class DeleteNoteCommandTest extends DeleteNoteCommand {
         Note note = new Note("2020-01-06", "note 1");
         note.notes.add("note 2");
         NoteList.weekly.add(note);
-<<<<<<< HEAD
         ui.fullCommand = "deleteNote week 2020-01-06 2";
-        execute(null, ui, null, null, null);
-=======
-        ui.FullCommand = "deleteNote week 2020-01-06 2";
-        execute(null, ui, null, null, null,null);
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
+        execute(null, ui, null, null, null, null);
         assertEquals("Got it. I've deleted this note for that week:\r\n"
                 + "note 2\r\n", output.toString());
     }
@@ -68,26 +58,16 @@ class DeleteNoteCommandTest extends DeleteNoteCommand {
         Note note = new Note("2020-03-01", "note 1");
         note.notes.add("note 2");
         NoteList.monthly.add(note);
-<<<<<<< HEAD
         ui.fullCommand = "deleteNote month 2020-03 2";
-        execute(null, ui, null, null, null);
-=======
-        ui.FullCommand = "deleteNote month 2020-03 2";
         execute(null, ui, null, null, null,null);
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
         assertEquals("Got it. I've deleted this note for that month:\r\n"
                 + "note 2\r\n", output.toString());
     }
 
     @Test
     void execute_noteNumberNotSpecified_errorMessagePrinted() throws IOException {
-<<<<<<< HEAD
         ui.fullCommand = "deleteNote month 2020-03";
-        execute(null, ui, null, null, null);
-=======
-        ui.FullCommand = "deleteNote month 2020-03";
         execute(null, ui, null, null, null,null);
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
         assertEquals("Please specify a note number.\r\n", output.toString());
     }
 
@@ -96,25 +76,15 @@ class DeleteNoteCommandTest extends DeleteNoteCommand {
         Note note = new Note("2020-09-11", "note 1");
         note.notes.add("note 2");
         NoteList.daily.add(note);
-<<<<<<< HEAD
         ui.fullCommand = "deleteNote day 2020-09-11 3";
-        execute(null, ui, null, null, null);
-=======
-        ui.FullCommand = "deleteNote day 2020-09-11 3";
         execute(null, ui, null, null, null,null);
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
         assertEquals("OOPS!!! That note number does not exist.\r\n", output.toString());
     }
 
     @Test
     void execute_noNotesOnSpecifiedDay_errorMessagePrinted() throws IOException {
-<<<<<<< HEAD
         ui.fullCommand = "deleteNote day 2020-12-29 3";
-        execute(null, ui, null, null, null);
-=======
-        ui.FullCommand = "deleteNote day 2020-12-29 3";
         execute(null, ui, null, null, null,null);
->>>>>>> 19887703625c9982bc0a65fae6c2d21574397f74
         assertEquals("OOPS!!! There are no notes for this day to delete.\r\n", output.toString());
     }
 }
