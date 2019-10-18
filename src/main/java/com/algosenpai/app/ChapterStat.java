@@ -7,35 +7,51 @@ package com.algosenpai.app;
 public class ChapterStat {
 
     String chapterName;
+    int chapterNumber;
+    int attempts;
     int totalAnswered;
     int correctAnswers;
-    int attempts;
-
-    /**
-     * Constructor. Chapter Name has a default value of "Untitled Chapter"
-     * @param totalAnswered The total answered questions.
-     * @param correctAnswers The number of correctly answered questions.
-     * @param attempts The number of times that chapter has been attempted.
-     */
-    ChapterStat(int totalAnswered, int correctAnswers, int attempts) {
-        this.chapterName = "Untitled Chapter";
-        this.totalAnswered = totalAnswered;
-        this.correctAnswers = correctAnswers;
-        this.attempts = attempts;
-    }
+    int wrongAnswers;
+    double percentage;
+    String comments;
 
     /**
      * Constructor.
      * @param chapterName The name of the chapter.
+     * @param chapterNumber The chapter number.
+     * @param attempts The number of times that chapter has been attempted.
      * @param totalAnswered The total answered questions.
      * @param correctAnswers The number of correctly answered questions.
-     * @param attempts The number of times that chapter has been attempted.
+     * @param wrongAnswers The number of wrongly answered questions.
+     * @param percentage The percentage of answers answered correctly.
+     * @param comments The comments given for each chapter.
      */
-    public ChapterStat(String chapterName, int totalAnswered, int correctAnswers, int attempts) {
+    public ChapterStat(String chapterName, int chapterNumber, int attempts,
+                       int totalAnswered, int correctAnswers, int wrongAnswers,
+                       double percentage, String comments) {
         this.chapterName = chapterName;
+        this.chapterNumber = chapterNumber;
+        this.attempts = attempts;
         this.totalAnswered = totalAnswered;
         this.correctAnswers = correctAnswers;
-        this.attempts = attempts;
+        this.wrongAnswers = wrongAnswers;
+        this.percentage = percentage;
+        this.comments = comments;
+    }
+
+    /**
+     * Makes a new copy of the Chapter.
+     * @param referenceChapter The chapter to be copied.
+     */
+    ChapterStat(ChapterStat referenceChapter) {
+        this.chapterName = referenceChapter.chapterName;
+        this.chapterNumber = referenceChapter.chapterNumber;
+        this.attempts = referenceChapter.attempts;
+        this.totalAnswered = referenceChapter.totalAnswered;
+        this.correctAnswers = referenceChapter.correctAnswers;
+        this.wrongAnswers = referenceChapter.wrongAnswers;
+        this.percentage = referenceChapter.percentage;
+        this.comments = referenceChapter.comments;
     }
 
 }
