@@ -21,7 +21,7 @@ public class HelpCommand extends Command {
         //description of a gazeeebo.help can be empty
         HelpText help = new HelpText();
         String description;
-        String[] command = ui.FullCommand.split(" ");
+        String[] command = ui.fullCommand.split(" ");
         assert command.length != 0 : "Bug in parser that affects HelpCommand";
         if (command.length == 1) {
             description = help.commandFormat + System.lineSeparator() + System.lineSeparator() +

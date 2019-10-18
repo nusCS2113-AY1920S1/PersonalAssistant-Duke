@@ -22,18 +22,18 @@ public class AddExpensesCommand {
     public AddExpensesCommand (Ui ui, Storage storage, Map<LocalDate,ArrayList<String>> expenses) throws IOException{
 
         System.out.println("What did you buy:");
-        ui.ReadCommand();
-        String item = ui.FullCommand;
+        ui.readCommand();
+        String item = ui.fullCommand;
 
         System.out.println("How much did you spend:");
-        ui.ReadCommand();
-        String price = ui.FullCommand;
+        ui.readCommand();
+        String price = ui.fullCommand;
 
         String itemAndPrice = item + ", " + price;
 
         System.out.println("Date of purchase:");
-        ui.ReadCommand();
-        String date = ui.FullCommand;
+        ui.readCommand();
+        String date = ui.fullCommand;
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);

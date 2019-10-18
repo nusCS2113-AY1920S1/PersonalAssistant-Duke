@@ -19,23 +19,24 @@ public class PlacesCommand extends Command {
         String LINE_BREAK = "------------------------------------------\n";
         boolean isExitFromPlaces = false;
         while (!isExitFromPlaces) {
-            ui.ReadCommand();
             try {
-                if (ui.FullCommand.equals("add")) {
+                ui.readCommand();
+                if (ui.fullCommand.equals("add")) {
                     new AddPlacesCommand(ui, storage, places);
-                } else if (ui.FullCommand.split("-")[0].equals("find")) {
+                } else if (ui.fullCommand.split("-")[0].equals("find")) {
                     new FindPlacesCommand(ui, places, LINE_BREAK);
-                } else if (ui.FullCommand.equals("list")) {
+                } else if (ui.fullCommand.equals("list")) {
                     new ListPlacesCommand(places, LINE_BREAK);
-                } else if (ui.FullCommand.contains("delete")) {
+                } else if (ui.fullCommand.contains("delete")) {
                     new DeletePlacesCommand(ui, storage, places);
-                } else if (ui.FullCommand.equals("esc")) {
+                } else if (ui.fullCommand.equals("esc")) {
                     System.out.println("Going back to Main Menu");
                     isExitFromPlaces = true;
                 } else {
                     System.out.println("There is no such command in Places.");
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Check input format again");
             }
         }

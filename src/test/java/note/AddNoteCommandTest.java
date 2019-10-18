@@ -114,8 +114,8 @@ class AddNoteCommandTest extends AddNoteCommand {
     @Test
     void execute_day_success() {
         Ui ui = new Ui();
-        ui.FullCommand = "addNote day 2019-10-12";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "addNote day 2019-10-12";
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "addNote");
@@ -154,8 +154,8 @@ class AddNoteCommandTest extends AddNoteCommand {
     @Test
     void execute_week_success() {
         Ui ui = new Ui();
-        ui.FullCommand = "addNote week 2019-10-14";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "addNote week 2019-10-14";
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "addNote");
@@ -194,8 +194,8 @@ class AddNoteCommandTest extends AddNoteCommand {
     @Test
     void execute_month_success() {
         Ui ui = new Ui();
-        ui.FullCommand = "addNote month 2019-12";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "addNote month 2019-12";
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "addNote");

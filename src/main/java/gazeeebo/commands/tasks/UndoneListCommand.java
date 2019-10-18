@@ -16,7 +16,7 @@ public class UndoneListCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         ArrayList<Task> UndoneList = new ArrayList<>();
         try {
-            if (ui.FullCommand.equals("undone")) {
+            if (ui.fullCommand.equals("undone")) {
                 throw new DukeException("Command for 'undone' cannot be empty.");
             }
 
@@ -25,7 +25,7 @@ public class UndoneListCommand extends Command {
                     UndoneList.add(task);
                 }
             }
-            if (ui.FullCommand.equals("undone list")) {
+            if (ui.fullCommand.equals("undone list")) {
                 System.out.println("List of tasks that are undone:");
                 for (int i = 0; i < UndoneList.size(); i++) {
                     System.out.println(i + 1 + "." + UndoneList.get(i).listFormat());

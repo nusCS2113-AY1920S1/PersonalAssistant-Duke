@@ -16,18 +16,18 @@ public class TentativeEventCommand extends Command{
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         try {
-            if (ui.FullCommand.length() == 9) {
+            if (ui.fullCommand.length() == 9) {
                 throw new DukeException("OOPS!!! The description of an tentative event cannot be empty.");
             } else {
-                description = ui.FullCommand.substring(10);
+                description = ui.fullCommand.substring(10);
                 System.out.println("You are creating a tentative event: " + description);
                 System.out.println("Please enter possible time slots of the event");
                 System.out.println("When you are done, key in '/'.");
                 ArrayList<String> tentativetimes = new ArrayList<String>();
-                ui.ReadCommand();
-                while (!ui.FullCommand.equals("/")) {
-                    tentativetimes.add(ui.FullCommand);
-                    ui.ReadCommand();
+                ui.readCommand();
+                while (!ui.fullCommand.equals("/")) {
+                    tentativetimes.add(ui.fullCommand);
+                    ui.readCommand();
                 }
                 TentativeEvent newtentative = new TentativeEvent(description,tentativetimes);
                 System.out.println("Got it. I've added this tentative event:");

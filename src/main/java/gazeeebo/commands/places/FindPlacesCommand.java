@@ -12,7 +12,7 @@ public class FindPlacesCommand {
      * @param LINE_BREAK String separator
      */
     public FindPlacesCommand(Ui ui, Map<String,String> places, String LINE_BREAK) throws ArrayIndexOutOfBoundsException{
-        String placeSearchingFor = ui.FullCommand.split("-")[1];
+        String placeSearchingFor = ui.fullCommand.split("-")[1];
         Boolean isFound = false;
         for(String keys:places.keySet()) {
             if(keys.contains(placeSearchingFor)) {

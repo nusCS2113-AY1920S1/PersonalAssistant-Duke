@@ -1,11 +1,12 @@
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.Contact.AddContactCommand;
-import gazeeebo.commands.Contact.ContactsCommand;
 import gazeeebo.TriviaManager.TriviaManager;
-import gazeeebo.commands.Contact.DeleteContactCommand;
-import gazeeebo.commands.Contact.ListContactCommand;
+import gazeeebo.commands.contact.AddContactCommand;
+import gazeeebo.commands.contact.ContactsCommand;
+
+import gazeeebo.commands.contact.DeleteContactCommand;
+import gazeeebo.commands.contact.ListContactCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,7 +86,7 @@ public class ContactsCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("jason", "9625 1722");
-        ui.FullCommand = "delete jason";
+        ui.fullCommand = "delete jason";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason has been removed.\n", output.toString());
     }
@@ -95,7 +96,7 @@ public class ContactsCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
-        ui.FullCommand = "delete jason";
+        ui.fullCommand = "delete jason";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason is not in the list.\n", output.toString());
     }
@@ -105,7 +106,7 @@ public class ContactsCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
-        ui.FullCommand = "delete";
+        ui.fullCommand = "delete";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("You need to indicate what you want to delete, Format: delete name\n", output.toString());
     }

@@ -1,8 +1,6 @@
 package gazeeebo.commands;
 
 import gazeeebo.storage.Storage;
-import gazeeebo.tasks.DoAfter;
-import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
@@ -10,6 +8,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
+
+import gazeeebo.tasks.Task;
+import gazeeebo.tasks.DoAfter;
 
 public class DoAfterCommand extends Command {
     /**
@@ -22,10 +23,10 @@ public class DoAfterCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String before = "";
         String after = "";
-        String[] splitstring = ui.FullCommand.split("/after");
+        String[] splitstring = ui.fullCommand.split("/after");
         before = splitstring[1];
         after = splitstring[0];
         DoAfter to = new DoAfter(before, before, after);
@@ -39,7 +40,7 @@ public class DoAfterCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
         String before = "";
         String after = "";
         String[] splitstring = command.split("/after");
@@ -58,7 +59,7 @@ public class DoAfterCommand extends Command {
         storage.Storages(sb.toString());
     }
     /**
-     * Tells the main Duke class that the system should not exit and continue running
+     * Tells the main Duke class that the system should not exit and continue running.
      *
      * @return false
      */
