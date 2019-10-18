@@ -16,7 +16,6 @@ import java.util.Date;
  */
 public class Reminder {
 
-    private Storage storage = new Storage();
     private static final int INDEX_DATE = 1;
     private static final long MILLISECOND_TO_HOUR = 60 * 60 * 1000;
 
@@ -26,7 +25,7 @@ public class Reminder {
      * @param taskList TaskList that contains Task objects.
      * @param ui       Ui that is responsible for visual feedback.
      */
-    public void checkDeadline(TaskList taskList, Ui ui) throws OofException {
+    public void checkDeadline(TaskList taskList, Ui ui, Storage storage) {
         int count = 1;
         int upcomingThreshold = storage.readThreshold();
         for (int i = 0; i < taskList.getSize(); i++) {

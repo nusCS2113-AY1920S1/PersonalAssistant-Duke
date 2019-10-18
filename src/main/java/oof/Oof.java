@@ -47,9 +47,9 @@ public class Oof {
     /**
      * Runs the Personal Assistant.
      */
-    private void run() throws OofException {
+    private void run() {
         ui.hello();
-        reminder.checkDeadline(arr, ui);
+        reminder.checkDeadline(arr, ui, storage);
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -68,7 +68,7 @@ public class Oof {
      *
      * @param args Unused.
      */
-    public static void main(String[] args) throws OofException {
+    public static void main(String[] args) {
         new Oof().run();
     }
 }

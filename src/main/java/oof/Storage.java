@@ -27,6 +27,7 @@ public class Storage {
     private static final int INDEX_DATE = 1;
     private static final int INDEX_START = 0;
     private static final int INDEX_END = 1;
+    private static final int DEFAULT_THRESHOLD = 24;
 
     /**
      * Reads and prints all commands available to user.
@@ -54,18 +55,19 @@ public class Storage {
      * Reads the threshold previously saved to hard disk.
      *
      * @return threshold    Integer of threshold.
-     * @throws OofException if file does not exist.
      */
-    public int readThreshold() throws OofException {
+    public int readThreshold() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(PATH_THRESHOLD));
+            File file = new File(PATH_THRESHOLD);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             line = reader.readLine();
             int threshold;
             threshold = Integer.parseInt(line);
             return threshold;
         } catch (IOException e) {
-            throw new OofException("File Unavailable!");
+            System.out.println(e + ", thus please try inputting other things.");
+            return DEFAULT_THRESHOLD;
         }
     }
 

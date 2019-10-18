@@ -11,7 +11,6 @@ import oof.exception.OofException;
 public class ThresholdCommand extends Command {
 
     private String newThreshold;
-    private Storage storage = new Storage();
 
     /**
      * Constructor for ThresholdCommand.
@@ -24,19 +23,33 @@ public class ThresholdCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        updateThreshold(newThreshold);
-        ui.printUpdatedThreshold(newThreshold);
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws OofException {
+        if (!isThresholdNegative(newThreshold)) {
+            updateThreshold(newThreshold, storage);
+            ui.printUpdatedThreshold(newThreshold);
+        } else {
+            throw new OofException("Threshold given invalid! Please input positive numbers.");
+        }
     }
 
     /**
      * Updates the threshold to the new threshold input by user.
      *
      * @param newThreshold New threshold input by user.
-     * @throws OofException Throws an exception if file to be updated cannot be found.
      */
-    public void updateThreshold(String newThreshold) {
+    public void updateThreshold(String newThreshold, Storage storage) {
         storage.writeThreshold(newThreshold);
+    }
+
+    /**
+     * Checks if the new threshold given by user is negative.
+     *
+     * @param newThreshold New threshold input by user.
+     * @return  true if threshold given is negative, false otherwise.
+     */
+    public boolean isThresholdNegative(String newThreshold) {
+        int threshold = Integer.parseInt(newThreshold);
+        return threshold < 0;
     }
 
     @Override
