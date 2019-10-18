@@ -135,7 +135,7 @@ public class RoomShare {
             case snooze :
                 try {
                     int index = parser.getIndex();
-                    TaskList.currentList().get(index - 1);
+                    TaskList.currentList().get(index);
                     ui.showSnooze();
                     int amount = parser.getAmount();
                     TimeUnit timeUnit = parser.getTimeUnit();
