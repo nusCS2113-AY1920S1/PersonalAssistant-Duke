@@ -18,27 +18,49 @@ public class AssignTaskToPatientCommand extends Command {
     private String[] taskAssignmentInfo;
     private PatientTask newPatientTask;
 
+    /**
+     *  .
+     * @param taskAssignmentInfo .
+     * @throws DukeException .
+     */
     public AssignTaskToPatientCommand(String[] taskAssignmentInfo) throws DukeException {
         super();
         this.taskAssignmentInfo = taskAssignmentInfo;
         this.newPatientTask = finalPatientTask(taskAssignmentInfo);
     }
 
+    /**
+     *  .
+     * @param patientTaskList .
+     * @param tasksList .
+     * @param patientList .
+     * @param ui .
+     * @param patientTaskStorage .
+     * @param taskStorage .
+     * @param patientStorage .
+     * @throws DukeException .
+     */
     @Override
-    public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID()))
-        {
+    public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
+                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
+                        PatientStorage patientStorage) throws DukeException {
+        if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
             patientTaskList.addPatientTask(newPatientTask);
             patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-            ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(), tasksList.getTask(newPatientTask.getTaskID()).getDescription());
-        }
-        else
-        {
+            ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(),
+                    tasksList.getTask(newPatientTask.getTaskID()).getDescription());
+        } else {
             throw new DukeException("Either the patient or the task does not exist in our data record");
         }
 
     }
 
+    /**
+     *  .
+     * @param assignmentInfo .
+     * @return .
+     * @throws DukeException .
+     */
     public PatientTask finalPatientTask(String[] assignmentInfo) throws DukeException {
         try {
             if (assignmentInfo[0].equals("S")) {
@@ -67,6 +89,11 @@ public class AssignTaskToPatientCommand extends Command {
             throw new DukeException("Unable to parse your task assignment. Please check your command's format!");
         }
     }
+
+    /**
+     * .
+     * @return .
+     */
     @Override
     public boolean isExit() {
         return false;

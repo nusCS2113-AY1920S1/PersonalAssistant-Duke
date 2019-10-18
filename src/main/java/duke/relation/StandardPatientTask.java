@@ -1,52 +1,78 @@
 package duke.relation;
 
-import java.time.LocalDateTime;
 import duke.core.DateTimeParser;
 import duke.core.DukeException;
-import duke.relation.PatientTask;
+
+import java.time.LocalDateTime;
 
 public class StandardPatientTask extends PatientTask {
 
     private LocalDateTime deadline;
     private String deadlineRaw;
 
-    public StandardPatientTask(int pid, int tid, String timeBeforeFormat, String type){
+    /**
+     * .
+     *
+     * @param pid .
+     * @param tid .
+     * @param timeBeforeFormat .
+     * @param type .
+     */
+    public StandardPatientTask(int pid, int tid, String timeBeforeFormat, String type) {
         super(pid, tid, type);
         this.deadlineRaw = timeBeforeFormat;
-        try{
+        try {
             this.deadline = DateTimeParser.convertToLocalDateTime(timeBeforeFormat);
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public StandardPatientTask(int pid, int tid, boolean isdone, boolean isrecurrsive, String timeBeforeFormat, String type){
-        super(pid, tid, isdone, isrecurrsive,type);
+    /**
+     *  .
+     * @param pid .
+     * @param tid .
+     * @param isdone .
+     * @param isrecurrsive .
+     * @param timeBeforeFormat .
+     * @param type .
+     */
+    public StandardPatientTask(int pid, int tid,
+                               boolean isdone, boolean isrecurrsive, String timeBeforeFormat, String type) {
+        super(pid, tid, isdone, isrecurrsive, type);
         this.deadlineRaw = timeBeforeFormat;
-        try{
+        try {
             this.deadline = DateTimeParser.convertToLocalDateTime(timeBeforeFormat);
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public String getDeadline(){
+    /**
+     *  .
+     * @return .
+     */
+    public String getDeadline() {
         return this.deadlineRaw;
     }
 
-
-    public void updateDeadline(String time){
-        try{
+    /**
+     *  .
+     * @param time .
+     */
+    public void updateDeadline(String time) {
+        try {
             this.deadline = DateTimeParser.convertToLocalDateTime(time);
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public String toString(){
+    /**
+     *  .
+     * @return .
+     */
+    public String toString() {
         return super.printStatus() + " " + DateTimeParser.convertToEnglishDateTimeBeforeParse(deadline);
     }
 
