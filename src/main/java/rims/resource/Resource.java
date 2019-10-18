@@ -113,5 +113,4 @@ public abstract class Resource {
     public String toString() {
         return "[" + getType() + "] " + getName();
     }
-
 }

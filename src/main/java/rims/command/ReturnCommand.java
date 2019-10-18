@@ -19,13 +19,11 @@ public class ReturnCommand extends Command {
         this.loanId = loanId;
 
     }
-
     public ReturnCommand(String roomName, int loanId) {
         resourceName = roomName;
         this.qty = 1;
         this.loanId = loanId;
     }
-
     public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
         if (qty > resources.getBookedQuantityOfOrder(resourceName, loanId)) {
             // throw Exception
@@ -47,6 +45,5 @@ public class ReturnCommand extends Command {
             }
             ui.printLine();
         }
-
     }
 }

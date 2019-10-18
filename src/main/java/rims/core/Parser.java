@@ -10,8 +10,11 @@ import java.text.*;
 
 public class Parser {
     Reader reader = new Reader();
-    Ui ui = new Ui();
+    private Ui ui; 
 
+    public Parser (Ui ui){
+        this.ui=ui;
+    }
     public Command parseInput(String input) {
         Command c = new ListCommand(); // temporary default until exception handling finished
         String[] words = input.split(" ");
@@ -63,7 +66,6 @@ public class Parser {
                 int id = Integer.parseInt(input);
                 c = new ReturnCommand(room, id);
             }
-
         }
         else if (words[0].equals("add")) {
             if (words[1].equals("/item")) {
