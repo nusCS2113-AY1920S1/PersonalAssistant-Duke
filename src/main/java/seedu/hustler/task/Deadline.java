@@ -1,7 +1,8 @@
 package seedu.hustler.task;
 
 import java.time.LocalDateTime;
-
+import seedu.hustler.task.variables.Difficulty;
+import seedu.hustler.task.variables.Tag;
 import static seedu.hustler.parser.DateTimeParser.convertDateTime;
 import static seedu.hustler.parser.DateTimeParser.toDateTimeString;
 
@@ -28,6 +29,11 @@ public class Deadline extends Task {
      * Initializes description, user input difficulty and by.
      */
     public Deadline(String description, LocalDateTime by, String difficulty, String tag, LocalDateTime now) {
+        super(description, difficulty, tag, now);
+        this.by = by;
+    }
+
+    public Deadline(String description, LocalDateTime by, Difficulty difficulty, Tag tag, LocalDateTime now) {
         super(description, difficulty, tag, now);
         this.by = by;
     }

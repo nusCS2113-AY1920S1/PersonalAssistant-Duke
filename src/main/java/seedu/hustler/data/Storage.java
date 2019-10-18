@@ -1,11 +1,6 @@
 package seedu.hustler.data;
 
 import java.text.ParseException;
-import seedu.hustler.task.Task;
-import seedu.hustler.task.ToDo;
-import seedu.hustler.task.Event;
-import seedu.hustler.task.Deadline;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 
+import seedu.hustler.task.*;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
 
 /**
@@ -54,7 +50,7 @@ public class Storage {
      * @return an array list loaded from the disc.
      */
     public ArrayList<Task> load() {
-        ArrayList<Task> list = new ArrayList<Task>();
+        ArrayList<Task> list = new ArrayList<>();
         try {
             Scanner hustlerTxt = new Scanner(new File(this.filePath));
             while (hustlerTxt.hasNextLine()) {
@@ -67,7 +63,14 @@ public class Storage {
                 } else if (taskString[0].equals("D")) {
                     LocalDateTime by = getDateTime(taskString[5]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
-                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
+
+                    if (taskString.length == 10) {
+                        int period = Integer.parseInt(taskString[8]);
+                        boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
+                        list.add(new RecurringDeadline(taskString[4], by, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                    } else {
+                        list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
+                    }
                     try {
                         String dateOnly = taskString[5].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -79,7 +82,14 @@ public class Storage {
                 } else {
                     LocalDateTime at = getDateTime(taskString[5]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
-                    list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
+
+                    if (taskString.length == 10) {
+                        int period = Integer.parseInt(taskString[8]);
+                        boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
+                        list.add(new RecurringEvent(taskString[4], at, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                    } else {
+                        list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
+                    }
                     try {
                         String dateOnly = taskString[5].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -124,7 +134,14 @@ public class Storage {
                 } else if (taskString[0].equals("D")) {
                     LocalDateTime by = getDateTime(taskString[5]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
-                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
+
+                    if (taskString.length == 10) {
+                        int period = Integer.parseInt(taskString[8]);
+                        boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
+                        list.add(new RecurringDeadline(taskString[4], by, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                    } else {
+                        list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
+                    }
                     try {
                         String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -136,7 +153,14 @@ public class Storage {
                 } else {
                     LocalDateTime at = getDateTime(taskString[4]);
                     LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
-                    list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
+
+                    if (taskString.length == 10) {
+                        int period = Integer.parseInt(taskString[8]);
+                        boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
+                        list.add(new RecurringEvent(taskString[4], at, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                    } else {
+                        list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
+                    }
                     try {
                         String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -199,7 +223,7 @@ public class Storage {
             (new File(this.filePathBackup)).delete();
             return;
         }
-        //if data folder doesnt exist create it
+        //if data folder doesn't exist create it
         File directory = new File(this.filePathBackup.split("/hustlerBackup.txt")[0]);
         if (!directory.exists()) {
             directory.mkdir();

@@ -73,6 +73,24 @@ public class TaskList {
         return list.isEmpty();
     }
 
+    public void add(Task task) {
+        list.add(task);
+        if (!CommandLog.isRestoring()) {
+            AddTask.increment();
+            AddTask.updateAchievementLevel();
+            AddTask.updatePoints();
+            AchievementList.updateAddTask(addAchievementLevel);
+            String output = "\t  " + list.get(list.size() - 1).toString();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println(output);
+            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            System.out.println("\t_____________________________________\n\n");
+        } else {
+            System.out.println("Task clashes with another existing task in the list!");
+        }
+    }
+
     /**
      * Adds a task to the ArrayList based on the task type and task description.
      * Parses the description in case of event or deadline.
@@ -110,14 +128,46 @@ public class TaskList {
             try {
                 String timeStr = getTime(splitInput);
                 LocalDateTime by = getDateTime(timeStr);
-                if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+
+                if (splitInput.contains("/every")) {
+                    int eIndex = splitInput.indexOf("/every");
+                    String frequency = splitInput.get(eIndex + 1) + " " + splitInput.get(eIndex + 2);
+                    int number = Integer.parseInt(frequency.split(" ")[0]);
+                    String period = frequency.split(" ")[1];
+                    int numOfMin = 0;
+
+                    switch(period) {
+                    case "minutes":
+                        numOfMin = number;
+                        break;
+                    case "hours":
+                        numOfMin = number * 60;
+                        break;
+                    case "days":
+                        numOfMin = number * 60 * 24;
+                        break;
+                    case "weeks":
+                        numOfMin = number * 60 * 24 * 7;
+                        break;
+                    case "months":
+                        numOfMin = number * 60 * 24 * 7 * 28;
+                        break;
+                    }
+                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+                        list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag, LocalDateTime.now(), frequency, numOfMin, false));
+                        String taskDate = getOnlyDate(splitInput);
+                        if (Schedule.isValidDate(taskDate)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
+                        }
+                    }
+                } else if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
                     list.add(new Deadline(onlyDescription, by, difficulty, tag, LocalDateTime.now()));
                     String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                    checkAnomaly = false;
                 }
+                checkAnomaly = false;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.wrong_description_error();
                 return;
