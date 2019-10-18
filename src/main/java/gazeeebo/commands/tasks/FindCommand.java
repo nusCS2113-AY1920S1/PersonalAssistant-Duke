@@ -12,14 +12,14 @@ import java.util.Stack;
 
 public class FindCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         try {
-            if (ui.FullCommand.length() == 5) {
+            if (ui.fullCommand.length() == 5) {
                 throw new DukeException("OOPS!!! The description of a search cannot be empty.");
             } else {
                 ArrayList<Task> searchedlist = new ArrayList<Task>();
                 for (Task it : list) {
-                    if (it.description.contains(ui.FullCommand.substring(4).trim())) {
+                    if (it.description.contains(ui.fullCommand.substring(4).trim())) {
                         searchedlist.add(it);
                     }
                 }
@@ -29,9 +29,7 @@ public class FindCommand extends Command {
                 }
             }
 
-        }
-
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -18,12 +18,12 @@ public class AddPlacesCommand {
     public AddPlacesCommand(Ui ui, Storage storage, Map<String, String> places) {
         try {
             System.out.println("Input in this format: Room,Location");
-            ui.ReadCommand();
-            String[] split_info = ui.FullCommand.split(",");
+            ui.readCommand();
+            String[] split_info = ui.fullCommand.split(",");
             String name = split_info[0];
             String number = split_info[1];
             places.put(name, number);
-            System.out.println("Okay we have successfully added the new location :" + ui.FullCommand);
+            System.out.println("Okay we have successfully added the new location :" + ui.fullCommand);
             String toStore = "";
             for (String key : places.keySet()) {
                 toStore = toStore.concat(key + "|" + places.get(key) + "\n");

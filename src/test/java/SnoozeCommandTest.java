@@ -29,7 +29,7 @@ public class SnoozeCommandTest {
         TriviaManager triviaManager = new TriviaManager();
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
-        ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
+        ui.fullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
             deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask,triviaManager);
         } catch (DukeException | ParseException |IOException e) {

@@ -40,9 +40,9 @@ public class RecurringCommandTest  {
         ArrayList<Task> list = new ArrayList<>();
         Deadline newd = new Deadline("yearly assignment", "2019-01-01 01:01:01");
         list.add(newd);
-        ui.FullCommand = "done 1";
+        ui.fullCommand = "done 1";
 
-        testR.AddRecurring(list, 0,list.get(0).toString(),storage);
+        testR.addRecurring(list, 0,list.get(0).toString(),storage);
         assertEquals("\nI've automatically added this yearly task again:\n[D][ND] yearly assignment(by:01 Jan 2020 01:01:01)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }

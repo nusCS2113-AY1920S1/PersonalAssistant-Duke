@@ -20,8 +20,8 @@ public class FindExpenseCommand {
      */
     public FindExpenseCommand(Ui ui, Map<LocalDate, ArrayList<String>> expenses) throws IOException, NullPointerException {
         System.out.println("Please enter the date of expenses are you searching for:");
-        ui.ReadCommand();
-        String date = ui.FullCommand;
+        ui.readCommand();
+        String date = ui.fullCommand;
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);
         boolean isExist = false;

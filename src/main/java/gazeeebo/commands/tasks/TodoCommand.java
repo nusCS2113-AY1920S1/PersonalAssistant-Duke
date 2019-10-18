@@ -15,14 +15,14 @@ import java.util.Stack;
 public class TodoCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         try {
-            if (ui.FullCommand.length() <= 4) {
+            if (ui.fullCommand.length() <= 4) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             } else {
-                description = ui.FullCommand.substring(5);
-                triviaManager.learnInput(ui.FullCommand,storage);
+                description = ui.fullCommand.substring(5);
+                triviaManager.learnInput(ui.fullCommand,storage);
         }
         Todo to = new Todo(description);
         list.add(to);
@@ -34,14 +34,13 @@ public class TodoCommand extends Command {
             sb.append(list.get(i).toString() + "\n");
         }
         storage.Storages(sb.toString());
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
             triviaManager.showPossibleInputs("todo");
             //triviaManager.showAllMap();
         }
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
         for (Task it : list) {
             if (it.description.contains(command.substring(6).trim())) {
                 list.remove(it);

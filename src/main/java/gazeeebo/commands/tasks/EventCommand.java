@@ -9,7 +9,6 @@ import gazeeebo.exception.DukeException;
 import java.io.IOException;
 
 import gazeeebo.tasks.*;
-
 import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -20,13 +19,13 @@ public class EventCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description;
         try {
-            if (ui.FullCommand.length() == 5) {
+            if (ui.fullCommand.length() == 5) {
                 throw new DukeException("OOPS!!! The description of an event cannot be empty.");
             } else {
-                description = ui.FullCommand.split("/at ")[0].substring(6);
-                triviaManager.learnInput(ui.FullCommand,storage);
+                description = ui.fullCommand.split("/at ")[0].substring(6);
+                triviaManager.learnInput(ui.fullCommand,storage);
             }
-            String at = ui.FullCommand.split("/at ")[1];
+            String at = ui.fullCommand.split("/at ")[1];
             Event ev = new Event(description, at);
 
             //CHECKING FOR SCHEDULE ANOMALIES------------------------------------------------------------------

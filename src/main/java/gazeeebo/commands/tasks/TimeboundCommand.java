@@ -5,6 +5,7 @@ import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import java.io.IOException;
+
 import gazeeebo.tasks.*;
 import gazeeebo.exception.DukeException;
 import java.text.ParseException;
@@ -16,14 +17,14 @@ public class TimeboundCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
-        String duration = ui.FullCommand.split("/")[1];
+        String duration = ui.fullCommand.split("/")[1];
         try {
             if (duration.length() > 6 && duration.length() < 33){
                 throw new DukeException("OOPS!!! There is no proper duration of time allocated for this task.");
             } else {
-                description = ui.FullCommand.split("/between ")[0];
+                description = ui.fullCommand.split("/between ")[0];
             }
-            String period = ui.FullCommand.split("/between ")[1];
+            String period = ui.fullCommand.split("/between ")[1];
 
             Timebound tb = new Timebound(description, period);
             list.add(tb);
