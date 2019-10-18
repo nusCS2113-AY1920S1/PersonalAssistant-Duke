@@ -26,9 +26,10 @@ public class MyClass extends Item {
 
     /**
      * Constructor method for MyClass.
+     *
      * @param info   This parameter is the name of the sports class.
      * @param status This shows whether the sports class has been held this week
-     *              or not.
+     *               or not.
      * @param today  When it will be held. (i.e. Monday, Tuesday)
      */
     public MyClass(final String info, final Boolean status,
@@ -40,6 +41,7 @@ public class MyClass extends Item {
 
     /**
      * Get the day of the week this sports class is held.
+     *
      * @return The day of the week this sports class is held.
      */
     public String getDay() {
@@ -48,6 +50,7 @@ public class MyClass extends Item {
 
     /**
      * Gets all the info of the sports class.
+     *
      * @return A string phrase containing all the details of the sports class.
      */
     @Override
@@ -57,6 +60,7 @@ public class MyClass extends Item {
 
     /**
      * Get the list of students attending this sports class.
+     *
      * @return an arraylist of MyStudent objects
      */
     public ArrayList<MyStudent> getStudents() {
@@ -65,6 +69,7 @@ public class MyClass extends Item {
 
     /**
      * Get the list of training programmes for this sports class.
+     *
      * @return an arraylist of MyTraining objects
      */
     public ArrayList<MyTraining> getTrainings() {
@@ -73,6 +78,7 @@ public class MyClass extends Item {
 
     /**
      * Add a training programme to the sports class.
+     *
      * @param training The training programme to add.
      */
     public void addTraining(final MyTraining training) {
@@ -81,8 +87,9 @@ public class MyClass extends Item {
 
     /**
      * Edit a training programme for a sports class. (The name)
+     *
      * @param training The name of the training programme to edit.
-     * @param newName New name to change to.
+     * @param newName  New name to change to.
      */
     public void editTrainingName(final String training, final String newName) {
         for (MyTraining x : trainings) {
@@ -94,8 +101,9 @@ public class MyClass extends Item {
 
     /**
      * Edit a training programme for a sports class. (The number of sets)
+     *
      * @param training The name of the training programme to edit.
-     * @param newSets New number of sets to change to.
+     * @param newSets  New number of sets to change to.
      */
     public void editTrainingSets(final String training, final int newSets) {
         for (MyTraining x : trainings) {
@@ -107,8 +115,9 @@ public class MyClass extends Item {
 
     /**
      * Edit a training programme for a sports class. (The number of reps)
+     *
      * @param training The name of the training programme to edit.
-     * @param newReps New number of reps to change to.
+     * @param newReps  New number of reps to change to.
      */
     public void editTrainingReps(final String training, final int newReps) {
         for (MyTraining x : trainings) {
@@ -120,7 +129,8 @@ public class MyClass extends Item {
 
     /**
      * Edit a training programme for a sports class. (The intensity)
-     * @param training The name of the training programme to edit.
+     *
+     * @param training     The name of the training programme to edit.
      * @param newIntensity New intensity to change to.
      */
     public void editTrainingIntensity(final String training,

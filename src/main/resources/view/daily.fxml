@@ -9,137 +9,114 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="duke.gui.Controller">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.Controller">
     <children>
         <MenuBar prefHeight="26.0" prefWidth="600.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Open…"/>
-                        <Menu mnemonicParsing="false" text="Open Recent"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
-                        <MenuItem mnemonicParsing="false" text="Save"/>
-                        <MenuItem mnemonicParsing="false" text="Save As…"/>
-                        <MenuItem mnemonicParsing="false" text="Revert"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Preferences…"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Quit"/>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Undo"/>
-                        <MenuItem mnemonicParsing="false" text="Redo"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Cut"/>
-                        <MenuItem mnemonicParsing="false" text="Copy"/>
-                        <MenuItem mnemonicParsing="false" text="Paste"/>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Select All"/>
-                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
         <AnchorPane prefHeight="693.0" prefWidth="1280.0" style="-fx-background-color: #43436e;">
             <children>
-                <Label alignment="CENTER" layoutX="161.0" layoutY="14.0" prefHeight="55.0" prefWidth="1105.0"
-                       style="-fx-background-color: CECCCC;" text="SCHEDULE">
+                <Label alignment="CENTER" layoutX="161.0" layoutY="14.0" prefHeight="55.0" prefWidth="1105.0" style="-fx-background-color: CECCCC;" text="SCHEDULE">
                     <font>
-                        <Font name="Arial" size="27.0"/>
+                        <Font name="Arial" size="27.0" />
                     </font>
                 </Label>
                 <AnchorPane layoutX="161.0" layoutY="78.0" prefHeight="595.0" prefWidth="1105.0">
                     <children>
-                        <Pane layoutX="2.0" layoutY="-2.0" prefHeight="595.0" prefWidth="316.0"
-                              style="-fx-background-color: CECCCC;">
+                        <Pane layoutX="2.0" layoutY="-2.0" prefHeight="595.0" prefWidth="316.0" style="-fx-background-color: CECCCC;">
                             <children>
-                                <Label alignment="CENTER" layoutX="8.0" layoutY="14.0" prefHeight="32.0"
-                                       prefWidth="297.0" style="-fx-border-color: #3F6596;" text="Goals of The Day">
+                                <Label alignment="CENTER" layoutX="8.0" layoutY="14.0" prefHeight="32.0" prefWidth="297.0" style="-fx-border-color: #3F6596;" text="Goals of The Day">
                                     <font>
-                                        <Font name="Arial" size="24.0"/>
+                                        <Font name="Arial" size="24.0" />
                                     </font>
                                 </Label>
-                                <CheckBox layoutX="21.0" layoutY="66.0" mnemonicParsing="false" prefHeight="42.0"
-                                          prefWidth="189.0" text="Goal 1">
+                                <CheckBox layoutX="21.0" layoutY="66.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="189.0" text="Goal 1">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font size="18.0" />
                                     </font>
                                 </CheckBox>
-                                <CheckBox layoutX="21.0" layoutY="114.0" mnemonicParsing="false" prefHeight="42.0"
-                                          prefWidth="189.0" text="Goal 2">
+                                <CheckBox layoutX="21.0" layoutY="114.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="189.0" text="Goal 2">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font size="18.0" />
                                     </font>
                                 </CheckBox>
-                                <CheckBox layoutX="21.0" layoutY="171.0" mnemonicParsing="false" prefHeight="42.0"
-                                          prefWidth="189.0" text="Goal 3">
+                                <CheckBox layoutX="21.0" layoutY="171.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="189.0" text="Goal 3">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font size="18.0" />
                                     </font>
                                 </CheckBox>
-                                <CheckBox layoutX="21.0" layoutY="229.0" mnemonicParsing="false" prefHeight="42.0"
-                                          prefWidth="189.0" text="Goal 4">
+                                <CheckBox layoutX="21.0" layoutY="229.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="189.0" text="Goal 4">
                                     <font>
-                                        <Font size="18.0"/>
+                                        <Font size="18.0" />
                                     </font>
                                 </CheckBox>
-                                <Button fx:id="btnAddGoal" layoutX="17.0" layoutY="478.0" mnemonicParsing="false"
-                                        prefHeight="31.0" prefWidth="286.0" text="Add Goal"/>
-                                <Button fx:id="btnEditGoal" layoutX="17.0" layoutY="509.0" mnemonicParsing="false"
-                                        onAction="#viewTraining" prefHeight="31.0" prefWidth="286.0" text="Edit"/>
-                                <Button fx:id="btnDeleteGoal" layoutX="17.0" layoutY="540.0" mnemonicParsing="false"
-                                        onAction="#viewTraining" prefHeight="31.0" prefWidth="286.0" text="Delete"/>
+                                <Button fx:id="btnAddGoal" layoutX="17.0" layoutY="478.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="286.0" text="Add Goal" />
+                                <Button fx:id="btnEditGoal" layoutX="17.0" layoutY="509.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="286.0" text="Edit" />
+                                <Button fx:id="btnDeleteGoal" layoutX="17.0" layoutY="540.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="286.0" text="Delete" />
                             </children>
                         </Pane>
-                        <Pane layoutX="337.0" layoutY="-2.0" prefHeight="595.0" prefWidth="767.0"
-                              style="-fx-background-color: CECCCC;">
+                        <Pane layoutX="337.0" layoutY="-2.0" prefHeight="595.0" prefWidth="767.0" style="-fx-background-color: CECCCC;">
                             <children>
-                                <Label alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="32.0"
-                                       prefWidth="271.0" style="-fx-border-color: #3F6596;" text="Date">
+                                <Label alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="32.0" prefWidth="271.0" style="-fx-border-color: #3F6596;" text="Date">
                                     <font>
-                                        <Font name="Arial" size="24.0"/>
+                                        <Font name="Arial" size="24.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="btnPrevDay" layoutX="146.0" layoutY="525.0" mnemonicParsing="false"
-                                        onAction="#viewTraining" prefHeight="31.0" prefWidth="116.0" text="Previous"/>
-                                <Button fx:id="btnNextDay" layoutX="559.0" layoutY="525.0" mnemonicParsing="false"
-                                        onAction="#viewTraining" prefHeight="31.0" prefWidth="116.0" text="Next"/>
-                                <TextArea layoutX="120.0" layoutY="120.0" prefHeight="300.0" prefWidth="562.0"
-                                          promptText="Time table goes here" wrapText="true"/>
-                                <TextField fx:id="DateField" alignment="CENTER" layoutX="299.0" layoutY="15.0"
-                                           promptText="Date goes here"/>
+                                <Button fx:id="btnPrevDay" layoutX="146.0" layoutY="525.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="116.0" text="Previous" />
+                                <Button fx:id="btnNextDay" layoutX="559.0" layoutY="525.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="116.0" text="Next" />
+                                <TextArea layoutX="120.0" layoutY="120.0" prefHeight="300.0" prefWidth="562.0" promptText="Time table goes here" wrapText="true" />
+                                <TextField fx:id="DateField" alignment="CENTER" layoutX="299.0" layoutY="15.0" promptText="Date goes here" />
                             </children>
                         </Pane>
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="658.0" prefWidth="139.0"
-                            style="-fx-background-color: CECCCC;">
+                <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="658.0" prefWidth="139.0" style="-fx-background-color: CECCCC;">
                     <children>
-                        <Label alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="32.0" prefWidth="116.0"
-                               style="-fx-border-color: #3F6596;" text="Menu">
+                        <Label alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="32.0" prefWidth="116.0" style="-fx-border-color: #3F6596;" text="Menu">
                             <font>
-                                <Font name="Arial" size="24.0"/>
+                                <Font name="Arial" size="24.0" />
                             </font>
                         </Label>
-                        <Button fx:id="btnHome" layoutX="17.0" layoutY="60.0" mnemonicParsing="false"
-                                onAction="#viewMenu" prefHeight="31.0" prefWidth="106.0" text="Home"/>
-                        <Button fx:id="btnStudents" layoutX="17.0" layoutY="112.0" mnemonicParsing="false"
-                                onAction="#viewStudents" prefHeight="31.0" prefWidth="106.0" text="Students"/>
-                        <Button fx:id="btnTraining" layoutX="17.0" layoutY="160.0" mnemonicParsing="false"
-                                onAction="#viewTraining" prefHeight="31.0" prefWidth="106.0" text="Training"/>
-                        <Button fx:id="btnBack" layoutX="17.0" layoutY="204.0" mnemonicParsing="false"
-                                onAction="#viewSchedule" prefHeight="31.0" prefWidth="106.0" text="Back"/>
+                        <Button fx:id="btnHome" layoutX="17.0" layoutY="60.0" mnemonicParsing="false" onAction="#viewMenu" prefHeight="31.0" prefWidth="106.0" text="Home" />
+                        <Button fx:id="btnStudents" layoutX="17.0" layoutY="112.0" mnemonicParsing="false" onAction="#viewStudents" prefHeight="31.0" prefWidth="106.0" text="Students" />
+                        <Button fx:id="btnTraining" layoutX="17.0" layoutY="160.0" mnemonicParsing="false" onAction="#viewTraining" prefHeight="31.0" prefWidth="106.0" text="Training" />
+                        <Button fx:id="btnBack" layoutX="17.0" layoutY="204.0" mnemonicParsing="false" onAction="#viewSchedule" prefHeight="31.0" prefWidth="106.0" text="Back" />
                     </children>
                 </AnchorPane>
             </children>
