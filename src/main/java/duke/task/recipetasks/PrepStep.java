@@ -1,15 +1,19 @@
 package duke.task.recipetasks;
 
-import java.util.ArrayList;
-
 public class PrepStep {
 
     private int index;
-    private String step;
+    private String steps = "No preparation steps provided yet.";
 
-    public PrepStep(int index, String step) {
+    public PrepStep() {}
+
+    public PrepStep(String prepStep) {
+        this.steps = prepStep;
+    }
+
+    public PrepStep(int index, String steps) {
         this.index = index;
-        this.step = step;
+        this.steps = steps;
     }
 
     public int getIndex() {
@@ -17,15 +21,15 @@ public class PrepStep {
     }
 
     public String getStep() {
-        return step;
+        return steps;
     }
 
     public String toSaveString() {
-        return index + " | " + step;
+        return steps;
     }
 
     public String toString() {
-        return "[" + index + "]" + step;
+        return "[" + index + "]" + steps;
     }
 
 }

@@ -12,7 +12,7 @@ public class Messages {
     public static final String filePathRecipeIngredients = "C:\\Users\\acern\\main\\src\\main\\data\\recipeIngredients.txt";
     public static final String filePathRecipeTitle = "C:\\Users\\acern\\main\\src\\main\\data\\recipeTitle.txt";
     public static final String filePathBookings = "C:\\Users\\acern\\main\\src\\main\\data\\bookings.txt";
-    public static final String filePathRecipes = "";
+    public static final String filePathRecipes = "/Users/jiawei/Desktop/main/src/main/data/recipes.txt";
 
     public static final String MESSAGE_ADDED = "     Got it. I've added this task:\n";
     public static final String MESSAGE_BYE = "     Bye. Hope to see you again soon!";

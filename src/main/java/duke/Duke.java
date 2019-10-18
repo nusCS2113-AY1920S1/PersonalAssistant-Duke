@@ -1,26 +1,21 @@
 package duke;
 
-import duke.command.CommandBooking;
-import duke.command.CommandIngredients;
-import duke.command.CommandRecipeIngredient;
-import duke.command.CommandRecipeTitle;
+import duke.command.*;
 import duke.exception.DukeException;
 import duke.list.bookinglist.BookingList;
 import duke.list.ingredientlist.IngredientList;
 import duke.list.recipelist.RecipeIngredientList;
-import duke.parser.Parser;
+import duke.list.recipelist.RecipeList;
 import duke.list.recipelist.RecipeTitleList;
-import duke.storage.BookingStorage;
-import duke.storage.IngredientStorage;
-import duke.storage.RecipeIngredientStorage;
-import duke.storage.RecipeTitleStorage;
+import duke.parser.Parser;
+import duke.storage.*;
 import duke.task.recipetasks.Feedback;
-import duke.task.recipetasks.Rating;
+import duke.task.recipetasks.Rating2;
 import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import static duke.common.BookingMessages.*;
 import static duke.common.IngredientMessages.*;
@@ -43,8 +38,12 @@ public class Duke {
     private BookingList bookingList;
     private RecipeTitleList recipeTitleList;
     private RecipeIngredient recipeIngredient;
-    private Rating rating;
+    private Rating2 rating2;
     private Feedback feedback;
+
+    private RecipeStorage recipeStorage;
+    private RecipeList recipeList;
+
 
 //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
@@ -57,12 +56,14 @@ public class Duke {
         recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
         recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
         bookingStorage = new BookingStorage(filePathBookings);
+        recipeStorage = new RecipeStorage(filePathRecipes);
 
         try {
             ingredientList = new IngredientList(ingredientStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
             recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
             bookingList = new BookingList(bookingStorage.load());
+            recipeList = new RecipeList(recipeStorage.load());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
             ui.showLoadingError();
@@ -87,12 +88,23 @@ public class Duke {
                 System.out.println("stuck here4");
                 return arrayList;
             }
+        } else if (userInput.contains(COMMAND_ADD_RECIPE)) {
+            System.out.println("stuck here5");
+            if (userInput.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
+                System.out.println("stuck here6");
+                CommandRecipe command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, recipeStorage);
+            } else {
+                System.out.println("stuck here7");
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
             System.out.println("stuck here5");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
                 System.out.println("stuck here6");
-                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
-                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+                CommandRecipe command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
