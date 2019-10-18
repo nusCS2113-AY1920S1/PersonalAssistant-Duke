@@ -36,12 +36,12 @@ public abstract class ArgSpec {
         for (Switch currSwitch : switches) {
             // create map of switch names to switch objects
             String name = currSwitch.name;
-            assert(!tempSwitchMap.containsKey(name));
+            assert (!tempSwitchMap.containsKey(name));
             tempSwitchMap.put(name, currSwitch);
 
             // extract prefixes to build lookup table
-            assert(name.startsWith(currSwitch.root));
-            assert(!switchRootSet.contains(currSwitch.root));
+            assert (name.startsWith(currSwitch.root));
+            assert (!switchRootSet.contains(currSwitch.root));
             switchRootSet.add(currSwitch.root);
             for (int j = currSwitch.root.length(); j <= name.length(); ++j) {
                 tempSwitchAliases.put(name.substring(0, j), name);

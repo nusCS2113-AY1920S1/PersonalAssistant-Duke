@@ -1,6 +1,7 @@
-package duke.command;
+package mocks;
 
-import duke.command.DoctorCommand;
+import duke.command.Command;
+import duke.command.Commands;
 
 public class TestCommands extends Commands {
     @Override

@@ -1,10 +1,10 @@
-import duke.command.ArgCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import mocks.DoctorCommand;
+import mocks.TestCommands;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +15,7 @@ public class ParserTest {
     // TODO check whether every task can be detected
     // TODO check if exception are thrown for incorrect input formats
 
-    private Parser uut = new Parser(new duke.command.TestCommands());
+    private Parser uut = new Parser(new TestCommands());
 
     @Test
     public void parseCommands_validCommands_correctCommandsReturned() {
