@@ -404,7 +404,6 @@ public class Parser {
                         break;
 
                     case "details":
-
                         System.out.println("Details for: ");
                         Scanner scan = new Scanner(System.in);
                         if (scan.equals("add details")) {
@@ -417,6 +416,11 @@ public class Parser {
                         break;
 
                     case "edit":
+                        index = Integer.parseInt(word[2])
+                        System.out.print("What do you want to edit for ");
+                        students.getStudentName(index);
+                        System.out.println("?");
+
                         // editStudentDetails(detail)
                         break;
 
@@ -431,6 +435,7 @@ public class Parser {
 
                     case "select":
                         index = Integer.parseInt(word[2]);
+                        System.out.print("You have selected: ");
                         students.getStudentName(index);
                         break;
                     }

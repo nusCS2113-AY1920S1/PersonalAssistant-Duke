@@ -28,6 +28,7 @@ public class ManageStudents implements Details {
 
 
 
+
 //    public void setStudentList(ArrayList<MyStudent> studentList.txt) {
 //        this.studentList.txt = studentList.txt;
 //    }
@@ -38,14 +39,6 @@ public class ManageStudents implements Details {
     public ArrayList<MyStudent> getStudentList() {
         return studentList;
     }
-
-//    public void addStudentList (Storage storage) {
-//        try {
-//            setStudentList((Objects.requireNonNull(storage.loadFile())));
-//        } catch (NullPointerException e) {
-//            System.out.println("No previous list loaded");
-//        }
-//    }
 
     /**
      * Method to list all the names of the students in the list.
@@ -72,8 +65,7 @@ public class ManageStudents implements Details {
      * @return name of student.
      */
     public void getStudentName(int index) {
-        System.out.println("You have selected:");
-        System.out.println(getStudentList().get(index - 1));
+        System.out.println(studentList.get(index - 1).getName());
     }
 
     /**
