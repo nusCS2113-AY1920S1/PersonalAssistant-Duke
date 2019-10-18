@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'org.asciidoctor.convert' version '2.3.0'
 }
 
 group 'seedu.OwlMoney'
@@ -40,3 +41,55 @@ run {
 test {
     useJUnitPlatform()
 }
+
+asciidoctor {
+    sourceDir 'docs'
+    outputDir "${buildDir}/docs"
+
+    dependsOn('copyStylesheets')
+
+    options = [
+            template_dirs: [file("${sourceDir}/templates")],
+    ]
+
+    attributes = [
+            setBackend: ("html5"),
+            linkcss: true,
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',  // for compatibility with GitHub preview
+            idseparator: '-',
+            'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
+            'site-name': 'OwlMoney',
+            'site-githuburl': 'https://github.com/AY1920S1-CS2113T-W17-3/main',
+    ]
+
+    options['template_dirs'].each {
+        inputs.files fileTree(it)
+    }
+}
+
+// Copies stylesheets into the directory containing generated HTML files as
+// Asciidoctor does not copy linked CSS files to the output directory when rendering.
+// This is needed for linked stylesheets and embedded stylesheets which import other files.
+task copyStylesheets(type: Copy) {
+    from "${asciidoctor.sourceDir}/stylesheets"
+    into "${asciidoctor.outputDir}/html5/stylesheets"
+}
+
+task deployOfflineDocs(type: Copy) {
+    dependsOn('asciidoctor')
+
+    into('src/main/resources/docs')
+
+    from ("${asciidoctor.outputDir}/html5") {
+        include 'stylesheets/*'
+        include 'images/*'
+        include 'HelpWindow.html'
+    }
+}
+
+processResources.dependsOn deployOfflineDocs
