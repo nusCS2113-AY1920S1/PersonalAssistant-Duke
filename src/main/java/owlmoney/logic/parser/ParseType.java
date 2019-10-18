@@ -52,7 +52,7 @@ class ParseType extends Parser {
     /**
      * List of whitelisted keywords that the user can use.
      */
-    private static final String[] TYPE_KEYWORDS = new String[]{
+    private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
         "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
@@ -168,7 +168,7 @@ class ParseType extends Parser {
                 parseDeleteBond.fillHashTable();
                 parseDeleteBond.checkParameter();
                 return parseDeleteBond.getCommand();
-            }   else if ("/list".equals(command)) {
+            } else if ("/list".equals(command)) {
                 ParseBond parseListBond = new ParseListBond(rawData, BOND);
                 parseListBond.fillHashTable();
                 parseListBond.checkParameter();

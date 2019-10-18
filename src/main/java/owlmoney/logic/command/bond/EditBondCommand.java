@@ -20,8 +20,8 @@ public class EditBondCommand extends Command {
      *
      * @param bankName the name of the bank account.
      * @param bondName the name of the bond to be deleted.
-     * @param rate the new rate of the bond.
-     * @param year the new year of the bond.
+     * @param rate     the new rate of the bond.
+     * @param year     the new year of the bond.
      */
     public EditBondCommand(String bankName, String bondName, String rate, String year) {
         this.bankName = bankName;

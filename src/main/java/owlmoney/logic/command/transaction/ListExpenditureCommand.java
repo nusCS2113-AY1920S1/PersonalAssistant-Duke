@@ -20,7 +20,7 @@ public class ListExpenditureCommand extends Command {
      *
      * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
-     * @param type Represents type of expenditure to be listed.
+     * @param type       Represents type of expenditure to be listed.
      */
     public ListExpenditureCommand(String name, int displayNum, String type) {
         this.accName = name;
@@ -34,9 +34,9 @@ public class ListExpenditureCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If no expenditure found or no expenditure is in the list..
-     * @throws CardException If the credit card name cannot be found.
+     * @throws CardException        If the credit card name cannot be found.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
         profile.profileListExpenditure(accName, ui, displayNum, this.type);

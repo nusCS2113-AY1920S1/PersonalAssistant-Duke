@@ -49,7 +49,7 @@ public abstract class ParseExpenditure {
      * Checks the user input for any redundant parameters.
      *
      * @param parameter Redundant parameter to check for,
-     * @param command Command the user performed.
+     * @param command   Command the user performed.
      * @throws ParserException If a redundant parameter is detected.
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {

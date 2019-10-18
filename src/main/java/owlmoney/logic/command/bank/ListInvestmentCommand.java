@@ -21,7 +21,7 @@ public class ListInvestmentCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.profileListBanks(INVESTMENT,ui);
+        profile.profileListBanks(INVESTMENT, ui);
         return this.isExit;
     }
 }

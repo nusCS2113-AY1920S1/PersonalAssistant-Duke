@@ -34,8 +34,8 @@ public class Investment extends Bank {
     /**
      * Adds an expenditure tied to this instance of the bank account.
      *
-     * @param exp an instance of expenditure.
-     * @param ui  required for printing.
+     * @param exp      an instance of expenditure.
+     * @param ui       required for printing.
      * @param bankType Type of bank to add expenditure into.
      * @throws BankException If amount becomes negative after adding expenditure.
      */
@@ -55,8 +55,8 @@ public class Investment extends Bank {
     /**
      * Adds a new deposit to the current bank account.
      *
-     * @param dep Deposit to add.
-     * @param ui  Ui of OwlMoney.
+     * @param dep      Deposit to add.
+     * @param ui       Ui of OwlMoney.
      * @param bankType Type of bank to add deposit into.
      * @throws BankException If user manually adds deposit into investment account
      */
@@ -133,7 +133,7 @@ public class Investment extends Bank {
      * Lists the bonds in the bank specified bank account.
      *
      * @param displayNum the number of bonds to display.
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @throws BondException if there are not bonds.
      */
     @Override

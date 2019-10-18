@@ -21,7 +21,7 @@ public abstract class ParseDeposit {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
-        "/amount", "/date", "/desc", "/category", "/to", "/transno","/from", "/num"
+        "/amount", "/date", "/desc", "/category", "/to", "/transno", "/from", "/num"
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
     static final String AMOUNT = "/amount";
@@ -45,7 +45,7 @@ public abstract class ParseDeposit {
      * Checks the user input for any redundant parameters.
      *
      * @param parameter Redundant parameter to check for,
-     * @param command Command the user performed.
+     * @param command   Command the user performed.
      * @throws ParserException If a redundant parameter is detected.
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
@@ -129,7 +129,7 @@ public abstract class ParseDeposit {
      * Checks if the bank name entered by the user does not contain special character and not too long.
      *
      * @param nameString Name of bank
-     * @param variable /to or /from
+     * @param variable   /to or /from
      * @throws ParserException If the name is too long or contain special characters.
      */
     void checkName(String nameString, String variable) throws ParserException {

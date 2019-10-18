@@ -51,7 +51,7 @@ public abstract class Transaction {
      *
      * @return The description of the expenditure.
      */
-    private String getDescription() {
+    String getDescription() {
         return this.description;
     }
 
@@ -60,7 +60,7 @@ public abstract class Transaction {
      *
      * @return The date that the expenditure was made.
      */
-    private String getDate() {
+    String getDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
     }
@@ -70,11 +70,11 @@ public abstract class Transaction {
      *
      * @return The category of the expenditure that it was tagged to.
      */
-    public String getCategory() {
+    String getCategory() {
         return this.category;
     }
 
-    private String checkDebitCredit() {
+    String checkDebitCredit() {
         if (!this.spent) {
             return "[+] $";
         } else {

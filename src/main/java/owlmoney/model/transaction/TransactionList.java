@@ -1,6 +1,7 @@
 package owlmoney.model.transaction;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,10 @@ public class TransactionList {
 
     private ArrayList<Transaction> expLists;
     private static final int ONE_INDEX = 1;
+    private static final String TRANSTYPE = "transaction";
+    private static final String ITEMTYPE = "item";
+    private static final boolean ISMULTIPLE = true;
+    private static final boolean ISSINGLE = false;
 
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
@@ -40,9 +45,13 @@ public class TransactionList {
             boolean expenditureExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails());
+                    printOneHeader(counter, displayNum, ui);
+                    printOneTransaction((i + ONE_INDEX), expLists.get(i), ISMULTIPLE, ui);
                     counter--;
                     expenditureExist = true;
+                }
+                if (counter <= 0 || i == 0) {
+                    ui.printDivider();
                 }
                 if (counter <= 0) {
                     break;
@@ -69,9 +78,13 @@ public class TransactionList {
             boolean depositExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if ("deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails());
+                    printOneHeader(counter, displayNum, ui);
+                    printOneTransaction((i + ONE_INDEX), expLists.get(i), ISMULTIPLE, ui);
                     counter--;
                     depositExist = true;
+                }
+                if (counter <= 0 || i == 0) {
+                    ui.printDivider();
                 }
                 if (counter <= 0) {
                     break;
@@ -92,7 +105,8 @@ public class TransactionList {
     public void addExpenditureToList(Transaction exp, Ui ui, String type) {
         expLists.add(exp);
         if (!"bond".equals(type)) {
-            ui.printMessage("Added expenditure:\n" + exp.getDetails());
+            ui.printMessage("Added expenditure shown below:");
+            printOneTransaction(ONE_INDEX, exp, ISSINGLE, ui);
         }
     }
 
@@ -105,7 +119,8 @@ public class TransactionList {
     public void addDepositToList(Transaction dep, Ui ui, String bankType) {
         expLists.add(dep);
         if ("bank".equals(bankType)) {
-            ui.printMessage("Added deposit:\n" + dep.getDetails());
+            ui.printMessage("Added deposit with the follwing details:");
+            printOneTransaction(ONE_INDEX, dep, ISSINGLE, ui);
         }
     }
 
@@ -127,7 +142,8 @@ public class TransactionList {
             } else {
                 Transaction temp = expLists.get(index - ONE_INDEX);
                 expLists.remove(index - ONE_INDEX);
-                ui.printMessage("Expenditure deleted:\n" + temp.getDetails());
+                ui.printMessage("Details of deleted Expenditure:");
+                printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
                 return temp.getAmount();
             }
         } else {
@@ -167,7 +183,8 @@ public class TransactionList {
         if (!(category.isBlank() || category.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setCategory(category);
         }
-        ui.printMessage("Edited details:\n" + expLists.get(expNum - ONE_INDEX).getDetails());
+        ui.printMessage("Edited details of the specified expenditure:");
+        printOneTransaction(ONE_INDEX, expLists.get(expNum - ONE_INDEX), ISSINGLE, ui);
         return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
@@ -199,7 +216,8 @@ public class TransactionList {
                 throw new TransactionException(e.toString());
             }
         }
-        ui.printMessage("Edited details:\n" + expLists.get(expNum - 1).getDetails());
+        ui.printMessage("Edited details of the specified deposits:");
+        printOneTransaction(ONE_INDEX, expLists.get(expNum - ONE_INDEX), ISSINGLE, ui);
         return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
@@ -233,7 +251,8 @@ public class TransactionList {
     public double deleteDepositFromList(int index, Ui ui) {
         Transaction temp = expLists.get(index - ONE_INDEX);
         expLists.remove(index - ONE_INDEX);
-        ui.printMessage("Deposit deleted:\n" + temp.getDetails());
+        ui.printMessage("Details of deleted deposit:");
+        printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
         return temp.getAmount();
     }
 
@@ -257,6 +276,40 @@ public class TransactionList {
             }
         } else {
             throw new TransactionException("Index is out of transaction list range");
+        }
+    }
+
+    /**
+     * Prints transaction details.
+     *
+     * @param num                Represents the numbering of the transaction.
+     * @param transaction        The transaction object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or multiple
+     *                           time
+     * @param ui                 The object use for printing.
+     */
+    private void printOneTransaction(int num, Transaction transaction, boolean isMultiplePrinting, Ui ui) {
+        if (!isMultiplePrinting) {
+            ui.printTransactionHeader(ITEMTYPE);
+        }
+        ui.printTransaction(num, transaction.getDescription(),
+                (transaction.checkDebitCredit() + new DecimalFormat("0.00")
+                        .format(transaction.getAmount())), transaction.getDate(), transaction.getCategory());
+        if (!isMultiplePrinting) {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Prints the transaction header details once only when listing of multiple transaction.
+     *
+     * @param counter    Represents the counter of the transaction for printing.
+     * @param displayNum Represents number of transaction to list.
+     * @param ui         The object use for printing.
+     */
+    private void printOneHeader(int counter, int displayNum, Ui ui) {
+        if (counter == displayNum) {
+            ui.printTransactionHeader(TRANSTYPE);
         }
     }
 }
