@@ -145,14 +145,13 @@ public class Order {
         //Iterate through all ingredients needed.
         requiredIngredients.forEach((requiredIngredient, requiredAmount) -> {
             boolean isFound = false;
-            //Ierate through inventory to find the required ingredient.
+            //Iterate through inventory to find the required ingredient.
             for (Item<Ingredient> ingredientItem : inventory) {
                 Ingredient inventoryIngredient = ingredientItem.getItem();
                 double inventoryAmount = ingredientItem.getQuantity().getNumber();
                 if (requiredIngredient.equals(inventoryIngredient)) {
                     isFound = true;
                     if (requiredAmount > inventoryAmount) {
-                        //System.out.println("111");
                         isIngredientEnough.setValue(false);
                         break;
                     }
