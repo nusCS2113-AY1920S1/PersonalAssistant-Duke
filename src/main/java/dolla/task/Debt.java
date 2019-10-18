@@ -25,7 +25,7 @@ public class Debt extends Log {
         return "[" + type + "] "
                 + "[" + name + "] "
                 + "[" + amountToMoney() + "] "
-                + "[" + description + "]"
+                + "[" + description + "] "
                 + "[/due" + Time.dateTimeToString(date) + "]";
     }
 
@@ -48,7 +48,7 @@ public class Debt extends Log {
         return saveType + " | "
                 + name + " | "
                 + amount + " | "
-                + description + "|"
+                + description + " | "
                 + Time.dateTimeToString(date);
     }
 }
