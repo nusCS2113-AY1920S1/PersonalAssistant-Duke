@@ -1,12 +1,10 @@
 package rims.core;
 
-import rims.command.*;
-import rims.exception.*;
-import rims.resource.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import rims.command.Command;
 
 public class Rim {
     private Storage storage;
@@ -18,7 +16,7 @@ public class Rim {
         storage = new Storage(filePath);
         ui = new Ui();
         resources = new ResourceList(storage.getResources());
-        parser = new Parser(ui);
+        parser = new Parser(resources,ui);
     }
 
     public void run() throws Exception, IOException {
