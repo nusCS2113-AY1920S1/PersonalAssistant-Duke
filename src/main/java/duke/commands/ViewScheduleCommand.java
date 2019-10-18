@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultCalender;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.TaskList;
@@ -29,7 +30,7 @@ public class ViewScheduleCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
+    public CommandResultCalender execute(Model model) throws DukeException {
         SortedList<Task> tasks = model.getTasks().getChronoList();
         TaskList result = new TaskList();
 
@@ -41,8 +42,7 @@ public class ViewScheduleCommand extends Command {
                 result.add(task);
             }
         }
-        CommandResult commandResult = new CommandResult(MESSAGE_SHOW_CALENDAR);
-        commandResult.setCalendar(true);
+        CommandResultCalender commandResult = new CommandResultCalender(MESSAGE_SHOW_CALENDAR);
         commandResult.setTasks(model.getTasks());
         return commandResult;
     }

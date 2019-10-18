@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultExit;
 import duke.model.Model;
 
 /**
@@ -14,9 +15,9 @@ public class ExitCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) {
-        CommandResult commandResult = new CommandResult(MESSAGE_BYE);
-        commandResult.setExit(true);
+    public CommandResultExit execute(Model model) {
+        CommandResultExit commandResult = new CommandResultExit(MESSAGE_BYE);
+        //commandResult.setExit(true);
         return commandResult;
     }
 }

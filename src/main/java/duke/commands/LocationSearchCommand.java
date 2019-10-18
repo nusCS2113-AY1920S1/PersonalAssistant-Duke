@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiParser;
 import duke.model.Model;
@@ -21,8 +22,8 @@ public class LocationSearchCommand extends Command {
      * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Model model) throws DukeException {
-        return new CommandResult("These are the coordinates of your search:\n"
+    public CommandResultText execute(Model model) throws DukeException {
+        return new CommandResultText("These are the coordinates of your search:\n"
                 + result.getAddress() + "\n" + result.getLatitude() + " "
                 + result.getLongitude());
     }

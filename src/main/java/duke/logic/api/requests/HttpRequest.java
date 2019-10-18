@@ -1,14 +1,11 @@
 package duke.logic.api.requests;
 
-import com.google.gson.JsonObject;
-import duke.commons.exceptions.DukeException;
-
-import java.io.IOException;
+import duke.commons.exceptions.DukeApiException;
 
 /**
  * Abstract class representing individual HTTP requests.
  */
-public abstract class HttpRequest {
+public abstract class HttpRequest<T> {
     protected String reqType;
     protected String url;
     protected String param;
@@ -28,7 +25,7 @@ public abstract class HttpRequest {
 
     /**
      * Executes the HTTP Request.
-     * @return
+     * @return response The response from request
      */
-    public abstract JsonObject execute() throws DukeException, IOException;
+    public abstract T execute() throws DukeApiException;
 }

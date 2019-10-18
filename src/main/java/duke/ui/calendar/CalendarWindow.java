@@ -1,6 +1,6 @@
 package duke.ui.calendar;
 
-import duke.commands.CommandResult;
+import duke.commands.results.CommandResultCalender;
 import duke.commons.exceptions.DukeException;
 import duke.model.TaskList;
 import duke.model.events.DoWithin;
@@ -171,7 +171,7 @@ public class CalendarWindow extends UiPart<Stage> {
     /**
      * Creates a new CalendarWindow.
      */
-    public CalendarWindow(CommandResult commandResult) {
+    public CalendarWindow(CommandResultCalender commandResult) {
         this(new Stage(), commandResult.getTasks());
     }
 

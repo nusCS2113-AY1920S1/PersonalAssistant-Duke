@@ -17,6 +17,7 @@ import duke.commands.PromptCommand;
 import duke.commands.RecommendationsCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
+import duke.commands.StaticMapCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commons.Messages;
 import duke.commons.MessagesPrompt;
@@ -65,12 +66,14 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(getWord(input),  getHolidayIndexInList(1, input),
+            return new FindPathCommand(getWord(input), getHolidayIndexInList(1, input),
                     getHolidayIndexInList(2, input));
         case "recommend":
             return new RecommendationsCommand(getWord(input));
         case "cancel":
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
+        case "map":
+            return new StaticMapCommand(getWord(input));
         default:
             throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
