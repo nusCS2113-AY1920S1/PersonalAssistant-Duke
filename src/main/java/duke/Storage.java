@@ -95,7 +95,7 @@ public class Storage {
 
 
     public void updateFile(SongList songList) throws DukeException {
-        System.out.println(songList.getSongList().get(0).toString());
+       // System.out.println(songList.getSongList().get(0).toString());
         writeStringsToFile(formatListToString(songList.getSongList()));
     }
 

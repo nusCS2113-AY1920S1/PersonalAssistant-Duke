@@ -8,6 +8,10 @@ public class Bar {
     private int id;
     private ArrayList<String> barChart;
 
+    public Object clone()throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     /**
      * Constructor takes in a String representing a list of notes.
      *
@@ -52,7 +56,6 @@ public class Bar {
                 if (i != 0) {
                     note1.setStart(false);
                 }
-
                 newChord.addToChord(note1);
                 result.add(newChord);
             }
