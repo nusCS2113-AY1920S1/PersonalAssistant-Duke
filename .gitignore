@@ -3,6 +3,9 @@
 ./savedProjects.json
 savedProjects.json
 
+# Logs file to ingore
+/logs/*
+
 # IDEA files
 /.idea/
 /out/
