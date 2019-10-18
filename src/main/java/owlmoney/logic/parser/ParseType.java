@@ -53,8 +53,8 @@ class ParseType extends Parser {
      * List of whitelisted keywords that the user can use.
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
-            "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-            "/recurexpenditure", "/bonds", "/profile", "/deposit"
+        "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
+        "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";

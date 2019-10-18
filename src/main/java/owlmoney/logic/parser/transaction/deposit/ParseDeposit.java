@@ -21,7 +21,7 @@ public abstract class ParseDeposit {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
-            "/amount", "/date", "/desc", "/category", "/to", "/transno", "/from", "/num"
+        "/amount", "/date", "/desc", "/category", "/to", "/transno", "/from", "/num"
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
     static final String AMOUNT = "/amount";

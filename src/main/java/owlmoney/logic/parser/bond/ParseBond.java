@@ -23,7 +23,7 @@ public abstract class ParseBond {
     private String rawData;
     String type;
     private static final String[] BOND_KEYWORD = new String[] {
-            "/amount", "/name", "/rate", "/date", "/year", "/from", "/num"
+        "/amount", "/name", "/rate", "/date", "/year", "/from", "/num"
     };
     static final String AMOUNT = "/amount";
     static final String NAME = "/name";

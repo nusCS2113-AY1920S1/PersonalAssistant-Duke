@@ -162,8 +162,8 @@ public class GoalsList {
         if (!isMultiplePrinting) {
             ui.printGoalHeader();
         }
-        ui.printGoal(num, goal.getGoalsName(), "$" +
-                        new DecimalFormat("0.00").format(goal.getGoalsAmount()),
+        ui.printGoal(num, goal.getGoalsName(), "$"
+                        + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
                 goal.getGoalsDate().toString());
         if (!isMultiplePrinting) {
             ui.printDivider();

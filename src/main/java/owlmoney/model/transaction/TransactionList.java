@@ -293,8 +293,8 @@ public class TransactionList {
             ui.printTransactionHeader(ITEMTYPE);
         }
         ui.printTransaction(num, transaction.getDescription(),
-                (transaction.checkDebitCredit() + new DecimalFormat("0.00").
-                        format(transaction.getAmount())), transaction.getDate(), transaction.getCategory());
+                (transaction.checkDebitCredit() + new DecimalFormat("0.00")
+                        .format(transaction.getAmount())), transaction.getDate(), transaction.getCategory());
         if (!isMultiplePrinting) {
             ui.printDivider();
         }

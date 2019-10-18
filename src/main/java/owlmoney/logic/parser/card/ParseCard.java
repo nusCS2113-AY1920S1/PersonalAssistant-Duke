@@ -17,7 +17,7 @@ public abstract class ParseCard {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARD_KEYWORD = new String[] {
-            "/name", "/limit", "/rebate", "/newname"
+        "/name", "/limit", "/rebate", "/newname"
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
     static final String NAME = "/name";
