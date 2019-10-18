@@ -7,9 +7,21 @@ public class MemorisePreviousFunctions {
     private String nextCommand;
     private int currIndex;
     private ArrayList<String> CommandsEntered;
+    private boolean flag;
+    private boolean flagForFirstPress;
 
     public MemorisePreviousFunctions() {
         CommandsEntered = new ArrayList<>();
+        this.flagForFirstPress = true;
+        this.flag = true;
+    }
+
+    public void setFlagTrue() { //the command before this is up
+        flag = true;
+    }
+
+    public void setFlagFalse() { //the command before this is down
+        flag = false;
     }
 
     public void addingCommandsEntered(String Commands) {
@@ -21,21 +33,38 @@ public class MemorisePreviousFunctions {
     }
 
     public int getMaxIndex() {
-        return CommandsEntered.size();
+        return CommandsEntered.size(); //0-based indexing
     }
 
     public void setCurrIndex() {
-        currIndex = CommandsEntered.size();
+        currIndex = CommandsEntered.size(); //0-based indexing
+    }
+
+    public void setFlagForFirstPress() {
+        flagForFirstPress = true;
     }
 
     public String getPreviousCommand() {
+        if(flagForFirstPress) {
+            currIndex = getMaxIndex() - 1;
+            flagForFirstPress = false;
+        } else {
+            if (currIndex != 0 && flag) {
+                currIndex -= 1;
+            }
+        }
         previousCommand = CommandsEntered.get(currIndex);
-        currIndex -= 1;
-        return  previousCommand;
+        return previousCommand;
     }
 
     public String getNextCommand() {
-        currIndex += 1;
+        if(currIndex == getMaxIndex()) {
+            currIndex = getMaxIndex() - 1;
+        } else if (!flag) {
+            if(currIndex != getMaxIndex() - 1) {
+                currIndex += 1;
+            }
+        }
         nextCommand = CommandsEntered.get(currIndex);
         return nextCommand;
     }

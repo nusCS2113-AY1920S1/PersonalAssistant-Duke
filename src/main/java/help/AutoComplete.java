@@ -94,7 +94,5 @@ public class AutoComplete {
         for(int i = firstIndex; i <= lastIndex; i++) {
             MatchList.add(CommandList.get(i));
         }
-
-        //something here
     }
 }
