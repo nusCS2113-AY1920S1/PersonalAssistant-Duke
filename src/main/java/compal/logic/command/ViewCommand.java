@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 
 /**
- * The ListCommand Class handles all list commands.
+ * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
     private String[] viewargs;
@@ -49,6 +49,14 @@ public class ViewCommand extends Command {
         return new CommandResult(finalList);
     }
 
+    /**
+     * return all task for a given month.
+     *
+     * @param givenMonth the month input by user.
+     * @param givenYear the year input by user.
+     * @param currList the curr taskList of task.
+     * @return stringo output
+     */
     private String displayMonthView(int givenMonth, int givenYear, ArrayList<Task> currList) {
         String[] months = {"", "January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"};
@@ -75,6 +83,13 @@ public class ViewCommand extends Command {
         return monthlyTask.toString();
     }
 
+    /**
+     * return all task for a given day.
+     *
+     * @param dateInput the date of task input.
+     * @param currList the curr taskList of task.
+     * @return stringo output
+     */
     private String displayDayView(String dateInput, ArrayList<Task> currList) {
         StringBuilder dailyTask = new StringBuilder("Here are your task for the day of " + dateInput + " :\n");
 
