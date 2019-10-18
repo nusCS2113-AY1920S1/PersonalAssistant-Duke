@@ -8,6 +8,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 public class TaskWithSpanningPeriod extends TaskWithPeriod {
@@ -45,58 +46,28 @@ public class TaskWithSpanningPeriod extends TaskWithPeriod {
     }
 
     public void setBegin(LocalDateTime begin) throws ModInvalidTimePeriodException {
-        this.setPeriod(begin, this.getEnd());
+        this.setPeriod(begin, (LocalDateTime) this.getEnd());
     }
 
     public void setEnd(LocalDateTime end) throws ModInvalidTimePeriodException {
-        this.setPeriod(this.getBegin(), end);
+        this.setPeriod((LocalDateTime) this.getBegin(), end);
     }
 
     public LocalDateTime getTime() {
-        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
+        return (LocalDateTime) ((this.getBegin() != null) ? this.getBegin() : this.getEnd());
     }
 
     public LocalDate getBeginDate() {
-        return this.getBegin().toLocalDate();
-    }
-
-    @Override
-    public LocalTime getBeginTime() {
-        return this.getBegin().toLocalTime();
+        return ((LocalDateTime) this.getBegin()).toLocalDate();
     }
 
     public LocalDate getEndDate() {
-        return this.getEnd().toLocalDate();
-    }
-
-    @Override
-    public LocalTime getEndTime() {
-        return this.getEnd().toLocalTime();
-    }
-
-    @Override
-    public LocalDateTime getBegin() {
-        return this.period.getBegin();
-    }
-
-    @Override
-    public LocalDateTime getEnd() {
-        return this.period.getEnd();
-    }
-
-    @Override
-    public List<DayOfWeek> getDaysOfWeek() {
-        return this.period.getDaysOfWeek();
+        return ((LocalDateTime) this.getEnd()).toLocalDate();
     }
 
     @Override
     public TimePeriodSpanning getPeriod() {
         return this.period;
-    }
-
-    @Override
-    public TimeInterval getInterval() {
-        return this.period.getInterval();
     }
 
     public boolean isClashing(LocalDateTime localDateTime) {
@@ -105,13 +76,5 @@ public class TaskWithSpanningPeriod extends TaskWithPeriod {
 
     public boolean isClashing(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
         return this.period.isClashing(begin, end);
-    }
-
-    public boolean isClashing(TimePeriodSpanning timePeriodSpanning) {
-        return this.period.isClashing(timePeriodSpanning);
-    }
-
-    public boolean isClashing(TaskWithSpanningPeriod other) {
-        return this.period.isClashing(other.getPeriod());
     }
 }
