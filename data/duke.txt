@@ -5,3 +5,5 @@ BU | 1000.0 | WEEKLY
 BU | 100.0 | MONTHLY
 O | baba | 1000.0 | sushi
 B | dolla | 10000.0 | bushi
+O | baba | 2000.0 | shishi
+O | waaaa | 20000.0 | bushi

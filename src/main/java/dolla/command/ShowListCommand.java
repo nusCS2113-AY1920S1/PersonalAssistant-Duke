@@ -71,6 +71,7 @@ public class ShowListCommand extends Command {
             return;
         } else if (mode.equals("debt")) {
             Ui.printList(mode, logList);
+//            System.out.println(logList.get().size());//test
             return;
         } else if (mode.equals("limit")) {
             Ui.printList(mode,logList);

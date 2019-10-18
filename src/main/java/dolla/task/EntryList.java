@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * Holds all the entries that have been added to Dolla.
  */
 public class EntryList extends LogList{
-    protected ArrayList<Entry> entryList;
     public EntryList(ArrayList<Log> importEntryList) {
         super(importEntryList);
     }

@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.Ui;
 //import dolla.command.;
 
+import dolla.action.undo;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
@@ -15,6 +16,7 @@ import java.util.Arrays;
  * to create the relevant command.
  */
 public class MainParser {
+    private static String[] prevCommand = {"dolla","1"};
 
     /**
      * Returns a command corresponding to the user input by directing
@@ -37,6 +39,23 @@ public class MainParser {
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
         }
+
+//        if(prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
+//            prevCommand[0] = command;
+//            prevCommand[1] = "1";
+//        } else if(prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
+//            prevCommand[1] = "2";
+//        } else if(prevCommand[0].equals("redo") && prevCommand[1].equals("1")) {
+//            new undo(inputLine, command, true);
+//            prevCommand[1] = "2";
+//        } else if(prevCommand[0].equals("redo") || prevCommand[1].equals("2")) {
+//            prevCommand[0] = command;
+//            prevCommand[1] = "1";
+//        } else { //not from redo
+//            new undo(inputLine, command, false);
+//            prevCommand[0] = command;
+//            prevCommand[1] = "1";
+//        }
 
         switch (mode) {
         case "dolla":
