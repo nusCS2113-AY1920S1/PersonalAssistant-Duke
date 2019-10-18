@@ -48,21 +48,6 @@ run {
     standardInput = System.in
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java']
-        }
-        resources {
-            srcDirs = ['src/main/resources']
-        }
-    }
-}
-
-sourceSets.test {
-    resources.srcDirs = ["src/test/assets"]
-}
-
 dependencies {
     //compile files("${System.properties['java.home']}/../lib/tools.jar")
     compile group: 'com.joestelmach', name: 'natty', version: '0.6'
@@ -86,6 +71,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
 
 
