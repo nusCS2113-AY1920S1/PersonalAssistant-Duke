@@ -70,8 +70,9 @@ public class Duke {
      */
     private void redirectOutput() {
         this.output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(this.output));
-        System.setErr(new PrintStream(this.output));
+        PrintStream printStreamGui = new PrintStream(this.output);
+        System.setOut(printStreamGui);
+        System.setErr(printStreamGui);
     }
 
     private void modSetup() {
