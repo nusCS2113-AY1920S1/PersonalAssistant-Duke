@@ -290,6 +290,7 @@ public abstract class Bank {
     /**
      * Gets the income of the instance of the bank account.
      *
+     * @return The income of the bank account.
      * @throws BankException If used on investment account.
      */
     public double getIncome() throws BankException {

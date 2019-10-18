@@ -52,7 +52,7 @@ public class BankList {
         }
         bankLists.add(newBank);
         ui.printMessage("Added new bank with following details: ");
-        printOneBank(newBank, ISSINGLE, ONE_INDEX, ui);
+        printOneBank(ONE_INDEX, newBank, ISSINGLE, ui);
     }
 
     /**
@@ -161,7 +161,7 @@ public class BankList {
                     Bank temp = bankLists.get(i);
                     bankLists.remove(i);
                     ui.printMessage("Removed bank with the following details: ");
-                    printOneBank(temp, ISSINGLE, ONE_INDEX, ui);
+                    printOneBank(ONE_INDEX, temp, ISSINGLE, ui);
                     break;
                 }
             }
@@ -194,7 +194,7 @@ public class BankList {
                     bankLists.get(i).setIncome(Double.parseDouble(income));
                 }
                 ui.printMessage("New details of the account:");
-                printOneBank(bankLists.get(i), ISSINGLE, ONE_INDEX, ui);
+                printOneBank(ONE_INDEX, bankLists.get(i), ISSINGLE, ui);
                 return;
             }
         }
@@ -238,7 +238,7 @@ public class BankList {
                     bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
                 }
                 ui.printMessage("New details of the account:");
-                printOneBank(bankLists.get(i), ISSINGLE, ONE_INDEX, ui);
+                printOneBank(ONE_INDEX, bankLists.get(i), ISSINGLE, ui);
                 break;
             }
         }
@@ -258,7 +258,7 @@ public class BankList {
         for (int i = 0; i < getBankListSize(); i++) {
             if (bankType.equals(bankLists.get(i).getType())) {
                 printOneHeader(numberOfBanks, ui);
-                printOneBank(bankLists.get(i), ISMULTIPLE, i + ONE_INDEX, ui);
+                printOneBank(numberOfBanks + ONE_INDEX, bankLists.get(i), ISMULTIPLE, ui);
                 numberOfBanks++;
             }
         }
@@ -551,10 +551,13 @@ public class BankList {
     /**
      * Prints bank details.
      *
-     * @param bank The bank object to be printed.
-     * @param ui   The object use for printing.
+     * @param num                Represents the numbering of the bank.
+     * @param bank               The bank object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or multiple
+     *                           time
+     * @param ui                 The object use for printing.
      */
-    private void printOneBank(Bank bank, boolean isMultiplePrinting, int num, Ui ui) throws BankException {
+    private void printOneBank(int num, Bank bank, boolean isMultiplePrinting, Ui ui) throws BankException {
         if (!isMultiplePrinting) {
             ui.printBankHeader();
         }
@@ -573,9 +576,9 @@ public class BankList {
     }
 
     /**
-     * Prints the bank header details once only for listing of multiple bank.
+     * Prints the bank header details once only when listing of multiple bank.
      *
-     * @param num Represents the number of banks with the specified type.
+     * @param num Represents the current number of bank being listed.
      * @param ui  The object use for printing.
      */
     private void printOneHeader(int num, Ui ui) {

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class GoalsList {
     private ArrayList<Goals> goalList;
     private static final int ONE_INDEX = 1;
+    private static final boolean ISMULTIPLE = true;
+    private static final boolean ISSINGLE = false;
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
@@ -34,9 +36,7 @@ public class GoalsList {
         } else {
             ui.printGoalHeader();
             for (int i = 0; i < goalList.size(); i++) {
-                ui.printGoal(ONE_INDEX, goalList.get(i).getGoalsName(), "$" +
-                                new DecimalFormat("0.00").format(goalList.get(i).getGoalsAmount()),
-                        goalList.get(i).getGoalsDate().toString());
+                printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
             }
             ui.printDivider();
         }
@@ -55,7 +55,7 @@ public class GoalsList {
         }
         goalList.add(goals);
         ui.printMessage("Added a new goal with the below details: ");
-        printOneGoal(goals, ui);
+        printOneGoal(ONE_INDEX, goals, ISSINGLE, ui);
     }
 
     /**
@@ -74,7 +74,7 @@ public class GoalsList {
                     Goals temp = goalList.get(i);
                     goalList.remove(i);
                     ui.printMessage("Details of the goal being removed:");
-                    printOneGoal(temp, ui);
+                    printOneGoal(ONE_INDEX, temp, ISSINGLE, ui);
                     break;
                 }
             }
@@ -142,7 +142,7 @@ public class GoalsList {
                     }
                 }
                 ui.printMessage("New details of goals changed: ");
-                printOneGoal(goalList.get(i), ui);
+                printOneGoal(ONE_INDEX, goalList.get(i), ISSINGLE, ui);
                 return;
             }
         }
@@ -152,14 +152,21 @@ public class GoalsList {
     /**
      * Prints goal details.
      *
-     * @param goal The goal object to be printed.
-     * @param ui   The object use for printing.
+     * @param num                Represents the numbering of the goal.
+     * @param goal               The goal object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or multiple
+     *                           time
+     * @param ui                 The object use for printing.
      */
-    private void printOneGoal(Goals goal, Ui ui) {
-        ui.printGoalHeader();
-        ui.printGoal(ONE_INDEX, goal.getGoalsName(), "$" +
+    private void printOneGoal(int num, Goals goal, boolean isMultiplePrinting, Ui ui) {
+        if (!isMultiplePrinting) {
+            ui.printGoalHeader();
+        }
+        ui.printGoal(num, goal.getGoalsName(), "$" +
                         new DecimalFormat("0.00").format(goal.getGoalsAmount()),
                 goal.getGoalsDate().toString());
-        ui.printDivider();
+        if (!isMultiplePrinting) {
+            ui.printDivider();
+        }
     }
 }

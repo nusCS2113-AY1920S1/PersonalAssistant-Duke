@@ -15,6 +15,8 @@ import owlmoney.ui.Ui;
 public class CardList {
     private ArrayList<Card> cardLists;
     private static final int ONE_INDEX = 1;
+    private static final boolean ISMULTIPLE = true;
+    private static final boolean ISSINGLE = false;
 
     /**
      * Creates an arrayList of Cards.
@@ -36,7 +38,7 @@ public class CardList {
         }
         cardLists.add(newCard);
         ui.printMessage("Added a new card with the below details: ");
-        printOneCard(newCard, ui);
+        printOneCard(ONE_INDEX, newCard, ISSINGLE, ui);
 
     }
 
@@ -55,7 +57,7 @@ public class CardList {
                 Card temp = cardLists.get(i);
                 cardLists.remove(i);
                 ui.printMessage("Card with the following details has been removed:");
-                printOneCard(temp, ui);
+                printOneCard(ONE_INDEX, temp, ISSINGLE, ui);
                 isDeleted = true;
                 break;
             }
@@ -167,7 +169,7 @@ public class CardList {
                     cardLists.get(i).setRebate(Double.parseDouble(rebate));
                 }
                 ui.printMessage("New details of the cards:\n");
-                printOneCard(cardLists.get(i), ui);
+                printOneCard(ONE_INDEX, cardLists.get(i), ISSINGLE, ui);
                 return;
             }
         }
@@ -184,11 +186,7 @@ public class CardList {
         cardListCheckListEmpty();
         ui.printCardHeader();
         for (int i = 0; i < cardLists.size(); i++) {
-            ui.printCard((i + ONE_INDEX), cardLists.get(i).getName(),
-                    "$" + new DecimalFormat("0.00").format(cardLists.get(i).getLimit()),
-                    "$" + new DecimalFormat("0.00").
-                            format(cardLists.get(i).getRemainingLimit()),
-                    new DecimalFormat("0.00").format(cardLists.get(i).getRebate()) + "%");
+            printOneCard((i + ONE_INDEX), cardLists.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
     }
@@ -203,7 +201,6 @@ public class CardList {
      * @param type     Type of account to add expenditure into
      * @throws CardException If the credit card name cannot be found.
      */
-    //need change exception class in the future for this
     public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui, String type)
             throws CardException {
         for (int i = 0; i < cardLists.size(); i++) {
@@ -282,15 +279,22 @@ public class CardList {
     /**
      * Prints card details.
      *
-     * @param card The card object to be printed.
-     * @param ui   The object use for printing.
+     * @param num                Represents the numbering of the card.
+     * @param card               The card object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or
+     *                           multiple time
+     * @param ui                 The object use for printing.
      */
-    private void printOneCard(Card card, Ui ui) {
-        ui.printCardHeader();
-        ui.printCard(ONE_INDEX, card.getName(),
+    private void printOneCard(int num, Card card, boolean isMultiplePrinting, Ui ui) {
+        if (!isMultiplePrinting) {
+            ui.printCardHeader();
+        }
+        ui.printCard(num, card.getName(),
                 "$" + new DecimalFormat("0.00").format(card.getLimit()),
                 "$" + new DecimalFormat("0.00").format(card.getRemainingLimit()),
                 new DecimalFormat("0.00").format(card.getRebate()) + "%");
-        ui.printDivider();
+        if (!isMultiplePrinting) {
+            ui.printDivider();
+        }
     }
 }

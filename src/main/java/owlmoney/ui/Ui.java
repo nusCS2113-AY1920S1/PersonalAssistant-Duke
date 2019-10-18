@@ -42,40 +42,40 @@ public class Ui {
     }
 
     /**
-     * Prints the expenditure header.
+     * Prints the transaction header.
      */
-    public void printExpenditureHeader(String type) {
+    public void printTransactionHeader(String type) {
         if (ITEMTYPE.equals(type)) {
-            System.out.printf("%-20s %-15s %-20s %-20s %-15s %n", ITEMNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
+            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", ITEMNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
         } else if (TRANSTYPE.equals(type)) {
-            System.out.printf("%-20s %-15s %-20s %-20s %-15s %n", TRANSACTIONNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
+            System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", TRANSACTIONNO, DESCRIPTION, AMOUNT, DATE, CATEGORY);
         }
         System.out.println("-----------------------------------------------------------------------------" +
-                "----------------");
+                "----------------------------------------------------");
     }
 
     /**
-     * Prints the expenditure being specified.
+     * Prints the transaction being specified.
      *
-     * @param num         Represents the numbering of the expenditure.
-     * @param description Describes the listed expenditure.
-     * @param amount      Represents the amount spent for the listed expenditure.
-     * @param date        Represents the date created for the listed expenditure.
-     * @param category    Represents the category the listed expenditure falls under.
+     * @param num         Represents the numbering of the transaction.
+     * @param description Describes the listed transaction.
+     * @param amount      Represents the amount spent for the listed transaction.
+     * @param date        Represents the date entered for the listed transaction.
+     * @param category    Represents the category which the listed transaction falls under.
      */
-    public void printExpenditure(int num, String description, String amount, String date,
+    public void printTransaction(int num, String description, String amount, String date,
             String category) {
-        System.out.printf("%-20s %-15s %-20s %-20s %-15s %n", num, description, amount, date, category);
+        System.out.printf("%-20s %-50s %-15s %-20s %-20s %n", num, description, amount, date, category);
     }
 
     /**
      * Prints the card header.
      */
     public void printCardHeader() {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %n", ITEMNO, CARDNAME, MONLIMIT, REMLIMIT, REBATE);
+        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", ITEMNO, CARDNAME, MONLIMIT, REMLIMIT, REBATE);
 
         System.out.println("-----------------------------------------------------------------------------" +
-                "----------------");
+                "----------------------------------------------------");
     }
 
     /**
@@ -88,17 +88,17 @@ public class Ui {
      * @param rebate   Represents the card rebate in percentage.
      */
     public void printCard(int num, String name, String monLimit, String remLimit, String rebate) {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %n", num, name, monLimit, remLimit, rebate);
+        System.out.printf("%-20s %-30s %-15s %-20s %-15s %n", num, name, monLimit, remLimit, rebate);
     }
 
     /**
      * Prints bank header.
      */
     public void printBankHeader() {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %n", ITEMNO, ACCNAME, ACCTYPE, CURRAMOUNT, INCOME);
+        System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", ITEMNO, ACCNAME, ACCTYPE, CURRAMOUNT, INCOME);
 
         System.out.println("-----------------------------------------------------------------------------" +
-                "----------------");
+                "----------------------------------------------------");
     }
 
     /**
@@ -110,7 +110,7 @@ public class Ui {
      * @param amount Represents the current amount in the listed investment account.
      */
     public void printInvestment(int num, String name, String type, String amount) {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %n", num, name, type, amount, "Not Applicable");
+        System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", num, name, type, amount, "Not Applicable");
     }
 
     /**
@@ -123,7 +123,7 @@ public class Ui {
      * @param income Represents the income in the listed saving account.
      */
     public void printSaving(int num, String name, String type, String amount, String income) {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %n", num, name, type, amount, income);
+        System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", num, name, type, amount, income);
     }
 
     /**
@@ -133,7 +133,7 @@ public class Ui {
         System.out.printf("%-20s %-15s %-20s %-20s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALDATE);
 
         System.out.println("-----------------------------------------------------------------------------" +
-                "----------------");
+                "----------------------------------------------------");
     }
 
     /**
@@ -142,7 +142,7 @@ public class Ui {
      * @param num    Represents the numbering of the goal.
      * @param name   Represents the goal name
      * @param amount Represents the amount to save up in the goal.
-     * @param date   Represents the date the accomplish the goal.
+     * @param date   Represents the date to accomplish the goal.
      */
     public void printGoal(int num, String name, String amount, String date) {
         System.out.printf("%-20s %-15s %-20s %-20s %n", num, name, amount, date);
@@ -152,23 +152,24 @@ public class Ui {
      * Prints bond header.
      */
     public void printBondHeader() {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %-20s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
+        System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
                 BONDYEAR);
 
         System.out.println("-----------------------------------------------------------------------------" +
-                "----------------");
+                "----------------------------------------------------");
     }
 
     /**
-     * Prints the goal details being specified.
+     * Prints the bond details being specified.
      *
-     * @param num    Represents the numbering of the goal.
-     * @param name   Represents the goal name
-     * @param amount Represents the amount to save up in the goal.
-     * @param date   Represents the date the accomplish the goal.
+     * @param num    Represents the numbering of the bond.
+     * @param name   Represents the bond name.
+     * @param amount Represents the amount of the bond.
+     * @param rate   Represents the date of purchase for the bond.
+     * @param date   Represents the year for the bond.
      */
     public void printBond(int num, String name, String amount, String rate, String date, int year) {
-        System.out.printf("%-20s %-15s %-20s %-20s %-20s %-20s %n", num, name, amount, rate, date, year);
+        System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", num, name, amount, rate, date, year);
     }
 
     /**
@@ -176,7 +177,7 @@ public class Ui {
      */
     public void printDivider() {
         System.out.println("-----------------------------------------------------------------------------" +
-                "----------------");
+                "----------------------------------------------------");
     }
 
     /**

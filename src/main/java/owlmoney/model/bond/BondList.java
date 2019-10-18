@@ -14,6 +14,8 @@ import owlmoney.ui.Ui;
 public class BondList {
     private ArrayList<Bond> bondLists;
     private static final int ONE_INDEX = 1;
+    private static final boolean ISMULTIPLE = true;
+    private static final boolean ISSINGLE = false;
 
     /**
      * Creates an arrayList of bonds.
@@ -35,14 +37,8 @@ public class BondList {
         } else {
             int counter = displayNum;
             for (int i = bondLists.size() - 1; i >= 0; i--) {
-                if (counter == displayNum) {
-                    ui.printBondHeader();
-                }
-                ui.printBond((i + ONE_INDEX), bondLists.get(i).getName(),
-                        "Amount: $" + new DecimalFormat("0.00").format(bondLists.get(i).getAmount()),
-                        "Rate: " + new DecimalFormat("0.00").
-                                format(bondLists.get(i).getYearlyCouponRate()),
-                        bondLists.get(i).getDate(), bondLists.get(i).getYear());
+                printOneHeader(counter, displayNum, ui);
+                printOneBond((i + ONE_INDEX), bondLists.get(i), ISMULTIPLE, ui);
                 counter--;
                 if (counter <= 0 || i == 0) {
                     ui.printDivider();
@@ -63,7 +59,7 @@ public class BondList {
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
         ui.printMessage("Bond with the following details has been added: ");
-        printOneBond(bond, ui);
+        printOneBond(ONE_INDEX, bond, ISSINGLE, ui);
     }
 
     /**
@@ -101,7 +97,7 @@ public class BondList {
                 Bond temp = bondLists.get(i);
                 bondLists.remove(i);
                 ui.printMessage("Bond with the following details has been deleted: ");
-                printOneBond(temp, ui);
+                printOneBond(ONE_INDEX, temp, ISSINGLE, ui);
                 return;
             }
         }
@@ -138,7 +134,7 @@ public class BondList {
                 editBondYear(year, i);
                 editBondRate(rate, i);
                 ui.printMessage("Bond with the following details has been edited: ");
-                printOneBond(bondLists.get(i), ui);
+                printOneBond(ONE_INDEX, bondLists.get(i), ISSINGLE, ui);
                 return;
             }
         }
@@ -177,15 +173,35 @@ public class BondList {
     /**
      * Prints bond details.
      *
-     * @param bond The card object to be printed.
-     * @param ui   The object use for printing.
+     * @param num                Represents the numbering of the bond.
+     * @param bond               The bond object to be printed.
+     * @param isMultiplePrinting Represents whether the function will be called for printing once or
+     *                           multiple time
+     * @param ui                 The object use for printing.
      */
-    private void printOneBond(Bond bond, Ui ui) {
-        ui.printBondHeader();
-        ui.printBond(ONE_INDEX, bond.getName(),
-                "Amount: $" + new DecimalFormat("0.00").format(bond.getAmount()),
-                "Rate: " + new DecimalFormat("0.00").format(bond.getYearlyCouponRate()),
+    private void printOneBond(int num, Bond bond, boolean isMultiplePrinting, Ui ui) {
+        if (!isMultiplePrinting) {
+            ui.printBondHeader();
+        }
+        ui.printBond(num, bond.getName(),
+                "$" + new DecimalFormat("0.00").format(bond.getAmount()),
+                new DecimalFormat("0.00").format(bond.getYearlyCouponRate()),
                 bond.getDate(), bond.getYear());
-        ui.printDivider();
+        if (!isMultiplePrinting) {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Prints the bond header details once only when listing of multiple transaction.
+     *
+     * @param counter    Represents the counter of the bond for printing.
+     * @param displayNum Represents number of bond to list.
+     * @param ui         The object use for printing.
+     */
+    private void printOneHeader(int counter, int displayNum, Ui ui) {
+        if (counter == displayNum) {
+            ui.printBondHeader();
+        }
     }
 }
