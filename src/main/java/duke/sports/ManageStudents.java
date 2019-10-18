@@ -128,20 +128,27 @@ public class ManageStudents implements Details {
         }
     }
 
-    public void findName(String name) {
-        int cnt = 1;
+    /**
+     * A method to find a specific student in the list
+     * @param name of student to search
+     * @return
+     */
+    public String findName(String name) {
+        StringBuilder listString = new StringBuilder();
+        int index = 1;
         for (MyStudent i : getStudentList()) {
             if (i.getName().contains(name)) {
-                if (cnt == 1) {
+                if (index == 1) {
                     System.out.println("Here are the matching names in your list:");
                 }
-                System.out.println(cnt++ + ". " + i.toString());
+                System.out.println(index++ + ". " + i.toString());
             }
         }
 
-        if (cnt == 1) {
+        if (index == 1) {
             System.out.println("Sorry, there are no names matching your search");
         }
+        return name;
     }
 
     @Override
