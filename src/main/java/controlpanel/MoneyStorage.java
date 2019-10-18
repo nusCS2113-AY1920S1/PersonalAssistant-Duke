@@ -32,6 +32,7 @@ public class MoneyStorage {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                //if (line.contains("#")) { continue; }
                 String[] info = line.split(" @ ");
                 if (!(info[0].equals("BS") || info[0].equals("INC") || info[0].equals("EXP") || info[0].equals("SEX") ||
                         info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT") ||
