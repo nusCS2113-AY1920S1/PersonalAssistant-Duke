@@ -24,11 +24,17 @@ public class ContactStorage extends Storage<Contact> {
             String str;
             while (raf.getFilePointer() != raf.length()) {
                 str = raf.readLine();
-                String[] data = str.split(",");
+                String[] data = str.split(",", -1);
                 Contact contact = null;
 
                 if (data.length == 4) {
-                    contact = new Contact(data[1],data[2], data[3]);
+                    if (data[2].equals("")) {
+                        data[2] = null;
+                    }
+                    if (data[3].equals("")) {
+                        data[3] = null;
+                    }
+                    contact = new Contact(data[1], data[2], data[3]);
                 }
 
                 if (contact != null) {

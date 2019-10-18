@@ -69,8 +69,14 @@ public class ContactList {
      *
      * @param id The id of the contact in the list.
      */
-    public void deleteContact(int id) {
-        contactList.remove(id);
+    public Contact deleteContact(int id) {
+        int index = findIndexWithId(id);
+        if (index >= 0) {
+            Contact expense = getContact(index);
+            contactList.remove(index);
+            return expense;
+        }
+        return null;
     }
 
     /**
@@ -121,10 +127,11 @@ public class ContactList {
 
     /**
      * Finds and returns contact index using its id.
+     *
      * @param id The id of the contact to find.
      * @return id of contact found. -1 if not found.
      */
-    public int findContactWithId(int id) {
+    public int findIndexWithId(int id) {
         int index = 0;
         for (Contact e : this.contactList) {
             if (e.getId() == id) {

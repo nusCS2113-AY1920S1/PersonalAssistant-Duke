@@ -1,15 +1,15 @@
 --View Contacts--
-command	,list contact
-desc,list all contacts
+command|list contact
+desc|list all contacts
 --Add Contact--
-command	,add contact <NAME> [/d DETAILS] [/p PHONE NUMBER]
-desc,add new contact
-example,add contact david /d friend. 123@gmail.com. /p 82345679
+command|add contact <NAME> [/d DETAILS] [/p PHONE NUMBER]
+desc|add new contact
+example|add contact david /d friend. 123@gmail.com. /p 82345679
 --Edit Contact--
-command	,edit contact <INDEX in contact list> [/n new NAME] [/d new DETAILS] [/p new PHONE NUMBER] 
-desc,edit existing contact
-example,edit contact 3 /n jane /d sister /p 92780193
+command|edit contact <INDEX in contact list> [/n new NAME] [/d new DETAILS] [/p new PHONE NUMBER]
+desc|edit existing contact
+example|edit contact 3 /n jane /d sister /p 92780193
 --Delete Contact--
-command	,delete contact <INDEX in contact list>
-desc,delete existing contact
-example,delete contact 5
+command|delete contact <INDEX in contact list>
+desc|delete existing contact
+example|delete contact 5

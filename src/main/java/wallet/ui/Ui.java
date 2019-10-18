@@ -1,5 +1,7 @@
 package wallet.ui;
 
+import wallet.logic.LogicManager;
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.thread.ChartThread;
 
@@ -90,5 +92,36 @@ public class Ui {
     public void drawPieChart() {
         ChartThread chartThread = new ChartThread();
         System.out.println("Please wait while we draw the pie chart...");
+    /**
+     * Displays the contact list in table format.
+     */
+    public static void printContactTable() {
+        ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
+        String dash = "-";
+        String lineBreak = dash.repeat(100);
+        String headerBreak = dash.repeat(98);
+        System.out.println("Here are the contacts in your list:");
+        System.out.println(lineBreak);
+        System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", "ID", "Name", "Phone", "Detail");
+        System.out.println("|" + headerBreak + "|");
+        for (Contact c : contactListCopy) {
+            String id = Integer.toString(c.getId()).trim();
+            String name = c.getName();
+            String phone = c.getPhoneNum();
+            String detail = c.getDetail();
+
+            if (phone == null) {
+                phone = "";
+            }
+
+            if (detail == null) {
+                detail = "";
+            }
+
+            System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
+
+        }
+
+        System.out.println(lineBreak);
     }
 }
