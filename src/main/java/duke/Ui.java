@@ -235,7 +235,7 @@ public class Ui {
      * @return the formatted String to be displayed
      */
     public String formatHelp(String helpMessage) throws DukeException {
-        return CommandSyntaxMessage.getMessage(helpMessage);
+        return wrap(CommandSyntaxMessage.getMessage(helpMessage));
     }
 
     /**
@@ -243,7 +243,7 @@ public class Ui {
      * @return the formatted command syntax
      */
     public String formatHelp() {
-        return CommandSyntaxMessage.getMessage();
+        return wrap(CommandSyntaxMessage.getMessage());
     }
 
     /**
