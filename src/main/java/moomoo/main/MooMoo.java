@@ -1,3 +1,5 @@
+package moomoo.main;
+
 import moomoo.command.Command;
 import moomoo.task.ScheduleList;
 import moomoo.task.Budget;

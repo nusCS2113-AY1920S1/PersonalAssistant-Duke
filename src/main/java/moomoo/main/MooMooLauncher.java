@@ -1,3 +1,5 @@
+package moomoo.main;
+
 import javafx.application.Application;
 
 /**
