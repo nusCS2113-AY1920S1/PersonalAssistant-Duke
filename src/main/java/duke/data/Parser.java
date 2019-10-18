@@ -428,7 +428,13 @@ public class Parser {
                         String searchName = input.substring(15);
                         students.findName(searchName);
                         break;
+
+                    case "select":
+                        index = Integer.parseInt(word[2]);
+                        students.getStudentName(index);
+                        break;
                     }
+
                     storage.updateStudentList(students.getStudentList());
                 break;
 
