@@ -21,7 +21,8 @@ import java.text.ParseException;
 import java.util.*;
 
 /**
- * Parser is the controller for the string inputs received by the standard input.
+ * Parser is the controller for the string inputs received
+ * by the standard input.
  */
 public class Parser {
 
@@ -31,7 +32,13 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule, MyPlan plan) throws FileNotFoundException, ParseException {
+    public void parseInput(final String io,
+                           final TaskList tasks,
+                           final Storage storage,
+                           final ManageStudents students,
+                           final Schedule schedule,
+                           final MyPlan plan)
+        throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
@@ -49,7 +56,8 @@ public class Parser {
                 tasks.doneTask(index);
                 storage.updateFile(tasks.getList());
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The following task does not exist!");
+                System.out.println("\u2639 OOPS!!!"
+                    + "The following task does not exist!");
             }
             break;
 
@@ -59,7 +67,8 @@ public class Parser {
         case "todo":
             try {
                 String[] tempString = input.split(" ");
-                List<String> listString = new ArrayList<String>(Arrays.asList(tempString));
+                List<String> listString = new ArrayList<String>(
+                    Arrays.asList(tempString));
                 listString.remove(0);
                 String info1 = String.join(" ", listString);
                 String[] parseString = info1.split("/in");
@@ -67,7 +76,8 @@ public class Parser {
                 tasks.addTask(todo, "T");
                 storage.saveFile("T", todo, todo.getDate());
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The description of a todo cannot be empty.");
+                System.out.println("\u2639 OOPS!!!"
+                    + "The description of a todo cannot be empty.");
             }
             break;
 
@@ -97,7 +107,8 @@ public class Parser {
             }
             break;
         /**
-         * Command should be in the form: reminder deadlines before 18/09/2019 1900
+         * Command should be in the form:
+         * reminder deadlines before 18/09/2019 1900
          * Push date before date into
          */
         case "reminder":
@@ -124,7 +135,9 @@ public class Parser {
                 tasks.addTask(after, "A");
                 storage.saveFile("A", after, after.getDate());
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! Please enter input in the form: aftertask XXX /after YYY");
+                System.out.println(
+                    "\u2639 OOPS!!! Please enter input in the"
+                        + "form: aftertask XXX /after YYY");
             }
             break;
 
@@ -143,7 +156,8 @@ public class Parser {
         case "date":
             String searchDate = input.substring(5);
             if (searchDate.length() < 10) {
-                System.out.println("Please enter input in the form: date dd/MM/YYYY");
+                System.out.println("Please enter input in the form: "
+                    + "date dd/MM/YYYY");
             } else {
                 tasks.findDate(searchDate);
             }
@@ -163,17 +177,23 @@ public class Parser {
                 tasks.addTask(myclass, "C");
                 storage.saveFile("C", myclass, myclass.getDay());
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! Please enter input in the form: class XXX /every YYY");
+                System.out.println(
+                    "\u2639 OOPS!!! "
+                        + "Please enter input in the form:"
+                        + "class XXX /every YYY");
             }
             break;
 
         /**
-         * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019
+         * View: schedule view-month|schedule view-week|
+         * schedule view-day 5/10/2019
          * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
-         * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
+         * Delete: schedule delete 5/10/2019 1500 Swimming|
+         * schedule delete-all 5/10/2019
          */
         case "schedule":
-            Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt");
+            Storage scheduleStorage = new Storage(
+                ".\\src\\main\\java\\duke\\data\\timeslots.txt");
 
             try {
                 if (word[1].equals("view-week")) {
@@ -183,7 +203,8 @@ public class Parser {
                 } else if (word[1].equals("view-day")) {
                     try {
                         System.out.println(schedule.getDay(word[2]));
-                    } catch (ArrayIndexOutOfBoundsException | ParseException e) {
+                    } catch (ArrayIndexOutOfBoundsException
+                        | ParseException e) {
                         System.err.println("Enter a date please.");
                     }
                 } else if (word[1].equals("add")) {
@@ -191,14 +212,23 @@ public class Parser {
                     String endTime = word[4] + " " + word[5];
                     String location = word[6];
                     String className = word[7];
-                    System.out.println(schedule.addClass(startTime, endTime, location, className, tasks, scheduleStorage));
+                    System.out.println(schedule.addClass(
+                        startTime,
+                        endTime,
+                        location,
+                        className,
+                        tasks,
+                        scheduleStorage));
                 } else if (word[1].equals("delete")) {
                     String startTime = word[2] + " " + word[3];
                     String className = word[4];
-                    System.out.println(schedule.delClass(startTime, className, scheduleStorage));
+                    System.out.println(
+                        schedule.delClass(
+                            startTime, className, scheduleStorage));
                 } else if (word[1].equals("delete-all")) {
                     String date = word[2];
-                    System.out.println(schedule.delAllClass(date, scheduleStorage));
+                    System.out.println(
+                        schedule.delAllClass(date, scheduleStorage));
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Please enter the full command.");
@@ -209,55 +239,67 @@ public class Parser {
          * Simply type "goal" to start it off.
          */
         case "goal":
-            Storage goalStorage = new Storage(".\\src\\main\\java\\duke\\data\\goals.txt");
+            Storage goalStorage = new Storage(
+                ".\\src\\main\\java\\duke\\data\\goals.txt");
             Goal goal = new Goal(goalStorage.loadGoal());
             Scanner myGoalScan = new Scanner(System.in);
 
-            System.out.println("Please enter the date of the day " +
-                "in this format: dd/MM/yyyy");
+            System.out.println("Please enter the date of the day "
+                + "in this format: dd/MM/yyyy");
             String goalDate = myGoalScan.next();
 
             boolean isQuittingGoal = false;
             while (!isQuittingGoal) {
                 try {
-                    System.out.println("\nWhat would you like to do on " + goalDate + "?\n"
+                    System.out.println(
+                        "\nWhat would you like to do on " + goalDate + "?\n"
                         + "1. View goals of the day\n"
                         + "2. Add a goal of the day\n"
                         + "3. Delete a goal of the day\n"
                         + "4. Clear all goals of the day\n"
                         + "5. Quit goal of the day");
                     int execute_type = myGoalScan.nextInt();
-                    myGoalScan.nextLine();  // This line you have to add (It consumes the \n character)
+                    myGoalScan.nextLine();  // This line you have
+                    // to add (It consumes the \n character)
                     switch (execute_type) {
                         case 1: {
                             System.out.print(goal.viewGoal(goalDate));
                             break;
                         }
                         case 2: {
-                            System.out.println("To add a goal to " + goalDate + ", enter the goal.");
+                            System.out.println("To add a goal to "
+                                + goalDate + ", enter the goal.");
                             String myGoal = myGoalScan.nextLine();
-                            System.out.println(goal.addGoal(goalDate, myGoal, goalStorage));
+                            System.out.println(
+                                goal.addGoal(goalDate, myGoal, goalStorage));
                             break;
                         }
                         case 3: {
-                            System.out.println("To delete a goal from " + goalDate + ", enter the goal.");
+                            System.out.println("To delete a goal from "
+                                + goalDate + ", enter the goal.");
                             String message = myGoalScan.nextLine();
-                            System.out.println(goal.removeGoal(goalDate, message, goalStorage));
+                            System.out.println(
+                                goal.removeGoal(
+                                    goalDate, message, goalStorage));
                             break;
                         }
                         case 4: {
-                            System.out.println(goal.removeAllGoal(goalDate, goalStorage));
+                            System.out.println(
+                                goal.removeAllGoal(goalDate, goalStorage));
                             break;
                         }
                         case 5: {
                             isQuittingGoal = true;
-                            System.out.println("You have quit the lesson of the day.");
+                            System.out.println(
+                                "You have quit the lesson of the day.");
                         }
+                        default:
                     }
-                } catch(ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter the full command.");
-                } catch(ParseException e){
-                    System.out.println("Please enter the details in the correct format.");
+                } catch (ParseException e) {
+                    System.out.println(
+                        "Please enter the details in the correct format.");
                 }
                 }
                 break;
@@ -266,7 +308,8 @@ public class Parser {
          * Simply type "lesson" to start it off.
          */
         case "lesson":
-            Storage lessonStorage = new Storage(".\\src\\main\\java\\duke\\data\\lessons.txt");
+            Storage lessonStorage = new Storage(
+                ".\\src\\main\\java\\duke\\data\\lessons.txt");
             Lesson lesson = new Lesson(lessonStorage.loadLesson());
             Scanner myLessonScan = new Scanner(System.in);
 
@@ -277,51 +320,63 @@ public class Parser {
             boolean isQuittingLesson = false;
             while (!isQuittingLesson) {
                 try {
-                    System.out.println("\nWhat would you like to do on " + lessonDate + "?\n"
+                    System.out.println(
+                        "\nWhat would you like to do on " + lessonDate + "?\n"
                         + "1. View lessons of the day\n"
                         + "2. Add a lesson of the day\n"
                         + "3. Delete a lesson of the day\n"
                         + "4. Clear all lessons of the day\n"
                         + "5. Quit lesson of the day");
                     int execute_type = myLessonScan.nextInt();
-                    myLessonScan.nextLine();  // This line you have to add (It consumes the \n character)
+                    myLessonScan.nextLine();  // This line you have
+                    // to add (It consumes the \n character)
                     switch (execute_type) {
                         case 1: {
                             System.out.print(lesson.viewLesson(lessonDate));
                             break;
                         }
                         case 2: {
-                            System.out.println("To add a lesson to " + lessonDate + ", enter the lesson.");
+                            System.out.println("To add a lesson to "
+                                + lessonDate + ", enter the lesson.");
                             String myLesson = myLessonScan.nextLine();
-                            System.out.println(lesson.addLesson(lessonDate, myLesson, lessonStorage));
+                            System.out.println(
+                                lesson.addLesson(lessonDate, myLesson, lessonStorage));
                             break;
                         }
                         case 3: {
-                            System.out.println("To delete a lesson from " + lessonDate + ", enter the lesson.");
+                            System.out.println("To delete a lesson from "
+                                + lessonDate + ", enter the lesson.");
                             String message = myLessonScan.nextLine();
-                            System.out.println(lesson.removeLesson(lessonDate, message, lessonStorage));
+                            System.out.println(
+                                lesson.removeLesson(
+                                    lessonDate, message, lessonStorage));
                             break;
                         }
                         case 4: {
-                            System.out.println(lesson.removeAllLesson(lessonDate, lessonStorage));
+                            System.out.println(lesson.removeAllLesson(
+                                lessonDate, lessonStorage));
                             break;
                         }
                         case 5: {
                             isQuittingLesson = true;
-                            System.out.println("You have quit the lesson of the day.");
+                            System.out.println(
+                                "You have quit the lesson of the day.");
                         }
+                        default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter the full command.");
                 } catch (ParseException e) {
-                    System.out.println("Please enter the details in the correct format.");
+                    System.out.println(
+                        "Please enter the details in the correct format.");
                 }
             }
             break;
 
             /**
              * View: training view [plan number]
-             * Add: training add-activity [name] [sets] [reps] [activity number]|training add-plan [plan number]
+             * Add: training add-activity [name] [sets] [reps] [activity number]|
+             * training add-plan [plan number]
              * Delete: training delete-all|training delete [plan number]
              */
             case "training":
@@ -447,7 +502,8 @@ public class Parser {
                 break;
 
             /**
-             * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
+             * Command is in the form: plan new [intensity level]
+             * or plan view [intensity] plan/[plan number]
              */
             case "plan":
                 if (word[1].equals("view")) {
@@ -456,12 +512,13 @@ public class Parser {
                 } else if (word[1].equals("new")) {
                     plan.createPlan(word[2].toLowerCase());
                 } else if (word[1].equals("edit")) {
-                    //not yet created
+                    System.out.println("not yet created");
                 }
                 break;
 
             default:
-                System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\u2639 OOPS!!! "
+                    + "I'm sorry, but I don't know what that means :-(");
                 break;
         }
     }
