@@ -33,6 +33,7 @@ public class TaskList {
      */
     public void add(Task newTask) {
         tasks.add(newTask);
+        sortPriority();
     }
 
     /**
@@ -64,6 +65,7 @@ public class TaskList {
      * Lists out all tasks in the current list in the order they were added into the list.
      */
     public void list() throws RoomShareException {
+        sortPriority();
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
