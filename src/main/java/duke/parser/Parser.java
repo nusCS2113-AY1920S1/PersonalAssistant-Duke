@@ -3,14 +3,17 @@ package duke.parser;
 import duke.command.Command;
 import duke.command.CommandBooking;
 import duke.command.CommandIngredients;
+import duke.command.*;
 import duke.command.bookingcommands.*;
 import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.inventorycommands.DeleteIngredientCommand;
 import duke.command.inventorycommands.ListIngredientsCommand;
 import duke.command.recipecommands.*;
 import duke.list.recipelist.RecipeIngredientList;
+import duke.list.recipelist.RecipeList;
 import duke.list.recipelist.RecipeTitleList;
 import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeStorage;
 import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
 
@@ -38,9 +41,16 @@ public class Parser {
     public static Command<RecipeTitleList, Ui, RecipeTitleStorage> parseRecipeTitle(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
             return new AddRecipeTitleCommand(input);
-        } else if (input.trim().contains(COMMAND_DELETE_RECIPE_TITLE)) {
-            return new DeleteRecipeTitleCommand(input);
         } else {
+            return new DeleteRecipeTitleCommand(input);
+        }
+    }
+
+    public static Command<RecipeList, Ui, RecipeStorage> parseRecipe(String input) {
+        if (input.trim().contains(COMMAND_ADD_RECIPE)) {
+            return new AddRecipeCommand(input);
+        } else {
+            System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);
         }
     }

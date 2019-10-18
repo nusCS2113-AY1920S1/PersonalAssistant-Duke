@@ -2,13 +2,13 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.list.recipelist.RatingList;
-import duke.task.recipetasks.Rating;
+import duke.task.recipetasks.Rating2;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class RatingStorage {
-    private final ArrayList<Rating> arrRatingList = new ArrayList<>();
+    private final ArrayList<Rating2> arrRating2List = new ArrayList<>();
     private final String filePathRating;
 
     /**
@@ -30,8 +30,8 @@ public class RatingStorage {
         try {
             FileWriter fileWriter = new FileWriter(filePathRating);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Rating rating : ratingList.getRatingList()) {
-                bufferedWriter.write(rating.toSaveString() + "\n");
+            for (Rating2 rating2 : ratingList.getRating2List()) {
+                bufferedWriter.write(rating2.toSaveString() + "\n");
             }
             bufferedWriter.close();
         } catch (Exception exc) {
@@ -45,7 +45,7 @@ public class RatingStorage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<Rating> load() throws DukeException {
+    public ArrayList<Rating2> load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePathRating);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -54,8 +54,8 @@ public class RatingStorage {
                 String[] split = content.split(" \\| ", 2);
                 int index = Integer.parseInt(split[0]);
                 if (split.length == 2) {
-                    Rating rating = new Rating(index, split[1]);
-                    arrRatingList.add(rating);
+                    Rating2 rating2 = new Rating2(index, split[1]);
+                    arrRating2List.add(rating2);
                 }
             }
             fileReader.close();
@@ -64,6 +64,6 @@ public class RatingStorage {
         } catch (IOException ex) {
             System.out.println("Error reading file '" + filePathRating + "'");
         }
-        return arrRatingList;
+        return arrRating2List;
     }
 }
