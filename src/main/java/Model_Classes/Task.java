@@ -5,6 +5,8 @@ import Enums.RecurrenceScheduleType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -18,6 +20,7 @@ public class Task{
     private String user;
     private RecurrenceScheduleType recurrenceSchedule;
     private boolean hasRecurring;
+    private ArrayList<String> subTasks;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -190,5 +193,13 @@ public class Task{
 
     public boolean hasRecurring() {
         return hasRecurring;
+    }
+
+    /**
+     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
+     * @param input String containing subtasks separated by ","
+     */
+    public void setSubTasks(String input) {
+        subTasks = (ArrayList<String>) Arrays.asList(input.split(","));
     }
 }

@@ -156,6 +156,10 @@ public class RoomShare {
                 taskList.reorder(firstIndex, secondIndex);
                 break;
 
+            case subtask:
+                TaskList.currentList().get(parser.getIndex()).setSubTasks(parser.getCommandLine());
+                break;
+
             default:
                 ui.showCommandError();
                 break;
