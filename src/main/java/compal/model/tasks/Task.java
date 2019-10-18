@@ -380,7 +380,56 @@ public abstract class Task implements Serializable {
         }
     }
 
+    /**
+     * Create string of date and start time.
+     * @return string object of date and start time.
+     */
+    public String getStringDateAndStartTime() {
+        return getStringDate() + " " + getStringStartTime();
+    }
+
+    /**
+     * Create a string of date and end time.
+     * @return string object of date and end time.
+     */
+    public String getStringDateAndEndTime() {
+        return getStringDate() + " " + getStringEndTime();
+    }
+
+
+    /**
+     * Create a date object of date and start time.
+     * @return date object of formatted time.
+     */
+    public Date getDateObgDateAndStartTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        try {
+            Date date = sdf.parse(getStringDateAndStartTime());
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Create a date object of date and end time.
+     * @return date object of formatted time.
+     */
+    public Date getDateObgDateAndEndTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        try {
+            Date date = sdf.parse(getStringDateAndEndTime());
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public enum Priority {
         high, medium, low
     }
+
+
 }

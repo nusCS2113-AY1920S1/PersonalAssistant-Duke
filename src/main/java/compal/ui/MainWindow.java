@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class MainWindow extends AnchorPane {
     //Class Properties/Variables
+    public static final String MESSAGE_EMPTY_INPUT = "Empty Input: Empty input detected!";
     private LogicManager logicManager;
     private TaskStorageManager taskStorageManager;
 
@@ -44,8 +45,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws ParserException, CommandException {
         String cmd = userInput.getText();
+        if (cmd.isEmpty()) {
+            throw new ParserException(MESSAGE_EMPTY_INPUT);
+        }
         init();
-
         logicManager.logicExecute(cmd, taskList);
         userInput.clear();
     }

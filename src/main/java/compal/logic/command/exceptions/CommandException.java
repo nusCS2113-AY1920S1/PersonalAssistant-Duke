@@ -10,7 +10,7 @@ import compal.ui.UiUtil;
 
 public class CommandException extends Exception {
 
-    String description;
+    private String description;
     private UiUtil uiUtil;
 
     public CommandException(String description) {
