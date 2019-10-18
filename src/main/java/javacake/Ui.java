@@ -29,7 +29,7 @@ public class Ui {
         welcomePhaseA.append("where learning Java can be a Piece of Cake!\n");
         try {
             welcomePhaseA.append(getTextFile(new BufferedReader(
-                    new FileReader("content/cake.txt"))));
+                    new FileReader("src/main/resources/content/cake.txt"))));
         } catch (IOException e) {
             throw new DukeException("Unable to Load Cake");
         }

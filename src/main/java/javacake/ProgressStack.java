@@ -1,14 +1,16 @@
 package javacake;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.Buffer;
+import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 
 public class ProgressStack {
@@ -16,12 +18,18 @@ public class ProgressStack {
     //private String defaultFilePath = null;
     //private String currentFilePath = null;
 
-    private String defaultFilePath = "src/main/resources/MainList";
-    private static String currentFilePath = "src/main/resources/MainList";
+
+    private String defaultFilePath = "content/MainList";
+    private static String currentFilePath = "content/MainList";
     private static ArrayList<String> filePathQueries = new ArrayList<>();
 
-    private File[] listOfFiles;
+    //private File[] listOfFiles;
+    private List<String> listOfFiles = new ArrayList<>();
     private static boolean isDirectory = true;
+
+    public ProgressStack() {
+
+    }
 
     /*public ProgressStack() throws DukeException {
         try {
@@ -47,14 +55,85 @@ public class ProgressStack {
      * @param filePath path to the root directory.
      */
     public void loadFiles(String filePath) throws DukeException {
-        //InputStream inputStream = this.getClass().getResourceAsStream(filePath);
-        File folder = new File(filePath);
+
+        //File folder = new File(filePath);
+        String[] tempListFiles = currentFilePath.split("/");
+        int currFileSlashCounter = tempListFiles.length;
+        listOfFiles.clear();
+
         try {
-            listOfFiles = folder.listFiles();
-            assert listOfFiles != null;
-            Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
-        } catch (NullPointerException e) {
+
+
+            //assert listOfFiles != null;
+            //Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
+
+            CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
+            boolean isJarMode = true;
+            if (src != null) { //jar
+                URL jar = src.getLocation();
+                ZipInputStream zip = new ZipInputStream(jar.openStream());
+                while (true) {
+                    ZipEntry e = zip.getNextEntry();
+                    if (e == null) {
+                        isJarMode = false;
+                        break;
+                    }
+                    if (e == null) {
+                        break;
+                    }
+                    String name = e.getName();
+                    //System.out.println(name);
+                    if (name.startsWith(currentFilePath)) {
+                        String[] listingFiles = name.split("/");
+                        if (listingFiles.length == currFileSlashCounter + 1) {
+                            System.out.println(name + " == " + currFileSlashCounter);
+                            listOfFiles.add(listingFiles[currFileSlashCounter]);
+                        }
+                        //                        else {
+                        //                            System.out.println(name);
+                        //                            listOfFiles.add(name);
+                        //                        }
+
+                        //                        StringBuilder reducedFilePath = new StringBuilder();
+                        //                        for (int i = 0; i < filesCapture.length - 1; i++) {
+                        //                            reducedFilePath.append(filesCapture[i]).append("/");
+                        //                        }
+                        //                        String finalTrim = reducedFilePath.toString();
+                        //                        finalTrim = finalTrim.substring(0, finalTrim.length() - 1);
+                        /* Do something with this entry. */
+
+
+                    }
+                }
+            }
+
+            if (!isJarMode) { //non-jar
+                //System.out.println(filePath);
+                InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
+                //System.out.println("hi" + inputStream.available());
+
+                //listOfFiles = folder.listFiles();
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                String currentLine;
+                while ((currentLine = br.readLine()) != null) {
+                    //System.out.println(currentLine);
+                    listOfFiles.add(currentLine);
+                }
+                br.close();
+                //assert listOfFiles != null;
+                //Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
+            }
+        } catch (NullPointerException | IOException e) {
             throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+        }
+    }
+
+    private File getFileFromRes(String filepath) throws DukeException {
+        URL resource = getClass().getClassLoader().getResource(filepath);
+        if (resource == null) {
+            throw new DukeException("FUCCCCK");
+        } else {
+            return new File(resource.getFile());
         }
     }
 
@@ -102,11 +181,14 @@ public class ProgressStack {
      * Used for BackCommand.
      */
     public void backToPreviousPath() {
-        File currentFile = new File(currentFilePath);
+        System.out.println("CURR: " + currentFilePath);
+        System.out.println("Default: " + defaultFilePath);
         if (!currentFilePath.equals(defaultFilePath)) {
-            if (currentFile.isDirectory()) {
+            if (!currentFilePath.contains(".txt")) {
+                System.out.println("case a");
                 currentFilePath = gotoParentFilePath(currentFilePath);
             } else {
+                System.out.println("case b");
                 currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
             }
         }
@@ -150,15 +232,17 @@ public class ProgressStack {
      */
     public String readQuery() throws DukeException {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(currentFilePath));
+            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder sb = new StringBuilder();
             String sentenceRead;
             while ((sentenceRead = br.readLine()) != null) {
                 sb.append(sentenceRead).append("\n");
             }
+            br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("FILE DED BRO");
         }
     }
 
@@ -187,8 +271,7 @@ public class ProgressStack {
         insertQueries();
         if (isDirectory) {
             return displayDirectories();
-        }
-        else {
+        } else {
             return readQuery();
         }
     }
@@ -202,13 +285,13 @@ public class ProgressStack {
     public void insertQueries() throws DukeException {
         clearQueries();
         loadFiles(currentFilePath);
-        for (File listOfFile : listOfFiles) {
-            if (listOfFile.isFile()) {
+        for (String listOfFile : listOfFiles) {
+            if (listOfFile.contains(".txt")) {
                 isDirectory = false;
-                filePathQueries.add(listOfFile.getName());
-            } else if (listOfFile.isDirectory()) {
+                filePathQueries.add(listOfFile);
+            } else {
                 isDirectory = true;
-                filePathQueries.add(listOfFile.getName());
+                filePathQueries.add(listOfFile);
             }
         }
 

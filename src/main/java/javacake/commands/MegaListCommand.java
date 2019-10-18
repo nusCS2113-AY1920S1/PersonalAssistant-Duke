@@ -40,7 +40,7 @@ public class MegaListCommand extends Command {
         StringBuilder sb = new StringBuilder();
         sb.append("Here is the lesson directory!").append("\n");
         try (Stream<Path> walk = Files.walk(Paths.get(progressStack.getDefaultFilePath()))) {
-            List<String> result = walk.filter(Files::isDirectory).map(x -> x.toString()).collect(Collectors.toList());
+            List<String> result = walk.filter(Files::isDirectory).map(Path::toString).collect(Collectors.toList());
             result = processFileNames(result);
             sb.append(String.join("\n", result)).append("\n");
             sb.append("Type 'goto' to access the topics you are interested in!").append("\n");
@@ -62,7 +62,7 @@ public class MegaListCommand extends Command {
         for (String filesNames : listOfFilesNames) {
             String[] individualPath = filesNames.split("\\\\");
             StringBuilder sb = new StringBuilder();
-            int numberOfSpaces = individualPath.length - 5;
+            int numberOfSpaces = individualPath.length - 6;
             sb.append(" ".repeat(Math.max(0, numberOfSpaces) * 5));
             sb.append(individualPath[individualPath.length - 1]);
             processedList.add(sb.toString());
