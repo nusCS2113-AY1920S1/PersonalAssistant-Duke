@@ -9,7 +9,7 @@ import java.util.Comparator;
 
 
 /**
- * The ListCommand Class handles all list commands.
+ * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
     private String[] viewargs;
