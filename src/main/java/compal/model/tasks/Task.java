@@ -48,18 +48,6 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Gets/returns task id.
-     *
-     */
-    public int getId() {
-        return id;
-    }
-
-
-
-
-
-    /**
      * Sets priority of task as HIGH, MEDIUM or LOW.
      *
      * @param priority Priority of task.
@@ -68,10 +56,15 @@ public abstract class Task implements Serializable {
         this.priority = priority;
     }
 
+    /**
+     * Gets/returns task id.
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
      * Sets task id.
-     *
      */
     public void setId(int id) {
         this.id = id;
@@ -228,6 +221,13 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets the description of task.
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Gets priorityScore.
      *
      * @return priority score
@@ -340,7 +340,6 @@ public abstract class Task implements Serializable {
         this.priorityScore = score;
     }
 
-
     /**
      * Gets the end time for the task.
      *
@@ -381,15 +380,7 @@ public abstract class Task implements Serializable {
         }
     }
 
-    /**
-     * Sets the description of task.
-     *
-     */
-    public void setDescription(String newDescription) {
-        this.description = newDescription;
-    }
-
     public enum Priority {
-        high, medium, low;
+        high, medium, low
     }
 }

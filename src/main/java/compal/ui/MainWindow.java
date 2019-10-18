@@ -1,12 +1,15 @@
 package compal.ui;
 
-import compal.commons.Compal;
-
-import java.text.ParseException;
-
+import compal.logic.LogicManager;
+import compal.logic.command.exceptions.CommandException;
+import compal.logic.parser.exceptions.ParseException;
+import compal.model.tasks.Task;
+import compal.storage.TaskStorageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
+import java.util.ArrayList;
 
 /**
  * Handles GUI.
@@ -14,28 +17,22 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MainWindow extends AnchorPane {
     //Class Properties/Variables
+    private LogicManager logicManager;
+    private TaskStorageManager taskStorageManager;
+    private UiUtil uiUtil;
+
+    private ArrayList<Task> taskArrList;
+
     @FXML
     private TextField userInput;
 
-
-    @FXML
-    private Compal compal;
-
     /**
-     * Prints initialization message.
+     * Main window constructor.
      */
-    @FXML
-    public void initialize() {
-        System.out.println("MainWindow:LOG: Controller Class Initialized");
-    }
-
-    /**
-     * Initializes Compal.
-     *
-     * @param d Compal object.
-     */
-    public void setCompal(Compal d) {
-        compal = d;
+    public MainWindow() {
+        this.taskStorageManager = new TaskStorageManager();
+        this.logicManager = new LogicManager();
+        this.taskArrList = new ArrayList<>();
     }
 
     /**
@@ -43,11 +40,15 @@ public class MainWindow extends AnchorPane {
      * Called by the enter button inside MainWindow.fxml.
      */
     @FXML
-    private void handleUserInput() throws ParseException, Compal.DukeException {
+    private void handleUserInput() throws ParseException, CommandException {
         String cmd = userInput.getText();
-        //send to parser to parse
-        compal.parser.processCmd(cmd);
+        init();
+        logicManager.logicExecute(cmd, taskArrList);
         userInput.clear();
+    }
+
+    private void init() {
+        taskArrList = taskStorageManager.loadData();
     }
 
 
