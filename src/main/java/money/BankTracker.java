@@ -1,7 +1,9 @@
 package money;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -13,7 +15,7 @@ import java.util.Date;
 public class BankTracker {
 
     private String description;
-    private double amt;
+    private float amt;
     private LocalDate latestDate;
     private double rate;
 
@@ -31,7 +33,9 @@ public class BankTracker {
      */
     public String getBankAccountInfo() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        return "  Name: " + description + "\n  Balance: " + amt + "\n  Initial Date: "
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        String balance = decimalFormat.format(amt);
+        return "  Name: " + description + "\n  Balance: " + balance + "\n  Initial Date: "
                 + dateTimeFormatter.format(latestDate) + "\n  Interest Rate: " + rate;
     }
 
@@ -55,7 +59,7 @@ public class BankTracker {
      * The method is a getter to get the balance at the latest update date
      * @return The balance at the latest update date
      */
-    public double getAmt() {
+    public float getAmt() {
         return amt;
     }
 
@@ -68,7 +72,8 @@ public class BankTracker {
     }
 
     /**
-     * This method adds the given value to the current balance
+     * This method adds the given value to the current balance and update the balance based on
+     * the current amount and the given interest rate.
      * @param value The given value (can be negative)
      */
     public void addAmt(double value) {
@@ -76,6 +81,15 @@ public class BankTracker {
     }
 
     public void updateDate(LocalDate date) {
+        Period period = Period.between(latestDate, date);
+        int length = period.getMonths() + period.getYears()*12;
+        amt *= Math.pow((1+rate), length);
         latestDate = date;
+    }
+
+    public float predictAmt(LocalDate date) {
+        Period period = Period.between(latestDate, date);
+        int length = period.getMonths() + period.getYears()*12;
+        return (float) (amt * Math.pow((1+rate), length));
     }
 }
