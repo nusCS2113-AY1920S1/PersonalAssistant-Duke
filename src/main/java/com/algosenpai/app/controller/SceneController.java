@@ -1,5 +1,6 @@
 package com.algosenpai.app.controller;
 
+import com.algosenpai.app.Parser;
 import com.algosenpai.app.constant.ViewConstant;
 import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.SoundConstant;
@@ -15,6 +16,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.DialogPane;
+
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class SceneController extends Application {
+
+    protected Text sceneText;
 
     private static MusicController musicController;
 
