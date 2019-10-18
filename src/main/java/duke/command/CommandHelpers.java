@@ -43,27 +43,32 @@ public class CommandHelpers {
             if (dist < minDist) {
                 suggestions.clear();
                 suggestions.put(entry.getValue(), entry.getKey());
+                minDist = dist;
+            } else if (dist == minDist) {
+                suggestions.put(entry.getValue(), entry.getKey());
             }
-            // TODO: finish up
         }
 
-        return null;
-        //return disambiguate(word, suggestions, command.getSwitchMap().keySet());
+        return disambiguate(word, suggestions, command.getSwitchMap().keySet());
     }
 
     /**
      * Provides the user with the choice between several possible options for a switch which does not match exactly.
      *
      * @param word The user-provided switch name.
-     * @param suggestions A List of the closest matching switch names.
+     * @param suggestions A map of the closest matching switch aliases to the switch names they represent.
      * @param valid The set of valid switches for this command.
      * @return The string that the user has selected.
      */
-    public static String disambiguate(String word, ArrayList<String> suggestions, Set<String> valid) {
+    public static String disambiguate(String word, HashMap<String, String> suggestions, Set<String> valid) {
         StringBuilder builder = new StringBuilder("I didn't understand '").append(word)
                 .append("'. Here are the closest matches:").append(System.lineSeparator());
-        for (int i = 1; i <= suggestions.size(); ++i) {
-            builder.append("  ").append(i).append(". ").append(suggestions.get(i - 1)).append(System.lineSeparator());
+        int i = 1;
+        for (Map.Entry<String, String> entry : suggestions.entrySet()) {
+            builder.append("  ").append(i).append(". '").append(entry.getKey())
+                    .append("' - for switch '").append(entry.getValue()).append("'")
+                    .append(System.lineSeparator());
+            ++i;
         }
 
         builder.append(System.lineSeparator()).append("Enter the number corresponding to a suggestion to")
