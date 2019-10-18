@@ -1,6 +1,5 @@
 package dolla.parser;
 
-import dolla.Ui;
 import dolla.command.*;
 
 public class EntryParser extends Parser {

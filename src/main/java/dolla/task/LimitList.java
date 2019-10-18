@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class LimitList extends LogList {
 
-    public LimitList(ArrayList<Log> importEntryList) {
-        super(importEntryList);
+    public LimitList(ArrayList<Log> importLimitList) {
+        super(importLimitList);
     }
 
     /**
