@@ -1,10 +1,8 @@
-import CustomExceptions.RoomShareException;
 import Enums.Priority;
 import Model_Classes.Task;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Task_Test {
     private static Task task;
@@ -16,12 +14,6 @@ public class Task_Test {
     @Test
     public void testGetUser() { assertEquals("user", new Task("test", "user").getUser()); }
 
-    @Test
-    public void testGetCreated() {
-        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        assertEquals(now.format(dateTimeFormatterNow), new Task("test", "user").getCreated());
-    }
 
     @Test
     public void testGetDone() {
@@ -45,7 +37,7 @@ public class Task_Test {
 
     @Test
     public void testSetDone() {
-        task.setDone();
+        task.setDone(true);
         assertEquals(true, task.getDone());
     }
 

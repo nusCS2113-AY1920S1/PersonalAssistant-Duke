@@ -34,24 +34,8 @@ public class Assignment extends Task {
         this.isFixedDuration = true;
     }
 
-    /**
-     * Returns date of Deadline
-     * @return date of Deadline
-     */
-    public Date checkDate() { return by; }
 
-    /**
-     * Snoozes the Event by set amount of years
-     * @param amount number of years to snooze
-     */
-    public void snoozeYear(int amount) {
-        this.by.setYear(this.by.getYear() + amount);;
-    }
-
-    /**
-     * Snoozes the Event by set amount of months
-     * @param amount number of months to snooze
-     */
+   
     public void snoozeMonth(int amount) {
         this.by.setMonth(this.by.getMonth() + amount);;
     }
@@ -64,6 +48,7 @@ public class Assignment extends Task {
         this.by.setDate(this.by.getDate() + amount);;
     }
 
+
     /**
      * Snoozes the Event by set amount of hours
      * @param amount number of hours to snooze
@@ -71,6 +56,7 @@ public class Assignment extends Task {
     public void snoozeHour(int amount){
         this.by.setHours(this.by.getHours() + amount);
     }
+
 
     /**
      * Snoozes the Event by set amount of hours
@@ -104,4 +90,9 @@ public class Assignment extends Task {
     public TimeUnit getTimeUnit() {
         return timeUnit;
     }
+
+    public Date getBy() {
+        return by;
+    }
+
 }

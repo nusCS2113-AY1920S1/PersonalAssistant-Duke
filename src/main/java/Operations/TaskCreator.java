@@ -12,9 +12,9 @@ import java.util.Date;
 
 public class TaskCreator {
     private Parser parser = new Parser();
+
     public TaskCreator() {
     }
-
     public Task create(String input) {
         Priority priorityType;
         RecurrenceScheduleType recurrenceScheduleType;

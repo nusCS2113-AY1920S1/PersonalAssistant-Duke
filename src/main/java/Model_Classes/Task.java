@@ -13,7 +13,6 @@ import java.util.Date;
 public class Task{
     private String description;
     private boolean isDone;
-    private String created;
     private Priority priority;
     private String user;
     private RecurrenceScheduleType recurrenceSchedule;
@@ -26,41 +25,7 @@ public class Task{
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.hasRecurring = false;
-        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        this.created = now.format(dateTimeFormatterNow);
         this.priority = Priority.low;
-    }
-
-    /**
-     * Overload constructor for the task object. Takes in the user assigned to the task
-     * @param description Description of the task
-     * @param user User whom the tasks is assigned to
-     */
-    public Task(String description, String user) {
-        this.description = description;
-        this.isDone = false;
-        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        this.created = now.format(dateTimeFormatterNow);
-        this.priority = Priority.low;
-        this.user = user;
-    }
-
-    /**
-     * Overload constructor for the task object. takes in the description of the task
-     * @param description Description of the task.
-     * @param done Whether the task is completed.
-     * @param priority Priority of the task.
-     */
-    public Task(String description, boolean done, Priority priority) {
-        this.description = description;
-        this.isDone = done;
-        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        this.created = now.format(dateTimeFormatterNow);
-        this.priority = priority;
     }
 
     /**
@@ -78,9 +43,6 @@ public class Task{
 
     public void setUser(String user) {
         this.user = user;
-    }
-    public String getCreated() {
-        return this.created;
     }
 
     /**
