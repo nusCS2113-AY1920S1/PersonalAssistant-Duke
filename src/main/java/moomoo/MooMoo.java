@@ -1,4 +1,4 @@
-package moomoo.main;
+package moomoo;
 
 import moomoo.command.Command;
 import moomoo.task.ScheduleList;

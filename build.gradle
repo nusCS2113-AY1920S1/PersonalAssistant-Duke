@@ -15,7 +15,7 @@ run {
     standardInput = System.in
 }
 application {
-    mainClassName = "moomoo.main.MooMooLauncher"
+    mainClassName = "moomoo.MooMooLauncher"
 }
 
 sourceSets.main.resources.srcDirs =['src/main/resources']
