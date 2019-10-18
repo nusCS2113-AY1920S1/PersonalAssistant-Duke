@@ -1316,3 +1316,26 @@ AMOUNT] [/date DATE]`
 
 
 === Utility Commands
+
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *List details*
+| List the details of the specified input.
+| `/list ...........`
+| `/list ...........`
+
+| *Find*
+| List the details of the specified input.
+| `/find ...........`
+| `/find ...........`
+
+| *Transferring Money*
+| List the details of the specified input.
+| `/transfer ...........`
+| `/transfer ...........`
+
+|======
+
+
+
+
