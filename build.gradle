@@ -19,6 +19,11 @@ shadowJar {
     archiveAppendix = null
 }
 
+clean {
+    delete 'savedProjects.json'
+    delete 'logs'
+}
+
 jacoco {
     toolVersion = "0.8.4"
 }
