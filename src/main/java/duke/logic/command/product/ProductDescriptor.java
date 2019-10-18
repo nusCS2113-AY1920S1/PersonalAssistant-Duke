@@ -1,5 +1,6 @@
 package duke.logic.command.product;
 
+import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Optional;
  */
 public class ProductDescriptor {
     private String productName;
-    //private IngredientItemList ingredientList;
+    private IngredientItemList ingredientItemList;
     private Double ingredientCost;
     private Double retailPrice;
     private Product.Status status;

@@ -8,12 +8,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -26,6 +21,7 @@ public class Order {
     private final long id;
 
     //Data fields
+    private final Date creationDate;
     private final Customer customer;
     private final Date deliveryDate;
     private final Set<Item<Product>> items;
@@ -42,17 +38,19 @@ public class Order {
     public Order(Customer customer, Date deliveryDate, Status status,
                  String remarks, Set<Item<Product>> items, double total,
                  ObservableList<Item<Ingredient>> inventory) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
+        requireAllNonNull(customer, deliveryDate, status, remarks, items, total, inventory);
 
         this.customer = customer;
         this.deliveryDate = deliveryDate;
         this.status = status;
         this.remarks = remarks;
-        this.id = System.currentTimeMillis();
         this.items = items;
         this.total = total;
 
         this.isIngredientEnough = new SimpleBooleanProperty();
+
+        this.id = generateId();
+        this.creationDate = Calendar.getInstance().getTime();
 
         updateIsIngredientEnough(inventory);
 
@@ -71,6 +69,10 @@ public class Order {
 
     public long getId() {
         return id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public Date getDeliveryDate() {
@@ -101,6 +103,11 @@ public class Order {
         return isIngredientEnough;
     }
 
+
+    private long generateId() {
+        return System.currentTimeMillis();
+    }
+
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
 
@@ -108,13 +115,16 @@ public class Order {
         for (Item<Product> productItem : items) {
             for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
                 if (requiredIngredientAmount.containsKey(ingredientItem.getItem())) {
-                    requiredIngredientAmount.put(ingredientItem.getItem(),
+                    requiredIngredientAmount.put(
+                            ingredientItem.getItem(),
                         requiredIngredientAmount.get(ingredientItem.getItem())
                             + ingredientItem.getQuantity().getNumber() * productItem.getQuantity().getNumber()
                     );
                 } else {
-                    requiredIngredientAmount.put(ingredientItem.getItem(),
-                        ingredientItem.getQuantity().getNumber() * productItem.getQuantity().getNumber());
+                    requiredIngredientAmount.put(
+                            ingredientItem.getItem(),
+                        ingredientItem.getQuantity().getNumber() * productItem.getQuantity().getNumber()
+                    );
                 }
             }
         }

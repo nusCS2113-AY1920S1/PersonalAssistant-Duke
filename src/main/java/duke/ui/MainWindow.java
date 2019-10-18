@@ -3,9 +3,11 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
+import duke.commons.core.index.Index;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.product.ShowProductCommandResult;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
@@ -120,7 +122,8 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
             CommandResult commandResult = logic.execute(input);
-            showPage(commandResult.getDisplayedPage());
+            showPage(commandResult);
+
             showMessagePopUp(commandResult.getFeedbackToUser());
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             showErrorPopUp(e.getMessage());
@@ -151,6 +154,8 @@ public class MainWindow extends UiPart<Stage> {
             keyEvent.consume();
             autocomplete();
             break;
+        case ESCAPE:
+            keyEvent.consume();
         default:
             // let JavaFx handle the keypress
         }
@@ -220,7 +225,8 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    private void showPage(CommandResult.DisplayedPage toDisplay) {
+    private void showPage(CommandResult commandResult) {
+        CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
         switch (toDisplay) {
         case SALE:
             showSalePage();
@@ -229,7 +235,11 @@ public class MainWindow extends UiPart<Stage> {
             showOrderPage();
             break;
         case PRODUCT:
-            showProductPage();
+            if (commandResult instanceof ShowProductCommandResult) {
+                showProductPage(((ShowProductCommandResult) commandResult).getIndex());
+            } else {
+                showProductPage();
+            }
             break;
         case INVENTORY:
             showInventoryPage();
@@ -262,6 +272,11 @@ public class MainWindow extends UiPart<Stage> {
         saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Products");
+    }
+
+    private void showProductPage(Index productIndex) {
+        showProductPage();
+        productPage.showProductDetail(productIndex);
     }
 
     private void showInventoryPage() {
