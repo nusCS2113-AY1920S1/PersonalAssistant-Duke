@@ -1,0 +1,7 @@
+E | 0 | Open House for Prospective Students | 11-5-2019 1030
+E | 0 | NUS-ECE Open House | 18-5-2019 1330
+D | 0 | CS1010 Placement Examination Application | 26-6-2019 1700
+D | 0 | Math Refresher Course Application | 30-6-2019 2359
+E | 0 | CEG Freshmen Welcome Tea | 22-7-2019 0900
+
+

@@ -1,9 +1,13 @@
 package main;
 
+import command.AddCommand;
 import command.Command;
+import command.CommandList;
+import command.ModCommand;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
@@ -11,6 +15,9 @@ import ui.UI;
 import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
@@ -25,11 +32,23 @@ import java.io.PrintStream;
  */
 public class Duke extends Application {
 
+
     private TaskList myList;
     private Storage storage;
     private UI ui;
     private Parser parse;
     private DegreeList lists;
+    private CommandList commandList;
+    private DegreeListStorage degreeListStorage;
+    private static ArrayList<String> mydegrees = new ArrayList<>();
+
+    public Duke() {
+
+    }
+
+    public static ArrayList<String> getTasks() {
+        return mydegrees;
+    }
 
 
     /**
@@ -45,9 +64,12 @@ public class Duke extends Application {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.ui = new UI();
+        this.commandList = new CommandList();
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.load());
+            DegreeListStorage degreeListStorage = new DegreeListStorage();
+            degreeListStorage.ReadFile();
         } catch (DukeException e) {
             ui.showLoadingError();
             myList = new TaskList();
@@ -76,7 +98,7 @@ public class Duke extends Application {
      * @return
      */
     //method output initial reading of save file
-    public String run(String line) {
+    public String run(String line) throws DukeException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         // IMPORTANT: Save the old System.out!
@@ -85,13 +107,38 @@ public class Duke extends Application {
         System.setOut(ps);
         //ui.showWelcome();
         boolean isExit = false;
-        //while(!isExit) {
+        //while(!this.isExit) {
+        Command c;
         try {
             //String line = ui.readCommand();
             ui.showLine();
-            Command c = Parser.parse(line);
-            isExit = c.isExit();
-            c.execute(this.myList, this.ui, this.storage, this.lists);
+            Scanner temp = new Scanner(line);
+            if (!temp.hasNext()) {
+                throw new DukeException("Empty Command!");
+            }
+            String command = temp.next();
+            if (command.matches("undo|redo")) {
+                if (temp.hasNextLine()) {
+                    throw new DukeException(command + " should not have any other arguments (whitespace acceptable)");
+                } else if (command.matches("undo")) {
+                    commandList.undo();
+                    lists = commandList.getDegreeLists();
+                    myList = commandList.getTaskList();
+                } else if (command.matches("redo")) {
+                    commandList.redo();
+                    lists = commandList.getDegreeLists();
+                    myList = commandList.getTaskList();
+                }
+            } else {
+                c = Parser.parse(line);
+                //check if the command is undoable
+                if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)) {
+                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, line);
+                } else {
+                    isExit = c.isExit();
+                    c.execute(this.myList, this.ui, this.storage, this.lists);
+                }
+            }
         } catch (DukeException | NullPointerException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {
@@ -101,8 +148,9 @@ public class Duke extends Application {
             System.setOut(old);
             // Show what happened
             System.out.println(output.toString());
-            return output.toString();
+
         }
+        return output.toString();
     }
 
     private void run() {
@@ -121,7 +169,6 @@ public class Duke extends Application {
                 ui.showLine();
             }
         }
-        return;
     }
 
     /**

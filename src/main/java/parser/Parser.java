@@ -40,13 +40,16 @@ public class Parser {
      */
     public static Command parse(String line) throws DukeException {
         Scanner temp = new Scanner(line);
-        if (!temp.hasNext()) {
-            throw new DukeException("Empty Command!");
-        }
+
+        //Empty command check should already have been done outside, in duke
+//        if (!temp.hasNext()) {
+//            throw new DukeException("Empty Command!");
+//        }
+
         String command = temp.next();
         if (command.matches("list|bye|choices")) {
             if (temp.hasNextLine()) {
-                throw new DukeException("List should not have any other arguments (whitespace acceptable)");
+                throw new DukeException(command + " should not have any other arguments (whitespace acceptable)");
             } else {
                 if (command.matches("list")) {
                     return new PrintCommand(command) {
@@ -54,8 +57,7 @@ public class Parser {
                 } else if (command.matches("bye")) {
                     return new ExitCommand();
                 } else if (command.matches("choices")) {
-                    return new PrintCommand(command) {
-                    };
+                    return new PrintCommand(command);
                 }
             }
         } else if (command.matches("help")) {
@@ -71,7 +73,6 @@ public class Parser {
                             + "Type \"help\" for a full list of available commands");
                 }
             }
-
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
                 + "|snooze|schedule|add|remove")) {
             if (!temp.hasNextLine()) {
