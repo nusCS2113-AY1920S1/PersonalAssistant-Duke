@@ -4,9 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="TOP_RIGHT" fillHeight="false" prefWidth="634.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<fx:root alignment="TOP_RIGHT" fillHeight="false" maxHeight="Infinity" prefWidth="634.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="dialog" text="Label" wrapText="true" />
+      <Label fx:id="dialog" maxHeight="Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" />
    </children>
    <padding>
       <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
