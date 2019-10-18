@@ -47,9 +47,7 @@ public class ParserFactory {
     public static Command parse(String userInput) throws DukeException {
 
         String command = userInput.split("\\s+", 2)[0].trim();
-        String description;
         Integer indexOfTask;
-        LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
 
         switch (command) {
         case "todo":
@@ -72,38 +70,16 @@ public class ParserFactory {
             return new FindCommand(findKeyWord);
 
         case "edit":
-            String[] editCommandParts = userInput.split(" ", 3);
-            indexOfTask = Integer.parseInt(editCommandParts[1]) - 1;
-            description = editCommandParts[2];
-            if (description.isEmpty()) {
-                throw new DukeException(DukeException.emptyUserDescription());
-            }
-            return new EditCommand(indexOfTask, description);
+            return new EditParser(userInput, command).parse();
 
         case "delete":
-            description = userInput.split(command, 2)[1].trim();
-            if (description.isEmpty()) {
-                throw new DukeException(DukeException.emptyUserDescription());
-            }
-            indexOfTask = Integer.parseInt(description) - 1;
-            return new DeleteCommand(indexOfTask);
+            return new DeleteParser(userInput, command).parse();
 
         case "priority":
-            String[] priorityCommandParts = userInput.split(" ", 3);
-            String priorityLevel = priorityCommandParts[2];
-            indexOfTask = Integer.parseInt(priorityCommandParts[1]) - 1;
-            if (priorityLevel.isEmpty()) {
-                throw new DukeException(DukeException.emptyPriorityLevel());
-            }
-            return new PriorityCommand(indexOfTask, priorityLevel);
+            return new PriorityParser(userInput, command).parse();
 
         case "done":
-            description = userInput.split(command, 2)[1].trim();
-            if (description.isEmpty()) {
-                throw new DukeException(DukeException.unknownUserCommand());
-            }
-            indexOfTask = Integer.parseInt(description) - 1;
-            return new DoneCommand(indexOfTask);
+            return new DoneParser(userInput, command).parse();
 
         case "remind":
             return new RemindParser(userInput, command).parse();
@@ -162,23 +138,10 @@ public class ParserFactory {
         case "unignore":
             return parseIgnore(userInput, false);
         case "comment":
-            try {
-                String rawIndex = userInput.split("\\s+", 3)[1].trim();
-                indexOfTask = Integer.parseInt(rawIndex) - 1;
-            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-                throw new DukeException(DukeException.invalidIndex());
-            }
-            String comment = "";
-            try {
-                comment = userInput.split("\\s+", 3)[2].trim();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException(DukeException.emptyUserDescription());
-            }
-            return new CommentCommand(indexOfTask, comment);
+            return new CommentParser(userInput, command).parse();
         case "location":
             try {
                 String userIndex = userInput.split("\\s", 5)[2].trim();
-                System.out.println(userIndex);
                 indexOfTask = Integer.parseInt(userIndex) - 1;
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 throw new DukeException(DukeException.invalidIndex());
@@ -189,7 +152,7 @@ public class ParserFactory {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException(DukeException.invalidLocation());
             }
-            return new LocationCommand(indexOfTask,location);
+            return new LocationCommand(indexOfTask, location);
 
         default:
             // Empty string or unknown command.

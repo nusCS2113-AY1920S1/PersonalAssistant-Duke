@@ -150,6 +150,10 @@ public class DukeException extends Exception {
         return "☹ OOPS!!! The location portion is not provided. Please try again";
     }
 
+    public static String emptyComment() {
+        return "☹ OOPS!!! The comment section is empty. Please try again";
+    }
+
     public DukeException(String message) {
         super(message);
     }
