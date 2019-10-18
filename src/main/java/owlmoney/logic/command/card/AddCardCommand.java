@@ -17,8 +17,8 @@ public class AddCardCommand extends Command {
     /**
      * Constructor that creates an instance of AddCardCommand.
      *
-     * @param name Credit card name of the new card object.
-     * @param limit Credit card monthly limit of the new card object.
+     * @param name   Credit card name of the new card object.
+     * @param limit  Credit card monthly limit of the new card object.
      * @param rebate Credit card monthly rebate of the new card object.
      */
     public AddCardCommand(String name, double limit, double rebate) {
@@ -31,7 +31,7 @@ public class AddCardCommand extends Command {
      * Executes the function to create a new card in the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      * @throws CardException If duplicate credit card name found.
      */

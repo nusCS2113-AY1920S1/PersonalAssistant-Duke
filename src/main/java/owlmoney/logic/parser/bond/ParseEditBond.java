@@ -15,6 +15,7 @@ public class ParseEditBond extends ParseBond {
 
     /**
      * Creates an instance of ParseEditBond.
+     *
      * @param data raw user input.
      * @param type the type of command.
      * @throws ParserException If there are redundant parameters or if the first parameter is not valid.
@@ -47,7 +48,7 @@ public class ParseEditBond extends ParseBond {
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a bond");
             } else if (FROM.equals(key)) {
-                checkName(FROM,value);
+                checkName(FROM, value);
             }
             if (RATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkInterestRate(value);

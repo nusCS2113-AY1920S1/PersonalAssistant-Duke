@@ -25,7 +25,6 @@ public class ParseDeleteCard extends ParseCard {
         checkFirstParameter();
     }
 
-
     /**
      * Checks each user input for each parameter.
      *

@@ -17,7 +17,7 @@ public class ParseCommand extends Parser {
     private ParseType parseType = new ParseType();
     private final Scanner scanner = new Scanner(System.in);
     private static final String[] COMMAND_KEYWORDS = new String[] {
-        "/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit"
+            "/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit"
     };
     private static final List<String> COMMAND_KEYWORD_LISTS = Arrays.asList(COMMAND_KEYWORDS);
 

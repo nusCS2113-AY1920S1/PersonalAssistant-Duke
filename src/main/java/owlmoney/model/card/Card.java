@@ -22,8 +22,8 @@ public class Card {
     /**
      * Constructor that allows the child class to create an instance with credit card name.
      *
-     * @param name A name for the credit card.
-     * @param limit Credit card monthly spending limit.
+     * @param name   A name for the credit card.
+     * @param limit  Credit card monthly spending limit.
      * @param rebate Credit card monthly cash back rebate.
      */
     public Card(String name, double limit, double rebate) {
@@ -112,7 +112,7 @@ public class Card {
      *
      * @return rebate of the credit card.
      */
-    private double getRebate() {
+    double getRebate() {
         return this.rebate;
     }
 
@@ -153,8 +153,8 @@ public class Card {
     /**
      * Adds expenditure to the credit card.
      *
-     * @param exp Expenditure to be added.
-     * @param ui Ui of OwlMoney.
+     * @param exp  Expenditure to be added.
+     * @param ui   Ui of OwlMoney.
      * @param type Type of account to add expenditure into
      * @throws CardException If expenditure exceeds card limit.
      */
@@ -179,7 +179,7 @@ public class Card {
      * Deletes an expenditure in the current credit card.
      *
      * @param exId Transaction number of the transaction.
-     * @param ui Ui of OwlMoney.
+     * @param ui   Ui of OwlMoney.
      * @throws TransactionException If invalid transaction.
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
@@ -197,7 +197,7 @@ public class Card {
      * @param category New category.
      * @param ui       Ui of OwlMoney.
      * @throws TransactionException If incorrect date format.
-     * @throws CardException If amount is negative after editing expenditure.
+     * @throws CardException        If amount is negative after editing expenditure.
      */
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException, CardException {

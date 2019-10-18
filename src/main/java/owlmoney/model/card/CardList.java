@@ -1,5 +1,6 @@
 package owlmoney.model.card;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import owlmoney.model.card.exception.CardException;
@@ -13,6 +14,7 @@ import owlmoney.ui.Ui;
 
 public class CardList {
     private ArrayList<Card> cardLists;
+    private static final int ONE_INDEX = 1;
 
     /**
      * Creates an arrayList of Cards.
@@ -25,7 +27,7 @@ public class CardList {
      * Adds an instance of card into the CardList.
      *
      * @param newCard a new card object to be added.
-     * @param ui required for printing.
+     * @param ui      required for printing.
      * @throws CardException If duplicate credit card name found.
      */
     public void cardListAddCard(Card newCard, Ui ui) throws CardException {
@@ -33,15 +35,16 @@ public class CardList {
             throw new CardException("There is already a credit card with the name " + newCard.getName());
         }
         cardLists.add(newCard);
-        ui.printMessage("Added new card: ");
-        ui.printMessage(newCard.getDetails());
+        ui.printMessage("Added a new card with the below details: ");
+        printOneCard(newCard, ui);
+
     }
 
     /**
      * Deletes an instance of a card from the CardList.
      *
      * @param name name of the card to be deleted.
-     * @param ui required for printing.
+     * @param ui   required for printing.
      * @throws CardException If CardList is empty or card to be deleted do not exist.
      */
     public void cardListDeleteCard(String name, Ui ui) throws CardException {
@@ -49,8 +52,10 @@ public class CardList {
         boolean isDeleted = false;
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
-                ui.printMessage("Removing " + cardLists.get(i).getName());
+                Card temp = cardLists.get(i);
                 cardLists.remove(i);
+                ui.printMessage("Card with the following details has been removed:");
+                printOneCard(temp, ui);
                 isDeleted = true;
                 break;
             }
@@ -113,7 +118,7 @@ public class CardList {
     /**
      * Checks if new limit exceeds total expenditure spent of card.
      *
-     * @param card The card object.
+     * @param card     The card object.
      * @param newLimit The new limit to be changed.
      * @throws CardException If total expenditure spent of card exceeds new limit.
      */
@@ -127,7 +132,7 @@ public class CardList {
     /**
      * Updates the remaining limit of card.
      *
-     * @param card The card object.
+     * @param card     The card object.
      * @param newLimit The new limit to be changed.
      */
     private void updateNewRemainingLimit(Card card, String newLimit) {
@@ -138,11 +143,11 @@ public class CardList {
     /**
      * Edits the credit card details.
      *
-     * @param name     Credit Card to be edited.
-     * @param newName  New name of credit card if any.
-     * @param limit    New limit of credit card if any.
-     * @param rebate   New rebate of credit card if any.
-     * @param ui       Required for printing.
+     * @param name    Credit Card to be edited.
+     * @param newName New name of credit card if any.
+     * @param limit   New limit of credit card if any.
+     * @param rebate  New rebate of credit card if any.
+     * @param ui      Required for printing.
      * @throws CardException If card cannot be found or new card name already exist.
      */
     public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
@@ -162,7 +167,7 @@ public class CardList {
                     cardLists.get(i).setRebate(Double.parseDouble(rebate));
                 }
                 ui.printMessage("New details of the cards:\n");
-                ui.printMessage(cardLists.get(i).getDetails() + "\n");
+                printOneCard(cardLists.get(i), ui);
                 return;
             }
         }
@@ -177,9 +182,15 @@ public class CardList {
      */
     public void cardListListCards(Ui ui) throws CardException {
         cardListCheckListEmpty();
+        ui.printCardHeader();
         for (int i = 0; i < cardLists.size(); i++) {
-            ui.printMessage((i + 1) + ".\n" + cardLists.get(i).getDetails());
+            ui.printCard((i + ONE_INDEX), cardLists.get(i).getName(),
+                    "$" + new DecimalFormat("0.00").format(cardLists.get(i).getLimit()),
+                    "$" + new DecimalFormat("0.00").
+                            format(cardLists.get(i).getRemainingLimit()),
+                    new DecimalFormat("0.00").format(cardLists.get(i).getRebate()) + "%");
         }
+        ui.printDivider();
     }
 
     /**
@@ -189,7 +200,7 @@ public class CardList {
      * @param cardName The credit card name.
      * @param exp      The instance of the expenditure.
      * @param ui       Required for printing.
-     * @param type Type of account to add expenditure into
+     * @param type     Type of account to add expenditure into
      * @throws CardException If the credit card name cannot be found.
      */
     //need change exception class in the future for this
@@ -210,7 +221,7 @@ public class CardList {
      * @param cardToList The name of the credit card.
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
-     * @throws CardException If the credit card name cannot be found.
+     * @throws CardException        If the credit card name cannot be found.
      * @throws TransactionException If no expenditure found or no expenditure is in the list.
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
@@ -227,11 +238,11 @@ public class CardList {
     /**
      * Deletes an expenditure from the transactionList in the bank account.
      *
-     * @param expNum The transaction number.
+     * @param expNum                The transaction number.
      * @param deleteFromAccountCard The name of the card.
-     * @param ui Required for printing.
+     * @param ui                    Required for printing.
      * @throws TransactionException If invalid transaction.
-     * @throws CardException If card does not exist.
+     * @throws CardException        If card does not exist.
      */
     public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {
@@ -254,7 +265,7 @@ public class CardList {
      * @param date         The date of the expenditure.
      * @param category     The category of the expenditure.
      * @param ui           Required for printing.
-     * @throws CardException If card does not exist.
+     * @throws CardException        If card does not exist.
      * @throws TransactionException If incorrect date format.
      */
     public void cardListEditExpenditure(int expNum, String editFromCard, String desc, String amount,
@@ -266,5 +277,20 @@ public class CardList {
             }
         }
         throw new CardException("Card cannot be found for editing expenditure: " + editFromCard);
+    }
+
+    /**
+     * Prints card details.
+     *
+     * @param card The card object to be printed.
+     * @param ui   The object use for printing.
+     */
+    private void printOneCard(Card card, Ui ui) {
+        ui.printCardHeader();
+        ui.printCard(ONE_INDEX, card.getName(),
+                "$" + new DecimalFormat("0.00").format(card.getLimit()),
+                "$" + new DecimalFormat("0.00").format(card.getRemainingLimit()),
+                new DecimalFormat("0.00").format(card.getRebate()) + "%");
+        ui.printDivider();
     }
 }

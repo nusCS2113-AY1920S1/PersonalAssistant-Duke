@@ -48,9 +48,9 @@ public class EditExpenditureCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
-     * @throws CardException If card does not exist.
+     * @throws CardException        If card does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
         profile.profileEditExpenditure(index, accName, description, amount, date, category, ui, this.type);

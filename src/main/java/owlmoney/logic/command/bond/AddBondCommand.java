@@ -25,15 +25,14 @@ public class AddBondCommand extends Command {
     private final String type;
     private static final String BONDS = "bonds";
 
-
     /**
      * Creates an instance of AddBondCommand.
      *
-     * @param bondName   name of the bond.
-     * @param amount cost of the bond.
-     * @param rate   interest rate of the bond.
-     * @param date   date the bond was purchased.
-     * @param year   number of years the bond holds.
+     * @param bondName name of the bond.
+     * @param amount   cost of the bond.
+     * @param rate     interest rate of the bond.
+     * @param date     date the bond was purchased.
+     * @param year     number of years the bond holds.
      */
     public AddBondCommand(String bondName, String bankAccountName, double amount, double rate, Date date, int year,
             String type) {

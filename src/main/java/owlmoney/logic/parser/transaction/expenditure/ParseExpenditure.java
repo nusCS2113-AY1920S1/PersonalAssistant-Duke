@@ -23,7 +23,7 @@ public abstract class ParseExpenditure {
     private String rawData;
     String type;
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
-        "/amount", "/date", "/desc", "/category", "/from", "/transno", "/num"
+            "/amount", "/date", "/desc", "/category", "/from", "/transno", "/num"
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
     static final String AMOUNT = "/amount";
@@ -49,7 +49,7 @@ public abstract class ParseExpenditure {
      * Checks the user input for any redundant parameters.
      *
      * @param parameter Redundant parameter to check for,
-     * @param command Command the user performed.
+     * @param command   Command the user performed.
      * @throws ParserException If a redundant parameter is detected.
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {

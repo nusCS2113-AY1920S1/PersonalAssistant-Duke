@@ -1,5 +1,6 @@
 package owlmoney.model.bond;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import owlmoney.model.bond.exception.BondException;
@@ -12,6 +13,7 @@ import owlmoney.ui.Ui;
 
 public class BondList {
     private ArrayList<Bond> bondLists;
+    private static final int ONE_INDEX = 1;
 
     /**
      * Creates an arrayList of bonds.
@@ -33,8 +35,18 @@ public class BondList {
         } else {
             int counter = displayNum;
             for (int i = bondLists.size() - 1; i >= 0; i--) {
-                ui.printMessage((i + 1) + ":\n" + bondLists.get(i).getBondDescription() + "\n");
+                if (counter == displayNum) {
+                    ui.printBondHeader();
+                }
+                ui.printBond((i + ONE_INDEX), bondLists.get(i).getName(),
+                        "Amount: $" + new DecimalFormat("0.00").format(bondLists.get(i).getAmount()),
+                        "Rate: " + new DecimalFormat("0.00").
+                                format(bondLists.get(i).getYearlyCouponRate()),
+                        bondLists.get(i).getDate(), bondLists.get(i).getYear());
                 counter--;
+                if (counter <= 0 || i == 0) {
+                    ui.printDivider();
+                }
                 if (counter <= 0) {
                     break;
                 }
@@ -50,8 +62,8 @@ public class BondList {
      */
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
-        ui.printMessage("Added bond: ");
-        ui.printMessage(bond.getBondDescription());
+        ui.printMessage("Bond with the following details has been added: ");
+        printOneBond(bond, ui);
     }
 
     /**
@@ -81,15 +93,15 @@ public class BondList {
      * Removes the bond from the bondList.
      *
      * @param bondName the name of the bond.
-     * @param ui required for printing.
+     * @param ui       required for printing.
      */
     public void removeBondFromList(String bondName, Ui ui) {
         for (int i = 0; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
                 Bond temp = bondLists.get(i);
-                ui.printMessage("Deleting bond:");
-                ui.printMessage(temp.getBondDescription());
                 bondLists.remove(i);
+                ui.printMessage("Bond with the following details has been deleted: ");
+                printOneBond(temp, ui);
                 return;
             }
         }
@@ -115,9 +127,9 @@ public class BondList {
      * Edits the bond details specifically.
      *
      * @param bondName the name of the bond to retrieve.
-     * @param year the new year of the bond.
-     * @param rate the new rate of the bond.
-     * @param ui required for printing.
+     * @param year     the new year of the bond.
+     * @param rate     the new rate of the bond.
+     * @param ui       required for printing.
      * @throws BondException If the bond does not exist or the year is smaller than the original.
      */
     public void editBond(String bondName, String year, String rate, Ui ui) throws BondException {
@@ -125,7 +137,8 @@ public class BondList {
             if (bondName.equals(bondLists.get(i).getName())) {
                 editBondYear(year, i);
                 editBondRate(rate, i);
-                ui.printMessage(bondLists.get(i).getBondDescription());
+                ui.printMessage("Bond with the following details has been edited: ");
+                printOneBond(bondLists.get(i), ui);
                 return;
             }
         }
@@ -136,7 +149,7 @@ public class BondList {
      * Edits the bond rate specifically to a new rate.
      *
      * @param rate the new interest rate of the bond.
-     * @param i position of the bond in the bondList.
+     * @param i    position of the bond in the bondList.
      */
     private void editBondRate(String rate, int i) {
         if (!(rate.isEmpty() || rate.isBlank())) {
@@ -148,7 +161,7 @@ public class BondList {
      * Edits the year of the bond.
      *
      * @param year the new year of the bond.
-     * @param i position of the bond in the bondList.
+     * @param i    position of the bond in the bondList.
      * @throws BondException if the year is smaller than the original year.
      */
     private void editBondYear(String year, int i) throws BondException {
@@ -159,5 +172,20 @@ public class BondList {
             }
             bondLists.get(i).setYear(Integer.parseInt(year));
         }
+    }
+
+    /**
+     * Prints bond details.
+     *
+     * @param bond The card object to be printed.
+     * @param ui   The object use for printing.
+     */
+    private void printOneBond(Bond bond, Ui ui) {
+        ui.printBondHeader();
+        ui.printBond(ONE_INDEX, bond.getName(),
+                "Amount: $" + new DecimalFormat("0.00").format(bond.getAmount()),
+                "Rate: " + new DecimalFormat("0.00").format(bond.getYearlyCouponRate()),
+                bond.getDate(), bond.getYear());
+        ui.printDivider();
     }
 }

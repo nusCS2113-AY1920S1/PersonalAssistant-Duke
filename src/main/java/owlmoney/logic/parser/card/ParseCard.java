@@ -1,6 +1,5 @@
 package owlmoney.logic.parser.card;
 
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,8 @@ public abstract class ParseCard {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARD_KEYWORD = new String[] {
-        "/name", "/limit", "/rebate", "/newname" };
+            "/name", "/limit", "/rebate", "/newname"
+    };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
     static final String NAME = "/name";
     static final String LIMIT = "/limit";
@@ -84,6 +84,7 @@ public abstract class ParseCard {
 
     /**
      * Checks if the card name entered by the user does not contain special character and not too long.
+     *
      * @param nameString Name of the card
      * @throws ParserException If the name is too long or contain special characters.
      */
@@ -97,7 +98,7 @@ public abstract class ParseCard {
      * Checks the user input for any redundant parameters.
      *
      * @param parameter Redundant parameter to check for,
-     * @param command Command the user performed.
+     * @param command   Command the user performed.
      * @throws ParserException If a redundant parameter is detected.
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {

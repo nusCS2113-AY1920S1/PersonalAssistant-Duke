@@ -15,6 +15,7 @@ public class ParseDeleteBond extends ParseBond {
 
     /**
      * Creates an instance of ParseDeleteBond.
+     *
      * @param data raw user input.
      * @param type the type of command.
      * @throws ParserException If there are redundant parameters or if the first parameter is not valid.
@@ -48,7 +49,7 @@ public class ParseDeleteBond extends ParseBond {
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting a bond");
             } else if (FROM.equals(key)) {
-                checkName(FROM,value);
+                checkName(FROM, value);
             }
         }
     }
@@ -61,7 +62,7 @@ public class ParseDeleteBond extends ParseBond {
     @Override
     public Command getCommand() {
         DeleteBondCommand newDeleteBondCommand =
-                new DeleteBondCommand(bondParameters.get(FROM),bondParameters.get(NAME));
+                new DeleteBondCommand(bondParameters.get(FROM), bondParameters.get(NAME));
         return newDeleteBondCommand;
     }
 }

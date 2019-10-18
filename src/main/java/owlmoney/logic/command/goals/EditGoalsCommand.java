@@ -17,13 +17,12 @@ public class EditGoalsCommand extends Command {
     private final String newName;
     private final String date;
 
-
     /**
      * Creates an instance of AddSavingCommand.
      *
-     * @param name   Name of goal object.
-     * @param amount Income of new goal object.
-     * @param date   Initial amount of new goal object.
+     * @param name    Name of goal object.
+     * @param amount  Income of new goal object.
+     * @param date    Initial amount of new goal object.
      * @param newName New name of the goal object
      */
     public EditGoalsCommand(String name, String amount, String date, String newName) {

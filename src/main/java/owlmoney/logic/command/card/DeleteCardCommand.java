@@ -24,7 +24,7 @@ public class DeleteCardCommand extends Command {
      * Executes the function to delete a card from the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      * @throws CardException If card does not exist.
      */

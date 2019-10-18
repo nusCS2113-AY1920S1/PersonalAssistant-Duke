@@ -14,6 +14,7 @@ public class ParseListBond extends ParseBond {
 
     /**
      * Creates an instance of ParseDeleteBond.
+     *
      * @param data raw user input.
      * @param type the type of command.
      * @throws ParserException If there are redundant parameters or if the first parameter is not valid.
@@ -40,14 +41,14 @@ public class ParseListBond extends ParseBond {
             String key = bondIterator.next();
             String value = bondParameters.get(key);
             if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
-                bondParameters.put(NUM,"30");
+                bondParameters.put(NUM, "30");
             } else if (NUM.equals(key)) {
                 checkInt(NUM, value);
             }
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting a bond");
             } else if (FROM.equals(key)) {
-                checkName(FROM,value);
+                checkName(FROM, value);
             }
         }
     }

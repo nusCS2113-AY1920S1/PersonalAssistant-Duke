@@ -1,5 +1,6 @@
 package owlmoney.model.bank;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import owlmoney.model.bank.exception.BankException;
@@ -16,6 +17,10 @@ import owlmoney.ui.Ui;
 public class BankList {
     private ArrayList<Bank> bankLists;
     private static final String SAVING = "saving";
+    private static final String INVESTMENT = "investment";
+    private static final int ONE_INDEX = 1;
+    private static final boolean ISMULTIPLE = true;
+    private static final boolean ISSINGLE = false;
 
     /**
      * Creates a instance of BankList that contains an arrayList of Banks.
@@ -34,7 +39,6 @@ public class BankList {
         return bankLists.get(bankListIndex).getAccountName();
     }
 
-
     /**
      * Adds an instance of a bank account into the BankList.
      *
@@ -47,8 +51,8 @@ public class BankList {
             throw new BankException("There is already a bank account with the name " + newBank.getAccountName());
         }
         bankLists.add(newBank);
-        ui.printMessage("Added new bank: ");
-        ui.printMessage(newBank.getDescription());
+        ui.printMessage("Added new bank with following details: ");
+        printOneBank(newBank, ISSINGLE, ONE_INDEX, ui);
     }
 
     /**
@@ -154,8 +158,10 @@ public class BankList {
         if (canPassDeleteBankRequirements(bankName, bankType)) {
             for (int i = 0; i < getBankListSize(); i++) {
                 if (bankName.equals(bankLists.get(i).getAccountName())) {
-                    ui.printMessage("Removing " + bankLists.get(i).getAccountName());
+                    Bank temp = bankLists.get(i);
                     bankLists.remove(i);
+                    ui.printMessage("Removed bank with the following details: ");
+                    printOneBank(temp, ISSINGLE, ONE_INDEX, ui);
                     break;
                 }
             }
@@ -188,7 +194,7 @@ public class BankList {
                     bankLists.get(i).setIncome(Double.parseDouble(income));
                 }
                 ui.printMessage("New details of the account:");
-                ui.printMessage(bankLists.get(i).getDescription());
+                printOneBank(bankLists.get(i), ISSINGLE, ONE_INDEX, ui);
                 return;
             }
         }
@@ -232,7 +238,7 @@ public class BankList {
                     bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
                 }
                 ui.printMessage("New details of the account:");
-                ui.printMessage(bankLists.get(i).getDescription());
+                printOneBank(bankLists.get(i), ISSINGLE, ONE_INDEX, ui);
                 break;
             }
         }
@@ -251,12 +257,15 @@ public class BankList {
         int numberOfBanks = 0;
         for (int i = 0; i < getBankListSize(); i++) {
             if (bankType.equals(bankLists.get(i).getType())) {
-                ui.printMessage((i + 1) + ".\n" + bankLists.get(i).getDescription());
+                printOneHeader(numberOfBanks, ui);
+                printOneBank(bankLists.get(i), ISMULTIPLE, i + ONE_INDEX, ui);
                 numberOfBanks++;
             }
         }
         if (numberOfBanks == 0) {
             throw new BankException("There are 0 " + bankType + " accounts");
+        } else {
+            ui.printDivider();
         }
     }
 
@@ -267,7 +276,7 @@ public class BankList {
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      * @throws TransactionException If no expenditure is found.
-     * @throws BankException If bank name does not exist.
+     * @throws BankException        If bank name does not exist.
      */
     public void bankListListBankExpenditure(String bankToList, Ui ui, int displayNum)
             throws TransactionException, BankException {
@@ -287,7 +296,7 @@ public class BankList {
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      * @throws TransactionException If no deposit is found.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      */
     public void bankListListBankDeposit(String bankToList, Ui ui, int displayNum)
             throws TransactionException, BankException {
@@ -307,7 +316,7 @@ public class BankList {
      * @param accName The Bank account name.
      * @param exp     The instance of the expenditure.
      * @param ui      Required for printing.
-     * @param type Type of bank to add expenditure into.
+     * @param type    Type of bank to add expenditure into.
      * @throws BankException If bank account does not exist.
      */
     public void bankListAddExpenditure(String accName, Transaction exp, Ui ui, String type)
@@ -331,7 +340,7 @@ public class BankList {
      * @param date         The date of the expenditure.
      * @param category     The category of the expenditure.
      * @param ui           required for printing.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
     public void bankListEditExpenditure(int expNum, String editFromBank, String desc,
@@ -352,7 +361,7 @@ public class BankList {
      * @param deleteFromBank The name of the bank account.
      * @param ui             required for printing.
      * @throws TransactionException If invalid transaction.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      */
     public void bankListDeleteExpenditure(int expNum, String deleteFromBank, Ui ui)
             throws TransactionException, BankException {
@@ -369,9 +378,9 @@ public class BankList {
      * Adds a deposit tied to a bank account.
      * This will store the expenditure in the transactionList in the bank account.
      *
-     * @param accName The Bank account name.
-     * @param dep     The instance of the deposit.
-     * @param ui      Required for printing.
+     * @param accName  The Bank account name.
+     * @param dep      The instance of the deposit.
+     * @param ui       Required for printing.
      * @param bankType Type of bank to add deposit into
      * @throws BankException If bank name does not exist.
      */
@@ -395,7 +404,7 @@ public class BankList {
      * @param amount       The amount of the deposit.
      * @param date         The date of the deposit.
      * @param ui           required for printing.
-     * @throws BankException If bank name does not exist.
+     * @throws BankException        If bank name does not exist.
      * @throws TransactionException If incorrect date format.
      */
     public void bankListEditDeposit(int expNum, String editFromBank, String desc,
@@ -415,7 +424,7 @@ public class BankList {
      * @param accName The name of the bank account.
      * @param index   The transaction number.
      * @param ui      required for printing.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If transaction is not a deposit.
      */
     public void bankListDeleteDeposit(String accName, int index, Ui ui) throws BankException, TransactionException {
@@ -432,7 +441,7 @@ public class BankList {
      * Checks if the bond exists before adding.
      *
      * @param accName the bank account name.
-     * @param bond the bond object.
+     * @param bond    the bond object.
      * @throws BankException If bank does not exist.
      * @throws BondException If duplicate bond name found.
      */
@@ -524,8 +533,8 @@ public class BankList {
     /**
      * Lists the bonds in the bank specified bank account.
      *
-     * @param bankName the name of the bank account.
-     * @param ui required for printing.
+     * @param bankName   the name of the bank account.
+     * @param ui         required for printing.
      * @param displayNum the number of bonds to display.
      * @throws BankException If bank account does not exist.
      * @throws BondException If there are no bonds.
@@ -536,6 +545,42 @@ public class BankList {
                 bankLists.get(i).investmentListBond(displayNum, ui);
                 return;
             }
+        }
+    }
+
+    /**
+     * Prints bank details.
+     *
+     * @param bank The bank object to be printed.
+     * @param ui   The object use for printing.
+     */
+    private void printOneBank(Bank bank, boolean isMultiplePrinting, int num, Ui ui) throws BankException {
+        if (!isMultiplePrinting) {
+            ui.printBankHeader();
+        }
+
+        if (INVESTMENT.equals(bank.getType())) {
+            ui.printInvestment(num, bank.getAccountName(), bank.getType(),
+                    "$" + new DecimalFormat("0.00").format(bank.getCurrentAmount()));
+        } else if (SAVING.equals(bank.getType())) {
+            ui.printSaving(num, bank.getAccountName(), bank.getType(),
+                    "$" + new DecimalFormat("0.00").format(bank.getCurrentAmount()),
+                    "$" + new DecimalFormat("0.00").format(bank.getIncome()));
+        }
+        if (!isMultiplePrinting) {
+            ui.printDivider();
+        }
+    }
+
+    /**
+     * Prints the bank header details once only for listing of multiple bank.
+     *
+     * @param num Represents the number of banks with the specified type.
+     * @param ui  The object use for printing.
+     */
+    private void printOneHeader(int num, Ui ui) {
+        if (num == 0) {
+            ui.printBankHeader();
         }
     }
 }

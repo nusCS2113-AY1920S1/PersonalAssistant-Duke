@@ -71,11 +71,11 @@ public abstract class ParseGoals {
      */
     public void fillHashTable() throws ParserException {
         goalsParameters.put(NAME,
-                parseRawData.extractParameter(rawData,NAME, GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, NAME, GOALS_KEYWORD));
         goalsParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData,AMOUNT,GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, GOALS_KEYWORD));
         goalsParameters.put(BY,
-                parseRawData.extractParameter(rawData,BY,GOALS_KEYWORD));
+                parseRawData.extractParameter(rawData, BY, GOALS_KEYWORD));
         goalsParameters.put(NEW_NAME,
                 parseRawData.extractParameter(rawData, NEW_NAME, GOALS_KEYWORD));
     }

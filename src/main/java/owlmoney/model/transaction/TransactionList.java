@@ -1,6 +1,7 @@
 package owlmoney.model.transaction;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class TransactionList {
 
     private ArrayList<Transaction> expLists;
     private static final int ONE_INDEX = 1;
+    private static final String TRANSTYPE = "transaction";
+    private static final String ITEMTYPE = "item";
 
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
@@ -40,9 +43,18 @@ public class TransactionList {
             boolean expenditureExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails());
+                    if (counter == displayNum) {
+                        ui.printExpenditureHeader(TRANSTYPE);
+                    }
+                    ui.printExpenditure((i + ONE_INDEX), expLists.get(i).getDescription(),
+                            (expLists.get(i).checkDebitCredit() +
+                                    new DecimalFormat("0.00").format(expLists.get(i).getAmount())),
+                            expLists.get(i).getDate(), expLists.get(i).getCategory());
                     counter--;
                     expenditureExist = true;
+                }
+                if (counter <= 0 || i == 0) {
+                    ui.printDivider();
                 }
                 if (counter <= 0) {
                     break;
@@ -69,9 +81,18 @@ public class TransactionList {
             boolean depositExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if ("deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails());
+                    if (counter == displayNum) {
+                        ui.printExpenditureHeader(TRANSTYPE);
+                    }
+                    ui.printExpenditure((i + ONE_INDEX), expLists.get(i).getDescription(),
+                            (expLists.get(i).checkDebitCredit() +
+                                    new DecimalFormat("0.00").format(expLists.get(i).getAmount())),
+                            expLists.get(i).getDate(), expLists.get(i).getCategory());
                     counter--;
                     depositExist = true;
+                }
+                if (counter <= 0 || i == 0) {
+                    ui.printDivider();
                 }
                 if (counter <= 0) {
                     break;
@@ -92,7 +113,8 @@ public class TransactionList {
     public void addExpenditureToList(Transaction exp, Ui ui, String type) {
         expLists.add(exp);
         if (!"bond".equals(type)) {
-            ui.printMessage("Added expenditure:\n" + exp.getDetails());
+            ui.printMessage("Added expenditure shown below:");
+            printOneExpenditure(exp, ui);
         }
     }
 
@@ -105,7 +127,8 @@ public class TransactionList {
     public void addDepositToList(Transaction dep, Ui ui, String bankType) {
         expLists.add(dep);
         if ("bank".equals(bankType)) {
-            ui.printMessage("Added deposit:\n" + dep.getDetails());
+            ui.printMessage("Added deposit with the follwing details:");
+            printOneExpenditure(dep, ui);
         }
     }
 
@@ -127,7 +150,8 @@ public class TransactionList {
             } else {
                 Transaction temp = expLists.get(index - ONE_INDEX);
                 expLists.remove(index - ONE_INDEX);
-                ui.printMessage("Expenditure deleted:\n" + temp.getDetails());
+                ui.printMessage("Details of deleted Expenditure:");
+                printOneExpenditure(temp, ui);
                 return temp.getAmount();
             }
         } else {
@@ -167,7 +191,8 @@ public class TransactionList {
         if (!(category.isBlank() || category.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setCategory(category);
         }
-        ui.printMessage("Edited details:\n" + expLists.get(expNum - ONE_INDEX).getDetails());
+        ui.printMessage("Edited details of the specified expenditure:");
+        printOneExpenditure(expLists.get(expNum - ONE_INDEX), ui);
         return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
@@ -199,7 +224,8 @@ public class TransactionList {
                 throw new TransactionException(e.toString());
             }
         }
-        ui.printMessage("Edited details:\n" + expLists.get(expNum - 1).getDetails());
+        ui.printMessage("Edited details of the specified deposits:");
+        printOneExpenditure(expLists.get(expNum - ONE_INDEX), ui);
         return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
@@ -233,7 +259,8 @@ public class TransactionList {
     public double deleteDepositFromList(int index, Ui ui) {
         Transaction temp = expLists.get(index - ONE_INDEX);
         expLists.remove(index - ONE_INDEX);
-        ui.printMessage("Deposit deleted:\n" + temp.getDetails());
+        ui.printMessage("Details of deleted deposit:");
+        printOneExpenditure(temp, ui);
         return temp.getAmount();
     }
 
@@ -258,5 +285,19 @@ public class TransactionList {
         } else {
             throw new TransactionException("Index is out of transaction list range");
         }
+    }
+
+    /**
+     * Prints expenditure details.
+     *
+     * @param expenditure The expenditure object to be printed.
+     * @param ui          The object use for printing.
+     */
+    private void printOneExpenditure(Transaction expenditure, Ui ui) {
+        ui.printExpenditureHeader(ITEMTYPE);
+        ui.printExpenditure((ONE_INDEX), expenditure.getDescription(),
+                (expenditure.checkDebitCredit() + new DecimalFormat("0.00").
+                        format(expenditure.getAmount())), expenditure.getDate(), expenditure.getCategory());
+        ui.printDivider();
     }
 }

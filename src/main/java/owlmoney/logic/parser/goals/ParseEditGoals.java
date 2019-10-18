@@ -53,8 +53,8 @@ public class ParseEditGoals extends ParseGoals {
 
     /**
      * Returns command to execute editing of goals.
-     * @return EditGoalsCommand to be executed.
      *
+     * @return EditGoalsCommand to be executed.
      */
     @Override
     public Command getCommand() {
