@@ -5,7 +5,6 @@ import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 
 

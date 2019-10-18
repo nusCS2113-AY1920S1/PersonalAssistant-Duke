@@ -38,7 +38,7 @@ public class LogicManager {
         CommandResult cmdResult = command.commandExecute(tasklist);
         uiUtil.printg(cmdResult.feedbackToUser);
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
-            Runtime.getRuntime().exit(0);
+            System.exit(0);
         }
 
     }
