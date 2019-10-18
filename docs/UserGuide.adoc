@@ -101,7 +101,7 @@ image::Ui.png[width="970"]
 endif::[]
 +
 . As this is your first time starting up this program, you have to create a profile by
-typing your *USER NAME* when prompted and pressing kbd:[Enter]
+typing your `USERNAME` *(e.g. John)* when prompted and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
@@ -310,7 +310,7 @@ Closed your savings bank account? You can reflect it on `OwlMoney` as well!
 
 [WARNING]
 ====
-All transactions related to the bank account will be deleted.
+All transactions (e.g. expenditures and deposits) related to the savings account will be deleted.
 ====
 
 *Example*
@@ -451,7 +451,7 @@ To find out which recurring expenditure to delete, use the `/list` or `/find` fu
 
 *Example*
 
-* `/edit /deposit /from JunBank Savings Account /transno 11`
+* `/delete /deposit /from JunBank Savings Account /transno 11`
 
 Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
 
@@ -493,11 +493,11 @@ Take note that there is a maximum of *30* character limit.
 Take note that there is a maximum of *30* character limit.
 
 | `BOND_RATE`
-| Indicates the coupon rate of the investment bond.
+| Indicates the coupon rate of the investment bond in percentage.
 
 (e.g. 1.92)
 
-| `BOND_RATE` should contain only digits up to *2* decimal places with a maximum of *99.99%*.
+| `BOND_RATE` should contain only digits up to *2* decimal places with a maximum of *99.99*.
 
 | `DATE`
 | Indicates the date the bond was purchased.
@@ -569,7 +569,7 @@ You can also close your investment bank account on `OwlMoney` as well!
 
 [WARNING]
 ====
-All transactions related to the bank account will be deleted.
+All transactions (e.g. bonds) related to the investment bank account will be deleted.
 ====
 
 *Example*
@@ -651,11 +651,11 @@ Take note that there is a maximum of *30* character limit.
 | `CARD_LIMIT` should contain only digits and up to *2* decimal places and a maximum of *9* digits.
 
 | `CASHBACK_RATE`
-| Indicates the cash back returns rate of the credit card.
+| Indicates the cash back returns rate of the credit card in percentage.
 
 (e.g. 3.1)
 
-| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of *20%*
+| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of *20.00*
 
 | `AMOUNT`
 | Indicates the amount of money.
@@ -751,7 +751,7 @@ Cancelled your credit card as well, you can delete them here too!
 
 [WARNING]
 ====
-All transactions related to the credit card will be deleted.
+All transactions (e.g. expenditures) related to the credit card will be deleted.
 ====
 
 *Example*
@@ -919,6 +919,7 @@ Changes the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
 
 ===== Deleting financial goals `/delete /goals`
 
+Are your goals not relevant to you anymore? +
 Achieved your goals? You can safely delete them!
 
 *Command Syntax*
@@ -1111,7 +1112,207 @@ saved automatically in the `data` directory.
 This section provides a quick references for all commands available in *OwlMoney*.
 
 === General Commands
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *help*
+| Displays general commands to get users started
+| `/help`
+| `/help`
+
+| *Undo*
+| Undo your previous action
+| `/undo`
+| `/undo`
+
+| *Exit*
+| Exits the application
+| `/exit`
+| `/exit`
+|======
+
+
+
+
 
 === Detailed Management Commands
+==== Savings Account Management
+
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *Adding savings bank account*
+| Add a new savings bank account to the  user's profile.
+| `/add /savings /name ACCOUNT_NAME /amount AMOUNT /income INCOME`
+| `/add /savings /name JunBank Savings Account /amount 218.90 /income 2000`
+
+| *Editing savings bank account*
+| Edit the savings bank account's details based on the new details given.
+| `/edit /savings /name ACCOUNT_NAME [/newname ACCOUNT_NAME] [/amount AMOUNT] [/income INCOME]`
+| `/edit /savings /name JunBank Savings Account /newname JulyBank Savings Account`
+
+| *Deleting savings bank account*
+| Delete an existing savings bank account from the user's profile.
+| `/delete /savings /name ACCOUNT_NAME`
+| `/delete /savings /name JunBank Savings Account`
+
+| *Adding expenditures for savings bank account*
+| Add a new expenditure record to the savings bank account specified.
+| `/add /bankexpenditure /amount AMOUNT /from ACCOUNT_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
+| `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category
+Dining`
+
+| *Editing expenditures for savings bank account*
+| Edit an existing expenditure record tied to the savings bank account based on the new details given.
+| `/edit /bankexpenditure /from ACCOUNT_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT] [/date DATE]`
+| `/edit /bankexpenditure /from JunBank Savings Account /transno 2 /desc Uniwlo Shirt`
+
+| *Deleting expenditures for savings bank account*
+| Delete an existing expenditure record tied to the savings bank account.
+| `/delete /bankexpenditure /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
+| `/delete /expenditure /from /JunBank Savings Account /transno 1`
+
+| *Adding deposit for savings bank account*
+| Add a new deposit record to the savings bank account.
+| `/add /deposit /to ACCOUNT_NAME /amount AMOUNT /desc DESCRIPTION /date DATE`
+| `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
+
+| *Editing deposit for savings bank account*
+|  Edit an existing deposit record tied to the savings bank account based on the new details given.
+| `/edit /deposit /from ACCOUNT_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/amount AMOUNT] [/date DATE]`
+| `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
+
+| *Deleting deposit for savings bank account*
+| Delete an existing deposit record tied to the savings bank account.
+| `/delete /deposit /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
+| `/delete /deposit /from JunBank Savings Account /transno 11`
+
+|======
+
+
+
+
+
+==== Savings Account Management
+
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *Adding investment bank account*
+| Add a new investment bank account to the user's profile.
+| `/add /investment /name ACCOUNT_NAME /amount AMOUNT`
+| `/add /investment /name DBB Vickers Account /amount 10000`
+
+| *Editing investment bank account*
+| Edit the investment bank account's details based on the new details given.
+| `/edit /investment /name ACCOUNT_NAME [/newname ACCOUNT_NAME] [/amount AMOUNT]`
+| `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account`
+
+| *Deleting investment bank account*
+| Delete an investment bank account from the user's profile.
+| `/delete /investment /name ACCOUNT_NAME`
+| `/delete /investment /name DBB Vickers Account`
+
+| *Adding investment bonds for investment bank account*
+| Add an investment bond to the investment bank account specified.
+| `/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /years YEARS`
+| `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
+
+| *Editing investment bonds for investment bank account*
+| Edit an investment bond tied to the investment bank account specified based on the new details given.
+| `/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate BOND_RATE]`
+| `/edit /bonds /from DBB Vickers Account /name June SSB /amount 5000 /rate 1.98`
+
+| *Deleting investment bonds for investment bank account*
+| Delete an investment bond tied to the investment bank account specified.
+| `/delete /bonds /from ACCOUNT_NAME /name BOND_NAME`
+| `/delete /bonds /from DBB Vickers Account /name June SSB`
+
+|======
+
+
+
+
+
+==== Credit Card Management
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *Adding credit card*
+| Add a new credit card to the user's profile.
+| `/add /card /name CARD_NAME /limit CARD_LIMIT /rebate CASHBACK_RATE`
+| `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5`
+
+| *Editing credit card*
+| Edit the credit card's details based on the new details given.
+| `/edit /card /name CARD_NAME [/newname CARD_NAME] [/amount AMOUNT] [/rebate CASHBACK_RATE]`
+| `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
+
+| *Deleting credit card*
+| Delete a credit card from the user's profile.
+| `/delete /card /name CARD_NAME`
+| `/delete /card /name POBB Tomorrow Card`
+
+| *Adding expenditures for credit card*
+| Add an expenditure record to the credit card specified.
+| `/add /cardexpenditure /amount AMOUNT /from CARD_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
+| `/add /cardexpenditure /amount 1.20 /from MYCARD /date 28/09/2019 /desc bubble tea /category Dining`
+
+| *Editing expenditures for credit card*
+| Edit an expenditure record tied to the credit card specified based on the new details given.
+| `/edit /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT] [/date DATE]`
+| `/edit /cardexpenditure /from MYCARD /transno 2 /desc Uniwlo Shirt`
+
+| *Deleting expenditures for credit card*
+| Delete an expenditure record tied to the credit card specified.
+| `/delete /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER`
+| `/delete /cardexpenditure /from /MYCARD /transno 1`
+
+|======
+
+
+
+
+
+==== Financial Goal Management
+
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *Adding financial goals*
+| Add a new financial goal to the user's profile.
+| `/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+
+| `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
+
+| *Editing financial goals*
+| Edit the financial goal's details based on the new details given.
+| `/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+| `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
+
+| *Deleting financial goals*
+| Delete a financial goal from the user's profile.
+| `/delete /goals /name GOAL_NAME`
+| `/delete /goals /name BTO at Punggol Downpayment`
+
+|======
+
+
+
+
+
+==== Profile Management
+
+|======
+|*Task*| *Purpose* | *Command Format* | *Example*
+| *Editing profile details*
+| Edit the profile details based on the new details given.
+| `/edit /profile /newname NAME`
+| `/edit /profile /newname JUNNY`
+
+|======
+
+
+
+
 
 === Utility Commands
