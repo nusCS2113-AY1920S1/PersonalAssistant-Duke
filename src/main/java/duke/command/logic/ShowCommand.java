@@ -78,6 +78,7 @@ public class ShowCommand extends ModuleCommand {
                         count++;
                     }
                 }
+                break;
             }
 
             case ("ge"): {
@@ -106,6 +107,7 @@ public class ShowCommand extends ModuleCommand {
                         count++;
                     }
                 }
+                break;
             }
 
             case "module":

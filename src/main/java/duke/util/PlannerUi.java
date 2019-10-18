@@ -181,7 +181,6 @@ public class PlannerUi {
 
     /**
      * Sorts by ascending order and prints to the users.
-     * @param mods Sorted list of object
      */
     public void showSorted(List<?> list) {
         showLine();
