@@ -5,7 +5,6 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
