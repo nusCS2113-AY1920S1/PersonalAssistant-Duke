@@ -19,10 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UiManager implements Ui {
-    private UiParts uiParts;
+    private UiUtil uiUtil;
 
-    public UiManager(UiParts uiParts) {
-        this.uiParts = uiParts;
+    public UiManager(UiUtil uiUtil) {
+        this.uiUtil = uiUtil;
     }
 
 
@@ -35,7 +35,7 @@ public class UiManager implements Ui {
             AnchorPane ap = fxmlLoader.load();
 
             TabPane tabReference = (TabPane) ap.getChildren().get(2);
-            uiParts.setTabWindow(tabReference);
+            uiUtil.setTabWindow(tabReference);
 
             //Create MainWindow Pane
             VBox root = new VBox();
@@ -58,8 +58,8 @@ public class UiManager implements Ui {
              dailyTab.setContent(dailyPane);
              tabReference.getTabs().add(1, dailyTab);**/
 
-            uiParts.setMainWindow(mainPane);
-            uiParts.setSecondaryWindow(((ScrollPane) ap.getChildren().get(3)));  //get reference to secondary viewport
+            uiUtil.setMainWindow(mainPane);
+            uiUtil.setSecondaryWindow(((ScrollPane) ap.getChildren().get(3)));  //get reference to secondary viewport
             Scene s1 = new Scene(ap);
 
             //Sets up primary stage --------------------------------------------------------------->
@@ -82,9 +82,6 @@ public class UiManager implements Ui {
             fxmlLoader.<MainWindow>getController();
 
             primaryStage.show();
-
-            //uiParts.printg("HI WORKING?");
-            //userName.checkInit();
 
         } catch (IOException e) {
             e.printStackTrace();

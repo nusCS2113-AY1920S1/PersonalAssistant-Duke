@@ -2,7 +2,7 @@ package compal;
 
 import compal.ui.Ui;
 import compal.ui.UiManager;
-import compal.ui.UiParts;
+import compal.ui.UiUtil;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,15 +12,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Ui ui;
-    private UiParts uiParts;
+    private UiUtil uiUtil;
 
 
     /**
      * Constructs a new Main object.
      */
     public Main() {
-        this.uiParts = new UiParts();
-        this.ui = new UiManager(uiParts);
+        this.uiUtil = new UiUtil();
+        this.ui = new UiManager(uiUtil);
     }
 
     public static void main(String[] args) {
