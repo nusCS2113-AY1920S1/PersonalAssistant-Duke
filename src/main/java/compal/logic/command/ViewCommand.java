@@ -13,8 +13,7 @@ import java.util.Comparator;
  * The ListCommand Class handles all list commands.
  */
 public class ViewCommand extends Command {
-    private static final String LIST_PREFIX = "Here are the tasks in your list: \n";
-    String[] viewargs;
+    private String[] viewargs;
 
     public ViewCommand(String[] viewArgs) {
         super();
@@ -25,13 +24,13 @@ public class ViewCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) {
         Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
         ArrayList<Task> currList = taskList.getArrList();
-        Collections.sort(currList, compareByDateTime);
+        currList.sort(compareByDateTime);
 
         String viewType = viewargs[0];
         String dateInput = viewargs[1];
 
         String[] dateParts = dateInput.split("/");
-        String day = dateParts[0];
+        //String day = dateParts[0];
         int month = Integer.parseInt(dateParts[1]);
         int year = Integer.parseInt(dateParts[2]);
 
@@ -55,8 +54,8 @@ public class ViewCommand extends Command {
         String[] months = {"", "January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"};
 
-        String monthlyTask = "Here are your task for the month of "
-                + months[givenMonth] + " " + givenYear + " :\n";
+        StringBuilder monthlyTask = new StringBuilder("Here are your task for the month of "
+                + months[givenMonth] + " " + givenYear + " :\n");
 
         Calendar cal = Calendar.getInstance();
         for (Task t : currList) {
@@ -71,21 +70,21 @@ public class ViewCommand extends Command {
 
             if (taskMonth == givenMonth && taskYear == givenYear) {
                 String taskString = t.toString() + "\n";
-                monthlyTask += taskString;
+                monthlyTask.append(taskString);
             }
         }
-        return monthlyTask;
+        return monthlyTask.toString();
     }
 
     private String displayDayView(String dateInput, ArrayList<Task> currList) {
-        String dailyTask = "Here are your task for the day of " + dateInput + " :\n";
+        StringBuilder dailyTask = new StringBuilder("Here are your task for the day of " + dateInput + " :\n");
 
         for (Task t : currList) {
             if (t.getStringDate().equals(dateInput)) {
                 String taskString = t.toString() + "\n";
-                dailyTask += taskString;
+                dailyTask.append(taskString);
             }
         }
-        return dailyTask;
+        return dailyTask.toString();
     }
 }

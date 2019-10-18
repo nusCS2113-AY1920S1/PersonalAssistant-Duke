@@ -12,14 +12,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Ui ui;
-    private UiUtil uiUtil;
 
 
     /**
      * Constructs a new Main object.
      */
     public Main() {
-        this.uiUtil = new UiUtil();
+        UiUtil uiUtil = new UiUtil();
         this.ui = new UiManager(uiUtil);
     }
 
@@ -31,11 +30,9 @@ public class Main extends Application {
      * Initializes and sets up the GUI.
      *
      * @param primaryStage The stage for GUI.
-     * @throws Exception If there is GUI problems.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        //UI start
+    public void start(Stage primaryStage) {
         ui.start(primaryStage);
     }
 }

@@ -17,7 +17,6 @@ public class LogicManager {
     public static final String BYE_TOKEN = "bye.";
     private final UiUtil uiUtil;
 
-    private Messages messages;
     private ParserManager parserManager;
 
 
@@ -26,7 +25,6 @@ public class LogicManager {
      */
     public LogicManager() {
         this.parserManager = new ParserManager();
-        this.messages = new Messages();
         this.uiUtil = new UiUtil();
     }
 
@@ -40,7 +38,7 @@ public class LogicManager {
         CommandResult cmdResult = command.commandExecute(tasklist);
         uiUtil.printg(cmdResult.feedbackToUser);
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
-            System.exit(0);
+            Runtime.getRuntime().exit(0);
         }
 
     }
