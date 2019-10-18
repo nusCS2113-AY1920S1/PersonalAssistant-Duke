@@ -140,12 +140,17 @@ public class Note {
     public String toString() {
         String pitchString = pitch.name();
         String result = pitchString.substring(0,1);
+        //System.out.print(pitchString.length());
         if (!pitchString.substring(pitchString.length() - 1).equals("T")) {
-            result += result.substring(pitchString.length() - 1);
+            //System.out.print(pitchString);
+            result += pitchString.substring(pitchString.length() - 1);
         }
+
         if (isStart()) {
             result += "s";
         }
+
+
         return result;
     }
 }

@@ -108,7 +108,7 @@ public class Song {
         for (String chordString: songChart) {
             formattedChart1.append(chordString).append(" ");
         }
-        System.out.println(formattedChart1.toString());
+        //System.out.println(formattedChart1.toString());
         //System.out.println(this.getBars().get(0).getChords().get(0).getNotes().get(0).getPitch());
         //return formattedChart1.toString();
 
@@ -121,17 +121,17 @@ public class Song {
             Bar barToAnalyse = iterator1.next();
             ArrayList<Chord> chordToAnalyse  =  barToAnalyse.getChords();
             Iterator<Chord> iterator = chordToAnalyse.iterator();
-            System.out.println(chordToAnalyse.size());
+            //System.out.println(chordToAnalyse.size());
             int j = 0;
             while (iterator.hasNext() && j < chordToAnalyse.size() / 2) {
                 formattedChart.append("{");
                 Chord tempChordToAnalyse = iterator.next();
                 ArrayList<Note> notesAnalyse  =  tempChordToAnalyse.getNotes();
-                System.out.print(notesAnalyse.size());
+                //System.out.print(notesAnalyse.size());
                 Iterator<Note> iterator2 = notesAnalyse.iterator();
                 while (iterator2.hasNext()) {
                     Note tempNote = iterator2.next();
-                    System.out.println("hello");
+                    //System.out.println("hello");
                     formattedChart.append(tempNote.getPitch());
                     formattedChart.append(" ");
                 }

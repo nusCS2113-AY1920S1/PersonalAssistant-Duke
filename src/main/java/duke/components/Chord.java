@@ -54,12 +54,15 @@ public class Chord {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("[");
+
         for (int i = 0; i < notes.size(); i++) {
             result.append(notes.get(i).toString());
             if (i != notes.size() - 1) {
                 result.append(";");
             }
         }
+
+
         return result.toString();
     }
 

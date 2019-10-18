@@ -91,11 +91,15 @@ public class Bar {
      * @return a storage-friendly String representation
      */
     public String toString() {
+
         StringBuilder result = new StringBuilder();
         result.append("[").toString();
+
         for (Chord chord: chords) {
             result.append(chord.toString()).append(",");
         }
+
+
         result.append("]");
         return result.toString();
     }
