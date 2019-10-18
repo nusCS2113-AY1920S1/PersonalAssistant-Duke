@@ -35,7 +35,7 @@ public class LogicManager {
      * command object to carry out the user's aim.
      */
     public void logicExecute(String fullCommand, TaskList tasklist) throws CommandException, ParserException {
-
+        uiUtil.clearPrimary();
         Command command = parserManager.processCmd(fullCommand);
         CommandResult cmdResult = command.commandExecute(tasklist);
         uiUtil.printg(cmdResult.feedbackToUser);
