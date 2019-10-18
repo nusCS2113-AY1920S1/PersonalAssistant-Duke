@@ -6,9 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 
 /**
  * Controller for JavaFX.MainWindow. Provides the layout for the other controls.
@@ -28,10 +28,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-
-    //Images are in jpg, not png, but this can be changed...
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpg"));
 
     @FXML
     public void initialize() {
@@ -71,7 +67,7 @@ public class MainWindow extends AnchorPane {
         welcome += greeting;
 
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(welcome, dukeImage)
+                DialogBox.getDukeDialog(welcome)
         );
     }
 
@@ -86,10 +82,21 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.run(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input),
+                DialogBox.getDukeDialog(response)
         );
 
+        //If user wants to end program, create a separate thread with a timer to shutdown
+        if (input.equals("bye")) {
+            // delay & exit on other thread
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                }
+                System.exit(0);
+            }).start();
+        }
         userInput.clear();
     }
 }

@@ -7,6 +7,7 @@ import command.ModCommand;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
@@ -14,7 +15,9 @@ import ui.UI;
 import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
@@ -29,12 +32,23 @@ import java.util.Scanner;
  */
 public class Duke extends Application {
 
+
     private TaskList myList;
     private Storage storage;
     private UI ui;
     private Parser parse;
     private DegreeList lists;
     private CommandList commandList;
+    private DegreeListStorage degreeListStorage;
+    private static ArrayList<String> mydegrees = new ArrayList<>();
+
+    public Duke() {
+
+    }
+
+    public static ArrayList<String> getTasks() {
+        return mydegrees;
+    }
 
 
     /**
@@ -54,6 +68,8 @@ public class Duke extends Application {
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.load());
+            DegreeListStorage degreeListStorage = new DegreeListStorage();
+            degreeListStorage.ReadFile();
         } catch (DukeException e) {
             ui.showLoadingError();
             myList = new TaskList();
@@ -82,7 +98,7 @@ public class Duke extends Application {
      * @return
      */
     //method output initial reading of save file
-    public String run(String line) throws DukeException{
+    public String run(String line) throws DukeException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         // IMPORTANT: Save the old System.out!
@@ -91,11 +107,11 @@ public class Duke extends Application {
         System.setOut(ps);
         //ui.showWelcome();
         boolean isExit = false;
-        //while(!isExit) {
+        //while(!this.isExit) {
+        Command c;
         try {
             //String line = ui.readCommand();
             ui.showLine();
-            Command c;
             Scanner temp = new Scanner(line);
             if (!temp.hasNext()) {
                 throw new DukeException("Empty Command!");
@@ -132,8 +148,9 @@ public class Duke extends Application {
             System.setOut(old);
             // Show what happened
             System.out.println(output.toString());
-            return output.toString();
+
         }
+        return output.toString();
     }
 
     private void run() {
@@ -152,7 +169,6 @@ public class Duke extends Application {
                 ui.showLine();
             }
         }
-        return;
     }
 
     /**
