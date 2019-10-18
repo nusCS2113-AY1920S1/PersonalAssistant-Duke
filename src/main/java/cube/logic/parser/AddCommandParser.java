@@ -40,7 +40,7 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 			}
 		}
 		if (foodNameIndex == -1) {
-			throw new CubeException("Not enough parameter. Please enter food name.");
+			throw new CubeException("Not enough parameters. Please enter food name.");
 		}
 		Food tempFood = new Food(findFullString(args,foodNameIndex));
 		if (foodTypeIndex != -1) {
@@ -53,7 +53,7 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 			tempFood.setStock(Integer.parseInt(args[stockIndex+1]));
 		}
 		if (expiryDateIndex != -1) {
-			tempFood.setExpiryDate(parseStringToDate(args[priceIndex+1]));
+			tempFood.setExpiryDate(parseStringToDate(args[expiryDateIndex+1]));
 		}
 		return new AddCommand(tempFood);
 	}

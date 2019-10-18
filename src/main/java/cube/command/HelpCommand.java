@@ -26,7 +26,7 @@ public class HelpCommand implements Command{
 	 *
 	 * @param tasks the list of tasks.
 	 * @param ui the user interface to output message.
-	 * @param storage storage of Duke.
+	 * @param storage storage of Cube.
 	 */
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) {

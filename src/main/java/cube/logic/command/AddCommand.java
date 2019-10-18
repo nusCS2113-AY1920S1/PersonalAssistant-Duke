@@ -15,7 +15,7 @@ public class AddCommand extends Command{
 	}
 
 	private void checkValid(FoodList list) throws CommandException {
-		if (list.exists(toAdd)) {
+		if (list.exists(toAdd.getName())) {
 			throw new CommandException(Message.FOOD_ALREADY_EXISTS);
 		}
 	}

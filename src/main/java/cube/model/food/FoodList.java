@@ -46,8 +46,13 @@ public class FoodList {
 		foodArrayList.remove(index);
 	}
 
-	public boolean exists(Food food) {
-		return foodArrayList.contains(food);
+	public boolean exists(String foodName) {
+		for(Food food : foodArrayList) {
+			if (food.getName().equals(foodName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int size() {
