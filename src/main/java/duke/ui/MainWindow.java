@@ -1,11 +1,11 @@
 package duke.ui;
 
 import duke.Main;
-import duke.commands.results.CommandResult;
-import duke.commands.results.CommandResultCalender;
-import duke.commands.results.CommandResultExit;
-import duke.commands.results.CommandResultImage;
-import duke.commands.results.CommandResultMap;
+import duke.logic.commands.results.CommandResult;
+import duke.logic.commands.results.CommandResultCalender;
+import duke.logic.commands.results.CommandResultExit;
+import duke.logic.commands.results.CommandResultImage;
+import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 

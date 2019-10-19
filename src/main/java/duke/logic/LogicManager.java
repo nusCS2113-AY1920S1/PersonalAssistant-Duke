@@ -1,7 +1,7 @@
 package duke.logic;
 
-import duke.commands.Command;
-import duke.commands.results.CommandResult;
+import duke.logic.commands.Command;
+import duke.logic.commands.results.CommandResult;
 import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
