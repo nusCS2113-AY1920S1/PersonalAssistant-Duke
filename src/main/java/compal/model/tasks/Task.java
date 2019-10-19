@@ -3,6 +3,7 @@ package compal.model.tasks;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -80,12 +81,21 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Gets status icon (tick or cross) of task.
+     * Gets status icon (tick or cross) of task in String.
      *
      * @return Status icon (tick or cross) of task.
      */
-    public String getisDone() {
+    public String getStringisDone() {
         return (isDone ? "true" : "false");
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task in Boolean.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public Boolean getisDone() {
+        return (isDone ? true : false);
     }
 
     /**
@@ -93,7 +103,16 @@ public abstract class Task implements Serializable {
      *
      * @return Status icon (tick or cross) of task.
      */
-    public String gethasReminder() {
+    public Boolean gethasReminder() {
+        return (hasReminder ? true : false);
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public String getStringhasReminder() {
         return (hasReminder ? "true" : "false");
     }
 
@@ -244,10 +263,10 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets HasReminder as true.
+     * Sets HasReminder.
      */
-    public void setHasReminder() {
-        this.hasReminder = true;
+    public void setHasReminder(Boolean status) {
+        this.hasReminder = status;
     }
 
     /**
@@ -294,7 +313,7 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getDescription());
         list.append("_");
-        list.append(getisDone());
+        list.append(getStringisDone());
         list.append("_");
         list.append(getPriority().toString());
         list.append("_");
@@ -304,7 +323,7 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringEndTime());
         list.append("_");
-        list.append(gethasReminder());
+        list.append(getStringhasReminder());
         return list.toString();
     }
 
@@ -346,7 +365,14 @@ public abstract class Task implements Serializable {
      * @return date end time
      */
     public Date getEndTime() {
-        return endTime;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String endTime = getStringEndTime();
+        int hour = Integer.parseInt(endTime.substring(0, 2));
+        int min = Integer.parseInt(endTime.substring(2, 4));
+        calendar.set(Calendar.HOUR, hour);
+        calendar.set(Calendar.MINUTE, min);
+        return calendar.getTime();
     }
 
     /**

@@ -72,7 +72,7 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
                     t.markAsDone();
                 }
                 if (parts[8].equals("true")) {
-                    t.setHasReminder();
+                    t.setHasReminder(true);
                 }
 
                 //set task id
