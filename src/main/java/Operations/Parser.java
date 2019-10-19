@@ -25,14 +25,18 @@ public class Parser {
     }
 
     /**
-     * Returns the command that the user has given Duke.
-     * @return command The command given by the user to Duke.
+     * Returns the command that the user has given RoomShare
+     * @return command The command given by the user to RoomShare
      */
     public String getCommand() {
         String command = scanner.next().toLowerCase().trim();
         return command;
     }
 
+    /**
+     * Return the line of command that the user has given Duke
+     * @return command The line of command given by the user to RoomShare
+     */
     public String getCommandLine() {
         String command = scanner.nextLine().toLowerCase().trim();
         return command;

@@ -105,7 +105,7 @@ public class RoomShare {
                 }
                 break;
 
-             case restore:
+            case restore:
                 int restoreIndex = parser.getIndex();
                 tempDeleteList.restore(restoreIndex, taskList);
                 break;

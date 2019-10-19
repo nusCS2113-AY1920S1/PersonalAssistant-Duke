@@ -79,7 +79,7 @@ public class TaskList {
                 listCount += 1;
             }
         } else {
-            throw new RoomShareException(ExceptionType.emptylist);
+            throw new RoomShareException(ExceptionType.emptyList);
         }
     }
 
@@ -176,6 +176,11 @@ public class TaskList {
         tasks.sort(Comparator.comparingInt(this::getValue));
     }
 
+    /**
+     * Reorder the positions of two tasks inside the task list
+     * @param first the first task
+     * @param second the second task
+     */
     public void reorder(int first, int second) {
         Collections.swap(tasks, first, second);
     }
@@ -187,42 +192,19 @@ public class TaskList {
      * @param timeUnit unit for snooze time: month, day, hour, minute
      */
     public void snooze (int index, int amount, TimeUnit timeUnit){
-
-        if (tasks.get(index) instanceof Meeting) {
-            Meeting meetingToSnooze = (Meeting) tasks.get(index);
-            switch (timeUnit) {
-            case month:
-                meetingToSnooze.snoozeMonth(amount);
-                break;
-            case day:
-                meetingToSnooze.snoozeDay(amount);
-                break;
-            case hours:
-                meetingToSnooze.snoozeHour(amount);
-                break;
-            case minutes:
-                meetingToSnooze.snoozeMinute(amount);
-                break;
-            }
-        }
-
-        if (tasks.get(index) instanceof Assignment) {
-            Assignment assignmentToSnooze = (Assignment) tasks.get(index);
-            switch (timeUnit) {
-            case month:
-                assignmentToSnooze.snoozeMonth(amount);
-                break;
-            case day:
-                assignmentToSnooze.snoozeDay(amount);
-                break;
-            case hours:
-                assignmentToSnooze.snoozeHour(amount);
-                break;
-            case minutes:
-                assignmentToSnooze.snoozeMinute(amount);
-                break;
-            }
+        switch (timeUnit) {
+        case month:
+            tasks.get(index).snoozeMonth(amount);
+            break;
+        case day:
+            tasks.get(index).snoozeDay(amount);
+            break;
+        case hours:
+            tasks.get(index).snoozeHour(amount);
+            break;
+        case minutes:
+            tasks.get(index).snoozeMinute(amount);
+            break;
         }
     }
-
 }
