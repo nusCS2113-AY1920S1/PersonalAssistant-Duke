@@ -82,6 +82,25 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 This will generate all resources required by the application and tests.
 
 == Design
+=== Architecture
+.Architecture Diagram
+image::architecture.png[width="500"]
+
+=== Model
+.Model Diagram
+image::model.png[width="600"]
+
+=== Storage
+.Storage Diagram
+image::storage.png[width="600"]
+
+=== Logic
+.Logic Diagram
+image::logic.png[width="600"]
+
+=== Ui
+.Ui Diagram
+image::[width="600"]
 
 == Implementation
 
