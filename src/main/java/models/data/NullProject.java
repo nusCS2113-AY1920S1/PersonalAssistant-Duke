@@ -98,14 +98,14 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public void assignTaskToMembers(Task task, Member member) {
+    public void addTaskToMemberTaskList(Task task, Member member) {
         /*
         Empty method
          */
     }
 
     @Override
-    public void assignMemberToTasks(Member member, Task task) {
+    public void assignMemberToTask(Member member, Task task) {
         /*
         Empty method
          */

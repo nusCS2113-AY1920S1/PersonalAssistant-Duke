@@ -12,8 +12,8 @@ public class Project implements IProject {
     private String description;
     private MemberList memberList;
     private TaskList taskList;
-    private HashMap<Task, ArrayList<Member>> tasksAssignedToMembers;
-    private HashMap<Member,ArrayList<Task>> membersAssignedToTask;
+    private HashMap<Task, ArrayList<Member>> tasksAssignedToMembers; //member_individualTaskList
+    private HashMap<Member, ArrayList<Task>> membersAssignedToTask; //task_membersAssigned
 
     /**
      * Class representing a task in a project.
@@ -110,12 +110,13 @@ public class Project implements IProject {
     }
 
     /**
-     * This method assign task to a list of member.
-     * @param task the task which you wish to assign to the member
+     * This method assigns a task to a member by adding the task to a member's individual
+     * task list - tasksAssignedToMembers.
+     * @param task the task which you wish to assign to the member.
      * @param member the member you wish to assign the task to.
      */
     @Override
-    public void assignTaskToMembers(Task task, Member member) {
+    public void addTaskToMemberTaskList(Task task, Member member) {
         if (tasksAssignedToMembers.containsKey(task)) {
             tasksAssignedToMembers.get(task).add(member);
         } else {
@@ -123,15 +124,17 @@ public class Project implements IProject {
             memberList.add(member);
             tasksAssignedToMembers.put(task,memberList);
         }
+        assignMemberToTask(member, task);
     }
 
     /**
-     * This method assign member to a list of task.
+     * Adds an assignment by establishing a link between a task and a member.
+     * This method adds a member to the list of members working on a particular task.
      * @param member the member which you wish to assign to a task.
-     * @param task the task you wish to assign the member to.
+     * @param task the particular task of interest.
      */
     @Override
-    public void assignMemberToTasks(Member member, Task task) {
+    public void assignMemberToTask(Member member, Task task) {
         if (membersAssignedToTask.containsKey(member)) {
             membersAssignedToTask.get(member).add(task);
         } else {
@@ -142,11 +145,10 @@ public class Project implements IProject {
     }
 
     /**
-     * This method is used when a task is removed.
-     * This removes the task from the taskToMembers and memberToTasks.
-     * @param task to  be remove from the HashMap
+     * Removes a task from a member's individual task list.
+     * @param task to be removed from an individual's task list.
      */
-    public void removeTaskToMembers(Task task) {
+    public void removeTaskFromMembers(Task task) {
         ArrayList<Member> listOfMember = tasksAssignedToMembers.get(task);
         for (Member member: listOfMember) {
             membersAssignedToTask.get(member).remove(task);
@@ -165,5 +167,15 @@ public class Project implements IProject {
             tasksAssignedToMembers.get(task).remove(member);
         }
         membersAssignedToTask.remove(member);
+    }
+
+    /**
+     * Removes the assignment
+     * @param member
+     * @param task
+     */
+    public void unassignMemberFromTask(Member member, Task task) {
+        tasksAssignedToMembers.get(member).remove(task);
+        membersAssignedToTask.get(task).remove(member);
     }
 }

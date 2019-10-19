@@ -62,9 +62,9 @@ class TaskAssignmentTest {
     void testManageAssignment() {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
-        project.assignTaskToMembers(project.getTask(1),member1);
-        project.assignTaskToMembers(project.getTask(1),member2);
-        project.assignTaskToMembers(project.getTask(1),member3);
+        project.addTaskToMemberTaskList(project.getTask(1),member1);
+        project.addTaskToMemberTaskList(project.getTask(1),member2);
+        project.addTaskToMemberTaskList(project.getTask(1),member3);
         assertEquals("[Test task is assigned to: , Tom, Dick, Harry]", project.getAssignedTaskList().toString());
         /* assertEquals(0, projectInputController.getUnassigneesIndex().size());
         assertEquals(2,
