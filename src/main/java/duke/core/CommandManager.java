@@ -28,6 +28,12 @@ public class CommandManager {
      */
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
+        String possibleCommand = TypoCorrector.commandCorrection(userInput);
+        if (!possibleCommand.equals(userInput)) {
+            if (Ui.getUi().confirmTypoCorrection(possibleCommand, userInput)) {
+                userInput = possibleCommand;
+            }
+        }
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
         Parser parser = new Parser(userInput);
@@ -111,10 +117,6 @@ public class CommandManager {
         case "bye":
             return new ExitCommand();
         default:
-            String possibleCommand = TypoCorrector.commandCorrection(userInput);
-            if (!possibleCommand.equals(userInput)) {
-                throw new DukeException("Could not understand user input. Did you mean: \n" + possibleCommand);
-            }
             throw new DukeException("Could not understand user input");
         }
     }

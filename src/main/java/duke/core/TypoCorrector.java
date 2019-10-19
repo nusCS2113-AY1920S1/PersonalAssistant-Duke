@@ -25,7 +25,8 @@ public class TypoCorrector {
             Arrays.asList("list patients", "list tasks"));
     private static final ArrayList<String> otherCommands = new ArrayList<String>(
             Arrays.asList("update patient", "update task",
-                    "delete patient", "delete task", "add task", "add patient", "assign by"));
+                    "delete patient", "delete task", "add task", "add patient",
+                    "assign by", "find patient", "find task"));
 
     /**
      * This method take in an user input command with typo and return a possible matches
