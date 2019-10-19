@@ -1,16 +1,12 @@
 package Interface;
 import Commands.*;
 import JavaFx.AlertBox;
-import JavaFx.MainWindow;
 import Tasks.*;
 import javafx.scene.control.Alert;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -47,6 +43,8 @@ public class Parser {
         try {
             if (fullCommand.trim().equals("bye")) {
                 return new ByeCommand();
+            }else if(fullCommand.trim().equalsIgnoreCase("help")){
+              return new HelpCommand();
             } else if (fullCommand.trim().substring(0, 4).equals("list")) {
                 try {
                     String list = fullCommand.trim().substring(5);
