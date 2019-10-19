@@ -178,43 +178,43 @@ public class TaskList {
      * Snooze a specific task indicated by user
      * @param index the index of the task to be snoozed
      * @param amount the amount of time to snooze
-     * @param timeUnit unit for snooze time: year, month, day, hour, minute
+     * @param timeUnit unit for snooze time: month, day, hour, minute
      */
     public void snooze (int index, int amount, TimeUnit timeUnit){
 
         if (tasks.get(index) instanceof Meeting) {
             Meeting meetingToSnooze = (Meeting) tasks.get(index);
             switch (timeUnit) {
-                case month:
-                    meetingToSnooze.snoozeMonth(amount);
-                    break;
-                case day:
-                    meetingToSnooze.snoozeDay(amount);
-                    break;
-                case hours:
-                    meetingToSnooze.snoozeHour(amount);
-                    break;
-                case minutes:
-                    meetingToSnooze.snoozeMinute(amount);
-                    break;
+            case month:
+                meetingToSnooze.snoozeMonth(amount);
+                break;
+            case day:
+                meetingToSnooze.snoozeDay(amount);
+                break;
+            case hours:
+                meetingToSnooze.snoozeHour(amount);
+                break;
+            case minutes:
+                meetingToSnooze.snoozeMinute(amount);
+                break;
             }
         }
 
         if (tasks.get(index) instanceof Assignment) {
             Assignment assignmentToSnooze = (Assignment) tasks.get(index);
             switch (timeUnit) {
-                case month:
-                    assignmentToSnooze.snoozeMonth(amount);
-                    break;
-                case day:
-                    assignmentToSnooze.snoozeDay(amount);
-                    break;
-                case hours:
-                    assignmentToSnooze.snoozeHour(amount);
-                    break;
-                case minutes:
-                    assignmentToSnooze.snoozeMinute(amount);
-                    break;
+            case month:
+                assignmentToSnooze.snoozeMonth(amount);
+                break;
+            case day:
+                assignmentToSnooze.snoozeDay(amount);
+                break;
+            case hours:
+                assignmentToSnooze.snoozeHour(amount);
+                break;
+            case minutes:
+                assignmentToSnooze.snoozeMinute(amount);
+                break;
             }
         }
     }
