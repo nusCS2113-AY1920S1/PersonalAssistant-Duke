@@ -5,7 +5,7 @@
 
 # Gradle build files
 /.gradle/
-/build/reports
+/build
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -25,4 +25,3 @@ build/libs/duke-0.1.0.jar
 build/distributions/duke-shadow-0.1.0.zip
 build/libs/mid-v1.1.jar
 /data/testData/
-/build/reports/
