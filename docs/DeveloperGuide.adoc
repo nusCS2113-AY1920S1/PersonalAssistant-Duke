@@ -1,0 +1,420 @@
+= DIYeats - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toclevels: 2
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:warning-caption: :warning:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-4/main
+
+By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+*DIYeats* is an application designed to help NUS students plan out their diet in order to maintain a healthy lifestyle,
+which can often times be a challenging endeavour amidst the intense academic rigour associated with university life.
+
+*DIYeats* utilizes a command line interface, and is compatible with most modern OSes
+(Windows, Macintosh, Linux, Ubuntu). Commands are designed to be simple and intuitive, such that even users who are
+unfamiliar with the command line interface can use it with ease.
+
+*DIYeats* also comes with a GUI wrapper for the command line interface.
+
+To jump to a specific topic immediately, simply click on the topic in the <<toc, Table of Contents>> at the top
+
+To improve the navigability and readability of this developer guide, multiple styles will be used, which will
+include the following:
+
+* User commands and parameters will displayed as: `format`
+* Important keywords will be displayed as: *format*
+* Keyboard buttons will be displayed as: kbd:[format]
+
+
+Additionally, the following annotations will be used throughout this user guide:
+
+[TIP]
+====
+This symbol denotes a tip which you may find useful when using the application.
+====
+[WARNING]
+====
+This symbol denotes a warning which you will need to be careful of when using the application.
+====
+[NOTE]
+====
+This symbol denotes some information or caveats that you will need to take note of when using the application.
+====
+
+== Setting up the project in your computer
+
+=== Software prerequisites
+
+. *JDK 11*
++
+[NOTE]
+Only JDK 11 is officially supported
+. *IntelliJ IDE*
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Project setup
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+== Design
+
+== Implementation
+
+== Documentation
+
+== Testing
+
+== Dev Ops
+
+[appendix]
+== Value Propositions
+
+**Target User Profile:**
+
+NUS Students who are trying to plan their meals for a specific diet goal such as losing weight, maintaining weight, or building muscle.
+
+**Propositions:**
+
+* DIYeats makes it radically easy to maintain and keep track of your daily nutritional intake in a single Command Line Interface (CLI) and Graphical User Interface (GUI).
+* DIYeats lets you set your own weight goal based on your height and your activity level.
+* DIYeats gives you liberty to follow any eating style and create your own customized meals.
+* DIYeats allows you to plan ahead and reduce the food waste due to overshopping groceries.
+* DIYeats plans on integrating all food items in NUS into its database, which can allow it to suggest meals in NUS that would allow the user to meet their nutritional targets.
+* DIYeats elegantly displays the progress of your diet to help you motivate yourself and others.
+* DIYeats saves your effort and efficiently suggest and plan the meals for you.
+
+[appendix]
+== User Stories
+[width="80%",cols="20%,<20%,<30%,<30%",options="header",]
+|=======================================================================
+|Priority |As a... |I want to... |So that I can...
+|HIGH |NUS student |be able to plan my meals ahead |I know beforehand what to eat the next day, amidst my busy schedule
+|HIGH |NUS student |list of dishes and each nutritional value in NUS Canteens| I can make an informed decisions to pick healthier meal
+|HIGH |NUS sportsman |track the amount of nutrition I need to take in a day |I can plan my meal and avoid overeating/undereating
+|HIGH |someone looking to lose weight |track the daily calories intake based on my target body weight |I am able to regulate the amount of food I eat in the day
+|HIGH |unregistered user |create a customized profile of myself (e.g. weight and height)| I don’t have to input the profile every time I open the application
+|HIGH |vegetarian |create a meal plan that does not require meat or dairy product |I could eat healthy with my vegetarian preference
+|MEDIUM |someone who is not great at typing |an autocorrect feature |I don’t input incorrect dish names
+|MEDIUM |forgetful user |remind myself of the available commands in an application |I don’t have to waste my time rustling through user guide
+|MEDIUM |forgetful user |have a way to remind me how much nutrition I have to take to reach the target nutrient intake |I could plan my subsequent meal accordingly
+|MEDIUM |careless user |be able to revert changes done previously |I don’t have to manually revert the changes
+|MEDIUM |efficient user |clear and add multiple meals at once |I don’t have to input the same command multiple times
+|MEDIUM |efficient user |add a recurring meal (every week, biweekly) |I don’t have same command multiple times
+|MEDIUM |cautious user |have a way to detect when a planned meal in the future is higher than the average required intake |I won’t accidentally exceed the quota
+|LOW |someone who appreciates keyboard shortcuts |have a way to recognize short forms of keywords used in the app |I can work faster
+|LOW |someone who likes to motivate people |have a way to print my progress in the past month |I can motivate other people to live healthily
+|LOW |someone likes different themes |have a way to change the color scheme of the application |it is easier to the eyes.
+|LOW |someone likes different themes |have different colors for different tasks |I am able to distinguish between them easily.
+
+
+|=======================================================================
+
+[appendix]
+== Use Cases
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC01 - Customizing User Profile
+
+Main Success Scenario:
+
+. DIYeats detects that user profile has not been specified and prompts for information regarding height, weight, and lifestyle
+
+. Student enters the required information based on his profile
+
+. DIYeats indicates that user profile has been recorded.
+
+Use case ends.
+
+Extensions:
+
+2.1: DIYeats detects an error in the entered data.
+
+2.1.1: DIYeats requests for the correct data.
+
+2.1.2: Student enters new data.
+
+Steps 2.1.1 - 2.1.2 are repeated until the data entered are correct.
+
+Use case resumes from step 3.
+
+3.1: Student requests to change the user profile.
+
+Use case resumes from step 1.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC02 - Planning Meals
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile)
+
+Main Success Scenario:
+
+. Student chooses the food he/she is planning to eat and corresponds the food to the respective meal.
+. DIYeats indicates the meal has been recorded.
+. Steps 1-2 are repeated until Student has inputted all the meals intended
+
+Use case ends.
+
+Extensions:
+
+1.1: Student wants to record a meal that happened before the current day.
+
+1.1.1: Student specifies the past date the meal occurred.
+
+Use case resumes from step 2.
+
+1.2: Student wants to change the nutritional value of the meal
+
+1.2.1:  Student specifies the nutritional value of the meal.
+
+Use case resumes from step 2.
+
+1.3: DIYeats detects that the nutritional value exceeds the average required intake.(which is set up in UC07- Set Goal Intake)
+
+1.3.1: DIYeats warn the Student of the anomaly and ask for confirmation/modify request.
+
+1.3.2: Student modifies the input data or confirm the input.
+
+Use case resumes from step 2.
+
+1.4: DIYeats detects the wrong input from Student.
+
+1.4.1: DIYeats prompts Student to re-enter the command.
+
+1.4.2: Student enters the command.
+
+Steps 1.4.1 - 1.4.2 are repeated until the command entered are correct.
+
+Use case resumes from step 2.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC03 - List Meals
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Meals are entered. (Refer to UC02 - Planning Meals).
+
+Main Success Scenario:
+
+. NUS Student requests to display meal and the nutritional intake for today.
+. DIYeats display the recorded meals taken / will be taken today and its nutritional value.
+
+Use Case Ends.
+
+Extensions:
+
+1.1: NUS Student wants to specify a date other than today
+
+1.1.1: DIYeats display the recorded meals and intake on that date
+
+Use case ends.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC04 - Remind Meals
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Meals are entered. (Refer to UC02 - Planning Meals).
+
+Main Success Scenario:
+
+. User requests to be reminded on how much nutrition the student intake to reach the target nutrient intake for the month.
+. DIYeats display the information.
+
+Use Case Ends.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC05 - Find meal(s)
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Meals are entered. (Refer to UC02 - Planning Meals).
+
+Main Success Scenario:
+
+. Student requests to find a specific food student had in the past
+. DIYeats displays the queried food and its description.
+
+Use case ends.
+
+Extensions:
+
+1.1: DIYeats does not recognize the food requested
+
+1.1.1: DIYeats displays the error message.
+
+Use case ends.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC06 - Delete meal
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Meals can be found. (Refer to UC05 - Find meal(s)).
+
+Main Success Scenario:
+
+. Student requests to delete a specific food student had in the past.
+. DIYeats displays the queried food and its description and the confirmation message.
+
+Use case ends.
+
+Extensions:
+
+1.1: DIYeats does not recognize the food requested.
+
+1.1.1: DIYeats displays the error message.
+
+Use case ends.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC07 - Set Goal Intake
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile).
+
+Main Success Scenario:
+
+. Student requests for nutritional goals to be met at the end of a time frame (end of month)
+. DIYeats displays the nutritional goals that have been inputted and a confirmation goals.
+. Use case ends.
+
+Extensions:
+
+1.1: DIYeats detects an error in the entered data.
+
+1.1.1: DIYeats requests for the correct data.
+
+1.1.2: Student enters new data.
+
+Steps 1.1.1 - 1.1.2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC08 - Meal Recommendation
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Some meals already eaten. ( Refer to UC02 - Planning Meals). Goal intake set. (Refer to UC07 - Set Goal Intake).
+
+Main Success Scenario:
+
+. Student unsure of what food to eat for the next meal and asks DIYeats to recommend a food that fits within the goal intake set.
+. DIYeats displays a small list of nutritional food that fit within the goal intake plan set by the student.
+. Student can choose to select food from the list generated in step 2 or proceed to key in any other food as per normal.
+
+Use case ends.
+
+Extensions:
+
+1.1: DIYeats has a customizable recommendation system.
+
+1.1.1: Student filters recommended list by meals by meal type          (only recommend food which was eaten for lunch and not dinner).
+
+Step 1.1.1 is repeated until the student is satisfied with the constraints for food recommendation.
+
+Use case resumes from step 2.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC09 - Generate Statistics
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Some meals already eaten. ( Refer to UC02 - Planning Meals). Goal intake set. (Refer to UC07 - Set Goal Intake).
+
+Main Success Scenario:
+
+. Student requests for the statistics of the amount of nutrients that have been eaten in a specific time frame.
+. DIYeats displays the statistics, accompanied by the goal intake that is set by the student.
+
+Use case ends.
+====
+
+====
+System: DIYeats
+
+Actor: NUS Student
+
+Use Case: UC10 - Generate Graphs
+
+Preconditions: User profile is specified. (Refer to UC01 - Customizing User Profile). Some meals already eaten. ( Refer to UC02 - Planning Meals). Goal intake set. (Refer to UC07 - Set Goal Intake).
+
+Main Success Scenario:
+
+. Student requests for the graph of the amount of nutrients that have been eaten in a specific time frame.
+. DIYeats displays the graph, accompanied by the goal intake that is set by the student.
+Use case ends.
+====
+
+
+[appendix]
+== Non-functional Requirements
+
+* The data (user profile, meal plans, and schedule) should be persistent even if the user terminates the applications.
+* The user interface should be intuitive enough to be used by a new user who has never been introduced to the program.
+* The system must respond fast enough and feels snappy.
+* The program must be able to be used in different platforms/operating systems (Linux, Windows, and Macintosh).
+* The source code must be documented properly and adhere to the coding standards to be easily read by new developers that intend to contribute to the projects.
+* The application must not violate intellectual property rights or export of restricted technologies. The third party libraries used must be approved and open source in nature.
+
+[appendix]
+== Glossary
+
+* *Current date*: Date obtained from the system date in user’s local machine.
+* *Meal*: Only includes breakfast, lunch, and dinner.
+* *Session*: A period of time where the user interacts with the application. The session begins when the user launches the application, and ends when the user terminates the application.

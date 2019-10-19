@@ -139,7 +139,7 @@ public class Write {
             toWrite += date + "|" + weight;
         }
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(DATA_FILE));
+            bufferedWriter = new BufferedWriter(new FileWriter(USER_FILE));
             bufferedWriter.write(toWrite);
             bufferedWriter.close();
         } catch (Exception e) {
