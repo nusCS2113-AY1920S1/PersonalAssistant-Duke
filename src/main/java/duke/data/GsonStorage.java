@@ -47,16 +47,15 @@ public class GsonStorage {
     /**
      * Loads all the patients in the JSON file to the patient hashmap for quick patient lookup (Deserialization).
      *
-     * @param patientMap The HashMap to load the Patients into.
-     *
      * @throws DukeFatalException If data file cannot be setup.
      */
-    public void loadPatientHashMap(HashMap<String, Patient> patientMap) throws DukeFatalException {
+    public HashMap<String, Patient> loadPatientHashMap() throws DukeFatalException {
+        HashMap<String, Patient> patientMap = new HashMap<>();
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
             Patient[] patientList = new Gson().fromJson(json, Patient[].class);
             if (patientList == null) {
-                return;
+                return patientMap;
             }
             for (Patient patient : patientList) {
                 patientMap.put(patient.getBedNo(), patient);
@@ -64,11 +63,7 @@ public class GsonStorage {
         } catch (IOException excp) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
-    }
-    
-    //deprecated, test compatibility purposes only
-    public void loadPatientHashMap() throws DukeFatalException {
-        loadPatientHashMap(testPatientMap);
+        return patientMap;
     }
 
     /**
@@ -88,22 +83,9 @@ public class GsonStorage {
         }
     }
 
-    //deprecated, test compatibility purposes only
-    public void writeJsonFile() throws DukeFatalException {
-        writeJsonFile(testPatientMap);
-    }
-
     /**
      * Adds a patient object to the hash map with all the patients - used when testing.
      */
-    public void addPatientToMap(Patient patient) {
-        testPatientMap.put(patient.getBedNo(), patient);
-    }
-
-    public Patient getPatient(String bedNo) {
-        return testPatientMap.get(bedNo);
-    }
-
     public String getFilePath() {
         return filePath;
     }
@@ -111,9 +93,9 @@ public class GsonStorage {
     /**
      * Clears the json file and the paitent hash map - used when testing.
      */
-    public void resetAllData() throws IOException {
+    public PatientMap resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
         fileWriter.close();
-        testPatientMap.clear();
+        return new PatientMap();
     }
 }

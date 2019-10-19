@@ -21,8 +21,7 @@ public class PatientMap {
      * @throws DukeFatalException If unable to write data file.
      */
     public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
-        HashMap<String, Patient> patientHashMap = new HashMap<String, Patient>();
-        storage.loadPatientHashMap(patientHashMap);
+        HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap();
         patientObservableMap = FXCollections.observableMap(patientHashMap);
     }
 
@@ -59,7 +58,6 @@ public class PatientMap {
         } else {
             throw new DukeException("The patient cannot be identified");
         }
-
     }
 
     /**
@@ -76,7 +74,6 @@ public class PatientMap {
         } else {
             throw new DukeException("The patient cannot be identified");
         }
-
     }
 
     /**
