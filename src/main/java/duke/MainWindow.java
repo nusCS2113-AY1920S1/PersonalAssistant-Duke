@@ -2,9 +2,7 @@ package duke;
 
 import duke.dukeobject.Expense;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
@@ -13,10 +11,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -116,9 +111,9 @@ public class MainWindow extends BorderPane {
             public TableRow<Expense> call(TableView<Expense> tableView) {
                 final TableRow<Expense> row = new TableRow<Expense>() {
                     @Override
-                    protected void updateItem(Expense expense, boolean empty){
+                    protected void updateItem(Expense expense, boolean empty) {
                         super.updateItem(expense, empty);
-                        if (expense!=null&&expense.isTentative()) {
+                        if (expense != null && expense.isTentative()) {
                             setStyle("-fx-text-background-color: blue;");
 
                         } else {
@@ -130,12 +125,11 @@ public class MainWindow extends BorderPane {
             }
         });
         expenseTableView.getColumns().setAll(
-            indexColumn,
-            timeColumn,
-            amountColumn,
-            descriptionColumn,
-            tagColumn
-            //isTentativeColumn
+                indexColumn,
+                timeColumn,
+                amountColumn,
+                descriptionColumn,
+                tagColumn
         );
 
         for (Expense expense : duke.expenseList.getExternalList()) {
@@ -149,9 +143,9 @@ public class MainWindow extends BorderPane {
      */
     public void updateTotalSpentLabel() {
         totalSpentLabel.setText("Total: "
-            + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
-            ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
-            + duke.expenseList.getTotalAmount()));
+                + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
+                ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
+                + duke.expenseList.getTotalAmount()));
     }
 
     /**
@@ -166,9 +160,9 @@ public class MainWindow extends BorderPane {
      */
     public void updateRemainingBudget() {
         remainingBudgetLabel.setText("Remaining: "
-            + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
-            ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
-            : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+                + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
+                ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
+                : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
     }
 
     /**
@@ -179,17 +173,10 @@ public class MainWindow extends BorderPane {
         budgetListView.getItems().add("Tag: Spent/Budget");
         for (String tag : duke.budget.getBudgetCategory().keySet()) {
             budgetListView.getItems().add(tag
-                + ": $" + duke.expenseList.getTagAmount(tag)
-                + "/$" + duke.budget.getBudgetCategory().get(tag));
+                    + ": $" + duke.expenseList.getTagAmount(tag)
+                    + "/$" + duke.budget.getBudgetCategory().get(tag));
         }
     }
 
-    public static Color tentativeToColor(boolean istentative) {
-        if(istentative) {
-            return Color.YELLOW;
-        }else {
-            return Color.WHITE;
-        }
-    }
 }
 
