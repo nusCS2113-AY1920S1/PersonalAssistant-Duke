@@ -153,6 +153,7 @@ public class Storage {
                         }
                     }
                 }
+                //if(  )
             }
         } catch (IOException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
@@ -182,6 +183,14 @@ public class Storage {
                 if (s instanceof Assignment) {
                         String time = convertForStorage(s);
                         out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
+                        // Saves subtasks
+                        if( !(((Assignment) s).getSubTasks() == null ) ) {
+                            out += "#";
+                            ArrayList<String> subTasks =  ((Assignment) s).getSubTasks();
+                            for( String subtask : subTasks ) {
+                                out += subtask + ",";
+                            }
+                        }
                 } else if (s instanceof Meeting){
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();

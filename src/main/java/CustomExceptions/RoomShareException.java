@@ -9,6 +9,7 @@ public class RoomShareException extends Exception {
     private static final String timeclash_Text = "Time Clash Detected";
     private static final String wrongFormat_Text = "Wrong Format Detected";
     private static final String wrongPriority_Text = "Wrong Priority Detected";
+    private static final String subTask_Text = "Meetings do not support Subtasks";
 
     /**
      * Constructor for DukeException Exception
@@ -17,29 +18,33 @@ public class RoomShareException extends Exception {
      */
     public RoomShareException(ExceptionType type){
         switch(type) {
-            case emptylist:
-                System.out.println(emptylist_Text);
-                break;
+        case emptylist:
+            System.out.println(emptylist_Text);
+            break;
 
-            case timeClash:
-                System.out.println(timeclash_Text);
-                break;
+        case timeClash:
+            System.out.println(timeclash_Text);
+            break;
 
-            case wrongFormat:
-                System.out.println(wrongFormat_Text);
-                break;
+        case wrongFormat:
+            System.out.println(wrongFormat_Text);
+            break;
 
-            case outOfBounds:
-                System.out.println(outOfBounds_Text);
-                break;
+        case outOfBounds:
+            System.out.println(outOfBounds_Text);
+            break;
 
-            case wrongPriority:
-                System.out.println(wrongPriority_Text);
-                break;
+        case wrongPriority:
+            System.out.println(wrongPriority_Text);
+            break;
 
-            default:
-                System.out.println(anomaly_Text);
-                break;
+        case subTask:
+            System.out.println(subTask_Text);
+            break;
+
+        default:
+            System.out.println(anomaly_Text);
+            break;
         }
     }
 

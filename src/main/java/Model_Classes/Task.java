@@ -19,7 +19,6 @@ public class Task{
     private String user;
     private RecurrenceScheduleType recurrenceSchedule;
     private boolean hasRecurring;
-    private ArrayList<String> subTasks;
     private Date time;
 
     /**
@@ -117,14 +116,6 @@ public class Task{
 
     public boolean hasRecurring() {
         return hasRecurring;
-    }
-
-    /**
-     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
-     * @param input String containing subtasks separated by ","
-     */
-    public void setSubTasks(String input) {
-        subTasks = (ArrayList<String>) Arrays.asList(input.split(","));
     }
 
     /**
