@@ -21,12 +21,7 @@ public class PatientMap {
      * @throws DukeFatalException If unable to write data file.
      */
     public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
-<<<<<<< HEAD
         HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap();
-=======
-
-        HashMap<String, Patient> patientHashMap = storage.loadPatientHashMap(patientHashMap);
->>>>>>> 4df5152cb138c1df556c293a6f84efe8bf70d3b2
         patientObservableMap = FXCollections.observableMap(patientHashMap);
     }
 
