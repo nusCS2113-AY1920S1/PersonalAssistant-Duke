@@ -10,11 +10,12 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 /**
- * An UI component that displays information of a {@code Patient}.
+ * An UI element that displays certain information of a {@code Patient}.
  * TODO: Extend from UiElement.
  */
-public class PatientCard extends AnchorPane {
+class PatientCard extends AnchorPane {
     private static final String FXML = "PatientCard.fxml";
+
     @FXML
     private Label nameLabel;
     @FXML
@@ -27,11 +28,11 @@ public class PatientCard extends AnchorPane {
     private final Patient patient;
 
     /**
-     * Construct a PatientCard object with the specified patient's details.
+     * Constructs a PatientCard object with the specified patient's details.
      *
      * @param patient Patient object.
      */
-    public PatientCard(Patient patient) {
+    PatientCard(Patient patient) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(DukeCore.class.getResource("/view/" + FXML));
             fxmlLoader.setController(this);
@@ -42,6 +43,14 @@ public class PatientCard extends AnchorPane {
         }
 
         this.patient = patient;
+
+        initialisePatientCard();
+    }
+
+    /**
+     * Fills up the Patient Card with the {@code patient} details
+     */
+    private void initialisePatientCard() {
         nameLabel.setText(patient.getName());
         bedLabel.setText("Bed " + patient.getBedNo());
 
@@ -51,14 +60,13 @@ public class PatientCard extends AnchorPane {
             diagnosisLabel.setText("N.A.");
         }
 
-        // TODO: Fetch issues
+        // TODO: Fetch patient's issues
         issueLabel.setText("No issues");
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -71,5 +79,9 @@ public class PatientCard extends AnchorPane {
 
         PatientCard card = (PatientCard) obj;
         return patient.equals(card.getPatient());
+    }
+
+    public Patient getPatient() {
+        return patient;
     }
 }

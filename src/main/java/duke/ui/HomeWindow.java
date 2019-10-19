@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXScrollPane;
 import duke.DukeCore;
 import duke.data.Patient;
 import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
@@ -15,39 +14,54 @@ import java.util.Map;
 /**
  * UI window for the Home context.
  */
-public class HomeWindow extends UiElement<Region> {
-    private static final String FXML = "HomeTab.fxml";
-    private final DukeCore core;
+class HomeWindow extends UiElement<Region> {
+    private static final String FXML = "HomeWindow.fxml";
+
     @FXML
-    private JFXMasonryPane patientsListView;
+    private JFXMasonryPane patientListPanel;
     @FXML
     private ScrollPane scrollPane;
-    private ObservableMap<String, Patient> map;
+
+    private final DukeCore core;
 
     /**
-     * Construct HomeWindow object.
+     * Constructs the Home UI window.
      */
-    public HomeWindow(DukeCore core) {
+    HomeWindow(DukeCore core) {
         super(FXML, null);
 
         this.core = core;
-        core.patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
-            core.ui.print("New patient added!");
 
+        initialisePatientList();
+        attachPatientListListener();
+
+        JFXScrollPane.smoothScrolling(scrollPane);
+    }
+
+    /**
+     * Initialises {@code patientListPanel}.
+     */
+    private void initialisePatientList() {
+        for (Map.Entry<String, Patient> pair : core.patientMap.getPatientObservableMap().entrySet()) {
+            patientListPanel.getChildren().add(new PatientCard(pair.getValue()));
+        }
+    }
+
+    /**
+     * Attaches a listener to the patient map.
+     * This listener updates the {@code patientListPanel} whenever the patient map is updated.
+     */
+    private void attachPatientListListener() {
+        core.patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
             if (change.wasAdded()) {
-                patientsListView.getChildren().add(new PatientCard(change.getValueAdded()));
+                core.ui.print("Patient added.");
+                patientListPanel.getChildren().add(new PatientCard(change.getValueAdded()));
             } else if (change.wasRemoved()) {
-                // TODO: Remove
+                core.ui.print("Patient discharged.");
+                // TODO: Verify correctness
+                patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
 
             }
         });
-
-        // TODO: order of patient's list
-        for (Map.Entry<String, Patient> pair : core.patientMap.getPatientObservableMap().entrySet()) {
-            patientsListView.getChildren().add(new PatientCard(pair.getValue()));
-        }
-
-
-        JFXScrollPane.smoothScrolling(scrollPane);
     }
 }
