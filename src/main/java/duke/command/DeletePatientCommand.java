@@ -1,11 +1,10 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -54,11 +53,8 @@ public class DeletePatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CounterStorage counterStorage,
-                        CommandCounter commandCounter) throws DukeException {
+                        PatientStorage patientStorage) throws DukeException {
 
-        String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
         if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
             boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);
@@ -66,7 +62,6 @@ public class DeletePatientCommand extends Command {
                 patientManager.deletePatient(id);
                 ui.patientDeleted();
                 patientStorage.save(patientManager.getPatientList());
-                counterStorage.save(commandCounter.getCommandTable());
             }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
@@ -79,7 +74,6 @@ public class DeletePatientCommand extends Command {
                         patientManager.deletePatient(patientsWithSameName.get(numberChosen - 1).getID());
                         ui.patientDeleted();
                         patientStorage.save(patientManager.getPatientList());
-                        counterStorage.save(commandCounter.getCommandTable());
                     }
                 }
             }

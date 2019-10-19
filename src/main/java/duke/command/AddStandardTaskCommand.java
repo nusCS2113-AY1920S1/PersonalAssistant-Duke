@@ -1,10 +1,9 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -42,14 +41,10 @@ public class AddStandardTaskCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CounterStorage counterStorage,
-                        CommandCounter commandCounter) throws DukeException {
-        //this.hasBeenAddedBefore = true;
-        String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
+                        PatientStorage patientStorage) throws DukeException {
+
         taskList.addTask(newStandardTask);
         taskStorage.save(taskList.getTaskList());
-        counterStorage.save(commandCounter.getCommandTable());
         ui.taskAdded(newStandardTask);
     }
 

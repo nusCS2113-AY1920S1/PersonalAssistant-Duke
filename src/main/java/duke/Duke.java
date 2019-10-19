@@ -4,7 +4,7 @@ import duke.command.Command;
 import duke.core.DukeException;
 import duke.core.CommandManager;
 import duke.patient.PatientManager;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -33,7 +33,7 @@ public class Duke {
     private PatientTaskList patientTaskList;
     private TaskManager taskManager;
     private PatientManager patientManager;
-    private CommandCounter commandCounter;
+    private Counter counter;
 
     /**
      * A Ui object that deals with interactions with the user.
@@ -57,7 +57,7 @@ public class Duke {
             patientTaskList = new PatientTaskList(patientTaskStorage.load());
             taskManager = new TaskManager(taskStorage.load());
             patientManager = new PatientManager(patientStorage.load());
-            commandCounter = new CommandCounter(counterStorage.load());
+            counter = new Counter(counterStorage.load());
 
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -79,13 +79,15 @@ public class Duke {
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
                 c.execute(patientTaskList, taskManager, patientManager,
-                        ui, patientTaskStorage, taskStorage, patientStorage, counterStorage, commandCounter);
+                        ui, patientTaskStorage, taskStorage, patientStorage);
+                counter.runCommandCounter(c, counterStorage, counter);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
             }
+
         }
         System.exit(0);
     }

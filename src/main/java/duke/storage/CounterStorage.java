@@ -41,10 +41,10 @@ public class CounterStorage {
     }
 
     /**
-     * Load the task info with associated patient from local csv files.
+     * Load the command counter table from local csv files.
      *
-     * @return A arrayList of PatientTask which contain info of task with associated patient
-     * @throws DukeException throw a dukeException with error message for debugging
+     * @return A Map with key being the command name and value being the counts.
+     * @throws DukeException throw a dukeException with error message for debugging.
      */
     public Map<String, Integer> load() throws DukeException {
         Map<String, Integer> cmdFreqTable = new HashMap<>();
@@ -61,7 +61,6 @@ public class CounterStorage {
                     cmdFreqTable.put(commandName, frequency);
                 }
             }
-            System.out.println("Load completed");
             return cmdFreqTable;
         } catch (Exception e) {
             throw new DukeException("Loading of "
@@ -72,7 +71,7 @@ public class CounterStorage {
     }
 
     /**
-     * Write the patients' info to local csv files.
+     * Write the key value set of command count table info to local csv files.
      *
      * @param cmdFreqTable A list of patients containing info of patients to be written
      * @throws DukeException throw exception with error message when i/o fails

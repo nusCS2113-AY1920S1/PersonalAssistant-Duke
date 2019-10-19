@@ -1,11 +1,10 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -41,10 +40,7 @@ public class UpdatePatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CounterStorage counterStorage,
-                        CommandCounter commandCounter) throws DukeException {
-        String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
+                        PatientStorage patientStorage) throws DukeException {
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {
@@ -63,8 +59,6 @@ public class UpdatePatientCommand extends Command {
                 }
 
                 patientStorage.save(patientManager.getPatientList());
-                counterStorage.save(commandCounter.getCommandTable());
-
                 ui.showUpdatedSuccessfully();
                 ui.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {

@@ -1,9 +1,8 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.task.Task;
 import duke.patient.PatientManager;
@@ -40,10 +39,7 @@ public class UpdateTaskCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage, CounterStorage counterStorage,
-                        CommandCounter commandCounter) throws DukeException {
-        String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
+                        TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {
@@ -58,8 +54,6 @@ public class UpdateTaskCommand extends Command {
                 }
 
                 taskStorage.save(taskManager.getTaskList());
-                counterStorage.save(commandCounter.getCommandTable());
-
                 ui.showUpdatedSuccessfully();
                 ui.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {

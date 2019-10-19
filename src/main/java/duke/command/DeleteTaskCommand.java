@@ -1,10 +1,9 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -53,10 +52,7 @@ public class DeleteTaskCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CounterStorage counterStorage,
-                        CommandCounter commandCounter) throws DukeException {
-        String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
+                        PatientStorage patientStorage) throws DukeException {
         if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);
@@ -64,7 +60,6 @@ public class DeleteTaskCommand extends Command {
                 taskManager.deleteTask(id);
                 ui.taskDeleted();
                 taskStorage.save(taskManager.getTaskList());
-                counterStorage.save(commandCounter.getCommandTable());
             }
         } else {
             ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(deletedTaskInfo);
@@ -77,7 +72,6 @@ public class DeleteTaskCommand extends Command {
                         taskManager.deleteTask(tasksWithSameDescription.get(numberChosen - 1).getID());
                         ui.taskDeleted();
                         taskStorage.save(taskManager.getTaskList());
-                        counterStorage.save(commandCounter.getCommandTable());
                     }
                 }
             }

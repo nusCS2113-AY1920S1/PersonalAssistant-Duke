@@ -1,12 +1,11 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.EventPatientTask;
 import duke.relation.StandardPatientTask;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -48,16 +47,11 @@ public class AssignTaskToPatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CounterStorage counterStorage,
-                        CommandCounter commandCounter) throws DukeException {
+                        PatientStorage patientStorage) throws DukeException {
 
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
-
-            String commandName = this.getClass().getSimpleName();
-            commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
             patientTaskList.addPatientTask(newPatientTask);
             patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-            counterStorage.save(commandCounter.getCommandTable());
             ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(),
                     tasksList.getTask(newPatientTask.getTaskID()).getDescription());
         } else {

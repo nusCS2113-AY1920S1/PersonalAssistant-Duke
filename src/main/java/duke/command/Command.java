@@ -1,11 +1,10 @@
 package duke.command;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.PatientTaskList;
-import duke.statistic.CommandCounter;
+import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -35,8 +34,7 @@ public abstract class Command {
      */
     public abstract void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
                                  PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                                 PatientStorage patientStorage, CounterStorage counterStorage,
-                                 CommandCounter commandCounter) throws DukeException;
+                                 PatientStorage patientStorage) throws DukeException;
 
 
 
