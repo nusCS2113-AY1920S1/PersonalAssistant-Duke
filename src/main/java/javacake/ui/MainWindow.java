@@ -5,6 +5,7 @@ import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
 import javacake.quiz.QuestionList;
+import javacake.storage.Profile;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,6 +50,7 @@ public class MainWindow extends AnchorPane {
     private QuizCommand quizCommand;
     private boolean isQuiz = false;
     private boolean isStarting = true;
+    private boolean isTryingReset = false;
 
     /**
      * Initialise the Main Window launched.
@@ -106,7 +108,15 @@ public class MainWindow extends AnchorPane {
             userInput.clear();
             Duke.logger.log(Level.INFO, input);
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
-            if (isStarting && duke.isFirstTimeUser) {
+            if (input.contains("exit")) {
+                response = duke.getResponse(input);
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(response, dukeImage)
+                );
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> primaryStage.hide());
+                pause.play();
+            } else if (isStarting && duke.isFirstTimeUser) {
                 duke.userName = input;
                 duke.profile.overwriteName(duke.userName);
                 dialogContainer.getChildren().add(
@@ -114,14 +124,32 @@ public class MainWindow extends AnchorPane {
                                 duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
                 );
                 isStarting = false;
-            } else if (isStarting) {
-                response = duke.getResponse(input);
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
-                isStarting = false;
+            } else if (isTryingReset) {
+                if (input.equals("yes")) {
+                    //resets
+                    Profile.resetProfile();
+                    duke.profile = new Profile();
+                    duke.userProgress = duke.profile.getTotalProgress();
+                    duke.userName = duke.profile.getUsername();
+                    duke.isFirstTimeUser = true;
+                    response = "Reset confirmed!\nPlease type in new username:\n";
+                    dialogContainer.getChildren().add(
+                            DialogBox.getDukeDialog(response, dukeImage)
+                    );
+                    TopBar.resetProgress();
+                    isStarting = true;
+                } else {
+                    response = "Reset cancelled.\nType 'list' to get list of available commands.";
+                    dialogContainer.getChildren().add(
+                            DialogBox.getDukeDialog(response, dukeImage)
+                    );
+                }
+                isTryingReset = false;
             } else {
-                if (!isQuiz) {
+                if (isStarting) {
+                    response = duke.getResponse(input);
+                    isStarting = false;
+                } else if (!isQuiz) {
                     response = duke.getResponse(input);
                 } else {
                     quizCommand.checkAnswer(input);
@@ -137,19 +165,22 @@ public class MainWindow extends AnchorPane {
                         }
                     }
                 }
+
                 if (response.contains("!@#_QUIZ")) {
                     isQuiz = true;
-                    System.out.println(response);
+                    Duke.logger.log(Level.INFO, "Response: " + response);
                     response = getFirstQn(response);
                 }
+                if (response.contains("Confirm reset")) {
+                    System.out.println("CHECKING RESET");
+                    Duke.logger.log(Level.INFO, "Awaiting confirmation of reset");
+                    isTryingReset = true;
+                }
+
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
-            }
-            if (response.contains("Bye.")) {
-                PauseTransition pause = new PauseTransition(Duration.seconds(2));
-                pause.setOnFinished(e -> primaryStage.hide());
-                pause.play();
+                System.out.println("End->Next");
             }
         } catch (DukeException e) {
             dialogContainer.getChildren().add(

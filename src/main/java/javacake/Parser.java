@@ -5,6 +5,7 @@ import javacake.commands.ExitCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.BackCommand;
 import javacake.commands.HelpCommand;
+import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
 import javacake.commands.GoToCommand;
 import javacake.commands.MegaListCommand;
@@ -46,6 +47,8 @@ public class Parser {
             return new HelpCommand(inputCommand);
         } else if (input.equals("score")) {
             return new ScoreCommand();
+        } else if (input.equals("reset")) {
+            return new ResetCommand();
         } else if (input.equals("goto")) {
             if (inputCommand.length() <= 4) {
                 throw new DukeException("Please specify index number in 'goto' command!");

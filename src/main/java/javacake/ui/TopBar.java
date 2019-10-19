@@ -137,4 +137,15 @@ public class TopBar extends HBox {
         timeline.play();
     }
 
+    /**
+     * Method to reset progress.
+     */
+    public static void resetProgress() {
+        progValueA = 0;
+        progValueB = 0;
+        progValueC = 0;
+        progValueD = 0;
+        progValueT = 0;
+    }
+
 }
