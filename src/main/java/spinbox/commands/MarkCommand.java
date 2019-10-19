@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
     private static final String TASK_MARKED = "Marked task: ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
     private static final String INVALID_MARK_FORMAT = "Please use valid remove format:\n"
-            + "mark <pageContent> : <type> <index>";
+            + "mark <pageContent> / <type> <index>";
     private static final String INVALID_INDEX = "Please enter a valid index.";
     private String type;
 

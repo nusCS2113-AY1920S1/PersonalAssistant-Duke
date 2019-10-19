@@ -27,48 +27,44 @@ public class Parser {
      * @throws InputException If the input is invalid.
      */
     private static String commandBuilder(String inputPageData) throws InputException {
-        StringBuilder pageData = new StringBuilder();
+        String pageData = "";
 
         String[] pageComponent = inputPageData.split(" ");
         ArrayDeque<String> tempPageTrace = pageTrace.clone();
         // append page or page + module from pageTrace
         if (pageComponent[0].isEmpty()) {
-            pageData.append(tempPageTrace.getLast());
+            pageData = pageData.concat(tempPageTrace.getLast());
             tempPageTrace.removeLast();
             if (tempPageTrace.size() != 0) {
-                pageData.append(" ").append(tempPageTrace.getLast());
+                pageData = pageData.concat(" " + tempPageTrace.getLast());
             }
         // append page from input and maybe moduleCode from pageTrace
         } else if (pageComponent.length == 1) {
             switch (pageComponent[0]) {
             case "main":
             case "calendar":
-                pageData.append(pageComponent[0]);
+                pageData = pageData.concat(pageComponent[0]);
                 break;
             case "modules":
-                pageData.append(pageComponent[0]);
+                pageData = pageData.concat(pageComponent[0]);
                 tempPageTrace.removeLast();
                 if (tempPageTrace.size() != 0) {
-                    pageData.append(" ").append(tempPageTrace.getLast());
+                    pageData = pageData.concat(" " + tempPageTrace.getLast());
                 }
                 break;
             default:
                 // means inputPageData is a moduleCode
-                if (tempPageTrace.getLast().equals("modules")) {
-                    pageData.append("modules ").append(pageComponent[0]);
-                } else {
-                    throw new InputException("Invalid input.");
-                }
+                pageData = pageData.concat("modules " + pageComponent[0]);
             }
         // append "modules" + moduleCode from input
         } else if (pageComponent.length == 2 || pageComponent.length == 3) {
             if (pageComponent[0].equals("modules")) {
-                pageData.append("modules ").append(pageComponent[1]);
+                pageData = pageData.concat("modules " + pageComponent[1]);
             } else {
                 throw new InputException("Please input a valid command.");
             }
         }
-        return pageData.toString();
+        return pageData;
     }
 
     /**
@@ -84,26 +80,26 @@ public class Parser {
         String pageData = "";
         String[] pageDataComponents = new String[10];
 
-        String[] colonSeparate = input.split(" : ");
+        String[] slashSeparate = input.split(" / ");
         try {
-            if (colonSeparate.length == 1) {
+            if (slashSeparate.length == 1) {
                 if (input.equals("bye")) {
                     action = "bye";
                 } else {
                     throw new InputException("Please give valid command:\n"
-                            + "'<action> <page> : <content>' or 'bye'");
+                            + "'<action> <page> / <content>' or 'bye'");
                 }
             } else {
-                content = colonSeparate[1].trim();
-                String[] frontComponents = colonSeparate[0].split(" ");
+                content = slashSeparate[1].trim();
+                String[] frontComponents = slashSeparate[0].split(" ");
                 action = frontComponents[0];
-                pageData = colonSeparate[0].replace(action, "").trim();
+                pageData = slashSeparate[0].replace(action, "").trim();
                 pageData = commandBuilder(pageData);
                 pageDataComponents = pageData.split(" ");
             }
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             throw new InputException("Please give valid command:\n"
-                    + "'<action> <page> : <content>' or 'bye'");
+                    + "'<action> <page> / <content>' or 'bye'");
         }
 
         switch (action) {
