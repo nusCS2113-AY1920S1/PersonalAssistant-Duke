@@ -1,5 +1,6 @@
 package duke.gui;
 
+import duke.DukeCore;
 import duke.data.Patient;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +33,7 @@ public class PatientCard extends AnchorPane {
      */
     public PatientCard(Patient patient) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/" + FXML));
+            FXMLLoader fxmlLoader = new FXMLLoader(DukeCore.class.getResource("/view/" + FXML));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

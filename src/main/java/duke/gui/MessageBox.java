@@ -1,5 +1,6 @@
 package duke.gui;
 
+import duke.DukeCore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class MessageBox extends HBox {
      */
     private MessageBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/MessageBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(DukeCore.class.getResource("/view/MessageBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
