@@ -15,7 +15,7 @@ public class LoadHelpUtil {
         }
         String sep = System.getProperty("file.separator");
         helpFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
-                + sep + "Data" + sep + "Help" + sep + helpFileName);
+                + sep + "commons" + sep + "help" + sep + helpFileName);
         return helpFile;
     }
 }

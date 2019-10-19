@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Write implements StorageInterface {
+import static duke.commons.FilePaths.*;
+
+public class Write {
     private BufferedWriter bufferedWriter = null;
 
     /**
@@ -25,7 +27,7 @@ public class Write implements StorageInterface {
     public void writeFile(MealList mealData) {
         HashMap<String, ArrayList<Meal>> meals = mealData.getMealTracker();
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter = new BufferedWriter(new FileWriter(DATA_FILE));
         } catch (Exception e) {
             System.out.println("Error writing to file");
             e.printStackTrace();
@@ -62,7 +64,7 @@ public class Write implements StorageInterface {
     public void writeDefaults(MealList mealData) {
         HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(defaultFile));
+            bufferedWriter = new BufferedWriter(new FileWriter(DEFAULTS_FILE));
         } catch (Exception e) {
             System.out.println("Error writing to file");
             e.printStackTrace();
@@ -90,7 +92,7 @@ public class Write implements StorageInterface {
 
     public void writeGoal(MealList mealData) {
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(goalFile));
+            bufferedWriter = new BufferedWriter(new FileWriter(GOAL_FILE));
         } catch (Exception e) {
             System.out.println("Error writing to file");
             e.printStackTrace();
@@ -137,7 +139,7 @@ public class Write implements StorageInterface {
             toWrite += date + "|" + weight;
         }
         try {
-            bufferedWriter = new BufferedWriter(new FileWriter(userFile));
+            bufferedWriter = new BufferedWriter(new FileWriter(DATA_FILE));
             bufferedWriter.write(toWrite);
             bufferedWriter.close();
         } catch (Exception e) {

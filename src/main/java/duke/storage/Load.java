@@ -10,7 +10,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Load implements StorageInterface {
+import static duke.commons.FilePaths.*;
+
+public class Load {
     private BufferedReader bufferedReader = null;
     private BufferedWriter bufferedWriter = null;
     private String line;
@@ -46,11 +48,11 @@ public class Load implements StorageInterface {
 
     public User loadUser() throws DukeException {
         User tempUser;
-        if (userFile.length() == 0) { //user.txt has nothing
+        if (USER_FILE.length() == 0) { //user.txt has nothing
             return new User();
         } else {
             try {
-                bufferedReader = new BufferedReader(new FileReader(userFile));
+                bufferedReader = new BufferedReader(new FileReader(USER_FILE));
                 String line = bufferedReader.readLine();
                 tempUser = LoadLineParser.parseUser(line);
                 while ((line = bufferedReader.readLine()) != null) {
@@ -67,7 +69,7 @@ public class Load implements StorageInterface {
 
     public void loadAutoCorrect(Autocorrect autocorrect) throws DukeException {
         try {
-            bufferedReader = new BufferedReader(new FileReader(wordFile));
+            bufferedReader = new BufferedReader(new FileReader(AUTOCORRECT_FILE));
             while ((line = bufferedReader.readLine()) != null) {
                 autocorrect.load(line.trim());
             }
