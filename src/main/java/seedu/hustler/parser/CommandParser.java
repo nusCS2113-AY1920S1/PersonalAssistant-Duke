@@ -1,7 +1,5 @@
 package seedu.hustler.parser;
 
-import java.util.Arrays;
-
 import seedu.hustler.command.Command;
 import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
 import seedu.hustler.command.avatarCommand.SetNameCommand;
