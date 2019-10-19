@@ -49,7 +49,7 @@ public class CommandWindow extends UiComponent<Region> {
      * @param core DukeCore.
      */
     public CommandWindow(DukeCore core, MainWindow window) {
-        super(FXML);
+        super(FXML, null);
         parser = new Parser();
         this.core = core;
         this.window = window;

@@ -15,50 +15,26 @@ import static java.util.Objects.requireNonNull;
  * @param <T> Root node's type.
  */
 public abstract class UiComponent<T> {
-    /**
-     * Resource folder where FXML files are stored.
-     */
     private static final String FXML_FILE_FOLDER = "/view/";
+
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
-     * Constructs a UiComponent with the specified FXML file URL.
-     * The FXML file need not specify the {@code fx:controller} attribute as it will be specified
+     * Constructs a UiComponent with the specified FXML file name and root object.
+     * The FXML file must not specify the {@code fx:controller} attribute as it will be specified
      * in {@link #loadFxmlFile(URL, T)}.
-     */
-    private UiComponent(URL fxmlFileUrl) {
-        loadFxmlFile(fxmlFileUrl, null);
-    }
-
-    /**
-     * Constructs a UiComponent with the specified FXML file URL and root object.
-     * The FXML file need not specify the {@code fx:controller} attribute as it will be specified
-     * in {@link #loadFxmlFile(URL, T)}.
-     */
-    private UiComponent(URL fxmlFileUrl, T root) {
-        loadFxmlFile(fxmlFileUrl, root);
-    }
-
-    /**
-     * Constructs a UiComponent using the specified FXML file within {@link #FXML_FILE_FOLDER}.
      *
-     * @see #UiComponent(URL)
-     */
-    public UiComponent(String fxmlFileName) {
-        this(getFxmlFileUrl(fxmlFileName));
-    }
-
-    /**
-     * Constructs a UiComponent with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
-     *
-     * @see #UiComponent(URL, T)
+     * @param fxmlFileName Name of FXML file.
      */
     public UiComponent(String fxmlFileName, T root) {
-        this(getFxmlFileUrl(fxmlFileName), root);
+        loadFxmlFile(getFxmlFileUrl(fxmlFileName), root);
     }
 
     /**
      * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
+     *
+     * @param fxmlFileName Name of FXML file.
+     * @return FXML file URL for the FXML file.
      */
     private static URL getFxmlFileUrl(String fxmlFileName) {
         requireNonNull(fxmlFileName);
@@ -67,14 +43,13 @@ public abstract class UiComponent<T> {
     }
 
     /**
-     * Loads the object hierarchy from a FXML document.
+     * Loads the object hierarchy from a FXML file.
      *
-     * @param location Location of the FXML document.
-     * @param root     Specifies the root of the object hierarchy.
+     * @param url  Location of the FXML file.
+     * @param root Root of the object hierarchy.
      */
-    private void loadFxmlFile(URL location, T root) {
-        requireNonNull(location);
-        fxmlLoader.setLocation(location);
+    private void loadFxmlFile(URL url, T root) {
+        fxmlLoader.setLocation(url);
         fxmlLoader.setRoot(root);
         fxmlLoader.setController(this);
 
@@ -86,7 +61,7 @@ public abstract class UiComponent<T> {
     }
 
     /**
-     * Returns the root object of the scene graph of this UiComponent.
+     * Returns the root object of this UiComponent.
      */
     public T getRoot() {
         return fxmlLoader.getRoot();

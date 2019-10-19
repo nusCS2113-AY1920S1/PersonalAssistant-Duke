@@ -28,7 +28,7 @@ public class HomeWindow extends UiComponent<Region> {
      * Construct HomeWindow object.
      */
     public HomeWindow(DukeCore core) {
-        super(FXML);
+        super(FXML, null);
 
         this.core = core;
         core.patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {

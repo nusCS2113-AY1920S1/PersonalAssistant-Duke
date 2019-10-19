@@ -12,6 +12,6 @@ public class PatientWindow extends UiComponent<Region> {
      * Construct Patient object.
      */
     public PatientWindow() {
-        super(FXML);
+        super(FXML, null);
     }
 }
