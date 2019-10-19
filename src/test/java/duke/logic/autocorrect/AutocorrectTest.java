@@ -4,6 +4,8 @@ import duke.commons.exceptions.DukeException;
 import duke.storage.Storage;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AutocorrectTest {
     private Storage storage = new Storage();
     private Autocorrect autocorrect = new Autocorrect();
