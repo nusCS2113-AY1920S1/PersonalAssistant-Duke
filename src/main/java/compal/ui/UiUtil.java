@@ -131,6 +131,7 @@ public class UiUtil {
         VBox vbox = (VBox) secondaryWindow.getContent();
         vbox.getChildren().clear();
     }
+
 }
 
 
