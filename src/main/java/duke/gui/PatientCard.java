@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * An UI component that displays information of a {@code Patient}.
- * TODO: Extend from UiComponent.
+ * TODO: Extend from UiElement.
  */
 public class PatientCard extends AnchorPane {
     private static final String FXML = "PatientCard.fxml";

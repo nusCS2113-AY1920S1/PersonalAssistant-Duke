@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * The Main Window. Provides the most basic application layout to place other UI elements.
  */
-public class MainWindow extends UiComponent<Stage> {
+public class MainWindow extends UiElement<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     @FXML

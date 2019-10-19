@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Class responsible for reading and display commands.
  */
-public class CommandWindow extends UiComponent<Region> {
+public class CommandWindow extends UiElement<Region> {
     private static final String FXML = "CommandWindow.fxml";
 
     private Parser parser;

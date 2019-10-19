@@ -9,24 +9,24 @@ import java.net.URL;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a distinct UI component in the application, e.g. windows, panels, dialogs, etc.
+ * Represents a distinct UI element in the application, e.g. windows, panels, dialogs, etc.
  * It contains a scene graph with a root node of type {@code T}.
  *
  * @param <T> Root node's type.
  */
-public abstract class UiComponent<T> {
+public abstract class UiElement<T> {
     private static final String FXML_FILE_FOLDER = "/view/";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
-     * Constructs a UiComponent with the specified FXML file name and root object.
+     * Constructs a UiElement with the specified FXML file name and root object.
      * The FXML file MUST not specify the {@code fx:controller} attribute as it will be specified
      * in {@link #loadFxmlFile(URL, T)}.
      *
      * @param fxmlFileName Name of FXML file.
      */
-    public UiComponent(String fxmlFileName, T root) {
+    public UiElement(String fxmlFileName, T root) {
         loadFxmlFile(getFxmlFileUrl(fxmlFileName), root);
     }
 
@@ -61,7 +61,7 @@ public abstract class UiComponent<T> {
     }
 
     /**
-     * Returns the root object of this UiComponent.
+     * Returns the root object of this UiElement.
      */
     public T getRoot() {
         return fxmlLoader.getRoot();

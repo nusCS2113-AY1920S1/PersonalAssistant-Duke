@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * UI window for the Home context.
  */
-public class HomeWindow extends UiComponent<Region> {
+public class HomeWindow extends UiElement<Region> {
     private static final String FXML = "HomeTab.fxml";
     private final DukeCore core;
     @FXML
