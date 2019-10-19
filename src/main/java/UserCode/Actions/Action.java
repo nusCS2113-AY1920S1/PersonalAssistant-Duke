@@ -1,6 +1,6 @@
 package UserCode.Actions;
 
-
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import Exceptions.FarmioException;
 import FrontEnd.Ui;
@@ -25,7 +25,7 @@ public abstract class Action {
         this.farmio = farmio;
     }
 
-    public abstract void execute(Ui ui);
+    public abstract void execute(Ui ui) throws FarmioFatalException, FarmioException;
 
     public static boolean validateAction(String userInput) {
         for (ActionType type : ActionType.values()) {
@@ -38,23 +38,25 @@ public abstract class Action {
 
     public static Action stringToAction(String actionName, Farmio farmio) throws FarmioException {
         Action action;
-        ActionType actionType = ActionType.buySeeds;
+        ActionType actionType = ActionType.BUY_SEEDS;
         for (ActionType a : ActionType.values()) {
             if ((a.name()).toLowerCase().equals(actionName)) {
                 actionType = a;
             }
         }
         switch (actionType) {
-            case buySeeds:
+            case BUY_SEEDS:
                 return new BuySeedAction(farmio);
-            case harvestWheat:
+            case HARVEST_WHEAT:
                 return new HarvestWheatAction(farmio);
-            case plantSeeds:
+            case PLANT_SEEDS:
                 return new PlantSeedAction(farmio);
-            case sellWheat:
+            case SELL_WHEAT:
                 return new SellWheatAction(farmio);
-            case gotoMarket:
+            case GOTO_MARKET:
                 return new GotoMarketAction(farmio);
+            case GOTO_WHEAT_FARM:
+                return new GotoFarmAction(farmio);
             default:
             throw new FarmioException("Error Creating Action!");
         }

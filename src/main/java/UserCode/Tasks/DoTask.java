@@ -1,5 +1,7 @@
 package UserCode.Tasks;
 
+import Exceptions.FarmioException;
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import Places.Farm;
 import UserCode.Actions.Action;
@@ -13,7 +15,7 @@ public class DoTask extends Task {
     }
 
     @Override
-    public void execute(Farmio farmio) {
+    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         {
             action.execute(farmio.getUi());
         }

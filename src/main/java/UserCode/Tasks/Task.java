@@ -1,5 +1,6 @@
 package UserCode.Tasks;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import UserCode.Actions.Action;
 import Exceptions.FarmioException;
@@ -28,7 +29,7 @@ public abstract class Task {
     }
 
 
-    public abstract void execute(Farmio farmio) throws FarmioException;
+    public abstract void execute(Farmio farmio) throws FarmioException, FarmioFatalException;
 
 //    private Action parseJsonAction(JSONObject obj) throws FarmioException {
 //        Action action;

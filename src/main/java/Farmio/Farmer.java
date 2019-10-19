@@ -1,6 +1,7 @@
 package Farmio;
 
 import Exceptions.FarmioException;
+import Exceptions.FarmioFatalException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
@@ -9,6 +10,8 @@ import javafx.util.Pair;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Farmer {
     private int money;
@@ -23,7 +26,7 @@ public class Farmer {
     private boolean hasfailedCurrentTask;
 
     public Farmer() {
-        this.money = 100;
+        this.money = 10;
         this.level = 1;
         this.day = 1;
         this.location = "WheatFarm";
@@ -67,26 +70,20 @@ public class Farmer {
         location = newLocation;
     }
 
-    public ArrayList<Pair<String, Integer>> getAssets() {
-        ArrayList<Pair<String, Integer>> assets = new ArrayList<Pair<String, Integer>>();
+    public Map<String, Integer> getAssets() {
+        Map<String, Integer> assets = new HashMap< String,Integer>();
 
-        if(level == 1) {
-            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
-            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
+        if (level >= 3) {
         }
-        else if(level == 2) {
-            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
-            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-            assets.add(new Pair<>("Chicken", 0));
-            assets.add(new Pair<>("Eggs", 0));
+        if(level >= 2) {
+
         }
-        else if(level == 3)
+        if(level >= 1)
         {
-            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
-            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-            assets.add(new Pair<>("Chicken",0));
-            assets.add(new Pair<>("Eggs",0));
-            assets.add(new Pair<>("Milk",0));
+            assets.put("Seeds", wheatFarm.getSeeds());
+            assets.put("Seedlings", wheatFarm.getGreenWheat());
+            assets.put("Wheat", wheatFarm.getRipeWheat());
+            assets.put("Gold", money);
         }
         return assets;
     }
@@ -114,14 +111,14 @@ public class Farmer {
         this.money = money;
     }
 
-    public void changeMoney(int change) { money -= change; }
+    public void changeMoney(int change) { money += change; }
 
     public int getCurrentTask() {return this.currentTask;}
     public void nextLevel(){
         ++this.level;
     }
 
-    public void startDay(Farmio farmio) throws FarmioException {
+    public void startDay(Farmio farmio) throws FarmioException, FarmioFatalException {
         for (int i = 0; i < tasks.size(); i++) {
             this.currentTask = i;
             tasks.get(i).execute(farmio);

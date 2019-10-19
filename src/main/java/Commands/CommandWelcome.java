@@ -11,7 +11,7 @@ public class CommandWelcome extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
-        Simulation.animate(ui, farmio.getStorage(), "Welcome", 1);
+        new Simulation("Welcome", ui, farmio.getStorage()).animate(1);
         ui.show( "Press ENTER to continue.");
     }
 }
