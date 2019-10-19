@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javacake.ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: black;" stylesheets="" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javacake.ui.MainWindow">
   <children>
     <TextField fx:id="userInput" layoutX="2.0" layoutY="555.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #EE8EC7; -fx-background-radius: 10;" stylesheets="@../css/textfield.css" />
     <Button fx:id="sendButton" layoutX="536.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="31.0" prefWidth="56.0" style="-fx-background-color: #FF9EC7; -fx-border-color: white;" text="Send" textFill="WHITE">
          <font>
             <Font name="Baskerville Old Face" size="15.0" />
          </font></Button>
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="5.0" prefHeight="450.0" prefWidth="595.0" style="-fx-background-color: pink;" vvalue="1.0" AnchorPane.topAnchor="100.0">
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="5.0" prefHeight="450.0" prefWidth="595.0" style="-fx-background-color: black;" vvalue="1.0" AnchorPane.topAnchor="100.0">
       <content>
         <VBox fx:id="dialogContainer" prefHeight="450.0" prefWidth="570.0" style="-fx-background-color: pink;">
                <padding>
@@ -26,5 +26,10 @@
     </ScrollPane>
       <VBox fx:id="rightScreen" layoutX="606.0" layoutY="101.0" prefHeight="450.0" prefWidth="389.0" style="-fx-background-color: #FEE;" AnchorPane.topAnchor="100.0" />
       <HBox fx:id="topBar" layoutX="5.0" prefHeight="90.0" prefWidth="990.0" style="-fx-background-color: #EE8EC7;" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Button fx:id="themeModeButton" layoutX="745.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleGuiMode" prefHeight="31.0" prefWidth="111.0" style="-fx-background-color: #FF9EC7; -fx-border-color: white;" text="Switch Mode" textFill="WHITE">
+         <font>
+            <Font name="Baskerville Old Face" size="15.0" />
+         </font>
+      </Button>
   </children>
 </AnchorPane>

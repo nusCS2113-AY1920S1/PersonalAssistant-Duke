@@ -36,15 +36,15 @@ public class MainWindow extends AnchorPane {
     private HBox topBar;
     @FXML
     private VBox rightScreen;
+    @FXML
+    private Button themeModeButton;
+    public static boolean isLightMode = true;
 
     private Duke duke;
     private Stage primaryStage;
 
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
-
-
 
     private boolean isQuiz = false;
     private QuizCommand quizCommand;
@@ -177,5 +177,27 @@ public class MainWindow extends AnchorPane {
         default:
         }
         return quizCommand.getQuestion();
+    }
+
+    @FXML
+    private void handleGuiMode() {
+        if (isLightMode) { //switches to Dark theme
+            isLightMode = false;
+            sendButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            themeModeButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
+            userInput.setStyle("-fx-background-color: #9999; -fx-background-radius: 10;");
+            dialogContainer.setStyle("-fx-background-color: grey;");
+            rightScreen.setStyle("-fx-background-color: grey;");
+        } else { //switches to Light theme
+            isLightMode = true;
+            sendButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            themeModeButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
+            userInput.setStyle("-fx-background-color: #EE8EC7;"
+                    + " -fx-background-radius: 10;");
+            dialogContainer.setStyle("-fx-background-color: pink;");
+            rightScreen.setStyle("-fx-background-color: #FEE;");
+        }
     }
 }

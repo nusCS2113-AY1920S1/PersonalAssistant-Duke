@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="570.0" style="-fx-background-color: #FF69B4; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="570.0" style="-fx-background-color: #EE8EC7; -fx-background-radius: 20; -fx-border-color: white; -fx-border-radius: 20;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <Label fx:id="dialog" text="Label" textFill="WHITE" wrapText="true">
          <padding>

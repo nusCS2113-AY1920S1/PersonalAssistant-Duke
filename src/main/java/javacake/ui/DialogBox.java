@@ -3,6 +3,9 @@ package javacake.ui;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 /**
  * An example of a custom control using FXML.
@@ -37,6 +41,15 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), ev -> {
+            if (MainWindow.isLightMode) {
+                this.setStyle("-fx-background-color: #EE8EC7");
+            } else {
+                this.setStyle("-fx-background-color: #CCC");
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     /**
