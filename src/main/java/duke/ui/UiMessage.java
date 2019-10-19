@@ -1,4 +1,4 @@
-package duke.gui;
+package duke.ui;
 
 class UiMessage {
     static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";

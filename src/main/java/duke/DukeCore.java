@@ -5,8 +5,8 @@ import duke.data.PatientMap;
 import duke.data.TaskList;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
-import duke.gui.Ui;
-import duke.gui.UiManager;
+import duke.ui.Ui;
+import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -1,4 +1,4 @@
-package duke.gui;
+package duke.ui;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
