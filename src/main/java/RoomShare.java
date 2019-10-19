@@ -51,7 +51,7 @@ public class RoomShare {
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() {
+    public void run() throws RoomShareException {
         boolean isExit = false;
         while (!isExit) {
             String command = parser.getCommand();
@@ -160,6 +160,10 @@ public class RoomShare {
                 int secondIndex = parser.getIndex();
                 ui.showReordering();
                 taskList.reorder(firstIndex, secondIndex);
+                break;
+
+            case subtask:
+                TaskList.currentList().get(parser.getIndex()).setSubTasks(parser.getCommandLine());
                 break;
 
             default:
