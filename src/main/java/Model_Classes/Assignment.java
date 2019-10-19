@@ -34,8 +34,6 @@ public class Assignment extends Task {
         this.isFixedDuration = true;
     }
 
-
-   
     public void snoozeMonth(int amount) {
         this.by.setMonth(this.by.getMonth() + amount);;
     }
@@ -48,7 +46,6 @@ public class Assignment extends Task {
         this.by.setDate(this.by.getDate() + amount);;
     }
 
-
     /**
      * Snoozes the Event by set amount of hours
      * @param amount number of hours to snooze
@@ -56,7 +53,6 @@ public class Assignment extends Task {
     public void snoozeHour(int amount){
         this.by.setHours(this.by.getHours() + amount);
     }
-
 
     /**
      * Snoozes the Event by set amount of hours
