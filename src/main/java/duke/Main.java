@@ -9,12 +9,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A GUI for Duke using FXML.
+ * An app called SGTravel.
  */
 public class Main extends Application {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     /**
-     * Starts duke GUI.
+     * Starts SGTravel GUI.
      * @param stage the stage for GUI.
      */
     @Override
