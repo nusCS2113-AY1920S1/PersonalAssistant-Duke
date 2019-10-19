@@ -6,6 +6,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Task;
+import wallet.ui.Ui;
 
 /**
  * DeleteCommand class handles any command that involves deletion of Record objects.
@@ -65,7 +66,9 @@ public class DeleteCommand extends Command {
             if (loan != null) {
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_DELETE_LOAN);
-                System.out.println(loan.toString());
+                Ui.printLoanTableHeaders();
+                Ui.printLoanRow(loan);
+                Ui.printLoanTableClose();
                 if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
                     LogicManager.getReminder().autoRemindStop();
                     System.out.println("Turning off auto reminders because all loans have been settled!");

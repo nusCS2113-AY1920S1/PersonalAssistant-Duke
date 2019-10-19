@@ -92,6 +92,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         loan.setId(loan_id);
         String parameters = arguments[1].trim();
 
+        int index = LogicManager.getWallet().getLoanList().findIndexWithId(loan.getId());
+        Loan currentLoan = LogicManager.getWallet().getLoanList().getLoan(index);
+
         if (parameters.contains("/c")) {
             String[] getContact = parameters.split("/c");
             int contact_id = Integer.parseInt(getContact[1].trim());
@@ -103,51 +106,45 @@ public class EditCommandParser implements Parser<EditCommand> {
                 }
             }
             parameters = getContact[0].trim();
+        } else { //parameters does not contain "/c"
+            loan.setPerson(currentLoan.getPerson());
         }
         if (parameters.contains("/l")) {
             String[] getIsLend = parameters.split("/l");
-            System.out.println("Edit: lend found!");
             loan.setIsLend(true);
             parameters = getIsLend[0].trim();
         } else if (parameters.contains("/b")) {
             String[] getIsLend = parameters.split("/b");
-            System.out.println("Edit: borrow found!");
             loan.setIsLend(false);
             parameters = getIsLend[0].trim();
         } else if (!parameters.contains("/l") || !parameters.contains("/b")) {
-            int index = LogicManager.getWallet().getLoanList().findIndexWithId(loan.getId());
-            Loan currentLoan = LogicManager.getWallet().getLoanList().getLoan(index);
-            System.out.println("Edit: borrow/loan not found! "
-                    + "currentLoan.getIsLend(): " + currentLoan.getIsLend());
             loan.setIsLend(currentLoan.getIsLend());
         }
         if (parameters.contains("/t")) {
             String[] getDate = parameters.split("/t");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate createdDate = LocalDate.parse(getDate[1].trim(), formatter);
-            System.out.println("Edit: date found!");
             loan.setCreatedDate(createdDate);
-            System.out.println("EditCommandParser loan.getCreatedDate(): "+ loan.getCreatedDate());
             parameters = getDate[0].trim();
         } else if (!parameters.contains("/t")) {
-            int index = LogicManager.getWallet().getLoanList().findIndexWithId(loan.getId());
-            Loan currentLoan = LogicManager.getWallet().getLoanList().getLoan(index);
             loan.setCreatedDate(currentLoan.getCreatedDate());
-            System.out.println("EditCommandParser loan.getCreatedDate(): "+ loan.getCreatedDate());
         }
         if (parameters.contains("/a")) {
             String[] getAmount = parameters.split("/a");
             double amount = Double.parseDouble(getAmount[1].trim());
-            System.out.println("Edit: amount found!");
             loan.setAmount(amount);
-            System.out.println("EditCommandParser loan.getAmount(): "+ loan.getAmount());
+            parameters = getAmount[0].trim();
+        } else {
+            loan.setAmount(currentLoan.getAmount());
         }
         if (parameters.contains("/d")) {
             String[] getDescription = parameters.split("/d");
             String description = getDescription[1].trim();
-            System.out.println("Edit: description found!");
             loan.setDescription(description);
+        } else {
+            loan.setDescription(currentLoan.getDescription());
         }
+        loan.setIsSettled(currentLoan.getIsSettled());
         return loan;
     }
 

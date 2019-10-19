@@ -24,7 +24,7 @@ public class DoneCommandParser implements Parser<DoneCommand> {
         String[] arguments = input.split(" ", 2);
 
         int id = Integer.parseInt(arguments[1]);
-        LogicManager.getCommandHistory().add("done " + arguments[0] + arguments[1]);
+        LogicManager.getCommandHistory().add("done " + arguments[0] + " " + arguments[1]);
         return new DoneCommand(id);
     }
 }

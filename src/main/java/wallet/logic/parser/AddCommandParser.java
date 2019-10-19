@@ -127,11 +127,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         info = info[3].split("/c ");
         int contactId = Integer.parseInt(info[1]);
 
-        if (info[0].equals("/l")) {
+        System.out.println("AddCommandParser: " + info[0]);
+
+        if (info[0].equals(" /l")) {
+            System.out.println("l");
             isLend = true;
-        } else if (info[0].equals("/b")) {
+        } else if (info[0].equals(" /b")) {
+            System.out.println("b");
             isLend = false;
         }
+        System.out.println("isLend: " + isLend);
 
         ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
         int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
@@ -156,46 +161,5 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             return contact;
         }
-    }
-
-    /**
-     * Returns a Task Object based on command and input.
-     *
-     * @param command A string command.
-     * @param input   A string input.
-     * @return The Task object.
-     * @throws ArrayIndexOutOfBoundsException Out of index.
-     * @throws ParseException                 ParseException.
-     */
-    private Task parseTask(String command, String input) throws ArrayIndexOutOfBoundsException, ParseException {
-        Task task = null;
-
-        String[] info;
-
-        if (input.length() == 0) {
-            System.out.println("☹ OOPS!!! The description of " + command + " cannot be empty");
-            return null;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        if (command.equals("todo")) {
-            task = new Todo(input);
-        } else if (command.equals("deadline")) {
-            info = input.split("/by");
-            Date date = sdf.parse(info[1].trim());
-            task = new Deadline(info[0].trim(), date);
-        } else if (command.equals("event")) {
-            info = input.split("/at");
-            Date date = sdf.parse(info[1].trim());
-            task = new Event(info[0].trim(), date);
-        } else if (command.equals("dowithin")) {
-            info = input.split("/from");
-            String temp = info[0];
-            info = info[1].split("/to");
-            Date dateStart = sdf.parse(info[0].trim());
-            Date dateEnd = sdf.parse(info[1].trim());
-            task = new DoWithinPeriod(temp.trim(), dateStart, dateEnd);
-        }
-        return task;
     }
 }

@@ -29,7 +29,7 @@ public class Reminder {
      * and also turn it off and on as they wish.
      */
     public void autoRemindStart() {
-        thread = new ReminderThread(autoRemind, loanList, timeInSeconds);
+        thread = new ReminderThread(autoRemind, timeInSeconds);
     }
 
     /**

@@ -1,9 +1,10 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
-import wallet.model.record.Expense;
 import wallet.model.contact.Contact;
+import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.ui.Ui;
 
 
 /**
@@ -105,30 +106,23 @@ public class EditCommand extends Command {
         } else if (loan != null) {
 
             int index = wallet.getLoanList().findIndexWithId(loan.getId());
-            Loan currentLoan = wallet.getLoanList().getLoan(index);
 
-            if (loan.getDescription() != currentLoan.getDescription()) {
+            if (index != -1) {
+                Loan currentLoan = wallet.getLoanList().getLoan(index);
                 currentLoan.setDescription(loan.getDescription());
-            }
-            /*if (loan.getAmount() != 0.0) {
                 currentLoan.setAmount(loan.getAmount());
-            }
-            if (loan.getCreatedDate() != currentLoan.getCreatedDate()) {
                 currentLoan.setCreatedDate(loan.getCreatedDate());
-            }
-            if (loan.getIsLend() != currentLoan.getIsLend()) {
                 currentLoan.setIsLend(loan.getIsLend());
-            }
-            if (loan.getPerson() != currentLoan.getPerson()) {
                 currentLoan.setPerson(loan.getPerson());
-            }*/
-
-            wallet.getLoanList().editLoan(index, currentLoan);
-            wallet.getLoanList().setModified(true);
-            System.out.println(MESSAGE_SUCCESS_EDIT_LOAN);
-            System.out.println(currentLoan.toString());
+                wallet.getLoanList().editLoan(index, currentLoan);
+                wallet.getLoanList().setModified(true);
+                System.out.println(MESSAGE_SUCCESS_EDIT_LOAN);
+                Ui.printLoanTableHeaders();
+                Ui.printLoanRow(currentLoan);
+                Ui.printLoanTableClose();
             } else {
-            System.out.println(MESSAGE_ERROR_COMMAND);
+                System.out.println(MESSAGE_ERROR_COMMAND);
+            }
         }
         return false;
     }

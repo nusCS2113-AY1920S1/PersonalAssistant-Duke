@@ -5,6 +5,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Task;
+import wallet.ui.Ui;
 
 /**
  * The AddCommand Class which extends Command.
@@ -81,7 +82,9 @@ public class AddCommand extends Command {
             wallet.getRecordList().addRecord(loan);
             wallet.getLoanList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
-            System.out.println(loan.toString());
+            Ui.printLoanTableHeaders();
+            Ui.printLoanRow(loan);
+            Ui.printLoanTableClose();
         }
 
         return false;

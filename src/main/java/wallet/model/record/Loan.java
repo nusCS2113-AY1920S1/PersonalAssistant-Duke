@@ -18,7 +18,11 @@ public class Loan extends Record {
      * Default constructor.
      */
     public Loan() {
-
+        description = null;
+        amount = 0.0;
+        person = null;
+        createdDate = null;
+        isSettled = false;
     }
 
     /**
