@@ -58,12 +58,14 @@ public class ListCommand extends Command {
 
         case "all":
             isListAll = true;
+            //fallthrough
 
         case "contact":
             Ui.printContactTable();
             if (!isListAll) {
                 break;
             }
+            //fallthrough
 
         case "expense":
             ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
@@ -71,6 +73,7 @@ public class ListCommand extends Command {
             if (!isListAll) {
                 break;
             }
+            //fallthrough
 
         case "loan":
             wallet.getLoanList().listLoanList();
