@@ -94,6 +94,7 @@ class CommandWindow extends UiElement<Region> {
     @FXML
     private void handleAction() {
         String input = inputTextField.getText().trim();
+        input = input.replaceAll("\t", "    ");
 
         if (!input.isEmpty()) {
             if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1
@@ -162,7 +163,6 @@ class CommandWindow extends UiElement<Region> {
      *                       requirements.
      */
     private Command parseCommand(String input) throws DukeException {
-        input = input.replaceAll("\t", "    ");
         return parser.parse(input);
     }
 

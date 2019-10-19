@@ -24,7 +24,6 @@ class MainWindow extends UiElement<Stage> {
     private AnchorPane homeWindowHolder;
 
     private Stage primaryStage;
-    private DukeCore core;
     private UiContext context;
     private PatientMap patientMap;
     private Executor executor;
@@ -41,7 +40,6 @@ class MainWindow extends UiElement<Stage> {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
-        this.core = core;
         this.context = core.context;
         this.patientMap = core.patientMap;
         this.executor = new Executor(core);
