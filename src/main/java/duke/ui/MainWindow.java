@@ -1,6 +1,8 @@
 package duke.ui;
 
 import duke.DukeCore;
+import duke.command.Executor;
+import duke.data.PatientMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -23,6 +25,9 @@ class MainWindow extends UiElement<Stage> {
 
     private Stage primaryStage;
     private DukeCore core;
+    private UiContext context;
+    private PatientMap patientMap;
+    private Executor executor;
 
     private CommandWindow commandWindow;
 
@@ -37,6 +42,9 @@ class MainWindow extends UiElement<Stage> {
 
         this.primaryStage = primaryStage;
         this.core = core;
+        this.context = core.context;
+        this.patientMap = core.patientMap;
+        this.executor = new Executor(core);
 
         placeChildUiElements();
     }
@@ -45,10 +53,10 @@ class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        commandWindow = new CommandWindow(core);
+        commandWindow = new CommandWindow(executor);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        HomeWindow homeWindow = new HomeWindow(core);
+        HomeWindow homeWindow = new HomeWindow(patientMap, commandWindow);
         Tab homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
@@ -56,7 +64,8 @@ class MainWindow extends UiElement<Stage> {
         Tab patientTab = new Tab("Patient", patientWindow.getRoot());
         contextWindowHolder.getTabs().add(patientTab);
 
-        core.context.addListener(evt -> {
+        // TODO: Add contexts here.
+        context.addListener(evt -> {
             switch ((UiContext.Context) evt.getNewValue()) {
             case HOME:
                 contextWindowHolder.getSelectionModel().select(homeTab);
