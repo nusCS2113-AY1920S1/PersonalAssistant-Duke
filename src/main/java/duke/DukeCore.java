@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Main class of the application.
@@ -49,10 +50,9 @@ public class DukeCore extends Application {
                 patientMap = new PatientMap(storage);
             } catch (DukeResetException e) {
                 // Reset data file
-                patientMap = new PatientMap();
-                storage.writeJsonFile(); //write empty data structure to data file
+                patientMap = storage.resetAllData();
             }
-        } catch (DukeFatalException e) {
+        } catch (DukeFatalException | IOException e) {
             stop();
         }
     }
