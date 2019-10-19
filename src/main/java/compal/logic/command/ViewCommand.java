@@ -2,6 +2,7 @@ package compal.logic.command;
 
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
+import compal.ui.CalenderUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,17 +14,21 @@ import java.util.Comparator;
  */
 public class ViewCommand extends Command {
     private String[] viewargs;
+    private CalenderUtil calenderUtil;
 
+    /**
+     * Generate constructor for viewCommand.
+     * @param viewArgs the arguments
+     */
     public ViewCommand(String[] viewArgs) {
         super();
         this.viewargs = viewArgs;
+        calenderUtil = new CalenderUtil();
     }
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
-        Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
         ArrayList<Task> currList = taskList.getArrList();
-        currList.sort(compareByDateTime);
 
         String viewType = viewargs[0];
         String dateInput = viewargs[1];
@@ -99,6 +104,7 @@ public class ViewCommand extends Command {
                 dailyTask.append(taskString);
             }
         }
+        calenderUtil.dateViewRefresh(dateInput);
         return dailyTask.toString();
     }
 }

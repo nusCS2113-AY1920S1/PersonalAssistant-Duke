@@ -37,7 +37,7 @@
         <Label layoutX="671.0" layoutY="118.0" text="Upcoming Tasks" textFill="WHITE"/>
         <Label layoutX="7.0" layoutY="118.0" text="Terminal" textFill="WHITE"/>
         <Label fx:id="date" layoutX="250.0" layoutY="118.0" text="Label" textFill="WHITE"/>
-        <Text fill="WHITE" layoutX="324.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ComPal V1.1">
+        <Text fill="WHITE" layoutX="324.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ComPal">
             <font>
                 <Font size="26.0"/>
             </font>
