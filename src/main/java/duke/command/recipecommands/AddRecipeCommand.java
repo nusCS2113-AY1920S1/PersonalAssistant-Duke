@@ -26,15 +26,34 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { /
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(9) == ' ') {
-            String description = userInput.split("\\s", 2)[1].trim();
-            RecipeTitle recipeTitle = new RecipeTitle(description);
-            recipeList.addRecipe(recipeTitle);
-            recipeStorage.saveFile(recipeList);
-            arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+            String[] description = userInput.split("\\s", 3);
+            if (description.length == 3) {
+                String index = description[1].trim();
+                if (isParsableInt(index)) {
+                    String title = description[2].trim();
+                    RecipeTitle recipeTitle = new RecipeTitle(Integer.parseInt(index), title);
+                    recipeList.addRecipe(recipeTitle);
+                    recipeStorage.saveFile(recipeList);
+                    arrayList.add(MESSAGE_RECIPE_ADDED + "       " + title + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+                } else {
+                    arrayList.add(ERROR_MESSAGE_RANDOM);
+                }
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+            }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
         return arrayList;
+    }
+
+    private static boolean isParsableInt(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     @Override

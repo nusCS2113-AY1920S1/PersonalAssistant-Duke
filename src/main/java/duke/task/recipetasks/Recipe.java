@@ -1,5 +1,7 @@
 package duke.task.recipetasks;
 
+import duke.exception.DukeException;
+
 public class Recipe {
 
     RecipeTitle recipeTitle;
@@ -16,7 +18,7 @@ public class Recipe {
         this.feedback = new Feedback();
     }
 
-    public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) {
+    public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) throws DukeException {
         this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = assignRating(rating);
         this.prepStep = new PrepStep(prepStep);
@@ -33,6 +35,10 @@ public class Recipe {
 
     public PrepStep getPrepStep() {
         return this.prepStep;
+    }
+
+    public void setRequiredIngredients(String description) throws DukeException{
+        this.requiredIngredients = new RequiredIngredients(description);
     }
 
     public RequiredIngredients getRequiredIngredients() {
