@@ -13,7 +13,7 @@ public class VersionedBakingHome extends BakingHome {
     private boolean isTrackingEnabled = true;
 
     /**
-     * Creates a {@code VersionedAddressBook} with an initial {@code ReadOnlyBakingHome}.
+     * Creates a {@code VersionedBakingHome} with an initial {@code ReadOnlyBakingHome}.
      */
     public VersionedBakingHome(ReadOnlyBakingHome initialState) {
         super(initialState);
@@ -60,7 +60,7 @@ public class VersionedBakingHome extends BakingHome {
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the baking home to its previously undone state.
      * @return the commit message of the previous state.
      */
     public String redo() {

@@ -9,10 +9,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.*;
-
-import static duke.commons.util.AppUtil.checkArgument;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
-import static duke.commons.util.StringUtil.isValidString;
 
 /**
  * Represents an order in order list.
