@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.core.CommandManager;
 import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
@@ -14,11 +15,13 @@ import duke.core.Ui;
  * program
  */
 public class ExitCommand extends Command {
+    private boolean hasBeenAddedBefore = false;
     /**
      * Constructs a ExitCommand object.
      */
     public ExitCommand() {
         super();
+
     }
 
     /**
@@ -41,6 +44,11 @@ public class ExitCommand extends Command {
     public void execute(PatientTaskList patientTask, TaskManager tasks,
                         PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage,
                         TaskStorage taskStorage, PatientStorage patientStorage) {
+        this.hasBeenAddedBefore = true;
         ui.exitInformation();
+    }
+
+    public boolean HasBeenAddedBefore() {
+        return hasBeenAddedBefore;
     }
 }

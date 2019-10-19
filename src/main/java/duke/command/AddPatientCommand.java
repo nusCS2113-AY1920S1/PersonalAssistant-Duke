@@ -13,6 +13,7 @@ import duke.task.TaskManager;
 public class AddPatientCommand extends Command {
 
     private Patient newPatient;
+    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -24,6 +25,7 @@ public class AddPatientCommand extends Command {
         super();
         try {
             this.newPatient = new Patient(patientInfo[0], patientInfo[1], patientInfo[2], patientInfo[3]);
+
         } catch (Exception e) {
             throw new DukeException("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
         }
@@ -33,6 +35,7 @@ public class AddPatientCommand extends Command {
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
                         PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
+        this.hasBeenAddedBefore = true;
         patientList.addPatient(newPatient);
         patientStorage.save(patientList.getPatientList());
         ui.patientAdded(newPatient);
@@ -42,4 +45,9 @@ public class AddPatientCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
+    public boolean HasBeenAddedBefore() {
+        return hasBeenAddedBefore;
+    }
+
 }

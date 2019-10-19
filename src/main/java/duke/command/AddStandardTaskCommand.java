@@ -12,6 +12,7 @@ import duke.task.TaskManager;
 
 public class AddStandardTaskCommand extends Command {
     private Task newStandardTask;
+    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -20,6 +21,7 @@ public class AddStandardTaskCommand extends Command {
     public AddStandardTaskCommand(String taskDescription) {
         super();
         this.newStandardTask = new Task(taskDescription);
+
     }
 
     /**
@@ -37,6 +39,7 @@ public class AddStandardTaskCommand extends Command {
     public void execute(PatientTaskList patientTask, TaskManager taskList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
+        this.hasBeenAddedBefore = true;
         taskList.addTask(newStandardTask);
         taskStorage.save(taskList.getTaskList());
         ui.taskAdded(newStandardTask);
@@ -45,5 +48,9 @@ public class AddStandardTaskCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    public boolean HasBeenAddedBefore() {
+        return hasBeenAddedBefore;
     }
 }

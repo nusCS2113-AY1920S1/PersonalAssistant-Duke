@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
@@ -15,7 +16,6 @@ import duke.task.TaskManager;
  * of user command
  */
 public abstract class Command {
-
     /**
      * .
      *
