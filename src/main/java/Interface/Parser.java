@@ -79,11 +79,11 @@ public class Parser {
             } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
                 try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.trim().substring(5);
-                    split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date from time to time"
+                    split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date /from time /to time"
                     if (split[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-                    split1 = split[1].split("from"); //split1[0] is "date", split1[1] is "time to time"
+                    split1 = split[1].split("/from"); //split1[0] is "date", split1[1] is "time to time"
                     String weekDate ="";
                     split2 = split1[0].trim().split(" ");
                     weekDate = split2[0];
@@ -95,7 +95,7 @@ public class Parser {
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
                     Date date = formatter.parse(weekDate.trim());
-                    split2 = split1[1].split("to"); //split2[0] is (start) "time", split2[1] is (end) "time"
+                    split2 = split1[1].split("/to"); //split2[0] is (start) "time", split2[1] is (end) "time"
                     SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
                     Date startTime = formatter1.parse(split2[0].trim());
                     Date endTime = formatter1.parse(split2[1].trim());
@@ -119,8 +119,8 @@ public class Parser {
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-                    arr1 = arr[1].split("from"); //arr1[0] is "date to date" or "week X mon to week X mon", arr1[1] is "time to time"
-                    arr3 = arr1[0].split("to"); //arr3[0] is (start) "date", arr3[1] is (end) "date"
+                    arr1 = arr[1].split("/from"); //arr1[0] is "date to date" or "week X mon to week X mon", arr1[1] is "time to time"
+                    arr3 = arr1[0].split("/to"); //arr3[0] is (start) "date", arr3[1] is (end) "date"
                     arr4 = arr3[0].trim().split(" "); //split the start date
                     //recess week mon / week 3 mon / exam week mon / reading week tue
                     startWeekDate = arr4[0].trim();
@@ -141,7 +141,7 @@ public class Parser {
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
                     Date startDate = formatter.parse(startWeekDate);
                     Date endDate = formatter.parse(endWeekDate);
-                    arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                    arr2 = arr1[1].split("/to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
                     SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
                     Date startTime = formatter1.parse(arr2[0].trim());
                     Date endTime = formatter1.parse(arr2[1].trim());
@@ -161,7 +161,7 @@ public class Parser {
                     if (split[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-                    split1 = split[1].split("from"); //split1[0] is "date", split1[1] is "time to time"
+                    split1 = split[1].split("/from"); //split1[0] is "date", split1[1] is "time to time"
                     String weekDate ="";
                     split2 = split1[0].trim().split(" ");
                     weekDate = split2[0];
@@ -173,7 +173,7 @@ public class Parser {
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
                     Date date = formatter.parse(weekDate.trim());
-                    split2 = split1[1].split("to"); //split2[0] is (start) "time", split2[1] is (end) "time"
+                    split2 = split1[1].split("/to"); //split2[0] is (start) "time", split2[1] is (end) "time"
                     SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
                     Date startTime = formatter1.parse(split2[0].trim());
                     Date endTime = formatter1.parse(split2[1].trim());
@@ -295,6 +295,10 @@ public class Parser {
                             "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                             "or add/d mod_code name_of_event /by week x day HHmm\n");
                 }
+            } else if(fullCommand.trim().substring(0,6).equalsIgnoreCase("filter")){
+                String keyword = "";
+                keyword = fullCommand.trim().substring(7);
+                return new FilterCommand(keyword);
             } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);
