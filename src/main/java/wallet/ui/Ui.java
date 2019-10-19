@@ -3,6 +3,7 @@ package wallet.ui;
 import wallet.logic.LogicManager;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -120,5 +121,70 @@ public class Ui {
         }
 
         System.out.println(lineBreak);
+    }
+
+    /**
+     * Displays the loan list in table format.
+     */
+    public static void printLoanTable() {
+
+        ArrayList<Loan> LoanList = LogicManager.getWallet().getLoanList().getLoanList();
+        System.out.println("Here are the loans in your list:");
+        System.out.println("--------------------------------------------------------" +
+                "-------------------------------------------------------" +
+                "------------------------------------\n"
+                + "|  ID  |              Description                 |  Amount  |    Date    |" +
+                "  Settled  |    Borrow/Lend   |    Contact Name    |   Contact Number  |\n"
+                + "|-----------------------------------------------------" +
+                "--------------------------------------------------------" +
+                "------------------------------------|");
+        double total = 0;
+        for (Loan l : LoanList) {
+            if (!l.getIsLend() && !l.getIsSettled()) {
+                System.out.printf("| %-4d | %-40s | $%-7.2f | %-10s |  %-7s  |   %-12s   | %-20s | %-15s |\n", l.getId(),
+                        l.getDescription(), l.getAmount(), l.getDate(), "No", "Borrow from",
+                        l.getPerson().getName(), l.getPerson().getPhoneNum());
+            } else if (!l.getIsLend() && l.getIsSettled()) {
+                System.out.printf("| %-4d | %-40s | $%-7.2f | %-10s |  %-7s  |   %-12s   | %-20s | %-15s |\n", l.getId(),
+                        l.getDescription(), l.getAmount(), l.getDate(), "Yes", "Borrow from",
+                        l.getPerson().getName(), l.getPerson().getPhoneNum());
+            } else if (l.getIsLend() && !l.getIsSettled()) {
+                System.out.printf("| %-4d | %-40s | $%-7.2f | %-10s |  %-7s  |   %-12s   | %-20s | %-15s |\n", l.getId(),
+                        l.getDescription(), l.getAmount(), l.getDate(), "No", "Lend to",
+                        l.getPerson().getName(), l.getPerson().getPhoneNum());
+            } else if (l.getIsLend() && l.getIsSettled()) {
+                System.out.printf("| %-4d | %-40s | $%-7.2f | %-10s |  %-7s  |   %-12s   | %-20s | %-15s |\n", l.getId(),
+                        l.getDescription(), l.getAmount(), l.getDate(), "Yes", "Lend to",
+                        l.getPerson().getName(), l.getPerson().getPhoneNum());
+            }
+        }
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------");
+        /*ArrayList<Loan> LoanListCopy = LogicManager.getWallet().getLoanList().getLoanList();
+        String dash = "-";
+        String lineBreak = dash.repeat(100);
+        String headerBreak = dash.repeat(98);
+        System.out.println("Here are the loans in your list:");
+        System.out.println(lineBreak);
+        System.out.printf("| %-4s | %-40s | $%-7.2f | %-10s | %-12s | %-20s | %-20s |\n", "ID", "Description", "Amount", "Date", "Borrow/Lend", "Contact Name", "Contact Number");
+        System.out.println("|" + headerBreak + "|");
+        for (Loan l : LoanListCopy) {
+            String id = Integer.toString(l.getId()).trim();
+            String description = l.getDescription();
+            String amount = Double.toString(l.getAmount()).trim();
+            String detail = c.getDetail();
+
+            if (phone == null) {
+                phone = "";
+            }
+
+            if (detail == null) {
+                detail = "";
+            }
+
+            System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
+
+        }
+
+        System.out.println(lineBreak);*/
     }
 }

@@ -31,19 +31,10 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
-        case "todo":
-        case "event":
-        case "deadline":
-        case "dowithin":
-            Task task = parseTask(arguments[0], arguments[1]);
-            if (task != null) {
-                return new AddCommand(task);
-            } else {
-                break;
-            }
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
+                LogicManager.getCommandHistory().add("add " + arguments[0] + arguments[1]);
                 return new AddCommand(expense);
             } else {
                 break;
@@ -52,6 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case "contact":
             Contact contact = parseContact(arguments[1]);
             if (contact != null) {
+                LogicManager.getCommandHistory().add("add " + arguments[0] + arguments[1]);
                 return new AddCommand(contact);
             } else {
                 break;
@@ -59,6 +51,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case "loan":
             Loan loan = parseLoan(arguments[1]);
             if (loan != null) {
+                LogicManager.getCommandHistory().add("add " + arguments[0] + arguments[1]);
                 return new AddCommand(loan);
             } else {
                 break;
@@ -141,7 +134,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
-        Contact person = new ContactList(contactList).getContact(contactId - 1);
+        int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
+        Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
     }
@@ -202,7 +196,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             Date dateEnd = sdf.parse(info[1].trim());
             task = new DoWithinPeriod(temp.trim(), dateStart, dateEnd);
         }
-
         return task;
     }
 }

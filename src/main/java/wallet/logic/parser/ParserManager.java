@@ -1,24 +1,19 @@
 package wallet.logic.parser;
 
-import wallet.logic.command.AddCommand;
-import wallet.logic.command.Command;
-import wallet.logic.command.DeleteCommand;
-import wallet.logic.command.DoneCommand;
-import wallet.logic.command.EditCommand;
-import wallet.logic.command.ExitCommand;
-import wallet.logic.command.HelpCommand;
-import wallet.logic.command.ListCommand;
-import wallet.logic.command.ReminderCommand;
-import wallet.logic.command.SetBudgetCommand;
-import wallet.logic.command.ViewCommand;
+import wallet.logic.LogicManager;
+import wallet.logic.command.*;
 
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * The ParserManager Class that handles all CommandParser classes.
  */
 public class ParserManager {
+
+    private static ArrayList<String> commandHistory;
+
     /**
      * Parses the user input command and returns the corresponding Command object.
      * @param fullCommand The input of user.
@@ -29,8 +24,7 @@ public class ParserManager {
 
         switch (arguments[0]) {
         case AddCommand.COMMAND_WORD:
-            AddCommandParser addCommandParser = new AddCommandParser();
-            return addCommandParser.parse(arguments[1]);
+            return new AddCommandParser().parse(arguments[1]);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments[1]);
@@ -58,6 +52,9 @@ public class ParserManager {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         default:
             return null;

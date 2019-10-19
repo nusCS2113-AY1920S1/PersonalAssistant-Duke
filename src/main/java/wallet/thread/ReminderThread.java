@@ -5,7 +5,7 @@ import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 import wallet.ui.Ui;
 
-public class MyThread implements Runnable {
+public class ReminderThread implements Runnable {
 
     private boolean autoRemind;
     private Thread thread;
@@ -15,12 +15,13 @@ public class MyThread implements Runnable {
     private Ui ui;
 
     /**
-     * Constructs a custom thread.
+     * Constructs a ReminderThread object.
      *
+     * @param autoRemind    Whether there is an auto reminder.
      * @param loanList      The LoanList object.
      * @param timeInSeconds The time in seconds.
      */
-    public MyThread(boolean autoRemind, LoanList loanList, int timeInSeconds) {
+    public ReminderThread(boolean autoRemind, LoanList loanList, int timeInSeconds) {
 
         this.autoRemind = autoRemind;
         this.timeInSeconds = timeInSeconds;
@@ -32,7 +33,7 @@ public class MyThread implements Runnable {
 
 
     /**
-     * Executes the thread.
+     * Prints the lists of unsettled loans.
      */
     public void run() {
         while (LogicManager.getWallet().getLoanList().checkUnsettledLoan() && autoRemind) {

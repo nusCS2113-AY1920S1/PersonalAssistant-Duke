@@ -38,15 +38,6 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Constructs the AddCommand object with Task object.
-     *
-     * @param task The Task object.
-     */
-    public AddCommand(Task task) {
-        this.task = task;
-    }
-
-    /**
      * Constructs the AddCommand object with Contract object.
      *
      * @param contact The Contract object.
@@ -78,11 +69,6 @@ public class AddCommand extends Command {
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             System.out.println(expense.toString());
-        }
-        if (task != null) {
-            wallet.getTaskList().addTask(task);
-            System.out.println(MESSAGE_SUCCESS_ADD_TASK);
-            System.out.println(task.toString());
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);

@@ -1,5 +1,6 @@
 package wallet.logic.command;
 
+import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.task.Task;
@@ -80,7 +81,7 @@ public class ListCommand extends Command {
             //else fallthrough
 
         case "loan":
-            wallet.getLoanList().listLoanList();
+            Ui.printLoanTable();
             break;
 
         default:

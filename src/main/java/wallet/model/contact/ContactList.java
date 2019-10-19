@@ -47,21 +47,21 @@ public class ContactList {
     /**
      * Retrieve the contact at the given index of the contactList.
      *
-     * @param id The id of the contact in the contactList.
-     * @return The contact object with the specified id.
+     * @param index The index of the contact in the contactList.
+     * @return The contact object with the specified index.
      */
-    public Contact getContact(int id) {
-        return contactList.get(id);
+    public Contact getContact(int index) {
+        return contactList.get(index);
     }
 
     /**
      * Modify the value of the contact at the given index in the contactList.
      *
-     * @param id      The id of the contact in the list.
+     * @param index      The index of the contact in the list.
      * @param contact The contact with modified values.
      */
-    public void editContact(int id, Contact contact) {
-        contactList.set(id, contact);
+    public void editContact(int index, Contact contact) {
+        contactList.set(index, contact);
     }
 
     /**
