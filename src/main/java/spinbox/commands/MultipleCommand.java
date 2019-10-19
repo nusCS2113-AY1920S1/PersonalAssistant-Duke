@@ -35,43 +35,41 @@ public class MultipleCommand extends Command {
 
     private String moduleCode;
     private String content;
-    private StringBuilder outputMessage = new StringBuilder();
+    private String outputMessage = "";
 
     /**
      * Constructor for initialization of variables to support removal of entities.
-     * @param moduleCode A String denoting the module code.
+     * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
-    public MultipleCommand(String moduleCode, String content) {
-        this.moduleCode = moduleCode;
+    public MultipleCommand(String[] pageDataComponents, String content) {
+        if (pageDataComponents.length > 1) {
+            this.moduleCode = pageDataComponents[1];
+        }
         this.content = content;
-        this.type = content.split(" ")[0];
+        this.type = content.split(" ")[0].toLowerCase();
     }
 
-    private StringBuilder removeMultipleFile(List<Integer> finalIndexes, FileList files, StringBuilder outputMessage)
+    private String removeMultipleFile(List<Integer> finalIndexes, FileList files, String outputMessage)
             throws InvalidIndexException, DataReadWriteException {
         for (int i = 0; i < finalIndexes.size(); i++) {
             File fileRemoved = files.remove(finalIndexes.get(i));
             if (i == 0) {
-                outputMessage.append("Noted. I've removed these files:\n");
-                outputMessage.append(fileRemoved.toString()).append("\n");
-            } else {
-                outputMessage.append(fileRemoved.toString()).append("\n");
+                outputMessage = outputMessage.concat("Noted. I've removed these files:\n");
             }
+            outputMessage = outputMessage.concat(fileRemoved.toString() + "\n");
         }
         return outputMessage;
     }
 
-    private StringBuilder removeMultipleTask(List<Integer> finalIndexes, TaskList tasks, StringBuilder outputMessage)
+    private String removeMultipleTask(List<Integer> finalIndexes, TaskList tasks, String outputMessage)
             throws InvalidIndexException, DataReadWriteException {
         for (int i = 0; i < finalIndexes.size(); i++) {
             Task taskRemoved = tasks.remove(finalIndexes.get(i));
             if (i == 0) {
-                outputMessage.append("Noted. I've removed these tasks:\n");
-                outputMessage.append(taskRemoved.toString()).append("\n");
-            } else {
-                outputMessage.append(taskRemoved.toString()).append("\n");
+                outputMessage = outputMessage.concat("Noted. I've removed these tasks:\n");
             }
+            outputMessage = outputMessage.concat(taskRemoved.toString() + "\n");
         }
         return outputMessage;
     }
@@ -101,6 +99,7 @@ public class MultipleCommand extends Command {
             finalIndexes.sort(Collections.reverseOrder());
             switch (type) {
             case "file":
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
@@ -108,15 +107,16 @@ public class MultipleCommand extends Command {
                     if (inputSize == 1) {
                         throw new InputException(PROVIDE_INDEX);
                     }
-                    removeMultipleFile(finalIndexes, files, outputMessage).append("You currently have ")
-                            .append(files.getList().size()).append((
-                            files.getList().size() == 1) ? " file in the list." : " files in the list.");
-                    return outputMessage.toString();
+                    outputMessage = removeMultipleFile(finalIndexes, files, outputMessage).concat(
+                            "You currently have " + files.getList().size()
+                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list."));
+                    return outputMessage;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
 
             case "note":
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
@@ -133,6 +133,7 @@ public class MultipleCommand extends Command {
                 }
 
             case "task":
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
@@ -140,10 +141,10 @@ public class MultipleCommand extends Command {
                     if (inputSize == 1) {
                         throw new InputException(PROVIDE_INDEX);
                     }
-                    removeMultipleTask(finalIndexes, tasks, outputMessage).append("You currently have ")
-                            .append(tasks.getList().size()).append((
-                            tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
-                    return outputMessage.toString();
+                    outputMessage = removeMultipleTask(finalIndexes, tasks, outputMessage).concat(
+                            "You currently have " + tasks.getList().size()
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list."));
+                    return outputMessage;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }

@@ -83,7 +83,7 @@ public class Parser {
         String[] slashSeparate = input.split(" / ");
         try {
             if (slashSeparate.length == 1) {
-                if (input.equals("bye")) {
+                if (input.toLowerCase().equals("bye")) {
                     action = "bye";
                 } else {
                     throw new InputException("Please give valid command:\n"
@@ -94,7 +94,7 @@ public class Parser {
                 String[] frontComponents = slashSeparate[0].split(" ");
                 action = frontComponents[0];
                 pageData = slashSeparate[0].replace(action, "").trim();
-                pageData = commandBuilder(pageData);
+                pageData = commandBuilder(pageData.toLowerCase());
                 pageDataComponents = pageData.split(" ");
             }
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
@@ -102,24 +102,24 @@ public class Parser {
                     + "'<action> <page> / <content>' or 'bye'");
         }
 
-        switch (action) {
+        switch (action.toLowerCase()) {
         case "bye":
             command = new ExitCommand();
             break;
         case "view":
-            command = new ViewCommand(pageData, content);
+            command = new ViewCommand(pageDataComponents, content);
             break;
         case "add":
-            command = new AddCommand(pageDataComponents[1], content);
+            command = new AddCommand(pageDataComponents, content);
             break;
         case "remove":
-            command = new RemoveCommand(pageDataComponents[1], content);
+            command = new RemoveCommand(pageDataComponents, content);
             break;
         case "mark":
-            command = new MarkCommand(pageDataComponents[1], content);
+            command = new MarkCommand(pageDataComponents, content);
             break;
         case "remove-multiple":
-            command = new MultipleCommand(pageDataComponents[1], content);
+            command = new MultipleCommand(pageDataComponents, content);
             break;
         default:
         }

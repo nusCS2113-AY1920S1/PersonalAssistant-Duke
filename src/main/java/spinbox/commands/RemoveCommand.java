@@ -11,6 +11,7 @@ import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Ui;
 
+import javax.print.DocFlavor;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
@@ -28,13 +29,15 @@ public class RemoveCommand extends Command {
 
     /**
      * Constructor for initialization of variables to support removal of entities.
-     * @param moduleCode A String denoting the module code.
+     * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
-    public RemoveCommand(String moduleCode, String content) {
-        this.moduleCode = moduleCode;
+    public RemoveCommand(String[] pageDataComponents, String content) {
+        if (pageDataComponents.length > 1) {
+            this.moduleCode = pageDataComponents[1];
+        }
         this.content = content;
-        this.type = content.split(" ")[0];
+        this.type = content.split(" ")[0].toLowerCase();
     }
 
     @Override
@@ -42,14 +45,12 @@ public class RemoveCommand extends Command {
             SpinBoxException {
         switch (type) {
         case "file":
+            checkIfOnModulePage(moduleCode);
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 try {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
-                    if (content.split(" ").length == 1) {
-                        throw new InputException(PROVIDE_INDEX);
-                    }
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     File fileRemoved = files.get(index);
                     files.remove(index);
@@ -58,35 +59,39 @@ public class RemoveCommand extends Command {
                             + ((files.getList().size() == 1) ? " file in the list." : " files in the list.");
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InputException(PROVIDE_INDEX);
                 }
             } else {
                 return NON_EXISTENT_MODULE;
             }
 
         case "note":
+            checkIfOnModulePage(moduleCode);
             if (moduleContainer.checkModuleExists(moduleCode)) {
-                HashMap<String, Module> modules = moduleContainer.getModules();
-                Module module = modules.get(moduleCode);
-                Notepad notepad = module.getNotepad();
-                if (content.split(" ").length == 1) {
+                try {
+                    HashMap<String, Module> modules = moduleContainer.getModules();
+                    Module module = modules.get(moduleCode);
+                    Notepad notepad = module.getNotepad();
+                    int index = Integer.parseInt(content.split(" ")[1]) - 1;
+                    notepad.removeLine(index);
+                    return NOTE_REMOVED + moduleCode;
+                } catch (NumberFormatException e) {
+                    throw new InputException(INVALID_INDEX);
+                } catch (IndexOutOfBoundsException e) {
                     throw new InputException(PROVIDE_INDEX);
                 }
-                int index = Integer.parseInt(content.split(" ")[1]) - 1;
-                notepad.removeLine(index);
-                return NOTE_REMOVED + moduleCode;
             } else {
                 return NON_EXISTENT_MODULE;
             }
 
         case "task":
+            checkIfOnModulePage(moduleCode);
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 try {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
-                    if (content.split(" ").length == 1) {
-                        throw new InputException(PROVIDE_INDEX);
-                    }
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     Task taskRemoved = tasks.get(index);
                     tasks.remove(index);
@@ -95,6 +100,8 @@ public class RemoveCommand extends Command {
                             + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InputException(PROVIDE_INDEX);
                 }
             } else {
                 return NON_EXISTENT_MODULE;

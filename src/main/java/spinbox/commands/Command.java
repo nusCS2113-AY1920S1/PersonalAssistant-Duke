@@ -2,6 +2,7 @@ package spinbox.commands;
 
 import spinbox.containers.ModuleContainer;
 import spinbox.entities.Module;
+import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.Storage;
 import spinbox.Ui;
@@ -47,5 +48,19 @@ public abstract class Command {
      */
     public void setFileCommand(boolean fileCommand) {
         isFileCommand = fileCommand;
+    }
+
+    /**
+     * Check when there is a moduleCode indicated from the constructor.
+     * @param moduleCode the moduleCode variable.
+     * @return true if there is a moduleCode indicated, false otherwise.
+     * @throws InputException if there is no moduleCode indicated, tell User.
+     */
+    public boolean checkIfOnModulePage(String moduleCode) throws InputException {
+        if (moduleCode == null) {
+            throw new InputException("Please be on a module page or indicate "
+                    + "the specific module this action is for.");
+        }
+        return true;
     }
 }

@@ -28,60 +28,62 @@ public class MarkCommand extends Command {
 
     /**
      * Constructor for initialization of variables to support marking of entities.
-     * @param moduleCode A String denoting the module code.
+     * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
-    public MarkCommand(String moduleCode, String content) {
-        this.moduleCode = moduleCode;
+    public MarkCommand(String[] pageDataComponents, String content) {
+        if (pageDataComponents.length > 1) {
+            this.moduleCode = pageDataComponents[1];
+        }
         this.content = content;
-        this.type = content.split(" ")[0];
+        this.type = content.split(" ")[0].toLowerCase();
     }
 
     @Override
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
             SpinBoxException {
-        StringBuilder outputMessage = new StringBuilder();
+        String outputMessage = "";
         switch (type) {
         case "file":
+            checkIfOnModulePage(moduleCode);
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 try {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
-                    if (content.split(" ").length == 1) {
-                        throw new InputException(PROVIDE_INDEX);
-                    }
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     File fileMarked = files.get(index);
                     files.mark(index);
                     return FILE_MARKED + fileMarked.toString();
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InputException(PROVIDE_INDEX);
                 }
             } else {
                 return NON_EXISTENT_MODULE;
             }
 
         case "task":
+            checkIfOnModulePage(moduleCode);
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 try {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
-                    if (content.split(" ").length == 1) {
-                        throw new InputException(PROVIDE_INDEX);
-                    }
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     Task taskMarked = tasks.get(index);
                     tasks.mark(index);
-                    outputMessage.append(TASK_MARKED).append(taskMarked.toString()).append("\n");
+                    outputMessage = outputMessage.concat(TASK_MARKED + taskMarked.toString() + "\n");
                     tasks.remove(index);
-                    outputMessage.append("This task has been removed from the list.\n");
-                    outputMessage.append("You currently have ").append(tasks.getList().size()).append((
-                            tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
-                    return outputMessage.toString();
+                    outputMessage = outputMessage.concat("This task has been removed from the list.\n");
+                    outputMessage = outputMessage.concat("You currently have " + tasks.getList().size()
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list."));
+                    return outputMessage;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InputException(PROVIDE_INDEX);
                 }
             } else {
                 return NON_EXISTENT_MODULE;

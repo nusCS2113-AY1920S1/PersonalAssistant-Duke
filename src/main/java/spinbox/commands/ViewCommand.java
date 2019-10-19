@@ -18,13 +18,12 @@ public class ViewCommand extends Command {
 
     /**
      * Constructs by splitting the input and pageTrace and storing it in private variables.
-     * @param pageData the page trace from parser.
+     * @param pageDataComponents the page trace from parser.
      * @param content the content of input.
      * @throws InputException if invalid view command.
      */
-    public ViewCommand(String pageData, String content) throws InputException {
-        String[] pageDataComponents = pageData.split(" ");
-        String[] contentComponents = content.split(" ");
+    public ViewCommand(String[] pageDataComponents, String content) throws InputException {
+        String[] contentComponents = content.toLowerCase().split(" ");
 
         if (contentComponents.length == 0) {
             throw new InputException("Please input the page you want to change to.");
