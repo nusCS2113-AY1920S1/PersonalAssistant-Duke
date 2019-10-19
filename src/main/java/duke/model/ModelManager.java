@@ -1,6 +1,5 @@
 package duke.model;
 
-import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.events.Event;

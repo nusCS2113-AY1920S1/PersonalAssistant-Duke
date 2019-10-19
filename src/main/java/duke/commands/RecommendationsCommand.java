@@ -32,9 +32,9 @@ public class RecommendationsCommand extends Command {
 
         int numDays = Integer.parseInt(days);
 
-//        assert (!list.isEmpty());
+        // assert (!list.isEmpty());
 
-        try{
+        try {
             for (int i = 0; i < 2 * numDays; i++) {
                 if (i % 2 == 0) {
                     result.append("Day ").append((i / 2) + 1).append(":").append("\n");
