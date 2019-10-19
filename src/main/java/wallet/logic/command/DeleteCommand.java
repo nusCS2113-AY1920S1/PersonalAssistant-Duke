@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes the specific Record object by entry id (not array index)
+     * Deletes the specific Record object by entry id
      * and returns false.
      *
      * @param wallet The Wallet object.

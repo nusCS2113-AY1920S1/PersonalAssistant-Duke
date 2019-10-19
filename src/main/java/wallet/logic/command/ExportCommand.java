@@ -24,10 +24,8 @@ public class ExportCommand extends Command {
         FileWriter output;
         try {
             File current = new File(ExportCommand.class.getProtectionDomain().getCodeSource().getLocation()
-                    .toURI().getPath()).getParentFile();
+                    .toURI().getPath());
             loanCsv = new File(current.getParentFile().getPath(), "exportedLoans.csv");
-
-            System.out.println(loanCsv);
             output = new FileWriter(loanCsv);
             CSVWriter writer = new CSVWriter(output);
             writer.writeAll(data);
