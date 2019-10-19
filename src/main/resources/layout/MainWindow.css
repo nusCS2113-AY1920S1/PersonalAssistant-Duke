@@ -15,8 +15,13 @@ Label {
     -fx-font-size: 2em;
 }
 
-Hbox {
+HBox {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    -fx-min-width: 800px;
+}
+
+VBox {
+    -fx-padding: 10 10 10 10;
 }
 
 #inputField {

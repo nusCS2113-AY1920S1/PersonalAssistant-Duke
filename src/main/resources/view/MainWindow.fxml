@@ -7,10 +7,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
-            prefHeight="600.0" prefWidth="800.0"
+            prefHeight="600.0" prefWidth="900.0"
             fx:id="main">
     <top>
         <VBox alignment="CENTER">
@@ -22,12 +24,11 @@
     <center>
         <VBox alignment="CENTER">
             <HBox alignment="CENTER">
-                <TableView fx:id="expenseTableView"/>
+                <TableView fx:id="expenseTableView" minWidth="600"/>
                 <ListView fx:id="budgetListView"/>
             </HBox>
         </VBox>
     </center>
-
     <bottom>
         <VBox>
             <Label fx:id="lastCommandLabel" text="Hello, welcome to Duke++!" prefWidth="Infinity"/>
