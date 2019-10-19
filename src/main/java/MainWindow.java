@@ -159,16 +159,20 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.UP) {
                     userInput.clear();
-                    previousFunctions.setFlagTrue();
-                    userInput.appendText(previousFunctions.getPreviousCommand() + "\n");
+                    if(previousFunctions.getMaxIndex() != 0) {
+                        previousFunctions.setFlagTrue();
+                        userInput.appendText(previousFunctions.getPreviousCommand() + "\n");
+                    }
                 } else if (ke.getCode() == KeyCode.DOWN) {
-                    if (previousFunctions.getCurrIndex() == previousFunctions.getMaxIndex() - 1) {
-                        userInput.clear();
-                        previousFunctions.setFlagForFirstPress();
-                    } else {
-                        userInput.clear();
-                        previousFunctions.setFlagFalse();
-                        userInput.appendText(previousFunctions.getNextCommand() + "\n");
+                    if(previousFunctions.getMaxIndex() != 0) {
+                        if (previousFunctions.getCurrIndex() == previousFunctions.getMaxIndex() - 1) {
+                            userInput.clear();
+                            previousFunctions.setFlagForFirstPress();
+                        } else {
+                            userInput.clear();
+                            previousFunctions.setFlagFalse();
+                            userInput.appendText(previousFunctions.getNextCommand() + "\n");
+                        }
                     }
                 }
             }
