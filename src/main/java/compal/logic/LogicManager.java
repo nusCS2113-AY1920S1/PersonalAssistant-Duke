@@ -7,6 +7,7 @@ import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.ParserManager;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.TaskList;
+import compal.storage.TaskStorageManager;
 import compal.ui.UiUtil;
 
 /**
@@ -18,6 +19,7 @@ public class LogicManager {
     private final UiUtil uiUtil;
 
     private ParserManager parserManager;
+    private TaskStorageManager taskStorageManager;
 
 
     /**
@@ -25,6 +27,7 @@ public class LogicManager {
      */
     public LogicManager() {
         this.parserManager = new ParserManager();
+        this.taskStorageManager = new TaskStorageManager();
         this.uiUtil = new UiUtil();
     }
 
@@ -37,6 +40,11 @@ public class LogicManager {
         Command command = parserManager.processCmd(fullCommand);
         CommandResult cmdResult = command.commandExecute(tasklist);
         uiUtil.printg(cmdResult.feedbackToUser);
+
+        //save to file
+        System.out.println("Saving data...");
+        taskStorageManager.saveData(tasklist.getArrList());
+
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
             System.exit(0);
         }
