@@ -147,8 +147,21 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
                     AssignmentController assignmentController = new AssignmentController(projectToManage);
                     assignmentController.parseAssignmentInput(projectCommand.substring(12));
-                    
-
+//                    if (!assignmentController.getErrorMessages().isEmpty()) {
+//                        consoleView.consolePrint(assignmentController.getErrorMessages().toArray(new String[0]));
+//                    }
+//                    if (!assignmentController.getValidTaskIndexes().isEmpty()) {
+//                        if (!assignmentController.getValidMembersToAssign().isEmpty()) {
+//                            consoleView.assignTasks(projectToManage, assignmentController.getValidTaskIndexes(),
+//                                assignmentController.getValidMembersToAssign());
+//                        }
+//                        if (!assignmentController.getValidMembersToUnassign().isEmpty()) {
+//                            consoleView.unassignTasks(projectToManage, assignmentController.getValidTaskIndexes(),
+//                                assignmentController.getValidMembersToUnassign());
+//                        }
+//                    } else {
+//                        consoleView.consolePrint("No valid task indexes found. Try again!");
+//                    }
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {
@@ -160,7 +173,7 @@ public class ProjectInputController implements IController {
         }
     }
 
-    private void assignTasks(IProject projectToManage, String details) {
+    private void manageAssignment(IProject projectToManage, String details) {
 
     }
 }

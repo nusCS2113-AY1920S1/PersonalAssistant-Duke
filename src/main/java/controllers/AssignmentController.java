@@ -3,14 +3,15 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import models.data.Project;
+import models.member.Member;
 import models.task.Task;
 
 public class AssignmentController {
-    ArrayList<Integer> validMembersToAssign;
-    ArrayList<Integer> validMembersToUnassign;
-    ArrayList<Integer> validTaskIndexes;
-    ArrayList<String> errorMessages;
-    ArrayList<String> successMessages;
+    private ArrayList<Integer> validMembersToAssign;
+    private ArrayList<Integer> validMembersToUnassign;
+    private ArrayList<Integer> validTaskIndexes;
+    private ArrayList<String> errorMessages;
+    private ArrayList<String> successMessages;
     Project project;
 
     public AssignmentController(Project project) {
@@ -21,15 +22,25 @@ public class AssignmentController {
         this.project = project;
     }
 
-    public void manageAssignment(String input) {
+    public void assignAndUnassign(String input) {
         parseAssignmentInput(input);
-        if (!validTaskIndexes.isEmpty()) {
-            for (Integer taskIndex : validTaskIndexes) {
-                manageAssignmentForATask(project.getTask(taskIndex));
+        for (Integer taskIndex : validTaskIndexes) {
+            Task task = project.getTask(taskIndex);
+            successMessages.add("For task " + taskIndex + " (" + task.getTaskName() + "):");
+            for (Integer assigneeIndex : validMembersToAssign) {
+                Member member = project.getMembers().getMember(assigneeIndex);
+                if (task.isAlreadyAssignedTo(member)){
+                    successMessages.add("Task has already been assigned to member "
+                    + assigneeIndex + " (" + member.getName() +").");
+                } else {
+                    successMessages.add("Assigned to member " + assigneeIndex +
+                        " (" + member.getName() +").");
+
+                }
             }
-        } else {
-            errorMessages.add("No valid task numbers detected. Cannot assign or unassign tasks.");
+
         }
+
     }
 
     /**
@@ -78,11 +89,6 @@ public class AssignmentController {
         }
     }
 
-
-    public void manageAssignmentForATask(Task task) {
-
-    }
-
     public boolean isValidTaskIndex(int taskNumber) {
         return taskNumber > 0 && taskNumber <= project.getNumOfTasks();
     }
@@ -127,6 +133,21 @@ public class AssignmentController {
         getValidMemberIndexes(allIndexesToUnassign, this.validMembersToUnassign);
     }
 
+    public ArrayList<Integer> getValidTaskIndexes() {
+        return validTaskIndexes;
+    }
+
+    public ArrayList<Integer> getValidMembersToAssign() {
+        return validMembersToAssign;
+    }
+
+    public ArrayList<Integer> getValidMembersToUnassign(){
+        return validMembersToUnassign;
+    }
+
+    public ArrayList<String> getErrorMessages() {
+        return errorMessages;
+    }
 
 
 }

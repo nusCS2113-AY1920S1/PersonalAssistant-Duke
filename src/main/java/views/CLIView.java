@@ -1,13 +1,11 @@
 package views;
 
 import controllers.ConsoleInputController;
-import models.data.IProject;
-import models.data.Project;
-import models.member.Member;
-import models.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
+import models.data.IProject;
+import models.data.Project;
+import models.task.Task;
 
 public class CLIView {
     private static final String horiLine = "\t____________________________________________________________";
@@ -178,4 +176,5 @@ public class CLIView {
         projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
         consolePrint("The requirements of your specified task has been updated!");
     }
+
 }

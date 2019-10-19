@@ -168,4 +168,9 @@ public class Task implements ITask {
     public void addTaskRequirement(String newTaskRequirement) {
         this.taskRequirements.add(newTaskRequirement);
     }
+
+    public boolean isAlreadyAssignedTo(Member member) {
+        return listOfMembersAssignedToTask.contains(member);
+    }
+
 }
