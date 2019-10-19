@@ -35,7 +35,6 @@ public class Menu {
 //        menu.append("Quit Game");
 //        ui.clearScreen();
 //        ui.show(menu.toString());
-        Simulation menuSimulation = new Simulation("Menu", ui);
         if(resume && storage.getSaveExist()) { //resume, save and load
             Simulation.animate(ui, storage, "menu", 2);
             return;
