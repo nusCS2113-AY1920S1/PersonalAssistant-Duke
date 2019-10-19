@@ -8,74 +8,74 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * The Main Window. Provides the most basic application layout to place other UI elements.
+ * Main UI window of the application.
+ * Acts as a container for child UI elements.
  */
-public class MainWindow extends UiElement<Stage> {
+class MainWindow extends UiElement<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     @FXML
-    private AnchorPane commandWindowPlaceholder;
+    private AnchorPane commandWindowHolder;
     @FXML
-    private TabPane contextWindowPlaceholder;
+    private TabPane contextWindowHolder;
     @FXML
-    private AnchorPane homeWindowPlaceholder;
+    private AnchorPane homeWindowHolder;
 
     private Stage primaryStage;
-    private CommandWindow commandWindow;
-    private HomeWindow homeWindow;
-    private Tab homeTab;
-    private PatientWindow patientWindow;
-    private Tab patientTab;
-
     private DukeCore core;
 
+    private CommandWindow commandWindow;
+    private HomeWindow homeWindow;
+    private PatientWindow patientWindow;
+    private Tab homeTab;
+    private Tab patientTab;
+
     /**
-     * Create the main window to house other UI elements.
+     * Constructs the main UI window to house child UI elements.
      *
-     * @param primaryStage The main stage of the application.
-     * @param core         DukeCore object.
+     * @param primaryStage Main stage of the application.
+     * @param core         Core of Dr. Duke.
      */
-    public MainWindow(Stage primaryStage, DukeCore core) {
+    MainWindow(Stage primaryStage, DukeCore core) {
         super(FXML, primaryStage);
+
         this.primaryStage = primaryStage;
         this.core = core;
 
-        placeChildViews();
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
+        placeChildUiElements();
     }
 
     /**
-     * Place all child views in the main window.
+     * Places child UI elements in the main UI window.
      */
-    private void placeChildViews() {
-        commandWindow = new CommandWindow(core, this);
-        commandWindowPlaceholder.getChildren().add(commandWindow.getRoot());
+    private void placeChildUiElements() {
+        commandWindow = new CommandWindow(core);
+        commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
         homeWindow = new HomeWindow(core);
         homeTab = new Tab("Home", homeWindow.getRoot());
-        contextWindowPlaceholder.getTabs().add(homeTab);
+        contextWindowHolder.getTabs().add(homeTab);
 
         patientWindow = new PatientWindow();
         patientTab = new Tab("Patient", patientWindow.getRoot());
-        contextWindowPlaceholder.getTabs().add(patientTab);
+        contextWindowHolder.getTabs().add(patientTab);
     }
 
+    /**
+     * Shows the main UI window.
+     */
     void show() {
         primaryStage.show();
     }
 
-    void print(String output) {
-        commandWindow.print(output);
+    /**
+     * {@inheritDoc}
+     */
+    void print(String message) {
+        commandWindow.print(message);
     }
 
-    void tmp(String tmp) {
-        if (tmp.equals("home")) {
-            contextWindowPlaceholder.getSelectionModel().select(homeTab);
-        } else {
-            contextWindowPlaceholder.getSelectionModel().select(patientTab);
-        }
+    Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

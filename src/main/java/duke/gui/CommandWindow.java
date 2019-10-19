@@ -29,7 +29,6 @@ public class CommandWindow extends UiElement<Region> {
     private List<String> inputHistory;
     private int historyPointer;
     private String currentInput;
-    private MainWindow window;
 
     @FXML
     private ScrollPane scrollPane;
@@ -48,11 +47,10 @@ public class CommandWindow extends UiElement<Region> {
      *
      * @param core DukeCore.
      */
-    public CommandWindow(DukeCore core, MainWindow window) {
+    public CommandWindow(DukeCore core) {
         super(FXML, null);
         parser = new Parser();
         this.core = core;
-        this.window = window;
 
         inputHistory = new ArrayList<>();
         historyPointer = 0;
@@ -103,17 +101,6 @@ public class CommandWindow extends UiElement<Region> {
             currentInput = "";
 
             dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
-
-            if (input.equals("home") || input.equals("patient")) {
-                window.tmp(input);
-            } else {
-                try {
-                    Command c = parseCommand();
-                    c.execute(core);
-                } catch (DukeException e) {
-                    printError(e);
-                }
-            }
 
             userInput.clear();
         }
