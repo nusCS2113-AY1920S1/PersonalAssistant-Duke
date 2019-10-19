@@ -54,7 +54,7 @@ public class ViewCommand extends Command {
             finalList = displayWeekView(dateInput, currList);
             break;
         case "/day":
-            finalList = finalList + ("Here are your task for the day of " + dateInput + " :\n");
+            finalList = finalList + ("Your daily schedule for " + dateInput + " :\n");
             finalList = finalList + displayDayView(dateInput, currList);
             calenderUtil.dateViewRefresh(dateInput);
             break;
@@ -75,12 +75,12 @@ public class ViewCommand extends Command {
      */
     private String displayMonthView(int givenMonth, int givenYear, ArrayList<Task> currList) {
         String[] months = {"", "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"};
+            "July", "August", "September", "October", "November", "December"};
 
         int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-        StringBuilder monthlyTask = new StringBuilder("Here are your task for the month of "
-                + months[givenMonth] + " " + givenYear + " :\n");
+        StringBuilder monthlyTask = new StringBuilder("Your monthly schedule for "
+            + months[givenMonth] + " " + givenYear + " :\n");
 
         for (int i = 1; i <= days[givenMonth]; i++) {
             if (i < 9) {
@@ -101,7 +101,6 @@ public class ViewCommand extends Command {
      * @return string output
      */
     private String displayWeekView(String dateInput, ArrayList<Task> currList) throws CommandException {
-        int daysInWeek = 7;
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date week;
@@ -116,18 +115,20 @@ public class ViewCommand extends Command {
         cal.setTime(week);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
+        int daysInWeek = 7;
         String[] dates = new String[daysInWeek];
         StringBuilder[] dailyTask = new StringBuilder[daysInWeek];
 
         for (int i = 0; i < daysInWeek; i++) {
             dates[i] = dateFormat.format(cal.getTime());//Date of Monday of current week
-            dailyTask[i] = new StringBuilder("");
+            dailyTask[i] = new StringBuilder();
             cal.add(Calendar.DATE, 1);
         }
 
         cal.setTime(week);
 
-        StringBuilder weeklyTask = new StringBuilder("Here are you tasks from " + dates[0] + " - " + dates[6] + " :\n");
+        StringBuilder weeklyTask = new StringBuilder("Your weekly schedule from "
+            + dates[0] + " to " + dates[6] + " :\n");
 
         for (int i = 0; i < daysInWeek; i++) {
             dailyTask[i].append(displayDayView(dates[i], currList));
@@ -145,50 +146,79 @@ public class ViewCommand extends Command {
      */
     private String displayDayView(String dateInput, ArrayList<Task> currList) {
 
-        StringBuilder dailyTask = new StringBuilder();
-        //StringBuilder dailyDeadline = new StringBuilder();
-        StringBuilder taskDetails = new StringBuilder();
+        StringBuilder allTask = new StringBuilder();
 
         StringBuilder header = new StringBuilder();
 
-        String lines = "";
-        String space = "";
+        StringBuilder lines = new StringBuilder();
+        StringBuilder space = new StringBuilder();
         for (int i = 0; i < 65; i++) {
-            lines += "_";
+            lines.append("_");
         }
 
         for (int i = 0; i < (100); i++) {
-            space += " ";
+            space.append(" ");
         }
 
 
-        header.append("\n" + lines + "\n");
-        header.append(space + dateInput + "\n");
+        header.append("\n").append(lines).append("\n");
+        header.append(space).append(dateInput).append("\n");
 
         for (Task t : currList) {
             if (t.getStringDate().equals(dateInput) && !t.getSymbol().equals("D")) {
-
-                String rightArrow = "\u2192";
-                String taskSymbol = t.getSymbol();
-                String taskDescription = t.getDescription();
-                String startTime = t.getStringStartTime();
-                String endTime = t.getStringEndTime();
-                int taskId = t.getId();
-
-                taskDetails.append("  " + startTime + " " + rightArrow + " " + endTime + "\n");
-                taskDetails.append("  [" + taskSymbol + "]" + " [" + taskId + "] " + taskDescription + "\n\n");
-
-
+                allTask.append(getEventAsStringView(t));
+            } else if (t.getStringDate().equals(dateInput) && t.getSymbol().equals("D")) {
+                allTask.append(getDeadlineAsStringView(t));
             }
         }
 
-        if(taskDetails.toString().equals("")){
-            taskDetails.append("\n\n");
+        String dailyTask = header.toString() + allTask.toString();
+        return dailyTask;
+    }
+
+    private String getEventAsStringView(Task t) {
+        StringBuilder taskDetails = new StringBuilder();
+        String taskSymbol = t.getSymbol();
+        String taskDescription = t.getDescription();
+        String startTime = t.getStringStartTime();
+        String endTime = t.getStringEndTime();
+        boolean isDone = t.getisDone();
+
+        String rightArrow = "\u2192";
+        String status;
+        if (isDone) {
+            status = "\u2713";
+        } else {
+            status = "\u274C";
         }
 
-        dailyTask.append(header);
-        dailyTask.append(taskDetails);
+        int taskId = t.getId();
 
-        return dailyTask.toString();
+        taskDetails.append("  Time: " + startTime + " " + rightArrow
+            + " " + endTime + "\n  [Task ID: " + taskId + "] \n");
+        taskDetails.append("  [" + taskSymbol + "] " + "[" + status + "] "
+            + taskDescription + "\n\n");
+
+        return taskDetails.toString();
+    }
+
+    private String getDeadlineAsStringView(Task t) {
+        StringBuilder dailyDeadline = new StringBuilder();
+        String taskSymbol = t.getSymbol();
+        String taskDescription = t.getDescription();
+        String endTime = t.getStringEndTime();
+        boolean isDone = t.getisDone();
+
+        String status;
+        if (isDone) {
+            status = "\u2713";
+        } else {
+            status = "\u274C";
+        }
+        int taskId = t.getId();
+        dailyDeadline.append("  Due: " + endTime + "\n  [Task ID: " + taskId + "] \n");
+        dailyDeadline.append("  [" + taskSymbol + "] " + "[" + status + "] "
+            + taskDescription + "\n\n");
+        return dailyDeadline.toString();
     }
 }

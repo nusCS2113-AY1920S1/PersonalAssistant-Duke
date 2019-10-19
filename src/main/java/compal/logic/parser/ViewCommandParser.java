@@ -1,7 +1,6 @@
 package compal.logic.parser;
 
 import compal.logic.command.Command;
-import compal.logic.command.ListCommand;
 import compal.logic.command.ViewCommand;
 import compal.logic.parser.exceptions.ParserException;
 
@@ -56,6 +55,6 @@ public class ViewCommandParser implements CommandParser {
             throw new ParserException(MESSAGE_INVALID_PARAM);
         }
 
-        return new ListCommand();
+        throw new ParserException(MESSAGE_INVALID_PARAM);
     }
 }

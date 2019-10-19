@@ -3,15 +3,11 @@ package compal.ui;
 import compal.logic.LogicManager;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
-import compal.model.tasks.Task;
-import compal.model.tasks.TaskList;
-import compal.storage.TaskStorageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 
 /**
  * Handles GUI.
