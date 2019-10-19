@@ -129,10 +129,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         System.out.println("AddCommandParser: " + info[0]);
 
-        if (info[0].equals(" /l")) {
+        if (input.contains("/l")) {
             System.out.println("l");
             isLend = true;
-        } else if (info[0].equals(" /b")) {
+        } else if (input.contains("/b")) {
             System.out.println("b");
             isLend = false;
         }
