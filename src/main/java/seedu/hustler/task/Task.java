@@ -57,6 +57,17 @@ public abstract class Task {
     }
 
     /**
+     * Initializes Task's attributes.
+     */
+    public Task(String description, Difficulty difficulty, Tag tag, LocalDateTime now) {
+        this.description = description;
+        this.isDone = false;
+        this.difficulty = difficulty;
+        this.tag = tag;
+        this.inputDateTime = now;
+    }
+
+    /**
      * Returns the status of the task.
      *
      * @return a symbol specifying whether a task has been completed or not.
@@ -69,10 +80,6 @@ public abstract class Task {
      * Marks a class as complete.
      */
     public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsDone(TaskList list) {
         this.isDone = true;
     }
 
@@ -114,9 +121,8 @@ public abstract class Task {
      * @return the status and description of the task.
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString() +
-                this.tag.toString() + " " +
-            this.getDescription();
+        return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString()
+                + this.tag.toString() + " " + this.getDescription();
     }
 
     /**
@@ -125,8 +131,8 @@ public abstract class Task {
      * @return a pipe separated string of the status, difficulty and description.
      */
     public String toSaveFormat() {
-        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toSaveFormat() + "|" +
-                this.tag.tagName + "|" + this.description;
+        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toSaveFormat()
+                + "|" + this.tag.tagName + "|" + this.description;
     }
 
     public String toSaveInputDateTime() {

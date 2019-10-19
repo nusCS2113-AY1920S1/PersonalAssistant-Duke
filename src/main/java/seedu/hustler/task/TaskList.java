@@ -74,6 +74,29 @@ public class TaskList {
     }
 
     /**
+     * Adds a new Task to the task list.
+     *
+     * @param task new Task to be added.
+     */
+    public void add(Task task) {
+        list.add(task);
+        if (!CommandLog.isRestoring()) {
+            AddTask.increment();
+            AddTask.updateAchievementLevel();
+            AddTask.updatePoints();
+            AchievementList.updateAddTask(addAchievementLevel);
+            String output = "\t  " + list.get(list.size() - 1).toString();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println(output);
+            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            System.out.println("\t_____________________________________\n\n");
+        } else {
+            System.out.println("Task clashes with another existing task in the list!");
+        }
+    }
+
+    /**
      * Adds a task to the ArrayList based on the task type and task description.
      * Parses the description in case of event or deadline.
      * Handles exceptions.
@@ -86,17 +109,17 @@ public class TaskList {
         String difficulty = "";
         String tag = "";
         if (splitInput.contains("/d")) {
-            int dIndex = splitInput.indexOf("/d") + 1;
+            int difficultyIndex = splitInput.indexOf("/d") + 1;
             try {
-                difficulty = splitInput.get(dIndex);
+                difficulty = splitInput.get(difficultyIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 difficulty = "";
             }
         }
         if (splitInput.contains("/tag")) {
-            int tIndex = splitInput.indexOf("/tag") + 1;
+            int tagIndex = splitInput.indexOf("/tag") + 1;
             try {
-                tag = splitInput.get(tIndex);
+                tag = splitInput.get(tagIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 tag = "";
             }
@@ -104,20 +127,56 @@ public class TaskList {
         String onlyDescription = getDescription(splitInput);
         boolean checkAnomaly = true;
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-                list.add(new ToDo(onlyDescription, difficulty, tag, LocalDateTime.now()));
+            list.add(new ToDo(onlyDescription, difficulty, tag, LocalDateTime.now()));
             checkAnomaly = false;
         } else if (taskType.equals("deadline")) {
             try {
                 String timeStr = getTime(splitInput);
                 LocalDateTime by = getDateTime(timeStr);
-                if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+
+                if (splitInput.contains("/every")) {
+                    int everyIndex = splitInput.indexOf("/every");
+                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+                    int number = Integer.parseInt(frequency.split(" ")[0]);
+                    String period = frequency.split(" ")[1];
+                    int numOfMin = 0;
+
+                    switch (period) {
+                    case "minutes":
+                        numOfMin = number;
+                        break;
+                    case "hours":
+                        numOfMin = number * 60;
+                        break;
+                    case "days":
+                        numOfMin = number * 60 * 24;
+                        break;
+                    case "weeks":
+                        numOfMin = number * 60 * 24 * 7;
+                        break;
+                    case "months":
+                        numOfMin = number * 60 * 24 * 7 * 28;
+                        break;
+                    default:
+                        numOfMin = 0;
+                        break;
+                    }
+                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+                        list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag,
+                                LocalDateTime.now(), frequency, numOfMin, false));
+                        String taskDate = getOnlyDate(splitInput);
+                        if (Schedule.isValidDate(taskDate)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
+                        }
+                    }
+                } else if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
                     list.add(new Deadline(onlyDescription, by, difficulty, tag, LocalDateTime.now()));
                     String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                    checkAnomaly = false;
                 }
+                checkAnomaly = false;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.wrong_description_error();
                 return;
@@ -313,14 +372,17 @@ public class TaskList {
                     return 0;
                 } else if (t1.getDifficulty().toString().equals("[H]")) {
                     return -1;
-                } else if (t1.getDifficulty().toString().equals("[M]") &&
-                        t2.getDifficulty().toString().equals("[L]")) {
+                } else if (t1.getDifficulty().toString().equals("[M]")
+                        && t2.getDifficulty().toString().equals("[L]")) {
                     return -1;
                 } else {
                     return 1;
                 }
             });
             break;
+        default:
+            System.out.println("Task list has remained the same. Please check your sort command.");
+            return;
         }
         System.out.println("\t_____________________________________");
         System.out.println("\tTask list has been successfully sorted!");
