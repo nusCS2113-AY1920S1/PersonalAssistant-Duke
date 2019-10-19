@@ -13,7 +13,7 @@ import java.util.Date;
 public class Assignment extends Task {
     private Date by;
     private boolean isFixedDuration;
-    private String duration;
+    private int duration;
     private TimeUnit timeUnit;
     /**
      * Constructor for the Deadline object.
@@ -27,7 +27,7 @@ public class Assignment extends Task {
         this.isFixedDuration = false;
     }
 
-    public Assignment (String description, String duration, TimeUnit unit) {
+    public Assignment (String description, int duration, TimeUnit unit) {
         super(description);
         this.duration = duration;
         this.timeUnit = unit;
@@ -84,7 +84,7 @@ public class Assignment extends Task {
     }
 
     public String getDuration() {
-        return duration;
+        return Integer.toString(duration);
     }
 
     public TimeUnit getTimeUnit() {
