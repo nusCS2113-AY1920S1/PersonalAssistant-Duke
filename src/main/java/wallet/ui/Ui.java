@@ -3,6 +3,7 @@ package wallet.ui;
 import wallet.logic.LogicManager;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
+import wallet.thread.ChartThread;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -63,8 +64,7 @@ public class Ui {
     /**
      * Displays the expense list in table format.
      */
-    public static void printExpenseTable() {
-        ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
+    public static void printExpenseTable(ArrayList<Expense> expenseList) {
         System.out.println("Here are the expenses in your list:");
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------\n"
@@ -87,6 +87,11 @@ public class Ui {
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------");
         System.out.println("Total amount spent: $" + total);
+    }
+
+    public void drawPieChart() {
+        ChartThread chartThread = new ChartThread();
+        System.out.println("Please wait while we draw the pie chart...");
     }
 
     /**
@@ -116,9 +121,7 @@ public class Ui {
             }
 
             System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
-
         }
-
         System.out.println(lineBreak);
     }
 }

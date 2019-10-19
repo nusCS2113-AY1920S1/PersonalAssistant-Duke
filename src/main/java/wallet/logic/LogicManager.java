@@ -9,8 +9,6 @@ import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
-import wallet.model.task.ScheduleList;
-import wallet.model.task.TaskList;
 import wallet.storage.StorageManager;
 import wallet.reminder.Reminder;
 
@@ -31,8 +29,8 @@ public class LogicManager {
         this.storageManager = new StorageManager();
         this.wallet = new Wallet(new BudgetList(storageManager.loadBudget()), new RecordList(),
                 new ExpenseList(storageManager.loadExpense()),
-                new ContactList(storageManager.loadContact()), new TaskList(storageManager.loadTask()),
-                new ScheduleList(), new LoanList(storageManager.loadLoan()));
+                new ContactList(storageManager.loadContact()),
+                new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
         this.reminder = new Reminder();
     }

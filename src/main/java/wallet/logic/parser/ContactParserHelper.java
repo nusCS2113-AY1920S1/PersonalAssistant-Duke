@@ -35,9 +35,7 @@ public class ContactParserHelper {
                 return i;
             }
         }
-
         return -1;
-
     }
 
     /**
@@ -61,7 +59,6 @@ public class ContactParserHelper {
         detailsIndex = findIndexOf(info, "/d");
         phoneIndex = findIndexOf(info, "/p");
 
-        //Process input into three array list
         for (int i = 0; i < info.length; i += 1) {
             if (i == detailsIndex) {
                 section = 1;
@@ -120,8 +117,6 @@ public class ContactParserHelper {
         phoneIndex = findIndexOf(info, "/p");
         nameIndex = findIndexOf(info, "/n");
 
-
-        //Process input into three arraylist
         for (int i = 0; i < info.length; i++) {
             if (i == detailsIndex) {
                 section = 1;
@@ -139,7 +134,6 @@ public class ContactParserHelper {
                 continue;
             }
         }
-
 
         name = concatList(nameList);
         if (name.trim().isEmpty()) {
@@ -168,5 +162,4 @@ public class ContactParserHelper {
 
         return processed;
     }
-
 }
