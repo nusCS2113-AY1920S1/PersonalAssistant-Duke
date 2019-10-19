@@ -166,3 +166,7 @@ task headless {
 test.mustRunAfter headless
 
 defaultTasks 'clean', 'headless', 'allTests'
+
+run {
+    enableAssertions = true
+}

@@ -1,27 +1,27 @@
 package duke.logic.parsers;
 
-import duke.commands.AddCommand;
-import duke.commands.Command;
-import duke.commands.DeleteCommand;
-import duke.commands.ExitCommand;
-import duke.commands.FindCommand;
-import duke.commands.FindPathCommand;
-import duke.commands.FreeTimeCommand;
-import duke.commands.GetBusRouteCommand;
-import duke.commands.GetBusStopCommand;
-import duke.commands.HelpCommand;
-import duke.commands.ListCommand;
-import duke.commands.LocationSearchCommand;
-import duke.commands.MarkDoneCommand;
-import duke.commands.PromptCommand;
-import duke.commands.RecommendationsCommand;
-import duke.commands.ReminderCommand;
-import duke.commands.RescheduleCommand;
-import duke.commands.StaticMapCommand;
-import duke.commands.ViewScheduleCommand;
-import duke.commons.Messages;
+import duke.logic.commands.AddCommand;
+import duke.logic.commands.Command;
+import duke.logic.commands.DeleteCommand;
+import duke.logic.commands.ExitCommand;
+import duke.logic.commands.FindCommand;
+import duke.logic.commands.FindPathCommand;
+import duke.logic.commands.FreeTimeCommand;
+import duke.logic.commands.GetBusRouteCommand;
+import duke.logic.commands.GetBusStopCommand;
+import duke.logic.commands.HelpCommand;
+import duke.logic.commands.ListCommand;
+import duke.logic.commands.LocationSearchCommand;
+import duke.logic.commands.MarkDoneCommand;
+import duke.logic.commands.PromptCommand;
+import duke.logic.commands.RecommendationsCommand;
+import duke.logic.commands.ReminderCommand;
+import duke.logic.commands.RescheduleCommand;
+import duke.logic.commands.StaticMapCommand;
+import duke.logic.commands.ViewScheduleCommand;
 import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 
 
 /**
@@ -69,13 +69,13 @@ public class Parser {
             return new FindPathCommand(getWord(input), getHolidayIndexInList(1, input),
                     getHolidayIndexInList(2, input));
         case "recommend":
-            return new RecommendationsCommand(getWord(input));
+            return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);
         case "cancel":
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
             return new StaticMapCommand(getWord(input));
         default:
-            throw new DukeException(Messages.UNKNOWN_COMMAND);
+            throw new DukeUnknownCommandException();
         }
     }
 
@@ -101,7 +101,7 @@ public class Parser {
         }
     }
 
-    public static Command parsePromptCommand(String prompt) throws DukeException {
+    public static Command parsePromptCommand(String prompt) {
         return new PromptCommand(prompt);
     }
 
@@ -125,7 +125,7 @@ public class Parser {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(Messages.INVALID_FORMAT);
+            throw new DukeUnknownCommandException();
         }
     }
 

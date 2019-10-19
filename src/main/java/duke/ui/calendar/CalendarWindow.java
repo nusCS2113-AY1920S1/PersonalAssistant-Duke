@@ -1,6 +1,6 @@
 package duke.ui.calendar;
 
-import duke.commands.results.CommandResultCalender;
+import duke.logic.commands.results.CommandResultCalender;
 import duke.commons.exceptions.DukeException;
 import duke.model.TaskList;
 import duke.model.events.DoWithin;

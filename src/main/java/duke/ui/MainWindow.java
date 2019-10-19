@@ -1,11 +1,11 @@
 package duke.ui;
 
 import duke.Main;
-import duke.commands.results.CommandResult;
-import duke.commands.results.CommandResultCalender;
-import duke.commands.results.CommandResultExit;
-import duke.commands.results.CommandResultImage;
-import duke.commands.results.CommandResultMap;
+import duke.logic.commands.results.CommandResult;
+import duke.logic.commands.results.CommandResultCalender;
+import duke.logic.commands.results.CommandResultExit;
+import duke.logic.commands.results.CommandResultImage;
+import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
@@ -92,9 +92,11 @@ public class MainWindow extends UiPart<Stage> {
 
                 if (result instanceof CommandResultExit) {
                     tryExitApp();
-                } else if (result instanceof CommandResultCalender) {
+                }
+                if (result instanceof CommandResultCalender) {
                     new CalendarWindow((CommandResultCalender) result).show();
-                } else if (result instanceof CommandResultMap) {
+                }
+                if (result instanceof CommandResultMap) {
                     new MapWindow((CommandResultMap) result).show();
                 }
 
