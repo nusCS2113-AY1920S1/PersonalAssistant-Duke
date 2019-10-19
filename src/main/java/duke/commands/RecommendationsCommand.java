@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.commands.results.CommandResultText;
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.locations.Venue;
@@ -24,7 +25,6 @@ public class RecommendationsCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        // Multiple possibilities with the logic here.
         List<Venue> list = model.getRecommendations();
 
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
@@ -32,11 +32,17 @@ public class RecommendationsCommand extends Command {
 
         int numDays = Integer.parseInt(days);
 
-        for (int i = 0; i < 2 * numDays; i++) {
-            if (i % 2 == 0) {
-                result.append("Day ").append((i / 2) + 1).append(":").append("\n");
+        // assert (!list.isEmpty());
+
+        try {
+            for (int i = 0; i < 2 * numDays; i++) {
+                if (i % 2 == 0) {
+                    result.append("Day ").append((i / 2) + 1).append(":").append("\n");
+                }
+                result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
             }
-            result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(Messages.RECOMMENDATION_ERROR);
         }
 
         // Until more locations are added
@@ -44,7 +50,6 @@ public class RecommendationsCommand extends Command {
         if (numDays > 7) {
             throw new DukeException("Too many days, enter less than 8 ");
         }
-
         return new CommandResultText(result.toString());
     }
 }
