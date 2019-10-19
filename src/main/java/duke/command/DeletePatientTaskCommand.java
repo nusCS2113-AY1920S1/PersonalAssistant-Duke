@@ -69,6 +69,7 @@ public class DeletePatientTaskCommand extends Command {
                 for (PatientTask patientTask: patientTaskList.getPatientTask(patientId)) {
                     if (patientTask.getUid() == taskId) {
                         patientTaskList.deletePatientTaskByUniqueId(taskId);
+                        patientTaskStorage.save(patientTaskList.fullPatientTaskList());
                         ui.patientTaskDeleted(patientTask, toBeDeletedPatient);
                     }
                 }
@@ -84,6 +85,7 @@ public class DeletePatientTaskCommand extends Command {
                 for (PatientTask patientTask: toBeDeleted) {
                     if (patientTask.getUid() == taskId) {
                         patientTaskList.deletePatientTaskByUniqueId(taskId);
+                        patientTaskStorage.save(patientTaskList.fullPatientTaskList());
                         ui.patientTaskDeleted(patientTask, patientsWithSameName.get(0));
                     }
                 }
