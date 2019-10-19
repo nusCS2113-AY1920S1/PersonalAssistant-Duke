@@ -48,7 +48,7 @@ class PatientCard extends AnchorPane {
     }
 
     /**
-     * Fills up the Patient Card with the {@code patient} details
+     * Fills up the Patient Card with the {@code patient} details.
      */
     private void initialisePatientCard() {
         nameLabel.setText(patient.getName());
