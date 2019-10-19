@@ -12,11 +12,6 @@ import compal.model.tasks.Task;
  */
 public class TaskStorageParser implements StorageParser<Task> {
 
-    private static final String SYMBOL_LECT = "LECT";
-    private static final String SYMBOL_TUT = "TUT";
-    private static final String SYMBOL_SECT = "SECT";
-    private static final String SYMBOL_LAB = "LAB";
-    private static final String SYMBOL_ACAD = "ACAD";
     private static final String SYMBOL_RECUR = "RT";
     private static final String SYMBOL_DEADLINE = "D";
     private static final String SYMBOL_EVENT = "E";

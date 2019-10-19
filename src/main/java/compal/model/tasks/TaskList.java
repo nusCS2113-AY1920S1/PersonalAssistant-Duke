@@ -70,9 +70,10 @@ public class TaskList {
         /*if (compal.ui.dateState.equals(task.getStringDate())) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }*/
-        if (!task.getSymbol().equals("D")) {
-            //compal.ui.dateViewRefresh(task.getStringDate());
-        }
+        /*if (!task.getSymbol().equals("D")) {
+            compal.ui.dateViewRefresh(task.getStringDate());
+
+        }*/
         //compal.ui.secondaryScreenRefresh(task.getDate());
 
         //compal.ui.showSize();

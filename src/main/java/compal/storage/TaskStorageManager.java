@@ -18,7 +18,7 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
     public static final String MESSAGE_ERROR_MK_FILE = "Error when trying to creating file.";
     public static final String DEFAULT_STORAGE = "./tasks.txt";
 
-    TaskStorageParser tsp;
+    private TaskStorageParser tsp;
 
     /**
      * Prints message of storage initialized.
