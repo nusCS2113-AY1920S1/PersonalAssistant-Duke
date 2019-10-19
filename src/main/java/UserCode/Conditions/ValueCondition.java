@@ -1,7 +1,7 @@
 package UserCode.Conditions;
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 
 public class ValueCondition extends Condition {
     private ValueConditionType type;

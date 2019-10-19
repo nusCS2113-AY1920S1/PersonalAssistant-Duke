@@ -1,5 +1,6 @@
 package UserCode.Actions;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
@@ -13,9 +14,15 @@ public class SellWheatAction extends Action {
 
     @Override
     public void execute(Ui ui) {
-        farmer.getWheatFarm().buySeeds(); //TODO create wheatFarm.sellWheat()
-        new Simulation("SellWheat", super.farmio).animate(0, 7);
-        ui.show("Selling wheat!");
+
+        try {
+            farmer.getWheatFarm().buySeeds(); //TODO create wheatFarm.sellWheat()
+            Simulation.animate(ui, farmio.getStorage(), farmio.getFarmer(), "SellWheat", 0, 7);
+            ui.show("Selling wheat!");
+        } catch (FarmioFatalException e) {
+            e.printStackTrace();
+        }
+
     }
 
 //    public JSONObject toJSON() {

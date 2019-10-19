@@ -1,6 +1,7 @@
 package UserCode.Actions;
 
 import Farmio.Farmio;
+import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
@@ -11,12 +12,12 @@ public class GotoMarketAction extends Action {
     }
     @Override
     public void execute(Ui ui) {
+        Storage storage = farmio.getStorage();
         try {
-            Simulation GotoMarketSimulation = new Simulation("GotoMarketSimulation", super.farmio);
             farmer.changeLocation("-Traveling-");
-            GotoMarketSimulation.animate(1, 11);
+            Simulation.animate(ui, storage, farmio.getFarmer(), "GotoMarketSimulation", 1, 11);
             farmer.changeLocation("Market");
-            GotoMarketSimulation.delayFrame(12, 1000);
+            Simulation.animate(ui, storage, farmio.getFarmer(), "GotoMarketSimulation", 12, 1000);
             ui.typeWriter("You have arrived at the market");
         } catch (Exception e){
             e.getMessage();

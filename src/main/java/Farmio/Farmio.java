@@ -1,9 +1,9 @@
 package Farmio;
 
 import Commands.Command;
-import FarmioExceptions.FarmioException;
-import FrontEnd.GameConsole;
-import FrontEnd.Simulation;
+import Commands.CommandWelcome;
+import Exceptions.FarmioException;
+import Exceptions.FarmioFatalException;
 import FrontEnd.Ui;
 
 public class Farmio {
@@ -15,24 +15,33 @@ public class Farmio {
     private Stage stage;
 
     private Farmio() {
-        this.storage = new Storage();
-        this.farmer = new Farmer(); //for ui testing not originally here
-        this.ui = new Ui(storage);
+        storage = new Storage();
+        farmer = new Farmer(); //for ui testing not originally here
+        ui = new Ui();
         stage = Stage.WELCOME;
         isExit = false;
     }
 
     private void run() {
-        ui.showWelcome();
         Command command;
-        while(!isExit){
+        command = new CommandWelcome();
+        try {
             try {
-                command = Parser.parse(ui.getInput(), stage);
                 command.execute(this);
-                isExit = command.isExit;
             } catch (FarmioException e) {
                 ui.showWarning(e.getMessage());
             }
+            while (!isExit) {
+                try {
+                    command = Parser.parse(ui.getInput(), stage);
+                    command.execute(this);
+                } catch (FarmioException e) {
+                    ui.showWarning(e.getMessage());
+                }
+            }
+        } catch (FarmioFatalException e) {
+            ui.showError(e.getMessage());
+            ui.showInfo("Encounterd fatal error. Exiting program.");
         }
         //save the game before quitting
         ui.showExit();
@@ -62,7 +71,7 @@ public class Farmio {
         return stage;
     }
 
-    public Level getLevel(){
+    public Level getLevel() {
         return level;
     }
 
@@ -70,15 +79,15 @@ public class Farmio {
         this.farmer = farmer;
     }
 
-    public void setStage(Stage stage){
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setLevel(Level level){
+    public void setLevel(Level level) {
         this.level = level;
     }
 
-    public void setExit(){
+    public void setExit() {
         this.isExit = true;
     }
 }

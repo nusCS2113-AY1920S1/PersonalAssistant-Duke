@@ -1,7 +1,7 @@
 package Farmio;
 
 import Commands.*;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
@@ -9,7 +9,7 @@ class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase();
         if (userInput.equals("exit")) {
-            return new ExitCommand();
+            return new CommandGameQuit();
         }
         switch (stage) {
             case WELCOME:

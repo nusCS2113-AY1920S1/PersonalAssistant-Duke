@@ -1,7 +1,7 @@
 package UserCode.Conditions;
 
 import Farmio.Farmio;
-import FarmioExceptions.FarmioException;
+import Exceptions.FarmioException;
 
 public abstract class Condition {
 

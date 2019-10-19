@@ -19,7 +19,7 @@ public class PlantSeedAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().plantSeeds();
-            new Simulation("PlantSeedSimulation", super.farmio).animate(0, 11);
+            Simulation.animate(ui, farmio.getStorage(), farmio.getFarmer(), "PlantSeedSimulation", 0, 11);
         } catch (Exception e){
             e.getMessage();
         }
