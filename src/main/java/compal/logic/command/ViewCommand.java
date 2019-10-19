@@ -156,7 +156,7 @@ public class ViewCommand extends Command {
             }
         }
 
-        if (allTask.toString().equals("")) {
+        if (allTask.length() == 0) {
             allTask.append("\n\n");
         }
 
