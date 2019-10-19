@@ -19,7 +19,7 @@ public class SoldCommand extends Command{
 	}
 
 	public void checkValid(Food foodSold, FoodList list) throws CommandException {
-		if (!list.exists(foodName)) {
+		if (!list.existsName(foodName)) {
 			throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
 		}
 		if (quantity < 0 || quantity > foodSold.getStock()) {

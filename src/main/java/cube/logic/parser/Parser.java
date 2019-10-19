@@ -25,7 +25,7 @@ public class Parser {
 	 * Format:
 	 * add -n foodName -t foodType -p price -s stock -e expiryDate
 	 * list --sort expiry/name/stock
-	 * delete -i index
+	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
 	 * reminder
 	 * help

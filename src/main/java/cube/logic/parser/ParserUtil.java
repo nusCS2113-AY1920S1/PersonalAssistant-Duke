@@ -1,5 +1,9 @@
 package cube.logic.parser;
 
+import cube.exception.CubeException;
+import cube.ui.Message;
+
+import java.text.ParseException;
 import java.util.Locale;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,5 +23,51 @@ public class ParserUtil {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
 		return formatter.format(date);
+	}
+
+	/**
+	 * Returns a Date object by parsing the date String.
+	 * Time zone is set as Singapore time by default.
+	 *
+	 * @param dateString the String describing the date.
+	 * @return the date
+	 * @throws CubeException exception occurs when unable to parse.
+	 */
+	public static Date parseStringToDate(String dateString) throws CubeException {
+		if (dateString == null) {
+			return null;
+		}
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		try {
+			Date date = formatter.parse(dateString);
+			return date;
+		} catch (ParseException e) {
+			throw new CubeException(Message.INVALID_DATE_FORMAT);
+		}
+	}
+
+	/**
+	 * Find the full name/type until next parameter/end of input.
+	 * @param inputs tokens containing the full string to be found.
+	 * @param index starting index.
+	 * @return the full name/type until next parameter/end of input.
+	 */
+	public static String findFullString (String[] inputs, int index) {
+		String fullSring = "";
+
+		for (int i = index + 1; i < inputs.length; i ++) {
+			if(inputs[i].equals("-n")||inputs[i].equals("-t")||inputs[i].equals("-p")
+					||inputs[i].equals("-s")||inputs[i].equals("-e")) {
+				break;
+			}
+
+			if(i != index+1) {
+				fullSring += " ";
+			}
+			fullSring += inputs[i];
+		}
+
+		return fullSring;
 	}
 }
