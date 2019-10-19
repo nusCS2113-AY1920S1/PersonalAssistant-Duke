@@ -1,7 +1,9 @@
-package javacake;
+package javacake.ui;
+
+import javacake.exceptions.DukeException;
+import javacake.quiz.QuestionList;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -177,14 +179,14 @@ public class Ui {
     public static String getQuizResults(int progress) {
         StringBuilder str = new StringBuilder();
         str.append("Here's your quiz progress so far :D\n");
-        for (int i = 0; i < 12; ++i) {
+        for (int i = 0; i < 4 * QuestionList.MAX_QUESTIONS; ++i) {
             if (i < progress) {
                 str.append("#");
             } else {
                 str.append("-");
             }
         }
-        progress = progress * 100 / 12;
+        progress = progress * 100 / (4 * QuestionList.MAX_QUESTIONS);
         if (progress == 99) {
             progress = 100;
         }

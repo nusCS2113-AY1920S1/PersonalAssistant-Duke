@@ -1,4 +1,6 @@
-package javacake;
+package javacake.storage;
+
+import javacake.exceptions.DukeException;
 
 import java.io.BufferedReader;
 import java.io.File;

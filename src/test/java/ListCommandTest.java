@@ -1,8 +1,8 @@
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Ui;
-import javacake.Profile;
-import javacake.Storage;
+import javacake.ui.Ui;
+import javacake.storage.Profile;
+import javacake.storage.Storage;
 import javacake.commands.ListCommand;
 import org.junit.jupiter.api.Test;
 

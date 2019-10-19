@@ -1,6 +1,6 @@
 package javacake.quiz;
 
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 
 import java.io.File;
 import java.io.IOException;

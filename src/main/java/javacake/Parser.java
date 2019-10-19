@@ -8,6 +8,7 @@ import javacake.commands.HelpCommand;
 import javacake.commands.ScoreCommand;
 import javacake.commands.GoToCommand;
 import javacake.commands.MegaListCommand;
+import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;

@@ -1,30 +1,18 @@
-package javacake;
+package javacake.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 /**
  * An example of a custom control using FXML.
@@ -36,9 +24,6 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
-    private Image hilda1 = new Image(this.getClass().getResourceAsStream("/images/hilda_1.png"));
-    private Image hilda2 = new Image(this.getClass().getResourceAsStream("/images/hilda_2.png"));
 
     private DialogBox(String text, Image img) {
         try {

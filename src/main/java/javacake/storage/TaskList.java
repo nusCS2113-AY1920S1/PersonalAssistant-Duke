@@ -1,5 +1,6 @@
-package javacake;
+package javacake.storage;
 
+import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 
 import java.util.ArrayList;
