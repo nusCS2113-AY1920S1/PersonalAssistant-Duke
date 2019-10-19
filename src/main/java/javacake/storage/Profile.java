@@ -46,12 +46,6 @@ public class Profile {
                     initialiseUser();
                     System.out.println("C" + file.getPath());
                 }
-//                if (!file.exists()) {
-//                    file.getParentFile().getParentFile().mkdir();
-//                    file.getParentFile().mkdir();
-//                    file.createNewFile();
-//                    initialiseUser();
-//                }
 
             } catch (IOException e) {
                 System.out.println("before reader");
@@ -76,22 +70,15 @@ public class Profile {
         }
     }
 
+    /**
+     * Method to hard reset profile.
+     */
     public static void resetProfile() {
         File file = new File(filepath);
         if (file.exists()) {
             file.delete();
             System.out.println("deleting: " + file.getPath());
         }
-//        file = new File("data/save");
-//        if (file.exists()) {
-//            file.delete();
-//            System.out.println("deleting: " + file.getPath());
-//        }
-//        file = new File("data/");
-//        if (file.exists()) {
-//            file.delete();
-//            System.out.println("deleting: " + file.getPath());
-//        }
     }
 
     public String getUsername() {
