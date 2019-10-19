@@ -228,6 +228,7 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTotalAmount() {
         return internalList.stream()
+                .filter(expense -> !expense.isTentative())
             .map(Expense::getAmount)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
@@ -240,9 +241,10 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTagAmount(String tag) {
         return internalList.stream()
-            .filter(expense -> expense.getTags().contains(tag))
-            .map(Expense::getAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .filter(expense -> expense.getTags().contains(tag))
+                .filter(expense -> !expense.isTentative())
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     /**
@@ -252,6 +254,7 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTotalExternalAmount() {
         return externalList.stream()
+            .filter(expense -> !expense.isTentative())
             .map(Expense::getAmount)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }

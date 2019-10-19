@@ -10,21 +10,23 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
-            prefHeight="400.0" prefWidth="700.0"
+            prefHeight="600.0" prefWidth="800.0"
             fx:id="main">
     <top>
         <VBox alignment="CENTER">
-
             <Label fx:id="totalSpentLabel" text="Total: $0.00"/>
             <Label fx:id="monthlyBudgetLabel" text="Budget:inf"/>
             <Label fx:id="remainingBudgetLabel" text="Remaining:inf"/>
-            <HBox>
+        </VBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER">
                 <TableView fx:id="expenseTableView"/>
                 <ListView fx:id="budgetListView"/>
             </HBox>
-
         </VBox>
-    </top>
+    </center>
 
     <bottom>
         <VBox>

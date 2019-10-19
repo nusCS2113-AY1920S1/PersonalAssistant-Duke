@@ -2,18 +2,23 @@ BorderPane {
 }
 
 Textfield {
-    -fx-background-color: white;
     -fx-alignment: bottom;
 }
 
 ListView, TableView {
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }
 
 Label {
-    -fx-background-color: white;
 }
 
 #totalSpentLabel, #monthlyBudgetLabel {
     -fx-font-size: 2em;
+}
+
+Hbox {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+#inputField {
+    -fx-font-size: 1.5em;
 }

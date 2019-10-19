@@ -2,15 +2,23 @@ package duke;
 
 import duke.dukeobject.Expense;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 import java.math.BigDecimal;
 
@@ -34,7 +42,7 @@ public class MainWindow extends BorderPane {
     @FXML
     TableView expenseTableView;
     @FXML
-    ListView budgetListView = new ListView();
+    ListView<String> budgetListView = new ListView<>();
 
     private Duke duke;
 
@@ -88,24 +96,48 @@ public class MainWindow extends BorderPane {
             }, cell.emptyProperty(), cell.indexProperty()));
             return cell;
         });
-
+        indexColumn.setSortable(false);
         TableColumn<String, Expense> timeColumn = new TableColumn<>("Time");
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
+        timeColumn.setSortable(false);
         TableColumn<String, Expense> amountColumn = new TableColumn<>("Amount");
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountColumn.setSortable(false);
         TableColumn<Expense, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descriptionColumn.setSortable(false);
         TableColumn<Expense, String> tagColumn = new TableColumn<>("Tags");
+        tagColumn.setSortable(false);
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
-        TableColumn<Expense, Boolean> isTentativeColumn = new TableColumn<>("Tentative");
-        isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
+        tagColumn.setSortable(false);
+
+        expenseTableView.setRowFactory(new Callback<TableView<Expense>, TableRow<Expense>>() {
+            @Override
+            public TableRow<Expense> call(TableView<Expense> tableView) {
+                final TableRow<Expense> row = new TableRow<Expense>() {
+                    @Override
+                    protected void updateItem(Expense expense, boolean empty){
+                        super.updateItem(expense, empty);
+                        if (expense!=null&&expense.isTentative()) {
+                            setStyle("-fx-text-background-color: blue;");
+
+                        } else {
+                            setStyle("-fx-text-background-color: black;");
+                        }
+                    }
+                };
+                return row;
+            }
+        });
         expenseTableView.getColumns().setAll(
             indexColumn,
             timeColumn,
             amountColumn,
             descriptionColumn,
-            tagColumn,
-            isTentativeColumn);
+            tagColumn
+            //isTentativeColumn
+        );
+
         for (Expense expense : duke.expenseList.getExternalList()) {
             expenseTableView.getItems().add(expense);
         }
@@ -152,5 +184,12 @@ public class MainWindow extends BorderPane {
         }
     }
 
+    public static Color tentativeToColor(boolean istentative) {
+        if(istentative) {
+            return Color.YELLOW;
+        }else {
+            return Color.WHITE;
+        }
+    }
 }
 
