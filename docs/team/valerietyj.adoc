@@ -1,4 +1,4 @@
-= Lee Yu Choy - Project Portfolio
+= Valerie Tan Yi Jia - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

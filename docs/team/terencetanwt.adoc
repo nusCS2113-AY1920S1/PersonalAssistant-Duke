@@ -1,4 +1,4 @@
-= Lee Yu Choy - Project Portfolio
+= Terence Tan Wee Theng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
