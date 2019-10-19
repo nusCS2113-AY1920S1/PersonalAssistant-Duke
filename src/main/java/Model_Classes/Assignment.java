@@ -25,10 +25,6 @@ public class Assignment extends Task {
         super(description, by);
     }
 
-    public Assignment (String description, String duration, TimeUnit unit) {
-        super(description, null);
-    }
-
     /**
      * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
      * @param input String containing subtasks separated by ","
@@ -50,9 +46,5 @@ public class Assignment extends Task {
     @Override
     public String toString() {
         return "[A]" + super.toString() + " (by: " + super.getDate() + ")";
-    }
-
-    public Date getBy() {
-        return by;
     }
 }

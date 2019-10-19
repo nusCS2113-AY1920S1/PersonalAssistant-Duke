@@ -70,7 +70,7 @@ public class TaskCreator {
         String[] timeArray = input.split("&");
         String[] durationArray = timeArray[1].split(" ");
         String[] durationLength = durationArray[1].split("-");
-        TimeUnit unit;
+        TimeUnit unit = TimeUnit.minutes;
         int duration =0;
         if (timeArray.length != 1 && durationLength.length < 1) {
             // not a fixed duration task
@@ -103,7 +103,7 @@ public class TaskCreator {
         } else if (durationLength.length > 1){
             duration = Integer.parseInt(durationLength[1]) - Integer.parseInt(durationLength[0]);
             //need to change this section
-            if(durationArray[2].contains("r")) {
+            if(durationArray[1].contains("r")) {
                 TaskReminder taskReminder = new TaskReminder(description, duration);
                 taskReminder.start();
             }
@@ -116,7 +116,7 @@ public class TaskCreator {
                 meeting.setRecurrenceSchedule(recurrenceScheduleType);
                 return meeting;
             } else {
-                if( !CheckAnomaly.checkTime(Integer.parseInt(duration), unit) ) {
+                if( !CheckAnomaly.checkTime(duration, unit) ) {
                     Meeting meeting = new Meeting(description, duration, unit);
                     meeting.setPriority(priorityType);
                     meeting.setUser(assignee);
@@ -135,7 +135,7 @@ public class TaskCreator {
             unit = TimeUnit.valueOf(tempArray[1].toLowerCase().trim());
 
             //reminder function
-            if(durationArray[2].contains("r")) {
+            if(durationArray[1].contains("r")) {
                 TaskReminder taskReminder = new TaskReminder(description, duration);
                 taskReminder.start();
             }
