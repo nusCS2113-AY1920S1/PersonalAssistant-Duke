@@ -4,7 +4,6 @@ import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.model.task.Task;
 
 /**
  * The AddCommand Class which extends Command.
@@ -24,7 +23,6 @@ public class AddCommand extends Command {
             + MESSAGE_USAGE;
 
     private Expense expense = null;
-    private Task task = null;
     private Contact contact = null;
     private Loan loan = null;
 
@@ -37,14 +35,6 @@ public class AddCommand extends Command {
         this.expense = expense;
     }
 
-    /**
-     * Constructs the AddCommand object with Task object.
-     *
-     * @param task The Task object.
-     */
-    public AddCommand(Task task) {
-        this.task = task;
-    }
 
     /**
      * Constructs the AddCommand object with Contract object.
@@ -78,11 +68,6 @@ public class AddCommand extends Command {
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             System.out.println(expense.toString());
-        }
-        if (task != null) {
-            wallet.getTaskList().addTask(task);
-            System.out.println(MESSAGE_SUCCESS_ADD_TASK);
-            System.out.println(task.toString());
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);

@@ -2,9 +2,7 @@ package wallet.logic.command;
 
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
-import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
-import wallet.model.task.Task;
 import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
@@ -52,6 +50,7 @@ public class ListCommand extends Command {
     public boolean execute(Wallet wallet) {
         boolean isListAll = false;
         int counter;
+
         switch (record) {
         case "recurring":
             wallet.getExpenseList().listRecurringExpense();
@@ -59,26 +58,12 @@ public class ListCommand extends Command {
 
         case "all":
             isListAll = true;
-            //fallthrough
-
-        case "task":
-            counter = 1;
-            System.out.println(MESSAGE_LIST_TASKS);
-            for (Task t : wallet.getTaskList().getTaskList()) {
-                System.out.println(counter + "." + t.toString());
-                counter++;
-            }
-            if (!isListAll) {
-                break;
-            }
-            //else fallthrough
 
         case "contact":
             Ui.printContactTable();
             if (!isListAll) {
                 break;
             }
-            //else fallthrough
 
         case "expense":
             ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
@@ -86,7 +71,6 @@ public class ListCommand extends Command {
             if (!isListAll) {
                 break;
             }
-            //else fallthrough
 
         case "loan":
             wallet.getLoanList().listLoanList();

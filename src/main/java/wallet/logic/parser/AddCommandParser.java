@@ -6,18 +6,11 @@ import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.model.task.Deadline;
-import wallet.model.task.DoWithinPeriod;
-import wallet.model.task.Event;
-import wallet.model.task.Task;
-import wallet.model.task.Todo;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class AddCommandParser implements Parser<AddCommand> {
     /**
@@ -31,16 +24,6 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
-        case "todo":
-        case "event":
-        case "deadline":
-        case "dowithin":
-            Task task = parseTask(arguments[0], arguments[1]);
-            if (task != null) {
-                return new AddCommand(task);
-            } else {
-                break;
-            }
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
@@ -162,47 +145,5 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             return contact;
         }
-    }
-
-    /**
-     * Returns a Task Object based on command and input.
-     *
-     * @param command A string command.
-     * @param input   A string input.
-     * @return The Task object.
-     * @throws ArrayIndexOutOfBoundsException Out of index.
-     * @throws ParseException                 ParseException.
-     */
-    private Task parseTask(String command, String input) throws ArrayIndexOutOfBoundsException, ParseException {
-        Task task = null;
-
-        String[] info;
-
-        if (input.length() == 0) {
-            System.out.println("☹ OOPS!!! The description of " + command + " cannot be empty");
-            return null;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        if (command.equals("todo")) {
-            task = new Todo(input);
-        } else if (command.equals("deadline")) {
-            info = input.split("/by");
-            Date date = sdf.parse(info[1].trim());
-            task = new Deadline(info[0].trim(), date);
-        } else if (command.equals("event")) {
-            info = input.split("/at");
-            Date date = sdf.parse(info[1].trim());
-            task = new Event(info[0].trim(), date);
-        } else if (command.equals("dowithin")) {
-            info = input.split("/from");
-            String temp = info[0];
-            info = info[1].split("/to");
-            Date dateStart = sdf.parse(info[0].trim());
-            Date dateEnd = sdf.parse(info[1].trim());
-            task = new DoWithinPeriod(temp.trim(), dateStart, dateEnd);
-        }
-
-        return task;
     }
 }

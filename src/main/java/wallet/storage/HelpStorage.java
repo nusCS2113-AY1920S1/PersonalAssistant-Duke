@@ -25,7 +25,6 @@ public class HelpStorage {
      * @param input User selected help section index.
      */
     public void sectionData(int input) {
-
         String chosenPath;
 
         switch (input) {
@@ -53,12 +52,10 @@ public class HelpStorage {
         default:
             chosenPath = null;
             break;
-
         }
 
 
         try {
-
             InputStream is = getClass().getResourceAsStream(chosenPath);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
@@ -78,21 +75,12 @@ public class HelpStorage {
             isr.close();
             is.close();
 
-
         } catch (NullPointerException e) {
-
             System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-
         } catch (FileNotFoundException e) {
-
             System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-
         } catch (IOException e) {
-
             System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-
         }
-
-
     }
 }
