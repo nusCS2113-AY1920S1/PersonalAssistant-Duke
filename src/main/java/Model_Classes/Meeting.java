@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class Meeting extends Task {
     private boolean isFixedDuration;
-    private String duration;
+    private int duration;
     private TimeUnit timeUnit;
     /**
      * Constructor for Event object
@@ -47,7 +47,7 @@ public class Meeting extends Task {
     }
 
     public String getDuration() {
-        return duration;
+        return Integer.toString(duration);
     }
 
     public TimeUnit getTimeUnit() {

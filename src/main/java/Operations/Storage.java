@@ -49,7 +49,7 @@ public class Storage {
                 String rawDate = temp[4];
                 String user = temp[6];
                 boolean isFixedDuration = false;
-                String duration = "";
+                int duration =0;
                 TimeUnit unit = TimeUnit.hours;
                 Date by = new Date();
                 if (temp.length != 9) {
@@ -61,7 +61,7 @@ public class Storage {
                 } else {
                     // fixed duration task
                     isFixedDuration = true;
-                    duration = temp[7];
+                    duration = Integer.parseInt(temp[7]);
                     unit = TimeUnit.valueOf(temp[8]);
                 }
                 try {
@@ -153,6 +153,7 @@ public class Storage {
                         }
                     }
                 }
+                //if(  )
             }
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
@@ -182,6 +183,14 @@ public class Storage {
                 if (s instanceof Assignment) {
                         String time = convertForStorage(s);
                         out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
+                        // Saves subtasks
+                        if( !(((Assignment) s).getSubTasks() == null ) ) {
+                            out += "#";
+                            ArrayList<String> subTasks =  ((Assignment) s).getSubTasks();
+                            for( String subtask : subTasks ) {
+                                out += subtask + ",";
+                            }
+                        }
                 } else if (s instanceof Meeting){
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();
