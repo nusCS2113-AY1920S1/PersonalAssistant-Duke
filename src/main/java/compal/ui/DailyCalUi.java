@@ -231,51 +231,51 @@ class DailyCalUi {
         int hourInMin = 60;
         double pixelBlock = 100;
         for (Task task : dailyCalArrayList) {
-                if (eventCounter < 5 && Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
-                    int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
-                    int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
-                    int endHour = Integer.parseInt(task.getStringEndTime().substring(0, 2));
-                    int endMin = Integer.parseInt(task.getStringEndTime().substring(2, 4));
+            if (eventCounter < 5 && Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
+                int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
+                int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
+                int endHour = Integer.parseInt(task.getStringEndTime().substring(0, 2));
+                int endMin = Integer.parseInt(task.getStringEndTime().substring(2, 4));
 
-                    int totalHour;
-                    int totalMin;
-                    if (endMin >= startMin) {
-                        totalMin = endMin - startMin;
-                        totalHour = endHour - startHour;
-                    } else {
-                        endHour--;
-                        totalMin = endMin + hourInMin - startMin;
-                        totalHour = endHour - startHour;
-                    }
+                int totalHour;
+                int totalMin;
+                if (endMin >= startMin) {
+                    totalMin = endMin - startMin;
+                    totalHour = endHour - startHour;
+                } else {
+                    endHour--;
+                    totalMin = endMin + hourInMin - startMin;
+                    totalHour = endHour - startHour;
+                }
 
-                    if (totalHour == 0 && totalMin == 0) {
-                        continue;
-                    }
+                if (totalHour == 0 && totalMin == 0) {
+                    continue;
+                }
 
-                    //Drawing a Rectangle
-                    double heightY = 1.7;
-                    double heightYMin = heightY * totalMin;
-                    double heightYHour = pixelBlock * totalHour;
+                //Drawing a Rectangle
+                double heightY = 1.7;
+                double heightYMin = heightY * totalMin;
+                double heightYHour = pixelBlock * totalHour;
 
-                    Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
-                    rectangle.setFill(colorFill(task));
-                    rectangle.setStroke(Color.BLACK);
+                Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
+                rectangle.setFill(colorFill(task));
+                rectangle.setStroke(Color.BLACK);
 
-                    final StackPane stack = new StackPane();
-                    final Text text = new Text(createTitle(task));
-                    text.setFont(Font.font("Georgia Italic", 12));
-                    text.setTextAlignment(TextAlignment.CENTER);
+                final StackPane stack = new StackPane();
+                final Text text = new Text(createTitle(task));
+                text.setFont(Font.font("Georgia Italic", 12));
+                text.setTextAlignment(TextAlignment.CENTER);
 
-                    stack.getChildren().addAll(rectangle, text);
-                    while (storedXAxis[currentTime][eventCounter] == 0) {
-                        eventCounter++;
-                    }
-                    stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
-                    stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
-
-                    groupRoot.getChildren().add(stack);
+                stack.getChildren().addAll(rectangle, text);
+                while (storedXAxis[currentTime][eventCounter] == 0) {
                     eventCounter++;
                 }
+                stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
+                stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
+
+                groupRoot.getChildren().add(stack);
+                eventCounter++;
+            }
         }
     }
 
