@@ -4,25 +4,23 @@ import seedu.duke.CommandParser;
 import seedu.duke.Duke;
 import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.entity.Task;
 
 /**
  * Add a task which do after another task.
  */
 public class TaskDoAfterCommand extends Command {
 
-    private TaskList taskList;
     private int index;
     private String doAfterDescription;
 
     /**
      * Instantiation of do after command.
      *
-     * @param taskList           list of tasks.
      * @param index              index of task.
      * @param doAfterDescription of task.
      */
-    public TaskDoAfterCommand(TaskList taskList, int index, String doAfterDescription) {
-        this.taskList = taskList;
+    public TaskDoAfterCommand(int index, String doAfterDescription) {
         this.index = index;
         this.doAfterDescription = doAfterDescription;
     }
@@ -34,6 +32,7 @@ public class TaskDoAfterCommand extends Command {
      */
     @Override
     public boolean execute() {
+        TaskList taskList = Duke.getModel().getTaskList();
         String msg = "";
         try {
             msg = taskList.setDoAfter(index, doAfterDescription);

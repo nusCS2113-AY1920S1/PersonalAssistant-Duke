@@ -8,16 +8,15 @@ import seedu.duke.email.EmailList;
 import java.io.IOException;
 
 public class EmailShowCommand extends Command {
-    private EmailList emailList;
     private int index;
 
-    public EmailShowCommand(EmailList emailList, int index) {
-        this.emailList = emailList;
+    public EmailShowCommand(int index) {
         this.index = index;
     }
 
     @Override
     public boolean execute() {
+        EmailList emailList = Duke.getModel().getEmailList();
         String[] parsedMsg = emailList.show(index);
         responseMsg = parsedMsg[0];
         Duke.getUI().showResponse(parsedMsg[0]);

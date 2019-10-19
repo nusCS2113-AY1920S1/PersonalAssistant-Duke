@@ -135,7 +135,7 @@ public class UI {
     }
 
     public void setMainStage(Stage stage) {
-        this.mainStage = stage;
+        this.mainWindow.setMainStage(stage);
     }
 
     public void setMainWindow(MainWindow mainWindow) {

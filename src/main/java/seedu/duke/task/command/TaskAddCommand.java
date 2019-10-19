@@ -15,7 +15,6 @@ import java.util.ArrayList;
  * AddCommand is a specific kind of command used to add task to the task list.
  */
 public class TaskAddCommand extends Command {
-    private TaskList taskList;
     private Task.TaskType taskType;
     private String name;
     private LocalDateTime time;
@@ -26,7 +25,6 @@ public class TaskAddCommand extends Command {
     /**
      * Instantiation of add command with all the necessary variables. it needs to execute.
      *
-     * @param taskList the task list where the task is added to.
      * @param taskType the type of task that is to be added.
      * @param name     he name of the task, which is needed to instantiate the task.
      * @param time     the time of the task, which is needed to instantiate the task. ToDo tasks does not have
@@ -35,9 +33,8 @@ public class TaskAddCommand extends Command {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public TaskAddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time,
+    public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
                           String doAfter, ArrayList<String> tags, String priority) {
-        this.taskList = taskList;
         this.taskType = taskType;
         this.name = name;
         this.time = time;
@@ -54,6 +51,7 @@ public class TaskAddCommand extends Command {
      */
     @Override
     public boolean execute() {
+        TaskList taskList = Duke.getModel().getTaskList();
         Task task;
         switch (taskType) {
         case ToDo:

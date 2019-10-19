@@ -149,6 +149,7 @@ public class CommandParserTest {
                     ArrayList.class);
             method.setAccessible(true);
             assertTrue(method.invoke(null, "reminder 1", null, null) instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder 1000000000000000", null, null) instanceof TaskReminderCommand);
             assertTrue(method.invoke(null, "reminder 1 a", null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "reminder -1", null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "reminder 00 ", null, null) instanceof TaskReminderCommand);

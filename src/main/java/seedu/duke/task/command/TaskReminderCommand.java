@@ -6,27 +6,22 @@ import seedu.duke.common.command.Command;
 
 public class TaskReminderCommand extends Command {
     private int dayLimit = 3; //default limit is 3 days
-    private TaskList taskList;
 
     /**
      * Instantiation of the ReminderCommand which can be used to print all the tasks near.
      *
-     * @param taskList the TaskList where the near command is looked up
      * @param dayLimit the maximum number of days from now for a task to be considered as near
      */
-    public TaskReminderCommand(TaskList taskList, int dayLimit) {
-        this.taskList = taskList;
+    public TaskReminderCommand(int dayLimit) {
         this.dayLimit = dayLimit;
     }
 
     /**
      * Instantiation of the ReminderCommand which can be used to print all the tasks near. This overload uses
      * the default dayLimit instead.
-     *
-     * @param taskList the TaskList where the near command is looked up
      */
-    public TaskReminderCommand(TaskList taskList) {
-        this.taskList = taskList;
+    public TaskReminderCommand() {
+
     }
 
     /**
@@ -36,6 +31,7 @@ public class TaskReminderCommand extends Command {
      */
     @Override
     public boolean execute() {
+        TaskList taskList = Duke.getModel().getTaskList();
         TaskList nearTasks = taskList.findNear(dayLimit);
         String msg = "";
         if (nearTasks.size() == 0) {

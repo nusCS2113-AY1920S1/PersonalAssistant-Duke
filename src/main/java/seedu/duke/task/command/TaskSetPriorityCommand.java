@@ -10,19 +10,16 @@ import seedu.duke.common.command.Command;
  */
 public class TaskSetPriorityCommand extends Command {
 
-    private TaskList taskList;
     private int index;
     private String priorityLevel;
 
     /**
      * Instantiation of set priority command.
      *
-     * @param taskList      list of tasks
      * @param index         index of task
      * @param priorityLevel priority level set for the task
      */
-    public TaskSetPriorityCommand(TaskList taskList, int index, String priorityLevel) {
-        this.taskList = taskList;
+    public TaskSetPriorityCommand(int index, String priorityLevel) {
         this.index = index;
         this.priorityLevel = priorityLevel;
     }
@@ -35,6 +32,7 @@ public class TaskSetPriorityCommand extends Command {
     @Override
     public boolean execute() {
         String msg = "";
+        TaskList taskList = Duke.getModel().getTaskList();
         try {
             msg = taskList.setPriority(index, priorityLevel);
         } catch (CommandParser.UserInputException e) {

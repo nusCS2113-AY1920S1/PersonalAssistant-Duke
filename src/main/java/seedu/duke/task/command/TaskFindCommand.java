@@ -8,17 +8,14 @@ import seedu.duke.common.command.Command;
  * FindCommand is a specific kind of command used to find a task from task list with a keyword.
  */
 public class TaskFindCommand extends Command {
-    private TaskList taskList;
     private String keyword;
 
     /**
      * Instantiation of find command with all the necessary variables it needs to execute.
      *
-     * @param taskList the task list where the task is looked for
      * @param keyword  the keyword that the target task needs to match
      */
-    public TaskFindCommand(TaskList taskList, String keyword) {
-        this.taskList = taskList;
+    public TaskFindCommand(String keyword) {
         this.keyword = keyword;
     }
 
@@ -31,7 +28,8 @@ public class TaskFindCommand extends Command {
      */
     @Override
     public boolean execute() {
-        String msg = this.taskList.findKeyword(keyword);
+        TaskList taskList = Duke.getModel().getTaskList();
+        String msg = taskList.findKeyword(keyword);
         if (!silent) {
             responseMsg = msg;
             Duke.getUI().showResponse(msg);

@@ -77,6 +77,9 @@ public class HelpCommand extends Command {
                 + "task with the given index as to be done after the given description"));
         commandInfoList.add(new CommandInfo("Task", "snooze \'index\'", "Snooze the task at the given "
                 + "index by 3 days. "));
+        commandInfoList.add(new CommandInfo("Task", "set \'index\'\n"
+                + "\t-priority \'priority\'\t\t(Must) The priority level of the task in string", "Set a "
+                + "task to the given priority"));
         commandInfoList.add(new CommandInfo("Task", "todo \'name\'\n"
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags can "
                 + "be added to a single todo. "
@@ -99,6 +102,8 @@ public class HelpCommand extends Command {
         commandInfoList.add(new CommandInfo("Email", "show \'index\'", "Show a email content at the given "
                 + "index. "));
         commandInfoList.add(new CommandInfo("Email", "fetch", "Fetch emails from the Outlook server"));
+        commandInfoList.add(new CommandInfo("Email", "update \'index\'"
+                + "\t-tag \'tag name\'\t\t(Must) Name of the tag", "Tag an email with a tag name" ));
     }
 
     /**

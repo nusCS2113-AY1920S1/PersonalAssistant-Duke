@@ -99,7 +99,7 @@ public class TaskStorage {
             }
             Duke.getUI().showMessage("Saved task file successfully loaded... => " + taskList.size());
             in.close();
-            new TaskReminderCommand(taskList).execute();
+            new TaskReminderCommand().execute();
         } catch (FileNotFoundException e) {
             return taskList; //it is acceptable if there is no save file
         } catch (IOException e) {

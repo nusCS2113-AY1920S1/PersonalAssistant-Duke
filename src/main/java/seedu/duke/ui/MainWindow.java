@@ -132,6 +132,10 @@ public class MainWindow extends AnchorPane {
         new KeyBinding(scene, userInput, sendButton, this);
     }
 
+    public void setMainStage(Stage stage) {
+        this.mainStage = stage;
+    }
+
     /**
      * Handle userInput key event.
      *

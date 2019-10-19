@@ -7,10 +7,8 @@ import seedu.duke.email.EmailStorage;
 import seedu.duke.common.command.Command;
 
 public class EmailFetchCommand extends Command {
-    private EmailList emailList;
 
-    public EmailFetchCommand(EmailList emailList) {
-        this.emailList = emailList;
+    public EmailFetchCommand() {
     }
 
     @Override
