@@ -19,13 +19,16 @@ public class OrderPage extends UiPart<AnchorPane> {
     @FXML
     private ListView<Order> orderListView;
 
+    /**
+     * Creates an order page.
+     */
     public OrderPage(ObservableList<Order> orderList, ObservableList<Item<Ingredient>> inventoryList) {
         super(FXML);
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
 
-    class OrderListViewCell extends ListCell<Order> {
+    static class OrderListViewCell extends ListCell<Order> {
         @Override
         protected void updateItem(Order order, boolean empty) {
             super.updateItem(order, empty);
