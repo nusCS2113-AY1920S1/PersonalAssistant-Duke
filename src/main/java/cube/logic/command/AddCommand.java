@@ -14,12 +14,21 @@ public class AddCommand extends Command{
 		+ "%1$s\n"
 		+ "Now you have %2$s food in the list.\n";
 
+	/**
+	 * Default constructor.
+	 * @param food the food to be added.
+	 */
 	public AddCommand (Food food) {
 		this.toAdd = food;
 	}
 
+	/**
+	 * Check whether the food to be added is already in the list.
+	 * @param list the food list to be checked through.
+	 * @throws CommandException
+	 */
 	private void checkValid(FoodList list) throws CommandException {
-		if (list.exists(toAdd.getName())) {
+		if (list.existsName(toAdd.getName())) {
 			throw new CommandException(CommandErrorMessage.FOOD_ALREADY_EXISTS);
 		}
 	}

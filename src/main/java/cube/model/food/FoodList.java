@@ -42,13 +42,42 @@ public class FoodList {
 		return null;
 	}
 
-	public void remove(int index) {
+	public void removeIndex(int index) {
 		foodArrayList.remove(index);
 	}
 
-	public boolean exists(String foodName) {
+	public void removeName(String foodName) {
+		for(int i = 0; i < foodArrayList.size(); i ++) {
+			if (foodArrayList.get(i).getName().equals(foodName)) {
+				foodArrayList.remove(i);
+				break;
+			}
+		}
+	}
+
+	public int removeType(String foodType) {
+		int count = 0;
+		for(int i = 0; i < foodArrayList.size(); i ++) {
+			if (foodArrayList.get(i).getType().equals(foodType)) {
+				foodArrayList.remove(i);
+				count ++;
+			}
+		}
+		return count;
+	}
+
+	public boolean existsName(String foodName) {
 		for(Food food : foodArrayList) {
 			if (food.getName().equals(foodName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean existsType(String foodType) {
+		for(Food food : foodArrayList) {
+			if (food.getType().equals(foodType)) {
 				return true;
 			}
 		}
