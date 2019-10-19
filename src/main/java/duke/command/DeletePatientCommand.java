@@ -5,7 +5,8 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -53,10 +54,12 @@ public class DeletePatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
+                        PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
 
-        runCommandFrequencyLogic(commandManager);
+        this.hasBeenAddedBefore = true;
+        String commandName = this.getClass().getSimpleName();
+        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
         if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
             boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);
@@ -64,7 +67,7 @@ public class DeletePatientCommand extends Command {
                 patientManager.deletePatient(id);
                 ui.patientDeleted();
                 patientStorage.save(patientManager.getPatientList());
-                cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                counterStorage.save(commandCounter.getCommandTable());
             }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
@@ -77,7 +80,7 @@ public class DeletePatientCommand extends Command {
                         patientManager.deletePatient(patientsWithSameName.get(numberChosen - 1).getID());
                         ui.patientDeleted();
                         patientStorage.save(patientManager.getPatientList());
-                        cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                        counterStorage.save(commandCounter.getCommandTable());
                     }
                 }
             }

@@ -16,7 +16,15 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CmdFreqStorage {
+/**
+ * CounterStorage.java - a class for load/save of command frequency in csv format,
+ * written with Storage template written by HUANG XUAN KUN
+ *
+ * @author QIAN JIE
+ * @version 1.3
+ */
+
+public class CounterStorage {
     /**
      * A string that represents a relative file path from the project folder.
      */
@@ -28,7 +36,7 @@ public class CmdFreqStorage {
      * @param filePath A string that represents the path of the file to read or
      *                 write.
      */
-    public CmdFreqStorage(String filePath) {
+    public CounterStorage(String filePath) {
         this.filePath = filePath;
     }
 

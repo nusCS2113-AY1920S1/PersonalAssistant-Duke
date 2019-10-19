@@ -6,7 +6,8 @@ import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.EventPatientTask;
 import duke.relation.StandardPatientTask;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -47,14 +48,16 @@ public class AssignTaskToPatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
+                        PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
 
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
-            runCommandFrequencyLogic(commandManager);
+            this.hasBeenAddedBefore = true;
+            String commandName = this.getClass().getSimpleName();
+            commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
             patientTaskList.addPatientTask(newPatientTask);
             patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-            cmdFreqStorage.save(commandManager.getCmdFreqTable());
+            counterStorage.save(commandCounter.getCommandTable());
             ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(),
                     tasksList.getTask(newPatientTask.getTaskID()).getDescription());
         } else {

@@ -23,23 +23,13 @@ import java.util.Map;
  */
 public class CommandManager {
 
-    private Map<String, Integer> cmdFreqTable;
-
-    public CommandManager(Map<String, Integer> cmdFreqTable) {
-        this.cmdFreqTable = cmdFreqTable;
-    }
-
-    public Map<String, Integer> getCmdFreqTable() {
-        return cmdFreqTable;
-    }
-
     /**
      * Parses a Task from a string array.
      *
      * @param userInput The string array to be parsed.
      * @return The Command received from user.
      */
-    public Command manageCommand(String userInput) throws DukeException {
+    public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
@@ -125,11 +115,6 @@ public class CommandManager {
             }
         case "bye":
             ExitCommand exitCommand = new ExitCommand();
-            for (Map.Entry<String, Integer> entry : cmdFreqTable.entrySet()) {
-                System.out.println("Key = " + entry.getKey());
-                System.out.println("Value = " + entry.getValue());
-                System.out.println("====================================================");
-            }
             return exitCommand;
         default:
             throw new DukeException("Could not understand user input.");

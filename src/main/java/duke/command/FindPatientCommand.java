@@ -5,7 +5,8 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -37,9 +38,11 @@ public class FindPatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
-        runCommandFrequencyLogic(commandManager);
+                        PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
+        this.hasBeenAddedBefore = true;
+        String commandName = this.getClass().getSimpleName();
+        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
@@ -49,11 +52,11 @@ public class FindPatientCommand extends Command {
                 throw new DukeException("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
             }
             Patient patient = patientManager.getPatient(id);
-            cmdFreqStorage.save(commandManager.getCmdFreqTable());
+            counterStorage.save(commandCounter.getCommandTable());
             ui.patientsFoundById(patient);
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);
-            cmdFreqStorage.save(commandManager.getCmdFreqTable());
+            counterStorage.save(commandCounter.getCommandTable());
             ui.patientsFoundByName(patientsWithSameName, command);
         }
     }

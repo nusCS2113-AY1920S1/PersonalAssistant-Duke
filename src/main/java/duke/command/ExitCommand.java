@@ -3,7 +3,8 @@ package duke.command;
 import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.patient.PatientManager;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.relation.PatientTaskList;
@@ -44,8 +45,8 @@ public class ExitCommand extends Command {
      */
     public void execute(PatientTaskList patientTask, TaskManager tasks,
                         PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
+                        TaskStorage taskStorage, PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
         ui.exitInformation();
     }
 }

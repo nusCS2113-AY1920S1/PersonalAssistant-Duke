@@ -3,7 +3,8 @@ package duke.command;
 import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.task.Task;
 import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
@@ -39,9 +40,11 @@ public class UpdateTaskCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
-        runCommandFrequencyLogic(commandManager);
+                        TaskStorage taskStorage, PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
+        this.hasBeenAddedBefore = true;
+        String commandName = this.getClass().getSimpleName();
+        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {
@@ -56,7 +59,7 @@ public class UpdateTaskCommand extends Command {
                 }
 
                 taskStorage.save(taskManager.getTaskList());
-                cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                counterStorage.save(commandCounter.getCommandTable());
 
                 ui.showUpdatedSuccessfully();
                 ui.showTaskInfo(taskToBeUpdated);

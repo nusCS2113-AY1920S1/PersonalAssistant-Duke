@@ -7,7 +7,8 @@ import duke.patient.Patient;
 import duke.patient.PatientManager;
 import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -45,9 +46,11 @@ public class FindPatientTaskCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
-        runCommandFrequencyLogic(commandManager);
+                        TaskStorage taskStorage, PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
+        this.hasBeenAddedBefore = true;
+        String commandName = this.getClass().getSimpleName();
+        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
@@ -59,7 +62,7 @@ public class FindPatientTaskCommand extends Command {
                 for (PatientTask temppatientTask : patientTask) {
                     tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
                 }
-                cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                counterStorage.save(commandCounter.getCommandTable());
                 ui.patientTaskFound(patient, patientTask, tempTask);
             } catch (Exception e) {
                 throw new DukeException("Please follow the format 'find patienttask #<id>' or 'find patient <name>'.");
@@ -80,7 +83,7 @@ public class FindPatientTaskCommand extends Command {
                     tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
                     //System.out.println(temppatientTask.getTaskID() + "\n");
                 }
-                cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                counterStorage.save(commandCounter.getCommandTable());
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
             } catch (Exception e) {
                 throw new DukeException(e.getMessage()

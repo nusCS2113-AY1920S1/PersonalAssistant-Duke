@@ -4,7 +4,8 @@ import duke.core.CommandManager;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
-import duke.storage.CmdFreqStorage;
+import duke.statistic.CommandCounter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -52,9 +53,11 @@ public class DeleteTaskCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
-                        CommandManager commandManager) throws DukeException {
-        runCommandFrequencyLogic(commandManager);
+                        PatientStorage patientStorage, CounterStorage counterStorage,
+                        CommandCounter commandCounter) throws DukeException {
+        this.hasBeenAddedBefore = true;
+        String commandName = this.getClass().getSimpleName();
+        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
         if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);
@@ -62,7 +65,7 @@ public class DeleteTaskCommand extends Command {
                 taskManager.deleteTask(id);
                 ui.taskDeleted();
                 taskStorage.save(taskManager.getTaskList());
-                cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                counterStorage.save(commandCounter.getCommandTable());
             }
         } else {
             ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(deletedTaskInfo);
@@ -75,7 +78,7 @@ public class DeleteTaskCommand extends Command {
                         taskManager.deleteTask(tasksWithSameDescription.get(numberChosen - 1).getID());
                         ui.taskDeleted();
                         taskStorage.save(taskManager.getTaskList());
-                        cmdFreqStorage.save(commandManager.getCmdFreqTable());
+                        counterStorage.save(commandCounter.getCommandTable());
                     }
                 }
             }
