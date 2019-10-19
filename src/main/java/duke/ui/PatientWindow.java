@@ -5,13 +5,13 @@ import javafx.scene.layout.Region;
 /**
  * UI window for the Patient context.
  */
-public class PatientWindow extends UiElement<Region> {
-    private static final String FXML = "PatientTab.fxml";
+class PatientWindow extends UiElement<Region> {
+    private static final String FXML = "PatientWindow.fxml";
 
     /**
-     * Construct Patient object.
+     * Constructs the patient UI window.
      */
-    public PatientWindow() {
+    PatientWindow() {
         super(FXML, null);
     }
 }
