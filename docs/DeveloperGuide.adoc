@@ -130,14 +130,11 @@ NUS Students who are trying to plan their meals for a specific diet goal such as
 |LOW |someone who likes to motivate people |have a way to print my progress in the past month |I can motivate other people to live healthily
 |LOW |someone likes different themes |have a way to change the color scheme of the application |it is easier to the eyes.
 |LOW |someone likes different themes |have different colors for different tasks |I am able to distinguish between them easily.
-
-
 |=======================================================================
 
 [appendix]
 == Use Cases
-[]
-====
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -146,11 +143,11 @@ Use Case: UC01 - Customizing User Profile
 
 Main Success Scenario:
 
-. DIYeats detects that user profile has not been specified and prompts for information regarding height, weight, and lifestyle
+1. DIYeats detects that user profile has not been specified and prompts for information regarding height, weight, and lifestyle
 
-. Student enters the required information based on his profile
+2. Student enters the required information based on his profile
 
-. DIYeats indicates that user profile has been recorded.
+3. DIYeats indicates that user profile has been recorded.
 
 Use case ends.
 
@@ -169,9 +166,8 @@ Use case resumes from step 3.
 3.1: Student requests to change the user profile.
 
 Use case resumes from step 1.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -182,9 +178,11 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. Student chooses the food he/she is planning to eat and corresponds the food to the respective meal.
-. DIYeats indicates the meal has been recorded.
-. Steps 1-2 are repeated until Student has inputted all the meals intended
+1. Student chooses the food he/she is planning to eat and corresponds the food to the respective meal.
+
+2. DIYeats indicates the meal has been recorded.
+
+3. Steps 1-2 are repeated until Student has inputted all the meals intended
 
 Use case ends.
 
@@ -219,9 +217,8 @@ Use case resumes from step 2.
 Steps 1.4.1 - 1.4.2 are repeated until the command entered are correct.
 
 Use case resumes from step 2.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -232,8 +229,9 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. NUS Student requests to display meal and the nutritional intake for today.
-. DIYeats display the recorded meals taken / will be taken today and its nutritional value.
+1. NUS Student requests to display meal and the nutritional intake for today.
+
+2. DIYeats display the recorded meals taken / will be taken today and its nutritional value.
 
 Use Case Ends.
 
@@ -244,9 +242,8 @@ Extensions:
 1.1.1: DIYeats display the recorded meals and intake on that date
 
 Use case ends.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -257,13 +254,13 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. User requests to be reminded on how much nutrition the student intake to reach the target nutrient intake for the month.
-. DIYeats display the information.
+1. User requests to be reminded on how much nutrition the student intake to reach the target nutrient intake for the month.
+
+2. DIYeats display the information.
 
 Use Case Ends.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -274,8 +271,9 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. Student requests to find a specific food student had in the past
-. DIYeats displays the queried food and its description.
+1. Student requests to find a specific food student had in the past
+
+2. DIYeats displays the queried food and its description.
 
 Use case ends.
 
@@ -286,9 +284,8 @@ Extensions:
 1.1.1: DIYeats displays the error message.
 
 Use case ends.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -311,9 +308,8 @@ Extensions:
 1.1.1: DIYeats displays the error message.
 
 Use case ends.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -324,9 +320,11 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. Student requests for nutritional goals to be met at the end of a time frame (end of month)
-. DIYeats displays the nutritional goals that have been inputted and a confirmation goals.
-. Use case ends.
+1. Student requests for nutritional goals to be met at the end of a time frame (end of month)
+
+2. DIYeats displays the nutritional goals that have been inputted and a confirmation goals.
+
+3. Use case ends.
 
 Extensions:
 
@@ -339,9 +337,8 @@ Extensions:
 Steps 1.1.1 - 1.1.2 are repeated until the data entered are correct.
 
 Use case resumes from step 2.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -352,9 +349,11 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. Student unsure of what food to eat for the next meal and asks DIYeats to recommend a food that fits within the goal intake set.
-. DIYeats displays a small list of nutritional food that fit within the goal intake plan set by the student.
-. Student can choose to select food from the list generated in step 2 or proceed to key in any other food as per normal.
+1. Student unsure of what food to eat for the next meal and asks DIYeats to recommend a food that fits within the goal intake set.
+
+2. DIYeats displays a small list of nutritional food that fit within the goal intake plan set by the student.
+
+3. Student can choose to select food from the list generated in step 2 or proceed to key in any other food as per normal.
 
 Use case ends.
 
@@ -367,9 +366,8 @@ Extensions:
 Step 1.1.1 is repeated until the student is satisfied with the constraints for food recommendation.
 
 Use case resumes from step 2.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -380,13 +378,13 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. Student requests for the statistics of the amount of nutrients that have been eaten in a specific time frame.
-. DIYeats displays the statistics, accompanied by the goal intake that is set by the student.
+1. Student requests for the statistics of the amount of nutrients that have been eaten in a specific time frame.
+
+2. DIYeats displays the statistics, accompanied by the goal intake that is set by the student.
 
 Use case ends.
-====
-[]
-====
+|=======================================================================
+|=======================================================================
 System: DIYeats
 
 Actor: NUS Student
@@ -397,10 +395,12 @@ Preconditions: User profile is specified. (Refer to UC01 - Customizing User Prof
 
 Main Success Scenario:
 
-. Student requests for the graph of the amount of nutrients that have been eaten in a specific time frame.
-. DIYeats displays the graph, accompanied by the goal intake that is set by the student.
+1. Student requests for the graph of the amount of nutrients that have been eaten in a specific time frame.
+
+2. DIYeats displays the graph, accompanied by the goal intake that is set by the student.
+
 Use case ends.
-====
+|=======================================================================
 
 
 [appendix]
