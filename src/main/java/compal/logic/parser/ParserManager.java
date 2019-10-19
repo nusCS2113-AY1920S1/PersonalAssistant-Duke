@@ -1,12 +1,9 @@
 package compal.logic.parser;
 
-
-
 import compal.logic.command.ByeCommand;
 import compal.logic.command.Command;
 import compal.logic.command.ListCommand;
 import compal.logic.parser.exceptions.ParserException;
-
 
 /**
  * Deals with user inputs.
@@ -24,7 +21,7 @@ public class ParserManager {
     public static final String CMD_VIEW = "view";
     public static final String CMD_FIND = "find";
     public static final String CMD_SET_REMINDER = "set-reminder";
-    public static final String CMD_VIEW_REMIND = "view-reminder";
+    public static final String CMD_VIEW_REMINDER = "view-reminder";
     public static final String CMD_LECT = "lect";
     public static final String CMD_TUT = "tut";
     public static final String CMD_SECT = "sect";
@@ -32,7 +29,6 @@ public class ParserManager {
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
     public static final String CMD_EDIT = "edit";
-    public static final String CMD_DEFAULT_EMPTY_REST_OF_INPUT = "";
 
     public static final String MESSAGE_INVALID_COMMAND = "Error: Unknown command input detected!";
 
@@ -45,8 +41,6 @@ public class ParserManager {
      * @throws ParserException If command input is unknown or user input is empty.
      */
     public Command processCmd(String userInput) throws ParserException {
-
-
         String[] args = userInput.split(" ", 2);
         String commandWord = args[0];
         String restOfInput = "";
@@ -60,6 +54,10 @@ public class ParserManager {
             return new ByeCommand();
         case CMD_VIEW:
             return new ViewCommandParser().parseCommand(restOfInput);
+        case CMD_SET_REMINDER:
+            return new SetReminderParser().parseCommand(restOfInput);
+        case CMD_VIEW_REMINDER:
+            return new ViewReminderParser().parseCommand(restOfInput);
         default:
             //suppose to return helpCommand();
             throw new ParserException(MESSAGE_INVALID_COMMAND);
