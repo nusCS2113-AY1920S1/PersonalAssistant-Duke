@@ -184,11 +184,7 @@ Example of error message:`Error: Failed to parse data file!`
 === `ModNotFoundException`
 This error appears when the user searches for a module code that is not found in the nusMod list.
 
-****
-* Example: `add CS111`
-* Example of error message: 
 image::ModNotFoundException.png[width="250"]
-****
 
 === `ModCommandException`
 This error appears when the user does not input a valid command name into the command line.
