@@ -125,6 +125,12 @@ public interface Model {
     //========Product operations=========
 
     /**
+     * Deletes the given product.
+     * The order must exist in product list.
+     */
+    void deleteProduct(Product product);
+
+    /**
      * Adds the given product.
      */
     void addProduct(Product product);

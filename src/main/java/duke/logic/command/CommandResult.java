@@ -46,12 +46,6 @@ public class CommandResult {
         INVENTORY,
         SALE,
         SAME;
-
-        //public DisplayedPage.PRODUCT getProductPage() {
-        //    return PRODUCT.GENERAL;
-        //}
-        //
-
     }
 
     public String getFeedbackToUser() {

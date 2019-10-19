@@ -179,11 +179,17 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Product operations==============
 
     /**
+     * Removes a given product from product List
+     */
+    public void removeProduct(Product product) {
+        products.remove(product);
+    }
+    /**
      * Adds an product to products.
      * The order must not already exist in orders.
      */
-    public void addProduct(Product p) {
-        products.add(p);
+    public void addProduct(Product product) {
+        products.add(product);
     }
 
     public void setProduct(Product originalProduct, Product editedProduct) {
@@ -370,4 +376,5 @@ public class BakingHome implements ReadOnlyBakingHome {
     public int hashCode() {
         return orders.hashCode();
     }
+
 }

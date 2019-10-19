@@ -1,10 +1,11 @@
-package duke.logic.command.order;
+package duke.logic.command.product;
 
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.order.Order;
+import duke.model.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,47 +13,38 @@ import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
-/**
- * A command to delete orders from Order List.
- */
-public class DeleteOrderCommand extends OrderCommand {
+public class DeleteProductCommand extends ProductCommand {
     public static final String COMMAND_WORD = "remove";
-
-    public static final String MESSAGE_COMMIT = "Delete order";
-    private static final String MESSAGE_DELETE_SUCCESS = "%s order(s) removed.";
+    private static final String MESSAGE_DELETE_SUCCESS = "Product(s) removed.";
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+
     private final Set<Index> indices;
 
-    /**
-     * Creates a {@code DeleteProductCommand}.
+    /** Creates a DeleteProductCommand
      *
-     * @param indices of the orders to delete
-     */
-    public DeleteOrderCommand(Set<Index> indices) {
-        requireNonNull(indices);
+     * @param indices of the products to delete
+     * */
 
+    public DeleteProductCommand(Set<Index> indices) {
+        requireNonNull(indices);
         this.indices = indices;
     }
 
-
+    @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Order> toDelete = new ArrayList<>();
+        List<Product> toDelete = new ArrayList<>();
         for (Index index : indices) {
-            if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
+            if (index.getZeroBased() >= model.getFilteredProductList().size()) {
                 throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
             }
-            toDelete.add(model.getFilteredOrderList().get(index.getZeroBased()));
+            toDelete.add(model.getFilteredProductList().get(index.getZeroBased()));
         }
-        for (Order order : toDelete) {
-            model.deleteOrder(order);
+        for (Product product : toDelete) {
+            model.deleteProduct(product);
         }
-
-        model.commit(MESSAGE_COMMIT);
 
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
-            CommandResult.DisplayedPage.ORDER);
+                CommandResult.DisplayedPage.PRODUCT);
 
     }
-
 }
-
