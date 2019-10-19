@@ -78,7 +78,7 @@ public class Duke {
                 ui.showLine();
                 Command c = commandManager.manageCommand(fullCommand);
                 c.execute(patientTaskList, taskManager, patientManager,
-                        ui, patientTaskStorage, taskStorage, patientStorage);
+                        ui, patientTaskStorage, taskStorage, patientStorage , cmdFreqStorage ,commandManager);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());

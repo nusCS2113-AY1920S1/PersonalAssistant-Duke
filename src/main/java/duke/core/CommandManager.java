@@ -25,13 +25,13 @@ import java.util.Set;
  */
 public class CommandManager {
 
-    private Map<String , Integer> cmdFreqTable = new HashMap<>();
-    int count;
-    //CmdFreqStorage cmdFreqStorage = CmdFreqStorage.getCmdFreqStorage();
-
-
+    private Map<String , Integer> cmdFreqTable;
     public CommandManager (Map<String , Integer> cmdFreqTable){
         this.cmdFreqTable = cmdFreqTable;
+    }
+
+    public Map<String , Integer> getCmdFreqTable () {
+        return cmdFreqTable;
     }
 
     /**
@@ -45,34 +45,16 @@ public class CommandManager {
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
         Parser parser = new Parser(userInput);
-        CmdFreqStorage cmdFreqStorage = new CmdFreqStorage();
         switch (firstKeyword) { //change this depending on how string is parsed
         case "add":
             String secondKeyword = command[1].toLowerCase();
             if (secondKeyword.equals("patient")) {
                 String[] formattedInput = parser.parseAdd();
                 AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
-                String commandName = addPatientCommand.getClass().getSimpleName();
-                if (!addPatientCommand.HasBeenAddedBefore()) {
-                    cmdFreqTable.put(commandName , 1);
-                }
-                count = cmdFreqTable.containsKey(commandName) ? cmdFreqTable.get(commandName) : 0;
-                cmdFreqTable.put(commandName , count + 1);
-                //cmdFreqStorage.save(cmdFreqTable);
-
                 return addPatientCommand;
             } else if (secondKeyword.equals("task")) {
                 String formattedInput = parser.parseAdd()[0];
                 AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
-                String commandName = addStandardTaskCommand.getClass().getSimpleName();
-                if (!addStandardTaskCommand.HasBeenAddedBefore()) {
-                    cmdFreqTable.put(addStandardTaskCommand.getClass().getSimpleName() , 1);
-                }
-                count = cmdFreqTable.containsKey(commandName) ? cmdFreqTable.get(commandName) : 0;
-                cmdFreqTable.put(commandName , count + 1);
-                //cmdFreqStorage.save(cmdFreqTable);
-
-
                 return addStandardTaskCommand ;
             } else {
                 throw new DukeException("Add command fails. ");
@@ -145,34 +127,14 @@ public class CommandManager {
         case "bye":
             ExitCommand exitCommand = new ExitCommand();
             String commandName = exitCommand.getClass().getSimpleName();
-            if (!exitCommand.HasBeenAddedBefore()) {
-                cmdFreqTable.put(exitCommand.getClass().getSimpleName() , 0);
-            }
-
-            count = cmdFreqTable.containsKey(commandName) ? cmdFreqTable.get(commandName) : 0;
-            cmdFreqTable.put(commandName , count + 1);
-
-            System.out.println(cmdFreqTable.size());
-
             for (Map.Entry<String , Integer> entry : cmdFreqTable.entrySet()) {
                 System.out.println("Key = " + entry.getKey());
                 System.out.println("Value = " + entry.getValue());
+                System.out.println("====================================================");
             }
-//            Set keys = cmdFreqTable.keySet();
-//            System.out.println("All keys are: " + keys);
-//            for(Object key: keys){
-//                System.out.println(key + ": " + cmdFreqTable.get(key));
-//            }
-           // cmdFreqStorage.save(cmdFreqTable);
-
             return exitCommand;
         default:
             throw new DukeException("Could not understand user input.");
         }
-
-
     }
-
-
-
 }

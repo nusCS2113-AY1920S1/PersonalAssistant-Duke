@@ -18,12 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CmdFreqStorage {
-
     /**
      * A string that represents a relative file path from the project folder.
      */
     private String filePath;
-    public CmdFreqStorage(){}
     /**
      * Constructs a Storage object with a specific file path.
      *
@@ -65,29 +63,25 @@ public class CmdFreqStorage {
         }
     }
 
-
-
-//    /**
-//     * Write the patients' info to local csv files.
-//     *
-//     * @param cmdFreqTable A list of patients containing info of patients to be written
-//     * @throws DukeException throw exception with error message when i/o fails
-//     */
-//    public void save(Map<String , Integer> cmdFreqTable) throws DukeException {
-//        try {
-//            BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
-//            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-//                    .withHeader("Command Name" , "Frequency"));
-//            for (Map.Entry<String , Integer> entry : cmdFreqTable.entrySet()) {
-//                String commandName = entry.getKey();
-//                Integer frequency = entry.getValue();
-//                csvPrinter.printRecords(commandName , frequency);
-//            }
-//
-//            System.out.println("saved successful");
-//            csvPrinter.flush();
-//        } catch (IOException e) {
-//            throw new DukeException(e.getMessage());
-//        }
-//    }
+    /**
+     * Write the patients' info to local csv files.
+     *
+     * @param cmdFreqTable A list of patients containing info of patients to be written
+     * @throws DukeException throw exception with error message when i/o fails
+     */
+    public void save(Map<String , Integer> cmdFreqTable) throws DukeException {
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
+            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+                    .withHeader("Command Name" , "Frequency"));
+            for (Map.Entry<String , Integer> entry : cmdFreqTable.entrySet()) {
+                String commandName = entry.getKey();
+                String frequency = entry.getValue().toString();
+                csvPrinter.printRecord(commandName , frequency );
+            }
+            csvPrinter.flush();
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
 }

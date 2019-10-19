@@ -1,1 +1,3 @@
-"Command Name	Frequency"
+Command Name,Frequency
+AddStandardTaskCommand,3
+AddPatientCommand,3
