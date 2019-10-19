@@ -24,8 +24,8 @@ import java.util.List;
  */
 class CommandWindow extends UiElement<Region> {
     private static final String FXML = "CommandWindow.fxml";
-    static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
-    static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
+    private static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
+    private static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
 
     @FXML
     private ScrollPane scrollPane;
