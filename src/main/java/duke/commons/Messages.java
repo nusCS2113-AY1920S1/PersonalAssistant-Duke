@@ -22,5 +22,5 @@ public class Messages {
     public static final String REQUEST_TIMEOUT = "☹ I'm sorry, but the request has timed out... :-(";
     public static final String PARSE_ERROR = "Parsing failed.";
     public static final String RECOMMENDATION_ERROR = "☹ I'm sorry, our recommendation services are down";
-
+    public static final String FORMAT_ERROR = "☹ I'm sorry, numbers or words cannot be formatted.";
 }

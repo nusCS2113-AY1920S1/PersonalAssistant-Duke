@@ -1,8 +1,10 @@
 package duke.logic.parsers;
 
+import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.model.events.Deadline;
 import duke.model.events.DoWithin;
 import duke.model.events.Event;
@@ -23,7 +25,7 @@ public class ParserUtil {
     protected static Todo createTodo(String userInput) throws DukeException {
         String description = userInput.substring("todo".length()).strip();
         if (description.isEmpty()) {
-            throw new DukeException(Messages.EMPTY_DESCRIPTION);
+            throw new DukeUnknownCommandException();
         }
         return new Todo(description);
     }
@@ -36,17 +38,18 @@ public class ParserUtil {
      */
     protected static Deadline createDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = userInput.substring("deadline".length()).strip().split("by");
-        if (deadlineDetails.length != 2 || deadlineDetails[1] == null) {
+        if (deadlineDetails.length == 1) {
+            throw new DukeUnknownCommandException();
+        } else if (deadlineDetails.length != 2 || deadlineDetails[1] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
-        }
-        if (deadlineDetails[0].strip().isEmpty()) {
+        } else if (deadlineDetails[0].strip().isEmpty()) {
             throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         try {
             return new Deadline(deadlineDetails[0].strip(),
                     ParserTimeUtil.parseStringToDate(deadlineDetails[1].strip()));
         } catch (DukeDateTimeParseException e) {
-            return new Deadline(deadlineDetails[0].strip(), deadlineDetails[1].strip());
+            throw new DukeException(MessagesPrompt.PROMPT_NOT_DATE);
         }
     }
 
@@ -64,9 +67,13 @@ public class ParserUtil {
         if (withinDetails[0].strip().isEmpty()) {
             throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
-        LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
-        LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
-        return new DoWithin(withinDetails[0].strip(), start, end);
+        try {
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
+            return new DoWithin(withinDetails[0].strip(), start, end);
+        } catch (DukeDateTimeParseException e) {
+            throw new DukeException(MessagesPrompt.PROMPT_NOT_DATE);
+        }
     }
 
     /**
@@ -75,8 +82,11 @@ public class ParserUtil {
      * @param userInput The userInput read by the user interface.
      * @return The new Event object.
      */
-    public static Event createEvent(String userInput) throws DukeException {
+    protected static Event createEvent(String userInput) throws DukeException {
         String[] withinDetails = userInput.substring("event".length()).strip().split("between|and");
+        if (withinDetails.length == 1) {
+            throw new DukeUnknownCommandException();
+        }
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -99,7 +109,7 @@ public class ParserUtil {
             int index = Integer.parseInt(userInput.replaceAll("\\D+", ""));
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException(Messages.INVALID_FORMAT);
+            throw new DukeUnknownCommandException();
         }
     }
 
@@ -116,7 +126,7 @@ public class ParserUtil {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         } catch (NumberFormatException e) {
-            throw new DukeException(Messages.INVALID_FORMAT);
+            throw new DukeUnknownCommandException();
         }
     }
 

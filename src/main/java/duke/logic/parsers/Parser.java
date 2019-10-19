@@ -19,9 +19,9 @@ import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
 import duke.commands.StaticMapCommand;
 import duke.commands.ViewScheduleCommand;
-import duke.commons.Messages;
 import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 
 
 /**
@@ -75,7 +75,7 @@ public class Parser {
         case "map":
             return new StaticMapCommand(getWord(input));
         default:
-            throw new DukeException(Messages.UNKNOWN_COMMAND);
+            throw new DukeUnknownCommandException();
         }
     }
 
@@ -101,7 +101,7 @@ public class Parser {
         }
     }
 
-    public static Command parsePromptCommand(String prompt) throws DukeException {
+    public static Command parsePromptCommand(String prompt) {
         return new PromptCommand(prompt);
     }
 
@@ -125,7 +125,7 @@ public class Parser {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(Messages.INVALID_FORMAT);
+            throw new DukeUnknownCommandException();
         }
     }
 

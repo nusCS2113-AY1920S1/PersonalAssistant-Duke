@@ -4,6 +4,7 @@ import duke.commands.Command;
 import duke.commands.results.CommandResult;
 import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -34,7 +35,7 @@ public class LogicManager extends Logic {
             conversationManager.clearContext();
         } catch (DukeApiException e) {
             throw new DukeException((e.getMessage()));
-        } catch (DukeException e) {
+        } catch (DukeUnknownCommandException e) {
             c = getCommandFromConversationManager(userInput);
         }
         return (CommandResult) c.execute(model);
