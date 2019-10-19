@@ -385,7 +385,7 @@ public class Parser {
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     }
                 }
-            }
+            }   //@@author e0318465
         } else if (arr.length > ZERO && arr[ZERO].equals("addcontact")) {
             String[] userInput = sentence.split(" ",TWO);
             String[] contactDetails = userInput[ONE].split(",");
@@ -397,7 +397,7 @@ public class Parser {
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
         } else if (sentence.equals("listcontacts")) {
-            return new ListContactsCommand();
+            return new ListContactsCommand();   //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
             try {
                 String budgetCommandString = sentence.split(" ", TWO)[ONE];

@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//@@author e0318465
 public class ContactStorage {
     //protected String filePathForContacts = "./";
     protected String filePathForContacts = "";

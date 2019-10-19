@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents a list of contacts.
  */
+//@@author e0318465
 public class ContactList {
     protected ArrayList<Contacts> contactList;
     private static final int ZERO = 0;

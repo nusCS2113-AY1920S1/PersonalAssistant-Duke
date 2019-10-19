@@ -348,10 +348,11 @@ public class Ui {
     /**
      * Outputs an alert when a duplicated inout is detected.
      */
+    //@@author e0318465
     public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
     }
-
+    //@@author
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
@@ -384,6 +385,7 @@ public class Ui {
      *
      * @param contactList The list of contacts.
      */
+    //@@author e0318465
     public void showAddedContact(ContactList contactList) {
         out.println("     Got it. Contact added:");
         if (contactList.size() == ZERO) {
@@ -411,7 +413,7 @@ public class Ui {
         System.out.println("I was here");
         return str;
     }
-
+    //@@author
     /**
      * Shows the current budget of the user.
      *
