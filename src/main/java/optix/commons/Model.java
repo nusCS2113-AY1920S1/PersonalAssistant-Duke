@@ -72,10 +72,6 @@ public class Model {
         shows.deleteShow(showDate);
     }
 
-    public String deleteShow(String[] showNames) {
-        return shows.deleteShow(showNames);
-    }
-
     //// Commands that deals with Seats.
 
     public String viewSeats(LocalDate localDate) {

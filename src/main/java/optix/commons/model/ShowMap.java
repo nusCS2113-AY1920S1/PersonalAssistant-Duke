@@ -3,7 +3,6 @@ package optix.commons.model;
 import optix.util.OptixDateFormatter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,11 +38,6 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
         Theatre theatre = new Theatre(showName, seatBasePrice);
-        this.put(showDate, theatre);
-    }
-
-    public void addShow(String showName, LocalDate showDate, double revenue, double seatBasePrice) {
-        Theatre theatre = new Theatre(showName, revenue, seatBasePrice);
         this.put(showDate, theatre);
     }
 
@@ -133,55 +127,6 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         this.remove(key);
 
         return show;
-    }
-
-    /**
-     * Remove shows with the same showName.
-     * @param showNames an array of show names.
-     * @return String message of all the deleted entries.
-     */
-    public String deleteShow(String[] showNames) {
-        StringBuilder message = new StringBuilder();
-        ArrayList<String> deletedShows = new ArrayList<>();
-        ArrayList<String> missingShows = new ArrayList<>();
-
-        for (String show : showNames) {
-            boolean isFound = false;
-            ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
-            for (Map.Entry<LocalDate, Theatre> entry : this.entrySet()) {
-                if (entry.getValue().hasSameName(show.trim())) {
-                    String showDescription = entry.getValue().getShowName() + ' '
-                            + formatter.toStringDate(entry.getKey());
-                    entryArrayList.add(entry);
-                    deletedShows.add(showDescription);
-                    isFound = true;
-                }
-            }
-            // add show to missing show list if it's not found.
-            if (!isFound) {
-                missingShows.add(show);
-            }
-            // remove entry from shows.
-            for (Map.Entry<LocalDate, Theatre> entry : entryArrayList) {
-                this.remove(entry.getKey(), entry.getValue());
-            }
-        }
-
-        if (!deletedShows.isEmpty()) {
-            message.append("Noted. These are the deleted entries:\n");
-            for (String infoStrings : deletedShows) {
-                message.append(infoStrings.trim()).append('\n');
-            }
-        }
-
-        if (!missingShows.isEmpty()) {
-            message.append("Sorry, these shows were not found:\n");
-            for (String missingShow : missingShows) {
-                message.append(missingShow.trim()).append('\n');
-            }
-        }
-
-        return message.toString();
     }
 
     //// Command that deals with seats

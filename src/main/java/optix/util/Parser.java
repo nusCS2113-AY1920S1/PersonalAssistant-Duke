@@ -1,33 +1,31 @@
 package optix.util;
 
+import optix.commands.ByeCommand;
+import optix.commands.Command;
+import optix.commands.HelpCommand;
 import optix.commands.parser.AddAliasCommand;
 import optix.commands.parser.RemoveAliasCommand;
 import optix.commands.parser.ResetAliasCommand;
+import optix.commands.seats.SellSeatCommand;
+import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
-import optix.commands.ByeCommand;
-import optix.commands.Command;
-import optix.commands.shows.DeleteAllCommand;
-import optix.commands.shows.DeleteOneCommand;
-import optix.commands.HelpCommand;
+import optix.commands.shows.DeleteCommand;
 import optix.commands.shows.EditCommand;
 import optix.commands.shows.ListCommand;
 import optix.commands.shows.ListDateCommand;
 import optix.commands.shows.ListShowCommand;
 import optix.commands.shows.PostponeCommand;
-import optix.commands.shows.ViewProfitCommand;
 import optix.commands.shows.ViewMonthlyCommand;
-import optix.commands.seats.SellSeatCommand;
-import optix.commands.seats.ViewSeatsCommand;
+import optix.commands.shows.ViewProfitCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
-import java.io.IOException;
-import java.io.File;
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -109,10 +107,8 @@ public class Parser {
                 return new ByeCommand();
             case "add": // add poto|5/10/2020|2000|20
                 return parseAddShow(splitStr[1]);
-            case "delete-all": // e.g. delete-all poto|lion king
-                return parseDeleteAllOfShow(splitStr[1]);
             case "delete": // e.g. delete 2/10/2019|poto
-                return parseDeleteOneOfShow(splitStr[1]);
+                return parseDeleteShow(splitStr[1]);
             case "view-profit": //e.g. view-profit lion king|5/5/2020
                 return parseViewProfit(splitStr[1]);
             case "view-monthly": //e.g. view-monthly May 2020
@@ -254,14 +250,14 @@ public class Parser {
     }
 
     /**
-     * Parse the remaining user input to its respective parameters for DeleteOneCommand.
+     * Parse the remaining user input to its respective parameters for DeleteCommand.
      *
-     * @param showDetails The details to create a new DeleteOneCommand Object.
-     * @return new DeleteOneCommand Object.
+     * @param showDetails The details to create a new DeleteCommand Object.
+     * @return new DeleteCommand Object.
      * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
      */
-    private static Command parseDeleteOneOfShow(String showDetails) throws OptixInvalidCommandException {
-        String[] splitStr = showDetails.trim().split("\\|");
+    private static Command parseDeleteShow(String showDetails) throws OptixInvalidCommandException {
+        String[] splitStr = showDetails.trim().split("\\|", 2);
 
         if (splitStr.length != 2) {
             throw new OptixInvalidCommandException();
@@ -270,19 +266,7 @@ public class Parser {
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
 
-        return new DeleteOneCommand(showName, showDate);
-    }
-
-    /**
-     * Parse the remaining user input to its respective parameters for DeleteAllCommand.
-     *
-     * @param deleteDetails The name of all the shows being queried.
-     * @return new DeleteAllCommand Object.
-     */
-    private static Command parseDeleteAllOfShow(String deleteDetails) {
-        String[] splitStr = deleteDetails.trim().split("\\|");
-
-        return new DeleteAllCommand(splitStr);
+        return new DeleteCommand(showName, showDate);
     }
 
     /**
