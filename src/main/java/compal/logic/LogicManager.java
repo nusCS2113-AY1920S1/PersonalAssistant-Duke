@@ -9,6 +9,8 @@ import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.TaskList;
 import compal.ui.UiUtil;
 
+import java.text.ParseException;
+
 /**
  * The LogicManager Class handles the logic of Wallet.
  */

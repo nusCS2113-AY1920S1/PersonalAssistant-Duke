@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +44,7 @@ public class MainWindow extends AnchorPane {
      * Called by the enter button inside MainWindow.fxml.
      */
     @FXML
-    private void handleUserInput() throws ParserException, CommandException {
+    private void handleUserInput() throws ParserException, CommandException, ParseException {
         String cmd = userInput.getText();
         if (cmd.isEmpty()) {
             throw new ParserException(MESSAGE_EMPTY_INPUT);
