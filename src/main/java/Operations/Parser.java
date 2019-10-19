@@ -49,6 +49,16 @@ public class Parser {
     }
 
     /**
+     * Returns the index number requested by the user for subTask.
+     * @return index Index the user wishes to assign subtasks to.
+     */
+    public Integer getIndexSubtask() {
+        String temp = scanner.next().trim();
+        int index = Integer.parseInt(temp) - 1;
+        return index;
+    }
+
+    /**
      * Return a single index number or a range of index number requested by users for command 'done' and 'delete'
      * @return a single index or a range of index
      */
