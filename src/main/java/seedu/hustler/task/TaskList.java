@@ -73,6 +73,11 @@ public class TaskList {
         return list.isEmpty();
     }
 
+    /**
+     * Adds a new Task to the task list.
+     *
+     * @param task new Task to be added.
+     */
     public void add(Task task) {
         list.add(task);
         if (!CommandLog.isRestoring()) {
@@ -104,17 +109,17 @@ public class TaskList {
         String difficulty = "";
         String tag = "";
         if (splitInput.contains("/d")) {
-            int dIndex = splitInput.indexOf("/d") + 1;
+            int difficultyIndex = splitInput.indexOf("/d") + 1;
             try {
-                difficulty = splitInput.get(dIndex);
+                difficulty = splitInput.get(difficultyIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 difficulty = "";
             }
         }
         if (splitInput.contains("/tag")) {
-            int tIndex = splitInput.indexOf("/tag") + 1;
+            int tagIndex = splitInput.indexOf("/tag") + 1;
             try {
-                tag = splitInput.get(tIndex);
+                tag = splitInput.get(tagIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 tag = "";
             }
@@ -122,7 +127,7 @@ public class TaskList {
         String onlyDescription = getDescription(splitInput);
         boolean checkAnomaly = true;
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-                list.add(new ToDo(onlyDescription, difficulty, tag, LocalDateTime.now()));
+            list.add(new ToDo(onlyDescription, difficulty, tag, LocalDateTime.now()));
             checkAnomaly = false;
         } else if (taskType.equals("deadline")) {
             try {
@@ -130,13 +135,13 @@ public class TaskList {
                 LocalDateTime by = getDateTime(timeStr);
 
                 if (splitInput.contains("/every")) {
-                    int eIndex = splitInput.indexOf("/every");
-                    String frequency = splitInput.get(eIndex + 1) + " " + splitInput.get(eIndex + 2);
+                    int everyIndex = splitInput.indexOf("/every");
+                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
                     int number = Integer.parseInt(frequency.split(" ")[0]);
                     String period = frequency.split(" ")[1];
                     int numOfMin = 0;
 
-                    switch(period) {
+                    switch (period) {
                     case "minutes":
                         numOfMin = number;
                         break;
@@ -152,9 +157,13 @@ public class TaskList {
                     case "months":
                         numOfMin = number * 60 * 24 * 7 * 28;
                         break;
+                    default:
+                        numOfMin = 0;
+                        break;
                     }
                     if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
-                        list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag, LocalDateTime.now(), frequency, numOfMin, false));
+                        list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag,
+                                LocalDateTime.now(), frequency, numOfMin, false));
                         String taskDate = getOnlyDate(splitInput);
                         if (Schedule.isValidDate(taskDate)) {
                             schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
@@ -363,14 +372,17 @@ public class TaskList {
                     return 0;
                 } else if (t1.getDifficulty().toString().equals("[H]")) {
                     return -1;
-                } else if (t1.getDifficulty().toString().equals("[M]") &&
-                        t2.getDifficulty().toString().equals("[L]")) {
+                } else if (t1.getDifficulty().toString().equals("[M]")
+                        && t2.getDifficulty().toString().equals("[L]")) {
                     return -1;
                 } else {
                     return 1;
                 }
             });
             break;
+        default:
+            System.out.println("Task list has remained the same. Please check your sort command.");
+            return;
         }
         System.out.println("\t_____________________________________");
         System.out.println("\tTask list has been successfully sorted!");

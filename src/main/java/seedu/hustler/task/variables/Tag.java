@@ -29,7 +29,7 @@ public class Tag {
     @Override
     public String toString() {
         if (!this.tagName.equals("")) {
-           return "[#" + this.tagName + "]";
+            return "[#" + this.tagName + "]";
         }
         return "";
     }

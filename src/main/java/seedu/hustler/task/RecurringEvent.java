@@ -25,6 +25,9 @@ public class RecurringEvent extends Event {
      */
     boolean hasRecurred;
 
+    /**
+     * Initializes RecurringEvent's attributes.
+     */
     public RecurringEvent(String description, LocalDateTime at, String difficulty, String tag,
                              LocalDateTime now, String frequency, int period, boolean hasRecurred) {
         super(description, at, difficulty, tag, now);
@@ -33,6 +36,9 @@ public class RecurringEvent extends Event {
         this.hasRecurred = hasRecurred;
     }
 
+    /**
+     * Initializes RecurringEvent's attributes.
+     */
     public RecurringEvent(String description, LocalDateTime at, Difficulty difficulty, Tag tag,
                              LocalDateTime now, String frequency, int period) {
         super(description, at, difficulty, tag, now);
@@ -67,10 +73,15 @@ public class RecurringEvent extends Event {
         }
     }
 
+    /**
+     * Adds the next recurrence of the RecurringEvent
+     * to the task list based on its period.
+     */
     public void addNextRecurrence() {
         LocalDateTime nextAt = this.at.plusMinutes(period);
         System.out.println("\tNext recurrence of this Event has been added!");
-        Hustler.list.add(new RecurringEvent(description, nextAt, difficulty, tag, LocalDateTime.now(), frequency, period));
+        Hustler.list.add(new RecurringEvent(description, nextAt, difficulty, tag,
+                LocalDateTime.now(), frequency, period));
         this.hasRecurred = true;
     }
 }

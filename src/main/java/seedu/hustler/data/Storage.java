@@ -67,7 +67,8 @@ public class Storage {
                     if (taskString.length == 10) {
                         int period = Integer.parseInt(taskString[8]);
                         boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
-                        list.add(new RecurringDeadline(taskString[4], by, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                        list.add(new RecurringDeadline(taskString[4], by, taskString[2], taskString[3],
+                                now, taskString[7], period, hasRecurred));
                     } else {
                         list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     }
@@ -86,7 +87,8 @@ public class Storage {
                     if (taskString.length == 10) {
                         int period = Integer.parseInt(taskString[8]);
                         boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
-                        list.add(new RecurringEvent(taskString[4], at, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                        list.add(new RecurringEvent(taskString[4], at, taskString[2], taskString[3],
+                                now, taskString[7], period, hasRecurred));
                     } else {
                         list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
                     }
@@ -120,7 +122,7 @@ public class Storage {
      * @return an array list loaded from the backup disc.
      */
     public ArrayList<Task> reloadBackup() {
-        ArrayList<Task> list = new ArrayList<Task>();
+        ArrayList<Task> list = new ArrayList<>();
         try {
             Scanner hustlerBackupTxt = new Scanner(new File(this.filePathBackup));
             while (hustlerBackupTxt.hasNextLine()) {
@@ -138,7 +140,8 @@ public class Storage {
                     if (taskString.length == 10) {
                         int period = Integer.parseInt(taskString[8]);
                         boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
-                        list.add(new RecurringDeadline(taskString[4], by, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                        list.add(new RecurringDeadline(taskString[4], by, taskString[2], taskString[3],
+                                now, taskString[7], period, hasRecurred));
                     } else {
                         list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     }
@@ -157,7 +160,8 @@ public class Storage {
                     if (taskString.length == 10) {
                         int period = Integer.parseInt(taskString[8]);
                         boolean hasRecurred = Boolean.parseBoolean(taskString[9]);
-                        list.add(new RecurringEvent(taskString[4], at, taskString[2], taskString[3], now, taskString[7], period, hasRecurred));
+                        list.add(new RecurringEvent(taskString[4], at, taskString[2], taskString[3],
+                                now, taskString[7], period, hasRecurred));
                     } else {
                         list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
                     }
@@ -177,6 +181,10 @@ public class Storage {
             }
             hustlerBackupTxt.close();
         } catch (FileNotFoundException e) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tNo list saved in database. Please "
+                    + "create a list now.");
+            System.out.println("\t_____________________________________\n\n");
         }
         return list;
     }

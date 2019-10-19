@@ -25,6 +25,9 @@ public class RecurringDeadline extends Deadline {
      */
     boolean hasRecurred;
 
+    /**
+     * Initializes RecurringDeadline's attributes.
+     */
     public RecurringDeadline(String description, LocalDateTime by, String difficulty, String tag,
                              LocalDateTime now, String frequency, int period, boolean hasRecurred) {
         super(description, by, difficulty, tag, now);
@@ -33,6 +36,9 @@ public class RecurringDeadline extends Deadline {
         this.hasRecurred = hasRecurred;
     }
 
+    /**
+     * Initializes RecurringDeadline's attributes.
+     */
     public RecurringDeadline(String description, LocalDateTime by, Difficulty difficulty, Tag tag,
                              LocalDateTime now, String frequency, int period) {
         super(description, by, difficulty, tag, now);
@@ -67,10 +73,15 @@ public class RecurringDeadline extends Deadline {
         }
     }
 
+    /**
+     * Adds the next recurrence of the RecurringDeadline
+     * to the task list based on its period.
+     */
     public void addNextRecurrence() {
         LocalDateTime nextBy = this.by.plusMinutes(period);
         System.out.println("\tNext recurrence of this Deadline has been added!");
-        Hustler.list.add(new RecurringDeadline(description, nextBy, difficulty, tag, LocalDateTime.now(), frequency, period));
+        Hustler.list.add(new RecurringDeadline(description, nextBy, difficulty, tag,
+                LocalDateTime.now(), frequency, period));
         this.hasRecurred = true;
     }
 }

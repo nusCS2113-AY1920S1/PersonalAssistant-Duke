@@ -34,7 +34,7 @@ public class ShopStorage {
             while (shopTxt.hasNextLine()) {
                 boolList.add(shopTxt.nextBoolean());
             }
-            for (int i = 0; i < Hustler.shopList.size(); i ++) {
+            for (int i = 0; i < Hustler.shopList.size(); i++) {
                 Hustler.shopList.updateStatus(i, boolList.get(i));
             }
             return Hustler.shopList;
