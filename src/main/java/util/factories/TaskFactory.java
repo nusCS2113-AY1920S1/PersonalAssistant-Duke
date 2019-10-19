@@ -97,7 +97,8 @@ public class TaskFactory {
      * @return enum TaskState object.
      */
     private TaskState convertStringToTaskState(String inputState) {
-        switch (inputState) {
+        String inputStateLowerCase = inputState.toLowerCase();
+        switch (inputStateLowerCase) {
         case "done":
             return TaskState.DONE;
         case "todo":
