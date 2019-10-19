@@ -55,7 +55,7 @@ class MainWindow extends UiElement<Stage> {
         PatientWindow patientWindow = new PatientWindow();
         Tab patientTab = new Tab("Patient", patientWindow.getRoot());
         contextWindowHolder.getTabs().add(patientTab);
-
+      
         core.context.addListener(evt -> {
             switch ((UiContext.Context) evt.getNewValue()) {
             case HOME:

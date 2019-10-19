@@ -6,7 +6,7 @@ import duke.data.TaskList;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 import duke.ui.Ui;
-import duke.ui.UiContext;
+import duke.ui.UiContext; 
 import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -27,7 +27,7 @@ public class DukeCore extends Application {
     public PatientMap patientMap;
 
     public TaskList taskList = null; //deprecated
-
+  
     /**
      * Entry point into the application.
      *
