@@ -7,18 +7,20 @@ import duke.model.*;
 import duke.model.user.User;
 import duke.logic.autocorrect.Autocorrect;
 
+import static duke.commons.FilePaths.*;
+
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  * @author Ivan Andika Lie
  */
-public class Storage implements StorageInterface {
+public class Storage {
     private Load loader = new Load();
     private Write writer = new Write();
 
     public void load(MealList meals) throws DukeException {
-        loader.loadFile(meals, file);
-        loader.loadFile(meals, defaultFile);
-        loader.loadFile(meals, goalFile);
+        loader.loadFile(meals, DATA_FILE);
+        loader.loadFile(meals, DEFAULTS_FILE);
+        loader.loadFile(meals, GOAL_FILE);
     }
 
     /**

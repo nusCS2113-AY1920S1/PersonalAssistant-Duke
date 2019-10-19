@@ -4,14 +4,14 @@ import duke.logic.autocorrect.Autocorrect;
 import duke.logic.commands.*;
 import duke.commons.exceptions.DukeException;
 
-import java.util.Calendar;
+import static duke.commons.definitions.CommandDefinitions.*;
+import static duke.commons.exceptions.ExceptionMessages.UNKNOWN_COMMAND;
 
 /**
  * Parser is a public class that help to parse the command that is inputted from the user.
  * And generate the appropriate command with their appropriate arguments
  */
 public class Parser {
-    private static Calendar currentDate = Calendar.getInstance();
     private static HistoryCommand historyCommand = new HistoryCommand();
     private static Autocorrect autocorrect;
 
@@ -52,42 +52,42 @@ public class Parser {
         historyCommand.addCommand(command);
 
         switch (command) {
-            case "bye":
+            case EXIT_COMMAND:
                 return new ExitCommand();
-            case "breakfast":
+            case BREAKFAST_COMMAND:
                 return new AddBreakfastCommandParser().parse(userInput);
-            case "lunch":
+            case LUNCH_COMMAND:
                 return new AddLunchCommandParser().parse(userInput);
-            case "dinner":
+            case DINNER_COMMAND:
                 return new AddDinnerCommandParser().parse(userInput);
-            case "add" :
+            case ADD_COMMAND:
                 return new AddItemCommandParser().parse(userInput);
-            case "list":
+            case LIST_COMMAND:
                 return new ListCommandParser().parse(userInput);
-            case "done":
+            case DONE_COMMAND:
                 return new DoneCommandParser().parse(userInput);
-            case "find":
+            case FIND_COMMAND:
                 return new FindCommandParser().parse(userInput);
-            case "delete":
+            case DELETE_COMMAND:
                 return new DeleteCommandParser().parse(userInput);
-            case "update":
+            case UPDATE_WEIGHT_COMMAND:
                 return new UpdateWeightCommand(userInput);
-            case "clear":
+            case CLEAR_COMMAND:
                 return new ClearCommandParser().parse(userInput);
-            case "edit":
+            case EDIT_COMMAND:
                 return new EditCommandParser().parse(userInput);
-            case "setgoal":
+            case SET_GOAL_COMMAND:
                 return new SetgoalCommandParser().parse(userInput);
-            case "help":
+            case HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
-            case "history":
+            case HISTORY_COMMAND:
                 // clear history if requested
                 if (!userInput.isEmpty() && userInput.equals("clear")) {
                     historyCommand.clearHistory();
                 }
                 return historyCommand;
             default:
-                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what " + command + " means :-(");
+                throw new DukeException(UNKNOWN_COMMAND);
         }
     }
 }
