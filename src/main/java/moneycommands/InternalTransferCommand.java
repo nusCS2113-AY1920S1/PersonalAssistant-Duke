@@ -76,7 +76,7 @@ public class InternalTransferCommand extends MoneyCommand {
                 account.getExpListCurrMonth().add(expenditure);
             }
         }
-
+        storage.writeToFile(account);
         ui.appendToOutput("  Got it. Here is the current information about this account:\n    "
                 + bankTracker.getBankAccountInfo() + "\n");
     }

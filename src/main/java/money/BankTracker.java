@@ -19,7 +19,7 @@ public class BankTracker {
     private LocalDate latestDate;
     private double rate;
 
-    public BankTracker(String accountDescription, int initialAmt, LocalDate initialDate, double interestRate) {
+    public BankTracker(String accountDescription, float initialAmt, LocalDate initialDate, double interestRate) {
         description = accountDescription;
         amt = initialAmt;
         latestDate =  initialDate;

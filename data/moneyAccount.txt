@@ -19,6 +19,9 @@ INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
+INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
+INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
+INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
@@ -50,3 +53,5 @@ LOA @ 500.0 @ mah bitches @ 13/10/2019 @ OUTGOING @  @ 0 @ 300.0
 LOA @ 5000.0 @ mah bros @ 14/10/2019 @ INCOMING @  @ 0 @ 3000.0
 LOA @ 500.0 @ somebody @ 15/10/2019 @ OUTGOING @  @ 1 @ 0.0
 LOA @ 5000.0 @ parents @ 16/10/2018 @ INCOMING @  @ 0 @ 5000.0
+BAN @ 231.06589 @ OCBC @ 2018-03-03 @ 0.005
+BAN @ 100.0 @ DBS @ 2018-08-14 @ 0.0
