@@ -1,1 +1,19 @@
-= Mong Zheng wei - Project Portfolio
+= Lee Yu Choy - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2113T-W17-3/main
+:prURL: {repoURL}/pull
+:forumURL: https://github.com/AY1920S1-CS2113T-W17-3/forum/issues
+:budgeterURL: https://github.com/AY1920S1-CS2113T-W17-3/main
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+
+== PROJECT: OwlMoney
+
+Hello there I am Zheng Wei.
