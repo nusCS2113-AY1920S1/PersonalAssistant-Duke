@@ -1,28 +1,6 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.commands.CategoryListCommand;
-import gazeeebo.commands.ChangePasswordCommand;
-import gazeeebo.commands.ConfirmTentativeCommand;
-import gazeeebo.commands.DeadlineCommand;
-import gazeeebo.commands.DeleteCommand;
-import gazeeebo.commands.DoAfterCommand;
-import gazeeebo.commands.DoneCommand;
-import gazeeebo.commands.DoneListCommand;
-import gazeeebo.commands.EventCommand;
-import gazeeebo.commands.FindCommand;
-import gazeeebo.commands.FixDurationCommand;
-import gazeeebo.commands.ListCommand;
-import gazeeebo.commands.RescheduleCommand;
-import gazeeebo.commands.SnoozeCommand;
-import gazeeebo.commands.SortCommand;
-import gazeeebo.commands.TagCommand;
-import gazeeebo.commands.TentativeEventCommand;
-import gazeeebo.commands.TimeboundCommand;
-import gazeeebo.commands.TodoCommand;
-import gazeeebo.commands.UndoCommand;
-import gazeeebo.commands.UndoneCommand;
-import gazeeebo.commands.UndoneListCommand;
 import gazeeebo.commands.edit.EditCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.note.AddNoteCommand;
@@ -33,7 +11,6 @@ import gazeeebo.commands.schedule.ScheduleDailyCommand;
 import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
 import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
 import gazeeebo.exception.DukeException;
-import gazeeebo.parsers.Parser;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -52,7 +29,6 @@ public class taskCommand extends Command {
             String command = ui.fullCommand;
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
-                System.out.println("fdawbfw");
                 new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
         } else if (splitCommand[0].equals("list")) {
                 if (command.contains("event")) {
