@@ -1,12 +1,12 @@
 package duke.functions;
 
-import duke.autocorrect.Autocorrect;
-import duke.commands.*;
-import duke.exceptions.DukeException;
-import duke.parsers.Parser;
+import duke.logic.autocorrect.Autocorrect;
+import duke.logic.commands.*;
+import duke.commons.exceptions.DukeException;
+import duke.logic.parsers.Parser;
 import duke.storage.Storage;
-import duke.user.User;
-import duke.tasks.MealList;
+import duke.model.user.User;
+import duke.model.MealList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -52,18 +52,19 @@ public class FunctionTest {
         boolean exceptionThrown2 = false;
         setup();
         Command c;
+        Parser parser = new Parser(autocorrect);
         try {
-            c = Parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
+            c = parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
             c.execute(tasks, ui, storage, user, in);
-            c = Parser.parse("breakfast burger");
+            c = parser.parse("breakfast burger");
             c.execute(tasks, ui, storage, user, in);
-            c = Parser.parse("breakfast burger /calorie 100");
+            c = parser.parse("breakfast burger /calorie 100");
             c.execute(tasks, ui, storage, user, in);
         } catch (DukeException e) {
             exceptionThrown1 = true;
         }
         try {
-            c = Parser.parse("breakfast taco");
+            c = parser.parse("breakfast taco");
             c.execute(tasks, ui, storage, user, in);
         } catch (DukeException e) {
             exceptionThrown2 = true;

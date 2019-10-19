@@ -1,16 +1,15 @@
 package duke.storage;
 
-import duke.exceptions.DukeException;
-import duke.tasks.*;
-import duke.user.Gender;
-import duke.user.User;
+import duke.commons.exceptions.DukeException;
+import duke.model.*;
+import duke.model.user.Gender;
+import duke.model.user.User;
 
 public class LoadLineParser {
 
     /**
      * This function acts as a parser from the text file which is used to store data from the previous session.
      * @param line the line input from the input file
-     * @param mealTracker the meal arraylist that will store the meals from the input file
      * @param meals the structure that encapsulates the meal data for this session
      */
     public static void parse(MealList meals, String line) throws DukeException {

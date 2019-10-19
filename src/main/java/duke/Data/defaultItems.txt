@@ -1,2 +1,1 @@
 S|0|burger|sodium|100|fats|100|calorie|100
-S|0|fries|calorie|200

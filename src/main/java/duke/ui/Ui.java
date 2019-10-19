@@ -1,8 +1,8 @@
 package duke.ui;
 
-import duke.tasks.Goal;
-import duke.tasks.Meal;
-import duke.user.User;
+import duke.model.Goal;
+import duke.model.Meal;
+import duke.model.user.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;

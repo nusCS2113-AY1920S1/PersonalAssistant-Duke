@@ -1,10 +1,10 @@
 package duke.storage;
 
-import duke.autocorrect.Autocorrect;
-import duke.exceptions.DukeException;
-import duke.tasks.Meal;
-import duke.tasks.MealList;
-import duke.user.User;
+import duke.logic.autocorrect.Autocorrect;
+import duke.commons.exceptions.DukeException;
+import duke.model.Meal;
+import duke.model.MealList;
+import duke.model.user.User;
 
 import java.io.*;
 import java.util.ArrayList;

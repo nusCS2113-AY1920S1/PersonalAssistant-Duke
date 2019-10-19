@@ -2,16 +2,16 @@ package duke.storage;
 
 import java.util.ArrayList;
 
-import duke.exceptions.DukeException;
-import duke.tasks.*;
-import duke.user.User;
-import duke.autocorrect.Autocorrect;
+import duke.commons.exceptions.DukeException;
+import duke.model.*;
+import duke.model.user.User;
+import duke.logic.autocorrect.Autocorrect;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
  * @author Ivan Andika Lie
  */
-public class Storage implements StorageInterface{
+public class Storage implements StorageInterface {
     private Load loader = new Load();
     private Write writer = new Write();
 
@@ -58,13 +58,11 @@ public class Storage implements StorageInterface{
         writer.writeGoal(mealData);
     }
 
-
     /**
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
      * @Author Foo Chi Hen
      */
-
     public void saveUser(User user) throws DukeException {
         writer.writeUser(user);
     }
