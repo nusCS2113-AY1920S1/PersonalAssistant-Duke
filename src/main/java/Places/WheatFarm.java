@@ -17,7 +17,7 @@ public class WheatFarm extends Farm {
     }
 
     public WheatFarm() {
-        seeds = 100;
+        seeds = 0;
         greenWheat = 0;
         ripeWheat = 0;
     }
@@ -41,7 +41,7 @@ public class WheatFarm extends Farm {
     }
 
     public void buySeeds() {
-        seeds += 100;
+        seeds += 1;
     }
 
     public void plantSeeds() {
@@ -54,7 +54,7 @@ public class WheatFarm extends Farm {
     }
     @Override
     public int sell() {
-        int earned = ripeWheat * 10;
+        int earned = ripeWheat * Market.PRICE_OF_WHEAT;
         ripeWheat = 0;
         return earned;
     }

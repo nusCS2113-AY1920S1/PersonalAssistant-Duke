@@ -4,32 +4,65 @@ import Farmio.Farmer;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /*
  load new frame and new Farmio with delay
  */
 public class GameConsole {
-    private static final String TOP_BORDER = "._______________________________________________________________________________________________________.\n";
-    private static final String BOTTOM_FULL_BORDER = "|_______________________________________________________________________________________________________|\n";
-    private static final String MENU_PROMPT_AND_CODE_TITLE = "|-----------------"+ AsciiColours.CYAN + "<MENU>" + AsciiColours.SANE + " for instruction list or settings---------------|------------"+ AsciiColours.CYAN + "<CODE>" + AsciiColours.SANE + "-------------|\n";
-    private static final String BOX_BOTTOM_BORDER = "|_______________________________________________________________________|_______________________________|\n";
-    private static final String BOX_TOP_BORDER = "|_______________________________________________________________________|_______________________________|\n"; //"|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|\n";
-    private static final String CODE_TITLE_FILLER = "|                               |\n";
-    private static final String CODE_BOTTOM_BORDER = "|                               "+ AsciiColours.SANE +"|\n";
-    private static final String LEFT_PANEL_BOTTOM_BORDER = "|_______________";
-    private static final String LEFT_PANEL_TOP_BORDER = "|_______________";//"|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
-    private static final String ASSETS_TITLE = "|---" + AsciiColours.CYAN + "<ASSETS>" + AsciiColours.SANE + "----";
-    private static final String ASSETS_BODY_FILLER = "|               ";
-    private static final String ASSETS_BOTTOM_BORDER = "|" + AsciiColours.UNDERLINE + "               ";
-    private static final String BOTTOM_BORDER = "|_______________|_______________________________________________________|_______________________________|\n";
+    private static final String TOP_BORDER = "."+ "_".repeat(103) +".\n";
+    private static final String GOAL_AND_CODE_TITLE = "|"+"----" + AsciiColours.RED + "<GOALS>"
+            + AsciiColours.SANE+ "----"+"|"+" ".repeat(55) +"|"+ "-".repeat(12)
+            + AsciiColours.CYAN + "<CODE>" + AsciiColours.SANE + "-".repeat(13)+"|\n";
+    private static final String BOX_BOTTOM_BORDER = "|" + "_".repeat(15) + "|" + "_".repeat(55) +"|"
+            +"_".repeat(9)+"|"+"_".repeat(21)+"|\n";
+    private static final String ASSETS_TITLE = "---" + AsciiColours.YELLOW + "<ASSETS>" + AsciiColours.SANE + "----";
+    private static final String BOTTOM_BORDER = "|"+"_".repeat(15)+"|"+"_".repeat(55)+"|" + "_".repeat(31)+"|\n";
+    private static final String MENU_TITLE = "-".repeat(8) + AsciiColours.HIGH_INTENSITY + "<MENU>"
+            + AsciiColours.SANE +" for instruction list or settings" + "-".repeat(8);
     private static String horizontalPanel(String title, String content, int totalSpace) {
-        String blankspace = "";
-        for (int i = 0; i < totalSpace - title.length() - content.length(); i ++) {
-            blankspace += " ";
-        }
-        return title + content + blankspace;
+        return title + content + " ".repeat(totalSpace - title.length() - content.length());
     }
 
+    static String content(ArrayList<String> stage, Farmer farmer) { //does not include story
+        StringBuilder output = new StringBuilder();
+        String location = farmer.getLocation();
+        int level = farmer.getLevel();
+        int day = farmer.getDay();
+        ArrayList<String> userCode = farmer.getTasks().toStringArray();
+        ArrayList<String> assets = formatAssets(farmer.getAssets(), dummyGoals());
+        ArrayList<String> goals = formatGoals(dummyGoals(), farmer.getAssets());
+        userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
+        output.append(AsciiColours.SANE).append(TOP_BORDER);
+        output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: ", Integer.toString(level), 10)).append(AsciiColours.SANE).append("  |");
+        output.append(MENU_TITLE);
+        output.append("|" + AsciiColours.MAGENTA).append(horizontalPanel("Day: ", Integer.toString(day), 8)).append(AsciiColours.SANE).append(" ");
+        output.append("| " + AsciiColours.GREEN).append(horizontalPanel("Location: ", location, 20)).append(AsciiColours.SANE);
+        output.append("|\n");
+        output.append(BOX_BOTTOM_BORDER);
+        output.append(GOAL_AND_CODE_TITLE);
+        for (int i = 0; i < 18; i ++) {
+            if (i < 7) {
+                output.append("|").append(goals.get(i)).append(stage.get(i)).append(userCode.get(i)).append("\n");
+            } else if (i == 7) {
+                output.append("|").append(ASSETS_TITLE).append(stage.get(i)).append(userCode.get(i)).append("\n");
+            } else {
+                output.append("|").append(assets.get(i - 8)).append(stage.get(i)).append(userCode.get(i)).append("\n");
+            }
+        }
+        output.append(BOTTOM_BORDER);
+        StringBuilder output2 = new StringBuilder();
+        for (int i = 0; i < output.length(); i ++) {
+            if (output.charAt(i) == '\n') {
+                output2.append(AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK + "\n" + AsciiColours.SANE);
+            } else {
+                output2.append(output.charAt(i));
+            }
+        }
+        return output2.toString() + AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK;
+    }
     private static ArrayList<String> formatAndHighlightCode(ArrayList<String> userCode, int currentTask, boolean hasFailedCurrentTask) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
         while (userCode.size() < 18){
@@ -48,60 +81,13 @@ public class GameConsole {
         }
         return userCodeOutput;
     }
-    private ArrayList<Pair<String, Integer>> formatAssets(ArrayList<Pair<String, Integer>> assets) {
-        ArrayList<Pair<String, Integer>> formattedAssets = new ArrayList<>();
-        if (assets.size() < 11) {
-//            assets.add(ASSETS_BODY_FILLER);
-        }
-        return assets;
-    }
-    static String content(ArrayList<String> stage, Farmer farmer) { //does not include story
-        StringBuilder output = new StringBuilder();
-        String objective = "";// farmio.getLevel().getNarratives().get(0);
-        String location = farmer.getLocation();
-        int level = farmer.getLevel();
-        int day = farmer.getDay();
-        int gold = farmer.getMoney();
-        ArrayList<String> userCode = farmer.getTasks().toStringArray();
-        ArrayList<Pair<String, Integer>> assets = farmer.getAssets();
-        userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
-        output.append(AsciiColours.SANE + TOP_BORDER);
-        output.append("|" + AsciiColours.RED).append(horizontalPanel("OBJECTIVE:", objective, 71)).append(AsciiColours.SANE).append(CODE_TITLE_FILLER);
-        output.append(BOX_BOTTOM_BORDER);
-        output.append(MENU_PROMPT_AND_CODE_TITLE);
-        output.append(BOX_TOP_BORDER);
-        output.append("|" + AsciiColours.BLUE).append(horizontalPanel("Level: ", "", 14 -Integer.toString(level).length())).append(level).append(" ").append(AsciiColours.SANE).append(stage.get(0)).append(userCode.get(0)).append("\n");
-        output.append("|" + AsciiColours.MAGENTA).append(horizontalPanel("Day:   ", "", 14 - Integer.toString(day).length())).append(day).append(" ").append(AsciiColours.SANE).append(stage.get(1)).append(userCode.get(1)).append("\n");
-        output.append("|" + AsciiColours.YELLOW).append(horizontalPanel("Gold:", "", 14 - Integer.toString(gold).length())).append(gold).append(" ").append(AsciiColours.SANE).append(stage.get(2)).append(userCode.get(2)).append("\n");
-        output.append(LEFT_PANEL_TOP_BORDER).append(stage.get(3)).append(userCode.get(3)).append("\n");
-        output.append(AsciiColours.GREEN).append(horizontalPanel("|@", location, 16)).append(AsciiColours.SANE).append(stage.get(4)).append(userCode.get(4)).append("\n");
-        output.append(LEFT_PANEL_BOTTOM_BORDER).append(stage.get(5)).append(userCode.get(5)).append("\n");
-        output.append(ASSETS_TITLE).append(stage.get(6)).append(userCode.get(6)).append("\n");
-        for (int i = 7; i < 18; i ++) {
-            if (assets.size() > i - 7) {
-                output.append(horizontalPanel("|" + assets.get(i - 7).getKey() + ": ", assets.get(i - 7).getValue().toString(), 16)).append(stage.get(i)).append(userCode.get(i)).append("\n");
-            } else {
-                output.append(ASSETS_BODY_FILLER).append(stage.get(i)).append(userCode.get(i)).append("\n");
-            }
-        }
-        output.append(BOTTOM_BORDER);
-        StringBuilder output2 = new StringBuilder();
-        for (int i = 0; i < output.length(); i ++) {
-            if (output.charAt(i) == '\n') {
-                output2.append(AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK + "\n" + AsciiColours.SANE);
-            } else {
-                output2.append(output.charAt(i));
-            }
-        }
-        return output2.toString() + AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK;
-    }
+
     static String blankConsole(ArrayList<String> stage) {
         StringBuilder output = new StringBuilder();
         output.append(AsciiColours.SANE + TOP_BORDER);
         for (int i = 0; i < 20; i ++) {
-            output.append(horizontalPanel("", stage.get(i), 101)).append("\n");
+            output.append(stage.get(i)).append("\n");
         }
-//        output.append(BOTTOM_FULL_BORDER);
         StringBuilder output2 = new StringBuilder();
         for (int i = 0; i < output.length(); i ++) {
             if (output.charAt(i) == '\n') {
@@ -111,5 +97,49 @@ public class GameConsole {
             }
         }
         return output2.toString() + AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK;
+    }
+    private static Map<String, Integer> dummyGoals() {
+        Map<String, Integer> dummy = new HashMap< String,Integer>();
+        dummy.put("Seeds", 3);
+        dummy.put("Gold", 14);
+        return dummy;
+    }
+    private static ArrayList<String> formatGoals(Map<String, Integer> goals, Map<String, Integer> assets) {
+        ArrayList<String> formattedGoals = new ArrayList<>();
+        Set< Map.Entry< String,Integer> > goalSet = goals.entrySet();
+        for (Map.Entry< String,Integer> goal:goalSet) {
+            String s = goal.getKey() + ": " +  goal.getValue();
+            if (goal.getValue() <= assets.get(goal.getKey())) {
+                formattedGoals.add(0, AsciiColours.DONE + s  + " ".repeat(15 - s.length() -3) + "[X]" + AsciiColours.SANE);
+            } else {
+                formattedGoals.add(AsciiColours.HIGH_INTENSITY + s + " ".repeat(15 - s.length() -3) + "[ ]"+ AsciiColours.SANE);
+            }
+        }
+        while (formattedGoals.size() < 7) {
+            formattedGoals.add(" ".repeat(15));
+        }
+        return formattedGoals;
+    }
+
+    private static ArrayList<String> formatAssets(Map<String, Integer> assets, Map<String, Integer> goals) {
+        ArrayList<String> formattedAssets = new ArrayList<>();
+        Set< Map.Entry< String,Integer> > assetSet = assets.entrySet();
+        int border = 0;
+        for (Map.Entry< String,Integer> asset:assetSet) {
+            String s = asset.getKey() + ": " +  asset.getValue();
+            String toAdd = s  + " ".repeat(15 - s.length());
+            if (!goals.containsKey(asset.getKey())) {
+                formattedAssets.add(toAdd);
+            } else if (asset.getValue() <= goals.get(asset.getKey())) {
+                formattedAssets.add(border, toAdd);
+            } else {
+                formattedAssets.add(0,toAdd);
+                border ++;
+            }
+        }
+        while (formattedAssets.size() < 11) {
+            formattedAssets.add(" ".repeat(15));
+        }
+        return formattedAssets;
     }
 }

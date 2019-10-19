@@ -8,16 +8,21 @@ import FrontEnd.Ui;
 public class GotoMarketAction extends Action {
     public GotoMarketAction(Farmio farmio) {
         super(farmio);
-        this.type = ActionType.gotoMarket;
+        this.type = ActionType.GOTO_MARKET;
     }
     @Override
     public void execute(Ui ui) {
-        Storage storage = farmio.getStorage();
         try {
-            farmer.changeLocation("-Traveling-");
-            Simulation.animate(ui, storage, farmio.getFarmer(), "GotoMarketSimulation", 1, 11);
+            Simulation GotoMarketSimulation = new Simulation("GotoMarketSimulation", super.farmio);
+            if (farmer.getLocation().equals("Market")) {
+                GotoMarketSimulation.delayFrame(12, 1000);
+                ui.typeWriter("You are already at the market");
+                return;
+            }
+            farmer.changeLocation("Traveling");
+            GotoMarketSimulation.animate(1, 11);
             farmer.changeLocation("Market");
-            Simulation.animate(ui, storage, farmio.getFarmer(), "GotoMarketSimulation", 12, 1000);
+            GotoMarketSimulation.delayFrame(12, 1000);
             ui.typeWriter("You have arrived at the market");
         } catch (Exception e){
             e.getMessage();

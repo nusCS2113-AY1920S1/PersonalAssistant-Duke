@@ -19,7 +19,7 @@ public class CommandDayNew extends Command {
         ArrayList<String> narratives = farmio.getLevel().getNarratives();
         for (int i = 0; i < narratives.size(); ++i) {
             ui.clearScreen();
-            Simulation.animate(ui, storage, farmio.getFarmer(), PATH, i);
+            new Simulation(PATH, farmio).animate(i);
             ui.typeWriter(narratives.get(i));
             if (i != narratives.size() - 1) {
                 ui.show("Press ENTER to continue.");

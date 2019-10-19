@@ -55,7 +55,7 @@ public final class AsciiColours {
     public static final String	BACKGROUND_CYAN		= "\u001B[46m";
     public static final String	BACKGROUND_WHITE	= "\u001B[47m";
 
-
+    public static final String	DONE			= "\u001B[31m";
     static final String  HIGHLIGHT           = "\u001B[0m"  + "\u001B[1m" + BACKGROUND_GREEN;
     static final String  ERROR           = "\u001B[0m"  + "\u001B[1m" + BACKGROUND_RED;
 
