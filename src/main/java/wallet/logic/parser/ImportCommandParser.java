@@ -1,12 +1,12 @@
 package wallet.logic.parser;
 
-import wallet.logic.command.AddCommand;
+import wallet.logic.command.ImportCommand;
 
 import java.text.ParseException;
 
-public class ImportCommandParser implements Parser<AddCommand>{
+public class ImportCommandParser implements Parser<ImportCommand>{
     @Override
-    public AddCommand parse(String input) throws ParseException {
+    public ImportCommand parse(String input) throws ParseException {
         return null;
     }
 }

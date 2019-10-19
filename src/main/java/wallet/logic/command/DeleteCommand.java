@@ -34,7 +34,8 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes the specific Record object and returns false.
+     * Deletes the specific Record object by entry id (not array index)
+     * and returns false.
      *
      * @param wallet The Wallet object.
      * @return A boolean which indicates whether program terminates.
@@ -71,7 +72,6 @@ public class DeleteCommand extends Command {
             break;
 
         case "contact":
-            //Delete by Id not Array Index
             Contact contact = wallet.getContactList().deleteContact(index);
             if (contact != null) {
                 wallet.getContactList().setModified(true);
