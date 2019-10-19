@@ -1,5 +1,7 @@
 language: java
-jdk: oraclejdk11
+matrix:
+  include:
+    - jdk: oraclejdk11
 
 script: >-
   ./config/travis/run-checks.sh &&
@@ -9,9 +11,13 @@ deploy:
   skip_cleanup: true
   provider: script
   script: ./config/travis/deploy_github_pages.sh
-  local_dir: build
   on:
     branch: master
+
+addons:
+  apt:
+    packages:
+      - oracle-jdk11-installer
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
