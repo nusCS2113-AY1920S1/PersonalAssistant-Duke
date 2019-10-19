@@ -29,24 +29,60 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private boolean isSet = false;
+
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            setStyleLoop();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), ev -> {
+
+    }
+
+    private void setStyleLoop() {
+        if (MainWindow.isLightMode) {
+            this.setStyle("-fx-background-color: #EE8EC7;"
+                    + " -fx-background-radius: 20;"
+                    + " -fx-border-color: white;"
+                    + " -fx-border-radius: 20;");
+            dialog.setStyle("-fx-text-fill: white");
+        } else {
+            this.setStyle("-fx-background-color: #CCC;"
+                    + " -fx-background-radius: 20;"
+                    + " -fx-border-color: grey;"
+                    + " -fx-border-radius: 20;");
+            dialog.setStyle("-fx-text-fill: black");
+        }
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
             if (MainWindow.isLightMode) {
-                this.setStyle("-fx-background-color: #EE8EC7");
+                if (isSet) {
+                    this.setStyle("-fx-background-color: #EE8EC7;"
+                            + " -fx-background-radius: 20;"
+                            + " -fx-border-color: white;"
+                            + " -fx-border-radius: 20;");
+                    dialog.setStyle("-fx-text-fill: white");
+                    isSet = false;
+                }
             } else {
-                this.setStyle("-fx-background-color: #CCC");
+                if (!isSet) {
+                    this.setStyle("-fx-background-color: #CCC;"
+                            + " -fx-background-radius: 20;"
+                            + " -fx-border-color: grey;"
+                            + " -fx-border-radius: 20;");
+                    dialog.setStyle("-fx-text-fill: black");
+                    isSet = true;
+                }
             }
+
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

@@ -48,11 +48,11 @@
             <ProgressBar fx:id="progressB" layoutX="120.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarB.css" />
             <ProgressBar fx:id="progressC" layoutX="200.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarC.css" />
             <ProgressBar fx:id="progressD" layoutX="280.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarD.css" />
-            <Label layoutX="52.0" layoutY="20.0" text="Quiz 1" textFill="WHITE" />
-            <Label layoutX="133.0" layoutY="20.0" text="Quiz 2" textFill="WHITE" />
-            <Label layoutX="213.0" layoutY="20.0" text="Quiz 3" textFill="WHITE" />
+            <Label fx:id="quizA" layoutX="52.0" layoutY="20.0" text="Quiz 1" textFill="WHITE" />
+            <Label fx:id="quizB" layoutX="133.0" layoutY="20.0" text="Quiz 2" textFill="WHITE" />
+            <Label fx:id="quizC" layoutX="213.0" layoutY="20.0" text="Quiz 3" textFill="WHITE" />
             <ProgressIndicator fx:id="progressTotal" layoutX="370.0" layoutY="12.0" minHeight="75.0" minWidth="75.0" prefHeight="70.0" prefWidth="69.0" progress="0.0" stylesheets="@../css/progressIndicator.css" />
-            <Label layoutX="286.0" layoutY="20.0" text="Quiz ALL" textFill="WHITE" />
+            <Label fx:id="quizD" layoutX="286.0" layoutY="20.0" text="Quiz ALL" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

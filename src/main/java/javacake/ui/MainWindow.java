@@ -46,10 +46,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
 
-    private boolean isQuiz = false;
     private QuizCommand quizCommand;
+    private boolean isQuiz = false;
     private boolean isStarting = true;
-
 
     /**
      * Initialise the Main Window launched.
@@ -107,7 +106,6 @@ public class MainWindow extends AnchorPane {
             userInput.clear();
             Duke.logger.log(Level.INFO, input);
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
-
             if (isStarting && duke.isFirstTimeUser) {
                 duke.userName = input;
                 duke.profile.overwriteName(duke.userName);
@@ -183,6 +181,7 @@ public class MainWindow extends AnchorPane {
     private void handleGuiMode() {
         if (isLightMode) { //switches to Dark theme
             isLightMode = false;
+            this.setStyle("-fx-background-color: black");
             sendButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
             themeModeButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
             topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
@@ -191,6 +190,7 @@ public class MainWindow extends AnchorPane {
             rightScreen.setStyle("-fx-background-color: grey;");
         } else { //switches to Light theme
             isLightMode = true;
+            this.setStyle("-fx-background-color: white");
             sendButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
             themeModeButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
             topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
