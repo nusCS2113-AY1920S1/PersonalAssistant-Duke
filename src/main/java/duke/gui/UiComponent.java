@@ -21,7 +21,7 @@ public abstract class UiComponent<T> {
 
     /**
      * Constructs a UiComponent with the specified FXML file name and root object.
-     * The FXML file must not specify the {@code fx:controller} attribute as it will be specified
+     * The FXML file MUST not specify the {@code fx:controller} attribute as it will be specified
      * in {@link #loadFxmlFile(URL, T)}.
      *
      * @param fxmlFileName Name of FXML file.
