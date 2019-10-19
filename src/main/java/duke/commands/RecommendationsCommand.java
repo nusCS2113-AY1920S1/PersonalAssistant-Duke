@@ -31,9 +31,10 @@ public class RecommendationsCommand extends Command {
                 + days + " days:\n");
 
         int numDays = Integer.parseInt(days);
+        
+//        assert (!list.isEmpty());
 
         try{
-            assert (!list.isEmpty());
             for (int i = 0; i < 2 * numDays; i++) {
                 if (i % 2 == 0) {
                     result.append("Day ").append((i / 2) + 1).append(":").append("\n");
@@ -41,7 +42,7 @@ public class RecommendationsCommand extends Command {
                 result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.FILE_NOT_FOUND);
+            throw new DukeException(Messages.RECOMMENDATION_ERROR);
         }
 
         // Until more locations are added
