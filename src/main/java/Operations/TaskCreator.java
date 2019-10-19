@@ -1,6 +1,7 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
@@ -19,7 +20,7 @@ public class TaskCreator {
     public TaskCreator() {
     }
 
-    public Task create(String input) {
+    public Task create(String input) throws RoomShareException {
         Priority priorityType;
         RecurrenceScheduleType recurrenceScheduleType;
         String assignee;
@@ -88,11 +89,16 @@ public class TaskCreator {
                 createdTask.setRecurrenceSchedule(recurrenceScheduleType);
                 return createdTask;
             } else {
-                Meeting createdTask = new Meeting(description, by);
-                createdTask.setPriority(priorityType);
-                createdTask.setUser(assignee);
-                createdTask.setRecurrenceSchedule(recurrenceScheduleType);
-                return createdTask;
+                //checks for time clashes before creating Meeting
+                if( !CheckAnomaly.checkTime(by) ) {
+                    Meeting createdTask = new Meeting(description, by);
+                    createdTask.setPriority(priorityType);
+                    createdTask.setUser(assignee);
+                    createdTask.setRecurrenceSchedule(recurrenceScheduleType);
+                    return createdTask;
+                } else {
+                    throw new RoomShareException(ExceptionType.timeClash);
+                }
             }
         } else if (durationLength.length > 1){
             duration = Integer.parseInt(durationLength[1]) - Integer.parseInt(durationLength[0]);
@@ -110,12 +116,15 @@ public class TaskCreator {
                 meeting.setRecurrenceSchedule(recurrenceScheduleType);
                 return meeting;
             } else {
-                unit = TimeUnit.valueOf("minutes");
-                Meeting meeting = new Meeting(description, duration, unit);
-                meeting.setPriority(priorityType);
-                meeting.setUser(assignee);
-                meeting.setRecurrenceSchedule(recurrenceScheduleType);
-                return meeting;
+                if( !CheckAnomaly.checkTime(Integer.parseInt(duration), unit) ) {
+                    Meeting meeting = new Meeting(description, duration, unit);
+                    meeting.setPriority(priorityType);
+                    meeting.setUser(assignee);
+                    meeting.setRecurrenceSchedule(recurrenceScheduleType);
+                    return meeting;
+                } else {
+                    throw new RoomShareException(ExceptionType.timeClash);
+                }
             }
         } else {
             // fixed duration task

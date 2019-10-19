@@ -180,16 +180,8 @@ public class Storage {
                 String description = s.getDescription();
                 String assignee = s.getUser();
                 if (s instanceof Assignment) {
-                    if (((Assignment) s).isFixedDuration()) {
-                        String duration = ((Assignment) s).getDuration();
-                        String unit = ((Assignment) s).getTimeUnit().toString();
-                        String recurrence = s.getRecurrenceSchedule().toString();
-                        out = type + "#" + done + "#" + priority + "#" + description + "#"
-                                + "F" + "#" + recurrence + "#" + assignee+ "#" + duration + "#" + unit;
-                    } else {
                         String time = convertForStorage(s);
                         out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
-                    }
                 } else if (s instanceof Meeting){
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();
