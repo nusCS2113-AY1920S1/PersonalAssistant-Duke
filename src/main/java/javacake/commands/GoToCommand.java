@@ -1,13 +1,12 @@
 package javacake.commands;
 
 import javacake.Duke;
-import javacake.DukeException;
-import javacake.Profile;
+import javacake.exceptions.DukeException;
+import javacake.storage.Profile;
 import javacake.ProgressStack;
-import javacake.Storage;
-import javacake.Ui;
+import javacake.storage.Storage;
+import javacake.ui.Ui;
 import javacake.quiz.Question;
-import java.io.IOException;
 
 public class GoToCommand extends Command {
 

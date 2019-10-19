@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
-
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="990.0" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -18,7 +20,7 @@
             <Insets bottom="5.0" left="15.0" top="5.0" />
          </HBox.margin>
       </ImageView>
-      <Label fx:id="title" prefHeight="76.0" prefWidth="206.0" text="JavaCake">
+      <Label fx:id="title" prefHeight="76.0" prefWidth="206.0" text="JavaCake" textFill="WHITE">
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" />
          </HBox.margin>
@@ -37,5 +39,21 @@
             <Insets bottom="5.0" top="5.0" />
          </HBox.margin>
       </ImageView>
+      <AnchorPane prefHeight="90.0" prefWidth="449.0">
+         <HBox.margin>
+            <Insets left="150.0" />
+         </HBox.margin>
+         <children>
+            <ProgressBar fx:id="progressA" layoutX="40.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarA.css" />
+            <ProgressBar fx:id="progressB" layoutX="120.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarB.css" />
+            <ProgressBar fx:id="progressC" layoutX="200.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarC.css" />
+            <ProgressBar fx:id="progressD" layoutX="280.0" layoutY="37.0" prefHeight="20.0" prefWidth="60.0" progress="0.0" stylesheets="@../css/progressbarD.css" />
+            <Label layoutX="52.0" layoutY="20.0" text="Quiz 1" textFill="WHITE" />
+            <Label layoutX="133.0" layoutY="20.0" text="Quiz 2" textFill="WHITE" />
+            <Label layoutX="213.0" layoutY="20.0" text="Quiz 3" textFill="WHITE" />
+            <ProgressIndicator fx:id="progressTotal" layoutX="370.0" layoutY="12.0" minHeight="75.0" minWidth="75.0" prefHeight="70.0" prefWidth="69.0" progress="0.0" stylesheets="@../css/progressIndicator.css" />
+            <Label layoutX="286.0" layoutY="20.0" text="Quiz ALL" textFill="WHITE" />
+         </children>
+      </AnchorPane>
    </children>
 </fx:root>

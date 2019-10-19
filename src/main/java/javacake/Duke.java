@@ -1,6 +1,10 @@
 package javacake;
 
 import javacake.commands.Command;
+import javacake.exceptions.DukeException;
+import javacake.storage.Profile;
+import javacake.storage.Storage;
+import javacake.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -73,7 +77,6 @@ public class Duke  {
                 logger.log(Level.WARNING, "Profile overwrite failed.");
             }
         }
-
         ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, userProgress));
     }
 

@@ -1,10 +1,10 @@
 package javacake.commands;
 
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
+import javacake.storage.Profile;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
 
 public class AddCommand extends Command {
     /**

@@ -1,7 +1,10 @@
-package javacake;
+package javacake.ui;
 
+import javacake.Duke;
+import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
+import javacake.quiz.QuestionList;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.logging.Level;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -31,15 +36,15 @@ public class MainWindow extends AnchorPane {
     private HBox topBar;
     @FXML
     private VBox rightScreen;
+    @FXML
+    private Button themeModeButton;
+    public static boolean isLightMode = true;
 
     private Duke duke;
     private Stage primaryStage;
 
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Hilda_Portrait.png"));
-
-
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/padoru.png"));
 
     private boolean isQuiz = false;
     private QuizCommand quizCommand;
@@ -54,7 +59,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
         topBar.getChildren().add(TopBar.setTitle());
-
+        setUpProgressBars();
         if (duke.isFirstTimeUser) {
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser), dukeImage)
@@ -67,6 +72,17 @@ public class MainWindow extends AnchorPane {
                             dukeImage)
             );
         }
+    }
+
+    private void setUpProgressBars() {
+        TopBar.progValueA = (double) duke.profile.getContentMarks(0) / QuestionList.MAX_QUESTIONS;
+        TopBar.progValueB = (double) duke.profile.getContentMarks(1) / QuestionList.MAX_QUESTIONS;
+        TopBar.progValueC = (double) duke.profile.getContentMarks(2) / QuestionList.MAX_QUESTIONS;
+        TopBar.progValueD = (double) duke.profile.getContentMarks(3) / QuestionList.MAX_QUESTIONS;
+        TopBar.progValueT = (TopBar.progValueA
+                + TopBar.progValueB
+                + TopBar.progValueC
+                + TopBar.progValueD) / 3;
     }
 
     public void setDuke(Duke d) {
@@ -89,8 +105,7 @@ public class MainWindow extends AnchorPane {
             String input = userInput.getText();
             String response = "";
             userInput.clear();
-            System.out.println(input);
-
+            Duke.logger.log(Level.INFO, input);
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
 
             if (isStarting && duke.isFirstTimeUser) {
@@ -162,5 +177,27 @@ public class MainWindow extends AnchorPane {
         default:
         }
         return quizCommand.getQuestion();
+    }
+
+    @FXML
+    private void handleGuiMode() {
+        if (isLightMode) { //switches to Dark theme
+            isLightMode = false;
+            sendButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            themeModeButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
+            userInput.setStyle("-fx-background-color: #9999; -fx-background-radius: 10;");
+            dialogContainer.setStyle("-fx-background-color: grey;");
+            rightScreen.setStyle("-fx-background-color: grey;");
+        } else { //switches to Light theme
+            isLightMode = true;
+            sendButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            themeModeButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
+            userInput.setStyle("-fx-background-color: #EE8EC7;"
+                    + " -fx-background-radius: 10;");
+            dialogContainer.setStyle("-fx-background-color: pink;");
+            rightScreen.setStyle("-fx-background-color: #FEE;");
+        }
     }
 }

@@ -1,4 +1,4 @@
-package javacake;
+package javacake.ui;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -10,10 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,27 +59,27 @@ public class AvatarScreen extends VBox {
             e.printStackTrace();
         }
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), ev -> {
             if (avatarMode == AvatarMode.HAPPY) {
-                if (timeFrame % 4 <= 2) {
+                if (timeFrame % 16 <= 14) {
                     avatarImage.setImage(images.get(3));
                 } else {
                     avatarImage.setImage(images.get(2));
                 }
             } else if (avatarMode == AvatarMode.SAD) {
-                if (timeFrame % 4 <= 2) {
+                if (timeFrame % 16 <= 14) {
                     avatarImage.setImage(images.get(1));
                 } else {
                     avatarImage.setImage(images.get(0));
                 }
             } else {
-                if (timeFrame % 4 <= 2) {
+                if (timeFrame % 16 <= 14) {
                     avatarImage.setImage(images.get(5));
                 } else {
                     avatarImage.setImage(images.get(4));
                 }
             }
-            timeFrame++;
+            timeFrame = (timeFrame + 1) % 16;
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

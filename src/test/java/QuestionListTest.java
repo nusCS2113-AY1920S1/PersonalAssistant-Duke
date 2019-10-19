@@ -1,4 +1,4 @@
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.quiz.BasicQuestion;
 import javacake.quiz.Question;
 import javacake.quiz.QuestionList;
