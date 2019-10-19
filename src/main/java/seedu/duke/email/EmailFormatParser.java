@@ -69,6 +69,13 @@ public class EmailFormatParser {
         }
     }
 
+    /**
+     * Parses the email information stored in index file in the format of JSON to produce an email.
+     *
+     * @param jsonString email index json string loaded from index file
+     * @return email generated from the index json
+     * @throws EmailParsingException when the format of the index json is incorrect
+     */
     public static Email parseIndexJson(String jsonString) throws EmailParsingException {
         try {
             JSONObject indexJson = new JSONObject(jsonString);

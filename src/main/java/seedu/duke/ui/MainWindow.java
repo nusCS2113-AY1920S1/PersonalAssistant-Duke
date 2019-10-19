@@ -1,4 +1,4 @@
-package seedu.duke.gui;
+package seedu.duke.ui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -25,16 +25,13 @@ import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
-import seedu.duke.UI;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.TaskStorage;
-import seedu.duke.email.EmailStorage;
 import seedu.duke.task.entity.Task;
 import javafx.scene.Scene;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -61,15 +58,12 @@ public class MainWindow extends AnchorPane {
     private WebView webView;
 
     private WebEngine webEngine;
-    private TaskList tasks;
 
-    private Duke duke;
-    private UI ui;
     private UserInputHandler userInputHandler;
 
-    boolean isShowingEmail = false;
-    boolean isUpKey;
-    int inputListIndex;
+    private boolean isShowingEmail = false;
+    private boolean isUpKey;
+    private int inputListIndex;
     private ArrayList<String> inputList = new ArrayList<>();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -98,8 +92,8 @@ public class MainWindow extends AnchorPane {
         webEngine.load("https://www.google.com");
 
         // initialize GUI with database
-        updateTasksList();
-        updateEmailsList();
+        //updateTasksList();
+        //updateEmailsList();
 
         userInputHandler = new UserInputHandler(userInput, sendButton);
         setInputPrefix();
@@ -121,17 +115,20 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Sets up Duke to allow interactions between it and GUI.
+     * Display a message on the main window chat box.
      *
-     * @param d Duke object
+     * @param msg main message to be displayed
+     * @param input the user input triggered this display
+     * @param command the command executed to produce this message
      */
-    public void setDuke(Duke d) {
-        duke = d;
-        ui = duke.getUI();
-        ui.setupGui(dialogContainer, userImage, dukeImage);
+    void showGuiMessage(String msg, String input, String command) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
+        );
     }
 
-    public void setKeyBinding(Scene scene) {
+    void setKeyBinding(Scene scene) {
         new KeyBinding(scene, userInput, sendButton, this);
     }
 
@@ -140,7 +137,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param keyCode key code of the key pressed when focus is in the userInput.
      */
-    public void handleUserInputKeyEvent(KeyCode keyCode) {
+    void handleUserInputKeyEvent(KeyCode keyCode) {
         switch (keyCode) {
         case ENTER:
             sendButton.fire();
@@ -175,13 +172,9 @@ public class MainWindow extends AnchorPane {
      *
      * @param keyCode key code of the key pressed when focus is in any nodes in the scene.
      */
-    public void handleSceneKeyEvent(KeyCode keyCode) {
-        switch (keyCode) {
-        case ESCAPE:
+    void handleSceneKeyEvent(KeyCode keyCode) {
+        if (keyCode == KeyCode.ESCAPE) {
             toggleEmailDisplay();
-            break;
-        default:
-            return;
         }
     }
 
@@ -193,15 +186,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         webView.setDisable(false);
         String input = userInput.getText();
-        duke.respond(input);
-        //String response = ui.getResponseMsg();
-        //dialogContainer.getChildren().addAll(
-        //        DialogBox.getUserDialog(input, userImage),
-        //        DialogBox.getDukeDialog(command + "\n\n" + response, dukeImage)
-        //);
+        Duke.getUI().respond(input);
+        Duke.getUI().syncWithModel();
+        //updateTasksList();
+        //updateEmailsList();
         setInputPrefix();
-        updateTasksList();
-        updateEmailsList();
         if (input.contains("clear")) {
             dialogContainer.getChildren().clear();
         }
@@ -214,21 +203,13 @@ public class MainWindow extends AnchorPane {
         updateInputList(input);
     }
 
-    public static void setMainStage(Stage stage) {
-        mainStage = stage;
-    }
-
     private void updateHtml() {
-        webEngine.loadContent(ui.getEmailContent());
+        webEngine.loadContent(Duke.getUI().getEmailContent());
         showHtml();
     }
 
     private void exit() {
-        TaskStorage.saveTasks(duke.getTaskList());
-        EmailStorage.saveEmails(duke.getEmailList());
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> Platform.exit());
-        delay.play();
+        Duke.getUI().exit();
     }
 
     /**
@@ -302,43 +283,24 @@ public class MainWindow extends AnchorPane {
      * non-deletable, enter "flip" to toggle between them.
      */
     private void setInputPrefix() {
-        String prefix = CommandParser.getInputPrefix();
+        String prefix = Duke.getUI().getPrefix();
         userInputHandler.setUserInputText(prefix);
     }
 
-    private void updateTasksList() {
+    void updateTasksList(ArrayList<String> taskStringList) {
         ObservableList<String> observableList = FXCollections.observableArrayList();
-        for (int i = 0; i < Duke.getTaskList().size(); i++) {
-            Task task = Duke.getTaskList().get(i);
-            //String output = (i + 1) + ". " + task.getName() + "\n" +
-            //        (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
-            //switch (Duke.getTaskList().get(i).getTaskType()) {
-            //case Deadline:
-            //    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
-            //    output += "\nBy: " + deadline.getTime();
-            //    break;
-            //case Event:
-            //    Event event = (Event) Duke.getTaskList().get(i);
-            //    output += "\nAt: " + event.getTime();
-            //    break;
-            //}
-            //if (task.getDoAfterDescription() != null && task.getDoAfterDescription() != "") {
-            //    output += "\nAfter which: " + task.getDoAfterDescription();
-            //}
-            String output = (i + 1) + ". " + task.toString();
+        for (int i = 0; i < taskStringList.size(); i++) {
+            String taskString = taskStringList.get(i);
+            String output = (i + 1) + ". " + taskString;
             observableList.add(output);
         }
         tasksListView.setItems(observableList);
     }
 
-    private void updateEmailsList() {
-        //ObservableList<String> observableList = FXCollections.observableArrayList();
-        //for (int i = 0; i < Duke.getEmailList().size(); i++) {
-        //    observableList.add((i+1) + ". " + Duke.getEmailList().get(i).toFileString());
-        //}
+    void updateEmailsList(ArrayList<String> emailStringList) {
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
-        for (int i = 0; i < Duke.getEmailList().size(); i++) {
-            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toGuiString(), i));
+        for (int i = 0; i < emailStringList.size(); i++) {
+            list.add(new EmailHBoxCell(emailStringList.get(i), i));
         }
         ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);
@@ -349,7 +311,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param text the text that is to be displayed in the popup
      */
-    public static void showTextPopup(String text) {
+    void showTextPopup(String text) {
         final Popup popup = new Popup();
         AnchorPane outerPane = new AnchorPane();
         ScrollPane scroll = new ScrollPane();
@@ -381,7 +343,6 @@ public class MainWindow extends AnchorPane {
         outerPane.getChildren().addAll(scroll, button);
         popup.getContent().add(outerPane);
         popup.show(mainStage);
-        Duke.getUI().showDebug("Popup created");
     }
 
     public static class EmailHBoxCell extends HBox {

@@ -1,17 +1,18 @@
-package seedu.duke.gui;
+package seedu.duke.ui;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import seedu.duke.CommandParser;
+import seedu.duke.Duke;
 
 import java.util.function.UnaryOperator;
 
 public class UserInputHandler {
-    TextField userInput;
-    Button sendButton;
+    private TextField userInput;
+    private Button sendButton;
 
-    public UserInputHandler(TextField userInput, Button sendButton) {
+    UserInputHandler(TextField userInput, Button sendButton) {
         this.userInput = userInput;
         this.sendButton = sendButton;
     }
@@ -21,7 +22,7 @@ public class UserInputHandler {
      *
      * @param text to set in userInput.
      */
-    public void setUserInputText(String text) {
+    void setUserInputText(String text) {
         // To apply a noFilter to userInput to remove the effect of the previous filter so that clear()
         // can work properly.
         UnaryOperator<TextFormatter.Change> noFilter = c -> {
@@ -32,9 +33,8 @@ public class UserInputHandler {
         userInput.setText(text);
 
         // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
-        String prefix = CommandParser.getInputPrefix();
         UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < prefix.length()) {
+            if (c.getCaretPosition() < Duke.getUI().getPrefix().length()) {
                 return null;
             } else {
                 return c;
@@ -42,8 +42,8 @@ public class UserInputHandler {
         };
         userInput.setTextFormatter(new TextFormatter<String>(filter));
         int pos = userInput.getText().length();
-        if (pos < prefix.length()) {
-            userInput.positionCaret(prefix.length());
+        if (pos < Duke.getUI().getPrefix().length()) {
+            userInput.positionCaret(Duke.getUI().getPrefix().length());
         } else {
             userInput.positionCaret(pos);
         }
@@ -52,7 +52,7 @@ public class UserInputHandler {
     /**
      * Update text in userInput when DELETE is pressed.
      */
-    public void setTextDelete() {
+    void setTextDelete() {
         int pos = userInput.getCaretPosition();
         String text = userInput.getText();
         if (pos >= text.length()) {
@@ -67,10 +67,9 @@ public class UserInputHandler {
     /**
      * Update text in userInput when BACKSPACE is pressed.
      */
-    public void setTextBackSpace() {
-        String prefix = CommandParser.getInputPrefix();
+    void setTextBackSpace() {
         int pos = userInput.getCaretPosition();
-        if (pos <= prefix.length()) {
+        if (pos <= Duke.getUI().getPrefix().length()) {
             return;
         }
         String text = userInput.getText();
@@ -79,14 +78,13 @@ public class UserInputHandler {
         userInput.positionCaret(pos - 1);
     }
 
-    public void moveCaretRight() {
+    void moveCaretRight() {
         int pos = userInput.getCaretPosition();
         userInput.positionCaret(pos + 1);
     }
 
-    public void moveCaretLeft() {
+    void moveCaretLeft() {
         int pos = userInput.getCaretPosition();
         userInput.positionCaret(pos - 1);
     }
-
 }

@@ -3,6 +3,7 @@ package seedu.duke.email;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
+import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
 import seedu.duke.email.entity.Email;
 import seedu.duke.task.TaskStorage;
@@ -97,7 +98,7 @@ public class EmailStorage {
         EmailList serverEmailList = Http.fetchEmail(60);
         for (Email serverEmail : serverEmailList) {
             boolean exist = false;
-            for (Email localEmail : Duke.getEmailList()) {
+            for (Email localEmail : Duke.getModel().getEmailList()) {
                 if (localEmail.getSubject().equals(serverEmail.getSubject())) {
                     exist = true;
                     break;
@@ -105,10 +106,11 @@ public class EmailStorage {
             }
             if (!exist) {
                 allKeywordInEmail(serverEmail);
-                Duke.getEmailList().add(serverEmail);
+                Duke.getModel().getEmailList().add(serverEmail);
             }
         }
-        saveEmails(Duke.getEmailList());
+        Duke.getModel().updateGuiEmailList();
+        saveEmails(Duke.getModel().getEmailList());
     }
 
     /**
@@ -269,6 +271,7 @@ public class EmailStorage {
      */
     public static EmailList readEmails() {
         EmailList emailList = readEmailFromFile();
+        Duke.getModel().updateGuiEmailList();
         //EmailList syncedEmailList = syncEmailListWithHtml(emailList);
         //return syncedEmailList;
         return emailList;

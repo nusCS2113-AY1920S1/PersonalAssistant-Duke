@@ -3,6 +3,7 @@ package seedu.duke.task.command;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.model.Model;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class TaskDoneCommand extends Command {
     @Override
     public boolean execute() {
         try {
-            String msg = Duke.getTaskList().markDone(index);
+            String msg = Duke.getModel().getTaskList().markDone(index);
             if (!silent) {
                 responseMsg = msg;
                 Duke.getUI().showResponse(msg);

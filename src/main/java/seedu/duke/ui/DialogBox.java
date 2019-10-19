@@ -1,4 +1,4 @@
-package seedu.duke.gui;
+package seedu.duke.ui;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -48,7 +48,7 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
+    static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
@@ -59,7 +59,7 @@ public class DialogBox extends HBox {
      * @param img  img to be displayed
      * @return dialogBox ready to be displayed
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

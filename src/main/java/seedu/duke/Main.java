@@ -1,4 +1,4 @@
-package seedu.duke.gui;
+package seedu.duke;
 
 
 import javafx.application.Application;
@@ -7,13 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.duke.Duke;
+import seedu.duke.ui.MainWindow;
 
 import java.io.IOException;
 
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    Duke duke;
 
     @Override
     public void start(Stage stage) {
@@ -26,10 +26,14 @@ public class Main extends Application {
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
             stage.setMinWidth(450);
             stage.setMinHeight(300);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
-            fxmlLoader.<MainWindow>getController().setKeyBinding(scene);
+
+            Duke.getUI().setMainWindow(fxmlLoader.<MainWindow>getController());
+            Duke.getUI().setKeyBinding(scene);
+            Duke.getUI().setMainStage(stage);
+
             stage.show();
-            MainWindow.setMainStage(stage);
+
+            duke = new Duke();
         } catch (IOException e) {
             e.printStackTrace();
         }

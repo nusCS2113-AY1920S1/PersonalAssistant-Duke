@@ -57,4 +57,17 @@ public class EmailList extends ArrayList<Email> {
         String responseMsg = "Tags added: " + tags.toString() + "\nto email: " + email.getSubject();
         return responseMsg;
     }
+
+    /**
+     * Generates a list of string of all emails for gui display.
+     *
+     * @return list of string generated for gui display
+     */
+    public ArrayList<String> getEmailGuiStringList() {
+        ArrayList<String> emailStringList = new ArrayList<>();
+        for (Email email : this) {
+            emailStringList.add(email.toGuiString());
+        }
+        return emailStringList;
+    }
 }

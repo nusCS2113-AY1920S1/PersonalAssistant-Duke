@@ -23,6 +23,7 @@ import seedu.duke.task.command.TaskSetPriorityCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
+import seedu.duke.ui.UI;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,14 +46,7 @@ public class CommandParser {
         EMAIL
     }
 
-    private static InputType inputType;
-
-    /**
-     * Constructor that initializes the input type to TASK.
-     */
-    public CommandParser() {
-        this.inputType = InputType.TASK;    // default input type when initiating the program.
-    }
+    private static InputType inputType = InputType.TASK;
 
     /**
      * Checks if input command is in the correct format.
@@ -87,7 +81,8 @@ public class CommandParser {
     }
 
     /**
-     * Set to the new input type when it is toggled by "flip" command.
+     * Sets to the new input type when it is toggled by "flip" command.
+     * Also updates the UI display of the prefix.
      *
      * @param newInputType the input type that is going to be changed to
      */
@@ -126,8 +121,8 @@ public class CommandParser {
      * @return the parse result, which is a command ready to be executed
      */
     public static Command parseCommand(String input) throws UserInputException {
-        TaskList taskList = Duke.getTaskList();
-        EmailList emailList = Duke.getEmailList();
+        TaskList taskList = Duke.getModel().getTaskList();
+        EmailList emailList = Duke.getModel().getEmailList();
         if (!isCommandFormat(input)) {
             if (ui != null) {
                 ui.showError("Command is in wrong format");

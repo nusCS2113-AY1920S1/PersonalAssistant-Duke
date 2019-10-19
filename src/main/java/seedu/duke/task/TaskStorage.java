@@ -90,7 +90,8 @@ public class TaskStorage {
                 addCommand.setSilent();
                 addCommand.execute();
             }
-            taskList = Duke.getTaskList();
+            taskList = Duke.getModel().getTaskList();
+            Duke.getModel().updateGuiTaskList();
             for (int i = 0; i < taskList.size(); i++) {
                 if (doneList.get(i)) {
                     taskList.get(i).markDone();

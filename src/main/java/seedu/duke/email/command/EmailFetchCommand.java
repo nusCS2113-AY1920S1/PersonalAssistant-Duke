@@ -1,6 +1,7 @@
 package seedu.duke.email.command;
 
 import seedu.duke.Duke;
+import seedu.duke.common.model.Model;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.common.command.Command;
@@ -22,7 +23,7 @@ public class EmailFetchCommand extends Command {
                 // Sync the current emailList with the html files in local storage.
                 EmailStorage.syncWithServer();
                 responseMsg = "Fetching emails and syncing with local storage...\n\n";
-                responseMsg += Duke.getEmailList().toString();
+                responseMsg += Duke.getModel().getEmailList().toString();
                 Duke.getUI().showResponse(responseMsg);
             } catch (Exception e) {
                 Duke.getUI().showError(e.toString());

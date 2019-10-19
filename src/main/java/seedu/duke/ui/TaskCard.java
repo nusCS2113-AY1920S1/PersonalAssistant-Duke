@@ -1,4 +1,4 @@
-package seedu.duke.gui;
+package seedu.duke.ui;
 
 import java.io.IOException;
 
@@ -65,20 +65,5 @@ public class TaskCard extends HBox {
         taskName.setText(task.getName());
         String type = task.getTaskType().toString();
         taskType.setText(type);
-        /*
-        switch (type) {
-            case "D":
-                date.setText("Deadline date");
-                break;
-            case "E":
-                date.setText("Event date");
-                break;
-            default:
-                date.setText(null);
-        }
-        task.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-         */
     }
 }

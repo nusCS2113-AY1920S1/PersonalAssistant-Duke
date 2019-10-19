@@ -1,7 +1,7 @@
 package seedu.duke.common.command;
 
 import seedu.duke.Duke;
-import seedu.duke.gui.MainWindow;
+import seedu.duke.ui.MainWindow;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,8 @@ public class HelpCommand extends Command {
 
     @Override
     public boolean execute() {
-        MainWindow.showTextPopup(this.toString());
+
+        Duke.getUI().showTextPopup(this.toString());
         //Duke.getUI().showGUI(this.toString());
         return true;
     }

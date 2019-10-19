@@ -1,15 +1,11 @@
-package seedu.duke.gui;
+package seedu.duke.ui;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
-import seedu.duke.CommandParser;
-
-import java.util.function.UnaryOperator;
 
 public class KeyBinding {
 
@@ -21,7 +17,7 @@ public class KeyBinding {
      * @param sendButton send button.
      * @param mainWindow fxml controller.
      */
-    public KeyBinding(Scene scene, TextField userInput, Button sendButton, MainWindow mainWindow) {
+    KeyBinding(Scene scene, TextField userInput, Button sendButton, MainWindow mainWindow) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e) -> {
             String type = e.getEventType().getName();
             KeyCode keyCode = e.getCode();

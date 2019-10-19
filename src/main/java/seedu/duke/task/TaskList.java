@@ -178,6 +178,19 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
+     * Generates a list of string containing all tasks in string form.
+     *
+     * @return a list of task string
+     */
+    public ArrayList<String> getTaskGuiStringList() {
+        ArrayList<String> stringList = new ArrayList<>();
+        for (Task task: this) {
+            stringList.add(task.toString());
+        }
+        return stringList;
+    }
+
+    /**
      * Adds or modifies task to include a priority level.
      *
      * @param index    Position of task in list
