@@ -2,7 +2,6 @@ package controlpanel;
 
 import moneycommands.*;
 
-import moneycommands.AddExpenditureCommand;
 import moneycommands.AddIncomeCommand;
 import moneycommands.AddGoalCommand;
 import moneycommands.CreateBankAccountCommand;
@@ -85,6 +84,8 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
+        } else if (cmd.startsWith("delete bank-account")) {
+            moneyCommand = new DeleteBankAccountCommand(cmd);
         } else if (cmd.startsWith("graph") || cmd.equals("change icon")) {
             moneyCommand = new GraphCommand(cmd);
         } else if (cmd.startsWith("undo")) {
