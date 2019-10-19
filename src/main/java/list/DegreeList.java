@@ -132,28 +132,37 @@ public class DegreeList implements Serializable, Cloneable{
         }
     }
 
+    public String conversion(int request) {
+        String imp = list.get(request);
+        return imp;
+    }
+
     /**
      * Method to delete a particular degree from the degree list.
      *
      * @param input The degree to be deleted
      * @throws DukeException Throws an error if the degree does not exist.
      */
-    public void delete(String input) throws DukeException{
+    public void delete(String input, DegreeListStorage dd) throws DukeException{
         try {
             int request = Integer.parseInt(input);
             request -= 1;
             if (isOutOfRange(request)) {
                 throw new DukeException("The index was not found within range");
             } else {
+                String imp = conversion(request);
                 System.out.println("Noted. I've removed this degree:\n"
                         + "  " + list.get(request));
                 this.list.remove(request);
                 System.out.println("Now you have " + this.list.size() + " degrees you are interested in.");
+                dd.processing(imp);
             }
         } catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
         } catch (NumberFormatException e) {
             throw new DukeException("That is NOT a valid integer");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
