@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Profile {
-    private String filepath = "save/savefile.txt";
+    private static String filepath = "data/save/savefile.txt";
     private String username;
     private ArrayList<Integer> topicsDone = new ArrayList<>();
 
@@ -25,19 +25,30 @@ public class Profile {
      * @throws DukeException when unable to create profile
      */
     public Profile(String filename) throws DukeException {
-        filepath = filename + File.separator + filepath;
         try {
-            File file = new File(filepath);
+            File file = new File("data/save/savefile.txt");
+            System.out.println("Filepath: " + filepath);
             try {
-                if (!file.exists()) {
+                if (!file.getParentFile().getParentFile().exists()) {
                     file.getParentFile().getParentFile().mkdir();
                     file.getParentFile().mkdir();
                     file.createNewFile();
                     initialiseUser();
+                    System.out.println("A" + file.getParentFile().getParentFile().getPath());
+                } else if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdir();
+                    file.createNewFile();
+                    initialiseUser();
+                    System.out.println("B" + file.getParentFile().getPath());
+                }
+                if (!file.exists()) {
+                    file.createNewFile();
+                    initialiseUser();
+                    System.out.println("C" + file.getPath());
                 }
 
-
             } catch (IOException e) {
+                System.out.println("before reader");
                 throw new DukeException("Failed to create new file");
             }
 
@@ -54,7 +65,19 @@ public class Profile {
             }
             reader.close();
         } catch (IOException e) {
+            System.out.println("after reader");
             throw new DukeException("Failed to close reader");
+        }
+    }
+
+    /**
+     * Method to hard reset profile.
+     */
+    public static void resetProfile() {
+        File file = new File(filepath);
+        if (file.exists()) {
+            file.delete();
+            System.out.println("deleting: " + file.getPath());
         }
     }
 

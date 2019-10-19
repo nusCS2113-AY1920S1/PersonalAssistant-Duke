@@ -25,6 +25,14 @@ public class TopBar extends HBox {
     @FXML
     private Label title;
     @FXML
+    private Label quizA;
+    @FXML
+    private Label quizB;
+    @FXML
+    private Label quizC;
+    @FXML
+    private Label quizD;
+    @FXML
     private ImageView cakeRight;
     @FXML
     private ProgressBar progressA = new ProgressBar();
@@ -47,6 +55,7 @@ public class TopBar extends HBox {
     private Image cakeTiltRight = new Image(this.getClass().getResourceAsStream("/images/cake_right.png"));
     private Image cakeOriginal = new Image(this.getClass().getResourceAsStream("/images/cake.png"));
     private int cakeCounter = 0;
+    private boolean isSet = false;
 
     /**
      * Constructor for title bar.
@@ -61,6 +70,7 @@ public class TopBar extends HBox {
             e.printStackTrace();
         }
         setAnimation();
+        setStyleLoop();
     }
 
     /**
@@ -69,6 +79,36 @@ public class TopBar extends HBox {
      */
     public static TopBar setTitle() {
         return new TopBar();
+    }
+
+    private void setStyleLoop() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
+            if (MainWindow.isLightMode) {
+                if (!isSet) {
+                    progressTotal.getStylesheets().remove(
+                            getClass().getResource("/css/progDark.css").toExternalForm());
+                    title.setStyle("-fx-text-fill: white");
+                    quizA.setStyle("-fx-text-fill: white");
+                    quizB.setStyle("-fx-text-fill: white");
+                    quizC.setStyle("-fx-text-fill: white");
+                    quizD.setStyle("-fx-text-fill: white");
+                    isSet = true;
+                }
+            } else {
+                if (isSet) {
+                    progressTotal.getStylesheets().add(
+                            getClass().getResource("/css/progDark.css").toExternalForm());
+                    title.setStyle("-fx-text-fill: black");
+                    quizA.setStyle("-fx-text-fill: black");
+                    quizB.setStyle("-fx-text-fill: black");
+                    quizC.setStyle("-fx-text-fill: black");
+                    quizD.setStyle("-fx-text-fill: black");
+                    isSet = false;
+                }
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     private void setAnimation() {
@@ -95,6 +135,17 @@ public class TopBar extends HBox {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    /**
+     * Method to reset progress.
+     */
+    public static void resetProgress() {
+        progValueA = 0;
+        progValueB = 0;
+        progValueC = 0;
+        progValueD = 0;
+        progValueT = 0;
     }
 
 }

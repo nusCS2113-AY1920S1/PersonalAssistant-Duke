@@ -59,7 +59,7 @@ public class AvatarScreen extends VBox {
             e.printStackTrace();
         }
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), ev -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
             if (avatarMode == AvatarMode.HAPPY) {
                 if (timeFrame % 16 <= 14) {
                     avatarImage.setImage(images.get(3));
