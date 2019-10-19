@@ -16,9 +16,9 @@ public class RemoveCommand extends Command {
     protected String logNumStr;
     protected String mode;
 
-    public RemoveCommand(String mode, String taskNumStr) {
+    public RemoveCommand(String mode, String logNumStr) {
         this.mode = mode;
-        this.logNumStr = taskNumStr;
+        this.logNumStr = logNumStr;
     }
 
     /**

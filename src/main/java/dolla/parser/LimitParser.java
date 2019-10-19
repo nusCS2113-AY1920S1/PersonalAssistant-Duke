@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.command.AddLimitCommand;
 import dolla.command.Command;
 import dolla.command.RemoveCommand;
 import dolla.command.ShowListCommand;

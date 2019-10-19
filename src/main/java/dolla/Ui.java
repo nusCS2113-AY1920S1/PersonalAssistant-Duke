@@ -1,9 +1,5 @@
 package dolla;
 
-
-//import dolla.task.;
-
-
 import dolla.task.*;
 
 import java.util.ArrayList;
@@ -12,7 +8,7 @@ import java.util.Arrays;
 /**
  * duke.Ui is a class that handles all interactions to the user.
  */
-public class Ui {
+public abstract class Ui {
 
     private static String logo =
               " ____    _   _  _   _       \n"
@@ -21,8 +17,7 @@ public class Ui {
             + "| |_| | |_| | || |  __  | \n"
             + "|____/ \\ _ /|_||_|_|  |_|       \n";
 
-    //to be changed back to private after class is moved to dolla.ui package
-    public static String line = "\t____________________________________________________________";
+    protected static String line = "\t____________________________________________________________";
 
     public static void showWelcome() {
         System.out.println("Hello from\n" + logo);

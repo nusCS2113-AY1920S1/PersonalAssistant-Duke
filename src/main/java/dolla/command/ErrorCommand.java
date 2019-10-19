@@ -1,8 +1,6 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.Ui;
-import dolla.task.TaskList;
 
 /**
  * duke.command.ErrorCommand is a type of command that is generated if a proper command
