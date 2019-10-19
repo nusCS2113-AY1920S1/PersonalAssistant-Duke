@@ -79,6 +79,17 @@ public class CommandParser {
     }
 
     /**
+     * Flip between Email and Task input type of the command parser.
+     */
+    public static void filpInputType() {
+        if (inputType == InputType.TASK) {
+            inputType = InputType.EMAIL;
+        } else {
+            inputType = InputType.TASK;
+        }
+    }
+
+    /**
      * Parses input to retrieve options from command string.
      *
      * @param input command string

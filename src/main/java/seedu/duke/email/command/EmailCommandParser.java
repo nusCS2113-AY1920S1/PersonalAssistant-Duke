@@ -35,7 +35,7 @@ public class EmailCommandParser {
         String emailCommand = input.split(" ")[0];
         switch (emailCommand) {
         case "flip":
-            return new FlipCommand(CommandParser.getInputType());
+            return new FlipCommand();
         case "bye":
             return new ExitCommand();
         case "help":

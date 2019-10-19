@@ -27,7 +27,7 @@ public class TaskCommandParser {
         }
         String input = rawInput.split("task ", 2)[1].strip();
         if (input.equals("flip")) {
-            return new FlipCommand(CommandParser.getInputType());
+            return new FlipCommand();
         } else if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
