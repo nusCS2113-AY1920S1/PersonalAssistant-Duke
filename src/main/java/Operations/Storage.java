@@ -49,7 +49,7 @@ public class Storage {
                 String rawDate = temp[4];
                 String user = temp[6];
                 boolean isFixedDuration = false;
-                String duration = "";
+                int duration =0;
                 TimeUnit unit = TimeUnit.hours;
                 Date by = new Date();
                 if (temp.length != 9) {
@@ -61,7 +61,7 @@ public class Storage {
                 } else {
                     // fixed duration task
                     isFixedDuration = true;
-                    duration = temp[7];
+                    duration = Integer.parseInt(temp[7]);
                     unit = TimeUnit.valueOf(temp[8]);
                 }
                 try {

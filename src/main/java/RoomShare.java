@@ -63,8 +63,9 @@ public class RoomShare {
             }
             switch (type) {
             case help:
+                help.helpCommandList();
                 help.showHelp(parser.getCommandLine());
-                break;
+            break;
 
             case list:
                 ui.showList();
@@ -73,7 +74,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showWriteError();
                 }
-                break;
+            break;
 
             case bye:
                 isExit = true;
