@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class Meeting extends Task {
     private boolean isFixedDuration;
-    private int duration;
-    private TimeUnit timeUnit;
+    private int duration = 0;
+    private TimeUnit timeUnit = TimeUnit.unDefined;
     /**
      * Constructor for Event object
      * Takes in inputs for description of the event and the time the event occurs
@@ -22,7 +22,7 @@ public class Meeting extends Task {
         this.isFixedDuration = false;
     }
 
-    public Meeting (String description, String duration, TimeUnit unit) {
+    public Meeting (String description, int duration, TimeUnit unit) {
         super(description, null);
         this.duration = duration;
         this.timeUnit = unit;
