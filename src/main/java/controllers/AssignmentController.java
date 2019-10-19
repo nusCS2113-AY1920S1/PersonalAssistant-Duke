@@ -14,6 +14,11 @@ public class AssignmentController {
     private ArrayList<String> successMessages;
     private Project project;
 
+    /**
+     * A Controller class which parses the input from the user to get a list of valid
+     * task and member indexes, and manages the assignment to and removal of tasks from members.
+     * @param project The which the user is managing.
+     */
     public AssignmentController(Project project) {
         this.validMembersToAssign = new ArrayList<>();
         this.validMembersToUnassign = new ArrayList<>();
@@ -23,6 +28,12 @@ public class AssignmentController {
         this.project = project;
     }
 
+    /**
+     * Does the actual assignment of task by calling on the project and establishing the
+     * necessary links between tasks and members. Collates messages to inform user of
+     * successful assignments/unassignments.
+     * @param input The input from the user.
+     */
     public void assignAndUnassign(String input) {
         parseAssignmentInput(input);
         for (Integer taskIndex : validTaskIndexes) {
@@ -56,13 +67,12 @@ public class AssignmentController {
             }
             successMessages.add("\n");
         }
-
     }
 
     /**
      * Makes sense of user input for task assignment. Parses input String to get valid task and member index
      * numbers, as well as error messages for invalid index numbers.
-     * @param input
+     * @param input The input from the user.
      */
     public void parseAssignmentInput(String input) {
         //assign task -i 1 2 -to 1 2 3 -rm 4 5
@@ -103,6 +113,10 @@ public class AssignmentController {
         checkForSameMemberIndexes();
     }
 
+    /**
+     * Checks if the user keyed in the same index number for assigning and removing tasks.
+     * Removes index number and informs user if so.
+     */
     private void checkForSameMemberIndexes() {
         for (Integer index: validMembersToAssign) {
             if (validMembersToUnassign.contains(index)) {
@@ -114,10 +128,20 @@ public class AssignmentController {
         }
     }
 
+    /**
+     * Checks if task number is valid.
+     * @param taskNumber the index number of task as indicated by user.
+     * @return true if the task exists in the project.
+     */
     public boolean isValidTaskIndex(int taskNumber) {
-        return taskNumber > 0 && taskNumber <= project.getNumOfTasks();
+        return (taskNumber > 0 && taskNumber <= project.getNumOfTasks());
     }
 
+    /**
+     * Stores only valid task index numbers in validTaskIndexes, which is
+     * used later to do task assignment.
+     * @param allTaskIndexes all index numbers as indicated by user.
+     */
     public void getValidTaskIndexes(ArrayList<String> allTaskIndexes) {
         for (String taskIndex : allTaskIndexes) {
             try {
@@ -134,20 +158,29 @@ public class AssignmentController {
         }
     }
 
+    /**
+     * Retrieves valid/existing index numbers of members to be assigned/unassigned tasks.
+     * @param allMemberIndexes the member index numbers indicated by the user.
+     * @param validIndexes the ArrayList of either assignees or unassignees, to store valid index numbers.
+     */
     private void getValidMemberIndexes(ArrayList<String> allMemberIndexes, ArrayList<Integer> validIndexes) {
         for (String memberIndex : allMemberIndexes) {
             try {
-                Integer taskNumber = Integer.parseInt(memberIndex);
-                if (isValidTaskIndex(taskNumber)) {
-                    validIndexes.add(taskNumber);
+                Integer indexNumber = Integer.parseInt(memberIndex);
+                if (isValidMemberIndex(indexNumber)) {
+                    validIndexes.add(indexNumber);
                 } else {
-                    errorMessages.add("The member with index " + taskNumber + " does not exist.");
+                    errorMessages.add("The member with index " + memberIndex + " does not exist.");
                 }
             } catch (NumberFormatException e) {
                 errorMessages.add("Could not find member: " + memberIndex);
                 errorMessages.add("Please ensure that member index numbers are integers");
             }
         }
+    }
+
+    private boolean isValidMemberIndex(Integer indexNumber) {
+        return indexNumber > 0 && indexNumber <= project.getNumOfMembers();
     }
 
     private void getValidAssignees(ArrayList<String> allIndexesToAssign) {
@@ -158,25 +191,20 @@ public class AssignmentController {
         getValidMemberIndexes(allIndexesToUnassign, this.validMembersToUnassign);
     }
 
-    public ArrayList<Integer> getValidTaskIndexes() {
-        return validTaskIndexes;
-    }
-
-    public ArrayList<Integer> getValidMembersToAssign() {
-        return validMembersToAssign;
-    }
-
-    public ArrayList<Integer> getValidMembersToUnassign(){
-        return validMembersToUnassign;
-    }
-
+    /**
+     * Returns messages about invalid inputs to be shown to the user.
+     * @return an ArrayList of error messages that arise from invalid inputs.
+     */
     public ArrayList<String> getErrorMessages() {
         return errorMessages;
     }
 
+    /**
+     * Returns messages about successful assignments for valid tasks.
+     * @return an ArrayList of success messages.
+     */
     public ArrayList<String> getSuccessMessages() {
         return successMessages;
     }
-
 
 }
