@@ -44,7 +44,7 @@ public class Ui {
      * @param printData stores the list of tasks to be printed.
      */
     public void printList(List<Locker> printData) {
-        printSpaces(" Here are the tasks in your list:");
+        printSpaces(" Here are the lockers in your list:");
         showList(printData);
     }
 

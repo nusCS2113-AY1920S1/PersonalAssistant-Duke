@@ -3,6 +3,7 @@ package duke;
 import duke.logic.commands.Command;
 import duke.exceptions.DukeException;
 import duke.models.LockerList;
+import duke.parser.Parser;
 import duke.storage.FileHandling;
 import duke.ui.Ui;
 
@@ -10,6 +11,7 @@ public class Duke {
     private Ui ui;
     private FileHandling storage;
     private LockerList lockers;
+    private Parser parser;
 
     /**
      * This constructor instantiates the Duke class by loading data from a file.
@@ -18,6 +20,7 @@ public class Duke {
     public Duke(String filename) {
         try {
             ui = new Ui();
+            parser = new Parser();
             storage = new FileHandling(filename);
             lockers = new LockerList(storage.retrieveData().getAllLockers());
         } catch (DukeException e) {
@@ -36,7 +39,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.printDash();
-                Command c = Parser.parse(fullCommand);
+                Command c = parser.parse(fullCommand);
                 c.execute(lockers, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {

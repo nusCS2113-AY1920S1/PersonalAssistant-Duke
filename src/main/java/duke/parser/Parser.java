@@ -1,13 +1,9 @@
-package duke;
+package duke.parser;
 
 import duke.exceptions.DukeException;
-import duke.logic.commands.AddBatchCommand;
-import duke.logic.commands.AddLockerCommand;
-import duke.logic.commands.ByeCommand;
+
 import duke.logic.commands.Command;
-import duke.logic.commands.DeleteLockerCommand;
-import duke.logic.commands.EditLockerCommand;
-import duke.logic.commands.ListCommand;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,22 +18,22 @@ public class Parser {
      * @throws DukeException when the user inputs invalid command
      */
 
-    public static Command parse(String fullCommand) throws DukeException {
+    public Command parse(String fullCommand) throws DukeException {
         List<String> splitInput = new ArrayList<String>(
                 Arrays.asList(fullCommand.split(" ")));
         String inputTask = splitInput.get(0);
         if (inputTask.equalsIgnoreCase("addLocker")) {
-            return new AddLockerCommand(splitInput);
+            return new AddLockerCommandParser().parse(fullCommand);
         } else if (fullCommand.equalsIgnoreCase("bye")) {
-            return new ByeCommand();
+            return new ByeCommandParser().parse();
         } else if (fullCommand.equalsIgnoreCase("list")) {
-            return new ListCommand();
+            return new ListCommandParser().parse();
         } else if (inputTask.equalsIgnoreCase("addBatch")) {
-            return new AddBatchCommand(splitInput);
+            return new AddBatchCommandParser().parse(fullCommand);
         } else if (inputTask.equalsIgnoreCase("delete")) {
-            return new DeleteLockerCommand(splitInput);
+            return new DeleteLockerCommandParser().parse(fullCommand);
         } else if (inputTask.equalsIgnoreCase("edit")) {
-            return new EditLockerCommand(splitInput);
+            return new EditLockerCommandParser().parse(fullCommand);
         } else  {
             throw new DukeException(" Invalid command");
         }

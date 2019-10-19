@@ -23,10 +23,10 @@ public class AddBatchCommand extends Command {
         if (splitInput.size() == 1) {
             throw new DukeException(" You must include the serial numbers of the lockers to be added");
         }
-        int numOfLockers = Integer.parseInt(splitInput.get(1).substring(2));
-        int serialNumber = Integer.parseInt(splitInput.get(2).substring(2));
-        String address = splitInput.get(3).substring(2);
-        String zone = splitInput.get(4).substring(2);
+        int numOfLockers = Integer.parseInt(splitInput.get(0));
+        int serialNumber = Integer.parseInt(splitInput.get(1));
+        String address = splitInput.get(2);
+        String zone = splitInput.get(3);
         for (int i = 0; i < numOfLockers; i++) {
             lockerList.addLocker(new Locker(serialNumber + i,address,zone,new Tag("not-in-use")));
         }
