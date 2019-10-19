@@ -36,14 +36,18 @@ public class AddPatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
                         PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage , CmdFreqStorage cmdFreqStorage, CommandManager commandManager) throws DukeException {
+                        PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
+                        CommandManager commandManager) throws DukeException {
+
         this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
         if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName , 1);
+            commandManager.getCmdFreqTable().put(commandName, 1);
         }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName) ? commandManager.getCmdFreqTable().get(commandName) : 0;
-        commandManager.getCmdFreqTable().put(commandName , count + 1);
+        int count = commandManager.getCmdFreqTable().containsKey(commandName)
+                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
+
+        commandManager.getCmdFreqTable().put(commandName, count + 1);
         patientList.addPatient(newPatient);
         patientStorage.save(patientList.getPatientList());
         cmdFreqStorage.save(commandManager.getCmdFreqTable());
@@ -55,8 +59,5 @@ public class AddPatientCommand extends Command {
         return false;
     }
 
-    public boolean HasBeenAddedBefore() {
-        return hasBeenAddedBefore;
-    }
 
 }

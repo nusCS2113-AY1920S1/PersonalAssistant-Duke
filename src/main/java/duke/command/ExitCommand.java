@@ -17,7 +17,8 @@ import duke.core.Ui;
  * program
  */
 public class ExitCommand extends Command {
-    private boolean hasBeenAddedBefore = false;
+    //private boolean hasBeenAddedBefore = false;
+
     /**
      * Constructs a ExitCommand object.
      */
@@ -44,8 +45,8 @@ public class ExitCommand extends Command {
      */
     public void execute(PatientTaskList patientTask, TaskManager tasks,
                         PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage , CmdFreqStorage cmdFreqStorage , CommandManager commandManager) throws DukeException {
-        this.hasBeenAddedBefore = true;
+                        TaskStorage taskStorage, PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
+                        CommandManager commandManager) throws DukeException {
         ui.exitInformation();
     }
 }

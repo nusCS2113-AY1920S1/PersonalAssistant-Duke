@@ -18,6 +18,7 @@ public class AddStandardTaskCommand extends Command {
 
     /**
      * .
+     *
      * @param taskDescription .
      */
     public AddStandardTaskCommand(String taskDescription) {
@@ -28,26 +29,30 @@ public class AddStandardTaskCommand extends Command {
 
     /**
      * .
-     * @param patientTask .
-     * @param taskList .
-     * @param patientList .
-     * @param ui .
+     *
+     * @param patientTask        .
+     * @param taskList           .
+     * @param patientList        .
+     * @param ui                 .
      * @param patientTaskStorage .
-     * @param taskStorage .
-     * @param patientStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage , CmdFreqStorage cmdFreqStorage , CommandManager commandManager) throws DukeException {
+                        PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
+                        CommandManager commandManager) throws DukeException {
         this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
         if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName , 1);
+            commandManager.getCmdFreqTable().put(commandName, 1);
         }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName) ? commandManager.getCmdFreqTable().get(commandName) : 0;
-        commandManager.getCmdFreqTable().put(commandName , count + 1);
+        int count = commandManager.getCmdFreqTable().containsKey(commandName)
+                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
+
+        commandManager.getCmdFreqTable().put(commandName, count + 1);
         taskList.addTask(newStandardTask);
         taskStorage.save(taskList.getTaskList());
         cmdFreqStorage.save(commandManager.getCmdFreqTable());
@@ -59,7 +64,4 @@ public class AddStandardTaskCommand extends Command {
         return false;
     }
 
-    public boolean HasBeenAddedBefore() {
-        return hasBeenAddedBefore;
-    }
 }

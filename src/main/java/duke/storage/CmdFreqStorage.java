@@ -1,19 +1,18 @@
 package duke.storage;
 
-import duke.core.CommandManager;
 import duke.core.DukeException;
-import duke.patient.Patient;
-import duke.relation.EventPatientTask;
-import duke.relation.PatientTask;
-import duke.relation.StandardPatientTask;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ public class CmdFreqStorage {
      * A string that represents a relative file path from the project folder.
      */
     private String filePath;
+
     /**
      * Constructs a Storage object with a specific file path.
      *
@@ -38,8 +38,8 @@ public class CmdFreqStorage {
      * @return A arrayList of PatientTask which contain info of task with associated patient
      * @throws DukeException throw a dukeException with error message for debugging
      */
-    public Map<String , Integer> load() throws DukeException {
-        Map<String , Integer> cmdFreqTable = new HashMap<>();
+    public Map<String, Integer> load() throws DukeException {
+        Map<String, Integer> cmdFreqTable = new HashMap<>();
         File csvFile = new File(filePath);
         try {
             if (csvFile.createNewFile()) {
@@ -50,7 +50,7 @@ public class CmdFreqStorage {
                 for (CSVRecord record : records) {
                     String commandName = record.get("Command Name");
                     Integer frequency = Integer.parseInt(record.get("Frequency"));
-                    cmdFreqTable.put(commandName , frequency);
+                    cmdFreqTable.put(commandName, frequency);
                 }
             }
             System.out.println("Load completed");
@@ -69,15 +69,15 @@ public class CmdFreqStorage {
      * @param cmdFreqTable A list of patients containing info of patients to be written
      * @throws DukeException throw exception with error message when i/o fails
      */
-    public void save(Map<String , Integer> cmdFreqTable) throws DukeException {
+    public void save(Map<String, Integer> cmdFreqTable) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("Command Name" , "Frequency"));
-            for (Map.Entry<String , Integer> entry : cmdFreqTable.entrySet()) {
+                    .withHeader("Command Name", "Frequency"));
+            for (Map.Entry<String, Integer> entry : cmdFreqTable.entrySet()) {
                 String commandName = entry.getKey();
                 String frequency = entry.getValue().toString();
-                csvPrinter.printRecord(commandName , frequency );
+                csvPrinter.printRecord(commandName, frequency);
             }
             csvPrinter.flush();
         } catch (IOException e) {

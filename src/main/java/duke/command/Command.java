@@ -31,7 +31,8 @@ public abstract class Command {
      */
     public abstract void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
                                  PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                                 PatientStorage patientStorage , CmdFreqStorage cmdFreqStorage ,CommandManager commandManager) throws DukeException;
+                                 PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
+                                 CommandManager commandManager) throws DukeException;
 
     /**
      * Decide whether duke should exist.
