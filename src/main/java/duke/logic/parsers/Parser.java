@@ -69,7 +69,7 @@ public class Parser {
             return new FindPathCommand(getWord(input), getHolidayIndexInList(1, input),
                     getHolidayIndexInList(2, input));
         case "recommend":
-            return new RecommendationsCommand(getWord(input));
+            return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);
         case "cancel":
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
