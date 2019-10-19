@@ -14,15 +14,15 @@
     </icons>
     <scene>
         <Scene>
-            <BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="1100.0">
+            <BorderPane prefHeight="600.0" prefWidth="1100.0">
                 <children>
                 </children>
                 <right>
-                    <AnchorPane fx:id="commandWindowPlaceholder" prefHeight="600.0" prefWidth="400.0"
+                    <AnchorPane fx:id="commandWindowHolder" prefHeight="600.0" prefWidth="400.0"
                                 BorderPane.alignment="CENTER"/>
                 </right>
                 <center>
-                    <TabPane fx:id="contextWindowPlaceholder" prefHeight="600.0" prefWidth="700.0"
+                    <TabPane fx:id="contextWindowHolder" prefHeight="600.0" prefWidth="700.0"
                              tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     </TabPane>
                 </center>

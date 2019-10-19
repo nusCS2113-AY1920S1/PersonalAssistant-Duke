@@ -1,12 +1,12 @@
 package duke;
 
-import duke.exception.DukeFatalException;
-import duke.exception.DukeResetException;
 import duke.data.GsonStorage;
 import duke.data.PatientMap;
-import duke.gui.Ui;
-import duke.gui.UiManager;
 import duke.data.TaskList;
+import duke.exception.DukeFatalException;
+import duke.exception.DukeResetException;
+import duke.ui.Ui;
+import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,30 +14,37 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Launching point for Dr. Duke. Contains the core which holds the UI manager, storage, and task list.
+ * Main class of the application.
+ * The core of Dr. Duke, which holds the UI and storage.
  */
 public class DukeCore extends Application {
     private static final String FILE_PATH = "data" + File.separator + "patients.json";
 
-    public GsonStorage storage;
-    public TaskList taskList = null; //deprecated
-    public PatientMap patientMap;
     public Ui ui;
-
-    public String context;
+    public GsonStorage storage;
+    public PatientMap patientMap;
+    public TaskList taskList = null; //deprecated
 
     /**
-     * Construct a DukeCore object.
+     * Entry point into the application.
+     *
+     * @param args Supplied command-line arguments.
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    /**
+     * Constructs a DukeCore object.
      */
     public DukeCore() {
         ui = new UiManager(this);
-        context = "Home";
 
         try {
             try {
                 storage = new GsonStorage(FILE_PATH);
                 patientMap = new PatientMap(storage);
-            } catch (DukeResetException excp) {
+            } catch (DukeResetException e) {
                 // Reset data file
                 patientMap = storage.resetAllData();
             }
@@ -47,20 +54,18 @@ public class DukeCore extends Application {
     }
 
     /**
-     * Main function.
-     *
-     * @param args Arguments.
+     * {@inheritDoc}
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stop() {
+        // TODO: Terminate application gracefully
     }
 }
