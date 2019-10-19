@@ -81,6 +81,8 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        this.popUp.setVisible(false);
+
         this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 autocomplete();
@@ -159,6 +161,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    //@@author liujiajun
     private void autocomplete() {
         if (logic.isAutoCompletable(new AutoCompleter.UserInputState(
                 userInput.getText(),
@@ -169,6 +172,7 @@ public class MainWindow extends UiPart<Stage> {
             this.userInput.positionCaret(newState.caretPosition);
         }
     }
+    //@@author
 
     /**
      * Hides the pop up bar.

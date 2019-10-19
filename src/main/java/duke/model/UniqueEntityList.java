@@ -129,18 +129,4 @@ public class UniqueEntityList<T> implements Iterable<T> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
-    /**
-     * Returns true if {@code items} contains only unique items.
-     */
-    private boolean itemsAreUnique(List<T> items) {
-        for (int i = 0; i < items.size() - 1; i++) {
-            for (int j = i + 1; j < items.size(); j++) {
-                if (items.get(i).equals(items.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

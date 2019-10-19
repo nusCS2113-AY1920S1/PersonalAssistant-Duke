@@ -9,7 +9,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.util.*;
-
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -40,6 +39,9 @@ public class Order {
                  ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items, total, inventory);
 
+        this.id = generateId();
+        this.creationDate = generateCreationDate();
+
         this.customer = customer;
         this.deliveryDate = deliveryDate;
         this.status = status;
@@ -48,9 +50,6 @@ public class Order {
         this.total = total;
 
         this.isIngredientEnough = new SimpleBooleanProperty();
-
-        this.id = generateId();
-        this.creationDate = Calendar.getInstance().getTime();
 
         updateIsIngredientEnough(inventory);
 
@@ -108,49 +107,62 @@ public class Order {
         return System.currentTimeMillis();
     }
 
+
+    private Date generateCreationDate() {
+        return Calendar.getInstance().getTime();
+    }
+
+
+    /**
+     * Updates the {@code isIngredientEnough} property based on {@code inventory}.
+     */
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
 
-        Map<Ingredient, Double> requiredIngredientAmount = new HashMap<>();
+        //Key: the ingredient needed;
+        //Value: Amount needed for that ingredient
+        Map<Ingredient, Double> requiredIngredients = new HashMap<>();
+
+        //Iterate through all items in the order and compute ingredients needed
         for (Item<Product> productItem : items) {
+            double numberOfCopies = productItem.getQuantity().getNumber();
             for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
-                if (requiredIngredientAmount.containsKey(ingredientItem.getItem())) {
-                    requiredIngredientAmount.put(
-                            ingredientItem.getItem(),
-                        requiredIngredientAmount.get(ingredientItem.getItem())
-                            + ingredientItem.getQuantity().getNumber() * productItem.getQuantity().getNumber()
-                    );
-                } else {
-                    requiredIngredientAmount.put(
-                            ingredientItem.getItem(),
-                        ingredientItem.getQuantity().getNumber() * productItem.getQuantity().getNumber()
-                    );
-                }
+                Ingredient ingredientNeeded = ingredientItem.getItem();
+                Double amountNeeded = ingredientItem.getQuantity().getNumber();
+
+                //The amount of an ingredient required by an order item =
+                //the amount of that ingredient required to make one copy of that item * number of copies in the order.
+                //For example, if 2 units of milk are needed to make one cheese cake,
+                // and the order contains 5 cheese cakes,
+                //then milk needed for cheese cake = 2 * 5 = 10.
+                requiredIngredients.computeIfPresent(ingredientNeeded, (k, v) -> v + amountNeeded * numberOfCopies);
+                requiredIngredients.putIfAbsent(ingredientNeeded, amountNeeded * numberOfCopies);
             }
         }
 
-        //TODO: REMOVE IO codes
         isIngredientEnough.setValue(true);
-        for (Map.Entry<Ingredient, Double> entry : requiredIngredientAmount.entrySet()) {
-            //System.out.println("I need " + entry.getKey().name + " " + entry.getValue().toString());
+
+        //Iterate through all ingredients needed.
+        requiredIngredients.forEach((requiredIngredient, requiredAmount) -> {
             boolean isFound = false;
+            //Iterate through inventory to find the required ingredient.
             for (Item<Ingredient> ingredientItem : inventory) {
-                //System.out.println("Inv: "+ ingredientItem.getItem().name + " " + ingredientItem.getQuantity().getNumber());
-                if (ingredientItem.getItem().equals(entry.getKey())) {
-                    //System.out.println("222");
+                Ingredient inventoryIngredient = ingredientItem.getItem();
+                double inventoryAmount = ingredientItem.getQuantity().getNumber();
+                if (requiredIngredient.equals(inventoryIngredient)) {
                     isFound = true;
-                    if (entry.getValue() > ingredientItem.getQuantity().getNumber()) {
-                        //System.out.println("111");
+                    if (requiredAmount > inventoryAmount) {
                         isIngredientEnough.setValue(false);
                         break;
                     }
                 }
             }
+
+            //If ingredient needed is not in inventory
             if (!isFound) {
                 isIngredientEnough.setValue(false);
             }
-        }
-        //System.out.println("Hi, " + isIngredientEnough);
+        });
     }
 
     @Override

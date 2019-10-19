@@ -79,7 +79,7 @@ public class CompleteOrderCommand extends OrderCommand {
     }
 
     /**
-     * Deducts the amount of ingredients used in this {@code order} from inventory.
+     * Deducts the amount of ingredients used in this {@code order} from inventory in {@code model}.
      * If ingredients in inventory are not enough, deducts to zero.
      *
      * @return true if ingredients in inventory are enough.
