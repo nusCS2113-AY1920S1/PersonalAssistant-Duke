@@ -5,11 +5,9 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.note.EditNoteCommand;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
