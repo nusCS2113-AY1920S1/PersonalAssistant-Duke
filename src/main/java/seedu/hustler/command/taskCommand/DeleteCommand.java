@@ -35,7 +35,11 @@ public class DeleteCommand extends Command {
             return;
         }
         ParserForCommand doneParser = new ParserForCommand("delete");
-        int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
-        Hustler.list.removeTask(taskIndex);
+        if (userInput[1].equals("all")) {
+            Hustler.list.clearList();
+        } else {
+            int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
+            Hustler.list.removeTask(taskIndex);
+        }
     }
 }

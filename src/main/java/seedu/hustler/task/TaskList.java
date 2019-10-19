@@ -280,6 +280,22 @@ public class TaskList {
     }
 
     /**
+     * Clears all the tasks in the task list.
+     */
+    public void clearList() {
+        if (list.isEmpty()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tNothing to be cleared! Task list is already empty!");
+            System.out.println("\t_____________________________________");
+        } else {
+            list.clear();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
+            System.out.println("\t_____________________________________");
+        }
+    }
+
+    /**
      * Snoozes task at index.
      *
      * @param i index at which task is snoozed.
