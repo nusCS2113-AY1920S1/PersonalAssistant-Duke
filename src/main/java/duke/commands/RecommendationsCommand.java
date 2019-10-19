@@ -31,7 +31,7 @@ public class RecommendationsCommand extends Command {
                 + days + " days:\n");
 
         int numDays = Integer.parseInt(days);
-        
+
 //        assert (!list.isEmpty());
 
         try{
