@@ -174,12 +174,12 @@ If you follow what the errors tell you to fix in your command, you can get the p
 === `ModBadRequestStatus`
 This error appears when there is bad internet connection. The information from the nusMods V2 API is not fully fetched.
 
-Example of error message:`Error: Bad Status Connection!`
+Example of error message: `Error: Bad Status Connection!`
 
 === `ModFailedJsonException`
 This error appears when the file from the nusMods V2 API is not correctly converted for Java usage.
 
-Example of error message:`Error: Failed to parse data file!`
+Example of error message: `Error: Failed to parse data file!`
 
 === `ModNotFoundException`
 This error appears when the user searches for a module code that is not found in the nusMod list.
@@ -194,7 +194,7 @@ image::ModCommandException.png[width="250"]
 === `ModCcaScheduleException`
 This error appears when the user inputs a CCA whose time period clashes with another CCA.
 
-Example of error message:`Error: This CCA clashes with existing CCAs!`
+Example of error message: `Error: This CCA clashes with existing CCAs!`
 
 == FAQ
 
