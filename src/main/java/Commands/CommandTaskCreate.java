@@ -1,8 +1,11 @@
 package Commands;
 
 import Farmio.Farmio;
+import Farmio.Storage;
+import Farmio.Farmer;
 import Exceptions.FarmioException;
 import FrontEnd.Simulation;
+import FrontEnd.Ui;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 import UserCode.Tasks.*;
@@ -22,6 +25,9 @@ public class CommandTaskCreate extends Command {
 
     @Override
     public void execute(Farmio farmio) throws FarmioException {
+        Ui ui = farmio.getUi();
+        Storage storage = farmio.getStorage();
+        Farmer farmer = farmio.getFarmer();
         try {
             Task task;
             switch (taskType) {
@@ -39,9 +45,9 @@ public class CommandTaskCreate extends Command {
                 default:
                     throw new FarmioException("Error Creating Task!");
             }
-            farmio.getFarmer().getTasks().addTask(task);
-            new Simulation("TaskCreate", farmio).animate(0);
-            farmio.getUi().showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmio.getFarmer().getTasks().size() + " tasks!");
+            farmer.getTasks().addTask(task);
+            Simulation.animate(ui, storage, farmer, "TaskCreate", 0);
+            ui.showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmer.getTasks().size() + " tasks!");
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }

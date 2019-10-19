@@ -9,7 +9,7 @@ class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase();
         if (userInput.equals("exit")) {
-            return new ExitCommand();
+            return new CommandGameQuit();
         }
         switch (stage) {
             case WELCOME:

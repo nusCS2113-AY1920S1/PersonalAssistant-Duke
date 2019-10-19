@@ -74,6 +74,52 @@ public class Storage {
         return art.toString();
     }
 
+    public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight) throws FarmioFatalException {
+        path = "asciiArt/" + path + "/frame" + frameId + ".txt";
+        FileReader fileReader;
+        try {
+            fileReader = new FileReader(getResourceFile(path));
+        } catch (FileNotFoundException | FarmioFatalException e) {
+            throw new FarmioFatalException(formatFatalMessage(path));
+        }
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line;
+        ArrayList<String> frame = new ArrayList<>();
+        while (true) {
+            try {
+                if ((line = bufferedReader.readLine()) == null) break;
+            } catch (IOException e) {
+                throw new FarmioFatalException(formatFatalMessage(path));
+            }
+            if (line.length() <= frameWidth) {
+                line = String.format("%-" + frameWidth + "s", line);
+            } else {
+                line = String.format("%" + frameWidth + "s", "");
+            }
+            frame.add(
+                    "|" +
+                    AsciiColours.BACKGROUND_WHITE +
+                    AsciiColours.BLACK +
+                    line +
+                    AsciiColours.SANE +
+                    "|"
+            );
+        }
+        if (frame.size() < frameHeight) {
+            for (int i = frame.size(); i < frameHeight; i++) {
+                frame.add(
+                        "|" +
+                        AsciiColours.BACKGROUND_WHITE +
+                        AsciiColours.BLACK +
+                        String.format("%" + frameWidth + "s", "") +
+                        AsciiColours.SANE +
+                        "|"
+                );
+            }
+        }
+        return frame;
+    }
+
     public JSONObject getLevel(int level) throws FarmioFatalException {
         String path = "levels/" + level + ".json";
         Reader reader;
@@ -99,7 +145,7 @@ public class Storage {
         return new File(resource.getFile());
     }
 
-    private String formatFatalMessage(String path){
+    private String formatFatalMessage(String path) {
         return "\"" + path + "\" not found!";
     }
 }

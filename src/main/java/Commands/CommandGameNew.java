@@ -4,18 +4,19 @@ import Exceptions.FarmioFatalException;
 import Farmio.Farmer;
 import Farmio.Farmio;
 import Farmio.Level;
+import Farmio.Storage;
 import Exceptions.FarmioException;
 import FrontEnd.Simulation;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
+import FrontEnd.Ui;
 
 public class CommandGameNew extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
+        Ui ui = farmio.getUi();
+        Storage storage = farmio.getStorage();
         farmio.setFarmer(new Farmer());
-        farmio.setLevel(new Level(farmio.getStorage().getLevel(1), farmio.getFarmer()));
-        new Simulation("GameNew", farmio.getUi()).animate(0);
+        farmio.setLevel(new Level(storage.getLevel(1), farmio.getFarmer()));
+        Simulation.animate(ui, storage, "GameNew", 0);
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }

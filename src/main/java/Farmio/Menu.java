@@ -1,5 +1,6 @@
 package Farmio;
 
+import Exceptions.FarmioFatalException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
@@ -8,7 +9,7 @@ import java.io.IOException;
 public class Menu {
     private static final String ART_NAME = "menu";
     private static final String BULLET = "\t\u2022 ";
-    public static void show(Ui ui, Storage storage, boolean resume){
+    public static void show(Ui ui, Storage storage, boolean resume) throws FarmioFatalException {
 //        ui.clearScreen();
 //        ui.show("Loading...");
 //        StringBuilder menu = new StringBuilder();
@@ -34,20 +35,19 @@ public class Menu {
 //        menu.append("Quit Game");
 //        ui.clearScreen();
 //        ui.show(menu.toString());
-        Simulation menuSimulation = new Simulation("Menu", ui);
         if(resume && storage.getSaveExist()) { //resume, save and load
-            menuSimulation.animate(2);
+            Simulation.animate(ui, storage, "menu", 2);
             return;
         }
         if(resume){ //resume and save
-            menuSimulation.animate(4);
+            Simulation.animate(ui, storage, "menu", 4);
             return;
         }
         if(storage.getSaveExist()){ //load
-            menuSimulation.animate(3);
+            Simulation.animate(ui, storage, "menu", 3);
             return;
         }
-        menuSimulation.animate(0); //only new and quit
+        Simulation.animate(ui, storage, "menu", 0); //only new and quit
     }
 
     public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){
