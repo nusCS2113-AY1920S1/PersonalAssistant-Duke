@@ -1,38 +1,25 @@
 package compal.model.tasks;
 
-import compal.commons.Compal;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Date;
 
-import static compal.commons.Messages.MESSAGE_INVALID_TASK_ID;
-
 
 public class TaskList {
 
-    //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    public ArrayList<Task> arrlist;
-    public Compal compal;
+    private ArrayList<Task> arrlist;
     private BitSet idBitSet;
 
-    //----------------------->
-    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * Constructs TaskList object.
-     *
-     * @param d Compal.
      */
-    public TaskList(Compal d) {
-        this.compal = d;
+    public TaskList() {
         BitSet bs = readIdBitSet();
         if (bs != null) {
             idBitSet = (BitSet) readIdBitSet().clone();
@@ -40,8 +27,16 @@ public class TaskList {
             System.out.println("TaskList:LOG: No saved idbitset found");
             idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits (hard limit of no. of tasks)
         }
-
     }
+
+    public ArrayList<Task> getArrList() {
+        return this.arrlist;
+    }
+
+    public void setArrList(ArrayList<Task> arrlist) {
+        this.arrlist = arrlist;
+    }
+
 
     //----------------------->
 
@@ -57,7 +52,6 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      */
     public void addTask(Task task) {
-
         //generate unique ID for task
         int taskID;
         for (int i = 0; i < 1000000; i++) { //search for an unused task ID
@@ -71,49 +65,47 @@ public class TaskList {
             }
         }
 
-
         arrlist.add(task);
         sortTask(arrlist);
-        compal.taskStorage.saveData(arrlist);
         /*if (compal.ui.dateState.equals(task.getStringDate())) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }*/
-        if (!task.getSymbol().equals("D")) {
+        /*if (!task.getSymbol().equals("D")) {
             compal.ui.dateViewRefresh(task.getStringDate());
-        }
-        compal.ui.secondaryScreenRefresh(task.getDate());
 
-        compal.ui.showSize();
+        }*/
+        //compal.ui.secondaryScreenRefresh(task.getDate());
+
+        //compal.ui.showSize();
     }
 
 
     /**
      * Returns a task that has an id value of id.
      */
-    public Task getTaskById(int id) throws Compal.DukeException {
+    public Task getTaskById(int id) {
 
         //search for task with id of id
-        for (Task t:arrlist) {
+        for (Task t : arrlist) {
             if (t.getId() == id) {
                 return t;
             }
         }
-        throw new Compal.DukeException(MESSAGE_INVALID_TASK_ID);
-
+        throw null;
     }
 
     /**
      * Removes a task that has an id value of id.
      */
-    public Task removeTaskById(int id) throws Compal.DukeException {
+    public Task removeTaskById(int id) {
 
         //search for task with id of id
-        for (Task t:arrlist) {
+        for (Task t : arrlist) {
             if (t.getId() == id) {
                 arrlist.remove(t);
             }
         }
-        throw new Compal.DukeException(MESSAGE_INVALID_TASK_ID);
+        throw null;
 
     }
 
@@ -127,6 +119,7 @@ public class TaskList {
 
     /**
      * Clears the current id for future tasks to use (used in deletion of tasks).
+     *
      * @param id task id
      */
     public void unsetId(int id) {
@@ -134,7 +127,9 @@ public class TaskList {
         idBitSet.clear(id);
     }
 
-
+    public ArrayList<Task> returnTaskList() {
+        return this.arrlist;
+    }
 
     /**
      * Sorts all the tasks in arrlist by date.
@@ -191,8 +186,6 @@ public class TaskList {
 
 
     }
-
-
 
 
     /**

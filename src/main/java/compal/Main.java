@@ -1,9 +1,8 @@
 package compal;
 
-import compal.commons.Compal;
 import compal.ui.Ui;
 import compal.ui.UiManager;
-
+import compal.ui.UiUtil;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,9 +10,17 @@ import javafx.stage.Stage;
  * Initializes GUI.
  */
 public class Main extends Application {
-    //Class Properties/Variables
 
-    private Compal compal = new Compal();
+    private Ui ui;
+
+
+    /**
+     * Constructs a new Main object.
+     */
+    public Main() {
+        UiUtil uiUtil = new UiUtil();
+        this.ui = new UiManager(uiUtil);
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -21,14 +28,11 @@ public class Main extends Application {
 
     /**
      * Initializes and sets up the GUI.
-     * Pulls layout from file MainWindow.fxml.
      *
      * @param primaryStage The stage for GUI.
-     * @throws Exception If there is GUI problems.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Ui ui = new UiManager(compal);
+    public void start(Stage primaryStage) {
         ui.start(primaryStage);
     }
 }

@@ -1,9 +1,5 @@
 package compal.storage;
 
-import compal.model.tasks.AcadTask;
-import compal.model.tasks.Deadline;
-import compal.model.tasks.Event;
-import compal.model.tasks.RecurringTask;
 import compal.model.tasks.Task;
 
 import java.io.BufferedReader;
@@ -18,18 +14,34 @@ import java.util.ArrayList;
  * Represents file used to store COMPal.
  */
 public class TaskStorageManager implements Storage<ArrayList<Task>> {
-    TaskStorageParser tsp;
-    String taskStorageFilePath;
+
+    public static final String MESSAGE_ERROR_MK_FILE = "Error when trying to creating file.";
+    public static final String DEFAULT_STORAGE = "./tasks.txt";
+
+    private TaskStorageParser tsp;
 
     /**
      * Prints message of storage initialized.
      */
-    public TaskStorageManager(String filePath) {
+    public TaskStorageManager() {
+        createFile();
         tsp = new TaskStorageParser();
-        taskStorageFilePath = filePath;
-        System.out.println("TaskStorageManager:LOG: Storage Initialized!");
     }
 
+
+    /**
+     * Creates the directory for storing data if it does not exist.
+     */
+    public void createFile() {
+        File file = new File(DEFAULT_STORAGE);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException se) {
+                System.out.println(MESSAGE_ERROR_MK_FILE);
+            }
+        }
+    }
 
     /**
      * Creates and loads task objects based on save text file into arraylist, then returns the arraylist.
@@ -41,12 +53,11 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
     public ArrayList<Task> loadData() {
         ArrayList<Task> tempList = new ArrayList<>();
         try {
-            File f = new File(taskStorageFilePath);
+            File f = new File(DEFAULT_STORAGE);
             BufferedReader br = new BufferedReader(new FileReader(f));
             String st;
             while ((st = br.readLine()) != null) {
                 Task t;
-                System.out.println("TaskStorageManager:LOG: Task read:" + st);
                 String[] parts = st.split("_");
 
                 //check if it is a valid task read
@@ -61,7 +72,7 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
                     t.markAsDone();
                 }
                 if (parts[8].equals("true")) {
-                    t.setHasReminder();
+                    t.setHasReminder(true);
                 }
 
                 //set task id
@@ -79,8 +90,6 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
     }
 
 
-
-
     /**
      * Saves ArrayList of tasks into file.
      *
@@ -95,7 +104,7 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
             sb.append("\n");
         }
         try {
-            File f = new File(taskStorageFilePath);
+            File f = new File(DEFAULT_STORAGE);
             PrintWriter pw = new PrintWriter(f);
             pw.printf("%s\n", sb);
             pw.close();
@@ -105,9 +114,6 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
 
 
     }
-
-
-
 
 
 }

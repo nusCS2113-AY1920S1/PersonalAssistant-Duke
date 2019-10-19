@@ -1,12 +1,17 @@
 package compal.ui;
 
-import compal.commons.Compal;
-
-import java.text.ParseException;
-
+import compal.logic.LogicManager;
+import compal.logic.command.exceptions.CommandException;
+import compal.logic.parser.exceptions.ParserException;
+import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
+import compal.storage.TaskStorageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 /**
  * Handles GUI.
@@ -14,28 +19,24 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MainWindow extends AnchorPane {
     //Class Properties/Variables
+    public static final String MESSAGE_EMPTY_INPUT = "Empty Input: Empty input detected!";
+    private LogicManager logicManager;
+    private TaskStorageManager taskStorageManager;
+
+    private ArrayList<Task> taskArrList;
+    private TaskList taskList;
+
     @FXML
     private TextField userInput;
 
-
-    @FXML
-    private Compal compal;
-
     /**
-     * Prints initialization message.
+     * Main window constructor.
      */
-    @FXML
-    public void initialize() {
-        System.out.println("MainWindow:LOG: Controller Class Initialized");
-    }
+    public MainWindow() {
+        this.taskStorageManager = new TaskStorageManager();
+        this.logicManager = new LogicManager();
+        this.taskArrList = new ArrayList<>();
 
-    /**
-     * Initializes Compal.
-     *
-     * @param d Compal object.
-     */
-    public void setCompal(Compal d) {
-        compal = d;
     }
 
     /**
@@ -43,11 +44,20 @@ public class MainWindow extends AnchorPane {
      * Called by the enter button inside MainWindow.fxml.
      */
     @FXML
-    private void handleUserInput() throws ParseException, Compal.DukeException {
+    private void handleUserInput() throws ParserException, CommandException, ParseException {
         String cmd = userInput.getText();
-        //send to parser to parse
-        compal.parser.processCmd(cmd);
+        if (cmd.isEmpty()) {
+            throw new ParserException(MESSAGE_EMPTY_INPUT);
+        }
+        init();
+        logicManager.logicExecute(cmd, taskList);
         userInput.clear();
+    }
+
+    private void init() {
+        taskArrList = taskStorageManager.loadData();
+        this.taskList = new TaskList();
+        this.taskList.setArrList(taskArrList);
     }
 
 

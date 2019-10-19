@@ -3,6 +3,7 @@ package compal.model.tasks;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -48,18 +49,6 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Gets/returns task id.
-     *
-     */
-    public int getId() {
-        return id;
-    }
-
-
-
-
-
-    /**
      * Sets priority of task as HIGH, MEDIUM or LOW.
      *
      * @param priority Priority of task.
@@ -68,10 +57,15 @@ public abstract class Task implements Serializable {
         this.priority = priority;
     }
 
+    /**
+     * Gets/returns task id.
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
      * Sets task id.
-     *
      */
     public void setId(int id) {
         this.id = id;
@@ -87,12 +81,21 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Gets status icon (tick or cross) of task.
+     * Gets status icon (tick or cross) of task in String.
      *
      * @return Status icon (tick or cross) of task.
      */
-    public String getisDone() {
+    public String getStringisDone() {
         return (isDone ? "true" : "false");
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task in Boolean.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public Boolean getisDone() {
+        return (isDone ? true : false);
     }
 
     /**
@@ -100,7 +103,16 @@ public abstract class Task implements Serializable {
      *
      * @return Status icon (tick or cross) of task.
      */
-    public String gethasReminder() {
+    public Boolean gethasReminder() {
+        return (hasReminder ? true : false);
+    }
+
+    /**
+     * Gets status icon (tick or cross) of task.
+     *
+     * @return Status icon (tick or cross) of task.
+     */
+    public String getStringhasReminder() {
         return (hasReminder ? "true" : "false");
     }
 
@@ -228,6 +240,13 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets the description of task.
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Gets priorityScore.
      *
      * @return priority score
@@ -244,10 +263,10 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets HasReminder as true.
+     * Sets HasReminder.
      */
-    public void setHasReminder() {
-        this.hasReminder = true;
+    public void setHasReminder(Boolean status) {
+        this.hasReminder = status;
     }
 
     /**
@@ -294,7 +313,7 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getDescription());
         list.append("_");
-        list.append(getisDone());
+        list.append(getStringisDone());
         list.append("_");
         list.append(getPriority().toString());
         list.append("_");
@@ -304,7 +323,7 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringEndTime());
         list.append("_");
-        list.append(gethasReminder());
+        list.append(getStringhasReminder());
         return list.toString();
     }
 
@@ -340,14 +359,20 @@ public abstract class Task implements Serializable {
         this.priorityScore = score;
     }
 
-
     /**
      * Gets the end time for the task.
      *
      * @return date end time
      */
     public Date getEndTime() {
-        return endTime;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String endTime = getStringEndTime();
+        int hour = Integer.parseInt(endTime.substring(0, 2));
+        int min = Integer.parseInt(endTime.substring(2, 4));
+        calendar.set(Calendar.HOUR, hour);
+        calendar.set(Calendar.MINUTE, min);
+        return calendar.getTime();
     }
 
     /**
@@ -382,14 +407,55 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Sets the description of task.
-     *
+     * Create string of date and start time.
+     * @return string object of date and start time.
      */
-    public void setDescription(String newDescription) {
-        this.description = newDescription;
+    public String getStringDateAndStartTime() {
+        return getStringDate() + " " + getStringStartTime();
+    }
+
+    /**
+     * Create a string of date and end time.
+     * @return string object of date and end time.
+     */
+    public String getStringDateAndEndTime() {
+        return getStringDate() + " " + getStringEndTime();
+    }
+
+
+    /**
+     * Create a date object of date and start time.
+     * @return date object of formatted time.
+     */
+    public Date getDateObgDateAndStartTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        try {
+            Date date = sdf.parse(getStringDateAndStartTime());
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Create a date object of date and end time.
+     * @return date object of formatted time.
+     */
+    public Date getDateObgDateAndEndTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        try {
+            Date date = sdf.parse(getStringDateAndEndTime());
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public enum Priority {
-        high, medium, low;
+        high, medium, low
     }
+
+
 }
