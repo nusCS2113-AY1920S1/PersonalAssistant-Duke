@@ -1,4 +1,4 @@
-package duke.storage.recipe;
+package duke.storage.decrpted;
 
 import duke.model.product.Product;
 

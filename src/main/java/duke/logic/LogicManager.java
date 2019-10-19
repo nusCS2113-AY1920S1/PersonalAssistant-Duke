@@ -20,19 +20,21 @@ import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.sale.Sale;
 import duke.model.product.Product;
-import duke.storage.Storage;
+import duke.storage.BakingHomeStorage;
 import javafx.collections.ObservableList;
+
+import java.io.IOException;
 
 public class LogicManager implements Logic {
     private final Model model;
-    private final Storage storage;
+    private final BakingHomeStorage storage;
     private final BakingHomeParser bakingHomeParser;
     private final AutoCompleter autoCompleter;
 
     /**
      * Creates a logic manager.
      */
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, BakingHomeStorage storage) {
         this.model = model;
         this.storage = storage;
         this.bakingHomeParser = new BakingHomeParser();
@@ -46,11 +48,11 @@ public class LogicManager implements Logic {
         Command command = bakingHomeParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-//        try {
-//            storage.saveAddressBook(model.getAddressBook());
-//        } catch (IOException ioe) {
-//            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-//        }
+        try {
+            storage.saveBakingHome(model.getBakingHome());
+        } catch (IOException ioe) {
+            throw new CommandException(ioe.getMessage(), ioe);
+        }
 
         return commandResult;
     }

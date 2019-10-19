@@ -28,16 +28,15 @@ public class Order {
     private final Status status;
     private final double total;
 
-    private BooleanProperty isIngredientEnough;
+    private BooleanProperty isIngredientEnough = new SimpleBooleanProperty();
 
     /**
      * Creates an order.
      * Every field must be present and not null.
      */
     public Order(Customer customer, Date deliveryDate, Status status,
-                 String remarks, Set<Item<Product>> items, double total,
-                 ObservableList<Item<Ingredient>> inventory) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, items, total, inventory);
+                 String remarks, Set<Item<Product>> items, double total) {
+        requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
 
         this.id = generateId();
         this.creationDate = generateCreationDate();
@@ -48,11 +47,33 @@ public class Order {
         this.remarks = remarks;
         this.items = items;
         this.total = total;
+    }
+
+    /**
+     * Creates an order.
+     * Every field must be present and not null.
+     */
+    public Order(Customer customer, Date deliveryDate, Status status,
+                 String remarks, Set<Item<Product>> items, double total,
+                 Long id, Date creationDate) {
+        requireAllNonNull(customer, deliveryDate, status, remarks, items, total, id);
+
+        this.id = id;
+        this.creationDate = creationDate;
+
+        this.customer = customer;
+        this.deliveryDate = deliveryDate;
+        this.status = status;
+        this.remarks = remarks;
+        this.items = items;
+        this.total = total;
 
         this.isIngredientEnough = new SimpleBooleanProperty();
+    }
 
+    public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
         updateIsIngredientEnough(inventory);
-
+        System.out.println("updating");
         inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
     }
 
@@ -116,6 +137,7 @@ public class Order {
     /**
      * Updates the {@code isIngredientEnough} property based on {@code inventory}.
      */
+    //TODO: Remove IO
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
 
@@ -140,6 +162,18 @@ public class Order {
             }
         }
 
+//        System.out.println("required");
+//        requiredIngredients.forEach((k,v) ->
+//        {
+//            System.out.println(k.name + " " + v);
+//        });
+//        System.out.println("have");
+//        for (Item<Ingredient> ingredientItem : inventory) {
+//            Ingredient inventoryIngredient = ingredientItem.getItem();
+//            double inventoryAmount = ingredientItem.getQuantity().getNumber();
+//            System.out.println(ingredientItem.getItem().name + " " + inventoryAmount);
+//        }
+
         isIngredientEnough.setValue(true);
 
         //Iterate through all ingredients needed.
@@ -163,6 +197,9 @@ public class Order {
                 isIngredientEnough.setValue(false);
             }
         });
+
+//        System.out.println(isIngredientEnough);
+//        System.out.println("---");
     }
 
     @Override
