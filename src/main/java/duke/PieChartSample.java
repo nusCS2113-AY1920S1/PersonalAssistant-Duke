@@ -10,6 +10,7 @@ import javafx.scene.chart.PieChart;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class PieChartSample extends Application {
@@ -48,10 +49,12 @@ public class PieChartSample extends Application {
     }
 
     private void getTags() {
+        tags = new HashSet<String>();
         for (Expense expense: duke.expenseList.getExternalList()) {
             String[] tagsString = expense.getTagsString().split(" ");
             if(tagsString.length > 0) {
                 tags.addAll(Arrays.asList(tagsString));
+
             }
         }
     }
