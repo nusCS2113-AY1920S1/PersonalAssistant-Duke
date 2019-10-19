@@ -33,8 +33,22 @@ public abstract class Transaction {
         this.category = category;
     }
 
+    /**
+     * Sets the spent flag for this transaction.
+     *
+     * @param spent The flag of whether the transaction is deducting from bank amount.
+     */
     void setSpent(boolean spent) {
         this.spent = spent;
+    }
+
+    /**
+     * Gets the spent flag for this transaction.
+     *
+     * @return True if transaction deducts from bank amount.
+     */
+    boolean getSpent() {
+        return this.spent;
     }
 
     /**
@@ -74,6 +88,11 @@ public abstract class Transaction {
         return this.category;
     }
 
+    /**
+     * Checks if it is a + or - to bank amount.
+     *
+     * @return Plus if adds bank amount, minus if deducts bank amount.
+     */
     String checkDebitCredit() {
         if (!this.spent) {
             return "[+] $";
