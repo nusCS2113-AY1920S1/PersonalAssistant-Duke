@@ -1,9 +1,0 @@
-I | 10000.0 | checc | 12/12/2022 1200
-I | 10000.0 | bbbbcc | 12/12/2022 1200
-BU | 1000.0 | WEEKLY
-BU | 100.0 | MONTHLY
-O | yaya | 1000.0 | shushu
-B | bab | 20000.0 | yuyu
-O | baba | 1000.0 | sushi
-B | dolla | 10000.0 | bushi
-O | yala | 1000.0 | shushu
