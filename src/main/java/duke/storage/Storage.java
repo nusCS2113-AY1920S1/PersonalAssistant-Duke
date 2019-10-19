@@ -24,15 +24,12 @@ import java.util.ArrayList;
  */
 public class Storage {
     //protected String filePath = "./";
-    protected String filePath = "";
+    protected String filePath = "";   //27-28, 36-43
     String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
-
-
-
 
     /**
      * Creates a storage with a specified filePath.
@@ -48,7 +45,6 @@ public class Storage {
                 break;
             }
         }
-        //System.out.println(this.filePath);
         this.filePath += filePath;
     }
 

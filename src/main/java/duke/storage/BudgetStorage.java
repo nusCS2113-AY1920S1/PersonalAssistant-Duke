@@ -15,7 +15,6 @@ public class BudgetStorage {
     protected String filePath = "";
     String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
-
     /**
      * Creates a storage with path pointing to the file in the system.
      *

@@ -1,15 +1,15 @@
 package duke.ui;
 
-import duke.task.PriorityList;
 import duke.task.ContactList;
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
+import javafx.util.Pair;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javafx.util.Pair;
 
 /**
  * Represents a ui that informs the user.
@@ -112,13 +112,25 @@ public class Ui {
     }
 
     /**
-     * Outputs all the contacts of the contact list to the user.
+     * Outputs all the contacts of the contact list to user through CLI.
      *
      * @param contactList The list of contacts.
      */
     public void showContactList(ContactList contactList) {
         out.println("     Here are all your contacts:");
         out.print(contactList.getContactList());
+    }
+
+    /**
+     * Outputs all the contacts of the contact list to user through GUI.
+     *
+     * @param contactList The list of contacts.
+     */
+    public static String showContactListGui(ContactList contactList) {
+        String str = "";
+        str += "Here are all your contacts:\n";
+        str += contactList.getContactList();
+        return str;
     }
 
     /**
@@ -336,9 +348,11 @@ public class Ui {
     /**
      * Outputs an alert when a duplicated inout is detected.
      */
+    //@@author e0318465
     public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
     }
+    //@@author
 
     /**
      * Outputs a message to the user to let it know that it is updating.
@@ -372,6 +386,7 @@ public class Ui {
      *
      * @param contactList The list of contacts.
      */
+    //@@author e0318465
     public void showAddedContact(ContactList contactList) {
         out.println("     Got it. Contact added:");
         if (contactList.size() == ZERO) {
@@ -381,6 +396,25 @@ public class Ui {
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }
+
+    /**
+    * Show the added contacts in GUI.
+    *
+    * @param contactList The list of contacts.
+    * @return String to output list of contacts to GUI.
+     */
+    public static String showAddedContactGui(ContactList contactList) {
+        String str = "Got it. Contact added:\n";
+        if (contactList.size() == ZERO) {
+            str += "You have no contacts!";
+        } else {
+            str += contactList.get(contactList.size() - ONE);
+            str += "\nNow you have " + contactList.size() + " contacts.";
+        }
+        System.out.println("I was here");
+        return str;
+    }
+    //@@author
 
     /**
      * Shows the current budget of the user.

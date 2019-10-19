@@ -1,24 +1,26 @@
 package duke.parser;
 
-import duke.command.SetPriorityCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.DeleteCommand;
 import duke.command.Command;
-import duke.command.ListPriorityCommand;
-import duke.command.ExitCommand;
-import duke.command.BackupCommand;
-import duke.command.ListCommand;
-import duke.command.AddCommand;
-import duke.command.RemindCommand;
-import duke.command.DoneCommand;
 import duke.command.FindCommand;
-import duke.command.UpdateCommand;
+import duke.command.ListCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.DoneCommand;
+import duke.command.DeleteCommand;
+import duke.command.AddCommand;
 import duke.command.DuplicateFoundCommand;
+import duke.command.RemindCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
 import duke.command.AddContactsCommand;
 import duke.command.ListContactsCommand;
-import duke.command.AddBudgetCommand;
-import duke.command.ResetBudgetCommand;
 import duke.command.ViewBudgetCommand;
+import duke.command.ResetBudgetCommand;
+import duke.command.AddBudgetCommand;
+import duke.command.BackupCommand;
+import duke.command.UpdateCommand;
+import duke.command.ExitCommand;
+
+import duke.dukeexception.DukeException;
 
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -29,7 +31,6 @@ import duke.task.Repeat;
 import duke.task.DoAfter;
 import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
-import duke.dukeexception.DukeException;
 import duke.task.Contacts;
 import duke.task.BudgetList;
 
@@ -384,7 +385,7 @@ public class Parser {
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     }
                 }
-            }
+            }   //@@author e0318465
         } else if (arr.length > ZERO && arr[ZERO].equals("addcontact")) {
             String[] userInput = sentence.split(" ",TWO);
             String[] contactDetails = userInput[ONE].split(",");
@@ -396,7 +397,7 @@ public class Parser {
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
         } else if (sentence.equals("listcontacts")) {
-            return new ListContactsCommand();
+            return new ListContactsCommand();   //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
             try {
                 String budgetCommandString = sentence.split(" ", TWO)[ONE];

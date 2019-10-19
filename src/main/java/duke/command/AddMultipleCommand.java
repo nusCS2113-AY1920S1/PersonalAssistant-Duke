@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * Representing a command that adds multiple tasks.
  */
+//@@author e0318465
 public class AddMultipleCommand extends Command {
     protected ArrayList<Task> tasks;
 
