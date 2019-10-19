@@ -25,8 +25,8 @@ public class MyStudent implements Details {
     /**
      * Constructor for the students.
      *
-     * @param myName Name of the student
-     * @param myAge age of the student
+     * @param myName    Name of the student
+     * @param myAge     age of the student
      * @param myAddress address of the student
      */
     @SuppressWarnings("checkstyle:HiddenField")
@@ -39,6 +39,7 @@ public class MyStudent implements Details {
 
     /**
      * This method is to retrieve the name of the student.
+     *
      * @return name of student
      */
     public String getName() {
@@ -47,6 +48,7 @@ public class MyStudent implements Details {
 
     /**
      * This method is to retrieve the age of the student.
+     *
      * @return age of student
      */
     public String getAge() {
@@ -55,6 +57,7 @@ public class MyStudent implements Details {
 
     /**
      * This method is to retrieve the address of the student.
+     *
      * @return Represents the address of the student.
      */
     public String getAddress() {
@@ -109,6 +112,7 @@ public class MyStudent implements Details {
     /**
      * This method prints out the student name and their address.
      * (Or any RELEVANT details)
+     *
      * @return Represents a string containing the student details to be shown,
      * name and address.
      */

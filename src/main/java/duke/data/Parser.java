@@ -257,47 +257,47 @@ public class Parser {
                 try {
                     System.out.println(
                         "\nWhat would you like to do on " + goalDate + "?\n"
-                        + "1. View goals of the day\n"
-                        + "2. Add a goal of the day\n"
-                        + "3. Delete a goal of the day\n"
-                        + "4. Clear all goals of the day\n"
-                        + "5. Quit goal of the day");
+                            + "1. View goals of the day\n"
+                            + "2. Add a goal of the day\n"
+                            + "3. Delete a goal of the day\n"
+                            + "4. Clear all goals of the day\n"
+                            + "5. Quit goal of the day");
                     int execute_type = myGoalScan.nextInt();
                     myGoalScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     switch (execute_type) {
-                        case 1: {
-                            System.out.print(goal.viewGoal(goalDate));
-                            break;
-                        }
-                        case 2: {
-                            System.out.println("To add a goal to "
-                                + goalDate + ", enter the goal.");
-                            String myGoal = myGoalScan.nextLine();
-                            System.out.println(
-                                goal.addGoal(goalDate, myGoal, goalStorage));
-                            break;
-                        }
-                        case 3: {
-                            System.out.println("To delete a goal from "
-                                + goalDate + ", enter the goal.");
-                            String message = myGoalScan.nextLine();
-                            System.out.println(
-                                goal.removeGoal(
-                                    goalDate, message, goalStorage));
-                            break;
-                        }
-                        case 4: {
-                            System.out.println(
-                                goal.removeAllGoal(goalDate, goalStorage));
-                            break;
-                        }
-                        case 5: {
-                            isQuittingGoal = true;
-                            System.out.println(
-                                "You have quit the lesson of the day.");
-                        }
-                        default:
+                    case 1: {
+                        System.out.print(goal.viewGoal(goalDate));
+                        break;
+                    }
+                    case 2: {
+                        System.out.println("To add a goal to "
+                            + goalDate + ", enter the goal.");
+                        String myGoal = myGoalScan.nextLine();
+                        System.out.println(
+                            goal.addGoal(goalDate, myGoal, goalStorage));
+                        break;
+                    }
+                    case 3: {
+                        System.out.println("To delete a goal from "
+                            + goalDate + ", enter the goal.");
+                        String message = myGoalScan.nextLine();
+                        System.out.println(
+                            goal.removeGoal(
+                                goalDate, message, goalStorage));
+                        break;
+                    }
+                    case 4: {
+                        System.out.println(
+                            goal.removeAllGoal(goalDate, goalStorage));
+                        break;
+                    }
+                    case 5: {
+                        isQuittingGoal = true;
+                        System.out.println(
+                            "You have quit the lesson of the day.");
+                    }
+                    default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter the full command.");
@@ -306,7 +306,7 @@ public class Parser {
                         "Please enter the details in the correct format.");
                 }
             }
-                break;
+            break;
 
         /**
          * Simply type "lesson" to start it off.
@@ -326,47 +326,47 @@ public class Parser {
                 try {
                     System.out.println(
                         "\nWhat would you like to do on " + lessonDate + "?\n"
-                        + "1. View lessons of the day\n"
-                        + "2. Add a lesson of the day\n"
-                        + "3. Delete a lesson of the day\n"
-                        + "4. Clear all lessons of the day\n"
-                        + "5. Quit lesson of the day");
+                            + "1. View lessons of the day\n"
+                            + "2. Add a lesson of the day\n"
+                            + "3. Delete a lesson of the day\n"
+                            + "4. Clear all lessons of the day\n"
+                            + "5. Quit lesson of the day");
                     int execute_type = myLessonScan.nextInt();
                     myLessonScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     switch (execute_type) {
-                        case 1: {
-                            System.out.print(lesson.viewLesson(lessonDate));
-                            break;
-                        }
-                        case 2: {
-                            System.out.println("To add a lesson to "
-                                + lessonDate + ", enter the lesson.");
-                            String myLesson = myLessonScan.nextLine();
-                            System.out.println(
-                                lesson.addLesson(lessonDate, myLesson, lessonStorage));
-                            break;
-                        }
-                        case 3: {
-                            System.out.println("To delete a lesson from "
-                                + lessonDate + ", enter the lesson.");
-                            String message = myLessonScan.nextLine();
-                            System.out.println(
-                                lesson.removeLesson(
-                                    lessonDate, message, lessonStorage));
-                            break;
-                        }
-                        case 4: {
-                            System.out.println(lesson.removeAllLesson(
-                                lessonDate, lessonStorage));
-                            break;
-                        }
-                        case 5: {
-                            isQuittingLesson = true;
-                            System.out.println(
-                                "You have quit the lesson of the day.");
-                        }
-                        default:
+                    case 1: {
+                        System.out.print(lesson.viewLesson(lessonDate));
+                        break;
+                    }
+                    case 2: {
+                        System.out.println("To add a lesson to "
+                            + lessonDate + ", enter the lesson.");
+                        String myLesson = myLessonScan.nextLine();
+                        System.out.println(
+                            lesson.addLesson(lessonDate, myLesson, lessonStorage));
+                        break;
+                    }
+                    case 3: {
+                        System.out.println("To delete a lesson from "
+                            + lessonDate + ", enter the lesson.");
+                        String message = myLessonScan.nextLine();
+                        System.out.println(
+                            lesson.removeLesson(
+                                lessonDate, message, lessonStorage));
+                        break;
+                    }
+                    case 4: {
+                        System.out.println(lesson.removeAllLesson(
+                            lessonDate, lessonStorage));
+                        break;
+                    }
+                    case 5: {
+                        isQuittingLesson = true;
+                        System.out.println(
+                            "You have quit the lesson of the day.");
+                    }
+                    default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter the full command.");
@@ -377,167 +377,167 @@ public class Parser {
             }
             break;
 
-            /**
-             * View: training view [plan number]
-             * Add: training add-activity [name] [sets] [reps] [activity number]|
-             * training add-plan [plan number]
-             * Delete: training delete-all|training delete [plan number]
-             */
-            case "training":
-                switch (word[1]) {
-                    case "view":
-                        System.out.println("TBC");
-                        System.out.println(plan.viewPlan());
-                        break;
-                    case "add-plan":
-                        //pass
-                        break;
-                    case "add-activity":
-                        int num = 2;
-                        System.out.println(plan.addActivity(word[num],
-                                Integer.parseInt(word[++num]),
-                                Integer.parseInt(word[++num])));
-                        break;
-                    case "delete":
-                        System.out.println("To be added.");
-                        break;
-                    case "delete-all":
-                        System.out.println("To be added");
-                        break;
-                    default:
-                        break;
-                }
+        /**
+         * View: training view [plan number]
+         * Add: training add-activity [name] [sets] [reps] [activity number]|
+         * training add-plan [plan number]
+         * Delete: training delete-all|training delete [plan number]
+         */
+        case "training":
+            switch (word[1]) {
+            case "view":
+                System.out.println("TBC");
+                System.out.println(plan.viewPlan());
                 break;
-
-            /**
-             *  Cmd "home" will list the menu items;
-             *  1. View Schedule
-             *  2. Manage Students
-             *  3. Training Circuits
-             */
-            case "home":
-                Ui viewMenu = new Ui();
-                viewMenu.mainMenu();
+            case "add-plan":
+                //pass
                 break;
-
-            /**
-             // Choosing Option 1 wil direct to "Training Schedule"
-             */
-            case "1":
-                System.out.flush();
-                // Write go to direct to View Schedule (Scott)
-                Ui trainingSchedule = new Ui();
-                trainingSchedule.trainingScheduleHeading();
+            case "add-activity":
+                int num = 2;
+                System.out.println(plan.addActivity(word[num],
+                    Integer.parseInt(word[++num]),
+                    Integer.parseInt(word[++num])));
                 break;
+            case "delete":
+                System.out.println("To be added.");
+                break;
+            case "delete-all":
+                System.out.println("To be added");
+                break;
+            default:
+                break;
+            }
+            break;
 
-            /**
-             * Choosing option 2 will direct to "Manage Students"
-             */
-            case "2":
-                System.out.flush();
-                Ui manageStudents = new Ui();
-                manageStudents.manageStudentsHeading();
-                ManageStudents viewCategory = new ManageStudents();
+        /**
+         *  Cmd "home" will list the menu items;
+         *  1. View Schedule
+         *  2. Manage Students
+         *  3. Training Circuits
+         */
+        case "home":
+            Ui viewMenu = new Ui();
+            viewMenu.mainMenu();
+            break;
+
+        /**
+         // Choosing Option 1 wil direct to "Training Schedule"
+         */
+        case "1":
+            System.out.flush();
+            // Write go to direct to View Schedule (Scott)
+            Ui trainingSchedule = new Ui();
+            trainingSchedule.trainingScheduleHeading();
+            break;
+
+        /**
+         * Choosing option 2 will direct to "Manage Students"
+         */
+        case "2":
+            System.out.flush();
+            Ui manageStudents = new Ui();
+            manageStudents.manageStudentsHeading();
+            ManageStudents viewCategory = new ManageStudents();
 //                viewCategory.manageStudentsCategory();
-                // Write Code to direct to manage Students (Danish)
+            // Write Code to direct to manage Students (Danish)
+            break;
+
+        /**
+         * Choosing 3 will direct to "Training Program"
+         */
+        case "3":
+            System.out.flush();
+            Ui trainingProgram = new Ui();
+            trainingProgram.trainingProgramHeading();
+            //Write Code to direct to Training Circuits (JingSen)
+            break;
+
+        /**
+         * When cmd student is called
+         * Format for adding student is: student add/ Name/ age/ address.
+         */
+        case "student":
+            switch (word[1]) {
+            case "add":
+                System.out.println("Insert Name, Age, Address:\n");
+                Scanner sc = new Scanner(System.in);
+                String newStudent = sc.nextLine();
+                String[] splitByComma = newStudent.split(",");
+                String name = splitByComma[0];
+                String age = splitByComma[1];
+                String address = splitByComma[2];
+                MyStudent myNewStudent = new MyStudent(
+                    name, age, address);
+                students.addStudent(myNewStudent);
                 break;
 
-            /**
-             * Choosing 3 will direct to "Training Program"
-             */
-            case "3":
-                System.out.flush();
-                Ui trainingProgram = new Ui();
-                trainingProgram.trainingProgramHeading();
-                //Write Code to direct to Training Circuits (JingSen)
+            // Format: student delete [index]
+            case "delete":
+                index = Integer.parseInt(word[2]);
+                students.deleteStudent(index);
                 break;
 
-            /**
-             * When cmd student is called
-             * Format for adding student is: student add/ Name/ age/ address.
-             */
-            case "student":
-                switch (word[1]) {
-                    case "add":
-                        System.out.println("Insert Name, Age, Address:\n");
-                        Scanner sc = new Scanner(System.in);
-                        String newStudent = sc.nextLine();
-                        String[] splitByComma = newStudent.split(",");
-                        String name = splitByComma[0];
-                        String age = splitByComma[1];
-                        String address = splitByComma[2];
-                        MyStudent myNewStudent = new MyStudent(
-                                name, age, address);
-                        students.addStudent(myNewStudent);
-                        break;
+            case "details":
+                System.out.println("Details for: ");
+                Scanner scan = new Scanner(System.in);
+                if (scan.equals("add details")) {
+                    System.out.println("Details for: ");
 
-                        // Format: student delete [index]
-                    case "delete":
-                        index = Integer.parseInt(word[2]);
-                        students.deleteStudent(index);
-                        break;
-
-                    case "details":
-                        System.out.println("Details for: ");
-                        Scanner scan = new Scanner(System.in);
-                        if (scan.equals("add details")) {
-                            System.out.println("Details for: ");
-
-                        }
-                        String studentName = scan.nextLine();
-                        students.findName(studentName);
-                        //add student details
-                        break;
-
-                    case "edit":
-                        index = Integer.parseInt(word[2]);
-                        System.out.print("What do you want to edit for ");
-                        students.getStudentName(index);
-                        System.out.println("?");
-
-                        // editStudentDetails(detail)
-                        break;
-
-                    case "list":
-                        students.listAllStudents();
-                        break;
-
-                    case "search":
-                        final int limit = 15;
-                        String searchName = input.substring(limit);
-                        students.findName(searchName);
-                        break;
-
-                    case "select":
-                        index = Integer.parseInt(word[2]);
-                        System.out.print("You have selected: ");
-                        students.getStudentName(index);
-                        break;
-
-                    default:
-                        System.out.println("(Add statement here?)");
-
-                    }
-
-                    storage.updateStudentList(students.getStudentList());
-                break;
-
-            case "plan":
-                if (word[1].equals("view")) {
-                    //int num = 2;
-                    //plan.loadPlan(word[num].toLowerCase(), word[++num]);
-                    System.out.println(plan.viewPlan());
-                } else if (word[1].equals("new")) {
-                    plan.createPlan(word[2].toLowerCase());
-                } else if (word[1].equals("edit")) {
-                    System.out.println("To be created...");
                 }
+                String studentName = scan.nextLine();
+                students.findName(studentName);
+                //add student details
+                break;
+
+            case "edit":
+                index = Integer.parseInt(word[2]);
+                System.out.print("What do you want to edit for ");
+                students.getStudentName(index);
+                System.out.println("?");
+
+                // editStudentDetails(detail)
+                break;
+
+            case "list":
+                students.listAllStudents();
+                break;
+
+            case "search":
+                final int limit = 15;
+                String searchName = input.substring(limit);
+                students.findName(searchName);
+                break;
+
+            case "select":
+                index = Integer.parseInt(word[2]);
+                System.out.print("You have selected: ");
+                students.getStudentName(index);
                 break;
 
             default:
-                System.out.println("\u2639 OOPS!!! I'm sorry,"
-                        + "but I don't know what that means :-(");
-                break;
+                System.out.println("(Add statement here?)");
+
+            }
+
+            storage.updateStudentList(students.getStudentList());
+            break;
+
+        case "plan":
+            if (word[1].equals("view")) {
+                //int num = 2;
+                //plan.loadPlan(word[num].toLowerCase(), word[++num]);
+                System.out.println(plan.viewPlan());
+            } else if (word[1].equals("new")) {
+                plan.createPlan(word[2].toLowerCase());
+            } else if (word[1].equals("edit")) {
+                System.out.println("To be created...");
+            }
+            break;
+
+        default:
+            System.out.println("\u2639 OOPS!!! I'm sorry,"
+                + "but I don't know what that means :-(");
+            break;
         }
     }
 }
