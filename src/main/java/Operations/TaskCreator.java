@@ -1,24 +1,30 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import java.util.Date;
 
 public class TaskCreator {
     private Parser parser = new Parser();
+    Timer timer = new Timer();
 
     public TaskCreator() {
     }
-    public Task create(String input) {
+
+    public Task create(String input) throws RoomShareException {
         Priority priorityType;
         RecurrenceScheduleType recurrenceScheduleType;
         String assignee;
+
         // extract the description
         String[] descriptionArray = input.split("\\(");
         String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
@@ -36,13 +42,15 @@ public class TaskCreator {
         } else {
             priorityType = Priority.low;
         }
+
         // extract the assignee
         String[] assigneeArray = input.split("@");
         if (assigneeArray.length != 1) {
             assignee = assigneeArray[1].trim();
         } else {
-            assignee = null;
+            assignee = "everyone";
         }
+
         // extract recurrence schedule
         String[] recurrenceArray = input.split("%");
         if (recurrenceArray.length != 1) {
@@ -60,7 +68,11 @@ public class TaskCreator {
         String[] type = input.split("#");
         // extract the time
         String[] timeArray = input.split("&");
-        if (timeArray.length != 1) {
+        String[] durationArray = timeArray[1].split(" ");
+        String[] durationLength = durationArray[1].split("-");
+        TimeUnit unit;
+        int duration =0;
+        if (timeArray.length != 1 && durationLength.length < 1) {
             // not a fixed duration task
             String time = timeArray[1].trim();
             // create the time
@@ -77,32 +89,61 @@ public class TaskCreator {
                 createdTask.setRecurrenceSchedule(recurrenceScheduleType);
                 return createdTask;
             } else {
-                Meeting createdTask = new Meeting(description, by);
-                createdTask.setPriority(priorityType);
-                createdTask.setUser(assignee);
-                createdTask.setRecurrenceSchedule(recurrenceScheduleType);
-                return createdTask;
+                //checks for time clashes before creating Meeting
+                if( !CheckAnomaly.checkTime(by) ) {
+                    Meeting createdTask = new Meeting(description, by);
+                    createdTask.setPriority(priorityType);
+                    createdTask.setUser(assignee);
+                    createdTask.setRecurrenceSchedule(recurrenceScheduleType);
+                    return createdTask;
+                } else {
+                    throw new RoomShareException(ExceptionType.timeClash);
+                }
+            }
+        } else if (durationLength.length > 1){
+            duration = Integer.parseInt(durationLength[1]) - Integer.parseInt(durationLength[0]);
+            //need to change this section
+            if(durationArray[2].contains("r")) {
+                TaskReminder taskReminder = new TaskReminder(description, duration);
+                taskReminder.start();
+            }
+            if((duration % 100) == 0) {
+                duration = duration % 9;
+                unit = TimeUnit.valueOf("hours");
+                Meeting meeting = new Meeting(description, duration, unit);
+                meeting.setPriority(priorityType);
+                meeting.setUser(assignee);
+                meeting.setRecurrenceSchedule(recurrenceScheduleType);
+                return meeting;
+            } else {
+                if( !CheckAnomaly.checkTime(Integer.parseInt(duration), unit) ) {
+                    Meeting meeting = new Meeting(description, duration, unit);
+                    meeting.setPriority(priorityType);
+                    meeting.setUser(assignee);
+                    meeting.setRecurrenceSchedule(recurrenceScheduleType);
+                    return meeting;
+                } else {
+                    throw new RoomShareException(ExceptionType.timeClash);
+                }
             }
         } else {
             // fixed duration task
             // extract the fixed duration timing
             String[] fixedDurationArray = input.split("\\^");
             String[] tempArray = fixedDurationArray[1].split("\\s+");
-            String duration = tempArray[0].trim();
-            TimeUnit unit = TimeUnit.valueOf(tempArray[1].toLowerCase().trim());
-            if (type[1].contains("assignment")) {
-                Assignment assignment = new Assignment(description, duration, unit);
-                assignment.setPriority(priorityType);
-                assignment.setUser(assignee);
-                assignment.setRecurrenceSchedule(recurrenceScheduleType);
-                return assignment;
-            } else {
-                Meeting meeting = new Meeting(description, duration, unit);
-                meeting.setPriority(priorityType);
-                meeting.setUser(assignee);
-                meeting.setRecurrenceSchedule(recurrenceScheduleType);
-                return meeting;
+            duration = Integer.parseInt(tempArray[0].trim());
+            unit = TimeUnit.valueOf(tempArray[1].toLowerCase().trim());
+
+            //reminder function
+            if(durationArray[2].contains("r")) {
+                TaskReminder taskReminder = new TaskReminder(description, duration);
+                taskReminder.start();
             }
+            Meeting meeting = new Meeting(description, duration, unit);
+            meeting.setPriority(priorityType);
+            meeting.setUser(assignee);
+            meeting.setRecurrenceSchedule(recurrenceScheduleType);
+            return meeting;
         }
     }
 }

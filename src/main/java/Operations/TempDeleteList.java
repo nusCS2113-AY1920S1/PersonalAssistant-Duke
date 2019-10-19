@@ -17,5 +17,6 @@ public class TempDeleteList {
 
     public void restore(int index, TaskList taskList) {
         taskList.add(tempDelete.get(index));
+        this.tempDelete.remove(index);
     }
 }

@@ -42,14 +42,14 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                String[] temp = list.split("#");
+                String[] temp = list.split("#", 0);
                 SaveType type;
                 Priority priority;
                 String description = temp[3];
                 String rawDate = temp[4];
                 String user = temp[6];
                 boolean isFixedDuration = false;
-                String duration = "";
+                int duration =0;
                 TimeUnit unit = TimeUnit.hours;
                 Date by = new Date();
                 if (temp.length != 9) {
@@ -61,7 +61,7 @@ public class Storage {
                 } else {
                     // fixed duration task
                     isFixedDuration = true;
-                    duration = temp[7];
+                    duration = Integer.parseInt(temp[7]);
                     unit = TimeUnit.valueOf(temp[8]);
                 }
                 try {
@@ -153,8 +153,9 @@ public class Storage {
                         }
                     }
                 }
+                //if(  )
             }
-        } catch (IOException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
         return (taskArrayList);
@@ -180,16 +181,16 @@ public class Storage {
                 String description = s.getDescription();
                 String assignee = s.getUser();
                 if (s instanceof Assignment) {
-                    if (((Assignment) s).isFixedDuration()) {
-                        String duration = ((Assignment) s).getDuration();
-                        String unit = ((Assignment) s).getTimeUnit().toString();
-                        String recurrence = s.getRecurrenceSchedule().toString();
-                        out = type + "#" + done + "#" + priority + "#" + description + "#"
-                                + "F" + "#" + recurrence + "#" + assignee+ "#" + duration + "#" + unit;
-                    } else {
                         String time = convertForStorage(s);
                         out = type + "#" + done + "#" + priority + "#" + description + "#" + time + assignee;
-                    }
+                        // Saves subtasks
+                        if( !(((Assignment) s).getSubTasks() == null ) ) {
+                            out += "#";
+                            ArrayList<String> subTasks =  ((Assignment) s).getSubTasks();
+                            for( String subtask : subTasks ) {
+                                out += subtask + ",";
+                            }
+                        }
                 } else if (s instanceof Meeting){
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();
@@ -206,7 +207,7 @@ public class Storage {
                 writer.newLine();
             }
             writer.close();
-        } catch (IOException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }
