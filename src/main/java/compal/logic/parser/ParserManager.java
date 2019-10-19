@@ -2,6 +2,7 @@ package compal.logic.parser;
 
 import compal.logic.command.ByeCommand;
 import compal.logic.command.Command;
+import compal.logic.command.DeadlineCommand;
 import compal.logic.command.ListCommand;
 import compal.logic.parser.exceptions.ParserException;
 
@@ -58,6 +59,8 @@ public class ParserManager {
             return new SetReminderParser().parseCommand(restOfInput);
         case CMD_VIEW_REMINDER:
             return new ViewReminderParser().parseCommand(restOfInput);
+        case CMD_DEADLINE:
+            return new DeadlineCommandParser().parseCommand(restOfInput);
         default:
             //suppose to return helpCommand();
             throw new ParserException(MESSAGE_INVALID_COMMAND);
