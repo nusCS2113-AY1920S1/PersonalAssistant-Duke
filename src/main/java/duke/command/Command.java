@@ -19,7 +19,7 @@ import duke.task.TaskManager;
  */
 public abstract class Command {
 
-    protected boolean hasBeenAddedBefore = false;
+    //protected boolean hasBeenAddedBefore = false;
 
     /**
      * .

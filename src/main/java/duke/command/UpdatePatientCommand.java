@@ -43,9 +43,8 @@ public class UpdatePatientCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CounterStorage counterStorage,
                         CommandCounter commandCounter) throws DukeException {
-        this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
+        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {

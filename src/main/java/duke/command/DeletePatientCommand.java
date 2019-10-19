@@ -57,9 +57,8 @@ public class DeletePatientCommand extends Command {
                         PatientStorage patientStorage, CounterStorage counterStorage,
                         CommandCounter commandCounter) throws DukeException {
 
-        this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
+        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
         if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
             boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);

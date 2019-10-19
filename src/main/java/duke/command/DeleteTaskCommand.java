@@ -55,9 +55,8 @@ public class DeleteTaskCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CounterStorage counterStorage,
                         CommandCounter commandCounter) throws DukeException {
-        this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
+        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
         if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);

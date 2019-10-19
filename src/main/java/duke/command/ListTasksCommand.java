@@ -34,9 +34,8 @@ public class ListTasksCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CounterStorage counterStorage,
                         CommandCounter commandCounter) throws DukeException {
-        this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
+        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
         ArrayList<Task> list = tasks.getTaskList();
         counterStorage.save(commandCounter.getCommandTable());
         ui.listAllTasks(list);

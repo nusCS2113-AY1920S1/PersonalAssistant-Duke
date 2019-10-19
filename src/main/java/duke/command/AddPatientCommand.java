@@ -39,9 +39,9 @@ public class AddPatientCommand extends Command {
                         PatientStorage patientStorage, CounterStorage counterStorage,
                         CommandCounter commandCounter) throws DukeException {
 
-        this.hasBeenAddedBefore = true;
+        //this.hasBeenAddedBefore = true;
         String commandName = this.getClass().getSimpleName();
-        commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
+        commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
         patientList.addPatient(newPatient);
         patientStorage.save(patientList.getPatientList());
         counterStorage.save(commandCounter.getCommandTable());

@@ -15,16 +15,12 @@ public class CommandCounter {
 
     /**
      * This function is used to run the command counter.
-     * @param hasBeenAddedBefore check whether a command has been called before or not
      * @param commandTable a table with command name as key and count as value
      * @param commandName the command name that was used
      * @author QIAN JIE
      * @version 1.3
      */
-    public void runCommandCounter(boolean hasBeenAddedBefore, Map<String, Integer> commandTable, String commandName) {
-        if (!hasBeenAddedBefore) {
-            commandTable.put(commandName, 1);
-        }
+    public void runCommandCounter(Map<String, Integer> commandTable, String commandName) {
         int count = commandTable.containsKey(commandName)
                 ? commandTable.get(commandName) : 0;
         commandTable.put(commandName, count + 1);

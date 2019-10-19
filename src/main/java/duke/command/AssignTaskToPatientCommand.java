@@ -52,9 +52,9 @@ public class AssignTaskToPatientCommand extends Command {
                         CommandCounter commandCounter) throws DukeException {
 
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
-            this.hasBeenAddedBefore = true;
+
             String commandName = this.getClass().getSimpleName();
-            commandCounter.runCommandCounter(this.hasBeenAddedBefore, commandCounter.getCommandTable(), commandName);
+            commandCounter.runCommandCounter(commandCounter.getCommandTable(), commandName);
             patientTaskList.addPatientTask(newPatientTask);
             patientTaskStorage.save(patientTaskList.fullPatientTaskList());
             counterStorage.save(commandCounter.getCommandTable());
