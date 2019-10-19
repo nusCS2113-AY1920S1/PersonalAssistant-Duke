@@ -73,6 +73,7 @@ public class Order {
 
     public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
         updateIsIngredientEnough(inventory);
+        System.out.println("updating");
         inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
     }
 
@@ -136,6 +137,7 @@ public class Order {
     /**
      * Updates the {@code isIngredientEnough} property based on {@code inventory}.
      */
+    //TODO: Remove IO
     private void updateIsIngredientEnough(ObservableList<Item<Ingredient>> inventory) {
         requireAllNonNull(inventory);
 
@@ -160,6 +162,18 @@ public class Order {
             }
         }
 
+//        System.out.println("required");
+//        requiredIngredients.forEach((k,v) ->
+//        {
+//            System.out.println(k.name + " " + v);
+//        });
+//        System.out.println("have");
+//        for (Item<Ingredient> ingredientItem : inventory) {
+//            Ingredient inventoryIngredient = ingredientItem.getItem();
+//            double inventoryAmount = ingredientItem.getQuantity().getNumber();
+//            System.out.println(ingredientItem.getItem().name + " " + inventoryAmount);
+//        }
+
         isIngredientEnough.setValue(true);
 
         //Iterate through all ingredients needed.
@@ -183,6 +197,9 @@ public class Order {
                 isIngredientEnough.setValue(false);
             }
         });
+
+//        System.out.println(isIngredientEnough);
+//        System.out.println("---");
     }
 
     @Override

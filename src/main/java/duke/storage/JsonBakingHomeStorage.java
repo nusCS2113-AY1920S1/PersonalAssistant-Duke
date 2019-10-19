@@ -47,7 +47,7 @@ public class JsonBakingHomeStorage implements BakingHomeStorage {
 
         Optional<JsonSerializableBakingHome> jsonBakingHome = JsonUtil.readJsonFile(
                 filePath, JsonSerializableBakingHome.class);
-        if (!jsonBakingHome.isPresent()) {
+        if (jsonBakingHome.isEmpty()) {
             return Optional.empty();
         }
 
@@ -77,4 +77,14 @@ public class JsonBakingHomeStorage implements BakingHomeStorage {
         JsonUtil.saveJsonFile(new JsonSerializableBakingHome(BakingHome), filePath);
     }
 
+    @Override
+    public Optional<ReadOnlyBakingHome> readBakingHome(javafx.scene.shape.Path filePath) throws DataConversionException, IOException {
+        //ADD
+        return Optional.empty();
+    }
+
+    @Override
+    public void saveBakingHome(ReadOnlyBakingHome BakingHome, javafx.scene.shape.Path filePath) throws IOException {
+        //ADD
+    }
 }

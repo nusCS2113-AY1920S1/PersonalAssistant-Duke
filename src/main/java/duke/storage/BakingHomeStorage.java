@@ -2,9 +2,9 @@ package duke.storage;
 
 import duke.logic.command.exceptions.DataConversionException;
 import duke.model.ReadOnlyBakingHome;
+import javafx.scene.shape.Path;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Optional;
 
 /**
@@ -14,8 +14,9 @@ public interface BakingHomeStorage {
 
     /**
      * Returns the file path of the data file.
+     * @return
      */
-    Path getBakingHomeFilePath();
+    java.nio.file.Path getBakingHomeFilePath();
 
     /**
      * Returns BakingHome data as a {@link ReadOnlyBakingHome}.

@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import duke.logic.command.exceptions.IllegalValueException;
 import duke.model.BakingHome;
 import duke.model.ReadOnlyBakingHome;
+import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
+import duke.model.product.Product;
 
 
 import java.util.ArrayList;
@@ -22,6 +25,9 @@ class JsonSerializableBakingHome {
     public static final String MESSAGE_DUPLICATE_ENTITY = "Duplicate entities detected.";
 
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
+    private final List<JsonAdaptedProduct> products = new ArrayList<>();
+    private final List<JsonAdaptedIngredientItem> inventory = new ArrayList<>();
+    private final List<JsonAdaptedIngredientItem> shoppingList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBakingHome}.
@@ -38,6 +44,9 @@ class JsonSerializableBakingHome {
      */
     public JsonSerializableBakingHome(ReadOnlyBakingHome source) {
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
+        products.addAll(source.getProductList().stream().map(JsonAdaptedProduct::new).collect(Collectors.toList()));
+        inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedIngredientItem::new).collect(Collectors.toList()));
+        shoppingList.addAll(source.getShoppingList().stream().map(JsonAdaptedIngredientItem::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,7 +63,23 @@ class JsonSerializableBakingHome {
             }
             bakingHome.addOrder(order);
         }
-        return addressBook;
+
+        for (JsonAdaptedProduct jsonAdaptedProduct : products) {
+            Product product = jsonAdaptedProduct.toModelType();
+            bakingHome.addProduct(product);
+        }
+
+        for(JsonAdaptedIngredientItem jsonAdaptedIngredientItem : inventory) {
+            Item<Ingredient> ingredientItem = jsonAdaptedIngredientItem.toModelType();
+            bakingHome.addInventory(ingredientItem);
+        }
+
+        for(JsonAdaptedIngredientItem jsonAdaptedIngredientItem : shoppingList) {
+            Item<Ingredient> ingredientItem = jsonAdaptedIngredientItem.toModelType();
+            bakingHome.addShoppingList(ingredientItem);
+        }
+
+        return bakingHome;
     }
 
 }

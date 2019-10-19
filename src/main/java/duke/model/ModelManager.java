@@ -38,6 +38,7 @@ public class ModelManager implements Model {
         this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
         this.filteredInventory = new FilteredList<>(this.bakingHome.getInventoryList());
         this.filteredShoppingList = new FilteredList<>(this.bakingHome.getShoppingList());
+
     }
 
     public ModelManager() {

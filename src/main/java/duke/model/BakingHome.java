@@ -50,11 +50,21 @@ public class BakingHome implements ReadOnlyBakingHome {
     public void resetData(ReadOnlyBakingHome newData) {
         requireNonNull(newData);
 
-        setOrders(newData.getOrderList());
         setShortcuts(newData.getShortcutList());
-
+        setInventory(newData.getInventoryList());
+        setSale(newData.getSaleList());
+        setProducts(newData.getProductList());
+        setShoppingList(newData.getShoppingList());
+        setOrders(newData.getOrderList());
     }
 
+    public void setProducts(List<Product> products) {
+        this.products.setAll(products);
+    }
+
+    public void setSale(List<Sale> allSale) {
+        this.sales.setAll(allSale);
+    }
     //================Order operations================
 
     /**
@@ -62,6 +72,9 @@ public class BakingHome implements ReadOnlyBakingHome {
      */
     public void setOrders(List<Order> orders) {
         this.orders.setAll(orders);
+        for (Order order : orders) {
+            order.listenToInventory(getInventoryList());
+        }
     }
 
     /**

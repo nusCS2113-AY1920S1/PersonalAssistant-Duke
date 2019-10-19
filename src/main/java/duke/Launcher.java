@@ -3,16 +3,21 @@ package duke;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.LogicManager;
+import duke.logic.command.exceptions.DataConversionException;
 import duke.model.BakingHome;
 import duke.model.Model;
 import duke.model.ModelManager;
 import duke.model.ReadOnlyBakingHome;
+import duke.storage.BakingHomeStorage;
+import duke.storage.JsonBakingHomeStorage;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -25,7 +30,7 @@ public class Launcher extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected Storage storage;
+    protected BakingHomeStorage storage = new JsonBakingHomeStorage(Paths.get("data", "baking.json"));
     protected Model model;
 
     @Override
@@ -40,23 +45,26 @@ public class Launcher extends Application {
         ui = new UiManager(logic);
     }
 
-    private Model initModelManager(Storage storage) {
+    private Model initModelManager(BakingHomeStorage storage) {
         Optional<ReadOnlyBakingHome> bakingHomeOptional;
         ReadOnlyBakingHome initialData = new BakingHome();
-        //TODO: Read from storage.
-        //        try {
-        //      addressBookOptional = storage.readAddressBook();
-        //      if (!addressBookOptional.isPresent()) {
-        //          logger.info("Data file not found. Will be starting with a sample AddressBook");
-        //      }
-        //      initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        //  } catch (DataConversionException e) {
-        //      logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-        //      initialData = new AddressBook();
-        //  } catch (IOException e) {
-        //      logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-        //      initialData = new AddressBook();
-        //}
+
+        try {
+              bakingHomeOptional = storage.readBakingHome();
+              if (bakingHomeOptional.isEmpty()) {
+                  logger.info("Data file not found.");
+              } else {
+                  initialData = bakingHomeOptional.get();
+                  System.out.println("hehe");
+                  System.out.println(initialData.getInventoryList().get(0).getItem().name);
+              }
+          } catch (DataConversionException e) {
+            e.printStackTrace();
+              logger.warning("Data file not in the correct format");
+          } catch (IOException e) {
+            e.printStackTrace();
+              logger.warning("Problem while reading from the file");
+        }
 
         return new ModelManager(initialData);
     }
