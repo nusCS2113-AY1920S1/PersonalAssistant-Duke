@@ -13,11 +13,11 @@ public class HelpCommand extends Command {
     private String command;
 
     private static final String ADD_MENU = "To add a new show:                            "
-                                           + "add SHOW_NAME|SCHEDULED_DATE|SEATS_BASE_PRICE\n";
+                                           + "add SHOW_NAME|SEATS_BASE_PRICE|SHOW_DATE1|SHOW_DATE2|...\n";
 
-    private static String DELETE_MENU = "To delete shows with particular name:         "
-                                        + "delete-all SHOW_NAME_1|SHOW_NAME_2 | ...\n"
-                                        + "To delete shows with specific name and date:  delete SHOW_NAME|SHOW_DATE\n";
+    private static String DELETE_MENU = "To delete shows:         "
+                                        + "To delete shows with the same name:           "
+                                        + "delete SHOW_NAME|SHOW_DATE1|SHOW_DATE2|...\n";
 
     private static String VIEW_MENU = "To view availability of seats for a show:     view SHOW_NAME | SHOW_DATE\n";
 
