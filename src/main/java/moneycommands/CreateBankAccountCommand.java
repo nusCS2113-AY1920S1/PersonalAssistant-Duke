@@ -78,7 +78,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
         if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
             account.getIncomeListCurrMonth().add(newIncome);
         }
-
+        storage.writeToFile(account);
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");
     }

@@ -36,7 +36,7 @@ public class MoneyStorage {
                 String[] info = line.split(" @ ");
                 if (!(info[0].equals("BS") || info[0].equals("INC") || info[0].equals("EXP") || info[0].equals("SEX") ||
                         info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT") ||
-                        info[0].equals("LOA"))) {
+                        info[0].equals("LOA") || info[0].equals("BAN"))) {
                     throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
                 }
                 switch(info[0]) {
@@ -99,6 +99,11 @@ public class MoneyStorage {
                         l.updateExistingLoan(info[4], info[5], Integer.parseInt(info[6]), Float.parseFloat(info[7]));
                         account.getLoans().add(l);
                         break;
+                    case "BAN":
+                        BankTracker b = new BankTracker(info[2], Float.parseFloat(info[1]), LocalDate.parse(info[3]),
+                                Double.parseDouble(info[4]));
+                        account.getBankTrackerList().add(b);
+                        break;
                     default:
                         break;
                 }
@@ -154,6 +159,11 @@ public class MoneyStorage {
                 bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription() +
                         " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ " +
                         l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
+            }
+
+            for (BankTracker b : account.getBankTrackerList()) {
+                bufferedWriter.write("BAN @ " + b.getAmt() + " @ " + b.getDescription() +
+                        " @ " + b.getLatestDate().toString() + " @ " + b.getRate() + "\n");
             }
 
             bufferedWriter.close();

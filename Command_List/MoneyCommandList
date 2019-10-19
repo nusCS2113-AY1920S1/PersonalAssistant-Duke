@@ -12,6 +12,7 @@ check income 10 2019
 delete expenditure 1
 delete goal 2
 delete instalments 1
+delete bank-tracker 1
 deposit 200 OCBC /at 3/3/2018
 done goal 2
 goal buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
