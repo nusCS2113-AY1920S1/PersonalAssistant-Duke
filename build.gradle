@@ -71,3 +71,23 @@ asciidoctor {
         inputs.files fileTree(it)
     }
 }
+
+task copyStylesheets(type: Copy) {
+    from "${asciidoctor.sourceDir}/stylesheets"
+    into "${asciidoctor.outputDir}/html5/stylesheets"
+}
+
+task deployOfflineDocs(type: Copy) {
+    dependsOn('asciidoctor')
+
+    into('src/main/resources/docs')
+
+    from ("${asciidoctor.outputDir}/html5") {
+        include 'stylesheets/*'
+        include 'images/*'
+        include 'HelpWindow.html'
+    }
+}
+
+processResources.dependsOn deployOfflineDocs
+
