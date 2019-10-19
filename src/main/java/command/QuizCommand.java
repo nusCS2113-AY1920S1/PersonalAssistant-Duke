@@ -18,9 +18,7 @@ public class QuizCommand extends Command {
     public int optionSequence;
 
     /**
-     * Creates a quiz command with a random integer for the asked word,
-     * options are the words to be chosen,
-     * randomNumbers is a list to store quiz
+     * Creates a quiz command with a random integer for the asked word, options are the words to be chosen, randomNumbers is a list to store quiz.
      */
     public QuizCommand() {
         this.random = new Random();

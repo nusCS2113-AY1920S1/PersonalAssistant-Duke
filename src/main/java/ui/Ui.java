@@ -37,7 +37,7 @@ public class Ui {
                 + "                                            |   \n"
                 + "Let's do some quiz to enhance your word knowledge \n"
                 + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
-        );
+            );
     }
 
     public String showDeleted(Word w) {
@@ -110,7 +110,7 @@ public class Ui {
     }
 
     /**
-     * Shows non-existing tags of the words that are searched
+     * Shows non-existing tags of the words that are searched.
      * @param word a string represents a word to be searched for tags
      * @param nullTags list of non-existing tags that are searched
      * @return a string to show all non-existing tags

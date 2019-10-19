@@ -44,7 +44,7 @@ public class Box extends HBox {
     }
 
     /**
-     * Returns the dialogue box of bot
+     * Returns the dialogue box of bot.
      * @param l box to show reply from bot
      * @param iv avatar of bot
      * @return a dialogue box
