@@ -15,7 +15,6 @@ import duke.task.TaskManager;
 public class AddPatientCommand extends Command {
 
     private Patient newPatient;
-    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -39,15 +38,7 @@ public class AddPatientCommand extends Command {
                         PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
                         CommandManager commandManager) throws DukeException {
 
-        this.hasBeenAddedBefore = true;
-        String commandName = this.getClass().getSimpleName();
-        if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName, 1);
-        }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName)
-                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
-
-        commandManager.getCmdFreqTable().put(commandName, count + 1);
+        runCommandFrequencyLogic(commandManager);
         patientList.addPatient(newPatient);
         patientStorage.save(patientList.getPatientList());
         cmdFreqStorage.save(commandManager.getCmdFreqTable());

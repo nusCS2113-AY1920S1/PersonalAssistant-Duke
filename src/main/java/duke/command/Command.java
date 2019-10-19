@@ -17,6 +17,9 @@ import duke.task.TaskManager;
  * of user command
  */
 public abstract class Command {
+
+    protected boolean hasBeenAddedBefore = false;
+
     /**
      * .
      *
@@ -33,6 +36,22 @@ public abstract class Command {
                                  PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                                  PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
                                  CommandManager commandManager) throws DukeException;
+    /**
+     * This function is used across all the child command for running of
+     * Command Frequency Logic.
+     * @param commandManager passing a CommandManager object to get the CmdFreqTable for use.
+     */
+
+    public void runCommandFrequencyLogic(CommandManager commandManager) {
+        this.hasBeenAddedBefore = true;
+        String commandName = this.getClass().getSimpleName();
+        if (!hasBeenAddedBefore) {
+            commandManager.getCmdFreqTable().put(commandName, 1);
+        }
+        int count = commandManager.getCmdFreqTable().containsKey(commandName)
+                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
+        commandManager.getCmdFreqTable().put(commandName, count + 1);
+    }
 
     /**
      * Decide whether duke should exist.

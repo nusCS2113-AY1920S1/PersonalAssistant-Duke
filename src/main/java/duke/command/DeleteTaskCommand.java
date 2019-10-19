@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class DeleteTaskCommand extends Command {
     private int id;
     private String deletedTaskInfo;
-    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -55,15 +54,7 @@ public class DeleteTaskCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
                         CommandManager commandManager) throws DukeException {
-        this.hasBeenAddedBefore = true;
-        String commandName = this.getClass().getSimpleName();
-        if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName, 1);
-        }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName)
-                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
-        commandManager.getCmdFreqTable().put(commandName, count + 1);
-
+        runCommandFrequencyLogic(commandManager);
         if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);

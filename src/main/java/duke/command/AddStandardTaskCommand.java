@@ -14,7 +14,6 @@ import duke.task.TaskManager;
 
 public class AddStandardTaskCommand extends Command {
     private Task newStandardTask;
-    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -44,15 +43,7 @@ public class AddStandardTaskCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
                         CommandManager commandManager) throws DukeException {
-        this.hasBeenAddedBefore = true;
-        String commandName = this.getClass().getSimpleName();
-        if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName, 1);
-        }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName)
-                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
-
-        commandManager.getCmdFreqTable().put(commandName, count + 1);
+        runCommandFrequencyLogic(commandManager);
         taskList.addTask(newStandardTask);
         taskStorage.save(taskList.getTaskList());
         cmdFreqStorage.save(commandManager.getCmdFreqTable());

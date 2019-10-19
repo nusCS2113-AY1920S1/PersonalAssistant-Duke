@@ -17,7 +17,6 @@ import duke.core.Ui;
  * program
  */
 public class ExitCommand extends Command {
-    //private boolean hasBeenAddedBefore = false;
 
     /**
      * Constructs a ExitCommand object.

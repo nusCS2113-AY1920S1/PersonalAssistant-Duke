@@ -19,7 +19,6 @@ public class AssignTaskToPatientCommand extends Command {
     private String command;
     private String[] taskAssignmentInfo;
     private PatientTask newPatientTask;
-    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -52,14 +51,7 @@ public class AssignTaskToPatientCommand extends Command {
                         CommandManager commandManager) throws DukeException {
 
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
-            this.hasBeenAddedBefore = true;
-            String commandName = this.getClass().getSimpleName();
-            if (!hasBeenAddedBefore) {
-                commandManager.getCmdFreqTable().put(commandName, 1);
-            }
-            int count = commandManager.getCmdFreqTable().containsKey(commandName)
-                        ? commandManager.getCmdFreqTable().get(commandName) : 0;
-            commandManager.getCmdFreqTable().put(commandName, count + 1);
+            runCommandFrequencyLogic(commandManager);
             patientTaskList.addPatientTask(newPatientTask);
             patientTaskStorage.save(patientTaskList.fullPatientTaskList());
             cmdFreqStorage.save(commandManager.getCmdFreqTable());

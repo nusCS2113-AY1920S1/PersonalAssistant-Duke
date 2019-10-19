@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class DeletePatientCommand extends Command {
     private int id;
     private String deletedPatientInfo;
-    private boolean hasBeenAddedBefore = false;
 
     /**
      * .
@@ -56,15 +55,8 @@ public class DeletePatientCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
                         CommandManager commandManager) throws DukeException {
-        this.hasBeenAddedBefore = true;
-        String commandName = this.getClass().getSimpleName();
-        if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName, 1);
-        }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName)
-                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
-        commandManager.getCmdFreqTable().put(commandName, count + 1);
 
+        runCommandFrequencyLogic(commandManager);
         if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
             boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);

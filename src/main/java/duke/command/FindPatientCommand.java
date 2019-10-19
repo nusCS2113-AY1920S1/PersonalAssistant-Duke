@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class FindPatientCommand extends Command {
 
     private String command;
-    private boolean hasBeenAddedBefore = false;
 
     public FindPatientCommand(String command) {
         this.command = command;
@@ -40,15 +39,7 @@ public class FindPatientCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage, CmdFreqStorage cmdFreqStorage,
                         CommandManager commandManager) throws DukeException {
-        this.hasBeenAddedBefore = true;
-        String commandName = this.getClass().getSimpleName();
-        if (!hasBeenAddedBefore) {
-            commandManager.getCmdFreqTable().put(commandName, 1);
-        }
-        int count = commandManager.getCmdFreqTable().containsKey(commandName)
-                    ? commandManager.getCmdFreqTable().get(commandName) : 0;
-        commandManager.getCmdFreqTable().put(commandName, count + 1);
-
+        runCommandFrequencyLogic(commandManager);
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
