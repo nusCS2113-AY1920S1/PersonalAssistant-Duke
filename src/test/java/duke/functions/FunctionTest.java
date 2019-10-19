@@ -1,12 +1,12 @@
 package duke.functions;
 
-import duke.autocorrect.Autocorrect;
-import duke.commands.*;
-import duke.exceptions.DukeException;
-import duke.parsers.Parser;
+import duke.logic.autocorrect.Autocorrect;
+import duke.logic.commands.*;
+import duke.commons.exceptions.DukeException;
+import duke.logic.parsers.Parser;
 import duke.storage.Storage;
-import duke.user.User;
-import duke.tasks.MealList;
+import duke.model.user.User;
+import duke.model.MealList;
 import duke.ui.Ui;
 import org.junit.jupiter.api.Test;
 

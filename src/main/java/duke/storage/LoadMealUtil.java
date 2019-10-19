@@ -1,7 +1,7 @@
 package duke.storage;
 
-import duke.tasks.Meal;
-import duke.tasks.MealList;
+import duke.model.Meal;
+import duke.model.MealList;
 
 import java.util.ArrayList;
 import java.util.HashMap;

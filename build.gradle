@@ -37,5 +37,5 @@ test {
 
 application {
     // Change this to your main class.
-    mainClassName = "duke.Duke"
+    mainClassName = "duke.Main"
 }

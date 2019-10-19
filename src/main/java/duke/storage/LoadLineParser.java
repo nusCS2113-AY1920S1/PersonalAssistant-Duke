@@ -1,9 +1,9 @@
 package duke.storage;
 
-import duke.exceptions.DukeException;
-import duke.tasks.*;
-import duke.user.Gender;
-import duke.user.User;
+import duke.commons.exceptions.DukeException;
+import duke.model.*;
+import duke.model.user.Gender;
+import duke.model.user.User;
 
 public class LoadLineParser {
 
