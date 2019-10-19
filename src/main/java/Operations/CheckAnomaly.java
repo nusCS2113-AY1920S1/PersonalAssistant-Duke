@@ -68,10 +68,10 @@ public class CheckAnomaly {
                 if( listDate.getYear() == at.getYear() && listDate.getMonth() == at.getMonth() && listDate.getDay() == at.getDay() ) {
                     double checkTime = listDate.getTime();
                     double currTime = at.getTime();
-                    double listDuration = ((FixedDuration) curr.get(i)).getDuration();
-                    if(checkTime <= currTime + listDuration && checkTime >= currTime || checkTime + listDuration <= currTime + listDuration && checkTime + listDuration >= currTime) {
-                        return true;
-                    }
+//                    double listDuration = ((FixedDuration) curr.get(i)).getDuration();
+//                    if(checkTime <= currTime + listDuration && checkTime >= currTime || checkTime + listDuration <= currTime + listDuration && checkTime + listDuration >= currTime) {
+//                        return true;
+//                    }
                 }
             }
         }

@@ -185,12 +185,8 @@ public class Ui {
         System.out.println("Reordering the task list...");
     }
 
-
-    public void promptForAssigning() {
-        System.out.println("Do you want to assign this task? (if yes enter the assignee's name)");
-    }
-
-    public void showListError() {
-        System.out.println("Seems like your task list is empty... Try adding a task to your list before listing!");
+    public void helpList() {
+        System.out.println("Here are a list of commands you can input: \n add \n list \n find \n delete \n" +
+                "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
     }
 }

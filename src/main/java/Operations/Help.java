@@ -23,4 +23,8 @@ public class Help {
                 break;
         }
     }
+
+    public void helpCommandList() {
+        ui.helpList();
+    }
 }
