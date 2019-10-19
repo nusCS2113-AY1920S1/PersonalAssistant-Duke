@@ -3,8 +3,8 @@ package duke.command;
 
 import duke.storage.Storage;
 import duke.task.PriorityList;
-import duke.ui.Ui;
 import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Representing a command that deletes a task.
@@ -74,6 +74,5 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
-
     }
 }

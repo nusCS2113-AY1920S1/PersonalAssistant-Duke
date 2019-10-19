@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 //@@author e0318465
 public class ContactStorage {
-    //protected String filePathForContacts = "./";
-    protected String filePathForContacts = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    protected String filePathForContacts = "./";
+//    protected String filePathForContacts = "";
+//    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
@@ -28,14 +28,14 @@ public class ContactStorage {
      * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
-        String[] pathSplitter = storageClassPath.split("/");
-        for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
-                this.filePathForContacts += directory + "/";
-            } else if (directory.equals("build")) {
-                break;
-            }
-        }
+//        String[] pathSplitter = storageClassPath.split("/");
+//        for (String directory: pathSplitter) {
+//            if (!directory.isEmpty() && !directory.equals("build")) {
+//                this.filePathForContacts += directory + "/";
+//            } else if (directory.equals("build")) {
+//                break;
+//            }
+//        }
         this.filePathForContacts += filePathForContacts;
     }
 
