@@ -23,7 +23,7 @@ public class DukeCore extends Application {
     public GsonStorage storage;
     public PatientMap patientMap;
     public TaskList taskList = null; //deprecated
-    
+
     /**
      * Entry point into the application.
      *
