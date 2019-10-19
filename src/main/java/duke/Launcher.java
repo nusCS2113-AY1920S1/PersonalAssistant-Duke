@@ -1,5 +1,6 @@
 package duke;
 
+import duke.commons.core.Config;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.LogicManager;
@@ -10,7 +11,6 @@ import duke.model.ModelManager;
 import duke.model.ReadOnlyBakingHome;
 import duke.storage.BakingHomeStorage;
 import duke.storage.JsonBakingHomeStorage;
-import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.ui.UiManager;
 import javafx.application.Application;
@@ -30,7 +30,7 @@ public class Launcher extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected BakingHomeStorage storage = new JsonBakingHomeStorage(Paths.get("data", "baking.json"));
+    protected BakingHomeStorage storage = new JsonBakingHomeStorage(Config.BAKING_HOME_DATA_PATH);
     protected Model model;
 
     @Override
@@ -55,8 +55,6 @@ public class Launcher extends Application {
                   logger.info("Data file not found.");
               } else {
                   initialData = bakingHomeOptional.get();
-                  System.out.println("hehe");
-                  System.out.println(initialData.getInventoryList().get(0).getItem().name);
               }
           } catch (DataConversionException e) {
             e.printStackTrace();

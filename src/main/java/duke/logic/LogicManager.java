@@ -21,7 +21,6 @@ import duke.model.order.Order;
 import duke.model.sale.Sale;
 import duke.model.product.Product;
 import duke.storage.BakingHomeStorage;
-import duke.storage.Storage;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
