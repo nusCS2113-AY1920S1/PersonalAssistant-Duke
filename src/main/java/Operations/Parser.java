@@ -25,14 +25,18 @@ public class Parser {
     }
 
     /**
-     * Returns the command that the user has given Duke.
-     * @return command The command given by the user to Duke.
+     * Returns the command that the user has given RoomShare
+     * @return command The command given by the user to RoomShare
      */
     public String getCommand() {
         String command = scanner.next().toLowerCase().trim();
         return command;
     }
 
+    /**
+     * Return the line of command that the user has given Duke
+     * @return command The line of command given by the user to RoomShare
+     */
     public String getCommandLine() {
         String command = scanner.nextLine().toLowerCase().trim();
         return command;
@@ -49,7 +53,7 @@ public class Parser {
     }
 
     /**
-     * Return a single index number or a range of index number requested by users for command 'done' and 'delete'
+     * Return a single index number or a range of index numbers requested by users for command 'done' and 'delete'
      * @return a single index or a range of index
      */
     public int[] getIndexRange() {

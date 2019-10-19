@@ -42,7 +42,7 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                String[] temp = list.split("#");
+                String[] temp = list.split("#", 0);
                 SaveType type;
                 Priority priority;
                 String description = temp[3];
@@ -154,7 +154,7 @@ public class Storage {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
         return (taskArrayList);
@@ -198,7 +198,7 @@ public class Storage {
                 writer.newLine();
             }
             writer.close();
-        } catch (IOException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
     }

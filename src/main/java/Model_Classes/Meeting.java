@@ -19,7 +19,6 @@ public class Meeting extends Task {
      */
     public Meeting(String description, Date at) {
         super(description, at);
-        //this.at = at;
         this.isFixedDuration = false;
     }
 

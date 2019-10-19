@@ -18,8 +18,6 @@ public class Assignment extends Task {
      */
     public Assignment (String description, Date by) {
         super(description, by);
-        //super.by = by;
-        //this.isFixedDuration = false;
     }
 
     public Assignment (String description, String duration, TimeUnit unit) {

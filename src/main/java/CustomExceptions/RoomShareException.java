@@ -5,8 +5,8 @@ import Enums.ExceptionType;
 public class RoomShareException extends Exception {
     private static final String outOfBounds_Text = "Index is out of Bounds!";
     private static final String anomaly_Text = "Anomaly Detected";
-    private static final String emptylist_Text = "List is empty";
-    private static final String timeclash_Text = "Time Clash Detected";
+    private static final String emptyList_Text = "List is empty";
+    private static final String timeClash_Text = "Time Clash Detected";
     private static final String wrongFormat_Text = "Wrong Format Detected";
     private static final String wrongPriority_Text = "Wrong Priority Detected";
 
@@ -17,12 +17,12 @@ public class RoomShareException extends Exception {
      */
     public RoomShareException(ExceptionType type){
         switch(type) {
-            case emptylist:
-                System.out.println(emptylist_Text);
+            case emptyList:
+                System.out.println(emptyList_Text);
                 break;
 
             case timeClash:
-                System.out.println(timeclash_Text);
+                System.out.println(timeClash_Text);
                 break;
 
             case wrongFormat:

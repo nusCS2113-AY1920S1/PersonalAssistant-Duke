@@ -5,7 +5,6 @@ import java.util.Date;
 public class FixedDuration extends Meeting {
     private String duration;
     private String unit;
-    private Date at;
 
     /**
      * Constructor for fixed duration
@@ -27,6 +26,10 @@ public class FixedDuration extends Meeting {
         return duration;
     }
 
+    /**
+     * Return time unit of the duration of event
+     * @return time unit of the duration of event
+     */
     public String getUnit() {
         return unit;
     }

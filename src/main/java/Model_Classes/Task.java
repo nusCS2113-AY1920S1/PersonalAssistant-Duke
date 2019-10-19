@@ -31,6 +31,10 @@ public class Task{
         this.isDone = false;
         this.priority = Priority.low;
         this.time = time;
+        this.user = null;
+        this.recurrenceSchedule = RecurrenceScheduleType.none;
+        this.hasRecurring = false;
+        this.subTasks = new ArrayList<>();
     }
 
     /**
@@ -59,6 +63,13 @@ public class Task{
     }
 
     /**
+     * Sets the task to be done
+     */
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
+    /**
      * Returns the status of the completion of the task.
      * shows a tick if done, and a cross if not done.
      * @return A String showing a tick or X symbol.
@@ -78,13 +89,6 @@ public class Task{
      * @return priority of the task
      */
     public Priority getPriority() { return priority; }
-
-    /**
-     * Sets the task to be done
-     */
-    public void setDone(boolean done) {
-        isDone = done;
-    }
 
     /**
      * Sets the priority of the task
@@ -115,6 +119,10 @@ public class Task{
         }
     }
 
+    /**
+     * Return whether the task is recurred
+     * @return hasRecurring: whether the task is recurred
+     */
     public boolean hasRecurring() {
         return hasRecurring;
     }
