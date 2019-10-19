@@ -11,16 +11,14 @@ import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,10 +29,10 @@ public class Storage {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private TaskList tasks;
     private CreateMap map;
-    private static final String BUS_FILE_PATH = "data/bus.txt";
+    private static final String BUS_FILE_PATH = "/data/bus.txt";
+    private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
     private static final String TRAIN_FILE_PATH = "data/train.txt";
     private static final String EVENTS_FILE_PATH = "data/events.txt";
-    private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
     private static final String ROUTES_FILE_PATH = "data/routes.txt";
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
@@ -61,17 +59,18 @@ public class Storage {
     }
 
     /**
-     * Reads duke.data.map from filepath. Creates empty duke.data.tasks if file cannot be read.
+     * Reads bus map from filepath.
      */
     private void readMap() throws DukeException {
         HashMap<String, BusStop> busStopData = new HashMap<>();
         HashMap<String, BusService> busData = new HashMap<>();
         try {
-            File f = new File(BUS_FILE_PATH);
-            Scanner s = new Scanner(f);
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(getClass().getResourceAsStream(BUS_FILE_PATH)));
+            String line;
             boolean isBusData = false;
-            while (s.hasNext()) {
-                String line = s.nextLine();
+            while ((line = br.readLine()) != null) {
+                logger.log(Level.FINEST, line);
                 if ("==========".equals(line)) {
                     isBusData = true;
                 }
@@ -83,33 +82,30 @@ public class Storage {
                     busStopData.put(busStop.getBusCode(), busStop);
                 }
             }
+            br.close();
             this.map = new CreateMap(busStopData, busData);
-            s.close();
-        } catch (FileNotFoundException e) {
-            try {
-                this.map = new CreateMap();
-                writeMap();
-            } catch (DukeException err) {
-                throw new DukeException(err.getMessage());
-            }
-            throw new DukeException(Messages.FILE_NOT_FOUND);
+        } catch (IOException e) {
+            throw new DukeException(Messages.RESOURCE_NOT_FOUND + BUS_FILE_PATH);
         }
     }
 
     /**
      * Reads tasks from filepath. Creates empty tasks if file cannot be read.
      */
-    protected void readEvent() throws DukeException {
+    private void readEvent() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
-            File f = new File(EVENTS_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
+            BufferedReader br = new BufferedReader(new FileReader(EVENTS_FILE_PATH));
+            String line;
+            while ((line = br.readLine()) != null) {
+                logger.log(Level.FINEST, line);
+                newTasks.add(ParserStorageUtil.createTaskFromStorage(line));
             }
-            s.close();
+            br.close();
         } catch (FileNotFoundException e) {
             throw new DukeException(Messages.FILE_NOT_FOUND);
+        } catch (IOException e) {
+            throw new DukeException(Messages.CORRUPTED_TASK);
         }
         tasks.setTasks(newTasks);
     }
@@ -117,23 +113,22 @@ public class Storage {
     /**
      * Returns Venues fetched from stored memory.
      *
-     * @return The List of all Venues in Recommendations list
+     * @return The List of all Venues in Recommendations list.
      */
 
     public List<Venue> readVenues() throws DukeException {
         List<Venue> recommendations = new ArrayList<>();
         try {
-            InputStream is = this.getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH);
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH)));
             String line;
             while ((line = br.readLine()) != null) {
-                logger.log(Level.INFO, line);
+                logger.log(Level.FINEST, line);
                 recommendations.add(ParserStorageUtil.getVenueFromStorage(line));
             }
             br.close();
-            is.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.FILE_NOT_FOUND);
+            throw new DukeException(Messages.RESOURCE_NOT_FOUND + RECOMMENDATIONS_FILE_PATH);
         }
         return recommendations;
     }
@@ -157,26 +152,9 @@ public class Storage {
         }
     }
 
-    private void writeMap() throws DukeException {
-        try {
-            FileWriter writer = new FileWriter(BUS_FILE_PATH);
-            for (String busCode : this.map.getBusStopMap().keySet()) {
-                writer.write(ParserStorageUtil.busStopToStorageString(this.map.getBusStopMap().get(busCode)) + "\n");
-            }
-            writer.write("==========\n");
-            for (String bus : this.map.getBusMap().keySet()) {
-                writer.write(ParserStorageUtil.busToStorageString(this.map.getBusMap().get(bus)) + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new DukeException(Messages.FILE_NOT_SAVE);
-        }
-    }
-
     public TaskList getTasks() {
         return tasks;
     }
-
 
     public CreateMap getMap() {
         return this.map;
