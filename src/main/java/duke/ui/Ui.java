@@ -353,6 +353,7 @@ public class Ui {
         out.println("     The same task is already in the list!");
     }
     //@@author
+
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
@@ -414,6 +415,7 @@ public class Ui {
         return str;
     }
     //@@author
+
     /**
      * Shows the current budget of the user.
      *
