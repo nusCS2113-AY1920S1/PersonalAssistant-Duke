@@ -150,18 +150,11 @@ public class ViewCommand extends Command {
 
         StringBuilder header = new StringBuilder();
 
-        StringBuilder lines = new StringBuilder();
         StringBuilder space = new StringBuilder();
-        for (int i = 0; i < 65; i++) {
-            lines.append("_");
-        }
 
-        for (int i = 0; i < (100); i++) {
-            space.append(" ");
-        }
+        space.append(" ".repeat((100)));
 
-
-        header.append("\n").append(lines).append("\n");
+        header.append("\n").append("_".repeat(65)).append("\n");
         header.append(space).append(dateInput).append("\n");
 
         for (Task t : currList) {
@@ -172,16 +165,20 @@ public class ViewCommand extends Command {
             }
         }
 
-        String dailyTask = header.toString() + allTask.toString();
-        return dailyTask;
+        if (allTask.toString().equals("")) {
+            allTask.append("\n\n");
+        }
+
+        return header.toString() + allTask.toString();
     }
 
     private String getEventAsStringView(Task t) {
         StringBuilder taskDetails = new StringBuilder();
-        String taskSymbol = t.getSymbol();
-        String taskDescription = t.getDescription();
+
+
         String startTime = t.getStringStartTime();
         String endTime = t.getStringEndTime();
+        Task.Priority priority = t.getPriority();
         boolean isDone = t.getisDone();
 
         String rightArrow = "\u2192";
@@ -194,19 +191,28 @@ public class ViewCommand extends Command {
 
         int taskId = t.getId();
 
-        taskDetails.append("  Time: " + startTime + " " + rightArrow
-            + " " + endTime + "\n  [Task ID: " + taskId + "] \n");
-        taskDetails.append("  [" + taskSymbol + "] " + "[" + status + "] "
-            + taskDescription + "\n\n");
+        taskDetails.append("  Time: ").append(startTime)
+            .append(" ").append(rightArrow)
+            .append(" ").append(endTime)
+            .append("\n");
+
+        taskDetails.append("  [Task ID:")
+            .append(taskId).append("] ").append("[Priority:").append(priority).append("]\n");
+
+        String taskSymbol = t.getSymbol();
+        String taskDescription = t.getDescription();
+        taskDetails.append("  [").append(taskSymbol).append("] ")
+            .append("[").append(status).append("] ")
+            .append(taskDescription).append("\n\n");
 
         return taskDetails.toString();
     }
 
     private String getDeadlineAsStringView(Task t) {
         StringBuilder dailyDeadline = new StringBuilder();
-        String taskSymbol = t.getSymbol();
-        String taskDescription = t.getDescription();
+
         String endTime = t.getStringEndTime();
+        Task.Priority priority = t.getPriority();
         boolean isDone = t.getisDone();
 
         String status;
@@ -216,9 +222,20 @@ public class ViewCommand extends Command {
             status = "\u274C";
         }
         int taskId = t.getId();
-        dailyDeadline.append("  Due: " + endTime + "\n  [Task ID: " + taskId + "] \n");
-        dailyDeadline.append("  [" + taskSymbol + "] " + "[" + status + "] "
-            + taskDescription + "\n\n");
+        dailyDeadline.append("  Due: ").append(endTime)
+            .append("\n");
+
+        dailyDeadline.append("  [Task ID:")
+            .append(taskId).append("] ").append("[Priority:").append(priority).append("]\n");
+
+        String taskSymbol = t.getSymbol();
+        String taskDescription = t.getDescription();
+        dailyDeadline.append("  [").append(taskSymbol).append("] ")
+            .append("[").append(status).append("] ")
+            .append(taskDescription)
+            .append(priority)
+            .append("\n\n");
+
         return dailyDeadline.toString();
     }
 }
