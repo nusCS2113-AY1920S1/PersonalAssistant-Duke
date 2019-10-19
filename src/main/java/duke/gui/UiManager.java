@@ -7,68 +7,81 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * Manager of the UI component.
+ * Manager of the UI component of the application.
  */
 public class UiManager implements Ui {
-    private static final String ALERT_DIALOG_PANE_FIELD_ID = "ALERT_DIALOG";
     private static final String ICON_APPLICATION = "/images/icon.png";
 
     private MainWindow mainWindow;
     private DukeCore core;
 
     /**
-     * Construct the UIManager.
+     * Constructs the UIManager.
      *
-     * @param core DukeCore.
+     * @param core Core of Dr. Duke.
      */
     public UiManager(DukeCore core) {
-        super();
+        // TODO: We do not need the entire Duke's core in the Ui component.
         this.core = core;
     }
 
     /**
-     * Shows an alert dialog on {@code owner} with the given parameters.
-     * This method only returns after the user has closed the alert dialog.
+     * {@inheritDoc}
      */
-    private static void showAlertDialogAndWait(Stage owner, Alert.AlertType type, String title, String headerText,
-                                               String contentText) {
-        final Alert alert = new Alert(type);
-        alert.initOwner(owner);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
-        alert.showAndWait();
-    }
-
-    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
-    }
-
     @Override
-    public void start(Stage stage) {
-        stage.getIcons().add(new Image(DukeCore.class.getResourceAsStream(UiManager.ICON_APPLICATION)));
+    public void start(Stage primaryStage) {
+        setApplicationIcon(primaryStage);
 
         try {
-            mainWindow = new MainWindow(stage, core);
-            mainWindow.placeChildViews();
-            mainWindow.show();
+            showMainWindow(primaryStage);
         } catch (Throwable e) {
-            showFatalErrorDialogAndShutdown("Fatal error during initialisation", e);
+            showErrorDialogAndShutdown("Fatal error encountered on application startup", e);
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void print(String output) {
-        mainWindow.print(output);
+    public void print(String message) {
+        mainWindow.print(message);
     }
 
     /**
-     * Shows an error alert dialog with {@code title} and error message, {@code e},
-     * and exits the application after the user has closed the alert dialog.
+     * Set application's icon.
+     *
+     * @param primaryStage Main stage for the application.
      */
-    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+    private void setApplicationIcon(Stage primaryStage) {
+        Image icon = new Image(DukeCore.class.getResourceAsStream(UiManager.ICON_APPLICATION));
+        primaryStage.getIcons().add(icon);
+    }
+
+    /**
+     * Show main UI window of the application.
+     *
+     * @param primaryStage Main stage for the application.
+     */
+    private void showMainWindow(Stage primaryStage) {
+        mainWindow = new MainWindow(primaryStage, core);
+        mainWindow.show();
+    }
+
+    /**
+     * Shows an error alert dialog with {@code title} and error message, {@code e}.
+     * Exits the application after the user has closed the alert dialog.
+     *
+     * @param title Title of error dialog.
+     * @param error Error.
+     */
+    private void showErrorDialogAndShutdown(String title, Throwable error) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.initOwner(mainWindow.getPrimaryStage());
+        errorAlert.setTitle(title);
+        errorAlert.setHeaderText(error.getMessage());
+        errorAlert.setContentText(error.toString());
+        errorAlert.showAndWait();
+
         Platform.exit();
         System.exit(1);
     }

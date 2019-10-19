@@ -39,6 +39,8 @@ public class MainWindow extends UiElement<Stage> {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;
         this.core = core;
+
+        placeChildViews();
     }
 
     public Stage getPrimaryStage() {
@@ -48,7 +50,7 @@ public class MainWindow extends UiElement<Stage> {
     /**
      * Place all child views in the main window.
      */
-    public void placeChildViews() {
+    private void placeChildViews() {
         commandWindow = new CommandWindow(core, this);
         commandWindowPlaceholder.getChildren().add(commandWindow.getRoot());
 

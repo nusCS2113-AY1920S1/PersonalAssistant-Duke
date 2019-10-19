@@ -61,7 +61,7 @@ public abstract class UiElement<T> {
     }
 
     /**
-     * Returns the root object of this UiElement.
+     * Returns the root element of this UiElement.
      */
     public T getRoot() {
         return fxmlLoader.getRoot();

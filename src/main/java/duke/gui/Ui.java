@@ -14,7 +14,7 @@ public interface Ui {
     void start(Stage primaryStage);
 
     /**
-     * Print message on the command window.
+     * Prints message on the command window.
      *
      * @param message Output message.
      */
