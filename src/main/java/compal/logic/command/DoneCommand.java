@@ -26,7 +26,7 @@ public class DoneCommand extends Command {
             task.markAsDone();
             return new CommandResult(COMMAND_PREFIX.concat(task.toString()), true);
         } else {
-            throw new CommandException(COMMAND_ALR_DONE.concat(task.toString()));
+            return new CommandResult(COMMAND_ALR_DONE.concat(task.toString()));
         }
 
     }
