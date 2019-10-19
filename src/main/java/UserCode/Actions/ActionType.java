@@ -3,10 +3,10 @@ package UserCode.Actions;
 import java.util.Set;
 
 public enum ActionType {
-    buySeeds,
-    harvestWheat,
-    plantSeeds,
-    sellWheat,
-    gotoMarket,
-    gotoFarm,
+    BUY_SEEDS,
+    HARVEST_WHEAT,
+    PLANT_SEEDS,
+    SELL_WHEAT,
+    GOTO_MARKET,
+    GOTO_FARM,
 }
