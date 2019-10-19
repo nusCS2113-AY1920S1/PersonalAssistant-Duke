@@ -1,8 +1,30 @@
 package parser;
 
-import Dictionary.Word;
-import command.*;
-import exception.*;
+import dictionary.Word;
+import command.Command;
+import command.QuizCommand;
+import command.BadCommand;
+import command.DeleteCommand;
+import command.AddTagCommand;
+import command.ListCommand;
+import command.ExitCommand;
+import command.AddCommand;
+import command.SearchCommand;
+import command.HistoryCommand;
+import command.EditCommand;
+
+import exception.WrongQuizFormatException;
+import exception.WrongAddFormatException;
+import exception.EmptyWordException;
+import exception.WrongAddTagFormatException;
+import exception.WrongDeleteFormatException;
+import exception.WrongListFormatDescription;
+import exception.WrongEditFormatException;
+import exception.WrongHistoryFormatException;
+import exception.ZeroHistoryRequestException;
+import exception.CommandInvalidException;
+import exception.WordUpException;
+import exception.WrongSearchFormatException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,8 +71,7 @@ public class Parser {
                         tags.add(meaningAndTag[j]);
                     }
                     word = new Word(wordDescription, meaning, tags);
-                }
-                else {
+                } else {
                     word = new Word(wordDescription, meaning);
                 }
                 return new AddCommand(word);
@@ -59,12 +80,9 @@ public class Parser {
                     throw new WrongDeleteFormatException();
                 }
                 String[] wordAndTags = taskInfo[1].split("t/");
-                //delete word
                 if (wordAndTags.length == 1) {
                     return new DeleteCommand(taskInfo[1].substring(2));
-                }
-                //delete tag
-                else {
+                } else {
                     String wordDescription = wordAndTags[0].substring(2).trim();
                     ArrayList<String> tags = new ArrayList<>();
                     for (int i = 1; i < wordAndTags.length; ++i) {
@@ -91,7 +109,7 @@ public class Parser {
                 return new ListCommand(order);
             } else if (taskInfo[0].equals("history")) {
                 int numberOfWordsToDisplay;
-                if (taskInfo.length == 1){
+                if (taskInfo.length == 1) {
                     throw new WrongHistoryFormatException();
                 }
                 if (taskInfo[1].equals("0")) {
@@ -99,7 +117,7 @@ public class Parser {
                 }
                 try {
                     numberOfWordsToDisplay = Integer.parseInt(taskInfo[1]);
-                } catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     throw new WrongHistoryFormatException();
                 }
                 return new HistoryCommand(numberOfWordsToDisplay);
@@ -138,7 +156,7 @@ public class Parser {
             else {
                 try {
                     throw new CommandInvalidException(input);
-                } catch (CommandInvalidException e){
+                } catch (CommandInvalidException e) {
                     return new BadCommand(e.showError());
                 }
             }

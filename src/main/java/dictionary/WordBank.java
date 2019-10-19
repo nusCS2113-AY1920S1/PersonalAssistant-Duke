@@ -1,4 +1,4 @@
-package Dictionary;
+package dictionary;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,6 @@ import command.OxfordCall;
 import storage.Storage;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.TreeMap;
 
 public class WordBank {
@@ -25,19 +24,12 @@ public class WordBank {
         return wordBank;
     }
 
-    public Word getWordAndMeaning(String word) throws NoWordFoundException {
-        if (!wordBank.containsKey(word)) {
-            throw new NoWordFoundException(word);
-        }
-        return wordBank.get(word);
-    }
-
     public void addWord(Word word) {
         this.wordBank.put(word.getWord(), word);
     }
 
     /**
-     * Looks up for meaning of a specific word
+     * Looks up for meaning of a specific word.
      * @param word word to be searched for its meaning
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
@@ -45,8 +37,8 @@ public class WordBank {
     public String searchForMeaning(String word)throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
-        if (!(wordBank.containsKey(word))){
-            s = "Unable to locate \""+word+"\" in local dictionary. Looking up Oxford Dictionary\n";
+        if (!(wordBank.containsKey(word))) {
+            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
             String result = OxfordCall.onlineSearch(word);
             Word temp = new Word(word, result);
             wordBank.put(word, temp);
@@ -55,25 +47,29 @@ public class WordBank {
     }
 
     /**
-     * Updates the meaning of a specific word
+     * Updates the meaning of a specific word.
      * @param wordToBeEdited word whose meaning is updated
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public Word getAndEditMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException{
+    public Word getAndEditMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
         if (wordBank.containsKey(wordToBeEdited)) {
             wordBank.get(wordToBeEdited).editMeaning(newMeaning);
             return wordBank.get(wordToBeEdited);
-        }
-        else {
+        } else {
             throw new NoWordFoundException(wordToBeEdited);
         }
     }
 
+    /**
+     * Deletes a word with a specific description and return it.
+     * @param word string represents a word to be deleted
+     * @return the word itself
+     * @throws NoWordFoundException if the word doesn't exist in the word bank
+     */
     public Word getAndDelete(String word) throws NoWordFoundException {
         if (wordBank.containsKey(word)) {
             return wordBank.remove(word);
-        }
-        else {
+        } else {
             throw new NoWordFoundException(word);
         }
     }
@@ -96,22 +92,21 @@ public class WordBank {
         return word.getTags();
     }
 
-    public String getBankData() {
-        StringBuilder data = new StringBuilder();
-        for (Map.Entry<String, Word> entry : wordBank.entrySet()) {
-            data.append(entry.getValue() + "\n");
-        }
-        return data.toString();
-    }
-
-    public void deleteTags(String word, ArrayList<String> tagList, ArrayList<String> deletedTags, ArrayList<String> nonExistTags) {
+    /**
+     * Deletes tags from a word.
+     * @param word string represent the word
+     * @param tagList list of tags to be deleted
+     * @param deletedTags tags to be deleted
+     * @param nonExistTags tags that doesn't exist in the word
+     */
+    public void deleteTags(String word, ArrayList<String> tagList,
+                           ArrayList<String> deletedTags, ArrayList<String> nonExistTags) {
         HashSet<String> tags = wordBank.get(word).getTags();
         for (String tag : tagList) {
             if (tags.contains(tag)) {
                 tags.remove(tag);
                 deletedTags.add(tag);
-            }
-            else {
+            } else {
                 nonExistTags.add(tag);
             }
         }

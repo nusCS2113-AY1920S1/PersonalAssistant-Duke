@@ -1,6 +1,6 @@
 package scene;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import command.Command;
 import exception.WordUpException;
 import javafx.stage.Stage;
@@ -33,6 +33,14 @@ public abstract class NewScene {
     protected String greet;
     protected Stage window;
 
+    /**
+     * Creates a scene
+     * @param ui to interact with user
+     * @param wordBank to store all words data
+     * @param storage extracted file to store all data
+     * @param greet greeting from bot to user when user moves to a new scene
+     * @param window main window containing the scene
+     */
     public NewScene(Ui ui, WordBank wordBank, Storage storage, String greet, Stage window) {
         this.window = window;
         this.greet = greet;
@@ -72,7 +80,7 @@ public abstract class NewScene {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
         Label userText = new Label(greet);
         dialogContainer.getChildren().addAll(

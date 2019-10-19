@@ -1,7 +1,6 @@
 package command;
 
-import Dictionary.Word;
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -26,8 +25,7 @@ public class SearchCommand extends Command {
         try {
             String meaning = wordBank.searchForMeaning(this.searchedWord);
             return ui.showSearch(this.searchedWord, meaning);
-        }
-        catch (NoWordFoundException e) {
+        } catch (NoWordFoundException e) {
             return e.showError();
         }
     }

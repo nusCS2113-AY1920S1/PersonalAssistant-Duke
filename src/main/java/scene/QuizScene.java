@@ -1,8 +1,12 @@
 package scene;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import command.QuizCommand;
-import exception.*;
+import exception.ChangeSceneException;
+import exception.InvalidAnswerException;
+import exception.WordBankNotEnoughForQuizException;
+import exception.CommandInvalidException;
+import exception.WordUpException;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -27,21 +31,19 @@ public class QuizScene extends NewScene {
     @Override
     public String getResponse(String fullCommand)
             throws ChangeSceneException, InvalidAnswerException,
-            WordBankNotEnoughForQuizException, CommandInvalidException
-    {
+            WordBankNotEnoughForQuizException, CommandInvalidException {
         if (fullCommand.equals("exit_quiz")) {
             throw new ChangeSceneException();
         }
         if (!startQuiz) {
             if (fullCommand.equals("start")) {
                 generateQuiz();
+                startQuiz = true;
                 return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-            } else {
+            }   else {
               throw new CommandInvalidException(fullCommand);
             }
-        }
-        else {
-            startQuiz = true;
+        } else {
             String s;
             try {
                 int i = Integer.parseInt(fullCommand);

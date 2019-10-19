@@ -1,30 +1,38 @@
 package command;
-import Dictionary.Word;
-import command.*;
-import exception.*;
 
-import java.io.FileNotFoundException;
+import exception.NoWordFoundException;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 /**
- * Sets up API call and options to query a word from Oxford Dictionary API
+ * Sets up API call and options to query a word from Oxford dictionary API
  * Only works if internet connection is present.
  * @author Ng Jian Wei
  */
-public class OxfordCall{
+public class OxfordCall {
 
-    public static String onlineSearch(String word) throws NoWordFoundException{
+    /**
+     * Searches a word on online dictionary if the word doesn't exist in word bank
+     * @param word string represents the word
+     * @return meaning of the word on the internet
+     * @throws NoWordFoundException if the word also doesn't exist in Oxford dictionary
+     */
+    public static String onlineSearch(String word) throws NoWordFoundException {
         String queryWord = word;
         String alpha = doInBackground(queryWord);
-        String result = CleanUp(alpha);
+        String result = cleanUp(alpha);
         return result;
     }
 
+    /**
+     * Gets the http link of the word online
+     * @param lookUpWord word to be looked for meaning
+     * @return http link to the word
+     */
     public static String dictionaryEntries(String lookUpWord) {
         final String language = "en-gb";
         final String word = lookUpWord; //query this word to oxford API
@@ -34,6 +42,12 @@ public class OxfordCall{
         return "https://od-api.oxforddictionaries.com/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 
+    /**
+     * Searches for the word online
+     * @param word word to be searched
+     * @return Meanings found by online dictionary
+     * @throws NoWordFoundException if the word doesn't exist on online dictionary
+     */
     public static String doInBackground(String word) throws NoWordFoundException {
         final String app_id = "11f848bf"; //obtained from Oxford account
         final String app_key = "5be9615c9940859a6ce549f449cc670d"; //obtained from Oxford account
@@ -48,7 +62,7 @@ public class OxfordCall{
             BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             StringBuilder stringBuilder = new StringBuilder();
 
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line + "\n");
             }
@@ -57,17 +71,17 @@ public class OxfordCall{
             throw new NoWordFoundException(word);
         }
     }
+
     /**
-     * Extract the first definition inside the metadata
+     * Extracts the first definition inside the metadata.
      * @author Ng Jian Wei
      */
-    public static String CleanUp(String metaData){
-        String result ="";
+    public static String cleanUp(String metaData) {
         String[] temp = metaData.split("definitions", 2);
         String[] temp2 = temp[1].split("]", 2);
         temp2[0] = temp2[0].replaceAll(":","");
-        temp2[0] =temp2[0].replaceAll("\\[","");
-        temp2[0] =temp2[0].replaceAll("\"","");
+        temp2[0] = temp2[0].replaceAll("\\[","");
+        temp2[0] = temp2[0].replaceAll("\"","");
         return temp2[0].trim();
     }
 }

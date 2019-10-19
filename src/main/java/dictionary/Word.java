@@ -1,4 +1,4 @@
-package Dictionary;
+package dictionary;
 
 
 import java.util.HashSet;
@@ -23,6 +23,11 @@ public class Word {
      */
     private String closetSearch;
 
+    /**
+     * Initializes a word without tags.
+     * @param word description of the word
+     * @param meaning meaning of the word
+     */
     public Word(String word, String meaning) {
         this.word = word;
         this.meaning = meaning;
@@ -30,6 +35,12 @@ public class Word {
         this.numberOfSearches = 1;
     }
 
+    /**
+     * Initializes a word with tags.
+     * @param word description of the word
+     * @param meaning meaning of the word
+     * @param tags hash set containing tags that are added to word
+     */
     public Word(String word, String meaning, HashSet<String> tags) {
         this.word = word;
         this.meaning = meaning;

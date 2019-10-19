@@ -1,6 +1,6 @@
 package scene;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import command.Command;
 import command.QuizCommand;
 import exception.ChangeSceneException;
