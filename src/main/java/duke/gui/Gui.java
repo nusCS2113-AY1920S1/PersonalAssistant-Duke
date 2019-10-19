@@ -41,7 +41,7 @@ public class Gui extends AnchorPane {
         inputStr = userInput.getText().trim();
 
         if (!inputStr.isEmpty()) {
-            dialogContainer.getChildren().add(DialogBox.getUserDialog(inputStr, userImage));
+            dialogContainer.getChildren().add(MessageBox.getUserDialog(inputStr, userImage));
 
             userInput.clear();
         }
@@ -67,7 +67,7 @@ public class Gui extends AnchorPane {
      * @param msg Message to be printed.
      */
     public void print(String msg) {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(msg, dukeImage));
+        dialogContainer.getChildren().add(MessageBox.getDukeDialog(msg, dukeImage));
     }
 
     /**

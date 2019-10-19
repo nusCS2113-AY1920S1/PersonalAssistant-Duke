@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.Collections;
 
-public class DialogBox extends HBox {
+public class MessageBox extends HBox {
     @FXML
     private Circle displayPicture;
     @FXML
@@ -25,11 +25,11 @@ public class DialogBox extends HBox {
     private Text dialog;
 
     /**
-     * Creates a new DialogBox object to be displayed in the chat window of the GUI.
+     * Creates a new MessageBox object to be displayed in the chat window of the GUI.
      */
-    private DialogBox(String text, Image img) {
+    private MessageBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/MessageBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -45,8 +45,8 @@ public class DialogBox extends HBox {
     /**
      * Creates a dialog box for the user's input.
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static MessageBox getUserDialog(String text, Image img) {
+        var db = new MessageBox(text, img);
         db.flip();
         return db;
     }
@@ -54,8 +54,8 @@ public class DialogBox extends HBox {
     /**
      * Creates a new dialog box for Duke's response.
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static MessageBox getDukeDialog(String text, Image img) {
+        var db = new MessageBox(text, img);
         db.flip();
         return db;
     }

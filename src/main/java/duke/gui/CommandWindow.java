@@ -17,56 +17,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class responsible for reading and display commands.
+ * UI element designed for the user to interact with the application.
+ * It has 3 main tasks.
+ * 1. Displays and reads user's input.
+ * 2. Parses VALID user's input into a defined command and displays the corresponding result.
+ * 3. Displays the appropriate error message for INVALID user's input.
  */
-public class CommandWindow extends UiElement<Region> {
+class CommandWindow extends UiElement<Region> {
     private static final String FXML = "CommandWindow.fxml";
-
-    private Parser parser;
-    private String input;
-    private DukeCore core;
-
-    private List<String> inputHistory;
-    private int historyPointer;
-    private String currentInput;
+    private static final Image userAvatar = new Image(DukeCore.class.getResourceAsStream("/images/user.png"));
+    private static final Image dukeAvatar = new Image(DukeCore.class.getResourceAsStream("/images/duke.png"));
 
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private VBox dialogContainer;
+    private VBox messageContainer;
     @FXML
-    private TextField userInput;
+    private TextField inputTextField;
     @FXML
     private Button sendButton;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private DukeCore core;
+    private Parser parser;
+    private String input;
+
+    // TODO: A separate (inner) class for input history
+    private List<String> inputHistory;
+    private int historyPointer;
+    private String currentInput;
 
     /**
-     * Construct a CommandWindow object.
-     *
-     * @param core DukeCore.
+     * Constructs the command window of the application.
      */
-    public CommandWindow(DukeCore core) {
+    CommandWindow(DukeCore core) {
         super(FXML, null);
-        parser = new Parser();
+
         this.core = core;
+        parser = new Parser();
 
         inputHistory = new ArrayList<>();
         historyPointer = 0;
 
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        userInput.textProperty().addListener((observable, oldValue, newValue) -> {
+        scrollPane.vvalueProperty().bind(messageContainer.heightProperty());
+        inputTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (historyPointer == inputHistory.size()) {
                 currentInput = newValue;
             }
         });
 
-        printHello();
+        printWelcome();
     }
 
     /**
-     * Handles the key press event, {@code keyEvent}.
+     * Handles key press event, {@code keyEvent}.
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
@@ -85,11 +88,12 @@ public class CommandWindow extends UiElement<Region> {
     }
 
     /**
-     * Handles the user input event.
+     * Handles the event where the user clicks on {@code sendButton} or the user presses 'Enter" after he/she
+     * has finished typing the command in {@code inputTextField}.
      */
     @FXML
-    private void handleUserInput() {
-        input = userInput.getText().trim();
+    private void handleAction() {
+        input = inputTextField.getText().trim();
 
         if (!input.isEmpty()) {
             if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1
@@ -100,82 +104,92 @@ public class CommandWindow extends UiElement<Region> {
             historyPointer = inputHistory.size();
             currentInput = "";
 
-            dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+            messageContainer.getChildren().add(MessageBox.getUserDialog(input, userAvatar));
 
-            userInput.clear();
+            try {
+                // TODO: Should this UI element be responsible for the execution of the command?
+                Command c = parseCommand();
+                c.execute(core);
+            } catch (DukeException e) {
+                printError(e);
+            }
+
+            inputTextField.clear();
         }
     }
 
     /**
-     * Updates the text field with the previous input in {@code historySnapshot},
-     * if there exists a previous input in {@code historySnapshot}.
+     * Updates the text field with the previous input in {@code inputHistory},
+     * if there exists a previous input in {@code inputHistory}.
      */
     private void navigateToPreviousInput() {
         if (historyPointer > 0) {
             historyPointer = historyPointer - 1;
-            replaceText(inputHistory.get(historyPointer));
+            setText(inputHistory.get(historyPointer));
         }
     }
 
     /**
-     * Updates the text field with the next input in {@code historySnapshot},
-     * if there exists a next input in {@code historySnapshot}.
+     * Updates the text field with the next input in {@code inputHistory},
+     * if there exists a next input in {@code inputHistory}.
      */
     private void navigateToNextInput() {
         if (historyPointer < inputHistory.size() - 1) {
             historyPointer = historyPointer + 1;
-            replaceText(inputHistory.get(historyPointer));
+            setText(inputHistory.get(historyPointer));
         } else if (historyPointer == inputHistory.size() - 1) {
             historyPointer = historyPointer + 1;
-            replaceText(currentInput);
+            setText(currentInput);
         }
     }
 
     /**
-     * Sets {@code CommandWindow}'s text field with {@code text} and
+     * Sets {@code inputTextField} with {@code text} and
      * positions the caret to the end of the {@code text}.
+     *
+     * @param text Text to be set in the input text field of the command window.
      */
-    private void replaceText(String text) {
-        userInput.setText(text);
-        userInput.positionCaret(userInput.getText().length());
+    private void setText(String text) {
+        inputTextField.setText(text);
+        inputTextField.positionCaret(inputTextField.getText().length());
     }
 
     /**
-     * Use the Parser to extract the requested command, which will be loaded with parameters
-     * extracted from the user's arguments.
+     * Uses the Parser to retrieve the requested command, which will be loaded with parameters
+     * extracted from the user's input arguments.
      *
      * @return The command specified by the user, with arguments parsed.
-     * @throws DukeException If Parser fails to find a matching command or the arguments do not meet the command's
+     * @throws DukeException If the parser fails to find a matching command or the arguments do not meet the command's
      *                       requirements.
      */
-    public Command parseCommand() throws DukeException {
+    private Command parseCommand() throws DukeException {
         input = input.replaceAll("\t", "    ");
         return parser.parse(input);
     }
 
     /**
-     * Prints a message.
+     * Prints message.
      *
-     * @param msg Message to be printed.
+     * @param message Message.
      */
-    public void print(String msg) {
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(msg, dukeImage));
+    void print(String message) {
+        messageContainer.getChildren().add(MessageBox.getDukeDialog(message, dukeAvatar));
     }
 
     /**
-     * Prints Hello message.
+     * Prints welcome message.
      */
-    public void printHello() {
+    private void printWelcome() {
         String welcome = UiMessage.MESSAGE_WELCOME_GREET + "\n" + UiMessage.MESSAGE_WELCOME_QUESTION;
         print(welcome);
     }
 
     /**
-     * Prints the error message from an exception.
+     * Prints error message from an exception.
      *
-     * @param e Exception whose message we want to print.
+     * @param e Exception.
      */
-    public void printError(DukeException e) {
+    private void printError(DukeException e) {
         print(e.getMessage());
     }
 }
