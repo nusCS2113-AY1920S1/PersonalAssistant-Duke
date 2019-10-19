@@ -92,9 +92,11 @@ public class MainWindow extends UiPart<Stage> {
 
                 if (result instanceof CommandResultExit) {
                     tryExitApp();
-                } else if (result instanceof CommandResultCalender) {
+                }
+                if (result instanceof CommandResultCalender) {
                     new CalendarWindow((CommandResultCalender) result).show();
-                } else if (result instanceof CommandResultMap) {
+                }
+                if (result instanceof CommandResultMap) {
                     new MapWindow((CommandResultMap) result).show();
                 }
 
