@@ -27,7 +27,7 @@ public class StaticMapUrlRequest extends UrlRequest {
         Image image;
         try {
             URL url = new URL(URL + param);
-            image = new Image(url.toExternalForm());
+            image = new Image(url.toExternalForm(), true);
             assert (image != null);
         } catch (IOException e) {
             throw new DukeApiException(Messages.DATA_NOT_FOUND);
