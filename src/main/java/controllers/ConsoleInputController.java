@@ -97,7 +97,7 @@ public class ConsoleInputController implements IController {
     private void loadProjectsData() {
         Gson gson = new Gson();
         try (FileReader fileReader = new FileReader(filePath)) {
-            DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.'");
+            DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.");
             this.projectRepository = gson.fromJson(fileReader, ProjectRepository.class);
             if (this.projectRepository == null) {
                 this.projectRepository = new ProjectRepository();
