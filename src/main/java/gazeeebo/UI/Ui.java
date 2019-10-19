@@ -8,7 +8,6 @@ import gazeeebo.tasks.Task;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -67,6 +66,7 @@ public class Ui {
         majorCategories.add("expenses");
         majorCategories.add("places");
         majorCategories.add("tasks");
+        majorCategories.add("gpa");
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");

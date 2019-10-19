@@ -1,4 +1,4 @@
-package gazeeebo.commands;
+package gazeeebo.commands.tasks;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
@@ -27,7 +27,6 @@ public class RecurringCommand {
         String[] splitstring;
         String[] datesplitstring;
         String[] togetDescription;
-        int date;
         if (listDescription.contains("weekly")) {
             if (listDescription.charAt(0) == 'E') {
                 splitstring = listDescription.split("\\|at: ");

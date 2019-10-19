@@ -1,5 +1,6 @@
-package gazeeebo.commands;
+package gazeeebo.commands.tasks;
 
+import gazeeebo.commands.Command;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Event;

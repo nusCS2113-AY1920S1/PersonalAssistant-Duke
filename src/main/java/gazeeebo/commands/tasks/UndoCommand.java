@@ -1,4 +1,5 @@
-package gazeeebo.commands;
+package gazeeebo.commands.tasks;
+import gazeeebo.commands.*;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;

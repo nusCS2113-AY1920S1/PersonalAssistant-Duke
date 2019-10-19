@@ -1,4 +1,5 @@
-package gazeeebo.commands;
+package gazeeebo.commands.tasks;
+import gazeeebo.commands.Command;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 import java.util.Stack;
 
-public class TentativeEventCommand extends Command{
+public class TentativeEventCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
