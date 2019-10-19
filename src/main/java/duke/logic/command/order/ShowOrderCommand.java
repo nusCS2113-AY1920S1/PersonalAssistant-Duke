@@ -5,7 +5,7 @@ import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 
 /**
- * A command that displays Order Page.
+ * A command that displays all orders displayed with their indices.
  */
 public class ShowOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "";

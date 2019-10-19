@@ -78,12 +78,17 @@ public class AddOrderCommand extends OrderCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 
+    /**
+     * Creates an order from {@code descriptor}.
+     * {@code inventoryList} is used to detect if there are enough ingredients for the order.
+     * @throws CommandException if items specified in the descriptor are not in {@code productList}.
+     */
     private Order createOrder(OrderDescriptor descriptor,
                               List<Product> productList, ObservableList<Item<Ingredient>> inventoryList)
         throws CommandException {
-        Set<Item<Product>> productItems = OrderCommandUtil.getProducts(productList,
+        Set<Item<Product>> productItems = OrderCommandUtil.getProductItems(productList,
                 descriptor.getItems().orElse(new HashSet<>()));
-        double total = descriptor.getTotal().orElse(OrderCommandUtil.calculateTotal(productItems));
+        double total = descriptor.getTotal().orElse(calculateTotal(productItems));
         return new Order(
             new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
                 descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)
@@ -95,5 +100,19 @@ public class AddOrderCommand extends OrderCommand {
             total,
             inventoryList
         );
+    }
+
+
+    /**
+     * Returns the total retail price of {@code productItems}.
+     */
+    private static double calculateTotal(Set<Item<Product>> productItems) {
+        requireNonNull(productItems);
+
+        double total = 0;
+        for (Item<Product> productItem : productItems) {
+            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
+        }
+        return total;
     }
 }

@@ -39,7 +39,7 @@ public class OrderDescriptor {
         setTotal(toCopy.total);
     }
 
-    public Optional<String> getCustomerName() {
+    Optional<String> getCustomerName() {
         return Optional.ofNullable(customerName);
     }
 
@@ -47,7 +47,7 @@ public class OrderDescriptor {
         this.customerName = name;
     }
 
-    public Optional<String> getCustomerContact() {
+    Optional<String> getCustomerContact() {
         return Optional.ofNullable(customerContact);
     }
 
@@ -55,7 +55,7 @@ public class OrderDescriptor {
         this.customerContact = contact;
     }
 
-    public Optional<Date> getDeliveryDate() {
+    Optional<Date> getDeliveryDate() {
         return Optional.ofNullable(deliveryDate);
     }
 
@@ -87,7 +87,7 @@ public class OrderDescriptor {
         this.status = status;
     }
 
-    public Optional<Double> getTotal() {
+    Optional<Double> getTotal() {
         return Optional.ofNullable(total);
     }
 
