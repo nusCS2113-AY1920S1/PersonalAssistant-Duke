@@ -132,8 +132,7 @@ public class Storage {
             }
             br.close();
             is.close();
-            assert(recommendations.size() != 0);
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException e) {
             throw new DukeException(Messages.FILE_NOT_FOUND);
         }
         return recommendations;
