@@ -13,12 +13,13 @@ import java.util.Scanner;
 
 
 public interface CommandParser {
-    Command parseCommand(String input) throws ParserException;
 
     String TOKEN_TASK_ID = "/id";
     String TOKEN_STATUS = "/s";
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
+
+    Command parseCommand(String input) throws ParserException;
 
     /**
      * Returns the task ID in the String input.

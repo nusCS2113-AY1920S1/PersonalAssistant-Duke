@@ -42,12 +42,10 @@ public class ViewReminderCommand extends Command {
         Date dateToday = calendar.getTime();
 
         for (Task task : currList) {
-            if (!task.getisDone()) {
-                if ((task.getEndTime().after(dateToday) && task.getEndTime().before(dateAfter))
-                    || task.gethasReminder()) {
-                    String taskString = task.toString() + "\n";
-                    taskReminder.append(taskString);
-                }
+            if (!task.getisDone() && ((task.getEndTime().after(dateToday)
+                    && task.getEndTime().before(dateAfter)) || task.gethasReminder())) {
+                String taskString = task.toString() + "\n";
+                taskReminder.append(taskString);
             }
         }
         return taskReminder.toString();
