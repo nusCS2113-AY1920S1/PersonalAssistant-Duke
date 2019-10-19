@@ -1,7 +1,5 @@
 package compal.ui;
 
-
-import compal.logic.LogicManager;
 import compal.model.tasks.Task;
 import compal.storage.TaskStorageManager;
 import javafx.scene.Group;
@@ -40,8 +38,6 @@ class DailyCalUi {
     private double colOneXLayout = 25;
     private double colOneYLayout = -25;
     private int horizontalLineCounter = 0;
-    private double verticalYLayout = 0;
-    private double verticalXLayout = 100;
     private double horizontalYLayout = 0;
     private double horizontalXLayout = 0;
     private double[][] storedXAxis = new double[25][5];
@@ -70,7 +66,7 @@ class DailyCalUi {
      *
      * @return scrollPane final object state
      */
-    public ScrollPane init(String givenDate) {
+    private ScrollPane init(String givenDate) {
         tempOriginalList = taskStorageManager.loadData();
         setTrue(canStore);
         dateToDisplay = givenDate;
@@ -235,8 +231,7 @@ class DailyCalUi {
         int hourInMin = 60;
         double pixelBlock = 100;
         for (Task task : dailyCalArrayList) {
-            if (eventCounter < 5) {
-                if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
+                if (eventCounter < 5 && Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
                     int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
                     int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
                     int endHour = Integer.parseInt(task.getStringEndTime().substring(0, 2));
@@ -281,7 +276,6 @@ class DailyCalUi {
                     groupRoot.getChildren().add(stack);
                     eventCounter++;
                 }
-            }
         }
     }
 
@@ -441,7 +435,9 @@ class DailyCalUi {
         verticalLines[0].setStartY(0);
         verticalLines[0].setEndX(0);
         verticalLines[0].setEndY(horizontalYLayout);
+        double verticalXLayout = 100;
         verticalLines[0].setLayoutX(verticalXLayout);
+        double verticalYLayout = 0;
         verticalLines[0].setLayoutY(verticalYLayout);
         groupRoot.getChildren().add(verticalLines[0]);
     }
