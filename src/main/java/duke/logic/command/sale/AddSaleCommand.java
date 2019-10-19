@@ -40,8 +40,6 @@ public class AddSaleCommand extends SaleCommand {
         this.addSaleDescriptor = addSaleDescriptor;
     }
 
-
-
     /**
      * Executes the add order command and returns the result message.
      *
