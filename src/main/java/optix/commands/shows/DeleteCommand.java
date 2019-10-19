@@ -52,11 +52,14 @@ public class DeleteCommand extends Command {
             }
         }
 
-        if (missingShows.size() != 0) {
+        if (missingShows.size() == showDates.length) {
+            message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
+        } else if (missingShows.size() != 0) {
             message.append("\n" + MESSAGE_SHOW_NOT_FOUND);
-            for (int i = 0; i < missingShows.size(); i++) {
-                message.append(String.format(MESSAGE_ENTRY, i+1, showName, missingShows.get(i)));
-            }
+        }
+
+        for (int i = 0; i < missingShows.size(); i++) {
+            message.append(String.format(MESSAGE_ENTRY, i + 1, showName, missingShows.get(i)));
         }
 
         ui.setMessage(message.toString());

@@ -243,8 +243,8 @@ public class Parser {
         }
 
         String showName = splitStr[0].trim();
-        String showDate = splitStr[1].trim();
-        double seatBasePrice = Double.parseDouble(splitStr[2]);
+        String showDate = splitStr[2].trim();
+        double seatBasePrice = Double.parseDouble(splitStr[1]);
 
         return new AddCommand(showName, showDate, seatBasePrice);
     }
@@ -351,6 +351,13 @@ public class Parser {
         return new ViewProfitCommand(showName, showDate);
     }
 
+    /**
+     * Parse the remaining user input to its respective parameters for ViewMonthlyCommand.
+     *
+     * @param details The details to create a new ViewMonthlyCommand Object.
+     * @return new ViewMonthlyCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
     private static Command parseViewMonthly(String details) throws OptixInvalidCommandException {
         String[] splitStr = details.trim().split(" ");
 
