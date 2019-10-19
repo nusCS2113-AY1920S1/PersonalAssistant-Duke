@@ -1,12 +1,8 @@
-<<<<<<< HEAD
 package gazeeebo.commands.tasks;
+
 import gazeeebo.commands.Command;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-=======
-package gazeeebo.commands;
-
->>>>>>> 2c657b6e383b84ddc91d29e64100a22bdd18d9d5
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
