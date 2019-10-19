@@ -17,14 +17,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TaskCommandParser {
-    private static UI ui;
+    private static UI ui = Duke.getUI();
     public static Command parseTaskCommand(String rawInput,
-                                           ArrayList<Command.Option> optionList, UI ui) {
-        TaskCommandParser.ui = ui;
+                                           ArrayList<Command.Option> optionList) {
         if (rawInput.length() <= 5) {
             return new InvalidCommand();
-            //return new HelpTaskCommand();
-        }
+       }
         String input = rawInput.split("task ", 2)[1].strip();
         if (input.equals("flip")) {
             return new FlipCommand();
@@ -99,7 +97,7 @@ public class TaskCommandParser {
         return new InvalidCommand();
     }
 
-    public static int parseTaskIndex(String input) throws NumberFormatException {
+    private static int parseTaskIndex(String input) throws NumberFormatException {
         TaskList taskList = Duke.getModel().getTaskList();
         int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= taskList.size()) {
@@ -322,8 +320,6 @@ public class TaskCommandParser {
      * @param input      user/file input ready to be parsed
      * @param optionList contains all options specified in input command
      * @return an AddCommand of the task parsed from the input
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, probably due to the wrong format of
-     *                            input
      */
     public static Command parseAddTaskCommand(String input,
                                               ArrayList<Command.Option> optionList) {

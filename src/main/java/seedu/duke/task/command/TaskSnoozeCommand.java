@@ -13,7 +13,7 @@ public class TaskSnoozeCommand extends Command {
      *
      * @param index    the index of the task to be snoozed
      */
-    public TaskSnoozeCommand(int index) {
+    TaskSnoozeCommand(int index) {
         this.index = index;
     }
 

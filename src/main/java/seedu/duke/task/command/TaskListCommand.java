@@ -13,7 +13,7 @@ public class TaskListCommand extends Command {
      * Instantiation of the list command with the target task list.
      *
      */
-    public TaskListCommand() {
+    TaskListCommand() {
 
     }
 

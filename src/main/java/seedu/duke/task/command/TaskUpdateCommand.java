@@ -21,8 +21,8 @@ public class TaskUpdateCommand extends Command {
      * Instantiates a find command with all variables necessary.
      * @param index         position of task as specified by input
      */
-    public TaskUpdateCommand(int index, ArrayList<String> descriptions,
-                             ArrayList<TaskUpdateCommand.Attributes> attributes) {
+    TaskUpdateCommand(int index, ArrayList<String> descriptions,
+                      ArrayList<TaskUpdateCommand.Attributes> attributes) {
         this.index = index;
         this.descriptions = descriptions;
         this.attributes = attributes;
@@ -61,10 +61,14 @@ public class TaskUpdateCommand extends Command {
                 }
             }
         } catch (CommandParser.UserInputException e) {
-            Duke.getUI().showError(e.getMessage());
+            if (!silent) {
+                Duke.getUI().showError(e.getMessage());
+            }
             return false;
         }
-        Duke.getUI().showResponse(msg);
+        if (!silent) {
+            Duke.getUI().showResponse(msg);
+        }
         return true;
     }
 }

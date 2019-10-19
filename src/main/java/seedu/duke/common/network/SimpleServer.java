@@ -20,7 +20,7 @@ public class SimpleServer {
     /**
      * Starts the server on port 3000.
      */
-    public static void startServer() {
+    static void startServer() {
         try {
             server = HttpServer.create(new InetSocketAddress(3000), 0);
             server.createContext("/", new MyHandler());

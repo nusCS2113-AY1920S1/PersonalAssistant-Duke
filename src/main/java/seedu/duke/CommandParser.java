@@ -129,10 +129,10 @@ public class CommandParser {
         ArrayList<Option> optionList = parseOptions(input);
         input = stripOptions(input);
         if (inputType == InputType.TASK) {
-            return TaskCommandParser.parseTaskCommand(input, optionList, ui);
+            return TaskCommandParser.parseTaskCommand(input, optionList);
         } else if (inputType == InputType.EMAIL) {
             try {
-                return EmailCommandParser.parseEmailCommand(input, optionList, ui);
+                return EmailCommandParser.parseEmailCommand(input, optionList);
             } catch (UserInputException e) {
                 ui.showError(e.getMessage());
                 return new InvalidCommand();

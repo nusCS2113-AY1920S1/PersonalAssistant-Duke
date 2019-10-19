@@ -64,7 +64,7 @@ public class TaskStorage {
      *
      * @return task list re-constructed from the save file
      */
-    public static TaskList readTasks() {
+    public static TaskList readTaskFromFile() {
         TaskList taskList = new TaskList();
         String dir = getSaveFileDir();
         FileInputStream in;

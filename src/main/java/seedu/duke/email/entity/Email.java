@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.email.EmailContentParser;
 import seedu.duke.email.EmailFormatParser;
+import seedu.duke.email.EmailStorage;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -20,21 +21,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Email {
-    protected String filepath;
-    protected String subject;
-    protected EmailFormatParser.Sender sender;
-    protected LocalDateTime receivedDateTime;
-    protected String body;
-    protected Boolean hasHtml;
+    private String subject;
+    private EmailFormatParser.Sender sender;
+    private LocalDateTime receivedDateTime;
+    private String body;
     protected ArrayList<Tag> tags = new ArrayList<>();
-    protected String rawJson;
+    private String rawJson;
 
     //@FXML
     //private WebView webView;
 
     public Email(String subject) {
         this.subject = subject;
-        this.filepath = getEmailFilePath();
     }
 
     /**
@@ -150,7 +148,7 @@ public class Email {
         }
         String output = this.body;
         ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
-        Collections.sort(expressions, (ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
+        expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
         for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
@@ -174,7 +172,7 @@ public class Email {
      * @return pathname for this email.
      */
     public String getEmailFilePath() {
-        return getFolderDir() + File.separator + this.subject;
+        return EmailStorage.getFolderDir() + File.separator + this.subject;
     }
 
     ///**
@@ -190,36 +188,7 @@ public class Email {
     //    return path;
     //}
 
-    /**
-     * Get the pathname of the data/emails folder.
-     *
-     * @return the pathname of the data/emails folder.
-     */
-    private static String getFolderDir() {
-        String dir;
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "emails";
-        } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "data" + File.separator + "emails";
-        } else {
-            dir = "emails";
-        }
-        return dir;
-    }
-
-    /**
-     * Outputs a string with all the information of this email to be stored in a file for future usage. The
-     * subject of the email is hashed and combined with date time to produce the filename.
-     *
-     * @return a string with all the information of this email.
-     */
-    public String toFileString() {
-        String fileString = this.subject + " | ";  // to add on info such as tags.
-        return fileString;
-    }
-
-    public String getFilename() {
+    public String toFilename() {
         String filename = shaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
         return filename;
     }
@@ -229,7 +198,7 @@ public class Email {
      *
      * @return a json object containing all the parsed information of the email object
      */
-    public JSONObject getIndexJson() throws JSONException {
+    public JSONObject toIndexJson() throws JSONException {
         JSONObject indexJson = new JSONObject();
         indexJson.put("subject", this.subject);
         indexJson.put("sender", this.sender.toString());
@@ -330,6 +299,7 @@ public class Email {
             }
             int relevance = json.getInt("relevance");
 
+
             this.keywordPair = new EmailContentParser.KeywordPair(keyword, expressionList);
             this.relevance = relevance;
         }
@@ -355,8 +325,8 @@ public class Email {
             JSONObject json = new JSONObject();
             json.put("keyword", this.keywordPair.getKeyword());
             JSONArray expressionArray = new JSONArray();
-            for (String expresion : this.keywordPair.getExpressions()) {
-                expressionArray.put(expresion);
+            for (String expression : this.keywordPair.getExpressions()) {
+                expressionArray.put(expression);
             }
             json.put("expressions", expressionArray);
             json.put("relevance", this.relevance);

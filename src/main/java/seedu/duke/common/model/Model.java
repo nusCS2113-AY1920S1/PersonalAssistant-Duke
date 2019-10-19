@@ -16,9 +16,11 @@ public class Model {
     }
     public void setEmailList(EmailList emailList) {
         this.emailList = emailList;
+        updateGuiEmailList();
     }
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
+        updateGuiTaskList();
     }
 
     /**

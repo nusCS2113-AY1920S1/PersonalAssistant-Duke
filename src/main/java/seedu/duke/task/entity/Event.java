@@ -97,7 +97,7 @@ public class Event extends Task {
      *
      * @return a formatted string of the time of this Event
      */
-    protected String formatDate() {
+    private String formatDate() {
         return format.format(this.time);
     }
 

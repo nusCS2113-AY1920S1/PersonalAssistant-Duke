@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class Deadline extends Task {
     private LocalDateTime time;
-    private String doAfter;
 
     /**
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
@@ -41,9 +40,9 @@ public class Deadline extends Task {
      */
     public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, String priority) {
         super(name);
+        this.taskType = TaskType.Deadline;
         this.time = time;
         setDoAfterDescription(doAfter);
-        this.taskType = TaskType.Deadline;
         setTags(tags);
         setPriorityTo(priority);
     }
@@ -98,7 +97,7 @@ public class Deadline extends Task {
      *
      * @return a formatted string of the time of this Deadline
      */
-    protected String formatDate() {
+    private String formatDate() {
         return format.format(this.time);
     }
 

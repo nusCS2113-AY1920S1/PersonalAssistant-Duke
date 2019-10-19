@@ -19,7 +19,7 @@ public class TaskDoneCommand extends Command {
      *
      * @param i the index of the target task to be marked as done
      */
-    public TaskDoneCommand(int i) {
+    TaskDoneCommand(int i) {
         index = i;
     }
 

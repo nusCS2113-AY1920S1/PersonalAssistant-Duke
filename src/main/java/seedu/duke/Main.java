@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    Duke duke;
+    private Duke duke;
 
     @Override
     public void start(Stage stage) {

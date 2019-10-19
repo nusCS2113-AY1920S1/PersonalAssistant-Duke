@@ -7,7 +7,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
-public class KeyBinding {
+class KeyBinding {
 
     /**
      * Set key binding to read from scene.

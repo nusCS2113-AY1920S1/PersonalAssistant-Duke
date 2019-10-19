@@ -69,7 +69,7 @@ public class EmailContentParser {
      * @param keywordPair the target keyword looking for
      * @return whether the keyword pair is found in the string
      */
-    public static int keywordInString(String input, KeywordPair keywordPair) {
+    private static int keywordInString(String input, KeywordPair keywordPair) {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);

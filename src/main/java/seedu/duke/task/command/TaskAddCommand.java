@@ -33,8 +33,8 @@ public class TaskAddCommand extends Command {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
-                          String doAfter, ArrayList<String> tags, String priority) {
+    TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
+                   String doAfter, ArrayList<String> tags, String priority) {
         this.taskType = taskType;
         this.name = name;
         this.time = time;

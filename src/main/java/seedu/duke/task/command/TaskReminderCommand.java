@@ -12,7 +12,7 @@ public class TaskReminderCommand extends Command {
      *
      * @param dayLimit the maximum number of days from now for a task to be considered as near
      */
-    public TaskReminderCommand(int dayLimit) {
+    TaskReminderCommand(int dayLimit) {
         this.dayLimit = dayLimit;
     }
 
@@ -41,7 +41,9 @@ public class TaskReminderCommand extends Command {
             msg += nearTasks.toString();
         }
         responseMsg = msg;
-        Duke.getUI().showResponse(msg);
+        if (!silent) {
+            Duke.getUI().showResponse(msg);
+        }
         return true;
     }
 }

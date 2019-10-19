@@ -35,8 +35,8 @@ public class Duke {
     }
 
     private void initModel() {
-        TaskList taskList = TaskStorage.readTasks();
-        EmailList emailList = EmailStorage.readEmails();
+        TaskList taskList = TaskStorage.readTaskFromFile();
+        EmailList emailList = EmailStorage.readEmailFromFile();
         EmailContentParser.initKeywordList();
 
         model.setTaskList(taskList);

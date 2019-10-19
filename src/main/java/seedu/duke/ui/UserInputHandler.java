@@ -8,7 +8,7 @@ import seedu.duke.Duke;
 
 import java.util.function.UnaryOperator;
 
-public class UserInputHandler {
+class UserInputHandler {
     private TextField userInput;
     private Button sendButton;
 

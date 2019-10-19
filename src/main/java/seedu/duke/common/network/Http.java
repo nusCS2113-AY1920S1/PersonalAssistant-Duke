@@ -52,7 +52,7 @@ public class Http {
      *
      * @param code teh new authentication code
      */
-    public static void setAuthCode(String code) {
+    static void setAuthCode(String code) {
         //Duke.getUI().showDebug("Auth Code Set: " + code);
         authCode = code;
         getAccess();
@@ -92,10 +92,8 @@ public class Http {
             Duke.getUI().showError("Api parameter error...");
         }
         try {
-            EmailList emailList = EmailFormatParser.parseFetchResponse(callEmailApi(apiParams));
-            //for (Email email : emailList) {
-            //    Duke.getUI().showMessage(email.toCliString());
-            //}
+            String httpResponse = callEmailApi(apiParams);
+            EmailList emailList = EmailFormatParser.parseFetchResponse(httpResponse);
             return emailList;
         } catch (EmailFormatParser.EmailParsingException e) {
             Duke.getUI().showError(e.toString());
@@ -120,7 +118,7 @@ public class Http {
     //@@author Navoneel Talukdar & Stunner
     //function adapted from https://stackoverflow
     // .com/questions/40574892/how-to-send-post-request-with-x-www-form-urlencoded-body
-    public static void getAccess() {
+    private static void getAccess() {
         try {
             String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
             HttpURLConnection conn = setupAccessConnection(requestUrl);
@@ -166,7 +164,7 @@ public class Http {
      */
     //@@author baeldung
     //This function is adapted from code on https://www.baeldung.com/java-http-request
-    public static String callEmailApi(JSONObject params) {
+    private static String callEmailApi(JSONObject params) {
         String url = "";
         try {
             url = getApiUrl(params);
@@ -273,7 +271,7 @@ public class Http {
      */
     //This function is adapted from https://stackoverflow
     // .com/questions/10967451/open-a-link-in-browser-with-java-button
-    public static boolean openBrowser(String link) {
+    private static boolean openBrowser(String link) {
         try {
             URI url = new URI(link);
             Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;

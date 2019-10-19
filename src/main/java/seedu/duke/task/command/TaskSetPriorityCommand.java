@@ -19,7 +19,7 @@ public class TaskSetPriorityCommand extends Command {
      * @param index         index of task
      * @param priorityLevel priority level set for the task
      */
-    public TaskSetPriorityCommand(int index, String priorityLevel) {
+    TaskSetPriorityCommand(int index, String priorityLevel) {
         this.index = index;
         this.priorityLevel = priorityLevel;
     }
@@ -36,10 +36,14 @@ public class TaskSetPriorityCommand extends Command {
         try {
             msg = taskList.setPriority(index, priorityLevel);
         } catch (CommandParser.UserInputException e) {
-            Duke.getUI().showError(e.getMessage());
+            if (!silent) {
+                Duke.getUI().showError(e.getMessage());
+            }
             return false;
         }
-        Duke.getUI().showResponse(msg);
+        if (!silent) {
+            Duke.getUI().showResponse(msg);
+        }
         return true;
     }
 }

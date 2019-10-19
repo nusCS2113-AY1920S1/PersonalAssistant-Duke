@@ -10,7 +10,7 @@ import java.io.IOException;
 public class EmailShowCommand extends Command {
     private int index;
 
-    public EmailShowCommand(int index) {
+    EmailShowCommand(int index) {
         this.index = index;
     }
 

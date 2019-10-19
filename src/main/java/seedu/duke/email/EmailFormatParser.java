@@ -100,7 +100,7 @@ public class EmailFormatParser {
      * @param dateTimeString string of the date time
      * @return LocalDateTime object to be stored
      */
-    public static LocalDateTime parseEmailDateTime(String dateTimeString) {
+    private static LocalDateTime parseEmailDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, format);
     }
 

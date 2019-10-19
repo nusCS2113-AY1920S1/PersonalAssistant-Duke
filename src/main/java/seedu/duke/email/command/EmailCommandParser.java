@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EmailCommandParser {
-    private static UI ui;
+    private static UI ui = Duke.getUI();
     /**
      * Parses the specific part of a user/file input that is relevant to email. A successful parsing always
      * returns an email-relevant Command.
@@ -26,8 +26,7 @@ public class EmailCommandParser {
      *                            input
      */
     public static Command parseEmailCommand(String rawInput,
-                                            ArrayList<Command.Option> optionList, UI ui) throws CommandParser.UserInputException {
-        EmailCommandParser.ui = ui;
+                                            ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
         if (rawInput.length() <= 6) {
             return new InvalidCommand();
         }

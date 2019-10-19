@@ -18,7 +18,7 @@ public class EmailTagCommand extends Command {
      * @param index specific email which tags should be added to
      * @param tags tags to be added to the email
      */
-    public EmailTagCommand(int index, ArrayList<String> tags) {
+    EmailTagCommand(int index, ArrayList<String> tags) {
         this.index = index;
         this.tags = tags;
     }
