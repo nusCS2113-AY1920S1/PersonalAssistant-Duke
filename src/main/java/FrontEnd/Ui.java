@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import Farmio.Storage;
 
@@ -24,27 +25,8 @@ public class Ui {
         System.out.println(message);
     }
 
-    public void showWelcome(){
-        Simulation welcomeSimulation = new Simulation("Welcome", this);
-        welcomeSimulation.animate(1);
-        show( "Press ENTER to continue.");
-    }
-
     public void showExit(){
         typeWriter("Bye-Bye");
-    }
-
-    public void showNarrative(ArrayList<String> narratives, String directory, Farmio farmio) {
-        Simulation narrativeSimulation = new Simulation(directory, farmio);
-        for(int i = 0; i < narratives.size(); ++i){
-            clearScreen();
-            narrativeSimulation.animate(i);
-            typeWriter(narratives.get(i));
-            if(i != narratives.size() - 1) {
-                show("Press ENTER to continue.");
-                getInput();
-            }
-        }
     }
 
     public void showError(String message) {

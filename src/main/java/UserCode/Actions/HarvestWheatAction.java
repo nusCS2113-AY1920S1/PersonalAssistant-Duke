@@ -19,7 +19,7 @@ public class HarvestWheatAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().harvestWheat();
-            new Simulation("HarvestWheatSimulation", super.farmio).animate(0, 9);
+            Simulation.animate(ui, farmio.getStorage(), farmio.getFarmer(), "HarvestWheatSimulation", 0, 9);
         } catch (Exception e){
             e.getMessage();
         }

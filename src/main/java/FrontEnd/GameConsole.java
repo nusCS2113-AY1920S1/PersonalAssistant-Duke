@@ -1,6 +1,6 @@
 package FrontEnd;
 
-import Farmio.Farmio;
+import Farmio.Farmer;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -55,16 +55,16 @@ public class GameConsole {
         }
         return assets;
     }
-    static String content(ArrayList<String> stage, Farmio farmio) { //does not include story
+    static String content(ArrayList<String> stage, Farmer farmer) { //does not include story
         StringBuilder output = new StringBuilder();
         String objective = "";// farmio.getLevel().getNarratives().get(0);
-        String location = farmio.getFarmer().getLocation();
-        int level = farmio.getFarmer().getLevel();
-        int day = farmio.getFarmer().getDay();
-        int gold = farmio.getFarmer().getMoney();
-        ArrayList<String> userCode = farmio.getFarmer().getTasks().toStringArray();
-        ArrayList<Pair<String, Integer>> assets = farmio.getFarmer().getAssets();
-        userCode = formatAndHighlightCode(userCode, farmio.getFarmer().getCurrentTask(), farmio.getFarmer().isHasfailedCurrentTask());
+        String location = farmer.getLocation();
+        int level = farmer.getLevel();
+        int day = farmer.getDay();
+        int gold = farmer.getMoney();
+        ArrayList<String> userCode = farmer.getTasks().toStringArray();
+        ArrayList<Pair<String, Integer>> assets = farmer.getAssets();
+        userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
         output.append(AsciiColours.SANE + TOP_BORDER);
         output.append("|" + AsciiColours.RED).append(horizontalPanel("OBJECTIVE:", objective, 71)).append(AsciiColours.SANE).append(CODE_TITLE_FILLER);
         output.append(BOX_BOTTOM_BORDER);

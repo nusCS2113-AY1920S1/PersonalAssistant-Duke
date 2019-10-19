@@ -2,14 +2,58 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e1f946d-b0d7-4800-8830-a2cff7d09645" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandWelcome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.5.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/Command.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandDayEnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandDayEnd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandDayNew.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandDayNew.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandDayStart.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandDayStart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandGameNew.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandGameNew.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandGameQuit.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandGameQuit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandMenuStart.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandMenuStart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandTaskCreate.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Commands/CommandTaskCreate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Commands/ExitCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Farmio/Farmio$Stage.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Farmio/Farmio$Stage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Farmio/Farmio.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Farmio/Farmio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Farmio/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Farmio/Menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Farmio/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Farmio/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Farmio/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Farmio/Storage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/FrontEnd/GameConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/FrontEnd/GameConsole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/FrontEnd/Simulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/FrontEnd/Simulation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/FrontEnd/Ui.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/FrontEnd/Ui.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/BuySeedAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/BuySeedAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/GotoMarketAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/GotoMarketAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/HarvestWheatAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/HarvestWheatAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/PlantSeedAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/PlantSeedAction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/SellWheatAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/UserCode/Actions/SellWheatAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandGameLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandGameLoad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandDayEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandDayEnd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandDayNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandDayNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandDayStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandDayStart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandGameNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandGameNew.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Farmio/Farmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Farmio/Farmer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandGameQuit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandGameQuit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandMenuStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandMenuStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/CommandTaskCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/CommandTaskCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/ExitCommand.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Farmio/Farmio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Farmio/Farmio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Farmio/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Farmio/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Farmio/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Farmio/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Farmio/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Farmio/Storage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/levels/1.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/levels/1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FrontEnd/GameConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FrontEnd/GameConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FrontEnd/Simulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FrontEnd/Simulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FrontEnd/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FrontEnd/Ui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserCode/Actions/BuySeedAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserCode/Actions/BuySeedAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserCode/Actions/GotoMarketAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserCode/Actions/GotoMarketAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserCode/Actions/HarvestWheatAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserCode/Actions/HarvestWheatAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserCode/Actions/PlantSeedAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserCode/Actions/PlantSeedAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserCode/Actions/SellWheatAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserCode/Actions/SellWheatAction.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -256,30 +300,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Farmio/Farmio.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/UserCode/Actions/PlantSeedAction.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/FrontEnd/Ui.java</url>
-          <line>23</line>
-          <properties class="FrontEnd.Ui">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/main$Duke.ic" NAME="Duke Coverage Results" MODIFIED="1571315132139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
