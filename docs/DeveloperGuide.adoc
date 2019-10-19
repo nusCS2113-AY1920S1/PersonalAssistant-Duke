@@ -279,8 +279,10 @@ Lastly, `printViewWeekDetails()` method is called to print relevant empty lines,
 
 The following object diagram summarises what happens when a user executes a new command:
 
-image::ViewWeekObjectDiagram.png[]
-_todo_
+image::ViewWeekSequenceDiagram.png[]
+
+[NOTE]
+The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent over-cluttering of the diagram. It must be noted that the for loop and condition for `dateMatches` method are also not shown due to software limitations.
 
 ==== Design Considerations
 
@@ -294,6 +296,7 @@ Truncating the description of tasks so that no resizing nor wrapping is needed. 
 It clearly demarcates the header and borders of the output and highlights the dates shown in the `ViewWeekCommand` output. Without the coloured scheme, users still need to scan through the headers to realise the useful task information is located below it.
 ** Alternatives considered: +
 The tasks in each day can be classified into visual blocks to aid the users into visualising the timeline in each day. In addition to that, the tasks in each day has already been chronologically sorted in the `ViewWeekCommand` class. This alternative can be an extension to be used in conjunction with `Find free time slots` in future milestones.
+
 === Logging
 
 === Configuration
