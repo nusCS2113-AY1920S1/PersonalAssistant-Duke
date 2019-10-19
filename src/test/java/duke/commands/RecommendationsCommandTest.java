@@ -15,7 +15,7 @@ class RecommendationsCommandTest {
     @Test
     void execute() throws DukeException {
         ModelStub model = new ModelStub();
-        RecommendationsCommand recommendationsCommand = new RecommendationsCommand("5");
+        RecommendationsCommand recommendationsCommand = new RecommendationsCommand(5);
         CommandResultText commandResult = recommendationsCommand.execute(model);
         String result1 = commandResult.getMessage();
 
