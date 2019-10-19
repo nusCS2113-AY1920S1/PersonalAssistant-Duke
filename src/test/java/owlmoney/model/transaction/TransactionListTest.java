@@ -200,7 +200,7 @@ class TransactionListTest {
         try {
             transListTest.editEx(1, "", "5", "", "", uiTest);
             assertEquals("New amount: 5.0", outContent.toString());
-        } catch (TransactionException errorMessage){
+        } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
     }
@@ -217,7 +217,7 @@ class TransactionListTest {
         try {
             transListTest.editDep(1, "gg", "", "", uiTest);
             assertEquals("New description: gg", outContent.toString());
-        } catch (TransactionException errorMessage){
+        } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
     }
@@ -266,7 +266,7 @@ class TransactionListTest {
                 "test"), uiTest, "bank");
         try {
             assertEquals(1.0, transListTest.getExpenditureAmount(1));
-        } catch (TransactionException errorMessage){
+        } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
     }
@@ -315,7 +315,7 @@ class TransactionListTest {
                 "test"), uiTest, "bank");
         try {
             assertEquals(1.0, transListTest.getDepositValue(1));
-        } catch (TransactionException errorMessage){
+        } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
         }
     }
