@@ -17,14 +17,13 @@ import java.util.ArrayList;
  * The LogicManager Class handles the logic of Wallet.
  */
 public class LogicManager {
-    public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
-    public static final String BYE_TOKEN = "bye.";
+    
+    private static final String BYE_TOKEN = "bye.";
     private final UiUtil uiUtil;
 
     private ParserManager parserManager;
     private TaskStorageManager taskStorageManager;
 
-    private ArrayList<Task> taskArrList;
     private TaskList taskList;
 
 
@@ -37,7 +36,7 @@ public class LogicManager {
         this.uiUtil = new UiUtil();
         this.taskList = new TaskList();
 
-        this.taskArrList = new ArrayList<>(taskStorageManager.loadData());
+        ArrayList<Task> taskArrList = new ArrayList<>(taskStorageManager.loadData());
         this.taskList.setArrList(taskArrList);
     }
 
