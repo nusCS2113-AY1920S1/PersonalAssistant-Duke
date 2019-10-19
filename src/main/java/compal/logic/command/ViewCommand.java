@@ -148,15 +148,6 @@ public class ViewCommand extends Command {
 
         StringBuilder allTask = new StringBuilder();
 
-        StringBuilder header = new StringBuilder();
-
-        StringBuilder space = new StringBuilder();
-
-        space.append(" ".repeat((100)));
-
-        header.append("\n").append("_".repeat(65)).append("\n");
-        header.append(space).append(dateInput).append("\n");
-
         for (Task t : currList) {
             if (t.getStringDate().equals(dateInput) && !t.getSymbol().equals("D")) {
                 allTask.append(getEventAsStringView(t));
@@ -169,13 +160,14 @@ public class ViewCommand extends Command {
             allTask.append("\n\n");
         }
 
-        return header.toString() + allTask.toString();
+        String header = "\n" + "_".repeat(65) + "\n"
+            + " ".repeat((100)) + dateInput + "\n";
+        return header + allTask.toString();
+
     }
 
     private String getEventAsStringView(Task t) {
         StringBuilder taskDetails = new StringBuilder();
-
-
         String startTime = t.getStringStartTime();
         String endTime = t.getStringEndTime();
         Task.Priority priority = t.getPriority();
