@@ -88,14 +88,18 @@ public class EventPatientTask extends PatientTask {
      *
      * @return .
      */
-    public LocalDateTime getStartTime(){return startTime;}
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
 
     /**
      * .
      *
      * @return .
      */
-    public LocalDateTime getEndTime() {return endTime;}
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
 
     /**
      * .

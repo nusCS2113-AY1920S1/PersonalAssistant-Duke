@@ -71,7 +71,7 @@ public class Parser {
             formattedInput[4] = parsedCommand[5];
             if (parsedCommand[1].equals("eventtask")) {
                 formattedInput[0] = "E";
-            } else if (parsedCommand[1].equals("standardtask")){
+            } else if (parsedCommand[1].equals("standardtask")) {
                 formattedInput[0] = "S";
             } else {
                 throw new DukeException("Please use proper 'assign standardtask/eventtask' command format. ");

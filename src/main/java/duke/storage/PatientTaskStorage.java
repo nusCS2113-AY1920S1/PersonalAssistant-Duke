@@ -93,8 +93,9 @@ public class PatientTaskStorage {
     public void save(ArrayList<PatientTask> patientTask) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
-            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("PID", "TID", "DONE", "RECURRENCE", "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"));
+            CSVPrinter csvPrinter = new CSVPrinter(writer,
+                    CSVFormat.DEFAULT.withHeader("PID", "TID", "DONE", "RECURRENCE",
+                            "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"));
             for (PatientTask patient : patientTask) {
                 int pid = patient.getPatientId();
                 int tid = patient.getTaskID();

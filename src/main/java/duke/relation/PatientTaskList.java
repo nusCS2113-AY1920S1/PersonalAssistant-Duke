@@ -54,7 +54,7 @@ public class PatientTaskList {
      * @param uid .
      * @throws DukeException .
      */
-    public void deletePatientTaskByUniqueId (int uid) throws DukeException {
+    public void deletePatientTaskByUniqueId(int uid) throws DukeException {
         for (PatientTask patientTask : patientTaskIdMap.values()) {
             if (patientTask.getUid() == uid) {
                 patientTaskIdMap.remove(patientTask.getPatientId(), patientTask);
@@ -70,9 +70,9 @@ public class PatientTaskList {
      *
      * @return .
      */
-    public boolean isIdExist(int id){
-        for(PatientTask patientTask: patientTaskIdMap.values()){
-            if (patientTask.getUid() == id){
+    public boolean isIdExist(int id) {
+        for (PatientTask patientTask: patientTaskIdMap.values()) {
+            if (patientTask.getUid() == id) {
                 return true;
             }
         }
@@ -84,9 +84,9 @@ public class PatientTaskList {
      *
      * @return .
      */
-    public boolean isSameTaskExist(PatientTask patientTask){
-        for(PatientTask newPatientTask: patientTaskIdMap.values()){
-            if (newPatientTask.equals(patientTask)){
+    public boolean isSameTaskExist(PatientTask patientTask) {
+        for (PatientTask newPatientTask: patientTaskIdMap.values()) {
+            if (newPatientTask.equals(patientTask)) {
                 return true;
             }
         }

@@ -337,27 +337,7 @@ public class Ui {
             }
         }
     }
-/*
-    public boolean confirmPatientTaskToBeDeleted(PatientTask patientTask, Patient p, Task t) {
-        showLine();
-        System.out.println( t.getID() + ". " + t.getDescription() +"\n");
-        System.out.println( patientTask.toString());
-        showLine();
-        while (true) {
-            System.out.println("The task is to be deleted from patient: " + p.getName() + " " + p.getID());
 
-            String command = readCommand();
-            if (command.toLowerCase().equals("y")) {
-                return true;
-            } else if (command.toLowerCase().equals("n")) {
-                System.out.println("Delete command is canceled");
-                return false;
-            } else {
-                System.out.println("Please enter only Y/N to confirm/cancel deletion!");
-            }
-        }
-    }
-*/
     /**
      * Shows a divider line.
      */

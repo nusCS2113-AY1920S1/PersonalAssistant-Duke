@@ -39,12 +39,14 @@ public abstract class PatientTask {
         this.isRecurrsive = isrecurrsive;
         this.uuid = uid;
     }
+
     /**
      * .
      */
     public int getUid() {
         return this.uuid;
     }
+
     /**
      * .
      *
@@ -153,8 +155,7 @@ public abstract class PatientTask {
      * @return .
      */
     public String printStatus() {
-        return " Unique ID " + uuid + " " + "[" + this.getStatusIcon() + "] " +
-                "[" + this.getRecurrsiveIcon() + "] ";
+        return " Unique ID " + uuid + " " + "[" + this.getStatusIcon() + "] " + "[" + this.getRecurrsiveIcon() + "] ";
     }
 
 

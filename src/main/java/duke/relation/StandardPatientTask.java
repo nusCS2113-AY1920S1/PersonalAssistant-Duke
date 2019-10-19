@@ -52,7 +52,7 @@ public class StandardPatientTask extends PatientTask {
      *  .
      * @return .
      */
-    public LocalDateTime getDeadline(){
+    public LocalDateTime getDeadline() {
         return  this.deadline;
     }
 
