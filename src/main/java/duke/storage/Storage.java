@@ -10,15 +10,14 @@ import duke.model.locations.BusStop;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,32 +60,26 @@ public class Storage {
     /**
      * Reads bus map from filepath.
      */
-    private void readMap() throws DukeException {
+    private void readMap() {
         HashMap<String, BusStop> busStopData = new HashMap<>();
         HashMap<String, BusService> busData = new HashMap<>();
-        try {
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(getClass().getResourceAsStream(BUS_FILE_PATH)));
-            String line;
-            boolean isBusData = false;
-            while ((line = br.readLine()) != null) {
-                logger.log(Level.FINEST, line);
-                if ("==========".equals(line)) {
-                    isBusData = true;
-                }
-                if (isBusData) {
-                    BusService busService = ParserStorageUtil.createBusFromStorage(line);
-                    busData.put(busService.getBus(), busService);
-                } else {
-                    BusStop busStop = ParserStorageUtil.createBusStopDataFromStorage(line);
-                    busStopData.put(busStop.getBusCode(), busStop);
-                }
+        Scanner s = new Scanner(getClass().getResourceAsStream(BUS_FILE_PATH));
+        boolean isBusData = false;
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            if ("==========".equals(line)) {
+                isBusData = true;
             }
-            br.close();
-            this.map = new CreateMap(busStopData, busData);
-        } catch (IOException e) {
-            throw new DukeException(Messages.RESOURCE_NOT_FOUND + BUS_FILE_PATH);
+            if (isBusData) {
+                BusService busService = ParserStorageUtil.createBusFromStorage(line);
+                busData.put(busService.getBus(), busService);
+            } else {
+                BusStop busStop = ParserStorageUtil.createBusStopDataFromStorage(line);
+                busStopData.put(busStop.getBusCode(), busStop);
+            }
         }
+        s.close();
+        this.map = new CreateMap(busStopData, busData);
     }
 
     /**
@@ -95,17 +88,14 @@ public class Storage {
     private void readEvent() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(EVENTS_FILE_PATH));
-            String line;
-            while ((line = br.readLine()) != null) {
-                logger.log(Level.FINEST, line);
-                newTasks.add(ParserStorageUtil.createTaskFromStorage(line));
+            File f = new File(EVENTS_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                newTasks.add(ParserStorageUtil.createTaskFromStorage(s.nextLine()));
             }
-            br.close();
+            s.close();
         } catch (FileNotFoundException e) {
             throw new DukeException(Messages.FILE_NOT_FOUND);
-        } catch (IOException e) {
-            throw new DukeException(Messages.CORRUPTED_TASK);
         }
         tasks.setTasks(newTasks);
     }
@@ -116,20 +106,13 @@ public class Storage {
      * @return The List of all Venues in Recommendations list.
      */
 
-    public List<Venue> readVenues() throws DukeException {
+    public List<Venue> readVenues() {
         List<Venue> recommendations = new ArrayList<>();
-        try {
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH)));
-            String line;
-            while ((line = br.readLine()) != null) {
-                logger.log(Level.FINEST, line);
-                recommendations.add(ParserStorageUtil.getVenueFromStorage(line));
-            }
-            br.close();
-        } catch (IOException e) {
-            throw new DukeException(Messages.RESOURCE_NOT_FOUND + RECOMMENDATIONS_FILE_PATH);
+        Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
+        while (s.hasNext()) {
+            recommendations.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
         }
+        s.close();
         return recommendations;
     }
 
