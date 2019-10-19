@@ -10,7 +10,7 @@ public class ListCommandParser implements Parser<ListCommand> {
 
     @Override
     public ListCommand parse(String input) {
-        if (input != "") {
+        if (!input.equals("")) {
             return new ListCommand(input);
         }
 

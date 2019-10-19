@@ -57,7 +57,7 @@ public class ContactList {
     /**
      * Modify the value of the contact at the given index in the contactList.
      *
-     * @param index      The index of the contact in the list.
+     * @param index The index of the contact in the list.
      * @param contact The contact with modified values.
      */
     public void editContact(int index, Contact contact) {
