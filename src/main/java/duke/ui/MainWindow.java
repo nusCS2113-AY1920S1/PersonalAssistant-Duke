@@ -25,10 +25,6 @@ class MainWindow extends UiElement<Stage> {
     private DukeCore core;
 
     private CommandWindow commandWindow;
-    private HomeWindow homeWindow;
-    private PatientWindow patientWindow;
-    private Tab homeTab;
-    private Tab patientTab;
 
     /**
      * Constructs the main UI window to house child UI elements.
@@ -52,12 +48,12 @@ class MainWindow extends UiElement<Stage> {
         commandWindow = new CommandWindow(core);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
-        homeWindow = new HomeWindow(core);
-        homeTab = new Tab("Home", homeWindow.getRoot());
+        HomeWindow homeWindow = new HomeWindow(core);
+        Tab homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowHolder.getTabs().add(homeTab);
 
-        patientWindow = new PatientWindow();
-        patientTab = new Tab("Patient", patientWindow.getRoot());
+        PatientWindow patientWindow = new PatientWindow();
+        Tab patientTab = new Tab("Patient", patientWindow.getRoot());
         contextWindowHolder.getTabs().add(patientTab);
     }
 
