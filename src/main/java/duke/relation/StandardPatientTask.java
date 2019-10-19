@@ -18,8 +18,8 @@ public class StandardPatientTask extends PatientTask {
      * @param timeBeforeFormat .
      * @param type .
      */
-    public StandardPatientTask(int pid, int tid, String timeBeforeFormat, String type, int uid) {
-        super(pid, tid, type, uid);
+    public StandardPatientTask(int pid, int tid, String timeBeforeFormat, String type) {
+        super(pid, tid, type);
         this.deadlineRaw = timeBeforeFormat;
         try {
             this.deadline = DateTimeParser.convertToLocalDateTime(timeBeforeFormat);
@@ -38,8 +38,8 @@ public class StandardPatientTask extends PatientTask {
      * @param type .
      */
     public StandardPatientTask(int pid, int tid,
-                               boolean isdone, boolean isrecurrsive, String timeBeforeFormat, String type, int uid) {
-        super(pid, tid, isdone, isrecurrsive, type, uid);
+                               boolean isdone, boolean isrecurrsive, String timeBeforeFormat, String type) {
+        super(pid, tid, isdone, isrecurrsive, type);
         this.deadlineRaw = timeBeforeFormat;
         try {
             this.deadline = DateTimeParser.convertToLocalDateTime(timeBeforeFormat);

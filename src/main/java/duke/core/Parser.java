@@ -62,13 +62,12 @@ public class Parser {
      * @throws DukeException .
      */
     public String[] parseAssign() throws DukeException {
-        String[] formattedInput = new String[5];
+        String[] formattedInput = new String[4];
         try {
-            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 6);
-            formattedInput[1] = parsedCommand[2].replace("id", "").trim();
+            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 5);
+            formattedInput[1] = parsedCommand[2];
             formattedInput[2] = parsedCommand[3];
             formattedInput[3] = parsedCommand[4];
-            formattedInput[4] = parsedCommand[5];
             if (parsedCommand[1].equals("eventtask")) {
                 formattedInput[0] = "E";
             } else if (parsedCommand[1].equals("standardtask")) {

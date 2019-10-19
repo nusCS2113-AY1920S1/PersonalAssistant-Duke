@@ -17,6 +17,7 @@ public class PatientTaskList {
      * An ArrayList structure.
      */
     private Multimap<Integer, PatientTask> patientTaskIdMap = ArrayListMultimap.create();
+    int maxId = 0;
 
     /**
      * .
@@ -25,7 +26,15 @@ public class PatientTaskList {
      */
     public PatientTaskList(ArrayList<PatientTask> newPatientTaskList) {
         for (PatientTask patientTasK : newPatientTaskList) {
+            if (patientTasK.getUid() == 0) {
+                maxId += 1;
+                patientTasK.setUid(maxId);
+            }
             patientTaskIdMap.put(patientTasK.getPatientId(), patientTasK);
+        }
+
+        if (!newPatientTaskList.isEmpty()) {
+            this.maxId = newPatientTaskList.get(newPatientTaskList.size() - 1).getUid();
         }
     }
 
@@ -44,6 +53,10 @@ public class PatientTaskList {
      * @param t .
      */
     public void addPatientTask(PatientTask t) {
+        if (t.getUid() == 0) {
+            maxId += 1; //Increment maxId by 1 for the new coming patient
+            t.setUid(maxId); //Set the unique id to patient
+        }
         patientTaskIdMap.put(t.getPatientId(), t);
     }
 

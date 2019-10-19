@@ -66,11 +66,10 @@ public class PatientTaskStorage {
                     String taskType = record.get("TASKTYPE");
                     int uniqueId = Integer.parseInt(record.get("uuid"));
                     if (taskType.equals("S")) {
-                        patientTaskList.add(new StandardPatientTask(pid, tid, isDone, isRecursive, deadline, taskType,
-                                uniqueId));
+                        patientTaskList.add(new StandardPatientTask(pid, tid, isDone, isRecursive, deadline, taskType));
                     } else if (taskType.equals("E")) {
                         patientTaskList.add(new EventPatientTask(pid, tid, isDone, isRecursive,
-                                startTime, endTime, taskType, uniqueId));
+                                startTime, endTime, taskType));
                     }
                 }
             }

@@ -43,46 +43,43 @@ public class AssignTaskToPatientCommand extends Command {
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
-        char firstChar = taskAssignmentInfo[2].charAt(0);
+        char firstChar = taskAssignmentInfo[1].charAt(0);
 
         try {
             if (taskAssignmentInfo[0].equals("S")) {
                 if (firstChar == '#') {
-                    int tempUid = Integer.parseInt(taskAssignmentInfo[1]);
-                    int tempPid = Integer.parseInt(taskAssignmentInfo[2].replace("#","").trim());
-                    int tempTid = Integer.parseInt(taskAssignmentInfo[3]);
-                    String temptime = taskAssignmentInfo[4];
-                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0],tempUid);
+                    int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
+                    int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
+                    String temptime = taskAssignmentInfo[3];
+                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0]);
                 } else {
-                    int tempUid = Integer.parseInt(taskAssignmentInfo[1]);
-                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[2]).get(0).getID();
-                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[3]).get(0).getID();
-                    String temptime = taskAssignmentInfo[4];
-                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0],tempUid);
+                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
+                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
+                    String temptime = taskAssignmentInfo[3];
+                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0]);
                 }
             } else if (taskAssignmentInfo[0].equals("E")) {
                 if (firstChar == '#') {
-                    int tempUid = Integer.parseInt(taskAssignmentInfo[1]);
-                    int tempPid = Integer.parseInt(taskAssignmentInfo[2].replace("#","").trim());
-                    int tempTid = Integer.parseInt(taskAssignmentInfo[3]);
-                    String stime = taskAssignmentInfo[4].split(" to ", 2)[0];
-                    String etime = taskAssignmentInfo[4].split(" to ", 2)[1];
+                    int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
+                    int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
+                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];
+                    String etime = taskAssignmentInfo[3].split(" to ", 2)[1];
                     newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
-                            taskAssignmentInfo[0],tempUid);
+                            taskAssignmentInfo[0]);
                 } else {
-                    int tempUid = Integer.parseInt(taskAssignmentInfo[1]);
-                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[2]).get(0).getID();
-                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[3]).get(0).getID();
-                    String stime = taskAssignmentInfo[4].split(" to ", 2)[0];
-                    String etime = taskAssignmentInfo[4].split(" to ", 2)[1];
+                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
+                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
+                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];
+                    String etime = taskAssignmentInfo[3].split(" to ", 2)[1];
                     newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
-                            taskAssignmentInfo[0],tempUid);
+                            taskAssignmentInfo[0]);
                 }
             } else {
                 throw new DukeException("Wrong format is detected!");
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new DukeException("You are missing some information!");
         }
 

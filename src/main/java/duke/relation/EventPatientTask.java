@@ -22,10 +22,9 @@ public class EventPatientTask extends PatientTask {
      * @param stime .
      * @param etime .
      * @param type  .
-     * @param uid   .
      */
-    public EventPatientTask(int pid, int tid, String stime, String etime, String type, int uid) {
-        super(pid, tid, type, uid);
+    public EventPatientTask(int pid, int tid, String stime, String etime, String type) {
+        super(pid, tid, type);
         this.startTimeRaw = stime;
         this.endTimeRaw = etime;
         try {
@@ -48,11 +47,10 @@ public class EventPatientTask extends PatientTask {
      * @param stime        .
      * @param etime        .
      * @param type         .
-     * @param uid          .
      */
     public EventPatientTask(int pid, int tid, boolean isDone,
-                            boolean isRecurrsive, String stime, String etime, String type, int uid) {
-        super(pid, tid, isDone, isRecurrsive, type, uid);
+                            boolean isRecurrsive, String stime, String etime, String type) {
+        super(pid, tid, isDone, isRecurrsive, type);
         this.startTimeRaw = stime;
         this.endTimeRaw = etime;
         try {
