@@ -1,6 +1,7 @@
 package views;
 
 import controllers.ConsoleInputController;
+import launcher.Duke;
 import models.data.IProject;
 import models.data.Project;
 import models.task.Task;
@@ -159,6 +160,7 @@ public class CLIView {
             ArrayList<String> allAssignedTasks = new ArrayList<>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
             allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
+            DukeLogger.logDebug(CLIView.class,allAssignedTasks.toString());
             consolePrint(allAssignedTasks.toArray(new String[0]));
         }
     }
@@ -170,6 +172,7 @@ public class CLIView {
      */
     public void viewTaskRequirements(IProject projectToManage, int taskIndex) {
         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
+        DukeLogger.logDebug(CLIView.class,taskRequirements.toString());
         consolePrint(taskRequirements.toArray(new String[0]));
     }
 

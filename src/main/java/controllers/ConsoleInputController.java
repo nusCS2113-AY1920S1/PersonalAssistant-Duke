@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.data.Project;
 import repositories.ProjectRepository;
+import util.log.DukeLogger;
 import views.CLIView;
 
 import java.io.FileReader;
@@ -35,6 +36,7 @@ public class ConsoleInputController implements IController {
      */
     @Override
     public void onCommandReceived(String input) {
+        DukeLogger.logInfo(ConsoleInputController.class, "input:'" + input + "'");
         Scanner inputReader = new Scanner(input);
         String command = inputReader.next();
 
@@ -80,11 +82,14 @@ public class ConsoleInputController implements IController {
                 .setPrettyPrinting()
                 .create();
         try {
+            DukeLogger.logDebug(ConsoleInputController.class, "Saving to file.");
             FileWriter fileWriter = new FileWriter(filePath);
             gson.toJson(this.projectRepository, fileWriter);
             fileWriter.flush();
             fileWriter.close();
+            DukeLogger.logDebug(ConsoleInputController.class, "File saved.");
         } catch (IOException err) {
+            DukeLogger.logError(ConsoleInputController.class, "savedProjects file is not found.");
             consoleView.consolePrint("savedProjects file does not exist or is not created!");
         }
     }
@@ -92,11 +97,14 @@ public class ConsoleInputController implements IController {
     private void loadProjectsData() {
         Gson gson = new Gson();
         try (FileReader fileReader = new FileReader(filePath)) {
+            DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.'");
             this.projectRepository = gson.fromJson(fileReader, ProjectRepository.class);
             if (this.projectRepository == null) {
                 this.projectRepository = new ProjectRepository();
             }
+            DukeLogger.logDebug(ConsoleInputController.class, "Saved file loaded.");
         } catch (IOException err) {
+            DukeLogger.logError(ConsoleInputController.class, "Saved file not loaded");
             this.projectRepository = new ProjectRepository();
         }
     }
