@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -25,8 +24,6 @@ import java.util.List;
  */
 class CommandWindow extends UiElement<Region> {
     private static final String FXML = "CommandWindow.fxml";
-    private static final Image userAvatar = new Image(DukeCore.class.getResourceAsStream("/images/user.png"));
-    private static final Image dukeAvatar = new Image(DukeCore.class.getResourceAsStream("/images/duke.png"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -104,7 +101,7 @@ class CommandWindow extends UiElement<Region> {
             historyPointer = inputHistory.size();
             currentInput = "";
 
-            messageContainer.getChildren().add(MessageBox.getUserDialog(input, userAvatar));
+            messageContainer.getChildren().add(MessageBox.getUserMessage(input).getRoot());
 
             try {
                 // TODO: Should this UI element be responsible for the execution of the command?
@@ -173,7 +170,7 @@ class CommandWindow extends UiElement<Region> {
      * @param message Message.
      */
     void print(String message) {
-        messageContainer.getChildren().add(MessageBox.getDukeDialog(message, dukeAvatar));
+        messageContainer.getChildren().add(MessageBox.getDukeMessage(message).getRoot());
     }
 
     /**

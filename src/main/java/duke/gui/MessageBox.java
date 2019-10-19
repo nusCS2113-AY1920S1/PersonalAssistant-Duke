@@ -4,70 +4,69 @@ import duke.DukeCore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.util.Collections;
 
-public class MessageBox extends HBox {
+class MessageBox extends UiElement<Region> {
+    private static final String FXML = "MessageBox.fxml";
+    private static final Image userAvatar = new Image(DukeCore.class.getResourceAsStream("/images/user.png"));
+    private static final Image dukeAvatar = new Image(DukeCore.class.getResourceAsStream("/images/duke.png"));
+
     @FXML
-    private Circle displayPicture;
+    private HBox container;
     @FXML
-    private VBox dialogHolder;
+    private Circle avatar;
     @FXML
-    private Text dialog;
+    private VBox messageHolder;
+    @FXML
+    private Text message;
 
     /**
-     * Creates a new MessageBox object to be displayed in the chat window of the GUI.
+     * Constructs a new MessageBox object to be displayed in the command window.
      */
-    private MessageBox(String text, Image img) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(DukeCore.class.getResource("/view/MessageBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private MessageBox(String text, Image image) {
+        super(FXML, null);
 
-        dialog.setText(text);
-        dialog.wrappingWidthProperty().bind(dialogHolder.prefWidthProperty());
-        displayPicture.setFill(new ImagePattern(img));
+        message.setText(text);
+        message.wrappingWidthProperty().bind(messageHolder.prefWidthProperty());
+        avatar.setFill(new ImagePattern(image));
     }
 
     /**
-     * Creates a dialog box for the user's input.
+     * Creates a message box for the user's input.
      */
-    public static MessageBox getUserDialog(String text, Image img) {
-        var db = new MessageBox(text, img);
-        db.flip();
-        return db;
+    static MessageBox getUserMessage(String text) {
+        MessageBox messageBox = new MessageBox(text, userAvatar);
+        // TODO: Fix UI so that user's input is not "flipped".
+        messageBox.flip();
+        return messageBox;
     }
 
     /**
-     * Creates a new dialog box for Duke's response.
+     * Creates a new message box for Duke's response.
      */
-    public static MessageBox getDukeDialog(String text, Image img) {
-        var db = new MessageBox(text, img);
-        db.flip();
-        return db;
+    static MessageBox getDukeMessage(String text) {
+        MessageBox messageBox = new MessageBox(text, dukeAvatar);
+        messageBox.flip();
+        return messageBox;
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the message box such that the {@code avatar} is on the left and the {@code message} is on the right.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        ObservableList<Node> tmp = FXCollections.observableArrayList(container.getChildren());
         Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        container.getChildren().setAll(tmp);
+        container.setAlignment(Pos.TOP_LEFT);
     }
 }
