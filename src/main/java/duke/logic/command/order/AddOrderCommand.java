@@ -89,7 +89,7 @@ public class AddOrderCommand extends OrderCommand {
         Set<Item<Product>> productItems = OrderCommandUtil.getProductItems(productList,
                 descriptor.getItems().orElse(new HashSet<>()));
         double total = descriptor.getTotal().orElse(calculateTotal(productItems));
-        return new Order(
+        Order order = new Order(
             new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
                 descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)
             ),
@@ -97,9 +97,10 @@ public class AddOrderCommand extends OrderCommand {
             descriptor.getStatus().orElse(DEFAULT_STATUS),
             descriptor.getRemarks().orElse(DEFAULT_REMARKS),
             productItems,
-            total,
-            inventoryList
+            total
         );
+        order.listenToInventory(inventoryList);
+        return order;
     }
 
 
