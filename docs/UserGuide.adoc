@@ -62,7 +62,6 @@ Format: `add MOD_NAME`
 * Example: `add CG2028`
 ****
 
-// tag::remove[]
 === Removing a module : `remove`
 
 Removes the specified module from the module list. +
@@ -79,8 +78,6 @@ Examples:
 * `show` +
 `remove 2` +
 Removes the 2nd module in the module list.
-
-// end::remove[]
 
 === Listing all modules : `show`
 
@@ -124,12 +121,12 @@ Gives a report and the specified type of modules taken.
 Prints out a report on all the core modules taken in the semester.+
 Format: `report core`
 
-==== Giving a report on general education modules: `core`
+==== Giving a report on general education modules: `ge`
 
 Prints out a report on all the general education modules taken in the semester.+
 Format: `report ge`
 
-==== Giving a report on unrestricted electives modules: `core`
+==== Giving a report on unrestricted electives modules: `ue`
 
 Prints out a report on all the unrestricted electives modules taken in the semester.+
 Format: `report ue`
