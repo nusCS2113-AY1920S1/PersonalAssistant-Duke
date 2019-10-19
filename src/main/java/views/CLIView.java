@@ -1,7 +1,6 @@
 package views;
 
 import controllers.ConsoleInputController;
-import launcher.Duke;
 import models.data.IProject;
 import models.data.Project;
 import models.task.Task;
