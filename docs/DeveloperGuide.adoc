@@ -136,6 +136,7 @@ NUS Students who are trying to plan their meals for a specific diet goal such as
 
 [appendix]
 == Use Cases
+[]
 ====
 System: DIYeats
 
@@ -169,7 +170,7 @@ Use case resumes from step 3.
 
 Use case resumes from step 1.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -219,7 +220,7 @@ Steps 1.4.1 - 1.4.2 are repeated until the command entered are correct.
 
 Use case resumes from step 2.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -244,7 +245,7 @@ Extensions:
 
 Use case ends.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -261,7 +262,7 @@ Main Success Scenario:
 
 Use Case Ends.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -286,7 +287,7 @@ Extensions:
 
 Use case ends.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -311,7 +312,7 @@ Extensions:
 
 Use case ends.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -339,7 +340,7 @@ Steps 1.1.1 - 1.1.2 are repeated until the data entered are correct.
 
 Use case resumes from step 2.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -367,7 +368,7 @@ Step 1.1.1 is repeated until the student is satisfied with the constraints for f
 
 Use case resumes from step 2.
 ====
-
+[]
 ====
 System: DIYeats
 
@@ -384,7 +385,7 @@ Main Success Scenario:
 
 Use case ends.
 ====
-
+[]
 ====
 System: DIYeats
 
