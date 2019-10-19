@@ -43,7 +43,8 @@ public class CommandBox extends UiManager<StackPane> {
 
         try {
             Command c = Parser.parse(fullCommand);
-            c.execute(foodList, new Ui(), storageManager);
+            //c.execute(foodList, new Ui(), storageManager);
+            c.execute(foodList, storageManager);
             storage.save(storageManager);
         } catch (CubeException e) {
             e.printStackTrace();

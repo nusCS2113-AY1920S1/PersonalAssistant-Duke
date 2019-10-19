@@ -57,7 +57,8 @@ public class MainWindow extends UiManager<Stage> {
     private String cmdExecutor(String input) {
         try {
             Command c = Parser.parse(input);
-            c.execute(foodList, new Ui(), storageManager);
+            //c.execute(foodList, new Ui(), storageManager);
+            c.execute(foodList, storageManager);
             storage.save(storageManager);
         } catch (CubeException e) {
             e.printStackTrace();
