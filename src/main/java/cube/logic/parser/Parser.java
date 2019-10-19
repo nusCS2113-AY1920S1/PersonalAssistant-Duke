@@ -1,15 +1,8 @@
 package cube.logic.parser;
 
 import cube.logic.command.*;
-import cube.exception.CubeException;
-import cube.model.food.Food;
-import cube.ui.Message;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import cube.logic.parser.exception.ParserErrorMessage;
+import cube.logic.parser.exception.ParserException;
 
 // design pattern copied from address book
 // reference: https://github.com/nusCS2113-AY1920S1/addressbook-level3/tree/master/src/main/java/seedu/address/logic/parser
@@ -23,7 +16,7 @@ public class Parser {
 	 * Parse user command.
 	 *
 	 * Format:
-	 * add -n foodName -t foodType -p price -s stock -e expiryDate
+	 * add foodName -t foodType -p price -s stock -e expiryDate
 	 * list --sort expiry/name/stock
 	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
@@ -36,7 +29,7 @@ public class Parser {
 	 * @param fullCommand the command that user inputs.
 	 * @return corresponding command.
 	 */
-	public static Command parse (String fullCommand) throws CubeException{
+	public static Command parse (String fullCommand) throws ParserException {
 		String[] inputs = fullCommand.split(" ");
 		String command = inputs[0];
 		command = command.trim().toLowerCase();
@@ -58,7 +51,7 @@ public class Parser {
 			case "quit":
 				return new ExitCommand();
 			default:
-				throw new CubeException(Message.INVALID_COMMAND);
+				throw new ParserException(ParserErrorMessage.INVALID_COMMAND);
 		}
 	}
 }

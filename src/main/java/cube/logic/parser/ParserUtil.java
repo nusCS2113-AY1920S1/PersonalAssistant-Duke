@@ -1,7 +1,8 @@
 package cube.logic.parser;
 
 import cube.exception.CubeException;
-import cube.ui.Message;
+import cube.logic.parser.exception.ParserErrorMessage;
+import cube.logic.parser.exception.ParserException;
 
 import java.text.ParseException;
 import java.util.Locale;
@@ -33,7 +34,7 @@ public class ParserUtil {
 	 * @return the date
 	 * @throws CubeException exception occurs when unable to parse.
 	 */
-	public static Date parseStringToDate(String dateString) throws CubeException {
+	public static Date parseStringToDate(String dateString) throws ParserException {
 		if (dateString == null) {
 			return null;
 		}
@@ -43,7 +44,7 @@ public class ParserUtil {
 			Date date = formatter.parse(dateString);
 			return date;
 		} catch (ParseException e) {
-			throw new CubeException(Message.INVALID_DATE_FORMAT);
+			throw new ParserException(ParserErrorMessage.INVALID_DATE_FORMAT);
 		}
 	}
 
@@ -54,20 +55,19 @@ public class ParserUtil {
 	 * @return the full name/type until next parameter/end of input.
 	 */
 	public static String findFullString (String[] inputs, int index) {
-		String fullSring = "";
+		String fullString = "";
 
-		for (int i = index + 1; i < inputs.length; i ++) {
-			if(inputs[i].equals("-n")||inputs[i].equals("-t")||inputs[i].equals("-p")
-					||inputs[i].equals("-s")||inputs[i].equals("-e")) {
+		for (int i = index; i < inputs.length; i ++) {
+			if(inputs[i].matches("-(.*)")) {
 				break;
 			}
 
-			if(i != index+1) {
-				fullSring += " ";
+			if(i != index) {
+				fullString += " ";
 			}
-			fullSring += inputs[i];
+			fullString += inputs[i];
 		}
 
-		return fullSring;
+		return fullString;
 	}
 }

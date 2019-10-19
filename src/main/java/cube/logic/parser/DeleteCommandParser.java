@@ -2,14 +2,16 @@ package cube.logic.parser;
 
 import cube.exception.CubeException;
 import cube.logic.command.DeleteCommand;
+import cube.logic.parser.exception.ParserErrorMessage;
+import cube.logic.parser.exception.ParserException;
 
 import java.util.Arrays;
 
 public class DeleteCommandParser implements ParserPrototype<DeleteCommand> {
 
-	public DeleteCommand parse(String[] args) throws CubeException {
+	public DeleteCommand parse(String[] args) throws ParserException {
 		if (args.length < 3) {
-			throw new CubeException("Not enough parameters. Please enter index you want to delete.");
+			throw new ParserException(ParserErrorMessage.NOT_ENOUGH_PARAMETER);
 		}
 
 		switch (args[1]) {
