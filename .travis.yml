@@ -9,6 +9,7 @@ deploy:
   skip_cleanup: true
   provider: script
   script: ./config/travis/deploy_github_pages.sh
+  local_dir: build
   on:
     branch: master
 
