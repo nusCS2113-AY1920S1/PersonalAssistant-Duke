@@ -92,6 +92,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
 
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(b.toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getBankTrackerList().size() + " instalments listed\n");
+        ui.appendToOutput(" Now you have " + account.getBankTrackerList().size() + " bank " +
+                "accounts listed\n");
     };
 }
