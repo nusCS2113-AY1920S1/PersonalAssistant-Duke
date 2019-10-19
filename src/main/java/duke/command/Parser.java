@@ -14,7 +14,6 @@ import static java.lang.Math.min;
  * and execute them. The static initializer generates a static map from Cmd enum values to allow fast lookup of
  * command types.
  */
-@SuppressWarnings("unchecked") //unchecked assignment used to initialize static command map
 public class Parser {
 
     enum ParseState {
@@ -24,7 +23,7 @@ public class Parser {
         SWITCH //parsing a switch name
     }
 
-    private static Map<String, Cmd> commandMap;
+    private final Commands commands;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -33,13 +32,18 @@ public class Parser {
     private Map<String, Switch> switchMap;
     private HashMap<String, String> switchVals;
 
-    static {
-        Cmd[] cmdArr = Cmd.values();
-        Map.Entry[] entryArr = new Map.Entry[cmdArr.length];
-        for (int i = 0; i < cmdArr.length; ++i) {
-            entryArr[i] = Map.entry(cmdArr[i].toString(), cmdArr[i]);
-        }
-        commandMap = Map.ofEntries(entryArr);
+    /**
+     * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
+     */
+    public Parser(Commands commands) {
+        this.commands = commands;
+    }
+
+    /**
+     * Constructs a new Parser, using the Cmd enum to supply the command names.
+     */
+    public Parser() {
+        this(new Commands());
     }
 
     /**
@@ -64,11 +68,10 @@ public class Parser {
                 cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
-        Cmd cmd = commandMap.get(cmdStr);
-        if (cmd == null) {
+        Command command = commands.getCommand(cmdStr);
+        if (command == null) {
             throw new DukeException("I'm sorry, but I don't recognise this command: " + cmdStr);
         }
-        Command command = cmd.getCommand();
         // TODO: autocorrect system
         // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise

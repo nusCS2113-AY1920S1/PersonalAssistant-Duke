@@ -13,6 +13,9 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Abstract test for testing command execution.
+ */
 public abstract class CommandTest {
     protected static DukeCore core;
     protected static ByteArrayOutputStream testOut = new ByteArrayOutputStream(); //stores printed output
