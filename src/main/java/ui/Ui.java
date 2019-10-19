@@ -24,12 +24,16 @@ public class Ui {
                 + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n\n"
                 + "Welcome, what would you like to do today?"
-        );
+            );
     }
 
+    /**
+     * Greets user when they move to quiz scene.
+     * @return a greeting string
+     */
     public String quizGreet() {
         return ("\n                      |   | _ _ _|   /  \\ _  \n"
-                + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                    + "                      |/\\|(_)| (_|  \\__/|_) \n"
                 + "                                            |   \n"
                 + "Let's do some quiz to enhance your word knowledge \n"
                 + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
@@ -62,7 +66,7 @@ public class Ui {
                 + "of word \"" + word + "\"" + "\n";
         StringBuilder stringBuilder = new StringBuilder();
         for (String tag : tagList) {
-             stringBuilder.append(tag + "\n");
+            stringBuilder.append(tag + "\n");
         }
         return returnedString + stringBuilder.toString();
     }
@@ -105,6 +109,12 @@ public class Ui {
         return stringBuilder.toString();
     }
 
+    /**
+     * Shows non-existing tags of the words that are searched
+     * @param word a string represents a word to be searched for tags
+     * @param nullTags list of non-existing tags that are searched
+     * @return a string to show all non-existing tags
+     */
     public String showNullTags(String word, ArrayList<String> nullTags) {
         StringBuilder stringBuilder = new StringBuilder();
         if (nullTags.size() > 0) {
@@ -154,7 +164,7 @@ public class Ui {
     public String quizDisplay(String question, String[] options, int optionSequence) {
         String s = ("What is the meaning of " + question + "?\n");
         int index = 1;
-        for(int i = optionSequence; i < optionSequence + 4; i++) {
+        for (int i = optionSequence; i < optionSequence + 4; i++) {
             s += (index + "." + options[i % 4] + "  ");
             index++;
         }
@@ -169,7 +179,7 @@ public class Ui {
      * @return a string shown when the command is completed
      */
     public String quizResponse(Boolean isCorrect, String answer) {
-        if(isCorrect) {
+        if (isCorrect) {
             return ("Yes!! The correct answer is \"" + answer + "\".");
         } else {
             return ("Sorry, The answer is \"" + answer + "\".");

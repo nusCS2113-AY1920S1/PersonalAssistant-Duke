@@ -75,7 +75,7 @@ public class WordBank {
     }
 
     /**
-     * Adds a tag to a specific word in word bank
+     * Adds a tag to a specific word in word bank.
      * @param wordToBeAddedTag word that the tag is set for
      * @param tags new tags input by user
      * @return tag lists of that word

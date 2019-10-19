@@ -34,7 +34,7 @@ public abstract class NewScene {
     protected Stage window;
 
     /**
-     * Creates a scene
+     * Creates a new scene.
      * @param ui to interact with user
      * @param wordBank to store all words data
      * @param storage extracted file to store all data

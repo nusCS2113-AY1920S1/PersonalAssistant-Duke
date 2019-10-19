@@ -131,7 +131,7 @@ public class Storage {
 
     /**
      * Deletes an item from file.
-     * @param oldString
+     * @param oldString a string to be deleted
      */
     public void deleteFromFile(String oldString) {
         File file = new File(FILE_PATH);

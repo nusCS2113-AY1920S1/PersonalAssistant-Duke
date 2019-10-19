@@ -147,13 +147,12 @@ public class Parser {
                     tags.add(wordAndTags[i].trim());
                 }
                 return new AddTagCommand(wordDescription, tags);
-            }  else if (taskInfo[0].equals("quiz")){
+            }  else if (taskInfo[0].equals("quiz")) {
                 if (taskInfo.length > 1) {
                     throw new WrongQuizFormatException();
                 }
                 return new QuizCommand();
-            }
-            else {
+            } else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e) {

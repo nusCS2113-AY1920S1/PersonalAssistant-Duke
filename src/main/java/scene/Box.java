@@ -13,7 +13,7 @@ public class Box extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Creates a dialogue box
+     * Creates a dialogue box.
      * @param l text represents command from user and reply from bot
      * @param iv image user and bot
      */
@@ -30,7 +30,7 @@ public class Box extends HBox {
     }
 
     /**
-     * Changes the position of dialogue box to the other side
+     * Changes the position of dialogue box to the other side.
      */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
@@ -43,6 +43,12 @@ public class Box extends HBox {
         return new Box(l, iv);
     }
 
+    /**
+     * Returns the dialogue box of bot
+     * @param l box to show reply from bot
+     * @param iv avatar of bot
+     * @return a dialogue box
+     */
     public static Box getDukeDialog(Label l, ImageView iv) {
         var db = new Box(l, iv);
         db.flip();

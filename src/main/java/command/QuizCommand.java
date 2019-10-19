@@ -17,6 +17,11 @@ public class QuizCommand extends Command {
     protected ArrayList<Integer> randomNumbers;
     public int optionSequence;
 
+    /**
+     * Creates a quiz command with a random integer for the asked word,
+     * options are the words to be chosen,
+     * randomNumbers is a list to store quiz
+     */
     public QuizCommand() {
         this.random = new Random();
         this.options = new String[4];
@@ -24,7 +29,7 @@ public class QuizCommand extends Command {
     }
 
     /**
-     * Checks if the number already exists in the randomized quiz
+     * Checks if the number already exists in the randomized quiz.
      * @param r randomized integer
      * @return true if r already exists in the list
      */
@@ -38,10 +43,10 @@ public class QuizCommand extends Command {
     }
 
     /**
-     * Creates a quiz with 4 options 1, 2, 3, 4 for user
+     * Creates a quiz with 4 options 1, 2, 3, 4 for user.
      * @param wordBank word bank to contain all the words
      * @throws WordBankNotEnoughForQuizException if word bank have fewer than 4
-     * words, it cannot generate the quiz
+     *     words, it cannot generate the quiz
      */
     public void generateQuiz(WordBank wordBank) throws WordBankNotEnoughForQuizException {
         int sizeOfWordBank = wordBank.getWordBank().size();

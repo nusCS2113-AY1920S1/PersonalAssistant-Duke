@@ -4,7 +4,7 @@ package dictionary;
 import java.util.HashSet;
 
 /**
- * Represents words stored in the Word Bank
+ * Represents words stored in the Word Bank.
  */
 
 public class Word {
@@ -13,13 +13,12 @@ public class Word {
     private HashSet<String> tags;
 
     /**
-     * Number of times that a word is searched
+     * Number of times that a word is searched.
      */
     private int numberOfSearches;
 
     /**
-     * String represents the closest time that user search
-     * for a specific word
+     * String represents the closest time that user search for a specific word.
      */
     private String closetSearch;
 

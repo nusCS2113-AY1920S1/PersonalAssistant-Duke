@@ -16,7 +16,7 @@ import java.net.URL;
 public class OxfordCall {
 
     /**
-     * Searches a word on online dictionary if the word doesn't exist in word bank
+     * Searches a word on online dictionary if the word doesn't exist in word bank.
      * @param word string represents the word
      * @return meaning of the word on the internet
      * @throws NoWordFoundException if the word also doesn't exist in Oxford dictionary
@@ -29,7 +29,7 @@ public class OxfordCall {
     }
 
     /**
-     * Gets the http link of the word online
+     * Gets the http link of the word online.
      * @param lookUpWord word to be looked for meaning
      * @return http link to the word
      */
@@ -43,7 +43,7 @@ public class OxfordCall {
     }
 
     /**
-     * Searches for the word online
+     * Searches for the word online.
      * @param word word to be searched
      * @return Meanings found by online dictionary
      * @throws NoWordFoundException if the word doesn't exist on online dictionary

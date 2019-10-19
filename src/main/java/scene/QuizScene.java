@@ -40,8 +40,8 @@ public class QuizScene extends NewScene {
                 generateQuiz();
                 startQuiz = true;
                 return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-            }   else {
-              throw new CommandInvalidException(fullCommand);
+            } else {
+                throw new CommandInvalidException(fullCommand);
             }
         } else {
             String s;
