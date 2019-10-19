@@ -1,6 +1,5 @@
 package duke.sports;
 
-import duke.module.Details;
 
 import java.util.ArrayList;
 
@@ -8,16 +7,22 @@ import java.util.ArrayList;
  * This class is called when option 2 is chosen.
  * All commands related to students will be managed by this class
  */
-public class ManageStudents implements Details {
+public class ManageStudents {
 
     /**
      * An array list for the list of students.
      */
-    private ArrayList<MyStudent> studentList;
+    private final ArrayList<MyStudent> studentList;
 
-    private String detailType;
-
-    private String detailMessage;
+//    /**
+//     * To declare the type of particular.
+//     */
+//    private String detailType;
+//
+//    /**
+//     * The input details.
+//     */
+//    private String detailMessage;
 
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
@@ -60,11 +65,10 @@ public class ManageStudents implements Details {
     }
 
     /**
-     * Method to return the name of the student at the particular index
+     * Method to return the name of the student at the particular index.
      * @param index of the student in the list.
-     * @return name of student.
      */
-    public void getStudentName(int index) {
+    public final void getStudentName(final int index) {
         System.out.println(studentList.get(index - 1).getName());
     }
 
@@ -80,113 +84,85 @@ public class ManageStudents implements Details {
                 + "\n"
                 + "Now you have " + getStudentListSize() + " students.");
     }
-
-    public void setDetail(String type, String detailMessage) {
-        this.detailType = type;
-        this.detailMessage = detailMessage;
-    }
-
-    public String getDetailType() {
-        return detailType;
-    }
-
-    public String getDetailMessage() {
-        return detailMessage;
-    }
+//    /**
+//     * A method to assign details to the student.
+//     * @param type the type of particular
+//     * @param detailMessage the input details
+//     */
+//    public void setDetail(String type, String detailMessage) {
+//        this.detailType = type;
+//        this.detailMessage = detailMessage;
+//    }
+//
+//    public String getDetailType() {
+//        return detailType;
+//    }
+//
+//    public String getDetailMessage() {
+//        return detailMessage;
+//    }
 
     /**
      * Method to remove a particular student in a list.
      * @param index of the student in the list.
      */
-    public void deleteStudent(int index) {
+    public void deleteStudent(final int index) {
         try {
-            System.out.println("Noted.\n" + getStudentList().get(index - 1).getName() + " has been removed from the list.");
+            System.out.println("Noted.\n"
+                    + getStudentList().get(index - 1).getName()
+                    + " has been removed from the list.");
             if ((getStudentListSize() - 1) == 0) {
                 System.out.println("\nNow you have no student in your list.");
             } else if ((getStudentListSize() - 1) == 1) {
-                System.out.println("\nNow you have " + (getStudentListSize() - 1) + " student in your list.");
+                System.out.println("\nNow you have "
+                        + (getStudentListSize() - 1)
+                        + " student in your list.");
             } else {
-                System.out.println("\nNow you have " + (getStudentListSize() - 1) + " students in your list.");
+                System.out.println("\nNow you have "
+                        + (getStudentListSize() - 1)
+                        + " students in your list.");
             }
             getStudentList().remove(index - 1);
         } catch (IndexOutOfBoundsException e) {
             if (getStudentListSize() == 0) {
-                System.err.println("Oops! You only have no student in the list!");
+                System.err.println("Oops! "
+                        + "You only have no student in the list!");
             } else if (getStudentListSize() == 1) {
-                System.err.println("Oops! You only have " + getStudentListSize() + " student in the list!");
+                System.err.println("Oops! You only have "
+                        + getStudentListSize()
+                        + " student in the list!");
             } else {
-                System.err.println("Oops! You only have " + getStudentListSize() + " students in the list!");
+                System.err.println("Oops! You only have "
+                        + getStudentListSize()
+                        + " students in the list!");
             }
 
         }
     }
 
     /**
-     * A method to find a specific student in the list
+     * A method to find a specific student in the list.
      * @param name of student to search
-     * @return
+     * @return the name of student search
      */
-    public String findName(String name) {
-        StringBuilder listString = new StringBuilder();
+    public final String findName(final String name) {
+//        StringBuilder listString = new StringBuilder();
         int index = 1;
         for (MyStudent i : getStudentList()) {
             if (i.getName().contains(name)) {
                 if (index == 1) {
-                    System.out.println("Here are the matching names in your list:");
+                    System.out.println(
+                            "Here are the matching names in your list:");
                 }
                 System.out.println(index++ + ". " + i.getName());
             }
         }
 
         if (index == 1) {
-            System.out.println("Sorry, there are no names matching your search");
+            System.out.println(
+                    "Sorry, there are no names matching your search");
         }
         return name;
-    }
-
-    @Override
-    public String getDetails() {
-        return null;
-    }
-
-    @Override
-    public void updateDetails(String name, String age, String address) {
-
-    }
-
-    @Override
-    public void getIndexNumber() {
-
-    }
-
-    @Override
-    public String getParticulars() {
-        return null;
-    }
-
-    @Override
-    public String updateParticulars() {
-        return null;
-    }
-
-    @Override
-    public void updateParticulars(String contact, String gender, String email, String DOB) {
-
-    }
-
-    @Override
-    public String getPersonalBest() {
-        return null;
-    }
-
-    @Override
-    public String getDietaryPlan() {
-        return null;
-    }
-
-    @Override
-    public String getNotes() {
-        return null;
     }
 
 }
