@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  * Manager of the UI component of the application.
  */
 public class UiManager implements Ui {
-    private static final String ICON_APPLICATION = "/images/icon.png";
+    private static final Image ICON_APPLICATION = new Image(DukeCore.class.getResourceAsStream("/images/icon.png"));
 
     private MainWindow mainWindow;
     private DukeCore core;
@@ -53,8 +53,7 @@ public class UiManager implements Ui {
      * @param primaryStage Main stage for the application.
      */
     private void setApplicationIcon(Stage primaryStage) {
-        Image icon = new Image(DukeCore.class.getResourceAsStream(UiManager.ICON_APPLICATION));
-        primaryStage.getIcons().add(icon);
+        primaryStage.getIcons().add(ICON_APPLICATION);
     }
 
     /**
