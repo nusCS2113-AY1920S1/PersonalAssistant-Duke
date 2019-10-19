@@ -31,6 +31,11 @@ public class Saving extends Bank {
         this.transactions = new TransactionList();
     }
 
+    /**
+     * Gets the income of the bank accounts.
+     *
+     * @return the income of the bank account which includes income and type.
+     */
     @Override
     public double getIncome() {
         return income;
@@ -129,10 +134,10 @@ public class Saving extends Bank {
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + transactions.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
+                + transactions.getExpenditureAmount(expNum) < Double.parseDouble(amount)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getExpenditureAmount(expNum, ui);
+        double oldAmount = transactions.getExpenditureAmount(expNum);
         double newAmount = transactions.editEx(expNum, desc, amount, date, category, ui);
         this.addToAmount(oldAmount);
         this.deductFromAmount(newAmount);
@@ -153,10 +158,10 @@ public class Saving extends Bank {
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui)
             throws TransactionException, BankException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + Double.parseDouble(amount) < transactions.getDepositValue(expNum, ui)) {
+                + Double.parseDouble(amount) < transactions.getDepositValue(expNum)) {
             throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getDepositValue(expNum, ui);
+        double oldAmount = transactions.getDepositValue(expNum);
         double newAmount = transactions.editDep(expNum, desc, amount, date, ui);
         this.addToAmount(newAmount);
         this.deductFromAmount(oldAmount);
@@ -188,7 +193,7 @@ public class Saving extends Bank {
      */
     @Override
     void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
-        double depositValue = transactions.getDepositValue(index, ui);
+        double depositValue = transactions.getDepositValue(index);
         if (this.getCurrentAmount() < depositValue) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {

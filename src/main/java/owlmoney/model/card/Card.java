@@ -202,11 +202,11 @@ public class Card {
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException, CardException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getRemainingLimit()
-                + unpaid.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
+                + unpaid.getExpenditureAmount(expNum) < Double.parseDouble(amount)) {
             throw new CardException("New expenditure cannot exceed remaining limit of $"
                     + this.getRemainingLimit());
         }
-        double oldAmount = unpaid.getExpenditureAmount(expNum, ui);
+        double oldAmount = unpaid.getExpenditureAmount(expNum);
         double newAmount = unpaid.editEx(expNum, desc, amount, date, category, ui);
         this.addRemainingLimit(oldAmount);
         this.subtractRemainingLimit(newAmount);

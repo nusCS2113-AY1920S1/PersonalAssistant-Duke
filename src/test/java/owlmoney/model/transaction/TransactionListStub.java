@@ -1,7 +1,6 @@
 package owlmoney.model.transaction;
 
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,26 +8,10 @@ import java.util.ArrayList;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
-/**
- * TransactionList  provides a layer of abstraction for the ArrayList.
- * The ArrayList will store both expenditures and deposits.
- */
+public class TransactionListStub extends TransactionList {
 
-public class TransactionList {
-
-    private ArrayList<Transaction> expLists;
+    private ArrayList<Transaction> expLists = new ArrayList<>();
     private static final int ONE_INDEX = 1;
-    private static final String TRANSTYPE = "transaction";
-    private static final String ITEMTYPE = "item";
-    private static final boolean ISMULTIPLE = true;
-    private static final boolean ISSINGLE = false;
-
-    /**
-     * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
-     */
-    public TransactionList() {
-        expLists = new ArrayList<Transaction>();
-    }
 
     /**
      * Lists the expenditures in the current bank account.
@@ -37,21 +20,18 @@ public class TransactionList {
      * @param displayNum Number of expenditures to list.
      * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
+    @Override
     public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
-        if (expLists.size() <= 0) {
+        if (this.expLists.size() <= 0) {
             throw new TransactionException("There are no transactions in this bank account");
         } else {
             int counter = displayNum;
             boolean expenditureExist = false;
-            for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
-                if (expLists.get(i).getSpent()) {
-                    printOneHeader(counter, displayNum, ui);
-                    printOneTransaction((i + ONE_INDEX), expLists.get(i), ISMULTIPLE, ui);
-                    counter--;
+            for (int i = this.expLists.size() - ONE_INDEX; i >= 0; i--) {
+                if (this.expLists.get(i).getSpent()) {
+                    System.out.print("Expenditure exists");
                     expenditureExist = true;
-                }
-                if (counter <= 0 || i == 0) {
-                    ui.printDivider();
+                    counter--;
                 }
                 if (counter <= 0) {
                     break;
@@ -64,12 +44,35 @@ public class TransactionList {
     }
 
     /**
+     * Adds an expenditure to the TransactionList.
+     *
+     * @param exp an instance of an expenditure.
+     * @param ui  required for printing.
+     */
+    @Override
+    public void addExpenditureToList(Transaction exp, Ui ui, String type) {
+        this.expLists.add(exp);
+    }
+
+    /**
+     * Adds a deposit to the TransactionList.
+     *
+     * @param dep an instance of an deposit.
+     * @param ui  required for printing.
+     */
+    @Override
+    public void addDepositToList(Transaction dep, Ui ui, String type) {
+        this.expLists.add(dep);
+    }
+
+    /**
      * Lists the deposits in the current bank account.
      *
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      * @throws TransactionException If no deposit is found.
      */
+    @Override
     public void listDeposit(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
             throw new TransactionException("There are no transactions in this bank account");
@@ -77,14 +80,10 @@ public class TransactionList {
             int counter = displayNum;
             boolean depositExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
-                if (!expLists.get(i).getSpent()) {
-                    printOneHeader(counter, displayNum, ui);
-                    printOneTransaction((i + ONE_INDEX), expLists.get(i), ISMULTIPLE, ui);
-                    counter--;
+                if (!this.expLists.get(i).getSpent()) {
+                    System.out.print("Deposit exists");
                     depositExist = true;
-                }
-                if (counter <= 0 || i == 0) {
-                    ui.printDivider();
+                    counter--;
                 }
                 if (counter <= 0) {
                     break;
@@ -97,40 +96,13 @@ public class TransactionList {
     }
 
     /**
-     * Adds an expenditure to the TransactionList.
-     *
-     * @param exp an instance of an expenditure.
-     * @param ui  required for printing.
-     */
-    public void addExpenditureToList(Transaction exp, Ui ui, String type) {
-        expLists.add(exp);
-        if (!"bond".equals(type)) {
-            ui.printMessage("Added expenditure with the following details:");
-            printOneTransaction(ONE_INDEX, exp, ISSINGLE, ui);
-        }
-    }
-
-    /**
-     * Adds a deposit to the TransactionList.
-     *
-     * @param dep an instance of an deposit.
-     * @param ui  required for printing.
-     */
-    public void addDepositToList(Transaction dep, Ui ui, String bankType) {
-        expLists.add(dep);
-        if ("bank".equals(bankType)) {
-            ui.printMessage("Added deposit with the following details:");
-            printOneTransaction(ONE_INDEX, dep, ISSINGLE, ui);
-        }
-    }
-
-    /**
      * Deletes an expenditure to the TransactionList.
      *
      * @param index index of the expenditure in the TransactionList.
      * @param ui    required for printing.
      * @throws TransactionException If invalid transaction.
      */
+    @Override
     public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
         if (expLists.size() <= 0) {
             throw new TransactionException("There are no transactions in this bank account");
@@ -141,8 +113,7 @@ public class TransactionList {
             } else {
                 Transaction temp = expLists.get(index - ONE_INDEX);
                 expLists.remove(index - ONE_INDEX);
-                ui.printMessage("Details of deleted Expenditure:");
-                printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+                System.out.print("Expenditure removed");
                 return temp.getAmount();
             }
         } else {
@@ -162,28 +133,27 @@ public class TransactionList {
      * @return New amount of the expenditure.
      * @throws TransactionException If incorrect date format.
      */
+    @Override
     public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException {
         if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setDescription(desc);
+            System.out.print("New description: " + expLists.get(expNum - ONE_INDEX).getDescription());
         }
         if (!(amount.isBlank() || amount.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setAmount(Double.parseDouble(amount));
+            System.out.print("New amount: " + expLists.get(expNum - ONE_INDEX).getAmount());
         }
         if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 expLists.get(expNum - ONE_INDEX).setDate(temp.parse(date));
+                System.out.print("New date: " + expLists.get(expNum - ONE_INDEX).getDate());
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
                 throw new TransactionException(e.toString());
             }
         }
-        if (!(category.isBlank() || category.isEmpty())) {
-            expLists.get(expNum - ONE_INDEX).setCategory(category);
-        }
-        ui.printMessage("Edited details of the specified expenditure:");
-        printOneTransaction(ONE_INDEX, expLists.get(expNum - ONE_INDEX), ISSINGLE, ui);
         return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
@@ -198,25 +168,26 @@ public class TransactionList {
      * @return New amount of the deposit.
      * @throws TransactionException If incorrect date format.
      */
+    @Override
     public double editDep(int expNum, String desc, String amount, String date, Ui ui) throws TransactionException {
-        ui.printMessage("Editing transaction...\n");
         if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setDescription(desc);
+            System.out.print("New description: " + expLists.get(expNum - ONE_INDEX).getDescription());
         }
         if (!(amount.isBlank() || amount.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setAmount(Double.parseDouble(amount));
+            System.out.print("New amount: " + expLists.get(expNum - ONE_INDEX).getAmount());
         }
         if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 expLists.get(expNum - ONE_INDEX).setDate(temp.parse(date));
+                System.out.print("New date: " + expLists.get(expNum - ONE_INDEX).getDate());
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
                 throw new TransactionException(e.toString());
             }
         }
-        ui.printMessage("Edited details of the specified deposits:");
-        printOneTransaction(ONE_INDEX, expLists.get(expNum - ONE_INDEX), ISSINGLE, ui);
         return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
@@ -227,6 +198,7 @@ public class TransactionList {
      * @return Amount of the expenditure.
      * @throws TransactionException If transaction is not an expenditure.
      */
+    @Override
     public double getExpenditureAmount(int index) throws TransactionException {
         if (expLists.size() <= 0) {
             throw new TransactionException("There are no transactions in this bank account");
@@ -249,11 +221,11 @@ public class TransactionList {
      * @param ui    required for printing.
      * @return Amount of the deleted deposit.
      */
+    @Override
     public double deleteDepositFromList(int index, Ui ui) {
         Transaction temp = expLists.get(index - ONE_INDEX);
         expLists.remove(index - ONE_INDEX);
-        ui.printMessage("Details of deleted deposit:");
-        printOneTransaction(ONE_INDEX, temp, ISSINGLE, ui);
+        System.out.println("Deleted deposit");
         return temp.getAmount();
     }
 
@@ -264,6 +236,7 @@ public class TransactionList {
      * @return Amount of the deposit
      * @throws TransactionException If transaction is not a deposit.
      */
+    @Override
     public double getDepositValue(int index) throws TransactionException {
         if (expLists.size() <= 0) {
             throw new TransactionException("There are no transactions in this bank account");
@@ -276,40 +249,6 @@ public class TransactionList {
             }
         } else {
             throw new TransactionException("Index is out of transaction list range");
-        }
-    }
-
-    /**
-     * Prints transaction details.
-     *
-     * @param num                Represents the numbering of the transaction.
-     * @param transaction        The transaction object to be printed.
-     * @param isMultiplePrinting Represents whether the function will be called for printing once or multiple
-     *                           time
-     * @param ui                 The object use for printing.
-     */
-    private void printOneTransaction(int num, Transaction transaction, boolean isMultiplePrinting, Ui ui) {
-        if (!isMultiplePrinting) {
-            ui.printTransactionHeader(ITEMTYPE);
-        }
-        ui.printTransaction(num, transaction.getDescription(),
-                (transaction.checkDebitCredit() + new DecimalFormat("0.00")
-                        .format(transaction.getAmount())), transaction.getDate(), transaction.getCategory());
-        if (!isMultiplePrinting) {
-            ui.printDivider();
-        }
-    }
-
-    /**
-     * Prints the transaction header details once only when listing of multiple transaction.
-     *
-     * @param counter    Represents the counter of the transaction for printing.
-     * @param displayNum Represents number of transaction to list.
-     * @param ui         The object use for printing.
-     */
-    private void printOneHeader(int counter, int displayNum, Ui ui) {
-        if (counter == displayNum) {
-            ui.printTransactionHeader(TRANSTYPE);
         }
     }
 }

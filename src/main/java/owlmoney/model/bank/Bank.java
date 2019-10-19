@@ -200,9 +200,7 @@ public abstract class Bank {
      * @param bankType Type of bank to add deposit into
      * @throws BankException If used on investment account.
      */
-    void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
-        throw new BankException("This account does not support this feature");
-    }
+    abstract void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException;
 
     /**
      * Deletes a deposit from the current bank account.
