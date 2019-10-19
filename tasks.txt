@@ -1,6 +1,7 @@
 3_D_cs2106 assignment_false_low_24/10/2000_-_1300_true
 5_E_cs2106 assignment_false_low_22/10/2019_1000_1500_false
 4_D_cs2106 assignment_false_low_23/10/2019_-_1500_false
+11_E_cs2106 assignment_false_high_23/10/2019_1010_1800_true
 2_D_cs2106 assignment_false_low_24/10/2019_-_1400_true
 6_D_cs2106 assignment_false_low_24/10/2019_-_1750_true
 7_D_cs2106 assignment_false_low_24/10/2019_-_1800_true

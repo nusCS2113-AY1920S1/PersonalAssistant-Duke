@@ -66,6 +66,7 @@ public class UiManager implements Ui {
             primaryStage.setScene(s1);
             primaryStage.setTitle("ComPAL");
             primaryStage.setOpacity(1);
+            primaryStage.setResizable(false);
             primaryStage.getIcons().add(new Image(new FileInputStream(new File("./icon.png"))));
 
             Label date = (Label) ap.getChildren().get(6);
