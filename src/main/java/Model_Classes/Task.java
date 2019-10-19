@@ -20,15 +20,17 @@ public class Task{
     private RecurrenceScheduleType recurrenceSchedule;
     private boolean hasRecurring;
     private ArrayList<String> subTasks;
+    private Date time;
 
     /**
      * Constructor for the task object. takes in the description of the task
      * @param description Description of the task
      */
-    public Task(String description) {
+    public Task(String description, Date time) {
         this.description = description;
         this.isDone = false;
         this.priority = Priority.low;
+        this.time = time;
     }
 
     /**
@@ -124,4 +126,45 @@ public class Task{
     public void setSubTasks(String input) {
         subTasks = (ArrayList<String>) Arrays.asList(input.split(","));
     }
+
+    /**
+     * Returns the time of the Task ( deadline of Assignment / time of meeting )
+     * @return time task is due or starts
+     */
+    public Date getDate() { return time; }
+
+    /**
+     * Snoozes the Event by set amount of months
+     * @param amount number of months to snooze
+     */
+    public void snoozeMonth(int amount) {
+        this.time.setMonth(this.time.getMonth() + amount);;
+    }
+
+    /**
+     * Snoozes the Event by set amount of days
+     * @param amount number of days to snooze
+     */
+    public void snoozeDay(int amount) {
+        this.time.setDate(this.time.getDate() + amount);;
+    }
+
+
+    /**
+     * Snoozes the Event by set amount of hours
+     * @param amount number of hours to snooze
+     */
+    public void snoozeHour(int amount){
+        this.time.setHours(this.time.getHours() + amount);
+    }
+
+
+    /**
+     * Snoozes the Event by set amount of hours
+     * @param amount number of minutes to snooze
+     */
+    public void snoozeMinute(int amount){
+        this.time.setMinutes(this.time.getMinutes() + amount);
+    }
+
 }

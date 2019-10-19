@@ -51,7 +51,7 @@ public class RoomShare {
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() {
+    public void run() throws RoomShareException {
         boolean isExit = false;
         while (!isExit) {
             String command = parser.getCommand();
