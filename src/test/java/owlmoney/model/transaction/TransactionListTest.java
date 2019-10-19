@@ -14,7 +14,7 @@ import owlmoney.ui.Ui;
 
 class TransactionListTest {
     @Test
-    void checkListExpenditure_noTransactions_throwsException() {
+    void listExpenditure_noTransactions_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
@@ -24,7 +24,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListExpenditure_noExpenditure_throwsException() {
+    void listExpenditure_noExpenditure_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addDepositToList(new Deposit(
@@ -38,7 +38,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListExpenditure_expenditureExists_printExpenditureDetails() {
+    void listExpenditure_expenditureExists_printExpenditureDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         TransactionList transListTest = new TransactionListStub();
@@ -55,7 +55,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListExpenditureDisplayNum_multipleExpenditureExists_printOneExpenditureDetails() {
+    void listExpenditureDisplayNum_multipleExpenditureExists_printOneExpenditureDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         TransactionList transListTest = new TransactionListStub();
@@ -75,7 +75,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListDeposit_noTransactions_throwsException() {
+    void listDeposit_noTransactions_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
@@ -85,7 +85,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListDeposit_noDeposit_throwsException() {
+    void listDeposit_noDeposit_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addExpenditureToList(new Expenditure(
@@ -99,7 +99,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListDeposit_depositExists_printDepositDetails() {
+    void listDeposit_depositExists_printDepositDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         TransactionList transListTest = new TransactionListStub();
@@ -116,7 +116,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkListDepositDisplayNum_multipleDepositExists_printOneDepositDetails() {
+    void listDepositDisplayNum_multipleDepositExists_printOneDepositDetails() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         TransactionList transListTest = new TransactionListStub();
@@ -136,7 +136,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkDeleteExpenditure_noTransactions_throwsException() {
+    void deleteExpenditure_noTransactions_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
@@ -146,7 +146,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkDeleteExpenditure_notExpenditure_throwsException() {
+    void deleteExpenditure_notExpenditure_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addDepositToList(new Deposit(
@@ -159,7 +159,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkDeleteExpenditure_indexOutOfRange_throwsException() {
+    void deleteExpenditure_indexOutOfRange_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addExpenditureToList(new Expenditure(
@@ -172,7 +172,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkDeleteExpenditure_isExpenditure_deleteExpenditure() {
+    void deleteExpenditure_isExpenditure_deleteExpenditure() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -189,7 +189,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkEditEx_changedAmount_amountChanged() {
+    void editEx_changedAmount_amountChanged() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -206,7 +206,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkEditDep_changedDescription_descriptionChanged() {
+    void editDep_changedDescription_descriptionChanged() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -223,7 +223,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetExpenditureAmount_noTransactions_throwsException() {
+    void getExpenditureAmount_noTransactions_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         transListTest.getExpenditureAmount(1),
@@ -232,7 +232,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetExpenditureAmount_indexOutOfRange_throwsException() {
+    void getExpenditureAmount_indexOutOfRange_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addExpenditureToList(new Expenditure(
@@ -245,7 +245,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetExpenditureAmount_depositTransaction_throwsException() {
+    void getExpenditureAmount_depositTransaction_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addDepositToList(new Deposit(
@@ -258,7 +258,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetExpenditureAmount_expenditureTransaction_returnExpenditureAmount() {
+    void getExpenditureAmount_expenditureTransaction_returnExpenditureAmount() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addExpenditureToList(new Expenditure(
@@ -272,7 +272,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetDepositAmount_noTransactions_throwsException() {
+    void getDepositAmount_noTransactions_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         TransactionException thrown = assertThrows(TransactionException.class, () ->
                         transListTest.getDepositValue(1),
@@ -281,7 +281,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetDepositAmount_expenditureTransaction_throwsException() {
+    void getDepositAmount_expenditureTransaction_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addExpenditureToList(new Expenditure(
@@ -294,7 +294,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetDepositAmount_indexOutOfRange_throwsException() {
+    void getDepositAmount_indexOutOfRange_throwsException() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addDepositToList(new Deposit(
@@ -307,7 +307,7 @@ class TransactionListTest {
     }
 
     @Test
-    void checkGetDepositAmount_depositTransaction_returnDepositAmount() {
+    void getDepositAmount_depositTransaction_returnDepositAmount() {
         TransactionList transListTest = new TransactionListStub();
         Ui uiTest = new Ui();
         transListTest.addDepositToList(new Deposit(

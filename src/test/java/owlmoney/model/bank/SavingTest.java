@@ -16,7 +16,7 @@ import owlmoney.ui.Ui;
 
 class SavingTest {
     @Test
-    void testAddInExpenditure_notAddingToSavingAccount_throwsException() {
+    void addInExpenditure_notAddingToSavingAccount_throwsException() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testExpenditure = new Expenditure("test", 20, new Date("1/1/2019"), "test");
@@ -26,7 +26,7 @@ class SavingTest {
     }
 
     @Test
-    void testAddInExpenditure_expenditureAmountExceedBankAmount_throwsException() {
+    void addInExpenditure_expenditureAmountExceedBankAmount_throwsException() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testExpenditure = new Expenditure("test", 2000, new Date("1/1/2019"), "test");
@@ -36,7 +36,7 @@ class SavingTest {
     }
 
     @Test
-    void testAddInExpenditure_succeedAdding_bankAmountDecrease() {
+    void addInExpenditure_succeedAdding_bankAmountDecrease() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testExpenditure = new Expenditure("test", 200, new Date("1/1/2019"), "test");
@@ -49,7 +49,7 @@ class SavingTest {
     }
 
     @Test
-    void testDeleteExpenditure_succeedDeleting_bankAmountIncrease() {
+    void deleteExpenditure_succeedDeleting_bankAmountIncrease() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testExpenditure = new Expenditure("test", 200, new Date("1/1/2019"), "test");
@@ -68,7 +68,7 @@ class SavingTest {
     }
 
     @Test
-    void testEditExpenditureDetails_newAmountExceedBankAmount_throwsException() {
+    void editExpenditureDetails_newAmountExceedBankAmount_throwsException() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testExpenditure = new Expenditure("test", 200, new Date("1/1/2019"), "test");
@@ -83,7 +83,7 @@ class SavingTest {
     }
 
     @Test
-    void testEditExpenditureDetails_succeedChangeNewAmount_bankAmountChanged() {
+    void editExpenditureDetails_succeedChangeNewAmount_bankAmountChanged() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testExpenditure = new Expenditure("test", 200, new Date("1/1/2019"), "test");
@@ -102,7 +102,7 @@ class SavingTest {
     }
 
     @Test
-    void testAddDepositTransaction_notBankAccountType_throwsException() {
+    void addDepositTransaction_notBankAccountType_throwsException() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
@@ -112,7 +112,7 @@ class SavingTest {
     }
 
     @Test
-    void testAddDepositTransaction_succeedAdding_bankAmountIncrease() {
+    void addDepositTransaction_succeedAdding_bankAmountIncrease() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
@@ -125,7 +125,7 @@ class SavingTest {
     }
 
     @Test
-    void testDeleteDepositTransaction_newBankAmountNegative_throwsException() {
+    void deleteDepositTransaction_newBankAmountNegative_throwsException() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
@@ -144,7 +144,7 @@ class SavingTest {
     }
 
     @Test
-    void testDeleteDepositTransaction_succeedDeleting_bankAmountDecrease() {
+    void deleteDepositTransaction_succeedDeleting_bankAmountDecrease() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
@@ -159,7 +159,7 @@ class SavingTest {
     }
 
     @Test
-    void testEditDepositDetails_newBankAmountNegative_throwsException() {
+    void editDepositDetails_newBankAmountNegative_throwsException() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
@@ -178,7 +178,7 @@ class SavingTest {
     }
 
     @Test
-    void testEditDepositTransaction_succeedChanging_bankAmountChanged() {
+    void editDepositTransaction_succeedChanging_bankAmountChanged() {
         Ui uiTest = new Ui();
         Bank testSaving = new Saving("testBank", 1200, 1000);
         Transaction testDeposit = new Deposit("test", 20, new Date("1/1/2019"), "test");
