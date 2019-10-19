@@ -9,10 +9,14 @@ import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +34,7 @@ public class Storage {
     private static final String BUS_FILE_PATH = "data/bus.txt";
     private static final String TRAIN_FILE_PATH = "data/train.txt";
     private static final String EVENTS_FILE_PATH = "data/events.txt";
-    private static final String RECOMMENDATIONS_FILE_PATH = "memory/recommendations.txt";
+    private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
     private static final String ROUTES_FILE_PATH = "data/routes.txt";
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
@@ -119,13 +123,16 @@ public class Storage {
     public List<Venue> readVenues() throws DukeException {
         List<Venue> recommendations = new ArrayList<>();
         try {
-            File f = new File(RECOMMENDATIONS_FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                recommendations.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            InputStream is = this.getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = br.readLine()) != null) {
+                logger.log(Level.INFO, line);
+                recommendations.add(ParserStorageUtil.getVenueFromStorage(line));
             }
-            s.close();
-        } catch (FileNotFoundException e) {
+            br.close();
+            is.close();
+        } catch (IOException e) {
             throw new DukeException(Messages.FILE_NOT_FOUND);
         }
         return recommendations;
