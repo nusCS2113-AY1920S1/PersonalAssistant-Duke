@@ -39,12 +39,6 @@ public class Limit extends Log {
      * to the user.
      * @return String with information of limit.
      */
-    @Override
-    public String getLogText() {
-        return "[" + type + "] "
-                + "[" + amountToMoney() + "] "
-                + "[/for " + duration + "]";
-    }
 
     @Override
     public String getDescription() {
@@ -55,37 +49,6 @@ public class Limit extends Log {
         return "$" + amount;
     }
 
-<<<<<<< HEAD
-//    /**
-//     * Method to add a new limit.
-//     * @param type Budget or Saving
-//     * @param amount Amount to be limited.
-//     * @param duration Duration of limit.
-//     */
-//    public void AddLimit(String type, double amount, Duration duration) {
-//        if (type.equals(LimitType.BUDGET)) {
-//            AddBudget(amount, duration);
-//        } else if (type.equals(LimitType.SAVING)) {
-//            //AddSaving(amount, duration);
-//        } else {
-//            Ui.printErrorMsg();
-//        }
-//    }
-
-//    public void AddBudget(double amount, Duration duration) {
-//        boolean alreadyExist = limitList.limitFinder(limitList.BudgetList, duration);
-//
-//        if (alreadyExist) {
-////            LimitUi.existingLimitPrinter(LimitType.BUDGET);
-//        } else {
-//
-//        }
-//    }
-//
-//    public void EditCurrBudget() {
-//        //edit budget after adding in expenses or income
-//    }
-=======
     /**
      * Method to add a new limit.
      * @param limit limit to be added to the limitList.
@@ -103,9 +66,14 @@ public class Limit extends Log {
     public void EditCurrLimit() {
         //edit budget after adding in expenses or income
     }
->>>>>>> upstream/master
 
     //remove
+    @Override
+    public String getLogText() {
+        return "[" + type + "] "
+                + "[" + amountToMoney() + "] "
+                + "[/for " + duration + "]";
+    }
 
     @Override
     public String formatSave() {

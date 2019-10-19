@@ -21,9 +21,12 @@ public class AddActionCommand extends Command{
     public void undoCommand() {
         UserInput = undo.processCommand(mode);
         String[] parser = UserInput.split(" ",2);
-        prevPosition = Integer.parseInt(parser[0]);
-        UserInput = parser[1];
-
+        if(parser[0].equals("remove")) {
+            UserInput = parser[0] + " " + parser[1];
+        } else {
+            prevPosition = Integer.parseInt(parser[0]);
+            UserInput = parser[1];
+        }
     }
 
     //process redo

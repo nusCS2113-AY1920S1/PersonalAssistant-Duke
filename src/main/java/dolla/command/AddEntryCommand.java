@@ -39,11 +39,12 @@ public class AddEntryCommand extends Command {
 
         if(prevPosition != -1) { //an undo input
             dollaData.addToPrevPosition("entry", newEntry, prevPosition);
+            prevPosition = -1; //reset to -1
         } else { //normal input
             dollaData.addToLogList("entry", newEntry);
+            index = dollaData.getLogList("entry").size();
+            undo.removeCommand("entry",index);
         }
-        index = dollaData.getLogList("entry").size();
-        undo.removeCommand("entry",index);
         Ui.echoAddEntry(newEntry);
     }
 }

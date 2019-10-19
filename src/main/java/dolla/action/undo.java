@@ -73,39 +73,6 @@ public class undo {
         return undoInput;
     }
 
-
-//    public static void addUndoCommand(boolean isFromRedo) {
-//
-//        if(isFromRedo == false) {
-//            redo.setRedoFlag(0);
-//        }
-//        redo.checkFlag();
-//        String parser[] = userInput.split(" ",3);
-//
-//        if(command.equals("add") || command.equals("set")  || command.equals("owe")) {
-//
-//            undoInput = "remove " + userInput.substring(5);
-//            undoCommand.push(undoInput);
-//
-//        } else if(command.equals("borrow")) {
-//
-//            undoInput = "remove " + userInput;
-//            undoCommand.push(undoInput).substring(8);
-//
-//        } else if(command.equals("remove")) {
-//
-//            if(parser[1].equals("borrow") || parser[1].equals("owe")) {
-//                undoInput = userInput.substring(8);
-//            } else if(parser[1].equals("saving") || parser[1].equals("budget")) {
-//                undoInput = "set " + userInput.substring(8);
-//            } else {
-//                undoInput = "add " + userInput.substring(8);
-//            }
-//            undoCommand.push(undoInput);
-//
-//        }
-//    }
-//
 //    public static String processUndo() { //if user input an undo command
 //        //if size > 0
 //        undoInput = undoCommand.pop();

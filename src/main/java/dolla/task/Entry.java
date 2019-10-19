@@ -27,7 +27,7 @@ public class Entry extends Log{
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.userInput = type + " " + amount + " " + description + " " + date;
+        this.userInput = type + " " + amount + " " + description + " " + "/on " +Time.dateTimeToString(date);
     }
 
     public String amountToMoney() {

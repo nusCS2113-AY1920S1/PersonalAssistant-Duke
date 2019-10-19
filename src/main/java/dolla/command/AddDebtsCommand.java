@@ -26,11 +26,12 @@ public class AddDebtsCommand extends Command {
         Debt newDebt = new Debt(type, name, amount, description);
         if(prevPosition != -1) { //an undo input
             dollaData.addToPrevPosition("debt", newDebt, prevPosition);
+            prevPosition = -1;
         } else { //normal input
             dollaData.addToLogList("debt", newDebt);
+            index = dollaData.getLogList("debt").size();
+            undo.removeCommand("debt",index);
         }
         Ui.echoAddDebt(newDebt);
-        index = dollaData.getLogList("debt").size();
-        undo.removeCommand("debt",index);
     }
 }
