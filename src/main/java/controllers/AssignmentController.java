@@ -73,12 +73,21 @@ public class AssignmentController {
         String [] inputParts = input.split("-");
 
         for (String s : inputParts) {
-            if ("i".equals(s.substring(0, 1))){
-                allTasksIndexes = new ArrayList<>(Arrays.asList(s.split(" ")));
-            } else if ("to".equals(s.substring(0, 2))) {
-                allIndexesToAssign = new ArrayList<>(Arrays.asList(s.split(" ")));
-            } else if ("rm".equals(s.substring(0,2))) {
-                allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
+            String [] part = s.split(" ");
+            switch (part[0]) {
+                case "i":
+                    allTasksIndexes = new ArrayList<>(Arrays.asList(part));
+                    allTasksIndexes.remove("i");
+                    break;
+                case "to":
+                    allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
+                    allIndexesToAssign.remove("to");
+                    break;
+                case "rm":
+                    allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
+                    allIndexesToUnassign.remove("rm");
+                    break;
+                default:
             }
         }
 
@@ -132,10 +141,10 @@ public class AssignmentController {
                 if (isValidTaskIndex(taskNumber)) {
                     validIndexes.add(taskNumber);
                 } else {
-                    errorMessages.add("The task " + taskNumber + " does not exist.");
+                    errorMessages.add("The member with index " + taskNumber + " does not exist.");
                 }
             } catch (NumberFormatException e) {
-                errorMessages.add("Could not find task: " + memberIndex);
+                errorMessages.add("Could not find member: " + memberIndex);
                 errorMessages.add("Please ensure that member index numbers are integers");
             }
         }
