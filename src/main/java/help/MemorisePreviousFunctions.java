@@ -45,9 +45,6 @@ public class MemorisePreviousFunctions {
     }
 
     public String getPreviousCommand() {
-        if(getMaxIndex() == 0) {
-
-        }
         if(flagForFirstPress) {
             currIndex = getMaxIndex() - 1;
             flagForFirstPress = false;
