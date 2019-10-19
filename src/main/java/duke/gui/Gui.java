@@ -74,7 +74,7 @@ public class Gui extends AnchorPane {
      * Prints hello message to indicate that setup is completed and Duke can now receive user input.
      */
     public void printHello() {
-        String welcome = Message.MESSAGE_WELCOME_GREET + "\n" + Message.MESSAGE_WELCOME_QUESTION;
+        String welcome = UiMessage.MESSAGE_WELCOME_GREET + "\n" + UiMessage.MESSAGE_WELCOME_QUESTION;
         print(welcome);
     }
 
@@ -93,6 +93,6 @@ public class Gui extends AnchorPane {
     public void closeUi() {
         userInput.setDisable(true);
         sendButton.setDisable(true);
-        print(Message.MESSAGE_EXIT);
+        print(UiMessage.MESSAGE_EXIT);
     }
 }

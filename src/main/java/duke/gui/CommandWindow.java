@@ -166,7 +166,7 @@ public class CommandWindow extends UiElement<Region> {
      * Prints Hello message.
      */
     public void printHello() {
-        String welcome = Message.MESSAGE_WELCOME_GREET + "\n" + Message.MESSAGE_WELCOME_QUESTION;
+        String welcome = UiMessage.MESSAGE_WELCOME_GREET + "\n" + UiMessage.MESSAGE_WELCOME_QUESTION;
         print(welcome);
     }
 
