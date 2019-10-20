@@ -13,6 +13,22 @@
 == Value Proposition
 Offer a more time efficient, and fun platform to learn and practice data structures and algorithms.
 
+== Design
+=== Architecture
+TBD
+
+=== UI
+TBD
+
+=== Parser
+TBD
+
+=== Question Generation
+TBD
+
+=== Storage
+TDB
+
 [appendix]
 == Extras
 === User Stories
