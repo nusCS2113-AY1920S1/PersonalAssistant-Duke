@@ -21,6 +21,7 @@ public class DukeException extends Exception {
     public static final String MESSAGE_EXPENSE_SORT_CRITERIA_INVALID = "%s is not a valid sort criteria!";
     public static final String MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID = "%s is not a valid view scope name!";
     public static final String MESSAGE_EXPENSE_VIEW_SCOPE_NUMBER_INVALID = "%s is not a valid view scope number!";
+    public static final String MESSAGE_DESIRED_PANE_NAME_INVALID = "%s is not an available pane!";
 
     public DukeException(String message) {
         super(message);

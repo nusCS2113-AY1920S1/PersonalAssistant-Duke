@@ -20,7 +20,7 @@ shadowJar {
     archiveVersion = "V1.1"
     archiveClassifier = null
     archiveAppendix = null
-    mainClassName = 'main.java.Main'
+    mainClassName = 'duke.Main'
 }
 
 javafx {
@@ -29,6 +29,7 @@ javafx {
 }
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile 'com.jfoenix:jfoenix:9.0.8'
 }
 
 test {

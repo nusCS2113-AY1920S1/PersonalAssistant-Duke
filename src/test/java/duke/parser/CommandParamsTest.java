@@ -1,8 +1,7 @@
 package duke.parser;
 
-import duke.command.CommandParams;
+import duke.logic.CommandParams;
 import duke.exception.DukeException;
-import duke.exception.DukeRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
