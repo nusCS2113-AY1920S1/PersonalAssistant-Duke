@@ -1,7 +1,6 @@
 package cube.model.food;
 
 import java.util.Comparator;
-import cube.model.food.Food;
 import java.util.Date;
 
 class SortByName implements Comparator<Food> {

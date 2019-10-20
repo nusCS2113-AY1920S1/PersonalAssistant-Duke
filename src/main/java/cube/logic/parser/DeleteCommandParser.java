@@ -1,6 +1,5 @@
 package cube.logic.parser;
 
-import cube.exception.CubeException;
 import cube.logic.command.DeleteCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;

@@ -5,16 +5,8 @@
  */
 package cube.ui;
 
-import cube.logic.parser.AddCommandParser;
-import cube.logic.parser.Parser;
-import cube.logic.parser.ParserUtil;
-import cube.model.food.Food;
-import cube.model.food.FoodList;
-import cube.task.TaskList;
-import cube.task.Task;
 import cube.logic.command.CommandResult;
 import java.util.Scanner;
-import java.util.Date;
 
 
 public class Ui {

@@ -1,7 +1,6 @@
 package cube.logic.command;
 
 import cube.model.food.FoodList;
-import cube.ui.Ui;
 import cube.storage.StorageManager;
 
 public class HelpCommand extends Command{

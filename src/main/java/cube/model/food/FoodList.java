@@ -1,7 +1,6 @@
 package cube.model.food;
 
 import java.util.ArrayList;
-import cube.model.food.Food;
 import java.util.Collections;
 
 // for testing only
