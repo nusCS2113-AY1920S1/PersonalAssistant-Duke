@@ -10,8 +10,8 @@ import compal.logic.parser.exceptions.ParserException;
  */
 public class DoneParser implements CommandParser {
     @Override
-    public Command parseCommand(String command) throws ParserException {
-        int taskID = getTaskID(command);
+    public Command parseCommand(String restOfInput) throws ParserException {
+        int taskID = getTokenTaskID(restOfInput);
         return new DoneCommand(taskID);
     }
 }

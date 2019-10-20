@@ -101,12 +101,12 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
     public void saveData(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
 
-        Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate)
+        /*Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate)
                 .thenComparing(Task::getStringStartTime)
                 .thenComparing(Task::getStringEndTime)
                 .thenComparing(Task::getPriority);
         ArrayList<Task> currList = tasks;
-        currList.sort(compareByDateTime);
+        currList.sort(compareByDateTime);*/
 
 
         for (Task t : tasks) {
