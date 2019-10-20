@@ -87,6 +87,8 @@ public class Blacklist {
                 return true;
             }
         }
+
+        saveBlackList();
         return false;
 
 
@@ -99,7 +101,7 @@ public class Blacklist {
 
         boolean statTitle = removeMovieTitle(movie);
         boolean statObj = removeMovieObj(movie);
-
+        saveBlackList();
         return statObj || statTitle;
 
     }
@@ -111,7 +113,7 @@ public class Blacklist {
 
         boolean statTitle = removeMovieTitle(movie.getTitle());
         boolean statObj = removeMovieObjById(movie);
-
+        saveBlackList();
         return statObj || statTitle;
 
     }
@@ -166,6 +168,7 @@ public class Blacklist {
         blackListMoviesTitle.clear();
         blackListMovies.clear();
         blackListKeyWords.clear();
+        saveBlackList();
     }
 
     public static String printList() {
