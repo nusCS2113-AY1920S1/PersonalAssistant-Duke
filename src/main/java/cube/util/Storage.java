@@ -66,33 +66,6 @@ public class Storage {
 		}
 	}
 
-	/**
-	 * Loads serialized tasks objects from data file to an ArrayList.
-	 *
-	 * @return the list of tasks.
-	 * @throws DukeException exception occurs in reading from data file.
-	 */
-	public ArrayList<Task> load() throws DukeException {
-		ArrayList<Task> list = new ArrayList<>();
-		if (checkFileAvailable()) {
-		    System.out.println("Loading file from : " + fileFullPath);
-		    // read from file
-		    try {
-		        FileInputStream fileInput = new FileInputStream(fileFullPath);
-		        ObjectInputStream in = new ObjectInputStream(fileInput);
-		        while(fileInput.available() > 0) {
-		            list.add((Task) in.readObject());
-		        }
-
-		        fileInput.close();
-		        in.close();
-		    } catch (IOException | ClassNotFoundException e) {
-		    	e.printStackTrace();
-		    	throw new DukeLoadingException(fileFullPath);
-		    }
-		}
-		return list;
-	}
 
 	/**
 	 * Appends a task to the data file.
@@ -109,8 +82,8 @@ public class Storage {
 			out.close();
 			fileAppend.close();
 		} catch (IOException e) {
-	    	throw new DukeLoadingException(fileFullPath);
-	    }
+			throw new DukeLoadingException(fileFullPath);
+		}
 	}
 
 	/**
@@ -125,12 +98,12 @@ public class Storage {
 			FileOutputStream fileSave = new FileOutputStream(fileFullPath, false);
 			ObjectOutputStream out = new ObjectOutputStream(fileSave);
 			for (int i = 0; i < list.size(); i++) {
-			    out.writeObject(list.get(i));
+				out.writeObject(list.get(i));
 			}
 			out.close();
 			fileSave.close();
 		} catch (IOException e) {
-	    	throw new DukeLoadingException(fileFullPath);
-	    }
+			throw new DukeLoadingException(fileFullPath);
+		}
 	}
 }
