@@ -70,13 +70,13 @@ public class ViewCommand extends Command {
 
 
         switch (viewType) {
-        case "/month":
+        case "month":
             finalList = displayMonthView(month, year, currList);
             break;
-        case "/week":
+        case "week":
             finalList = displayWeekView(dateInput, currList);
             break;
-        case "/day":
+        case "day":
             finalList = finalList + ("Your daily schedule for " + dateInput + " :\n");
             finalList = finalList + displayDayView(dateInput, currList);
             calenderUtil.dateViewRefresh(dateInput);

@@ -1,10 +1,12 @@
 package compal.logic.parser;
 
+import compal.commons.CompalUtils;
 import compal.logic.command.Command;
 import compal.logic.command.ViewCommand;
 import compal.logic.parser.exceptions.ParserException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -32,24 +34,28 @@ public class ViewCommandParser implements CommandParser {
         }
 
         switch (viewType) {
-        case "/month":
-        case "/week":
-        case "/day":
+        case "month":
+        case "week":
+        case "day":
 
+            String finalDate;
+            if (viewArgs.length == 1) {
+                Calendar currentDay = Calendar.getInstance();
+                finalDate = CompalUtils.dateToString(currentDay.getTime());
+                return new ViewCommand(viewType, finalDate);
+            }
             ArrayList<String> startDateList = getTokenDate(restOfInput);
             int lastStartDateIndex = startDateList.size() - 1;
 
-            String finalDate;
             finalDate = startDateList.get(lastStartDateIndex);
 
             if (viewArgs.length == 3) {
                 return new ViewCommand(viewType, finalDate);
-            } else {
+            } else if (viewArgs.length == 5) {
                 String type = getType(restOfInput);
                 return new ViewCommand(viewType, finalDate, type);
             }
-
-
+            break;
         default:
             break;
         }
