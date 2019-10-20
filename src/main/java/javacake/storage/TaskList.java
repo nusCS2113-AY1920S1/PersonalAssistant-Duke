@@ -15,6 +15,10 @@ import java.util.List;
 public class TaskList {
     private ArrayList<Task> data;
 
+    public enum TaskState {
+        NOT_DONE, DONE
+    }
+
     /**
      * Initialises data from current taskList being passed.
      * @param taskList the existing taskList loaded from save file
@@ -82,7 +86,7 @@ public class TaskList {
      *              2 : Returns null string with checked task
      * @return String which highlights what Duke processed
      */
-    public static String runTodo(ArrayList<Task> data, String input, Parser.TaskState state) {
+    public static String runTodo(ArrayList<Task> data, String input, TaskList.TaskState state) {
         input = input.substring(5);
         Task tempTask = new ToDo(input);
         return getString(data, state, tempTask);
@@ -101,7 +105,7 @@ public class TaskList {
      */
 
 
-    public static String runDeadline(ArrayList<Task> data, String input, Parser.TaskState state) throws DukeException {
+    public static String runDeadline(ArrayList<Task> data, String input, TaskState state) throws DukeException {
         input = input.substring(9);
         int startOfBy = input.indexOf("/");
         if (startOfBy <= 0) {
@@ -132,7 +136,7 @@ public class TaskList {
      * @throws DukeException Shows error when cannot parse date
      */
     public static String runRecurring(ArrayList<Task> data, String input,
-                                      Parser.TaskState state, String freq) throws DukeException {
+                                      TaskList.TaskState state, String freq) throws DukeException {
         input = input.substring(5).trim();
         String tt1;
         String tt2;
@@ -169,15 +173,15 @@ public class TaskList {
         }
     }
 
-    private static String getString(ArrayList<Task> data, Parser.TaskState state, Task tempTask) {
+    private static String getString(ArrayList<Task> data, TaskList.TaskState state, Task tempTask) {
         StringBuilder stringBuilder = new StringBuilder();
-        if (state == Parser.TaskState.DONE) {
+        if (state == TaskList.TaskState.DONE) {
             tempTask.markAsDone();
         }
         data.add(tempTask);
         stringBuilder.append("Got it. I've added this task: ").append("\n   ");
         stringBuilder.append(tempTask.getFullString()).append("\n");
-        stringBuilder.append("Now you have ").append(data.size()).append(" tasks in the list.");
+        stringBuilder.append("Now you have ").append(data.size() + Storage.getInternalDataSize()).append(" tasks in the list.");
         return stringBuilder.toString();
     }
 }

@@ -4,7 +4,6 @@ import javacake.Duke;
 import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
-import javacake.quiz.QuestionList;
 import javacake.storage.Profile;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -59,6 +58,8 @@ public class MainWindow extends AnchorPane {
     private boolean isQuiz = false;
     private boolean isStarting = true;
     private boolean isTryingReset = false;
+    private String input = "";
+    private String response = "";
 
     /**
      * Initialise the Main Window launched.
@@ -66,23 +67,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        taskScreen.vvalueProperty().bind(dialogContainer.heightProperty());
-        noteScreen.vvalueProperty().bind(dialogContainer.heightProperty());
+        taskScreen.vvalueProperty().bind(taskContainer.heightProperty());
+        noteScreen.vvalueProperty().bind(noteContainer.heightProperty());
         avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
         topBar.getChildren().add(new TopBar());
         TopBar.setUpProgressBars();
 
         if (duke.isFirstTimeUser) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser), dukeImage)
-            );
+            response = Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser);
+            showContentContainer();
         } else {
-            dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(
-                            Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser)
-                                    + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
-                            dukeImage)
-            );
+            response = Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser)
+                    + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
+            showContentContainer();
         }
     }
 
@@ -104,91 +101,70 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         try {
-            dialogContainer.getChildren().clear();
-            String input = userInput.getText();
-            String response = ""; // don't get response first...
+            input = userInput.getText();
+            // get input first, don't get response first...
             userInput.clear();
             Duke.logger.log(Level.INFO, input);
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
             if (input.contains("exit")) {
                 // find out if exit condition
-                response = duke.getResponse(input);
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
-                PauseTransition pause = new PauseTransition(Duration.seconds(2));
-                pause.setOnFinished(e -> primaryStage.hide());
-                pause.play();
+                handleExit();
+                System.out.println("EXIT");
             } else if (isStarting && duke.isFirstTimeUser) { //set up new username
-                duke.userName = input;
-                duke.profile.overwriteName(duke.userName);
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(Ui.showWelcomeMsgPhaseB(
-                                duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
-                );
-                isStarting = false;
+                handleStartAndFirstTime();
+                System.out.println("start and first");
             } else if (isTryingReset) { //confirmation of reset
-                if (input.equals("yes")) {
-                    //resets
-                    Profile.resetProfile();
-                    duke.profile = new Profile();
-                    duke.userProgress = duke.profile.getTotalProgress();
-                    duke.userName = duke.profile.getUsername();
-                    duke.isFirstTimeUser = true;
-                    response = "Reset confirmed!\nPlease type in new username:\n";
-                    dialogContainer.getChildren().add(
-                            DialogBox.getDukeDialog(response, dukeImage)
-                    );
-                    TopBar.resetProgress();
-                    isStarting = true;
-                } else {
-                    response = "Reset cancelled.\nType 'list' to get list of available commands.";
-                    dialogContainer.getChildren().add(
-                            DialogBox.getDukeDialog(response, dukeImage)
-                    );
-                }
-                isTryingReset = false;
+                handleResetConfirmation();
+                System.out.println("resetting time");
             } else {
-                if (isStarting) { //default start: finding of response
+                if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
+                    response = duke.getResponse(input);
+                    response = response.replaceAll("✓", "\u2713");
+                    response = response.replaceAll("✗", "\u2717");
+                    showTaskContainer();
+                    System.out.println("deadline setting");
+                } else if (isStarting) {
+                    //default start: finding of response
                     response = duke.getResponse(input);
                     isStarting = false;
-                } else if (!isQuiz) { //default afterStart: finding of response
+                    showContentContainer();
+                    System.out.println("starting BUT not firsttime");
+                } else if (!isQuiz) {
+                    //default afterStart: finding of response
                     response = duke.getResponse(input);
-                } else { //Must be quizCommand: checking of answers
-                    quizCommand.checkAnswer(input);
-                    if (quizCommand.chosenQuestions.size() > 0) {
-                        response = quizCommand.getQuestion();
-                    } else {
-                        isQuiz = false;
-                        response = quizCommand.getQuizScore();
-                        if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
-                            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
-                        } else if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.OKAY) {
-                            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
-                        }
-                    }
+                    showContentContainer();
+                    System.out.println("not quiz");
+                } else {
+                    //Must be quizCommand: checking of answers
+                    handleGuiQuiz();
+                    showContentContainer();
+                    System.out.println("quiz answer checking");
                 }
 
-                if (response.contains("!@#_QUIZ")) { //checks if quizCommand was executed
+                if (response.contains("!@#_QUIZ")) {
+                    //checks for first execution of quizCommand
                     isQuiz = true;
                     Duke.logger.log(Level.INFO, "Response: " + response);
                     response = getFirstQn(response);
+                    showContentContainer();
+                    System.out.println("quiz first time");
                 }
-                if (response.contains("Confirm reset")) { //checks if resetCommand was executed
+                if (response.contains("Confirm reset")) {
+                    //checks if resetCommand was executed
                     System.out.println("CHECKING RESET");
                     Duke.logger.log(Level.INFO, "Awaiting confirmation of reset");
                     isTryingReset = true;
+                    showContentContainer();
+                    System.out.println("reset command");
                 }
 
-                //default output of response
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage));
+
                 //System.out.println("End->Next");
             }
         } catch (DukeException e) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
-            );
+            response = e.getMessage();
+            showContentContainer();
+            Duke.logger.log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -238,5 +214,72 @@ public class MainWindow extends AnchorPane {
         default:
         }
         return quizCommand.getQuestion();
+    }
+
+    private void handleExit() {
+        response = duke.getResponse(input);
+        showContentContainer();
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(e -> primaryStage.hide());
+        pause.play();
+    }
+
+    private void handleStartAndFirstTime() throws DukeException {
+        duke.userName = input;
+        duke.profile.overwriteName(duke.userName);
+        response = Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
+        showContentContainer();
+        isStarting = false;
+    }
+
+    private void handleResetConfirmation() throws DukeException {
+        if (input.equals("yes")) {
+            //resets
+            Profile.resetProfile();
+            duke.profile = new Profile();
+            duke.userProgress = duke.profile.getTotalProgress();
+            duke.userName = duke.profile.getUsername();
+            duke.isFirstTimeUser = true;
+            response = "Reset confirmed!\nPlease type in new username:\n";
+            TopBar.resetProgress();
+            isStarting = true;
+        } else {
+            response = "Reset cancelled.\nType 'list' to get list of available commands.";
+        }
+        showContentContainer();
+        isTryingReset = false;
+    }
+
+    private void handleGuiQuiz() throws DukeException {
+        quizCommand.checkAnswer(input);
+        if (quizCommand.chosenQuestions.size() > 0) {
+            response = quizCommand.getQuestion();
+        } else {
+            isQuiz = false;
+            response = quizCommand.getQuizScore();
+            if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
+                AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
+            } else if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.OKAY) {
+                AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
+            }
+        }
+    }
+
+    private void showContentContainer() {
+        dialogContainer.getChildren().clear();
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(response, dukeImage));
+    }
+
+    private void showTaskContainer() {
+        taskContainer.getChildren().clear();
+        taskContainer.getChildren().add(
+                DialogBox.getTaskDialog(response));
+    }
+
+    private void showNoteContainer() {
+        noteContainer.getChildren().clear();
+        noteContainer.getChildren().add(
+                DialogBox.getTaskDialog(response));
     }
 }

@@ -1,5 +1,6 @@
 package javacake;
 
+import javacake.commands.AddCommand;
 import javacake.commands.Command;
 import javacake.commands.ExitCommand;
 import javacake.commands.ListCommand;
@@ -21,10 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Parser {
-
-    public enum TaskState {
-        NOT_DONE, DONE
-    }
 
     /**
      * Allows the user input to be parsed before running 'execute'.
@@ -56,6 +53,8 @@ public class Parser {
             return new GoToCommand(inputCommand);
         } else if (input.equals("tree")) {
             return new MegaListCommand();
+        } else if (input.equals("deadline")) {
+            return new AddCommand(inputCommand);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
