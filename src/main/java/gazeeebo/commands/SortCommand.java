@@ -33,7 +33,7 @@ public class SortCommand extends Command {
                 }else if(ui.FullCommand.split(" ")[1].equals("priority")){
                     Collections.sort(SortedList,new CustomPriorityComparator());
                     for(int i =0;i<SortedList.size();i++){
-                        System.out.println(SortedList.get(i).listFormat());
+                        System.out.println(SortedList.get(i).listFormat()+" priority: "+SortedList.get(i).priority);
                     }
                 }else{
                     throw new DukeException("OOPS!!! Gazeebo currently does not support this sorting method.");
@@ -51,7 +51,7 @@ public class SortCommand extends Command {
 }
 class CustomPriorityComparator implements Comparator<Task>{
     public int compare(Task a, Task b) {
-        return a.priority-b.priority;
+        return b.priority-a.priority;
     }
 }
 

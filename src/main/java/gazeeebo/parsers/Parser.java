@@ -91,6 +91,8 @@ public class Parser {
             return new AddNoteCommand();
         } else if (splitCommand[0].equals("editNote")) {
             return new EditNoteCommand();
+        } else if(splitCommand[0].equals("priority")){
+            return new ChangePriority();
         } else if (splitCommand[0].equals("deleteNote")) {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
