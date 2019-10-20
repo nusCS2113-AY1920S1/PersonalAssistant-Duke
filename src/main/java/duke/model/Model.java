@@ -6,7 +6,6 @@ import duke.model.events.Task;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -62,9 +61,4 @@ public interface Model {
      * Saves the Model data in storage.
      */
     void save() throws DukeException;
-
-    /**
-     * Returns an observable list of tasks.
-     */
-    ObservableList<Task> getInternalList();
 }

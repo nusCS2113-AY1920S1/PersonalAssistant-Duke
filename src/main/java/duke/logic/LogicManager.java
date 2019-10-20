@@ -10,8 +10,6 @@ import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
 import duke.model.TaskList;
-import duke.model.events.Task;
-import javafx.collections.ObservableList;
 
 public class LogicManager extends Logic {
     private Model model;
@@ -58,7 +56,7 @@ public class LogicManager extends Logic {
         }
     }
 
-    public ObservableList<Task> getInternalList() {
-        return model.getInternalList();
+    public TaskList getTasks() {
+        return model.getTasks();
     }
 }

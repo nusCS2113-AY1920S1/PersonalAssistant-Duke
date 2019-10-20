@@ -9,26 +9,34 @@ import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
+import duke.model.TaskList;
+import duke.model.events.Event;
 import duke.model.events.Task;
+import duke.model.locations.Venue;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.dialogbox.DialogBox;
 import duke.ui.dialogbox.DialogBoxImage;
+import duke.ui.map.LocationCard;
 import duke.ui.map.MapWindow;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends UiPart<Stage> {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -39,11 +47,14 @@ public class MainWindow extends UiPart<Stage> {
     private Button sendButton;
     @FXML
     private VBox taskContainer;
+    @FXML
+    private AnchorPane miniMap;
 
     private LogicManager logic;
     private static final String FXML = "MainWindow.fxml";
     private Stage primaryStage;
     private Main main;
+    private TaskList tasks;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
@@ -74,19 +85,10 @@ public class MainWindow extends UiPart<Stage> {
         this.main = main;
         logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
-        ObservableList<Task> tasks = logic.getInternalList();
-        taskContainer.getChildren().clear();
-        for (Task t : tasks) {
-            taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
-        }
-        tasks.addListener(new ListChangeListener<>() {
-            @Override
-            public void onChanged(Change<? extends Task> c) {
-                taskContainer.getChildren().clear();
-                for (Task t : tasks) {
-                    taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
-                }
-            }
+        tasks = logic.getTasks();
+        updateList();
+        tasks.getInternalList().addListener((ListChangeListener<Task>) c -> {
+            updateList();
         });
     }
 
@@ -101,6 +103,18 @@ public class MainWindow extends UiPart<Stage> {
         }
         echoUserInput(input);
         dukeResponse(input);
+        updateList();
+    }
+
+    private void updateList() {
+        taskContainer.getChildren().clear();
+        miniMap.getChildren().clear();
+        for (Task t : tasks) {
+            taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
+        }
+        for (Task t: tasks.getEventList()) {
+            miniMap.getChildren().add(LocationCard.getCard(((Event) t).getLocation()));
+        }
     }
 
     private void dukeResponse(String input) {
