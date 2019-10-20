@@ -210,6 +210,7 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
     /**
      * Updates View Scope Labels.
      */
+/*
     public void updateViewScopeLabel() {
         switch (duke.expenseList.getViewScope().getViewScopeName()) {
         case DAY:
@@ -253,6 +254,7 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
     /**
      * Updates Filter labels.
      */
+/*
     public void updateFilterLabel() {
         filterLabel.setText(duke.expenseList.getFilterCriteria());
     }
