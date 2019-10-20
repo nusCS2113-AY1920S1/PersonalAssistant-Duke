@@ -1,5 +1,7 @@
 package owlmoney.model.profile;
 
+import java.util.Date;
+
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
@@ -11,6 +13,8 @@ import owlmoney.model.card.CardList;
 import owlmoney.model.goals.Goals;
 import owlmoney.model.goals.GoalsList;
 import owlmoney.model.goals.exception.GoalsException;
+import owlmoney.model.transaction.Deposit;
+import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -24,6 +28,10 @@ public class Profile {
     private BankList bankList;
     private CardList cardList;
     private GoalsList goalsList;
+
+    private static final String SAVING = "saving";
+    private static final String ISBANK = "savings transfer";
+    private static final String ISINVESTMENT = "investment transfer";
 
     /**
      * Creates a new instance of the user profile.
@@ -415,5 +423,42 @@ public class Profile {
      */
     public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
         goalsList.editGoals(goalName, amount, date, newName, ui);
+    }
+
+    /**
+     * Transfers fund from one bank account to another bank account from GoalsList.
+     *
+     * @param from   The account name for transferring the fund.
+     * @param to     The account name to receive the fund.
+     * @param amount The amount to be transferred.
+     * @param date   The date that the fund was transferred.
+     * @param ui     Required for printing.
+     * @throws GoalsException If any of the bank does not exist or insufficient fund to transfer.
+     */
+    public void transferFund(String from, String to, double amount, Date date,
+            Ui ui) throws BankException {
+        String fromType = bankList.bankListIsAccountExistToTransfer(from, amount);
+        String toType = bankList.bankListIsAccountExistToReceive(to);
+        String descriptionTo = "Fund Transfer to " + to;
+        String category = "Transfer Fund";
+        Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, category);
+        bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
+        String descriptionFrom = " Fund Received from " + from;
+        Transaction newDeposit = new Deposit(descriptionFrom, amount, date, "deposit");
+        bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
+    }
+
+    /**
+     * Checks whether the bank account is a savings or investment account.
+     *
+     * @param type type of bank account.
+     * @return the result whether it is to be transfer or deposit to a savings or investment account.
+     */
+    private String checkBankType(String type) {
+        if (SAVING.equals(type)) {
+            return ISBANK;
+        } else {
+            return ISINVESTMENT;
+        }
     }
 }

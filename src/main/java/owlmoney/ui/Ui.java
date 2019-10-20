@@ -65,7 +65,7 @@ public class Ui {
      */
     public void printTransaction(int num, String description, String amount, String date,
             String category) {
-        System.out.printf("%-20s %-50s %-15s %-20s %-20s %n", num, description, amount, date, category);
+        System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", num, description, amount, date, category);
     }
 
     /**
