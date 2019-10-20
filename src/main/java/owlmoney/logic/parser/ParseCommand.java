@@ -77,6 +77,10 @@ public class ParseCommand extends Parser {
             // Fallthrough
         case "/edit":
             // Fallthrough
+        case "/transfer":
+            // Fallthrough
+        case "/find":
+            // Fallthrough
         case "/list":
             return parseType.parseData(command, data);
         case "/exit":

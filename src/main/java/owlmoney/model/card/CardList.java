@@ -118,15 +118,28 @@ public class CardList {
     }
 
     /**
-     * Checks if all credit card expenditures have been paid else cannot edit card limit.
+     * Checks if new limit exceeds total expenditure spent of card.
      *
      * @param card     The card object.
-     * @throws CardException If credit card contains unpaid expenditures.
+     * @param newLimit The new limit to be changed.
+     * @throws CardException If total expenditure spent of card exceeds new limit.
      */
-    private void checkUnpaidCannotEditLimit(Card card) throws CardException {
-        if (!card.isEmpty()) {
-            throw new CardException("Card limit cannot be edited if there are unpaid expenditures");
+    private void checkLimitNotExceedTotalSpent(Card card, String newLimit) throws CardException {
+        double currentCardSpent = card.getLimit() - card.getRemainingLimit();
+        if (Double.parseDouble(newLimit) < currentCardSpent) {
+            throw new CardException("New limit cannot exceed current card spent of $" + currentCardSpent);
         }
+    }
+
+    /**
+     * Updates the remaining limit of card.
+     *
+     * @param card     The card object.
+     * @param newLimit The new limit to be changed.
+     */
+    private void updateNewRemainingLimit(Card card, String newLimit) {
+        double currentCardSpent = card.getLimit() - card.getRemainingLimit();
+        card.setRemainingLimit(Double.parseDouble(newLimit) - currentCardSpent);
     }
 
     /**
@@ -148,7 +161,8 @@ public class CardList {
                     cardLists.get(i).setName(newName);
                 }
                 if (!(limit.isEmpty() || limit.isBlank())) {
-                    this.checkUnpaidCannotEditLimit(cardLists.get(i));
+                    this.checkLimitNotExceedTotalSpent(cardLists.get(i), limit);
+                    this.updateNewRemainingLimit(cardLists.get(i), limit);
                     cardLists.get(i).setLimit(Double.parseDouble(limit));
                 }
                 if (!(rebate.isEmpty() || rebate.isBlank())) {
@@ -277,7 +291,7 @@ public class CardList {
         }
         ui.printCard(num, card.getName(),
                 "$" + new DecimalFormat("0.00").format(card.getLimit()),
-                "$" + new DecimalFormat("0.00").format(card.getRemainingLimitNow()),
+                "$" + new DecimalFormat("0.00").format(card.getRemainingLimit()),
                 new DecimalFormat("0.00").format(card.getRebate()) + "%");
         if (!isMultiplePrinting) {
             ui.printDivider();

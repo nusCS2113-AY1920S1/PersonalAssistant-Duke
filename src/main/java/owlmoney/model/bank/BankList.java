@@ -586,4 +586,51 @@ public class BankList {
             ui.printBankHeader();
         }
     }
+
+    /**
+     * Checks whether the bank object to transfer the fund actually exist in the list.
+     *
+     * @param accName the bank account name.
+     * @param amount    the amount to transfer.
+     * @throws BankException If bank does not exist.
+     */
+    public String bankListIsAccountExistToTransfer(String accName, double amount) throws BankException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (accName.equals(bankLists.get(i).getAccountName())) {
+                bankListIsSufficientForTransfer(bankLists.get(i), amount);
+                return bankLists.get(i).getType();
+            }
+        }
+        throw new BankException("Unable to transfer fund as bank Account does not exist: " + accName);
+    }
+
+    /**
+     * Checks whether the bank object to receive the fund actually exist in the list.
+     *
+     * @param accName the bank account name.
+     * @throws BankException If bank does not exist.
+     */
+    public String bankListIsAccountExistToReceive(String accName) throws BankException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (accName.equals(bankLists.get(i).getAccountName())) {
+                return bankLists.get(i).getType();
+            }
+        }
+        throw new BankException("Unable to transfer fund as bank account does not exist: " + accName);
+    }
+
+    /**
+     * Checks whether the bank object has sufficient amount to transfer.
+     *
+     * @param bank the bank object.
+     * @param amount the amount to be transferred.
+     * @throws BankException If bank does not have sufficient fund.
+     */
+    public void bankListIsSufficientForTransfer(Bank bank, double amount) throws BankException {
+        if (bank.getCurrentAmount() >= amount)
+        {
+            return;
+        }
+        throw new BankException("Insufficient amount for transfer in this bank: " + bank.getAccountName());
+    }
 }
