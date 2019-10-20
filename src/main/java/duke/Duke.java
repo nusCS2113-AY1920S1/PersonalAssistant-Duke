@@ -81,7 +81,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Method starts all funtions required to operate main program.
+     * Method starts all functions required to operate main program.
      *
      * @throws FileNotFoundException if Storage class cannot find files
      * @throws ParseException        upon loadSchedule error

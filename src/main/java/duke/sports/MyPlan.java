@@ -35,7 +35,7 @@ public class MyPlan {
      /**
       * Represents the map of all lists loaded from the text file.
       */
-    private Map<Integer, ArrayList<MyTraining>> map = new HashMap<>();
+    private Map<String, ArrayList<MyTraining>> map = new HashMap<>();
      /**
       * Represents the name of the individual activity in a plan.
       */
@@ -48,12 +48,13 @@ public class MyPlan {
       * Represents the number of repetitions of the activity in a plan.
       */
     private int reps;
+
      /**
       * The constructor for MyPlan.
       * @throws FileNotFoundException if file is not found.
       */
     public MyPlan() throws FileNotFoundException {
-        filePath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
+        filePath = ".\\src\\main\\java\\duke\\data\\plan.txt";
         File f = new File(filePath);
         fileInput = new Scanner(f);
         //ArrayList<String> toc = new Storage(filePath).loadPlans(getMap());
@@ -86,7 +87,7 @@ public class MyPlan {
       * A getter to retrieve the map of all plans loaded.
       * @return the map of all plans
       */
-    public Map<Integer, ArrayList<MyTraining>> getMap() {
+    public Map<String, ArrayList<MyTraining>> getMap() {
         return this.map;
     }
 
@@ -96,6 +97,14 @@ public class MyPlan {
       */
     public ArrayList<MyTraining> getList() {
         return this.list;
+    }
+
+     /**
+      * A setter to set the private list to a specified list.
+      * @param newList List to be loaded as into the private list
+      */
+    public void setList(final ArrayList<MyTraining> newList) {
+        this.list = newList;
     }
 
      /**
@@ -112,20 +121,25 @@ public class MyPlan {
       * @param num plan number
       * @return the key in variable type Integer.
       */
-    public int createKey(final String intensity, final int num) {
-        Intensity i = Intensity.valueOf(intensity);
-        final int multiplier = 10;
-        double key = multiplier * i.getVal() + num;
-        return (int) key;
+    public String createKey(final String intensity, final int num) {
+        return intensity + num;
+    }
+
+     /**
+      * Retrieves an arraylist of keys from the map.
+      * @return the arraylist of keys, sorted by intensity and plan number
+      */
+    public ArrayList<String> keyList() {
+        Set<String> keys = getMap().keySet();
+        ArrayList<String> temp = new ArrayList<>(keys);
+        return temp;
     }
 
      /**
       * Clear the plan currently loaded in the list.
-      * @return A string to inform user of result.
       */
-    public String clearPlan() {
-        //getList().clear();
-        return "Current training plan is cleared.";
+    public void clearPlan() {
+        getList().clear();
     }
 
      /**
@@ -139,7 +153,6 @@ public class MyPlan {
                               final int newReps) {
         //getList().add(name);
         MyTraining t = new MyTraining(newName, newSets, newReps);
-        //Store t in somewhere
         return "You have added this activity, " + t.toString();
     }
 
@@ -251,23 +264,52 @@ public class MyPlan {
       * @param plan plan number passed as a string
       */
     public void loadPlan(final String intensity, final String plan) {
+        clearPlan();
         if (!Intensity.contains(intensity)) {
             System.out.println("Please input a proper "
                    + "intensity level: high, moderate, relaxed");
         } else {
             int planNum = Integer.parseInt(plan.split("/")[1]);
-            createKey(intensity, planNum);
-            System.out.println("You have loaded plan " + planNum + " of "
-                    + intensity + " intensity " + " into the list");
+            String key = createKey(intensity, planNum);
+            if (getMap().containsKey(key)) {
+                for (MyTraining t : getMap().get(key)) {
+                    getList().add(t);
+                }
+                System.out.println("You have loaded plan " + planNum + " of "
+                        + intensity + " intensity " + " into the list");
+            }
         }
     }
-/*    public void saveToMap(final ArrayList<MyTraining> newList, final int k) {
-    }*/
+
+     /**
+      * Save the plan in the list to the map if it is edited or newly created.
+      * @param newList List to be saved to map
+      * @param intensity intensity value associated with the plan
+      * @param key key associated with the plan
+      */
+    public void saveToMap(final ArrayList<MyTraining> newList,
+                          final String intensity, final String key) {
+        if (key == "0") {
+            int planNum = 0;
+            Set<String> keys = getMap().keySet();
+            for (String k : keys) {
+                if (k.contains(intensity)) {
+                    planNum++;
+                }
+            }
+            String k = createKey(intensity, planNum);
+            getMap().put(k, newList);
+        } else {
+            getMap().put(key, newList);
+        }
+    }
+
      /**
       * Create a plan of specified intensity.
       * @param intensity intensity of plan to be created.
       */
     public void createPlan(final String intensity) {
+        clearPlan();
         if (Intensity.contains(intensity)) {
             System.out.println("Creating plan of " + intensity + " intensity.");
             System.out.println("Please input activity to add in format of "
@@ -279,7 +321,7 @@ public class MyPlan {
                     if (input.equals("finalize")) {
                         System.out.println("Plan created.");
                         System.out.println("Saving to map.");
-                        //int key = createKey(intensity,....);
+                        //String key = createKey(intensity,....);
                         //saveToMap(getList(),key);
                         break;
                     } else if (input.equals("show")) {
@@ -305,6 +347,7 @@ public class MyPlan {
                     }
                 }
             }
+            saveToMap(getList(), intensity, "0");
         } else {
             System.out.println("Please enter the correct intensity level:"
                     + " high, moderate or relaxed.");
@@ -318,7 +361,7 @@ public class MyPlan {
       * @return a string to inform user of result
       */
     public String deletePlan(final String intensity, final int planNum) {
-        int key = createKey(intensity, planNum);
+        String key = createKey(intensity, planNum);
         if (!getMap().containsKey(key)) {
             System.out.println("Please input the correct"
                     + " intensity and plan number.");
