@@ -2,6 +2,7 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
+import cube.logic.command.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.FoodList;
 import cube.storage.StorageManager;
@@ -46,24 +47,33 @@ public class MainWindow extends UiManager<Stage> {
     }
 
     public void initComponents() {
-        //CommandBox commandBox = new CommandBox();
-        CommandBox commandBox = new CommandBox(storageManager, storage, foodList);
+        CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
     }
 
-    private String cmdExecutor(String input) {
+    private CommandResult executeCommand(String command) throws CubeException {
         try {
-            Command c = Parser.parse(input);
-            //c.execute(foodList, new Ui(), storageManager);
-            c.execute(foodList, storageManager);
+            Command c = Parser.parse(command);
+            CommandResult result = c.execute(foodList, storageManager);
+            resultDisplay.setResultText(result.getFeedbackToUser());
+
+            if (result.isShowHelp()) {
+                handleHelp();
+            }
+            if (result.isExit()) {
+                handleExit();
+            }
+
             storage.save(storageManager);
+            return result;
         } catch (CubeException e) {
             e.printStackTrace();
+            resultDisplay.setResultText(e.getMessage());
+            throw e;
         }
-        return input;
     }
 
     /**
