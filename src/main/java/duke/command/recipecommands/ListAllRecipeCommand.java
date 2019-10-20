@@ -4,7 +4,6 @@ import duke.command.CommandRecipe;
 import duke.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
 import duke.task.recipetasks.Recipe;
-import duke.task.recipetasks.RecipeTitle;
 
 import java.util.*;
 
@@ -50,7 +49,7 @@ public class ListAllRecipeCommand extends CommandRecipe {
         return false;
     }
 
-    private ArrayList<String> listOfRecipes(LinkedHashMap<RecipeTitle, Recipe> map) {
+    private ArrayList<String> listOfRecipes(LinkedHashMap<String, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();

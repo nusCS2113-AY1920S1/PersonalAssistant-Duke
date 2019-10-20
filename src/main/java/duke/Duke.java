@@ -99,6 +99,16 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
+        } else if (userInput.contains(COMMAND_DELETE_RECIPE)) {
+            if (userInput.trim().substring(0, 12).equals(COMMAND_DELETE_RECIPE)) {
+                System.out.println("stuck here6");
+                CommandRecipe command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, recipeStorage);
+            } else {
+                System.out.println("stuck here7");
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
             System.out.println("stuck here5");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {

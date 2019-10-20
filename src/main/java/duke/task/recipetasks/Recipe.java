@@ -8,8 +8,8 @@ public class Recipe {
     RequiredIngredients requiredIngredients; // requiredIngredients is a list of recipeIngredient objects.
     Feedback feedback;
 
-    public Recipe(RecipeTitle recipeTitle) {
-        this.recipeTitle = recipeTitle;
+    public Recipe(String recipeTitle) {
+        this.recipeTitle = new RecipeTitle(recipeTitle);
         this.rating = Rating.UNRATED;
         this.prepStep = new PrepStep();
         this.requiredIngredients = new RequiredIngredients();

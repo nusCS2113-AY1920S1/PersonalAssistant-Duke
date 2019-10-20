@@ -39,6 +39,8 @@ public class Parser {
     public static CommandRecipe parseRecipe(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             return new AddRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
+            return new DeleteRecipeCommand(input);
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);

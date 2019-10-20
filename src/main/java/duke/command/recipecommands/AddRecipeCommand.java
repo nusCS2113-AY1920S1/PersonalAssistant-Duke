@@ -3,7 +3,6 @@ package duke.command.recipecommands;
 import duke.command.CommandRecipe;
 import duke.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
-import duke.task.recipetasks.RecipeTitle;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ public class AddRecipeCommand extends CommandRecipe { // need to settle the prob
             System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(9) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
-            RecipeTitle recipeTitle = new RecipeTitle(description);
-            recipeList.addRecipe(recipeTitle);
+            // RecipeTitle recipeTitle = new RecipeTitle(description);
+            recipeList.addRecipe(description);
             recipeStorage.saveFile(recipeList);
             arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
         } else {
