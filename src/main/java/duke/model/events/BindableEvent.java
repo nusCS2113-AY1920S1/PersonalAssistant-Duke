@@ -103,4 +103,23 @@ public class BindableEvent {
     public void setEndDate(LocalDateTime endDate) {
         this.endDate.set(endDate);
     }
+
+    public boolean isSame(BindableEvent other) {
+        if (other == this) {
+            return true;
+        }
+        return other != null
+                && other.getAddress().equals(getAddress())
+                && other.getStartDate().equals(getStartDate())
+                && other.getEndDate().equals(getEndDate());
+    }
+
+    public boolean isClash(BindableEvent other) {
+        if (other == this) {
+            return true;
+        }
+        return other != null
+                && !(other.getEndDate().isBefore(getStartDate())
+                || getEndDate().isBefore(other.getStartDate()));
+    }
 }

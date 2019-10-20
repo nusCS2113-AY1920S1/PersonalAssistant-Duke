@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 public class ModifiableEditorList extends UnmodifiableEditorList {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     public ModifiableEditorList(TaskList tasks) {
         super(tasks);
     }
@@ -16,5 +17,24 @@ public class ModifiableEditorList extends UnmodifiableEditorList {
         if (index == -1) {
             logger.log(Level.SEVERE, "Illegal access on BindableEvent target");
         }
+        if (contains(editedEvent)) {
+            logger.log(Level.INFO, "Alrdy exist, Change this to Exception later");
+        }
+        if (isClash(editedEvent)) {
+            logger.log(Level.INFO, "Timing clash, Change this to Exception later");
+        }
+        list.set(index, editedEvent);
+    }
+
+    public int size() {
+        return list.size();
+    }
+
+    public boolean contains(BindableEvent e) {
+        return list.stream().anyMatch(e::isSame);
+    }
+
+    public boolean isClash(BindableEvent e) {
+        return list.stream().anyMatch(e::isClash);
     }
 }
