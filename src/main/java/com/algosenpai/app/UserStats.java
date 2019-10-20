@@ -2,7 +2,11 @@ package com.algosenpai.app;
 
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Handles temporary storage of user stats while the program is running.
@@ -23,6 +27,8 @@ import java.util.ArrayList;
  */
 public class UserStats {
 
+    //username of the player
+    private String username;
     // Array of chapter stats
     private ArrayList<ChapterStat> chapterData;
 
@@ -31,29 +37,44 @@ public class UserStats {
 
     private String characterImagePath = "miku.png";
 
-    /**
-     * Checkstyle.
-     */
-    public String getCharacterImagePath() {
-        return characterImagePath;
-    }
+    //Maps the chapter names to an index value
+    private HashMap<String, Integer> chapterNumber;
 
     /**
-     * Checkstyle.
+     * Constructs a new UserStats by reading in from the UserData text file.
+     * ChapterStat objects are passed from the parser into here to be stored into
+     * their respective data structures.
      */
-    public void setCharacterImagePath(String characterImagePath) {
-        this.characterImagePath = characterImagePath;
-    }
-
-    /**
-     * Constructor.
-     * @param size The initial size of the arraylist containing the data. Should be equal to the number of chapters.
-     */
-    public UserStats(int size) {
+    public UserStats() throws FileNotFoundException {
         chapterData = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            chapterData.add(new ChapterStat(0, 0, 0));
+        chapterNumber = new HashMap<>();
+        UserStorageParser userStorageParser = new UserStorageParser();
+        //Reads in redundant blank lines
+        userStorageParser.nextLine();
+        userStorageParser.nextLine();
+        this.username = userStorageParser.nextLine();
+
+        while (userStorageParser.hasMoreTokens()) {
+            userStorageParser.nextLine();
+            ChapterStat currStat = userStorageParser.nextChapterStat();
+            chapterData.add(currStat);
+            chapterNumber.put(currStat.chapterName, currStat.chapterNumber);
         }
+
+    }
+
+    /**
+     * Get the stats for a particular chapter by searching for the chapter number then
+     * calling the getStatsByIndex function.
+     * @param chapterName The name of the chapter.
+     * @return The ChapterStat object for that chapter, or null of the chapter does not exist.
+     */
+    public ChapterStat getStatsByName(String chapterName) {
+        if (chapterNumber.containsKey(chapterName)) {
+            int index = chapterNumber.get(chapterName);
+            return getStatsByIndex(index);
+        }
+        return null;
     }
 
     /**
@@ -61,23 +82,9 @@ public class UserStats {
      * @param index The index of the chapter.
      * @return The ChapterStat object for that chapter
      */
-    public Pair<Integer,Integer> getStatsByIndex(int index) {
-        return new Pair<>(chapterData.get(index).correctAnswers, chapterData.get(index).totalAnswered);
-    }
-
-    /**
-     * Get the stats for a particular chapter.
-     * @param chapterName The name of the chapter.
-     * @return The ChapterStat object for that chapter, or null of the chapter does not exist.
-     */
-    public ChapterStat getStatsByName(String chapterName) {
-        ChapterStat target = null;
-        for (ChapterStat item : chapterData) {
-            if (item.chapterName.equals(chapterName)) {
-                target = item;
-            }
-        }
-        return target;
+    public ChapterStat getStatsByIndex(int index) {
+        ChapterStat currentChapter = chapterData.get(index);
+        return new ChapterStat(currentChapter);
     }
 
     /**
@@ -88,7 +95,10 @@ public class UserStats {
         currentChapter.totalAnswered++;
         if (wasAnsweredCorrectly) {
             currentChapter.correctAnswers++;
+        } else {
+            currentChapter.wrongAnswers++;
         }
+        currentChapter.percentage = (double)currentChapter.correctAnswers / currentChapter.totalAnswered;
     }
 
     /**
@@ -97,6 +107,9 @@ public class UserStats {
     public void resetCurrentChapter() {
         currentChapter.totalAnswered = 0;
         currentChapter.correctAnswers = 0;
+        currentChapter.wrongAnswers = 0;
+        currentChapter.percentage = 0.0;
+        currentChapter.comments = "Try your best!";
     }
 
     /**
@@ -125,35 +138,6 @@ public class UserStats {
         saveCurrentChapterToChapterData(index);
     }
 
-    public Pair<Integer,Integer> getCurrentChapter() {
-        return new Pair<>(currentChapter.correctAnswers, currentChapter.totalAnswered);
-    }
-
-    /**
-     * Call this after each question is answered to update the stats for that chapter.
-     * @param index The index of the chapter to update.
-     * @param wasAnsweredCorrectly Whether the answer that is being added was answered correctly.
-     */
-    public void updateStats(int index, boolean wasAnsweredCorrectly) {
-        chapterData.get(index).totalAnswered++;
-        if (wasAnsweredCorrectly) {
-            chapterData.get(index).correctAnswers++;
-        }
-    }
-
-    /**
-     * Call this after each question is answered to update the stats for that chapter.
-     * @param chapterName The name of the chapter to update.
-     * @param wasAnsweredCorrectly Whether the answer that is being added was answered correctly.
-     */
-    public void updateStats(String chapterName, boolean wasAnsweredCorrectly) {
-        int index = getIndexByName(chapterName);
-        if (index == -1) {
-            return;
-        }
-        updateStats(index,wasAnsweredCorrectly);
-    }
-
 
     /**
      * Helper function to get the index of a chapter in the chapterData List, given its name.
@@ -161,13 +145,31 @@ public class UserStats {
      * @return The index of the chapter if it exists, -1 if the chapter does not exist.
      */
     private int getIndexByName(String name) {
-        for (int i = 0; i < chapterData.size(); i++) {
-            if (chapterData.get(i).chapterName.equals(name)) {
-                return i;
-            }
+        if (chapterNumber.containsKey(name)) {
+            return chapterNumber.get(name);
         }
         return -1;
     }
 
+    /**
+     * Checkstyle.
+     */
+    public String getCharacterImagePath() {
+        return characterImagePath;
+    }
 
+    /**
+     * Checkstyle.
+     */
+    public void setCharacterImagePath(String characterImagePath) {
+        this.characterImagePath = characterImagePath;
+    }
+
+    /**
+     * Gets the statistics for the current chapter.
+     * @return a pair containing the number of correct answers and the total questions answered.
+     */
+    public Pair<Integer,Integer> getCurrentChapter() {
+        return new Pair<>(currentChapter.correctAnswers, currentChapter.totalAnswered);
+    }
 }
