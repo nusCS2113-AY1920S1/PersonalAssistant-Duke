@@ -105,7 +105,7 @@ public class RoomShare {
                 }
                 break;
 
-             case restore:
+            case restore:
                 int restoreIndex = parser.getIndex();
                 tempDeleteList.restore(restoreIndex, taskList);
                 break;
@@ -164,7 +164,13 @@ public class RoomShare {
                 break;
 
             case subtask:
-                TaskList.currentList().get(parser.getIndex()).setSubTasks(parser.getCommandLine());
+                int index = parser.getIndexSubtask();
+                String subtasks = parser.getCommandLine();
+                if( TaskList.currentList().get(index) instanceof Assignment ) {
+                    ((Assignment) TaskList.currentList().get(index)).setSubTasks(subtasks);
+                } else {
+                    throw new RoomShareException(ExceptionType.subTask);
+                }
                 break;
 
             default:

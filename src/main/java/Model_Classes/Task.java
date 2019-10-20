@@ -19,7 +19,6 @@ public class Task{
     private String user;
     private RecurrenceScheduleType recurrenceSchedule;
     private boolean hasRecurring;
-    private ArrayList<String> subTasks;
     private Date time;
 
     /**
@@ -31,6 +30,8 @@ public class Task{
         this.isDone = false;
         this.priority = Priority.low;
         this.time = time;
+        this.user = "everyone";
+        this.recurrenceSchedule = RecurrenceScheduleType.none;
     }
 
     /**
@@ -46,7 +47,7 @@ public class Task{
      * @return time the task was created
      */
 
-    public void setUser(String user) {
+    public void setAssignee(String user) {
         this.user = user;
     }
 
@@ -56,6 +57,13 @@ public class Task{
      */
     public boolean getDone() {
         return isDone;
+    }
+
+    /**
+     * Sets the task to be done
+     */
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     /**
@@ -78,13 +86,6 @@ public class Task{
      * @return priority of the task
      */
     public Priority getPriority() { return priority; }
-
-    /**
-     * Sets the task to be done
-     */
-    public void setDone(boolean done) {
-        isDone = done;
-    }
 
     /**
      * Sets the priority of the task
@@ -115,16 +116,12 @@ public class Task{
         }
     }
 
+    /**
+     * Return whether the task is recurred
+     * @return hasRecurring: whether the task is recurred
+     */
     public boolean hasRecurring() {
         return hasRecurring;
-    }
-
-    /**
-     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
-     * @param input String containing subtasks separated by ","
-     */
-    public void setSubTasks(String input) {
-        subTasks = (ArrayList<String>) Arrays.asList(input.split(","));
     }
 
     /**
@@ -166,5 +163,4 @@ public class Task{
     public void snoozeMinute(int amount){
         this.time.setMinutes(this.time.getMinutes() + amount);
     }
-
 }

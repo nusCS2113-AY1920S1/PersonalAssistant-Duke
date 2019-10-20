@@ -25,14 +25,18 @@ public class Parser {
     }
 
     /**
-     * Returns the command that the user has given Duke.
-     * @return command The command given by the user to Duke.
+     * Returns the command that the user has given RoomShare
+     * @return command The command given by the user to RoomShare
      */
     public String getCommand() {
         String command = scanner.next().toLowerCase().trim();
         return command;
     }
 
+    /**
+     * Return the line of command that the user has given Duke
+     * @return command The line of command given by the user to RoomShare
+     */
     public String getCommandLine() {
         String command = scanner.nextLine().toLowerCase().trim();
         return command;
@@ -44,6 +48,16 @@ public class Parser {
      */
     public Integer getIndex() {
         String temp = scanner.nextLine().trim();
+        int index = Integer.parseInt(temp) - 1;
+        return index;
+    }
+
+    /**
+     * Returns the index number requested by the user for subTask.
+     * @return index Index the user wishes to assign subtasks to.
+     */
+    public Integer getIndexSubtask() {
+        String temp = scanner.next().trim();
         int index = Integer.parseInt(temp) - 1;
         return index;
     }

@@ -24,7 +24,7 @@ public class RoomShareExceptionTest {
 
     @Test
     public void testEmptylist() {
-        new RoomShareException(ExceptionType.emptylist);
+        new RoomShareException(ExceptionType.emptyList);
         assertEquals("List is empty", outContent.toString());
     }
 
