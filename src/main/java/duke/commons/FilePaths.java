@@ -2,6 +2,10 @@ package duke.commons;
 
 import java.io.File;
 
+/**
+ * This class file defines all the filepaths that will be used in the storage component.
+ * @author Chua Zong Wei
+ */
 public class FilePaths {
     public static final String sep = System.getProperty("file.separator");
     public static final File DATA_FILE = new File("src" + sep + "main" + sep + "java" + sep + "duke"

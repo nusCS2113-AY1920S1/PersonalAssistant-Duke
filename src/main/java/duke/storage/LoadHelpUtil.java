@@ -2,6 +2,9 @@ package duke.storage;
 
 import java.io.File;
 
+/**
+ * This class is in charge of parsing user-designated help command to correct filepath
+ */
 public class LoadHelpUtil {
 
     public static File load(String specifiedHelp) {

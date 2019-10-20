@@ -9,6 +9,11 @@ import duke.model.user.User;
 
 import java.util.Scanner;
 
+/**
+ * AddGoalCommand is a public class that inherits from abstract class Command.
+ * An AddGoalCommand object encapsulates the goal object that is to be added.
+ * @author Chua Zong Wei
+ */
 public class AddGoalCommand extends Command {
     private Goal goal;
 

@@ -13,8 +13,9 @@ import java.util.HashMap;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
- * TaskList is a public class that represents the list of meals under DIYeats.
+ * MealList is a public class that represents the list of meals under DIYeats.
  * A MealList object encapsulates the ArrayList of meals.
+ * @author Chua Zong Wei
  */
 public class MealList {
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

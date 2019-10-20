@@ -7,6 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Goal is a public class that defines all user set dietary goals.
+ * @author Chua Zong Wei
+ */
 public class Goal {
     private SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
     private String enddate;

@@ -86,21 +86,59 @@ This will generate all resources required by the application and tests.
 .Architecture Diagram
 image::architecture.png[width="500"]
 
+The figure above illustrates how our program might look like from a high-level perspective. Each of the major processes in the figure above will be elaborated on in the following sections.
+
+`Main` has one function `run` which is executed immediately when the program is run. This function is responsible for:
+
+* At application launch: initialize the UI, Model, Storage and Logic components of the code in the correct sequence
+
+* During application runtime: support high level exchange of information between each of the aforementioned component
+
+* At shutdown: Stop all running processes, and initiate any cleanup methods whenever required
+
 === Model
 .Model Diagram
-image::model.png[width="600"]
+image::model.png[width="800"]
+
+The Model component of the code is in charge of tracking and managing all of the data involved during the application's runtime. It accomplishes this by:
+
+* Initializing a MealList object, which stores:
+** All of the user's meal info
+** All of the previously defined default meal values
+* Initializing a Goal object, which stores the user defined dietary targets to be met.
+* Being capable of operating independently of all the other code components.
 
 === Storage
 .Storage Diagram
-image::storage.png[width="600"]
+image::storage.png[width="800"]
+
+The storage component of the code is in charge of reading and writing to files in the Data package of the main program directory. it accomplishes this by:
+
+* Initializing a Load object, which:
+** Is capable of reading and parsing data from the text save files in the Data directory, using its constituent functions as well as subsidiary classes.
+** Being capable of operating independently of all the other code components.
+* Initializing a Write object, which:
+** Is capable of writing data to the text save files in the Data directory, using its constituent functions.
+** Being capable of operating independently of all the other code components.
 
 === Logic
 .Logic Diagram
-image::logic.png[width="600"]
+image::logic.png[width="800"]
+
+The Logic component of the code is in charge of parsing all of the user's commands and executing them. It accomplishes this in the following steps:
+
+. The UI receives a command from the user, and sends it over to the Logic component
+. The Parser object in the Logic component receives the command, and calls the autocorrect function to correct any typo errors present in the command
+. The corrected command is inserted in the commandHistory
+. Depending on the type of command issued, the parser calls the commandparser associated with the command, which parses the command into its relevant data chunks.
+. A command object relevant to the user given command is then instantiated from the data in the user given command
+. The command object is then passed to the main function, which immediately executes it
 
 === Ui
-.Ui Diagram
-image::[width="600"]
+The Ui component of the code is in charge of:
+
+. Executing all user commands through the Logic component
+. Presenting data from the model component of the code to the user through the command line interface
 
 == Implementation
 

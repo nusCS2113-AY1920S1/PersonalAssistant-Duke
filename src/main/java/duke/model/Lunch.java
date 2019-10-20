@@ -3,7 +3,7 @@ package duke.model;
 
 /**
  * lunch is a public class that inherits form abstract class meal.
- * A lunch object encapsulates the String that expresses the duration of the lunch
+ * @author Chua Zong Wei
  */
 public class Lunch extends Meal {
 

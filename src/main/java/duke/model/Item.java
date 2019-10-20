@@ -1,5 +1,9 @@
 package duke.model;
 
+/**
+ * item is a public class that extends from meal.
+ * @author Chua Zong Wei
+ */
 public class Item extends Meal {
 
     /**

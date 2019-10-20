@@ -2,6 +2,7 @@ package duke.model;
 
 /**
  * breakfast is a public class that extends from meal.
+ * @author Chua Zong Wei
  */
 public class Breakfast extends Meal {
 

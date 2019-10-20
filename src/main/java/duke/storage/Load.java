@@ -12,6 +12,10 @@ import java.util.HashMap;
 
 import static duke.commons.FilePaths.*;
 
+/**
+ * This object is in charge of all reading from save operations
+ * @author Chua Zong Wei
+ */
 public class Load {
     private BufferedReader bufferedReader = null;
     private BufferedWriter bufferedWriter = null;

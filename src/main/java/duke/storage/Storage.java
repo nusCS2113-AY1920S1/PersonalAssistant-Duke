@@ -17,6 +17,10 @@ public class Storage {
     private Load loader = new Load();
     private Write writer = new Write();
 
+    /**
+     * This is a function that will load all info required to initialize a MealList object.
+     * @author Chua Zong Wei
+     */
     public void load(MealList meals) throws DukeException {
         loader.loadFile(meals, DATA_FILE);
         loader.loadFile(meals, DEFAULTS_FILE);
@@ -25,7 +29,7 @@ public class Storage {
 
     /**
      * This is a function that will load user info from user.txt.
-     * @Author Foo Chi Hen
+     * @author Foo Chi Hen
      */
     public User loadUser() throws DukeException {
         return loader.loadUser();
@@ -33,7 +37,7 @@ public class Storage {
 
     /**
      * This is a function that will load all the words to be autocorrected to.
-     * @Author Foo Chi Hen
+     * @author Foo Chi Hen
      */
     public void loadWord(Autocorrect autocorrect) throws DukeException {
         loader.loadAutoCorrect(autocorrect);
@@ -52,10 +56,18 @@ public class Storage {
         writer.writeFile(mealData);
     }
 
+    /**
+     * This is a function that will write data from a MealList object to the defaultitems save file.
+     * @author Chua Zong Wei
+     */
     public void updateDefaults(MealList mealData) {
         writer.writeDefaults(mealData);
     }
 
+    /**
+     * This is a function that will write data from a MealList object to the goals save file.
+     * @author Chua Zong Wei
+     */
     public void updateGoal(MealList mealData) {
         writer.writeGoal(mealData);
     }
@@ -63,7 +75,7 @@ public class Storage {
     /**
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
-     * @Author Foo Chi Hen
+     * @author Foo Chi Hen
      */
     public void saveUser(User user) throws DukeException {
         writer.writeUser(user);

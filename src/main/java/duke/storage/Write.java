@@ -16,6 +16,10 @@ import java.util.HashMap;
 
 import static duke.commons.FilePaths.*;
 
+/**
+ * This object is in charge of all writing to save operations
+ * @author Chua Zong Wei
+ */
 public class Write {
     private BufferedWriter bufferedWriter = null;
 
