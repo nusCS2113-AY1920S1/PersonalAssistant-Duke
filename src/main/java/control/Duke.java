@@ -27,7 +27,7 @@ public class Duke {
     private User user;
     private boolean isExit;
     private Storage roomStorage;
-    private RoomList rooms;
+    private RoomList roomList;
 
     /**
      * Constructor for control.Duke
@@ -41,7 +41,7 @@ public class Duke {
         roomStorage = new Storage(roomListFile);
         try {
             bookingList = new BookingList(bookingStorage.load());
-            rooms = new RoomList(roomStorage.load());
+            roomList = new RoomList(roomStorage.load());
 
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
