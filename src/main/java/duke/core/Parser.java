@@ -74,6 +74,11 @@ public class Parser {
         }
     }
 
+    public String[] parseList() {
+        String[] formattedInput;
+        formattedInput = userInput.replace("list ", "").trim().split("\\s+");
+        return formattedInput;
+    }
     /**
      *  .
      * @return .

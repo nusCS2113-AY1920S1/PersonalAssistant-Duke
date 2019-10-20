@@ -36,15 +36,18 @@ public class CommandManager {
         }
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
+        String secondKeyword = "";
+        if (command.length >= 2) {
+            secondKeyword = command[1].toLowerCase();
+        }
         Parser parser = new Parser(userInput);
         switch (firstKeyword) { //change this depending on how string is parsed
         case "add":
-            String secondKeyword = command[1].toLowerCase();
-            if (secondKeyword.equals("patient")) {
+            if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                 String[] formattedInput = parser.parseAdd();
                 AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
                 return addPatientCommand;
-            } else if (secondKeyword.equals("task")) {
+            } else if ((secondKeyword != "") && secondKeyword.equals("task")) {
                 String formattedInput = parser.parseAdd()[0];
                 AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
                 return addStandardTaskCommand;
@@ -55,10 +58,11 @@ public class CommandManager {
             return new AssignTaskToPatientCommand(parser.parseAssign());
         case "list":
             try {
-                String[] tempCommand = command[1].split("\\s+");
-                if (tempCommand[0].toLowerCase().equals("patients")) {
+                String[] tempCommand = parser.parseList();
+                String followingKeyword = tempCommand[0].toLowerCase();
+                if (followingKeyword.equals("patients")) {
                     return new ListPatientsCommand();
-                } else if (tempCommand[0].toLowerCase().equals("tasks")) {
+                } else if (followingKeyword.equals("tasks")) {
                     return new ListTasksCommand();
                 } else {
                     throw new Exception("Invalid 'list' command. ");
@@ -68,8 +72,7 @@ public class CommandManager {
             }
         case "delete":
             try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseDeletePatient();
                     return new DeletePatientCommand(formattedInput);
                 } else if (secondKeyword.equals("task")) {
@@ -82,8 +85,7 @@ public class CommandManager {
             }
         case "find":
             try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     try {
                         return new FindPatientCommand(command[2]);
                     } catch (Exception e) {
@@ -103,8 +105,7 @@ public class CommandManager {
             }
         case "update":
             try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseUpdatePatient();
                     return new UpdatePatientCommand(formattedInput);
                 } else if (secondKeyword.equals("task")) {
