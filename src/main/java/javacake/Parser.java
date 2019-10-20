@@ -1,13 +1,7 @@
 package javacake;
 
-import javacake.commands.Command;
-import javacake.commands.ExitCommand;
-import javacake.commands.ListCommand;
-import javacake.commands.BackCommand;
-import javacake.commands.HelpCommand;
-import javacake.commands.ScoreCommand;
-import javacake.commands.GoToCommand;
-import javacake.commands.MegaListCommand;
+import javacake.commands.*;
+import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;
@@ -45,6 +39,8 @@ public class Parser {
             return new HelpCommand(inputCommand);
         } else if (input.equals("score")) {
             return new ScoreCommand();
+        } else if (input.equals("reset")) {
+            return new ResetCommand();
         } else if (input.equals("goto")) {
             if (inputCommand.length() <= 4) {
                 throw new DukeException("Please specify index number in 'goto' command!");
@@ -52,6 +48,10 @@ public class Parser {
             return new GoToCommand(inputCommand);
         } else if (input.equals("tree")) {
             return new MegaListCommand();
+        } else if (input.equals("createnote")) {
+            return new CreateNoteCommand(inputCommand);
+        } else if (input.equals("editnote")) {
+            return new EditNoteCommand(inputCommand);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

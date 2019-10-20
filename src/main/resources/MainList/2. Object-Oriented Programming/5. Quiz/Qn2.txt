@@ -1,4 +1,0 @@
-Name a class that does not inherit from any other class.
-(1) superclass
-(2) object
-(3) abstract class | 2

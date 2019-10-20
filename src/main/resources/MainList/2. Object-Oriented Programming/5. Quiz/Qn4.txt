@@ -1,6 +1,0 @@
-Which of the following statements are false?
-
-(1) Overridden methods have the same name, same type signature, and same return type.
-(2) Method overriding is when a sub-class changes the behavior inherited from the parent class by re-implementing the method.
-(3) The OOP concept Inheritance allows you to define a new class based on an existing class.
-(4) Encapsulation is not one of the 4 key concepts of OOP. | 4

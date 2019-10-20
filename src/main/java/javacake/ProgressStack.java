@@ -1,5 +1,7 @@
 package javacake;
 
+import javacake.exceptions.DukeException;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,10 +16,9 @@ import java.util.zip.ZipInputStream;
 
 
 public class ProgressStack {
-
     private String defaultFilePath = "content/MainList";
     private static String currentFilePath = "content/MainList";
-    private static ArrayList<String> filePathQueries = new ArrayList<>();
+
     private List<String> listOfFiles = new ArrayList<>();
     private static boolean isDirectory = true;
 
@@ -34,15 +35,12 @@ public class ProgressStack {
     }
 
     /**
-     * Stores all files in the filePath into listOfFiles.
-     * @param filePath path to the root directory.
+     * Stores all files in the currentFilePath into listOfFiles.
      */
-    public void loadFiles(String filePath) throws DukeException {
-
+    public void loadFiles() throws DukeException {
         String[] tempListFiles = currentFilePath.split("/");
         int currFileSlashCounter = tempListFiles.length;
         listOfFiles.clear();
-
         try {
             CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
             boolean isJarMode = true;
@@ -56,7 +54,7 @@ public class ProgressStack {
                         break;
                     }
                     String name = e.getName();
-                    System.out.println(name);
+                    //System.out.println(name);
                     if (name.startsWith(currentFilePath)) {
                         String[] listingFiles = name.split("/");
                         if (listingFiles.length == currFileSlashCounter + 1) {
@@ -68,17 +66,14 @@ public class ProgressStack {
             }
 
             if (!isJarMode) { //non-jar
-                //System.out.println(filePath);
                 InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
-                //System.out.println("hi" + inputStream.available());
                 BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
                 String currentLine;
                 while ((currentLine = br.readLine()) != null) {
+                    //System.out.println(currentLine);
                     listOfFiles.add(currentLine);
                 }
                 br.close();
-                //assert listOfFiles != null;
-                //Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
             }
         } catch (NullPointerException | IOException e) {
             throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
@@ -106,7 +101,7 @@ public class ProgressStack {
     public String gotoFilePath(int index) throws DukeException {
 
         try {
-            return filePathQueries.get(index);
+            return listOfFiles.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(e.getMessage() + "\n Pls key 'back' or 'list' to view previous content");
         }
@@ -129,14 +124,10 @@ public class ProgressStack {
      * Used for BackCommand.
      */
     public void backToPreviousPath() {
-        System.out.println("CURR: " + currentFilePath);
-        System.out.println("Default: " + defaultFilePath);
         if (!currentFilePath.equals(defaultFilePath)) {
             if (!currentFilePath.contains(".txt")) {
-                System.out.println("case a");
                 currentFilePath = gotoParentFilePath(currentFilePath);
             } else {
-                System.out.println("case b");
                 currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
             }
         }
@@ -165,8 +156,8 @@ public class ProgressStack {
      */
     public String displayDirectories() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the ").append(filePathQueries.size()).append(" subtopics available!\n");
-        for (String queries : filePathQueries) {
+        sb.append("Here are the ").append(listOfFiles.size()).append(" subtopics available!\n");
+        for (String queries : listOfFiles) {
             sb.append(queries).append("\n");
         }
         sb.append("Key in the index to learn more about the topic!").append("\n");
@@ -232,21 +223,19 @@ public class ProgressStack {
      */
     public void insertQueries() throws DukeException {
         clearQueries();
-        loadFiles(currentFilePath);
+        loadFiles();
         for (String listOfFile : listOfFiles) {
             if (listOfFile.contains(".txt")) {
                 isDirectory = false;
-                filePathQueries.add(listOfFile);
             } else {
                 isDirectory = true;
-                filePathQueries.add(listOfFile);
             }
         }
 
     }
 
     public void clearQueries() {
-        filePathQueries.clear();
+        listOfFiles.clear();
     }
 
 }

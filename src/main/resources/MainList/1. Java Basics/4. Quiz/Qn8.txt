@@ -1,4 +1,0 @@
-If the instance variables of a class is private, you can only access them from within that particular class only.
-
-(1) True
-(2) False | 1

@@ -1,9 +1,9 @@
 package javacake.commands;
 
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
+import javacake.storage.Profile;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
 
 public class ExitCommand extends Command {
     public ExitCommand() {
@@ -20,6 +20,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!\n";
     }
 }
