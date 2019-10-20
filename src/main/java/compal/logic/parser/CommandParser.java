@@ -16,7 +16,7 @@ import java.util.Scanner;
 public interface CommandParser {
 
     /**
-     * TOKENS FOR PARSING BELOW
+     * TOKENS FOR PARSING BELOW.
      */
     String TOKEN_TASK_ID = "/id";
     String TOKEN_STATUS = "/s";
@@ -25,10 +25,13 @@ public interface CommandParser {
     String TOKEN_START_TIME = "/start";
     String TOKEN_END_TIME = "/end";
     String TOKEN_FINAL_DATE = "/final-date";
+    String TOKEN_SLASH = "/";
+    char TOKEN_SLASH_CHAR = '/';
+    String EMPTY_INPUT_STRING = "";
     int DEFAULT_WEEK_NUMBER_OF_DAYS = 7;
 
     /**
-     * ERROR MESSAGES BELOW
+     * ERROR MESSAGES BELOW.
      */
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
@@ -100,13 +103,32 @@ public interface CommandParser {
     }
 
     /**
+     * Parses through user input for description field, and returns the description if present.
+     *
+     * @param restOfInput String input of user after command word
+     * @return Description without date and time.
+     * @throws ParserException If description field is missing, if there are no tokens present.
+     */
+    default String getTokenDescription(String restOfInput) throws ParserException {
+        if (!restOfInput.contains(TOKEN_SLASH)) {
+            throw new ParserException(MESSAGE_MISSING_TOKEN);
+        }
+        int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
+        String desc = restOfInput.substring(0, splitPoint).trim();
+        if (desc.matches(EMPTY_INPUT_STRING)) {
+            throw new ParserException(MESSAGE_MISSING_INPUT);
+        }
+        return desc;
+    }
+
+    /**
      * Parses through user input for date token, and returns the date if the date is
      * in the correct format.
      *
      * @param restOfInput String input of user after command word
      * @return An ArrayList of date strings given by the user.
      * @throws ParserException if the date token is missing, if the date is not in correct format,
-     * if the date is not given after the date token.
+     *                         if the date is not given after the date token.
      * @author: Yue Jun Yi, yueyeah
      */
     default ArrayList<String> getTokenDate(String restOfInput) throws ParserException {
@@ -122,6 +144,9 @@ public interface CommandParser {
             int dateCount = 0;
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
+                if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
+                    break;
+                }
                 dateCount++;
                 if (dateCount == DEFAULT_WEEK_NUMBER_OF_DAYS) {
                     throw new ParserException(MESSAGE_EXCESSIVE_DATES);
@@ -224,14 +249,14 @@ public interface CommandParser {
     default String getTokenFinalDate(String restOfInput) throws ParserException {
         int startPoint = restOfInput.indexOf(TOKEN_FINAL_DATE);
         String finalDateStartInput = restOfInput.substring(startPoint);
-        Scanner scanner = new Scanner (finalDateStartInput);
+        Scanner scanner = new Scanner(finalDateStartInput);
         scanner.next();
         if (!scanner.hasNext()) {
             throw new ParserException(MESSAGE_MISSING_INPUT);
         }
         String finalDateField = scanner.next();
         if (isDateValid(finalDateField)) {
-            return finalDateField
+            return finalDateField;
         } else {
             throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
         }
