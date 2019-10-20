@@ -1,6 +1,6 @@
 package command;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
@@ -15,6 +15,7 @@ public class BadCommand extends Command {
     public BadCommand(String errorMessage) {
         this.errorMessage = errorMessage;
     }
+
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something

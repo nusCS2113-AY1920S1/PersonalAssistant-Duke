@@ -1,6 +1,6 @@
 package command;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -22,8 +22,7 @@ public class AddTagCommand extends Command {
         try {
             HashSet<String> tagList = wordBank.addTag(wordDescription, tags);
             return ui.showAddTag(wordDescription, tags, tagList);
-        }
-        catch (NoWordFoundException e) {
+        } catch (NoWordFoundException e) {
             return e.showError();
         }
     }

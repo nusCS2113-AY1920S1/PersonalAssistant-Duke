@@ -1,6 +1,6 @@
 package command;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -32,14 +32,11 @@ public class DeleteCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            // delete word
-            if (tags.size() == 0) {
+            if (tags.size() == 0) {                     //delete word
                 word = wordBank.getAndDelete(this.deletedWord);
                 storage.editFromFile(word.toString() + "\r","");
                 return ui.showDeleted(word);
-            }
-            //delete tag
-            else {
+            } else {                                    //delete tags
                 word = wordBank.getWordBank().get(deletedWord);
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
