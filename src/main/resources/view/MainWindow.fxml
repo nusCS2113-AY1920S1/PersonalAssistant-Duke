@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.ListView?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
          title="SGTravel" minWidth="400" minHeight="600">
    <scene>

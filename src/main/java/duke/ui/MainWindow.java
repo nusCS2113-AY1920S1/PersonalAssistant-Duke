@@ -10,6 +10,8 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
 import duke.model.TaskList;
+import duke.model.UnmodifiableEditorList;
+import duke.model.events.BindableEvent;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.ui.calendar.CalendarWindow;
@@ -19,6 +21,7 @@ import duke.ui.map.MapWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -51,7 +54,6 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
     private Stage primaryStage;
     private Main main;
-    private TaskList tasks;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
@@ -82,7 +84,6 @@ public class MainWindow extends UiPart<Stage> {
         this.main = main;
         logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
-        tasks = logic.getTasks();
     }
 
     /**
@@ -102,12 +103,11 @@ public class MainWindow extends UiPart<Stage> {
     private void updateList() {
         taskContainer.getChildren().clear();
         miniMap.getChildren().clear();
-        for (Task t : tasks.getEventList()) {
-            taskContainer.getChildren().add(EventCard.getEventCard((Event) t));
-        }
-        for (Task t: tasks.getEventList()) {
-            EventPointCard card = new EventPointCard((Event) t);
-            if (t.isDone()) {
+        UnmodifiableEditorList tasks = logic.getUnmodifiableEditorList();
+        for (BindableEvent b : tasks) {
+            taskContainer.getChildren().add(EventCard.getEventCard(b));
+            EventPointCard card = new EventPointCard(b);
+            if (b.isDone()) {
                 card.setColor(Paint.valueOf("green"));
             } else {
                 card.setColor(Paint.valueOf("red"));

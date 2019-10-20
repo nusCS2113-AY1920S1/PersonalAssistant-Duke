@@ -10,6 +10,7 @@ import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
 import duke.model.TaskList;
+import duke.model.UnmodifiableEditorList;
 
 public class LogicManager extends Logic {
     private Model model;
@@ -56,7 +57,7 @@ public class LogicManager extends Logic {
         }
     }
 
-    public TaskList getTasks() {
-        return model.getTasks();
+    public UnmodifiableEditorList getUnmodifiableEditorList() {
+        return new UnmodifiableEditorList(model.getTasks());
     }
 }
