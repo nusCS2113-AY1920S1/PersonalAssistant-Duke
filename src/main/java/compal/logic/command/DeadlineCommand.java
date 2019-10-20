@@ -16,12 +16,12 @@ public class DeadlineCommand extends Command {
     private String endTime;
 
     /**
-     * Constructor
+     * This is the constructor.
      *
-     * @param description
-     * @param priority
-     * @param date
-     * @param endTime
+     * @param description description of deadline.
+     * @param priority priority of deadline.
+     * @param date date of deadline.
+     * @param endTime end time of deadline.
      */
     public DeadlineCommand(String description, Task.Priority priority, String date, String endTime) {
         this.description = description;
