@@ -1,7 +1,8 @@
 package seedu.hustler.task;
 
 import java.time.LocalDateTime;
-
+import seedu.hustler.task.variables.Difficulty;
+import seedu.hustler.task.variables.Tag;
 import static seedu.hustler.parser.DateTimeParser.convertDateTime;
 import static seedu.hustler.parser.DateTimeParser.toDateTimeString;
 
@@ -26,8 +27,13 @@ public class Event extends Task {
     /**
      * Initializes description, user input difficulty and by.
      */
-    public Event(String description,  LocalDateTime at, String difficulty, String tag) {
-        super(description, difficulty, tag);
+    public Event(String description,  LocalDateTime at, String difficulty, String tag, LocalDateTime now) {
+        super(description, difficulty, tag, now);
+        this.at = at;
+    }
+
+    public Event(String description, LocalDateTime at, Difficulty difficulty, Tag tag, LocalDateTime now) {
+        super(description, difficulty, tag, now);
         this.at = at;
     }
 
@@ -46,7 +52,7 @@ public class Event extends Task {
      * @return a string with pipe separated info.
      */
     public String toSaveFormat() {
-        return "E|" + super.toSaveFormat() + "|" + convertDateTime(at);
+        return "E|" + super.toSaveFormat() + "|" + convertDateTime(at) + super.toSaveInputDateTime();
     }
 
     /**

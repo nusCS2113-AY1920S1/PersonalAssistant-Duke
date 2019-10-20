@@ -3,35 +3,31 @@ package seedu.hustler;
 import java.io.IOException;
 
 import seedu.hustler.data.*;
-
-import seedu.hustler.data.*;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
-import javafx.application.Platform;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
-
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.MemoryManager;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;
-import seedu.hustler.parser.Parser;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
 import seedu.hustler.ui.timer.*;
-
 import static seedu.hustler.game.achievement.AchievementList.achievementList;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 /**
- * A personal assitant that takes in user input and gives and performs
+ * A personal assistant that takes in user input and gives and performs
  * an operation that can help the user
- * in his day to day needs. Has a tasklist with multiple features.
+ * in his day to day needs. Has a task list with multiple features.
  */
 public class Hustler extends Application {
     /**

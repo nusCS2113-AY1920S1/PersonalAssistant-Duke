@@ -1,9 +1,9 @@
 package seedu.hustler.task;
 
+import java.time.LocalDateTime;
+
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.task.variables.Tag;
-
-import java.time.LocalDateTime;
 
 /**
  * An abstract class that acts as a template for ToDo, Deadline and Event.
@@ -31,6 +31,11 @@ public abstract class Task {
     protected Tag tag;
 
     /**
+     * Stores the current date and time at the instance when the user inputs the task.
+     */
+    protected LocalDateTime inputDateTime;
+
+    /**
      * Initializes description, sets isDone as false and difficulty as M.
      */
     public Task(String description) {
@@ -43,11 +48,23 @@ public abstract class Task {
      * Initializes description, sets isDone as false and difficulty
      * according to user's input.
      */
-    public Task(String description, String difficulty, String tagName) {
+    public Task(String description, String difficulty, String tagName, LocalDateTime now) {
         this.description = description;
         this.isDone = false;
         this.difficulty = new Difficulty(difficulty);
         this.tag = new Tag(tagName);
+        this.inputDateTime = now;
+    }
+
+    /**
+     * Initializes Task's attributes.
+     */
+    public Task(String description, Difficulty difficulty, Tag tag, LocalDateTime now) {
+        this.description = description;
+        this.isDone = false;
+        this.difficulty = difficulty;
+        this.tag = tag;
+        this.inputDateTime = now;
     }
 
     /**
@@ -66,10 +83,6 @@ public abstract class Task {
         this.isDone = true;
     }
 
-    public void markAsDone(TaskList list) {
-        this.isDone = true;
-    }
-
     /**
      * Returns the description of the task.
      *
@@ -82,7 +95,7 @@ public abstract class Task {
     /**
      * Returns the difficulty of the task.
      *
-     * @return string difficulty.
+     * @return Difficulty of the task.
      */
     public Difficulty getDifficulty() {
         return this.difficulty;
@@ -97,6 +110,10 @@ public abstract class Task {
         return this.tag.getTagName();
     }
 
+    public LocalDateTime getInputDateTime() {
+        return this.inputDateTime;
+    }
+
     /**
      * Returns a string that displays all information
      * about the task in a user readable format.
@@ -104,9 +121,8 @@ public abstract class Task {
      * @return the status and description of the task.
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString() +
-                this.tag.toString() + " " +
-            this.getDescription();
+        return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString()
+                + this.tag.toString() + " " + this.getDescription();
     }
 
     /**
@@ -115,9 +131,12 @@ public abstract class Task {
      * @return a pipe separated string of the status, difficulty and description.
      */
     public String toSaveFormat() {
-        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toString() + "|" +
-                this.tag.tagName + "|"+
-                this.description;
+        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toSaveFormat()
+                + "|" + this.tag.tagName + "|" + this.description;
+    }
+
+    public String toSaveInputDateTime() {
+        return "|" + inputDateTime;
     }
 
     /**

@@ -3,18 +3,12 @@ package seedu.hustler.task;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
+
 import seedu.hustler.data.CommandLog;
-import java.util.Scanner;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
@@ -32,7 +26,7 @@ public class TaskList {
     /**
      * ArrayList of Tasks.
      */
-    private ArrayList<Task> list = new  ArrayList<Task>();
+    private ArrayList<Task> list;
 
     /**
      * Ui instance that communicates errors with the user.
@@ -43,7 +37,6 @@ public class TaskList {
      * Schedule instance to plan schedule.
      */
     private Schedule schedule = new Schedule();
-
 
     /**
      * Initializes list.
@@ -89,6 +82,29 @@ public class TaskList {
     }
 
     /**
+     * Adds a new Task to the task list.
+     *
+     * @param task new Task to be added.
+     */
+    public void add(Task task) {
+        list.add(task);
+        if (!CommandLog.isRestoring()) {
+            AddTask.increment();
+            AddTask.updateAchievementLevel();
+            AddTask.updatePoints();
+            AchievementList.updateAddTask(addAchievementLevel);
+            String output = "\t  " + list.get(list.size() - 1).toString();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println(output);
+            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            System.out.println("\t_____________________________________\n\n");
+        } else {
+            System.out.println("Task clashes with another existing task in the list!");
+        }
+    }
+
+    /**
      * Adds a task to the ArrayList based on the task type and task description.
      * Parses the description in case of event or deadline.
      * Handles exceptions.
@@ -101,17 +117,17 @@ public class TaskList {
         String difficulty = "";
         String tag = "";
         if (splitInput.contains("/d")) {
-            int dIndex = splitInput.indexOf("/d") + 1;
+            int difficultyIndex = splitInput.indexOf("/d") + 1;
             try {
-                difficulty = splitInput.get(dIndex);
+                difficulty = splitInput.get(difficultyIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 difficulty = "";
             }
         }
         if (splitInput.contains("/tag")) {
-            int tIndex = splitInput.indexOf("-tag") + 1;
+            int tagIndex = splitInput.indexOf("/tag") + 1;
             try {
-                tag = splitInput.get(tIndex);
+                tag = splitInput.get(tagIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 tag = "";
             }
@@ -119,20 +135,56 @@ public class TaskList {
         String onlyDescription = getDescription(splitInput);
         boolean checkAnomaly = true;
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-                list.add(new ToDo(onlyDescription, difficulty, tag));
+            list.add(new ToDo(onlyDescription, difficulty, tag, LocalDateTime.now()));
             checkAnomaly = false;
         } else if (taskType.equals("deadline")) {
             try {
                 String timeStr = getTime(splitInput);
                 LocalDateTime by = getDateTime(timeStr);
-                if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
-                    list.add(new Deadline(onlyDescription, by, difficulty, tag));
+
+                if (splitInput.contains("/every")) {
+                    int everyIndex = splitInput.indexOf("/every");
+                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+                    int number = Integer.parseInt(frequency.split(" ")[0]);
+                    String period = frequency.split(" ")[1];
+                    int numOfMin = 0;
+
+                    switch (period) {
+                    case "minutes":
+                        numOfMin = number;
+                        break;
+                    case "hours":
+                        numOfMin = number * 60;
+                        break;
+                    case "days":
+                        numOfMin = number * 60 * 24;
+                        break;
+                    case "weeks":
+                        numOfMin = number * 60 * 24 * 7;
+                        break;
+                    case "months":
+                        numOfMin = number * 60 * 24 * 7 * 28;
+                        break;
+                    default:
+                        numOfMin = 0;
+                        break;
+                    }
+                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+                        list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag,
+                                LocalDateTime.now(), frequency, numOfMin, false));
+                        String taskDate = getOnlyDate(splitInput);
+                        if (Schedule.isValidDate(taskDate)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
+                        }
+                    }
+                } else if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+                    list.add(new Deadline(onlyDescription, by, difficulty, tag, LocalDateTime.now()));
                     String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                    checkAnomaly = false;
                 }
+                checkAnomaly = false;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.wrong_description_error();
                 return;
@@ -144,7 +196,7 @@ public class TaskList {
                 String timeStr = getTime(splitInput);
                 LocalDateTime at = getDateTime(timeStr);
                 if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
-                    list.add(new Event(onlyDescription, at, difficulty, tag));
+                    list.add(new Event(onlyDescription, at, difficulty, tag, LocalDateTime.now()));
                     String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
@@ -160,16 +212,16 @@ public class TaskList {
         }
         if (!CommandLog.isRestoring()) {
             if (!checkAnomaly) {
-                    AddTask.increment();
-                    AddTask.updateAchievementLevel();
-                    AddTask.updatePoints();
-                    AchievementList.updateAddTask(addAchievementLevel);
-                    String output = "\t  " + list.get(list.size() - 1).toString();
-                    System.out.println("\t_____________________________________");
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println(output);
-                    System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-                    System.out.println("\t_____________________________________\n\n");
+                AddTask.increment();
+                AddTask.updateAchievementLevel();
+                AddTask.updatePoints();
+                AchievementList.updateAddTask(addAchievementLevel);
+                String output = "\t  " + list.get(list.size() - 1).toString();
+                System.out.println("\t_____________________________________");
+                System.out.println("\tGot it. I've added this task:");
+                System.out.println(output);
+                System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+                System.out.println("\t_____________________________________\n\n");
             } else {
                 System.out.println("Task clashes with another existing task in the list!");
             }
@@ -202,7 +254,7 @@ public class TaskList {
                     AchievementList.updateDoneTask(doneAchievementLevel);
                     System.out.println("\t_____________________________________");
                     System.out.println("\tNice! I've marked this task as done:");
-                    System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
+                    System.out.println("\t  " + (i + 1) + ". " + list.get(i).toString());
                     System.out.println("\t_____________________________________\n\n");
                 }
                 Hustler.avatar.gainXp();
@@ -227,11 +279,27 @@ public class TaskList {
             list.remove(i);
             System.out.println("\t_____________________________________");
             System.out.println("\tNoted. I have removed this task:");
-            System.out.println("\t  " + (i + 1) + "." + lastTask.toString());
+            System.out.println("\t  " + (i + 1) + ". " + lastTask.toString());
             System.out.println("\tNow there are " + list.size() + " tasks left.");
             System.out.println("\t_____________________________________\n\n");
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
+        }
+    }
+
+    /**
+     * Clears all the tasks in the task list.
+     */
+    public void clearList() {
+        if (list.isEmpty()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tNothing to be cleared! Task list is already empty!");
+            System.out.println("\t_____________________________________");
+        } else {
+            list.clear();
+            System.out.println("\t_____________________________________");
+            System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
+            System.out.println("\t_____________________________________");
         }
     }
 
@@ -282,10 +350,73 @@ public class TaskList {
     }
 
     /**
+     * Sorts the task list based on the user's preference.
+     * There are 3 ways in which tasks can be sorted:
+     * 1. /normal sorts the tasks based on when the user input the tasks.
+     * 2. /chronological sorts the tasks based on the date and time of the tasks.
+     * 3. /prioritize sorts the tasks based on the difficulty of the tasks.
+     *
+     * @param sortType the user's preferred sorting order.
+     */
+    public void sortTask(String sortType) {
+        switch (sortType) {
+        case "normal":
+            TreeMap<LocalDateTime,Task> normalList = new TreeMap<>();
+            for (Task task : list) {
+                normalList.put(task.getInputDateTime(),task);
+            }
+            list.clear();
+            for (Map.Entry<LocalDateTime,Task> entry : normalList.entrySet()) {
+                list.add(entry.getValue());
+            }
+            break;
+        case "chronological":
+            TreeMap<LocalDateTime,Task> toDoList = new TreeMap<>();
+            TreeMap<LocalDateTime,Task> otherTasksList = new TreeMap<>();
+
+            for (Task task : list) {
+                if (task instanceof ToDo) {
+                    toDoList.put(task.getInputDateTime(),task);
+                } else {
+                    otherTasksList.put(task.getDateTime(),task);
+                }
+            }
+
+            list.clear();
+            for (Map.Entry<LocalDateTime,Task> entry : toDoList.entrySet()) {
+                list.add(entry.getValue());
+            }
+            for (Map.Entry<LocalDateTime,Task> entry : otherTasksList.entrySet()) {
+                list.add(entry.getValue());
+            }
+            break;
+        case "prioritize":
+            Collections.sort(list, (t1, t2) -> {
+                if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
+                    return 0;
+                } else if (t1.getDifficulty().toString().equals("[H]")) {
+                    return -1;
+                } else if (t1.getDifficulty().toString().equals("[M]")
+                        && t2.getDifficulty().toString().equals("[L]")) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+            break;
+        default:
+            System.out.println("Task list has remained the same. Please check your sort command.");
+            return;
+        }
+        System.out.println("\t_____________________________________");
+        System.out.println("\tTask list has been successfully sorted!");
+        displayList();
+    }
+
+    /**
      * Displays the list of tasks contained in the object.
      */
     public void displayList() {
-        // If user inputs list without appending list even once.
         if (list.isEmpty()) {
             ui.show_empty_list_error();
             return;
@@ -294,7 +425,7 @@ public class TaskList {
         System.out.println("\t_____________________________________");
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i).toString());
+            System.out.println("\t" + (i + 1) + ". " + list.get(i).toString());
         }
         System.out.println("\t_____________________________________\n\n");
     }
@@ -305,11 +436,11 @@ public class TaskList {
      * @param taskDescription a character sequence from which tasks will be found.
      */
     public void findTask(String taskDescription) {
-        ArrayList<Integer> matchingTasks = new ArrayList<Integer>();
+        ArrayList<Integer> matchingTasks = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getDescription().contains(taskDescription)
                 || list.get(i).getTag().equalsIgnoreCase(taskDescription)) {
-                matchingTasks.add(Integer.valueOf(i));
+                matchingTasks.add(i);
             }
         }
         if (matchingTasks.isEmpty()) {
@@ -319,7 +450,7 @@ public class TaskList {
         System.out.println("\t_____________________________________");
         System.out.println("\tFound " + matchingTasks.size() + ". Here you go.");
         for (Integer id : matchingTasks) {
-            System.out.println("\t  " + (id + 1) + "." + list.get(id).toString());
+            System.out.println("\t  " + (id + 1) + ". " + list.get(id).toString());
         }
         System.out.println("\t_____________________________________\n\n");
     }
