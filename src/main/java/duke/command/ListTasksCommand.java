@@ -3,6 +3,8 @@ package duke.command;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -29,7 +31,7 @@ public class ListTasksCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage) throws DukeException {
+                        PatientStorage patientStorage) {
         ArrayList<Task> list = tasks.getTaskList();
         ui.listAllTasks(list);
     }

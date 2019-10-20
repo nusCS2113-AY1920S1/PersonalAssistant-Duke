@@ -5,6 +5,8 @@ import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.EventPatientTask;
 import duke.relation.StandardPatientTask;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -19,7 +21,8 @@ public class AssignTaskToPatientCommand extends Command {
     private PatientTask newPatientTask;
 
     /**
-     *  .
+     * .
+     *
      * @param taskAssignmentInfo .
      * @throws DukeException .
      */
@@ -29,20 +32,22 @@ public class AssignTaskToPatientCommand extends Command {
     }
 
     /**
-     *  .
-     * @param patientTaskList .
-     * @param tasksList .
-     * @param patientList .
-     * @param ui .
+     * .
+     *
+     * @param patientTaskList    .
+     * @param tasksList          .
+     * @param patientList        .
+     * @param ui                 .
      * @param patientTaskStorage .
-     * @param taskStorage .
-     * @param patientStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
+
         char firstChar = taskAssignmentInfo[1].charAt(0);
 
         try {
@@ -100,6 +105,7 @@ public class AssignTaskToPatientCommand extends Command {
 
     /**
      * .
+     *
      * @return .
      */
     @Override
