@@ -1,11 +1,10 @@
-package util;
+package cube.util;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
 import cube.logic.parser.Parser;
 import cube.storage.StorageManager;
 import cube.model.FoodList;
-import cube.util.FileUtilJson;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
