@@ -61,7 +61,7 @@ public class ViewCommand extends Command {
         default:
             break;
         }
-        return new CommandResult(finalList);
+        return new CommandResult(finalList,false);
     }
 
 
