@@ -1,12 +1,16 @@
 package duke.exceptions;
 
-import java.lang.Exception;
 
 /**
- * Represents duke.exceptions specific to Duke
+ * Represents duke.exceptions specific to Duke.
  */
 public class DukeException extends Exception {
-    public DukeException (String message) {
+    /**
+     * Constructor.
+     *
+     * @param message Error message.
+     */
+    public DukeException(final String message) {
         super(message);
     }
 }

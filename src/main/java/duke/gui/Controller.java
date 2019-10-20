@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,11 +25,6 @@ public final class Controller implements Initializable {
      * Height of scene.
      */
     private final int height = 720;
-    public Button btnDay;
-    public Button btnHome;
-    public Button btnSchedule;
-    public Button btnStudents;
-    public Button btnTraining;
 
     @Override
     public void initialize(final URL location,
@@ -111,7 +105,6 @@ public final class Controller implements Initializable {
         assert url != null;
         changeScene(url, event);
     }
-
 
 
     /**
