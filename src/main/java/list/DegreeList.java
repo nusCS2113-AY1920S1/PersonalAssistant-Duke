@@ -6,6 +6,8 @@ import task.TaskList;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class DegreeList implements Serializable, Cloneable{
@@ -178,6 +180,25 @@ public class DegreeList implements Serializable, Cloneable{
             }
         }
     }
+
+
+    public void swap(String input) throws DukeException {
+        String[] split = input.split(Parser.swap);
+        if(split.length < 3) {
+            throw new DukeException("Please mention both the indices to swap the degrees");
+        } else if(split.length > 3) {
+            throw new DukeException("Too many arguments");
+        } else if (split.length == 3){
+                String first_index = split[0];
+                String second_index = split[2];
+                int request = Integer.parseInt(first_index);
+                int request1 = Integer.parseInt(second_index);
+                Collections.swap(list, request - 1, request1 - 1);
+                System.out.println("Swap complete!");
+        }
+    }
+
+
 
     /**
      * Deletes the entire degree list.

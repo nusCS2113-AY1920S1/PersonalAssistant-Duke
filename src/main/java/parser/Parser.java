@@ -5,6 +5,7 @@ import exception.DukeException;
 
 import java.util.Scanner;
 
+
 /**
  * Parser class.
  * Handles Raw Input and determines if it is a valid command.
@@ -20,6 +21,7 @@ public class Parser {
     public static String taskSeparator = "\\s*\\|\\s*";
     public static String dateSeparator = "\\s*\\&\\s*";
     public static String postpone = "\\s*/to\\s*";
+    public static String swap = "\\s*\\s*\\s*";
     public static String newLine = "\n";
     private static String addCommand;
     private static String helpCommand;
@@ -74,7 +76,7 @@ public class Parser {
                 }
             }
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule|add|remove")) {
+                + "|snooze|schedule|add|remove|swap")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -94,6 +96,8 @@ public class Parser {
                     return new SearchCommand(command, input);
                 } else if (command.matches("schedule")) {
                     return new SearchCommand(command, input);
+                } else if (command.matches("swap")) {
+                    return new SwapCommand(command, input);
                 }
             }
         }
