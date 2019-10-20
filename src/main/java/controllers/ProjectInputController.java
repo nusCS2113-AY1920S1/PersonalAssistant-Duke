@@ -10,6 +10,7 @@ import models.task.Task;
 import repositories.ProjectRepository;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
+import util.log.DukeLogger;
 import views.CLIView;
 
 public class ProjectInputController implements IController {
@@ -36,6 +37,7 @@ public class ProjectInputController implements IController {
      * @param input User input containing project index number (to add to project class).
      */
     public void onCommandReceived(String input) {
+        DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
         int projectNumber = Integer.parseInt(input);
         Project projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
@@ -43,6 +45,9 @@ public class ProjectInputController implements IController {
         while (isManagingAProject) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
+                DukeLogger.logInfo(ProjectInputController.class, "Managing:"
+                        + projectToManage.getDescription() + ",input:'"
+                        + projectCommand + "'");
                 if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
                     isManagingAProject = false;
                     consoleView.exitProject(projectToManage.getDescription());

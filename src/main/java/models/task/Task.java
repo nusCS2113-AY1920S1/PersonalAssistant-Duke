@@ -165,7 +165,8 @@ public class Task implements ITask {
      * @param newTaskStateString String form of new task state.
      */
     public void setTaskState(String newTaskStateString) {
-        switch (newTaskStateString) {
+        String newTaskStateLowerCase = newTaskStateString.toLowerCase();
+        switch (newTaskStateLowerCase) {
         case "done":
             this.taskState = TaskState.DONE;
             break;

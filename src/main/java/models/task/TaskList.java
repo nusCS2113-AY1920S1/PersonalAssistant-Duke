@@ -4,6 +4,8 @@ import util.ParserHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TreeMap;
+import java.util.Map;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -66,34 +68,49 @@ public class TaskList {
 
     /**
      * Edits details of a task excluding task requirements.
-     * @param updatedTaskDetails input command String in the form of (must be this order)
+     * @param updatedTaskDetails input command String in the form of (tasks to be edited can be in any order)
      *                           edit task i/TASK_INDEX [n/TASK_NAME] [p/TASK_PRIORITY]
      *                           [d/TASK_DUEDATE] [c/TASK_CREDIT] [s/STATE]
      */
     public void editTask(String updatedTaskDetails) {
         String[] updatedTaskDetailsArray = updatedTaskDetails.split(" [itpdcs]\\/");
         int taskIndex = Integer.parseInt(updatedTaskDetailsArray[1]);
-        boolean checkedTaskName = false;
-        boolean checkedTaskPriority = false;
-        boolean checkedTaskDueDate = false;
-        boolean checkedTaskCredit = false;
-        boolean checkedTaskState = false;
-        for (int i = 2; i < updatedTaskDetailsArray.length; i++) {
-            if (!checkedTaskName && updatedTaskDetails.contains(" t/")) {
-                checkedTaskName = true;
-                this.taskList.get(taskIndex - 1).setTaskName(updatedTaskDetailsArray[i]);
-            } else if (!checkedTaskPriority && updatedTaskDetails.contains(" p/")) {
-                checkedTaskPriority = true;
-                this.taskList.get(taskIndex - 1).setTaskPriority(Integer.parseInt(updatedTaskDetailsArray[i]));
-            } else if (!checkedTaskDueDate && updatedTaskDetails.contains(" d/")) {
-                checkedTaskDueDate = true;
-                this.taskList.get(taskIndex - 1).setDueDate(updatedTaskDetailsArray[i]);
-            } else if (!checkedTaskCredit && updatedTaskDetails.contains(" c/")) {
-                checkedTaskCredit = true;
-                this.taskList.get(taskIndex - 1).setTaskCredit(Integer.parseInt(updatedTaskDetailsArray[i]));
-            } else if (!checkedTaskState && updatedTaskDetails.contains(" s/")) {
-                checkedTaskState = true;
-                this.taskList.get(taskIndex - 1).setTaskState(updatedTaskDetailsArray[i]);
+        TreeMap<Integer, String> orderOfInputs = new TreeMap<>();
+        int indexOfTaskNameFlag = updatedTaskDetails.indexOf(" t/");
+        orderOfInputs.put(indexOfTaskNameFlag, "t");
+        int indexOfTaskPriorityFlag = updatedTaskDetails.indexOf(" p/");
+        orderOfInputs.put(indexOfTaskPriorityFlag, "p");
+        int indexOfTaskDueDateFlag = updatedTaskDetails.indexOf(" d/");
+        orderOfInputs.put(indexOfTaskDueDateFlag, "d");
+        int indexOfTaskCreditFlag = updatedTaskDetails.indexOf(" c/");
+        orderOfInputs.put(indexOfTaskCreditFlag, "c");
+        int indexOfTaskStateFlag = updatedTaskDetails.indexOf(" s/");
+        orderOfInputs.put(indexOfTaskStateFlag, "s");
+
+        int currentIndex = 2;
+        for (Map.Entry<Integer, String> entry : orderOfInputs.entrySet()) {
+            if (entry.getKey() != -1) {
+                switch (entry.getValue()) {
+                case "t":
+                    this.taskList.get(taskIndex - 1).setTaskName(updatedTaskDetailsArray[currentIndex]);
+                    break;
+                case "p":
+                    int newTaskPriority = Integer.parseInt(updatedTaskDetailsArray[currentIndex]);
+                    this.taskList.get(taskIndex - 1).setTaskPriority(newTaskPriority);
+                    break;
+                case "d":
+                    this.taskList.get(taskIndex - 1).setDueDate(updatedTaskDetailsArray[currentIndex]);
+                    break;
+                case "c":
+                    int newTaskCredit = Integer.parseInt(updatedTaskDetailsArray[currentIndex]);
+                    this.taskList.get(taskIndex - 1).setTaskCredit(newTaskCredit);
+                    break;
+                case "s":
+                    this.taskList.get(taskIndex - 1).setTaskState(updatedTaskDetailsArray[currentIndex]);
+                    break;
+                default:
+                }
+                currentIndex++;
             }
         }
     }
