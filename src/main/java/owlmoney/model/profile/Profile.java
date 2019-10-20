@@ -33,9 +33,6 @@ public class Profile {
     private static final String ISBANK = "savings transfer";
     private static final String ISINVESTMENT = "investment transfer";
 
-
-
-
     /**
      * Creates a new instance of the user profile.
      *
@@ -431,11 +428,11 @@ public class Profile {
     /**
      * Transfers fund from one bank account to another bank account from GoalsList.
      *
-     * @param from The account name for transferring the fund.
-     * @param to The account name to receive the fund.
+     * @param from   The account name for transferring the fund.
+     * @param to     The account name to receive the fund.
      * @param amount The amount to be transferred.
-     * @param date The date that the fund was transferred.
-     * @param ui       Required for printing.
+     * @param date   The date that the fund was transferred.
+     * @param ui     Required for printing.
      * @throws GoalsException If any of the bank does not exist or insufficient fund to transfer.
      */
     public void transferFund(String from, String to, double amount, Date date,

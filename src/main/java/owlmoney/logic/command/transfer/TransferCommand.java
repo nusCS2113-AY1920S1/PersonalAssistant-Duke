@@ -16,10 +16,10 @@ public class TransferCommand extends Command {
     /**
      * Creates an instance of TransferCommand.
      *
-     * @param from The account name for transferring the fund.
-     * @param to The account name to receive the fund.
+     * @param from   The account name for transferring the fund.
+     * @param to     The account name to receive the fund.
      * @param amount The amount to be transferred.
-     * @param date The date that the fund was transferred.
+     * @param date   The date that the fund was transferred.
      */
     public TransferCommand(String from, String to, double amount, Date date) {
         this.from = from;
