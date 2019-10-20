@@ -13,11 +13,13 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String itemName, int qty) {
         this.resourceName = itemName;
         this.qty = qty;
+        this.type = 'I';
     }
 
     public DeleteCommand(String roomName) {
         this.resourceName = roomName;
         this.qty = 1;
+        this.type = 'R';
     }
 
     @Override

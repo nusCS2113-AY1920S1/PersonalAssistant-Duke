@@ -138,4 +138,6 @@ public abstract class Resource {
         return "[" + getType() + "] " + getName();
     }
 
+    public boolean isItem() { return (this instanceof Item); }
+
 }
