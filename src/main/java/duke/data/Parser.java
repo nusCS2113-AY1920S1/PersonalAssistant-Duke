@@ -48,12 +48,6 @@ public class Parser {
 
         switch (cmd) {
 
-
-        /**
-         * Command should be in the form:
-         * reminder deadlines before 18/09/2019 1900
-         * Push date before date into
-         */
         case "reminder":
             try {
                 index = input.indexOf("before");
@@ -65,17 +59,11 @@ public class Parser {
             }
             break;
 
-        /**
-         * Command should be in the form: aftertask return book /after exam
-         * It will be stored as type [A].
-         */
-
         case "delete":
             index = Integer.parseInt(input.substring(7)) - 1;
             tasks.deleteTask(index);
             storage.updateFile(tasks.getList());
             break;
-
 
         case "find":
             String searchWord = input.substring(5);
@@ -92,11 +80,6 @@ public class Parser {
             }
             break;
 
-
-        /**
-         * Command should be in the form: class swimming /every monday
-         * It will be stored as type [C].
-         */
         case "class":
             try {
                 index = input.indexOf("/every");
@@ -113,13 +96,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * View: schedule view-month|schedule view-week|
-         * schedule view-day 5/10/2019
-         * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
-         * Delete: schedule delete 5/10/2019 1500 Swimming|
-         * schedule delete-all 5/10/2019
-         */
         case "schedule":
             Storage scheduleStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\timeslots.txt");
@@ -164,9 +140,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * Simply type "goal" to start it off.
-         */
         case "goal":
             Storage goalStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\goals.txt");
@@ -191,19 +164,19 @@ public class Parser {
                     myGoalScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     switch (executeType) {
-                    case 1: {
+                    case 1:
                         System.out.print(goal.viewGoal(goalDate));
                         break;
-                    }
-                    case 2: {
+
+                    case 2:
                         System.out.println("To add a goal to "
                             + goalDate + ", enter the goal.");
                         String myGoal = myGoalScan.nextLine();
                         System.out.println(
                             goal.addGoal(goalDate, myGoal, goalStorage));
                         break;
-                    }
-                    case 3: {
+
+                    case 3:
                         System.out.println("To delete a goal from "
                             + goalDate + ", enter the goal.");
                         String message = myGoalScan.nextLine();
@@ -211,17 +184,17 @@ public class Parser {
                             goal.removeGoal(
                                 goalDate, message, goalStorage));
                         break;
-                    }
-                    case 4: {
+
+                    case 4:
                         System.out.println(
                             goal.removeAllGoal(goalDate, goalStorage));
                         break;
-                    }
-                    case 5: {
-                        isQuittingGoal = true;
-                        System.out.println(
-                            "You have quit the lesson of the day.");
-                    }
+
+                    case 5:
+                    isQuittingGoal = true;
+                    System.out.println(
+                        "You have quit the lesson of the day.");
+
                     default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -233,9 +206,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * Simply type "lesson" to start it off.
-         */
         case "lesson":
             Storage lessonStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\lessons.txt");
@@ -260,19 +230,20 @@ public class Parser {
                     myLessonScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     switch (executeType) {
-                    case 1: {
+                    case 1:
                         System.out.print(lesson.viewLesson(lessonDate));
                         break;
-                    }
-                    case 2: {
+
+                    case 2:
                         System.out.println("To add a lesson to "
                             + lessonDate + ", enter the lesson.");
                         String myLesson = myLessonScan.nextLine();
                         System.out.println(
-                            lesson.addLesson(lessonDate, myLesson, lessonStorage));
+                            lesson.addLesson(
+                                    lessonDate, myLesson, lessonStorage));
                         break;
-                    }
-                    case 3: {
+
+                    case 3:
                         System.out.println("To delete a lesson from "
                             + lessonDate + ", enter the lesson.");
                         String message = myLessonScan.nextLine();
@@ -280,17 +251,17 @@ public class Parser {
                             lesson.removeLesson(
                                 lessonDate, message, lessonStorage));
                         break;
-                    }
-                    case 4: {
+
+                    case 4:
                         System.out.println(lesson.removeAllLesson(
                             lessonDate, lessonStorage));
                         break;
-                    }
-                    case 5: {
+
+                    case 5:
                         isQuittingLesson = true;
                         System.out.println(
                             "You have quit the lesson of the day.");
-                    }
+
                     default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -302,12 +273,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * View: training view [plan number]
-         * Add: training add-activity [name] [sets] [reps] [activity number]|
-         * training add-plan [plan number]
-         * Delete: training delete-all|training delete [plan number]
-         */
         case "training":
             switch (word[1]) {
             case "view":
@@ -334,20 +299,11 @@ public class Parser {
             }
             break;
 
-        /**
-         *  Cmd "home" will list the menu items;
-         *  1. View Schedule
-         *  2. Manage Students
-         *  3. Training Circuits
-         */
         case "home":
             Ui viewMenu = new Ui();
             viewMenu.mainMenu();
             break;
 
-        /**
-         // Choosing Option 1 wil direct to "Training Schedule"
-         */
         case "1":
             System.out.flush();
             // Write go to direct to View Schedule (Scott)
@@ -355,9 +311,6 @@ public class Parser {
             trainingSchedule.trainingScheduleHeading();
             break;
 
-        /**
-         * Choosing option 2 will direct to "Manage Students"
-         */
         case "2":
             System.out.flush();
             Ui manageStudents = new Ui();
@@ -367,9 +320,6 @@ public class Parser {
             // Write Code to direct to manage Students (Danish)
             break;
 
-        /**
-         * Choosing 3 will direct to "Training Program"
-         */
         case "3":
             System.out.flush();
             Ui trainingProgram = new Ui();
@@ -377,11 +327,7 @@ public class Parser {
             //Write Code to direct to Training Circuits (Jing Sen)
             break;
 
-        /**
-         * When cmd student is called
-         * Format for adding student is: student add/ Name/ age/ address.
-         */
-        case "student":
+            case "student":
             switch (word[1]) {
             case "add":
                 System.out.println("Insert Name, Age, Address:\n");

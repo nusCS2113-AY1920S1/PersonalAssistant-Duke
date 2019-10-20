@@ -17,6 +17,7 @@ public class FindCommand extends Command {
         this.findStudent = findStudent;
     }
 
+
     @Override
     public String execute(final ManageStudents manageStudents, final Ui ui) {
         return manageStudents.findName(findStudent);
