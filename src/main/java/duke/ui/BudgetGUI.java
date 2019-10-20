@@ -7,10 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 import java.math.BigDecimal;
 
@@ -36,7 +39,7 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
     @FXML
     TableView expenseTableView;
     @FXML
-    ListView budgetListView = new ListView();
+    ListView<String> budgetListView = new ListView<>();
 
     private Duke duke;
 
@@ -97,24 +100,47 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
             }, cell.emptyProperty(), cell.indexProperty()));
             return cell;
         });
-
+        indexColumn.setSortable(false);
         TableColumn<String, Expense> timeColumn = new TableColumn<>("Time");
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
+        timeColumn.setSortable(false);
         TableColumn<String, Expense> amountColumn = new TableColumn<>("Amount");
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountColumn.setSortable(false);
         TableColumn<Expense, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descriptionColumn.setSortable(false);
         TableColumn<Expense, String> tagColumn = new TableColumn<>("Tags");
+        tagColumn.setSortable(false);
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
-        TableColumn<Expense, Boolean> isTentativeColumn = new TableColumn<>("Tentative");
-        isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
+        tagColumn.setSortable(false);
+
+        expenseTableView.setRowFactory(new Callback<TableView<Expense>, TableRow<Expense>>() {
+            @Override
+            public TableRow<Expense> call(TableView<Expense> tableView) {
+                final TableRow<Expense> row = new TableRow<Expense>() {
+                    @Override
+                    protected void updateItem(Expense expense, boolean empty) {
+                        super.updateItem(expense, empty);
+                        if (expense != null && expense.isTentative()) {
+                            setStyle("-fx-text-background-color: blue;");
+
+                        } else {
+                            setStyle("-fx-text-background-color: black;");
+                        }
+                    }
+                };
+                return row;
+            }
+        });
         expenseTableView.getColumns().setAll(
-            indexColumn,
-            timeColumn,
-            amountColumn,
-            descriptionColumn,
-            tagColumn,
-            isTentativeColumn);
+                indexColumn,
+                timeColumn,
+                amountColumn,
+                descriptionColumn,
+                tagColumn
+        );
+
         for (Expense expense : duke.expenseList.getExternalList()) {
             expenseTableView.getItems().add(expense);
         }
@@ -127,9 +153,9 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
 /*
     public void updateTotalSpentLabel() {
         totalSpentLabel.setText("Total: "
-            + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
-            ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
-            + duke.expenseList.getTotalAmount()));
+                + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
+                ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
+                + duke.expenseList.getTotalAmount()));
     }
 
     /**
@@ -146,9 +172,9 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
 /*
     public void updateRemainingBudget() {
         remainingBudgetLabel.setText("Remaining: "
-            + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
-            ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
-            : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+                + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
+                ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
+                : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
     }
 
     /**
@@ -160,8 +186,8 @@ public class BudgetGUI /*extends UiPart<BorderPane>*/ /*{
         budgetListView.getItems().add("Tag: Spent/Budget");
         for (String tag : duke.budget.getBudgetCategory().keySet()) {
             budgetListView.getItems().add(tag
-                + ": $" + duke.expenseList.getTagAmount(tag)
-                + "/$" + duke.budget.getBudgetCategory().get(tag));
+                    + ": $" + duke.expenseList.getTagAmount(tag)
+                    + "/$" + duke.budget.getBudgetCategory().get(tag));
         }
     }
 

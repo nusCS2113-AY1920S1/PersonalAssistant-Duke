@@ -55,6 +55,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
+
     }
 
     public static void main(String[] args) {

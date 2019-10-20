@@ -25,7 +25,8 @@ public class AddExpenseCommand extends Command {
     private enum SecondaryParam {
         DESCRIPTION("description", "a short description or name for the expense"),
         TAG("tag", "tags that should be added to the expense"),
-        TIME("time", "the time of the expense");
+        TIME("time", "the time of the expense"),
+        TENTATIVE("tentative", "sets the expense to be tentative");
 
         private String name;
         private String description;
@@ -73,6 +74,12 @@ public class AddExpenseCommand extends Command {
         // duke.expenseList.update();
         storage.saveExpenseList(model.getExpenseList());
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
+        /*
+        if (commandParams.containsParams(SecondaryParam.TENTATIVE.name)) {
+            expenseBuilder.setTentative(true);
+        }
+        */
+
     }
 
 }
