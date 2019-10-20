@@ -16,6 +16,7 @@ public class DegreeListStorage {
     File file = new File(filename);
     ArrayList<String> list = DegreeList.getDegrees();
     private static List<String> lines;
+    UpdateFile upd = new UpdateFile();
 
     public void ReadFile() {
         try {
@@ -24,7 +25,7 @@ public class DegreeListStorage {
             while ((st = br.readLine()) != null) {
                 String[] data = st.split("-");
                 if (data[0].equals("degree")) {
-                    if(data.length < 3) {
+                    if(data.length < 4) {
                         list.add(data[1]);
                     }
                 }
@@ -39,7 +40,7 @@ public class DegreeListStorage {
         for(String line: lines){
             String [] vals = line.split("-");
             if(vals[1].equals(imp)){
-                    newLines.add(vals[0] + "-" + vals[1] +  "-" + "REMOVED");
+                    newLines.add(vals[0] + "-" + vals[1] +  "-" + vals[2] + "-" + "REMOVED");
             } else {
                 newLines.add(line);
             }
@@ -51,6 +52,9 @@ public class DegreeListStorage {
         lines = Files.readAllLines(file.toPath(), Charset.defaultCharset());
         AddRemoved(imp); //the description of the task is passed onto the AddRemoved method which has been described above.
         Files.write(file.toPath(), AddRemoved(imp), Charset.defaultCharset());
+        for(int i = 0; i < list.size(); i++) {
+            upd.reduce_index(list.get(i));
+        }
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.Collections;
 
 public class DegreeList implements Serializable, Cloneable{
     private static ArrayList<String> list = new ArrayList<>();
-
+    int i = 0;
     public static ArrayList<String> getDegrees(){
         return list;
     }
@@ -99,8 +99,9 @@ public class DegreeList implements Serializable, Cloneable{
                 System.out.print("Added ");
                 System.out.print(input);
                 System.out.println(" to your choices of degrees");
-                String data = "degree-"+input + "\n";
+                String data = "degree-"+input + "-" + i + "\n";
                 bw.write(data);
+                i = i + 1;
         }
         catch (Exception e)
         {

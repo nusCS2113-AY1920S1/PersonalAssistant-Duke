@@ -1,4 +1,3 @@
-degree-Computer Engineering
-degree-Electrical Engineering-REMOVED
-degree-Chemical Engineering
-degree-Biomedical Engineering-REMOVED
+degree-Computer Engineering-0-REMOVED
+degree-Electrical Engineering-0
+degree-Mechanical Engineering-1
