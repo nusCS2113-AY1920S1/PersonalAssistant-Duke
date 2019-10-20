@@ -1,6 +1,5 @@
 package duke.task;
 
-import javafx.scene.layout.Pane;
 
 import java.util.Date;
 
@@ -31,11 +30,11 @@ public class Item {
      * Constructor method for the Event class.
      *
      * @param desc   This is the information about the task being added
-     * @param status This determines if whether the Item
+     * @param isDone This determines if whether the Item
      *               added is completed or uncompleted
      */
-    public Item(final String desc, final Boolean status) {
-        this.status = status;
+    public Item(final String desc, final Boolean isDone) {
+        this.status = isDone;
         this.info = desc;
     }
 
@@ -55,7 +54,7 @@ public class Item {
      * @param t The string type of the Item
      * @return the newly set type of the Item
      */
-    public String setType(String t) {
+    public String setType(final String t) {
         this.type = t;
         return this.type;
     }
@@ -79,12 +78,17 @@ public class Item {
         return "";
     }
 
+    /**
+     * Designed for extension.
+     *
+     * @return Null if method is not inherited
+     */
     public Date getRawDate() {
         return null;
     }
 
     /**
-     * Function returns a 1 or 0 if the status of the Item is complete (true)
+     * Function returns a 1 or 0 if the status of the Item is complete (true).
      *
      * @return int 1 | 0
      */
@@ -93,7 +97,7 @@ public class Item {
     }
 
     /**
-     * Method checks whether Item is complete
+     * Method checks whether Item is complete.
      *
      * @return if task is complete
      */
@@ -102,7 +106,7 @@ public class Item {
     }
 
     /**
-     * Function gets the info of the Item
+     * Function gets the info of the Item.
      *
      * @return info
      */
@@ -111,7 +115,8 @@ public class Item {
     }
 
     /**
-     * Function will give a tick or cross depending if the status of the Item is true or false.
+     * Function will give a tick or cross
+     * depending if the status of the Item is true or false.
      *
      * @return tick or cross
      */
@@ -120,7 +125,8 @@ public class Item {
     }
 
     /**
-     * This function prints out the string of the status icon as a tick or cross and the info of the Item.
+     * This function prints out the string of the
+     * status icon as a tick or cross and the info of the Item.
      *
      * @return String phrase of all Item details
      */
@@ -134,13 +140,16 @@ public class Item {
      *
      * @param length time of activity
      */
-    public void setDuration (String length) {
+    public void setDuration(final String length) {
         duration = length;
     }
+
     /**
      * Get duration for todo task.
+     *
+     * @return string of duration
      */
-    public String getDuration () {
+    public String getDuration() {
         return duration;
     }
 }
