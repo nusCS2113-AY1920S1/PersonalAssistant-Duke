@@ -12,16 +12,20 @@ public class MyMenu {
     private String menu;
 
 
-    public MyMenu(String myCategory, String menu) {
+    /**
+     * A constructor for the menu list.
+     * @param myCategory Category of the menu.
+     * @param menu respective sections of the category.
+     */
+    public MyMenu(final String myCategory, final String menu) {
         this.myCategory = myCategory;
         this.menu = menu;
     }
 
-
-    public String getMyCategory() {
-        return myCategory;
-    }
-
+    /**
+     * Method to get the menu.
+     * @return list of the sections in the menu.
+     */
     public String getMenu() {
         return menu;
     }
