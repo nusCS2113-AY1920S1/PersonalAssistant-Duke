@@ -6,8 +6,6 @@ import compal.logic.parser.exceptions.ParserException;
 
 import java.util.ArrayList;
 
-import static compal.commons.CompalUtils.dateToString;
-import static compal.commons.CompalUtils.stringToDate;
 
 /**
  * Parses input arguments and creates a new ViewCommand object.

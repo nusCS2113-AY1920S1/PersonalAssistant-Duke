@@ -46,9 +46,9 @@ public class ViewCommand extends Command {
         this.dateInput = dateInput;
 
 
-        if (typeToShow.equals("deadline")) {
+        if ("deadline".equals(typeToShow)) {
             this.type = "D";
-        } else if (typeToShow.equals("event")) {
+        } else if ("event".equals(typeToShow)) {
             this.type = "E";
         }
 
@@ -172,11 +172,10 @@ public class ViewCommand extends Command {
         StringBuilder allTask = new StringBuilder();
 
         for (Task t : currList) {
-            if (!type.equals("")) {
-                if (!t.getSymbol().equals(type)) {
-                    continue;
-                }
+            if (!"".equals(type) && !t.getSymbol().equals(type)) {
+                continue;
             }
+
             if (t.getStringDate().equals(dateInput)) {
                 allTask.append(getAsStringView(t));
             }
@@ -210,7 +209,7 @@ public class ViewCommand extends Command {
         String startTime = t.getStringStartTime();
         String endTime = t.getStringEndTime();
 
-        if (startTime.equals("-")) {
+        if ("-".equals(startTime)) {
             taskDetails.append("  Due: ").append(endTime)
                 .append("\n");
 

@@ -167,13 +167,12 @@ public class TaskList {
                             arrlist.set(i, arrlist.get(i + 1));
                             arrlist.set(i + 1, temp);
                             sorted = false;
-                        } else if (task1StartTime.equals(taskStart2Time)) {
-                            if (task1EndTime.after(task1EndTime)) {
-                                Task temp = arrlist.get(i);
-                                arrlist.set(i, arrlist.get(i + 1));
-                                arrlist.set(i + 1, temp);
-                                sorted = false;
-                            }
+                        } else if (task1StartTime.equals(taskStart2Time) && task1EndTime.after(task1EndTime)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+
                         }
                     }
                 }
