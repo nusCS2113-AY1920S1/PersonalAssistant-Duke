@@ -8,6 +8,7 @@ import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -87,5 +88,10 @@ public class ModelManager implements Model {
     @Override
     public void save() throws DukeException {
         storage.write();
+    }
+
+    @Override
+    public ObservableList<Task> getInternalList() {
+        return tasks.getInternalList();
     }
 }

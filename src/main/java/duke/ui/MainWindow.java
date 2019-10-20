@@ -9,11 +9,14 @@ import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
+import duke.model.events.Task;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.dialogbox.DialogBox;
 import duke.ui.dialogbox.DialogBoxImage;
 import duke.ui.map.MapWindow;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -34,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private VBox taskContainer;
 
     private LogicManager logic;
     private static final String FXML = "MainWindow.fxml";
@@ -69,6 +74,20 @@ public class MainWindow extends UiPart<Stage> {
         this.main = main;
         logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
+        ObservableList<Task> tasks = logic.getInternalList();
+        taskContainer.getChildren().clear();
+        for (Task t : tasks) {
+            taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
+        }
+        tasks.addListener(new ListChangeListener<>() {
+            @Override
+            public void onChanged(Change<? extends Task> c) {
+                taskContainer.getChildren().clear();
+                for (Task t : tasks) {
+                    taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
+                }
+            }
+        });
     }
 
     /**

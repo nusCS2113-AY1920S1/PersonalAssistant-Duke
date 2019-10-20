@@ -66,6 +66,11 @@
     -fx-background-color: rgba(0, 30, 15, 0.8);
 }
 
+.sidePane {
+    -fx-background-image: url("../images/SGmap.jpg");
+    -fx-background-size: 400 300;
+}
+
 .button {
     -fx-background-color : linear-gradient(to bottom right, mediumseagreen, midnightblue);
     -fx-border-width: 2;
