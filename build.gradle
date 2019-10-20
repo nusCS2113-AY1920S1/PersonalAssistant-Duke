@@ -47,15 +47,11 @@ test {
 
 application {
     // Change this to your main class.
-    mainClassName = "duke.Duke"
+    mainClassName = "planner.Planner"
 }
 
 run {
     standardInput = System.in
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs << '-Xlint:unchecked'
-    options.deprecation = true
-}
 
