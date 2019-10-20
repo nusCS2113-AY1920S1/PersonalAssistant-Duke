@@ -11,7 +11,6 @@ import compal.logic.parser.exceptions.ParserException;
 public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     public static final String CMD_EXIT = "bye";
-    public static final String CMD_LIST = "list";
     public static final String CMD_CLEAR = "clear";
     public static final String CMD_DONE = "done";
     public static final String CMD_DELETE = "delete";
