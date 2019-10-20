@@ -3,12 +3,7 @@ package ui;
 import Dictionary.Word;
 import Dictionary.WordBank;
 
-import java.util.ArrayList;
-
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -104,17 +99,23 @@ public class Ui {
     }
 
     public String showSearchFrequency(WordBank wordBank, String order) {
+        TreeMap<Integer, TreeMap<String, Word>> wordCount = wordBank.getWordCount(); //get map ordered by word count
         String returnedString = "You have searched for these words ";
-        if (order.equals("asc") || order.equals("")) {
+        if (order.equals("asc") || order.equals("")) { //list in ascending order
             returnedString += "least:\n";
-            for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
-                returnedString += entry.getValue().getWord() + " - " + entry.getValue().getNumberOfSearches() + "\n";
+            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCount.entrySet()) {
+                returnedString += entry.getKey() + " searches -\n";
+                for (Map.Entry<String, Word> word : entry.getValue().entrySet()) {
+                    returnedString += word.getKey() + "\n";
+                }
             }
-        }
-        else {
+        } else { //list in descending order
             returnedString += "most:\n";
-            for (String word : wordBank.getWordBank().descendingKeySet()) {
-                returnedString += wordBank.getWordBank().get(word).getWord() + " - " + wordBank.getWordBank().get(word).getNumberOfSearches() + "\n";
+            for (Integer searchCount : wordCount.descendingKeySet()) {
+                returnedString += searchCount + " searches -\n";
+                for (Map.Entry<String, Word> word : wordCount.get(searchCount).entrySet()) {
+                    returnedString += word.getKey() + "\n";
+                }
             }
         }
         return returnedString;

@@ -1,11 +1,9 @@
 package command;
 
-import Dictionary.Word;
 import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
-import java.util.Stack;
 
 /**
  * Represents a command from user to see most/least searched words.

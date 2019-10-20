@@ -76,7 +76,7 @@ public class Parser {
                 if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                     throw new WrongSearchFormatException();
                 }
-                return new SearchCommand(taskInfo[1].substring(2));
+                return new SearchCommand(taskInfo[1].substring(2).trim());
             } else if (taskInfo[0].equals("list")) {
                 String order = "";
                 if (taskInfo.length > 1) {

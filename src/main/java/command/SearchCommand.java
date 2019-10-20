@@ -1,6 +1,5 @@
 package command;
 
-import Dictionary.Word;
 import Dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
@@ -12,10 +11,10 @@ import ui.Ui;
  */
 public class SearchCommand extends Command {
 
-    protected String searchedWord;
+    protected String searchTerm;
 
     public SearchCommand(String queryWord) {
-        this.searchedWord = queryWord;
+        this.searchTerm = queryWord;
     }
 
     @Override
@@ -24,9 +23,9 @@ public class SearchCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            String meaning = wordBank.searchForMeaning(this.searchedWord);
-            wordBank.increaseSearchCount(searchedWord);
-            return ui.showSearch(this.searchedWord, meaning);
+            String meaning = wordBank.searchForMeaning(this.searchTerm);
+            wordBank.increaseSearchCount(searchTerm);
+            return ui.showSearch(this.searchTerm, meaning);
         }
         catch (NoWordFoundException e) {
             return e.showError();

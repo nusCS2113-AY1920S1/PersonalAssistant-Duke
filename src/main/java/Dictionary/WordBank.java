@@ -1,21 +1,22 @@
 package Dictionary;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
 import storage.Storage;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.TreeMap;
-
 public class WordBank {
     private TreeMap<String, Word> wordBank;
-    private TreeMap<Word, Integer> wordCount;
+
+    /**
+     * Maps the search count (KEY) to an ordered list of words (VALUE) with that search count.
+     */
+    private TreeMap<Integer, TreeMap<String, Word> > wordCount = new TreeMap<>();
 
     public WordBank(Storage storage) {
         wordBank = storage.loadFile();
+        makeWordCount();
     }
 
     public WordBank(TreeMap<String, Word> wordBank) {
@@ -26,8 +27,52 @@ public class WordBank {
         return wordBank;
     }
 
-    public TreeMap<Word, Integer> getWordCount() {
+    public TreeMap<Integer, TreeMap<String, Word> > getWordCount() {
         return wordCount;
+    }
+
+    protected void makeWordCount() {
+        for (Map.Entry<String, Word> entry : wordBank.entrySet()) {
+            //find key. if exists append to treemap, else create new hashmap entry
+            int NumberOfSearches = entry.getValue().getNumberOfSearches();
+            String wordText = entry.getValue().getWord();
+            Word wordWord = entry.getValue();
+            if (!wordCount.isEmpty()) {
+                if (wordCount.containsKey(NumberOfSearches)) {
+                    wordCount.get(NumberOfSearches).put(wordText, wordWord);
+                }
+            } else {
+                wordCount.put(NumberOfSearches, new TreeMap<>());
+                wordCount.get(NumberOfSearches).put(wordText, wordWord);
+            }
+        }
+    }
+
+    /**
+     * Increases the search count for a word.
+     * @param searchTerm word that is being searched for by the user
+     * @throws NoWordFoundException if word does not exist in the word bank
+     */
+    public void increaseSearchCount(String searchTerm) throws NoWordFoundException{
+        if (wordBank.containsKey(searchTerm)) {
+            Word searchedWord = wordBank.get(searchTerm);
+            int searchCount = searchedWord.getNumberOfSearches();
+            searchedWord.incrementNumberOfSearches();
+            wordCount.get(searchCount).remove(searchTerm);
+            if (wordCount.get(searchCount).isEmpty()) {
+                wordCount.remove(searchCount);
+            }
+            int newSearchCount = searchCount + 1;
+            if (wordCount.containsKey(newSearchCount)) {
+                wordCount.get(newSearchCount).put(searchTerm, searchedWord);
+            } else {
+                wordCount.put(newSearchCount, new TreeMap<>());
+                wordCount.get(newSearchCount).put(searchTerm, searchedWord);
+            }
+        }
+        else {
+            throw new NoWordFoundException(searchTerm);
+        }
     }
 
     public Word getWordAndMeaning(String word) throws NoWordFoundException {
@@ -71,20 +116,6 @@ public class WordBank {
         }
         else {
             throw new NoWordFoundException(wordToBeEdited);
-        }
-    }
-
-    /**
-     * Increases the search count for a word.
-     * @param searchedWord word that is being searched for by the user
-     * @throws NoWordFoundException if word does not exist in the word bank
-     */
-    public void increaseSearchCount(String searchedWord) throws NoWordFoundException{
-        if (wordBank.containsKey(searchedWord)) {
-            wordBank.get(searchedWord).incrementNumberOfSearches();
-        }
-        else {
-            throw new NoWordFoundException(searchedWord);
         }
     }
 
