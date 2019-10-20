@@ -58,6 +58,7 @@ public class Ingredient {
         Ingredient that = (Ingredient) o;
         return Objects.equals(name, that.name);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(name);

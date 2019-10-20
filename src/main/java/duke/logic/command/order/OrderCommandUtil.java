@@ -25,7 +25,9 @@ class OrderCommandUtil {
      * @param items containing the name of the products.
      * @throws CommandException if one or more product names in {@code items} are not found in {@code allProducts}
      */
-    static Set<Item<Product>> getProductItems(List<Product> allProducts, Set<Item<String>> items) throws CommandException {
+    static Set<Item<Product>> getProductItems(List<Product> allProducts,
+                                              Set<Item<String>> items)
+            throws CommandException {
         requireAllNonNull(allProducts, items);
 
         Set<Item<Product>> products = new HashSet<>();

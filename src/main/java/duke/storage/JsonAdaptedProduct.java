@@ -20,6 +20,9 @@ public class JsonAdaptedProduct {
     private final Double retailPrice;
     private final Product.Status status;
 
+    /**
+     * Constructs a {@code JsonAdaptedProduct} with the given order details.
+     */
     @JsonCreator
     public JsonAdaptedProduct(
             @JsonProperty("productName") String productName,
@@ -34,6 +37,9 @@ public class JsonAdaptedProduct {
         this.status = status;
     }
 
+    /**
+     * Creates a jackson-friendly product from {@code source}.
+     */
     public JsonAdaptedProduct(Product source) {
         this.productName = source.getProductName();
         this.ingredientCost = source.getIngredientCost();
@@ -49,6 +55,9 @@ public class JsonAdaptedProduct {
         }
     }
 
+    /**
+     * Converts a given {@code Product} into this class for Jackson use.
+     */
     public Product toModelType() {
         Product product = new Product();
         product.setProductName(productName);

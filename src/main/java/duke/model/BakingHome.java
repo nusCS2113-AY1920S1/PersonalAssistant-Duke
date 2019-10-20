@@ -39,6 +39,9 @@ public class BakingHome implements ReadOnlyBakingHome {
         shortcuts = new UniqueEntityList<>();
     }
 
+    /**
+     * Creates BakingHome fro {@code toBeCopied}.
+     */
     public BakingHome(ReadOnlyBakingHome toBeCopied) {
         this();
         resetData(toBeCopied);
@@ -62,9 +65,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         this.products.setAll(products);
     }
 
-    public void setSale(List<Sale> allSale) {
-        this.sales.setAll(allSale);
-    }
+
     //================Order operations================
 
     /**
@@ -170,6 +171,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireNonNull(editedSale);
 
         sales.set(target, editedSale);
+    }
+
+    public void setSale(List<Sale> allSale) {
+        this.sales.setAll(allSale);
     }
 
     /**
@@ -278,7 +283,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Shopping operations==============
 
     /**
-     * Adds an ingredient to the shopping list
+     * Adds an ingredient to the shopping list.
      * @param toAdd The ingredient to be added to the shopping list.
      */
     public void addShoppingList(Item<Ingredient> toAdd) {
@@ -286,7 +291,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Removes an ingredient from the shopping list
+     * Removes an ingredient from the shopping list.
      * @param toRemove The ingredient to be removed from the shopping list.
      */
     public void removeShoppingList(Item<Ingredient> toRemove) {
