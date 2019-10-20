@@ -44,16 +44,16 @@ public class ShowListCommand extends Command {
         case "debt":
             logList = dollaData.getLogList(mode);
             break;
+        case "limit":
+            logList = dollaData.getLogList(mode);
+            break;
         default:
             break; // TODO: What to do here?
         }
 
-        
-//        boolean isListEmpty = (logList.size() == 0);
+        boolean listIsEmpty = (logList.size() == 0);
 
-        boolean isListEmpty = (logList.size() == 0);
-
-        if (isListEmpty) { // TODO: Place this in proper place
+        if (listIsEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
             return;
 //        } else if (mode.equals("entries")) {
@@ -64,6 +64,8 @@ public class ShowListCommand extends Command {
         } else if (mode.equals("debt")) {
             Ui.printList(mode, logList);
             return;
+        } else if (mode.equals("limit")) {
+            Ui.printList(mode, logList);
         }
     }
 }

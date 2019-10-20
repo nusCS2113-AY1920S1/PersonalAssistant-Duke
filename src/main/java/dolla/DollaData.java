@@ -1,10 +1,6 @@
 package dolla;
 
-import dolla.task.Entry;
-import dolla.task.DebtList;
-import dolla.task.EntryList;
-import dolla.task.Log;
-import dolla.task.LogList;
+import dolla.task.*;
 
 import java.util.ArrayList;
 
@@ -78,4 +74,9 @@ public class DollaData {
     public int getModifyIndex() {
         return modifyIndex;
     }
+
+    public void removeLimit(Limit.LimitType type, Limit.Duration duration) {
+        //remove limit from list
+    }
+
 }

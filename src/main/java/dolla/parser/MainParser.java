@@ -49,7 +49,7 @@ public class MainParser {
         case "debt":
             DebtsParser debtsParser = new DebtsParser(inputLine);
             return debtsParser.handleInput(mode, inputLine);
-        case "limits":
+        case "limit":
             LimitParser limitParser = new LimitParser(inputLine);
             //return limitParser.handleInput(mode, inputLine);
             return new ErrorCommand(); // catch

@@ -23,6 +23,7 @@ public class AddLimitCommand extends Command {
     public void execute(DollaData dollaData) {
         Limit newLimit = new Limit(type, amount, duration);
         dollaData.addToLogList("limit", newLimit);
+        //need to add budget and show
         LimitUi.echoAddLimit(newLimit);
     }
 }

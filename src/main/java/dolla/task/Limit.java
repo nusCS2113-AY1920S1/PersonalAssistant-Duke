@@ -6,11 +6,10 @@ import dolla.Ui;
  * Limit is a class that stores all limit related methods (savings and budgets)
  */
 public class Limit extends Log {
-    protected char sign; // '+' for saving, '-' for budget
+
     protected LimitType type;
     protected double amount;
     protected Duration duration;
-    protected LimitList limitList;
     protected String saveType;
 
     public enum LimitType {
@@ -18,7 +17,7 @@ public class Limit extends Log {
     }
 
     public enum Duration {
-        DAILY, WEEKLY, MONTHLY
+        DAY, WEEK, MONTH
     }
 
     /**
@@ -28,7 +27,6 @@ public class Limit extends Log {
      * @param duration Duration of the limit.
      */
     public Limit(LimitType type, double amount, Duration duration) {
-        this.sign = (type.equals(LimitType.SAVING) ? '+' : '-');
         this.type = type;
         this.amount = amount;
         this.duration = duration;
@@ -43,7 +41,7 @@ public class Limit extends Log {
     public String getLogText() {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
-                + "[/for " + duration + "]";
+                + "[/every " + duration + "]";
     }
 
     public String amountToMoney() {

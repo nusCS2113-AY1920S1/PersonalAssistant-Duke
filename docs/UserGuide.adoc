@@ -219,40 +219,6 @@ Examples:
 
 * `add recurring income $800 part time job /every month`
 
-==== Add duration-based expenses budget: `set budget`
-
-Set the budget on the amount you can spend within the time period you have input. +
-Format: +
-`*set budget* [AMOUNT] /every [DURATION]`
-
-*NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
-
-Example:
-
-* `set budget $50 /every week`
-
-==== Add tag-based expense budget: `set budget`
-
-Set expense budget on particular types of spending. +
-Format: +
-`*set budget* [AMOUNT] /tag [TAG]`
-
-Example:
-
-* `set budget $20 /tag bubble tea`
-
-==== Set target saving: `set saving`
-
-Set a target saving for a specified duration. +
-Format: +
-`*set saving* [AMOUNT] /for [DURATION]`
-
-*NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
-
-Example:
-
-* `set saving $300 /for every month`
-
 ==== Reminders: `reminder`
 
 Reminders for upcoming payments and budgets that are about to be broken. +
@@ -323,7 +289,7 @@ Example:
 
 {nbsp} +
 
-=== Switch the mode to Budgets: `budgets`
+=== Switch the mode to Limits: `limit`
 
 Users can look through, edit and remove budgets in this mode. +
 Format: +
@@ -331,6 +297,46 @@ Format: +
 
 ==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+
+==== Add target budget: `set budget`
+
+Set the budget on the amount you can spend within the time period you have input. +
+Format: +
+`*set budget* [AMOUNT] /every [DURATION]`
+
+*NOTE*: `*[DURATION]*` can be daily, weekly or monthly.
+
+Example:
+
+* `set budget $50 /every week`
+
+==== Add tag-based expense budget: `set budget` [coming in v2.0]
+
+Set expense budget on particular types of spending. +
+Format: +
+`*set budget* [AMOUNT] /tag [TAG]`
+
+Example:
+
+* `set budget $20 /tag bubble tea`
+
+==== Set target saving: `set saving`
+
+Set a target saving for a specified duration. +
+Format: +
+`*set saving* [AMOUNT] /for [DURATION]`
+
+*NOTE*: `*[DURATION]*` can be daily, weekly or monthly.
+
+Example:
+
+* `set saving $300 /for every month`
+
+==== Remove budget: `remove [DURATION] budget`
+
+Remove a budget. +
+Format: +
+`*remove* [DURATION] *budget*`
 
 {nbsp} +
 
