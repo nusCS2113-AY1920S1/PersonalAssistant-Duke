@@ -86,7 +86,6 @@ public class FixedDurationCommand implements Command {
             FixedDuration fd = new FixedDuration(description, fixedDuration);
             tasks.add(fd);
             storage.append(fd);
-            ui.showAdd(tasks);
         }
     }
 }

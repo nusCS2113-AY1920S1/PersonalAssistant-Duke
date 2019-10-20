@@ -83,7 +83,6 @@ public class RecurCommand implements Command{
             Recur a = new Recur(description, frequency);
             tasks.add(a);
             storage.append(a);
-            ui.showAdd(tasks);
         }
     }
 }

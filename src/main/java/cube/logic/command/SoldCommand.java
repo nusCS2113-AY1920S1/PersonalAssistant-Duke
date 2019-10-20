@@ -2,7 +2,6 @@ package cube.logic.command;
 
 import cube.model.food.FoodList;
 import cube.model.food.Food;
-import cube.ui.Ui;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
@@ -16,6 +15,7 @@ public class SoldCommand extends Command{
 
 	public SoldCommand (String foodName, int quantity) {
 		this.foodName = foodName;
+		this.quantity = quantity;
 	}
 
 	public void checkValid(Food foodSold, FoodList list) throws CommandException {
