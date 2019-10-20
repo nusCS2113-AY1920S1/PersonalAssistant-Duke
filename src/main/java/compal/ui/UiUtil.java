@@ -15,23 +15,10 @@ import javafx.scene.text.FontWeight;
  */
 public class UiUtil {
     public static ScrollPane mainWindow;
-    public static ScrollPane secondaryWindow;
     public static TabPane tabWindow;
-
-    public ScrollPane getMainWindow() {
-        return mainWindow;
-    }
 
     public void setMainWindow(ScrollPane mainWindow) {
         UiUtil.mainWindow = mainWindow;
-    }
-
-    public ScrollPane getSecondaryWindow() {
-        return secondaryWindow;
-    }
-
-    public void setSecondaryWindow(ScrollPane secondaryWindow) {
-        UiUtil.secondaryWindow = secondaryWindow;
     }
 
     public void setTabWindow(TabPane tabWindow) {
@@ -61,26 +48,6 @@ public class UiUtil {
     public void printg(Object text, String font, int size, Color color) {
         VBox vbox = (VBox) mainWindow.getContent();
         vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
-    }
-
-    /**
-     * Converts the object into string form using toString()
-     * and prints it onto the GUI's secondary display box.
-     *
-     * @param text Input object received to be print on gui. Any object type can be used, as long as
-     *             it has a 'toString()' function defined.
-     */
-    public void printSecondaryg(Object text, String font, int size, Color color) {
-        VBox vbox = (VBox) secondaryWindow.getContent();
-        vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
-    }
-
-    /**
-     * Shows the number of tasks in the arraylist.
-     * Used in TaskList.addTask.
-     */
-    public void showSize() {
-        //printg("Now you have " + arrlist.size() + " tasks in the list");
     }
 
     /**
@@ -120,15 +87,6 @@ public class UiUtil {
      */
     public void clearPrimary() {
         VBox vbox = (VBox) mainWindow.getContent();
-        vbox.getChildren().clear();
-    }
-
-    /**
-     * Clears the secondary display viewport on the GUI.
-     * Parser calls this function when it receives a 'clear' command.
-     */
-    public void clearSecondary() {
-        VBox vbox = (VBox) secondaryWindow.getContent();
         vbox.getChildren().clear();
     }
 

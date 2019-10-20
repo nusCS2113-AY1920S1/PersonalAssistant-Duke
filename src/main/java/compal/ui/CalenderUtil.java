@@ -24,7 +24,7 @@ public class CalenderUtil {
         DailyCalUi dc = new DailyCalUi();
         tabWindow.getTabs().remove(1);
         Tab dailyTab = new Tab();
-        dailyTab.setText(dateToStore);
+        dailyTab.setText("Daily View: " + dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         tabWindow.getTabs().add(1, dailyTab);
     }

@@ -24,4 +24,9 @@ public class ParserException extends Exception {
         uiUtil.printg(description);
         return description;
     }
+
+    @Override
+    public String getMessage() {
+        return description;
+    }
 }
