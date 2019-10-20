@@ -8,7 +8,8 @@ package cube.util;
 import java.io.*;
 import java.util.ArrayList;
 
-import cube.exception.DukeLoadingException;
+import cube.exception.CubeException;
+import cube.exception.CubeLoadingException;
 import cube.task.*;
 import cube.exception.DukeException;
 
@@ -31,14 +32,14 @@ public class Storage {
 	 * Creates the parent directory and file.
 	 *
 	 * @param file the file at which should be created.
-	 * @throws DukeLoadingException exception occurs when unable to create new file.
+	 * @throws CubeLoadingException exception occurs when unable to create new file.
 	 */
-	public void create(File file) throws DukeLoadingException {
+	public void create(File file) throws CubeLoadingException {
 		file.getParentFile().mkdirs();
 		try {
 			file.createNewFile();
 		} catch (IOException e) {
-			throw new DukeLoadingException(fileFullPath);
+			throw new CubeLoadingException(fileFullPath);
 		}
 
 	}
@@ -47,9 +48,9 @@ public class Storage {
 	 * Returns true if the data file is available, otherwise makes a new data file and returns false.
 	 *
 	 * @return true if data file available, otherwise false.
-	 * @throws DukeLoadingException exception occurs when unable to create new file.
+	 * @throws CubeLoadingException exception occurs when unable to create new file.
 	 */
-	public boolean checkFileAvailable() throws DukeLoadingException {
+	public boolean checkFileAvailable() throws CubeLoadingException {
 
 		File file = new File(fileFullPath);
 		if (file.exists()) {
@@ -66,7 +67,7 @@ public class Storage {
 	 * @return The list of the task objects.
 	 * @throws DukeException Exception caught in input process, when attempting to read from data file.
 	 */
-	public ArrayList<Task> load() throws DukeException {
+	public ArrayList<Task> load() throws CubeException {
 		ArrayList<Task> list = new ArrayList<>();
 		if (checkFileAvailable()) {
 			System.out.println("Loading file from: " + fileFullPath);
@@ -79,12 +80,12 @@ public class Storage {
 				}
 				in.close();
 				file.close();
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-				throw new DukeLoadingException("ClassNotFound", fileFullPath);
 			} catch (IOException e) {
 				e.printStackTrace();
-				throw new DukeLoadingException("IOException", fileFullPath);
+				throw new CubeException("IOException at:" + fileFullPath);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				throw new CubeException("IOException at:" + fileFullPath);
 			}
 		}
 		return list;
@@ -96,7 +97,7 @@ public class Storage {
 	 * @param task the task to be added to data file.
 	 * @throws DukeException exception happens in writing to the data file.
 	 */
-	public void append(Task task) throws DukeException {
+	public void append(Task task) throws CubeLoadingException {
 		checkFileAvailable();
 		try {
 			FileOutputStream fileAppend = new FileOutputStream(fileFullPath, true);
@@ -105,7 +106,7 @@ public class Storage {
 			out.close();
 			fileAppend.close();
 		} catch (IOException e) {
-			throw new DukeLoadingException(fileFullPath);
+			throw new CubeLoadingException(fileFullPath);
 		}
 	}
 
@@ -115,7 +116,7 @@ public class Storage {
 	 * @param list the list of tasks.
 	 * @throws DukeException exception happens in writing to the data file.
 	 */
-	public void save(TaskList list) throws DukeException {
+	public void save(TaskList list) throws CubeLoadingException {
 		checkFileAvailable();
 		try {
 			FileOutputStream fileSave = new FileOutputStream(fileFullPath, false);
@@ -126,7 +127,7 @@ public class Storage {
 			out.close();
 			fileSave.close();
 		} catch (IOException e) {
-			throw new DukeLoadingException(fileFullPath);
+			throw new CubeLoadingException(fileFullPath);
 		}
 	}
 }

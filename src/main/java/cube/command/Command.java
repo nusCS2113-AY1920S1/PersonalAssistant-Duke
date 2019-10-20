@@ -5,6 +5,7 @@
  */
 package cube.command;
 
+import cube.exception.CubeLoadingException;
 import cube.task.TaskList;
 import cube.ui.Ui;
 import cube.util.Storage;
@@ -22,5 +23,5 @@ public interface Command {
 	 * @param storage storage of Duke.
 	 * @throws DukeException general exception happens when using Duke.
 	 */
-	void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+	void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, CubeLoadingException;
 }

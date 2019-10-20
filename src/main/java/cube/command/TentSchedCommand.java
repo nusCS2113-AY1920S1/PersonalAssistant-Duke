@@ -73,7 +73,7 @@ public class TentSchedCommand implements Command {
         if (isValid()) {
             TentSched ts = new TentSched(description, tentsched, date);
             tasks.add(ts);
-            storage.append(ts);
+            //storage.append(ts);
         }
     }
 }
