@@ -1,15 +1,12 @@
 package duke;
 
-import duke.dukeobject.Expense;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TrendingChart {
 
