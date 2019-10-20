@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * This class in in charge of loading a meal item into a MealList
+ * This class in in charge of loading a meal item into a MealList.
  * @author Chua Zong Wei
  */
 public class LoadMealUtil {
