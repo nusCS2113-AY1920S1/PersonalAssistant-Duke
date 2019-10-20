@@ -37,7 +37,7 @@ public class DoneCommand extends Command {
                     progressStack.get(i).markAsDone();
                     storage.write(progressStack.getData());
                     ui.showMessage("Nice! I've marked this task as done: ");
-                    ui.showMessage("    [✓] " + progressStack.get(i).toString().substring(3));
+                    ui.showMessage("    [✗] " + progressStack.get(i).toString().substring(3));
                     isInsideData = true;
                     break;
                 }

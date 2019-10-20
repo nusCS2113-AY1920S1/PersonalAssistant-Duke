@@ -44,7 +44,20 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+    }
 
+    private DialogBox(String text) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+            setStyleLoop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setText("Deadlines:\n" + text);
     }
 
     private void setStyleLoop() {
@@ -118,5 +131,14 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
+    }
+
+    /**
+     * Method to get TaskDialog.
+     * @param text text to display from Cake
+     * @return a DialogBox containing text
+     */
+    public static DialogBox getTaskDialog(String text) {
+        return new DialogBox(text);
     }
 }

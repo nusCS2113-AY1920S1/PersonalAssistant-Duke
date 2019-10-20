@@ -42,11 +42,12 @@ public class Profile {
                     file.createNewFile();
                     initialiseUser();
                     System.out.println("B" + file.getParentFile().getPath());
-                }
-                if (!file.exists()) {
+                } else if (!file.exists()) {
                     file.createNewFile();
                     initialiseUser();
                     System.out.println("C" + file.getPath());
+                } else {
+                    Duke.logger.log(Level.INFO, filepath + " is found!");
                 }
 
             } catch (IOException e) {
