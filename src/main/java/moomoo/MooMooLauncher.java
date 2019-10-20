@@ -1,4 +1,7 @@
+package moomoo;
+
 import javafx.application.Application;
+import moomoo.gui.Main;
 
 /**
  * Launches the application.

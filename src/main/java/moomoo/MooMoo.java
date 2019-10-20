@@ -1,3 +1,5 @@
+package moomoo;
+
 import moomoo.command.Command;
 import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
@@ -22,7 +24,7 @@ public class MooMoo {
     /**
      * Initializes different Category, Transaction Lists, Budget, Storage and Ui.
      */
-    MooMoo() {
+    public MooMoo() {
         ui = new Ui();
         storage = new Storage("data/budget.txt","data/schedule.txt");
 
@@ -35,7 +37,7 @@ public class MooMoo {
         }
 
         try {
-            budget = new Budget(storage.loadBudget(categoryList));
+            budget = new Budget(storage.loadBudget(categoryList.getCategoryList()));
         } catch (MooMooException e) {
             ui.printException(e);
             ui.showResponse();

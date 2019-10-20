@@ -1,6 +1,10 @@
 package moomoo.task;
 
 import moomoo.command.BudgetCommand;
+import moomoo.stubs.CategoryListStub;
+import moomoo.stubs.CategoryStub;
+import moomoo.stubs.ScheduleListStub;
+import moomoo.stubs.UiStub;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -18,30 +22,25 @@ public class StorageTest {
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
 
-        CategoryList newCatList = new CategoryList();
-        newCatList.getCategoryList().add(new Category("sweets"));
-        newCatList.getCategoryList().add(new Category("laptop"));
-        newCatList.getCategoryList().add(new Category("desktop"));
-
-        Budget newBudget = new Budget();
-        Ui newUi = new Ui();
-        Category newCategory = new Category();
+        CategoryListStub newCatList = new CategoryListStub();
+        CategoryStub newCategory = new CategoryStub();
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        UiStub newUi = new UiStub();
         Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
 
+        Budget newBudget = new Budget();
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/sweets b/500 c/laptop b/1500");
-        ScheduleList newCalendar = new ScheduleList();
-        SchedulePayment a = new SchedulePayment("30/11/2019", "pay electricity bills");
-        newCalendar.fullSchedule.add(a);
+
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList);
+        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
         assertEquals(500, newHashMap.get("sweets"));
         assertEquals(1500, newHashMap.get("laptop"));
 
         budgetCommand = new BudgetCommand(false, "budget edit c/sweets b/700 c/laptop b/1500");
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        newHashMap = newStorage.loadBudget(newCatList);
+        newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
         assertEquals(700, newHashMap.get("sweets"));
         assertEquals(1500, newHashMap.get("laptop"));
     }
