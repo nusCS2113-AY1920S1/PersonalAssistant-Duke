@@ -56,7 +56,7 @@ public class FoodList{
 	public int removeType(String foodType) {
 		int count = 0;
 		for(int i = 0; i < foodArrayList.size(); i ++) {
-			if (foodArrayList.get(i).getType().equals(foodType)) {
+			if (foodArrayList.get(i).getType()!=null && foodArrayList.get(i).getType().equals(foodType)) {
 				foodArrayList.remove(i);
 				count ++;
 			}
@@ -75,7 +75,7 @@ public class FoodList{
 
 	public boolean existsType(String foodType) {
 		for(Food food : foodArrayList) {
-			if (food.getType().equals(foodType)) {
+			if (food.getType() != null && food.getType().equals(foodType)) {
 				return true;
 			}
 		}
