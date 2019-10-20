@@ -314,9 +314,9 @@ public class Ui {
      * @throws OofException if readManual method fails.
      */
     public void printHelpCommands() throws OofException {
-        ArrayList<String> command = storage.readManual();
-        for (int i = 0; i < command.size(); i++) {
-            System.out.println("\t" + command.get(i));
+        ArrayList<String> commands = storage.readManual();
+        for (String command : commands) {
+            System.out.println("\t" + command);
         }
         printLine();
     }
@@ -744,6 +744,32 @@ public class Ui {
      */
     public void printFreeTimes(String startDate, String endDate, int count) {
         System.out.println("\t" + count + ". " + startDate + " to " + endDate);
+    }
+
+    /**
+     * Print when Start Tracker Command is completed.
+     * @param task      description of Task object.
+     * @param date      current date.
+     */
+    public void printStartAtCurrent(Task task, String date) {
+        printLine();
+        System.out.println("Begin " + task.getLine());
+        System.out.println("It is currently " + date);
+        printLine();
+    }
+
+    /**
+     * Print when Stop Tracker Command is completed.
+     * @param task          description of Task object.
+     * @param date          current date.
+     * @param difference    calculated time taken.
+     */
+    public void printEndAtCurrent(Task task, String date, long difference) {
+        printLine();
+        System.out.println("Ending " + task.getLine());
+        System.out.println("It is currently " + date);
+        System.out.println("Time spent on " + task.getLine() + ": " + difference + " minutes");
+        printLine();
     }
 
     /**
