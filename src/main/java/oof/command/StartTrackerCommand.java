@@ -74,7 +74,7 @@ public class StartTrackerCommand extends Command {
             Date now = new Date();
             String date = convertDateToString(now);
             task.setStartDate(date);
-            ui.printStartAtCurrent(task, date);
+            ui.printStartAtCurrent(task, date, task.getTimeTaken());
         }
     }
 

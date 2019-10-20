@@ -751,10 +751,11 @@ public class Ui {
      * @param task      description of Task object.
      * @param date      current date.
      */
-    public void printStartAtCurrent(Task task, String date) {
+    public void printStartAtCurrent(Task task, String date, long difference) {
         printLine();
         System.out.println("Begin " + task.getLine());
         System.out.println("It is currently " + date);
+        System.out.println("Current total time spent on " + task.getLine() + ": " + difference + " minutes");
         printLine();
     }
 
@@ -768,7 +769,21 @@ public class Ui {
         printLine();
         System.out.println("Ending " + task.getLine());
         System.out.println("It is currently " + date);
-        System.out.println("Time spent on " + task.getLine() + ": " + difference + " minutes");
+        System.out.println("Total time spent on " + task.getLine() + ": " + difference + " minutes");
+        printLine();
+    }
+
+    /**
+     * Print when Stop Tracker Command is completed.
+     * @param task          description of Task object.
+     * @param date          current date.
+     * @param difference    calculated time taken.
+     */
+    public void printPauseAtCurrent(Task task, String date, long difference) {
+        printLine();
+        System.out.println("Pausing " + task.getLine());
+        System.out.println("It is currently " + date);
+        System.out.println("Total time spent on " + task.getLine() + ": " + difference + " minutes");
         printLine();
     }
 

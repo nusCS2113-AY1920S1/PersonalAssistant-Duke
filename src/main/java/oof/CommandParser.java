@@ -21,6 +21,7 @@ import oof.command.StopTrackerCommand;
 import oof.command.SummaryCommand;
 import oof.command.ViewWeekCommand;
 import oof.command.ThresholdCommand;
+import oof.command.PauseTrackerCommand;
 
 import oof.exception.OofException;
 import java.util.InputMismatchException;
@@ -140,6 +141,9 @@ public class CommandParser {
         case "threshold":
             line = line.replaceFirst("threshold", "").trim();
             return new ThresholdCommand(line);
+        case "pause":
+            line = line.replaceFirst("pause", "").trim();
+            return new PauseTrackerCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
