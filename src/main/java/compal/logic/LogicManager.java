@@ -11,6 +11,7 @@ import compal.model.tasks.TaskList;
 import compal.storage.TaskStorageManager;
 import compal.ui.UiUtil;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -44,17 +45,16 @@ public class LogicManager {
      * Passes user input to parserManager to be processed. parserManager returns suitable
      * command object to carry out the user's aim.
      */
-    public void logicExecute(String fullCommand) throws CommandException, ParserException {
+    public void logicExecute(String fullCommand) throws CommandException, ParserException, ParseException {
         uiUtil.clearPrimary();
         Command command = parserManager.processCmd(fullCommand);
         CommandResult cmdResult = command.commandExecute(taskList);
         uiUtil.printg(cmdResult.feedbackToUser);
 
-        //save to file
+        //save to file if required
         if (cmdResult.requireSaving) {
             taskStorageManager.saveData(taskList.getArrList());
         }
-
 
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
             System.exit(0);

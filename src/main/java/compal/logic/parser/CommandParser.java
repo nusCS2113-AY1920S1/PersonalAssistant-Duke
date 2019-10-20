@@ -1,6 +1,7 @@
 package compal.logic.parser;
 
 import compal.logic.command.Command;
+import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 
@@ -9,9 +10,21 @@ import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static compal.commons.Messages.MESSAGE_MISSING_DESC;
+import static compal.commons.Messages.MESSAGE_MISSING_PRIORITY;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
+import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
+import static compal.commons.Messages.MESSAGE_MISSING_TIME;
+import static compal.commons.Messages.MESSAGE_MISSING_END_TIME_ARG;
 
 public interface CommandParser {
 
@@ -20,13 +33,14 @@ public interface CommandParser {
      */
     String TOKEN_TASK_ID = "/id";
     String TOKEN_STATUS = "/s";
+    String TOKEN_SLASH = "/";
+    String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
     String TOKEN_START_TIME = "/start";
-    String TOKEN_END_TIME = "/end";
     String TOKEN_FINAL_DATE = "/final-date";
-    String TOKEN_SLASH = "/";
     char TOKEN_SLASH_CHAR = '/';
+
     String EMPTY_INPUT_STRING = "";
     int DEFAULT_WEEK_NUMBER_OF_DAYS = 7;
 
@@ -35,7 +49,6 @@ public interface CommandParser {
      */
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
-
     String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input!";
     String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     String MESSAGE_EXCESSIVE_DATES = "Too many dates! Please limit to less than 7.";
@@ -122,14 +135,12 @@ public interface CommandParser {
     }
 
     /**
-     * Parses through user input for date token, and returns the date if the date is
-     * in the correct format.
+     * Returns a date string if specified in the task.
      *
-     * @param restOfInput String input of user after command word
-     * @return An ArrayList of date strings given by the user.
-     * @throws ParserException if the date token is missing, if the date is not in correct format,
-     *                         if the date is not given after the date token.
-     * @author: Yue Jun Yi, yueyeah
+     * @param restOfInput Input description after initial command word.
+     * @return Date in the form of a string.
+     * @throws ParserException If date field is empty, date or date format is invalid,
+     *                              date token (/date) is missing.
      */
     default ArrayList<String> getTokenDate(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_DATE)) {
@@ -169,7 +180,6 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Task.Priority enum
      * @throws ParserException if the priority is not given after the priority token
-     * @author Yue Jun Yi, yueyeah
      */
     default Task.Priority getTokenPriority(String restOfInput) throws ParserException {
         Task.Priority priorityField;
@@ -212,13 +222,11 @@ public interface CommandParser {
         }
     }
 
-    /**
-     * Parses through user input for /end token and return the end time.
+    /**Parses through user input for /end token and return the end time.
      *
      * @param restOfInput String input of user after command word
      * @return End time in the form of a String
      * @throws ParserException if end time is not entered after the /end token, or /end token is missing
-     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenEndTime(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_END_TIME)) {
@@ -265,6 +273,29 @@ public interface CommandParser {
     /**
      * MISCELLANEOUS METHODS BELOW
      */
+
+    /**
+     * Checks if input date and time is after current date time.
+     *
+     * @param inputDate The date of input
+     * @param inputTime the time of input
+     * @return True or false depending if the date and time is after or before.
+     */
+    default boolean isValidDateAndTime(String inputDate, String inputTime) {
+
+        Calendar c = Calendar.getInstance();
+        Date inputDateFormat = s;
+        c.setTime(inputDateFormat);
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2, 4)));
+        Date inputDateAndTime = c.getTime();
+
+        Date currentDate = Calendar.getInstance().getTime();
+        c.setTime(currentDate);
+        Date currDateAndTime = c.getTime();
+
+        return inputDateAndTime.after(currDateAndTime);
+    }
 
     /**
      * Check if the date input is of valid format.
