@@ -73,6 +73,7 @@ public class AddOrderCommand extends OrderCommand {
             model.getFilteredProductList(),
             model.getFilteredInventoryList());
         model.addOrder(toAdd);
+
         model.commit(MESSAGE_COMMIT);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);

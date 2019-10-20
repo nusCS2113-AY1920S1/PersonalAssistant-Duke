@@ -8,7 +8,14 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -71,9 +78,11 @@ public class Order {
         this.isIngredientEnough = new SimpleBooleanProperty();
     }
 
+    /**
+     * Makes the order's {@code isIngredientEnough} property changes dynamically with the change of {@code inventory}.
+     */
     public void listenToInventory(ObservableList<Item<Ingredient>> inventory) {
         updateIsIngredientEnough(inventory);
-        System.out.println("updating");
         inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
     }
 

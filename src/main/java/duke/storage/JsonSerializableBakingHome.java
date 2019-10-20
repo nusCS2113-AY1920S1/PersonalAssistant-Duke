@@ -10,6 +10,7 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
+import duke.model.shortcut.Shortcut;
 
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ class JsonSerializableBakingHome {
     private final List<JsonAdaptedProduct> products = new ArrayList<>();
     private final List<JsonAdaptedIngredientItem> inventory = new ArrayList<>();
     private final List<JsonAdaptedIngredientItem> shoppingList = new ArrayList<>();
+    private final List<JsonAdaptedShortcut> shortcuts = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBakingHome}.
@@ -43,10 +45,17 @@ class JsonSerializableBakingHome {
      * @param source future changes to this will not affect the created {@code JsonSerializableBakingHome}.
      */
     public JsonSerializableBakingHome(ReadOnlyBakingHome source) {
-        orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
-        products.addAll(source.getProductList().stream().map(JsonAdaptedProduct::new).collect(Collectors.toList()));
-        inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedIngredientItem::new).collect(Collectors.toList()));
-        shoppingList.addAll(source.getShoppingList().stream().map(JsonAdaptedIngredientItem::new).collect(Collectors.toList()));
+        orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new)
+                .collect(Collectors.toList()));
+        products.addAll(source.getProductList().stream().map(JsonAdaptedProduct::new)
+                .collect(Collectors.toList()));
+        inventory.addAll(source.getInventoryList().stream().map(JsonAdaptedIngredientItem::new)
+                .collect(Collectors.toList()));
+        shoppingList.addAll(source.getShoppingList().stream().map(JsonAdaptedIngredientItem::new)
+                .collect(Collectors.toList()));
+        shortcuts.addAll(source.getShortcutList().stream().map(JsonAdaptedShortcut::new)
+                .collect(Collectors.toList()));
+
     }
 
     /**
@@ -69,14 +78,18 @@ class JsonSerializableBakingHome {
             bakingHome.addProduct(product);
         }
 
-        for(JsonAdaptedIngredientItem jsonAdaptedIngredientItem : inventory) {
+        for (JsonAdaptedIngredientItem jsonAdaptedIngredientItem : inventory) {
             Item<Ingredient> ingredientItem = jsonAdaptedIngredientItem.toModelType();
             bakingHome.addInventory(ingredientItem);
         }
 
-        for(JsonAdaptedIngredientItem jsonAdaptedIngredientItem : shoppingList) {
+        for (JsonAdaptedIngredientItem jsonAdaptedIngredientItem : shoppingList) {
             Item<Ingredient> ingredientItem = jsonAdaptedIngredientItem.toModelType();
             bakingHome.addShoppingList(ingredientItem);
+        }
+
+        for (JsonAdaptedShortcut jsonAdaptedShortcut : shortcuts) {
+            bakingHome.setShortcut(jsonAdaptedShortcut.toModelType());
         }
 
         return bakingHome;

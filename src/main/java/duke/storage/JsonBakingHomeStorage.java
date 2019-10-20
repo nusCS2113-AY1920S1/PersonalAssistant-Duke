@@ -60,8 +60,8 @@ public class JsonBakingHomeStorage implements BakingHomeStorage {
     }
 
     @Override
-    public void saveBakingHome(ReadOnlyBakingHome BakingHome) throws IOException {
-        saveBakingHome(BakingHome, filePath);
+    public void saveBakingHome(ReadOnlyBakingHome bakingHome) throws IOException {
+        saveBakingHome(bakingHome, filePath);
     }
 
     /**
@@ -69,22 +69,12 @@ public class JsonBakingHomeStorage implements BakingHomeStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveBakingHome(ReadOnlyBakingHome BakingHome, Path filePath) throws IOException {
-        requireNonNull(BakingHome);
+    public void saveBakingHome(ReadOnlyBakingHome bakingHome, Path filePath) throws IOException {
+        requireNonNull(bakingHome);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableBakingHome(BakingHome), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableBakingHome(bakingHome), filePath);
     }
 
-    @Override
-    public Optional<ReadOnlyBakingHome> readBakingHome(javafx.scene.shape.Path filePath) throws DataConversionException, IOException {
-        //ADD
-        return Optional.empty();
-    }
-
-    @Override
-    public void saveBakingHome(ReadOnlyBakingHome BakingHome, javafx.scene.shape.Path filePath) throws IOException {
-        //ADD
-    }
 }

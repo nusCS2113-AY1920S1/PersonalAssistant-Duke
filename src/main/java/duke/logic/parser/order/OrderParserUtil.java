@@ -23,25 +23,39 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 
 class OrderParserUtil {
     private static final double MAX_NUMBER = 5000.0;
-    private static final int MAX_STRING_LENGTH = 50;
-    private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a double no more than " + MAX_NUMBER;
-    private static final String MESSAGE_STRING_EXCEED_LIMIT = "Numbers should be a double no more than " + MAX_NUMBER;
+    private static final int MAX_NAME_LENGTH = 20;
+    private static final int MAX_CONTACT_LENGTH = 20;
+    private static final int MAX_REMARKS_LENGTH = 50;
+    private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a double no more than "
+                                                                + MAX_NUMBER;
+    private static final String MESSAGE_NAME_EXCEED_LIMIT = "Name should be less than "
+                                                            + MAX_NAME_LENGTH + " characters.";
+    private static final String MESSAGE_CONTACT_EXCEED_LIMIT = "Contact should be less than "
+                                                                + MAX_CONTACT_LENGTH + " characters.";
+    private static final String MESSAGE_REMARKS_EXCEED_LIMIT = "Remarks should be less than "
+                                                                + MAX_REMARKS_LENGTH + " characters.";
 
     static OrderDescriptor createDescriptor(ArgumentMultimap map) {
         OrderDescriptor descriptor = new OrderDescriptor();
 
         if (map.getValue(PREFIX_CUSTOMER_NAME).isPresent()) {
-            descriptor.setCustomerName(map.getValue(PREFIX_CUSTOMER_NAME).get());
+            String value = map.getValue(PREFIX_CUSTOMER_NAME).get();
+            checkStringLength(value, MAX_NAME_LENGTH, MESSAGE_NAME_EXCEED_LIMIT);
+            descriptor.setCustomerName(value);
         }
         if (map.getValue(PREFIX_CUSTOMER_CONTACT).isPresent()) {
-            descriptor.setCustomerContact(map.getValue(PREFIX_CUSTOMER_CONTACT).get());
+            String value = map.getValue(PREFIX_CUSTOMER_CONTACT).get();
+            checkStringLength(value, MAX_CONTACT_LENGTH, MESSAGE_CONTACT_EXCEED_LIMIT);
+            descriptor.setCustomerName(value);
         }
         if (map.getValue(PREFIX_ORDER_DEADLINE).isPresent()) {
             descriptor.setDeliveryDate(TimeParser.convertStringToDate(
                     map.getValue(PREFIX_ORDER_DEADLINE).get()));
         }
         if (map.getValue(PREFIX_ORDER_REMARKS).isPresent()) {
-            descriptor.setRemarks(map.getValue(PREFIX_ORDER_REMARKS).get());
+            String value = map.getValue(PREFIX_ORDER_REMARKS).get();
+            checkStringLength(value, MAX_REMARKS_LENGTH, MESSAGE_REMARKS_EXCEED_LIMIT);
+            descriptor.setRemarks(value);
         }
         if (map.getValue(PREFIX_ORDER_ITEM).isPresent()) {
             descriptor.setItems(parseItems(map.getAllValues(PREFIX_ORDER_ITEM)));
@@ -106,6 +120,16 @@ class OrderParserUtil {
     private static void checkNumber(double toCheck) throws ParseException {
         if (toCheck < 0 || toCheck > MAX_NUMBER) {
             throw new ParseException(MESSAGE_NUMBER_EXCEED_LIMIT);
+        }
+    }
+
+    /**
+     * Checks if a {@code toCheck}'s length is no more than {@code max}.
+     * @throws ParseException if the string's  is more than {@code max} with exception message specified by {@code message}.
+     */
+    private static void checkStringLength(String toCheck, int max, String message) throws ParseException {
+        if (toCheck.length() > max) {
+            throw new ParseException(message);
         }
     }
 }
