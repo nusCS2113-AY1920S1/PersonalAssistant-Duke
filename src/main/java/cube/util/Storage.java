@@ -5,12 +5,7 @@
  */
 package cube.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import java.util.ArrayList;
 
@@ -66,6 +61,28 @@ public class Storage {
 		}
 	}
 
+	public ArrayList<Task> load() throws DukeException {
+		ArrayList<Task> list = new ArrayList<>();
+		if (checkFileAvailable()) {
+			System.out.println("Loading file from: " + fileFullPath);
+			// read from file
+			try {
+				FileInputStream file = new FileInputStream(fileFullPath);
+				ObjectInputStream in = new ObjectInputStream(file);
+				while(file.available() > 0) {
+					list.add((Task) in.readObject());
+				}
+				in.close();
+				file.close();
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+				throw new DukeLoadingException(fileFullPath);
+			} catch (IOException e) {
+				System.out.println("IOException is caught.")
+			}
+		}
+		return list;
+	}
 
 	/**
 	 * Appends a task to the data file.
