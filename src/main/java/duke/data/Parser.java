@@ -33,8 +33,14 @@ public class Parser {
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
-     *
-     * @param io
+     * @param io The input from command line
+     * @param tasks The TaskList object that manages tasks
+     * @param storage The main class that writes to or from files
+     * @param students The student object that manages students in classes
+     * @param schedule Manages all the task in the day/week/month
+     * @param plan The training circuit plans
+     * @throws FileNotFoundException File not found
+     * @throws ParseException Parse
      */
     public void parseInput(final String io,
                            final TaskList tasks,
@@ -262,10 +268,10 @@ public class Parser {
                             + "3. Delete a goal of the day\n"
                             + "4. Clear all goals of the day\n"
                             + "5. Quit goal of the day");
-                    int execute_type = myGoalScan.nextInt();
+                    int executeType = myGoalScan.nextInt();
                     myGoalScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
-                    switch (execute_type) {
+                    switch (executeType) {
                     case 1: {
                         System.out.print(goal.viewGoal(goalDate));
                         break;
@@ -317,8 +323,8 @@ public class Parser {
             Lesson lesson = new Lesson(lessonStorage.loadLesson());
             Scanner myLessonScan = new Scanner(System.in);
 
-            System.out.println("Please enter the date of the day " +
-                "in this format: dd/MM/yyyy");
+            System.out.println("Please enter the date of the day "
+                    + "in this format: dd/MM/yyyy");
             String lessonDate = myLessonScan.next();
 
             boolean isQuittingLesson = false;
@@ -331,10 +337,10 @@ public class Parser {
                             + "3. Delete a lesson of the day\n"
                             + "4. Clear all lessons of the day\n"
                             + "5. Quit lesson of the day");
-                    int execute_type = myLessonScan.nextInt();
+                    int executeType = myLessonScan.nextInt();
                     myLessonScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
-                    switch (execute_type) {
+                    switch (executeType) {
                     case 1: {
                         System.out.print(lesson.viewLesson(lessonDate));
                         break;
@@ -449,7 +455,7 @@ public class Parser {
             System.out.flush();
             Ui trainingProgram = new Ui();
             trainingProgram.trainingProgramHeading();
-            //Write Code to direct to Training Circuits (JingSen)
+            //Write Code to direct to Training Circuits (Jing Sen)
             break;
 
         /**
