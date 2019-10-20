@@ -1,12 +1,17 @@
 package command;
 
+
 import control.Duke;
+import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
 import room.AddRoom;
 import room.RoomList;
 import ui.Ui;
+import user.User;
+
 import java.io.IOException;
+import java.text.ParseException;
 
 
 public class AddRoomCommand extends Command {
@@ -16,6 +21,13 @@ public class AddRoomCommand extends Command {
     private String date;
     private String timeslot;
 
+    /**
+     * Creates anew room entry in the list of rooms.
+     * format is addroom ROOMCODE /date DD/MM/YYYY /timeslot HH:MM AM/PM to HH:MM AM/PM
+     * @param input from user
+     * @param splitStr tokenized input
+     * @throws DukeException when format is incorrect
+     */
     public AddRoomCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
             throw new DukeException("Please enter the following to add a room:\n"
@@ -38,12 +50,14 @@ public class AddRoomCommand extends Command {
         this.timeslot = datesplit[1];
     }
 
+
     @Override
-    public void execute(RoomList rooms, Ui ui, Storage storage) throws IOException {
-        AddRoom addroom = new AddRoom(roomcode, date, timeslot);
+    public void execute(RoomList rooms,  Ui ui, Storage roomStorage)
+            throws DukeException, IOException, ParseException {
+        AddRoom addroom = new AddRoom(date[0], timeslot[0], timeslot[1]);
         rooms.add(addroom);
-        storage.saveToFile(rooms);
-        ui.addToOutput("Got it, I've added this task:\n"
+        roomStorage.saveToFile(rooms);
+        ui.addToOutput("Got it, I've added this room.\n"
             + addroom.toString() + "\n" + "Now you have " + rooms.size() + " room(s) in the list.");
     }
 }

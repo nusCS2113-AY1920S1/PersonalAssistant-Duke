@@ -1,6 +1,7 @@
 package command;
 
 import exception.DukeException;
+import room.RoomList;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
@@ -22,7 +23,7 @@ public class ByeCommand extends Command {
      * @throws DukeException if control.Duke specific exception found
      */
     @Override
-    public void execute(BookingList bookingList, Ui ui, Storage bookingStorage, User user) {
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user) {
         ui.showBye();
         this.isExit = true;
     }
