@@ -1,16 +1,18 @@
-package duke.recipebook;
+package duke.Dishes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dishes{
 
     private String dishname;
-    private int total;
-    private float rating;
-    private List<String> ingredientsList = null;
+    private int total = 0;
+    private float rating = 0;
+    private List<String> ingredientsList;
 
     public Dishes(String name) {
         this.dishname = name;
+        this.ingredientsList = new ArrayList<>();
     }
 
     public Dishes() {

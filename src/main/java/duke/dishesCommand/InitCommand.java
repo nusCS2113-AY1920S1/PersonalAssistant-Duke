@@ -1,11 +1,11 @@
-package duke.recipeCommand;
+package duke.dishesCommand;
 
 import duke.exception.DukeException;
-import duke.recipebook.DishList;
+import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.recipebook.Dishes;
+import duke.Dishes.Dishes;
 
 public class InitCommand extends RecipeCommand {
 
@@ -19,10 +19,10 @@ public class InitCommand extends RecipeCommand {
         String command = ui.readCommand();
         if(command.equals("yes")){
             dish1.clearList();
-            System.out.println("\t list is cleared");
+            System.out.println("\t LIST IS CLEARED");
         }
         else if(command.equals("no")){
-            System.out.println("\t list not cleared");
+            System.out.println("\t LIST IS NOT CLEARED");
         }
     }
 }

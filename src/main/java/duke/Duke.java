@@ -3,8 +3,8 @@ package  duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
-import duke.recipeCommand.RecipeCommand;
-import duke.recipebook.DishList;
+import duke.dishesCommand.RecipeCommand;
+import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -45,8 +45,8 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand, tasks.size());
-//                RecipeCommand c = Parser.Parse(fullCommand); //execute the recipeCommands, add dishes etc
+//                Command c = Parser.parse(fullCommand, tasks.size());
+                RecipeCommand c = Parser.Parse(fullCommand); //execute the recipeCommands, add dishes etc
                 c.execute(dish, tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {

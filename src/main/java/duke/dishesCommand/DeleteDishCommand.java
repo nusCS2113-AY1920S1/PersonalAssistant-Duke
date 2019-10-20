@@ -1,7 +1,7 @@
-package duke.recipeCommand;
+package duke.dishesCommand;
 
 import duke.exception.DukeException;
-import duke.recipebook.DishList;
+import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -19,15 +19,15 @@ public class DeleteDishCommand extends RecipeCommand {
     private int Nb;
 
     public DeleteDishCommand(int dishNb) {
-        this.Nb = Nb;
+        this.Nb = dishNb;
     }
 
     @Override
     public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
-            ui.showDeletedDIsh(DishList.getDish(Nb).toString());
+            ui.showDeletedDIsh(dish1.getDish(Nb - 1).toString());
             //System.out.println("deleted " + DishList.getDish(Nb).toString());
-            dish1.deleteDish(Nb);
+            dish1.deleteDish(Nb - 1);
         } catch (Exception e) {
             throw new DukeException("dish does not exist");
         }

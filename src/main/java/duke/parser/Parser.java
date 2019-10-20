@@ -11,9 +11,9 @@ import duke.command.RemindCommand;
 import duke.command.ViewCommand;
 import duke.exception.DukeException;
 import duke.orderCommand.*;
-import duke.recipeCommand.*;
-import duke.recipeCommand.InitCommand;
-import duke.recipebook.Dishes;
+import duke.dishesCommand.*;
+import duke.dishesCommand.InitCommand;
+import duke.Dishes.Dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
@@ -97,7 +97,7 @@ public class Parser {
                 String[] getnum = splitAndCheck(splitted[1], " /num ");
                 int amount = Integer.parseInt(getnum[1]);
                 return new AddDishCommand(new Dishes(getnum[0]), amount);
-            case "listdish":
+            case "dishlist":
                 return new ListDishCommand();
             case "dishdelete" :
                 int Nb = Integer.parseInt(splitted[1]);
@@ -106,7 +106,7 @@ public class Parser {
                 String[] getIng = splitAndCheck(splitted[1], " /add ");
                 int listNum = Integer.parseInt(getIng[1]);
                 return new AddIngredient(getIng[0], listNum);
-            case "init" :
+            case "dishinit" :
                 return new InitCommand();
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
