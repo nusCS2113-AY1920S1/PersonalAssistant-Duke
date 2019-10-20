@@ -1,6 +1,8 @@
 package duke.statistic;
 
 import duke.command.Command;
+import duke.command.DukeCommand;
+import duke.command.ExitCommand;
 import duke.core.DukeException;
 import duke.storage.CounterStorage;
 
@@ -36,13 +38,14 @@ public class Counter {
 
     public void runCommandCounter(Command command, CounterStorage counterStorage,
                                   Counter counter) throws DukeException {
-        String commandName = command.getClass().getSimpleName();
+        if (!(command instanceof ExitCommand || command instanceof DukeCommand)) {
+            String commandName = command.getClass().getSimpleName();
 
-        int count = commandTable.containsKey(commandName)
+            int count = commandTable.containsKey(commandName)
                     ? commandTable.get(commandName) : 0;
-        commandTable.put(commandName, count + 1);
-        counterStorage.save(counter.getCommandTable());
+            commandTable.put(commandName, count + 1);
+            counterStorage.save(counter.getCommandTable());
+        }
+
     }
-
-
 }

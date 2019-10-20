@@ -1,8 +1,10 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.DukeCommand;
 import duke.core.DukeException;
 import duke.core.CommandManager;
+import duke.core.ShortCutter;
 import duke.patient.PatientManager;
 import duke.statistic.Counter;
 import duke.storage.CounterStorage;
@@ -34,6 +36,7 @@ public class Duke {
     private TaskManager taskManager;
     private PatientManager patientManager;
     private Counter counter;
+    private ShortCutter shortCutter;
 
     /**
      * A Ui object that deals with interactions with the user.
@@ -58,6 +61,7 @@ public class Duke {
             taskManager = new TaskManager(taskStorage.load());
             patientManager = new PatientManager(patientStorage.load());
             counter = new Counter(counterStorage.load());
+            shortCutter = new ShortCutter(counter , ui);
 
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -78,10 +82,17 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
-                c.execute(patientTaskList, taskManager, patientManager,
-                        ui, patientTaskStorage, taskStorage, patientStorage);
-                counter.runCommandCounter(c, counterStorage, counter);
-                isExit = c.isExit();
+                if (c instanceof DukeCommand) {
+                    Command cmd = shortCutter.runShortCut();
+                    cmd.execute(patientTaskList, taskManager, patientManager,
+                            ui, patientTaskStorage, taskStorage, patientStorage);
+                } else{
+                    c.execute(patientTaskList, taskManager, patientManager,
+                            ui, patientTaskStorage, taskStorage, patientStorage);
+                    counter.runCommandCounter(c, counterStorage, counter);
+                    isExit = c.isExit();
+                }
+
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
