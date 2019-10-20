@@ -22,7 +22,7 @@ public class BackCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close file reader
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         progressStack.backToPreviousPath();
         progressStack.insertQueries();

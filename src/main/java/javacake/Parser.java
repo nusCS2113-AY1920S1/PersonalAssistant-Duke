@@ -1,6 +1,13 @@
 package javacake;
 
-import javacake.commands.*;
+import javacake.commands.Command;
+import javacake.commands.ExitCommand;
+import javacake.commands.ListCommand;
+import javacake.commands.BackCommand;
+import javacake.commands.HelpCommand;
+import javacake.commands.ScoreCommand;
+import javacake.commands.GoToCommand;
+import javacake.commands.MegaListCommand;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;

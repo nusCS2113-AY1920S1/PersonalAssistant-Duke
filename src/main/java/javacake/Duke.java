@@ -1,13 +1,7 @@
 package javacake;
 
 import javacake.commands.Command;
-import javacake.commands.QuizCommand;
-import javacake.quiz.Question;
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.net.URISyntaxException;
 
 public class Duke  {
     private static boolean isCliMode = true;

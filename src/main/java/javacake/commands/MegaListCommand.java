@@ -6,7 +6,10 @@ import javacake.ProgressStack;
 import javacake.Storage;
 import javacake.Ui;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static net.fortuna.ical4j.util.ResourceLoader.getResourceAsStream;
 
 public class MegaListCommand extends Command {
 
@@ -39,7 +44,11 @@ public class MegaListCommand extends Command {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Here is the lesson directory!").append("\n");
-        try (Stream<Path> walk = Files.walk(Paths.get(progressStack.getDefaultFilePath()))) {
+        try {
+            //InputStream is = getResourceAsStream(progressStack.getDefaultFilePath());
+            //BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            //System.out.println(br.readLine());
+            Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"));
             List<String> result = walk.filter(Files::isDirectory).map(Path::toString).collect(Collectors.toList());
             result = processFileNames(result);
             sb.append(String.join("\n", result)).append("\n");

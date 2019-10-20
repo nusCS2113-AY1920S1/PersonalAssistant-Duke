@@ -126,6 +126,7 @@ public class MainWindow extends AnchorPane {
                 }
                 if (response.contains("!@#_QUIZ")) {
                     isQuiz = true;
+                    System.out.println(response);
                     response = getFirstQn(response);
                 }
                 dialogContainer.getChildren().add(

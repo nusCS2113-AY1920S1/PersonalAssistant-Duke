@@ -67,10 +67,10 @@ public class GoToCommand extends Command {
         }
         progressStack.insertQueries();
         if (progressStack.containsDirectory()) {
-                return (progressStack.displayDirectories());
-            } else {
-                progressStack.updateFilePath(progressStack.gotoFilePath(0));
-                return (progressStack.readQuery());
-            }
+            return (progressStack.displayDirectories());
+        } else {
+            progressStack.updateFilePath(progressStack.gotoFilePath(0));
+            return (progressStack.readQuery());
+        }
     }
 }

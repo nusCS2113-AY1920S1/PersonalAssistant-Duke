@@ -1,45 +1,29 @@
 package javacake;
 
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.Buffer;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 
 public class ProgressStack {
-    private File f1;
-    //private String defaultFilePath = null;
-    //private String currentFilePath = null;
 
-
-    private String defaultFilePath = "content/MainList/";
-    private static String currentFilePath = "content/MainList/";
+    private String defaultFilePath = "content/MainList";
+    private static String currentFilePath = "content/MainList";
     private static ArrayList<String> filePathQueries = new ArrayList<>();
-
-    //private File[] listOfFiles;
     private List<String> listOfFiles = new ArrayList<>();
     private static boolean isDirectory = true;
 
     public ProgressStack() {
 
     }
-
-    /*public ProgressStack() throws DukeException {
-        try {
-            f1 = new File(getClass().getResource("/content/MainList").toURI());
-        } catch (URISyntaxException e) {
-            throw new DukeException("Unable to load file directory");
-        }
-        System.out.println(f1.getAbsolutePath());
-        defaultFilePath = f1.getPath();
-        currentFilePath = f1.getPath();
-    }*/
 
     /**
      * Returns the starting file path to application content.
@@ -55,63 +39,49 @@ public class ProgressStack {
      */
     public void loadFiles(String filePath) throws DukeException {
 
-        //File folder = new File(filePath);
+        String[] tempListFiles = currentFilePath.split("/");
+        int currFileSlashCounter = tempListFiles.length;
         listOfFiles.clear();
+
         try {
             CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
-            if (src != null) {
+            boolean isJarMode = true;
+            if (src != null) { //jar
                 URL jar = src.getLocation();
                 ZipInputStream zip = new ZipInputStream(jar.openStream());
-                while(true) {
+                while (true) {
                     ZipEntry e = zip.getNextEntry();
-                    if (e == null)
+                    if (e == null) {
+                        isJarMode = false;
                         break;
+                    }
                     String name = e.getName();
-                    //System.out.println(name);
-                    if (name.startsWith(defaultFilePath)) {
-                        /* Do something with this entry. */
-                        System.out.println(name);
-                        listOfFiles.add(name);
-
-
+                    System.out.println(name);
+                    if (name.startsWith(currentFilePath)) {
+                        String[] listingFiles = name.split("/");
+                        if (listingFiles.length == currFileSlashCounter + 1) {
+                            System.out.println(name + " == " + currFileSlashCounter);
+                            listOfFiles.add(listingFiles[currFileSlashCounter]);
+                        }
                     }
                 }
             }
-//            System.out.println(filePath);
-//            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(currentFilePath);
-//            System.out.println("hi" + inputStream.available());
-//
-//            //listOfFiles = folder.listFiles();
-//            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-//            String currentLine;
-//            while ((currentLine = br.readLine()) != null) {
-//                //System.out.println(currentLine);
-//                listOfFiles.add(currentLine);
-//            }
-//            br.close();
-//            //assert listOfFiles != null;
-//            //Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
-            /*File file = getFileFromRes(currentFilePath);
-            if (file == null) {
-                throw new DukeException("NOOOOSODSOOS");
-            } else {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    listOfFiles.add(line);
-                }
-            }*/
-        } catch (NullPointerException | IOException e ) {
-            throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
-        }
-    }
 
-    private File getFileFromRes(String filepath) throws DukeException {
-        URL resource = getClass().getClassLoader().getResource(filepath);
-        if (resource == null) {
-            throw new DukeException("FUCCCCK");
-        } else {
-            return new File(resource.getFile());
+            if (!isJarMode) { //non-jar
+                //System.out.println(filePath);
+                InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
+                //System.out.println("hi" + inputStream.available());
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                String currentLine;
+                while ((currentLine = br.readLine()) != null) {
+                    listOfFiles.add(currentLine);
+                }
+                br.close();
+                //assert listOfFiles != null;
+                //Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
+            }
+        } catch (NullPointerException | IOException e) {
+            throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
         }
     }
 
@@ -249,8 +219,7 @@ public class ProgressStack {
         insertQueries();
         if (isDirectory) {
             return displayDirectories();
-        }
-        else {
+        } else {
             return readQuery();
         }
     }
