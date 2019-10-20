@@ -47,7 +47,7 @@ public class Task{
      * @return time the task was created
      */
 
-    public void setUser(String user) {
+    public void setAssignee(String user) {
         this.user = user;
     }
 
