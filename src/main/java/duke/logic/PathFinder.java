@@ -17,14 +17,13 @@ public class PathFinder {
     private CreateMap map;
     private HashSet<BusStop> visited;
     private HashMap<String, String> path;
-    private Constraint constraint;
     private boolean found = false;
 
     /**
      * Initialise Pathfinder object.
      *
      */
-    public PathFinder(CreateMap map) throws DukeException {
+    public PathFinder(CreateMap map) {
         this.map = map;
         this.visited = new HashSet<>();
         this.path = new HashMap<>();
@@ -133,7 +132,7 @@ public class PathFinder {
     }
 
     private boolean isSameLocation(Venue start, Venue end) {
-        return start == end;
+        return start.equals(end);
     }
 
     private boolean onSameLine(TrainStation cur, TrainStation endTrainStation) {
