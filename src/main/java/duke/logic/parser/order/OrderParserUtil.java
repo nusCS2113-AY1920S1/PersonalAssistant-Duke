@@ -22,45 +22,10 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 
 class OrderParserUtil {
-
-    private static Set<Item<String>> parseItems(List<String> itemArg) throws ParseException {
-        Set<Item<String>> items = new HashSet<>();
-        for (String itemString : itemArg) {
-            String[] itemAndQty = itemString.split(",");
-            if (itemAndQty.length < 2) {
-                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
-            }
-            if (itemAndQty[0].strip().equals("") || itemAndQty[1].strip().equals("")) {
-                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
-            }
-
-            try {
-                Item<String> item = new Item<>(itemAndQty[0].strip(),
-                        new Quantity(Integer.parseInt(itemAndQty[1].strip())));
-                items.add(item);
-            } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
-            }
-        }
-        return items;
-    }
-
-
-    private static Order.Status parseStatus(String statusString) throws ParseException {
-        try {
-            return Order.Status.valueOf(statusString.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_STATUS);
-        }
-    }
-
-    private static double parseTotal(String totalString) throws ParseException {
-        try {
-            return Double.parseDouble(totalString);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
-        }
-    }
+    private static final double MAX_NUMBER = 5000.0;
+    private static final int MAX_STRING_LENGTH = 50;
+    private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a double no more than " + MAX_NUMBER;
+    private static final String MESSAGE_STRING_EXCEED_LIMIT = "Numbers should be a double no more than " + MAX_NUMBER;
 
     static OrderDescriptor createDescriptor(ArgumentMultimap map) {
         OrderDescriptor descriptor = new OrderDescriptor();
@@ -88,5 +53,59 @@ class OrderParserUtil {
             descriptor.setTotal(parseTotal(map.getValue(PREFIX_ORDER_TOTAL).get()));
         }
         return descriptor;
+    }
+
+    private static Set<Item<String>> parseItems(List<String> itemArg) throws ParseException {
+        Set<Item<String>> items = new HashSet<>();
+        for (String itemString : itemArg) {
+            String[] itemAndQty = itemString.split(",");
+            if (itemAndQty.length < 2) {
+                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
+            }
+            if (itemAndQty[0].strip().equals("") || itemAndQty[1].strip().equals("")) {
+                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
+            }
+
+            try {
+                double amount = Double.parseDouble(itemAndQty[1].strip());
+                checkNumber(amount);
+
+                Item<String> item = new Item<>(itemAndQty[0].strip(),
+                        new Quantity(amount));
+                items.add(item);
+            } catch (NumberFormatException e) {
+                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+            }
+        }
+        return items;
+    }
+
+
+    private static Order.Status parseStatus(String statusString) throws ParseException {
+        try {
+            return Order.Status.valueOf(statusString.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Message.MESSAGE_INVALID_STATUS);
+        }
+    }
+
+    private static double parseTotal(String totalString) throws ParseException {
+        try {
+            double result = Double.parseDouble(totalString);
+            checkNumber(result);
+            return result;
+        } catch (NumberFormatException e) {
+            throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
+        }
+    }
+
+    /**
+     * Checks if number is within limit.
+     * @throws ParseException if number is greater than {@code MAX_NUMBER} or smaller than zero.
+     */
+    private static void checkNumber(double toCheck) throws ParseException {
+        if (toCheck < 0 || toCheck > MAX_NUMBER) {
+            throw new ParseException(MESSAGE_NUMBER_EXCEED_LIMIT);
+        }
     }
 }
