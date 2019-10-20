@@ -194,6 +194,13 @@ public class Ui {
     }
 
     /**
+     * Prints a reminder that the user has no deadlines.
+     */
+    public void printNoDeadlines() {
+        System.out.println("\tYou have no upcoming deadlines :)");
+    }
+
+    /**
      * Prints the details of an upcoming deadline.
      *
      * @param count Position of upcoming deadline in reminder list.
@@ -450,7 +457,16 @@ public class Ui {
      * @param endDate The ending time of the free time slot.
      * @param count The index of the free time slots.
      */
-    public void printFreeTimings(String startDate, String endDate, int count) {
+    public void printFreeTimes(String startDate, String endDate, int count) {
         System.out.println("\t" + count + ". " + startDate + " to " + endDate);
+    }
+
+    /**
+     * Prints the new threshold that the user wants.
+     *
+     * @param threshold The threshold for upcoming deadlines requested by the user.
+     */
+    public void printUpdatedThreshold(String threshold) {
+        System.out.println("\tThreshold has been updated to " + threshold);
     }
 }
