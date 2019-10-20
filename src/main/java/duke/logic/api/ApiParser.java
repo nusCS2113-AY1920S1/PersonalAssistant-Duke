@@ -3,13 +3,17 @@ package duke.logic.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeApiException;
 import duke.logic.api.requests.LocationSearchUrlRequest;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.requests.DataMallHttpRequest;
+import duke.logic.api.requests.StaticMapUrlRequest;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
+import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -24,17 +28,21 @@ public class ApiParser {
      * @return result The locations found
      */
     public static Venue getLocationSearch(String param) throws DukeException {
-        LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
-        JsonObject jsonRes = req.execute();
-        JsonArray arr = jsonRes.getAsJsonArray("results");
-        if (isFound(jsonRes)) {
+        try {
+            LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
+            JsonObject jsonRes = req.execute();
+            JsonArray arr = jsonRes.getAsJsonArray("results");
+
+            assert (isFound(jsonRes) && arr.size() != 0);
             return new Venue(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
                     arr.get(0).getAsJsonObject().get("LATITUDE").getAsDouble(),
                     arr.get(0).getAsJsonObject().get("LONGITUDE").getAsDouble(),
                     arr.get(0).getAsJsonObject().get("X").getAsDouble(),
                     arr.get(0).getAsJsonObject().get("Y").getAsDouble());
+
+        } catch (Throwable e) {
+            throw new DukeApiException(Messages.DATA_NULL);
         }
-        throw new DukeException(Messages.DATA_NOT_FOUND);
     }
 
     private static boolean isFound(JsonObject jsonRes) {
@@ -98,5 +106,129 @@ public class ApiParser {
         }
 
         return busMap;
+    }
+
+    /**
+     * Return Static Map from StaticMap API.
+     * @param param String formatted parameters
+     * @return result The image from API
+     * @throws DukeException Exception thrown by Duke
+     */
+    public static Image getStaticMap(String param) throws DukeException {
+        StaticMapUrlRequest req = new StaticMapUrlRequest(param);
+        return req.execute();
+    }
+
+    /**
+     * Generate Param String from given parameters for StaticMapUrlRequest.
+     * @param imageLength The length of StaticImage
+     * @param imageWidth The width of StaticImage
+     * @param zoomLvl The zoom level
+     * @param centerLat The latitude coordinates of center
+     * @param centerLong The longitude coordinates of center
+     * @param polygonRegion The polygon regions to highlight
+     * @param lineCoord The line coordinates to highlight
+     * @param pointCoord The point coordinates to show
+     * @return result The String param to parse
+     */
+    public static String generateStaticMapParams(String imageLength, String imageWidth, String zoomLvl,
+                     String centerLat, String centerLong, String polygonRegion, String lineCoord, String pointCoord) {
+        String result = "layerchosen=default&" + "lat=" + centerLat + "&lng=" + centerLong + "&zoom=" + zoomLvl
+                + "&height=" + imageLength + "&width=" + imageWidth;
+        result += "&polygons=" + polygonRegion;
+        result += "&lines=" + lineCoord;
+        result += "&points=" + pointCoord + "&color=&fillColor=";
+        return result;
+    }
+
+    /**
+     * Create polygonRegion or lineCoord String for StaticMap.
+     * @param latitude The latitude
+     * @param longitude The longitude
+     * @return result The String result
+     */
+    public static String createStaticMapArea(String latitude, String longitude) {
+        return "[" +  latitude + "," + longitude + "]";
+    }
+
+    /**
+     * Generate String to parse as parameter for polygonRegion or lineCoord in StaticMap.
+     * @param points The ArrayList of points in format X,Y .
+     * @param rgb The color of the region, in format r,g,b .
+     * @return result The String param
+     */
+    public static String generateStaticMapPolygon(ArrayList<String> points, String rgb) {
+        String result = "[";
+        for (String point: points) {
+            result += "[" + point + "]";
+            if (point.equals(points.get(points.size() - 1))) {
+                result += ",";
+            }
+        }
+
+        if (!rgb.isEmpty()) {
+            result += ":" + rgb + ":2";
+        } else {
+            result += ":0,0,0:2";
+        }
+
+        return result;
+    }
+
+    /**
+     * Generate String to parse as parameter for polygonRegion or lineCoord in StaticMap.
+     * @param points The ArrayList of points
+     * @param rgb The color of the region or line
+     * @return result The String param
+     */
+    public static String generateStaticMapLines(ArrayList<String> points, String rgb) {
+        String result = "[";
+        for (String point: points) {
+            result += "[" + point + "]";
+            if (point.equals(points.get(points.size() - 1))) {
+                result += ",";
+            }
+        }
+
+        if (!rgb.isEmpty()) {
+            result += ":" + rgb;
+        } else {
+            result += ":0,0,0";
+        }
+
+        return result;
+    }
+
+    /**
+     * Create Point String for StaticMap.
+     * @param latitude The latitude
+     * @param longitude The longitude
+     * @param r The R value in RGB
+     * @param g The G value in RGB
+     * @param b The B value in RGB
+     * @param label The text label for the point
+     * @return result The String result
+     */
+    public static String createStaticMapPoint(String latitude, String longitude,
+                                              String r, String g, String b, String label) {
+        return "[" + latitude + "," + longitude + ",\"" + r + "," + g + "," + b + "\",\""
+                + (Character.toString(label.charAt(0))).toUpperCase() + "\"]";
+    }
+
+    /**
+     * Generate String to parse as parameter for polygonRegion or lineCoord in StaticMap.
+     * @param points The ArrayList of points
+     * @return result The String param
+     */
+    public static String generateStaticMapPoints(ArrayList<String> points) {
+        String result = "[";
+        for (String point: points) {
+            result += "[" + point + "]";
+            if (point.equals(points.get(points.size() - 1))) {
+                result += ",";
+            }
+        }
+
+        return result;
     }
 }

@@ -1,8 +1,10 @@
 package duke.logic;
 
-import duke.commands.Command;
-import duke.commands.CommandResult;
+import duke.logic.commands.Command;
+import duke.logic.commands.results.CommandResult;
+import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
@@ -15,7 +17,7 @@ public class LogicManager extends Logic {
     /**
      * Creates LogicManager instance.
      */
-    public LogicManager() throws DukeException {
+    public LogicManager() {
         conversationManager = new ConversationManager();
         model = new ModelManager();
     }
@@ -31,10 +33,12 @@ public class LogicManager extends Logic {
         try {
             c = Parser.parseSingleCommand(userInput);
             conversationManager.clearContext();
-        } catch (DukeException e) {
+        } catch (DukeApiException e) {
+            throw new DukeException((e.getMessage()));
+        } catch (DukeUnknownCommandException e) {
             c = getCommandFromConversationManager(userInput);
         }
-        return c.execute(model);
+        return (CommandResult) c.execute(model);
     }
 
     /**

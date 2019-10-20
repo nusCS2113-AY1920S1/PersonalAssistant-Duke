@@ -16,6 +16,5 @@ bin/
 # CS2113 stuff
 tasks.txt
 tasks1.txt
-/data/
-/data/bus.txt
+/memory/
 /memory/train.txt

@@ -1,11 +1,11 @@
 package duke.model.locations;
 
 public class Venue {
+    private String address;
     private double latitude;
     private double longitude;
     private double distX;
     private double distY;
-    private String address;
 
     /**
      * Creates a location object.
@@ -16,7 +16,6 @@ public class Venue {
         this.longitude = longitude;
         this.distX = distX;
         this.distY = distY;
-
     }
 
     public double getLatitude() {

@@ -1,7 +1,5 @@
 package duke.logic;
 
-import duke.commons.exceptions.DukeException;
-import duke.logic.api.ApiParser;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.transports.BusService;
@@ -18,8 +16,10 @@ public class CreateMap {
     private ArrayList<TrainStation> northEastLine;
     private ArrayList<TrainStation> northSouthLine;
     private ArrayList<TrainStation> circleLine;
+    private ArrayList<TrainStation> circleLineSub;
     private ArrayList<TrainStation> downtownLine;
     private ArrayList<TrainStation> eastWestLine;
+    private ArrayList<TrainStation> eastWestLineSub;
 
     /**
      * Initialise createMap object with both busStopMap and busMap.
@@ -29,27 +29,6 @@ public class CreateMap {
     public CreateMap(HashMap<String, BusStop> busStopMap, HashMap<String, BusService> busMap) {
         this.busMap = busMap;
         this.busStopMap = busStopMap;
-    }
-
-    /**
-     * Initialise createMap object.
-     */
-    public CreateMap() throws DukeException {
-        this.busMap = ApiParser.getBusRoute();
-        this.busStopMap = ApiParser.getBusStop();
-        fillBusStop();
-    }
-
-    private void fillBusStop() {
-        for (Map.Entry mapElement : this.busMap.entrySet()) {
-            String bus = (String)mapElement.getKey();
-            BusService busService = (BusService)mapElement.getValue();
-            for (String busCode : busService.getDirection(1)) {
-                if (busStopMap.containsKey(busCode)) {
-                    busStopMap.get(busCode).addBuses(bus);
-                }
-            }
-        }
     }
 
     public HashMap<String, BusService> getBusMap() {
@@ -69,8 +48,11 @@ public class CreateMap {
         ArrayList<TrainStation> northEastLine = new ArrayList<>();
         ArrayList<TrainStation> northSouthLine = new ArrayList<>();
         ArrayList<TrainStation> circleLine = new ArrayList<>();
+        ArrayList<TrainStation> circleLineSub = new ArrayList<>();
         ArrayList<TrainStation> downtownLine = new ArrayList<>();
         ArrayList<TrainStation> eastWestLine = new ArrayList<>();
+        ArrayList<TrainStation> eastWestLineSub = new ArrayList<>();
+
         for (Map.Entry mapElement : this.trainMap.entrySet()) {
             TrainStation trainStation = (TrainStation)mapElement.getValue();
             for (String trainCode : trainStation.getTrainCode()) {
@@ -83,20 +65,29 @@ public class CreateMap {
                 if (trainCode.contains("EW")) {
                     eastWestLine.add(trainStation);
                 }
+                if (trainCode.contains("CG")) {
+                    eastWestLineSub.add(trainStation);
+                }
                 if (trainCode.contains("CC")) {
                     circleLine.add(trainStation);
+                }
+                if (trainCode.contains("CE")) {
+                    circleLineSub.add(trainStation);
                 }
                 if (trainCode.contains("DT")) {
                     downtownLine.add(trainStation);
                 }
+
 
             }
         }
         this.northEastLine = sortTrainLine(northEastLine, "NE");
         this.northSouthLine = sortTrainLine(northSouthLine, "NS");
         this.circleLine = sortTrainLine(circleLine, "CC");
+        this.circleLineSub = sortTrainLine(circleLineSub, "CE");
         this.downtownLine = sortTrainLine(downtownLine, "DT");
         this.eastWestLine = sortTrainLine(eastWestLine, "EW");
+        this.eastWestLineSub = sortTrainLine(eastWestLineSub, "CG");
     }
 
     private ArrayList<TrainStation> sortTrainLine(ArrayList<TrainStation> trainLine, String trainLineCode) {
@@ -117,8 +108,12 @@ public class CreateMap {
             return this.northSouthLine;
         case "CC":
             return this.circleLine;
+        case "CE":
+            return this.circleLineSub;
         case "EW":
             return this.eastWestLine;
+        case "CG":
+            return this.eastWestLineSub;
         case "DT":
             return this.downtownLine;
         default:
@@ -135,20 +130,20 @@ public class CreateMap {
 
         @Override
         public int compare(TrainStation o1, TrainStation o2) {
-            String trainCode1 = getTrainCode(o1, this.trainLine);
-            String trainCode2 = getTrainCode(o2, this.trainLine);
-            assert trainCode1 != null : "Train Station in wrong line";
-            assert trainCode2 != null : "Train Station in wrong line";
-            return trainCode1.compareTo(trainCode2);
+            int trainCodeNumber = getTrainCodeNumber(o1, this.trainLine);
+            int trainCodeNumber2 = getTrainCodeNumber(o2, this.trainLine);
+            assert trainCodeNumber != -1 : "Train Station in wrong line";
+            assert trainCodeNumber2 != -1 : "Train Station in wrong line";
+            return trainCodeNumber - trainCodeNumber2;
         }
 
-        private String getTrainCode(TrainStation o1, String trainLine) {
+        private int getTrainCodeNumber(TrainStation o1, String trainLine) {
             for (String trainCode : o1.getTrainCode()) {
                 if (trainCode.contains(trainLine)) {
-                    return trainCode;
+                    return Integer.parseInt(trainCode.substring(2));
                 }
             }
-            return null;
+            return -1;
         }
     }
 

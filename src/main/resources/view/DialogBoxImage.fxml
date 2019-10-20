@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox fx:id="dialogBoxImage" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+      xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+	<VBox prefHeight="400.0" prefWidth="400.0" alignment="TOP_RIGHT" spacing="10" styleClass="dialog">
+		<HBox fx:id="miniBox">
+			<Label fx:id="dialog" text="Label" wrapText="true">
+			</Label>
+			<Circle fx:id="circle" radius="25" />
+		</HBox>
+		<ImageView fx:id="imageBox" fitHeight="360.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true" />
+	</VBox>
+  </children>
+</HBox>

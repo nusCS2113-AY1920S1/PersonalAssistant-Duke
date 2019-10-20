@@ -1,11 +1,17 @@
 package duke.ui;
 
 import duke.Main;
-import duke.commands.CommandResult;
+import duke.logic.commands.results.CommandResult;
+import duke.logic.commands.results.CommandResultCalender;
+import duke.logic.commands.results.CommandResultExit;
+import duke.logic.commands.results.CommandResultImage;
+import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
 import duke.ui.calendar.CalendarWindow;
+import duke.ui.dialogbox.DialogBox;
+import duke.ui.dialogbox.DialogBoxImage;
 import duke.ui.map.MapWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -61,11 +67,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void initialise(Main main) {
         this.main = main;
-        try {
-            logic = new LogicManager();
-        } catch (DukeException e) {
-            dukeShow(e.getMessage());
-        }
+        logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
     }
 
@@ -87,13 +89,17 @@ public class MainWindow extends UiPart<Stage> {
             try {
                 CommandResult result = logic.execute(input);
                 dukeShow(result);
-                if (result.isExit()) {
+
+                if (result instanceof CommandResultExit) {
                     tryExitApp();
-                } else if (result.isCalendar()) {
-                    new CalendarWindow(result).show();
-                } else if (result.isMap()) {
-                    new MapWindow(result).show();
                 }
+                if (result instanceof CommandResultCalender) {
+                    new CalendarWindow((CommandResultCalender) result).show();
+                }
+                if (result instanceof CommandResultMap) {
+                    new MapWindow((CommandResultMap) result).show();
+                }
+
             } catch (DukeException e) {
                 dukeShow(e.getMessage());
             }
@@ -125,8 +131,28 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void dukeShow(CommandResult commandResult) {
-        dukeShow(commandResult.toString());
+        if (commandResult instanceof CommandResultImage) {
+            dukeShowImage(commandResult.getMessage(), ((CommandResultImage) commandResult).getImage());
+            return;
+        }
+
+        if (commandResult != null) {
+            dukeShow(commandResult.getMessage());
+        }
     }
+
+    /**
+     * Shows an image in dialogBoxImage to the user.
+     * @param message The message to show.
+     * @param image The image to show.
+     */
+    private void dukeShowImage(String message, Image image) {
+        dialogContainer.getChildren().addAll(
+                DialogBoxImage.getDukeDialog(message, dukeImage, image)
+        );
+    }
+
+
 
     private void tryExitApp() {
         try {

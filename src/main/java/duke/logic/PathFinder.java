@@ -10,8 +10,7 @@ import duke.model.locations.Venue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Objects;
 
 
 public class PathFinder {
@@ -41,7 +40,6 @@ public class PathFinder {
      */
     public ArrayList<Venue> execute(Venue start, Venue end, Constraint constraint) {
         found = false;
-        System.out.println("run");
         switch (constraint) {
         case BUS:
             return findBusRoute(start, end);
@@ -53,13 +51,56 @@ public class PathFinder {
     }
 
     private ArrayList<Venue> findMixedRoute(Venue start, Venue end) {
-        return null;
+        Venue startTransport = ApiConstraintParser.getNearestTransport(start, this.map);
+        Venue endTransport = ApiConstraintParser.getNearestTransport(end, this.map);
+        ArrayList<Venue> ans = new ArrayList<>();
+        if (startTransport instanceof TrainStation && endTransport instanceof TrainStation) {
+            System.out.println("onlyMrt");
+            return findTrainRoute(start, end);
+        }
+        if (startTransport instanceof BusStop && endTransport instanceof TrainStation) {
+            TrainStation middleTrain = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
+            BusStop middleBus = ApiConstraintParser.getNearestBusStop(middleTrain, this.map.getBusStopMap());
+
+            ans = findBusRoute(start, middleBus);
+            ans.addAll(Objects.requireNonNull(findTrainRoute(middleTrain, end)));
+        }
+        if (startTransport instanceof TrainStation && endTransport instanceof BusStop) {
+            TrainStation middleTrain = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
+            BusStop middleBus = ApiConstraintParser.getNearestBusStop(middleTrain, this.map.getBusStopMap());
+
+            ans = findTrainRoute(start, middleTrain);
+            ans.addAll(Objects.requireNonNull(findBusRoute(middleBus, end)));
+        }
+        if (startTransport instanceof BusStop && endTransport instanceof BusStop) {
+            TrainStation startTrain = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
+            TrainStation endTrain = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
+            BusStop startMiddleBus = ApiConstraintParser.getNearestBusStop(startTrain, this.map.getBusStopMap());
+            BusStop endMiddleBus = ApiConstraintParser.getNearestBusStop(endTrain, this.map.getBusStopMap());
+
+            ans = findBusRoute(start, startMiddleBus);
+            ans.addAll(Objects.requireNonNull(findTrainRoute(startTrain, endTrain)));
+            ans.addAll(Objects.requireNonNull(findBusRoute(endMiddleBus, end)));
+        }
+
+        return ans;
     }
 
     private ArrayList<Venue> findTrainRoute(Venue start, Venue end) {
+        this.found = false;
         TrainStation startTrainStation = ApiConstraintParser.getNearestTrainStation(start, this.map.getTrainMap());
         TrainStation endTrainStation = ApiConstraintParser.getNearestTrainStation(end, this.map.getTrainMap());
         ArrayList<Venue> path = new ArrayList<>();
+
+        if (isSameLocation(startTrainStation, endTrainStation)) {
+            path.add(start);
+            path.add(end);
+            return path;
+        }
+
+        if (!isSameLocation(start, startTrainStation)) {
+            path.add(start);
+        }
         path.add(startTrainStation);
         if (!onSameLine(startTrainStation, endTrainStation)) {
             ArrayList<TrainStation> curTrainLine;
@@ -79,12 +120,20 @@ public class PathFinder {
             }
         }
         path.add(endTrainStation);
+
+        if (!isSameLocation(end, endTrainStation)) {
+            path.add(end);
+        }
         if (found) {
             return path;
         } else {
             return null;
         }
 
+    }
+
+    private boolean isSameLocation(Venue start, Venue end) {
+        return start == end;
     }
 
     private boolean onSameLine(TrainStation cur, TrainStation endTrainStation) {
@@ -99,8 +148,16 @@ public class PathFinder {
     }
 
     private ArrayList<Venue> findBusRoute(Venue start, Venue end) {
+        this.found = false;
         BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.map.getBusStopMap());
         BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.map.getBusStopMap());
+        ArrayList<Venue> ans = new ArrayList<>();
+
+        if (isSameLocation(startBusStop, endBusStop)) {
+            ans.add(start);
+            ans.add(end);
+            return ans;
+        }
 
         BusStop cur = startBusStop;
         int depthLimit = 0;
@@ -115,12 +172,17 @@ public class PathFinder {
             return null;
         } else {
             cur = endBusStop;
-            ArrayList<Venue> ans = new ArrayList<>();
+            if (!isSameLocation(end, endBusStop)) {
+                ans.add(end);
+            }
             while (!cur.getBusCode().equals(startBusStop.getBusCode())) {
                 ans.add(cur);
                 cur = this.map.getBusStopMap().get(path.get(cur.getBusCode()));
             }
             ans.add(cur);
+            if (!isSameLocation(start, startBusStop)) {
+                ans.add(start);
+            }
             return ans;
         }
     }
@@ -134,13 +196,23 @@ public class PathFinder {
         this.visited.add(cur);
 
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
-            for (String busCode : this.map.getBusMap().get(bus).getDirection(1)) { // depth search the bus route
+            int direction;
+            if (this.map.getBusMap().get(bus).getDirection(1).contains(cur.getBusCode())) {
+                direction = 1;
+            } else {
+                direction = 2;
+            }
+
+            for (String busCode : this.map.getBusMap().get(bus).getDirection(direction)) { // depth search the bus route
+
                 if (this.found) {
                     break;
                 }
+
                 if (busCode.equals(cur.getBusCode())) {
                     continue;
                 }
+
                 path.put(busCode, cur.getBusCode());
                 if (haveSameBus(this.map.getBusStopMap().get(busCode), endBusStop)) {
                     path.put(endBusStop.getBusCode(), busCode);
