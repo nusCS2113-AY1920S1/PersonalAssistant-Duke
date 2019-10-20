@@ -3,7 +3,7 @@ package cube.ui;
 import cube.exception.CubeException;
 import cube.logic.command.Command;
 import cube.logic.parser.Parser;
-import cube.model.food.FoodList;
+import cube.model.FoodList;
 import cube.storage.StorageManager;
 import cube.util.FileUtilJson;
 import javafx.stage.Stage;

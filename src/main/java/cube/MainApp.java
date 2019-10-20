@@ -1,7 +1,7 @@
 package cube;
 
 import cube.exception.CubeException;
-import cube.model.food.FoodList;
+import cube.model.FoodList;
 import cube.storage.StorageManager;
 import cube.util.FileUtilJson;
 import javafx.application.Application;

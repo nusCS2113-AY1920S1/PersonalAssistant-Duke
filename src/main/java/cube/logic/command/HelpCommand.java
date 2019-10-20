@@ -1,6 +1,6 @@
 package cube.logic.command;
 
-import cube.model.food.FoodList;
+import cube.model.FoodList;
 import cube.storage.StorageManager;
 
 public class HelpCommand extends Command{
@@ -21,7 +21,6 @@ public class HelpCommand extends Command{
 	 * Shows the list of available command.
 	 *
 	 * @param list the list of food products.
-	 * @param ui the user interface to output message.
 	 * @param storage storage of Duke.
 	 */
 
