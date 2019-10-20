@@ -10,7 +10,8 @@ import command.ListCommand;
 import command.ExitCommand;
 import command.AddCommand;
 import command.SearchCommand;
-import command.HistoryCommand;
+import command.RecentlyAddedCommand;
+import command.FrequentlySearchedCommand;
 import command.EditCommand;
 
 import exception.WrongQuizFormatException;

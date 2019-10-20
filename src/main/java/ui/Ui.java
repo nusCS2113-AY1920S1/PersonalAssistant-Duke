@@ -126,6 +126,12 @@ public class Ui {
         return ("Here is the meaning of " + description + ": " + meaning);
     }
 
+    /**
+     * Shows a list of words ordered by their search count in ascending or descending order as specified by the user
+     * @param wordBank a main class object containing the word bank content
+     * @param order the order (asc/desc) in which to display the word list
+     * @return a string to show list of words and their search count
+     */
     public String showSearchFrequency(WordBank wordBank, String order) {
         TreeMap<Integer, TreeMap<String, Word>> wordCount = wordBank.getWordCount(); //get map ordered by word count
         String returnedString = "You have searched for these words ";
