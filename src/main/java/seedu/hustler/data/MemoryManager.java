@@ -27,4 +27,8 @@ public class MemoryManager {
         Hustler.reloadBackup();
         CommandLog.restoreData(numberOfCommandsToUndo);
     }
+
+    public void redo() {
+        CommandLog.redo();
+    }
 }

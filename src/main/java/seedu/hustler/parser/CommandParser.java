@@ -55,6 +55,8 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("delete")) {
             CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
+        } else if (userInput[0].equals("redo")) {
+            return new RedoCommand();
         } else if (userInput[0].equals("list")) {
             return new ListCommand();
         } else if (userInput[0].equals("remind")) {
@@ -65,11 +67,13 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("show")) {
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("snooze")) {
+            CommandLog.recordCommand(rawInput);
             return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar")) {
             if (userInput[1].equals("stats")) {
                 return new CheckAvatarCommand();
             } else if(userInput[1].contains("setname")) {
+                CommandLog.recordCommand(rawInput);
                 return new SetNameCommand(userInput);
             } else {
                 return new InvalidCommand();
