@@ -50,11 +50,10 @@ public class LogicManager {
         CommandResult cmdResult = command.commandExecute(taskList);
         uiUtil.printg(cmdResult.feedbackToUser);
 
-        //save to file
+        //save to file if required
         if (cmdResult.requireSaving) {
             taskStorageManager.saveData(taskList.getArrList());
         }
-
 
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
             System.exit(0);
