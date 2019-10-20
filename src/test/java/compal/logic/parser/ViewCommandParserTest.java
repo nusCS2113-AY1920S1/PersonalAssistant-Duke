@@ -11,12 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static compal.logic.parser.CommandParser.MESSAGE_INVALID_DATE_FORMAT;
+import static compal.logic.parser.CommandParser.MESSAGE_MISSING_INPUT;
 import static compal.logic.parser.CommandParser.MESSAGE_MISSING_TOKEN;
+import static compal.logic.parser.ViewCommandParser.MESSAGE_INVALID_PARAM;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static compal.logic.parser.ViewCommandParser.MESSAGE_INVALID_PARAM;
-import static compal.logic.parser.ViewCommandParser.MESSAGE_MISSING_DATE;
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,26 +32,30 @@ class ViewCommandParserTest {
         taskList.setArrList(taskArrList);
     }
 
-    @Test
+    /*@Test
     void parse_invalidDate_failure() {
-        assertParseFailure(parser, "/day 01-10-1010", MESSAGE_INVALID_DATE_FORMAT);
-    }
+        assertParseFailure(parser, "/day /date 30/02/2019", MESSAGE_INVALID_DATE_RANGE);
+    }*/
 
     @Test
     void parse_invalidParam_failure() {
-        assertParseFailure(parser, "/date", MESSAGE_INVALID_PARAM);
-        assertParseFailure(parser, "/years", MESSAGE_INVALID_PARAM);
-        assertParseFailure(parser, "/months", MESSAGE_INVALID_PARAM);
-    }
-
-    @Test
-    void parse_invalidToken_failure() {
-        assertParseFailure(parser, " ", MESSAGE_MISSING_TOKEN);
+        assertParseFailure(parser, "/years /date 29/02/2020", MESSAGE_INVALID_PARAM);
+        assertParseFailure(parser, "/months /date 29/02/2020", MESSAGE_INVALID_PARAM);
     }
 
     @Test
     void parse_missingDate_failure() {
-        assertParseFailure(parser, "/day ", MESSAGE_MISSING_DATE);
+        assertParseFailure(parser, "/day /date", MESSAGE_MISSING_INPUT);
+    }
+
+    @Test
+    void parse_missingDateArg_failure() {
+        assertParseFailure(parser, "/day", MESSAGE_MISSING_DATE_ARG);
+    }
+
+    @Test
+    void parse_missingToken_failure() {
+        assertParseFailure(parser, "", MESSAGE_MISSING_TOKEN);
     }
 
     @Test
@@ -61,8 +66,8 @@ class ViewCommandParserTest {
 
     @Test
     void parse_executeView_success() throws CommandException {
-        String cmdParam = "/week 23/10/2019";
-        String[] viewArgs = cmdParam.split(" ");
-        assertParseSuccess(parser, cmdParam, new ViewCommand(viewArgs).commandExecute(taskList), taskList);
+        String cmdParam = "/week /date 23/10/2019";
+        assertParseSuccess(parser, cmdParam,
+            new ViewCommand("/week","23/10/2019").commandExecute(taskList), taskList);
     }
 }

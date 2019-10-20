@@ -14,20 +14,20 @@ import java.util.Date;
  */
 public class DeadlineCommand extends Command {
 
+    private static final String MESSAGE_GREETING = "The following tasks were added: \n";
     private String description;
     private ArrayList<String> startDateList;
     private Task.Priority priority;
     private String endTime;
     private String finalDateString;
-    private static final String MESSAGE_GREETING = "The following tasks were added: \n";
 
     /**
      * This is the constructor.
      *
-     * @param description description of deadline.
-     * @param priority priority of deadline.
+     * @param description   description of deadline.
+     * @param priority      priority of deadline.
      * @param startDateList date of deadline.
-     * @param endTime end time of deadline.
+     * @param endTime       end time of deadline.
      */
     public DeadlineCommand(String description, Task.Priority priority, ArrayList<String> startDateList,
                            String endTime, String finalDateString) {
