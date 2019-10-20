@@ -74,7 +74,6 @@ public class TentSchedCommand implements Command {
             TentSched ts = new TentSched(description, tentsched, date);
             tasks.add(ts);
             storage.append(ts);
-            ui.showAdd(tasks);
         }
     }
 }

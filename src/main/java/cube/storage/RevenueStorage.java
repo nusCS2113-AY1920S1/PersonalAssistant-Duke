@@ -1,6 +1,5 @@
 package cube.storage;
 
-// for testing only
 public class RevenueStorage {
     private double revenue;
 

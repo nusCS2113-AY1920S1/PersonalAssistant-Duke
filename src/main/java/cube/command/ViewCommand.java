@@ -56,7 +56,6 @@ public class ViewCommand implements Command {
                     tasksFoundAt.add(task);
                 }
             }
-            ui.showFind(tasksFoundAt);
         }
     }
 }

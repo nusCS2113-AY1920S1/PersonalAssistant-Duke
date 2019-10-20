@@ -41,40 +41,14 @@ public class Parser {
 		Date date = parseStringToDate(dict.get(Parts.DATE));
 		String parameter = dict.get(Parts.PARAMETER);
 		switch (command) {
-			case "todo":
-				return new TodoCommand(description);
-			case "event":
-				return new EventCommand(description, date);
-			case "deadline":
-				return new DeadlineCommand(description, date);
-			case "doafter":
-				return new DoAfterCommand(description,parameter);
 			case "recur":
 				return new RecurCommand(description,parameter);
 			case "tentativescheduling":
 				return new TentSchedCommand(description, date);
-			case "list":
-				return new ListCommand();
-			case "done":
-				return new DoneCommand(description);
-			case "delete":
-				return new DeleteCommand(description);
-			case "help":
-				return new HelpCommand();
-			case "find":
-				return new FindCommand(description);
-			case "freetime":
-				return new FreeTimeCommand(description);
-			case "reminder":
-				return new ReminderCommand();
 			case "snooze":
 				return new SnoozeCommand(description);
 			case "viewschedule":
 				return new ViewCommand(date);
-			case "bye":
-			case "exit":
-			case "quit":
-				return new ExitCommand();
 			default:
 				throw new DukeException(Message.INVALID_COMMAND);
 		}
