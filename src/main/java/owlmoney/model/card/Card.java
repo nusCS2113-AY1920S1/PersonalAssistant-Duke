@@ -187,7 +187,7 @@ public class Card {
         unpaid.editEx(expNum, desc, amount, date, category, ui);
     }
 
-    /** Returns remaining limit of this current month
+    /** Returns remaining limit of this current month.
      *
      * @return      Remaining limit of this current month.
      */

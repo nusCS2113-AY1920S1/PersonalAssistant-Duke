@@ -341,7 +341,7 @@ public class TransactionList {
      * @return         Transaction month.
      */
     public int getTransactionMonthByIndex(int expNum) {
-        return expLists.get(expNum-1).getLocalDate().getMonthValue();
+        return expLists.get(expNum - 1).getLocalDate().getMonthValue();
     }
 
     /**
@@ -351,7 +351,7 @@ public class TransactionList {
      * @return         Transaction year.
      */
     public int getTransactionYearByIndex(int expNum) {
-        return expLists.get(expNum-1).getLocalDate().getYear();
+        return expLists.get(expNum - 1).getLocalDate().getYear();
     }
 
     /**
