@@ -3,6 +3,7 @@ package command;
 import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
+import room.RoomList;
 import storage.Storage;
 import ui.Ui;
 import user.User;
@@ -12,7 +13,7 @@ import java.text.ParseException;
 
 public class ListCommand extends Command{
     @Override
-    public void execute(BookingList bookingList, Ui ui, Storage bookingStorage, User user) throws DukeException, IOException, ParseException {
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user) throws DukeException, IOException, ParseException {
         if (bookingList.isEmpty()) {
             throw new DukeException("OOPS! There are no bookings in your list");
         }
