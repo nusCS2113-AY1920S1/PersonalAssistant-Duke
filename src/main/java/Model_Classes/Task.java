@@ -30,6 +30,8 @@ public class Task{
         this.isDone = false;
         this.priority = Priority.low;
         this.time = time;
+        this.user = "everyone";
+        this.recurrenceSchedule = RecurrenceScheduleType.none;
     }
 
     /**
@@ -45,7 +47,7 @@ public class Task{
      * @return time the task was created
      */
 
-    public void setUser(String user) {
+    public void setAssignee(String user) {
         this.user = user;
     }
 
@@ -55,6 +57,13 @@ public class Task{
      */
     public boolean getDone() {
         return isDone;
+    }
+
+    /**
+     * Sets the task to be done
+     */
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     /**
@@ -77,13 +86,6 @@ public class Task{
      * @return priority of the task
      */
     public Priority getPriority() { return priority; }
-
-    /**
-     * Sets the task to be done
-     */
-    public void setDone(boolean done) {
-        isDone = done;
-    }
 
     /**
      * Sets the priority of the task
@@ -114,6 +116,10 @@ public class Task{
         }
     }
 
+    /**
+     * Return whether the task is recurred
+     * @return hasRecurring: whether the task is recurred
+     */
     public boolean hasRecurring() {
         return hasRecurring;
     }
@@ -157,5 +163,4 @@ public class Task{
     public void snoozeMinute(int amount){
         this.time.setMinutes(this.time.getMinutes() + amount);
     }
-
 }

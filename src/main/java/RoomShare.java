@@ -63,8 +63,9 @@ public class RoomShare {
             }
             switch (type) {
             case help:
+                help.helpCommandList();
                 help.showHelp(parser.getCommandLine());
-                break;
+            break;
 
             case list:
                 ui.showList();
@@ -73,7 +74,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showWriteError();
                 }
-                break;
+            break;
 
             case bye:
                 isExit = true;
@@ -104,7 +105,7 @@ public class RoomShare {
                 }
                 break;
 
-             case restore:
+            case restore:
                 int restoreIndex = parser.getIndex();
                 tempDeleteList.restore(restoreIndex, taskList);
                 break;

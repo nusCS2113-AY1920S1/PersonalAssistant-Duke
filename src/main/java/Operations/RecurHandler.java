@@ -51,14 +51,14 @@ public class RecurHandler {
                         Assignment recurringAssignment= new Assignment(description, getNewDate(check));
                         recurringAssignment.setRecurrenceSchedule(type);
                         recurringAssignment.setPriority(check.getPriority());
-                        recurringAssignment.setUser(check.getUser());
+                        recurringAssignment.setAssignee(check.getUser());
                         taskList.replace(index, recurringAssignment);
                         isEdited = true;
                     } else {
                         Meeting recurringMeeting= new Meeting(description, getNewDate(check));
                         recurringMeeting.setRecurrenceSchedule(type);
                         recurringMeeting.setPriority(check.getPriority());
-                        recurringMeeting.setUser(check.getUser());
+                        recurringMeeting.setAssignee(check.getUser());
                         taskList.replace(index, recurringMeeting);
                         isEdited = true;
                     }
