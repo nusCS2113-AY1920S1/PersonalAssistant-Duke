@@ -40,7 +40,7 @@ public class TaskStorageParser implements StorageParser<Task> {
      * @param priority task priority string
      * @return Priority enum
      */
-    public Task.Priority stringToPriority(String priority) {
+    private Task.Priority stringToPriority(String priority) {
         return Task.Priority.valueOf(priority.toLowerCase());
     }
 

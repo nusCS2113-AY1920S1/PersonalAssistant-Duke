@@ -13,28 +13,27 @@ import java.util.Date;
 public class TaskList {
 
     private ArrayList<Task> arrlist;
-    private BitSet idBitSet;
-
+    private TaskIdManager taskIdManager;
 
     /**
      * Constructs TaskList object.
      */
     public TaskList() {
-        BitSet bs = readIdBitSet();
-        if (bs != null) {
-            idBitSet = (BitSet) readIdBitSet().clone();
-        } else {
-            System.out.println("TaskList:LOG: No saved idbitset found");
-            idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits (hard limit of no. of tasks)
-        }
+        taskIdManager = new TaskIdManager();
     }
 
     public ArrayList<Task> getArrList() {
         return this.arrlist;
     }
 
+    /**
+     * Sets the arrlist to arrlist. Called after loading data from file.
+     * @param arrlist arraylist to set the arrlist
+     */
     public void setArrList(ArrayList<Task> arrlist) {
         this.arrlist = arrlist;
+        //make sure any user edits are brought over to the binary file as well
+        taskIdManager.synchronizeTaskIds(this);
     }
 
 
@@ -53,20 +52,10 @@ public class TaskList {
      */
     public void addTask(Task task) {
         //generate unique ID for task
-        int taskID;
-        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
-            if (!idBitSet.get(i)) {
-                idBitSet.set(i);
-                taskID = i;
-                task.setId(taskID);
-                System.out.println("Task assigned id of " + taskID);
-                writeIdBitSet();
-                break;
-            }
-        }
-
+        taskIdManager.generateAndSetId(task);
         arrlist.add(task);
         sortTask(arrlist);
+
     }
 
 
@@ -100,7 +89,7 @@ public class TaskList {
     /**
      * Remove a task from the arrayList.
      */
-    public void removeTask(int index) {
+    public void removeTaskByIndex(int index) {
         arrlist.remove(index);
     }
 
@@ -110,8 +99,8 @@ public class TaskList {
      * @param id task id
      */
     public void unsetId(int id) {
+        taskIdManager.clearId(id);
         System.out.println("TaskList:LOG:" + id + " unset");
-        idBitSet.clear(id);
     }
 
     public ArrayList<Task> returnTaskList() {
@@ -180,44 +169,6 @@ public class TaskList {
         }
     }
 
-
-    /**
-     * Writes(saves) the current id bitset to file.
-     */
-    public void writeIdBitSet() {
-
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
-            oos.writeObject(idBitSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-
-    /**
-     * Reads in the saved idbitset as an object and returns it.
-     *
-     * @return saved idbitset
-     * @author Jaedonkey
-     */
-    public BitSet readIdBitSet() {
-        BitSet bs = null;
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
-            bs = (BitSet) ois.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        return bs;
-
-    }
 
 
 }
