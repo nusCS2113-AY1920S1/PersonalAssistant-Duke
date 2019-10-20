@@ -15,6 +15,14 @@ public class DeadlineCommand extends Command {
     private String date;
     private String endTime;
 
+    /**
+     * Constructor
+     *
+     * @param description
+     * @param priority
+     * @param date
+     * @param endTime
+     */
     public DeadlineCommand(String description, Task.Priority priority, String date, String endTime) {
         this.description = description;
         this.priority = priority;
