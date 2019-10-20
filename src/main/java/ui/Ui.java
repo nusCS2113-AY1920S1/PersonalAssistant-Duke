@@ -3,7 +3,11 @@ package ui;
 import dictionary.Word;
 import dictionary.WordBank;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.HashSet;
+import java.util.Stack;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -127,7 +131,7 @@ public class Ui {
     }
 
     /**
-     * Shows a list of words ordered by their search count in ascending or descending order as specified by the user
+     * Shows a list of words ordered by their search count in ascending or descending order as specified by the user.
      * @param wordBank a main class object containing the word bank content
      * @param order the order (asc/desc) in which to display the word list
      * @return a string to show list of words and their search count

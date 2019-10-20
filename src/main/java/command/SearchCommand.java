@@ -23,8 +23,7 @@ public class SearchCommand extends Command {
             String meaning = wordBank.searchForMeaning(this.searchTerm);
             wordBank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
-        }
-        catch (NoWordFoundException e) {
+        } catch (NoWordFoundException e) {
             return e.showError();
         }
     }

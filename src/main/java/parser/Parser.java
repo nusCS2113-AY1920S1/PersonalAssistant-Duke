@@ -14,7 +14,19 @@ import command.RecentlyAddedCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
 
-import exception.*;
+import exception.CommandInvalidException;
+import exception.EmptyWordException;
+import exception.WordUpException;
+import exception.WrongAddFormatException;
+import exception.WrongDeleteFormatException;
+import exception.WrongSearchFormatException;
+import exception.WrongListFormatDescription;
+import exception.WrongHistoryFormatException;
+import exception.ZeroHistoryRequestException;
+import exception.WrongSearchFrequencyFormatException;
+import exception.WrongEditFormatException;
+import exception.WrongAddTagFormatException;
+import exception.WrongQuizFormatException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -139,7 +151,8 @@ public class Parser {
         return new ListCommand(order);
     }
 
-    protected static Command parseHistory(String[] taskInfo) throws WrongHistoryFormatException, ZeroHistoryRequestException {
+    protected static Command parseHistory(String[] taskInfo)
+            throws WrongHistoryFormatException, ZeroHistoryRequestException {
         int numberOfWordsToDisplay;
         if (taskInfo.length == 1) {
             throw new WrongHistoryFormatException();
@@ -182,7 +195,7 @@ public class Parser {
         return new EditCommand(wordDescription, meaning);
     }
 
-    protected static Command parseTag(String[] taskInfo) throws WrongAddTagFormatException{
+    protected static Command parseTag(String[] taskInfo) throws WrongAddTagFormatException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongAddTagFormatException();
         }
