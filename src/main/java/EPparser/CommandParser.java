@@ -187,6 +187,12 @@ public class CommandParser {
                 rc.initCommand(CommandArr, Command);
                 CommandStack.pushCmd(rc);
                 break;
+            case "get":
+                System.out.println("Gdd");
+                GetCommand gc = new GetCommand(UIController);
+                gc.initCommand(CommandArr , Command);
+                CommandStack.pushCmd(gc);
+                break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(CommandArr , COMMANDKEYS.none, UIController);
                 if(pair.getSubRootCommand() == COMMANDKEYS.none){
