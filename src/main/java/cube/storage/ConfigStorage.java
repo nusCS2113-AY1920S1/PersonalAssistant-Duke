@@ -1,7 +1,5 @@
 package cube.storage;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class ConfigStorage {
     private double windowHeight;
     private double windowWidth;
