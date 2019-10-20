@@ -61,9 +61,11 @@ public class SearchCommand extends CommandSuper {
         } else {
             if (!this.getFlagMap().containsKey("-g")) {
                 if (movieHandler.getUserProfile().isAdult()) {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), true);
+                    ((MovieHandler) this.getUIController()).getAPIRequester()
+                            .beginMovieSearchRequest(getPayload() ,  true);
                 } else {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), false);
+                    ((MovieHandler) this.getUIController()).getAPIRequester()
+                            .beginMovieSearchRequest(getPayload() ,  false);
                 }
                 movieHandler.clearSearchTextField();
             } else {
@@ -75,16 +77,17 @@ public class SearchCommand extends CommandSuper {
                         inputGenrePreference.addAll(movieHandler.getUserProfile().getGenreIdPreference());
                     } else if (log.equalsIgnoreCase("restrictions")) {
                         inputGenreRestriction.addAll(movieHandler.getUserProfile().getGenreIdRestriction());
-                    }
-                    else {
+                    } else {
                         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
                         inputGenrePreference.add(command.findGenreID(log));
                     }
                 }
                 if (movieHandler.getUserProfile().isAdult()) {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, true);
+                    ((MovieHandler) this.getUIController()).getAPIRequester()
+                            .beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, true);
                 } else {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
+                    ((MovieHandler) this.getUIController()).getAPIRequester()
+                            .beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
                 }
                 movieHandler.clearSearchTextField();
             }

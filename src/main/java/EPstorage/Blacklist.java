@@ -7,12 +7,37 @@ import java.util.ArrayList;
 public class Blacklist {
 
     private static ArrayList<String>  blackListKeyWords = new ArrayList<>();
-    private static ArrayList<MovieInfoObject>  blackListMovies = new ArrayList<>();
+    private static ArrayList<MovieModel>  blackListMovies = new ArrayList<>();
     private static ArrayList<String>  blackListMoviesTitle = new ArrayList<>();
 
 
+    public static void initialiseAll(ArrayList<String> keywords , ArrayList<String> movieTitles , ArrayList<MovieModel> movies) {
+        initialiseBlackListKey(keywords);
+        initialiseBlackListMovieID(movies);
+        initialiseBlackListMovieTitles(movieTitles);
+    }
+
+    public static void initialiseBlackListKey(ArrayList<String> keywords) {
+        blackListKeyWords = (ArrayList<String>) keywords.clone();
+    }
+
+
+    public static void initialiseBlackListMovieTitles(ArrayList<String> movieTitles) {
+        blackListMoviesTitle = (ArrayList<String>) movieTitles.clone();
+    }
+
+
+    public static void initialiseBlackListMovieID(ArrayList<MovieModel> movies) {
+        for (MovieModel m : movies) {
+
+
+//            System.out.print(m.getSummary());
+            blackListMovies.add(m);
+        }
+    }
+
     /**
-     * Adding keywords to blacklist
+     * Adding keywords to blacklist.
      *
      * @param movie command that was entered by the user in split array form
      */
@@ -21,13 +46,15 @@ public class Blacklist {
             return;
         }
         blackListKeyWords.add(movie.toLowerCase());
+        saveBlackList();
     }
 
     public static void addToBlacklistMoviesID(MovieInfoObject mo) {
         if (mo == null) {
             return;
         }
-        blackListMovies.add(mo);
+        blackListMovies.add(new MovieModel(mo.getID() , mo.getTitle()));
+        saveBlackList();
     }
 
     public static void addToBlacklistMovie(String movie) {
@@ -35,6 +62,18 @@ public class Blacklist {
             return;
         }
         blackListMoviesTitle.add(movie.toLowerCase());
+        saveBlackList();
+    }
+
+    private static void saveBlackList() {
+        try {
+            BlacklistStorage allbl = new BlacklistStorage();
+            allbl.updateBlacklistFile(blackListKeyWords , blackListMovies , blackListMoviesTitle);
+        } catch (Exception e) {
+            //TODO ADD exception handling
+        }
+
+
     }
 
     public static boolean removeFromBlacklistKeyWord(String movie)  {
@@ -89,7 +128,7 @@ public class Blacklist {
 
     public static boolean removeMovieObj(String movie)  {
 
-        for (MovieInfoObject mo : blackListMovies) {
+        for (MovieModel mo : blackListMovies) {
             if (mo.getTitle().toLowerCase() == movie.toLowerCase()) {
                 blackListMovies.remove(mo);
                 return true;
@@ -100,16 +139,14 @@ public class Blacklist {
 
     public static boolean removeMovieObjById(MovieInfoObject movie)  {
 
-        for (MovieInfoObject mo : blackListMovies) {
-            if (mo.getID() == movie.getID()) {
+        for (MovieModel mo : blackListMovies) {
+            if (mo.getId() == movie.getID()) {
                 blackListMovies.remove(mo);
                 return true;
             }
         }
         return false;
     }
-
-
 
     public static String getIndexMovie(int index) {
         if (index >= blackListKeyWords.size()) {
@@ -158,7 +195,7 @@ public class Blacklist {
             }
         }
 
-        for (MovieInfoObject e : blackListMovies) {
+        for (MovieModel e : blackListMovies) {
             feedback += String.valueOf(i);
             feedback += ") ";
             feedback += e.getTitle();
@@ -219,8 +256,8 @@ public class Blacklist {
         ArrayList<MovieInfoObject> filteredMovies = new ArrayList<>();
         for (MovieInfoObject o : mMovies) {
             boolean isBlacklisted = false;
-            for (MovieInfoObject e : blackListMovies) {
-                if (o.getID() == e.getID()) {
+            for (MovieModel e : blackListMovies) {
+                if (o.getID() == e.getId()) {
                     isBlacklisted = true;
                 }
             }
