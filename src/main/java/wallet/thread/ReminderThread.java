@@ -39,10 +39,10 @@ public class ReminderThread implements Runnable {
     public void run() {
         while (LogicManager.getWallet().getLoanList().checkUnsettledLoan() && autoRemind) {
             try {
-                ArrayList<Loan> LoanList = LogicManager.getWallet().getLoanList().getLoanList();
+                ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
                 System.out.println("Reminder to settle your loans soon!");
                 Ui.printLoanTableHeaders();
-                for (Loan l : LoanList) {
+                for (Loan l : loanList) {
                     if (!l.getIsLend() && !l.getIsSettled()) {
                         System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
                                 l.getId(), "No", l.getDescription(), l.getAmount(), l.getDate(), "Borrow from",

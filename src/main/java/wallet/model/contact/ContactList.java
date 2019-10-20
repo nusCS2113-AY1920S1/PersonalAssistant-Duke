@@ -66,7 +66,6 @@ public class ContactList {
 
     /**
      * Removes the contact at the given index of the contactList.
-     *
      * @param id The id of the contact in the list.
      */
     public Contact deleteContact(int id) {
@@ -81,7 +80,6 @@ public class ContactList {
 
     /**
      * Get the current number of contacts in the contactList.
-     *
      * @return The number of contacts in the list.
      */
     public int getContactListSize() {
@@ -90,7 +88,6 @@ public class ContactList {
 
     /**
      * Returns the list of contacts in the contactList.
-     *
      * @return The list of contacts.
      */
     public ArrayList<Contact> getContactList() {
@@ -99,7 +96,6 @@ public class ContactList {
 
     /**
      * Returns the largest id.
-     *
      * @param contactList The list of contact.
      * @return The largest id.
      */
@@ -115,7 +111,6 @@ public class ContactList {
 
     /**
      * Creates Contact object.
-     *
      * @param name     Name of the contact.
      * @param detail   Details of the contact.
      * @param phoneNum Phone Number of the contact.
@@ -127,7 +122,6 @@ public class ContactList {
 
     /**
      * Finds and returns contact index using its id.
-     *
      * @param id The id of the contact to find.
      * @return id of contact found. -1 if not found.
      */

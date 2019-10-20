@@ -30,7 +30,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         case "loan":
             Loan loan = parseLoan(arguments[1]);
-            if(loan != null) {
+            if (loan != null) {
                 LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
                 return new EditCommand(loan);
             }
@@ -88,8 +88,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         Loan loan = new Loan();
 
         String[] arguments = input.split(" ", 2);
-        int loan_id = Integer.parseInt(arguments[0].trim());
-        loan.setId(loan_id);
+        int loanId = Integer.parseInt(arguments[0].trim());
+        loan.setId(loanId);
         String parameters = arguments[1].trim();
 
         int index = LogicManager.getWallet().getLoanList().findIndexWithId(loan.getId());
@@ -97,9 +97,9 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (parameters.contains("/c")) {
             String[] getContact = parameters.split("/c");
-            int contact_id = Integer.parseInt(getContact[1].trim());
-            for(Contact contact : LogicManager.getWallet().getContactList().getContactList()) {
-                if(contact.getId() == contact_id) {
+            int contactId = Integer.parseInt(getContact[1].trim());
+            for (Contact contact : LogicManager.getWallet().getContactList().getContactList()) {
+                if (contact.getId() == contactId) {
                     System.out.println("Edit: Contact found! " + contact.toString());
                     loan.setPerson(contact);
                     break;

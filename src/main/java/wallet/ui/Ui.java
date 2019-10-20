@@ -4,6 +4,7 @@ import wallet.logic.LogicManager;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.thread.ChartThread;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -65,8 +66,7 @@ public class Ui {
     /**
      * Displays the expense list in table format.
      */
-    public static void printExpenseTable() {
-        ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
+    public static void printExpenseTable(ArrayList<Expense> expenseList) {
         System.out.println("Here are the expenses in your list:");
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------\n"
@@ -89,6 +89,11 @@ public class Ui {
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------");
         System.out.println("Total amount spent: $" + total);
+    }
+
+    public void drawPieChart() {
+        ChartThread chartThread = new ChartThread();
+        System.out.println("Please wait while we draw the pie chart...");
     }
 
     /**
@@ -118,9 +123,7 @@ public class Ui {
             }
 
             System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
-
         }
-
         System.out.println(lineBreak);
     }
 
@@ -129,26 +132,34 @@ public class Ui {
      */
     public static void printLoanTable() {
 
-        ArrayList<Loan> LoanList = LogicManager.getWallet().getLoanList().getLoanList();
+        ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
         System.out.println("Here are the loans in your list:");
         printLoanTableHeaders();
-        for (Loan loan : LoanList) {
+        for (Loan loan : loanList) {
             printLoanRow(loan);
         }
         printLoanTableClose();
     }
 
+    /**
+     * Default headers for Loan table.
+     */
     public static void printLoanTableHeaders() {
-        System.out.println("--------------------------------------------------------" +
-                "-------------------------------------------------------" +
-                "-------------------------------------\n"
-                + "|  ID  |  Settled  |              Description                 |  Amount  |    Date    |   " +
-                "Borrow/Lend   |    Contact Name    |    Contact Number   |\n"
-                + "|-----------------------------------------------------" +
-                "---------------------------------------------------------" +
-                "------------------------------------|");
+        System.out.println("--------------------------------------------------------"
+                + "-------------------------------------------------------"
+                + "-------------------------------------\n"
+                + "|  ID  |  Settled  |              Description                 |  Amount  |    Date    |   "
+                + "Borrow/Lend   |    Contact Name    |    Contact Number   |\n"
+                + "|-----------------------------------------------------"
+                + "---------------------------------------------------------"
+                + "------------------------------------|");
     }
 
+    /**
+     * Prints the specified Loan object in table format.
+     *
+     * @param loan The Loan object.
+     */
     public static void printLoanRow(Loan loan) {
         if (!loan.getIsLend() && !loan.getIsSettled()) {
             System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
@@ -169,9 +180,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints line to close of the Loans table.
+     */
     public static void printLoanTableClose() {
-        System.out.println("----------------------------------------" +
-                "---------------------------------------------------" +
-                "--------------------------------------------------------");
+        System.out.println("----------------------------------------"
+                + "---------------------------------------------------"
+                + "--------------------------------------------------------");
     }
 }

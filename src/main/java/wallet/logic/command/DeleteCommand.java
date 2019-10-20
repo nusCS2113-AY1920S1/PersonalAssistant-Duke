@@ -5,7 +5,6 @@ import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.model.task.Task;
 import wallet.ui.Ui;
 
 /**
@@ -43,13 +42,6 @@ public class DeleteCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         switch (object) {
-        case "task":
-            Task task = wallet.getTaskList().getTask(index);
-            wallet.getTaskList().deleteTask(index);
-            System.out.println(MESSAGE_SUCCESS_DELETE_TASK);
-            System.out.println(task.toString());
-            break;
-
         case "expense":
             Expense expense = wallet.getExpenseList().deleteExpense(index);
             if (expense != null) {

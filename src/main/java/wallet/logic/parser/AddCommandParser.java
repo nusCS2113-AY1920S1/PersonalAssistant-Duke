@@ -6,18 +6,11 @@ import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.model.task.Deadline;
-import wallet.model.task.DoWithinPeriod;
-import wallet.model.task.Event;
-import wallet.model.task.Task;
-import wallet.model.task.Todo;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class AddCommandParser implements Parser<AddCommand> {
     /**

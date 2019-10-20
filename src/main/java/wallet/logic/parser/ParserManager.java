@@ -1,18 +1,25 @@
 package wallet.logic.parser;
 
-import wallet.logic.LogicManager;
-import wallet.logic.command.*;
-
+import wallet.logic.command.AddCommand;
+import wallet.logic.command.Command;
+import wallet.logic.command.DeleteCommand;
+import wallet.logic.command.DoneCommand;
+import wallet.logic.command.EditCommand;
+import wallet.logic.command.ExitCommand;
+import wallet.logic.command.HelpCommand;
+import wallet.logic.command.HistoryCommand;
+import wallet.logic.command.ListCommand;
+import wallet.logic.command.ReminderCommand;
+import wallet.logic.command.SetBudgetCommand;
+import wallet.logic.command.ViewCommand;
 
 import java.text.ParseException;
-import java.util.ArrayList;
+
 
 /**
  * The ParserManager Class that handles all CommandParser classes.
  */
 public class ParserManager {
-
-    private static ArrayList<String> commandHistory;
 
     /**
      * Parses the user input command and returns the corresponding Command object.

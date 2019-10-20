@@ -54,7 +54,7 @@ public class SetBudgetCommand extends Command {
                     return false;
                 } else if (budgetList.getBudgetList().size() != 0 && budget.getAmount() > 0) {
                     int index = checkDuplicates(wallet.getBudgetList());
-                    if (index != -1) { //There is a duplicate
+                    if (index != -1) {
                         wallet.getBudgetList().editBudget(index, budget);
                     } else {
                         wallet.getBudgetList().addBudget(budget);

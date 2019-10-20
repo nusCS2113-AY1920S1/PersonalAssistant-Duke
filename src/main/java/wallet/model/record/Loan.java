@@ -68,9 +68,10 @@ public class Loan extends Record {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate){
+    public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
+
     /**
      * Returns true or false.
      *

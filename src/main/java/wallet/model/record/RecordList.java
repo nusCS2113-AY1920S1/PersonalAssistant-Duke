@@ -76,30 +76,4 @@ public class RecordList {
     public int getRecordListSize() {
         return recordList.size();
     }
-
-    /**
-     * Creates and populate a corresponding task object given its type.
-     *
-     * @param type        The type of task to be created.
-     * @param description The description of the task.
-     * @return The task object with its corresponding values.
-     */
-    /*
-    public Record createRecord(String type, String description) {
-        String[] info;
-
-        if (description.length() == 0) {
-            System.out.println("☹ OOPS!!! The description of " + type + " cannot be empty");
-            return null;
-        }
-        /*try {
-            if (type.equals("loan")) {
-
-            } else if (type.equals("Expense")) {
-
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("☹ OOPS!!! The date/time of a " + type + " cannot be empty");
-        }
-    }*/
 }

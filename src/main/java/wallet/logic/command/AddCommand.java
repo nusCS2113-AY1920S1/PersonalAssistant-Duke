@@ -4,7 +4,6 @@ import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.model.task.Task;
 import wallet.ui.Ui;
 
 /**
@@ -25,7 +24,6 @@ public class AddCommand extends Command {
             + MESSAGE_USAGE;
 
     private Expense expense = null;
-    private Task task = null;
     private Contact contact = null;
     private Loan loan = null;
 

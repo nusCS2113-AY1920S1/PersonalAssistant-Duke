@@ -5,16 +5,12 @@ import wallet.model.record.BudgetList;
 import wallet.model.record.ExpenseList;
 import wallet.model.record.LoanList;
 import wallet.model.record.RecordList;
-import wallet.model.task.ScheduleList;
-import wallet.model.task.TaskList;
 
 public class Wallet {
     private BudgetList budgetList;
     private RecordList recordList;
     private ExpenseList expenseList;
     private ContactList contactList;
-    private TaskList taskList;
-    private ScheduleList scheduleList;
     private LoanList loanList;
 
     /**
@@ -25,8 +21,6 @@ public class Wallet {
         this.recordList = new RecordList();
         this.expenseList = new ExpenseList();
         this.contactList = new ContactList();
-        this.taskList = new TaskList();
-        this.scheduleList = new ScheduleList();
         this.loanList = new LoanList();
     }
 
@@ -36,18 +30,14 @@ public class Wallet {
      * @param recordList The RecordList object.
      * @param expenseList The ExpenseList object.
      * @param contactList The ContactList object.
-     * @param taskList The TaskList object.
-     * @param scheduleList The ScheduleList object.
      * @param loanList The LoanList object.
      */
-    public Wallet(BudgetList budgetList, RecordList recordList, ExpenseList expenseList, ContactList contactList,
-                  TaskList taskList, ScheduleList scheduleList, LoanList loanList) {
+    public Wallet(BudgetList budgetList, RecordList recordList, ExpenseList expenseList,
+                  ContactList contactList, LoanList loanList) {
         this.budgetList = budgetList;
         this.recordList = recordList;
         this.expenseList = expenseList;
         this.contactList = contactList;
-        this.taskList = taskList;
-        this.scheduleList = scheduleList;
         this.loanList = loanList;
     }
 
@@ -111,42 +101,6 @@ public class Wallet {
      */
     public void setContactList(ContactList contactList) {
         this.contactList = contactList;
-    }
-
-    /**
-     * Returns the TaskList object.
-     *
-     * @return The TaskList object.
-     */
-    public TaskList getTaskList() {
-        return taskList;
-    }
-
-    /**
-     * Sets the TaskList object.
-     *
-     * @param taskList THe TaskList object.
-     */
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
-    }
-
-    /**
-     * Returns the ScheduleList object.
-     *
-     * @return The ScheduleList object.
-     */
-    public ScheduleList getScheduleList() {
-        return scheduleList;
-    }
-
-    /**
-     * Sets the ScheduleList object.
-     *
-     * @param scheduleList The ScheduleList object.
-     */
-    public void setScheduleList(ScheduleList scheduleList) {
-        this.scheduleList = scheduleList;
     }
 
     /**
