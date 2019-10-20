@@ -1,7 +1,6 @@
 package duke;
 
 import duke.dukeobject.Expense;
-import duke.dukeobject.ExpenseList;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -195,8 +194,11 @@ public class MainWindow extends BorderPane {
         }
     }
 
+    /**
+     * Updates View Scope Labels.
+     */
     public void updateViewScopeLabel() {
-        switch (duke.expenseList.getViewScope().getViewScopeName()){
+        switch (duke.expenseList.getViewScope().getViewScopeName()) {
         case DAY:
             dayLabel.setTextFill(Color.BLACK);
             weekLabel.setTextFill(Color.GRAY);
@@ -217,6 +219,7 @@ public class MainWindow extends BorderPane {
             weekLabel.setTextFill(Color.GRAY);
             yearLabel.setTextFill(Color.GRAY);
             allLabel.setTextFill(Color.GRAY);
+            break;
         case YEAR:
             yearLabel.setTextFill(Color.BLACK);
             dayLabel.setTextFill(Color.GRAY);
@@ -232,9 +235,11 @@ public class MainWindow extends BorderPane {
             allLabel.setTextFill(Color.BLACK);
             break;
         }
-
     }
 
+    /**
+     * Updates Filter labels.
+     */
     public void updateFilterLabel() {
         filterLabel.setText(duke.expenseList.getFilterCriteria());
     }

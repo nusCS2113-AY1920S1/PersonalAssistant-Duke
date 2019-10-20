@@ -96,6 +96,11 @@ public class ExpenseList extends DukeList<Expense> {
                 .collect(Collectors.toList());
         }
 
+        /**
+         * Returns a filtered list based on the view scope.
+         * @param currentList List of Expenses we want to filter down
+         * @return the filtered List of Expense
+         */
         public List<Expense> view(List<Expense> currentList) {
             switch (viewScopeName) {
             case DAY:
