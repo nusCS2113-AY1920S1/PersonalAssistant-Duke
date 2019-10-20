@@ -53,32 +53,57 @@ image::Ui.png[width="790"]
 
 To show the list of all command : `help`
 
-=== Adding a task (`todo` - `deadline` - `event`)
+Example:
 
-==== Adding a todo task:
+* `help`
+
+
+=== Adding a todo task:
 
 To add a todo task : `todo DESCRIPTION`
+An option could be add to give a priority to the task : `todo DESCRIPTION prio INDEX`
+
+Be careful:
+
+* The second INDEX can’t be less than 0 and more than 9.
+* 0 is the less urgent, 9 is the most urgent
 
 Examples:
 
 * `todo read book`
 * `todo buy book`
+* `todo sell book prio 3`
 
-==== Adding a deadline task:
+=== Adding a deadline task:
 
 To add a deadline task : `deadline DESCRIPTION /by DATE`
+An option could be add to give a priority to the task : `deadline DESCRIPTION /by DATE prio INDEX`
+
+Be careful:
+
+* The second INDEX can’t be less than 0 and more than 9.
+* 0 is the less urgent, 9 is the most urgent
 
 Example:
 
 * `deadline CS4239: lab3 /by 21/09/2019 23:59`
+* `deadline CS4239: lab4 /by 25/09/2019 23:59 prio 7`
 
-==== Adding a event task:
+=== Adding a event task:
 
 To add an event task : `event DESCRIPTION /at DATE - DATE`
+An option could be add to give a priority to the task : `event DESCRIPTION /at DATE - DATE prio INDEX`
+
+Be careful:
+
+* The second INDEX can’t be less than 0 and more than 9.
+* 0 is the less urgent, 9 is the most urgent
+
 
 Example:
 
 * `event CS4211: mid-term /at 07/10/2019 09:00 - 07/10/2019 11:00`
+* `event CS4211: final exam /at 07/12/2019 09:00 - 07/12/2019 11:00 prio 8`
 
 Be careful : when creating an event, two dates can’t clash
 
@@ -86,6 +111,9 @@ Be careful : when creating an event, two dates can’t clash
 === Find the task by keyword : `find`
 
 To find a task by keyword : `find KEYWORD`
+
+The find command will output a list of tasks whose description match with the keyword.
+The list of matched tasks is ordered by a fuzzy matching feature.
 
 Examples:
 
@@ -104,6 +132,10 @@ Example:
 === Show all the tasks: `list`
 
 To show all the tasks: `list`
+
+Example:
+
+* `list`
 
 === Mark a task as done : `done`
 
@@ -145,7 +177,11 @@ Example:
 
 === Remind the first three task : `remind`
 
-To remind the first three task: `remind`
+To remind the first three tasks chronologically : `remind`
+
+Example:
+
+* `remind`
 
 === Edit a task : `edit`
 
@@ -153,7 +189,8 @@ To edit a task: `edit`
 
 Then, you have to follow the instructions:
 
-* all the tasks will be showed, you have to choose a task INDEX
+1. all the tasks will be showed, you have to choose a task INDEX
+2. Depend on the type of task:
 * if it is a todo task, you can enter the new DESCRIPTION of the task
 * if it is not a todo task, you have to choose 1 if you want to edit the description and 2 if you want to edit the date
 - Then, enter the new DESCRIPTION or the new DATE of the task
@@ -187,8 +224,38 @@ Be careful:
 
 To exit the program : `bye`
 
+Example :
 
-=== Sort by (not implemented yet)
+* `bye`
+
+=== Get some statistics
+
+To get some statistics : `stats`
+
+Example:
+
+* `stats`
+
+Output:
+
+Here are some statistics about your task list:
+
+Number of tasks: 13.0
+
+Number of Todo's : 6.0
+
+Number of Events: 2.0
+
+Number of Deadlines: 5.0
+
+Number of Uncompleted Tasks: 13.0
+
+Number of Completed Tasks: 0.0
+
+Percent Complete: 0.0%
+
+
+=== Sort by
 
 Sort all task by date/description: `sort SORTTYPE`
 
@@ -200,7 +267,13 @@ Be careful:
 * Sorting by description is sorting the description by alphabetical order
 * Sorting by priority is from the most urgent one to the less urgent one
 
-=== Prioritize (not implemented yet)
+Examples:
+
+* `sort date`
+* `sort priority`
+* `sort description`
+
+=== Prioritize
 
 Giving priority to task: `prioritize INDEX prio INDEX`
 
@@ -210,11 +283,16 @@ The second INDEX is the priority (goes from 0 to 9)
 
 Be careful:
 
-* The second INDEX can’t be less than 0 and more than 9
+* The second INDEX can’t be less than 0 and more than 9.
 * 0 is the less urgent, 9 is the most urgent
 * When creating a task, you can either specify the priority or not. When the priority is not specified, the task will have a priority of 5.
 
-=== Display by day/week/month (not implemented yet)
+Example:
+
+* `prioritize 4 prio 2`
+* `prioritize 5 prio 8`
+
+=== Display by day/week/month
 
 Display all the task for one particular day/week/month: `display date DATETYPE DATE`
 
@@ -230,6 +308,17 @@ Be careful:
 
 * DATE must be in dd/MM/yyyy format for the DATETYPE day and week
 * DATE must be in MM/yyyy format for the DATETYPE month
+
+=== Shortcut
+
+Give shortcut to command : `shortcut`
+
+For each command, the console will output the command name.
+
+The user (you) have to input the shortcut you want.
+
+If the shortcut already exist, the console will tell you to assign another shortcut
+
 
 === Create task list (not implemented yet)
 
@@ -249,15 +338,6 @@ Display different task list, for example one task list for school, one task list
 INDEX is the task list index (if exist)
 
 
-=== Shortcut  (not implemented yet)
-
-Give shortcut to command : `shortcut`
-
-For each command, the console will output the command name.
-
-The user (you) have to input the shortcut you want.
-
-If the shortcut already exist, the console will tell you to assign another shortcut
 
 === Import other task list (not implemented yet)
 
@@ -302,16 +382,18 @@ A) Yes, if we have enough imagination and time and energy.
 * *edit* : `edit` and follow the instructions
 * *setwelcome* : `setwelcome WELCOME`
 * *bye* : `bye`
+* *stats* : `stats`
+* *sort* : `sort SORTTYPE`
+* *prioritize* : `prioritize INDEX prio INDEX`
+* *display* : `display date DATETYPE DATE`
+* *shortcut* : `shortcut`
+
 
 ====
 *Not implemented yet*
 
-* *sort* : `sort SORTTYPE`
-* *prioritize* : `prioritize INDEX prio INDEX`
-* *display* : `display date DATETYPE DATE`
 * *create a tasklist* : `tasklist DESCRIPTION`
 * *display tasklist* : `display tasklist INDEX`
-* *shortcut* : `shortcut`
 * *import file* : `Import FILENAME`
 * *subtask* : when creating the task, just add `sub INDEX` at the end
 

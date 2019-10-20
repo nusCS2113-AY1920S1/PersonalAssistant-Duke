@@ -12,7 +12,7 @@ public class ListCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String listShortcut = "list";
+    private static String listShortcut = "list";
     /**
      * Constructor of ListCommand.
      * @param user String which represent the input string of the user.

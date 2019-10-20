@@ -19,7 +19,7 @@ public class SortCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String sortShortcut = "sort";
+    private static String sortShortcut = "sort";
     /**
      * Constructor of leduc.command.SortCommand
      * @param user String which represent the input string of the user.

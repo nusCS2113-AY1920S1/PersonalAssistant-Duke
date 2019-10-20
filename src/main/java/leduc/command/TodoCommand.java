@@ -18,7 +18,7 @@ public class TodoCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String todoShortcut = "todo";
+    private static String todoShortcut = "todo";
     /**
      * Constructor of TodoCommand.
      * @param user String which represent the input string of the user.

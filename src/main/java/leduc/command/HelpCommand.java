@@ -12,7 +12,7 @@ public class HelpCommand extends Command{
     /**
      * static variable used for shortcut
      */
-    public static String helpShortcut = "help";
+    private static String helpShortcut = "help";
 
     /**
      * Constructor

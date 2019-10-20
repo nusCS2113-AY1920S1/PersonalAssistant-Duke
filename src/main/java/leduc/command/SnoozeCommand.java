@@ -15,7 +15,7 @@ public class SnoozeCommand extends Command{
     /**
      * static variable used for shortcut
      */
-    public static String snoozeShortcut = "snooze";
+    private static String snoozeShortcut = "snooze";
     /**
      * Constructor of SnoozeCommand.
      * @param user user String which represent the input string of the user.

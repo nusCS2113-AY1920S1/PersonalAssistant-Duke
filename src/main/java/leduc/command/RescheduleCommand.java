@@ -16,7 +16,7 @@ public class RescheduleCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String rescheduleShortcut = "reschedule";
+    private static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
      * @param user String which represent the input string of the user.
@@ -46,10 +46,10 @@ public class RescheduleCommand extends Command {
             DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
         String userSubstring;
         if(callByShortcut){
-            userSubstring = user.substring(RescheduleCommand.rescheduleShortcut.length()+1);
+            userSubstring = user.substring(RescheduleCommand.rescheduleShortcut.length());
         }
         else {
-            userSubstring = user.substring(11);
+            userSubstring = user.substring(10);
         }
         if(userSubstring.isBlank()){
             throw new EmptyArgumentException();

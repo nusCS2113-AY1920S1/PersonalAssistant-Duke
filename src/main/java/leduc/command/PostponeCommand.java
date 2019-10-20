@@ -17,7 +17,7 @@ public class PostponeCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String postponeShortcut = "postpone";
+    private static String postponeShortcut = "postpone";
     /**
      * Constructor of PostponeCommand.
      * @param user String which represent the input string of the user.

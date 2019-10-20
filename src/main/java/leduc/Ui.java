@@ -2,11 +2,13 @@ package leduc;
 
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
+import leduc.task.Task;
 import leduc.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.
@@ -119,6 +121,17 @@ public class Ui {
         System.out.println("\t---------------------------------------------------------------------------------");
     }
 
+    public void showNotCompleteList(ArrayList<Task> notCompleteTasks, TaskList tasks){//print the task so they have the same index
+        System.out.println("\t---------------------------------------------------------------------------------");
+        System.out.println("\t Here are the tasks in your list:");
+        for(int i = 0; i < tasks.size(); i++){
+            if(notCompleteTasks.contains(tasks.get(i))){
+                System.out.print(tasks.displayOneElementList(i));
+            }
+        }
+        System.out.println("\t---------------------------------------------------------------------------------");
+    }
+
     /**
      * Display the error message
      * @param e the error that has been catch
@@ -142,7 +155,8 @@ public class Ui {
         System.out.println("\t INDEX : the index of the task (goes from 1 to ...)");
         System.out.println("\t KEYWORD : the keyword to find a task");
         System.out.println("\t WELCOME: the welcome message");
-        System.out.println("\t Date format is DD/MM/YYYY HH:mm");
+        System.out.println("\t DATEOPTION");
+        System.out.println("\t Date format is DD/MM/YYYY HH:mm except for show");
         System.out.println("\t All blank space should be respected");
         System.out.println("\t Here are the list of all command:");
         System.out.println("\t todo DESCRIPTION : create a todo task");
@@ -160,6 +174,8 @@ public class Ui {
         System.out.println("\t remind : remind the first three task");
         System.out.println("\t setwelcome WELCOME : customize the welcome message");
         System.out.println("\t edit : edit a task (then, you have to follow the instructions)");
+        System.out.println("\t show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; " +
+                "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
         System.out.println("\t help : show the list of all command");
         System.out.println("\t---------------------------------------------------------------------------------");
     }

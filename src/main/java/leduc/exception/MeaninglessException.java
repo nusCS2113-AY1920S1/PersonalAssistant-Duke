@@ -16,6 +16,6 @@ public class MeaninglessException extends DukeException {
      * @return the error message
      */
     public String print(){
-        return "\t MeaningLessException:\n\t\t OOPS!!! I'm sorry, but I don't know what that means :-(\"";
+        return "\t MeaninglessException:\n\t\t OOPS!!! I'm sorry, but I don't know what that means :-(\"";
     }
 }

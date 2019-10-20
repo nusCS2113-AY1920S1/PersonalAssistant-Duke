@@ -34,6 +34,15 @@ public abstract class Task {
     /**
      * Constructor of leduc.task.Task
      * @param task String representing the description of the leduc.task.Task.
+     */
+    protected Task (String task, String mark){
+        this.task = task;
+        this.mark = mark;
+    }
+
+    /**
+     * Constructor of leduc.task.Task
+     * @param task String representing the description of the leduc.task.Task.
      * @param priority the priority of the task
      */
     protected Task (String task, String mark, int priority){

@@ -1,12 +1,6 @@
 package leduc;
 
 import leduc.command.*;
-import leduc.exception.NonExistentDateException;
-import leduc.task.DeadlinesTask;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Represents a leduc.Parser which deals with making sense of the user command.
@@ -115,17 +109,24 @@ public class Parser {
             c = new SetWelcomeCommand(user);
             c.calledByShortcut();
         }
-        else if (user.matches(RemindCommand.getRemindShortcut())) {
+        else if (user.matches("show (.*)") | user.matches("show")) {
+            c = new ShowCommand(user);
+        }
+        else if (user.matches( ShowCommand.getShowShortcut() + " (.*)") | user.matches(ShowCommand.getShowShortcut())) {
+            c = new ShowCommand(user);
+            c.calledByShortcut();
+        }
+        else if (user.matches(RemindCommand.getRemindShortcut()) || user.matches("remind")) {
             c = new RemindCommand(user);
         }
-        else if(user.matches(HelpCommand.getHelpShortcut())){
+        else if(user.matches(HelpCommand.getHelpShortcut()) || user.matches("help")){
             c = new HelpCommand(user);
         }
-        else if (user.matches(ByeCommand.getByeShortcut())){
+        else if (user.matches(ByeCommand.getByeShortcut()) || user.matches("bye")){
             c = new ByeCommand(user);
         }
 
-        else if (user.matches(StatsCommand.getStatsShortcut())){
+        else if (user.matches(StatsCommand.getStatsShortcut()) || user.matches("stats")){
             c = new StatsCommand(user);
         }
         else if(user.matches("shortcut") | user.matches("shortcut (.*)")){

@@ -65,15 +65,49 @@ public class Storage {
             String line = sc.nextLine();
             String[] tokens = line.split("//");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+            int priority = -1 ;
             switch (tokens[0]){
                 case "T" :
-                    tasks.add(new TodoTask(tokens[2], tokens[1].trim(), Integer.parseInt(tokens[3].trim())));
+                    if (tokens.length ==3 ){ // priority not specified
+                        tasks.add(new TodoTask(tokens[2],tokens[1].trim()));
+                    }
+                    else {
+                        priority =  Integer.parseInt(tokens[3].trim());
+                        if (priority < 0 || priority > 9) { // the priority is set by default to 5
+                            tasks.add(new TodoTask(tokens[2], tokens[1].trim()));
+                        }
+                        else {
+                            tasks.add(new TodoTask(tokens[2], tokens[1].trim(),priority));
+                        }
+                    }
                     break;
                 case "D" :
-                    tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), Integer.parseInt(tokens[4].trim())));
+                    if (tokens.length ==4 ){ // priority not specified
+                        tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
+                    }
+                    else {
+                        priority =  Integer.parseInt(tokens[4].trim());
+                        if (priority < 0 || priority > 9) { // the priority is set by default to 5
+                            tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter))));
+                        }
+                        else {
+                            tasks.add(new DeadlinesTask(tokens[2],tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)),priority));
+                        }
+                    }
                     break;
                 case "E":
-                    tasks.add(new EventsTask(tokens[2], tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), new Date(LocalDateTime.parse(tokens[4], formatter)), Integer.parseInt(tokens[5].trim())));
+                    if (tokens.length ==5 ){ // priority not specified
+                        tasks.add(new EventsTask(tokens[2], tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), new Date(LocalDateTime.parse(tokens[4], formatter))));
+                    }
+                    else {
+                        priority =  Integer.parseInt(tokens[5].trim());
+                        if (priority < 0 || priority > 9) { // the priority is set by default to 5
+                            tasks.add(new EventsTask(tokens[2], tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), new Date(LocalDateTime.parse(tokens[4], formatter))));
+                        }
+                        else {
+                            tasks.add(new EventsTask(tokens[2], tokens[1].trim(), new Date(LocalDateTime.parse(tokens[3], formatter)), new Date(LocalDateTime.parse(tokens[4], formatter)),priority));
+                        }
+                    }
                     break;
             }
         }
