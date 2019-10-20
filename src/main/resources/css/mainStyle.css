@@ -71,6 +71,11 @@
     -fx-background-size: 400 300;
 }
 
+#LocationCard {
+    -fx-background-image: url("../images/two.png");
+    -fx-background-size: contain;
+}
+
 .button {
     -fx-background-color : linear-gradient(to bottom right, mediumseagreen, midnightblue);
     -fx-border-width: 2;
