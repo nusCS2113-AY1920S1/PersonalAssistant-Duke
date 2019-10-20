@@ -47,7 +47,7 @@ public class ConfirmTentativeCommand extends Command {
                 duke.expenseList.remove(index);
                 expense.setTentative(false);
                 duke.expenseList.add(expense);
-            }else {
+            } else {
                 throw new DukeException(index + " is not a tentative task!");
             }
         } catch (NumberFormatException e) {
