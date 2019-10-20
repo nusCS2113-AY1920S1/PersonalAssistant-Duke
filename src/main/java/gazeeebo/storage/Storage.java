@@ -3,6 +3,11 @@ package gazeeebo.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 
+import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.DoAfter;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.FixedDuration;
 import gazeeebo.tasks.Task;
 import gazeeebo.tasks.*;
 import gazeeebo.TriviaManager.TriviaManager;
@@ -24,6 +29,7 @@ public class Storage {
     private String absolutePath_Expenses = "Expenses.txt";
     private String absolutePath_Places = "Places.txt";
     private String absolutePath_Trivia = "Trivia.txt";
+    private String absolutePath_GPA = "Gpa.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -260,6 +266,36 @@ public class Storage {
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public void Storages_gpa(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_GPA);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+
+    /**
+     * This method read from the file Contact.txt and put the details into a HashMap
+     *
+     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
+     * @throws IOException
+     */
+    public HashMap<String, GPACommand> gpa() throws IOException {
+        HashMap<String, GPACommand> gpaList = new HashMap<String, GPACommand>();
+        if (new File(absolutePath_GPA).exists()) {
+            File file = new File(absolutePath_GPA);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                int firstNo = Integer.parseInt(split[1]);
+                double secondNo = Double.parseDouble(split[2]);
+                GPACommand gpa = new GPACommand(firstNo,secondNo);
+                gpaList.put(split[0], gpa);
+            }
+        }
+        return gpaList;
     }
 
 }

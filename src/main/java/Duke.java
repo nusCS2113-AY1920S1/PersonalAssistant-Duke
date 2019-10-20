@@ -35,9 +35,10 @@ public class Duke {
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             ui.UpcomingTask(list);
+            ui.MajorCategories();
             while (!isExit) {
-                ui.ReadCommand();
-                String command = ui.FullCommand.trim();
+                ui.readCommand();
+                String command = ui.fullCommand.trim();
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store, CommandStack, deletedTask,triviaManager);
                 if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {

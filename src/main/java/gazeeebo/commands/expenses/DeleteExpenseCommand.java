@@ -34,8 +34,8 @@ public class DeleteExpenseCommand {
         }
 
          /* Reading the expense index that is entered*/
-        ui.ReadCommand();
-        String expenseIndex = ui.FullCommand;
+        ui.readCommand();
+        String expenseIndex = ui.fullCommand;
         int index = Integer.parseInt(expenseIndex) - 1;
         System.out.println("Expense " +  expenseList.get(index) + " deleted!");
 
