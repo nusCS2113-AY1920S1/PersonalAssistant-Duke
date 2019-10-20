@@ -1,6 +1,7 @@
 package command;
 
 import exception.DukeException;
+import room.RoomList;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -28,6 +29,10 @@ public abstract class Command {
      */
     public void execute(BookingList bookingList, Ui ui, Storage bookingStorage, User user)
             throws DukeException, IOException, ParseException {
+    }
+
+    public void execute(RoomList roomList, Ui ui, Storage roomStorage) throws IOException {
+
     }
 
     public boolean isExit() {
