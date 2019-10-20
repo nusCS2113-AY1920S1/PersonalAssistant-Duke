@@ -1,5 +1,6 @@
 package UserCode.Tasks;
 
+import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import Places.Farm;
 import UserCode.Actions.Action;
@@ -13,11 +14,11 @@ public class ForTask extends Task { //JX PLEASE FILL THIS SHIT UP
     }
 
     @Override
-    public void execute(Farmio farmio) { //if got error during the loop we use FarmioException to break out
+    public void execute(Farmio farmio) throws FarmioFatalException { //if got error during the loop we use FarmioException to break out
         {
             int repeatNumber = 0;
             for (int i = 0; i < repeatNumber; i ++) {
-                action.execute(farmio.getUi());
+                action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer());
             }
         }
     }

@@ -1,13 +1,14 @@
 package UserCode.Actions;
 
-import Farmio.Farmio;
+import Exceptions.FarmioFatalException;
+import Farmio.Farmer;
+import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class HarvestWheatAction extends Action {
 
-    public HarvestWheatAction(Farmio farmio) {
-        super(farmio);
+    public HarvestWheatAction() {
         this.type = ActionType.harvestWheat;
     }
 
@@ -16,13 +17,9 @@ public class HarvestWheatAction extends Action {
     }*/
 
     @Override
-    public void execute(Ui ui) {
-        try {
-            farmer.getWheatFarm().harvestWheat();
-            Simulation.animate(ui, farmio.getStorage(), farmio.getFarmer(), "HarvestWheatSimulation", 0, 9);
-        } catch (Exception e){
-            e.getMessage();
-        }
+    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException {
+        farmer.getWheatFarm().harvestWheat();
+        Simulation.animate(ui, storage, farmer, "HarvestWheatSimulation", 0, 9);
     }
 
 //    public JSONObject toJSON() {

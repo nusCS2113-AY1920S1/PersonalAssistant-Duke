@@ -1,43 +1,35 @@
 package UserCode.Actions;
 
-
-import Farmio.Farmio;
+import Exceptions.FarmioFatalException;
+import Farmio.Storage;
 import Exceptions.FarmioException;
 import FrontEnd.Ui;
 import Farmio.Farmer;
 
 public abstract class Action {
-    Farmer farmer;
-    Farmio farmio;
+
     ActionType type;
 
-    public Action() {}
-
     /**
-    public Action(JSONObject obj) {
-        this.wheatFarm = new WheatFarm((JSONObject) obj.get("farm_wheat"));
-        this.chickenFarm = new ChickenFarm((JSONObject) obj.get("farm_chicken"));
-        this.cowFarm = new CowFarm((JSONObject) obj.get("farm_cow"));
-    }
-    **/
-    public Action(Farmio farmio) {
-        this.farmer = farmio.getFarmer();
-        this.farmio = farmio;
-    }
+     * public Action(JSONObject obj) {
+     * this.wheatFarm = new WheatFarm((JSONObject) obj.get("farm_wheat"));
+     * this.chickenFarm = new ChickenFarm((JSONObject) obj.get("farm_chicken"));
+     * this.cowFarm = new CowFarm((JSONObject) obj.get("farm_cow"));
+     * }
+     **/
 
-    public abstract void execute(Ui ui);
+    public abstract void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException;
 
     public static boolean validateAction(String userInput) {
         for (ActionType type : ActionType.values()) {
-            if ((type.name()).toLowerCase() .equals(userInput)) {
+            if ((type.name()).toLowerCase().equals(userInput)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static Action stringToAction(String actionName, Farmio farmio) throws FarmioException {
-        Action action;
+    public static Action stringToAction(String actionName) throws FarmioException {
         ActionType actionType = ActionType.buySeeds;
         for (ActionType a : ActionType.values()) {
             if ((a.name()).toLowerCase().equals(actionName)) {
@@ -46,21 +38,21 @@ public abstract class Action {
         }
         switch (actionType) {
             case buySeeds:
-                return new BuySeedAction(farmio);
+                return new BuySeedAction();
             case harvestWheat:
-                return new HarvestWheatAction(farmio);
+                return new HarvestWheatAction();
             case plantSeeds:
-                return new PlantSeedAction(farmio);
+                return new PlantSeedAction();
             case sellWheat:
-                return new SellWheatAction(farmio);
+                return new SellWheatAction();
             case gotoMarket:
-                return new GotoMarketAction(farmio);
+                return new GotoMarketAction();
             default:
-            throw new FarmioException("Error Creating Action!");
+                throw new FarmioException("Error Creating Action!");
         }
     }
 
-    public String toString () {
+    public String toString() {
         return type.name();
     }
 

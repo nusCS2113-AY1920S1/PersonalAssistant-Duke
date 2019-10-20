@@ -1,6 +1,7 @@
 package Farmio;
 
 import Exceptions.FarmioException;
+import Exceptions.FarmioFatalException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
@@ -57,11 +58,17 @@ public class Farmer {
         return money;
     }
 
-    public int getLevel() { return level;}
+    public int getLevel() {
+        return level;
+    }
 
-    public int getDay() {return day;}
+    public int getDay() {
+        return day;
+    }
 
-    public String getLocation() {return location;}
+    public String getLocation() {
+        return location;
+    }
 
     public void changeLocation(String newLocation) {
         location = newLocation;
@@ -70,35 +77,40 @@ public class Farmer {
     public ArrayList<Pair<String, Integer>> getAssets() {
         ArrayList<Pair<String, Integer>> assets = new ArrayList<Pair<String, Integer>>();
 
-        if(level == 1) {
+        if (level == 1) {
             assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
             assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-        }
-        else if(level == 2) {
+        } else if (level == 2) {
             assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
             assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
             assets.add(new Pair<>("Chicken", 0));
             assets.add(new Pair<>("Eggs", 0));
-        }
-        else if(level == 3)
-        {
+        } else if (level == 3) {
             assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
             assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-            assets.add(new Pair<>("Chicken",0));
-            assets.add(new Pair<>("Eggs",0));
-            assets.add(new Pair<>("Milk",0));
+            assets.add(new Pair<>("Chicken", 0));
+            assets.add(new Pair<>("Eggs", 0));
+            assets.add(new Pair<>("Milk", 0));
         }
         return assets;
     }
 
 
-    public WheatFarm getWheatFarm() { return  wheatFarm; }
+    public WheatFarm getWheatFarm() {
+        return wheatFarm;
+    }
 
-    public ChickenFarm getChickenFarm() { return chickenFarm; }
+    public ChickenFarm getChickenFarm() {
+        return chickenFarm;
+    }
 
-    public CowFarm getCowFarm() { return cowFarm; }
+    public CowFarm getCowFarm() {
+        return cowFarm;
+    }
 
-    public TaskList getTasks() { return tasks; }
+    public TaskList getTasks() {
+        return tasks;
+    }
 
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
@@ -108,27 +120,39 @@ public class Farmer {
         }
         return false;
     }
-    public void setfailetask() {hasfailedCurrentTask = true;}
 
-    public void setMoney(int money){
+    public void setTaskFailed() {
+        hasfailedCurrentTask = true;
+    }
+
+    public void setMoney(int money) {
         this.money = money;
     }
 
-    public void changeMoney(int change) { money -= change; }
+    public void spentMoney(int cost) {
+        money -= cost;
+    }
 
-    public int getCurrentTask() {return this.currentTask;}
-    public void nextLevel(){
+    public void earnMoney(int profit) {
+        money += profit;
+    }
+
+    public int getCurrentTask() {
+        return this.currentTask;
+    }
+
+    public void nextLevel() {
         ++this.level;
     }
 
-    public void startDay(Farmio farmio) throws FarmioException {
+    public void startDay(Farmio farmio) throws FarmioException, FarmioFatalException {
         for (int i = 0; i < tasks.size(); i++) {
             this.currentTask = i;
             tasks.get(i).execute(farmio);
         }
     }
 
-    public JSONObject toJSON(){
+    public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
         obj.put("level", level);
         obj.put("money", money);
