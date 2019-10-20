@@ -84,11 +84,9 @@ public class Ui {
     /**
      * This function tells the user that SpongeBob has added a batch of lockers to the list.
      * @param num  stores the number of lockers that are added
-     * @param serialNumber stores the serial number of the first locker added
      */
-    public void printBatch(int num,int serialNumber) {
-        printSpaces(" Got it. I have added " + num + " lockers with serial numbers #"
-                + serialNumber + "- #" + (serialNumber + num - 1));
+    public void printBatch(int num) {
+        printSpaces(" Got it. I have added " + num + " lockers");
         printDash();
     }
 

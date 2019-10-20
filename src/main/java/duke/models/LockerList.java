@@ -22,6 +22,10 @@ public class LockerList {
         lockerList.add(locker);
     }
 
+    public void addAllLockersInList(List<Locker> lockers) {
+        lockerList.addAll(lockers);
+    }
+
     public void deleteLocker(Locker locker) {
         lockerList.remove(locker);
     }
