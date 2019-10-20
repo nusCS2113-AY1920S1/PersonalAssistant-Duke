@@ -13,4 +13,8 @@ public class RoomList extends ArrayList<Room> {
                     splitStr[Constants.ROOMDATE], splitStr[Constants.ROOMTIMESLOT]));
         }
     }
+
+    public RoomList() {
+        super();
+    }
 }

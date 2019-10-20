@@ -1,5 +1,6 @@
 package command;
 
+import control.Duke;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
@@ -31,7 +32,7 @@ public abstract class Command {
             throws DukeException, IOException, ParseException {
     }
 
-    public void execute(RoomList roomList, Ui ui, Storage roomStorage) throws IOException {
+    public void execute(RoomList roomList, Ui ui, Storage roomStorage) throws DukeException, IOException {
 
     }
 

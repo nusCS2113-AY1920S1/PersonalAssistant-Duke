@@ -21,7 +21,7 @@ public class BookingList extends ArrayList<Booking> {
         }
     }
 
-    public BookingList(){
+    public BookingList() {
         super();
     };
 
