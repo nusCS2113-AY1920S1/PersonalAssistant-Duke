@@ -1,6 +1,7 @@
 package Operations;
 
 import CustomExceptions.RoomShareException;
+import Enums.ExceptionType;
 import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
@@ -41,19 +42,27 @@ public class TaskCreator {
 
         // extract the description
         String[] descriptionArray = input.split("\\(");
-        String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
-        String description = descriptionArray2[0].trim();
+        String description;
+        try {
+            String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
+            description = descriptionArray2[0].trim();
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            throw new RoomShareException(ExceptionType.emptyDescription);
+        }
 
         // extract date
         String dateArray[] = input.split("&");
-        String dateInput = dateArray[1].trim();
         Date date;
-        try {
-            date = new Parser().formatDate(dateInput);
-        } catch (RoomShareException e) {
-            System.out.println("Wrong date format");
-            date = new Date();
-        }
+        if (dateArray.length != 1) {
+            String dateInput = dateArray[1].trim();
+            try {
+                date = new Parser().formatDate(dateInput);
+            } catch (RoomShareException e) {
+                System.out.println("Wrong date format, date is set default to current date");
+                date = new Date();
+            }
+        } else throw new RoomShareException(ExceptionType.emptyDate);
 
         // extract the assignee
         String[] assigneeArray = input.split("@");
@@ -81,14 +90,20 @@ public class TaskCreator {
 
         //extract duration
         String[] durationArray = input.split("\\^");
-        String[] inputDuration = durationArray[1].split(" ");
         int duration;
         TimeUnit unit;
-        try {
-            duration = Integer.parseInt(inputDuration[0].trim());
-            unit = TimeUnit.valueOf(inputDuration[1].trim());
+        if (durationArray.length != 1) {
+            try {
+                String[] inputDuration = durationArray[1].split(" ");
+                duration = Integer.parseInt(inputDuration[0].trim());
+                unit = TimeUnit.valueOf(inputDuration[1].trim());
+            } catch (IllegalArgumentException e) {
+                System.out.println("There's a problem with the duration you've specified, default to no duration");
+                duration = 0;
+                unit = TimeUnit.unDefined;
+            }
         }
-        catch (IllegalArgumentException e) {
+        else {
             duration = 0;
             unit = TimeUnit.unDefined;
         }
@@ -99,9 +114,7 @@ public class TaskCreator {
             assignment.setAssignee(assignee);
             assignment.setRecurrenceSchedule(recurrence);
             return assignment;
-        }
-
-        if (type.contains("meeting")) {
+        } else if (type.contains("meeting")) {
             if (unit.equals(TimeUnit.unDefined)) {
                 // duration was not specified or not correctly input
                 Meeting meeting = new Meeting(description,date);
@@ -118,7 +131,6 @@ public class TaskCreator {
                 return meeting;
             }
         }
-
-        return null;
+        else throw new RoomShareException(ExceptionType.wrongTaskType);
     }
 }

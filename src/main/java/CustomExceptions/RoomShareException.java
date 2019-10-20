@@ -10,6 +10,9 @@ public class RoomShareException extends Exception {
     private static final String wrongFormat_Text = "Wrong Format Detected";
     private static final String wrongPriority_Text = "Wrong Priority Detected";
     private static final String subTask_Text = "Meetings do not support Subtasks";
+    public static final String wrongTaskType_Text = "only meeting or assignment tag are accepted";
+    public static final String emptyDescription_Text = "You haven't included the description of you task";
+    public static final String emptyDate_Text = "You haven't included the date of your task";
 
     /**
      * Constructor for DukeException Exception
@@ -41,11 +44,22 @@ public class RoomShareException extends Exception {
             System.out.println(subTask_Text);
             break;
 
+        case wrongTaskType:
+            System.out.println(wrongTaskType_Text);
+            break;
+
+        case emptyDescription:
+            System.out.println(emptyDescription_Text);
+            break;
+
+        case emptyDate:
+            System.out.println(emptyDate_Text);
+            break;
+
         default:
             System.out.println(anomaly_Text);
             break;
         }
     }
-
 
 }
