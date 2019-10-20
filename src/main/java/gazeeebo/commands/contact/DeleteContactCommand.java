@@ -27,7 +27,7 @@ public class DeleteContactCommand {
             System.out.print("Incorrect format: delete name\n");
         } else if (contact.containsKey(nameToDelete)) {
             contact.remove(nameToDelete);
-            System.out.print(nameToDelete + " has been removed.\n");
+            System.out.print("Successfully deleted: "+ nameToDelete + "\n");
         } else {
             System.out.print(nameToDelete + " is not in the list.\n");
         }

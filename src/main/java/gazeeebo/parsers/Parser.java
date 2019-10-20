@@ -1,6 +1,6 @@
 package gazeeebo.parsers;
 
-import gazeeebo.commands.ByeCommand;
+import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
 import gazeeebo.commands.gpacalculator.GPACommand;
@@ -27,9 +27,10 @@ public class Parser {
         } else if(splitCommand[0].equals("tasks")) {
             return new taskCommand();
         } else if(splitCommand[0].equals("gpa")) {
+            String moduleCode = "";
             int moduleCredit = 0;
             double score = 0.0;
-            return new GPACommand(moduleCredit,score);
+            return new GPACommand(moduleCode,moduleCredit,score);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

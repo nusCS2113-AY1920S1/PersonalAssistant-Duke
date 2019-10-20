@@ -51,6 +51,7 @@ public class ContactsCommand extends Command {
                 toStore = toStore.concat(key + "|" + contact.get(key) + "\n");
             }
             storage.Storages_Contact(toStore);
+            System.out.println("What do you want to do next ?");
             ui.readCommand();
         }
         System.out.println("Going back to Main Menu");
