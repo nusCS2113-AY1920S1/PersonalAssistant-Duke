@@ -16,6 +16,7 @@ public class SoldCommand extends Command{
 
 	public SoldCommand (String foodName, int quantity) {
 		this.foodName = foodName;
+		this.quantity = quantity;
 	}
 
 	public void checkValid(Food foodSold, FoodList list) throws CommandException {
