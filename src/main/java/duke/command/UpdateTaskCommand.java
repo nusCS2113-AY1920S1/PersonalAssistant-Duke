@@ -2,6 +2,8 @@ package duke.command;
 
 import duke.core.DukeException;
 import duke.core.Ui;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.task.Task;
 import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
@@ -52,7 +54,6 @@ public class UpdateTaskCommand extends Command {
                 }
 
                 taskStorage.save(taskManager.getTaskList());
-
                 ui.showUpdatedSuccessfully();
                 ui.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {

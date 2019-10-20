@@ -28,6 +28,12 @@ public class CommandManager {
      */
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
+        String possibleCommand = TypoCorrector.commandCorrection(userInput);
+        if (!possibleCommand.equals(userInput)) {
+            if (Ui.getUi().confirmTypoCorrection(possibleCommand, userInput)) {
+                userInput = possibleCommand;
+            }
+        }
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
         Parser parser = new Parser(userInput);
@@ -36,10 +42,12 @@ public class CommandManager {
             String secondKeyword = command[1].toLowerCase();
             if (secondKeyword.equals("patient")) {
                 String[] formattedInput = parser.parseAdd();
-                return new AddPatientCommand(formattedInput);
+                AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
+                return addPatientCommand;
             } else if (secondKeyword.equals("task")) {
                 String formattedInput = parser.parseAdd()[0];
-                return new AddStandardTaskCommand(formattedInput);
+                AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
+                return addStandardTaskCommand;
             } else {
                 throw new DukeException("Add command fails. ");
             }
@@ -109,9 +117,10 @@ public class CommandManager {
                 throw new DukeException("update command fails. " + e.getMessage());
             }
         case "bye":
-            return new ExitCommand();
+            ExitCommand exitCommand = new ExitCommand();
+            return exitCommand;
         default:
-            throw new DukeException("Could not understand user input.");
+            throw new DukeException("Could not understand user input");
         }
     }
 }

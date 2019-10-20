@@ -6,6 +6,8 @@ import duke.patient.Patient;
 import duke.patient.PatientManager;
 import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -73,9 +75,7 @@ public class FindPatientTaskCommand extends Command {
                 }
                 for (PatientTask temppatientTask : patientWithTask) {
                     tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
-                    //System.out.println(temppatientTask.getTaskID() + "\n");
                 }
-
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
             } catch (Exception e) {
                 throw new DukeException(e.getMessage()

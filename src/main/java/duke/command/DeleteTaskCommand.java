@@ -3,6 +3,8 @@ package duke.command;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;

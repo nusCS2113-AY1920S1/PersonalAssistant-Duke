@@ -3,6 +3,8 @@ package duke.command;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -15,28 +17,32 @@ public class AddStandardTaskCommand extends Command {
 
     /**
      * .
+     *
      * @param taskDescription .
      */
     public AddStandardTaskCommand(String taskDescription) {
         super();
         this.newStandardTask = new Task(taskDescription);
+
     }
 
     /**
      * .
-     * @param patientTask .
-     * @param taskList .
-     * @param patientList .
-     * @param ui .
+     *
+     * @param patientTask        .
+     * @param taskList           .
+     * @param patientList        .
+     * @param ui                 .
      * @param patientTaskStorage .
-     * @param taskStorage .
-     * @param patientStorage .
+     * @param taskStorage        .
+     * @param patientStorage     .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskList, PatientManager patientList,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
+
         taskList.addTask(newStandardTask);
         taskStorage.save(taskList.getTaskList());
         ui.taskAdded(newStandardTask);
@@ -46,4 +52,5 @@ public class AddStandardTaskCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }

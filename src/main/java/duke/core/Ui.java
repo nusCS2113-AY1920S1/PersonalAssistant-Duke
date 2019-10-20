@@ -326,6 +326,28 @@ public class Ui {
     }
 
     /**
+     * It confirms with user on the deletion of a task.
+     * If user confirms, key in 'Y'. Otherwise key in 'N'.
+     *
+     * @param correctedCommand the correctedCommand
+     * @return true if user confirmed the deletion. False otherwise.
+     */
+    public boolean confirmTypoCorrection(String correctedCommand, String userInput) {
+        System.out.println("Ambiguous format! Did you mean(Y/N): \n" + correctedCommand);
+        while (true) {
+            String command = readCommand();
+            if (command.toLowerCase().equals("y")) {
+                return true;
+            } else if (command.toLowerCase().equals("n")) {
+                System.out.println("Proceed with original command: " + userInput);
+                return false;
+            } else {
+                System.out.println("Please enter only Y/N to proceed with recommended command: " + correctedCommand);
+            }
+        }
+    }
+
+    /**
      * Shows a divider line.
      */
     public void showLine() {
