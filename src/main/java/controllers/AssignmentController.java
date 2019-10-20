@@ -44,12 +44,10 @@ public class AssignmentController {
             //assigning tasks
             for (Integer assigneeIndex : validMembersToAssign) {
                 Member member = project.getMembers().getMember(assigneeIndex);
-                if (!project.containsAssignment(task, member)){
-                    System.out.println("UNSUCCESSFUL ASSIGNMENT HERE");
+                if (project.containsAssignment(task, member)){
                     successMessages.add("Task has already been assigned to member "
                     + assigneeIndex + " (" + member.getName() +").");
                 } else {
-                    System.out.println("ASSIGNMENT HERE");
                     project.addTaskToMemberTaskList(task, member);
                     successMessages.add("Assigned to member " + assigneeIndex +
                         " (" + member.getName() +").");
@@ -58,13 +56,11 @@ public class AssignmentController {
             //unassigning tasks
             for (Integer unassigneeIndex : validMembersToUnassign) {
                 Member member = project.getMembers().getMember(unassigneeIndex);
-                if (project.containsAssignment(task, member)){
-                    System.out.println("UNSUCCESSFUL UNASSIGNMENT HERE");
+                if (!project.containsAssignment(task, member)){
                     successMessages.add("Task cannot be unassigned from member "
                         + unassigneeIndex + " (" + member.getName() +") as it was "
                         + "not assigned in the first place!");
                 } else {
-                    System.out.println("SUCCESSFUL UNASSIGNMENT HERE");
                     project.unassignMemberFromTask(member, task);
                     successMessages.add("Unassigned task from member " + unassigneeIndex +
                         " (" + member.getName() +").");
@@ -123,13 +119,19 @@ public class AssignmentController {
      * Removes index number and informs user if so.
      */
     private void checkForSameMemberIndexes() {
+        ArrayList<Integer> repeated = new ArrayList<>();
         for (Integer index: validMembersToAssign) {
             if (validMembersToUnassign.contains(index)) {
+                repeated.add(index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
                 + project.getMembers().getMember(index).getName() + ") at the same time");
-                validMembersToAssign.remove(validMembersToAssign.indexOf(index));
-                validMembersToUnassign.remove(validMembersToUnassign.indexOf(index));
+
             }
+        }
+
+        for (Integer index: repeated) {
+            validMembersToAssign.remove(validMembersToAssign.indexOf(index));
+            validMembersToUnassign.remove(validMembersToUnassign.indexOf(index));
         }
     }
 

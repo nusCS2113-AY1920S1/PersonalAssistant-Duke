@@ -1,5 +1,6 @@
 package models.member;
 
+import java.util.Objects;
 import models.task.Task;
 
 public class Member implements IMember {
@@ -21,6 +22,25 @@ public class Member implements IMember {
         this.phone = phone;
         this.email = email;
         this.indexNumber = indexNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof Member)) {
+            return false;
+        } else {
+            Member other = (Member) obj;
+            return this.name.equals(other.name)
+                && this.phone.equals(other.phone)
+                && this.email.equals(other.email);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.phone, this.email);
     }
 
     @Override

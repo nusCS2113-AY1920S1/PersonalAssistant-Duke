@@ -23,8 +23,11 @@ public class Project implements IProject {
         this.description = description;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
-        this.task_Members = new HashMap<>();
-        this.member_Tasks = new HashMap<>();
+        this.task_Members = new HashMap<Task, ArrayList<Member>>();
+        this.member_Tasks = new HashMap<Member, ArrayList<Task>>();
+        System.out.println(this.task_Members);
+        System.out.println(this.member_Tasks);
+        System.out.println(this);
     }
 
     @Override
@@ -55,6 +58,7 @@ public class Project implements IProject {
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
+        this.member_Tasks.put(newMember, new ArrayList<>());
     }
 
     @Override
@@ -70,6 +74,8 @@ public class Project implements IProject {
     @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
+
+        this.task_Members.put(newTask, new ArrayList<>());
     }
 
     @Override

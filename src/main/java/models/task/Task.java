@@ -1,5 +1,6 @@
 package models.task;
 
+import java.util.Objects;
 import models.member.ListOfMembersAssignedToTask;
 import models.member.Member;
 import util.date.DateTimeHelper;
@@ -17,6 +18,25 @@ public class Task implements ITask {
     private TaskState taskState;
     private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof Task)) {
+            return false;
+        } else {
+            Task other = (Task) obj;
+            return this.taskName.equals(other.taskName)
+                && this.taskPriority == other.taskPriority
+                && this.taskCredit == other.taskCredit;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.taskName, this.taskPriority, this.taskCredit);
+    }
 
     /**
      * Class representing a task in a project.
