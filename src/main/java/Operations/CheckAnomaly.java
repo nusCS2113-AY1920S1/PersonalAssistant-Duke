@@ -1,6 +1,7 @@
 package Operations;
 
 import Enums.TimeUnit;
+import Model_Classes.Assignment;
 import Model_Classes.FixedDuration;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
@@ -13,25 +14,28 @@ import java.util.Date;
  */
 public class CheckAnomaly {
     /**
-     * Checks if the FixedDuration task has any clashes with any other tasks in the task list.
+     * Checks if the Meeting with fixed duration task has any clashes with any other meetings in the task list.
      * If there is a clash, returns true.
      * If there is no clash, returns false.
-     * @param duration FixedDuration being checked for time clashes.
+     * @param date Date of Meeting
+     * @param duration Duration of Meeting
+     * @param timeUnit Unit of the duration
      * @return true if there are time clashes, false if there are no time clashes.
      */
-    public static Boolean checkTime(int duration, TimeUnit timeUnit) {
+    public static Boolean checkTime(Date date, int duration, TimeUnit timeUnit) {
+        Meeting meeting = new Meeting("null", date, duration, timeUnit);
         ArrayList<Task> curr = TaskList.currentList();
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
-            //Date checkDate = currEvent.checkDate();
-            if( curr.get(i) instanceof FixedDuration ) {
-
-            } else if( curr.get(i) instanceof Meeting) {
+            if( curr.get(i) instanceof Meeting  ) {
+                if(  ((Meeting) curr.get(i)).isFixedDuration() && checkOverlap(((Meeting) curr.get(i)), meeting) ) {
+                    return true;
+                } else if( !(((Meeting) curr.get(i)).isFixedDuration()) && checkIntersect( curr.get(i).getDate(), meeting) ) {
+                    return true;
+                }
             }
         }
         return false;
     }
-
-
 
     /**
      * Overload function for checkTime.
@@ -113,8 +117,4 @@ public class CheckAnomaly {
                 return duration;
         }
     }
-
-
-
-
 }

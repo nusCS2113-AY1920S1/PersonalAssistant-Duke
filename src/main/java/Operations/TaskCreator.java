@@ -20,7 +20,6 @@ public class TaskCreator {
     }
 
     public Task create(String input) throws RoomShareException {
-
         // extract the Task Type
         String[] typeArray = input.split("#");
         String type;
@@ -124,20 +123,23 @@ public class TaskCreator {
         } else if (type.contains("meeting")) {
             if (unit.equals(TimeUnit.unDefined)) {
                 // duration was not specified or not correctly input
-                Meeting meeting = new Meeting(description,date);
-                meeting.setPriority(priority);
-                meeting.setAssignee(assignee);
-                meeting.setRecurrenceSchedule(recurrence);
-                return meeting;
+                if( !CheckAnomaly.checkTime(date) ) {
+                    Meeting meeting = new Meeting(description,date);
+                    meeting.setPriority(priority);
+                    meeting.setAssignee(assignee);
+                    meeting.setRecurrenceSchedule(recurrence);
+                    return meeting;
+                }
             }
             else {
-                Meeting meeting = new Meeting(description, date, duration, unit);
-                meeting.setPriority(priority);
-                meeting.setAssignee(assignee);
-                meeting.setRecurrenceSchedule(recurrence);
-                return meeting;
+                if( !CheckAnomaly.checkTime(date, duration, unit) ) {
+                    Meeting meeting = new Meeting(description, date, duration, unit);
+                    meeting.setPriority(priority);
+                    meeting.setAssignee(assignee);
+                    meeting.setRecurrenceSchedule(recurrence);
+                    return meeting;
+                }
             }
-        }
-        else throw new RoomShareException(ExceptionType.wrongTaskType);
+        } else throw new RoomShareException(ExceptionType.wrongTaskType);
     }
 }
