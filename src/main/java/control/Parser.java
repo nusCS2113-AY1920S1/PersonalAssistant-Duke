@@ -32,6 +32,8 @@ public class Parser {
             return new AddRoomCommand(input, splitStr);
         case "list":
             return new ListCommand();
+            case "edit":
+                return new EditBookingCommand(input, splitStr);
         case "listroom":
             return new ListRoomCommand();
         default:

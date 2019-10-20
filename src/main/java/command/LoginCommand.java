@@ -2,6 +2,7 @@ package command;
 
 import booking.BookingList;
 import exception.DukeException;
+import room.RoomList;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -34,7 +35,7 @@ public class LoginCommand extends Command{
     }
 
     @Override
-    public void execute(BookingList bookingList, Ui ui, Storage storage, User user) throws DukeException, IOException, ParseException {
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user) throws DukeException, IOException, ParseException {
         boolean isVerified = Login.verifyLogin(splitL[1], splitL[2], "data\\members.txt");
         if (isVerified) {
             user = Login.getUser(splitL[1], "data\\members.txt");

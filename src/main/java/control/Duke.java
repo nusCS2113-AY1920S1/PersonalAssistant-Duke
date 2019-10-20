@@ -22,11 +22,11 @@ import java.text.ParseException;
 public class Duke {
     private Storage bookingStorage;
     private BookingList bookingList;
+    private RoomList roomList;
     private Ui ui;
     private User user;
     private boolean isExit;
     private Storage roomStorage;
-    private RoomList roomList;
 
     /**
      * Constructor for control.Duke
@@ -57,8 +57,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showUserInput(fullCommand);
                 Command c = Parser.parse(fullCommand, user.getLoginStatus());
-                c.execute(bookingList, ui, bookingStorage, user);
-                c.execute(roomList, ui, roomStorage);
+                c.execute(roomList, bookingList, ui, bookingStorage, roomStorage, user);
                 isExit = c.isExit();
             } catch (DukeException | IOException | ParseException e) {
                 ui.showError(e.getMessage());
@@ -78,8 +77,7 @@ public class Duke {
         try {
             ui.setOutput("");
             Command c = Parser.parse(input, user.getLoginStatus());
-            c.execute(bookingList, ui, bookingStorage, user);
-            c.execute(roomList, ui, roomStorage);
+            c.execute(roomList, bookingList, ui, bookingStorage, roomStorage, user);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {
