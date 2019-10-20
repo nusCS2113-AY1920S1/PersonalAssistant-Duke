@@ -23,5 +23,6 @@ public class RecipeMessages {
     public static final String ERROR_MESSAGE_INVALID_RECIPE_INDEX = "Please input a valid value for the index";
     public static final String ERROR_MESSAGE_RECIPE_INCOMPLETE = "     Please provide all information needed.";
     public static final String ERROR_MESSAGE_INVALID_RECIPE_FORMAT = "     Please input in this format:\n     Eg: addrecipeingredient garlic 100 grams.";
+    public static final String ERROR_MESSAGE_RECIPE_ALREADY_EXISTS = "Sorry, the recipe you wish to add already exists.";
 
 }

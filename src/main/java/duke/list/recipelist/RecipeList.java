@@ -36,6 +36,14 @@ public class RecipeList {
         return this.recipeLHM;
     }
 
+    public boolean containsRecipe(String recipeTitle) {
+        if (this.recipeLHM.containsKey(recipeTitle)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public ArrayList<String> listRecipeTitle() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {

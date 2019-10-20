@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
 import static duke.common.RecipeMessages.MESSAGE_RECIPE_ADDED;
+import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_ALREADY_EXISTS;
 
 public class AddRecipeCommand extends CommandRecipe { // need to settle the problem of duplicate recipes.
 
@@ -25,10 +26,14 @@ public class AddRecipeCommand extends CommandRecipe { // need to settle the prob
             System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(9) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
-            // RecipeTitle recipeTitle = new RecipeTitle(description);
-            recipeList.addRecipe(description);
-            recipeStorage.saveFile(recipeList);
-            arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+            if (recipeList.containsRecipe(description)) {
+                arrayList.add(ERROR_MESSAGE_RECIPE_ALREADY_EXISTS);
+                recipeStorage.saveFile(recipeList);
+            } else {
+                recipeList.addRecipe(description);
+                recipeStorage.saveFile(recipeList);
+                arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+            }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
