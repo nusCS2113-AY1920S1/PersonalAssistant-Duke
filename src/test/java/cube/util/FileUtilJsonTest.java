@@ -25,7 +25,7 @@ public class FileUtilJsonTest {
         int NUM_OF_PRODUCTS = 30;
 
         for (int i = 0; i < NUM_OF_PRODUCTS; i += 1) {
-            String command = "add Food_" + i + " -t food -p " + i + " -s " + (i * i) + " -e " + "31/12/2020";
+            String command = "add Food_" + i + " -t food -p " + i + " -s 5000 -e " + "31/12/2020";
             Command c = Parser.parse(command);
             c.execute(foodList, storageManager);
         }

@@ -5,6 +5,7 @@
  */
 package cube;
 
+import cube.model.Food;
 import cube.model.FoodList;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
@@ -36,6 +37,7 @@ public class Duke {
         try {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
+            Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
             foodList = new FoodList();
