@@ -7,25 +7,28 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
-            prefHeight="400.0" prefWidth="700.0"
+            prefHeight="600.0" prefWidth="900.0"
             fx:id="main">
     <top>
         <VBox alignment="CENTER">
-
             <Label fx:id="totalSpentLabel" text="Total: $0.00"/>
             <Label fx:id="monthlyBudgetLabel" text="Budget:inf"/>
             <Label fx:id="remainingBudgetLabel" text="Remaining:inf"/>
-            <HBox>
-                <TableView fx:id="expenseTableView"/>
-                <ListView fx:id="budgetListView"/>
-            </HBox>
-
         </VBox>
     </top>
-
+    <center>
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER">
+                <TableView fx:id="expenseTableView" minWidth="600"/>
+                <ListView fx:id="budgetListView"/>
+            </HBox>
+        </VBox>
+    </center>
     <bottom>
         <VBox>
             <Label fx:id="lastCommandLabel" text="Hello, welcome to Duke++!" prefWidth="Infinity"/>
