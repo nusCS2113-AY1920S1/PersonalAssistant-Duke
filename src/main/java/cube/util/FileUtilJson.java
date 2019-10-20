@@ -11,12 +11,15 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cube.exception.CubeException;
 import cube.exception.CubeLoadingException;
+import cube.storage.ConfigStorage;
 import cube.storage.StorageManager;
 
 public class FileUtilJson {
     private String filePath;
     private String fileFullPath;
+    private String configFileFullPath;
     private static final String fileName = "cube.json";
+    private static final String configFileName = "config.json";
 
     /**
      * Constructor with one argument.
@@ -26,6 +29,7 @@ public class FileUtilJson {
     public FileUtilJson(String filePath) {
         this.filePath = filePath;
         this.fileFullPath = filePath + File.separator + fileName;
+        this.configFileFullPath = filePath + File.separator + configFileName;
     }
 
     /**
@@ -49,8 +53,8 @@ public class FileUtilJson {
      * @return true if data file available, otherwise false.
      * @throws CubeLoadingException exception occurs when unable to create new file.
      */
-    public boolean checkFileAvailable() throws CubeLoadingException {
-        File file = new File(fileFullPath);
+    public boolean checkFileAvailable(String fullPath) throws CubeLoadingException {
+        File file = new File(fullPath);
         if (file.exists()) {
             return true;
         } else {
@@ -67,7 +71,7 @@ public class FileUtilJson {
      */
     public StorageManager load() throws CubeException {
         StorageManager storageManager = new StorageManager();
-        if (checkFileAvailable()) {
+        if (checkFileAvailable(fileFullPath)) {
             System.out.println("Loading file from : " + fileFullPath);
 
             try {
@@ -89,7 +93,7 @@ public class FileUtilJson {
      * @throws CubeException exception happens in writing to the data file.
      */
     public void save(StorageManager storageManager) throws CubeException {
-        checkFileAvailable();
+        checkFileAvailable(fileFullPath);
         try {
             File fileSave = new File(fileFullPath);
             ObjectMapper mapper = new ObjectMapper();
@@ -97,6 +101,36 @@ public class FileUtilJson {
         } catch (IOException e) {
             e.printStackTrace();
             throw new CubeLoadingException(fileFullPath);
+        }
+    }
+
+    public ConfigStorage loadConfig() throws CubeException {
+        ConfigStorage configStorage = new ConfigStorage();
+        if (checkFileAvailable(configFileFullPath)) {
+            System.out.println("Loading file from : " + configFileFullPath);
+
+            try {
+                File fileSave = new File(configFileFullPath);
+                ObjectMapper mapper = new ObjectMapper();
+                configStorage = mapper.readValue(fileSave, ConfigStorage.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new CubeLoadingException(configFileFullPath);
+            }
+        }
+        return configStorage;
+    }
+
+    public void saveConfig(ConfigStorage configStorage) throws CubeException {
+        checkFileAvailable(configFileFullPath);
+        System.out.println("haha");
+        try {
+            File fileSave = new File(configFileFullPath);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(fileSave, configStorage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new CubeLoadingException(configFileFullPath);
         }
     }
 }
