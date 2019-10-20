@@ -25,9 +25,6 @@ public class Project implements IProject {
         this.taskList = new TaskList();
         this.task_Members = new HashMap<Task, ArrayList<Member>>();
         this.member_Tasks = new HashMap<Member, ArrayList<Task>>();
-        System.out.println(this.task_Members);
-        System.out.println(this.member_Tasks);
-        System.out.println(this);
     }
 
     @Override
@@ -122,75 +119,28 @@ public class Project implements IProject {
      * @param member the member you wish to assign the task to.
      */
     @Override
-    public void addTaskToMemberTaskList(Task task, Member member) {
-        if (task_Members.containsKey(task)) {
-            task_Members.get(task).add(member);
-        } else {
-            ArrayList<Member> memberList = new ArrayList<>();
-            memberList.add(member);
-            task_Members.put(task,memberList);
-        }
-        assignMemberToTask(member, task);
+    public void createAssignment(Task task, Member member) {
+        task_Members.get(task).add(member);
+        member_Tasks.get(member).add(task);
     }
 
     /**
-     * Adds an assignment by establishing a link between a task and a member.
-     * This method adds a member to the list of members working on a particular task.
-     * @param member the member which you wish to assign to a task.
-     * @param task the particular task of interest.
+     * Removes the assignment between member and task.
+     * @param member the member to unassign the task from.
+     * @param task the task to be unassigned.
      */
-    @Override
-    public void assignMemberToTask(Member member, Task task) {
-        if (member_Tasks.containsKey(member)) {
-            member_Tasks.get(member).add(task);
-        } else {
-            ArrayList<Task> taskList = new ArrayList<>();
-            taskList.add(task);
-            member_Tasks.put(member, taskList);
-        }
-    }
-
-    /**
-     * Removes a task from a member's individual task list.
-     * @param task to be removed from an individual's task list.
-     */
-    public void removeTaskFromMembers(Task task) {
-        ArrayList<Member> listOfMember = task_Members.get(task);
-        for (Member member: listOfMember) {
-            member_Tasks.get(member).remove(task);
-        }
-        task_Members.remove(task);
-    }
-
-    /**
-     * This method is used when a member is removed.
-     * This removes the member from the memberToTasks and taskToMembers.
-     * @param member the member to be remove from the HashMap
-     */
-    public void removeMemberToTasks(Member member) {
-        ArrayList<Task> listOfTask = member_Tasks.get(member);
-        for (Task task: listOfTask) {
-            task_Members.get(task).remove(member);
-        }
-        member_Tasks.remove(member);
-    }
-
-    /**
-     * Removes the assignment
-     * @param member
-     * @param task
-     */
-    public void unassignMemberFromTask(Member member, Task task) {
+    public void removeAssignment(Member member, Task task) {
         task_Members.get(task).remove(member);
         member_Tasks.get(member).remove(task);
     }
 
+    /**
+     * Checks if assignment exists between a member and task.
+     * @param task The task in question.
+     * @param member The member in question.
+     * @return true task has already been assigned to a member.
+     */
     public boolean containsAssignment(Task task, Member member) {
-        System.out.println("testing");
-        if (member_Tasks.containsKey(member)) {
-            return member_Tasks.get(member).contains(task);
-        } else {
-            return false;
-        }
+        return member_Tasks.get(member).contains(task);
     }
 }

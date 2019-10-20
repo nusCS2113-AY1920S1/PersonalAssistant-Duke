@@ -48,7 +48,7 @@ public class AssignmentController {
                     successMessages.add("Task has already been assigned to member "
                     + assigneeIndex + " (" + member.getName() +").");
                 } else {
-                    project.addTaskToMemberTaskList(task, member);
+                    project.createAssignment(task, member);
                     successMessages.add("Assigned to member " + assigneeIndex +
                         " (" + member.getName() +").");
                 }
@@ -61,7 +61,7 @@ public class AssignmentController {
                         + unassigneeIndex + " (" + member.getName() +") as it was "
                         + "not assigned in the first place!");
                 } else {
-                    project.unassignMemberFromTask(member, task);
+                    project.removeAssignment(member, task);
                     successMessages.add("Unassigned task from member " + unassigneeIndex +
                         " (" + member.getName() +").");
                 }
@@ -76,7 +76,6 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void parseAssignmentInput(String input) {
-        //assign task -i 1 2 -to 1 2 3 -rm 4 5
         ArrayList<String> allIndexesToAssign = new ArrayList<>();
         ArrayList<String> allIndexesToUnassign = new ArrayList<>();
         ArrayList<String> allTasksIndexes = new ArrayList<>();
@@ -186,6 +185,11 @@ public class AssignmentController {
         }
     }
 
+    /**
+     * Checks if an index number is a valid member index number.
+     * @param indexNumber an index number given by the user.
+     * @return true if a member with the given index number exists.
+     */
     private boolean isValidMemberIndex(Integer indexNumber) {
         return indexNumber > 0 && indexNumber <= project.getNumOfMembers();
     }

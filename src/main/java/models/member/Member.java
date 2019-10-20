@@ -1,7 +1,6 @@
 package models.member;
 
 import java.util.Objects;
-import models.task.Task;
 
 public class Member implements IMember {
     private String name;
@@ -81,11 +80,4 @@ public class Member implements IMember {
         this.email = email;
     }
 
-    public void assignTask(Task task) {
-        this.listOfTasksAssignedToMember.addAssignedTask(task);
-    }
-
-    public boolean isAlreadyAssigned(Task task) {
-        return listOfTasksAssignedToMember.contains(task);
-    }
 }
