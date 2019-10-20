@@ -1,5 +1,6 @@
 package UserCode.Actions;
 
+import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import Farmio.Farmer;
 import Farmio.Storage;
@@ -13,10 +14,25 @@ public class SellWheatAction extends Action {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException {
-        farmer.getWheatFarm().buySeeds(); //TODO create wheatFarm.sellWheat()
-        Simulation.animate(ui, storage, farmer, "SellWheat", 0, 7);
-        ui.show("Selling wheat!");
+    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException, FarmioException {
+        if (!farmer.getWheatFarm().hasRipened() || !farmer.getLocation().equals("Market")) {
+            farmer.setTaskFailed();
+            Simulation.animate(ui, storage, farmer, "ErrorInExecution", 0);
+            if (!farmer.getWheatFarm().hasWheat()) {
+                ui.typeWriter("Error! you have attempted to sell wheat despite not having any wheat\n");
+            } else {
+                ui.typeWriter("Error! you have attempted to sell wheat despite not being at the market\n");
+            }
+            throw new FarmioException("Task Error!");
+        }
+        try {
+            Simulation.animate(ui, storage, farmer, "SellWheat", 0, 6);
+            ui.show("Selling wheat!");
+            farmer.earnMoney(farmer.getWheatFarm().sell());
+            Simulation.animate(ui, storage, farmer, 1000, "SellWheat", 7);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
 //    public JSONObject toJSON() {

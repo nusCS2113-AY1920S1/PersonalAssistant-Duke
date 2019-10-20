@@ -18,7 +18,7 @@ public abstract class Action {
      * }
      **/
 
-    public abstract void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException;
+    public abstract void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioException, FarmioFatalException;
 
     public static boolean validateAction(String userInput) {
         for (ActionType type : ActionType.values()) {

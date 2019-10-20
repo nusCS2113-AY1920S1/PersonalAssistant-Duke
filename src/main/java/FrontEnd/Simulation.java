@@ -26,13 +26,23 @@ public class Simulation {
         }
     }
 
+    public static void animate(Ui ui, Storage storage, Farmer farmer, int delay, String framePath, int frameId) throws FarmioFatalException {
+        animate(ui, storage, farmer, framePath, frameId);
+        try {
+            TimeUnit.MILLISECONDS.sleep(delay);
+        } catch (InterruptedException e) {
+            ui.clearScreen();
+            ui.showWarning("Simulator delay interrupted! Interface may not display correctly.");
+        };
+    }
+
     private static void refresh(Ui ui) {
         try {
             TimeUnit.MILLISECONDS.sleep((int) (1000 / FRAME_PER_SECOND) );
             ui.clearScreen();
         } catch (InterruptedException e) {
             ui.clearScreen();
-            ui.showWarning("Animate refersh interrupted! Interface may not display correctly.");
+            ui.showWarning("Simulator refersh interrupted! Interface may not display correctly.");
         }
     }
 }

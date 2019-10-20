@@ -1,5 +1,6 @@
 package UserCode.Actions;
 
+import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import Farmio.Farmer;
 import Farmio.Storage;
@@ -17,9 +18,24 @@ public class PlantSeedAction extends Action {
     }*/
 
     @Override
-    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException {
-        farmer.getWheatFarm().plantSeeds();
-        Simulation.animate(ui, storage, farmer, "PlantSeedSimulation", 0, 11);
+    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException, FarmioException {
+        if (!farmer.getWheatFarm().hasSeeds() || !farmer.getLocation().equals("WheatFarm")) {
+            farmer.setTaskFailed();
+            Simulation.animate(ui, storage, farmer, "ErrorInExecution", 0);
+            if (!farmer.getWheatFarm().hasSeeds()) {
+                ui.typeWriter("Error! you have attempted to plant seeds despite not having any seeds\n");
+            } else {
+                ui.typeWriter("Error! you have attempted to plant seeds despite not being at the Wheatfarm\n");
+            }
+            throw new FarmioException("Task Error!");
+        }
+        try {
+            Simulation.animate(ui, storage, farmer, "PlantSeedSimulation", 0, 10);
+            farmer.getWheatFarm().plantSeeds();
+            Simulation.animate(ui, storage, farmer, 1000, "PlantSeedSimulation", 11);
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }
 
 //    public JSONObject toJSON() {

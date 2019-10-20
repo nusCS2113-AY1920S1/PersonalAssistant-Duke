@@ -10,6 +10,8 @@ import javafx.util.Pair;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Farmer {
     private int money;
@@ -24,7 +26,7 @@ public class Farmer {
     private boolean hasfailedCurrentTask;
 
     public Farmer() {
-        this.money = 100;
+        this.money = 10;
         this.level = 1;
         this.day = 1;
         this.location = "WheatFarm";
@@ -58,59 +60,42 @@ public class Farmer {
         return money;
     }
 
-    public int getLevel() {
-        return level;
-    }
+    public int getLevel() { return level;}
 
-    public int getDay() {
-        return day;
-    }
+    public int getDay() {return day;}
 
-    public String getLocation() {
-        return location;
-    }
+    public String getLocation() {return location;}
 
     public void changeLocation(String newLocation) {
         location = newLocation;
     }
 
-    public ArrayList<Pair<String, Integer>> getAssets() {
-        ArrayList<Pair<String, Integer>> assets = new ArrayList<Pair<String, Integer>>();
+    public Map<String, Integer> getAssets() {
+        Map<String, Integer> assets = new HashMap<>();
 
-        if (level == 1) {
-            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
-            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-        } else if (level == 2) {
-            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
-            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-            assets.add(new Pair<>("Chicken", 0));
-            assets.add(new Pair<>("Eggs", 0));
-        } else if (level == 3) {
-            assets.add(new Pair<>("Seeds", wheatFarm.getSeeds()));
-            assets.add(new Pair<>("Wheat", wheatFarm.getRipeWheat()));
-            assets.add(new Pair<>("Chicken", 0));
-            assets.add(new Pair<>("Eggs", 0));
-            assets.add(new Pair<>("Milk", 0));
+        if (level >= 3) {
+        }
+        if(level >= 2) {
+
+        }
+        if(level >= 1)
+        {
+            assets.put("Seeds", wheatFarm.getSeeds());
+            assets.put("Seedlings", wheatFarm.getGreenWheat());
+            assets.put("Wheat", wheatFarm.getRipeWheat());
+            assets.put("Gold", money);
         }
         return assets;
     }
 
 
-    public WheatFarm getWheatFarm() {
-        return wheatFarm;
-    }
+    public WheatFarm getWheatFarm() { return  wheatFarm; }
 
-    public ChickenFarm getChickenFarm() {
-        return chickenFarm;
-    }
+    public ChickenFarm getChickenFarm() { return chickenFarm; }
 
-    public CowFarm getCowFarm() {
-        return cowFarm;
-    }
+    public CowFarm getCowFarm() { return cowFarm; }
 
-    public TaskList getTasks() {
-        return tasks;
-    }
+    public TaskList getTasks() { return tasks; }
 
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
@@ -120,28 +105,22 @@ public class Farmer {
         }
         return false;
     }
+    public void setTaskFailed() {hasfailedCurrentTask = true;}
 
-    public void setTaskFailed() {
-        hasfailedCurrentTask = true;
-    }
-
-    public void setMoney(int money) {
+    public void setMoney(int money){
         this.money = money;
     }
 
-    public void spentMoney(int cost) {
+    public void spendMoney(int cost){
         money -= cost;
     }
 
-    public void earnMoney(int profit) {
+    public void earnMoney(int profit){
         money += profit;
     }
 
-    public int getCurrentTask() {
-        return this.currentTask;
-    }
-
-    public void nextLevel() {
+    public int getCurrentTask() {return this.currentTask;}
+    public void nextLevel(){
         ++this.level;
     }
 
@@ -152,7 +131,7 @@ public class Farmer {
         }
     }
 
-    public JSONObject toJSON() {
+    public JSONObject toJSON(){
         JSONObject obj = new JSONObject();
         obj.put("level", level);
         obj.put("money", money);
