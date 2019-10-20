@@ -39,12 +39,6 @@ public class Limit extends Log {
      * to the user.
      * @return String with information of limit.
      */
-    @Override
-    public String getLogText() {
-        return "[" + type + "] "
-                + "[" + amountToMoney() + "] "
-                + "[/for " + duration + "]";
-    }
 
     @Override
     public String getDescription() {
@@ -74,10 +68,16 @@ public class Limit extends Log {
     }
 
     //remove
+    @Override
+    public String getLogText() {
+        return "[" + type + "] "
+                + "[" + amountToMoney() + "] "
+                + "[/for " + duration + "]";
+    }
 
     @Override
     public String formatSave() {
-        saveType = type.equals("saving") ? "S" : "B";
+        saveType = type.equals("saving") ? "S" : "BU";
         return  saveType + " | "
                 + amount + " | "
                 + duration;

@@ -32,7 +32,7 @@ public class DollaParser extends Parser {
                 String[] desc = data[0].split(inputArray[2] + " "); //separate out the description
                 description = desc[1];
 
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date);
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
                 // TODO: ^ Check which is the proper way to write oop
             } else {
                 return new ErrorCommand();
@@ -66,7 +66,7 @@ public class DollaParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            return new AddDebtsCommand(type, name, amount, description);
+            return new AddDebtsCommand(type, name, amount, description, -1);
         } else {
             return invalidCommand();
         }

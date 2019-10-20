@@ -1,5 +1,8 @@
 package dolla.task;
 
+import dolla.Storage;
+import dolla.task.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -31,7 +34,17 @@ public class LimitList extends LogList {
 
     }
 
-    //REMOVE FROM LIST
+    @Override
+    public void add(Log newLog) {
+        super.add(newLog);
+        Storage.setLimits(get()); //save
+    }
+
+    @Override
+    public void removeFromList(int index) {
+        super.removeFromList(index);
+        Storage.setLimits(get()); //save
+    }
 
     //EDIT LIST
 }

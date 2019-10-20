@@ -3,6 +3,9 @@ package dolla.parser;
 import dolla.command.*;
 
 public class EntryParser extends Parser {
+    private static int prevPosition;
+    private static int undoFlag = 0;
+
     public EntryParser(String inputLine) {
         super(inputLine);
     }
@@ -17,8 +20,12 @@ public class EntryParser extends Parser {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
-
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date);
+                if(undoFlag == 1) {//undo input
+                    undoFlag = 0;
+                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
+                } else {//normal input, prePosition is -1
+                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
+                }
             } else {
                 return new ErrorCommand();
             }
@@ -31,12 +38,21 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals("sort")) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("search")) {
-                String content = inputArray[1];
-                return new SearchCommand(mode, content);
-            } else {
+            String content = inputArray[1];
+            return new SearchCommand(mode, content);
+        } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
+            return new RemoveCommand(mode, inputArray[1]);
+        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
+            return new AddActionCommand(mode, commandToRun);
+        } else {
                 return invalidCommand();
-            }
         }
     }
+
+    public static void setPrePosition(int prePosition) {
+        EntryParser.prevPosition = prePosition;
+        undoFlag = 1;
+    }
+}
 
 

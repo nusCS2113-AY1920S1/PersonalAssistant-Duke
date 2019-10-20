@@ -10,7 +10,7 @@ public class SortDate extends Sort{
 
     public SortDate(ArrayList<Log> list) {
         super(list);
-        Collections.sort(list,DateComparator.DateComparator());
+        Collections.sort(list, ListComparator.DateComparator());
         Ui.printSortedList(list,"date");
     }
 }

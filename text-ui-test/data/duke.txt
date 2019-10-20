@@ -1,2 +1,0 @@
-E | 1 | eventTest  | 11/11/1111 1111
-D | 0 | deadlineTest  | 12/12/1212 1212
