@@ -28,7 +28,11 @@ public class DollaParser extends Parser {
                 Ui.printInvalidEntryFormatError();
                 return new AddEntryCommand(entryType, amount, description, date);
                  */
-                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), inputArray[3], date);
+                String[] data = inputLine.split(" /on ");
+                String[] desc = data[0].split(inputArray[2] + " "); //separate out the description
+                description = desc[1];
+
+                return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date);
                 // TODO: ^ Check which is the proper way to write oop
             } else {
                 return new ErrorCommand();
@@ -52,7 +56,10 @@ public class DollaParser extends Parser {
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
-                description = inputArray[3];
+
+                String[] desc = inputLine.split(inputArray[2] + " ");
+                description = desc[1];
+
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
                 return new ErrorCommand();
@@ -64,5 +71,4 @@ public class DollaParser extends Parser {
             return invalidCommand();
         }
     }
-
 }

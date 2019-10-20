@@ -23,6 +23,11 @@ public class Debt extends Log {
                 + "[" + description + "]";
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
     public String amountToMoney() {
         return "$" + amount;
     }
