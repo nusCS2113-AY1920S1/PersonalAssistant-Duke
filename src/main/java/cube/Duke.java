@@ -5,7 +5,7 @@
  */
 package cube;
 
-import cube.model.food.FoodList;
+import cube.model.FoodList;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
 import cube.logic.command.Command;

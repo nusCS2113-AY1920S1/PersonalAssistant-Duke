@@ -1,10 +1,9 @@
-package cube.model.food;
+package cube.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-// for testing only
-public class FoodList {
+public class FoodList{
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {

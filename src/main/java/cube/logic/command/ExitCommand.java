@@ -1,6 +1,6 @@
 package cube.logic.command;
 
-import cube.model.food.FoodList;
+import cube.model.FoodList;
 import cube.storage.StorageManager;
 
 public class ExitCommand extends Command{

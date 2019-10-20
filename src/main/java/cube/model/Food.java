@@ -1,14 +1,17 @@
-package cube.model.food;
+package cube.model;
 
 import java.util.Date;
 
 public class Food {
+
+	//Identity fields
 	protected String name;
 	protected String type;
-	protected static double revenue;
 	protected double price;
 	protected int stock;
 	protected Date expiryDate;
+	//Data fields
+	protected static double revenue;
 
 
     /**

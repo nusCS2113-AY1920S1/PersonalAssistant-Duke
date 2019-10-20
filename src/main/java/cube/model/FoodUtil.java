@@ -1,4 +1,4 @@
-package cube.model.food;
+package cube.model;
 
 import java.util.Comparator;
 import java.util.Date;

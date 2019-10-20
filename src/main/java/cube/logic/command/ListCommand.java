@@ -1,8 +1,8 @@
 package cube.logic.command;
 
-import cube.model.food.FoodList;
-import cube.model.food.FoodList.SortType;
-import cube.model.food.Food;
+import cube.model.FoodList;
+import cube.model.FoodList.SortType;
+import cube.model.Food;
 import cube.storage.StorageManager;
 
 public class ListCommand extends Command{

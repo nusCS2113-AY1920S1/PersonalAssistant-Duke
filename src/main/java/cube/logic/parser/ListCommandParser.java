@@ -3,7 +3,7 @@ package cube.logic.parser;
 import cube.logic.command.ListCommand;
 import cube.logic.parser.exception.ParserErrorMessage;
 import cube.logic.parser.exception.ParserException;
-import cube.model.food.FoodList.SortType;
+import cube.model.FoodList.SortType;
 
 public class ListCommandParser implements ParserPrototype<ListCommand> {
 
