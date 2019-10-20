@@ -1,6 +1,6 @@
 package owlmoney.model.card;
 
-import java.text.DecimalFormat;
+import java.time.LocalDate;
 
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
@@ -15,7 +15,6 @@ public class Card {
     private String name;
     private double limit;
     private double rebate;
-    private double remainingLimit;
     private TransactionList paid;
     private TransactionList unpaid;
 
@@ -29,7 +28,6 @@ public class Card {
     public Card(String name, double limit, double rebate) {
         this.name = name;
         this.limit = limit;
-        this.remainingLimit = limit;
         this.rebate = rebate;
         this.paid = new TransactionList();
         this.unpaid = new TransactionList();
@@ -62,14 +60,6 @@ public class Card {
         return this.limit;
     }
 
-    /**
-     * Gets the remaining limit of the credit card.
-     *
-     * @return remaining limit of the credit card.
-     */
-    double getRemainingLimit() {
-        return this.remainingLimit;
-    }
 
     /**
      * Set the card limit for the credit card.
@@ -78,33 +68,6 @@ public class Card {
      */
     void setLimit(double limit) {
         this.limit = limit;
-    }
-
-    /**
-     * Set the remaining limit for the credit card.
-     *
-     * @param remainingLimit Remaining limit for the credit card.
-     */
-    void setRemainingLimit(double remainingLimit) {
-        this.remainingLimit = remainingLimit;
-    }
-
-    /**
-     * Subtract remaining limit.
-     *
-     * @param amount Amount to be subtracted from remaining limit.
-     */
-    private void subtractRemainingLimit(double amount) {
-        this.remainingLimit -= amount;
-    }
-
-    /**
-     * Add remaining limit.
-     *
-     * @param amount Amount to be added to remaining limit.
-     */
-    private void addRemainingLimit(double amount) {
-        this.remainingLimit += amount;
     }
 
     /**
@@ -130,12 +93,14 @@ public class Card {
      *
      * @return String of credit card details.
      */
+    /*
     public String getDetails() {
         return "Card Name: " + getName()
                 + "\nMonthly Limit: $" + new DecimalFormat("0.00").format(getLimit())
                 + "\nRemaining Limit: $" + new DecimalFormat("0.00").format(getRemainingLimit())
                 + "\nRebate: " + new DecimalFormat("0.00").format(getRebate()) + "%";
     }
+    */
 
     /**
      * Checks if expenditure exceeds remaining card limit.
@@ -144,9 +109,12 @@ public class Card {
      * @throws CardException If expenditure exceeds remaining card limit.
      */
     private void checkExpExceedRemainingLimit(Transaction exp) throws CardException {
-        if (exp.getAmount() > this.getRemainingLimit()) {
+        LocalDate date = exp.getLocalDate();
+        double monthAmountSpent = unpaid.getMonthAmountSpent(date.getMonthValue(), date.getYear());
+        double remainingMonthAmount = limit - monthAmountSpent;
+        if (exp.getAmount() > remainingMonthAmount) {
             throw new CardException("Expenditure to be added cannot exceed remaining limit of $"
-                    + getRemainingLimit());
+                    + remainingMonthAmount);
         }
     }
 
@@ -161,7 +129,6 @@ public class Card {
     void addInExpenditure(Transaction exp, Ui ui, String type) throws CardException {
         this.checkExpExceedRemainingLimit(exp);
         unpaid.addExpenditureToList(exp, ui, type);
-        this.subtractRemainingLimit(exp.getAmount());
     }
 
     /**
@@ -183,8 +150,7 @@ public class Card {
      * @throws TransactionException If invalid transaction.
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
-        double deletedAmount = unpaid.deleteExpenditureFromList(exId, ui);
-        this.addRemainingLimit(deletedAmount);
+        unpaid.deleteExpenditureFromList(exId, ui);
     }
 
     /**
@@ -201,15 +167,43 @@ public class Card {
      */
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException, CardException {
-        if (!(amount.isEmpty() || amount.isBlank()) && this.getRemainingLimit()
-                + unpaid.getExpenditureAmount(expNum) < Double.parseDouble(amount)) {
-            throw new CardException("New expenditure cannot exceed remaining limit of $"
-                    + this.getRemainingLimit());
+        double remainingLimit = 0;
+        if (date.isBlank() || date.isEmpty()) {
+            int expMonth = unpaid.getTransactionMonthByIndex(expNum);
+            int expYear = unpaid.getTransactionYearByIndex(expNum);
+            remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
+        } else {
+            LocalDate expDate = LocalDate.parse(date);
+            int expMonth = expDate.getDayOfMonth();
+            int expYear = expDate.getYear();
+            remainingLimit = limit - unpaid.getMonthAmountSpent(expMonth, expYear);
         }
-        double oldAmount = unpaid.getExpenditureAmount(expNum);
-        double newAmount = unpaid.editEx(expNum, desc, amount, date, category, ui);
-        this.addRemainingLimit(oldAmount);
-        this.subtractRemainingLimit(newAmount);
+
+        if (!(amount.isEmpty() || amount.isBlank()) && remainingLimit
+                + unpaid.getExpenditureAmount(expNum) < Double.parseDouble(amount)) {
+            throw new CardException("Edited expenditure cannot exceed remaining limit of $"
+                    + remainingLimit);
+        }
+        unpaid.editEx(expNum, desc, amount, date, category, ui);
     }
 
+    /** Returns remaining limit of this current month.
+     *
+     * @return      Remaining limit of this current month.
+     */
+    public double getRemainingLimitNow() {
+        LocalDate currentDate = LocalDate.now();
+        int month = currentDate.getDayOfMonth();
+        int year = currentDate.getYear();
+        return limit - unpaid.getMonthAmountSpent(month, year);
+    }
+
+    /**
+     * Returns true if unpaid expenditure list is empty.
+     *
+     * @return True if unpaid expenditure list is empty.
+     */
+    public boolean isEmpty() {
+        return unpaid.expListIsEmpty();
+    }
 }
