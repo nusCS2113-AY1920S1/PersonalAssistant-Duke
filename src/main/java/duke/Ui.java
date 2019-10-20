@@ -52,7 +52,7 @@ public class Ui {
         System.out.flush();
         System.out.println("MANAGE STUDENTS:\n"
             + "1. Student List - View all students available "
-            + "and edit student particulars (cmd: student list)\n"
+            + "and edit student particulars (Cmd: student list)\n"
             + "2. Add student - Adding a new student to the list "
             + "with main details (Cmd: student add [name],[age],[address]) (\n"
             + "3. Remove Student - Remove a student in a list "
@@ -66,7 +66,14 @@ public class Ui {
      */
     public void trainingProgramHeading() {
         System.out.flush();
-        System.out.println("TRAINING PROGRAM:\n");
+        System.out.println("TRAINING PROGRAM:\n"
+            + "1. Plan list - View all the plans available "
+            + "and check a plan or edit it (cmd: TBC)\n"
+            + "2. Create plan - Create a new plan of a "
+            + "specified intensity level (Cmd: plan new [intensity level])"
+            + "3. Edit plan - Edit a specified plan by adding new "
+            + "activities or switching activity positions "
+            + "(Cmd: plan edit [intensity level] [plan number])");
     }
 
     /**
