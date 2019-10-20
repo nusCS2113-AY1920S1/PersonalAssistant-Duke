@@ -1,13 +1,15 @@
 plugins {
     id 'java'
+    id 'jacoco'
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'org.asciidoctor.convert' version '1.5.8'
 }
 
 group 'seedu.OwlMoney'
-version '1.2.0'
+version '1.3.0'
 
 repositories {
     mavenCentral()
@@ -24,7 +26,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "OwlMoney"
-    archiveVersion = "v1.2"
+    archiveVersion = "v1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -41,6 +43,32 @@ run {
 test {
     useJUnitPlatform()
 }
+
+task coverage(type: JacocoReport) {
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(sourceSets.main.output)
+    executionData = files(jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
+    }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+}
+
+coveralls {
+    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
+    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
+}
+
+tasks.coveralls {
+    dependsOn coverage
+    onlyIf { System.env.'CI' }
+}
+
 
 asciidoctor {
     backends 'html5'

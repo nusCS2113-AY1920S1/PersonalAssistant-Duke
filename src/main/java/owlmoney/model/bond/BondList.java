@@ -93,7 +93,7 @@ public class BondList {
      * @param ui       required for printing.
      */
     public void removeBondFromList(String bondName, Ui ui) throws BondException {
-        if(getSize() == ISZERO) {
+        if (getSize() == ISZERO) {
             throw new BondException("There are no bonds");
         }
         for (int i = ISZERO; i < getSize(); i++) {
