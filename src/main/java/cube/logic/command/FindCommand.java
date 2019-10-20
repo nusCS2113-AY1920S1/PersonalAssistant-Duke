@@ -95,7 +95,7 @@ public class FindCommand extends Command{
                 FoodList result = new FoodList();
                 int count = 0;
                 for (int i = 0; i < list.size(); i ++) {
-                    if (list.get(i).getType().equals(findDescription)) {
+                    if (list.get(i).getType()!=null && list.get(i).getType().equals(findDescription)) {
                         result.add(list.get(i));
                         count ++;
                     }
