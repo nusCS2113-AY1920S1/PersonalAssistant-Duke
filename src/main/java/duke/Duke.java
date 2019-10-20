@@ -1,11 +1,11 @@
 package duke;
 
-import duke.command.Command;
-import duke.dukeobject.Budget;
-import duke.dukeobject.ExpenseList;
+import duke.logic.command.Command;
+import duke.model.Budget;
+import duke.model.ExpenseList;
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
-import duke.command.CommandParams;
+import duke.logic.CommandParams;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * Represents our Duke and contains the main program of Duke.
  */
+/*
 public class Duke {
     private static final String BACKUP_EXTENSION = ".backup";
     private static final File DEFAULT_USER_DIRECTORY = new File("data" + File.separator + "duke");
@@ -26,13 +27,14 @@ public class Duke {
     public Budget budget;
     public ExpenseList expenseList;
     public Ui ui;
-
+*/
     /**
      * Constructs the Duke with the filePath of storage.txt
      * If errors occur during the loading process, an empty taskList will be initialized instead.
      *
      * @param userDirectory The user directory to store all the files associated with Duke.
      */
+    /*
     public Duke(File userDirectory) throws DukeRuntimeException {
         userDirectory.mkdirs();
         ui = new Ui();
@@ -68,13 +70,14 @@ public class Duke {
         // In case we support changing Duke's directory in the future
         this(DEFAULT_USER_DIRECTORY);
     }
-
+    */
     /**
      * Gets the output from Duke's logic.
      *
      * @param fullCommand String of the full command that the user entered.
      * @return String containing last output message of Duke.
      */
+    /*
     public String getResponse(String fullCommand) {
         try {
             CommandParams commandParams = new CommandParams(fullCommand);
@@ -91,3 +94,4 @@ public class Duke {
     }
 
 }
+*/
