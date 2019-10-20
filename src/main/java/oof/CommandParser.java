@@ -16,12 +16,9 @@ import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
 import oof.command.SummaryCommand;
-<<<<<<< HEAD
 import oof.command.ViewWeekCommand;
-=======
 import oof.command.ThresholdCommand;
 
->>>>>>> upstream/master
 import oof.exception.OofException;
 import java.util.InputMismatchException;
 
