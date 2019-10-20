@@ -1,13 +1,14 @@
+import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.tasks.EventCommand;
+import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Event;
 import gazeeebo.tasks.Task;
-import gazeeebo.TriviaManager.TriviaManager;
-import gazeeebo.UI.Ui;
-import gazeeebo.commands.EventCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import gazeeebo.exception.DukeException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -15,7 +16,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 class EventCommandTest {
     //creating a stream to hold the output
     private ByteArrayOutputStream output = new ByteArrayOutputStream();

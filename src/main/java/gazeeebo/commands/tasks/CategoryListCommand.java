@@ -1,5 +1,10 @@
-package gazeeebo.commands;
+package gazeeebo.commands.tasks;
 
+import gazeeebo.commands.Command;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Event;
+import gazeeebo.tasks.FixedDuration;
+import gazeeebo.tasks.Task;
 import gazeeebo.tasks.*;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

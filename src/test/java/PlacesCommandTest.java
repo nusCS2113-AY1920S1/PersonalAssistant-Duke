@@ -1,8 +1,6 @@
 import gazeeebo.commands.places.AddPlacesCommand;
 import gazeeebo.commands.places.DeletePlacesCommand;
 import gazeeebo.commands.places.ListPlacesCommand;
-import gazeeebo.commands.places.PlacesCommand;
-import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
@@ -14,7 +12,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

@@ -15,9 +15,9 @@ public class AddContactCommand {
     public AddContactCommand(final Ui ui, final Map<String, String> contact) throws IOException {
         System.out.print("Input in this format: Name,Number\n");
         ui.readCommand();
-        String[] splitInfo = ui.fullCommand.split(",");
-        String name = splitInfo[0];
-        String number = splitInfo[1];
+        String[] splitCommand = ui.fullCommand.split(",");
+        String name = splitCommand[0];
+        String number = splitCommand[1];
         contact.put(name, number);
         System.out.print("Okay we have successfully added a new contact - "
                 + ui.fullCommand + "\n");

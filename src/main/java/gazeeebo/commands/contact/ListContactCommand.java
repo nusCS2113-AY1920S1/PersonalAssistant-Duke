@@ -11,7 +11,7 @@ public class ListContactCommand {
      * @param contact    Map each name to its phone number
      * @param lineBreak String separator
      */
-    public ListContactCommand(final Map<String, String> contact, final String lineBreak         ) {
+    public ListContactCommand(final Map<String, String> contact, final String lineBreak) {
         System.out.print("Name:                         | Number:\n" + lineBreak);
         for (String key : contact.keySet()) {
             if (!key.contains("NUS")) {
