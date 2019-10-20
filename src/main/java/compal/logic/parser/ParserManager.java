@@ -56,6 +56,8 @@ public class ParserManager {
             return new ViewReminderParser().parseCommand(restOfInput);
         case CMD_DONE:
             return new DoneParser().parseCommand(restOfInput);
+        case CMD_FIND:
+            return new FindCommandParser().parseCommand(restOfInput);
         default:
             //suppose to return helpCommand();
             throw new ParserException(MESSAGE_INVALID_COMMAND);
