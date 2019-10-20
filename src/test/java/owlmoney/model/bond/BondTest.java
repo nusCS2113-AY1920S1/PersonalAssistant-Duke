@@ -41,8 +41,8 @@ class BondTest {
         assertEquals(expectedCategory,actualCategory);
 
         String actualResultOfBondDescription = testBond.getBondDescription();
-        String expectedResultOfBondDescription = "Name: TEST BOND Amount: $500.00 Rate: 2.00 " +
-                "Date Purchased: 01 January 2019 Number of years: 1";
+        String expectedResultOfBondDescription = "Name: TEST BOND Amount: $500.00 Rate: 2.00 "
+                + "Date Purchased: 01 January 2019 Number of years: 1";
         assertEquals(expectedResultOfBondDescription,actualResultOfBondDescription);
     }
 
@@ -101,7 +101,7 @@ class BondTest {
                 + "Amount: $1000.00" + "\n"
                 + "Rate: 1.80" + "\n"
                 + "Date Purchased: 03 January 2019" + "\n"
-                + "Number of years: 3" +"\n";
+                + "Number of years: 3" + "\n";
         assertEquals(expectedResultOfBondDescription,actualResultOfBondDescription);
     }
 

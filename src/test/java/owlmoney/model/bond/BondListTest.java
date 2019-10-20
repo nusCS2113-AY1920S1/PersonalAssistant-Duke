@@ -57,8 +57,8 @@ class BondListTest {
         Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.removeBondFromList("TEST BOND 0", uiTest)
-                , "Expected removeBondFromList to throw, but it didn't");
+                        bondListTest.removeBondFromList("TEST BOND 0", uiTest),
+                "Expected removeBondFromList to throw, but it didn't");
         String expectedMessage = "There are no bonds";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -85,8 +85,8 @@ class BondListTest {
         Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                bondListTest.getBond("TEST BOND 0")
-                , "Expected getBond to throw, but it didn't");
+                bondListTest.getBond("TEST BOND 0"),
+                "Expected getBond to throw, but it didn't");
         String expectedMessage = "There are no bonds with the name: TEST BOND 0";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -110,8 +110,8 @@ class BondListTest {
         Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.getBond("TEST BOND 0")
-                , "Expected editBond to throw, but it didn't");
+                        bondListTest.getBond("TEST BOND 0"),
+                "Expected editBond to throw, but it didn't");
         String expectedMessage = "There are no bonds with the name: TEST BOND 0";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -199,8 +199,8 @@ class BondListTest {
         Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.removeBondFromList("TEST BOND 0", uiTest)
-                , "Expected removeBondFromList to throw, but it didn't");
+                        bondListTest.removeBondFromList("TEST BOND 0", uiTest),
+                "Expected removeBondFromList to throw, but it didn't");
         String expectedMessage = "There are no bonds";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -218,8 +218,8 @@ class BondListTest {
         bondListTest.addBondToList(testBond, uiTest);
         assertEquals(1, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.removeBondFromList("TEST BOND 0", uiTest)
-                , "Expected removeBondFromList to throw, but it didn't");
+                        bondListTest.removeBondFromList("TEST BOND 0", uiTest),
+                "Expected removeBondFromList to throw, but it didn't");
         String expectedMessage = "There are no bonds with the name: TEST BOND 0";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -244,8 +244,8 @@ class BondListTest {
         Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.getBond("TEST BOND 0")
-                , "Expected getBond to throw, but it didn't");
+                        bondListTest.getBond("TEST BOND 0"),
+                "Expected getBond to throw, but it didn't");
         String expectedMessage = "There are no bonds with the name: TEST BOND 0";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -269,8 +269,8 @@ class BondListTest {
         Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.getBond("TEST BOND 0")
-                , "Expected editBond to throw, but it didn't");
+                        bondListTest.getBond("TEST BOND 0"),
+                "Expected editBond to throw, but it didn't");
         String expectedMessage = "There are no bonds with the name: TEST BOND 0";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -284,8 +284,8 @@ class BondListTest {
         Bond testBond = new Bond("TEST BOND 0", 1000, 1.8, new Date("1/3/2019"), 3);
         bondListTest.addBondToList(testBond,uiTest);
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.editBond("TEST BOND 1","9","3.14",uiTest)
-                , "Expected editBond to throw, but it didn't");
+                        bondListTest.editBond("TEST BOND 1","9","3.14",uiTest),
+                "Expected editBond to throw, but it didn't");
         String expectedMessage = "There are no bonds with the name: TEST BOND 1";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
@@ -315,8 +315,8 @@ class BondListTest {
         Bond testBond = new Bond("TEST BOND 0", 1000, 1.8, new Date("1/3/2019"), 3);
         bondListTest.addBondToList(testBond,uiTest);
         BondException thrown = assertThrows(BondException.class, () ->
-                        bondListTest.editBond("TEST BOND 0","1","3.14",uiTest)
-                , "Expected editBond to throw, but it didn't");
+                        bondListTest.editBond("TEST BOND 0","1","3.14",uiTest),
+                "Expected editBond to throw, but it didn't");
         String expectedMessage = "The year can only be larger than: 3";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
