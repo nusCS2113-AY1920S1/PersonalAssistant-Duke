@@ -23,6 +23,31 @@ import java.util.Date;
 public class Parser {
 
     /**
+     * Constants to represent the index 3.
+     */
+    public static final int INDEX_THREE = 3;
+    /**
+     * Constants to represent the index 4.
+     */
+    public static final int INDEX_FOUR = 4;
+    /**
+     * Constants to represent the index 5.
+     */
+    public static final int INDEX_FIVE = 5;
+    /**
+     * Constants to represent the index 6.
+     */
+    public static final int INDEX_SIX = 6;
+    /**
+     * Constants to represent the index 7.
+     */
+    public static final int INDEX_SEVEN = 7;
+    /**
+     * Constants to represent the index 10.
+     */
+    public static final int INDEX_TEN = 10;
+
+    /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
      * @param io The input from command line
@@ -51,7 +76,8 @@ public class Parser {
         case "reminder":
             try {
                 index = input.indexOf("before");
-                Date date = tasks.dateConvert(input.substring(index + 7));
+                Date date = tasks.dateConvert(
+                        input.substring(index + INDEX_SEVEN));
                 Reminder reminder = new Reminder(date);
                 reminder.getReminders(tasks);
             } catch (StringIndexOutOfBoundsException e) {
@@ -60,19 +86,19 @@ public class Parser {
             break;
 
         case "delete":
-            index = Integer.parseInt(input.substring(7)) - 1;
+            index = Integer.parseInt(input.substring(INDEX_SEVEN)) - 1;
             tasks.deleteTask(index);
             storage.updateFile(tasks.getList());
             break;
 
         case "find":
-            String searchWord = input.substring(5);
+            String searchWord = input.substring(INDEX_FIVE);
             tasks.findTask(searchWord);
             break;
 
         case "date":
-            String searchDate = input.substring(5);
-            if (searchDate.length() < 10) {
+            String searchDate = input.substring(INDEX_FIVE);
+            if (searchDate.length() < INDEX_TEN) {
                 System.out.println("Please enter input in the form: "
                     + "date dd/MM/YYYY");
             } else {
@@ -83,8 +109,8 @@ public class Parser {
         case "class":
             try {
                 index = input.indexOf("/every");
-                String info = input.substring(6, index - 1);
-                String day = input.substring(index + 7);
+                String info = input.substring(INDEX_SIX, index - 1);
+                String day = input.substring(index + INDEX_SEVEN);
                 MyClass myclass = new MyClass(info, false, day);
                 tasks.addTask(myclass, "C");
                 storage.saveFile("C", myclass, myclass.getDay());
@@ -113,10 +139,10 @@ public class Parser {
                         System.err.println("Enter a date please.");
                     }
                 } else if (word[1].equals("add")) {
-                    String startTime = word[2] + " " + word[3];
-                    String endTime = word[4] + " " + word[5];
-                    String location = word[6];
-                    String className = word[7];
+                    String startTime = word[2] + " " + word[INDEX_THREE];
+                    String endTime = word[INDEX_FOUR] + " " + word[INDEX_FIVE];
+                    String location = word[INDEX_SIX];
+                    String className = word[INDEX_SEVEN];
                     System.out.println(schedule.addClass(
                         startTime,
                         endTime,
@@ -125,8 +151,8 @@ public class Parser {
                         tasks,
                         scheduleStorage));
                 } else if (word[1].equals("delete")) {
-                    String startTime = word[2] + " " + word[3];
-                    String className = word[4];
+                    String startTime = word[2] + " " + word[INDEX_THREE];
+                    String className = word[INDEX_FOUR];
                     System.out.println(
                         schedule.delClass(
                             startTime, className, scheduleStorage));
@@ -176,7 +202,7 @@ public class Parser {
                             goal.addGoal(goalDate, myGoal, goalStorage));
                         break;
 
-                    case 3:
+                    case INDEX_THREE:
                         System.out.println("To delete a goal from "
                             + goalDate + ", enter the goal.");
                         String message = myGoalScan.nextLine();
@@ -185,12 +211,12 @@ public class Parser {
                                 goalDate, message, goalStorage));
                         break;
 
-                    case 4:
+                    case INDEX_FOUR:
                         System.out.println(
                             goal.removeAllGoal(goalDate, goalStorage));
                         break;
 
-                    case 5:
+                    case INDEX_FIVE:
                     isQuittingGoal = true;
                     System.out.println(
                         "You have quit the lesson of the day.");
@@ -243,7 +269,7 @@ public class Parser {
                                     lessonDate, myLesson, lessonStorage));
                         break;
 
-                    case 3:
+                    case INDEX_THREE:
                         System.out.println("To delete a lesson from "
                             + lessonDate + ", enter the lesson.");
                         String message = myLessonScan.nextLine();
@@ -252,12 +278,12 @@ public class Parser {
                                 lessonDate, message, lessonStorage));
                         break;
 
-                    case 4:
+                    case INDEX_FOUR:
                         System.out.println(lesson.removeAllLesson(
                             lessonDate, lessonStorage));
                         break;
 
-                    case 5:
+                    case INDEX_FIVE:
                         isQuittingLesson = true;
                         System.out.println(
                             "You have quit the lesson of the day.");
