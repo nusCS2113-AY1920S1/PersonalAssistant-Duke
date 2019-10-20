@@ -182,6 +182,7 @@ public class RoomShare {
                 break;
             }
         }
+        storage.writeFile(taskList.getList(), "data.txt");
     }
 
     /**

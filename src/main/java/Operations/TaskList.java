@@ -27,6 +27,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public ArrayList<Task> getList(){
+        return TaskList.tasks;
+    }
+
     /**
      * Adds a new task into the task list
      * @param newTask Task object to be added into the list of tasks

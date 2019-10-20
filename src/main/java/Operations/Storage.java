@@ -225,13 +225,6 @@ public class Storage {
             String[] timeArray = tempString[4].split(":", 3);
             String day = tempString[3];
             time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1];
-//            if (task instanceof FixedDuration) {
-//                String[] durationArray = prelimSplit[3].split(":");
-//                String temp = durationArray[1].trim();
-//                String[] tempDuration = temp.split("\\s+");
-//                time = time + tempDuration[0].trim() + "#" +
-//                        tempDuration[1].trim().substring(0, tempDuration[1].length() - 1) + "#" + recurrence + "#";
-//            }
             return time;
         } catch (ParseException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
