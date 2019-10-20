@@ -119,7 +119,8 @@ public class TransactionList {
      */
     public void addDepositToList(Transaction dep, Ui ui, String bankType) {
         expLists.add(dep);
-        if ("bank".equals(bankType)) {
+        if ("bank".equals(bankType) || "savings transfer".equals(bankType) ||
+                "investment transfer".equals(bankType)) {
             ui.printMessage("Added deposit with the following details:");
             printOneTransaction(ONE_INDEX, dep, ISSINGLE, ui);
         }
