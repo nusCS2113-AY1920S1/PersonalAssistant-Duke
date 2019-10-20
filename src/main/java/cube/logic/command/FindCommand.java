@@ -2,7 +2,7 @@ package cube.logic.command;
 
 import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
-import cube.model.Food;
+import cube.model.FoodList.SortType;
 import cube.model.FoodList;
 import cube.storage.StorageManager;
 
@@ -14,6 +14,8 @@ public class FindCommand extends Command{
     public enum FindBy {
         INDEX, NAME, TYPE
     }
+
+    SortType sortType;
 
     private int findIndex;
     private String findDescription;
@@ -40,12 +42,23 @@ public class FindCommand extends Command{
 
     /**
      * Constructor for delete using food name or food type.
-     * @param deleteDescription the food name or food type to be deleted.
+     * @param description the food name or food type to be deleted.
      * @param param the parameter to indicate type of deletion.
      */
-    public FindCommand(String deleteDescription, String param){
-        this.findDescription = deleteDescription;
+    public FindCommand(String description, String param){
+        this.findDescription = description;
         this.param = FindBy.valueOf(param);
+    }
+
+    /**
+     * Constructor for delete using food name or food type.
+     * @param description the food name or food type to be deleted.
+     * @param param the parameter to indicate type of deletion.
+     */
+    public FindCommand(String description, String param, SortType sortType){
+        this.findDescription = description;
+        this.param = FindBy.valueOf(param);
+        this.sortType = sortType;
     }
 
     /**
@@ -99,6 +112,9 @@ public class FindCommand extends Command{
                         result.add(list.get(i));
                         count ++;
                     }
+                }
+                if (sortType != null) {
+                    result.sort(sortType);
                 }
                 return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, count,result,list.size()));
         }
