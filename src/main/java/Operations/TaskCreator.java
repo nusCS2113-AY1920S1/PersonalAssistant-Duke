@@ -19,31 +19,46 @@ public class TaskCreator {
     public TaskCreator() {
     }
 
-    public Task create(String input) {
-        Priority priorityType;
-        RecurrenceScheduleType recurrenceScheduleType;
-        String assignee;
+    public Task create(String input) throws RoomShareException {
+
+        // extract the Task Type
+        String[] typeArray = input.split("#");
+        String type = typeArray[1];
+
+        // extract the priority
+        String[] priorityArray = input.split("\\*");
+        Priority priority;
+        if (priorityArray.length != 1) {
+            String inputPriority = priorityArray[1].trim();
+            try {
+                priority = Priority.valueOf(inputPriority);
+            } catch (IllegalArgumentException e) {
+                System.out.println("There seems to some mistake in your priority entry, will be setting priority as low");
+                priority = Priority.low;
+            }
+        } else {
+            priority = Priority.low;
+        }
 
         // extract the description
         String[] descriptionArray = input.split("\\(");
         String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
         String description = descriptionArray2[0].trim();
-        // extract the priority
-        String[] priorityArray = input.split("\\*");
-        if (priorityArray.length != 1) {
-            String priority = priorityArray[1].trim();
-            try {
-                priorityType = Priority.valueOf(priority);
-            } catch (IllegalArgumentException e) {
-                System.out.println("There seems to some mistake in your priority entry, will be setting priority as low");
-                priorityType = Priority.low;
-            }
-        } else {
-            priorityType = Priority.low;
+
+        // extract date
+        String dateArray[] = input.split("&");
+        String dateInput = dateArray[1].trim();
+        Date date;
+        try {
+            date = new Parser().formatDate(dateInput);
+        } catch (RoomShareException e) {
+            System.out.println("Wrong date format");
+            date = new Date();
         }
 
         // extract the assignee
         String[] assigneeArray = input.split("@");
+        String assignee;
         if (assigneeArray.length != 1) {
             assignee = assigneeArray[1].trim();
         } else {
@@ -52,115 +67,59 @@ public class TaskCreator {
 
         // extract recurrence schedule
         String[] recurrenceArray = input.split("%");
+        RecurrenceScheduleType recurrence;
         if (recurrenceArray.length != 1) {
-            String recurrence = recurrenceArray[1].trim();
+            String inputRecurrence = recurrenceArray[1].trim();
             try {
-                recurrenceScheduleType = RecurrenceScheduleType.valueOf(recurrence);
+                recurrence = RecurrenceScheduleType.valueOf(inputRecurrence);
             } catch (IllegalArgumentException e) {
                 System.out.println("There seems to some mistake in your recurrence entry, will be setting recurrence as none");
-                recurrenceScheduleType = RecurrenceScheduleType.none;
+                recurrence = RecurrenceScheduleType.none;
             }
         } else {
-            recurrenceScheduleType = RecurrenceScheduleType.none;
-        }
-        // extract the Task Type
-        String[] type = input.split("#");
-
-        // extract the time
-        String[] timeArray = input.split("&");
-
-        //leave task type
-        // need to fix date bug
-        if(type[1].contains("leave")) {
-            String timeFrom = timeArray[1].trim();
-            String timeTo = timeArray[2].trim();
-            Date from;
-            try {
-                from = parser.formatDate(timeFrom);
-            } catch (RoomShareException e) {
-                from = new Date();
-            }
-            Date to;
-            try {
-                to = parser.formatDate(timeTo);
-            } catch (RoomShareException e) {
-                to = new Date();
-            }
-            Leave createdTask = new Leave(description, from, to);
-            createdTask.setPriority(priorityType);
-            createdTask.setUser(assignee);
-            createdTask.setRecurrenceSchedule(recurrenceScheduleType);
-            return createdTask;
+            recurrence = RecurrenceScheduleType.none;
         }
 
-        String[] durationArray = timeArray[1].split(" ");
-        String[] durationLength = durationArray[1].split("-");
-        TimeUnit unit;
+        //extract duration
+        String[] durationArray = input.split("\\^");
+        String[] inputDuration = durationArray[1].split(" ");
         int duration;
-        if (durationLength.length < 2) {
-            // not a fixed duration task
-            String time = timeArray[1].trim();
-            // create the time
-            Date by;
-            try {
-                by = parser.formatDate(time);
-            } catch (RoomShareException e) {
-                by = new Date();
-            }
-            if (type[1].contains("assignment")) {
-                Assignment createdTask = new Assignment(description, by);
-                createdTask.setPriority(priorityType);
-                createdTask.setUser(assignee);
-                createdTask.setRecurrenceSchedule(recurrenceScheduleType);
-                return createdTask;
-            } else {
-                Meeting createdTask = new Meeting(description, by);
-                createdTask.setPriority(priorityType);
-                createdTask.setUser(assignee);
-                createdTask.setRecurrenceSchedule(recurrenceScheduleType);
-                return createdTask;
-            }
-        } else if(input.contains("\\^")){ //condition requires some fixing
-            // fixed duration task
-            // extract the fixed duration timing
-            String[] fixedDurationArray = input.split("\\^");
-            String[] tempArray = fixedDurationArray[1].split("\\s+");
-            duration = Integer.parseInt(tempArray[0].trim());
-            unit = TimeUnit.valueOf(tempArray[1].toLowerCase().trim());
+        TimeUnit unit;
+        try {
+            duration = Integer.parseInt(inputDuration[0].trim());
+            unit = TimeUnit.valueOf(inputDuration[1].trim());
+        }
+        catch (IllegalArgumentException e) {
+            duration = 0;
+            unit = TimeUnit.unDefined;
+        }
 
-            //reminder function
-            if (durationArray[2].contains("r")) {
-                TaskReminder taskReminder = new TaskReminder(description, duration);
-                taskReminder.start();
-            }
-            Meeting meeting = new Meeting(description, duration, unit);
-            meeting.setPriority(priorityType);
-            meeting.setUser(assignee);
-            meeting.setRecurrenceSchedule(recurrenceScheduleType);
-            return meeting;
-        } else {
-            duration = Integer.parseInt(durationLength[1]) - Integer.parseInt(durationLength[0]);
-            //need to change this section
-            if(durationArray[2].contains("r")) {
-                TaskReminder taskReminder = new TaskReminder(description, duration);
-                taskReminder.start();
-            }
-            if((duration % 100) == 0) {
-                duration = duration % 9;
-                unit = TimeUnit.valueOf("hours");
-                Meeting meeting = new Meeting(description, duration, unit);
-                meeting.setPriority(priorityType);
-                meeting.setUser(assignee);
-                meeting.setRecurrenceSchedule(recurrenceScheduleType);
+        if (type.contains("assignment")) {
+            Assignment assignment = new Assignment(description,date);
+            assignment.setPriority(priority);
+            assignment.setAssignee(assignee);
+            assignment.setRecurrenceSchedule(recurrence);
+            return assignment;
+        }
+
+        if (type.contains("meeting")) {
+            if (unit.equals(TimeUnit.unDefined)) {
+                // duration was not specified or not correctly input
+                Meeting meeting = new Meeting(description,date);
+                meeting.setPriority(priority);
+                meeting.setAssignee(assignee);
+                meeting.setRecurrenceSchedule(recurrence);
                 return meeting;
-            } else {
-                unit = TimeUnit.valueOf("minutes");
-                Meeting meeting = new Meeting(description, duration, unit);
-                meeting.setPriority(priorityType);
-                meeting.setUser(assignee);
-                meeting.setRecurrenceSchedule(recurrenceScheduleType);
+            }
+            else {
+                Meeting meeting = new Meeting(description, date, duration, unit);
+                meeting.setPriority(priority);
+                meeting.setAssignee(assignee);
+                meeting.setRecurrenceSchedule(recurrence);
                 return meeting;
             }
         }
+
+        return null;
     }
 }

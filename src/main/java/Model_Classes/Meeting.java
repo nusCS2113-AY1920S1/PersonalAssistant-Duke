@@ -1,18 +1,16 @@
 package Model_Classes;
 
-import Enums.Priority;
 import Enums.TimeUnit;
-
 import java.util.Date;
+
 /**
  * An object class representing types of tasks that are events.
  * Stores the description and when the event happens.
  */
 public class Meeting extends Task {
-    private Date at;
     private boolean isFixedDuration;
-    private int duration;
-    private TimeUnit timeUnit;
+    private int duration = 0;
+    private TimeUnit timeUnit = TimeUnit.unDefined;
     /**
      * Constructor for Event object
      * Takes in inputs for description of the event and the time the event occurs
@@ -20,54 +18,15 @@ public class Meeting extends Task {
      * @param at Time the event happens
      */
     public Meeting(String description, Date at) {
-        super(description);
-        this.at = at;
+        super(description, at);
         this.isFixedDuration = false;
     }
 
-    public Meeting (String description, int duration, TimeUnit unit) {
-        super(description);
+    public Meeting (String description, Date date, int duration, TimeUnit unit) {
+        super(description, date);
         this.duration = duration;
         this.timeUnit = unit;
         this.isFixedDuration = true;
-    }
-
-    /**
-     * Returns date of Event
-     * @return date of Event
-     */
-    public Date checkDate() { return this.at; }
-
-    /**
-     * Snoozes the Event by set amount of months
-     * @param amount number of months to snooze
-     */
-    public void snoozeMonth(int amount) {
-        this.at.setMonth(this.at.getMonth() + amount);;
-    }
-
-    /**
-     * Snoozes the Event by set amount of days
-     * @param amount number of days to snooze
-     */
-    public void snoozeDay(int amount) {
-        this.at.setDate(this.at.getDate() + amount);;
-    }
-
-    /**
-     * Snoozes the Event by set amount of hours
-     * @param amount number of hours to snooze
-     */
-    public void snoozeHour(int amount){
-        this.at.setHours(this.at.getHours() + amount);
-    }
-
-    /**
-     * Snoozes the Event by set amount of hours
-     * @param amount number of minutes to snooze
-     */
-    public void snoozeMinute(int amount){
-        this.at.setMinutes(this.at.getMinutes() + amount);
     }
 
     /**
@@ -77,9 +36,9 @@ public class Meeting extends Task {
     @Override
     public String toString() {
         if (isFixedDuration){
-            return "[M]" + super.toString() + " (in: " + duration + " " + timeUnit.toString() + ")";
+            return "[M]" + super.toString() + " (on: " + super.getDate() + ") (duration: " + duration + " " + timeUnit.toString() + ")";
         } else {
-            return "[M]" + super.toString() + " (on: " + at + ")";
+            return "[M]" + super.toString() + " (on: " + super.getDate() + ")";
         }
     }
 
@@ -94,6 +53,5 @@ public class Meeting extends Task {
     public TimeUnit getTimeUnit() {
         return timeUnit;
     }
-
 
 }
