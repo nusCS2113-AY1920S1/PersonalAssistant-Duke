@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * The LogicManager Class handles the logic of Wallet.
  */
 public class LogicManager {
-    
+
     private static final String BYE_TOKEN = "bye.";
     private final UiUtil uiUtil;
 
@@ -54,6 +54,7 @@ public class LogicManager {
         if (cmdResult.requireSaving) {
             taskStorageManager.saveData(taskList.getArrList());
         }
+
 
         if (cmdResult.feedbackToUser.equals(BYE_TOKEN)) {
             System.exit(0);

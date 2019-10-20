@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents file used to store COMPal.
@@ -99,6 +100,15 @@ public class TaskStorageManager implements Storage<ArrayList<Task>> {
     @Override
     public void saveData(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
+
+        Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate)
+                .thenComparing(Task::getStringStartTime)
+                .thenComparing(Task::getStringEndTime)
+                .thenComparing(Task::getPriority);
+        ArrayList<Task> currList = tasks;
+        currList.sort(compareByDateTime);
+
+
         for (Task t : tasks) {
             sb.append(t.getAllDetailsAsString());
             sb.append("\n");

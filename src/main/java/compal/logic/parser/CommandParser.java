@@ -22,7 +22,6 @@ import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
 import static compal.commons.Messages.MESSAGE_MISSING_TIME;
 import static compal.commons.Messages.MESSAGE_MISSING_END_TIME_ARG;
 
-
 public interface CommandParser {
 
     String TOKEN_TASK_ID = "/id";
@@ -35,6 +34,7 @@ public interface CommandParser {
 
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
+    String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input !";
 
 
     Command parseCommand(String input) throws ParserException;
@@ -209,7 +209,7 @@ public interface CommandParser {
      * @param date the string of the date input
      * @return true or false.
      */
-    default boolean isDateValid(String date) {
+    default boolean isDateValid(String date) throws ParserException {
         final  String DATE_FORMAT = "dd/MM/yyyy";
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
@@ -217,7 +217,7 @@ public interface CommandParser {
             df.parse(date);
             return true;
         } catch (ParseException e) {
-            return false;
+            throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 }
