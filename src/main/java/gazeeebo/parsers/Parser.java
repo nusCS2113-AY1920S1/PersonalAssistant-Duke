@@ -1,5 +1,6 @@
 package gazeeebo.parsers;
 
+import gazeeebo.UI.Ui;
 import gazeeebo.commands.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
@@ -12,7 +13,7 @@ import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.places.PlacesCommand;
 
 public class Parser {
-    public static Command parse(final String command) throws DukeException {
+    public static Command parse(final String command, Ui ui) throws DukeException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("help")) {
             return new HelpCommand();
@@ -31,7 +32,8 @@ public class Parser {
             double score = 0.0;
             return new GPACommand(moduleCredit,score);
         } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            ui.showDontKnowErrorMessage();
+            return null;
         }
     }
 }
