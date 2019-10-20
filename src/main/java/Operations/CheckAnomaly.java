@@ -1,8 +1,6 @@
 package Operations;
 
 import Enums.TimeUnit;
-import Model_Classes.Assignment;
-import Model_Classes.FixedDuration;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
 
@@ -13,17 +11,31 @@ import java.util.Date;
  * This class checks if there are clashes in timings for events
  */
 public class CheckAnomaly {
+
+    /**
+     * Checks first if the task is a meeting, then decides which check function to use depending on whether the meeting has a fixed duration
+     * @param task task we are checking
+     * @return true if there is a time clash, false if there is no clash.
+     */
+    public static Boolean checkTask(Task task) {
+        if( task instanceof Meeting ) {
+            if( ((Meeting) task).isFixedDuration() ) {
+                return checkTimeDuration((Meeting) task);
+            } else {
+                return checkTime((Meeting) task);
+            }
+        }
+        return false;
+    }
+
     /**
      * Checks if the Meeting with fixed duration task has any clashes with any other meetings in the task list.
      * If there is a clash, returns true.
      * If there is no clash, returns false.
-     * @param date Date of Meeting
-     * @param duration Duration of Meeting
-     * @param timeUnit Unit of the duration
+     * @param meeting Meeting we are checking
      * @return true if there are time clashes, false if there are no time clashes.
      */
-    public static Boolean checkTime(Date date, int duration, TimeUnit timeUnit) {
-        Meeting meeting = new Meeting("null", date, duration, timeUnit);
+    private static Boolean checkTimeDuration(Meeting meeting) {
         ArrayList<Task> curr = TaskList.currentList();
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
             if( curr.get(i) instanceof Meeting  ) {
@@ -38,14 +50,13 @@ public class CheckAnomaly {
     }
 
     /**
-     * Overload function for checkTime.
-     * Checks if the FixedDuration task has any clashes with any other tasks in the task list.
-     * If there is a clash, returns true.
-     * If there is no clash, returns false.
-     * @param at Date of the event we are checking.
+     * Checks if the Meeting with no fixed duration has any clashes with any other tasks in the task list.
+     * If there is a clash, returns true. If there is no clash, returns false.
+     * @param meeting Date of the event we are checking.
      * @return true if there are time clashes, false if there are no time clashes.
      */
-    public static Boolean checkTime(Date at){
+    private static Boolean checkTime(Meeting meeting){
+        Date at = meeting.getDate();
         ArrayList<Task> curr = TaskList.currentList();
         // Goes down list of Tasks
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
@@ -65,13 +76,13 @@ public class CheckAnomaly {
      * @param meeting Meeting we are checking.
      * @return True if the two timings clash and False if there is no clash.
      */
-    public static Boolean checkIntersect(Date time, Meeting meeting) {
+    private static Boolean checkIntersect(Date time, Meeting meeting) {
         Date rangeTime = meeting.getDate();
         if( rangeTime.getYear() == time.getYear() && rangeTime.getMonth() == time.getMonth() && rangeTime.getDay() == time.getDay() ) {
             long meetingTime = meeting.getDate().getTime();
             long currTime = time.getTime();
-            long duration = timeToMilSeconds(meetingTime, meeting.getTimeUnit());
-            if(meetingTime <= currTime + duration && meetingTime >= currTime || meetingTime + duration <= currTime + duration && meetingTime + duration >= currTime) {
+            long duration = timeToMilSeconds(Long.parseLong(meeting.getDuration()), meeting.getTimeUnit());
+            if(currTime < meetingTime + duration && currTime >= meetingTime) {
                 return true;
             }
         }
@@ -84,7 +95,7 @@ public class CheckAnomaly {
      * @param second Second Meeting input.
      * @return True if there is an overlap and false if there is no overlap.
      */
-    public static Boolean checkOverlap(Meeting first, Meeting second) {
+    private static Boolean checkOverlap(Meeting first, Meeting second) {
         Date date1 = first.getDate();
         Date date2 = second.getDate();
         if( date1.getYear() == date2.getYear() && date1.getMonth() == date2.getMonth() && date1.getDay() == date2.getDay() ) {
@@ -92,7 +103,7 @@ public class CheckAnomaly {
             long duration2 = timeToMilSeconds(Integer.parseInt(second.getDuration()), second.getTimeUnit());
             long time1 = date1.getTime();
             long time2 = date2.getTime();
-            if( (duration1 <= duration2 + time2 && duration1 >= duration2) || (duration2 <= duration1 + time1 && duration2 >= duration1) ) {
+            if( (time1 < time2 + duration2 && time1 >= time2) || (time2 < time1 + duration1 && time2 >= time1) ) {
                 return true;
             }
         }
@@ -105,7 +116,7 @@ public class CheckAnomaly {
      * @param unit unit the duration of the Meeting is in.
      * @return duration of Meeting in milliseconds.
      */
-    public static long timeToMilSeconds(long duration, TimeUnit unit) {
+    private static long timeToMilSeconds(long duration, TimeUnit unit) {
         switch (unit) {
             case day:
                 return duration * 60 * 60 * 24 * 1000;
