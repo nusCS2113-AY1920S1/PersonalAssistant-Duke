@@ -9,6 +9,15 @@ public class GeneralNotePage {
     public static String goal = "";
     public static ArrayList<Module> modules = new ArrayList<>();
 
+    public void viewGeneralNotePage() {
+        System.out.println("Goal: " + goal);
+        System.out.println("\n");
+        System.out.println("Modules:");
+        for (int i = 0; i < modules.size(); i++) {
+            System.out.println((i+1) + ". " + modules.get(i).name);
+        }
+    }
+
     public void editGoal(Ui ui) throws IOException {
         System.out.println("What is your new goal?");
         ui.readCommand();
