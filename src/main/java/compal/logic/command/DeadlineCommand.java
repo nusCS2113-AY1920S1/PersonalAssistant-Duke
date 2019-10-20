@@ -21,7 +21,8 @@ public class DeadlineCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList task) throws CommandException {
-        task.addTask(new Deadline(description, priority, date, endTime));
-        return new CommandResult(new Deadline(description, priority, date, endTime).toString(),true);
+        Deadline deadline = new Deadline(description, priority, date, endTime);
+        task.addTask(deadline);
+        return new CommandResult(deadline.toString(),true);
     }
 }
