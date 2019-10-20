@@ -19,7 +19,7 @@ public class DeleteContactCommand extends Command {
      *
      * @param indexOfContactToDelete The index of the contact to be deleted.
      */
-    public DeleteContactCommand(int indexOfContactToDelete){
+    public DeleteContactCommand(int indexOfContactToDelete) {
         this.indexOfContactToDelete = indexOfContactToDelete;
     }
 
@@ -96,7 +96,8 @@ public class DeleteContactCommand extends Command {
      * @param contactStorage The storage to be overwritten.
      * @throws IOException If there is an error reading the file.
      */
-    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage, ContactList contactList) throws IOException{
+    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
+                               ContactList contactList) throws IOException {
         contactStorage.write(contactList);
     }
 }

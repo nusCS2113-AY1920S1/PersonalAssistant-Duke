@@ -32,10 +32,11 @@ public class AddContactsCommand extends Command {
     public void execute(TaskList items, Ui ui) {
     }
 
-    public void execute(TaskList items, ContactList contactList, Ui ui){
+    public void execute(TaskList items, ContactList contactList, Ui ui) {
         contactList.add(contactObj);
         ui.showAddedContact(contactList);
     }
+
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
      * (Not in use)

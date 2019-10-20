@@ -1,6 +1,15 @@
 package duke;
 
-import duke.command.*;
+import duke.command.SetPriorityCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.AddContactsCommand;
+import duke.command.Command;
+import duke.command.ListContactsCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.ExitCommand;
+import duke.command.BackupCommand;
 
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
@@ -126,7 +135,7 @@ public class Duke {
         } else if (cmd instanceof ListContactsCommand) {
             String str = cmd.executeGui(items, contactList, ui);
             return str;
-        } else if(cmd instanceof DeleteContactCommand){
+        } else if (cmd instanceof DeleteContactCommand) {
             String str = cmd.executeGui(items, contactList, ui);
             cmd.executeStorage(items, ui, contactStorage, contactList);
             return str;
@@ -181,7 +190,7 @@ public class Duke {
                     cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else if (cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
-                } else if (cmd instanceof DeleteContactCommand){
+                } else if (cmd instanceof DeleteContactCommand) {
                     cmd.execute(items, contactList, ui);
                     cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else {
