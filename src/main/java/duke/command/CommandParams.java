@@ -43,6 +43,7 @@ public class CommandParams {
         new AddExpenseCommand(),
         new BudgetCommand(),
         new DeleteCommand(),
+        new ConfirmTentativeCommand(),
         new ExitCommand(),
         new FilterCommand(),
         new SortCommand(),

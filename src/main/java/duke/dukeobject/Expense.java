@@ -21,7 +21,7 @@ public class Expense extends DukeItem {
     /**
      * Whether or not the expense is tentative.
      */
-    private final boolean isTentative;
+    private boolean isTentative;
     /**
      * The time of the expense.
      */
@@ -209,6 +209,10 @@ public class Expense extends DukeItem {
      */
     public boolean isTentative() {
         return isTentative;
+    }
+
+    public void setTentative(boolean val) {
+        isTentative = val;
     }
 
     /**
