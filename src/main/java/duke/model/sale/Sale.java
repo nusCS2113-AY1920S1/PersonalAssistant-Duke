@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a Sale in the sale list.
+ */
 public class Sale {
 
     //Identity field
