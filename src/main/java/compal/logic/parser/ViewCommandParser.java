@@ -17,12 +17,12 @@ public class ViewCommandParser implements CommandParser {
      * Parses the given {@code String} of arguments in the context of the ViewCommand
      * and returns an ViewCommand object for execution.
      *
-     * @param cmdParam parameter of the input string
+     * @param restOfInput parameter of the input string
      * @return the prepared command
      */
     @Override
-    public Command parseCommand(String cmdParam) throws ParserException {
-        String[] viewArgs = cmdParam.trim().split(" ");
+    public Command parseCommand(String restOfInput) throws ParserException {
+        String[] viewArgs = restOfInput.trim().split(" ");
         String emptyString = "";
         String viewType = viewArgs[0];
         String dateInput;
