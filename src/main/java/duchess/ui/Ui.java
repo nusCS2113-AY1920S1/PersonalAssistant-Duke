@@ -19,11 +19,11 @@ public class Ui {
     private final int horizontalLength = 161;
     private final int blockLength = 23;
     private final String emptyBlock = "                     |";
-    private final String calendarHeader = "|  TIME  |         MON         |         TUE         |         WED         "
+    public final String calendarHeader = "|  TIME  |         MON         |         TUE         |         WED         "
             + "|         THUR        |         FRI         |         SAT         |         SUN         |";
-    private final String blockSeparator = "+--------+---------------------+---------------------+---------------------"
+    public final String blockSeparator = "+--------+---------------------+---------------------+---------------------"
             + "+---------------------+---------------------+---------------------+---------------------+";
-    private final String plainSeparator = "+---------------------------------------------------------------------------"
+    public final String plainSeparator = "+---------------------------------------------------------------------------"
             + "---------------------------------------------------------------------------------------+";
 
     /**
@@ -154,8 +154,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Inform user calendar has been saved as test file.
+     *
+     * @param filePath filePath
+     */
     public void showFinishedExport(String filePath) {
-        printIndented("Your schedule has finished exporting to " + filePath);
+        printIndented("Your calendar has finished exporting to " + filePath);
     }
 
     /**
@@ -183,13 +188,27 @@ public class Ui {
      * @param str string containing academic year + semester + week
      * @return string with academic context centered and padded with whitespace
      */
-    private String processHeader(String str) {
+    public String processHeader(String str) {
         int partition = (int) Math.floor((horizontalLength - str.length()) / (double) 2);
         StringBuilder strBuilder = new StringBuilder();
         strBuilder.append(" ".repeat(Math.max(0, partition)));
         strBuilder.append(str);
         strBuilder.append(" ".repeat(Math.max(0, horizontalLength - strBuilder.length() + 1)));
-        return strBuilder.toString();
+        return "|" + strBuilder.toString() + "|";
+    }
+
+    /**
+     * Joins together the various blocks for the week.
+     *
+     * @param time   time
+     * @param strArr array containing descriptions
+     * @return joined string of descriptions or empty blocks
+     */
+    public String processRow(String time, String[] strArr) {
+        return "|  " + time + "  |"
+                + Arrays.stream(strArr)
+                .map(this::processDescription)
+                .collect(Collectors.joining());
     }
 
     /**
@@ -200,17 +219,14 @@ public class Ui {
      */
     public void displayCalendar(SortedMap<LocalTime, String[]> flatCalendar, String context) {
         printIndented(plainSeparator);
-        printIndented("|" + processHeader(context) + "|");
+        printIndented(processHeader(context));
         printIndented(blockSeparator);
         printIndented(calendarHeader);
         printIndented(blockSeparator);
         for (Map.Entry<LocalTime, String[]> entry : flatCalendar.entrySet()) {
             String time = entry.getKey().toString().replaceAll(":", "");
             String[] strArr = entry.getValue();
-            String row = Arrays.stream(strArr)
-                    .map(this::processDescription)
-                    .collect(Collectors.joining());
-            printIndented("|  " + time + "  |" + row);
+            printIndented(processRow(time, strArr));
             printIndented(blockSeparator);
         }
     }
