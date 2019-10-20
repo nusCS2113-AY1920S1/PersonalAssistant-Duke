@@ -100,6 +100,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        //CHECKSTYLE:OFF
         try {
             input = userInput.getText();
             // get input first, don't get response first...
@@ -166,6 +167,7 @@ public class MainWindow extends AnchorPane {
             showContentContainer();
             Duke.logger.log(Level.WARNING, e.getMessage());
         }
+        //CHECKSTYLE:ON
     }
 
     @FXML
