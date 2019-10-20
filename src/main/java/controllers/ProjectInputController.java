@@ -153,7 +153,6 @@ public class ProjectInputController implements IController {
                     assignmentController.assignAndUnassign(projectCommand.substring(12));
                     consoleView.consolePrint(assignmentController.getErrorMessages().toArray(new String[0]));
                     consoleView.consolePrint(assignmentController.getSuccessMessages().toArray(new String[0]));
-//
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {

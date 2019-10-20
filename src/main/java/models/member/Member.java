@@ -7,7 +7,6 @@ public class Member implements IMember {
     private String phone;
     private String email;
     private int indexNumber;
-    private ListOfTasksAssignedToMember listOfTasksAssignedToMember;
 
     /**
      * Class representing a member in a project team.

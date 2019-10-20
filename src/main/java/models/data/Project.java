@@ -12,8 +12,8 @@ public class Project implements IProject {
     private String description;
     private MemberList memberList;
     private TaskList taskList;
-    private HashMap<Task, ArrayList<Member>> task_Members; //task_membersAssigned
-    private HashMap<Member, ArrayList<Task>> member_Tasks; //member_individualTaskList
+    private HashMap<Task, ArrayList<Member>> taskAndListOfMembersAssigned; //task_membersAssigned
+    private HashMap<Member, ArrayList<Task>> memberAndIndividualListOfTasks; //member_individualTaskList
 
     /**
      * Class representing a task in a project.
@@ -23,8 +23,8 @@ public class Project implements IProject {
         this.description = description;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
-        this.task_Members = new HashMap<Task, ArrayList<Member>>();
-        this.member_Tasks = new HashMap<Member, ArrayList<Task>>();
+        this.taskAndListOfMembersAssigned = new HashMap<Task, ArrayList<Member>>();
+        this.memberAndIndividualListOfTasks = new HashMap<Member, ArrayList<Task>>();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Project implements IProject {
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
-        this.member_Tasks.put(newMember, new ArrayList<>());
+        this.memberAndIndividualListOfTasks.put(newMember, new ArrayList<>());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Project implements IProject {
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
 
-        this.task_Members.put(newTask, new ArrayList<>());
+        this.taskAndListOfMembersAssigned.put(newTask, new ArrayList<>());
     }
 
     @Override
@@ -103,7 +103,7 @@ public class Project implements IProject {
     @Override
     public ArrayList<String> getAssignedTaskList() {
         ArrayList<String> assignedTaskListString = new ArrayList<>();
-        for (HashMap.Entry<Task, ArrayList<Member>> task: task_Members.entrySet()) {
+        for (HashMap.Entry<Task, ArrayList<Member>> task: taskAndListOfMembersAssigned.entrySet()) {
             assignedTaskListString.add(task.getKey().getTaskName() + " is assigned to: ");
             for (Member member: task.getValue()) {
                 assignedTaskListString.add(member.getName());
@@ -120,8 +120,8 @@ public class Project implements IProject {
      */
     @Override
     public void createAssignment(Task task, Member member) {
-        task_Members.get(task).add(member);
-        member_Tasks.get(member).add(task);
+        taskAndListOfMembersAssigned.get(task).add(member);
+        memberAndIndividualListOfTasks.get(member).add(task);
     }
 
     /**
@@ -130,8 +130,8 @@ public class Project implements IProject {
      * @param task the task to be unassigned.
      */
     public void removeAssignment(Member member, Task task) {
-        task_Members.get(task).remove(member);
-        member_Tasks.get(member).remove(task);
+        taskAndListOfMembersAssigned.get(task).remove(member);
+        memberAndIndividualListOfTasks.get(member).remove(task);
     }
 
     /**
@@ -141,6 +141,6 @@ public class Project implements IProject {
      * @return true task has already been assigned to a member.
      */
     public boolean containsAssignment(Task task, Member member) {
-        return member_Tasks.get(member).contains(task);
+        return memberAndIndividualListOfTasks.get(member).contains(task);
     }
 }

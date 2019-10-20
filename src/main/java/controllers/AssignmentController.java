@@ -44,26 +44,28 @@ public class AssignmentController {
             //assigning tasks
             for (Integer assigneeIndex : validMembersToAssign) {
                 Member member = project.getMembers().getMember(assigneeIndex);
-                if (project.containsAssignment(task, member)){
+                if (project.containsAssignment(task, member)) {
                     successMessages.add("Task has already been assigned to member "
-                    + assigneeIndex + " (" + member.getName() +").");
+                        + assigneeIndex + " ("
+                        + member.getName() + ").");
                 } else {
                     project.createAssignment(task, member);
-                    successMessages.add("Assigned to member " + assigneeIndex +
-                        " (" + member.getName() +").");
+                    successMessages.add("Assigned to member "
+                        + assigneeIndex + " ("
+                        + member.getName() + ").");
                 }
             }
             //unassigning tasks
             for (Integer unassigneeIndex : validMembersToUnassign) {
                 Member member = project.getMembers().getMember(unassigneeIndex);
-                if (!project.containsAssignment(task, member)){
+                if (!project.containsAssignment(task, member)) {
                     successMessages.add("Task cannot be unassigned from member "
-                        + unassigneeIndex + " (" + member.getName() +") as it was "
+                        + unassigneeIndex + " (" + member.getName() + ") as it was "
                         + "not assigned in the first place!");
                 } else {
                     project.removeAssignment(member, task);
-                    successMessages.add("Unassigned task from member " + unassigneeIndex +
-                        " (" + member.getName() +").");
+                    successMessages.add("Unassigned task from member " + unassigneeIndex
+                        + " (" + member.getName() + ").");
                 }
             }
             successMessages.add("\n");
@@ -85,19 +87,19 @@ public class AssignmentController {
         for (String s : inputParts) {
             String [] part = s.split(" ");
             switch (part[0]) {
-                case "i":
-                    allTasksIndexes = new ArrayList<>(Arrays.asList(part));
-                    allTasksIndexes.remove("i");
-                    break;
-                case "to":
-                    allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
-                    allIndexesToAssign.remove("to");
-                    break;
-                case "rm":
-                    allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
-                    allIndexesToUnassign.remove("rm");
-                    break;
-                default:
+            case "i":
+                allTasksIndexes = new ArrayList<>(Arrays.asList(part));
+                allTasksIndexes.remove("i");
+                break;
+            case "to":
+                allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
+                allIndexesToAssign.remove("to");
+                break;
+            case "rm":
+                allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
+                allIndexesToUnassign.remove("rm");
+                break;
+            default:
             }
         }
 
@@ -123,7 +125,7 @@ public class AssignmentController {
             if (validMembersToUnassign.contains(index)) {
                 repeated.add(index);
                 errorMessages.add("Cannot assign and unassign task to member " + index + " ("
-                + project.getMembers().getMember(index).getName() + ") at the same time");
+                    + project.getMembers().getMember(index).getName() + ") at the same time");
 
             }
         }
