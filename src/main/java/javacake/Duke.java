@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Duke  {
-    private static String savedDataPath = "data/";
     private static Ui ui;
     private static Storage storage;
     private static ProgressStack progressStack;
@@ -30,14 +29,14 @@ public class Duke  {
     /**
      * Constructor for main class to initialise the settings.
      */
-    public Duke(String filePath) {
+    public Duke() {
         logger.log(Level.INFO, "Starting Duke Constructor!");
         ui = new Ui();
         try {
             progressStack = new ProgressStack();
-            //storage = new Storage(filePath);
+            //storage = new Storage();
             //tasks = new TaskList(storage.load());
-            profile = new Profile(filePath);
+            profile = new Profile();
             userProgress = profile.getTotalProgress();
             userName = profile.getUsername();
             // Default username when creating new profile
@@ -143,6 +142,6 @@ public class Duke  {
      * Program Start.
      */
     public static void main(String[] args) {
-        new Duke(savedDataPath).runAsCli();
+        new Duke().runAsCli();
     }
 }
