@@ -150,21 +150,44 @@ public class TaskList {
                     arrlist.set(i + 1, temp);
                     sorted = false;
                 }
-                if (task1Date.equals(task2Date)) {
-                    Date task1Time = arrlist.get(i).getStartTime();
-                    Date task2Time = arrlist.get(i + 1).getStartTime();
 
-                    if (task1Time == null) {
-                        task1Time = arrlist.get(i).getEndTime();
+                if (task1Date.equals(task2Date)) {
+                    Date task1StartTime = arrlist.get(i).getStartTime();
+                    Date taskStart2Time = arrlist.get(i + 1).getStartTime();
+
+                    Date task1EndTime = arrlist.get(i).getEndTime();
+                    Date task2EndTime = arrlist.get(i + 1).getEndTime();
+
+                    /*if (task1StartTime == null) {
+                        task1StartTime = arrlist.get(i).getEndTime();
                     }
-                    if (task2Time == null) {
-                        task2Time = arrlist.get(i + 1).getEndTime();
-                    }
-                    if (task1Time.after(task2Time)) {
-                        Task temp = arrlist.get(i);
-                        arrlist.set(i, arrlist.get(i + 1));
-                        arrlist.set(i + 1, temp);
-                        sorted = false;
+                    if (taskStart2Time == null) {
+                        taskStart2Time = arrlist.get(i + 1).getEndTime();
+                    }*/
+
+                    if ((task1StartTime == null && taskStart2Time == null)
+                        || (task1StartTime == null && taskStart2Time != null)
+                        || (task1StartTime != null && taskStart2Time == null)) {
+                        if (task1EndTime.after(task2EndTime)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+                        }
+                    } else if (task1StartTime != null && task1StartTime != null) {
+                        if (task1StartTime.after(taskStart2Time)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+                        } else if (task1StartTime.equals(taskStart2Time)) {
+                            if (task1EndTime.after(task1EndTime)) {
+                                Task temp = arrlist.get(i);
+                                arrlist.set(i, arrlist.get(i + 1));
+                                arrlist.set(i + 1, temp);
+                                sorted = false;
+                            }
+                        }
                     }
                 }
             }

@@ -35,7 +35,7 @@ public interface CommandParser {
 
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
-    String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input !";
+    String MESSAGE_INVALID_DATE_RANGE = "Date input does not exist in calender!";
 
 
     Command parseCommand(String input) throws ParserException, ParseException;
@@ -136,7 +136,7 @@ public interface CommandParser {
      * @param restOfInput Input description after initial command word.
      * @return Date in the form of a string.
      * @throws ParserException If date field is empty, date or date format is invalid,
-     *                              date token (/date) is missing.
+     *                         date token (/date) is missing.
      */
     default String getDate(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_DATE)) {
@@ -148,7 +148,12 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_DATE);
             }
             String dateInput = scanner.next();
-            return inputDateValidation(dateInput);
+            boolean isStringDateValie = isDateValid(dateInput);
+            if (isStringDateValie) {
+                return inputDateValidation(dateInput);
+            } else {
+                throw new ParserException(MESSAGE_INVALID_DATE_RANGE);
+            }
         } else {
             throw new ParserException(MESSAGE_MISSING_DATE_ARG);
         }
@@ -233,15 +238,15 @@ public interface CommandParser {
      * @param date the string of the date input
      * @return true or false.
      */
-    default boolean isDateValid(String date) throws ParserException {
-        final  String DATE_FORMAT = "dd/MM/yyyy";
+    default boolean isDateValid(String date) {
+        final String DATE_FORMAT = "dd/MM/yyyy";
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
             df.parse(date);
             return true;
         } catch (ParseException e) {
-            throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
+            return false;
         }
     }
 }
