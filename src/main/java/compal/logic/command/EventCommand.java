@@ -48,8 +48,8 @@ public class EventCommand extends Command {
             while (!startDate.after(finalDate)) {
                 startDateString = CompalUtils.dateToString(startDate);
                 Event indivEvent = new Event(description, priority, startDateString, startTime, endTime);
-                finalList += indivEvent.toString();
                 taskList.addTask(indivEvent);
+                finalList += indivEvent.toString();
                 startDate = incrementDateByWeek(startDate);
             }
         }

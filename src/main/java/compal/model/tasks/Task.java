@@ -39,6 +39,8 @@ public abstract class Task implements Serializable {
     }
 
 
+
+
     /**
      * Gets priority status (HIGH, MEDIUM, LOW) of task.
      *
@@ -328,12 +330,13 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * @deprecated
      * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
      * the time remaining until the date set for the task.
      *
      * @author jaedonkey
+     * @deprecated
      */
+    @Deprecated
     public void calculateAndSetPriorityScore() {
         long score;
         switch (priority) {
