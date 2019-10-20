@@ -1,6 +1,7 @@
 package duke;
 
 import duke.dukeobject.Expense;
+import duke.dukeobject.ExpenseList;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -38,6 +39,18 @@ public class MainWindow extends BorderPane {
     TableView expenseTableView;
     @FXML
     ListView<String> budgetListView = new ListView<>();
+    @FXML
+    Label dayLabel;
+    @FXML
+    Label weekLabel;
+    @FXML
+    Label monthLabel;
+    @FXML
+    Label yearLabel;
+    @FXML
+    Label allLabel;
+    @FXML
+    Label filterLabel;
 
     private Duke duke;
 
@@ -55,6 +68,7 @@ public class MainWindow extends BorderPane {
         updateMonthlyBudget();
         updateRemainingBudget();
         updateBudgetListView();
+        updateViewScopeLabel();
     }
 
     /**
@@ -69,6 +83,8 @@ public class MainWindow extends BorderPane {
         updateRemainingBudget();
         updateTableListView();
         updateBudgetListView();
+        updateViewScopeLabel();
+        updateFilterLabel();
 
     }
 
@@ -105,7 +121,6 @@ public class MainWindow extends BorderPane {
         tagColumn.setSortable(false);
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
         tagColumn.setSortable(false);
-
         expenseTableView.setRowFactory(new Callback<TableView<Expense>, TableRow<Expense>>() {
             @Override
             public TableRow<Expense> call(TableView<Expense> tableView) {
@@ -114,7 +129,7 @@ public class MainWindow extends BorderPane {
                     protected void updateItem(Expense expense, boolean empty) {
                         super.updateItem(expense, empty);
                         if (expense != null && expense.isTentative()) {
-                            setStyle("-fx-text-background-color: blue;");
+                            setStyle("-fx-text-background-color: grey;");
 
                         } else {
                             setStyle("-fx-text-background-color: black;");
@@ -135,6 +150,8 @@ public class MainWindow extends BorderPane {
         for (Expense expense : duke.expenseList.getExternalList()) {
             expenseTableView.getItems().add(expense);
         }
+
+
     }
 
 
@@ -143,9 +160,9 @@ public class MainWindow extends BorderPane {
      */
     public void updateTotalSpentLabel() {
         totalSpentLabel.setText("Total: "
-                + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
-                ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
-                + duke.expenseList.getTotalAmount()));
+                + ((duke.expenseList.getTotalExternalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
+                ? "-$" + duke.expenseList.getTotalExternalAmount().abs() : "$"
+                + duke.expenseList.getTotalExternalAmount()));
     }
 
     /**
@@ -174,8 +191,52 @@ public class MainWindow extends BorderPane {
         for (String tag : duke.budget.getBudgetCategory().keySet()) {
             budgetListView.getItems().add(tag
                     + ": $" + duke.expenseList.getTagAmount(tag)
-                    + "/$" + duke.budget.getBudgetCategory().get(tag));
+                    + " / $" + duke.budget.getBudgetCategory().get(tag));
         }
+    }
+
+    public void updateViewScopeLabel() {
+        switch (duke.expenseList.getViewScope().getViewScopeName()){
+        case DAY:
+            dayLabel.setTextFill(Color.BLACK);
+            weekLabel.setTextFill(Color.GRAY);
+            monthLabel.setTextFill(Color.GRAY);
+            yearLabel.setTextFill(Color.GRAY);
+            allLabel.setTextFill(Color.GRAY);
+            break;
+        case WEEK:
+            weekLabel.setTextFill(Color.BLACK);
+            dayLabel.setTextFill(Color.GRAY);
+            monthLabel.setTextFill(Color.GRAY);
+            yearLabel.setTextFill(Color.GRAY);
+            allLabel.setTextFill(Color.GRAY);
+            break;
+        case MONTH:
+            monthLabel.setTextFill(Color.BLACK);
+            dayLabel.setTextFill(Color.GRAY);
+            weekLabel.setTextFill(Color.GRAY);
+            yearLabel.setTextFill(Color.GRAY);
+            allLabel.setTextFill(Color.GRAY);
+        case YEAR:
+            yearLabel.setTextFill(Color.BLACK);
+            dayLabel.setTextFill(Color.GRAY);
+            weekLabel.setTextFill(Color.GRAY);
+            monthLabel.setTextFill(Color.GRAY);
+            yearLabel.setTextFill(Color.GRAY);
+            break;
+        default:
+            dayLabel.setTextFill(Color.GRAY);
+            weekLabel.setTextFill(Color.GRAY);
+            monthLabel.setTextFill(Color.GRAY);
+            yearLabel.setTextFill(Color.GRAY);
+            allLabel.setTextFill(Color.BLACK);
+            break;
+        }
+
+    }
+
+    public void updateFilterLabel() {
+        filterLabel.setText(duke.expenseList.getFilterCriteria());
     }
 
 }

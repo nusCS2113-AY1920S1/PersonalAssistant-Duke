@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class ExpenseList extends DukeList<Expense> {
 
-    private enum SortCriteria {
+    public enum SortCriteria {
 
         AMOUNT(Comparator.comparing(Expense::getAmount)),
         TIME(Comparator.comparing(Expense::getTime)),
@@ -26,11 +26,11 @@ public class ExpenseList extends DukeList<Expense> {
         }
     }
 
-    private enum ViewScopeName {
+    public enum ViewScopeName {
         DAY, WEEK, MONTH, YEAR, ALL;
     }
 
-    private class ViewScope {
+    public class ViewScope {
         private int viewScopeNumber;
         private ViewScopeName viewScopeName;
 
@@ -114,6 +114,10 @@ public class ExpenseList extends DukeList<Expense> {
                 return currentList; // the viewScope here is ALL.
             }
         }
+
+        public ViewScopeName getViewScopeName() {
+            return viewScopeName;
+        }
     }
 
     private SortCriteria sortCriteria;
@@ -163,6 +167,18 @@ public class ExpenseList extends DukeList<Expense> {
     @Override
     public void setFilterCriteria(String filterCriteria) throws DukeException {
         this.filterCriteria = filterCriteria;
+    }
+
+    public SortCriteria getSortCriteria() {
+        return sortCriteria;
+    }
+
+    public String getFilterCriteria() {
+        return filterCriteria;
+    }
+
+    public ViewScope getViewScope() {
+        return viewScope;
     }
 
     /**
