@@ -125,4 +125,11 @@ public class AchievementList {
 
     }
 
+    public static ArrayList<Achievements> createCopy() {
+        ArrayList<Achievements> copy = new ArrayList<>();
+	for (int i = 0; i < achievementList.size(); i += 1) {
+            copy.add(achievementList.get(i));
+	}
+	return copy;
+    }
 }
