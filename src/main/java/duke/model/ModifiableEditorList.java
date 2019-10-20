@@ -26,8 +26,16 @@ public class ModifiableEditorList extends UnmodifiableEditorList {
         list.set(index, editedEvent);
     }
 
+    public BindableEvent get(int index) {
+        return list.get(index);
+    }
+
     public int size() {
         return list.size();
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 
     public boolean contains(BindableEvent e) {
