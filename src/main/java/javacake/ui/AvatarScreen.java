@@ -47,9 +47,6 @@ public class AvatarScreen extends VBox {
      * @param type Type of face Avatar makes
      */
     public AvatarScreen(AvatarMode type) {
-        initialiseList();
-        avatarMode = type;
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/AvatarScreen.fxml"));
             fxmlLoader.setController(this);
@@ -58,7 +55,21 @@ public class AvatarScreen extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        initialiseList();
+        avatarMode = type;
+        setStyleLoop();
+    }
 
+    /**
+     * Method to set Avatar.
+     * @param type Type of face Avatar makes
+     * @return AvatarScreen object
+     */
+    public static AvatarScreen setAvatar(AvatarMode type) {
+        return new AvatarScreen(type);
+    }
+
+    private void setStyleLoop() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
             if (avatarMode == AvatarMode.HAPPY) {
                 if (timeFrame % 16 <= 14) {
@@ -83,14 +94,5 @@ public class AvatarScreen extends VBox {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-    }
-
-    /**
-     * Method to set Avatar.
-     * @param type Type of face Avatar makes
-     * @return AvatarScreen object
-     */
-    public static AvatarScreen setAvatar(AvatarMode type) {
-        return new AvatarScreen(type);
     }
 }
