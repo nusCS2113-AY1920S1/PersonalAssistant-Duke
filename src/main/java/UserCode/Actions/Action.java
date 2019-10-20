@@ -47,6 +47,8 @@ public abstract class Action {
                 return new SellWheatAction();
             case gotoMarket:
                 return new GotoMarketAction();
+            case gotoWheatFarm:
+                return new GotoFarmAction();
             default:
                 throw new FarmioException("Error Creating Action!");
         }

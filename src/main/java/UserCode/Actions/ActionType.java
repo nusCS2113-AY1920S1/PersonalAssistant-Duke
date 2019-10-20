@@ -8,5 +8,5 @@ public enum ActionType {
     plantSeeds,
     sellWheat,
     gotoMarket,
-    gotoFarm,
+    gotoWheatFarm,
 }
