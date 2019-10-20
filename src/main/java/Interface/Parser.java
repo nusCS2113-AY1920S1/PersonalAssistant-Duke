@@ -206,7 +206,7 @@ public class Parser {
                             throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                         }
                     }
-                    split1 = split[1].trim().split("/to");
+                    split1 = split[1].trim().split(" /to ");
                     String weekDate = "";
                     String reminderDate = "";
                     split2 = split1[0].trim().split(" ");
@@ -232,7 +232,9 @@ public class Parser {
                     Date dateOfReminder = formatter.parse(reminderDate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(dateOfTask);
-                    return new RemindCommand(new Deadline(description, dateString), dateOfReminder, set);
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String timeString = timeFormat.format(dateOfTask);
+                    return new RemindCommand(new Deadline(description, dateString, timeString), dateOfReminder, set);
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter remind as follows:\n" +
                             "remind/(set/rm) mod_code description /by week n.o day time /to week n.o day time\n" +
@@ -258,9 +260,11 @@ public class Parser {
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date date = formatter.parse(weekDate);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
                     String dateString = dateFormat.format(date);
-                    return new DeleteCommand("deadline",new Deadline(split[0].substring(6).trim(), dateString));
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String timeString = timeFormat.format(date);
+                    return new DeleteCommand("deadline",new Deadline(split[0].trim(), dateString, timeString));
 
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
@@ -289,7 +293,9 @@ public class Parser {
                     Date date = formatter.parse(weekDate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new AddCommand(new Deadline(split[0].trim(), dateString));
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String timeString = timeFormat.format(date);
+                    return new AddCommand(new Deadline(split[0].trim(), dateString, timeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
@@ -309,7 +315,9 @@ public class Parser {
                         Date date = formatter.parse(split[1].trim());
                         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                         String dateString = dateFormat.format(date);
-                        return new SnoozeCommand(index, dateString, dateString, dateString);
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                        String timeString = timeFormat.format(date);
+                        return new SnoozeCommand(index, dateString, timeString, dateString);
                     } else {
                         split2 = split[1].trim().split("to");
                         split3 = split2[0].trim().split(" ");
