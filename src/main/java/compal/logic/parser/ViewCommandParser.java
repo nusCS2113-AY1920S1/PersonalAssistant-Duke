@@ -8,8 +8,6 @@ import compal.logic.parser.exceptions.ParserException;
  * Parses input arguments and creates a new ViewCommand object.
  */
 public class ViewCommandParser implements CommandParser {
-
-    public static final String MESSAGE_MISSING_DATE = "Missing date input.";
     public static final String MESSAGE_INVALID_PARAM = "Invalid parameter for view command.";
 
 
@@ -29,14 +27,17 @@ public class ViewCommandParser implements CommandParser {
             throw new ParserException(MESSAGE_MISSING_TOKEN);
         }
 
-        String dateInput = getDate(input);
+        getDate(input);
 
+        if (viewArgs.length > 3) {
+            getType(input);
+        }
 
         switch (viewType) {
         case "/month":
         case "/week":
         case "/day":
-            return new ViewCommand(viewType,dateInput);
+            return new ViewCommand(viewArgs);
         default:
             break;
         }

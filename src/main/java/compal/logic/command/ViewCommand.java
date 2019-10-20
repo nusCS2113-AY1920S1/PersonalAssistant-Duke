@@ -16,22 +16,29 @@ import java.util.Date;
  * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
+    private String[] viewargs;
     private CalenderUtil calenderUtil;
+    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
+
 
     String viewType;
     String dateInput;
-    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
+    String type = "";
 
     /**
      * Generate constructor for viewCommand.
      *
-     * @param viewType  the view type
-     * @param dateInput the date of input
+     * @param viewArgs the arguments
      */
-    public ViewCommand(String viewType, String dateInput) {
+    public ViewCommand(String[] viewArgs) {
         super();
-        this.viewType = viewType;
-        this.dateInput = dateInput;
+        this.viewargs = viewArgs;
+        viewType = viewArgs[0];
+        dateInput = viewargs[2];
+        if (viewArgs.length > 3) {
+            type = viewArgs[4];
+            System.out.println(type);
+        }
         calenderUtil = new CalenderUtil();
     }
 
@@ -151,10 +158,15 @@ public class ViewCommand extends Command {
         StringBuilder allTask = new StringBuilder();
 
         for (Task t : currList) {
-            if (t.getStringDate().equals(dateInput) && !t.getSymbol().equals("D")) {
-                allTask.append(getEventAsStringView(t));
-            } else if (t.getStringDate().equals(dateInput) && t.getSymbol().equals("D")) {
-                allTask.append(getDeadlineAsStringView(t));
+            if (!type.equals("")) {
+                if (type.equals("deadline")) {
+                    if (!t.getSymbol().equals("D")) {
+                        continue;
+                    }
+                }
+            }
+            if (t.getStringDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t));
             }
         }
 
@@ -168,14 +180,14 @@ public class ViewCommand extends Command {
 
     }
 
-    private String getEventAsStringView(Task t) {
+    private String getAsStringView(Task t) {
+
+
         StringBuilder taskDetails = new StringBuilder();
-        String startTime = t.getStringStartTime();
-        String endTime = t.getStringEndTime();
-        Task.Priority priority = t.getPriority();
-        boolean isDone = t.getisDone();
 
         String rightArrow = "\u2192";
+
+        boolean isDone = t.getisDone();
         String status;
         if (isDone) {
             status = "\u2713";
@@ -183,15 +195,26 @@ public class ViewCommand extends Command {
             status = "\u274C";
         }
 
+        String startTime = t.getStringStartTime();
+        String endTime = t.getStringEndTime();
+
+        if (startTime.equals("-")) {
+            taskDetails.append("  Due: ").append(endTime)
+                .append("\n");
+
+        } else {
+            taskDetails.append("  Time: ").append(startTime)
+                .append(" ").append(rightArrow)
+                .append(" ").append(endTime)
+                .append("\n");
+        }
+
         int taskId = t.getId();
+        Task.Priority priority = t.getPriority();
 
-        taskDetails.append("  Time: ").append(startTime)
-            .append(" ").append(rightArrow)
-            .append(" ").append(endTime)
-            .append("\n");
-
-        taskDetails.append("  [Task ID:")
-            .append(taskId).append("] ").append("[Priority:").append(priority).append("]\n");
+        taskDetails
+            .append("  [Task ID:").append(taskId).append("] ").
+            append("[Priority:").append(priority).append("]\n");
 
         String taskSymbol = t.getSymbol();
         String taskDescription = t.getDescription();
@@ -202,34 +225,4 @@ public class ViewCommand extends Command {
         return taskDetails.toString();
     }
 
-    private String getDeadlineAsStringView(Task t) {
-        StringBuilder dailyDeadline = new StringBuilder();
-
-        String endTime = t.getStringEndTime();
-        Task.Priority priority = t.getPriority();
-        boolean isDone = t.getisDone();
-
-        String status;
-        if (isDone) {
-            status = "\u2713";
-        } else {
-            status = "\u274C";
-        }
-        int taskId = t.getId();
-        dailyDeadline.append("  Due: ").append(endTime)
-            .append("\n");
-
-        dailyDeadline.append("  [Task ID:")
-            .append(taskId).append("] ").append("[Priority:").append(priority).append("]\n");
-
-        String taskSymbol = t.getSymbol();
-        String taskDescription = t.getDescription();
-        dailyDeadline.append("  [").append(taskSymbol).append("] ")
-            .append("[").append(status).append("] ")
-            .append(taskDescription)
-            .append(priority)
-            .append("\n\n");
-
-        return dailyDeadline.toString();
-    }
 }

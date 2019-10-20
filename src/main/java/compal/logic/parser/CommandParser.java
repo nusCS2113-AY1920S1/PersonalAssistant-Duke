@@ -31,6 +31,7 @@ public interface CommandParser {
     String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
+    String TOKEN_TYPE = "/type";
     String EMPTY_INPUT_STRING = "";
 
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
@@ -229,6 +230,29 @@ public interface CommandParser {
             return timeInput;
         } else {
             throw new ParserException(MESSAGE_MISSING_END_TIME_ARG);
+        }
+    }
+
+    /**
+     * Parse,check and return the type.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return the input type.
+     * @throws ParserException If type does not exist throw exception
+     */
+    default String getType(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_TYPE)) {
+            int startPoint = restOfInput.indexOf(TOKEN_TYPE);
+            String typeStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(typeStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String type = scanner.next();
+            return type;
+        } else {
+            throw new ParserException(MESSAGE_MISSING_TOKEN);
         }
     }
 

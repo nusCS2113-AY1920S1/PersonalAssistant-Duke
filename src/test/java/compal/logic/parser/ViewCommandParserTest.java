@@ -67,8 +67,8 @@ class ViewCommandParserTest {
     @Test
     void parse_executeView_success() throws CommandException {
         String cmdParam = "/week /date 23/10/2019";
-        String[] viewArgs = cmdParam.split(" ");
+        String[] args = new String[]{"/week","/date", "23/10/2019"};
         assertParseSuccess(parser, cmdParam,
-            new ViewCommand(viewArgs[0],viewArgs[2]).commandExecute(taskList), taskList);
+            new ViewCommand(args).commandExecute(taskList), taskList);
     }
 }
