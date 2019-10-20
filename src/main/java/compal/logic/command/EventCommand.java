@@ -1,5 +1,6 @@
 package compal.logic.command;
 
+import compal.commons.CompalUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Event;
 import compal.model.tasks.Task;
@@ -41,17 +42,17 @@ public class EventCommand extends Command {
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         String finalList = MESSAGE_GREETING;
-        Date finalDate = stringToDate(finalDateString);
+        Date finalDate = CompalUtils.stringToDate(finalDateString);
         for (String startDateString : startDateList) {
-            Date startDate = stringToDate(startDateString);
+            Date startDate = CompalUtils.stringToDate(startDateString);
             while (!startDate.after(finalDate)) {
-                startDateString = dateToString(startDate);
+                startDateString = CompalUtils.dateToString(startDate);
                 Event indivEvent = new Event(description, priority, startDateString, startTime, endTime);
                 finalList += indivEvent.toString();
                 taskList.addTask(indivEvent);
                 startDate = incrementDateByWeek(startDate);
             }
         }
-        return new CommandResult(finalList);
+        return new CommandResult(finalList, true);
     }
 }

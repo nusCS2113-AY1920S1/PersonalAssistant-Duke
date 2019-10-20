@@ -5,21 +5,23 @@ import compal.logic.command.DeadlineCommand;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 
-import java.text.ParseException;
-
-import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
+import java.util.ArrayList;
 
 public class DeadlineCommandParser implements CommandParser {
 
     @Override
-    public Command parseCommand(String input) throws ParserException, ParseException {
-        String description = getDescription(input);
-        Task.Priority priority = getPriority(input);
-        String date = getDate(input);
-        String endTime = getEndTime(input);
-        if (!isValidDateAndTime(date, endTime)) {
-            throw new ParserException(MESSAGE_INVALID_DATE_TIME_INPUT);
+    public Command parseCommand(String restOfInput) throws ParserException {
+        ArrayList<String> startDateList = getTokenDate(restOfInput);
+        Task.Priority priority = getTokenPriority(restOfInput);
+        String endTime = getTokenEndTime(restOfInput);
+        String description = getTokenDescription(restOfInput);
+        String finalDate;
+        if (hasToken(restOfInput, TOKEN_FINAL_DATE)) {
+            finalDate = getTokenFinalDate(restOfInput);
+        } else {
+            int lastStartDateIndex = startDateList.size() - 1;
+            finalDate = startDateList.get(lastStartDateIndex);
         }
-        return new DeadlineCommand(description, priority, date, endTime);
+        return new DeadlineCommand(description, priority, startDateList, endTime, finalDate);
     }
 }

@@ -1,11 +1,10 @@
 package compal.logic.parser;
 
+import compal.commons.CompalUtils;
 import compal.logic.command.Command;
 import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
-import compal.model.tasks.Task;
 
-import javax.swing.text.html.parser.Parser;
 import java.text.DateFormat;
 import java.text.ParseException;
 
@@ -14,17 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static compal.commons.Messages.MESSAGE_MISSING_DESC;
-import static compal.commons.Messages.MESSAGE_MISSING_PRIORITY;
-import static compal.commons.Messages.MESSAGE_MISSING_DATE;
-import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
-import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
-import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
-import static compal.commons.Messages.MESSAGE_MISSING_TIME;
-import static compal.commons.Messages.MESSAGE_MISSING_END_TIME_ARG;
 
 public interface CommandParser {
 
@@ -284,7 +272,7 @@ public interface CommandParser {
     default boolean isValidDateAndTime(String inputDate, String inputTime) {
 
         Calendar c = Calendar.getInstance();
-        Date inputDateFormat = s;
+        Date inputDateFormat = CompalUtils.stringToDate(inputDate);
         c.setTime(inputDateFormat);
         c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
         c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2, 4)));

@@ -1,9 +1,13 @@
 package compal.logic.command;
 
+import compal.commons.CompalUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Deadline;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Add a deadline type task.
@@ -11,29 +15,43 @@ import compal.model.tasks.TaskList;
 public class DeadlineCommand extends Command {
 
     private String description;
+    private ArrayList<String> startDateList;
     private Task.Priority priority;
-    private String date;
     private String endTime;
+    private String finalDateString;
+    private static final String MESSAGE_GREETING = "The following tasks were added: \n";
 
     /**
      * This is the constructor.
      *
      * @param description description of deadline.
      * @param priority priority of deadline.
-     * @param date date of deadline.
+     * @param startDateList date of deadline.
      * @param endTime end time of deadline.
      */
-    public DeadlineCommand(String description, Task.Priority priority, String date, String endTime) {
+    public DeadlineCommand(String description, Task.Priority priority, ArrayList<String> startDateList,
+                           String endTime, String finalDateString) {
         this.description = description;
         this.priority = priority;
-        this.date = date;
+        this.startDateList = startDateList;
         this.endTime = endTime;
+        this.finalDateString = finalDateString;
     }
 
     @Override
-    public CommandResult commandExecute(TaskList task) throws CommandException {
-        Deadline deadline = new Deadline(description, priority, date, endTime);
-        task.addTask(deadline);
-        return new CommandResult(deadline.toString(),true);
+    public CommandResult commandExecute(TaskList taskList) {
+        String finalList = MESSAGE_GREETING;
+        Date finalDate = CompalUtils.stringToDate(finalDateString);
+        for (String startDateString : startDateList) {
+            Date startDate = CompalUtils.stringToDate(startDateString);
+            while (!startDate.after(finalDate)) {
+                startDateString = CompalUtils.dateToString(startDate);
+                Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
+                finalList += indivDeadline.toString();
+                taskList.addTask(indivDeadline);
+                startDate = incrementDateByWeek(startDate);
+            }
+        }
+        return new CommandResult(finalList, true);
     }
 }
