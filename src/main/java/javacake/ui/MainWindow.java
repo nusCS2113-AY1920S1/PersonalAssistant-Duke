@@ -180,9 +180,9 @@ public class MainWindow extends AnchorPane {
                     isTryingReset = true;
                 }
 
-                dialogContainer.getChildren().add( //default output of response
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
+                //default output of response
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(response, dukeImage));
                 //System.out.println("End->Next");
             }
         } catch (DukeException e) {
@@ -223,19 +223,19 @@ public class MainWindow extends AnchorPane {
 
     private String getFirstQn(String cmdMode) throws DukeException {
         switch (cmdMode) {
-            case "!@#_QUIZ_1":
-                quizCommand = new QuizCommand(Question.QuestionType.BASIC);
-                break;
-            case "!@#_QUIZ_2":
-                quizCommand = new QuizCommand(Question.QuestionType.OOP);
-                break;
-            case "!@#_QUIZ_3":
-                quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
-                break;
-            case "!@#_QUIZ_4":
-                quizCommand = new QuizCommand();
-                break;
-            default:
+        case "!@#_QUIZ_1":
+            quizCommand = new QuizCommand(Question.QuestionType.BASIC);
+            break;
+        case "!@#_QUIZ_2":
+            quizCommand = new QuizCommand(Question.QuestionType.OOP);
+            break;
+        case "!@#_QUIZ_3":
+            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
+            break;
+        case "!@#_QUIZ_4":
+            quizCommand = new QuizCommand();
+            break;
+        default:
         }
         return quizCommand.getQuestion();
     }

@@ -27,6 +27,9 @@ public class Storage {
         TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
     }
 
+    /**
+     * Constructor for storage.
+     */
     public Storage() {
         this.tasks = new TaskList();
         //Initialise new deadline file
@@ -69,15 +72,15 @@ public class Storage {
 
 
 
-//            File file = new File(filepath);
-//            try {
-//                if (!file.getParentFile().exists()) {
-//                    file.getParentFile().mkdir();
-//                }
-//                file.createNewFile();
-//            } catch (IOException e) {
-//                throw new DukeException("Failed to create new file");
-//            }
+            //            File file = new File(filepath);
+            //            try {
+            //                if (!file.getParentFile().exists()) {
+            //                    file.getParentFile().mkdir();
+            //                }
+            //                file.createNewFile();
+            //            } catch (IOException e) {
+            //                throw new DukeException("Failed to create new file");
+            //            }
 
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
