@@ -76,10 +76,6 @@
     -fx-background-size: contain;
 }
 
-.red {
-    -fx-fill: red;
-}
-
 .button {
     -fx-background-color : linear-gradient(to bottom right, mediumseagreen, midnightblue);
     -fx-border-width: 2;

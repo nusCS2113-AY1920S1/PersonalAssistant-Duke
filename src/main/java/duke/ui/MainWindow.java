@@ -12,14 +12,11 @@ import duke.logic.LogicManager;
 import duke.model.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;
-import duke.model.locations.Venue;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.dialogbox.DialogBox;
 import duke.ui.dialogbox.DialogBoxImage;
-import duke.ui.map.LocationCard;
 import duke.ui.map.MapWindow;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,9 +24,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -86,10 +83,6 @@ public class MainWindow extends UiPart<Stage> {
         logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
         tasks = logic.getTasks();
-        updateList();
-        tasks.getInternalList().addListener((ListChangeListener<Task>) c -> {
-            updateList();
-        });
     }
 
     /**
@@ -109,11 +102,17 @@ public class MainWindow extends UiPart<Stage> {
     private void updateList() {
         taskContainer.getChildren().clear();
         miniMap.getChildren().clear();
-        for (Task t : tasks) {
-            taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
+        for (Task t : tasks.getEventList()) {
+            taskContainer.getChildren().add(EventCard.getEventCard((Event) t));
         }
         for (Task t: tasks.getEventList()) {
-            miniMap.getChildren().add(EventCard.getCard((Event) t));
+            EventPointCard card = new EventPointCard((Event) t);
+            if (t.isDone()) {
+                card.setColor(Paint.valueOf("green"));
+            } else {
+                card.setColor(Paint.valueOf("red"));
+            }
+            miniMap.getChildren().add(card.getRoot());
         }
     }
 
