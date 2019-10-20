@@ -1,6 +1,6 @@
 package duke.logic.command.product;
 
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 public class AddProductCommandTest {
 

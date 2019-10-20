@@ -4,7 +4,6 @@ import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.order.Order;
 import duke.model.product.Product;
 
 import java.util.ArrayList;
