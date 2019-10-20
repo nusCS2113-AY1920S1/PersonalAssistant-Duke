@@ -15,6 +15,10 @@ INC @ 1200.0 @ Initial Savings @ 15/10/2019
 INC @ 560.0 @ TA  @ 10/12/2040
 INC @ 200.0 @ From somebody @ 16/10/2019
 INC @ -2.0 @ From somebody @ 16/10/2019
+INC @ 300.0 @ From my friends @ 20/10/2019
+INC @ 300.0 @ From my friends @ 20/10/2019
+INC @ 300.0 @ From my friends @ 20/10/2019
+INC @ 300.0 @ From my friends @ 20/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
@@ -37,3 +41,4 @@ G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
+LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @  @ 0 @ 200.0

@@ -101,7 +101,8 @@ public class SettleLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        String[] splitStr = inputString.split(" /to ", 2);
+        String regex = type == Loan.Type.INCOMING ? " /to " : " /from ";
+        String[] splitStr = inputString.split(regex, 2);
         float amount;
         if (splitStr[0].equals("all")) {
             amount = -2;
@@ -138,12 +139,14 @@ public class SettleLoanCommand extends MoneyCommand {
             Income i = new Income(amount, "From " + l.getDescription(), Parser.shortcutTime("now"));
             account.getIncomeListTotal().add(i);
             account.getIncomeListCurrMonth().add(i);
-        } else if (type == Loan.Type.INCOMING && amount <= account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
+        } else if (type == Loan.Type.INCOMING &&
+                amount <= account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getIncomingLoans().get(serialNo);
             amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
             account.getIncomingLoans().set(serialNo, l);
-            Expenditure e = new Expenditure(amount, l.getDescription(), "Loan Repayment", Parser.shortcutTime("now"));
+            Expenditure e = new Expenditure(amount, "To " + l.getDescription(), "Loan Repayment",
+                    Parser.shortcutTime("now"));
             account.getExpListTotal().add(e);
             account.getExpListCurrMonth().add(e);
         } else {
