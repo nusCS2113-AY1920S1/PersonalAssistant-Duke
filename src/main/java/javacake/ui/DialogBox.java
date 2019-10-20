@@ -1,6 +1,7 @@
 package javacake.ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.animation.Animation;
@@ -30,34 +31,65 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private boolean isSet = false;
+    private String displayText = "";
+    private char[] charList;
+    private int charCount = 0;
+    private Timeline textTimeline;
 
+    private String deadlineTextBase = "Deadlines:\n";
+
+    /**
+     * Method to create dialogbox with image.
+     * @param text text to display from Cake
+     * @param img Image of Cake
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            setStyleLoop();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        dialog.setText(text);
+        this.setPrefWidth(675);
+        setStyleLoop();
+        setScrollText();
+        displayText = text;
+        charList = displayText.toCharArray();
+        dialog.setText(displayText.substring(0, 1));
         displayPicture.setImage(img);
     }
 
+    /**
+     * Method to create dialogbox without image.
+     * @param text text to display from Cake
+     */
     private DialogBox(String text) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            setStyleLoop();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setStyleLoop();
+        setScrollText();
+        displayText = deadlineTextBase + text;
+        charList = displayText.toCharArray();
+        dialog.setText(displayText.substring(0, 1));
+    }
 
-        dialog.setText("Deadlines:\n" + text);
+    private void setScrollText() {
+        textTimeline = new Timeline(new KeyFrame(Duration.millis(10), ev -> {
+            if (charCount != charList.length) {
+                charCount++;
+                dialog.setText(displayText.substring(0, charCount));
+            }
+        }));
+        textTimeline.setCycleCount(Animation.INDEFINITE);
+        textTimeline.play();
     }
 
     private void setStyleLoop() {
@@ -76,6 +108,9 @@ public class DialogBox extends HBox {
         }
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
+            if (charCount == charList.length) {
+                textTimeline.stop();
+            }
             if (MainWindow.isLightMode) {
                 if (isSet) {
                     this.setStyle("-fx-background-color: #EE8EC7;"
