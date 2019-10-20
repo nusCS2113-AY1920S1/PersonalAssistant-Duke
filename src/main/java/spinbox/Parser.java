@@ -3,10 +3,12 @@ package spinbox;
 import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
+import spinbox.commands.HelpCommand;
 import spinbox.commands.MarkCommand;
+import spinbox.commands.MultipleCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.ViewCommand;
-import spinbox.commands.MultipleCommand;
+
 
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -85,10 +87,16 @@ public class Parser {
             if (slashSeparate.length == 1) {
                 if (input.toLowerCase().equals("bye")) {
                     action = "bye";
+                } else if (input.toLowerCase().trim().equals("help")) {
+                    action = "help";
+                    content = "";
                 } else {
                     throw new InputException("Please give valid command:\n"
                             + "'<action> <page> / <content>' or 'bye'");
                 }
+            } else if (slashSeparate[0].toLowerCase().equals("help") && slashSeparate.length == 2) {
+                action = "help";
+                content = slashSeparate[1].trim();
             } else {
                 content = slashSeparate[1].trim();
                 String[] frontComponents = slashSeparate[0].split(" ");
@@ -120,6 +128,9 @@ public class Parser {
             break;
         case "remove-multiple":
             command = new MultipleCommand(pageDataComponents, content);
+            break;
+        case "help":
+            command = new HelpCommand(content);
             break;
         default:
         }

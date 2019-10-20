@@ -44,7 +44,7 @@ public class AddCommand extends Command {
     private static final String FILE_FORMAT = "add <moduleCode> / file <fileName>";
     private static final String NOTE_FORMAT = "add <moduleCode> / note <fileName>";
     private static final String TODO_FORMAT = "add <moduleCode> / todo <fileName>";
-    private static final String DEADLINE_FORMAT = "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM";
+    private static final String DEADLINE_FORMAT = "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM>";
     private static final String EVENT_FORMAT = "add <moduleCode> / <eventType> <taskName> at: "
         + "<start as MM/DD/YYYY HH:MM> to <end as MM/DD/YYYY HH:MM>";
     private static final String MODULE_FORMAT = "add / module <moduleCode> <moduleName>";
@@ -158,9 +158,9 @@ public class AddCommand extends Command {
             }
 
         case "exam":
-        case "tutorial":
-        case "lecture":
         case "lab":
+        case "lecture":
+        case "tutorial":
             try {
                 checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
