@@ -43,31 +43,38 @@ public class Parser {
      * @return .
      * @throws DukeException .
      */
-    public String[] parseAssign() throws DukeException {
-        String[] formattedInput = new String[5];
+    public String[] parseDeletePatientTask() throws DukeException {
+        String[] formattedInput = new String[2];
         try {
-            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 4);
-            if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
+            String[] parsedCommand = userInput.split("\\s+", 4);
+            formattedInput[0] = parsedCommand[2];
+            formattedInput[1] = parsedCommand[3];
+            return formattedInput;
+        } catch (Exception e) {
+            throw new DukeException("Please use the correct format for the 'delete patienttask' command. ");
+        }
+    }
 
-                String[] tempInput = userInput.replace(
-                        "assign by id: ", "").split("\\s+", 4);
-                if (tempInput[0].equals("E")) {
-                    String[] parsedTimes = tempInput[3].split(" to ", 2);
-
-                    for (int i = 0; i < 3; i++) {
-                        formattedInput[i] = tempInput[i];
-                    }
-                    formattedInput[3] = parsedTimes[0];
-                    formattedInput[4] = parsedTimes[1];
-                } else {
-                    for (int i = 0; i < tempInput.length; i++) {
-                        formattedInput[i] = tempInput[i];
-                    }
-                }
+    /**
+     * .
+     *
+     * @return .
+     * @throws DukeException .
+     */
+    public String[] parseAssign() throws DukeException {
+        String[] formattedInput = new String[4];
+        try {
+            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 5);
+            formattedInput[1] = parsedCommand[2];
+            formattedInput[2] = parsedCommand[3];
+            formattedInput[3] = parsedCommand[4];
+            if (parsedCommand[1].equals("eventtask")) {
+                formattedInput[0] = "E";
+            } else if (parsedCommand[1].equals("standardtask")) {
+                formattedInput[0] = "S";
             } else {
-                throw new DukeException("Please use proper 'assign by ID' command format. ");
+                throw new DukeException("Please use proper 'assign standardtask/eventtask' command format. ");
             }
-            System.out.println(formattedInput[3]);
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please use the correct format for the 'assign by id' command. ");

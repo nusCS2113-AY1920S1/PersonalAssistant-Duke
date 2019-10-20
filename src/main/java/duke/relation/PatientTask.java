@@ -3,6 +3,7 @@ package duke.relation;
 public abstract class PatientTask {
     private Integer patientId;
     private Integer taskID;
+    private Integer uuid = 0;
     private boolean isDone = false;
     private boolean isRecurrsive = false;
     private String taskType;
@@ -23,6 +24,15 @@ public abstract class PatientTask {
     /**
      * .
      *
+     * @param id .
+     */
+    public void setUid(int id) {
+        this.uuid = id;
+    }
+
+    /**
+     * .
+     *
      * @param pid          .
      * @param tid          .
      * @param isdone       .
@@ -35,6 +45,13 @@ public abstract class PatientTask {
         this.taskType = type;
         this.isDone = isdone;
         this.isRecurrsive = isrecurrsive;
+    }
+
+    /**
+     * .
+     */
+    public int getUid() {
+        return this.uuid;
     }
 
     /**
@@ -145,8 +162,9 @@ public abstract class PatientTask {
      * @return .
      */
     public String printStatus() {
-        return "[" + this.getStatusIcon() + "] " + "[" + this.getRecurrsiveIcon() + "] ";
+        return " Unique ID " + uuid + " " + "[" + this.getStatusIcon() + "] " + "[" + this.getRecurrsiveIcon() + "] ";
     }
+
 
     /**
      * .
@@ -154,6 +172,4 @@ public abstract class PatientTask {
      * @return .
      */
     public abstract String toString();
-
-
 }

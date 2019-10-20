@@ -64,6 +64,7 @@ public class PatientTaskStorage {
                     String startTime = record.get("STARTTIME");
                     String endTime = record.get("ENDTIME");
                     String taskType = record.get("TASKTYPE");
+                    int uniqueId = Integer.parseInt(record.get("uuid"));
                     if (taskType.equals("S")) {
                         patientTaskList.add(new StandardPatientTask(pid, tid, isDone, isRecursive, deadline, taskType));
                     } else if (taskType.equals("E")) {
@@ -91,11 +92,13 @@ public class PatientTaskStorage {
     public void save(ArrayList<PatientTask> patientTask) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
-            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("PID", "TID", "DONE", "RECURRENCE", "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE"));
+            CSVPrinter csvPrinter = new CSVPrinter(writer,
+                    CSVFormat.DEFAULT.withHeader("PID", "TID", "DONE", "RECURRENCE",
+                            "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"));
             for (PatientTask patient : patientTask) {
                 int pid = patient.getPatientId();
                 int tid = patient.getTaskID();
+                int uniqueId = patient.getUid();
                 boolean isDone = patient.isDone();
                 boolean isRecurr = patient.isRecurrsive();
                 String deadline = null;
@@ -103,13 +106,13 @@ public class PatientTaskStorage {
                 String endTime = null;
                 String type = patient.getTaskType();
                 if (patient instanceof StandardPatientTask) {
-                    deadline = ((StandardPatientTask) patient).getDeadline();
+                    deadline = ((StandardPatientTask) patient).getDeadlineRaw();
                 } else if (patient instanceof EventPatientTask) {
                     startTime = ((EventPatientTask) patient).getStartTimeRaw();
                     endTime = ((EventPatientTask) patient).getEndTimeRaw();
                 }
                 csvPrinter.printRecord(pid, tid, String.valueOf(isDone), String.valueOf(isRecurr),
-                        deadline, startTime, endTime, type);
+                        deadline, startTime, endTime, type, uniqueId);
             }
             csvPrinter.flush();
         } catch (IOException e) {
