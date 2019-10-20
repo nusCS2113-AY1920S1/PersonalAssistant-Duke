@@ -12,7 +12,6 @@ import java.io.IOException;
 public class AddContactsCommand extends Command {
     protected Contacts contactObj;
     protected ContactList contactList;
-    protected ContactStorage contactStorage;
 
     /**
      * Creates a command with the specified contact.
@@ -31,10 +30,12 @@ public class AddContactsCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
+    }
+
+    public void execute(TaskList items, ContactList contactList, Ui ui){
         contactList.add(contactObj);
         ui.showAddedContact(contactList);
     }
-
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
      * (Not in use)
@@ -58,7 +59,7 @@ public class AddContactsCommand extends Command {
      */
     public String executeGui(TaskList items, ContactList contactList, Ui ui) {
         contactList.add(contactObj);
-        String str = Ui.showAddedContactGui(contactList);
+        String str = ui.showAddedContactGui(contactList);
         return str;
     }
 

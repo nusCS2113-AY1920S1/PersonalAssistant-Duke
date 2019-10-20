@@ -128,6 +128,7 @@ public class Duke {
             return str;
         } else if(cmd instanceof DeleteContactCommand){
             String str = cmd.executeGui(items, contactList, ui);
+            cmd.executeStorage(items, ui, contactStorage, contactList);
             return str;
         } else {
             String str = cmd.executeGui(items, ui);
@@ -177,11 +178,12 @@ public class Duke {
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
-                    //cmd.executeStorage(items, ui, contactStorage,contactList);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else if (cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
                 } else if (cmd instanceof DeleteContactCommand){
                     cmd.execute(items, contactList, ui);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addDefaultPriority(cmd);

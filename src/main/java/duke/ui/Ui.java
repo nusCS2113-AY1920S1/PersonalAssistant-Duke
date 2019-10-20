@@ -411,7 +411,6 @@ public class Ui {
             str += contactList.get(contactList.size() - ONE);
             str += "\nNow you have " + contactList.size() + " contacts.";
         }
-        System.out.println("I was here");
         return str;
     }
 
@@ -434,9 +433,9 @@ public class Ui {
      * @param deletedContact The contact that is deleted.
      */
     public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
-        String str = "     Noted. I've removed this contact:";
+        String str = "     Noted. I've removed this contact:\n";
         str += deletedContact;
-        str += "     Now you have " + contactList.size() + " tasks in the list.";
+        str += "\n     Now you have " + contactList.size() + " contact(s) in the list.";
         return str;
     }
     //@@author

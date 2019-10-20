@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.storage.ContactStorage;
 import duke.storage.Storage;
 import duke.task.ContactList;
 import duke.task.TaskList;
@@ -81,9 +82,21 @@ public class DeleteContactCommand extends Command {
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
      * @param storage The storage to be overwritten.
+     * @throws IOException If there is an error reading the file.
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
+    }
 
+    /**
+     * Executes a command that overwrites existing storage with the updated contact list.
+     *
+     * @param items The task list that contains a list of tasks..
+     * @param ui To tell the user that it is executed successfully.
+     * @param contactStorage The storage to be overwritten.
+     * @throws IOException If there is an error reading the file.
+     */
+    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage, ContactList contactList) throws IOException{
+        contactStorage.write(contactList);
     }
 }

@@ -71,9 +71,9 @@ public class ContactList {
     /**
      * To remove a contact from the contact list.
      *
-     * @param index The index of contact to be removed.
+     * @param indexOfContact The index of contact to be removed.
      */
-    public void remove(int index) {
-        contactList.remove(index);
+    public void remove(int indexOfContact) {
+        contactList.remove(indexOfContact);
     }
 }
