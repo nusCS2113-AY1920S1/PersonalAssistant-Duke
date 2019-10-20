@@ -2,6 +2,7 @@ package commands;
 
 import Contexts.SearchResultContext;
 import EPstorage.Blacklist;
+import EPstorage.BlacklistStorage;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 import task.Deadline;
@@ -109,6 +110,8 @@ public class AddCommand extends CommandSuper {
             }
 
         }
+
+
 
         ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
 
