@@ -1,3 +1,6 @@
-degree-Computer Engineering-0-REMOVED
-degree-Electrical Engineering-0
-degree-Mechanical Engineering-1
+degree-ceg-0
+degree-ee-1
+degree-me-2-REMOVED
+degree-chemeng-2
+degree-bioeng-3
+degree-mse-4

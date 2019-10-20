@@ -52,9 +52,11 @@ public class DegreeListStorage {
         lines = Files.readAllLines(file.toPath(), Charset.defaultCharset());
         AddRemoved(imp); //the description of the task is passed onto the AddRemoved method which has been described above.
         Files.write(file.toPath(), AddRemoved(imp), Charset.defaultCharset());
-        for(int i = 0; i < list.size(); i++) {
+        int index = list.indexOf(imp);
+        for(int i = index + 1; i < list.size(); i++) {
             upd.reduce_index(list.get(i));
-        }
+      }
+        //System.out.print(index);
     }
 
 }

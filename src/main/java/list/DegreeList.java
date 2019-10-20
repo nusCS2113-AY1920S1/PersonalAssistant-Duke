@@ -156,9 +156,10 @@ public class DegreeList implements Serializable, Cloneable{
                 String imp = conversion(request);
                 System.out.println("Noted. I've removed this degree:\n"
                         + "  " + list.get(request));
+                dd.processing(imp);
                 this.list.remove(request);
                 System.out.println("Now you have " + this.list.size() + " degrees you are interested in.");
-                dd.processing(imp);
+
             }
         } catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
