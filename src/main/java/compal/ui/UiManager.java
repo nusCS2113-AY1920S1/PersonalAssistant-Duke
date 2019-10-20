@@ -48,34 +48,30 @@ public class UiManager implements Ui {
             tabReference.getTabs().add(0, mainTab);
 
             //Create DailyCalUI Pane
-            /**DailyCalUI dc = new DailyCalUI(compal);
-             String datePattern = "dd/MM/yyyy";
-             compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
-             ScrollPane dailyPane = dc.init(compal.ui.dateState);
+            DailyCalUi dc = new DailyCalUi();
+            String datePattern = "dd/MM/yyyy";
+            String stringTodayDate = new SimpleDateFormat(datePattern).format(new Date());
+            ScrollPane dailyPane = dc.init(stringTodayDate);
 
-             Tab dailyTab = new Tab();
-             dailyTab.setText(compal.ui.dateState);
-             dailyTab.setContent(dailyPane);
-             tabReference.getTabs().add(1, dailyTab);**/
+            Tab dailyTab = new Tab();
+            dailyTab.setText("Daily View: " + stringTodayDate);
+            dailyTab.setContent(dailyPane);
+            tabReference.getTabs().add(1, dailyTab);
 
             uiUtil.setMainWindow(mainPane);
-            uiUtil.setSecondaryWindow(((ScrollPane) ap.getChildren().get(3)));  //get reference to secondary viewport
             Scene s1 = new Scene(ap);
-
-
             primaryStage.setScene(s1);
             primaryStage.setTitle("ComPAL");
             primaryStage.setOpacity(1);
+            primaryStage.setResizable(false);
             primaryStage.getIcons().add(new Image(new FileInputStream(new File("./icon.png"))));
 
-            Label date = (Label) ap.getChildren().get(6);
+            Label date = (Label) ap.getChildren().get(4);
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date d = new Date();
 
             date.setText("Today's Date:" + formatter.format(d));
-
-            //Passes the initialized Compal object to the controller class to link them up
             fxmlLoader.<MainWindow>getController();
 
             primaryStage.show();

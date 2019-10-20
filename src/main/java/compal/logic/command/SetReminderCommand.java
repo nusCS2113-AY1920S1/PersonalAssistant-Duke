@@ -29,6 +29,6 @@ public class SetReminderCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_INPUT);
         }
         task.setHasReminder(state);
-        return new CommandResult(COMMAND_PREFIX.concat(task.toString()));
+        return new CommandResult(COMMAND_PREFIX.concat(task.toString()),true);
     }
 }

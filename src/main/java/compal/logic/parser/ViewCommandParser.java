@@ -1,7 +1,6 @@
 package compal.logic.parser;
 
 import compal.logic.command.Command;
-import compal.logic.command.ListCommand;
 import compal.logic.command.ViewCommand;
 import compal.logic.parser.exceptions.ParserException;
 
@@ -10,10 +9,9 @@ import compal.logic.parser.exceptions.ParserException;
  */
 public class ViewCommandParser implements CommandParser {
 
-    private static final String MESSAGE_MISSING_DATE = "Missing date input.";
-    private static final String MESSAGE_MISSING_PARAM = "Missing command parameter.";
-    private static final String MESSAGE_INVALID_PARAM = "Invalid parameter for view command.";
-    private static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input !";
+    public static final String MESSAGE_MISSING_DATE = "Missing date input.";
+    public static final String MESSAGE_INVALID_PARAM = "Invalid parameter for view command.";
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the ViewCommand
@@ -24,14 +22,13 @@ public class ViewCommandParser implements CommandParser {
      */
     @Override
     public Command parseCommand(String cmdParam) throws ParserException {
-
         String[] viewArgs = cmdParam.trim().split(" ");
         String emptyString = "";
         String viewType = viewArgs[0];
         String dateInput;
 
         if (emptyString.equals(viewType)) {
-            throw new ParserException(MESSAGE_MISSING_PARAM);
+            throw new ParserException(MESSAGE_MISSING_TOKEN);
         }
 
         switch (viewType) {
@@ -44,18 +41,16 @@ public class ViewCommandParser implements CommandParser {
                 throw new ParserException(MESSAGE_MISSING_DATE);
             }
 
-            if (!isDateValid(dateInput)) {
-                throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
-            }
+            isDateValid(dateInput);
 
             if (viewArgs.length == 2) {
                 return new ViewCommand(viewArgs);
             }
             break;
         default:
-            throw new ParserException(MESSAGE_INVALID_PARAM);
+            break;
         }
 
-        return new ListCommand();
+        throw new ParserException(MESSAGE_INVALID_PARAM);
     }
 }

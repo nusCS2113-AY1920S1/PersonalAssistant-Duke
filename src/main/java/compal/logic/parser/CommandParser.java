@@ -7,8 +7,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Scanner;
 
 
@@ -18,6 +16,7 @@ public interface CommandParser {
     String TOKEN_STATUS = "/s";
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
+    String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input !";
 
     Command parseCommand(String input) throws ParserException;
 
@@ -73,7 +72,7 @@ public interface CommandParser {
      * @param date the string of the date input
      * @return true or false.
      */
-    default boolean isDateValid(String date) {
+    default boolean isDateValid(String date) throws ParserException {
         final  String DATE_FORMAT = "dd/MM/yyyy";
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
@@ -81,7 +80,7 @@ public interface CommandParser {
             df.parse(date);
             return true;
         } catch (ParseException e) {
-            return false;
+            throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 }
