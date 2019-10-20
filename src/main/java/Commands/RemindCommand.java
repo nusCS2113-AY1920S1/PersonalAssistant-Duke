@@ -5,11 +5,14 @@ import Interface.Storage;
 import Interface.Ui;
 import Tasks.Task;
 import Tasks.TaskList;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import java.io.FileNotFoundException;
@@ -24,13 +27,17 @@ public class RemindCommand extends Command {
     private Date time;
     private Timer timer;
     private HashMap<Date, Timer> timerHashMap;
+    private HashMap<Date, Timeline> timelineHashMap;
     private Image img;
     private boolean remind;
+    private Timeline timeline;
+    private long seconds;
 
     public RemindCommand (Task task, Date time, boolean remind) {
         this.task = task;
         this.time = time;
         timerHashMap = new HashMap<>();
+        timelineHashMap = new HashMap<>();
         timer = new Timer();
         img = new Image("/images/DaDuke.png");
         this.remind = remind;
@@ -47,7 +54,7 @@ public class RemindCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
-        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
         HashMap<Date, Task> reminderMap = storage.getReminderMap();
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
@@ -56,24 +63,27 @@ public class RemindCommand extends Command {
             timer = timerHashMap.get(time);
             timer.cancel();
             timerHashMap.remove(time);
+            timeline = timelineHashMap.get(time);
+            timeline.stop();
+            timelineHashMap.remove(time);
             return ui.showCancelReminder(task, reminderTime);
         }
         if (this.time.before(currentDate)) {
             throw new DukeException("Sorry, you cannot set a time that has already passed!");
         } else if (this.time.after(currentDate)) {
-            long seconds = currentDate.getTime() - time.getTime();
+            seconds = time.getTime() - currentDate.getTime();
             if (timerHashMap.containsKey(time)) {
                 Task remindedTask = reminderMap.get(time);
                 throw new DukeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
             } else if (!deadlineMap.containsKey(task.getModCode())) {
                 throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
-            } else if (!deadlineMap.get(task.getModCode()).containsKey(time)) {
+            } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDateTime())) {
                 throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
             } else {
-                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(time);
+                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDateTime());
                 boolean hasTask = false;
                 for (Task taskInList : allTaskInDate) {
-                    if (taskInList.equals(task)) {
+                    if (taskInList.getDescription().equals(task.getDescription())) {
                         hasTask = true;
                         break;
                     }
@@ -83,7 +93,8 @@ public class RemindCommand extends Command {
                 }
             }
             deadlines.setReminder(task , reminderTime, remind);
-            timer.schedule(new TimerTask() {
+            notification(deadlines, reminderTime);
+/*            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     Notifications notificationBuilder = Notifications.create()
@@ -96,36 +107,29 @@ public class RemindCommand extends Command {
                     timer.cancel();
                     deadlines.setReminder(task , reminderTime, false);
                 }
-            }, seconds);
+            }, seconds);*/
             timerHashMap.put(time, timer);
         }
         storage.updateDeadlineList(deadlines);
         return ui.showReminder(task, reminderTime);
     }
+
+    private void notification(TaskList deadlines, String reminderTime) {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(seconds), event -> {
+            Notifications notificationBuilder = Notifications.create()
+                    .title("REMINDER!!!")
+                    .graphic(new ImageView(img))
+                    .text(task.getModCode() + " " + task.getDescription() + "\n" + task.getDateTime())
+                    .darkStyle()
+                    .position(Pos.BOTTOM_RIGHT)
+                    .onAction(notificationEvent -> {
+                        timeline.stop();
+                    });
+            notificationBuilder.show();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        timelineHashMap.put(time,timeline);
+        deadlines.setReminder(task , reminderTime, false);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

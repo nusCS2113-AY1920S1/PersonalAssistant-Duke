@@ -26,6 +26,18 @@ public class Task {
         return "void";
     }
 
+    public String getDateTime(){
+        return "void";
+    }
+
+    public String getDate() {
+        return "void";
+    }
+
+    public String getTime() {
+        return "void";
+    }
+
     /**
      * Checks whether the task is completed.
      * @return This returns a tick or cross depending on the boolean value of isDone
@@ -58,19 +70,15 @@ public class Task {
     }
 
     public String remindTimeToString() {
-        return "[<R" + remindTime + "/R>]";
+        return "[<R" + remindTime + "/R>] ";
     }
     public String toString() {
         if (isReminder) {
             return "[" + getStatusIcon()
-                    + "] " + getReminderStatus()  + remindTimeToString() + getDescription();
+                    + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
         } else {
-            return "[" + getStatusIcon() + "] " + getReminderStatus()  + remindTimeToString() + getDescription();
+            return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
         }
-    }
-
-    public String getDateTime(){
-        return "void";
     }
 
     public String getModCode() {
@@ -91,7 +99,7 @@ public class Task {
         this.isReminder = reminder;
     }
 
-    public boolean getReminder() {
+    public boolean getIsReminder() {
         return this.isReminder;
     }
 

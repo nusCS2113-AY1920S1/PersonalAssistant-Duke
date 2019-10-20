@@ -42,4 +42,14 @@ public class Event extends Task {
     public String toShow() {
         return "Start: " + start + "\nEnd: " + end + "\n";// + super.toShow();
     }
+
+    @Override
+    public String getDate() {
+        return by;
+    }
+
+    @Override
+    public String getTime() {
+        return start + " to " + end;
+    }
 }
