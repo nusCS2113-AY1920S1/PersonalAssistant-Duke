@@ -46,28 +46,28 @@ public class Parser {
             String[] taskInfo = input.split(" ", 2);
             String userCommand = taskInfo[0];
             Command command;
-            if (taskInfo[0].equals("exit")) {
+            if (userCommand.equals("exit")) {
                 return new ExitCommand();
-            } else if (taskInfo[0].equals("help")) {
+            } else if (userCommand.equals("help")) {
                 // CREATE A HELP COMMAND TO SHOW THE AVAILABLE INSTRUCTION
                 return null;
-            } else if (taskInfo[0].equals("add")) {
+            } else if (userCommand.equals("add")) {
                 command = parseAdd(taskInfo);
-            } else if (taskInfo[0].equals("delete")) {
+            } else if (userCommand.equals("delete")) {
                 command = parseDelete(taskInfo);
-            } else if (taskInfo[0].equals("search")) {
+            } else if (userCommand.equals("search")) {
                 command = parseSearch(taskInfo);
-            } else if (taskInfo[0].equals("list")) {
+            } else if (userCommand.equals("list")) {
                 command = parseList(taskInfo);
-            } else if (taskInfo[0].equals("history")) {
+            } else if (userCommand.equals("history")) {
                 command = parseHistory(taskInfo);
-            } else if (taskInfo[0].equals("freq")) {
+            } else if (userCommand.equals("freq")) {
                 command = parseSearchFrequency(taskInfo);
-            } else if (taskInfo[0].equals("edit")) {
+            } else if (userCommand.equals("edit")) {
                 command = parseEdit(taskInfo);
-            } else if (taskInfo[0].equals("tag")) {
+            } else if (userCommand.equals("tag")) {
                 command = parseTag(taskInfo);
-            } else if (taskInfo[0].equals("quiz")) {
+            } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
             } else {
                 try {
