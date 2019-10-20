@@ -54,7 +54,7 @@ public class Ui {
      *
      * @return Scanner to scan for an integer of user input.
      */
-    public int scanInt() {
+    int scanInt() {
         return scan.nextInt();
     }
 
@@ -63,14 +63,14 @@ public class Ui {
      *
      * @return Scanner to scan for next line of user input.
      */
-    public String scanLine() {
+    String scanLine() {
         return scan.nextLine();
     }
 
     /**
      * Prints 3D ascii logo OOF.
      */
-    public void printOofLogo() {
+    private void printOofLogo() {
         String logo = "\t ________  ________  ________ \n"
                 + "\t|\\   __  \\|\\   __  \\|\\  _____\\\n"
                 + "\t\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
@@ -84,7 +84,7 @@ public class Ui {
     /**
      * Prints welcome message for OOF.
      */
-    public void hello() {
+    void hello() {
         printLine();
         printOofLogo();
         System.out.println("\tHello! I'm OOF");
@@ -102,7 +102,7 @@ public class Ui {
     /**
      * Prints lines.
      */
-    public void printLine() {
+    void printLine() {
         System.out.println("\t____________________________________________________________");
     }
 
@@ -193,7 +193,7 @@ public class Ui {
      * @return User input if it is equals to "Y" or "N"
      */
     public String printContinuePrompt() {
-        String input = "";
+        String input;
         while (true) {
             System.out.println("Continue anyway? (Y/N)");
             input = scanLine();
@@ -216,14 +216,14 @@ public class Ui {
     /**
      * Prints a reminder regarding upcoming deadlines.
      */
-    public void printReminder() {
+    void printReminder() {
         System.out.println("\tReminder these tasks have upcoming deadlines:");
     }
 
     /**
      * Prints a reminder that the user has no deadlines.
      */
-    public void printNoDeadlines() {
+    void printNoDeadlines() {
         System.out.println("\tYou have no upcoming deadlines :)");
     }
 
@@ -233,7 +233,7 @@ public class Ui {
      * @param count Position of upcoming deadline in reminder list.
      * @param task  Task object of upcoming deadline.
      */
-    public void printUpcomingDeadline(int count, Task task) {
+    void printUpcomingDeadline(int count, Task task) {
         System.out.println("\t" + count + "." + task);
     }
 
@@ -273,7 +273,7 @@ public class Ui {
     /**
      * Prints list of options for the recurring frequency of a task.
      */
-    public void printRecurringOptions() {
+    void printRecurringOptions() {
         String options = "\tListed are the available options for recurring tasks!\n"
                 + "\t1. Daily\n"
                 + "\t2. Weekly\n"
@@ -565,7 +565,7 @@ public class Ui {
      *
      * @param largestColSize Longest possible description for task.
      */
-    public void printEntryBodySpace(int largestColSize) {
+    private void printEntryBodySpace(int largestColSize) {
         printViewWeekBorder();
         if (!isEven(largestColSize)) {
             largestColSize++;
@@ -599,7 +599,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendarLabel(YearMonth yearMonth) {
+    private void printCalendarLabel(YearMonth yearMonth) {
         String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                 "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
         String month = months[yearMonth.getMonthValue()];
@@ -610,7 +610,7 @@ public class Ui {
     /**
      * Prints calendar header.
      */
-    public void printCalendarHeader() {
+    private void printCalendarHeader() {
         System.out.println("-----------------------------------------------------------------------------------------"
                 + "------------------------------------------------------------------");
         System.out.println("|         SUN         |         MON         |         TUE         |         WED         |"
@@ -624,7 +624,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
+    private void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
         String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
                 " 8", " 9", "10", "11", "12", "13", "14", "15",
                 "16", "17", "18", "19", "20", "21", "22", "23",
@@ -674,7 +674,7 @@ public class Ui {
      * @param dayIndex      Offset for current day.
      * @param calendarRows  Number of rows to be printed for current week.
      */
-    public void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
+    private void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
                                      int dayIndex, int calendarRows) {
         for (int row = 0; row < calendarRows; row++) {
             System.out.print("|");
@@ -703,7 +703,7 @@ public class Ui {
      * @param taskTime Time of deadline or event.
      * @param taskName Name of deadline or event.
      */
-    public void printDeadlineAndEvent(String taskTime, String taskName) {
+    private void printDeadlineAndEvent(String taskTime, String taskName) {
         if (taskName.length() > TEXT_SIZE_SHORT) {
             taskName = taskName.substring(DESCRIPTION_SHORT_START, DESCRIPTION_SHORT_END);
             System.out.print(" " + taskTime + " " + taskName + ".. |");
@@ -718,7 +718,7 @@ public class Ui {
      *
      * @param taskName Name of todo.
      */
-    public void printTodo(String taskName) {
+    private void printTodo(String taskName) {
         if (taskName.length() > TEXT_SIZE_LONG) {
             taskName = taskName.substring(DESCRIPTION_LONG_START, DESCRIPTION_LONG_END);
             System.out.print(" " + taskName + ".. |");
