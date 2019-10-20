@@ -16,7 +16,12 @@ import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
 import oof.command.SummaryCommand;
+<<<<<<< HEAD
 import oof.command.ViewWeekCommand;
+=======
+import oof.command.ThresholdCommand;
+
+>>>>>>> upstream/master
 import oof.exception.OofException;
 import java.util.InputMismatchException;
 
@@ -126,6 +131,9 @@ public class CommandParser {
         case "free":
             line = line.replaceFirst("free", "").trim();
             return new FreeCommand(line);
+        case "threshold":
+            line = line.replaceFirst("threshold", "").trim();
+            return new ThresholdCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
