@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Box?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
@@ -22,10 +23,26 @@
         </VBox>
     </top>
     <center>
-        <VBox alignment="CENTER">
+        <VBox>
             <HBox alignment="CENTER">
-                <TableView fx:id="expenseTableView" minWidth="600"/>
-                <ListView fx:id="budgetListView"/>
+                <VBox>
+                    <TableView fx:id="expenseTableView" minWidth="600"/>
+                </VBox>
+                <VBox>
+                    <ListView fx:id="budgetListView"/>
+                </VBox>
+            </HBox>
+            <HBox>
+                <Label alignment="TOP_LEFT" fx:id="viewScope" text="View Scope: "/>
+                <Label fx:id="dayLabel" text="Day" />
+                <Label fx:id="weekLabel" text="Week" />
+                <Label fx:id="monthLabel" text="Month" />
+                <Label fx:id="yearLabel" text="Year" />
+                <Label fx:id="allLabel" text="All" />
+            </HBox>
+            <HBox>
+                <Label alignment="TOP_LEFT" fx:id="filter" text="Filter:" />
+                <Label fx:id="filterLabel"/>
             </HBox>
         </VBox>
     </center>

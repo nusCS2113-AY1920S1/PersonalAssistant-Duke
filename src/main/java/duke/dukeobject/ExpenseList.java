@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class ExpenseList extends DukeList<Expense> {
 
-    private enum SortCriteria {
+    public enum SortCriteria {
 
         AMOUNT(Comparator.comparing(Expense::getAmount)),
         TIME(Comparator.comparing(Expense::getTime)),
@@ -26,11 +26,11 @@ public class ExpenseList extends DukeList<Expense> {
         }
     }
 
-    private enum ViewScopeName {
+    public enum ViewScopeName {
         DAY, WEEK, MONTH, YEAR, ALL;
     }
 
-    private class ViewScope {
+    public class ViewScope {
         private int viewScopeNumber;
         private ViewScopeName viewScopeName;
 
@@ -96,6 +96,11 @@ public class ExpenseList extends DukeList<Expense> {
                 .collect(Collectors.toList());
         }
 
+        /**
+         * Returns a filtered list based on the view scope.
+         * @param currentList List of Expenses we want to filter down
+         * @return the filtered List of Expense
+         */
         public List<Expense> view(List<Expense> currentList) {
             switch (viewScopeName) {
             case DAY:
@@ -113,6 +118,10 @@ public class ExpenseList extends DukeList<Expense> {
             default: // case ALL:
                 return currentList; // the viewScope here is ALL.
             }
+        }
+
+        public ViewScopeName getViewScopeName() {
+            return viewScopeName;
         }
     }
 
@@ -163,6 +172,18 @@ public class ExpenseList extends DukeList<Expense> {
     @Override
     public void setFilterCriteria(String filterCriteria) throws DukeException {
         this.filterCriteria = filterCriteria;
+    }
+
+    public SortCriteria getSortCriteria() {
+        return sortCriteria;
+    }
+
+    public String getFilterCriteria() {
+        return filterCriteria;
+    }
+
+    public ViewScope getViewScope() {
+        return viewScope;
     }
 
     /**
