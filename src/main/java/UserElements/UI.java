@@ -61,15 +61,8 @@ public class UI {
      */
 
     public void printReminder(EventList events) {
-        String systemDateAndTime = new Date().toString();
-    	EventDate limit = new EventDate(systemDateAndTime);
-    	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getEventJavaDate().toString();
-    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
     	System.out.print(lineSeparation);
-    	System.out.print("The time now is " + systemDateAndTime + ".\n");
-    	System.out.print("Here is a list of events you need to complete in the next 3 days (by " + reminderDeadline + "):\n");
-    	System.out.print(events.filteredList(pred, DATE));
+    	System.out.print(events.getReminder());
     	System.out.print(lineSeparation);
     }
 
@@ -125,6 +118,39 @@ public class UI {
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                     eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
             System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        }
+    }
+
+    public void inputDetails() {
+        System.out.println("Please input the event details below in the format" + "\n" +
+                "<venue>/<teachers or assessors>/<pieces to practice>/<performers>. For non-applicable categories please input 'NA'.");
+    }
+
+    public void eventDetailsAdded(Event detailedEvent) {
+        try {
+            System.out.println(lineSeparation + "Got it. I've added the details to this event:");
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " START: " + detailedEvent.getStartDate().getFormattedDateString() +
+                    " END: " + detailedEvent.getEndDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " BY: " + detailedEvent.getStartDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        }
+    }
+
+    public void printEventDetails(Event detailedEvent) {
+        try {
+            System.out.println(lineSeparation + "Here are the details for the event:");
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " START: " + detailedEvent.getStartDate().getFormattedDateString() +
+                    " END: " + detailedEvent.getEndDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
+                    detailedEvent.getDescription() + " BY: " + detailedEvent.getStartDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
             System.out.print(lineSeparation);
         }
     }
@@ -267,5 +293,32 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("Error writing to file! Details not saved!");
         System.out.print(lineSeparation);
+    }
+
+    /**
+     * Prints message to show success of edit command.
+     *
+     * @param eventIndex The index of the edited event.
+     * @param eventEdited The event after edit.
+     */
+    public void printEditedEvent(int eventIndex, Event eventEdited) {
+        try {
+            System.out.println(lineSeparation + "Got it. Successfully edited event" + eventIndex + ":");
+            System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
+                    eventEdited.getDescription() + " START: " + eventEdited.getStartDate().getFormattedDateString() +
+                    " END: " + eventEdited.getEndDate().getFormattedDateString());
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + eventEdited.getDoneSymbol() + "][" + eventEdited.getType() + "] " +
+                    eventEdited.getDescription() + " BY: " + eventEdited.getStartDate().getFormattedDateString());
+            System.out.print(lineSeparation);
+        }
+    }
+
+    public void printCalendar(String calendarInfo) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the calendar of the next 7 days!");
+        System.out.println(calendarInfo);
+        System.out.println("\nEnter a command:");
     }
 }

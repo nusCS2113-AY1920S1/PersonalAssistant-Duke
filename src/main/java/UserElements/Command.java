@@ -8,6 +8,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
+import Events.Storage.CalendarTable;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -128,6 +129,22 @@ public class Command {
                 rescheduleEvents(events, ui);
                 break;
 
+            case "details":
+                addEventDetails(events, ui);
+                break;
+
+            case "viewdetails":
+                viewDetails(events, ui);
+                break;
+            
+            case "edit":
+                editEvent(events, ui);
+                break;
+
+            case "calendar":
+                printCalendar(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -136,6 +153,27 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+    }
+
+    private void printCalendar(EventList events, UI ui) {
+        CalendarTable calendarTable = new CalendarTable(events);
+        calendarTable.setCalendarInfo();
+        ui.printCalendar(calendarTable.getCalendarInfo());
+    }
+
+    /**
+     * Command to edit an event in the list.
+     */
+    private void editEvent(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String[] splitInfo = continuation.split("/");
+            int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
+            String newDescription = splitInfo[1];
+            events.editEvent(eventIndex, newDescription);
+            ui.printEditedEvent(eventIndex+1, events.getEvent(eventIndex));
         }
     }
 
@@ -148,10 +186,11 @@ public class Command {
             int viewIndex = 1;
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(searchKeyWords)) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
-                    viewIndex++;
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";    
                 }
+                viewIndex++;
             }
+            
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
@@ -192,12 +231,18 @@ public class Command {
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
-                    viewIndex++;
                 }
+                viewIndex++;
             }
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
+    }
+
+    public void viewDetails(EventList events, UI ui) {
+        int eventNo = Integer.parseInt(continuation);
+        Event currEvent = events.getEvent(eventNo - 1);
+        ui.printEventDetails(currEvent);
     }
 
     public void createNewEvent(EventList events, UI ui, char eventType) {
@@ -226,12 +271,10 @@ public class Command {
                         newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
                                 entryForEvent.getEndDate());
                         break;
-
                     case 'R':
                         newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
                                 entryForEvent.getEndDate());
                         break;
-
                 }
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
@@ -289,6 +332,22 @@ public class Command {
             } else {
                 ui.noSuchEvent();
             }
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
+
+    public void addEventDetails(EventList events, UI ui) {
+        try {
+            Parser parser = new Parser();
+            int eventNo = Integer.parseInt(continuation);
+            Event currEvent = events.getEvent(eventNo - 1);
+            ui.inputDetails();
+            String detailsInput = parser.readUserInput();
+            currEvent.addDetails(detailsInput);
+            ui.eventDetailsAdded(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {
@@ -394,8 +453,7 @@ public class Command {
             } else {
                 period = Integer.parseInt(splitEvent[2]);
             }
-
-            return this;
+            return this; 
         }
     }
 }
