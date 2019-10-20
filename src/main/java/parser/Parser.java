@@ -11,7 +11,7 @@ import command.ExitCommand;
 import command.AddCommand;
 import command.SearchCommand;
 import command.RecentlyAddedCommand;
-import command.FrequentlySearchedCommand;
+import command.SearchFrequencyCommand;
 import command.EditCommand;
 
 import exception.*;
@@ -166,7 +166,7 @@ public class Parser {
                 throw new WrongSearchFrequencyFormatException();
             }
         }
-        return new FrequentlySearchedCommand(order);
+        return new SearchFrequencyCommand(order);
     }
 
     protected static Command parseEdit(String[] taskInfo) throws WrongEditFormatException {

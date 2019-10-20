@@ -22,9 +22,6 @@ public class EditCommand extends Command {
 
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
-        //ask ui to print something
-        //ask tasks to store the thing in arraylist
-        //ask storage to write to file
         try {
             // edit word
             String oldWordToString = wordBank.getWordBank().get(editedWord).toString();

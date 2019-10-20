@@ -9,11 +9,11 @@ import ui.Ui;
  * Represents a command from user to see most/least searched words.
  * Inherits from Command class.
  */
-public class FrequentlySearchedCommand extends Command {
+public class SearchFrequencyCommand extends Command {
 
     protected String order;
 
-    public FrequentlySearchedCommand(String order) {
+    public SearchFrequencyCommand(String order) {
         this.order = order;
     }
 
