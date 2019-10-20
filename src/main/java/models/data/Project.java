@@ -12,8 +12,8 @@ public class Project implements IProject {
     private String description;
     private MemberList memberList;
     private TaskList taskList;
-    private HashMap<Task, ArrayList<Member>> tasksAssignedToMembers; //member_individualTaskList
-    private HashMap<Member, ArrayList<Task>> membersAssignedToTask; //task_membersAssigned
+    private HashMap<Task, ArrayList<Member>> task_Members; //task_membersAssigned
+    private HashMap<Member, ArrayList<Task>> member_Tasks; //member_individualTaskList
 
     /**
      * Class representing a task in a project.
@@ -23,8 +23,8 @@ public class Project implements IProject {
         this.description = description;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
-        this.tasksAssignedToMembers = new HashMap<>();
-        this.membersAssignedToTask = new HashMap<>();
+        this.task_Members = new HashMap<>();
+        this.member_Tasks = new HashMap<>();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class Project implements IProject {
     @Override
     public ArrayList<String> getAssignedTaskList() {
         ArrayList<String> assignedTaskListString = new ArrayList<>();
-        for (HashMap.Entry<Task, ArrayList<Member>> task: tasksAssignedToMembers.entrySet()) {
+        for (HashMap.Entry<Task, ArrayList<Member>> task: task_Members.entrySet()) {
             assignedTaskListString.add(task.getKey().getTaskName() + " is assigned to: ");
             for (Member member: task.getValue()) {
                 assignedTaskListString.add(member.getName());
@@ -117,12 +117,12 @@ public class Project implements IProject {
      */
     @Override
     public void addTaskToMemberTaskList(Task task, Member member) {
-        if (tasksAssignedToMembers.containsKey(task)) {
-            tasksAssignedToMembers.get(task).add(member);
+        if (task_Members.containsKey(task)) {
+            task_Members.get(task).add(member);
         } else {
             ArrayList<Member> memberList = new ArrayList<>();
             memberList.add(member);
-            tasksAssignedToMembers.put(task,memberList);
+            task_Members.put(task,memberList);
         }
         assignMemberToTask(member, task);
     }
@@ -135,12 +135,12 @@ public class Project implements IProject {
      */
     @Override
     public void assignMemberToTask(Member member, Task task) {
-        if (membersAssignedToTask.containsKey(member)) {
-            membersAssignedToTask.get(member).add(task);
+        if (member_Tasks.containsKey(member)) {
+            member_Tasks.get(member).add(task);
         } else {
             ArrayList<Task> taskList = new ArrayList<>();
             taskList.add(task);
-            membersAssignedToTask.put(member, taskList);
+            member_Tasks.put(member, taskList);
         }
     }
 
@@ -149,11 +149,11 @@ public class Project implements IProject {
      * @param task to be removed from an individual's task list.
      */
     public void removeTaskFromMembers(Task task) {
-        ArrayList<Member> listOfMember = tasksAssignedToMembers.get(task);
+        ArrayList<Member> listOfMember = task_Members.get(task);
         for (Member member: listOfMember) {
-            membersAssignedToTask.get(member).remove(task);
+            member_Tasks.get(member).remove(task);
         }
-        tasksAssignedToMembers.remove(task);
+        task_Members.remove(task);
     }
 
     /**
@@ -162,11 +162,11 @@ public class Project implements IProject {
      * @param member the member to be remove from the HashMap
      */
     public void removeMemberToTasks(Member member) {
-        ArrayList<Task> listOfTask = membersAssignedToTask.get(member);
+        ArrayList<Task> listOfTask = member_Tasks.get(member);
         for (Task task: listOfTask) {
-            tasksAssignedToMembers.get(task).remove(member);
+            task_Members.get(task).remove(member);
         }
-        membersAssignedToTask.remove(member);
+        member_Tasks.remove(member);
     }
 
     /**
@@ -175,7 +175,16 @@ public class Project implements IProject {
      * @param task
      */
     public void unassignMemberFromTask(Member member, Task task) {
-        tasksAssignedToMembers.get(member).remove(task);
-        membersAssignedToTask.get(task).remove(member);
+        task_Members.get(task).remove(member);
+        member_Tasks.get(member).remove(task);
+    }
+
+    public boolean containsAssignment(Task task, Member member) {
+        System.out.println("testing");
+        if (member_Tasks.containsKey(member)) {
+            return member_Tasks.get(member).contains(task);
+        } else {
+            return false;
+        }
     }
 }

@@ -36,6 +36,7 @@ public class AssignmentController {
      */
     public void assignAndUnassign(String input) {
         parseAssignmentInput(input);
+        Project project = this.project;
         for (Integer taskIndex : validTaskIndexes) {
             Task task = project.getTask(taskIndex);
             successMessages.add("For task " + taskIndex + " (" + task.getTaskName() + "):");
@@ -43,10 +44,12 @@ public class AssignmentController {
             //assigning tasks
             for (Integer assigneeIndex : validMembersToAssign) {
                 Member member = project.getMembers().getMember(assigneeIndex);
-                if (task.isAlreadyAssignedTo(member)){
+                if (!project.containsAssignment(task, member)){
+                    System.out.println("UNSUCCESSFUL ASSIGNMENT HERE");
                     successMessages.add("Task has already been assigned to member "
                     + assigneeIndex + " (" + member.getName() +").");
                 } else {
+                    System.out.println("ASSIGNMENT HERE");
                     project.addTaskToMemberTaskList(task, member);
                     successMessages.add("Assigned to member " + assigneeIndex +
                         " (" + member.getName() +").");
@@ -55,11 +58,13 @@ public class AssignmentController {
             //unassigning tasks
             for (Integer unassigneeIndex : validMembersToUnassign) {
                 Member member = project.getMembers().getMember(unassigneeIndex);
-                if (!task.isAlreadyAssignedTo(member)){
+                if (project.containsAssignment(task, member)){
+                    System.out.println("UNSUCCESSFUL UNASSIGNMENT HERE");
                     successMessages.add("Task cannot be unassigned from member "
                         + unassigneeIndex + " (" + member.getName() +") as it was "
                         + "not assigned in the first place!");
                 } else {
+                    System.out.println("SUCCESSFUL UNASSIGNMENT HERE");
                     project.unassignMemberFromTask(member, task);
                     successMessages.add("Unassigned task from member " + unassigneeIndex +
                         " (" + member.getName() +").");
