@@ -6,7 +6,6 @@
 package cube.util;
 
 import java.io.*;
-
 import java.util.ArrayList;
 
 import cube.exception.DukeLoadingException;
@@ -61,6 +60,12 @@ public class Storage {
 		}
 	}
 
+	/**
+	 * Using serializable, load task objects from data file with persistent storage to an ArrayList.
+	 *
+	 * @return The list of the task objects.
+	 * @throws DukeException Exception caught in input process, when attempting to read from data file.
+	 */
 	public ArrayList<Task> load() throws DukeException {
 		ArrayList<Task> list = new ArrayList<>();
 		if (checkFileAvailable()) {
@@ -76,9 +81,10 @@ public class Storage {
 				file.close();
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
-				throw new DukeLoadingException(fileFullPath);
+				throw new DukeLoadingException("ClassNotFound", fileFullPath);
 			} catch (IOException e) {
-				System.out.println("IOException is caught.")
+				e.printStackTrace();
+				throw new DukeLoadingException("IOException", fileFullPath);
 			}
 		}
 		return list;
