@@ -26,10 +26,10 @@ public class SellWheatAction extends Action {
             throw new FarmioException("Task Error!");
         }
         try {
-            Simulation.animate(ui, storage, farmer, "SellWheat", 0, 6);
+            Simulation.animate(ui, storage, farmer, "SellWheatSimulation", 0, 6);
             ui.show("Selling wheat!");
             farmer.earnMoney(farmer.getWheatFarm().sell());
-            Simulation.animate(ui, storage, farmer, 1000, "SellWheat", 7);
+            Simulation.animate(ui, storage, farmer, 1000, "SellWheatSimulation", 7);
         } catch (Exception e) {
             e.getMessage();
         }
