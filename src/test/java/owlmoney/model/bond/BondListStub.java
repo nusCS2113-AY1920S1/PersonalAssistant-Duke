@@ -6,12 +6,7 @@ import java.util.ArrayList;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.ui.Ui;
 
-/**
- * BondList  provides a layer of abstraction for the ArrayList.
- * The ArrayList will store elements of type Bond.
- */
-
-public class BondList {
+public class BondListStub extends BondList {
     private ArrayList<Bond> bondLists;
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
@@ -21,7 +16,7 @@ public class BondList {
     /**
      * Creates an arrayList of bonds.
      */
-    public BondList() {
+    BondListStub() {
         bondLists = new ArrayList<Bond>();
     }
 
@@ -32,21 +27,13 @@ public class BondList {
      * @param ui         required for display.
      * @throws BondException if there are no bonds.
      */
+    @Override
     public void listBond(int displayNum, Ui ui) throws BondException {
         if (bondLists.size() <= ISZERO) {
             throw new BondException("There are no bonds");
         } else {
-            int counter = displayNum;
-            for (int i = bondLists.size() - 1; i >= ISZERO; i--) {
-                printOneHeader(counter, displayNum, ui);
-                printOneBond((i + ONE_INDEX), bondLists.get(i), ISMULTIPLE, ui);
-                counter--;
-                if (counter <= ISZERO || i == ISZERO) {
-                    ui.printDivider();
-                }
-                if (counter <= ISZERO) {
-                    break;
-                }
+            for (int i = bondLists.size() - ONE_INDEX; i >= ISZERO; i--) {
+                System.out.println("bond: " + i);
             }
         }
     }
@@ -57,10 +44,9 @@ public class BondList {
      * @param bond bond object.
      * @param ui   required for printing.
      */
+    @Override
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
-        ui.printMessage("Bond with the following details has been added: ");
-        printOneBond(ONE_INDEX, bond, ISSINGLE, ui);
     }
 
     /**
@@ -78,6 +64,7 @@ public class BondList {
      * @param bond the bond object that the user is expecting to add.
      * @throws BondException If duplicate bond name is found.
      */
+    @Override
     public void bondExist(Bond bond) throws BondException {
         for (int i = ISZERO; i < getSize(); i++) {
             if (bond.getName().equals(bondLists.get(i).getName())) {
@@ -100,12 +87,9 @@ public class BondList {
             if (bondName.equals(bondLists.get(i).getName())) {
                 Bond temp = bondLists.get(i);
                 bondLists.remove(i);
-                ui.printMessage("Bond with the following details has been deleted: ");
-                printOneBond(ONE_INDEX, temp, ISSINGLE, ui);
                 return;
             }
         }
-        throw new BondException("There are no bonds with the name: " + bondName);
     }
 
     /**
@@ -133,13 +117,12 @@ public class BondList {
      * @param ui       required for printing.
      * @throws BondException If the bond does not exist or the year is smaller than the original.
      */
+    @Override
     public void editBond(String bondName, String year, String rate, Ui ui) throws BondException {
         for (int i = ISZERO; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
                 editBondYear(year, i);
                 editBondRate(rate, i);
-                ui.printMessage("Bond with the following details has been edited: ");
-                printOneBond(ONE_INDEX, bondLists.get(i), ISSINGLE, ui);
                 return;
             }
         }
