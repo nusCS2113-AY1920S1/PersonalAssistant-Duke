@@ -15,17 +15,20 @@ public class Leave extends Task {
     private int duration;
     private TimeUnit timeUnit;
     private boolean isShort;
+    private String user;
 
 
-    public Leave(String description, Date from, Date to) {
-        super(description);
+    public Leave(String description, String user, Date from, Date to) {
+        super(description, from);
+        this.user = user;
         this.from = from;
         this.to = to;
         this.isShort = false;
     }
 
-    public Leave(String description, Date from, int duration, TimeUnit unit) {
-        super(description);
+    public Leave(String description, String user, Date from, int duration, TimeUnit unit) {
+        super(description, from);
+        this.user = user;
         this.from = from;
         this.duration = duration;
         this.timeUnit = unit;
@@ -55,9 +58,9 @@ public class Leave extends Task {
     @Override
     public String toString() {
         if(isShort) {
-            return "[L]" + super.toString() + "(from: " + from + " back in( " + duration + " " + timeUnit.toString() + ")";
+            return "[L]" + super.toString() + " " + user + " (from: " + from + " back in( " + duration + " " + timeUnit.toString() + ")";
         } else {
-            return "[L]" + super.toString() + "(from: " + from  + " to: " + to + ")";
+            return "[L]" + super.toString() + " " + user + " (from: " + from  + " to: " + to + ")";
         }
     }
 }

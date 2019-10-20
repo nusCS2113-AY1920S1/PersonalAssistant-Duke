@@ -142,6 +142,16 @@ public class TaskCreator {
                 else
                     throw new RoomShareException(ExceptionType.timeClash);
             }
+        }
+
+        if (type.contains("leave")) {
+            //short leave
+            Leave leave = new Leave(description, assignee, date, duration, unit);
+            leave.setPriority(priority);
+            leave.setRecurrenceSchedule(recurrence);
+        }
+
+        return null;
         } else throw new RoomShareException(ExceptionType.wrongTaskType);
     }
 }
