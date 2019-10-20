@@ -134,10 +134,7 @@ public class QuizCommand extends Command {
 
                 default:
                 }
-                TopBar.progValueT = (TopBar.progValueA
-                        + TopBar.progValueB
-                        + TopBar.progValueC
-                        + TopBar.progValueD) / 3;
+                TopBar.progValueT = (double) profile.getTotalProgress() / (QuestionList.MAX_QUESTIONS * 4);
             }
         }
     }

@@ -1,5 +1,6 @@
 package javacake.storage;
 
+import javacake.Duke;
 import javacake.exceptions.DukeException;
 
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class Profile {
     private static String filepath = "data/save/savefile.txt";
@@ -27,7 +29,7 @@ public class Profile {
     public Profile(String filename) throws DukeException {
         try {
             File file = new File("data/save/savefile.txt");
-            System.out.println("Filepath: " + filepath);
+            Duke.logger.log(Level.INFO,"Filepath: " + filepath);
             try {
                 if (!file.getParentFile().getParentFile().exists()) {
                     file.getParentFile().getParentFile().mkdir();

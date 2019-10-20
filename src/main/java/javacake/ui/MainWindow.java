@@ -32,11 +32,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
-    private Button sendButton;
+    private Button sendButton = new Button();
     @FXML
     private HBox topBar;
     @FXML
-    private VBox rightScreen;
+    private VBox avatarScreen;
+    @FXML
+    private ScrollPane taskScreen;
+    @FXML
+    private VBox taskContainer;
+    @FXML
+    private ScrollPane noteScreen;
+    @FXML
+    private VBox noteContainer;
     @FXML
     private Button themeModeButton;
     public static boolean isLightMode = true;
@@ -58,9 +66,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
-        topBar.getChildren().add(TopBar.setTitle());
-        setUpProgressBars();
+        taskScreen.vvalueProperty().bind(dialogContainer.heightProperty());
+        noteScreen.vvalueProperty().bind(dialogContainer.heightProperty());
+        avatarScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
+        topBar.getChildren().add(new TopBar());
+        TopBar.setUpProgressBars();
+
         if (duke.isFirstTimeUser) {
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(Ui.showWelcomeMsgPhaseA(duke.isFirstTimeUser), dukeImage)
@@ -75,16 +86,7 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    private void setUpProgressBars() {
-        TopBar.progValueA = (double) duke.profile.getContentMarks(0) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueB = (double) duke.profile.getContentMarks(1) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueC = (double) duke.profile.getContentMarks(2) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueD = (double) duke.profile.getContentMarks(3) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueT = (TopBar.progValueA
-                + TopBar.progValueB
-                + TopBar.progValueC
-                + TopBar.progValueD) / 3;
-    }
+
 
     public void setDuke(Duke d) {
         duke = d;
@@ -104,11 +106,12 @@ public class MainWindow extends AnchorPane {
         try {
             dialogContainer.getChildren().clear();
             String input = userInput.getText();
-            String response = "";
+            String response = ""; // don't get response first...
             userInput.clear();
             Duke.logger.log(Level.INFO, input);
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
             if (input.contains("exit")) {
+                // find out if exit condition
                 response = duke.getResponse(input);
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
@@ -116,7 +119,7 @@ public class MainWindow extends AnchorPane {
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
                 pause.setOnFinished(e -> primaryStage.hide());
                 pause.play();
-            } else if (isStarting && duke.isFirstTimeUser) {
+            } else if (isStarting && duke.isFirstTimeUser) { //set up new username
                 duke.userName = input;
                 duke.profile.overwriteName(duke.userName);
                 dialogContainer.getChildren().add(
@@ -124,7 +127,7 @@ public class MainWindow extends AnchorPane {
                                 duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
                 );
                 isStarting = false;
-            } else if (isTryingReset) {
+            } else if (isTryingReset) { //confirmation of reset
                 if (input.equals("yes")) {
                     //resets
                     Profile.resetProfile();
@@ -146,12 +149,12 @@ public class MainWindow extends AnchorPane {
                 }
                 isTryingReset = false;
             } else {
-                if (isStarting) {
+                if (isStarting) { //default start: finding of response
                     response = duke.getResponse(input);
                     isStarting = false;
-                } else if (!isQuiz) {
+                } else if (!isQuiz) { //default afterStart: finding of response
                     response = duke.getResponse(input);
-                } else {
+                } else { //Must be quizCommand: checking of answers
                     quizCommand.checkAnswer(input);
                     if (quizCommand.chosenQuestions.size() > 0) {
                         response = quizCommand.getQuestion();
@@ -166,21 +169,21 @@ public class MainWindow extends AnchorPane {
                     }
                 }
 
-                if (response.contains("!@#_QUIZ")) {
+                if (response.contains("!@#_QUIZ")) { //checks if quizCommand was executed
                     isQuiz = true;
                     Duke.logger.log(Level.INFO, "Response: " + response);
                     response = getFirstQn(response);
                 }
-                if (response.contains("Confirm reset")) {
+                if (response.contains("Confirm reset")) { //checks if resetCommand was executed
                     System.out.println("CHECKING RESET");
                     Duke.logger.log(Level.INFO, "Awaiting confirmation of reset");
                     isTryingReset = true;
                 }
 
+                //default output of response
                 dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
-                System.out.println("End->Next");
+                        DialogBox.getDukeDialog(response, dukeImage));
+                //System.out.println("End->Next");
             }
         } catch (DukeException e) {
             dialogContainer.getChildren().add(
@@ -188,6 +191,35 @@ public class MainWindow extends AnchorPane {
             );
         }
     }
+
+    @FXML
+    private void handleGuiMode() {
+        if (isLightMode) { //switches to Dark theme
+            isLightMode = false;
+            this.setStyle("-fx-background-color: black");
+            sendButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            themeModeButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
+            topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
+            userInput.setStyle("-fx-background-color: #9999; -fx-background-radius: 10;");
+            dialogContainer.setStyle("-fx-background-color: grey;");
+            avatarScreen.setStyle("-fx-background-color: grey;");
+            taskContainer.setStyle("-fx-background-color: grey;");
+            noteContainer.setStyle("-fx-background-color: grey;");
+        } else { //switches to Light theme
+            isLightMode = true;
+            this.setStyle("-fx-background-color: white");
+            sendButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            themeModeButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
+            topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
+            userInput.setStyle("-fx-background-color: #EE8EC7;"
+                    + " -fx-background-radius: 10;");
+            dialogContainer.setStyle("-fx-background-color: pink;");
+            avatarScreen.setStyle("-fx-background-color: #FEE;");
+            taskContainer.setStyle("-fx-background-color: pink;");
+            noteContainer.setStyle("-fx-background-color: pink;");
+        }
+    }
+
 
     private String getFirstQn(String cmdMode) throws DukeException {
         switch (cmdMode) {
@@ -206,29 +238,5 @@ public class MainWindow extends AnchorPane {
         default:
         }
         return quizCommand.getQuestion();
-    }
-
-    @FXML
-    private void handleGuiMode() {
-        if (isLightMode) { //switches to Dark theme
-            isLightMode = false;
-            this.setStyle("-fx-background-color: black");
-            sendButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
-            themeModeButton.setStyle("-fx-background-color: #333; -fx-border-color: black;");
-            topBar.setStyle("-fx-background-color: #BBB; -fx-border-color: grey;");
-            userInput.setStyle("-fx-background-color: #9999; -fx-background-radius: 10;");
-            dialogContainer.setStyle("-fx-background-color: grey;");
-            rightScreen.setStyle("-fx-background-color: grey;");
-        } else { //switches to Light theme
-            isLightMode = true;
-            this.setStyle("-fx-background-color: white");
-            sendButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
-            themeModeButton.setStyle("-fx-background-color: #FF9EC7; -fx-border-color: white;");
-            topBar.setStyle("-fx-background-color: #EE8EC7; -fx-border-color: white;");
-            userInput.setStyle("-fx-background-color: #EE8EC7;"
-                    + " -fx-background-radius: 10;");
-            dialogContainer.setStyle("-fx-background-color: pink;");
-            rightScreen.setStyle("-fx-background-color: #FEE;");
-        }
     }
 }

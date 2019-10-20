@@ -1,5 +1,6 @@
 package javacake.storage;
 
+import javacake.Duke;
 import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
@@ -12,18 +13,28 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
 
 public class Storage {
     private int stringBuffer = 7;
     private ArrayList<Task> data = new ArrayList<>();
+
     private String filepath;
     private TaskType dataType;
+    public TaskList tasks;
 
     public enum TaskType {
         TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
     }
 
+    /**
+     * Constructor for storage.
+     */
     public Storage() {
+        this.tasks = new TaskList();
+        //Initialise new deadline file
+
+        //Initialise new notes directory
 
     }
 
@@ -36,15 +47,40 @@ public class Storage {
     public Storage(String filepath) throws DukeException {
         this.filepath = filepath;
         try {
-            File file = new File(filepath);
+            File file = new File("data/save/tasks.txt");
+            Duke.logger.log(Level.INFO,"Filepath: " + filepath);
             try {
-                if (!file.getParentFile().exists()) {
+                if (!file.getParentFile().getParentFile().exists()) {
+                    file.getParentFile().getParentFile().mkdir();
                     file.getParentFile().mkdir();
+                    file.createNewFile();
+                    System.out.println("A" + file.getParentFile().getParentFile().getPath());
+                } else if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdir();
+                    file.createNewFile();
+                    System.out.println("B" + file.getParentFile().getPath());
                 }
-                file.createNewFile();
+                if (!file.exists()) {
+                    file.createNewFile();
+                    System.out.println("C" + file.getPath());
+                }
+
             } catch (IOException e) {
+                System.out.println("before reader");
                 throw new DukeException("Failed to create new file");
             }
+
+
+
+            //            File file = new File(filepath);
+            //            try {
+            //                if (!file.getParentFile().exists()) {
+            //                    file.getParentFile().mkdir();
+            //                }
+            //                file.createNewFile();
+            //            } catch (IOException e) {
+            //                throw new DukeException("Failed to create new file");
+            //            }
 
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
@@ -108,37 +144,37 @@ public class Storage {
                 switch (this.dataType) {
                 case TODO:
                     if (!isChecked) {
-                        Parser.runTodo(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
+                        TaskList.runTodo(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
                     } else {
-                        Parser.runTodo(data, finalOutput.toString(), Parser.TaskState.DONE);
+                        TaskList.runTodo(data, finalOutput.toString(), Parser.TaskState.DONE);
                     }
                     break;
                 case DEADLINE:
                     if (!isChecked) {
-                        Parser.runDeadline(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
+                        TaskList.runDeadline(data, finalOutput.toString(), Parser.TaskState.NOT_DONE);
                     } else {
-                        Parser.runDeadline(data, finalOutput.toString(), Parser.TaskState.DONE);
+                        TaskList.runDeadline(data, finalOutput.toString(), Parser.TaskState.DONE);
                     }
                     break;
                 case TODO_DAILY:
                     if (!isChecked) {
-                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "daily");
+                        TaskList.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "daily");
                     } else {
-                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "daily");
+                        TaskList.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "daily");
                     }
                     break;
                 case TODO_WEEKLY:
                     if (!isChecked) {
-                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "weekly");
+                        TaskList.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "weekly");
                     } else {
-                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "weekly");
+                        TaskList.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "weekly");
                     }
                     break;
                 case TODO_MONTHLY:
                     if (!isChecked) {
-                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "monthly");
+                        TaskList.runRecurring(data, finalOutput.toString(), Parser.TaskState.NOT_DONE, "monthly");
                     } else {
-                        Parser.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "monthly");
+                        TaskList.runRecurring(data, finalOutput.toString(), Parser.TaskState.DONE, "monthly");
                     }
                     break;
                 default:
