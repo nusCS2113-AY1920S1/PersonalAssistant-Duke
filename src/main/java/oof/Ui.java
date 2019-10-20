@@ -747,7 +747,6 @@ public class Ui {
     }
 
     /**
-<<<<<<<<< Temporary merge branch 1
      * Print when Start Tracker Command is completed.
      * @param task      description of Task object.
      * @param date      current date.
@@ -771,13 +770,14 @@ public class Ui {
         System.out.println("It is currently " + date);
         System.out.println("Time spent on " + task.getLine() + ": " + difference + " minutes");
         printLine();
-=========
+    }
+
+    /**
      * Prints the new threshold that the user wants.
      *
      * @param threshold The threshold for upcoming deadlines requested by the user.
      */
     public void printUpdatedThreshold(String threshold) {
         System.out.println("\tThreshold has been updated to " + threshold);
->>>>>>>>> Temporary merge branch 2
     }
 }
