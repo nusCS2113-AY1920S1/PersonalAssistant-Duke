@@ -70,7 +70,9 @@ class OrderCommandUtil {
         String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
         double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
-        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal, inventoryList);
+        Order order = new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+        order.listenToInventory(inventoryList);
+        return order;
     }
 
 }

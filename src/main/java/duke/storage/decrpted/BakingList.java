@@ -1,4 +1,4 @@
-package duke.storage;
+package duke.storage.decrpted;
 
 //import duke.logic.command.decrypted.ExecuteShortcut;
 

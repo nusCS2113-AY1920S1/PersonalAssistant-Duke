@@ -1,4 +1,4 @@
-package duke.storage;
+package duke.storage.decrpted;
 
 /**
  * Stores tasks in file and reads tasks from file.
