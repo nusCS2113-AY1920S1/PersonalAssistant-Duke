@@ -4,6 +4,7 @@ import gazeeebo.commands.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
 import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.commands.studyassist.studyassistCommand;
 import gazeeebo.commands.tasks.taskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
@@ -24,8 +25,10 @@ public class Parser {
             return new PlacesCommand();
         } else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
-        } else if(splitCommand[0].equals("tasks")) {
+        } else if (splitCommand[0].equals("tasks")) {
             return new taskCommand();
+        } else if (splitCommand[0].equals("studyassist")){
+            return new studyassistCommand();
         } else if(splitCommand[0].equals("gpa")) {
             int moduleCredit = 0;
             double score = 0.0;
