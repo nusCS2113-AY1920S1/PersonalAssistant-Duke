@@ -1,11 +1,7 @@
 package seedu.duke.task.entity;
 
-import org.w3c.dom.Text;
 import seedu.duke.CommandParser;
-import seedu.duke.Duke;
-import seedu.duke.common.command.InvalidCommand;
 
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -130,10 +126,10 @@ public class Task {
     }
 
     /**
-     * Checks if the input is a short form for a day of the week
+     * Checks if the input is a short form for a day of the week.
      *
-     * @param input an input to be checked
-     * @return false if the input is not short form or not a day of the week
+     * @param input an input to be checked.
+     * @return false if the input is not short form or not a day of the week.
      */
     public static boolean isCorrectNaturalDate(String input) {
         DayOfWeek[] dayOfWeeks = DayOfWeek.values();
@@ -157,9 +153,10 @@ public class Task {
      * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
      *                                          wrong format
      */
-    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming) throws CommandParser.UserInputException {
+    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
+            throws CommandParser.UserInputException {
         LocalDate date = LocalDate.now();
-        LocalDateTime dateTime = null;
+        LocalDateTime dateTime;
         try {
             if (parsedTiming == null || parsedTiming.isEmpty()) { //if no timing is inputted, set time as 0000
                 dateTime = date.atStartOfDay();
@@ -167,12 +164,12 @@ public class Task {
                 LocalTime timing = LocalTime.parse(parsedTiming, DateTimeFormatter.ofPattern("HHmm"));
                 dateTime = date.atTime(timing);
             }
-            DayOfWeek dow = dateTime.getDayOfWeek();
-            String day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
+            DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
+            String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
             while (!day.contains(parsedDay)) {
                 dateTime = dateTime.plusDays(1);
-                dow = dateTime.getDayOfWeek();
-                day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
+                dayOfWeek = dateTime.getDayOfWeek();
+                day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
             }
         } catch (DateTimeParseException e) {
             throw new CommandParser.UserInputException("Wrong Date Time format");
