@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.io.*;
 import java.time.temporal.ChronoField;
 
 public class Booking {
@@ -15,7 +14,7 @@ public class Booking {
     protected LocalDateTime dateTimeEnd;
     protected String venue;
     protected String username;
-    protected String description;
+    private String description;
 
     /**
      * Facility.booking.Booking constructor to make booking, and also to read from file
@@ -36,6 +35,7 @@ public class Booking {
 
     }
 
+    /*
     public Booking (String roomcode, String username, String description, long atStart, long atEnd) {
         this.venue =  roomcode;
         this.description = description;
@@ -44,9 +44,9 @@ public class Booking {
         this.dateTimeStart = instantStart.atZone(ZoneId.systemDefault()).toLocalDateTime();
         this.dateTimeEnd = instantEnd.atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-    }
+    }*/
 
-    public Booking (String roomcode, String username, String description, String atStart, String atEnd) {
+    public Booking(String roomcode, String username, String description, String atStart, String atEnd) {
         this.venue = roomcode;
         this.description = description;
         Instant instantStart = Instant.ofEpochMilli(Long.parseLong(atStart));
@@ -56,23 +56,36 @@ public class Booking {
         this.username = username;
     }
 
-
-
-
+    /**
+     * String version of the booking entry
+     * @return booking entry string version
+     */
     public String toString() {
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return venue + " " + dateTimeStart.format(formatterStart) + " to " + dateTimeEnd.format(formatterEnd);
     }
 
-
     public String toWriteFile() {
-        return this.username + " | " + this.venue + " | " + this.description + " | " + this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
+        return this.username + " | " + this.venue + " | " + this.description + " | " +
+                this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
                 + this.dateTimeEnd.getLong(ChronoField.EPOCH_DAY) + "\n";
     }
 
-    public LocalDateTime getDateTimeStart() {return this.dateTimeStart;}
+    public LocalDateTime getDateTimeStart() {
+        return this.dateTimeStart;
+    }
 
-    public LocalDateTime getDateTimeEnd() {return this.dateTimeEnd;}
+    public LocalDateTime getDateTimeEnd() {
+        return this.dateTimeEnd;
+    }
+
+    public String getVenue() {
+        return this.venue;
+    }
+
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
 
 }
