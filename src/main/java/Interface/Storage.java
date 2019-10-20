@@ -105,7 +105,9 @@ public class Storage {
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
             String remindTime = string.substring(string.indexOf("[<R") + 3, string.indexOf("/R>]"));
             String dateString = format.format(date);
-            line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2), dateString);
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+            String timeString = timeFormat.format(date);
+            line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2), dateString, timeString);
             line.setRemindTime(remindTime);
         } else {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
