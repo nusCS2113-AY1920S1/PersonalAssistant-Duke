@@ -41,6 +41,7 @@ import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
+import owlmoney.logic.parser.transfer.ParseTransfer;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -54,7 +55,7 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurexpenditure", "/bonds", "/profile", "/deposit"
+        "/recurexpenditure", "/bonds", "/profile", "/deposit", "/fund"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
@@ -284,6 +285,14 @@ class ParseType extends Parser {
                 return new ListGoalsCommand();
             }
             throw new ParserException("You entered an invalid type for goals");
+        case "/fund":
+            if ("/transfer".equals(command)) {
+                ParseTransfer parseTransfer = new ParseTransfer(rawData);
+                parseTransfer.fillHashTable();
+                parseTransfer.checkParameter();
+                return parseTransfer.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for transfer");
         default:
             throw new ParserException("You entered an invalid type");
         }

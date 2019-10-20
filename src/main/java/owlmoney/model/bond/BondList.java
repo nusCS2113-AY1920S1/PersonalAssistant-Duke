@@ -16,6 +16,7 @@ public class BondList {
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
+    private static final int ISZERO = 0;
 
     /**
      * Creates an arrayList of bonds.
@@ -32,18 +33,18 @@ public class BondList {
      * @throws BondException if there are no bonds.
      */
     public void listBond(int displayNum, Ui ui) throws BondException {
-        if (bondLists.size() <= 0) {
+        if (bondLists.size() <= ISZERO) {
             throw new BondException("There are no bonds");
         } else {
             int counter = displayNum;
-            for (int i = bondLists.size() - 1; i >= 0; i--) {
+            for (int i = bondLists.size() - 1; i >= ISZERO; i--) {
                 printOneHeader(counter, displayNum, ui);
                 printOneBond((i + ONE_INDEX), bondLists.get(i), ISMULTIPLE, ui);
                 counter--;
-                if (counter <= 0 || i == 0) {
+                if (counter <= ISZERO || i == ISZERO) {
                     ui.printDivider();
                 }
-                if (counter <= 0) {
+                if (counter <= ISZERO) {
                     break;
                 }
             }
@@ -78,7 +79,7 @@ public class BondList {
      * @throws BondException If duplicate bond name is found.
      */
     public void bondExist(Bond bond) throws BondException {
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = ISZERO; i < getSize(); i++) {
             if (bond.getName().equals(bondLists.get(i).getName())) {
                 throw new BondException("Bond with the name: " + bond.getName() + " already exists");
             }
@@ -92,7 +93,7 @@ public class BondList {
      * @param ui       required for printing.
      */
     public void removeBondFromList(String bondName, Ui ui) {
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = ISZERO; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
                 Bond temp = bondLists.get(i);
                 bondLists.remove(i);
@@ -111,7 +112,7 @@ public class BondList {
      * @throws BondException if the bond does not exist.
      */
     public Bond getBond(String bondName) throws BondException {
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = ISZERO; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
                 return bondLists.get(i);
             }
@@ -129,7 +130,7 @@ public class BondList {
      * @throws BondException If the bond does not exist or the year is smaller than the original.
      */
     public void editBond(String bondName, String year, String rate, Ui ui) throws BondException {
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = ISZERO; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
                 editBondYear(year, i);
                 editBondRate(rate, i);
