@@ -16,18 +16,22 @@ import java.util.Date;
  * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
-    private String[] viewargs;
     private CalenderUtil calenderUtil;
+
+    String viewType;
+    String dateInput;
     private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
 
     /**
      * Generate constructor for viewCommand.
      *
-     * @param viewArgs the arguments
+     * @param viewType  the view type
+     * @param dateInput the date of input
      */
-    public ViewCommand(String[] viewArgs) {
+    public ViewCommand(String viewType, String dateInput) {
         super();
-        this.viewargs = viewArgs;
+        this.viewType = viewType;
+        this.dateInput = dateInput;
         calenderUtil = new CalenderUtil();
     }
 
@@ -35,8 +39,6 @@ public class ViewCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         ArrayList<Task> currList = taskList.getArrList();
 
-        String viewType = viewargs[0];
-        String dateInput = viewargs[1];
 
         String[] dateParts = dateInput.split("/");
 
@@ -61,7 +63,7 @@ public class ViewCommand extends Command {
         default:
             break;
         }
-        return new CommandResult(finalList,false);
+        return new CommandResult(finalList, false);
     }
 
 

@@ -67,16 +67,6 @@ public class TaskList {
 
         arrlist.add(task);
         sortTask(arrlist);
-        /*if (compal.ui.dateState.equals(task.getStringDate())) {
-            compal.ui.dateViewRefresh(task.getStringDate());
-        }*/
-        /*if (!task.getSymbol().equals("D")) {
-            compal.ui.dateViewRefresh(task.getStringDate());
-
-        }*/
-        //compal.ui.secondaryScreenRefresh(task.getDate());
-
-        //compal.ui.showSize();
     }
 
 
@@ -84,7 +74,6 @@ public class TaskList {
      * Returns a task that has an id value of id.
      */
     public Task getTaskById(int id) {
-
         //search for task with id of id
         for (Task t : arrlist) {
             if (t.getId() == id) {
@@ -98,7 +87,6 @@ public class TaskList {
      * Removes a task that has an id value of id.
      */
     public Task removeTaskById(int id) {
-
         //search for task with id of id
         for (Task t : arrlist) {
             if (t.getId() == id) {
@@ -106,7 +94,6 @@ public class TaskList {
             }
         }
         throw null;
-
     }
 
 
