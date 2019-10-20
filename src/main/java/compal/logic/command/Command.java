@@ -2,9 +2,6 @@ package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.TaskList;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -38,7 +35,5 @@ public abstract class Command {
         Date finalDate = calendar.getTime();
         return finalDate;
     }
-
-
 
 }
