@@ -2,13 +2,12 @@ package owlmoney.model.bond;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Bond class which represents one bond.
- */
-public class Bond {
+public class BondStub extends Bond {
+
     private String name;
     private double amount;
     private double rate;
@@ -16,31 +15,19 @@ public class Bond {
     private Date date;
     private int year;
 
-    /**
-     * Creates a Bond with details of name, amount, rate.
-     *
-     * @param name   The name of the bond issue.
-     * @param amount The amount of money the bond costs.
-     * @param rate   The coupon rate of the bond.
-     * @param date   The date the bond was purchased.
-     * @param year   The year the bond will last.
-     */
-    public Bond(String name, double amount, double rate, Date date, int year) {
-        this.name = name;
-        this.amount = amount;
-        this.rate = rate;
-        this.date = date;
-        this.year = year;
-        this.category = "bonds";
+    BondStub() throws ParseException {
+        super("TEST BOND",500,2.0,new SimpleDateFormat("dd/MM/yyyy").parse("1/1/2019"),1);
     }
+
 
     /**
      * Gets the number of years the bond will last.
      *
      * @return the number of years the bond will last.
      */
+    @Override
     public int getYear() {
-        return this.year;
+        return 1;
     }
 
     /**
@@ -48,9 +35,9 @@ public class Bond {
      *
      * @return the date the bond was purchased.
      */
+    @Override
     public String getDate() {
-        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
-        return temp.format(this.date);
+        return "01 January 2019";
     }
 
     /**
@@ -58,8 +45,9 @@ public class Bond {
      *
      * @return rate of the coupon annual rate.
      */
+    @Override
     public double getYearlyCouponRate() {
-        return this.rate;
+        return 2.0;
     }
 
     /**
@@ -67,8 +55,9 @@ public class Bond {
      *
      * @return the half annual coupon rate.
      */
+    @Override
     public double getHalfYearlyCouponRate() {
-        return this.rate / 2;
+        return 2.0 / 2;
     }
 
     /**
@@ -76,8 +65,9 @@ public class Bond {
      *
      * @return the amount of money the bond costs.
      */
+    @Override
     public double getAmount() {
-        return this.amount;
+        return 500;
     }
 
     /**
@@ -85,8 +75,9 @@ public class Bond {
      *
      * @return the name of the bond.
      */
+    @Override
     public String getName() {
-        return this.name;
+        return "TEST BOND";
     }
 
     /**
@@ -94,8 +85,9 @@ public class Bond {
      *
      * @return the category of this bond purchased.
      */
+    @Override
     public String getCategory() {
-        return this.category;
+        return "bonds";
     }
 
     /**
@@ -103,8 +95,13 @@ public class Bond {
      *
      * @param newRate new amount of the bond
      */
+    @Override
     public void setRate(double newRate) {
-        this.rate = newRate;
+        this.rate = 5.0;
+    }
+
+    public double getNewRate() {
+        return this.rate;
     }
 
     /**
@@ -112,8 +109,13 @@ public class Bond {
      *
      * @param newYear new name of the bond
      */
+    @Override
     public void setYear(int newYear) {
-        this.year = newYear;
+        this.year = 5;
+    }
+
+    public int getNewYear() {
+        return this.year;
     }
 
     /**
@@ -121,11 +123,12 @@ public class Bond {
      *
      * @return the description of the bond.
      */
+    @Override
     public String getBondDescription() {
-        return "Name: " + getName() + "\n"
-                + "Amount: $" + new DecimalFormat("0.00").format(getAmount()) + "\n"
-                + "Rate: " + new DecimalFormat("0.00").format(getYearlyCouponRate()) + "\n"
-                + "Date Purchased: " + getDate() + "\n"
-                + "Number of years: " + getYear() + "\n";
+        return "Name: " + getName()
+                + " Amount: $" + new DecimalFormat("0.00").format(getAmount())
+                + " Rate: " + new DecimalFormat("0.00").format(getYearlyCouponRate())
+                + " Date Purchased: " + getDate()
+                + " Number of years: " + getYear();
     }
 }
