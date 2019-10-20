@@ -22,6 +22,7 @@ public class RoomShareException extends Exception {
      */
     public RoomShareException(ExceptionType type){
         switch(type) {
+
         case emptyList:
             System.out.println(emptyList_Text);
             break;

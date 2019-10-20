@@ -48,10 +48,7 @@ public class TaskCreator {
         String description;
         if (descriptionArray.length != 1) {
             String[] descriptionArray2 = descriptionArray[1].trim().split("\\)");
-            if (descriptionArray2.length != 1)
-                description = descriptionArray2[0].trim();
-            else
-                throw new RoomShareException(ExceptionType.emptyDescription);
+            description = descriptionArray2[0].trim();
         }
         else
             throw new RoomShareException(ExceptionType.emptyDescription);
@@ -130,6 +127,8 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     return meeting;
                 }
+                else
+                    throw new RoomShareException(ExceptionType.timeClash);
             }
             else {
                 if( !CheckAnomaly.checkTime(date, duration, unit) ) {
@@ -139,6 +138,8 @@ public class TaskCreator {
                     meeting.setRecurrenceSchedule(recurrence);
                     return meeting;
                 }
+                else
+                    throw new RoomShareException(ExceptionType.timeClash);
             }
         } else throw new RoomShareException(ExceptionType.wrongTaskType);
     }
