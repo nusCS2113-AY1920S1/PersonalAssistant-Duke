@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public class GoToCommand extends Command {
 
     private static final String name = "goto";
-    private static final String description = "go to a desired page.";
+    private static final String description = "go to a desired pane.";
     private static final String usage = "goto $paneName";
 
     private static final String COMPLETE_MESSAGE = "";

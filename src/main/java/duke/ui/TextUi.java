@@ -1,3 +1,4 @@
+/*
 package duke.ui;
 
 import duke.model.Expense;
@@ -11,6 +12,7 @@ import java.util.Scanner;
  * Represents the User Interface of Duke, and
  * manages both input and output operations.
  */
+/*
 public class TextUi {
     private Scanner dukeIn;
     private String mostRecent;
@@ -18,6 +20,7 @@ public class TextUi {
     /**
      * Constructs an Ui object.
      */
+/*
     public TextUi() {
         dukeIn = new Scanner(System.in);
     }
@@ -25,6 +28,7 @@ public class TextUi {
     /**
      * Shows welcome message to the user when Duke starts.
      */
+/*
     public void showWelcome() {
         String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -40,6 +44,7 @@ public class TextUi {
      *
      * @return User's command in {@code String} type.
      */
+/*
     public String readCommand() {
         return dukeIn.nextLine();
     }
@@ -49,6 +54,7 @@ public class TextUi {
      *
      * @param s The string to be printed.
      */
+/*
     public void println(String s) {
         System.out.println(s);
         mostRecent = s;
@@ -59,6 +65,7 @@ public class TextUi {
      *
      * @param e the {@code DukeException} whose message will be printed.
      */
+/*
     public void showError(DukeException e) {
         System.out.println(e.getMessage());
         mostRecent = e.getMessage();
@@ -69,6 +76,7 @@ public class TextUi {
      *
      * @param expenseList {@code ExpenseList} that we want to be printed
      */
+/*
     public void printExpenseList(ExpenseList expenseList) {
         if (expenseList.internalSize() > 0) {
             int count = 1;
@@ -85,3 +93,4 @@ public class TextUi {
 
 
 }
+*/
