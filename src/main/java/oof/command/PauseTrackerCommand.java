@@ -1,6 +1,5 @@
 package oof.command;
 
-import oof.Oof;
 import oof.Storage;
 import oof.TaskList;
 import oof.Ui;
@@ -26,7 +25,7 @@ public class PauseTrackerCommand extends Command {
      * @return          boolean True if Start Time for Task object is not null.
      */
     boolean isNotStarted(Task task) {
-        return task.getStartDate() != null;
+        return task.getStartDate() == null;
     }
 
     /**

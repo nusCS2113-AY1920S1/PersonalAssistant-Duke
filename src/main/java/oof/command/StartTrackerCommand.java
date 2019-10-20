@@ -36,9 +36,9 @@ public class StartTrackerCommand extends Command {
      * @return          Description of task Task object.
      */
     private String getTaskDescription(Task task) {
-        String[] byDate = task.toString().split("/");
-        String[] byDesc = byDate[0].split(" ");
-        return byDesc[1];
+        String[] byDate = task.toString().split("\\(");
+        String[] byDesc = byDate[0].split(" ", 2);
+        return byDesc[1].trim();
     }
 
     /**
