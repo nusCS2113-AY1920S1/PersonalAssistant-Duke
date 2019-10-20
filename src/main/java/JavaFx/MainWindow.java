@@ -25,6 +25,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -103,6 +105,7 @@ public class MainWindow extends BorderPane implements Initializable {
             deadlines = new ArrayList<>();
             setClock();
             setWeek(true, NO_FIELD);
+            displayQuoteOfTheDay();
 
             retrieveList();
             openReminderBox();
@@ -118,6 +121,28 @@ public class MainWindow extends BorderPane implements Initializable {
             setProgressContainer();
             setListView();
         } catch (IOException | NullPointerException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayQuoteOfTheDay(){
+        try {
+            File path = new File(System.getProperty("user.dir") + "\\data\\quotes.txt");
+            Scanner scanner = new Scanner(path);
+            String firstLine = scanner.nextLine();
+            FileWriter writer = new FileWriter(path);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line != firstLine)
+                    writer.write(line + "\n");
+            }
+            writer.write(firstLine+"\n");
+            AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
+
+            scanner.close();
+            writer.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
