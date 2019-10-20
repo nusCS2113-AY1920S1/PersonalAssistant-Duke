@@ -49,7 +49,7 @@ public class Oof {
      */
     private void run() {
         ui.hello();
-        reminder.checkDeadline(arr, ui);
+        reminder.checkDeadline(arr, ui, storage);
         boolean isExit = false;
         while (!isExit) {
             try {

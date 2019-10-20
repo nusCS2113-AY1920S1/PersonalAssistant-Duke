@@ -20,6 +20,7 @@ import java.util.Date;
 public class FreeCommand extends Command {
 
     private String endTiming;
+    private static final int EMPTY = 0;
     private static final int INDEX_DATE = 1;
     private static final int INDEX_START_DATE = 0;
     private static final int INDEX_END_DATE = 1;
@@ -61,8 +62,8 @@ public class FreeCommand extends Command {
         ui.printFree();
         int count = 1;
         Date rangeStop = convertStringToDate(endTiming);
-        ArrayList<Date> allEventStartTime = new ArrayList<>();
-        ArrayList<Date> allEventEndTime = new ArrayList<>();
+        ArrayList<Date> eventStartTimes = new ArrayList<>();
+        ArrayList<Date> eventEndTimes = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Event) {
@@ -75,30 +76,34 @@ public class FreeCommand extends Command {
                     Date startDate = format.parse(start);
                     Date endDate = format.parse(end);
                     if (!isEventOver(endDate, current)) {
-                        allEventStartTime.add(startDate);
-                        allEventEndTime.add(endDate);
+                        eventStartTimes.add(startDate);
+                        eventStartTimes.add(endDate);
                     }
                 } catch (ParseException | DateTimeException e) {
                     System.out.println("Timestamp given is invalid! Please try again.");
                 }
             }
         }
-        allEventStartTime.sort(new SortByDate());
-        allEventEndTime.sort(new SortByDate());
-        for (int i = 0; i < allEventStartTime.size(); i++) {
-            if (isOutOfRange(allEventStartTime.get(i), rangeStop)) {
-                ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
-                break;
-            } else if (!isClash(allEventStartTime.get(i), allEventEndTime.get(i), current)) {
-                ui.printFreeTimings(convertDateToString(current), convertDateToString(allEventStartTime.get(i)), count);
-                current = allEventEndTime.get(i);
-                count++;
-            }
-            if (isOutOfRange(current, rangeStop)) {
-                break;
-            }
-            if (isLastTask(i, taskList)) {
-                ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
+        if (!isEventBetween(eventStartTimes)) {
+            ui.printFreeTimes(convertDateToString(current), convertDateToString(rangeStop), count);
+        } else {
+            eventStartTimes.sort(new SortByDate());
+            eventEndTimes.sort(new SortByDate());
+            for (int i = 0; i < eventStartTimes.size(); i++) {
+                if (isOutOfRange(eventStartTimes.get(i), rangeStop)) {
+                    ui.printFreeTimes(convertDateToString(current), convertDateToString(rangeStop), count);
+                    break;
+                } else if (!isClash(eventStartTimes.get(i), eventEndTimes.get(i), current)) {
+                    ui.printFreeTimes(convertDateToString(current), convertDateToString(eventStartTimes.get(i)), count);
+                    current = eventEndTimes.get(i);
+                    count++;
+                }
+                if (isOutOfRange(current, rangeStop)) {
+                    break;
+                }
+                if (isLastTask(i, taskList)) {
+                    ui.printFreeTimes(convertDateToString(current), convertDateToString(rangeStop), count);
+                }
             }
         }
     }
@@ -149,7 +154,8 @@ public class FreeCommand extends Command {
     }
 
     /**
-     * Checks if user specified end date occurs after the current time.
+     * Checks if user specified end date occurs after the current time
+     * .
      * @param currTime Current Time.
      * @param end User specified end date.
      * @return true if end date occurs after current time, false otherwise.
@@ -158,6 +164,16 @@ public class FreeCommand extends Command {
     private boolean isEndDateAfterCurrentTime(Date currTime, String end) throws ParseException {
         Date endDate = convertStringToDate(end);
         return endDate.compareTo(currTime) > 0;
+    }
+
+    /**
+     * Checks if there is an event between the specified time.
+     *
+     * @param event The list of events between the specified time.
+     * @return true if there are events between the specified time, false otherwise.
+     */
+    private boolean isEventBetween(ArrayList<Date> event) {
+        return event.size() != EMPTY;
     }
 
     /**

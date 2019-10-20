@@ -4,9 +4,13 @@ import oof.exception.OofException;
 import oof.task.Event;
 import oof.task.Task;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -15,10 +19,34 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scan = new Scanner(System.in);
+    private static final int DATE_SPACES = 3;
+    private static final int SPLIT_EVEN = 2;
     private static final int DAY_FIRST = 1;
     private static final int DAYS_IN_WEEK = 7;
+    private static final int WEEKS_IN_MONTH = 4;
     private static final int INDEX_SPACE = 0;
     private static final int INDEX_START_OF_ARRAY = 0;
+    private static final int TEXT_SIZE_SHORT = 13;
+    private static final int TEXT_SIZE_LONG = 19;
+    private static final int DESCRIPTION_SHORT_START = 0;
+    private static final int DESCRIPTION_SHORT_END = 11;
+    private static final int DESCRIPTION_LONG_START = 0;
+    private static final int DESCRIPTION_LONG_END = 17;
+    private static final int LEAST_COL_SIZE = 19;
+    private static final int TIME = 0;
+    private static final int DESCRIPTION = 1;
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_WHITE = "\u001B[37m";
+    private static final String ANSI_BRIGHT_WHITE = "\u001B[97m";
+    private static final String ANSI_BRIGHT_BG_YELLOW = "\u001B[103m";
+    private static final String[] colouredText = {ANSI_RED, ANSI_GREEN, ANSI_YELLOW,
+            ANSI_BLUE, ANSI_PURPLE, ANSI_CYAN, ANSI_WHITE};
     private Storage storage = new Storage();
 
     /**
@@ -150,8 +178,7 @@ public class Ui {
     }
 
     /**
-     * Retrieves a new Timestamp from the user for the Task
-     * to be snoozed.
+     * Retrieves a new Timestamp from the user for the Task to be snoozed.
      *
      * @return Timestamp input by user.
      */
@@ -191,6 +218,13 @@ public class Ui {
      */
     public void printReminder() {
         System.out.println("\tReminder these tasks have upcoming deadlines:");
+    }
+
+    /**
+     * Prints a reminder that the user has no deadlines.
+     */
+    public void printNoDeadlines() {
+        System.out.println("\tYou have no upcoming deadlines :)");
     }
 
     /**
@@ -299,26 +333,284 @@ public class Ui {
     }
 
     /**
+     * Prints the tasks for a particular week.
+     *
+     * @param tasks Tasks for the particular week to be printed.
+     * @param startDate Starting date of the week.
+     * @param largestTaskSize Size of the day with the largest number of tasks.
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    public void printViewWeek(ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize,
+                              int largestColSize) {
+        printViewWeekHeader(largestColSize);
+        printViewWeekBody(startDate, largestColSize);
+        printViewWeekDetails(tasks, largestTaskSize, largestColSize);
+    }
+
+    /**
+     * Prints header for ViewWeek command.
+     *
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printViewWeekHeader(int largestColSize) {
+        String[] days = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+        if (!isEven(largestColSize)) {
+            largestColSize++;
+        }
+        int numberOfHyphens = ((largestColSize + DATE_SPACES) * DAYS_IN_WEEK) + DAYS_IN_WEEK + DAY_FIRST;
+        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW);
+        printHyphens(numberOfHyphens);
+        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "|");
+        System.out.print(ANSI_RESET);
+        for (int i = 0; i < DAYS_IN_WEEK; i++) {
+            printHeaderSpaces(largestColSize);
+            System.out.print(days[i]);
+            printHeaderSpaces(largestColSize);
+            if (i != DAYS_IN_WEEK - 1) {
+                System.out.print("|");
+            } else {
+                printViewWeekBorder();
+                System.out.println();
+            }
+        }
+        printHyphens(numberOfHyphens);
+    }
+
+    /**
+     * Prints hyphens when the ViewWeek output needs to be resized.
+     *
+     * @param numberOfHyphens Number of hyphens to be printed.
+     */
+    private void printHyphens(int numberOfHyphens) {
+        for (int i = 0; i < numberOfHyphens; i++) {
+            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "-");
+        }
+        System.out.println(ANSI_RESET);
+    }
+
+    /**
+     * Prints only spaces for empty rows in View Week output.
+     *
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printBodySpaces(int largestColSize) {
+        for (int i = 0; i < largestColSize; i++) {
+            System.out.print(" ");
+        }
+    }
+
+    /**
+     * Print spaces when the ViewWeek output needs to be resized.
+     *
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printHeaderSpaces(int largestColSize) {
+        for (int i = 0; i < largestColSize / SPLIT_EVEN; i++) {
+            System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + " ");
+        }
+    }
+
+    /**
+     * Checks if number is even.
+     *
+     * @param number Number to be checked.
+     * @return True if the number is even, false otherwise.
+     */
+    private boolean isEven(int number) {
+        return number % SPLIT_EVEN == 0;
+    }
+
+    /**
+     * Prints the body for ViewWeek command.
+     *
+     * @param startDate Starting date of the week.
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printViewWeekBody(Date startDate,int largestColSize) {
+        ArrayList<String> calendarDates = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+        for (int i = 0; i < DAYS_IN_WEEK; i++) {
+            if (i >= DAY_FIRST) {
+                calendar.add(Calendar.DATE, DAY_FIRST);
+            }
+            Date currentDate = calendar.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            String date = formatter.format(currentDate);
+            calendarDates.add(date);
+        }
+        printViewWeekDates(calendarDates, largestColSize);
+    }
+
+    /**
+     * Prints the dates for the ViewWeek command.
+     *
+     * @param calendarDates List of dates for the week to be printed.
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printViewWeekDates(ArrayList<String> calendarDates, int largestColSize) {
+        printViewWeekBorder();
+        String spaces = "";
+        if (!isEven(largestColSize)) {
+            largestColSize++;
+        }
+        for (int i = 0; i < largestColSize + DATE_SPACES - DESCRIPTION_SHORT_END; i++) {
+            spaces += " ";
+        }
+        for (int i = 0; i < DAYS_IN_WEEK; i++) {
+            if (i != DAYS_IN_WEEK - 1) {
+                System.out.print(" " + colouredText[i] + calendarDates.get(i) + ANSI_RESET + spaces + "|");
+            }
+        }
+        System.out.print(" " + colouredText[DAYS_IN_WEEK - 1] + calendarDates.get(DAYS_IN_WEEK - 1) + ANSI_RESET
+                + spaces);
+        printViewWeekBorder();
+        System.out.println();
+    }
+
+    /**
+     * Prints the details of tasks in the ViewWeek command.
+     *
+     * @param tasks Tasks to be printed for the particular week.
+     * @param largestTaskNo Size of the day with the largest number of tasks.
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printViewWeekDetails(ArrayList<ArrayList<String[]>> tasks, int largestTaskNo, int largestColSize) {
+        printEntryBodySpace(largestColSize);
+        for (int taskNo = 0; taskNo < largestTaskNo; taskNo++) {
+            printDetailsByLine(tasks, taskNo, largestColSize);
+        }
+        printEntryBodySpace(largestColSize);
+        if (!isEven(largestColSize)) {
+            largestColSize++;
+        }
+        int numberOfHyphens = ((largestColSize + DATE_SPACES) * DAYS_IN_WEEK) + DAYS_IN_WEEK + DAY_FIRST;
+        printHyphens(numberOfHyphens);
+    }
+
+    /**
+     * Prints the tasks for ViewWeek command line by line.
+     *
+     * @param tasks Tasks for the particular week to be printed.
+     * @param taskNo Current index of the task that is being printed.
+     * @param largestColSize Size of the largest column in the View Week output.
+     */
+    private void printDetailsByLine(ArrayList<ArrayList<String[]>> tasks, int taskNo, int largestColSize) {
+        printViewWeekBorder();
+        for (int dayInWeek = 0; dayInWeek < DAYS_IN_WEEK; dayInWeek++) {
+            int colSize = tasks.get(dayInWeek).size();
+            if (taskNo < colSize) {
+                String task = getTaskDetails(tasks.get(dayInWeek).get(taskNo));
+                task = padTaskDetails(task, largestColSize);
+                System.out.print(task);
+                if (dayInWeek != DAYS_IN_WEEK - 1) {
+                    System.out.print("|");
+                } else {
+                    printViewWeekBorder();
+                    System.out.println();
+                }
+            } else {
+                if (!isEven(largestColSize)) {
+                    largestColSize++;
+                }
+                printBodySpaces(largestColSize + DATE_SPACES);
+                if (dayInWeek != DAYS_IN_WEEK - 1) {
+                    System.out.print("|");
+                } else {
+                    printViewWeekBorder();
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+    /**
+     * Prints the side borders of the View Week output.
+     */
+    private void printViewWeekBorder() {
+        System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "|");
+        System.out.print(ANSI_RESET);
+    }
+
+    /**
+     * Pads the details of a task to fit into a day of the ViewWeek command output.
+     *
+     * @param details Details of a task.
+     * @param largestColSize Size of the largest column in the ViewWeek command output.
+     * @return Padded details of a task.
+     */
+    private String padTaskDetails(String details, int largestColSize) {
+        if (!isEven(largestColSize)) {
+            largestColSize++;
+        }
+        String newDetails = " " + details;
+        while (newDetails.length() < largestColSize + DATE_SPACES) {
+            newDetails += " ";
+        }
+        return newDetails;
+    }
+
+    /**
+     * Outputs the details of a task in a string.
+     *
+     * @param details Array of the details containing time and description.
+     * @return String containing the details of a task.
+     */
+    private String getTaskDetails(String[] details) {
+        return details[DESCRIPTION] + " " + details[TIME];
+    }
+
+    /**
+     * Prints the empty columns in the View Week body.
+     *
+     * @param largestColSize Longest possible description for task.
+     */
+    public void printEntryBodySpace(int largestColSize) {
+        printViewWeekBorder();
+        if (!isEven(largestColSize)) {
+            largestColSize++;
+        }
+        for (int day = 0; day < DAYS_IN_WEEK; day++) {
+            for (int emptySpaceNo = 0; emptySpaceNo < largestColSize + DATE_SPACES; emptySpaceNo++) {
+                System.out.print(" ");
+            }
+            if (day != DAYS_IN_WEEK - 1) {
+                System.out.print("|");
+            } else {
+                printViewWeekBorder();
+                System.out.println();
+            }
+        }
+    }
+
+    /**
      * Prints calendar.
      *
      * @param yearMonth Object containing month and year information.
      */
     public void printCalendar(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
-        printCalendarHeader(yearMonth);
+        printCalendarLabel(yearMonth);
+        printCalendarHeader();
         printCalendarBody(yearMonth, calendar);
     }
 
     /**
-     * Prints calendar header.
+     * Prints calendar label.
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendarHeader(YearMonth yearMonth) {
+    public void printCalendarLabel(YearMonth yearMonth) {
         String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                 "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
         String month = months[yearMonth.getMonthValue()];
         String year = Integer.toString(yearMonth.getYear());
         System.out.println(month + " " + year);
+    }
+
+    /**
+     * Prints calendar header.
+     */
+    public void printCalendarHeader() {
         System.out.println("-----------------------------------------------------------------------------------------"
                 + "------------------------------------------------------------------");
         System.out.println("|         SUN         |         MON         |         TUE         |         WED         |"
@@ -357,7 +649,7 @@ public class Ui {
         for (int week = 0; week < numberOfWeeks; week++) {
             int dayIndex = week * DAYS_IN_WEEK;
             System.out.print("|");
-            int calendarRows = 4;
+            int calendarRows = WEEKS_IN_MONTH;
             for (int day = 0; day < DAYS_IN_WEEK; day++) {
                 if (!calendarDates.get(dayIndex + day).equals("  ")) {
                     int currentDay = Integer.parseInt(calendarDates.get(dayIndex + day).trim());
@@ -412,11 +704,11 @@ public class Ui {
      * @param taskName Name of deadline or event.
      */
     public void printDeadlineAndEvent(String taskTime, String taskName) {
-        if (taskName.length() > 13) {
-            taskName = taskName.substring(0, 11);
+        if (taskName.length() > TEXT_SIZE_SHORT) {
+            taskName = taskName.substring(DESCRIPTION_SHORT_START, DESCRIPTION_SHORT_END);
             System.out.print(" " + taskTime + " " + taskName + ".. |");
         } else {
-            taskName = String.format("%-" + 13 + "s", taskName);
+            taskName = String.format("%-" + TEXT_SIZE_SHORT + "s", taskName);
             System.out.print(" " + taskTime + " " + taskName + " |");
         }
     }
@@ -427,11 +719,11 @@ public class Ui {
      * @param taskName Name of todo.
      */
     public void printTodo(String taskName) {
-        if (taskName.length() > 19) {
-            taskName = taskName.substring(0, 17);
+        if (taskName.length() > TEXT_SIZE_LONG) {
+            taskName = taskName.substring(DESCRIPTION_LONG_START, DESCRIPTION_LONG_END);
             System.out.print(" " + taskName + ".. |");
         } else {
-            taskName = String.format("%-" + 19 + "s", taskName);
+            taskName = String.format("%-" + TEXT_SIZE_LONG + "s", taskName);
             System.out.print(" " + taskName + " |");
         }
     }
@@ -447,10 +739,10 @@ public class Ui {
      * Prints the free time slots that the user has.
      *
      * @param startDate The starting time of the free time slot.
-     * @param endDate The ending time of the free time slot.
-     * @param count The index of the free time slots.
+     * @param endDate   The ending time of the free time slot.
+     * @param count     The index of the free time slots.
      */
-    public void printFreeTimings(String startDate, String endDate, int count) {
+    public void printFreeTimes(String startDate, String endDate, int count) {
         System.out.println("\t" + count + ". " + startDate + " to " + endDate);
     }
 
@@ -478,5 +770,14 @@ public class Ui {
         System.out.println("It is currently " + date);
         System.out.println("Time spent on " + task.getLine() + ": " + difference + " minutes");
         printLine();
+    }
+
+    /**
+     * Prints the new threshold that the user wants.
+     *
+     * @param threshold The threshold for upcoming deadlines requested by the user.
+     */
+    public void printUpdatedThreshold(String threshold) {
+        System.out.println("\tThreshold has been updated to " + threshold);
     }
 }

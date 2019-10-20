@@ -13,6 +13,9 @@ import oof.task.Event;
 import oof.task.Task;
 import oof.task.Todo;
 
+/**
+ * Represents a Command to print calendar.
+ */
 public class CalendarCommand extends Command {
 
     private int month;
@@ -22,7 +25,6 @@ public class CalendarCommand extends Command {
     private static final int INDEX_DAY = 0;
     private static final int INDEX_MONTH = 1;
     private static final int INDEX_YEAR = 2;
-    private static final int INDEX_CALENDAR_TIME = 0;
     private static final int MONTH_JANUARY = 1;
     private static final int MONTH_DECEMBER = 12;
     private static final int SIZE_CALENDAR = 32;
