@@ -9,6 +9,7 @@ import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,7 +38,7 @@ public interface CommandParser {
     String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input !";
 
 
-    Command parseCommand(String input) throws ParserException;
+    Command parseCommand(String input) throws ParserException, ParseException;
 
     /**
      * Returns the task ID in the String input.
@@ -178,6 +179,29 @@ public interface CommandParser {
             throw new ParserException(MESSAGE_INVALID_YEAR);
         }
         return inputDateStr;
+    }
+
+    /**
+     * Checks if input date and time is after current date time.
+     *
+     * @param inputDate The date of input
+     * @param inputTime the time of input
+     * @return True or false depending if the date and time is after or before.
+     */
+    default boolean isValidDateAndTime(String inputDate, String inputTime) throws ParseException {
+
+        Calendar c = Calendar.getInstance();
+        Date inputDateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+        c.setTime(inputDateFormat);
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2, 4)));
+        Date inputDateAndTime = c.getTime();
+
+        Date currentDate = Calendar.getInstance().getTime();
+        c.setTime(currentDate);
+        Date currDateAndTime = c.getTime();
+
+        return inputDateAndTime.after(currDateAndTime);
     }
 
     /**

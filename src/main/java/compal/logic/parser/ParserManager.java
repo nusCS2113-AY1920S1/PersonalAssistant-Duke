@@ -5,6 +5,8 @@ import compal.logic.command.Command;
 
 import compal.logic.parser.exceptions.ParserException;
 
+import java.text.ParseException;
+
 /**
  * Deals with user inputs.
  */
@@ -39,7 +41,7 @@ public class ParserManager {
      * @param userInput Entire user string input.
      * @throws ParserException If command input is unknown or user input is empty.
      */
-    public Command processCmd(String userInput) throws ParserException {
+    public Command processCmd(String userInput) throws ParserException, ParseException {
         String[] args = userInput.split(" ", 2);
         String commandWord = args[0];
         String restOfInput = "";
