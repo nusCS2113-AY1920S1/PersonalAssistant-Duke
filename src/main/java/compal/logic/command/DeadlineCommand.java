@@ -6,7 +6,7 @@ import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 /**
- * Add a deadline type task
+ * Add a deadline type task.
  */
 public class DeadlineCommand extends Command {
 
