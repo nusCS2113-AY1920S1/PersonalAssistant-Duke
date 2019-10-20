@@ -4,6 +4,8 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
+import duke.statistic.Counter;
+import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -57,7 +59,6 @@ public class UpdatePatientCommand extends Command {
                 }
 
                 patientStorage.save(patientManager.getPatientList());
-
                 ui.showUpdatedSuccessfully();
                 ui.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {

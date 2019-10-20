@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.23">
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/Duke.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/AddPatientCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/AddStandardTaskCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/AssignTaskToPatientCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/Command.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/DeletePatientCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/DeleteTaskCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/ExitCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/FindPatientCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/FindPatientTaskCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/HelpCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/ListPatientsCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/ListTasksCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/UpdatePatientCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/command/UpdateTaskCommand.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/core/CommandManager.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/core/DateTimeParser.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/core/DukeException.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/core/Parser.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/core/Ui.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/patient/Patient.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/patient/PatientManager.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/relation/EventPatientTask.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/relation/PatientTask.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/relation/PatientTaskList.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/relation/StandardPatientTask.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/statistic/Counter.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/storage/CounterStorage.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/storage/PatientStorage.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/storage/PatientTaskStorage.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/storage/TaskStorage.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/task/Task.java">
+</file>
+<file name="/Users/qianjie/Desktop/main/src/main/java/duke/task/TaskManager.java">
+</file>
+</checkstyle>
