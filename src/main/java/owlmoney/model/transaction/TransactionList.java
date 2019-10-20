@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import owlmoney.model.transaction.exception.TransactionException;
@@ -310,6 +311,59 @@ public class TransactionList {
     private void printOneHeader(int counter, int displayNum, Ui ui) {
         if (counter == displayNum) {
             ui.printTransactionHeader(TRANSTYPE);
+        }
+    }
+
+    /**
+     * Returns total amount spent in a particular month of the year.
+     *
+     * @param month Month to check total amount spent.
+     * @param year  Year to check total amount spent.
+     * @return      Total amount spent in the particular month of the year.
+     */
+    public double getMonthAmountSpent(int month, int year) {
+        double totalAmount = 0;
+        for (int i = 0; i < expLists.size(); i++) {
+            LocalDate date = expLists.get(i).getLocalDate();
+            int expMonth = date.getMonthValue();
+            int expYear = date.getYear();
+            if (expMonth == month && expYear == year) {
+                totalAmount += expLists.get(i).getAmount();
+            }
+        }
+        return totalAmount;
+    }
+
+    /**
+     * Returns the particular transaction month based on transaction number.
+     *
+     * @param expNum   Transaction number to get the month of.
+     * @return         Transaction month.
+     */
+    public int getTransactionMonthByIndex(int expNum) {
+        return expLists.get(expNum-1).getLocalDate().getMonthValue();
+    }
+
+    /**
+     * Returns the particular transaction year based on transaction number.
+     *
+     * @param expNum   Transaction number to get the year of.
+     * @return         Transaction year.
+     */
+    public int getTransactionYearByIndex(int expNum) {
+        return expLists.get(expNum-1).getLocalDate().getYear();
+    }
+
+    /**
+     * Returns true if expenditure list is empty.
+     *
+     * @return True if expenditure list is empty.
+     */
+    public boolean expListIsEmpty() {
+        if (expLists.isEmpty()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
