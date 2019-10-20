@@ -18,3 +18,6 @@
 [T][N] borrow another book (on: 15-10-2019)
 [E][N] lecture (from: 15-10-2019 10:00 to: 15-10-2019 12:00)
 [E][N] lecture (from: 22-10-2019 10:00 to: 22-10-2019 12:00)
+[T][N] testing (on: 01-01-2019)
+[E][N] lecture (from: 22-10-2019 10:00 to: 22-10-2019 12:00)
+
