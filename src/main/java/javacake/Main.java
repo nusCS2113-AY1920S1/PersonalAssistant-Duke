@@ -18,17 +18,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static String savedDataPath = "data/";
-    private Duke duke = new Duke(savedDataPath);
+    private Duke duke = new Duke();
 
 
     @Override
     public void start(Stage stage) {
         try {
-            //            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-            //                    getClass().getResourceAsStream("/sound/kahootOst.wav"));
-            //            Clip clip = AudioSystem.getClip();
-            //            clip.open(audioInputStream);
-            //            clip.start();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

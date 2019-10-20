@@ -19,7 +19,10 @@
 .lightLabel {
     -fx-text-fill: white;
 }
-
+.buttonL {
+    -fx-background-color: #FFF;
+    -fx-border-color: white;
+}
 
 .text-field:focused {
     -fx-background-color: -fx-focus-color, -fx-background ;

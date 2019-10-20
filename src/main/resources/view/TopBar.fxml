@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="990.0" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="cakeLeft" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cakeLeft" fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/cake.png" />
          </image>
@@ -31,7 +31,7 @@
             <Font name="Edwardian Script ITC" size="59.0" />
          </font>
       </Label>
-      <ImageView fx:id="cakeRight" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cakeRight" fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/cake.png" />
          </image>
@@ -39,7 +39,7 @@
             <Insets bottom="5.0" top="5.0" />
          </HBox.margin>
       </ImageView>
-      <AnchorPane prefHeight="90.0" prefWidth="449.0">
+      <AnchorPane>
          <HBox.margin>
             <Insets left="150.0" />
          </HBox.margin>
