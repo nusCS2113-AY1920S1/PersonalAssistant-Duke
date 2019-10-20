@@ -24,17 +24,17 @@ public class SearchCommand extends CommandSuper {
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case movies:
-            executeMovieSearch();
-            break;
-        case tvshows:
-            executeTvShowSearch();
-            break;
+            case movies:
+                executeMovieSearch();
+                break;
+            case tvshows:
+                executeTvShowSearch();
+                break;
 //        case all:
 //            executeTvShowSearch();
 //            break;
-        default:
-            break;
+            default:
+                break;
         }
 
     }
@@ -110,4 +110,3 @@ public class SearchCommand extends CommandSuper {
 
     }
 }
-

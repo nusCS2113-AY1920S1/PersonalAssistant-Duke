@@ -19,14 +19,14 @@ public class AddCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         switch (this.getSubRootCommand()) {
-        case watchlist:
-            addToWatchList();
-            break;
-        case blacklist:
-            addToBlackList();
-            break;
-        default:
-            break;
+            case watchlist:
+                addToWatchList();
+                break;
+            case blacklist:
+                addToBlackList();
+                break;
+            default:
+                break;
         }
     }
 

@@ -4,6 +4,14 @@ BorderPane, ScrollPane, VBox, HBox, FlowPane, AnchorPane{
     -fx-border-width: 0px;
 }
 
+#autoCompleteLabel{
+-fx-background-color: #6b6565;
+}
+#generalFeedbackLabel{
+-fx-background-color: #6b6565;
+}
+
+
 
 ProgressBar .track{
     -fx-background-radius: 2em;
@@ -51,11 +59,6 @@ Label{
     -fx-text-fill: white;
 }
 
-.titleLabel{
-    -fx-font-size: 11pt;
-    -fx-font-family: Verdana;
-}
-
 #movieIDLabel {
  -fx-font-size: 8pt;
  -fx-font-family: Verdana;
@@ -64,18 +67,6 @@ Label{
 .subtitle{
     -fx-font-size: 8pt;
     -fx-font-family: Tahoma;
-}
-
-#ageText{
-    -fx-text-fill: white;
-}
-
-#langText{
--fx-font-color:white;
-}
-
-#genreText{
--fx-text-fill:white;
 }
 
 ToolBar{
@@ -134,9 +125,4 @@ TextField:focused, TextField:hover{
 .posterPane:hover{
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
-}
-
-Label.colHeader{
-    -fx-text-fill: #696464;
-    -fx-font-family: Verdana;
 }
