@@ -18,7 +18,7 @@ public class ViewReminderCommand extends Command {
 
         String taskReminders = getTaskReminders(currList);
 
-        return new CommandResult(taskReminders);
+        return new CommandResult(taskReminders,false);
     }
 
 

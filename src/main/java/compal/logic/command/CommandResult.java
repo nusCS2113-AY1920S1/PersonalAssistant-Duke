@@ -10,15 +10,6 @@ public class CommandResult {
     public final String feedbackToUser;
     public final boolean requireSaving;
 
-    /**
-     * Return command results.
-     *
-     * @param feedbackToUser the string feedback
-     */
-    public CommandResult(String feedbackToUser) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        requireSaving = false;
-    }
 
     /**
      * Return command results.

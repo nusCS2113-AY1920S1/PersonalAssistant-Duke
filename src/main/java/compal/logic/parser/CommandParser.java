@@ -1,6 +1,7 @@
 package compal.logic.parser;
 
 import compal.logic.command.Command;
+import compal.model.tasks.Task;
 import compal.logic.parser.exceptions.ParserException;
 import compal.model.tasks.Task;
 
@@ -9,9 +10,21 @@ import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static compal.commons.Messages.MESSAGE_MISSING_DESC;
+import static compal.commons.Messages.MESSAGE_MISSING_PRIORITY;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
+import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
+import static compal.commons.Messages.MESSAGE_MISSING_TIME;
+import static compal.commons.Messages.MESSAGE_MISSING_END_TIME_ARG;
 
 public interface CommandParser {
 
@@ -20,11 +33,13 @@ public interface CommandParser {
      */
     String TOKEN_TASK_ID = "/id";
     String TOKEN_STATUS = "/s";
+    String TOKEN_SLASH = "/";
+    String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
     String TOKEN_START_TIME = "/start";
-    String TOKEN_END_TIME = "/end";
     String TOKEN_FINAL_DATE = "/final-date";
+    String EMPTY_INPUT_STRING = "";
     int DEFAULT_WEEK_NUMBER_OF_DAYS = 7;
 
     /**
@@ -32,7 +47,6 @@ public interface CommandParser {
      */
     String MESSAGE_MISSING_TOKEN = "Error: Missing token!";
     String MESSAGE_MISSING_INPUT = "Error: Missing input!";
-
     String MESSAGE_INVALID_DATE_FORMAT = "Invalid Date input!";
     String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     String MESSAGE_EXCESSIVE_DATES = "Too many dates! Please limit to less than 7.";
@@ -100,6 +114,71 @@ public interface CommandParser {
     }
 
     /**
+     * Returns the description in the String input.
+     *
+     * @param input String input of user
+     * @return description
+     * @throws ParserException if the token (/) is missing or the description is empty
+     */
+    default String getDescription(String input) throws ParserException {
+        if (!input.contains(TOKEN_SLASH)) {
+            throw new ParserException(MESSAGE_MISSING_INPUT);
+        }
+        int splitPoint = input.indexOf(TOKEN_SLASH);
+        String desc = input.substring(0, splitPoint).trim();
+        if (desc.matches(EMPTY_INPUT_STRING)) {
+            throw new ParserException(MESSAGE_MISSING_DESC);
+        }
+        return desc;
+    }
+
+    /**
+     * Returns a priority string if specified in the task.
+     *
+     * @param input Input description after initial command word.
+     * @return Priority of task.
+     * @throws ParserException If priority field is empty.
+     */
+    default Task.Priority getPriority(String input) throws ParserException {
+        if (input.contains(TOKEN_PRIORITY)) {
+            int startPoint = input.indexOf(TOKEN_PRIORITY);
+            String priorityStartInput = input.substring(startPoint);
+            Scanner scanner = new Scanner(priorityStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_PRIORITY);
+            }
+            String priorityInput = scanner.next();
+            Task.Priority priority = Task.Priority.valueOf(priorityInput.toLowerCase());
+            return priority;
+        } else {
+            Task.Priority priority = Task.Priority.low;
+            return priority;
+        }
+    }
+
+    /**
+     * Returns a date string if specified in the task.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Date in the form of a string.
+     * @throws ParserException If date field is empty, date or date format is invalid,
+     *                              date token (/date) is missing.
+     */
+    default String getDate(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_DATE)) {
+            int startPoint = restOfInput.indexOf(TOKEN_DATE);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_DATE);
+            }
+            String dateInput = scanner.next();
+            return inputDateValidation(dateInput);
+        } else {
+            throw new ParserException(MESSAGE_MISSING_DATE_ARG);
+          
      * Parses through user input for date token, and returns the date if the date is
      * in the correct format.
      *
@@ -107,7 +186,6 @@ public interface CommandParser {
      * @return An ArrayList of date strings given by the user.
      * @throws ParserException if the date token is missing, if the date is not in correct format,
      * if the date is not given after the date token.
-     * @author: Yue Jun Yi, yueyeah
      */
     default ArrayList<String> getTokenDate(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_DATE)) {
@@ -144,7 +222,6 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Task.Priority enum
      * @throws ParserException if the priority is not given after the priority token
-     * @author Yue Jun Yi, yueyeah
      */
     default Task.Priority getTokenPriority(String restOfInput) throws ParserException {
         Task.Priority priorityField;
@@ -188,12 +265,83 @@ public interface CommandParser {
     }
 
     /**
+     * Parses through each date string input by the user and makes sure it is of the correct format.
+     *
+     * @param inputDateStr The date string input by the user, which may not be of correct format.
+     * @return A date string with its format validated.
+     * @throws ParserException If date format is invalid (not dd/MM/yyyy), year is before current year.
+     */
+    default String inputDateValidation(String inputDateStr) throws ParserException {
+        String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(inputDateStr);
+
+        if (!matcher.matches()) {
+            throw new ParserException(MESSAGE_INVALID_DATE_FORMATTING);
+        }
+        int inputSize = inputDateStr.length();
+
+        String year = inputDateStr.substring(inputSize - 4, inputSize);
+        int inputYear = Integer.parseInt(year);
+        int currYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        if (inputYear < currYear) {
+            throw new ParserException(MESSAGE_INVALID_YEAR);
+        }
+        return inputDateStr;
+    }
+
+    /**
+     * Checks if input date and time is after current date time.
+     *
+     * @param inputDate The date of input
+     * @param inputTime the time of input
+     * @return True or false depending if the date and time is after or before.
+     */
+    default boolean isValidDateAndTime(String inputDate, String inputTime) throws ParseException {
+
+        Calendar c = Calendar.getInstance();
+        Date inputDateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+        c.setTime(inputDateFormat);
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2, 4)));
+        Date inputDateAndTime = c.getTime();
+
+        Date currentDate = Calendar.getInstance().getTime();
+        c.setTime(currentDate);
+        Date currDateAndTime = c.getTime();
+
+        return inputDateAndTime.after(currDateAndTime);
+    }
+
+    /**
+     * Returns end time string if specified in the task.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Time in the form of a string.
+     * @throws ParserException If time field is empty or time token (/eTime) is missing.
+     */
+    default String getEndTime(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_END_TIME)) {
+            int startPoint = restOfInput.indexOf(TOKEN_END_TIME);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_TIME);
+            }
+            String timeInput = scanner.next();
+            return timeInput;
+        } else {
+            throw new ParserException(MESSAGE_MISSING_END_TIME_ARG);
+        }
+    }
+
      * Parses through user input for /end token and return the end time.
      *
      * @param restOfInput String input of user after command word
      * @return End time in the form of a String
      * @throws ParserException if end time is not entered after the /end token, or /end token is missing
-     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenEndTime(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_END_TIME)) {
@@ -240,6 +388,7 @@ public interface CommandParser {
     /**
      * MISCELLANEOUS METHODS BELOW
      */
+
 
     /**
      * Check if the date input is of valid format.
