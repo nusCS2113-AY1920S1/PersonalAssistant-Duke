@@ -1,6 +1,10 @@
 package compal.model.tasks;
 
-import java.io.*;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.BitSet;
 
 public class TaskIdManager {
@@ -17,8 +21,22 @@ public class TaskIdManager {
         }
     }
 
+    /**
+     * Synchronizes all edits made to the user file to the serial file holding the bitmap.
+     * @param tl tasklist holding the arraylist of tasks
+     */
+    public void synchronizeTaskIds(TaskList tl) {
+        idBitSet.clear();
+        for (Task t:tl.getArrList()) {
+            idBitSet.set(t.getId());
+        }
+    }
 
 
+    /**
+     * Assigns an ID to the task passed into it.
+     * @param t task to be assigned an id
+     */
     public void generateAndSetId(Task t) {
         int taskID;
         for (int i = 0; i < 1000000; i++) { //search for an unused task ID

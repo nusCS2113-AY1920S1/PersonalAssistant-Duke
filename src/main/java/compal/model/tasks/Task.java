@@ -97,7 +97,7 @@ public abstract class Task implements Serializable {
      * @return Status icon (tick or cross) of task.
      */
     public Boolean getisDone() {
-        return (isDone ? true : false);
+        return (isDone);
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class Task implements Serializable {
      * @return Status icon (tick or cross) of task.
      */
     public Boolean gethasReminder() {
-        return (hasReminder ? true : false);
+        return (hasReminder);
     }
 
     /**
@@ -287,15 +287,15 @@ public abstract class Task implements Serializable {
         switch (strCase) {
         case 1:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nTask ID:" + getId()
-                    + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
-                    + " \nPriority: " + getPriority() + "\n***************";
+                + " \nTask ID:" + getId()
+                + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
+                + " \nPriority: " + getPriority() + "\n***************";
         default:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nTask ID:" + getId()
-                    + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                    + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
-                    + "\n***************";
+                + " \nTask ID:" + getId()
+                + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
+                + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
+                + "\n***************";
         }
 
 
@@ -334,7 +334,7 @@ public abstract class Task implements Serializable {
      * the time remaining until the date set for the task.
      *
      * @author jaedonkey
-     * @deprecated
+     * @deprecated not in use for now
      */
     @Deprecated
     public void calculateAndSetPriorityScore() {
@@ -412,6 +412,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Create string of date and start time.
+     *
      * @return string object of date and start time.
      */
     public String getStringDateAndStartTime() {
@@ -420,6 +421,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Create a string of date and end time.
+     *
      * @return string object of date and end time.
      */
     public String getStringDateAndEndTime() {
@@ -429,6 +431,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Create a date object of date and start time.
+     *
      * @return date object of formatted time.
      */
     public Date getDateObgDateAndStartTime() {
@@ -444,6 +447,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Create a date object of date and end time.
+     *
      * @return date object of formatted time.
      */
     public Date getDateObgDateAndEndTime() {

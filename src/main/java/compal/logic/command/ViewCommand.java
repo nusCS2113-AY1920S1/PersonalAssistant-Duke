@@ -16,18 +16,43 @@ import java.util.Date;
  * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
+    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
     private String[] viewargs;
     private CalenderUtil calenderUtil;
-    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
+    private String viewType;
+    private String dateInput;
+    private String type;
 
     /**
      * Generate constructor for viewCommand.
      *
-     * @param viewArgs the arguments
+     * @param viewType  the view Type
+     * @param dateInput the date of input
      */
-    public ViewCommand(String[] viewArgs) {
-        super();
-        this.viewargs = viewArgs;
+    public ViewCommand(String viewType, String dateInput) {
+        this.viewType = viewType;
+        this.dateInput = dateInput;
+        this.type = "";
+        calenderUtil = new CalenderUtil();
+    }
+
+    /**
+     * override.
+     *
+     * @param typeToShow the type to be display only
+     */
+    public ViewCommand(String viewType, String dateInput, String typeToShow) {
+        this.viewType = viewType;
+        this.dateInput = dateInput;
+
+
+        if ("deadline".equals(typeToShow)) {
+            this.type = "D";
+        } else if ("event".equals(typeToShow)) {
+            this.type = "E";
+        }
+
+
         calenderUtil = new CalenderUtil();
     }
 
@@ -35,8 +60,6 @@ public class ViewCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         ArrayList<Task> currList = taskList.getArrList();
 
-        String viewType = viewargs[0];
-        String dateInput = viewargs[1];
 
         String[] dateParts = dateInput.split("/");
 
@@ -47,13 +70,13 @@ public class ViewCommand extends Command {
 
 
         switch (viewType) {
-        case "/month":
+        case "month":
             finalList = displayMonthView(month, year, currList);
             break;
-        case "/week":
+        case "week":
             finalList = displayWeekView(dateInput, currList);
             break;
-        case "/day":
+        case "day":
             finalList = finalList + ("Your daily schedule for " + dateInput + " :\n");
             finalList = finalList + displayDayView(dateInput, currList);
             calenderUtil.dateViewRefresh(dateInput);
@@ -61,7 +84,7 @@ public class ViewCommand extends Command {
         default:
             break;
         }
-        return new CommandResult(finalList,false);
+        return new CommandResult(finalList, false);
     }
 
 
@@ -149,10 +172,12 @@ public class ViewCommand extends Command {
         StringBuilder allTask = new StringBuilder();
 
         for (Task t : currList) {
-            if (t.getStringDate().equals(dateInput) && !t.getSymbol().equals("D")) {
-                allTask.append(getEventAsStringView(t));
-            } else if (t.getStringDate().equals(dateInput) && t.getSymbol().equals("D")) {
-                allTask.append(getDeadlineAsStringView(t));
+            if (!"".equals(type) && !t.getSymbol().equals(type)) {
+                continue;
+            }
+
+            if (t.getStringDate().equals(dateInput)) {
+                allTask.append(getAsStringView(t));
             }
         }
 
@@ -166,14 +191,14 @@ public class ViewCommand extends Command {
 
     }
 
-    private String getEventAsStringView(Task t) {
+    private String getAsStringView(Task t) {
+
+
         StringBuilder taskDetails = new StringBuilder();
-        String startTime = t.getStringStartTime();
-        String endTime = t.getStringEndTime();
-        Task.Priority priority = t.getPriority();
-        boolean isDone = t.getisDone();
 
         String rightArrow = "\u2192";
+
+        boolean isDone = t.getisDone();
         String status;
         if (isDone) {
             status = "\u2713";
@@ -181,15 +206,26 @@ public class ViewCommand extends Command {
             status = "\u274C";
         }
 
+        String startTime = t.getStringStartTime();
+        String endTime = t.getStringEndTime();
+
+        if ("-".equals(startTime)) {
+            taskDetails.append("  Due: ").append(endTime)
+                .append("\n");
+
+        } else {
+            taskDetails.append("  Time: ").append(startTime)
+                .append(" ").append(rightArrow)
+                .append(" ").append(endTime)
+                .append("\n");
+        }
+
         int taskId = t.getId();
+        Task.Priority priority = t.getPriority();
 
-        taskDetails.append("  Time: ").append(startTime)
-            .append(" ").append(rightArrow)
-            .append(" ").append(endTime)
-            .append("\n");
-
-        taskDetails.append("  [Task ID:")
-            .append(taskId).append("] ").append("[Priority:").append(priority).append("]\n");
+        taskDetails
+            .append("  [Task ID:").append(taskId).append("] ")
+            .append("[Priority:").append(priority).append("]\n");
 
         String taskSymbol = t.getSymbol();
         String taskDescription = t.getDescription();
@@ -200,34 +236,4 @@ public class ViewCommand extends Command {
         return taskDetails.toString();
     }
 
-    private String getDeadlineAsStringView(Task t) {
-        StringBuilder dailyDeadline = new StringBuilder();
-
-        String endTime = t.getStringEndTime();
-        Task.Priority priority = t.getPriority();
-        boolean isDone = t.getisDone();
-
-        String status;
-        if (isDone) {
-            status = "\u2713";
-        } else {
-            status = "\u274C";
-        }
-        int taskId = t.getId();
-        dailyDeadline.append("  Due: ").append(endTime)
-            .append("\n");
-
-        dailyDeadline.append("  [Task ID:")
-            .append(taskId).append("] ").append("[Priority:").append(priority).append("]\n");
-
-        String taskSymbol = t.getSymbol();
-        String taskDescription = t.getDescription();
-        dailyDeadline.append("  [").append(taskSymbol).append("] ")
-            .append("[").append(status).append("] ")
-            .append(taskDescription)
-            .append(priority)
-            .append("\n\n");
-
-        return dailyDeadline.toString();
-    }
 }

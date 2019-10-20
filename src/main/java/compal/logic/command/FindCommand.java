@@ -22,7 +22,7 @@ public class FindCommand extends Command {
         Boolean isEmpty = true;
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList.getArrList()) {
-            if (task.getDescription().contains(keyWord)) {
+            if (task.getDescription().toUpperCase().contains(keyWord.toUpperCase())) {
                 if (isEmpty) {
                     sb.append("Your search result for the keyword \" + searchTerm + \": \\n");
                     isEmpty = false;

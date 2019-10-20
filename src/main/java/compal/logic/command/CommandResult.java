@@ -15,7 +15,7 @@ public class CommandResult {
      * Return command results.
      *
      * @param feedbackToUser the string feedback
-     * @param requireSaving if command require saving
+     * @param requireSaving  if command require saving
      */
     public CommandResult(String feedbackToUser, boolean requireSaving) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
