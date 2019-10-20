@@ -113,7 +113,7 @@ public class MainWindow extends UiPart<Stage> {
             taskContainer.getChildren().add(DialogBox.getDukeDialog(t.toString(), dukeImage));
         }
         for (Task t: tasks.getEventList()) {
-            miniMap.getChildren().add(LocationCard.getCard(((Event) t).getLocation()));
+            miniMap.getChildren().add(EventCard.getCard((Event) t));
         }
     }
 

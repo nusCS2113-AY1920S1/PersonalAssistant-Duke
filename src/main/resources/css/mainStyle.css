@@ -67,13 +67,17 @@
 }
 
 .sidePane {
-    -fx-background-image: url("../images/SGmap.jpg");
+    -fx-background-image: url("../images/sg.png");
     -fx-background-size: 400 300;
 }
 
 #LocationCard {
     -fx-background-image: url("../images/two.png");
     -fx-background-size: contain;
+}
+
+.red {
+    -fx-fill: red;
 }
 
 .button {
