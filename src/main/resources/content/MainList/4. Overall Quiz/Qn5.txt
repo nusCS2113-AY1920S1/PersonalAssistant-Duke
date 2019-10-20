@@ -1,0 +1,5 @@
+When adding a try and catch block to include exceptions,
+the catch code is optional
+
+(1) True
+(2) False | 2

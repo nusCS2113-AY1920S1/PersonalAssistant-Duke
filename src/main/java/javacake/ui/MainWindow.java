@@ -4,7 +4,6 @@ import javacake.Duke;
 import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
-import javacake.quiz.QuestionList;
 import javacake.storage.Profile;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
@@ -157,7 +156,7 @@ public class MainWindow extends AnchorPane {
                 } else { //Must be quizCommand: checking of answers
                     quizCommand.checkAnswer(input);
                     if (quizCommand.chosenQuestions.size() > 0) {
-                        response = quizCommand.getQuestion();
+                        response = quizCommand.getNextQuestion();
                     } else {
                         isQuiz = false;
                         response = quizCommand.getQuizScore();
@@ -172,6 +171,7 @@ public class MainWindow extends AnchorPane {
                 if (response.contains("!@#_QUIZ")) { //checks if quizCommand was executed
                     isQuiz = true;
                     Duke.logger.log(Level.INFO, "Response: " + response);
+                    //initalise the quiz here
                     response = getFirstQn(response);
                 }
                 if (response.contains("Confirm reset")) { //checks if resetCommand was executed
@@ -224,19 +224,19 @@ public class MainWindow extends AnchorPane {
     private String getFirstQn(String cmdMode) throws DukeException {
         switch (cmdMode) {
         case "!@#_QUIZ_1":
-            quizCommand = new QuizCommand(Question.QuestionType.BASIC);
+            //quizCommand = new QuizCommand(Question.QuestionType.BASIC);
             break;
         case "!@#_QUIZ_2":
-            quizCommand = new QuizCommand(Question.QuestionType.OOP);
+            //quizCommand = new QuizCommand(Question.QuestionType.OOP);
             break;
         case "!@#_QUIZ_3":
-            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
+            //quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
             break;
         case "!@#_QUIZ_4":
-            quizCommand = new QuizCommand();
+            quizCommand = new QuizCommand(Question.QuestionType.ALL, "content/MainList/4. Overall Quiz");
             break;
         default:
         }
-        return quizCommand.getQuestion();
+        return quizCommand.getNextQuestion();
     }
 }
