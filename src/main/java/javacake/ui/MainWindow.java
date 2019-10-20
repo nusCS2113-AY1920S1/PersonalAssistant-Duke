@@ -224,16 +224,16 @@ public class MainWindow extends AnchorPane {
     private String getFirstQn(String cmdMode) throws DukeException {
         switch (cmdMode) {
         case "!@#_QUIZ_1":
-            //quizCommand = new QuizCommand(Question.QuestionType.BASIC);
+            quizCommand = new QuizCommand(Question.QuestionType.BASIC, false);
             break;
         case "!@#_QUIZ_2":
-            //quizCommand = new QuizCommand(Question.QuestionType.OOP);
+            quizCommand = new QuizCommand(Question.QuestionType.OOP , false);
             break;
         case "!@#_QUIZ_3":
-            //quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
+            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS, false);
             break;
         case "!@#_QUIZ_4":
-            quizCommand = new QuizCommand(Question.QuestionType.ALL, "content/MainList/4. Overall Quiz");
+            quizCommand = new QuizCommand(Question.QuestionType.ALL, false);
             break;
         default:
         }

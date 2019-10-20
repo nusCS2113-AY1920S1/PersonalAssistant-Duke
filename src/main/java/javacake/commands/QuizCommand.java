@@ -29,6 +29,7 @@ public class QuizCommand extends Command {
     public ScoreGrade scoreGrade;
     public static final int MAX_QUESTIONS = 5;
     int totalNumOfQns = 0;
+    public static ProgressStack progressStack;
 
     public enum ScoreGrade {
         BAD, OKAY, GOOD
@@ -36,26 +37,17 @@ public class QuizCommand extends Command {
 
 
     /**
-     * QuizCommand constructor for topic-based quiz.
+     * QuizCommand constructor for topic-based quiz
      * @param questionType the topic of the quiz.
      */
-    public QuizCommand(Question.QuestionType questionType, String filePath) throws DukeException {
+    public QuizCommand(Question.QuestionType questionType, Boolean isCLI) throws DukeException {
         type = CmdType.QUIZ;
         chosenQuestions = new ArrayList<>();
         qnType = questionType;
-        this.filePath = filePath;
-        run();
-    }
-
-    /**
-     * Method only used in CLI mode
-     * @param questionType
-     * @throws DukeException
-     */
-    public QuizCommand(Question.QuestionType questionType) throws DukeException {
-        type = CmdType.QUIZ;
-        chosenQuestions = new ArrayList<>();
-        qnType = questionType;
+        if (!isCLI) {
+            this.filePath = progressStack.getFullFilePath();
+            runGUI();
+        }
     }
 
     public static void setProfile(Profile profile) {
@@ -152,9 +144,13 @@ public class QuizCommand extends Command {
         return "";
     }
 
-    public void run() throws DukeException {
-        //think of way to implement later//
-        totalNumOfQns = 5;
+    /**
+     * Method to execute but for GUI
+     * @throws DukeException
+     */
+
+    public void runGUI() throws DukeException {
+        totalNumOfQns = progressStack.getNumOfFiles();
         getQuestions();
         pickQuestions();
     }

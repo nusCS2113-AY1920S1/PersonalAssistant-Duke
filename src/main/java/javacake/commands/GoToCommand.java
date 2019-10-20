@@ -32,34 +32,42 @@ public class GoToCommand extends Command {
         if (filePath.contains("Quiz")) {
             if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.BASIC)
+                    return new QuizCommand(Question.QuestionType.BASIC ,Duke.isCliMode())
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
+                    progressStack.insertQueries();
+                    QuizCommand.progressStack = progressStack;
                     return "!@#_QUIZ_1";
                 }
             } else if (filePath.contains("2. Object-Oriented Programming")) {
                 if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.OOP)
+                    return new QuizCommand(Question.QuestionType.OOP, Duke.isCliMode())
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
+                    progressStack.insertQueries();
+                    QuizCommand.progressStack = progressStack;
                     return "!@#_QUIZ_2";
                 }
             } else if (filePath.contains("3. Extensions")) {
                 if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.EXTENSIONS)
+                    return new QuizCommand(Question.QuestionType.EXTENSIONS, Duke.isCliMode())
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
+                    progressStack.insertQueries();
+                    QuizCommand.progressStack = progressStack;
                     return "!@#_QUIZ_3";
                 }
             } else {
                 if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.ALL)
+                    return new QuizCommand(Question.QuestionType.ALL, Duke.isCliMode())
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
+                    progressStack.insertQueries();
+                    QuizCommand.progressStack = progressStack;
                     return "!@#_QUIZ_4";
                 }
             }
