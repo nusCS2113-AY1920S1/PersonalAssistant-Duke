@@ -6,7 +6,7 @@ import compal.model.tasks.TaskList;
 
 public class FindCommand extends Command {
 
-    String keyWord;
+    private String keyWord;
 
     public FindCommand(String keyWord) {
         this.keyWord = keyWord;
