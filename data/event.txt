@@ -1,5 +1,6 @@
 CS2100 [E][✘][NR][<R/R>] abc (at: Fri 18/10/2019 time: 03:00 AM to 03:25 AM)
 CS2100 [E][✘][NR][<R/R>] abc (at: Fri 18/10/2019 time: 01:00 PM to 01:25 PM)
+CS2100 [E][✘][NR][<R/R>] asdnasd (at: Sat 19/10/2019 time: 03:00 PM to 04:00 PM)
 CS2100 [E][✘][NR][<R/R>] abc (at: Fri 18/10/2019 time: 02:00 PM to 02:25 PM)
 CS2100 [E][✘][NR][<R/R>] abc (at: Fri 18/10/2019 time: 05:00 AM to 05:25 AM)
 CS2100 [E][✘][NR][<R/R>] abc (at: Fri 18/10/2019 time: 03:00 PM to 03:25 PM)
