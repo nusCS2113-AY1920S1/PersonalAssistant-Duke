@@ -96,7 +96,7 @@ public class Storage {
                     // Assignment type
                     Assignment assignment = new Assignment(description, date);
                     assignment.setPriority(priority);
-                    assignment.setUser(user);
+                    assignment.setAssignee(user);
                     assignment.setRecurrenceSchedule(recurrence);
                     assignment.setDone(done);
                     if (scanSubTask.length() != 0) assignment.setSubTasks(scanSubTask);
@@ -104,9 +104,9 @@ public class Storage {
                 } else {
                     //Meeting type
                     if (isFixedDuration) {
-                        Meeting meeting = new Meeting(description, duration, unit);
+                        Meeting meeting = new Meeting(description, date, duration, unit);
                         meeting.setPriority(priority);
-                        meeting.setUser(user);
+                        meeting.setAssignee(user);
                         meeting.setRecurrenceSchedule(recurrence);
                         meeting.setDone(done);
                         taskArrayList.add(meeting);
@@ -114,7 +114,7 @@ public class Storage {
                         Meeting meeting = new Meeting(description, date);
                         meeting.setRecurrenceSchedule(recurrence);
                         meeting.setPriority(priority);
-                        meeting.setUser(user);
+                        meeting.setAssignee(user);
                         meeting.setDone(done);
                         taskArrayList.add(meeting);
                     }
@@ -224,8 +224,7 @@ public class Storage {
             String month = dateFormat.format(date);
             String[] timeArray = tempString[4].split(":", 3);
             String day = tempString[3];
-            String recurrence = task.getRecurrenceSchedule().toString();
-            time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1] + '#' + recurrence +"#";
+            time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1];
 //            if (task instanceof FixedDuration) {
 //                String[] durationArray = prelimSplit[3].split(":");
 //                String temp = durationArray[1].trim();
