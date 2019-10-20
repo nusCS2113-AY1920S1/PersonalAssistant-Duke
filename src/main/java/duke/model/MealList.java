@@ -32,7 +32,6 @@ public class MealList {
     public MealList() {
     }
 
-
     /**
      * This function is used to delete the task of a particular index.
      * @param date date of the meal to be deleted.
