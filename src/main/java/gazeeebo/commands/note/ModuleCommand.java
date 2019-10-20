@@ -43,7 +43,7 @@ public class ModuleCommand extends Command {
         System.out.println("2. Edit module name: edit name");
         System.out.println("3. Add assessment: add assmt");
         System.out.println("4. Edit assessment name: edit assmt");
-        System.out.println("5. Edit assessment weightage: edit weight");
+        System.out.println("5. Edit assessment weightage: edit weightage");
         System.out.println("6. Delete assessment: delete assmt");
         System.out.println("7. Add miscellaneous information: add msc");
         System.out.println("8. Edit miscellaneous information: edit msc");
@@ -63,7 +63,14 @@ public class ModuleCommand extends Command {
                 module.addAssessment(ui);
                 break;
             case "edit assmt":
-
+                module.editAssessmentName(ui);
+                break;
+            case "edit weightage":
+                module.editAssessmentWeightage(ui);
+                break;
+            case "delete assmt":
+                module.deleteAssessment(ui);
+                break;
             }
         }
     }

@@ -62,13 +62,77 @@ public class Module {
         System.out.println(newAssessment.toString());
     }
 
-    public void editAssessment(Ui ui) throws IOException {
+    public void editAssessmentName(Ui ui) throws IOException {
         System.out.println("Which assessment do you want to edit?");
+        String[] indexAndOldName = checkIfValidIndex(ui);
+        int assmtNum = Integer.parseInt(indexAndOldName[0]);
+        String oldName = indexAndOldName[1];
+        assert oldName != null: "Bug in Module: editAssessment: oldName";
+        assert assmtNum != -1 : "Bug in Module: editAssessment: assmtNum";
+        System.out.println("What do you want to change the name to?");
         ui.readCommand();
+        assessments.get(assmtNum).name = ui.fullCommand;
+        System.out.println("Okay we have successfully changed the name of \"" + oldName + "\" to:");
+        System.out.println(ui.fullCommand);
+    }
 
-        System.out.println("What is the new assessment name?");
-        ui.readCommand();
+    public void editAssessmentWeightage(Ui ui) throws IOException {
+        System.out.println("Which assessment do you want to edit?");
+        String[] indexAndOldName = checkIfValidIndex(ui);
+        int assmtNum = Integer.parseInt(indexAndOldName[0]);
+        String oldName = indexAndOldName[1];
+        assert oldName != null: "Bug in Module: editAssessment: oldName";
+        assert assmtNum != -1 : "Bug in Module: editAssessment: assmtNum";
+        System.out.println("What do you want to change the weightage to?");
+        boolean isInt = false;
+        do {
+            ui.readCommand();
+            try {
+                assessments.get(assmtNum).weightage = Integer.parseInt(ui.fullCommand);
+                if (assessments.get(assmtNum).weightage >= 0) {
+                    isInt = true;
+                } else {
+                    System.out.println("Please input a positive number.");
+                }
+            } catch (NumberFormatException n) {
+                System.out.println("Please input a number.");
+            }
+        } while (!isInt);
+        System.out.println("Okay we have successfully changed the weightage to:");
+        System.out.println(ui.fullCommand);
+    }
 
+    private String[] checkIfValidIndex(Ui ui) throws IOException {
+        int assmtNum = -1;
+        String assmtName = null;
+        boolean isValidIndex = false;
+        do {
+            ui.readCommand();
+            try {
+                assmtNum = Integer.parseInt(ui.fullCommand)-1;
+                try {
+                    assmtName = assessments.get(assmtNum).name;
+                    isValidIndex = true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Sorry there is no such index.");
+                }
+            } catch (NumberFormatException n) {
+                System.out.println("Please input the index of the assessment.");
+            }
+        } while (!isValidIndex);
+        return new String[]{Integer.toString(assmtNum), assmtName};
+    }
+
+    public void deleteAssessment(Ui ui) throws IOException {
+        System.out.println("Which assessment do you want to delete?");
+        String[] indexAndAssmtToDelete = checkIfValidIndex(ui);
+        int assmtNum = Integer.parseInt(indexAndAssmtToDelete[0]);
+        String assmtToDelete = indexAndAssmtToDelete[1];
+        assert assmtToDelete != null: "Bug in Module: deleteAssessment: assmtToDeleteName";
+        assert assmtNum != -1 : "Bug in Module: deleteAssessment: assmtNum";
+        assessments.remove(assmtNum);
+        System.out.println("Okay we have successfully deleted this assessment:");
+        System.out.println(assmtToDelete);
     }
 
 }
