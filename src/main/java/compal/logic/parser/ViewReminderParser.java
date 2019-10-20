@@ -7,7 +7,7 @@ import compal.logic.parser.exceptions.ParserException;
 public class ViewReminderParser implements CommandParser {
 
     @Override
-    public Command parseCommand(String input) throws ParserException {
+    public Command parseCommand(String restOfInput) throws ParserException {
         return new ViewReminderCommand();
     }
 }
