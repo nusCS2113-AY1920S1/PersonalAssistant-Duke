@@ -76,6 +76,27 @@ public class Module {
         System.out.println(ui.fullCommand);
     }
 
+    private String[] checkIfValidIndex(Ui ui) throws IOException {
+        int assmtNum = -1;
+        String assmtName = null;
+        boolean isValidIndex = false;
+        do {
+            ui.readCommand();
+            try {
+                assmtNum = Integer.parseInt(ui.fullCommand)-1;
+                try {
+                    assmtName = assessments.get(assmtNum).name;
+                    isValidIndex = true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Sorry there is no such index.");
+                }
+            } catch (NumberFormatException n) {
+                System.out.println("Please input the index of the assessment.");
+            }
+        } while (!isValidIndex);
+        return new String[]{Integer.toString(assmtNum), assmtName};
+    }
+
     public void editAssessmentWeightage(Ui ui) throws IOException {
         System.out.println("Which assessment do you want to edit?");
         String[] indexAndOldName = checkIfValidIndex(ui);
@@ -102,27 +123,6 @@ public class Module {
         System.out.println(ui.fullCommand);
     }
 
-    private String[] checkIfValidIndex(Ui ui) throws IOException {
-        int assmtNum = -1;
-        String assmtName = null;
-        boolean isValidIndex = false;
-        do {
-            ui.readCommand();
-            try {
-                assmtNum = Integer.parseInt(ui.fullCommand)-1;
-                try {
-                    assmtName = assessments.get(assmtNum).name;
-                    isValidIndex = true;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Sorry there is no such index.");
-                }
-            } catch (NumberFormatException n) {
-                System.out.println("Please input the index of the assessment.");
-            }
-        } while (!isValidIndex);
-        return new String[]{Integer.toString(assmtNum), assmtName};
-    }
-
     public void deleteAssessment(Ui ui) throws IOException {
         System.out.println("Which assessment do you want to delete?");
         String[] indexAndAssmtToDelete = checkIfValidIndex(ui);
@@ -133,6 +133,14 @@ public class Module {
         assessments.remove(assmtNum);
         System.out.println("Okay we have successfully deleted this assessment:");
         System.out.println(assmtToDelete);
+    }
+
+    public void addMiscellaneous(Ui ui) throws IOException {
+        System.out.println("What miscellaneous information do you want to add?");
+        ui.readCommand();
+        miscellaneousInfo.add(ui.fullCommand);
+        System.out.println("Okay we have successfully added this miscellaneous information:");
+        System.out.println(ui.fullCommand);
     }
 
 }

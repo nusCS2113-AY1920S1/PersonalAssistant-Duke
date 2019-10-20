@@ -71,6 +71,11 @@ public class ModuleCommand extends Command {
             case "delete assmt":
                 module.deleteAssessment(ui);
                 break;
+            case "add msc":
+                module.addMiscellaneous(ui);
+                break;
+            case "edit msc":
+                break;
             }
         }
     }
