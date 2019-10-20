@@ -9,10 +9,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.util.HashSet;
+
+import java.util.Set;
+
 
 public interface CommandParser {
 
@@ -28,6 +33,8 @@ public interface CommandParser {
     String TOKEN_START_TIME = "/start";
     String TOKEN_FINAL_DATE = "/final-date";
     char TOKEN_SLASH_CHAR = '/';
+    String TOKEN_TYPE = "/type";
+
 
     String EMPTY_INPUT_STRING = "";
     int DEFAULT_WEEK_NUMBER_OF_DAYS = 7;
@@ -43,6 +50,7 @@ public interface CommandParser {
     String MESSAGE_MISSING_START_TIME_ARG = "ArgumentError: Missing /start";
     String MESSAGE_MISSING_END_TIME_ARG = "ArgumentError: Missing /end";
     String MESSAGE_MISSING_FINAL_DATE_ARG = "ArgumentError: Missing /final-date";
+    String MESSAGE_INVALID_TYPE = "Error: The type does not exist!";
 
     /**
      * Method specification for different command parsers to parse user input.
@@ -56,6 +64,42 @@ public interface CommandParser {
     /**
      * GETTERS FOR TOKENS BELOW
      */
+
+    /**
+     * Returns the type of task.
+     *
+     * @param restOfInput String input of user after command word
+     * @return type
+     * @throws ParserException if the token (/task) is missing or task type
+     *                         does not exist.
+     */
+    default String getType(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_TYPE)) {
+            int startPoint = restOfInput.indexOf(TOKEN_TYPE);
+            String typeStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(typeStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String typeInput = scanner.next();
+
+            Set<String> taskTypes = new HashSet<>();
+
+            taskTypes.add("deadline");
+            taskTypes.add("event");
+
+            if (taskTypes.contains(typeInput)) {
+                return typeInput;
+            }
+
+            throw new ParserException(MESSAGE_INVALID_TYPE);
+
+        } else {
+            throw new ParserException(MESSAGE_MISSING_TOKEN);
+        }
+    }
+
 
     /**
      * Returns the task ID in the String input.
@@ -128,7 +172,7 @@ public interface CommandParser {
      * @param restOfInput Input description after initial command word.
      * @return Date in the form of a string.
      * @throws ParserException If date field is empty, date or date format is invalid,
-     *                              date token (/date) is missing.
+     *                         date token (/date) is missing.
      */
     default ArrayList<String> getTokenDate(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_DATE)) {
@@ -189,6 +233,7 @@ public interface CommandParser {
 
     /**
      * Parses through user input for /start token and return the start time.
+     *
      * @param restOfInput String input of user after command word
      * @return Start time in the form of a String
      * @throws ParserException if start time is not entered after the /start token, or /start token is missing
@@ -210,7 +255,8 @@ public interface CommandParser {
         }
     }
 
-    /**Parses through user input for /end token and return the end time.
+    /**
+     * Parses through user input for /end token and return the end time.
      *
      * @param restOfInput String input of user after command word
      * @return End time in the form of a String
@@ -292,7 +338,7 @@ public interface CommandParser {
      * @return true or false.
      */
     default boolean isDateValid(String date) throws ParserException {
-        final  String DATE_FORMAT = "dd/MM/yyyy";
+        final String DATE_FORMAT = "dd/MM/yyyy";
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
@@ -307,7 +353,7 @@ public interface CommandParser {
      * Check if the user input contains the token.
      *
      * @param restOfInput String input of user after command word
-     * @param token The token to be checked
+     * @param token       The token to be checked
      * @return True if the token exists in the user input, False if not.
      */
     default boolean hasToken(String restOfInput, String token) {
