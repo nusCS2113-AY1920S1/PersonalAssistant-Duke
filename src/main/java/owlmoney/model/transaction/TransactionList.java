@@ -360,10 +360,6 @@ public class TransactionList {
      * @return True if expenditure list is empty.
      */
     public boolean expListIsEmpty() {
-        if (expLists.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return expLists.isEmpty();
     }
 }

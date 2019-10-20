@@ -1,6 +1,5 @@
 package owlmoney.model.card;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import owlmoney.model.card.exception.CardException;
@@ -151,7 +150,7 @@ public class Card {
      * @throws TransactionException If invalid transaction.
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
-        double deletedAmount = unpaid.deleteExpenditureFromList(exId, ui);
+        unpaid.deleteExpenditureFromList(exId, ui);
     }
 
     /**
@@ -205,10 +204,6 @@ public class Card {
      * @return True if unpaid expenditure list is empty.
      */
     public boolean isEmpty() {
-        if (unpaid.expListIsEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return unpaid.expListIsEmpty();
     }
 }
