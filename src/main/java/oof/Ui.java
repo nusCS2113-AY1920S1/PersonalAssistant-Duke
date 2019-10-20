@@ -454,6 +454,11 @@ public class Ui {
         System.out.println("\t" + count + ". " + startDate + " to " + endDate);
     }
 
+    /**
+     * Print when Start Tracker Command is completed.
+     * @param task      description of Task object.
+     * @param date      current date.
+     */
     public void printStartAtCurrent(Task task, String date) {
         printLine();
         System.out.println("Begin " + task.getLine());
@@ -461,6 +466,12 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Print when Stop Tracker Command is completed.
+     * @param task          description of Task object.
+     * @param date          current date.
+     * @param difference    calculated time taken.
+     */
     public void printEndAtCurrent(Task task, String date, long difference) {
         printLine();
         System.out.println("Ending " + task.getLine());

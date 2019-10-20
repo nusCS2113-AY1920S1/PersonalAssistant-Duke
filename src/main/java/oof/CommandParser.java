@@ -1,6 +1,23 @@
 package oof;
 
-import oof.command.*;
+import oof.command.AddDeadlineCommand;
+import oof.command.AddEventCommand;
+import oof.command.AddToDoCommand;
+import oof.command.CalendarCommand;
+import oof.command.CompleteCommand;
+import oof.command.Command;
+import oof.command.DeleteCommand;
+import oof.command.ExitCommand;
+import oof.command.FindCommand;
+import oof.command.FreeCommand;
+import oof.command.HelpCommand;
+import oof.command.ListCommand;
+import oof.command.RecurringCommand;
+import oof.command.ScheduleCommand;
+import oof.command.SnoozeCommand;
+import oof.command.StartTrackerCommand;
+import oof.command.StopTrackerCommand;
+import oof.command.SummaryCommand;
 
 import oof.exception.OofException;
 import java.util.InputMismatchException;
