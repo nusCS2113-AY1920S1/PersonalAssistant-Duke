@@ -44,7 +44,7 @@ public class GeneralNoteCommand extends Command {
                 gnp.deleteModule(ui);
                 break;
             case "module":
-                //go to ModuleCommand
+                (new ModuleCommand()).execute(null, ui, null, null, null, null);
                 break;
             case "help":
                 (new HelpCommand()).execute(null, ui, null, null, null, null);

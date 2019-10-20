@@ -11,7 +11,7 @@ public class GeneralNotePage {
 
     public void viewGeneralNotePage() {
         System.out.println("Goal: " + goal);
-        System.out.println("\n");
+        System.out.print("\n");
         System.out.println("Modules:");
         for (int i = 0; i < modules.size(); i++) {
             System.out.println((i+1) + ". " + modules.get(i).name);

@@ -3,6 +3,7 @@ package gazeeebo.commands.note;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
+import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class ModuleCommand extends Command {
-    public Module findModule(String moduleName) throws DukeException {
+    private Module findModule(String moduleName) throws DukeException {
         for (Module m : GeneralNotePage.modules) {
             if (m.name.equals(moduleName)) {
                 return m;
@@ -28,15 +29,14 @@ public class ModuleCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Welcome to your module page! Which module do you want to view/edit?");
         ui.readCommand();
-        Module module = null;
+        Module module;
         try {
             module = findModule(ui.fullCommand);
         } catch (DukeException d) {
             ui.showErrorMessage(d);
-            System.out.println("Going back to note page.");
+            System.out.println("Going back to notes page.");
             return;
         }
-        assert module != null : "Bug in ModuleCommand";
         System.out.println("What would you like to do?\n");
         System.out.println("__________________________________________________________");
         System.out.println("1. View module notes: view");
@@ -75,9 +75,21 @@ public class ModuleCommand extends Command {
                 module.addMiscellaneous(ui);
                 break;
             case "edit msc":
+                module.editMiscellaneous(ui);
+                break;
+            case "delete msc":
+                module.deleteMiscellaneous(ui);
+                break;
+            case "help":
+                (new HelpCommand()).execute(null, ui, null, null, null, null);
+                break;
+            default:
+                ui.showDontKnowErrorMessage();
                 break;
             }
+            ui.readCommand();
         }
+        System.out.println("Going back to notes page.");
     }
 
     @Override

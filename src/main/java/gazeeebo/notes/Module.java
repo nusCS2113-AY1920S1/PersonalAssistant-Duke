@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Module {
     public String name;
-    public ArrayList<Assessment> assessments;
-    public ArrayList<String> miscellaneousInfo;
+    private ArrayList<Assessment> assessments;
+    private ArrayList<String> miscellaneousInfo;
 
     public Module(String name) {
         this.name = name;
@@ -22,7 +22,7 @@ public class Module {
         for (int i = 0; i < assessments.size(); i++) {
             System.out.println((i+1) + ". " + assessments.get(i).toString());
         }
-        System.out.println("\n");
+        System.out.print("\n");
         System.out.println("Miscellaneous:");
         for (int i = 0; i < miscellaneousInfo.size(); i++) {
             System.out.println((i+1) + ". " + miscellaneousInfo.get(i));
@@ -36,6 +36,7 @@ public class Module {
         System.out.println(name);
     }
 
+    //ASSESSMENT FEATURES-------------------------------------------------------------------------
     public void addAssessment(Ui ui) throws IOException {
         System.out.println("What assessment do you want to add?");
         ui.readCommand();
@@ -64,11 +65,11 @@ public class Module {
 
     public void editAssessmentName(Ui ui) throws IOException {
         System.out.println("Which assessment do you want to edit?");
-        String[] indexAndOldName = checkIfValidIndex(ui);
+        String[] indexAndOldName = checkIfValidIndexAssmt(ui);
         int assmtNum = Integer.parseInt(indexAndOldName[0]);
         String oldName = indexAndOldName[1];
-        assert oldName != null: "Bug in Module: editAssessment: oldName";
-        assert assmtNum != -1 : "Bug in Module: editAssessment: assmtNum";
+        assert oldName != null: "Bug in notes.Module: editAssessment: oldName";
+        assert assmtNum != -1 : "Bug in notes.Module: editAssessment: assmtNum";
         System.out.println("What do you want to change the name to?");
         ui.readCommand();
         assessments.get(assmtNum).name = ui.fullCommand;
@@ -76,7 +77,7 @@ public class Module {
         System.out.println(ui.fullCommand);
     }
 
-    private String[] checkIfValidIndex(Ui ui) throws IOException {
+    private String[] checkIfValidIndexAssmt(Ui ui) throws IOException {
         int assmtNum = -1;
         String assmtName = null;
         boolean isValidIndex = false;
@@ -99,11 +100,11 @@ public class Module {
 
     public void editAssessmentWeightage(Ui ui) throws IOException {
         System.out.println("Which assessment do you want to edit?");
-        String[] indexAndOldName = checkIfValidIndex(ui);
+        String[] indexAndOldName = checkIfValidIndexAssmt(ui);
         int assmtNum = Integer.parseInt(indexAndOldName[0]);
         String oldName = indexAndOldName[1];
-        assert oldName != null: "Bug in Module: editAssessment: oldName";
-        assert assmtNum != -1 : "Bug in Module: editAssessment: assmtNum";
+        assert oldName != null: "Bug in notes.Module: editAssessment: oldName";
+        assert assmtNum != -1 : "Bug in notes.Module: editAssessment: assmtNum";
         System.out.println("What do you want to change the weightage to?");
         boolean isInt = false;
         do {
@@ -125,22 +126,72 @@ public class Module {
 
     public void deleteAssessment(Ui ui) throws IOException {
         System.out.println("Which assessment do you want to delete?");
-        String[] indexAndAssmtToDelete = checkIfValidIndex(ui);
+        String[] indexAndAssmtToDelete = checkIfValidIndexAssmt(ui);
         int assmtNum = Integer.parseInt(indexAndAssmtToDelete[0]);
         String assmtToDelete = indexAndAssmtToDelete[1];
-        assert assmtToDelete != null: "Bug in Module: deleteAssessment: assmtToDeleteName";
-        assert assmtNum != -1 : "Bug in Module: deleteAssessment: assmtNum";
+        assert assmtToDelete != null: "Bug in notes.Module: deleteAssessment: assmtToDeleteName";
+        assert assmtNum != -1 : "Bug in notes.Module: deleteAssessment: assmtNum";
         assessments.remove(assmtNum);
         System.out.println("Okay we have successfully deleted this assessment:");
         System.out.println(assmtToDelete);
     }
 
+    //MISCELLANOUS INFORMATION FEATURES-----------------------------------------------------------------
     public void addMiscellaneous(Ui ui) throws IOException {
         System.out.println("What miscellaneous information do you want to add?");
         ui.readCommand();
         miscellaneousInfo.add(ui.fullCommand);
         System.out.println("Okay we have successfully added this miscellaneous information:");
         System.out.println(ui.fullCommand);
+    }
+
+    private String[] checkIfValidIndexMsc(Ui ui) throws IOException {
+        int mscNum = -1;
+        String mscName = null;
+        boolean isValidIndex = false;
+        do {
+            ui.readCommand();
+            try {
+                mscNum = Integer.parseInt(ui.fullCommand)-1;
+                try {
+                    mscName = miscellaneousInfo.get(mscNum);
+                    isValidIndex = true;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Sorry there is no such index.");
+                }
+            } catch (NumberFormatException n) {
+                System.out.println("Please input the index of the miscellaneous information.");
+            }
+        } while (!isValidIndex);
+        return new String[]{Integer.toString(mscNum), mscName};
+    }
+
+    public void editMiscellaneous(Ui ui) throws IOException {
+        System.out.println("Which miscellaneous information do you want to edit?");
+        ui.readCommand();
+        String[] indexAndMscToEdit = checkIfValidIndexMsc(ui);
+        int mscNum = Integer.parseInt(indexAndMscToEdit[0]);
+        String mscToEdit = indexAndMscToEdit[1];
+        assert mscToEdit != null: "Bug in notes.Module: editMiscellaneous: mscToEdit";
+        assert mscNum != -1 : "Bug in notes.Module: editMiscellaneous: mscNum";
+        System.out.println("What do you want to change the miscellaneous information to?");
+        ui.readCommand();
+        miscellaneousInfo.set(mscNum, ui.fullCommand);
+        System.out.println("Okay we have successfully changed \"" + mscToEdit + "\" to:");
+        System.out.println(ui.fullCommand);
+    }
+
+    public void deleteMiscellaneous(Ui ui) throws IOException {
+        System.out.println("Which miscellaneous information do you want to delete?");
+        ui.readCommand();
+        String[] indexAndMscToDelete = checkIfValidIndexMsc(ui);
+        int mscNum = Integer.parseInt(indexAndMscToDelete[0]);
+        String mscToDelete = indexAndMscToDelete[1];
+        assert mscToDelete != null: "Bug in notes.Module: deleteMiscellaneous: mscToDelete";
+        assert mscNum != -1 : "Bug in notes.Module: deleteMiscellaneous: mscNum";
+        miscellaneousInfo.remove(mscNum);
+        System.out.println("Okay we have successfully deleted this miscellaneous information:");
+        System.out.println(mscToDelete);
     }
 
 }
