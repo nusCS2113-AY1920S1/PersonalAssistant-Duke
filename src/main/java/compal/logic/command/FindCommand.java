@@ -19,15 +19,15 @@ public class FindCommand extends Command {
         if (taskList.getArrList().isEmpty()) {
             return new CommandResult("You have no tasks at the moment!",false);
         }
-        Boolean isEmpty = true;
+        boolean isEmpty = true;
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList.getArrList()) {
             if (task.getDescription().toUpperCase().contains(keyWord.toUpperCase())) {
                 if (isEmpty) {
-                    sb.append("Your search result for the keyword \" + searchTerm + \": \\n");
+                    sb.append("Your search result for the keyword ").append(keyWord).append(": \\n");
                     isEmpty = false;
                 }
-                sb.append(task.toString() + "\n");
+                sb.append(task.toString()).append("\n");
 
             }
         }
