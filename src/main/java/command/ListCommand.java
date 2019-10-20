@@ -1,6 +1,6 @@
 package command;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import exception.WordBankEmptyException;
 import storage.Storage;
 import ui.Ui;

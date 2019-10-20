@@ -1,10 +1,11 @@
 package scene;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import command.QuizCommand;
 import exception.ChangeSceneException;
 import exception.InvalidAnswerException;
 import exception.WordBankNotEnoughForQuizException;
+import exception.CommandInvalidException;
 import exception.WordUpException;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -29,17 +30,20 @@ public class QuizScene extends NewScene {
 
     @Override
     public String getResponse(String fullCommand)
-            throws ChangeSceneException, InvalidAnswerException, WordBankNotEnoughForQuizException
-    {
+            throws ChangeSceneException, InvalidAnswerException,
+            WordBankNotEnoughForQuizException, CommandInvalidException {
         if (fullCommand.equals("exit_quiz")) {
             throw new ChangeSceneException();
         }
-        if (!startQuiz && fullCommand.equals("start")) {
-            generateQuiz();
-            return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-        }
-        else {
-            startQuiz = true;
+        if (!startQuiz) {
+            if (fullCommand.equals("start")) {
+                generateQuiz();
+                startQuiz = true;
+                return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
+            } else {
+                throw new CommandInvalidException(fullCommand);
+            }
+        } else {
             String s;
             try {
                 int i = Integer.parseInt(fullCommand);
@@ -70,7 +74,7 @@ public class QuizScene extends NewScene {
         Label dukeText;
         try {
             dukeText = new Label(getResponse(userInput.getText()));
-        } catch (InvalidAnswerException | WordBankNotEnoughForQuizException e) {
+        } catch (InvalidAnswerException | WordBankNotEnoughForQuizException | CommandInvalidException e) {
             dukeText = new Label(e.showError());
         }
         dialogContainer.getChildren().addAll(
