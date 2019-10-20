@@ -16,7 +16,7 @@ public class CommandGameNew extends Command {
         Storage storage = farmio.getStorage();
         farmio.setFarmer(new Farmer());
         farmio.setLevel(new Level(storage.getLevel(1), farmio.getFarmer()));
-        new Simulation("GameNew", ui, storage).animate(0);
+        Simulation.animate(ui, storage, "GameNew", 0);
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }

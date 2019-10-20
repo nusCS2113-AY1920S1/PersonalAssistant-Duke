@@ -15,9 +15,9 @@ public class DoTask extends Task {
     }
 
     @Override
-    public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
+    public void execute(Farmio farmio) throws FarmioFatalException, FarmioException {
         {
-            action.execute(farmio.getUi());
+            action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer());
         }
     }
 

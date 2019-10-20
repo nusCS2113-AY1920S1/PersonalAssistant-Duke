@@ -1,30 +1,29 @@
 package UserCode.Actions;
 
-import Farmio.Farmio;
+import Farmio.Farmer;
+import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class GotoFarmAction extends Action {
 
-    public GotoFarmAction(Farmio farmio) {
-        super(farmio);
-        this.type = ActionType.GOTO_WHEAT_FARM;
+    public GotoFarmAction() {
+        this.type = ActionType.gotoFarm;
     }
 
-    public void execute(Ui ui) {
+    public void execute(Ui ui, Storage storage, Farmer farmer) {
         try {
-            Simulation GotoWheatFarmSimulation = new Simulation("GotoWheatFarmSimulation", super.farmio);
             if (farmer.getLocation().equals("WheatFarm")) {
-                GotoWheatFarmSimulation.delayFrame(12, 1000);
+                Simulation.animate(ui, storage, farmer, 1000, "GotoWheatFarmSimulation", 12);
                 ui.typeWriter("You are already at the WheatFarm");
                 return;
             }
             farmer.changeLocation("Traveling");
-            GotoWheatFarmSimulation.animate(1, 11);
+            Simulation.animate(ui, storage, farmer, "GotoWheatFarmSimulation", 1, 11);
             farmer.changeLocation("WheatFarm");
-            GotoWheatFarmSimulation.delayFrame(12, 1000);
+            Simulation.animate(ui, storage, farmer, 1000, "GotoWheatFarmSimulation", 12);
             ui.typeWriter("You have arrived at the WheatFarm");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.getMessage();
         }
     }

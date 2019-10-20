@@ -71,7 +71,7 @@ public class Farmer {
     }
 
     public Map<String, Integer> getAssets() {
-        Map<String, Integer> assets = new HashMap< String,Integer>();
+        Map<String, Integer> assets = new HashMap<>();
 
         if (level >= 3) {
         }
@@ -105,13 +105,19 @@ public class Farmer {
         }
         return false;
     }
-    public void setfailetask() {hasfailedCurrentTask = true;}
+    public void setTaskFailed() {hasfailedCurrentTask = true;}
 
     public void setMoney(int money){
         this.money = money;
     }
 
-    public void changeMoney(int change) { money += change; }
+    public void spendMoney(int cost){
+        money -= cost;
+    }
+
+    public void earnMoney(int profit){
+        money += profit;
+    }
 
     public int getCurrentTask() {return this.currentTask;}
     public void nextLevel(){

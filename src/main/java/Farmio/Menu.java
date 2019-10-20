@@ -36,18 +36,18 @@ public class Menu {
 //        ui.clearScreen();
 //        ui.show(menu.toString());
         if(resume && storage.getSaveExist()) { //resume, save and load
-            new Simulation("menu", ui, storage).animate( 2);
+            Simulation.animate(ui, storage, "menu", 2);
             return;
         }
         if(resume){ //resume and save
-            new Simulation("menu", ui, storage).animate(4);
+            Simulation.animate(ui, storage, "menu", 4);
             return;
         }
         if(storage.getSaveExist()){ //load
-            new Simulation("menu", ui, storage).animate(3);
+            Simulation.animate(ui, storage, "menu", 3);
             return;
         }
-        new Simulation("menu", ui, storage).animate(0); //only new and quit
+        Simulation.animate(ui, storage, "menu", 0); //only new and quit
     }
 
     public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){

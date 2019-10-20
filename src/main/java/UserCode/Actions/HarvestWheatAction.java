@@ -2,15 +2,15 @@ package UserCode.Actions;
 
 import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
-import Farmio.Farmio;
+import Farmio.Farmer;
+import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class HarvestWheatAction extends Action {
 
-    public HarvestWheatAction(Farmio farmio) {
-        super(farmio);
-        this.type = ActionType.HARVEST_WHEAT;
+    public HarvestWheatAction() {
+        this.type = ActionType.harvestWheat;
     }
 
     /*public HarvestWheatAction(JSONObject obj){
@@ -18,10 +18,10 @@ public class HarvestWheatAction extends Action {
     }*/
 
     @Override
-    public void execute(Ui ui) throws FarmioException, FarmioFatalException {
+    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException, FarmioException {
         if (!farmer.getWheatFarm().hasWheat() || !farmer.getLocation().equals("WheatFarm")) {
-            farmio.getFarmer().setfailetask();
-            new Simulation("ErrorInExecution", farmio).animate(0);
+            farmer.setTaskFailed();
+            Simulation.animate(ui, storage, farmer, "ErrorInExecution", 0);
             if (!farmer.getWheatFarm().hasWheat()) {
                 ui.typeWriter("Error! you have attempted to harvest wheat despite not having any seedlings\n");
             } else {
@@ -30,9 +30,9 @@ public class HarvestWheatAction extends Action {
             throw new FarmioException("Task Error!");
         }
         try {
-            new Simulation("HarvestWheatSimulation", super.farmio).animate(0, 8);
+            Simulation.animate(ui, storage, farmer, "HarvestWheatSimulation", 0, 8);
             farmer.getWheatFarm().harvestWheat();
-            new Simulation("HarvestWheatSimulation", super.farmio).delayFrame(9, 1000);
+            Simulation.animate(ui, storage, farmer, 1000,"HarvestWheatSimulation", 9);
         } catch (Exception e){
             e.getMessage();
         }

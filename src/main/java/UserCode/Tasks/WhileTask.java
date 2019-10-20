@@ -15,7 +15,7 @@ public class WhileTask extends Task {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException { //if got error during the loop we use FarmioException to break out
         while (checkCondition(farmio)) {
-            action.execute(farmio.getUi());
+            action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer());
         }
     }
 }

@@ -2,23 +2,22 @@ package UserCode.Actions;
 
 import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
-import Farmio.Farmio;
+import Farmio.Farmer;
+import Farmio.Storage;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
-import Places.Market;
 
 public class SellWheatAction extends Action {
 
-    public SellWheatAction(Farmio farmio) {
-        super(farmio);
-        this.type = ActionType.SELL_WHEAT;
+    public SellWheatAction() {
+        this.type = ActionType.sellWheat;
     }
 
     @Override
-    public void execute(Ui ui) throws FarmioException, FarmioFatalException {
+    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioFatalException, FarmioException {
         if (!farmer.getWheatFarm().hasRipened() || !farmer.getLocation().equals("Market")) {
-            farmio.getFarmer().setfailetask();
-            new Simulation("ErrorInExecution", farmio).animate(0);
+            farmer.setTaskFailed();
+            Simulation.animate(ui, storage, farmer, "ErrorInExecution", 0);
             if (!farmer.getWheatFarm().hasWheat()) {
                 ui.typeWriter("Error! you have attempted to sell wheat despite not having any wheat\n");
             } else {
@@ -27,10 +26,10 @@ public class SellWheatAction extends Action {
             throw new FarmioException("Task Error!");
         }
         try {
-            new Simulation("SellWheatSimulation", super.farmio).animate(0, 6);
+            Simulation.animate(ui, storage, farmer, "SellWheat", 0, 6);
             ui.show("Selling wheat!");
-            farmer.changeMoney(farmer.getWheatFarm().sell());
-            new Simulation("SellWheatSimulation", farmio).delayFrame(7, 1000);
+            farmer.earnMoney(farmer.getWheatFarm().sell());
+            Simulation.animate(ui, storage, farmer, 1000, "SellWheat", 7);
         } catch (Exception e) {
             e.getMessage();
         }

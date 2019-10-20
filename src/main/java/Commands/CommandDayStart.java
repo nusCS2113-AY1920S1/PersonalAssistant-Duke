@@ -12,7 +12,7 @@ public class CommandDayStart extends Command {
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
-        new Simulation("DayStart", farmio).animate(1, 6);
+        Simulation.animate(ui, storage, farmio.getFarmer(), "DayStart", 1, 18);
         ui.show("Press ENTER to start the day!");
         farmio.setStage(Farmio.Stage.RUNNING_DAY);
     }

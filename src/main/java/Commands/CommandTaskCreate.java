@@ -32,21 +32,21 @@ public class CommandTaskCreate extends Command {
             Task task;
             switch (taskType) {
                 case "do":
-                    task = new DoTask(Condition.toCondition(condition), Action.stringToAction(action, farmio));
+                    task = new DoTask(Condition.toCondition(condition), Action.stringToAction(action));
                     break;
                 case "if":
-                    task = new IfTask(Condition.toCondition(condition), Action.stringToAction(action, farmio));
+                    task = new IfTask(Condition.toCondition(condition), Action.stringToAction(action));
                     break;
                 case "while":
-                    task = new WhileTask(Condition.toCondition(condition), Action.stringToAction(action, farmio));
+                    task = new WhileTask(Condition.toCondition(condition), Action.stringToAction(action));
                     break;
                 case "for":
-                    task = new ForTask(Condition.toCondition(condition), Action.stringToAction(action, farmio));
+                    task = new ForTask(Condition.toCondition(condition), Action.stringToAction(action));
                 default:
                     throw new FarmioException("Error Creating Task!");
             }
             farmer.getTasks().addTask(task);
-            new Simulation("TaskCreate", farmio).animate(0);
+            Simulation.animate(ui, storage, farmer, "TaskCreate", 0);
             ui.showInfo("Task [" + task.toString() + "] added! \nYou now have " + farmer.getTasks().size() + " tasks!");
         }catch (Exception e) {
             System.out.println(e.getMessage());

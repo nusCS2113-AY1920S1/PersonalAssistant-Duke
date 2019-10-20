@@ -1,7 +1,7 @@
 package UserCode.Actions;
 
 import Exceptions.FarmioFatalException;
-import Farmio.Farmio;
+import Farmio.Farmer;
 import Farmio.Storage;
 import Exceptions.FarmioException;
 import FrontEnd.Simulation;
@@ -10,18 +10,15 @@ import Places.Market;
 
 public class BuySeedAction extends Action {
 
-    public BuySeedAction(Farmio farmio) {
-        super(farmio);
-        this.type = ActionType.BUY_SEEDS;
+    public BuySeedAction() {
+        this.type = ActionType.buySeeds;
     }
 
     @Override
-    public void execute(Ui ui) throws FarmioException, FarmioFatalException {
-        Simulation ErrorSimulation = new Simulation("ErrorInExecution", farmio);
-        Simulation BuySeedSimulation = new Simulation("BuySeedSimulation", farmio);
+    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioException, FarmioFatalException {
         if (farmer.getMoney() < Market.PRICE_OF_SEED || !farmer.getLocation().equals("Market")) {
-            farmio.getFarmer().setfailetask();
-            ErrorSimulation.animate(0);
+            farmer.setTaskFailed();
+            Simulation.animate(ui, storage, farmer, "ErrorInExecution", 0);
             if (!farmer.getLocation().equals("Market")) {
                 ui.typeWriter("Error! you have attempted to buy seeds despite not being at the market\n");
             } else {
@@ -29,13 +26,9 @@ public class BuySeedAction extends Action {
             }
             throw new FarmioException("Task Error!");
         }
-        try {
-            BuySeedSimulation.animate(0, 4);
-            farmer.getWheatFarm().buySeeds();
-            farmer.changeMoney(-Market.PRICE_OF_SEED);
-            BuySeedSimulation.delayFrame(5, 1000);
-        } catch (Exception e) {
-            e.getMessage();
-        }
+        Simulation.animate(ui, storage, farmer,"BuySeedSimulation", 0, 4);
+        farmer.getWheatFarm().buySeeds();
+        farmer.spendMoney(Market.PRICE_OF_SEED);
+        Simulation.animate(ui, storage, farmer, 1000, "BuySeedSimulation", 5);
     }
 }
