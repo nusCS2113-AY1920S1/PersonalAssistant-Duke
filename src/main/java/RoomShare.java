@@ -142,7 +142,7 @@ public class RoomShare {
 
                 }
                 break;
-
+                
             case snooze :
                 try {
                     int index = parser.getIndex();
