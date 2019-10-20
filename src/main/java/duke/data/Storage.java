@@ -4,6 +4,7 @@ import duke.module.TimeSlot;
 import duke.sports.MyClass;
 import duke.sports.MyStudent;
 import duke.task.Item;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -33,6 +34,7 @@ public class Storage {
      * The file of the saved data.
      */
     private Scanner fileInput;
+
 
     /**
      * Constructor.
@@ -110,17 +112,20 @@ public class Storage {
         try {
             ArrayList<Item> list = new ArrayList<>();
             while (fileInput.hasNextLine()) { //do something
-                String type;
+                final String type;
+                final String info;
+                final int indexDay = 3;
+
                 Boolean stat;
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
                 type = data[0];
                 stat = (data[1].equals("1"));
-
+                info = data[2];
                 switch (type) {
-
                 case "C":
-                    Item myClass = new MyClass(data[2], stat, data[3]);
+                    String day = data[indexDay];
+                    Item myClass = new MyClass(info, stat, day);
                     list.add(myClass);
                     break;
 
@@ -140,10 +145,11 @@ public class Storage {
      * This function updates the list of tasks.
      * Erases the entire list that exists presently and rewrites the file.
      *
-     * @param up The updated ArrayList that must be used to recreate the updated duke.txt
+     * @param up The updated ArrayList that must
+     *           be used to recreate the updated duke.txt
      * @throws IOException io
      */
-    public void updateFile(ArrayList<Item> up) {
+    public void updateFile(final ArrayList<Item> up) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -156,7 +162,7 @@ public class Storage {
             try {
                 FileWriter fileWriter = new FileWriter(filePath, true);
                 fileWriter.write(i.getType() + "-" + i.checkStatus() + "-"
-                        + i.getInfo() + "-" + i.getRawDate() + "\n");
+                    + i.getInfo() + "-" + i.getRawDate() + "\n");
                 fileWriter.close();
             } catch (IOException io) {
                 System.out.println("File not found:" + io.getMessage());
@@ -167,6 +173,7 @@ public class Storage {
     /**
      * Reads filePath, takes in Strings and turns them into a
      * list of TimeSlot objects.
+     *
      * @return lists of TimeSlot objects
      * @throws ParseException when parsing fails
      */
@@ -176,11 +183,19 @@ public class Storage {
             while (fileInput.hasNextLine()) {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
+                final int indexStartDate = 1;
+                final int indexEndDate = 2;
+                final int indexLocation = 3;
+                final int indexName = 4;
+                String startDate = data[indexStartDate];
+                String endDate = data[indexEndDate];
+                String location = data[indexLocation];
+                String name = data[indexName];
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                        "dd/MM/yyyy HHmm");
-                Date date1 = simpleDateFormat.parse(data[1]);
-                Date date2 = simpleDateFormat.parse(data[2]);
-                TimeSlot t = new TimeSlot(date1, date2, data[3], data[0]);
+                    "dd/MM/yyyy HHmm");
+                Date date1 = simpleDateFormat.parse(startDate);
+                Date date2 = simpleDateFormat.parse(endDate);
+                TimeSlot t = new TimeSlot(date1, date2, location, name);
                 temp.add(t);
             }
             fileInput.close();
@@ -191,18 +206,18 @@ public class Storage {
     }
 
     /**
-     * This function saves the newly created TimeSlot into timeslots.txt
+     * This function saves the newly created TimeSlot into timeslots.txt.
      *
      * @param t The TimeSlot object created to be saved
      */
-    public void saveSchedule(TimeSlot t) {
+    public void saveSchedule(final TimeSlot t) {
         try {
             FileWriter fileWriter = new FileWriter(filePath, true);
             DateFormat df = new SimpleDateFormat("HHmm");
             fileWriter.write(t.getClassName() + "-"
-                    + df.format(t.getStartTime()) + "-"
-                    + df.format(t.getEndTime()) + "-"
-                    + t.getLocation() + "\n");
+                + df.format(t.getStartTime()) + "-"
+                + df.format(t.getEndTime()) + "-"
+                + t.getLocation() + "\n");
             fileWriter.close();
         } catch (IOException io) {
             System.out.println("File not found:" + io.getMessage());
@@ -211,11 +226,11 @@ public class Storage {
 
     /**
      * This function updates the list of tasks.
-
+     *
      * @param up The updated ArrayList that must be used to recreate the
      *           updated timeslots.txt
      */
-    public void updateSchedule(ArrayList<TimeSlot> up) {
+    public void updateSchedule(final ArrayList<TimeSlot> up) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -229,9 +244,9 @@ public class Storage {
                 FileWriter fileWriter = new FileWriter(filePath, true);
                 DateFormat df = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 fileWriter.write(t.getClassName() + "-"
-                        + df.format(t.getStartTime()) + "-"
-                        + df.format(t.getEndTime()) + "-"
-                        + t.getLocation() + "\n");
+                    + df.format(t.getStartTime()) + "-"
+                    + df.format(t.getEndTime()) + "-"
+                    + t.getLocation() + "\n");
                 fileWriter.close();
             } catch (IOException io) {
                 System.out.println("File not found:" + io.getMessage());
@@ -252,7 +267,7 @@ public class Storage {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                        "dd/MM/yyyy");
+                    "dd/MM/yyyy");
                 Date date = simpleDateFormat.parse(data[0]);
                 ArrayList<String> temp2 = new ArrayList<>();
                 for (String str : data) {
@@ -272,11 +287,12 @@ public class Storage {
     /**
      * This function updates the hash map of goals.
      * Erases the entire hash map that exists presently and rewrites the file.
+     *
      * @param goals The updated hash map that must be used to recreate
      *              the updated goals.txt
      * @throws IOException io if the file cannot be found.
      */
-    public void updateGoal(Map<Date, ArrayList<String>> goals) {
+    public void updateGoal(final Map<Date, ArrayList<String>> goals) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -304,8 +320,8 @@ public class Storage {
 
     /**
      * Reads filePath, takes in Strings and turns them into a
-     *                  hash map of lessons learnt for the day.
-     
+     * hash map of lessons learnt for the day.
+     *
      * @return A hash map of lessons learnt for the day.
      * @throws ParseException if the user input is in wrong format.
      */
@@ -316,7 +332,7 @@ public class Storage {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                        "dd/MM/yyyy");
+                    "dd/MM/yyyy");
                 Date date = simpleDateFormat.parse(data[0]);
                 ArrayList<String> temp2 = new ArrayList<>();
                 for (String str : data) {
@@ -341,7 +357,7 @@ public class Storage {
      *                to recreate the updated lessons.txt
      * @throws IOException io if the file cannot be found.
      */
-    public void updateLesson(Map<Date, ArrayList<String>> lessons) {
+    public void updateLesson(final Map<Date, ArrayList<String>> lessons) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write("");
@@ -353,9 +369,9 @@ public class Storage {
         try {
             FileWriter fileWriter = new FileWriter(filePath, true);
             DateFormat df = new SimpleDateFormat(
-                    "dd/MM/yyyy");
+                "dd/MM/yyyy");
             for (Map.Entry<Date, ArrayList<String>> entry
-                    : lessons.entrySet()) {
+                : lessons.entrySet()) {
                 String extra = "";
                 ArrayList<String> temp = entry.getValue();
                 for (String str : temp) {
@@ -369,9 +385,14 @@ public class Storage {
         }
     }
 
-    public void updateStudentList(ArrayList<MyStudent> student) {
+    /**
+     * Update the student list file.
+     *
+     * @param student The list of students to be changed
+     */
+    public void updateStudentList(final ArrayList<MyStudent> student) {
         File studentListFile = new File(
-                ".\\src\\main\\java\\duke\\data\\studentList.txt");
+            ".\\src\\main\\java\\duke\\data\\studentList.txt");
         try {
             PrintWriter printWriter = new PrintWriter(studentListFile);
             for (MyStudent x : student) {
@@ -385,14 +406,19 @@ public class Storage {
         }
     }
 
-    public void readStudentListFile(ArrayList<MyStudent> student) {
+    /**
+     * Load the file for the student list.
+     *
+     * @param student list to be read
+     */
+    public void readStudentListFile(final ArrayList<MyStudent> student) {
         String fileName = "studentList.txt";
         String line;
         ArrayList loadStudent = new ArrayList();
 
         try {
             FileReader fr = new FileReader(
-                    ".\\src\\main\\java\\duke\\data\\studentList.txt");
+                ".\\src\\main\\java\\duke\\data\\studentList.txt");
             BufferedReader input = new BufferedReader(fr);
             if (!input.ready()) {
                 throw new IOException();
@@ -403,7 +429,7 @@ public class Storage {
                     splitter[i] = splitter[i].trim();
                 }
                 MyStudent studentInfo = new MyStudent(splitter[0],
-                        splitter[1], splitter[2]);
+                    splitter[1], splitter[2]);
                 student.add(studentInfo);
             }
             fr.close();
