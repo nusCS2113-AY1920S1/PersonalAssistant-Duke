@@ -84,7 +84,7 @@ public class TimeBoundCommand implements Command{
         if (isValid()) {
             TimeBound tb = new TimeBound(description, timeBound);
             tasks.add(tb);
-            storage.append(tb);
+            //storage.append(tb);
         }
     }
 }

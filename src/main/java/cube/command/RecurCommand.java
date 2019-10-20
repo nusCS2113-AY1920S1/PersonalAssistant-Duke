@@ -1,5 +1,6 @@
 package cube.command;
 
+import cube.exception.CubeLoadingException;
 import cube.task.DoAfter;
 import cube.task.Recur;
 import cube.ui.*;
@@ -78,7 +79,7 @@ public class RecurCommand implements Command{
      * @throws DukeException exception happens during storage, or if the command is not valid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, CubeLoadingException {
         if (isValid()) {
             Recur a = new Recur(description, frequency);
             tasks.add(a);

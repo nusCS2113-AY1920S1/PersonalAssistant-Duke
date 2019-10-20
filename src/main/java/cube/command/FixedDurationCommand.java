@@ -1,5 +1,6 @@
 package cube.command;
 
+import cube.exception.CubeLoadingException;
 import cube.task.FixedDuration;
 import cube.ui.*;
 import cube.util.Storage;
@@ -81,7 +82,7 @@ public class FixedDurationCommand implements Command {
      */
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws CubeLoadingException, DukeException {
         if (isValid()) {
             FixedDuration fd = new FixedDuration(description, fixedDuration);
             tasks.add(fd);

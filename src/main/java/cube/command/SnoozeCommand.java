@@ -61,7 +61,7 @@ public class SnoozeCommand implements Command {
             //snooze it
             Date task_date = t.getDate();
             task_date.setTime(task_date.getTime()+24*60*60*1000);
-            storage.save(tasks);
+            //storage.save(tasks);
         }
     }
 }
