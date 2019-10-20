@@ -7,9 +7,9 @@ import compal.logic.parser.exceptions.ParserException;
 public class SetReminderParser implements CommandParser {
 
     @Override
-    public Command parseCommand(String command) throws ParserException {
-        int taskID = getTaskID(command);
-        String status = getStatus(command);
+    public Command parseCommand(String restOfInput) throws ParserException {
+        int taskID = getTokenTaskID(restOfInput);
+        String status = getTokenStatus(restOfInput);
         return new SetReminderCommand(taskID, status);
     }
 }

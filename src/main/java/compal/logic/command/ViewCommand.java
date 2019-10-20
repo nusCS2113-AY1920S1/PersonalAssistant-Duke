@@ -16,29 +16,43 @@ import java.util.Date;
  * View the task in day,week or month format.
  */
 public class ViewCommand extends Command {
+    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
     private String[] viewargs;
     private CalenderUtil calenderUtil;
-    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
-
-
-    String viewType;
-    String dateInput;
-    String type = "";
+    private String viewType;
+    private String dateInput;
+    private String type;
 
     /**
      * Generate constructor for viewCommand.
      *
-     * @param viewArgs the arguments
+     * @param viewType  the view Type
+     * @param dateInput the date of input
      */
-    public ViewCommand(String[] viewArgs) {
-        super();
-        this.viewargs = viewArgs;
-        viewType = viewArgs[0];
-        dateInput = viewargs[2];
-        if (viewArgs.length > 3) {
-            type = viewArgs[4];
-            System.out.println(type);
+    public ViewCommand(String viewType, String dateInput) {
+        this.viewType = viewType;
+        this.dateInput = dateInput;
+        this.type = "";
+        calenderUtil = new CalenderUtil();
+    }
+
+    /**
+     * override.
+     *
+     * @param typeToShow the type to be display only
+     */
+    public ViewCommand(String viewType, String dateInput, String typeToShow) {
+        this.viewType = viewType;
+        this.dateInput = dateInput;
+
+
+        if (typeToShow.equals("deadline")) {
+            this.type = "D";
+        } else if (typeToShow.equals("event")) {
+            this.type = "E";
         }
+
+
         calenderUtil = new CalenderUtil();
     }
 
@@ -159,10 +173,8 @@ public class ViewCommand extends Command {
 
         for (Task t : currList) {
             if (!type.equals("")) {
-                if (type.equals("deadline")) {
-                    if (!t.getSymbol().equals("D")) {
-                        continue;
-                    }
+                if (!t.getSymbol().equals(type)) {
+                    continue;
                 }
             }
             if (t.getStringDate().equals(dateInput)) {
@@ -213,8 +225,8 @@ public class ViewCommand extends Command {
         Task.Priority priority = t.getPriority();
 
         taskDetails
-            .append("  [Task ID:").append(taskId).append("] ").
-            append("[Priority:").append(priority).append("]\n");
+            .append("  [Task ID:").append(taskId).append("] ")
+            .append("[Priority:").append(priority).append("]\n");
 
         String taskSymbol = t.getSymbol();
         String taskDescription = t.getDescription();
