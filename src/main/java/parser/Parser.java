@@ -14,18 +14,7 @@ import command.RecentlyAddedCommand;
 import command.FrequentlySearchedCommand;
 import command.EditCommand;
 
-import exception.WrongQuizFormatException;
-import exception.WrongAddFormatException;
-import exception.EmptyWordException;
-import exception.WrongAddTagFormatException;
-import exception.WrongDeleteFormatException;
-import exception.WrongListFormatDescription;
-import exception.WrongEditFormatException;
-import exception.WrongHistoryFormatException;
-import exception.ZeroHistoryRequestException;
-import exception.CommandInvalidException;
-import exception.WordUpException;
-import exception.WrongSearchFormatException;
+import exception.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -166,15 +155,15 @@ public class Parser {
         return new RecentlyAddedCommand(numberOfWordsToDisplay);
     }
 
-    protected static Command parseSearchFrequency(String[] taskInfo) throws WrongListFormatDescription {
+    protected static Command parseSearchFrequency(String[] taskInfo) throws WrongSearchFrequencyFormatException {
         String order = "";
         if (taskInfo.length > 1) {
             if (!taskInfo[1].startsWith("o/")) {
-                throw new WrongListFormatDescription();
+                throw new WrongSearchFrequencyFormatException();
             }
             order = taskInfo[1].substring(2);
             if (!order.equals("asc") && !order.equals("desc")) {
-                throw new WrongListFormatDescription();
+                throw new WrongSearchFrequencyFormatException();
             }
         }
         return new FrequentlySearchedCommand(order);
