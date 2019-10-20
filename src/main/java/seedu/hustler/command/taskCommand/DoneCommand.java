@@ -2,6 +2,7 @@ package seedu.hustler.command.taskCommand;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.parser.ParserForCommand;
 import seedu.hustler.ui.Ui;
 
@@ -32,6 +33,7 @@ public class DoneCommand extends Command {
         if (this.userInput.length == 1) {
             Ui ui = new Ui();
             ui.empty_description_error();
+            CommandLog.deleteLatestLoggedCommand();
             return;
         }
         ParserForCommand doneParser = new ParserForCommand("done");

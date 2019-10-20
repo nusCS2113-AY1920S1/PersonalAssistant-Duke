@@ -40,6 +40,7 @@ public class CommandLog {
 
                 }
             }
+
             while (numberOfCommandsToUndo > 0) {
                 System.out.println("       _____________________________________");
                 System.out.println("       These commands have been undone: ");
@@ -51,6 +52,13 @@ public class CommandLog {
                 }
                 System.out.println("       _____________________________________");
             }
+
+
+
+
+
+
+
             while (commandlog.size() > restoreDataUntil) {
                 commandlog.remove(restoreDataUntil);
             }
@@ -83,6 +91,9 @@ public class CommandLog {
         }
     }
 
+    public static void deleteLatestLoggedCommand() {
+        commandlog.remove(commandlog.size() - 1);
+    }
     public static boolean isRestoring() {
         return isRestoring;
     }

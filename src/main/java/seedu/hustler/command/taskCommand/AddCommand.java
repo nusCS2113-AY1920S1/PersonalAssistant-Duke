@@ -31,6 +31,7 @@ public class AddCommand extends Command {
         Ui ui = new Ui();
         if (this.taskInfo.length == 1) {
             ui.empty_description_error();
+            CommandLog.deleteLatestLoggedCommand();
             return;
         }
 
