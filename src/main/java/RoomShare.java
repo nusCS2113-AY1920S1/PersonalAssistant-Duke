@@ -133,10 +133,14 @@ public class RoomShare {
                 break;
 
             case add:
-                String input = parser.getCommandLine();
-                taskCreator = new TaskCreator();
-                taskList.add(taskCreator.create(input));
-                ui.showAdd();
+                try {
+                    String input = parser.getCommandLine();
+                    taskCreator = new TaskCreator();
+                    taskList.add(taskCreator.create(input));
+                    ui.showAdd();
+                } catch (RoomShareException e) {
+
+                }
                 break;
                 
             case snooze :
