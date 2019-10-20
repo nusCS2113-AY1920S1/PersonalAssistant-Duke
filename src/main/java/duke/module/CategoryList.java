@@ -5,7 +5,7 @@ import duke.task.Item;
 import java.util.ArrayList;
 
 /**
- * This class is to add categories for the respective menus
+ * This class is to add categories for the respective menus.
  */
 
 public class CategoryList extends MyMenu {

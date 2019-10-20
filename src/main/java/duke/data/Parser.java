@@ -4,11 +4,7 @@ import duke.module.Goal;
 import duke.module.Lesson;
 import duke.module.Reminder;
 import duke.module.Schedule;
-import duke.task.After;
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.TaskList;
-import duke.task.ToDo;
 import duke.Ui;
 import duke.sports.ManageStudents;
 import duke.sports.MyClass;
@@ -17,10 +13,6 @@ import duke.sports.MyStudent;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Date;
 
@@ -56,66 +48,7 @@ public class Parser {
 
         switch (cmd) {
 
-        case "list":
-            tasks.showList();
-            break;
 
-        case "done":
-            try {
-                index = Integer.parseInt(input.substring(5)) - 1;
-                tasks.doneTask(index);
-                storage.updateFile(tasks.getList());
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!!"
-                    + "The following task does not exist!");
-            }
-            break;
-
-        /**
-         * Creates task with a duration
-         */
-        case "todo":
-            try {
-                String[] tempString = input.split(" ");
-                List<String> listString = new ArrayList<String>(
-                    Arrays.asList(tempString));
-                listString.remove(0);
-                String info1 = String.join(" ", listString);
-                String[] parseString = info1.split("/in");
-                ToDo todo = new ToDo(parseString[0], false, parseString[1]);
-                tasks.addTask(todo, "T");
-                storage.saveFile("T", todo, todo.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!!"
-                    + "The description of a todo cannot be empty.");
-            }
-            break;
-
-        case "deadline":
-            try {
-                index = input.indexOf("/by");
-                String info = input.substring(9, index - 1);
-                String endDate = input.substring(index + 4);
-                Deadline deadline = new Deadline(info, false, endDate);
-                tasks.addTask(deadline, "D");
-                storage.saveFile("D", deadline, deadline.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The task needs a deadline");
-            }
-            break;
-
-        case "event":
-            try {
-                index = input.indexOf("/at");
-                String info = input.substring(6, index - 1);
-                String endDate = input.substring(index + 4);
-                Event event = new Event(info, false, endDate);
-                tasks.addTask(event, "E");
-                storage.saveFile("E", event, event.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("\u2639 OOPS!!! The task needs a deadline");
-            }
-            break;
         /**
          * Command should be in the form:
          * reminder deadlines before 18/09/2019 1900
@@ -136,20 +69,6 @@ public class Parser {
          * Command should be in the form: aftertask return book /after exam
          * It will be stored as type [A].
          */
-        case "aftertask":
-            try {
-                index = input.indexOf("/after");
-                String info = input.substring(10, index - 1);
-                String endDate = input.substring(index + 7);
-                After after = new After(info, false, endDate);
-                tasks.addTask(after, "A");
-                storage.saveFile("A", after, after.getDate());
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println(
-                    "\u2639 OOPS!!! Please enter input in the"
-                        + "form: aftertask XXX /after YYY");
-            }
-            break;
 
         case "delete":
             index = Integer.parseInt(input.substring(7)) - 1;
