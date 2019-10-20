@@ -31,7 +31,7 @@ public class DeleteTaskCommand extends Command {
             Task toRemove = store.getTaskList().get(taskNo);
             store.getTaskList().remove(taskNo);
             ui.showDeletedTask(store.getTaskList(), toRemove);
-            store.setDuchessCalendar(new CalendarManager(store.getDuchessCalendar(), toRemove).deleteEntry());
+            store.setDuchessCalendar(CalendarManager.deleteEntry(store.getDuchessCalendar(), toRemove));
             storage.save(store);
         } catch (NumberFormatException e) {
             throw new DuchessException("Please supply a number. Eg: done 2");

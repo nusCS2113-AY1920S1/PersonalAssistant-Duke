@@ -8,6 +8,7 @@ import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DeleteModuleCommand;
 import duchess.logic.commands.DeleteTaskCommand;
+import duchess.logic.commands.DisplayCalendarCommand;
 import duchess.logic.commands.DoneCommand;
 import duchess.logic.commands.FindCommand;
 import duchess.logic.commands.LogCommand;
@@ -21,6 +22,7 @@ import duchess.parser.Util;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.states.add.AddState;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -141,6 +143,14 @@ public class DefaultState implements ParserState {
             } catch (IndexOutOfBoundsException e) {
                 throw new DuchessException("Usage: schedule <date> (day | week)");
             }
+        case "calendar":
+            if (words.size() != 2) {
+                throw new DuchessException("Usage: calendar <date>");
+            }
+            String dateStr = words.get(1);
+            LocalDate date = Util.parseDate(dateStr);
+            List<LocalDate> dates = Util.parseToWeekDates(date);
+            return new DisplayCalendarCommand(dates);
         case "bye":
             return new ByeCommand();
         case "log":

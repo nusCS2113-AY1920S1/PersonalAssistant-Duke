@@ -2,11 +2,15 @@ package duchess.parser;
 
 import duchess.exceptions.DuchessException;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,6 +20,8 @@ import java.util.TreeMap;
  */
 public class Util {
     private static final String INVALID_FORMAT_MESSAGE = "Please enter dates in the format dd/mm/yyyy hhmm";
+    private static final String INVALID_DATE_FORMAT_MESSAGE = "Please enter date in the format dd/mm/yyyy";
+    private static final String padTiming = " 0000";
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
                     .withResolverStyle(ResolverStyle.STRICT);
@@ -25,6 +31,21 @@ public class Util {
         // similar to the Math class.
         //
         // It's simply a collection of utility functions.
+    }
+
+    /**
+     * Parses a given string and returns a {@code LocalDate} object.
+     *
+     * @param date the string to parse
+     * @return {@code LocalDate} obtained by parsing the supplied string
+     * @throws DuchessException the supplied string is formatted incorrectly
+     */
+    public static LocalDate parseDate(String date) throws DuchessException {
+        try {
+            return LocalDate.parse(date + padTiming, formatter);
+        } catch (DateTimeParseException e) {
+            throw new DuchessException(INVALID_DATE_FORMAT_MESSAGE);
+        }
     }
 
     /**
@@ -57,6 +78,18 @@ public class Util {
         } catch (IndexOutOfBoundsException e) {
             throw new DuchessException(INVALID_FORMAT_MESSAGE);
         }
+    }
+
+    /**
+     * Parses a date and returns a {@code List<LocalDate>} object.
+     *
+     * @param date a date input
+     * @return the nearest or same monday date and nearest or same sunday date
+     */
+    public static List<LocalDate> parseToWeekDates(LocalDate date) {
+        LocalDate startOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+        return Arrays.asList(startOfWeek, endOfWeek);
     }
 
     /**

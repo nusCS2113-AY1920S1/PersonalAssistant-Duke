@@ -3,10 +3,29 @@ package duchess.ui;
 import duchess.model.Module;
 import duchess.model.task.Task;
 
+import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedMap;
+import java.util.stream.Collectors;
 
 public class Ui {
+
+    /**
+     * The following final strings are used to print out duchessCalendar.
+     */
+    private final int horizontalLength = 161;
+    private final int blockLength = 23;
+    private final String emptyBlock = "                     |";
+    private final String calendarHeader = "|  TIME  |         MON         |         TUE         |         WED         "
+            + "|         THUR        |         FRI         |         SAT         |         SUN         |";
+    private final String blockSeparator = "+--------+---------------------+---------------------+---------------------"
+            + "+---------------------+---------------------+---------------------+---------------------+";
+    private final String plainSeparator = "+---------------------------------------------------------------------------"
+            + "---------------------------------------------------------------------------------------+";
+
     /**
      * Reference to Scanner.
      */
@@ -137,6 +156,63 @@ public class Ui {
 
     public void showFinishedExport(String filePath) {
         printIndented("Your schedule has finished exporting to " + filePath);
+    }
+
+    /**
+     * Process block to be printed in calendar.
+     *
+     * @param str string of null value or containing description of task
+     * @return shortened or padded-with-whitespace string
+     */
+    private String processDescription(String str) {
+        if (str == null) {
+            return emptyBlock;
+        } else if (str.length() > blockLength) {
+            str = str.substring(0, blockLength - 3) + "...";
+        } else {
+            while (str.length() <= blockLength) {
+                str += " ";
+            }
+        }
+        return str + "|";
+    }
+
+    /**
+     * Pads the header for the calendar.
+     *
+     * @param str string containing academic year + semester + week
+     * @return string with academic context centered and padded with whitespace
+     */
+    private String processHeader(String str) {
+        int partition = (int) Math.floor((horizontalLength - str.length()) / (double) 2);
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append(" ".repeat(Math.max(0, partition)));
+        strBuilder.append(str);
+        strBuilder.append(" ".repeat(Math.max(0, horizontalLength - strBuilder.length() + 1)));
+        return strBuilder.toString();
+    }
+
+    /**
+     * Prints out weekly calendar displaying only event tasks.
+     *
+     * @param flatCalendar flattened duchessCalendar
+     * @param context      academic year + semester + week
+     */
+    public void displayCalendar(SortedMap<LocalTime, String[]> flatCalendar, String context) {
+        printIndented(plainSeparator);
+        printIndented("|" + processHeader(context) + "|");
+        printIndented(blockSeparator);
+        printIndented(calendarHeader);
+        printIndented(blockSeparator);
+        for (Map.Entry<LocalTime, String[]> entry : flatCalendar.entrySet()) {
+            String time = entry.getKey().toString().replaceAll(":", "");
+            String[] strArr = entry.getValue();
+            String row = Arrays.stream(strArr)
+                    .map(this::processDescription)
+                    .collect(Collectors.joining());
+            printIndented("|  " + time + "  |" + row);
+            printIndented(blockSeparator);
+        }
     }
 
     /**

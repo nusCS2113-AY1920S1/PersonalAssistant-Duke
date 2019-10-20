@@ -50,7 +50,7 @@ public class AddEventCommand extends Command {
         }
         store.getTaskList().add(task);
         ui.showTaskAdded(store.getTaskList(), task);
-        store.setDuchessCalendar(new CalendarManager(store.getDuchessCalendar(), task).addEntry());
+        store.setDuchessCalendar(CalendarManager.addEntry(store.getDuchessCalendar(), task));
         storage.save(store);
     }
 }

@@ -5,7 +5,7 @@ import duchess.model.task.Task;
 import java.time.LocalDate;
 
 public class RequestProxy {
-    protected static AcademicYear academicYear;
+    private static AcademicYear academicYear;
     private static final LocalDate calendarStart;
     private static final LocalDate calendarEnd;
 
@@ -15,7 +15,7 @@ public class RequestProxy {
         calendarEnd = academicYear.getAcademicYearEnd();
     }
 
-    public boolean isValidDate(LocalDate key) {
+    private static boolean isValidDate(LocalDate key) {
         return key.compareTo(calendarStart) >= 0 && key.compareTo(calendarEnd) <= 0;
     }
 
@@ -26,7 +26,7 @@ public class RequestProxy {
      * @param task Task to be deleted or added to duchessCalendar
      * @return true is task is an event and within the academic year
      */
-    public boolean isModifiable(Task task) {
+    public static boolean isModifiable(Task task) {
         if (!task.getTimeFrame().hasDuration()) {
             return false;
         } else {
@@ -35,7 +35,7 @@ public class RequestProxy {
         }
     }
 
-    public String getDateInformation(LocalDate date) {
+    public static String getDateInformation(LocalDate date) {
         return academicYear.toString(date);
     }
 }
