@@ -110,7 +110,7 @@ public class Storage {
 //                    break;
                 case "BU"://must include 3 additional word, every,for and tag
 //                    if(inArray[3].equals("every")) {
-                        newLog = new Limit(Limit.LimitType.BUDGET,stringToDouble(inArray[1]),Limit.Duration.valueOf(inArray[2]));
+                        newLog = new Limit("budget",stringToDouble(inArray[1]), inArray[2]);
 //                    }
 //                    else if (inArray[3].equals("for")) {
 //                        newLog = new budgetFor(inArray[1],Time.readDate(inArray[2]));
@@ -119,7 +119,7 @@ public class Storage {
 //                    }
                     break;
                 case "S":
-                    newLog = new Limit(Limit.LimitType.SAVING,stringToDouble(inArray[1]), Limit.Duration.valueOf(inArray[2]));
+                    newLog = new Limit("saving",stringToDouble(inArray[1]), inArray[2]);
                     break;
                 case "O":
                     newLog = new Debt("owe",inArray[1],stringToDouble(inArray[2]),inArray[3],Time.readDate(inArray[4]));

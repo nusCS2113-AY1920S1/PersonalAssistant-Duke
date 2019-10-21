@@ -18,10 +18,12 @@ public abstract class Parser {
     protected String inputLine;
     protected String[] inputArray;
     protected String commandToRun;
+    protected static final String SPACE = " ";
+
 
     public Parser(String inputLine) {
         this.inputLine = inputLine;
-        this.inputArray = inputLine.split(" ");
+        this.inputArray = inputLine.split(SPACE);
         this.commandToRun = inputArray[0];
     }
 

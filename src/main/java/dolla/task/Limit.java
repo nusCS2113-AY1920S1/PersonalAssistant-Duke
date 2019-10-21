@@ -43,9 +43,6 @@ public class Limit extends Log {
         return null; //to be modified
     }
 
-    public String amountToMoney() {
-        return "$" + amount;
-    }
 
     /**
      * Method to add a new limit.
@@ -73,5 +70,17 @@ public class Limit extends Log {
         return  saveType + " | "
                 + amount + " | "
                 + duration;
+    }
+
+    public String amountToMoney() {
+        return "$" + amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDuration() {
+        return duration;
     }
 }

@@ -1,5 +1,6 @@
 package dolla.parser;
 
+import dolla.Tag;
 import dolla.Ui;
 //import dolla.command.;
 
@@ -56,6 +57,8 @@ public class MainParser {
 //        prevCommand[0] = command;
 //        prevCommand[1] = "1";
 
+        Tag tag = new Tag(inputLine);
+
         switch (mode) {
         case "dolla":
             DollaParser dollaParser = new DollaParser(inputLine);
@@ -70,7 +73,6 @@ public class MainParser {
         case "limit":
             LimitParser limitParser = new LimitParser(inputLine);
             return limitParser.handleInput(mode, inputLine);
-            //return new ErrorCommand(); // catch
         case "modify entry":
             ModifyParser modifyParser = new ModifyParser(inputLine);
             return modifyParser.handleInput(mode, inputLine);
