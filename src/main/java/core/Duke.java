@@ -79,8 +79,9 @@ public class Duke {
         try {
             c = Parser.commandLine(command);
             c.execute(tasks, members, storage);
-            if (c.isExit())
+            if (c.isExit()) {
                 System.exit(0);
+            }
         } catch (DukeException e) {
             Ui.print(e.getMessage());
         }
