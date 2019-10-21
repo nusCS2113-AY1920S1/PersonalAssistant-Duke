@@ -91,7 +91,7 @@ public class Parser {
                 }
             }
 
-            if(isTypo) {
+            if (isTypo) {
                 throw new DukeException("Sorry, but do you mean this : " + command);
             }
         }
