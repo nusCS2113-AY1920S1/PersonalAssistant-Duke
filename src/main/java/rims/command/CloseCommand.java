@@ -1,16 +1,16 @@
 package rims.command;
 
-import rims.core.*;
-import rims.exception.*;
-import rims.resource.*;
-
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import rims.core.ReservationList;
+import rims.core.ResourceList;
+import rims.core.Storage;
+import rims.core.Ui;
 
 public class CloseCommand extends Command {
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws IOException {
-        storage.saveToFile(resources.getResources());
+
+    @Override
+    public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reservations) throws Exception {
+        storage.saveToResourceFile(resources.getResourceList());
+        storage.saveToReserveFile(reservations.getReservationList());
         ui.farewell();
         setExitCode();
     }

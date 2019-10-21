@@ -1,15 +1,11 @@
 package rims.core;
 
-import rims.command.*;
-import rims.exception.*;
-import rims.resource.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
-import java.util.*;
-
-import java.io.*;
-import java.text.*;
-import java.time.*;
-import java.time.format.*;
+import rims.reserve.Reservation;
+import rims.resource.Resource;
 
 public class Ui {
     protected Scanner inputScanner;
@@ -29,8 +25,8 @@ public class Ui {
         return input;
     }
 
-    public int getIntegerInput(){
-        
+    public int getIntegerInput() {
+
         intInput = inputScanner.nextInt();
         return intInput;
     }
@@ -52,6 +48,18 @@ public class Ui {
     public void printArray(ArrayList<String> inputs) {
         for (int i = 0; i < inputs.size(); i++) {
             System.out.println("\t" + inputs.get(i));
+        }
+    }
+
+    public void printResourceArray(ArrayList<Resource> resources){
+        for (int i = 0; i < resources.size(); i ++ ){
+            System.out.println("\t" + resources.get(i).toString());
+        }
+    }
+
+    public void printReservationArray(ArrayList<Reservation>  reservations) {
+        for (int i = 0; i < reservations.size(); i++) {
+            System.out.println("\t" + reservations.get(i).toString());
         }
     }
 
@@ -84,9 +92,22 @@ public class Ui {
                 "The facilities and logistics management system.", "What can I do for you?")));
     }
 
-    public void welcome(){
+    public void welcome() {
         formattedPrintArray(new ArrayList<String>(Arrays.asList("Hello. I am RIM.", "Resource & Inventory Management",
-                "The facilities and logistics management system.", "What can I do for you?")));        
+                "The facilities and logistics management system.", "What can I do for you?")));
+    }
+
+    public void Home(){
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("add - add new resource to inventory");
+        list.add("delete - delete existing resource from inventory");
+        list.add("reserve - add new reservation request");
+        list.add("return - return/cancel reservation");
+        list.add("list - see all resources and current reservations");
+        
+        printLine();
+        formattedPrintArray(list);
+        printLine();
     }
     public void printLogo() {
         String logo = "\n" + "          _____                    _____                    _____          \n"

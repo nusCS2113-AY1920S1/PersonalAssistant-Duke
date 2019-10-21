@@ -1,12 +1,10 @@
 package rims.command;
 
-import rims.core.*;
-import rims.exception.*;
-import rims.resource.*;
-
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import rims.core.ReservationList;
+import rims.core.ResourceList;
+import rims.core.Storage;
+import rims.core.Ui;
+import rims.resource.Resource;
 
 public class LoanCommand extends Command {
     protected String resourceName;
@@ -28,26 +26,23 @@ public class LoanCommand extends Command {
         this.stringDate = stringDate;
     }
 
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
-        if (resources.getAvailableQuantity(resourceName) < qty) {
-            // throw Exception
-        }
-        Resource thisResource = null;
-        for (int i = 0; i < qty; i++) {
-            thisResource = resources.getAvailableResource(resourceName);
-            thisResource.markAsBooked(stringDate, loanId);
-        }
-        if (thisResource != null) {
-            ui.printLine();
-            ui.print("Done! I've marked these resources as loaned:");
-            if (thisResource.getType() == 'I') {
-                ui.print(thisResource.toString() + " (qty: " + Integer.toString(qty) + ")");
-            }
-            else if (thisResource.getType() == 'R') {
-                ui.print(thisResource.toString());
-            }
-            ui.printLine();
-        }
+    // public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
+    //     if (resources.getAvailableQuantity(resourceName) < qty) {
+    //         // throw Exception
+    //     }
+    //     Resource thisResource = null;
+    //     for (int i = 0; i < qty; i++) {
+    //         thisResource = resources.getAvailableResource(resourceName);
+    //         thisResource.markAsBooked(stringDate, loanId, qty, ui);
+    //     }
+    //     if (thisResource != null) {
+
+    //     }
+    // }
+
+    @Override
+    public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reserves) throws Exception {
+        // TODO Auto-generated method stub
 
     }
 }

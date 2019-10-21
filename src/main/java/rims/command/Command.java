@@ -1,5 +1,6 @@
 package rims.command;
 
+import rims.core.ReservationList;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
@@ -24,5 +25,6 @@ public abstract class Command {
         exitCode = true;
     }
 
-    abstract public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception;
+    //abstract public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception;
+    abstract public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reservations) throws Exception;
 }

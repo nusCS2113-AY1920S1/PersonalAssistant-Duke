@@ -1,56 +1,57 @@
 package rims.command;
 
-import rims.core.*;
-import rims.exception.*;
-import rims.resource.*;
+import java.util.ArrayList;
 
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import rims.core.ReservationList;
+import rims.core.ResourceList;
+import rims.core.Storage;
+import rims.core.Ui;
+import rims.reserve.Reservation;
+import rims.util.DateRange;
 
 public class ReserveCommand extends Command {
+    protected int reservationID;
     protected String resourceName;
     protected int qty;
-    protected int loanId;
+    protected int userid;
     protected String startDate;
     protected String endDate;
+    protected int resourceId;
 
-    public ReserveCommand(String itemName, int qty, int loanId, String startDate, String endDate) {
+    public ReserveCommand(String itemName, int qty, int userid, String startDate, String endDate) {
         resourceName = itemName;
         this.qty = qty;
-        this.loanId = loanId;
+        this.userid = userid;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public ReserveCommand(String roomName, int loanId, String startDate, String endDate) {
+    public ReserveCommand(String roomName, int userid, String startDate, String endDate) {
         resourceName = roomName;
         this.qty = 1;
-        this.loanId = loanId;
+        this.userid = userid;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
-        if (resources.getAvailableQuantity(resourceName) < qty) {
-            // throw Exception
+    /**
+     * A reserve command requires id, type, name and quantity
+     * 
+     * @exception IDexists
+     * @exception quantityvalid
+     */
+    @Override
+    public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reservations) throws Exception {
+        //calculate a unique reservationID, same formula as resource id
+        this.reservationID = 0;
+        if(reservations.size()>0){
+        this.reservationID = reservations.getReservationByIndex(reservations.size()-1).getReservationId() + 1;
         }
-        Resource thisResource = null;
-        for (int i = 0; i < qty; i++) {
-            thisResource = resources.getAvailableResource(resourceName);
-            thisResource.markAsBooked(startDate, endDate, loanId);
-        }
-        if (thisResource != null) {
-            ui.printLine();
-            ui.print("Done! I've marked these resources as reserved:");
-            if (thisResource.getType() == 'I') {
-                ui.print(thisResource.toString() + " (qty: " + Integer.toString(qty) + ")");
-            }
-            else if (thisResource.getType() == 'R') {
-                ui.print(thisResource.toString());
-            }
-            ui.printLine();
-        }
-
+        Reservation newReservation = new Reservation(reservationID, resourceId, userid, qty, startDate, endDate);
+        ui.printLine();
+        ui.print("The following reservation has been registerd:");
+        ui.print(newReservation.toString());
+        ui.printLine();
+        reservations.addNewReservation(newReservation);
     }
 }
