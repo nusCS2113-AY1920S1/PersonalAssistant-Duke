@@ -160,7 +160,7 @@ public class SettleLoanCommand extends MoneyCommand {
         ui.appendToOutput(l.getDescription() + " for the following loan: \n");
         ui.appendToOutput("     " + l.toString() + "\n");
         if (l.getStatus()) {
-            ui.appendToOutput("The " + type.toString().toLowerCase() + " loan has been settled");
+            ui.appendToOutput("The " + type.toString().toLowerCase() + " loan has been settled\n");
         }
     }
 
