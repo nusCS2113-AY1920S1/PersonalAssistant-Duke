@@ -9,9 +9,12 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Representing a command that adds contacts.
+ */
+//@@author e0318465
 public class AddContactsCommand extends Command {
     protected Contacts contactObj;
-    protected ContactList contactList;
 
     /**
      * Creates a command with the specified contact.
@@ -23,7 +26,8 @@ public class AddContactsCommand extends Command {
     }
 
     /**
-     * Adds the user input to a list of contacts.
+     * Executes a command that adds the tasks into task list and outputs the result.
+     * (Not in use)
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
@@ -32,6 +36,13 @@ public class AddContactsCommand extends Command {
     public void execute(TaskList items, Ui ui) {
     }
 
+    /**
+     * Adds the user input to a list of contacts.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param contactList The list of contacts.
+     * @param ui To tell the user that it is executed successfully.
+     */
     public void execute(TaskList items, ContactList contactList, Ui ui) {
         contactList.add(contactObj);
         ui.showAddedContact(contactList);
