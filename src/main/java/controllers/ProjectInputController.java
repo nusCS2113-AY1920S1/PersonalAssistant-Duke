@@ -1,6 +1,7 @@
 package controllers;
 
-import models.data.IProject;
+import java.text.ParseException;
+import java.util.Scanner;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -9,12 +10,8 @@ import models.task.Task;
 import repositories.ProjectRepository;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
+import util.log.DukeLogger;
 import views.CLIView;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
@@ -40,6 +37,7 @@ public class ProjectInputController implements IController {
      * @param input User input containing project index number (to add to project class).
      */
     public void onCommandReceived(String input) {
+        DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
         int projectNumber = Integer.parseInt(input);
         Project projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
@@ -47,6 +45,9 @@ public class ProjectInputController implements IController {
         while (isManagingAProject) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
+                DukeLogger.logInfo(ProjectInputController.class, "Managing:"
+                        + projectToManage.getDescription() + ",input:'"
+                        + projectCommand + "'");
                 if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
                     isManagingAProject = false;
                     consoleView.exitProject(projectToManage.getDescription());
@@ -148,7 +149,10 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                    assignTask(projectToManage,projectCommand.substring(12));
+                    AssignmentController assignmentController = new AssignmentController(projectToManage);
+                    assignmentController.assignAndUnassign(projectCommand.substring(12));
+                    consoleView.consolePrint(assignmentController.getErrorMessages().toArray(new String[0]));
+                    consoleView.consolePrint(assignmentController.getSuccessMessages().toArray(new String[0]));
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {
@@ -160,28 +164,4 @@ public class ProjectInputController implements IController {
         }
     }
 
-    private void assignTask(IProject projectToManage, String details) {
-        String [] options = details.split("-");
-        ArrayList<String> listOfTaskIndex  =  new ArrayList<>(Arrays.asList(options[1].split("\\s+")));
-        ArrayList<String> listOfMemberIndex  =  new ArrayList<>(Arrays.asList(options[2].split("\\s+")));
-        ArrayList<String> viewTaskAssignedTo = new ArrayList<>();
-
-        if (listOfTaskIndex.get(0).equals("i") && listOfMemberIndex.get(0).equals("t")) {
-            listOfTaskIndex.remove(0);
-            listOfMemberIndex.remove(0);
-            for (String taskIndex : listOfTaskIndex) {
-                Task task = projectToManage.getTask(Integer.parseInt(taskIndex));
-                viewTaskAssignedTo.add("The tasks: " + task.getTaskName() + " has been assign to :");
-                for (String memberIndex : listOfMemberIndex) {
-                    Member member = projectToManage.getMembers().getMember(Integer.parseInt(memberIndex));
-                    viewTaskAssignedTo.add(member.getName());
-                    projectToManage.assignTaskToMembers(task,member);
-                    projectToManage.assignMemberToTasks(member,task);
-                }
-            }
-            consoleView.consolePrint(viewTaskAssignedTo.toArray(new String[0]));
-        } else {
-            consoleView.consolePrint("Missing Argument");
-        }
-    }
 }

@@ -4,6 +4,7 @@ import models.data.Project;
 import util.factories.ProjectFactory;
 import java.util.ArrayList;
 import models.data.IProject;
+import util.log.DukeLogger;
 
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
@@ -22,6 +23,8 @@ public class ProjectRepository implements IRepository<Project> {
     @Override
     public boolean addToRepo(String input) {
         IProject newProject = projectFactory.create(input);
+        DukeLogger.logDebug(ProjectRepository.class, "New project created with name: '"
+                + newProject.getDescription() + "'");
         if (newProject.getDescription() == null || newProject.getMembers() == null) {
             return false;
         }

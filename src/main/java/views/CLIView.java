@@ -1,16 +1,16 @@
 package views;
 
 import controllers.ConsoleInputController;
+import java.util.ArrayList;
+import java.util.Scanner;
 import models.data.IProject;
 import models.data.Project;
 import models.member.Member;
 import models.member.MemberList;
 import models.task.Task;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
+import util.log.DukeLogger;
 
 public class CLIView {
     private static final String horiLine = "\t____________________________________________________________";
@@ -149,6 +149,7 @@ public class CLIView {
      * Method to call when View model is started.
      */
     public void start() {
+        DukeLogger.logInfo(CLIView.class, "ArchDuke have started.");
         Scanner sc = new Scanner(System.in);
 
         consolePrint("Hello! I'm Duke", "What can I do for you?");
@@ -165,6 +166,7 @@ public class CLIView {
      */
     public void end() {
         consolePrint("Bye. Hope to see you again soon!");
+        DukeLogger.logInfo(CLIView.class, "ArchDuke have stopped.");
         System.exit(0);
     }
 
@@ -185,7 +187,7 @@ public class CLIView {
                 if (allProjects.get(projNum).getNumOfMembers() == 0) {
                     toPrint.add(" --");
                 } else {
-                    for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers(); memberIndex++) {
+                    for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers();memberIndex++) {
                         toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
                     }
                 }
@@ -254,6 +256,7 @@ public class CLIView {
      */
     public void viewAllMembers(Project projectToManage) {
         ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
+        DukeLogger.logDebug(CLIView.class, allMemberDetails.toString());
         consolePrint(allMemberDetails.toArray(new String[0]));
     }
 
@@ -263,6 +266,7 @@ public class CLIView {
      */
     public void viewAllTasks(IProject projectToManage) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
+        DukeLogger.logDebug(CLIView.class, allTaskDetails.toString());
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
@@ -273,6 +277,7 @@ public class CLIView {
      */
     public void viewSortedTasks(IProject projectToManage, String sortCriteria) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllSortedTaskDetails(sortCriteria);
+        DukeLogger.logDebug(CLIView.class, allTaskDetails.toString());
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
@@ -285,6 +290,7 @@ public class CLIView {
             ArrayList<String> allAssignedTasks = new ArrayList<>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
             allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
+            DukeLogger.logDebug(CLIView.class,allAssignedTasks.toString());
             consolePrint(allAssignedTasks.toArray(new String[0]));
         }
     }
@@ -296,6 +302,7 @@ public class CLIView {
      */
     public void viewTaskRequirements(IProject projectToManage, int taskIndex) {
         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
+        DukeLogger.logDebug(CLIView.class,taskRequirements.toString());
         consolePrint(taskRequirements.toArray(new String[0]));
     }
 
@@ -309,4 +316,5 @@ public class CLIView {
         projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
         consolePrint("The requirements of your specified task has been updated!");
     }
+
 }
