@@ -13,7 +13,7 @@ public class Concert extends Event {
     /**
      * creates new lesson class without boolean to read from user input (assumes incomplete)
      */
-    public Concert(String description,String startDateAndTime, String endDateAndTime) {
+    public Concert(String description, String startDateAndTime, String endDateAndTime) {
         super(description, false, startDateAndTime, endDateAndTime, 'C');
     }
 }

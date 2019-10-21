@@ -15,6 +15,7 @@ import UserElements.UI;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
@@ -28,12 +29,19 @@ public class EventList {
     private ArrayList<Event> eventArrayList;
 
     /**
+     * Comparator function codes
+     */
+    private static final int EQUAL = 0;
+    private static final int GREATER_THAN = 1;
+    private static final int SMALLER_THAN = 2;
+
+    /**
      * Filter type codes
      */
-    static final int DATE = 0;
-    static final int TYPE = 1;
+    private static final int DATE = 0;
+    private static final int TYPE = 1;
 
-    protected int ONE_SEMESTER_DAYS = 16*7;
+    protected int ONE_SEMESTER_DAYS = 16 * 7;
 
     /**
      * Creates new Model_Class.EventList object.
@@ -97,13 +105,25 @@ public class EventList {
     }
 
     /**
+     * Edit an event's description, start time and end time in the list.
+     *
+     * @param eventIndex     Index of the event to be edited.
+     * @param newDescription The new description.
+     */
+    public void editEvent(int eventIndex, String newDescription) {
+        Event tempEvent = this.eventArrayList.get(eventIndex);
+        tempEvent.editEvent(newDescription);
+        this.eventArrayList.set(eventIndex, tempEvent);
+    }
+
+    /**
      * Checks for a clash, then adds a new event if possible.
      *
      * @param event Model_Class.Event object to be added
      * @return boolean signifying whether or not the event was added successfully. True if succeeded
      * and false if not
      */
-    public boolean addEvent(Event event) throws ClashException{
+    public boolean addEvent(Event event) throws ClashException {
         Event clashEvent = clashEvent(event); //check the list for a schedule clash
         if (clashEvent == null) { //null means no clash was found
             this.eventArrayList.add(event);
@@ -120,7 +140,7 @@ public class EventList {
     /**
      * Adds recurring events to the list.
      *
-     * @param event Event to be added as recursion.
+     * @param event  Event to be added as recursion.
      * @param period Period of the recursion.
      */
     public boolean addRecurringEvent(Event event, int period) throws ClashException {
@@ -132,7 +152,7 @@ public class EventList {
         ArrayList<Event> tempEventList = new ArrayList<Event>();
 
         Event newEvent = null;
-        for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
+        for (int addEventCount = 0; addEventCount * period <= ONE_SEMESTER_DAYS; addEventCount++) {
             EventDate toFormatCalendarStartDate = new EventDate(calendarStartDate.getTime());
             EventDate toFormatCalendarEndDate = new EventDate(calendarEndDate.getTime());
             if (event.getType() == 'L') {
@@ -141,7 +161,6 @@ public class EventList {
             } else if (event.getType() == 'P') {
                 newEvent = new Practice(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(),
                         toFormatCalendarEndDate.getUserInputDateString());
-                tempEventList.add(newEvent);
             }
 
             if (clashEvent(newEvent) == null) {
@@ -162,6 +181,7 @@ public class EventList {
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
+     *
      * @param checkingEvent newly added event
      * @return event that causes a clash
      */
@@ -191,7 +211,7 @@ public class EventList {
                     if (currEventEndTime > newEventStartTime) {
                         return currEvent;
                     }
-                } else if (newEventStartTime < currEventStartTime){ //new event starts before current event
+                } else if (newEventStartTime < currEventStartTime) { //new event starts before current event
                     if (newEventEndTime > currEventStartTime) {
                         return currEvent;
                     }
@@ -206,7 +226,7 @@ public class EventList {
     /**
      * sorts the list of events/tasks according to date, in increasing order.
      */
-    public void sortList(){
+    public void sortList() {
         Collections.sort(eventArrayList);
     }
 
@@ -263,16 +283,14 @@ public class EventList {
     }
 
     /**
-     * Gets a filtered list of events based on a predicate.
-     * @return String containing the filtered list of events, separated by a newline.
+     * @return String containing the filtered list of events, each separated by a newline.
      */
     public String filteredList(Predicate<Object> predicate, int filterCode) {
         String filteredEvents = "";
-        int j = 1;
+        int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
-            if (eventArrayList.get(i) == null) {
-                continue;
-            } else if (filterCode == DATE) {
+            if (eventArrayList.get(i) == null) continue;
+            else if (filterCode == DATE) {
                 if (eventArrayList.get(i) != null) {
                     if (!predicate.check(eventArrayList.get(i).getStartDate())) {
                         continue;
@@ -285,10 +303,23 @@ public class EventList {
                     continue;
                 }
             }
+            j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
-            j++;
         }
         return filteredEvents;
     }
-}
 
+    /**
+     * @return String containing events found in the next 3 days
+     */
+    public String getReminder() {
+        String systemDateAndTime = new Date().toString();
+        EventDate limit = new EventDate(systemDateAndTime);
+        limit.addDaysAndSetMidnight(3);
+        String reminderDeadline = limit.getEventJavaDate().toString();
+        Predicate<Object> objectPredicate = new Predicate<>(limit, GREATER_THAN);
+        return "The time now is " + systemDateAndTime + ".\n" +
+                "Here is a list of events you need to complete in the next 3 days (by " +
+                reminderDeadline + "):\n" + filteredList(objectPredicate, DATE);
+    }
+}
