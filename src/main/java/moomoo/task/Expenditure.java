@@ -6,15 +6,21 @@ public class Expenditure {
 
     private double cost;
     private String name;
-    public LocalDateTime dateTime;
+    private LocalDateTime dateTime;
 
     public Expenditure() {
         this.cost = 0.0;
     }
 
-    public Expenditure(String name, double cost) {
+    public Expenditure(String name, double cost, LocalDateTime dateTime) {
         this.name = name;
         this.cost += 0.0;
+        this.dateTime = dateTime;
+    }
+
+    public Expenditure(double cost, LocalDateTime dateTime) {
+        this.cost += 0.0;
+        this.dateTime = dateTime;
     }
 
     public Expenditure(double cost) {
@@ -30,4 +36,7 @@ public class Expenditure {
         return this.cost;
     }
 
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
+    }
 }

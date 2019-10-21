@@ -48,7 +48,19 @@ public class Category {
         }
         return totalCost;
     }
-    
+
+    public double getCategoryTotalPerMonthYear(int month, int year) {
+        double totalCost = 0.00;
+        for (int i = 0; i < category.size(); i++) {
+            Expenditure currExpenditure = category.get(i);
+            if (currExpenditure.getDateTime().getMonthValue() == month
+                    && currExpenditure.getDateTime().getYear() == year) {
+                totalCost += currExpenditure.amount();
+            }
+        }
+        return totalCost;
+    }
+
     public double getMonthlyTotal(int month) {
         return monthTotal;
     }

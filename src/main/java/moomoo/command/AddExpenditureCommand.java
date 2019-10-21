@@ -9,6 +9,8 @@ import moomoo.task.Storage;
 import moomoo.task.MooMooException;
 import moomoo.task.Expenditure;
 
+import java.time.LocalDateTime;
+
 public class AddExpenditureCommand extends Command {
 
     private String expenditureName;
@@ -35,7 +37,7 @@ public class AddExpenditureCommand extends Command {
 
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).toString().equals(expenditureName)) {
-                Expenditure newExpenditure = new Expenditure(amount);
+                Expenditure newExpenditure = new Expenditure(amount, LocalDateTime.now());
                 categoryList.get(i).add(newExpenditure);
                 ui.showNewExpenditureMessage(expenditureName);
             } else {

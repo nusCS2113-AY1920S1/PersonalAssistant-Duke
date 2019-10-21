@@ -56,8 +56,7 @@ public class BudgetCommand extends Command {
         try {
             String fullDate = "01/" + inputDate;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate parsedDate = LocalDate.parse(fullDate, formatter);
-            return parsedDate;
+            return LocalDate.parse(fullDate, formatter);
         } catch (Exception e) {
             return null;
         }
@@ -523,7 +522,7 @@ public class BudgetCommand extends Command {
         }
 
         if (categories == null && "".equals(category)) {
-            outputValue = viewTotalSavings(start, end, endMonth);
+            outputValue = viewTotalSavings(catList, budget, start, end, endMonth);
         } else {
             List<String> newCategoryList = new ArrayList<>();
             if (!"".equals("category") && categories == null) {
@@ -537,11 +536,12 @@ public class BudgetCommand extends Command {
         return outputValue;
     }
 
-    private String viewTotalSavings(LocalDate start, LocalDate end, String endMonth) {
+    private String viewTotalSavings(CategoryList catList, Budget budget, LocalDate start, LocalDate end, String endMonth) {
         String outputValue = "";
         if ("".equals(endMonth)) {
             outputValue = "Your total savings for " + start.getMonth()
-                    + " " + start.getYear() + " is: ";
+                    + " " + start.getYear() + " is: " + df.format(budget.getTotalBudget()
+                    - catList.getMonthlyGrandTotal(start.getMonthValue()));
         } else {
             outputValue = "Your total savings from " + start.getMonth()
                     + " " + start.getYear() + " to "
@@ -554,8 +554,16 @@ public class BudgetCommand extends Command {
                                        LocalDate start, LocalDate end, String endMonth) throws MooMooException {
         String outputValue = "";
         for (String iteratorCategory : categoryList) {
-            if (!inCategoryList(iteratorCategory, catList)) {
-                throw new MooMooException("The " + iteratorCategory + " does not exist."
+            Category currentCategory = null;
+            for (Category iterCategory : catList.getCategoryList()) {
+                if (iterCategory.toString() == iteratorCategory) {
+                    currentCategory = iterCategory;
+                    break;
+                }
+            }
+
+            if (!inCategoryList(iteratorCategory, catList) || currentCategory == null) {
+                throw new MooMooException(iteratorCategory + " does not exist."
                         + " Please create it first.");
             }
             if (budget.getBudgetFromCategory(iteratorCategory) == 0) {
@@ -565,12 +573,38 @@ public class BudgetCommand extends Command {
             if ("".equals(endMonth)) {
                 outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
                         + " " + start.getYear() + " is: $"
-                        + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
+                        + df.format(budget.getBudgetFromCategory(iteratorCategory)
+                        - currentCategory.getCategoryTotalPerMonthYear(start.getMonthValue(), start.getYear()))  + "\n";
             } else {
+                int numberOfMonths = end.getMonthValue() - start.getMonthValue();
+                int numberOfYears = end.getYear() - start.getYear();
+                double totalExpenditure = 0;
+
+                if (numberOfYears > 0) {
+                    int startMonthValue = start.getMonthValue();
+                    int endMonthValue = 12;
+                    int yearValue = start.getYear();
+                    for (int i = 0; i < numberOfYears; ++i) {
+                        for (int x = startMonthValue; i < endMonthValue; ++x) {
+                            totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(x, yearValue);
+                        }
+                        startMonthValue = 1;
+                        if (numberOfYears - i == 1) {
+                            endMonthValue = end.getMonthValue();
+                        }
+                        yearValue += 1;
+                    }
+                } else {
+                    for (int i = start.getMonthValue(); i < end.getMonthValue(); ++i) {
+                        totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(i, start.getYear());
+                    }
+                }
+
                 outputValue += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
                         + start.getYear() + " to "
                         + end.getMonth() + " " + end.getYear() + " is: $"
-                        + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
+                        + df.format(((numberOfMonths * budget.getBudgetFromCategory(iteratorCategory))
+                        - totalExpenditure)) + "\n";
             }
         }
         return outputValue;
