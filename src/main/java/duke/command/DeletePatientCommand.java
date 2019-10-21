@@ -22,10 +22,10 @@ public class DeletePatientCommand extends Command {
     private String deletedPatientInfo;
 
     /**
-     * It checks whether user is deleting a patient by id
-     * It extracts the id of the patient to be deleted
+     * It checks whether user is deleting a patient by id.
+     * It extracts the id of the patient to be deleted.
      *
-     * @param deletedPatientInfo it contains the information of the patient to be deleted 
+     * @param deletedPatientInfo it contains the information of the patient to be deleted
      * @throws DukeException it shows user the correct format to delete a patient by id
      */
     public DeletePatientCommand(String deletedPatientInfo) throws DukeException {
