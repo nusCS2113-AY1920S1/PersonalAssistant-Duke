@@ -132,9 +132,18 @@ public class Email {
      */
     public String highlightBodyOnTag() {
         ArrayList<String> expressions = getAllExpressions();
-        String output = this.body;
+        String output = toWebViewString();
         expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
         output = addHighlightToExpressions(output, expressions);
+        return output;
+    }
+
+    private String toWebViewString() {
+        String output = "";
+        output += "<h3>" + this.subject + "</h3>";
+        output += "<h5 style=\"color:gray\">" + this.sender.toWebViewString() + "</h5>";
+        output += "<h5 style=\"color:gray\">" + this.getReceivedDateTime() + "</h5>";
+        output += this.body;
         return output;
     }
 

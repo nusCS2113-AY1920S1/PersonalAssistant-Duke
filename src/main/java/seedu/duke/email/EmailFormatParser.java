@@ -161,6 +161,15 @@ public class EmailFormatParser {
         public String toString() {
             return name + " => " + address;
         }
+
+        /**
+         * Formats sender in a user friendly way to be displayed in WebView.
+         *
+         * @return a user friendly display of sender
+         */
+        public String toWebViewString() {
+            return name + " &#60;" + address + "&#62;";
+        }
     }
 
     /**
