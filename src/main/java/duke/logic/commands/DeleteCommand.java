@@ -27,13 +27,13 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String indexStr, String date) throws DukeException {
         this(indexStr);
-        Date temp;
+        Date parsedDate;
         try {
-            temp = dateFormat.parse(date);
+            parsedDate = dateFormat.parse(date);
         } catch (ParseException e) {
             throw new DukeException("Unable to parse input " + date + " as a date. " + helpText);
         }
-        currentDate = dateFormat.format(temp);
+        currentDate = dateFormat.format(parsedDate);
     }
 
     public DeleteCommand(String indexStr) throws DukeException {

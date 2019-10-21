@@ -1,11 +1,14 @@
 package duke.logic.commands;
 
+import duke.commons.exceptions.DukeException;
 import duke.model.Meal;
 import duke.model.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import duke.model.user.User;
@@ -16,37 +19,54 @@ import duke.model.user.User;
  * @author Ivan Andika Lie
  */
 public class MarkDoneCommand extends Command {
-    private String type;
-
+    private int index;
+    private final String helpText = "Please follow: done <index> /date <date> or "
+            + "done <index> to mark done the indexed meal for current day.";
     /**
-     * This is a constructor for MarkDoneCommand.
-     * @param type the type of meal
-     * @param date the date which meals are to be marked as done
+     * This is a constructor for MarkDoneCommand with the date specified.
+     * @param indexStr the index of meal on the date to be marked as done.
+     * @param date the date which meals are to be marked as done.
      */
-    public MarkDoneCommand(String type, String date) {
-        this.type = type.substring(0, 1).toUpperCase();
-        this.currentDate = date;
+    public MarkDoneCommand(String indexStr, String date) throws DukeException {
+        this(indexStr);
+        Date parsedDate;
+        try {
+            parsedDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            throw new DukeException("Unable to parse input" + date + " as a date. " + helpText);
+        }
+        this.currentDate = dateFormat.format(parsedDate);
     }
 
     /**
+     * This is a constructor for MarkDoneCommand with the date unspecified
+     * @param indexStr the index of meal on the today to be marked as done.
+     * @throws DukeException when parseInt is unable to parse the index
+     */
+    public MarkDoneCommand(String indexStr) throws DukeException {
+        try {
+            this.index = Integer.parseInt(indexStr.trim());
+        } catch (NumberFormatException e) {
+            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
+        }
+    }
+    /**
      * The object will execute the "mark done" command, updating the current meals, ui, and storage in the process.
-     * @param tasks the MealList object to be marked done
+     * @param mealList the MealList object to be marked done
      * @param ui the ui object to display the user interface of an "mark done" command
      * @param storage the storage object that stores the list of meals
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
-        ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
-        for (Meal element: currentMeals) {
-            if (element.getType().equals(type)) {
-                element.markAsDone();
-                matchingMeals.add(element);
-            }
+    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+        if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
+            throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }
-        storage.updateFile(tasks);
-        ui.showDone(matchingMeals);
-        ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
+        Meal currentMeal = mealList.markDone(currentDate, index);
+        storage.updateFile(mealList);
+        ui.showDone(currentMeal, mealList.getMealsList(currentDate));
+        ArrayList<Meal> currentMeals = mealList.getMealsList(currentDate);
+        ui.showCaloriesLeft(currentMeals, user, currentDate);
+//        ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
     }
 }

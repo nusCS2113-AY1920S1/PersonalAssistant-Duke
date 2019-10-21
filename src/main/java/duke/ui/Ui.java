@@ -42,14 +42,9 @@ public class Ui {
         }
     }
 
-    public void showDone(ArrayList<Meal> meals) {
-        showPadding();
-        System.out.println("Nice! I've marked these tasks as done:");
-        for (int i = 1; i <= meals.size(); i++) {
-            Meal currentMeal = meals.get(i - 1);
-            showPadding();
-            System.out.println(i + ". " + currentMeal);
-        }
+    public void showDone(Meal currentMeal, ArrayList<Meal> meals) {
+        System.out.println(padding + "Nice! I've marked these tasks as done:");
+        System.out.println(padding + currentMeal);
     }
 
     public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String dateStr) {
