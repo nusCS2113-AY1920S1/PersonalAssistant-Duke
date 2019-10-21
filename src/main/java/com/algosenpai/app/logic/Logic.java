@@ -63,11 +63,23 @@ public class Logic {
                 return responseString;
             }
         case MENU:
-            String allCommands = "These are all the commands available: \n" +
-                    "MENU, " + "START, " + "SELECT, " + "RESULT, " +
-                    "REPORT, " + "BACK, " + "HISTORY, " + "UNDO, \n" +
-                    "CLEAR, " + "RESET, " + "SAVE, " + "HELP, " +
-                    "EXIT, " + "PRINT, " + "ARCHIVE, " + "INVALID";
+            String allCommands = "These are all the commands available: \n"
+                    + "MENU, "
+                    + "START, "
+                    + "SELECT, "
+                    + "RESULT, "
+                    + "REPORT, "
+                    + "BACK, "
+                    + "HISTORY, "
+                    + "UNDO, \n"
+                    + "CLEAR, "
+                    + "RESET, "
+                    + "SAVE, "
+                    + "HELP, "
+                    + "EXIT, "
+                    + "PRINT, "
+                    + "ARCHIVE, "
+                    + "INVALID";
             return allCommands;
         case START:
             isQuizMode = true;
@@ -75,35 +87,46 @@ public class Logic {
             return quizList.get(0).getQuestion();
         case SELECT:
             selectedChapters = currCommand.getParameter();
-            responseString = "You have selected chapter " + currCommand.getParameter() +
-                        " for the quiz!";
+            responseString = "You have selected chapter "
+                    + currCommand.getParameter()
+                    + " for the quiz!";
             return responseString;
         case RESULT:
             responseString = "You got " + prevResult + "/10 questions correct for the last attempt";
             return responseString;
         case REPORT:
-
+            responseString = "report";
+            return responseString;
         case BACK:
-
+            responseString = "back";
+            return responseString;
         case HISTORY:
-
+            responseString = "history";
+            return responseString;
         case UNDO:
-
+            responseString = "testing";
+            return responseString;
         case CLEAR:
-
+            responseString = "clear";
+            return responseString;
         case RESET:
-
+            responseString = "reset";
+            return responseString;
         case SAVE:
-
+            responseString = "save";
+            return responseString;
         case HELP:
-
+            responseString = "help";
+            return responseString;
         case EXIT:
             responseString = "exit";
             return responseString;
         case PRINT:
-
+            responseString = "print";
+            return responseString;
         case ARCHIVE:
-
+            responseString = "archive";
+            return responseString;
         case QUIZ:
             quizList.get(questionNumber).setAnswer(currCommand.getUserString());
             questionNumber++;
@@ -127,6 +150,7 @@ public class Logic {
                 String endQuizMessage = "You got " + correctCount + "/10 questions correct!";
                 return endQuizMessage;
             }
+            return "quiz";
         default:
             return "INVALID";
         }

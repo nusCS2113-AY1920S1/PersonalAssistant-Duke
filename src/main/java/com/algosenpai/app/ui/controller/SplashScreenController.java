@@ -21,7 +21,8 @@ public class SplashScreenController implements Initializable {
     /**
      * Initialize home scene.
      */
-    public SplashScreenController() {}
+    public SplashScreenController() {
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

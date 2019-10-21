@@ -32,6 +32,9 @@ public class Ui extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/unknown.png"));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream("/images/miku.png"));
 
+    /**
+     * Renders the nodes on the GUI.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

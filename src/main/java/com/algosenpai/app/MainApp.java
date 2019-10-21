@@ -38,21 +38,20 @@ public class MainApp extends Application {
     public void start(Stage stage) throws IOException {
         startSplashScreen(stage);
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished(event ->
-                {
-                    try {
-                        startMain(stage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        pause.setOnFinished(event -> {
+                try {
+                    startMain(stage);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+            }
         );
         pause.play();
     }
 
     private void startSplashScreen(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader2 = new FXMLLoader(MainApp.class.getResource("/view/SplashScreen.fxml"));
-        AnchorPane ap = fxmlLoader2.load();
+        FXMLLoader fxmlSplashScreen = new FXMLLoader(MainApp.class.getResource("/view/SplashScreen.fxml"));
+        AnchorPane ap = fxmlSplashScreen.load();
         ap.setStyle("-fx-background-image: url('/images/cute-anime.png'); -fx-background-size: cover;");
         Scene splashScreen = new Scene(ap, 600, 400);
         stage.setScene(splashScreen);

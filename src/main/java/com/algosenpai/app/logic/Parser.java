@@ -65,92 +65,9 @@ public class Parser {
 
     /**
      * Returns command to execute after parsing the user input.
-     *
-     * @param userInput user's input command or answer
-     * @return command to execute
-     * @throws DukeExceptions if user input is invalid or in the wrong format
-     */
-//    public static Command parse(String userInput) {
-//        userInput = userInput.toLowerCase();
-//
-//        String[] outputs = userInput.split(" "); //for commands
-//
-//        try {
-//            DukeExceptions.checkUserInput(userInput);
-//            if (userInput.contains("exit")) {
-//                return new ExitCommand();
-//            } else if (userInput.contains("menu")) {
-//                return new MenuCommand();
-//            } else if (userInput.contains("start")) {
-//                return new StartCommand();
-//            } else if (userInput.contains("select")) {
-//                try {
-//                    DukeExceptions.checkArgument(userInput);
-//                    int num = Integer.parseInt(outputs[1].trim());
-//                    return new SelectCommand(num);
-//                } catch (DukeExceptions e) {
-//                    System.out.println("error\n" + e);
-//                }
-//            } else if (userInput.contains("result")) {
-//                try {
-//                    DukeExceptions.checkArgument(userInput);
-//                    int num = Integer.parseInt(outputs[1].trim());
-//                    return new ResultCommand(num);
-//                } catch (DukeExceptions e) {
-//                    System.out.println("error\n" + e);
-//                }
-//            } else if (userInput.contains("report")) {
-//                return new ReportCommand();
-//            } else if (userInput.contains("back")) {
-//                return new BackCommand();
-//            } else if (userInput.contains("history")) {
-//                try {
-//                    DukeExceptions.checkArgument(userInput);
-//                    int num = Integer.parseInt(outputs[1].trim());
-//                    return new HistoryCommand(num);
-//                } catch (DukeExceptions e) {
-//                    System.out.println("error\n" + e);
-//                }
-//            } else if (userInput.contains("undo")) {
-//                return new UndoCommand();
-//            } else if (userInput.contains("clear")) {
-//                try {
-//                    DukeExceptions.checkArgument(userInput);
-//                    int num = Integer.parseInt(outputs[1].trim());
-//                    return new ClearCommand(num);
-//                } catch (DukeExceptions e) {
-//                    System.out.println("error\n" + e);
-//                }
-//            } else if (userInput.contains("reset")) {
-//                return new ResetCommand();
-//            } else if (userInput.contains("save")) {
-//                return new SaveCommand();
-//            } else if (userInput.contains("help")) {
-//                return new HelpCommand();
-//            } else {
-//                if (hasDigit(outputs[0])) {
-//                    try {
-//                        DukeExceptions.checkAnswer(userInput);
-//                        return new ConvertStringToIntegerArrayCommand(userInput);
-//                    } catch (DukeExceptions e) {
-//                        System.out.println("error\n" + e);
-//                    }
-//                }
-//            }
-//        } catch (DukeExceptions e) {
-//            String closestCommand = possibleCommand(userInput);
-//            System.out.println(e + "Did you mean" + closestCommand);
-//
-//        }
-//        return null;
-    //}
-
-    /**
-     * Returns command to execute after parsing the user input.
      * @param s string taken in
      * @return boolean true if the string can be returned as an integer else boolean false
      */
-
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
