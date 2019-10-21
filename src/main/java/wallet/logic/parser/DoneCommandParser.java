@@ -1,5 +1,6 @@
 package wallet.logic.parser;
 
+import wallet.logic.LogicManager;
 import wallet.logic.command.DoneCommand;
 
 import java.text.ParseException;

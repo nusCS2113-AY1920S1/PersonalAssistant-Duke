@@ -124,14 +124,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         info = info[3].split("/c ");
         int contactId = Integer.parseInt(info[1]);
 
-        if (info[0].equals("/l")) {
+        if (input.contains("/l")) {
             isLend = true;
-        } else if (info[0].equals("/b")) {
+        } else if (input.contains("/b")) {
             isLend = false;
         }
 
         ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
-        Contact person = new ContactList(contactList).getContact(contactId - 1);
+        int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
+        Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
     }

@@ -38,7 +38,11 @@ public class LoanStorage extends Storage<Loan> {
 
                 isLend = !data[4].equals("0");
                 isSettled = !data[5].equals("0");
-                person = new ContactList(contactStorage.loadFile()).getContact(Integer.parseInt(data[6]) - 1);
+
+
+                ContactList contactList = new ContactList(contactStorage.loadFile());
+                int index = contactList.findIndexWithId(Integer.parseInt(data[6]));
+                person = contactList.getContact(index);
                 if (data.length == 7 && person != null) {
                     loan = new Loan(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
                             isLend, isSettled, person);

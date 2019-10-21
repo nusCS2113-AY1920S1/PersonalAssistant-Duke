@@ -3,8 +3,10 @@ package wallet.ui;
 import wallet.logic.LogicManager;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.thread.ChartThread;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,6 +22,7 @@ public class Ui {
     public Ui() {
         sc = new Scanner(System.in);
     }
+
 
     /**
      * Prints the welcome message of the program.
@@ -123,5 +126,66 @@ public class Ui {
             System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
         }
         System.out.println(lineBreak);
+    }
+
+    /**
+     * Displays the loan list in table format.
+     */
+    public static void printLoanTable(ArrayList<Loan> loanList) {
+
+        System.out.println("Here are the loans in your list:");
+        printLoanTableHeaders();
+        for (Loan loan : loanList) {
+            printLoanRow(loan);
+        }
+        printLoanTableClose();
+    }
+
+    /**
+     * Default headers for Loan table.
+     */
+    public static void printLoanTableHeaders() {
+        System.out.println("--------------------------------------------------------"
+                + "-------------------------------------------------------"
+                + "-------------------------------------\n"
+                + "|  ID  |  Settled  |              Description                 |  Amount  |    Date    |   "
+                + "Borrow/Lend   |    Contact Name    |    Contact Number   |\n"
+                + "|-----------------------------------------------------"
+                + "---------------------------------------------------------"
+                + "------------------------------------|");
+    }
+
+    /**
+     * Prints the specified Loan object in table format.
+     *
+     * @param loan The Loan object.
+     */
+    public static void printLoanRow(Loan loan) {
+        if (!loan.getIsLend() && !loan.getIsSettled()) {
+            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                    loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
+                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+        } else if (!loan.getIsLend() && loan.getIsSettled()) {
+            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                    loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Borrow from",
+                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+        } else if (loan.getIsLend() && !loan.getIsSettled()) {
+            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                    loan.getId(), "No", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
+                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+        } else if (loan.getIsLend() && loan.getIsSettled()) {
+            System.out.printf("| %-4d |  %-7s  | %-40s | $%-7.2f | %-10s |   %-11s   | %-18s | %-19s |\n",
+                    loan.getId(), "Yes", loan.getDescription(), loan.getAmount(), loan.getDate(), "Lend to",
+                    loan.getPerson().getName(), loan.getPerson().getPhoneNum());
+        }
+    }
+
+    /**
+     * Prints line to close of the Loans table.
+     */
+    public static void printLoanTableClose() {
+        System.out.println("----------------------------------------"
+                + "---------------------------------------------------"
+                + "--------------------------------------------------------");
     }
 }

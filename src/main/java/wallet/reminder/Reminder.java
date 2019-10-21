@@ -1,16 +1,16 @@
 package wallet.reminder;
 
 import wallet.logic.LogicManager;
-import wallet.model.Wallet;
 import wallet.model.record.LoanList;
-import wallet.thread.MyThread;
+import wallet.thread.ReminderThread;
+
 
 public class Reminder {
 
     private LoanList loanList;
     private boolean autoRemind;
     private int timeInSeconds;
-    private MyThread thread;
+    private ReminderThread thread;
 
     /**
      * The constructor for the Reminder object.
@@ -29,7 +29,7 @@ public class Reminder {
      * and also turn it off and on as they wish.
      */
     public void autoRemindStart() {
-        thread = new MyThread(autoRemind, loanList, timeInSeconds);
+        thread = new ReminderThread(autoRemind, timeInSeconds);
     }
 
     /**

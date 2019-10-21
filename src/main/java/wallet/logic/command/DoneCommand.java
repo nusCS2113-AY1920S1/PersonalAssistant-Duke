@@ -3,6 +3,7 @@ package wallet.logic.command;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Loan;
+import wallet.ui.Ui;
 
 /**
  * The DoneCommand sets the isSettled attribute in
@@ -11,7 +12,7 @@ import wallet.model.record.Loan;
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_SUCCESS_DONE = "This loan is now settled:\n";
+    public static final String MESSAGE_SUCCESS_DONE = "This loan is now settled:";
     public static final String MESSAGE_FAILURE_DONE = "There is an error in settling the loan.";
     public static final String MESSAGE_FAILURE_NO_SUCH_ID = "There is no such id in loans!";
     public static final String MESSAGE_FAILURE_ALREADY_DONE = "The loan has already been settled!";
@@ -48,10 +49,13 @@ public class DoneCommand extends Command {
                 return false;
             }
             wallet.getLoanList().setModified(true);
-            System.out.println(MESSAGE_SUCCESS_DONE + loan.toString());
+            System.out.println(MESSAGE_SUCCESS_DONE);
+            Ui.printLoanTableHeaders();
+            Ui.printLoanRow(loan);
+            Ui.printLoanTableClose();
             if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
                 LogicManager.getReminder().autoRemindStop();
-                System.out.println("Turning off auto reminders because all loans have been settled!");
+                System.out.println("Great! All loans have been settled!");
             }
         } catch (Exception e) {
             System.out.println(MESSAGE_FAILURE_DONE);

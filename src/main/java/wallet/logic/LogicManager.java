@@ -12,6 +12,8 @@ import wallet.model.record.RecordList;
 import wallet.storage.StorageManager;
 import wallet.reminder.Reminder;
 
+import java.util.ArrayList;
+
 /**
  * The LogicManager Class handles the logic of Wallet.
  */
@@ -21,6 +23,7 @@ public class LogicManager {
     private ParserManager parserManager;
     private static Wallet wallet;
     private static Reminder reminder;
+    private static ArrayList<String> commandHistory;
 
     /**
      * Constructs a LogicManager object.
@@ -33,6 +36,7 @@ public class LogicManager {
                 new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
         this.reminder = new Reminder();
+        this.commandHistory = new ArrayList<String>();
     }
 
     /**
@@ -48,7 +52,10 @@ public class LogicManager {
             if (command != null) {
                 isExit = command.execute(wallet);
                 ExpenseParser.updateRecurringRecords(wallet);
-                storageManager.save(wallet);
+                boolean isModified = storageManager.save(wallet);
+                if (isModified) {
+                    commandHistory.add(fullCommand);
+                }
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
@@ -78,7 +85,7 @@ public class LogicManager {
         return reminder;
     }
 
-    public static void setReminder(Reminder reminder) {
-        LogicManager.reminder = reminder;
+    public static ArrayList<String> getCommandHistory() {
+        return commandHistory;
     }
 }

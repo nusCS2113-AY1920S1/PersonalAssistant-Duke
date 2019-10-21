@@ -37,7 +37,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         default:
             return new DeleteCommand(arguments[0], index);
         }
-
     }
 
     private Boolean parseContact(int index) {

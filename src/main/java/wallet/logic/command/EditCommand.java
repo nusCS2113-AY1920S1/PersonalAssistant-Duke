@@ -1,8 +1,10 @@
 package wallet.logic.command;
 
 import wallet.model.Wallet;
-import wallet.model.record.Expense;
 import wallet.model.contact.Contact;
+import wallet.model.record.Expense;
+import wallet.model.record.Loan;
+import wallet.ui.Ui;
 
 
 /**
@@ -17,10 +19,12 @@ public class EditCommand extends Command {
             + "\nExample: " + COMMAND_WORD + " expense 2 /d lunch /a 9 /c Food /r no";
     public static final String MESSAGE_SUCCESS_EDIT_EXPENSE = "Successfully edited this expense:";
     public static final String MESSAGE_SUCCESS_EDIT_CONTACT = "Successfully edited this contact:";
+    public static final String MESSAGE_SUCCESS_EDIT_LOAN = "Successfully edited this loan:";
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
 
     private Expense expense;
     private Contact contact;
+    private Loan loan;
 
     /**
      * Constructs the EditCommand object with Expense object.
@@ -38,6 +42,15 @@ public class EditCommand extends Command {
      */
     public EditCommand(Contact contact) {
         this.contact = contact;
+    }
+
+    /**
+     * Constructs the EditCommand object with Loan object.
+     *
+     * @param loan The Loan Object.
+     */
+    public EditCommand(Loan loan) {
+        this.loan = loan;
     }
 
     @Override
@@ -93,8 +106,21 @@ public class EditCommand extends Command {
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
-        }
+        } else if (loan != null) {
 
+            int index = wallet.getLoanList().findIndexWithId(loan.getId());
+
+            if (index != -1) {
+                wallet.getLoanList().editLoan(index, loan);
+                wallet.getLoanList().setModified(true);
+                System.out.println(MESSAGE_SUCCESS_EDIT_LOAN);
+                Ui.printLoanTableHeaders();
+                Ui.printLoanRow(loan);
+                Ui.printLoanTableClose();
+            } else {
+                System.out.println(MESSAGE_ERROR_COMMAND);
+            }
+        }
         return false;
     }
 }
