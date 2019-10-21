@@ -1,5 +1,6 @@
-package com.algosenpai.app;
+package com.algosenpai.app.stats;
 
+import com.algosenpai.app.storage.UserStorageParser;
 import javafx.util.Pair;
 
 import java.io.FileNotFoundException;

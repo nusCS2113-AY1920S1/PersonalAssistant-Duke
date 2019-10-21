@@ -102,6 +102,12 @@ public class HomeController extends SceneController implements Initializable {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             userString = userInput.getText();
             userInput.setText("");
+//            currCommand = parseInput(userString);
+//            try {
+//                handleCommand(currCommand);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
         if (keyEvent.getCode() == KeyCode.M) {
             toggleVolume();
@@ -118,4 +124,51 @@ public class HomeController extends SceneController implements Initializable {
             userInput.getParent().requestFocus();
         }
     }
+
+
+//
+//    /**
+//     * Handle string entered by user.
+//     * @param input the raw user input
+//     * @return the Command with the relevant type and parameter.
+//     */
+//    public Command parseInput(String input) {
+//        input = input.toLowerCase();
+//        String[] parsedInput = input.split(" ");
+//
+//        switch (parsedInput[0]) {
+//            case "menu":
+//                return new Command(CommandEnum.MENU, 0);
+//            case "start":
+//                return new Command(CommandEnum.START, 0);
+//            case "select":
+//                return new Command(CommandEnum.SELECT, 0);
+//            case "result":
+//                return new Command(CommandEnum.RESULT, 0);
+//            case "report":
+//                return new Command(CommandEnum.REPORT, 0);
+//            case "back":
+//                return new Command(CommandEnum.BACK, 0);
+//            case "history":
+//                return new Command(CommandEnum.HISTORY, 0);
+//            case "undo":
+//                return new Command(CommandEnum.UNDO, 0);
+//            case "clear":
+//                return new Command(CommandEnum.CLEAR, 0);
+//            case "reset":
+//                return new Command(CommandEnum.RESET, 0);
+//            case "save":
+//                return new Command(CommandEnum.SAVE, 0);
+//            case "help":
+//                return new Command(CommandEnum.HELP, 0);
+//            case "exit":
+//                return new Command(CommandEnum.EXIT, 0);
+//            case "print":
+//                return new Command(CommandEnum.PRINT, 0);
+//            case "archive":
+//                return new Command(CommandEnum.ARCHIVE, 0);
+//            default:
+//                return new Command(CommandEnum.INVALID, 0);
+//        }
+//    }
 }

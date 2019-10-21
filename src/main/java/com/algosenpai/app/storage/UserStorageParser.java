@@ -1,4 +1,6 @@
-package com.algosenpai.app;
+package com.algosenpai.app.storage;
+
+import com.algosenpai.app.stats.ChapterStat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +16,7 @@ public class UserStorageParser {
      * Initialises everything so that Scanner works.
      * @throws FileNotFoundException will never be thrown as the file would already be prepared.
      */
-    UserStorageParser() throws FileNotFoundException {
+    public UserStorageParser() throws FileNotFoundException {
         String workingDir = System.getProperty("user.dir") + File.separator + "UserData.txt";
         FileReader reader = new FileReader(workingDir);
         this.inputScanner = new Scanner(reader);
