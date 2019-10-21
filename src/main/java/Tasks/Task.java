@@ -26,6 +26,18 @@ public class Task {
         return "void";
     }
 
+    public String getDateTime(){
+        return "void";
+    }
+
+    public String getDate() {
+        return "void";
+    }
+
+    public String getTime() {
+        return "void";
+    }
+
     /**
      * Checks whether the task is completed.
      * @return This returns a tick or cross depending on the boolean value of isDone
@@ -69,10 +81,6 @@ public class Task {
         }
     }
 
-    public String getDateTime(){
-        return "void";
-    }
-
     public String getModCode() {
         String[] split = description.trim().split(" ");
         String modcode = split[0].toUpperCase();
@@ -98,9 +106,5 @@ public class Task {
 
     public String toShow() {
         return modCode + "\n" + description;
-    }
-
-    public boolean getIsDone(){
-        return this.isDone;
     }
 }
