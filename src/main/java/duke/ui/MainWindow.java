@@ -85,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(inputString);
             console.setText(commandResult.getConsoleInfo());
+            fillInnerPart();
             showPane(commandResult);
 
             if(commandResult.isExit()) Platform.exit();
@@ -112,7 +113,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showExpensePane() {
         commonBoard.getChildren().clear();
-        fillInnerPart();
         commonBoard.getChildren().add(expensePane.getRoot());
 
         expenseButton.setButtonType(JFXButton.ButtonType.RAISED);
