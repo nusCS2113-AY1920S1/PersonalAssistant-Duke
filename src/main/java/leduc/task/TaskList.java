@@ -105,8 +105,32 @@ public class TaskList {
             throw new ConflictDateException(conflictTasks);
         }
     }
-
-
+    /**
+     * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
+     * @param  tasks is the list of tasks
+     */
+    public  ArrayList<Task> extractTodo(TaskList tasks){
+        ArrayList<Task> extractedTodos = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++){
+            if ((tasks.get(i) instanceof TodoTask)){
+                extractedTodos.add(tasks.get(i));
+            }
+        }
+        return extractedTodos;
+    }
+    /**
+     * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
+     *@param tasks tasks is the list of tasks
+     */
+    public  ArrayList<Task> filterTasks(TaskList tasks){
+        ArrayList<Task> filteredTasklist = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++){
+            if (!(tasks.get(i) instanceof TodoTask)){
+                filteredTasklist.add(tasks.get(i));
+            }
+        }
+        return filteredTasklist;
+    }
     /**
      * Sorts the list of tasks by date.
      * @param filteredTasklist which filters out all Tasks that do not have a date field..
@@ -126,33 +150,5 @@ public class TaskList {
         }
         sortedTasks.addAll(extractedTodos);
         return sortedTasks;
-    }
-
-    /**
-     * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
-     *@param tasks tasks is the list of tasks
-     */
-    public  ArrayList<Task> filterTasks(TaskList tasks){
-        ArrayList<Task> filteredTasklist = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++){
-            if (!(tasks.get(i) instanceof TodoTask)){
-                filteredTasklist.add(tasks.get(i));
-            }
-        }
-        return filteredTasklist;
-    }
-
-    /**
-     * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
-     * @param  tasks is the list of tasks
-     */
-    public  ArrayList<Task> extractTodo(TaskList tasks){
-        ArrayList<Task> extractedTodos = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++){
-            if ((tasks.get(i) instanceof TodoTask)){
-                extractedTodos.add(tasks.get(i));
-            }
-        }
-        return extractedTodos;
     }
 }

@@ -119,6 +119,9 @@ public class Parser {
         else if (user.matches(RemindCommand.getRemindShortcut()) || user.matches("remind")) {
             c = new RemindCommand(user);
         }
+        else if (user.matches(UnfinishedCommand.getUnfinishedShortcut()) || user.matches("unfinished")) {
+            c = new UnfinishedCommand(user);
+        }
         else if(user.matches(HelpCommand.getHelpShortcut()) || user.matches("help")){
             c = new HelpCommand(user);
         }
