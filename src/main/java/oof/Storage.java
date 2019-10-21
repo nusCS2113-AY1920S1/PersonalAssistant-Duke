@@ -1,10 +1,12 @@
 package oof;
 
+import oof.model.module.Semester;
+import oof.model.task.TaskList;
 import oof.exception.OofException;
-import oof.task.Deadline;
-import oof.task.Event;
-import oof.task.Task;
-import oof.task.Todo;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -91,7 +93,7 @@ public class Storage {
      *
      * @param taskList TaskList that contains Task objects.
      */
-    public void writeToFile(TaskList taskList) {
+    public void writeTaskList(TaskList taskList) {
         try {
             ArrayList<Task> arr = taskList.getTasks();
             String filename = "output.txt";
@@ -111,7 +113,7 @@ public class Storage {
      * @return TaskList containing Task objects.
      * @throws IOException if file does not exist.
      */
-    public ArrayList<Task> readFromFile() throws IOException {
+    public ArrayList<Task> readTaskList() throws IOException {
         String filename = "output.txt";
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
@@ -156,6 +158,10 @@ public class Storage {
         return arr;
     }
 
+    public ArrayList<Semester> readSemesterList() throws IOException {
+        throw new IOException();
+    }
+
     /**
      * Checks if entry in save file is an Event.
      *
@@ -195,4 +201,5 @@ public class Storage {
     public boolean checkDone(String line) {
         return line.charAt(4) == 'Y';
     }
+
 }

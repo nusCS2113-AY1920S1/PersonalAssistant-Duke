@@ -2,11 +2,12 @@
 package oof.command;
 
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
-import oof.task.Event;
-import oof.task.Task;
+import oof.model.task.Event;
+import oof.model.task.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,12 +41,22 @@ public class FreeCommand extends Command {
         this.dateWanted = dateWanted;
     }
 
+    /**
+     * Finds free time during the queried time period.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     * @throws OofException if user input invalid commands.
+     */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         Date current = new Date();
         try {
             if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
-                findFreeTime(ui, taskList, this.dateWanted);
+                findFreeTime(ui, tasks, this.dateWanted);
             } else {
                 throw new OofException("OOPS!!! Please enter a valid date!");
             }
@@ -57,25 +68,25 @@ public class FreeCommand extends Command {
     /**
      * Search for free time slots based on the current events recorded.
      *
-     * @param ui Instance of Ui that is responsible for visual feedback.
-     * @param taskList Instance of TaskList that stores Task Objects.
+     * @param ui            Instance of Ui that is responsible for visual feedback.
+     * @param tasks         Instance of TaskList that stores Task Objects.
      * @param freeSlotsDate The user specified date.
      */
-    private void findFreeTime(Ui ui, TaskList taskList, String freeSlotsDate) throws ParseException {
+    private void findFreeTime(Ui ui, TaskList tasks, String freeSlotsDate) throws ParseException {
         ArrayList<String> eventsOnSameDay = new ArrayList<>();
         ArrayList<Date> eventStartTimes = new ArrayList<>();
         ArrayList<Date> eventEndTimes = new ArrayList<>();
         ArrayList<String> eventNamesSorted = new ArrayList<>();
-        for (int i = 0; i < taskList.getSize(); i++) {
-            Task task = taskList.getTask(i);
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task task = tasks.getTask(i);
             if (task instanceof Event) {
-                Event event = (Event) taskList.getTask(i);
-                String date = event.getStartTiming().substring(0, 10).trim();
-                String startTime = event.getStartTiming().substring(11, 16).trim();
-                String endTime = event.getEndTiming().substring(11,16).trim();
+                Event event = (Event) tasks.getTask(i);
+                String date = event.getStartTime().substring(0, 10).trim();
+                String startTime = event.getStartTime().substring(11, 16).trim();
+                String endTime = event.getEndTime().substring(11, 16).trim();
                 try {
                     if (isSameDate(date, freeSlotsDate)) {
-                        String eventNameAndStartTime = event.getLine() + "-" + startTime;
+                        String eventNameAndStartTime = event.getDescription() + "-" + startTime;
                         eventsOnSameDay.add(eventNameAndStartTime);
                         eventStartTimes.add(convertStringToDate(startTime));
                         eventEndTimes.add(convertStringToDate(endTime));
@@ -143,7 +154,7 @@ public class FreeCommand extends Command {
     /**
      * Checks if the event date is the same as the user specified date.
      *
-     * @param eventDate Date of event being compared.
+     * @param eventDate     Date of event being compared.
      * @param freeSlotsDate Date of free time to search for.
      * @return true if event date and user specified date is the same.
      */
@@ -154,6 +165,7 @@ public class FreeCommand extends Command {
     /**
      * Checks if user specified date is after the current date.
      * .
+     *
      * @param currDate Current date.
      * @param freeDate User specified date to search for free time.
      * @return true if user specified date is after the current date, false otherwise.
@@ -196,7 +208,7 @@ public class FreeCommand extends Command {
      * @param eventNamesSorted ArrayList containing the sorted event names according to start time.
      */
     private void sortEventNames(ArrayList<String> eventsOnSameDay, ArrayList<Date> eventStartTimes,
-                                 ArrayList<String> eventNamesSorted) {
+                                ArrayList<String> eventNamesSorted) {
         eventNamesSorted.addAll(eventsOnSameDay);
         for (int i = 0; i < eventsOnSameDay.size(); i++) {
             String[] lineSplit = eventsOnSameDay.get(i).split("-");
@@ -214,7 +226,7 @@ public class FreeCommand extends Command {
     /**
      * Gets the day of the week from the user specified date.
      *
-     * @param freeDate  The user specified date to search for free time.
+     * @param freeDate The user specified date to search for free time.
      * @return The day of the week spelt in full.
      * @throws ParseException Throws an exception if datetime cannot be parsed.
      */

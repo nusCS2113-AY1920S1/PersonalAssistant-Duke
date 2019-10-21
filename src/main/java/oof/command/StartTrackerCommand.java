@@ -1,20 +1,24 @@
 package oof.command;
 
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
-import oof.task.Task;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents a Command to start a task tracker.
+ */
 public class StartTrackerCommand extends Command {
     private String description;
 
     /**
      * Constructor for StartTrackerCommand.
-     * @param description       of Task to start tracking.
+     *
+     * @param description of Task to start tracking.
      */
     public StartTrackerCommand(String description) {
         super();
@@ -22,18 +26,37 @@ public class StartTrackerCommand extends Command {
     }
 
     /**
-     * Check if Task has been completed.
-     * @param task      Task object.
-     * @return          Status of task Task object.
+     * Starts tracker to track time taken for a task.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     * @throws OofException if description is empty or task if completed.
      */
-    boolean isDone(Task task) {
-        return task.getStatus();
+    @Override
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+        if (description.isEmpty()) {
+            throw new OofException("Please enter a Task!");
+        }
+        Task task = findTask(tasks, description);
+        if (task.getStatus()) {
+            throw new OofException("Task has already been completed.");
+        } else {
+            Date now = new Date();
+            String date = convertDateToString(now);
+            task.setStartDate(date);
+            ui.printStartAtCurrent(task, date);
+        }
     }
+
 
     /**
      * Parse String to get Task Description.
-     * @param task      Task object.
-     * @return          Description of task Task object.
+     *
+     * @param task Task object.
+     * @return Description of task Task object.
      */
     private String getTaskDescription(Task task) {
         String[] byDate = task.toString().split("/");
@@ -43,9 +66,10 @@ public class StartTrackerCommand extends Command {
 
     /**
      * Find Task object in TaskList where descriptions match.
-     * @param list              TaskList object.
-     * @return                  Task object that matches user given description.
-     * @throws OofException     if no matches are found.
+     *
+     * @param list TaskList object.
+     * @return Task object that matches user given description.
+     * @throws OofException if no matches are found.
      */
     Task findTask(TaskList list, String desc) throws OofException {
         Task task = null;
@@ -60,22 +84,6 @@ public class StartTrackerCommand extends Command {
             throw new OofException("Invalid Task Description!");
         }
         return task;
-    }
-
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OofException {
-        if (description.isEmpty()) {
-            throw new OofException("Please enter a Task!");
-        }
-        Task task = findTask(tasks, description);
-        if (isDone(task)) {
-            throw new OofException("Task has already been completed.");
-        } else {
-            Date now = new Date();
-            String date = convertDateToString(now);
-            task.setStartDate(date);
-            ui.printStartAtCurrent(task, date);
-        }
     }
 
     @Override

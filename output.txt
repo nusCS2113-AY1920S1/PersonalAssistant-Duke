@@ -23,3 +23,7 @@
 [D][N] homework (by: 20-10-2019 23:59)
 [T][N] borrow another book (on: 14-10-2019)
 [E][N] lecture (from: 08-11-2019 10:00 to: 08-11-2019 12:00)
+[D][N] homework (by: 21-10-2019 23:59)
+[D][N] homework (by: 20-10-2019 23:59)
+[T][N] borrow another book (on: 14-10-2019)
+[E][N] lecture (from: 08-11-2019 10:00 to: 08-11-2019 12:00)
