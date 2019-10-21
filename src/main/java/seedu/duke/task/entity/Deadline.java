@@ -24,10 +24,6 @@ public class Deadline extends Task {
         this.taskType = TaskType.Deadline;
     }
 
-    public LocalDateTime getTime() {
-        return time;
-    }
-
     /**
      * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
      * cannot be changed later. This method accepts another task to be done after the first task.
@@ -47,6 +43,14 @@ public class Deadline extends Task {
         setPriorityTo(priority);
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
     /**
      * Converts the Deadline to a human readable string containing important information about the Deadline,
      * including the type and time of this Deadline.
@@ -57,13 +61,13 @@ public class Deadline extends Task {
     public String toString() {
         String output = "";
         output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
-        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+        if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && this.priority != "") {
+        if (this.priority != null && !this.priority.equals("")) {
             output += " Priority: " + priority;
         }
         return output;
@@ -79,13 +83,13 @@ public class Deadline extends Task {
         String output = "";
         output = (this.isDone ? "1" : "0") + " deadline " + this.name + " -time "
                 + formatDate();
-        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+        if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " -tag " + tagName;
         }
-        if (this.priority != null && this.priority != "") {
+        if (this.priority != null && !this.priority.equals("")) {
             output += " -priority " + priority;
         }
         return output;
@@ -111,9 +115,7 @@ public class Deadline extends Task {
     public boolean isNear(int dayLimit) {
         LocalDateTime now = LocalDateTime.now();
         if (this.time.compareTo(now) >= 0) {
-            if (now.compareTo(this.time.minusDays(dayLimit)) >= 0) {
-                return true;
-            }
+            return now.compareTo(this.time.minusDays(dayLimit)) >= 0;
         }
         return false;
     }
@@ -149,9 +151,5 @@ public class Deadline extends Task {
             Duke.getUI().showError("Error when finding clashes of tasks.");
         }
         return false;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
     }
 }

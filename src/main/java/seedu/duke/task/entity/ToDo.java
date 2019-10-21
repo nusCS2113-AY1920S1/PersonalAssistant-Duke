@@ -44,13 +44,13 @@ public class ToDo extends Task {
     public String toString() {
         String output = "";
         output = "[T]" + this.getStatus();
-        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+        if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && this.priority != "") {
+        if (this.priority != null && !this.priority.equals("")) {
             output += " Priority: " + priority;
         }
         return output;
@@ -65,13 +65,13 @@ public class ToDo extends Task {
     public String toFileString() {
         String output = "";
         output = (this.isDone ? "1" : "0") + " todo " + this.name;
-        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+        if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " -tag " + tagName;
         }
-        if (this.priority != null && this.priority != "") {
+        if (this.priority != null && !this.priority.equals("")) {
             output += " -priority " + priority;
         }
         return output;

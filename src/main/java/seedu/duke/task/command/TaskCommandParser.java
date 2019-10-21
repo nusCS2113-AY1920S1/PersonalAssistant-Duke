@@ -18,11 +18,12 @@ import java.util.regex.Pattern;
 
 public class TaskCommandParser {
     private static UI ui = Duke.getUI();
+
     public static Command parseTaskCommand(String rawInput,
                                            ArrayList<Command.Option> optionList) {
         if (rawInput.length() <= 5) {
             return new InvalidCommand();
-       }
+        }
         String input = rawInput.split("task ", 2)[1].strip();
         if (input.equals("flip")) {
             return new FlipCommand();
@@ -54,65 +55,56 @@ public class TaskCommandParser {
         return new InvalidCommand();
     }
 
+    private static Matcher prepareCommandMatcher(String input, String s) {
+        Pattern commandPattern = Pattern.compile(s);
+        return commandPattern.matcher(input);
+    }
+
     private static Command parseDoneCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern doneCommandPattern = Pattern.compile("^done\\s+(?<index>\\d+)\\s*$");
-        Matcher doneCommandMatcher = doneCommandPattern.matcher(input);
+        Matcher doneCommandMatcher = prepareCommandMatcher(input, "^done\\s+(?<index>\\d+)\\s*$");
         if (!doneCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter a valid index of task after \'done\'");
-            }
+            showError("Please enter a valid index of task after \'done\'");
             return new InvalidCommand();
         }
         try {
             int index = parseTaskIndex(doneCommandMatcher.group("index"));
             return new TaskDoneCommand(index);
         } catch (NumberFormatException e) {
-            if (ui != null) {
-                ui.showError("Please enter correct task index: " + doneCommandMatcher.group(
+            showError("Please enter correct task index: " + doneCommandMatcher.group(
                         "index"));
-            }
         }
         return new InvalidCommand();
     }
 
     private static Command parseDeleteCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern deleteCommandPattern = Pattern.compile("^delete\\s+(?<index>\\d+)\\s*$");
-        Matcher deleteCommandMatcher = deleteCommandPattern.matcher(input);
+        Matcher deleteCommandMatcher = prepareCommandMatcher(input, "^delete\\s+(?<index>\\d+)\\s*$");
         if (!deleteCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter a valid index of task after \'delete\'");
-            }
+            showError("Please enter a valid index of task after \'delete\'");
             return new InvalidCommand();
         } else {
             try {
                 int index = parseTaskIndex(deleteCommandMatcher.group("index"));
                 return new TaskDeleteCommand(index);
             } catch (NumberFormatException e) {
-                if (ui != null) {
-                    ui.showError("Please enter correct task index: " + deleteCommandMatcher.group(
+                showError("Please enter correct task index: " + deleteCommandMatcher.group(
                             "index"));
-                }
             }
         }
         return new InvalidCommand();
     }
 
     private static int parseTaskIndex(String input) throws NumberFormatException {
-        TaskList taskList = Duke.getModel().getTaskList();
         int index = Integer.parseInt(input) - 1;
-        if (index < 0 || index >= taskList.size()) {
+        if (index < 0) {
             throw new NumberFormatException();
         }
         return index;
     }
 
     private static Command parseFindCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern findCommandPattern = Pattern.compile("^find\\s+(?<keyword>[\\w]+[\\s|\\w]*)\\s*$");
-        Matcher findCommandMatcher = findCommandPattern.matcher(input);
+        Matcher findCommandMatcher = prepareCommandMatcher(input, "^find\\s+(?<keyword>[\\w]+[\\s|\\w]*)\\s*$");
         if (!findCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter keyword for searching after \'find\'");
-            }
+            showError("Please enter keyword for searching after \'find\'");
         } else {
             String keyword = findCommandMatcher.group("keyword").strip();
             return new TaskFindCommand(keyword);
@@ -121,51 +113,59 @@ public class TaskCommandParser {
     }
 
     private static Command parseReminderCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern reminderCommandPattern = Pattern.compile("^reminder(?:\\s+(?<dayLimit>[\\d]*)\\s*)?");
-        Matcher reminderCommandMatcher = reminderCommandPattern.matcher(input);
+        Matcher reminderCommandMatcher = prepareCommandMatcher(input, "^reminder(?:\\s+(?<dayLimit>[\\d]*)\\s*)?");
         if (!reminderCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter reminder with or without a number, which is the maximum number "
+            showError("Please enter reminder with or without a number, which is the maximum number "
                         + "of days from now for a task to be considered as near");
-            }
             return new InvalidCommand();
         }
-        int dayLimit = -1;
         try {
-            String dayLimitString = reminderCommandMatcher.group("dayLimit");
-            if (dayLimitString.length() > 6) {
-                if (ui != null) {
-                    ui.showError("Reminder day limit too large. Default is used.");
-                }
+            int dayLimit = extractDayLimit(reminderCommandMatcher);
+            if (dayLimit < 0) {
+                showError("Reminder day limit cannot be negative. Default is used.");
                 return new TaskReminderCommand();
+            } else {
+                return new TaskReminderCommand(dayLimit);
             }
-            dayLimit = Integer.parseInt(dayLimitString);
         } catch (NumberFormatException e) {
-            if (ui != null) {
-                ui.showError("Reminder day limit in wrong format. Default is used.");
-            }
+            showError("Reminder day limit in wrong format. Default is used.");
             return new TaskReminderCommand();
-        }
-        if (dayLimit < 0) {
-            if (ui != null) {
-                ui.showError("Reminder day limit cannot be negative. Default is used.");
-            }
-            return new TaskReminderCommand();
-        } else {
-            return new TaskReminderCommand(dayLimit);
         }
     }
 
+    private static int extractDayLimit(Matcher reminderCommandMatcher) {
+        int dayLimit = -1;
+        String dayLimitString = reminderCommandMatcher.group("dayLimit");
+        if (dayLimitString.length() > 6) {
+            showError("Reminder day limit too large. Default is used.");
+        } else {
+            dayLimit = Integer.parseInt(dayLimitString);
+        }
+        return dayLimit;
+    }
+
     private static Command parseDoAfterCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern doAfterCommandPattern = Pattern.compile("^do[a|A]fter\\s+(?<index>[\\d]+)\\s*$");
-        Matcher doAfterCommandMatcher = doAfterCommandPattern.matcher(input);
+        Matcher doAfterCommandMatcher = prepareCommandMatcher(input, "^do[a|A]fter\\s+(?<index>[\\d]+)\\s*$");
         if (!doAfterCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter doAfter command in the correct format with index and description"
+            showError("Please enter doAfter command in the correct format with index and description"
                         + " in -msg option");
-            }
             return new InvalidCommand();
         }
+        String description = extractMsg(optionList);
+        if (description.equals("")) {
+            showError("Please enter a description of doAfter command after \'-msg \' option");
+            return new InvalidCommand();
+        }
+        try {
+            int index = parseTaskIndex(doAfterCommandMatcher.group("index"));
+            return new TaskDoAfterCommand(index, description);
+        } catch (NumberFormatException e) {
+            showError("Please enter a valid task index after \'doAfter\'");
+            return new InvalidCommand();
+        }
+    }
+
+    private static String extractMsg(ArrayList<Command.Option> optionList) {
         String description = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("msg")) {
@@ -173,72 +173,43 @@ public class TaskCommandParser {
                 break;
             }
         }
-        if (description.equals("")) {
-            if (ui != null) {
-                ui.showError("Please enter a description of doAfter command after \'-msg \' option");
-            }
-            return new InvalidCommand();
-        }
-        try {
-            int index = parseTaskIndex(doAfterCommandMatcher.group("index"));
-            return new TaskDoAfterCommand(index, description);
-        } catch (NumberFormatException e) {
-            if (ui != null) {
-                ui.showError("Please enter a valid task index after \'doAfter\'");
-            }
-            return new InvalidCommand();
-        }
+        return description;
     }
 
     private static Command parsePriorityCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern priorityCommandPattern = Pattern.compile("^set\\s+(?<index>[\\d]+)\\s*$");
-        Matcher priorityCommandMatcher = priorityCommandPattern.matcher(input);
+        Matcher priorityCommandMatcher = prepareCommandMatcher(input, "^set\\s+(?<index>[\\d]+)\\s*$");
         if (!priorityCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter index after 'set' command and priority level after '-priority' option");
-            }
-            return new InvalidCommand();
-        }
-        String priority = "";
-        for (Command.Option option : optionList) {
-            if (option.getKey().equals("priority")) {
-                priority = option.getValue();
-                break;
-            }
-        }
-        if (priority.equals("")) {
-            if (ui != null) {
-                ui.showError("Please enter a priority level to set for the task after \'-priority\' option");
-            }
+            showError("Please enter index after 'set' command and priority level after '-priority' option");
             return new InvalidCommand();
         }
         try {
+            String priority = extractPriority(optionList);
+            if (priority.equals("")) {
+                showError("Please enter a priority level to set for the task after \'-priority\' option");
+                return new InvalidCommand();
+            }
             int index = parseTaskIndex(priorityCommandMatcher.group("index"));
             return new TaskSetPriorityCommand(index, priority);
+        } catch (CommandParser.UserInputException e) {
+            showError(e.getMessage());
+            return new InvalidCommand();
         } catch (NumberFormatException e) {
-            if (ui != null) {
-                ui.showError("Please enter a valid task index after \'set\'");
-            }
+            showError("Please enter a valid task index after \'set\'");
             return new InvalidCommand();
         }
     }
 
     private static Command parseSnoozeCommand(String input, ArrayList<Command.Option> optionList) {
-        Pattern snoozeCommandPattern = Pattern.compile("^snooze\\s+(?<index>[\\d]+)\\s*");
-        Matcher snoozeCommandMatcher = snoozeCommandPattern.matcher(input);
+        Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*");
         if (!snoozeCommandMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter snooze command with an index");
-            }
+            showError("Please enter snooze command with an index");
             return new InvalidCommand();
         }
         try {
             int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
             return new TaskSnoozeCommand(index);
         } catch (NumberFormatException e) {
-            if (ui != null) {
-                ui.showError("Please enter a valid task index");
-            }
+            showError("Please enter a valid task index");
             return new InvalidCommand();
         }
     }
@@ -246,46 +217,48 @@ public class TaskCommandParser {
     private static Command parseUpdateCommand(String input, ArrayList<Command.Option> optionList) {
         ArrayList<TaskUpdateCommand.Attributes> attributes = new ArrayList<>();
         ArrayList<String> descriptions = new ArrayList<>();
-        int index;
-        Pattern editPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
-        Matcher editMatcher = editPattern.matcher(input);
+        Matcher editMatcher = prepareCommandMatcher(input, "^update\\s+(?<index>\\d+)\\s*$");
         if (!editMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter an index after \'update\'");
-            }
+            showError("Please enter an index after \'update\'");
             return new InvalidCommand();
-        } else {
-            try {
-                index = parseTaskIndex(editMatcher.group("index"));
-            } catch (NumberFormatException e) {
-                if (ui != null) {
-                    ui.showError("Please enter correct task index: " + editMatcher.group(
-                            "index"));
-                }
-                return new InvalidCommand();
-            }
         }
-
         try {
-            if (!CommandParser.extractTime(optionList).equals("")) {
-                descriptions.add(CommandParser.extractTime(optionList));
-                attributes.add(TaskUpdateCommand.Attributes.time);
-            }
-            if (!extractDoAfter(optionList).equals("")) {
-                descriptions.add(extractDoAfter(optionList));
-                attributes.add(TaskUpdateCommand.Attributes.doAfter);
-            }
-            if (!extractPriority(optionList).equals("")) {
-                descriptions.add(extractPriority(optionList));
-                attributes.add(TaskUpdateCommand.Attributes.priority);
-            }
+            int index = parseTaskIndex(editMatcher.group("index"));
+            addTimeToUpdateCommand(optionList, attributes, descriptions);
+            addDoAfterToUpdateCommand(optionList, attributes, descriptions);
+            addPriorityToUpdateCommand(optionList, attributes, descriptions);
             return new TaskUpdateCommand(index, descriptions, attributes);
+        } catch (NumberFormatException e) {
+            showError("Please enter correct task index: " + editMatcher.group(
+                        "index"));
+            return new InvalidCommand();
         } catch (CommandParser.UserInputException e) {
             return new InvalidCommand();
         }
     }
 
-    public static String extractDoAfter(ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
+    private static void addTimeToUpdateCommand(ArrayList<Command.Option> optionList, ArrayList<TaskUpdateCommand.Attributes> attributes, ArrayList<String> descriptions) throws CommandParser.UserInputException {
+        if (!CommandParser.extractTime(optionList).equals("")) {
+            descriptions.add(CommandParser.extractTime(optionList));
+            attributes.add(TaskUpdateCommand.Attributes.time);
+        }
+    }
+
+    private static void addDoAfterToUpdateCommand(ArrayList<Command.Option> optionList, ArrayList<TaskUpdateCommand.Attributes> attributes, ArrayList<String> descriptions) throws CommandParser.UserInputException {
+        if (!extractDoAfter(optionList).equals("")) {
+            descriptions.add(extractDoAfter(optionList));
+            attributes.add(TaskUpdateCommand.Attributes.doAfter);
+        }
+    }
+
+    private static void addPriorityToUpdateCommand(ArrayList<Command.Option> optionList, ArrayList<TaskUpdateCommand.Attributes> attributes, ArrayList<String> descriptions) throws CommandParser.UserInputException {
+        if (!extractPriority(optionList).equals("")) {
+            descriptions.add(extractPriority(optionList));
+            attributes.add(TaskUpdateCommand.Attributes.priority);
+        }
+    }
+
+    private static String extractDoAfter(ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
         String doafter = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("doafter")) {
@@ -299,7 +272,7 @@ public class TaskCommandParser {
         return doafter;
     }
 
-    public static String extractPriority(ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
+    private static String extractPriority(ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
         String priority = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("priority")) {
@@ -321,34 +294,31 @@ public class TaskCommandParser {
      * @param optionList contains all options specified in input command
      * @return an AddCommand of the task parsed from the input
      */
-    public static Command parseAddTaskCommand(String input,
-                                              ArrayList<Command.Option> optionList) {
-        LocalDateTime time;
-        String doAfter;
+    private static Command parseAddTaskCommand(String input,
+                                               ArrayList<Command.Option> optionList) {
         try {
-            doAfter = extractDoAfter(optionList);
+            String doAfter = extractDoAfter(optionList);
+            LocalDateTime time = parseTaskTime(optionList);
+            ArrayList<String> tags = CommandParser.extractTags(optionList);
+            String priority = extractPriority(optionList);
+            return constructAddCommandByType(input, doAfter, time, tags, priority);
         } catch (CommandParser.UserInputException e) {
-            if (ui != null) {
-                ui.showError(e.getMessage());
-            }
+            showError(e.getMessage());
             return new InvalidCommand();
         }
+    }
+
+    private static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
             String timeString = CommandParser.extractTime(optionList);
-            time = Task.parseDate(timeString);
+            LocalDateTime time = Task.parseDate(timeString);
+            return time;
         } catch (CommandParser.UserInputException e) {
-            time = null; //todo can tolerate a null time, but not event and deadline
+            return null;
         }
-        ArrayList<String> tags = CommandParser.extractTags(optionList);
-        String priority;
-        try {
-            priority = extractPriority(optionList);
-        } catch (CommandParser.UserInputException e) {
-            if (ui != null) {
-                ui.showError(e.getMessage());
-            }
-            return new InvalidCommand();
-        }
+    }
+
+    private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time, ArrayList<String> tags, String priority) {
         if (input.startsWith("todo")) {
             return parseAddToDoCommand(input, doAfter, tags, priority);
         } else if (input.startsWith("deadline")) {
@@ -363,12 +333,9 @@ public class TaskCommandParser {
     private static Command parseAddToDoCommand(String input, String doAfter,
                                                ArrayList<String> tags, String priority) {
         Task.TaskType taskType = Task.TaskType.ToDo;
-        Pattern toDoPattern = Pattern.compile("todo\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
-        Matcher toDoMatcher = toDoPattern.matcher(input);
+        Matcher toDoMatcher = prepareCommandMatcher(input, "todo\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!toDoMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter a name after todo");
-            }
+            showError("Please enter a name after todo");
             return new InvalidCommand();
         }
         String name = toDoMatcher.group("name");
@@ -379,19 +346,13 @@ public class TaskCommandParser {
                                                    LocalDateTime time, String doAfter,
                                                    ArrayList<String> tags, String priority) {
         Task.TaskType taskType = Task.TaskType.Deadline;
-        Pattern deadlinePattern = Pattern.compile("deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
-        Matcher deadlineMatcher = deadlinePattern.matcher(input);
+        Matcher deadlineMatcher = prepareCommandMatcher(input, "deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!deadlineMatcher.matches()) {
-            if (ui != null) {
-                ui.showDebug(input);
-                ui.showError("Please enter a name after \'deadline\'");
-            }
+            showError("Please enter a name after \'deadline\'");
             return new InvalidCommand();
         }
         if (time == null) {
-            if (ui != null) {
-                ui.showError("Please enter a time of correct format after \'-time\'");
-            }
+            showError("Please enter a time of correct format after \'-time\'");
             return new InvalidCommand();
         }
         String name = deadlineMatcher.group("name");
@@ -401,21 +362,28 @@ public class TaskCommandParser {
     private static Command parseEventCommand(String input, LocalDateTime time,
                                              String doAfter, ArrayList<String> tags, String priority) {
         Task.TaskType taskType = Task.TaskType.Event;
-        Pattern eventPattern = Pattern.compile("event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
-        Matcher eventMatcher = eventPattern.matcher(input);
+        Matcher eventMatcher = prepareCommandMatcher(input, "event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         if (!eventMatcher.matches()) {
-            if (ui != null) {
-                ui.showError("Please enter a name after \'event\'");
-            }
+            showError("Please enter a name after \'event\'");
             return new InvalidCommand();
         }
         if (time == null) {
-            if (ui != null) {
-                ui.showError("Please enter a time of correct format after \'-time\'");
-            }
+            showError("Please enter a time of correct format after \'-time\'");
             return new InvalidCommand();
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(taskType, name, time, doAfter, tags, priority);
+    }
+
+    /**
+     * Wraps around ui.showError by checking whether ui is null. This avoids the problem that ui is not
+     * initialized during unit test.
+     *
+     * @param errorMessage the error message to be shown
+     */
+    private static void showError(String errorMessage) {
+        if (ui != null) {
+            ui.showError(errorMessage);
+        }
     }
 }

@@ -11,7 +11,7 @@ public class TaskSnoozeCommand extends Command {
     /**
      * Instantiation of the snooze command which can be used to snooze a task.
      *
-     * @param index    the index of the task to be snoozed
+     * @param index the index of the task to be snoozed
      */
     TaskSnoozeCommand(int index) {
         this.index = index;

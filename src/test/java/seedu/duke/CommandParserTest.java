@@ -75,7 +75,7 @@ public class CommandParserTest {
     @Test
     public void parseDoneCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
             Method method =
                     parser.getDeclaredMethod("parseDoneCommand", String.class, ArrayList.class);
             method.setAccessible(true);
@@ -99,16 +99,14 @@ public class CommandParserTest {
     @Test
     public void parseDeleteCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class, TaskList.class,
-                    ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "delete 1", null, null) instanceof TaskDeleteCommand);
-            assertTrue(method.invoke(null, "delete 1", null, null) instanceof TaskDeleteCommand);
-            assertTrue(method.invoke(null, "delete 1  ", null, null) instanceof TaskDeleteCommand);
-            assertTrue(method.invoke(null, "delete ", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "delete 1  a", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "delete 1a", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 1", null) instanceof TaskDeleteCommand);
+            assertTrue(method.invoke(null, "delete 1  ", null) instanceof TaskDeleteCommand);
+            assertTrue(method.invoke(null, "delete ", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 1  a", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 1a", null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -123,13 +121,12 @@ public class CommandParserTest {
     @Test
     public void parseFindCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseFindCommand", String.class, TaskList.class,
-                    ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseFindCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "find 1", null, null) instanceof TaskFindCommand);
-            assertTrue(method.invoke(null, "find 1 a", null, null) instanceof TaskFindCommand);
-            assertTrue(method.invoke(null, "find   ", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "find 1", null) instanceof TaskFindCommand);
+            assertTrue(method.invoke(null, "find 1 a", null) instanceof TaskFindCommand);
+            assertTrue(method.invoke(null, "find   ",  null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -144,17 +141,16 @@ public class CommandParserTest {
     @Test
     public void parseReminderCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseReminderCommand", String.class, TaskList.class,
-                    ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseReminderCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "reminder 1", null, null) instanceof TaskReminderCommand);
-            assertTrue(method.invoke(null, "reminder 1000000000000000", null, null) instanceof TaskReminderCommand);
-            assertTrue(method.invoke(null, "reminder 1 a", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "reminder -1", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "reminder 00 ", null, null) instanceof TaskReminderCommand);
-            assertTrue(method.invoke(null, "reminder abc ", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "reminder 123 abc ", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder 1", null) instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder 1000000000000000", null) instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder 1 a", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder -1", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder 00 ", null) instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder abc ", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder 123 abc ", null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -169,28 +165,27 @@ public class CommandParserTest {
     @Test
     public void parseDoAfterCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseDoAfterCommand", String.class,
-                    TaskList.class, ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseDoAfterCommand", String.class, ArrayList.class);
             method.setAccessible(true);
 
             ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
                     "msg", "do after description")));
-            method.invoke(null, "doAfter 1", null, optionListCorrect);
+            method.invoke(null, "doAfter 1", optionListCorrect);
 
-            assertTrue(method.invoke(null, "doAfter 1", null, optionListCorrect) instanceof TaskDoAfterCommand);
-            assertTrue(method.invoke(null, "doafter 1", null, optionListCorrect) instanceof TaskDoAfterCommand);
-            assertTrue(method.invoke(null, "doafter ", null, optionListCorrect) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "doafter", null, optionListCorrect) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "doafter 123abc", null, optionListCorrect) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "doafter 1 23", null, optionListCorrect) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "doAfter 1", optionListCorrect) instanceof TaskDoAfterCommand);
+            assertTrue(method.invoke(null, "doafter 1", optionListCorrect) instanceof TaskDoAfterCommand);
+            assertTrue(method.invoke(null, "doafter ", optionListCorrect) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "doafter", optionListCorrect) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "doafter 123abc", optionListCorrect) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "doafter 1 23", optionListCorrect) instanceof InvalidCommand);
 
             ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
-            assertTrue(method.invoke(null, "doafter 1", null, optionListEmpty) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "doafter 1", optionListEmpty) instanceof InvalidCommand);
 
             ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
                     "msg", "do after description"), new Command.Option("tag", "123")));
-            assertTrue(method.invoke(null, "doafter 1", null, optionListExtra) instanceof TaskDoAfterCommand);
+            assertTrue(method.invoke(null, "doafter 1", optionListExtra) instanceof TaskDoAfterCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -205,16 +200,15 @@ public class CommandParserTest {
     @Test
     public void parseSnoozeCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, TaskList.class,
-                    ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, ArrayList.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "snooze 1", null, null) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1", null, null) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1  ", null, null) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze ", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1  a", null, null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1a", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1", null) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1", null) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1  ", null) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze ", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1  a", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1a", null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -229,21 +223,21 @@ public class CommandParserTest {
     @Test
     public void parseAddToDoCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseAddToDoCommand", TaskList.class, String.class,
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseAddToDoCommand", String.class,
                     String.class, ArrayList.class, String.class);
             method.setAccessible(true);
 
             ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
             String doafter = "345";
 
-            assertTrue(method.invoke(null, null, "todo 123", null, null, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "todo 123", null, tagList, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "todo 123", doafter, tagList, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "todo 123 234", null, null, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "todo abc 123 /", null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "todo ", null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "todo", null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "todo 123", null, null, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "todo 123", null, tagList, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "todo 123", doafter, tagList, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "todo 123 234", null, null, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "todo abc 123 /", null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "todo ", null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "todo", null, null, "") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -258,23 +252,23 @@ public class CommandParserTest {
     @Test
     public void parseAddDeadlineCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", TaskList.class,
-                    String.class, LocalDateTime.class, String.class, ArrayList.class, String.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", String.class,
+                    LocalDateTime.class, String.class, ArrayList.class, String.class);
             method.setAccessible(true);
 
             ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
             LocalDateTime time = Task.parseDate("11/12/2019 1220");
             String doafter = "345";
 
-            assertTrue(method.invoke(null, null, "deadline 123", time, null, null, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "deadline 123", time, null, tagList, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "deadline 123", time, doafter, tagList, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "deadline 123 234", time, null, null, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "deadline abc 123 /", time, null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "deadline ", time, null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "deadline", time, null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "deadline 123", null, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "deadline 123", time, null, null, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "deadline 123", time, null, tagList, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "deadline 123", time, doafter, tagList, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "deadline 123 234", time, null, null, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "deadline abc 123 /", time, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "deadline ", time, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "deadline", time, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "deadline 123", null, null, null, "") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -290,23 +284,23 @@ public class CommandParserTest {
     @Test
     public void parseAddEventCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseEventCommand", TaskList.class,
-                    String.class, LocalDateTime.class, String.class, ArrayList.class, String.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Method method = parser.getDeclaredMethod("parseEventCommand", String.class, LocalDateTime.class
+                    , String.class, ArrayList.class, String.class);
             method.setAccessible(true);
 
             ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
             LocalDateTime time = Task.parseDate("11/12/2019 1220");
             String doafter = "345";
 
-            assertTrue(method.invoke(null, null, "event 123", time, null, null, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "event 123", time, null, tagList, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "event 123", time, doafter, tagList, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "event 123 234", time, null, null, "") instanceof TaskAddCommand);
-            assertTrue(method.invoke(null, null, "event abc 123 /", time, null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "event ", time, null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "event", time, null, null, "") instanceof InvalidCommand);
-            assertTrue(method.invoke(null, null, "event 123", null, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "event 123", time, null, null, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "event 123", time, null, tagList, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "event 123", time, doafter, tagList, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "event 123 234", time, null, null, "") instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, "event abc 123 /", time, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "event ", time, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "event", time, null, null, "") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "event 123", null, null, null, "") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {

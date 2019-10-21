@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static seedu.duke.email.EmailContentParser.allKeywordInEmail;
@@ -75,21 +74,30 @@ public class EmailStorage {
      */
     public static void syncWithServer() {
         EmailList serverEmailList = Http.fetchEmail(60);
+        combineServerAndLocalEmailList(serverEmailList);
+        Duke.getModel().updateGuiEmailList();
+        saveEmails(Duke.getModel().getEmailList());
+    }
+
+    private static void combineServerAndLocalEmailList(EmailList serverEmailList) {
         for (Email serverEmail : serverEmailList) {
-            boolean exist = false;
-            for (Email localEmail : Duke.getModel().getEmailList()) {
-                if (localEmail.getSubject().equals(serverEmail.getSubject())) {
-                    exist = true;
-                    break;
-                }
-            }
-            if (!exist) {
+            if (!emailRepeated(serverEmail)) {
                 allKeywordInEmail(serverEmail);
                 Duke.getModel().getEmailList().add(serverEmail);
             }
         }
-        Duke.getModel().updateGuiEmailList();
-        saveEmails(Duke.getModel().getEmailList());
+    }
+
+    private static boolean emailRepeated(Email serverEmail) {
+        boolean exist = false;
+        for (Email localEmail : Duke.getModel().getEmailList()) {
+            if (localEmail.getSubject().equals(serverEmail.getSubject())
+                    && serverEmail.getReceivedDateTime().equals(localEmail.getReceivedDateTime())) {
+                exist = true;
+                break;
+            }
+        }
+        return exist;
     }
 
     /**
@@ -101,32 +109,49 @@ public class EmailStorage {
     public static void saveEmails(EmailList emailList) {
         try {
             prepareFolder();
-            String folderDir = getFolderDir();
-            String indexDir = getEmailIndexDir();
-            File indexFile = new File(indexDir);
-            indexFile.createNewFile();
-            FileOutputStream indexOut = new FileOutputStream(indexFile, false);
-            String content = "";
-            for (Email email : emailList) {
-                content += email.toIndexJson().toString() + "\n";
-            }
-            indexOut.write(content.getBytes());
-            indexOut.close();
-            for (Email email : emailList) {
-                if (email.getBody() != null) {
-                    File emailSource = new File(folderDir + email.toFilename());
-                    emailSource.createNewFile();
-                    FileOutputStream emailOut = new FileOutputStream(emailSource, false);
-                    emailOut.write(email.getRawJson().getBytes());
-                    emailOut.close();
-                }
-            }
+            saveEmailListToIndex(emailList);
+            saveEmailListToFolder(emailList);
         } catch (IOException e) {
             e.printStackTrace();
             Duke.getUI().showError("Write to output file IO exception!");
         } catch (JSONException e) {
             Duke.getUI().showError("Email index formatting exception!");
         }
+    }
+
+    private static void saveEmailListToFolder(EmailList emailList) throws IOException {
+        String folderDir = getFolderDir();
+        for (Email email : emailList) {
+            if (email.getBody() != null) {
+                saveEmailToFolder(folderDir, email);
+            }
+        }
+    }
+
+    private static void saveEmailToFolder(String folderDir, Email email) throws IOException {
+        File emailSource = new File(folderDir + email.toFilename());
+        emailSource.createNewFile();
+        FileOutputStream emailOut = new FileOutputStream(emailSource, false);
+        emailOut.write(email.getRawJson().getBytes());
+        emailOut.close();
+    }
+
+    private static void saveEmailListToIndex(EmailList emailList) throws IOException, JSONException {
+        String indexDir = getEmailIndexDir();
+        File indexFile = new File(indexDir);
+        indexFile.createNewFile();
+        FileOutputStream indexOut = new FileOutputStream(indexFile, false);
+        String content = prepareEmailListIndexString(emailList);
+        indexOut.write(content.getBytes());
+        indexOut.close();
+    }
+
+    private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
+        String content = "";
+        for (Email email : emailList) {
+            content += email.toIndexJson().toString() + "\n";
+        }
+        return content;
     }
 
     private static void prepareFolder() throws IOException {
@@ -154,22 +179,7 @@ public class EmailStorage {
             Scanner scanner = new Scanner(indexIn);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
-                Email indexEmail = EmailFormatParser.parseIndexJson(input);
-                String filename = indexEmail.toFilename();
-
-                String fileDir = getFolderDir() + filename;
-                File emailFile = new File(fileDir);
-                FileInputStream emailIn = new FileInputStream(emailFile);
-                Scanner emailScanner = new Scanner(emailIn);
-                String emailContent = "";
-                while (emailScanner.hasNextLine()) {
-                    emailContent += emailScanner.nextLine();
-                }
-                Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
-                for (Email.Tag tag : indexEmail.getTags()) {
-                    fileEmail.addTag(tag);
-                }
-                emailList.add(fileEmail);
+                readEmailWithIndexString(emailList, input);
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");
             indexIn.close();
@@ -182,6 +192,39 @@ public class EmailStorage {
             Duke.getUI().showError("Email save file is in wrong format");
         }
         return emailList;
+    }
+
+    private static void readEmailWithIndexString(EmailList emailList, String input) throws EmailFormatParser.EmailParsingException, FileNotFoundException {
+        Email indexEmail = EmailFormatParser.parseIndexJson(input);
+        String filename = indexEmail.toFilename();
+        Email fileEmail = readEmailFromFolder(indexEmail, filename);
+        emailList.add(fileEmail);
+    }
+
+    private static Email readEmailFromFolder(Email indexEmail, String filename) throws FileNotFoundException, EmailFormatParser.EmailParsingException {
+        String emailContent = readEmailContentFromFolder(filename);
+        Email fileEmail = parseEmailFromFolder(indexEmail, emailContent);
+        return fileEmail;
+    }
+
+    private static Email parseEmailFromFolder(Email indexEmail, String emailContent) throws EmailFormatParser.EmailParsingException {
+        Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
+        for (Email.Tag tag : indexEmail.getTags()) {
+            fileEmail.addTag(tag);
+        }
+        return fileEmail;
+    }
+
+    private static String readEmailContentFromFolder(String filename) throws FileNotFoundException {
+        String fileDir = getFolderDir() + filename;
+        File emailFile = new File(fileDir);
+        FileInputStream emailIn = new FileInputStream(emailFile);
+        Scanner emailScanner = new Scanner(emailIn);
+        String emailContent = "";
+        while (emailScanner.hasNextLine()) {
+            emailContent += emailScanner.nextLine();
+        }
+        return emailContent;
     }
 
     /**
@@ -210,17 +253,22 @@ public class EmailStorage {
         String token = "";
         try {
             prepareFolder();
-            File userInfoFile = new File(getUserInfoDir());
-            userInfoFile.createNewFile();
-            FileInputStream in = new FileInputStream(userInfoFile);
-            Scanner scanner = new Scanner(in);
-            while (scanner.hasNext()) {
-                token += scanner.next();
-            }
+            token = readRefreshTokenContent(token);
         } catch (FileNotFoundException e) {
             Duke.getUI().showError("User info file not found");
         } catch (IOException e) {
             Duke.getUI().showError("Read user info file IO Exception");
+        }
+        return token;
+    }
+
+    private static String readRefreshTokenContent(String token) throws IOException {
+        File userInfoFile = new File(getUserInfoDir());
+        userInfoFile.createNewFile();
+        FileInputStream in = new FileInputStream(userInfoFile);
+        Scanner scanner = new Scanner(in);
+        while (scanner.hasNext()) {
+            token += scanner.next();
         }
         return token;
     }

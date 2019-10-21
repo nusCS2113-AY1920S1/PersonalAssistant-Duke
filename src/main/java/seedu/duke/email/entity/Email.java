@@ -15,21 +15,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Email {
+    protected ArrayList<Tag> tags = new ArrayList<>();
     private String subject;
     private EmailFormatParser.Sender sender;
     private LocalDateTime receivedDateTime;
     private String body;
-    protected ArrayList<Tag> tags = new ArrayList<>();
     private String rawJson;
-
-    //@FXML
-    //private WebView webView;
 
     public Email(String subject) {
         this.subject = subject;
@@ -136,19 +131,18 @@ public class Email {
      * @return email body after the coloring
      */
     public String colorBodyOnTag() {
-        Tag highestTag = null;
-        for (Tag tag : tags) {
-            if (!tag.getKeywordPair().getKeyword().equals("Spam")
-                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
-                highestTag = tag;
-            }
-        }
+        Tag highestTag = findHighestTag();
         if (highestTag == null) {
             return body;
         }
         String output = this.body;
         ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
         expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
+        output = addColorToExpressions(output, expressions);
+        return output;
+    }
+
+    private String addColorToExpressions(String output, ArrayList<String> expressions) {
         for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
@@ -156,6 +150,17 @@ public class Email {
             output = colorMatcher.replaceAll("<font style=\"color:red\">" + expression + "</font>");
         }
         return output;
+    }
+
+    private Tag findHighestTag() {
+        Tag highestTag = null;
+        for (Tag tag : tags) {
+            if (!tag.getKeywordPair().getKeyword().equals("Spam")
+                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
+                highestTag = tag;
+            }
+        }
+        return highestTag;
     }
 
     public String getRawJson() {
@@ -175,19 +180,6 @@ public class Email {
         return EmailStorage.getFolderDir() + File.separator + this.subject;
     }
 
-    ///**
-    // * Show this email on browser. To be replaced by JavaFx code for UI display.
-    // *
-    // * @throws IOException if fails to load the filepath or open the browser.
-    // */
-    //@FXML
-    //public String getShowEmailPath() throws IOException {
-    //    File emailFile = new File(this.filepath);
-    //    //Desktop.getDesktop().browse(emailFile.toURI());
-    //    String path = emailFile.toURI().toURL().toString();
-    //    return path;
-    //}
-
     public String toFilename() {
         String filename = shaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
         return filename;
@@ -203,12 +195,17 @@ public class Email {
         indexJson.put("subject", this.subject);
         indexJson.put("sender", this.sender.toString());
         indexJson.put("receivedDateTime", this.getDateTimeString());
+        JSONArray tagArray = prepareTagJsonArray();
+        indexJson.put("tags", tagArray);
+        return indexJson;
+    }
+
+    private JSONArray prepareTagJsonArray() throws JSONException {
         JSONArray tagArray = new JSONArray();
         for (Tag tag : this.tags) {
             tagArray.put(tag.toJsonObject());
         }
-        indexJson.put("tags", tagArray);
-        return indexJson;
+        return tagArray;
     }
 
     private String getDateTimeString() {
@@ -253,14 +250,14 @@ public class Email {
 
     /**
      * Converts information about email to string that will be displayed to user.
+     *
      * @return string that will be displayed in GUI
      */
     public String toGuiString() {
         String guiStr = this.subject;
         if (tags.size() > 0) {
             guiStr += "\n";
-            for (Tag tag : tags)
-            {
+            for (Tag tag : tags) {
                 guiStr += " #" + tag.getKeywordPair().getKeyword();
             }
         }

@@ -23,6 +23,7 @@ public class EmailContentParser {
 
     /**
      * Finds all keywords in email.
+     *
      * @param email Email to be scanned for keywords
      */
     public static void allKeywordInEmail(Email email) {

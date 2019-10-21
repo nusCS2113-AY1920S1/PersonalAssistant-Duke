@@ -15,7 +15,7 @@ public class TaskDeleteCommand extends Command {
     /**
      * Instantiation of delete command with all the necessary variables.
      *
-     * @param index    the index of task that is to be deleted
+     * @param index the index of task that is to be deleted
      */
     TaskDeleteCommand(int index) {
         this.index = index;

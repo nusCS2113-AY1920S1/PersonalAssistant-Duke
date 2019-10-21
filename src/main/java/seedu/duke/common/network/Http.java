@@ -1,12 +1,12 @@
 package seedu.duke.common.network;
 
+import javafx.application.Platform;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailFormatParser;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.email.entity.Email;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -40,7 +40,7 @@ public class Http {
      */
     public static void startAuthProcess() {
         refreshToken = EmailStorage.readRefreshToken();
-        if (refreshToken == "") {
+        if (refreshToken.equals("")) {
             getAuth();
         } else {
             refreshAccess();
@@ -66,7 +66,13 @@ public class Http {
     private static void setAccessToken(String token) {
         //Duke.getUI().showDebug("Access Token Set: " + token);
         accessToken = token;
-        EmailStorage.syncWithServer();
+        //Solves the problem of HTTP not on the same thread as the FX
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                EmailStorage.syncWithServer();
+            }
+        });
     }
 
     private static void setRefreshToken(String token) {
@@ -81,16 +87,12 @@ public class Http {
      * @return the list of emails fetched
      */
     public static EmailList fetchEmail(int limit) {
-        JSONObject apiParams = new JSONObject();
-        try {
-            apiParams.put("select", "subject,from,body,receivedDateTime");
-            if (limit > 0) {
-                apiParams.put("top", Integer.toString(limit));
-            }
-            apiParams.put("orderby", "receivedDateTime%20desc");
-        } catch (JSONException e) {
-            Duke.getUI().showError("Api parameter error...");
-        }
+        JSONObject apiParams = prepareParams(limit);
+        EmailList emailList = callFetchEmailWithParams(apiParams);
+        return emailList;
+    }
+
+    private static EmailList callFetchEmailWithParams(JSONObject apiParams) {
         try {
             String httpResponse = callEmailApi(apiParams);
             EmailList emailList = EmailFormatParser.parseFetchResponse(httpResponse);
@@ -101,15 +103,33 @@ public class Http {
         return new EmailList();
     }
 
+    private static JSONObject prepareParams(int limit) {
+        JSONObject apiParams = new JSONObject();
+        try {
+            apiParams.put("select", "subject,from,body,receivedDateTime");
+            if (limit > 0) {
+                apiParams.put("top", Integer.toString(limit));
+            }
+            apiParams.put("orderby", "receivedDateTime%20desc");
+        } catch (JSONException e) {
+            Duke.getUI().showError("Api parameter error...");
+        }
+        return apiParams;
+    }
+
     /**
      * Fetches a new Authorization Code from Outlook. It also calls to start the server to prepare receiving
      * the code from Outlook redirection.
      */
     private static void getAuth() {
         SimpleServer.startServer();
-        openBrowser("https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id="
+        openBrowser(prepareAuthUrl());
+    }
+
+    private static String prepareAuthUrl() {
+        return "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id="
                 + clientId + "&response_type=code"
-                + "&redirect_uri=" + redirect + "&scope=" + scope);
+                + "&redirect_uri=" + redirect + "&scope=" + scope;
     }
 
     /**
@@ -120,13 +140,10 @@ public class Http {
     // .com/questions/40574892/how-to-send-post-request-with-x-www-form-urlencoded-body
     private static void getAccess() {
         try {
-            String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
-            HttpURLConnection conn = setupAccessConnection(requestUrl);
+            HttpURLConnection conn = setupAccessConnection();
 
-            StringBuffer content = getConnectionResponse(conn);
-            JSONObject json = new JSONObject(content.toString());
-            setAccessToken(json.getString("access_token"));
-            setRefreshToken(json.getString("refresh_token"));
+            String response = getConnectionResponse(conn);
+            setTokensFromResponse(response);
         } catch (MalformedURLException e) {
             Duke.getUI().showError("Access Code url in wrong format...");
         } catch (IOException e) {
@@ -135,18 +152,20 @@ public class Http {
             Duke.getUI().showError("Access code response in wrong format...");
         }
     }
+
+    private static void setTokensFromResponse(String response) throws JSONException {
+        JSONObject json = new JSONObject(response);
+        setAccessToken(json.getString("access_token"));
+        setRefreshToken(json.getString("refresh_token"));
+    }
     //@@author
 
     private static void refreshAccess() {
         try {
-            String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
-            HttpURLConnection conn = setupRefreshConnection(requestUrl);
-
-            StringBuffer content = getConnectionResponse(conn);
-            Duke.getUI().showDebug(content.toString());
-            JSONObject json = new JSONObject(content.toString());
-            setAccessToken(json.getString("access_token"));
-            setRefreshToken(json.getString("refresh_token"));
+            HttpURLConnection conn = setupRefreshConnection();
+            String response = getConnectionResponse(conn);
+            Duke.getUI().showDebug(response);
+            setTokensFromResponse(response);
         } catch (MalformedURLException e) {
             Duke.getUI().showError("Refresh Access Code url in wrong format...");
         } catch (IOException e) {
@@ -167,12 +186,11 @@ public class Http {
     private static String callEmailApi(JSONObject params) {
         String url = "";
         try {
-            url = getApiUrl(params);
+            url = prepareApiUrl(params);
             //Duke.getUI().showDebug(url);
             HttpURLConnection conn = setupEmailConnection(url);
-
-            StringBuffer content = getConnectionResponse(conn);
-            return content.toString();
+            String content = getConnectionResponse(conn);
+            return content;
         } catch (JSONException e) {
             Duke.getUI().showError("Api params serializing error...");
         } catch (MalformedURLException e) {
@@ -187,7 +205,7 @@ public class Http {
     //@@author
 
     //convert the parameters for email api call in json to a url in string
-    private static String getApiUrl(JSONObject params) throws JSONException {
+    private static String prepareApiUrl(JSONObject params) throws JSONException {
         String url = "https://graph.microsoft.com/v1.0/me/mailfolders/inbox/messages?";
         Iterator<String> keys = params.keys();
 
@@ -202,34 +220,44 @@ public class Http {
     }
 
     private static HttpURLConnection setupEmailConnection(String link) throws IOException {
-        URL url;
-        url = new URL(link);
+        URL url = new URL(link);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        configureEmailConnection(conn);
+        return conn;
+    }
+
+    private static void configureEmailConnection(HttpURLConnection conn) throws ProtocolException {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + accessToken);
         conn.setRequestProperty("Accept", "application/json");
         conn.setConnectTimeout(5000);
         conn.setInstanceFollowRedirects(false);
-        return conn;
     }
 
-    private static HttpURLConnection setupAccessConnection(String requestUrl) throws IOException {
+    private static HttpURLConnection setupAccessConnection() throws IOException {
+        String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
         String params = "client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + authCode
                 + "&redirect_uri=" + redirect + "&grant_type=authorization_code";
         return setupPostRequestConnection(requestUrl, params);
     }
 
-    private static HttpURLConnection setupRefreshConnection(String requestUrl) throws IOException {
+    private static HttpURLConnection setupRefreshConnection() throws IOException {
+        String requestUrl = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
         String params = "client_id=" + clientId + "&client_secret=" + clientSecret
                 + "&refresh_token=" + refreshToken + "&scope=" + scope + "&grant_type=refresh_token";
         return setupPostRequestConnection(requestUrl, params);
     }
 
     private static HttpURLConnection setupPostRequestConnection(String requestUrl, String params) throws IOException {
-        byte[] postData = params.getBytes(StandardCharsets.UTF_8);
-        int postDataLength = postData.length;
         URL url = new URL(requestUrl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        configurePostRequestConnection(conn, params);
+        return conn;
+    }
+
+    private static void configurePostRequestConnection(HttpURLConnection conn, String params) throws IOException {
+        byte[] postData = params.getBytes(StandardCharsets.UTF_8);
+        int postDataLength = postData.length;
         conn.setDoOutput(true);
         conn.setInstanceFollowRedirects(false);
         conn.setRequestMethod("POST");
@@ -239,28 +267,34 @@ public class Http {
         conn.setUseCaches(false);
         DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
         wr.write(postData);
-        return conn;
     }
 
-    private static StringBuffer getConnectionResponse(HttpURLConnection conn) throws IOException {
+    private static String getConnectionResponse(HttpURLConnection conn) throws IOException {
+        BufferedReader in = prepareBufferedReader(conn);
+        StringBuffer response = readFromBuffer(in);
+        conn.disconnect();
+        return response.toString();
+    }
+
+    private static StringBuffer readFromBuffer(BufferedReader in) throws IOException {
+        StringBuffer response = new StringBuffer();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return response;
+    }
+
+    private static BufferedReader prepareBufferedReader(HttpURLConnection conn) throws IOException {
         int status = conn.getResponseCode();
-        Reader streamReader = null;
+        Reader streamReader;
         if (status > 299) {
             streamReader = new InputStreamReader(conn.getErrorStream());
         } else {
             streamReader = new InputStreamReader(conn.getInputStream());
         }
-
-        BufferedReader in = new BufferedReader(streamReader);
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-
-        conn.disconnect();
-        return content;
+        return new BufferedReader(streamReader);
     }
 
     /**

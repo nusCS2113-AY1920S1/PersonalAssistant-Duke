@@ -15,46 +15,33 @@ import java.util.Locale;
  */
 public class Task {
     /**
-     * The name of the task.
-     */
-    protected String name;
-
-    /**
-     * The flag whether is task is already done. Can only be set from false to true.
-     */
-    protected boolean isDone;
-
-    /**
-     * The type of the task, following the enumeration declared.
-     */
-    protected TaskType taskType;
-
-    protected String doAfterDescription;
-
-    /**
-     * The tag list that the task has.
-     */
-    protected ArrayList<String> tags;
-
-    /**
-     * The priority assigned to the task.
-     */
-    protected String priority;
-
-    /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
     protected static DateTimeFormatter format = DateTimeFormatter
             .ofPattern("dd/MM/uuuu HHmm", Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
-
-
     /**
-     * The enumeration of all task type.
+     * The name of the task.
      */
-    public enum TaskType {
-        ToDo, Deadline, Event
-    }
+    protected String name;
+    /**
+     * The flag whether is task is already done. Can only be set from false to true.
+     */
+    protected boolean isDone;
+    /**
+     * The type of the task, following the enumeration declared.
+     */
+    protected TaskType taskType;
+    protected String doAfterDescription;
+    /**
+     * The tag list that the task has.
+     */
+    protected ArrayList<String> tags;
+    /**
+     * The priority assigned to the task.
+     */
+    protected String priority;
+
 
     /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
@@ -67,6 +54,24 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
+    }
+
+    /**
+     * The function is used to parse the input string to a Date that is used by the tasks with time involved.
+     * The function can be called before the initialization of a Task so that the Data can be directly passed
+     * to the constructor.
+     *
+     * @param dateString an input string to be parsed
+     * @return parsed result from the input string
+     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     *                                          wrong format
+     */
+    public static LocalDateTime parseDate(String dateString) throws CommandParser.UserInputException {
+        try {
+            return LocalDateTime.parse(dateString, format);
+        } catch (DateTimeParseException e) {
+            throw new CommandParser.UserInputException("Wrong Date Time format");
+        }
     }
 
     /**
@@ -123,24 +128,6 @@ public class Task {
     }
 
     /**
-     * The function is used to parse the input string to a Date that is used by the tasks with time involved.
-     * The function can be called before the initialization of a Task so that the Data can be directly passed
-     * to the constructor.
-     *
-     * @param dateString an input string to be parsed
-     * @return parsed result from the input string
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
-     *                                          wrong format
-     */
-    public static LocalDateTime parseDate(String dateString) throws CommandParser.UserInputException {
-        try {
-            return LocalDateTime.parse(dateString, format);
-        } catch (DateTimeParseException e) {
-            throw new CommandParser.UserInputException("Wrong Date Time format");
-        }
-    }
-
-    /**
      * The function checks whether this task, when converted to string, contains the keyword specified.
      *
      * @param keyword search target string
@@ -161,10 +148,6 @@ public class Task {
         return false;
     }
 
-    public void setDoAfterDescription(String description) {
-        this.doAfterDescription = description;
-    }
-
     public void snooze() {
     }
 
@@ -172,12 +155,12 @@ public class Task {
         return false;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setTags(ArrayList<String> tags) {
@@ -188,7 +171,18 @@ public class Task {
         return doAfterDescription;
     }
 
+    public void setDoAfterDescription(String description) {
+        this.doAfterDescription = description;
+    }
+
     public void setPriorityTo(String priority) {
         this.priority = priority;
+    }
+
+    /**
+     * The enumeration of all task type.
+     */
+    public enum TaskType {
+        ToDo, Deadline, Event
     }
 }

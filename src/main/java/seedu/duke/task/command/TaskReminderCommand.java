@@ -33,6 +33,14 @@ public class TaskReminderCommand extends Command {
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
         TaskList nearTasks = taskList.findNear(dayLimit);
+        responseMsg = constructReminderMessage(nearTasks);
+        if (!silent) {
+            Duke.getUI().showResponse(responseMsg);
+        }
+        return true;
+    }
+
+    private String constructReminderMessage(TaskList nearTasks) {
         String msg = "";
         if (nearTasks.size() == 0) {
             msg += "There is no near event or deadline. ";
@@ -40,10 +48,6 @@ public class TaskReminderCommand extends Command {
             msg += "There are near events or deadlines within " + dayLimit + " days: \n";
             msg += nearTasks.toString();
         }
-        responseMsg = msg;
-        if (!silent) {
-            Duke.getUI().showResponse(msg);
-        }
-        return true;
+        return msg;
     }
 }

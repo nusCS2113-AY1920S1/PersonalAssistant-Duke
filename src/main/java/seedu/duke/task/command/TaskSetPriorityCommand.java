@@ -31,19 +31,18 @@ public class TaskSetPriorityCommand extends Command {
      */
     @Override
     public boolean execute() {
-        String msg = "";
-        TaskList taskList = Duke.getModel().getTaskList();
         try {
-            msg = taskList.setPriority(index, priorityLevel);
+            TaskList taskList = Duke.getModel().getTaskList();
+            String msg = taskList.setPriority(index, priorityLevel);
+            if (!silent) {
+                Duke.getUI().showResponse(msg);
+            }
+            return true;
         } catch (CommandParser.UserInputException e) {
             if (!silent) {
                 Duke.getUI().showError(e.getMessage());
             }
             return false;
         }
-        if (!silent) {
-            Duke.getUI().showResponse(msg);
-        }
-        return true;
     }
 }

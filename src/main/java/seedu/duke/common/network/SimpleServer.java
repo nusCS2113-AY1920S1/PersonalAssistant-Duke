@@ -31,6 +31,17 @@ public class SimpleServer {
         }
     }
 
+    private static void parseAuthCode(String url) {
+        int index = url.indexOf("code=");
+        if (index == -1) {
+            Duke.getUI().showError("Auth code parsing failed: " + url);
+            return;
+        }
+        index += 5;
+        String code = url.substring(index);
+        Http.setAuthCode(code);
+    }
+
     /**
      * Handler used to handle the response of the http request from Outlook.
      */
@@ -46,23 +57,16 @@ public class SimpleServer {
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Authorization/Authentication finished";
             exchange.sendResponseHeaders(200, response.length());
-            OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+            writeExchangeReponseBody(exchange, response);
             parseAuthCode(exchange.getRequestURI().getQuery());
             server.stop(200);
         }
-    }
 
-    private static void parseAuthCode(String url) {
-        int index = url.indexOf("code=");
-        if (index == -1) {
-            Duke.getUI().showError("Auth code parsing failed: " + url);
-            return;
+        private void writeExchangeReponseBody(HttpExchange exchange, String response) throws IOException {
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
-        index += 5;
-        String code = url.substring(index);
-        Http.setAuthCode(code);
     }
 }
 //@@author

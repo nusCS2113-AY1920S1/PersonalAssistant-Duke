@@ -18,13 +18,7 @@ import seedu.duke.ui.UI;
  */
 public class Duke {
     private static UI ui = new UI();
-    public static UI getUI() {
-        return ui;
-    }
     private static Model model = new Model();
-    public static Model getModel() {
-        return model;
-    }
 
     /**
      * Main function of the GUI program.
@@ -34,13 +28,12 @@ public class Duke {
         Http.startAuthProcess();
     }
 
-    private void initModel() {
-        TaskList taskList = TaskStorage.readTaskFromFile();
-        EmailList emailList = EmailStorage.readEmailFromFile();
-        EmailContentParser.initKeywordList();
+    public static UI getUI() {
+        return ui;
+    }
 
-        model.setTaskList(taskList);
-        model.setEmailList(emailList);
+    public static Model getModel() {
+        return model;
     }
 
     public static void exit() {
@@ -49,5 +42,14 @@ public class Duke {
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
+    }
+
+    private void initModel() {
+        TaskList taskList = TaskStorage.readTaskFromFile();
+        EmailList emailList = EmailStorage.readEmailFromFile();
+        EmailContentParser.initKeywordList();
+
+        model.setTaskList(taskList);
+        model.setEmailList(emailList);
     }
 }

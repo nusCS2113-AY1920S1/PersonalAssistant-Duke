@@ -33,14 +33,16 @@ public class TaskDoAfterCommand extends Command {
     @Override
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
-        String msg = "";
         try {
-            msg = taskList.setDoAfter(index, doAfterDescription);
+            String msg = taskList.setDoAfter(index, doAfterDescription);
+            if (!silent) {
+                responseMsg = msg;
+                Duke.getUI().showResponse(responseMsg);
+            }
+            return true;
         } catch (CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             return false;
         }
-        Duke.getUI().showResponse(msg);
-        return true;
     }
 }

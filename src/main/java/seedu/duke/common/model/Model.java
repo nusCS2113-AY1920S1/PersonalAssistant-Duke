@@ -11,16 +11,19 @@ public class Model {
     public TaskList getTaskList() {
         return taskList;
     }
-    public EmailList getEmailList() {
-        return emailList;
-    }
-    public void setEmailList(EmailList emailList) {
-        this.emailList = emailList;
-        updateGuiEmailList();
-    }
+
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
         updateGuiTaskList();
+    }
+
+    public EmailList getEmailList() {
+        return emailList;
+    }
+
+    public void setEmailList(EmailList emailList) {
+        this.emailList = emailList;
+        updateGuiEmailList();
     }
 
     /**

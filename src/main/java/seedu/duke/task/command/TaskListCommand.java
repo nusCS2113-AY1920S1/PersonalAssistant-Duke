@@ -11,7 +11,6 @@ public class TaskListCommand extends Command {
 
     /**
      * Instantiation of the list command with the target task list.
-     *
      */
     TaskListCommand() {
 
@@ -26,9 +25,8 @@ public class TaskListCommand extends Command {
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
         if (!silent) {
-            String msg = taskList.toString();
-            responseMsg = msg;
-            Duke.getUI().showResponse(msg);
+            responseMsg = taskList.toString();
+            Duke.getUI().showResponse(responseMsg);
         }
         return true;
     }

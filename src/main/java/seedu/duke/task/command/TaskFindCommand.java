@@ -13,7 +13,7 @@ public class TaskFindCommand extends Command {
     /**
      * Instantiation of find command with all the necessary variables it needs to execute.
      *
-     * @param keyword  the keyword that the target task needs to match
+     * @param keyword the keyword that the target task needs to match
      */
     TaskFindCommand(String keyword) {
         this.keyword = keyword;
@@ -29,10 +29,9 @@ public class TaskFindCommand extends Command {
     @Override
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
-        String msg = taskList.findKeyword(keyword);
         if (!silent) {
-            responseMsg = msg;
-            Duke.getUI().showResponse(msg);
+            responseMsg = taskList.findKeyword(keyword);
+            Duke.getUI().showResponse(responseMsg);
         }
         return true;
     }

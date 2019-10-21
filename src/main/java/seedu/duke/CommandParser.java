@@ -21,15 +21,6 @@ import java.util.regex.Pattern;
 public class CommandParser {
 
     private static UI ui = Duke.getUI();
-
-    /**
-     * Two types of input, prefix will be displayed according to this in the userInput text field.
-     */
-    public enum InputType {
-        TASK,
-        EMAIL
-    }
-
     private static InputType inputType = InputType.TASK;
 
     /**
@@ -64,18 +55,18 @@ public class CommandParser {
         return prefix;
     }
 
+    public static InputType getInputType() {
+        return inputType;
+    }
+
     /**
-     * Sets to the new input type when it is toggled by "flip" command.
-     * Also updates the UI display of the prefix.
+     * Sets to the new input type when it is toggled by "flip" command. Also updates the UI display of the
+     * prefix.
      *
      * @param newInputType the input type that is going to be changed to
      */
     public static void setInputType(InputType newInputType) {
         inputType = newInputType;
-    }
-
-    public static InputType getInputType() {
-        return inputType;
     }
 
     /**
@@ -131,17 +122,20 @@ public class CommandParser {
         if (inputType == InputType.TASK) {
             return TaskCommandParser.parseTaskCommand(input, optionList);
         } else if (inputType == InputType.EMAIL) {
-            try {
-                return EmailCommandParser.parseEmailCommand(input, optionList);
-            } catch (UserInputException e) {
-                ui.showError(e.getMessage());
-                return new InvalidCommand();
-            }
+            return parseEmailCommand(input, optionList);
         } else {
             return new InvalidCommand();
         }
     }
 
+    private static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
+        try {
+            return EmailCommandParser.parseEmailCommand(input, optionList);
+        } catch (UserInputException e) {
+            ui.showError(e.getMessage());
+            return new InvalidCommand();
+        }
+    }
 
     public static ArrayList<String> extractTags(ArrayList<Option> optionList) {
         ArrayList<String> tagList = new ArrayList<>();
@@ -165,6 +159,14 @@ public class CommandParser {
             }
         }
         return time;
+    }
+
+    /**
+     * Two types of input, prefix will be displayed according to this in the userInput text field.
+     */
+    public enum InputType {
+        TASK,
+        EMAIL
     }
 
     /**

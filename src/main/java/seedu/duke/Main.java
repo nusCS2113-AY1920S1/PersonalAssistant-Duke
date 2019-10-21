@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.duke.ui.MainWindow;
 
 import java.io.IOException;
 
@@ -21,15 +20,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            stage.setScene(scene);
-            stage.setTitle("Duke Email Manager");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
-            stage.setMinWidth(450);
-            stage.setMinHeight(300);
 
-            Duke.getUI().setMainWindow(fxmlLoader.<MainWindow>getController());
-            Duke.getUI().setKeyBinding(scene);
-            Duke.getUI().setMainStage(stage);
+            configureStage(stage, scene);
+            configureUi(stage, fxmlLoader, scene);
 
             stage.show();
 
@@ -37,6 +30,20 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void configureUi(Stage stage, FXMLLoader fxmlLoader, Scene scene) {
+        Duke.getUI().setMainWindow(fxmlLoader.getController());
+        Duke.getUI().setKeyBinding(scene);
+        Duke.getUI().setMainStage(stage);
+    }
+
+    private void configureStage(Stage stage, Scene scene) {
+        stage.setScene(scene);
+        stage.setTitle("Duke Email Manager");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
+        stage.setMinWidth(450);
+        stage.setMinHeight(300);
     }
 
 }

@@ -38,6 +38,7 @@ import java.util.ArrayList;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static Stage mainStage;
     @FXML
     private AnchorPane rootAnchorPane;
     @FXML
@@ -56,20 +57,14 @@ public class MainWindow extends AnchorPane {
     private ListView<EmailHBoxCell> emailsListView;
     @FXML
     private WebView webView;
-
     private WebEngine webEngine;
-
     private UserInputHandler userInputHandler;
-
     private boolean isShowingEmail = false;
     private boolean isUpKey;
     private int inputListIndex;
     private ArrayList<String> inputList = new ArrayList<>();
-
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    private static Stage mainStage;
 
     /**
      * Starts up GUI screen by loading welcome message, task list and email list.
@@ -117,8 +112,8 @@ public class MainWindow extends AnchorPane {
     /**
      * Display a message on the main window chat box.
      *
-     * @param msg main message to be displayed
-     * @param input the user input triggered this display
+     * @param msg     main message to be displayed
+     * @param input   the user input triggered this display
      * @param command the command executed to produce this message
      */
     void showGuiMessage(String msg, String input, String command) {
@@ -317,17 +312,23 @@ public class MainWindow extends AnchorPane {
      */
     void showTextPopup(String text) {
         final Popup popup = new Popup();
-        AnchorPane outerPane = new AnchorPane();
-        ScrollPane scroll = new ScrollPane();
+        AnchorPane outerPane = prepareAnchorPanForPopup();
+        ScrollPane scroll = prepareScrollPaneForPopup();
+        Button button = prepareButtonForPopup(popup);
+        combinePopupComponents(text, outerPane, scroll, button);
+        popup.getContent().add(outerPane);
+        popup.show(mainStage);
+    }
 
-        outerPane.setPrefSize(800, 650);
-        outerPane.setStyle("-fx-background-color: #FFFFFF;"
-                + "-fx-border-color: black;");
+    private void combinePopupComponents(String text, AnchorPane outerPane, ScrollPane scroll, Button button) {
+        AnchorPane pane = new AnchorPane();
+        Label label = new Label(text);
+        pane.getChildren().add(label);
+        scroll.setContent(pane);
+        outerPane.getChildren().addAll(scroll, button);
+    }
 
-        scroll.setPrefSize(796, 600);
-        scroll.setLayoutX(2);
-        scroll.setPadding(new Insets(0, 10, 0, 10));
-
+    private Button prepareButtonForPopup(Popup popup) {
         Button button = new Button("Close");
         button.setPrefSize(80, 16);
         button.setLayoutX(380);
@@ -339,14 +340,23 @@ public class MainWindow extends AnchorPane {
                 System.out.println(popup);
             }
         });
+        return button;
+    }
 
-        AnchorPane pane = new AnchorPane();
-        Label label = new Label(text);
-        pane.getChildren().add(label);
-        scroll.setContent(pane);
-        outerPane.getChildren().addAll(scroll, button);
-        popup.getContent().add(outerPane);
-        popup.show(mainStage);
+    private ScrollPane prepareScrollPaneForPopup() {
+        ScrollPane scroll = new ScrollPane();
+        scroll.setPrefSize(796, 600);
+        scroll.setLayoutX(2);
+        scroll.setPadding(new Insets(0, 10, 0, 10));
+        return scroll;
+    }
+
+    private AnchorPane prepareAnchorPanForPopup() {
+        AnchorPane outerPane = new AnchorPane();
+        outerPane.setPrefSize(800, 650);
+        outerPane.setStyle("-fx-background-color: #FFFFFF;"
+                + "-fx-border-color: black;");
+        return outerPane;
     }
 
     public static class EmailHBoxCell extends HBox {

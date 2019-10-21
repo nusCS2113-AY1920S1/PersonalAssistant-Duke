@@ -16,22 +16,27 @@ import java.util.regex.Pattern;
 
 public class EmailCommandParser {
     private static UI ui = Duke.getUI();
+
     /**
      * Parses the specific part of a user/file input that is relevant to email. A successful parsing always
      * returns an email-relevant Command.
      *
-     * @param rawInput  user/file input ready to be parsed.
+     * @param rawInput user/file input ready to be parsed.
      * @return an email-relevant Command.
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, probably due to the wrong format of
-     *                            input
+     * @throws CommandParser.UserInputException an exception when the parsing is failed, probably due to the
+     *                                          wrong format of input
      */
     public static Command parseEmailCommand(String rawInput,
                                             ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
-        if (rawInput.length() <= 6) {
+        String input = stripPrefix(rawInput);
+        if (input == null) {
             return new InvalidCommand();
         }
-        String input = rawInput.substring(6).strip();
-        String emailCommand = input.split(" ")[0];
+        String emailCommand = extractCommandWord(input);
+        return parseByCommandType(optionList, input, emailCommand);
+    }
+
+    private static Command parseByCommandType(ArrayList<Command.Option> optionList, String input, String emailCommand) throws CommandParser.UserInputException {
         switch (emailCommand) {
         case "flip":
             return new FlipCommand();
@@ -51,6 +56,17 @@ public class EmailCommandParser {
             throw new CommandParser.UserInputException("OOPS!!! Enter \'email help\' to get list of methods for "
                     + "email.");
         }
+    }
+
+    private static String extractCommandWord(String input) {
+        return input.split(" ")[0];
+    }
+
+    private static String stripPrefix(String rawInput) {
+        if (!rawInput.contains("email ")) {
+            return null;
+        }
+        return rawInput.split("email ", 2)[1].strip();
     }
 
     private static Command parseShowEmailCommand(String input) throws CommandParser.UserInputException {
@@ -81,10 +97,7 @@ public class EmailCommandParser {
             return new InvalidCommand();
         }
         ArrayList<String> tags = CommandParser.extractTags(optionList);
-        if (tags.size() == 0) {
-            if (ui != null) {
-                ui.showError("Please enter a tag name after \'-tag\' option");
-            }
+        if (!tagsNotEmpty(tags)) {
             return new InvalidCommand();
         }
         try {
@@ -93,6 +106,16 @@ public class EmailCommandParser {
         } catch (CommandParser.UserInputException e) {
             throw new CommandParser.UserInputException(e.toString());
         }
+    }
+
+    private static boolean tagsNotEmpty(ArrayList<String> tags) {
+        if (tags.size() == 0) {
+            if (ui != null) {
+                ui.showError("Please enter a tag name after \'-tag\' option");
+            }
+            return false;
+        }
+        return true;
     }
 
     private static int parseEmailIndex(String input) throws CommandParser.UserInputException {

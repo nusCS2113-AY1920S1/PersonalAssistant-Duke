@@ -45,8 +45,9 @@ public class EmailList extends ArrayList<Email> {
 
     /**
      * Adds tags to email specified in index.
+     *
      * @param index email to add tags to
-     * @param tags tags to be added to the email
+     * @param tags  tags to be added to the email
      * @return confirmation message to be displayed to user
      */
     public String addTags(int index, ArrayList<String> tags) {

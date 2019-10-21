@@ -3,7 +3,6 @@ package seedu.duke.ui;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import seedu.duke.CommandParser;
 import seedu.duke.Duke;
 
 import java.util.function.UnaryOperator;
@@ -23,6 +22,18 @@ class UserInputHandler {
      * @param text to set in userInput.
      */
     void setUserInputText(String text) {
+        removeFilter(text);
+        applyFilter();
+
+        int pos = userInput.getText().length();
+        if (pos < Duke.getUI().getPrefix().length()) {
+            userInput.positionCaret(Duke.getUI().getPrefix().length());
+        } else {
+            userInput.positionCaret(pos);
+        }
+    }
+
+    private void removeFilter(String text) {
         // To apply a noFilter to userInput to remove the effect of the previous filter so that clear()
         // can work properly.
         UnaryOperator<TextFormatter.Change> noFilter = c -> {
@@ -31,7 +42,9 @@ class UserInputHandler {
         userInput.setTextFormatter(new TextFormatter<String>(noFilter));
         userInput.clear();
         userInput.setText(text);
+    }
 
+    private void applyFilter() {
         // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
         UnaryOperator<TextFormatter.Change> filter = c -> {
             if (c.getCaretPosition() < Duke.getUI().getPrefix().length()) {
@@ -41,12 +54,6 @@ class UserInputHandler {
             }
         };
         userInput.setTextFormatter(new TextFormatter<String>(filter));
-        int pos = userInput.getText().length();
-        if (pos < Duke.getUI().getPrefix().length()) {
-            userInput.positionCaret(Duke.getUI().getPrefix().length());
-        } else {
-            userInput.positionCaret(pos);
-        }
     }
 
     /**

@@ -5,7 +5,8 @@ import seedu.duke.CommandParser;
 
 public class FlipCommand extends Command {
 
-    public FlipCommand() {}
+    public FlipCommand() {
+    }
 
     @Override
     public boolean execute() {

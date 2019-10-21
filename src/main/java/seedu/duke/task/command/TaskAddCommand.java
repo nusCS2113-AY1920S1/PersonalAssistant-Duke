@@ -52,6 +52,19 @@ public class TaskAddCommand extends Command {
     @Override
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
+        Task task = prepareTaskByType();
+        if (task == null) {
+            return false;
+        }
+        String clashMsg = findClash(taskList, task);
+        taskList.add(task);
+        if (!silent) {
+            constructAddCommandMessage(taskList, task, clashMsg);
+        }
+        return true;
+    }
+
+    private Task prepareTaskByType() {
         Task task;
         switch (taskType) {
         case ToDo:
@@ -64,23 +77,27 @@ public class TaskAddCommand extends Command {
             task = new Event(name, time, doAfter, tags, priority);
             break;
         default:
-            return false;
+            task = null;
         }
+        return task;
+    }
+
+    private String findClash(TaskList taskList, Task task) {
         TaskList clashTasks = taskList.findClash(task);
         String clashMsg = "";
         if (clashTasks.size() > 0) {
             clashMsg = "\n\nWarning: New task added clashes with other task(s) in the list.\n";
             clashMsg += clashTasks.toString();
         }
-        taskList.add(task);
-        if (!silent) {
-            String msg = "Got it. I've added this task: \n";
-            msg += "  " + task.toString() + "\n";
-            msg += "Now you have " + taskList.size() + " task(s) in the list. ";
-            msg += clashMsg;
-            responseMsg = msg;
-            Duke.getUI().showResponse(msg);
-        }
-        return true;
+        return clashMsg;
+    }
+
+    private void constructAddCommandMessage(TaskList taskList, Task task, String clashMsg) {
+        String msg = "Got it. I've added this task: \n";
+        msg += "  " + task.toString() + "\n";
+        msg += "Now you have " + taskList.size() + " task(s) in the list. ";
+        msg += clashMsg;
+        responseMsg = msg;
+        Duke.getUI().showResponse(msg);
     }
 }

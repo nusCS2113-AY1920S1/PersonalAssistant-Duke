@@ -19,7 +19,8 @@ public class TaskUpdateCommand extends Command {
 
     /**
      * Instantiates a find command with all variables necessary.
-     * @param index         position of task as specified by input
+     *
+     * @param index position of task as specified by input
      */
     TaskUpdateCommand(int index, ArrayList<String> descriptions,
                       ArrayList<TaskUpdateCommand.Attributes> attributes) {
@@ -28,38 +29,34 @@ public class TaskUpdateCommand extends Command {
         this.attributes = attributes;
     }
 
-    public enum Attributes {
-        time, doAfter, priority
-    }
-
     /**
      * Executes the edit command.
+     *
      * @return true if successful, false otherwise
      */
     @Override
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
         String msg = "";
+        responseMsg = "";
         try {
             for (int i = 0; i < descriptions.size(); i++) {
                 switch (attributes.get(i)) {
-                    case time:
-                        if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
-                            throw new CommandParser.UserInputException("Time cannot be added to Todo task.");
-                        }
-                        msg = taskList.setTime(index, descriptions.get(i));
-                        break;
-                    case doAfter:
-                        msg = taskList.setDoAfter(index, descriptions.get(i));
-                        break;
-                    case priority:
-                        msg = taskList.setPriority(index, descriptions.get(i));
-                        break;
-                    default:
-                        msg = "Invalid attribute";
-                        break;
+                case time:
+                    msg = updateTime(taskList, i);
+                    break;
+                case doAfter:
+                    msg = updateDoAfter(taskList, i);
+                    break;
+                case priority:
+                    msg = updatePriority(taskList, i);
+                    break;
+                default:
+                    msg = "Invalid attribute";
+                    break;
                 }
             }
+            responseMsg += msg + "\n";
         } catch (CommandParser.UserInputException e) {
             if (!silent) {
                 Duke.getUI().showError(e.getMessage());
@@ -70,5 +67,30 @@ public class TaskUpdateCommand extends Command {
             Duke.getUI().showResponse(msg);
         }
         return true;
+    }
+
+    private String updatePriority(TaskList taskList, int i) throws CommandParser.UserInputException {
+        String msg;
+        msg = taskList.setPriority(index, descriptions.get(i));
+        return msg;
+    }
+
+    private String updateDoAfter(TaskList taskList, int i) throws CommandParser.UserInputException {
+        String msg;
+        msg = taskList.setDoAfter(index, descriptions.get(i));
+        return msg;
+    }
+
+    private String updateTime(TaskList taskList, int i) throws CommandParser.UserInputException {
+        String msg;
+        if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
+            throw new CommandParser.UserInputException("Time cannot be added to Todo task.");
+        }
+        msg = taskList.setTime(index, descriptions.get(i));
+        return msg;
+    }
+
+    public enum Attributes {
+        time, doAfter, priority
     }
 }

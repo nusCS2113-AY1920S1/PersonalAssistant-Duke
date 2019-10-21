@@ -82,16 +82,21 @@ public class EmailFormatParser {
             String subject = indexJson.getString("subject");
             Sender sender = new Sender(indexJson.getString("sender"));
             LocalDateTime receivedDateTime = parseEmailDateTime(indexJson.getString("receivedDateTime"));
-            JSONArray tagArray = indexJson.getJSONArray("tags");
-            ArrayList<Email.Tag> tags = new ArrayList<>();
-            for (int i = 0; i < tagArray.length(); i++) {
-                JSONObject tagObject = tagArray.getJSONObject(i);
-                tags.add(new Email.Tag(tagObject));
-            }
+            ArrayList<Email.Tag> tags = extractTagsFromJson(indexJson);
             return new Email(subject, sender, receivedDateTime, tags);
         } catch (JSONException e) {
             throw new EmailParsingException("Email index json failed to parse");
         }
+    }
+
+    private static ArrayList<Email.Tag> extractTagsFromJson(JSONObject indexJson) throws JSONException {
+        JSONArray tagArray = indexJson.getJSONArray("tags");
+        ArrayList<Email.Tag> tags = new ArrayList<>();
+        for (int i = 0; i < tagArray.length(); i++) {
+            JSONObject tagObject = tagArray.getJSONObject(i);
+            tags.add(new Email.Tag(tagObject));
+        }
+        return tags;
     }
 
     /**

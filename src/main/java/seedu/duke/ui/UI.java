@@ -122,12 +122,12 @@ public class UI {
         showGui(debugMsg);
     }
 
-    public void setEmailContent(String emailContent) {
-        this.emailContent = emailContent;
-    }
-
     public String getEmailContent() {
         return this.emailContent;
+    }
+
+    public void setEmailContent(String emailContent) {
+        this.emailContent = emailContent;
     }
 
     public String getResponseMsg() {

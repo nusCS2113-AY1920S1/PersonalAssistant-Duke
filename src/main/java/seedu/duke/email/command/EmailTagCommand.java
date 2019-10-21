@@ -15,8 +15,9 @@ public class EmailTagCommand extends Command {
 
     /**
      * Instantiates attributes for command.
+     *
      * @param index specific email which tags should be added to
-     * @param tags tags to be added to the email
+     * @param tags  tags to be added to the email
      */
     EmailTagCommand(int index, ArrayList<String> tags) {
         this.index = index;
@@ -26,7 +27,7 @@ public class EmailTagCommand extends Command {
     @Override
     public boolean execute() {
         EmailList emailList = Duke.getModel().getEmailList();
-        String responseMsg = emailList.addTags(index, tags);
+        responseMsg = emailList.addTags(index, tags);
         Duke.getUI().showResponse(responseMsg);
         return true;
     }
