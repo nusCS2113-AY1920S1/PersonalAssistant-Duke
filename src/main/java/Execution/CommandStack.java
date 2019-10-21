@@ -4,16 +4,16 @@ import commands.COMMANDKEYS;
 import commands.CommandSuper;
 
 import java.io.IOException;
-import java.util.Stack;
+import java.util.ArrayList;
 
 public class CommandStack {
-    private static Stack<CommandSuper> MyStack = new Stack<>();
+    private static ArrayList<CommandSuper> myStack = new ArrayList<>();
 
     public static void pushCmd(CommandSuper cmd) throws IOException {
         if (cmd.getRoot() == COMMANDKEYS.yes) {
             executeLastCommand();
         } else {
-            MyStack.push(cmd);
+            myStack.add(cmd);
             if (cmd.isExecute()) {
                 cmd.executeCommands();
             }
@@ -22,22 +22,22 @@ public class CommandStack {
     }
 
     public static CommandSuper popCmd() {
-        CommandSuper topCmd = MyStack.peek();
-        MyStack.pop();
+        CommandSuper topCmd = myStack.get(myStack.size() - 1);
+        myStack.remove(myStack.size() - 1);
         return topCmd;
     }
 
     public static void topCmd() {
-        MyStack.peek();
+        myStack.get(myStack.size() - 1);
     }
 
     public static void clearStack() {
-        MyStack.clear();
+        myStack.clear();
     }
 
     public static void executeLastCommand() throws IOException {
         System.out.println("Execute Last Command");
-        CommandSuper cmd = MyStack.peek();
+        CommandSuper cmd = myStack.get(myStack.size() - 1);
         if (!cmd.isExecute()) {
             cmd.executeCommands();
             cmd.setExecute(true);

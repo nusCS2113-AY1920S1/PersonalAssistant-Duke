@@ -180,7 +180,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 System.out.println("Tab pressed");
 
 
-                setFeedbackText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
+                setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Enter pressed");
@@ -427,14 +427,7 @@ public class MovieHandler extends Controller implements RequestListener {
         mSearchTextField.setText("");
     }
 
-    /**
-     * Prints message in UI.
-     *
-     * @param txt which is the string text to be printed.
-     */
-    public void setFeedbackText(String txt) {
-        generalFeedbackText.setText(txt);
-    }
+
 
     /**
      * Updates the components in the SortProfile accordingly.
@@ -489,6 +482,30 @@ public class MovieHandler extends Controller implements RequestListener {
 
         }
         generalFeedbackText.setText(output);
+    }
+
+    /**
+     * Prints message in UI.
+     *
+     * @param txt which is the string text to be printed.
+     */
+    public void setFeedbackText(String txt) {
+        generalFeedbackText.setText(txt);
+    }
+
+
+    public void setAutoCompleteText(String text) {
+        autoCompleteText.setText(text);
+    }
+
+    public void setAutoCompleteText(ArrayList<String> txtArr) {
+        String output = "";
+        for (String s : txtArr) {
+            output += s;
+            output += "\n";
+
+        }
+        autoCompleteText.setText(output);
     }
 
     /**

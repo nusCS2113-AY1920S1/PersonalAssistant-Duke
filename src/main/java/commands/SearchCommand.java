@@ -49,7 +49,7 @@ public class SearchCommand extends CommandSuper {
      */
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        MovieHandler movieHandler = new MovieHandler();
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         if (treeMap.containsKey("-c")) {
             movieHandler.showCurrentMovies();
         } else if (treeMap.containsKey("-u")) {
@@ -67,7 +67,7 @@ public class SearchCommand extends CommandSuper {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
                             .beginMovieSearchRequest(getPayload() ,  false);
                 }
-                movieHandler.clearSearchTextField();
+                ((MovieHandler) this.getUIController()).clearSearchTextField();
             } else {
                 ArrayList<Integer> inputGenrePreference = new ArrayList<>(10);
                 ArrayList<Integer> inputGenreRestriction = new ArrayList<>(10);
@@ -89,7 +89,7 @@ public class SearchCommand extends CommandSuper {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
                             .beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
                 }
-                movieHandler.clearSearchTextField();
+                ((MovieHandler) this.getUIController()).clearSearchTextField();
             }
         }
     }
