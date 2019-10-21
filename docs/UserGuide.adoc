@@ -191,7 +191,7 @@ image::ModCommandException.png[width="250"]
 === `ModCcaScheduleException`
 This error appears when the user inputs a CCA whose time period clashes with another CCA.
 
-Example of error message: `Error: This CCA clashes with existing CCAs!`
+Example of error message:`Error: This CCA clashes with existing CCAs!`
 
 == FAQ
 
