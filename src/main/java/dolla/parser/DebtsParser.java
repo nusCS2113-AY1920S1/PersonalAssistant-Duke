@@ -48,8 +48,9 @@ public class DebtsParser extends Parser {
                 return new AddDebtsCommand(type, name, amount, description, date, -1);
             }
         } else if (commandToRun.equals("search")) {
-            String content = inputArray[1];
-            return new SearchCommand(mode, content);
+            String component = inputArray[1];
+            String content = inputArray[2];
+            return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("sort")) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
