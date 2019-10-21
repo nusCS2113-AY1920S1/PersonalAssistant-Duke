@@ -14,6 +14,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Deals with the commands input at the note page.
+ */
 public class GeneralNoteCommand extends Command {
 
     private void showListOfCommands() {
@@ -30,6 +33,7 @@ public class GeneralNoteCommand extends Command {
         System.out.println("__________________________________________________________");
     }
 
+    /** Decodes the command input in the note page. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Welcome to your note page! What would you like to do?\n");

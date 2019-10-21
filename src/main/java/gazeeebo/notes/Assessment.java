@@ -1,10 +1,15 @@
 package gazeeebo.notes;
 
+/**
+ * An assessment object that can be added to a module note.
+ */
 public class Assessment {
     public String name;
-    public int weightage;
 
-    public Assessment(String name, int percentage) {
+    /** Must be a positive number*/
+    protected int weightage; //as a percentage
+
+    protected Assessment(String name, int percentage) {
         this.name = name;
         this.weightage = percentage;
     }

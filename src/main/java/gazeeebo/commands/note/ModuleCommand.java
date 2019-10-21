@@ -15,7 +15,17 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Deals with the commands input on the module page.
+ */
 public class ModuleCommand extends Command {
+    /**
+     * Checks if the module specified exist.
+     *
+     * @param moduleName the module to be found
+     * @return the Module if found
+     * @throws DukeException if the module does not exist
+     */
     private Module findModule(String moduleName) throws DukeException {
         for (Module m : GeneralNotePage.modules) {
             if (m.name.equals(moduleName)) {
@@ -43,6 +53,7 @@ public class ModuleCommand extends Command {
         System.out.println("__________________________________________________________");
     }
 
+    /** Decodes the commands input on the module page. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Welcome to your module page! Which module do you want to view/edit?");
