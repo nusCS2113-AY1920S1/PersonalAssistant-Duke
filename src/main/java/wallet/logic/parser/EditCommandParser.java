@@ -108,14 +108,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (parameters.contains("/l")) {
             loan.setIsLend(true);
-            if(parameters.equals("/l")) {
+            if (parameters.equals("/l")) {
                 return loan;
             }
             String[] getIsLend = parameters.split("/l");
             parameters = getIsLend[0].trim();
         } else if (parameters.contains("/b")) {
             loan.setIsLend(false);
-            if(parameters.equals("/b")) {
+            if (parameters.equals("/b")) {
                 return loan;
             }
             String[] getIsLend = parameters.split("/b");

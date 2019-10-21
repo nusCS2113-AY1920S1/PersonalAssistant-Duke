@@ -22,9 +22,8 @@ public class HistoryCommand extends Command {
 
         System.out.println("Showing command history from earliest to latest:");
         for (int i = 0; i < commandHistory.size(); i++) {
-            System.out.println(i+1 + ". " + commandHistory.get(i));
+            System.out.println(commandHistory.get(i));
         }
-
         return false;
     }
 }
