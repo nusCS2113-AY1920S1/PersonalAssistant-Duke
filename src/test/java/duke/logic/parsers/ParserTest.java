@@ -14,8 +14,6 @@ class ParserTest {
     void parse() throws Exception {
         assertTrue(Parser.parseSingleCommand("bye") instanceof ExitCommand);
         assertTrue(Parser.parseSingleCommand("todo homework") instanceof AddCommand);
-        assertTrue(Parser.parseSingleCommand("deadline homework by Wed") instanceof AddCommand);
-        assertTrue(Parser.parseSingleCommand("within jogging between 1200 and 1300") instanceof AddCommand);
         assertTrue(Parser.parseSingleCommand("list") instanceof ListCommand);
         assertTrue(Parser.parseSingleCommand("done 1") instanceof MarkDoneCommand);
     }
