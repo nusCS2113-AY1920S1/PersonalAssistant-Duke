@@ -49,9 +49,10 @@ public class DeleteCommand extends Command{
 	}
 
 	/**
-	 * Constructor for delete using food name or food type.
-	 * @param deleteDescription the food name or food type to be deleted.
-	 * @param param the parameter to indicate type of deletion.
+	 * The constructor for delete using food name or food type.
+	 *
+	 * @param deleteDescription The food name or food type to be deleted.
+	 * @param param The parameter is used to specify the type of deletion.
 	 */
 	public DeleteCommand(String deleteDescription, String param){
 		this.deleteDescription = deleteDescription;
@@ -59,9 +60,10 @@ public class DeleteCommand extends Command{
 	}
 
 	/**
-	 * Check whether a given index is a valid index or not.
-	 * @param list the food list.
-	 * @throws CommandException
+	 * The class checks whether a given index is valid or not.
+	 *
+	 * @param list The food list.
+	 * @throws CommandException If the given index is invalid.
 	 */
 	private void checkValidIndex(FoodList list) throws CommandException {
 		if (deleteIndex < 0 || deleteIndex >= list.size()) {
@@ -70,9 +72,10 @@ public class DeleteCommand extends Command{
 	}
 
 	/**
-	 * Check whether a given food name is inside the food list or not.
-	 * @param list the food list.
-	 * @throws CommandException
+	 * The class checks whether a given food name is in the food list or not.
+	 *
+	 * @param list The food list.
+	 * @throws CommandException If the given food name is not inside the food list.
 	 */
 	private void checkValidName(FoodList list) throws CommandException {
 		if (!list.existsName(deleteDescription)) {
@@ -81,9 +84,9 @@ public class DeleteCommand extends Command{
 	}
 
 	/**
-	 * Check whether a given food type is inside the food list or not.
-	 * @param list the food list.
-	 * @throws CommandException
+	 * The class checks whether a given food type is in the food list or not.
+	 * @param list The food list.
+	 * @throws CommandException If the given food type is not inside the food list.
 	 */
 	private void checkValidType(FoodList list) throws CommandException {
 		if (!list.existsType(deleteDescription)) {
@@ -91,6 +94,14 @@ public class DeleteCommand extends Command{
 		}
 	}
 
+	/**
+	 * The class removes the food object commanded to be removed.
+	 *
+	 * @param list The food list.
+	 * @param storage The storage we have.
+	 * @return The Feedback to User for Delete Command.
+	 * @throws CommandException If deletion is unsuccessful.
+	 */
 	@Override
 	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
 		Food toDelete;
