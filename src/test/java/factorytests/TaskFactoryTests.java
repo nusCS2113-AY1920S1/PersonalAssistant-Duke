@@ -20,8 +20,8 @@ class TaskFactoryTests {
     private String simulatedFactoryInput;
 
     TaskFactoryTests() {
-        taskFactory = new TaskFactory();
-        dateTimeHelper = new DateTimeHelper();
+        this.taskFactory = new TaskFactory();
+        this.dateTimeHelper = new DateTimeHelper();
     }
 
     /**

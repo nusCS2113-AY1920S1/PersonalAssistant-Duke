@@ -8,15 +8,19 @@ import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViewAssignedTasksTest {
-    private Project project = new Project("Infinity_Gauntlet");
-    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
+    private Project project;
+    private DateTimeHelper dateTimeHelper;
+
+    ViewAssignedTasksTest() {
+        this.project = new Project("Infinity_Gauntlet");
+        this.dateTimeHelper = new DateTimeHelper();
+    }
 
     @Test
     void alwaysTrue() {

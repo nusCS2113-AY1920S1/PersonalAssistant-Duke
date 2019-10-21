@@ -1,15 +1,15 @@
 package modeltests.member;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-
 import models.data.Project;
 import models.member.Member;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskAssignmentTest {
     private final Project project;
@@ -23,16 +23,16 @@ class TaskAssignmentTest {
     testing. Testing:
      */
     TaskAssignmentTest() {
-        project = new Project("New project");
-        member1 = new Member("Tom", "NIL", "NIL", 1);
-        member2 = new Member("Dick", "NIL","NIL", 2);
-        member3 = new Member("Harry", "NIL", "NIL", 3);
+        this.project = new Project("New project");
+        this.member1 = new Member("Tom", "NIL", "NIL", 1);
+        this.member2 = new Member("Dick", "NIL","NIL", 2);
+        this.member3 = new Member("Harry", "NIL", "NIL", 3);
         Task task = new Task("Test task", 0,
             null, 0, TaskState.OPEN, new ArrayList<>());
-        project.addMember(member1);
-        project.addMember(member2);
-        project.addMember(member3);
-        project.addTask(task);
+        this.project.addMember(member1);
+        this.project.addMember(member2);
+        this.project.addMember(member3);
+        this.project.addTask(task);
     }
 
     @Test
