@@ -28,6 +28,11 @@ public class Sale {
         this.remarks = remarks;
     }
 
+    public Sale(long id, String description, double value, Date saleDate, String remarks) {
+        this(description, value, saleDate, remarks);
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }
