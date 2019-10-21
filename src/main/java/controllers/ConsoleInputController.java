@@ -68,8 +68,12 @@ public class ConsoleInputController implements IController {
         case "delete":
             if (inputReader.hasNext()) {
                 int projectIndex = Integer.parseInt(inputReader.next());
-                this.projectRepository.deleteItem(projectIndex);
-                consoleView.consolePrint("Project " + projectIndex + " has been deleted");
+                boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
+                if (isProjectDeleted) {
+                    consoleView.consolePrint("Project " + projectIndex + " has been deleted");
+                } else {
+                    consoleView.consolePrint("Index out of bounds! Please check project index!");
+                }
             } else {
                 consoleView.consolePrint("Please enter a project number to delete");
             }

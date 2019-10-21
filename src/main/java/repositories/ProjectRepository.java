@@ -37,7 +37,12 @@ public class ProjectRepository implements IRepository<Project> {
         return this.allProjects.get(projectNumber - 1);
     }
 
-    public void deleteItem(int projectNumber) {
-        this.allProjects.remove(projectNumber - 1);
+    public boolean deleteItem(int projectNumber) {
+        try {
+            this.allProjects.remove(projectNumber - 1);
+            return true;
+        } catch (IndexOutOfBoundsException err) {
+            return false;
+        }
     }
 }
