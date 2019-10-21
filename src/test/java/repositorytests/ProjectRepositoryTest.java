@@ -28,7 +28,7 @@ class ProjectRepositoryTest {
 
     @Test
     void addToRepo_correctInputs_projectReturned() {
-        simulatedUserinput = "create n/Thor Fanclub";
+        simulatedUserinput = "create -n Thor Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         Project simulatedProject = projectRepository.getItem(1);
         Project expectedProject = new Project("Thor Fanclub");
@@ -47,7 +47,7 @@ class ProjectRepositoryTest {
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
         simulatedUserinput = "create ";
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
-        simulatedUserinput = "create n/";
+        simulatedUserinput = "create -n";
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
         simulatedUserinput = "create n";
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
@@ -56,7 +56,7 @@ class ProjectRepositoryTest {
     @Test
     void getItem_ProjectExists_projectReturned() {
         assertEquals(projectRepository.getAll().size(), 0);
-        simulatedUserinput = "create n/Ironman Fanclub";
+        simulatedUserinput = "create -n Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         Project expectedProject = new Project("Ironman Fanclub");
         Project simulatedProject = projectRepository.getItem(1);
@@ -72,7 +72,7 @@ class ProjectRepositoryTest {
     @Test
     void deleteItem_ProjectExists_successfulDeletion() {
         assertEquals(projectRepository.getAll().size(), 0);
-        simulatedUserinput = "create n/Ironman Fanclub";
+        simulatedUserinput = "create -n Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         assertEquals(projectRepository.getAll().size(), 1);
         projectRepository.deleteItem(1);

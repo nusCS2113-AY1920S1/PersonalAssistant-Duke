@@ -17,7 +17,7 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
             System.out.println("Please specify the command correctly in the format create -n PROJECT_NAME");
             return new NullProject();
         } else if (!input.contains("-n")) {
-            System.out.println("Please specify the n/ flag before your PROJECT_NAME using -n PROJECT_NAME");
+            System.out.println("Please specify the -n flag before your PROJECT_NAME using -n PROJECT_NAME");
             return new NullProject();
         } else if (input.length() < 10) {
             System.out.println("Please remember to specify the project name after the -n flag!");
