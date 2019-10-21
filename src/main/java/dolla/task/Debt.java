@@ -36,9 +36,12 @@ public class Debt extends Log {
         return description;
     }
 
-    @Override
     public String getName() {
         return name;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public String amountToMoney() {

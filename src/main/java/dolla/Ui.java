@@ -335,6 +335,20 @@ public abstract class Ui {
         }
     }
 
+    public static void printSearchDate(String mode, LogList logList, String searchContent) {
+
+        System.out.println(line);
+        System.out.println("\tHere are the matching results found in " + mode);
+        int listNum = 0;
+        for (int i = 0; i < logList.size(); i++) {
+            String temp = Time.dateToString(logList.get().get(i).getDate());
+            if (temp.contains(searchContent)) {
+                listNum += 1;
+                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            }
+        }
+    }
+
         public static void printSortedList(ArrayList<Log> list, String type){
             System.out.println(line);
             if (type.equals("date")) {

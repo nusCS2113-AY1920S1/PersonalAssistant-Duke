@@ -1,9 +1,6 @@
 package dolla.parser;
 
-import dolla.command.AddLimitCommand;
-import dolla.command.Command;
-import dolla.command.RemoveCommand;
-import dolla.command.ShowListCommand;
+import dolla.command.*;
 
 /**
  * This class handles all limit related parsing.
@@ -24,6 +21,10 @@ public class LimitParser extends Parser {
             return new RemoveCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("edit")) {
             //edit limit command
+        } else if (commandToRun.equals("search")) {
+            String component = inputArray[1];
+            String content = inputArray[2];
+            return new SearchCommand(mode, component, content);
         }
         return null;
     }

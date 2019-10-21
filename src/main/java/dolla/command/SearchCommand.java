@@ -42,19 +42,22 @@ public class SearchCommand extends Command {
         } else if (mode.equals("entry")) {
             if (component.equals("description")) {
                 Ui.printSearchDesc(mode, logList, searchContent);
+            } else if (component.equals("date")) {
+                Ui.printSearchDate(mode, logList, searchContent);
             }
-//            else if (component.equals("tag")) {
-//                //add after the tag is added
-//            }
         } else if (mode.equals("debt")) {
             if (component.equals("description")) {
                 Ui.printSearchDesc(mode, logList, searchContent);
             } else if (component.equals("name")) {
                 Ui.printSearchName(mode, logList, searchContent);
+            } else if (component.equals("date")) {
+                Ui.printSearchDate(mode, logList, searchContent);
             }
         } else if (mode.equals("limit")) {
             if (component.equals("description")) {
                 Ui.printSearchDesc(mode, logList, searchContent);
+            } else if (component.equals("date")) {
+                Ui.printSearchDate(mode, logList, searchContent);
             }
         }
     }

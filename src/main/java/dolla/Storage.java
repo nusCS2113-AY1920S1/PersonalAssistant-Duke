@@ -80,7 +80,7 @@ public class Storage {
                 switch(type) {
                 case "I": //check if there is a tag
                     if(numOfElements == 4) {
-                        newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                        newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
 //                    else if (numOfElements == 5) {
 //                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
@@ -88,7 +88,7 @@ public class Storage {
                     break;
                 case "E": //check if there is a tag
                     if(numOfElements == 4) {
-                        newLog = new Entry("expense",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
+                        newLog = new Entry("expense",stringToDouble(inArray[1]),inArray[2],Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
 //                    else if (numOfElements == 5) {
 //                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
