@@ -5,15 +5,6 @@ INC @ 5.0 @ cashback  @ 9/12/2020
 INC @ 560.0 @ TA  @ 12/10/2019
 INC @ 500.0 @ shit  @ 7/10/2019
 INC @ 560.0 @ TA  @ 10/12/2040
-INC @ 560.0 @ TA  @ 10/12/2040
-INC @ 12.0 @ Repayment for Mala  @ 13/10/2019
-INC @ 200.0 @ mah sluts @ 14/10/2019
-INC @ 300.0 @ From mah sluts @ 14/10/2019
-INC @ 200.0 @ From mah bitches @ 14/10/2019
-INC @ 12.0 @ Repayment for Mala  @ 14/10/2019
-INC @ 1200.0 @ Initial Savings @ 15/10/2019
-INC @ 560.0 @ TA  @ 10/12/2040
-INC @ 200.0 @ From somebody @ 16/10/2019
 INC @ -2.0 @ From somebody @ 16/10/2019
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
@@ -22,13 +13,6 @@ INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
-EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
-EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
-EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
-EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2020
-EXP @ 3.0 @ ice-cream  @ food  @ 4/10/2019
-EXP @ 3.0 @ pencil  @ stationary  @ 6/10/2019
-EXP @ 20.0 @ godzilla  @ animal  @ 7/10/2020
 EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
@@ -40,6 +24,8 @@ EXP @ 2000.0 @ buy GFG  @ GS @ 18/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
+EXP @ 100.0 @ Withdraw from DBS @ bank @ 20/10/2019
+EXP @ 100.0 @ Withdraw from DBS @ bank @ 20/10/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
