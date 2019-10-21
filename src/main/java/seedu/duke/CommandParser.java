@@ -26,8 +26,8 @@ public class CommandParser {
     /**
      * Checks if input command is in the correct format.
      *
-     * @param commandString input command
-     * @return true if matches pattern, false otherwise
+     * @param commandString input command.
+     * @return true if matches pattern, false otherwise.
      */
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
@@ -63,7 +63,7 @@ public class CommandParser {
      * Sets to the new input type when it is toggled by "flip" command. Also updates the UI display of the
      * prefix.
      *
-     * @param newInputType the input type that is going to be changed to
+     * @param newInputType the input type that is going to be changed to.
      */
     public static void setInputType(InputType newInputType) {
         inputType = newInputType;
@@ -83,8 +83,8 @@ public class CommandParser {
     /**
      * Parses input to retrieve options from command string.
      *
-     * @param input command string
-     * @return list of all options specified in the command
+     * @param input command string.
+     * @return list of all options specified in the command.
      */
     public static ArrayList<Option> parseOptions(String input) {
         ArrayList<Option> optionList = new ArrayList<>();

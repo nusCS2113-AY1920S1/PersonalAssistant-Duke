@@ -148,7 +148,7 @@ public class EmailFormatParser {
         }
 
         /**
-         * Constructor of the sender based on the string output of a sender;
+         * Constructor of the sender based on the string output of a sender.
          *
          * @param senderString the string of sender toString() output used to parse a sender
          */

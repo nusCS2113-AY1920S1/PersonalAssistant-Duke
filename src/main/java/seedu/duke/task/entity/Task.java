@@ -1,12 +1,15 @@
 package seedu.duke.task.entity;
 
 import seedu.duke.CommandParser;
-import seedu.duke.Duke;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -24,24 +27,35 @@ public class Task {
      * The name of the task.
      */
     protected String name;
+
     /**
      * The flag whether is task is already done. Can only be set from false to true.
      */
     protected boolean isDone;
+
     /**
      * The type of the task, following the enumeration declared.
      */
     protected TaskType taskType;
+
     protected String doAfterDescription;
+
     /**
      * The tag list that the task has.
      */
     protected ArrayList<String> tags;
+
     /**
      * The priority assigned to the task.
      */
     protected String priority;
 
+    /**
+     * The enumeration of all task type.
+     */
+    public enum TaskType {
+        ToDo, Deadline, Event
+    }
 
     /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
@@ -54,24 +68,6 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
-    }
-
-    /**
-     * The function is used to parse the input string to a Date that is used by the tasks with time involved.
-     * The function can be called before the initialization of a Task so that the Data can be directly passed
-     * to the constructor.
-     *
-     * @param dateString an input string to be parsed
-     * @return parsed result from the input string
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
-     *                                          wrong format
-     */
-    public static LocalDateTime parseDate(String dateString) throws CommandParser.UserInputException {
-        try {
-            return LocalDateTime.parse(dateString, format);
-        } catch (DateTimeParseException e) {
-            throw new CommandParser.UserInputException("Wrong Date Time format");
-        }
     }
 
     /**
@@ -128,6 +124,76 @@ public class Task {
     }
 
     /**
+     * Checks if the input is a short form for a day of the week.
+     *
+     * @param input an input to be checked.
+     * @return false if the input is not short form or not a day of the week.
+     */
+    public static boolean isCorrectNaturalDate(String input) {
+        DayOfWeek[] dayOfWeeks = DayOfWeek.values();
+        for (int i = 0; i < dayOfWeeks.length; i++) {
+            String day = dayOfWeeks[i].getDisplayName(TextStyle.SHORT, Locale.US);
+            if (day.equals(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Converts the input from a string that contains a day of the week to the next nearest date corresponding
+     * to the day of the week. If they day has already passed in that week, the next date corresponding to the
+     * day will be returned.
+     *
+     * @param parsedDay    an input that contains the day of the task to be done.
+     * @param parsedTiming an input that contains the time of the task to be done.
+     * @return dateTime that gives the date and time of the input.
+     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     *                                          wrong format
+     */
+    public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
+            throws CommandParser.UserInputException {
+        LocalDate date = LocalDate.now();
+        LocalDateTime dateTime;
+        try {
+            if (parsedTiming == null || parsedTiming.isEmpty()) { //if no timing is inputted, set time as 0000
+                dateTime = date.atStartOfDay();
+            } else {
+                LocalTime timing = LocalTime.parse(parsedTiming, DateTimeFormatter.ofPattern("HHmm"));
+                dateTime = date.atTime(timing);
+            }
+            DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
+            String day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+            while (!day.contains(parsedDay)) {
+                dateTime = dateTime.plusDays(1);
+                dayOfWeek = dateTime.getDayOfWeek();
+                day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+            }
+        } catch (DateTimeParseException e) {
+            throw new CommandParser.UserInputException("Wrong Date Time format");
+        }
+        return dateTime;
+    }
+
+    /**
+     * The function is used to parse the input string to a Date that is used by the tasks with time involved.
+     * The function can be called before the initialization of a Task so that the Data can be directly passed
+     * to the constructor.
+     *
+     * @param dateString an input string to be parsed
+     * @return parsed result from the input string
+     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     *                                          wrong format
+     */
+    public static LocalDateTime parseDate(String dateString) throws CommandParser.UserInputException {
+        try {
+            return LocalDateTime.parse(dateString, format);
+        } catch (DateTimeParseException e) {
+            throw new CommandParser.UserInputException("Wrong Date Time format");
+        }
+    }
+
+    /**
      * The function checks whether this task, when converted to string, contains the keyword specified.
      *
      * @param keyword search target string
@@ -146,6 +212,10 @@ public class Task {
      */
     public boolean isNear(int dayLimit) {
         return false;
+    }
+
+    public void setDoAfterDescription(String description) {
+        this.doAfterDescription = description;
     }
 
     public void snooze() {
@@ -171,18 +241,7 @@ public class Task {
         return doAfterDescription;
     }
 
-    public void setDoAfterDescription(String description) {
-        this.doAfterDescription = description;
-    }
-
     public void setPriorityTo(String priority) {
         this.priority = priority;
-    }
-
-    /**
-     * The enumeration of all task type.
-     */
-    public enum TaskType {
-        ToDo, Deadline, Event
     }
 }

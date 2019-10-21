@@ -19,8 +19,12 @@ public class TaskUpdateCommand extends Command {
 
     /**
      * Instantiates a find command with all variables necessary.
-     *
-     * @param index position of task as specified by input
+==== BASE ====
+     * @param taskList      list of tasks
+     * @param index         position of task as specified by input
+     * @param description   what to modify to
+     * @param attribute     what attribute to modify
+==== BASE ====
      */
     TaskUpdateCommand(int index, ArrayList<String> descriptions,
                       ArrayList<TaskUpdateCommand.Attributes> attributes) {

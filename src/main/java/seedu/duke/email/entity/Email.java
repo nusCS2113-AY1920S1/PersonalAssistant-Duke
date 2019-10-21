@@ -31,7 +31,7 @@ public class Email {
     }
 
     /**
-     * Detailed constructor of Email class with more paramaters.
+     * Detailed constructor of Email class with more parameters.
      *
      * @param subject          subject of the email
      * @param sender           the sender of the email
@@ -265,10 +265,10 @@ public class Email {
     }
 
     /**
-     * Tag of an email with both a keyword pair and a score indicating its relevance;
+     * Tag of an email with both a keyword pair and a score indicating its relevance.
      */
     public static class Tag {
-        private int INFINITY = 0x3f3f3f;
+        private static final int INFINITY = 0x3f3f3f;
         private EmailContentParser.KeywordPair keywordPair;
         private int relevance = INFINITY;
 
