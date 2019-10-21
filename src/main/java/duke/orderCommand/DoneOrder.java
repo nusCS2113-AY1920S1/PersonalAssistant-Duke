@@ -12,11 +12,17 @@ import duke.ui.Ui;
 public class DoneOrder extends OrderCommand {
     private int orderNb;
 
-    public DoneOrder(String orderNb) throws DukeException{
-        int x;
-        try { x = Integer.parseInt(orderNb) - 1; }
-        catch (Exception e) { throw new DukeException(e.getMessage()); }
-        this.orderNb = x;
+    /**
+     * the constructor method of {@link DoneOrder}
+     *
+     * @param number order number in the order list
+     * @throws DukeException if input cannot be converted into number
+     */
+    public DoneOrder(String number) throws DukeException{
+        int index;
+        try { index = Integer.parseInt(number) - 1; }
+        catch (Exception e) { throw new DukeException("Please enter a valid order number."); }
+        this.orderNb = index;
     }
 
     @Override
@@ -25,12 +31,8 @@ public class DoneOrder extends OrderCommand {
             orderList.markOrderDone(orderNb);
             ui.showMarkDone(orderList.getOrder(orderNb).toString());
             storage.changeContent(orderNb);
-
-            //To do
-            //Trigger getFeedback here
-
         } else {
-            throw new DukeException("Enter a valid task number after done, between 1 and " + orderList.size());
+            throw new DukeException("Please enter a valid order number after done, between 1 and " + orderList.size());
         }
     }
 }
