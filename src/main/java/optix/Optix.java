@@ -1,3 +1,5 @@
+package optix;
+
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
