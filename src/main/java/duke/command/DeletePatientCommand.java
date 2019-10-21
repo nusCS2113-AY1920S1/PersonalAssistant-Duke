@@ -4,12 +4,14 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
+import duke.relation.PatientTask;
 import duke.statistic.Counter;
 import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
+import duke.task.Task;
 import duke.task.TaskManager;
 
 
@@ -20,10 +22,11 @@ public class DeletePatientCommand extends Command {
     private String deletedPatientInfo;
 
     /**
-     * .
+     * It checks whether user is deleting a patient by id
+     * It extracts the id of the patient to be deleted
      *
-     * @param deletedPatientInfo .
-     * @throws DukeException .
+     * @param deletedPatientInfo it contains the information of the patient to be deleted 
+     * @throws DukeException it shows user the correct format to delete a patient by id
      */
     public DeletePatientCommand(String deletedPatientInfo) throws DukeException {
 
@@ -41,8 +44,8 @@ public class DeletePatientCommand extends Command {
     /**
      * .
      *
-     * @param patientTask        .
-     * @param tasks              .
+     * @param patientTaskList        .
+     * @param taskManager              .
      * @param patientManager     .
      * @param ui                 .
      * @param patientTaskStorage .
@@ -51,33 +54,47 @@ public class DeletePatientCommand extends Command {
      * @throws DukeException .
      */
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
+    public void execute(PatientTaskList patientTaskList, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
 
+        boolean toDelete;
+        ArrayList<PatientTask> patientTask = new ArrayList<>();
+        Patient patientToBeDeleted = null;
+
         if (id != 0) {
-            Patient patientToBeDeleted = patientManager.getPatient(id);
-            boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);
-            if (toDelete) {
-                patientManager.deletePatient(id);
-                ui.patientDeleted();
-                patientStorage.save(patientManager.getPatientList());
-            }
+            patientToBeDeleted = patientManager.getPatient(id);
+            ui.showPatientInfo(patientToBeDeleted);
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
             ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
             if (patientsWithSameName.size() >= 1) {
                 int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
                 if (numberChosen >= 1) {
-                    boolean toDelete = ui.confirmPatientToBeDeleted(patientsWithSameName.get(numberChosen - 1));
-                    if (toDelete) {
-                        patientManager.deletePatient(patientsWithSameName.get(numberChosen - 1).getID());
-                        ui.patientDeleted();
-                        patientStorage.save(patientManager.getPatientList());
-                    }
+                    patientToBeDeleted = patientsWithSameName.get(numberChosen - 1);
+                    ui.showPatientInfo(patientToBeDeleted);
                 }
             }
         }
+        try {
+            patientTask = patientTaskList.getPatientTask(patientToBeDeleted.getID());
+            ArrayList<Task> tempTask = new ArrayList<>();
+            for (PatientTask temppatientTask : patientTask) {
+                tempTask.add(taskManager.getTask(temppatientTask.getTaskID()));
+            }
+            ui.patientTaskFound(patientToBeDeleted, patientTask, tempTask);
+            toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted, true);
+        } catch (Exception e) {
+            toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted,false);
+        }
+        if (toDelete) {
+            patientManager.deletePatient(patientToBeDeleted.getID());
+            patientTaskList.deleteEntirePatientTask(patientToBeDeleted.getID());
+            ui.patientDeleted();
+            patientStorage.save(patientManager.getPatientList());
+            patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+        }
+
     }
 
     /**
