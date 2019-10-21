@@ -20,8 +20,8 @@ class TaskListTest {
     private DateTimeHelper dateTimeHelper;
 
     TaskListTest() {
-        project = new Project("Infinity_Gauntlet");
-        dateTimeHelper = new DateTimeHelper();
+        this.project = new Project("Infinity_Gauntlet");
+        this.dateTimeHelper = new DateTimeHelper();
     }
 
     @Test

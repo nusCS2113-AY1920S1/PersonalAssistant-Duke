@@ -1,13 +1,14 @@
 package views;
 
 import controllers.ConsoleInputController;
-import java.util.ArrayList;
-import java.util.Scanner;
 import models.data.IProject;
 import models.data.Project;
 import models.task.Task;
-import java.util.HashMap;
 import util.log.DukeLogger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class CLIView {
     private static final String horiLine = "\t____________________________________________________________";
@@ -304,7 +305,7 @@ public class CLIView {
     }
 
     public void editTask(IProject projectToManage, String updatedTaskDetails, int taskIndexNumber) {
-        projectToManage.editTask(updatedTaskDetails);
+        projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
         consolePrint("The task has been updated!");
     }
 

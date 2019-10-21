@@ -4,8 +4,6 @@ import util.ParserHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeMap;
-import java.util.Map;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -72,46 +70,29 @@ public class TaskList {
      *                           edit task i/TASK_INDEX [n/TASK_NAME] [p/TASK_PRIORITY]
      *                           [d/TASK_DUEDATE] [c/TASK_CREDIT] [s/STATE]
      */
-    public void editTask(String updatedTaskDetails) {
-        String[] updatedTaskDetailsArray = updatedTaskDetails.split(" [itpdcs]\\/");
-        int taskIndex = Integer.parseInt(updatedTaskDetailsArray[1]);
-        TreeMap<Integer, String> orderOfInputs = new TreeMap<>();
-        int indexOfTaskNameFlag = updatedTaskDetails.indexOf(" t/");
-        orderOfInputs.put(indexOfTaskNameFlag, "t");
-        int indexOfTaskPriorityFlag = updatedTaskDetails.indexOf(" p/");
-        orderOfInputs.put(indexOfTaskPriorityFlag, "p");
-        int indexOfTaskDueDateFlag = updatedTaskDetails.indexOf(" d/");
-        orderOfInputs.put(indexOfTaskDueDateFlag, "d");
-        int indexOfTaskCreditFlag = updatedTaskDetails.indexOf(" c/");
-        orderOfInputs.put(indexOfTaskCreditFlag, "c");
-        int indexOfTaskStateFlag = updatedTaskDetails.indexOf(" s/");
-        orderOfInputs.put(indexOfTaskStateFlag, "s");
+    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
+        ArrayList<String> taskDetails = parserHelper.parseTaskDetails(updatedTaskDetails);
+        String taskName = taskDetails.get(0);
 
-        int currentIndex = 2;
-        for (Map.Entry<Integer, String> entry : orderOfInputs.entrySet()) {
-            if (entry.getKey() != -1) {
-                switch (entry.getValue()) {
-                case "t":
-                    this.taskList.get(taskIndex - 1).setTaskName(updatedTaskDetailsArray[currentIndex]);
-                    break;
-                case "p":
-                    int newTaskPriority = Integer.parseInt(updatedTaskDetailsArray[currentIndex]);
-                    this.taskList.get(taskIndex - 1).setTaskPriority(newTaskPriority);
-                    break;
-                case "d":
-                    this.taskList.get(taskIndex - 1).setDueDate(updatedTaskDetailsArray[currentIndex]);
-                    break;
-                case "c":
-                    int newTaskCredit = Integer.parseInt(updatedTaskDetailsArray[currentIndex]);
-                    this.taskList.get(taskIndex - 1).setTaskCredit(newTaskCredit);
-                    break;
-                case "s":
-                    this.taskList.get(taskIndex - 1).setTaskState(updatedTaskDetailsArray[currentIndex]);
-                    break;
-                default:
-                }
-                currentIndex++;
-            }
+        Task task = taskList.get(taskIndexNumber - 1);
+        if (!("--".equals(taskName))) {
+            task.setTaskName(taskName);
+        }
+        String taskPriority = taskDetails.get(1);
+        if (!("-1".equals(taskPriority))) {
+            task.setTaskPriority(Integer.parseInt(taskPriority));
+        }
+        String taskDueDate = taskDetails.get(2);
+        if (taskDueDate != null) {
+            task.setDueDate(taskDueDate);
+        }
+        String taskCredit = taskDetails.get(3);
+        if (!("-1".equals(taskCredit))) {
+            task.setTaskCredit(Integer.parseInt(taskCredit));
+        }
+        String taskState = taskDetails.get(4);
+        if (!("NONE".equals(taskState))) {
+            task.setTaskState(taskState);
         }
     }
 

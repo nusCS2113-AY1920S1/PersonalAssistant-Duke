@@ -9,8 +9,12 @@ import util.factories.MemberFactory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MemberFactoryTest {
-    private MemberFactory memberFactory = new MemberFactory();
+    private MemberFactory memberFactory;
     private String simulatedFactoryInput;
+
+    MemberFactoryTest() {
+        this.memberFactory = new MemberFactory();
+    }
 
     /**
      * Always true test just to test if jUnit is working.

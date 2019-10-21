@@ -1,6 +1,5 @@
 package models.task;
 
-import java.util.Objects;
 import models.member.ListOfMembersAssignedToTask;
 import models.member.Member;
 import util.date.DateTimeHelper;
@@ -9,6 +8,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Task implements ITask {
     private String taskName;
@@ -18,6 +18,7 @@ public class Task implements ITask {
     private TaskState taskState;
     private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
+    private DateTimeHelper dateTimeHelper;
 
     @Override
     public boolean equals(Object obj) {
@@ -57,6 +58,7 @@ public class Task implements ITask {
         this.taskState = taskState;
         this.listOfMembersAssignedToTask = new ListOfMembersAssignedToTask();
         this.taskRequirements = taskRequirements;
+        this.dateTimeHelper = new DateTimeHelper();
     }
 
     public String getTaskName() {
@@ -72,7 +74,6 @@ public class Task implements ITask {
      * @return String containing all the details of the task.
      */
     public String getDetails() {
-        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         if (this.dueDate != null) {
             return this.taskName + " | Priority: "
                     + this.taskPriority + " | Due: " + dateTimeHelper.formatDateForDisplay(this.dueDate) + " | Credit: "
@@ -144,7 +145,6 @@ public class Task implements ITask {
      * @param newDueDateString String form of the new dueDate to be set.
      */
     public void setDueDate(String newDueDateString) {
-        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         try {
             this.dueDate = dateTimeHelper.formatDate(newDueDateString);
         } catch (ParseException e) {
@@ -189,6 +189,4 @@ public class Task implements ITask {
     public void addTaskRequirement(String newTaskRequirement) {
         this.taskRequirements.add(newTaskRequirement);
     }
-
-
 }
