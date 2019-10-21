@@ -22,7 +22,7 @@ public class WordUp extends Application {
      */
     public WordUp() {
         ui = new Ui();
-        storage = new Storage("C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\wordup.txt");
+        storage = new Storage("data\\wordup.txt");
         wordBank = new WordBank(storage);
     }
 
