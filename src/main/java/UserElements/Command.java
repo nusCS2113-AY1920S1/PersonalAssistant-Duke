@@ -126,7 +126,7 @@ public class Command {
                 break;
 
             case "reschedule":
-                rescheduleEvents(events, ui);
+                rescheduleEvent(events, ui);
                 break;
 
             case "edit":
@@ -245,49 +245,59 @@ public class Command {
 
             try {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
-                Event newEvent = null;
-                switch (eventType) {
-                    case 'L':
-                        newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'C':
-                        newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'P':
-                        newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'E':
-                        newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'R':
-                        newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
+                Event newEvent = NewEvent(eventType, entryForEvent); //instantiate new event
+                assert newEvent != null;
+
+                if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
+                    events.addEvent(newEvent);
+                    ui.eventAdded(newEvent, events.getNumEvents());
+                } else { //recurring
+                    events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                    ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                 }
 
-                try {
-                    if (entryForEvent.getPeriod() == NO_PERIOD) {
-                        events.addEvent(newEvent);
-                        ui.eventAdded(newEvent, events.getNumEvents());
-                    } else {
-                        assert newEvent != null;
-                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    }
-                } catch (ClashException e) {
-                    ui.scheduleClash(e.getClashEvent());
-                }
-
-            } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+            } catch (ClashException e) { //clash found
+                ui.scheduleClash(e.getClashEvent());
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 ui.eventFormatWrong();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                ui.eventFormatWrong();
+            } catch (Exception e) { //start time is after end time
+                ui.eventEndsBeforeStart();
             }
         }
+    }
+
+    /**
+     * Instantiates a new event based on details passed as parameter
+     *
+     * @param entryForEvent contains all necessary info for creating new event
+     * @return instantiated event
+     */
+    private Event NewEvent(char eventType, EntryForEvent entryForEvent) {
+        Event newEvent = null;
+        switch (eventType) {
+            case 'L':
+                newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'C':
+                newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'P':
+                newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'E':
+                newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'R':
+                newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+        }
+
+        return newEvent;
     }
 
     public void createNewTodo(EventList events, UI ui) {
@@ -330,39 +340,36 @@ public class Command {
         }
     }
 
-    public void rescheduleEvents(EventList events, UI ui) {
+    public void rescheduleEvent(EventList events, UI ui) {
+        Event copyOfEvent = null, newEvent = null;
         try {
-            String[] rescheduleDetail = continuation.split(" ");
+            String[] rescheduleDetail = continuation.split(" "); //split details by space (dd-MM-yyyy HHmm HHmm)
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
-            Event tempEvent = events.getEvent(eventIndex);
-            events.deleteEvent(eventIndex);
-            EventDate newStartDate;
-            EventDate newEndDate;
+            copyOfEvent = events.getEvent(eventIndex); //copy of event in case rescheduling fails
 
-            if (rescheduleDetail.length > 2) {
-                newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
-                newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
+            newEvent = events.getEvent(eventIndex); //event to be used as a replacement.
 
-            } else {
-                newStartDate = new EventDate(rescheduleDetail[1]);
-                newEndDate = null;
-            }
+            EventDate newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
+            EventDate newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
 
-            tempEvent.rescheduleStartDate(newStartDate);
-            tempEvent.rescheduleEndDate(newEndDate);
+            newEvent.rescheduleStartDate(newStartDate); //reschedule start date & time
+            newEvent.rescheduleEndDate(newEndDate); //reschedule end date & time
 
-            try {
-                events.addEvent(tempEvent);
-                ui.rescheduleEvent(tempEvent);
-            } catch (ClashException clashE) {
-                ui.scheduleClash(clashE.getClashEvent());
-            }
+            events.deleteEvent(eventIndex); //delete event from list before continuing
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            ui.rescheduleFormatWrong();
+            return;
+        }
 
-        } catch (IndexOutOfBoundsException outOfBoundsE) {
-            ui.noSuchEvent();
-
-        } catch (NumberFormatException notInteger) {
-            ui.notAnInteger();
+        try {
+            events.addEvent(newEvent);
+            ui.rescheduleEvent(newEvent);
+        } catch (ClashException clashE) {
+            ui.scheduleClash(clashE.getClashEvent());
+            events.undoDeletionOfEvent(copyOfEvent); //reinstate previous event when rescheduling fails
+        } catch (Exception e) {
+            ui.eventEndsBeforeStart();
+            events.undoDeletionOfEvent(copyOfEvent); //reinstate previous event when rescheduling fails
         }
     }
 
