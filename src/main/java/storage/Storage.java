@@ -27,7 +27,7 @@ public class Storage {
 
     /**
      * Converts all data from text file in storage to list of words.
-     * @return an arraylist containing all words in dictionary
+     * @return an arraylist containing all words in dictionary ordered by ALPHABET
      */
     public TreeMap<String, Word> loadFile() {
         File file = new File(FILE_PATH);
@@ -64,9 +64,11 @@ public class Storage {
         }
     }
 
+
     /**
-     * Loads history from the history file.
-     * @return a stack containing all input words
+     * Converts all data from the text file in the order it is written in.
+     * Stack structure used because the first words to be extracted are the last ones added to stack.
+     * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
      */
     public Stack<Word> loadHistoryFromFile() {
         File file = new File(FILE_PATH);
@@ -103,6 +105,7 @@ public class Storage {
         }
     }
 
+
     /**
      * Writes data to an extracted file.
      * @param s new word to be added
@@ -128,6 +131,7 @@ public class Storage {
             }
         }
     }
+
 
     /**
      * Deletes an item from file.

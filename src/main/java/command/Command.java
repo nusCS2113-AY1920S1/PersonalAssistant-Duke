@@ -20,8 +20,6 @@ public abstract class Command {
      * @return a string to show to user
      */
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
-        //ask ui to print something
-        //ask storage to store the thing into tasks
         return null;
     }
 }
