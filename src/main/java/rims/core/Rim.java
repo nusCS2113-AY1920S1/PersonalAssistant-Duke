@@ -18,7 +18,7 @@ public class Rim {
         storage = new Storage(filePath);
         ui = new Ui();
         resources = new ResourceList(storage.getResources());
-        parser = new Parser();
+        parser = new Parser(ui);
     }
 
     public void run() throws Exception, IOException {

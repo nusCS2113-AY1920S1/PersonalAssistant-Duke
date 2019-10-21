@@ -9,8 +9,13 @@ import java.io.*;
 import java.text.*;
 
 public class Parser {
-    Reader reader = new Reader();
-    Ui ui = new Ui();
+    Reader reader;
+    Ui ui;
+
+    public Parser(Ui ui) {
+        reader = new Reader();
+        this.ui = ui;
+    }
 
     public Command parseInput(String input) {
         Command c = new ListCommand(); // temporary default until exception handling finished
@@ -23,20 +28,16 @@ public class Parser {
             c = new ListCommand();
         }
 
-        else if (words[0].equals("listByDate")) {
-            Scanner myObj = new Scanner(System.in);
-            String day = myObj.nextLine();
-                c = new ListByDateCommand(day);
-        }
-        else if (words[0].equals("listByItem")) {
-            Scanner myObj = new Scanner(System.in);
-            String itemName = myObj.nextLine();
-            c = new ListByItemCommand(itemName);
-        }
-        else if (words[0].equals("listByRoom")) {
-            Scanner myObj = new Scanner(System.in);
-            String roomName = myObj.nextLine();
-            c = new ListByRoomCommand(roomName);
+        else if (words[0].equals("list") && words.length > 1) {
+            String param = ui.getInput();
+            String paramType = words[1].substring(1);
+            if (paramType.equals("date") || paramType.equals("room") || paramType.equals("item")) {
+                c = new ListCommand(paramType, param);
+            }
+            else {
+                ;
+                // throw new RimException (invalid paramType)
+            }
         }
         else if (words[0].equals("lend") && words.length == 1) {
             c=reader.ReadLoanCommand(ui);        
