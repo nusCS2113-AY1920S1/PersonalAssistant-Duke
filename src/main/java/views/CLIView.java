@@ -4,14 +4,22 @@ import controllers.ConsoleInputController;
 import models.data.IProject;
 import models.data.Project;
 import models.member.Member;
+import models.member.MemberList;
 import models.task.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class CLIView {
     private static final String horiLine = "\t____________________________________________________________";
     private static final String indentation = "\t";
+    private static final String borderCorner = "+";
+    private static final char horiBorderUnit = '-';
+    private static final String vertiBorderUnit = "|";
+    private static final int defaultHoriBorderLength = 60;
+
 
     private ConsoleInputController consoleInputController;
 
@@ -29,6 +37,91 @@ public class CLIView {
             System.out.println(indentation + message);
         }
         System.out.println(horiLine);
+    }
+
+    /**
+     * Prints viewAllProjects in table form.
+     * @param toPrintPerProject HashMap of Project number as key and ArrayList of Strings of things to be printed as
+     *                          value.
+     */
+    public void consolePrintTable(HashMap<Integer, ArrayList<String>> toPrintPerProject) {
+
+        for (int i = 0; i < toPrintPerProject.size(); i++) {
+            consolePrintTableHoriBorder(defaultHoriBorderLength);
+            boolean hasPrintedProjectName = false;
+            for (String s : toPrintPerProject.get(i)) {
+                if (s.length() <= defaultHoriBorderLength) {
+                    System.out.println(indentation + vertiBorderUnit + s
+                            + getRemainingSpaces(defaultHoriBorderLength - s.length()) + vertiBorderUnit);
+                } else {
+                    String[] splitStrings = getArrayOfSplitStrings(s);
+                    for (String s1 : splitStrings) {
+                        System.out.println(indentation + vertiBorderUnit + s1
+                                + getRemainingSpaces(defaultHoriBorderLength - s1.length()) + vertiBorderUnit);
+                    }
+                }
+                if (!hasPrintedProjectName) {
+                    consolePrintTableHoriBorder(defaultHoriBorderLength);
+                    hasPrintedProjectName = true;
+                }
+            }
+            consolePrintTableHoriBorder(defaultHoriBorderLength);
+        }
+    }
+
+    /**
+     * Splits a long String into an array of smaller Strings to fit the table display.
+     * @param toPrint String to be printed in table form.
+     * @return array of Strings to be printed line by line to fit the table width requirement.
+     */
+    private String[] getArrayOfSplitStrings(String toPrint) {
+        ArrayList<String> splitStrings = new ArrayList<>();
+        int indexOfStringSplitStart = 0;
+        int indexOfStringSplitEnd = defaultHoriBorderLength - 1;
+        boolean isLastLine = false;
+        while (!isLastLine) {
+            while (toPrint.charAt(indexOfStringSplitEnd) != ' ') {
+                indexOfStringSplitEnd--;
+            }
+            splitStrings.add(toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd + 1));
+            indexOfStringSplitStart = indexOfStringSplitEnd;
+            indexOfStringSplitEnd += defaultHoriBorderLength;
+            if (indexOfStringSplitEnd >= toPrint.length()) {
+                splitStrings.add(toPrint.substring(indexOfStringSplitStart));
+                isLastLine = true;
+            }
+        }
+        return splitStrings.toArray(new String[0]);
+    }
+
+    /**
+     * Returns a String of the number of spaces needed to complete the table.
+     * @param numOfRemainingSpaces number of spaces needed.
+     * @return String containing indicated number of spaces.
+     */
+    private String getRemainingSpaces(int numOfRemainingSpaces) {
+        if (numOfRemainingSpaces == 0) {
+            return "";
+        } else {
+            char[] remainingSpaces = new char[numOfRemainingSpaces];
+            for (int i = 0; i < numOfRemainingSpaces; i++) {
+                remainingSpaces[i] = ' ';
+            }
+            return new String(remainingSpaces);
+        }
+    }
+
+    /**
+     * Prints an indented horizontal border of a defined length with border corners (length not inclusive of corners).
+     * @param borderLength Length of border excluding corners.
+     */
+    private void consolePrintTableHoriBorder(int borderLength) {
+        char[] border = new char[borderLength];
+        for (int i = 0; i < borderLength; i++) {
+            border[i] = horiBorderUnit;
+        }
+        String borderString = new String(border);
+        System.out.println(indentation + borderCorner + borderString + borderCorner);
     }
 
     /**
@@ -59,13 +152,23 @@ public class CLIView {
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
     public void viewAllProjects(ArrayList<Project> allProjects) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Here are all the Projects you are managing:");
-        for (int i = 0; i < allProjects.size(); i++) {
-            toPrint.add("" + (i + 1) + ". " + allProjects.get(i).getDescription() + " "
-                + allProjects.get(i).getMembers().getAllMemberDetails());
+        System.out.println("Here are all the Projects you are managing:");
+        HashMap<Integer, ArrayList<String>> toPrintPerProject = new HashMap<>();
+        for (int projNum = 0; projNum < allProjects.size(); projNum++) {
+            ArrayList<String> toPrint = new ArrayList<>();
+            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
+            toPrint.add("Members: ");
+            for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers(); memberIndex++) {
+                toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
+            }
+            toPrint.add("Next Deadline: ");
+            toPrint.add(" Feature not yet done");
+            toPrint.add("Overall Progress: ");
+            toPrint.add(" Feature not yet done");
+            toPrintPerProject.put(projNum, toPrint);
         }
-        consolePrint(toPrint.toArray(new String[0]));
+        consolePrintTable(toPrintPerProject);
+
     }
 
     /**
