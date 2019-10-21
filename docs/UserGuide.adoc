@@ -52,163 +52,108 @@ ModPlan is a module planning system that expands on NUSMODS to help NUS Computer
 //* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Adding a task: `add`
+=== Searching and adding a module: `add`
 
-Adds a specific type of task to the task list.
-The parameters to be filled in by the user differs according to the task type.
-
-==== Adding a Todo task: `todo`
+Searchs for a module and adds it to the module list, if the module is present in the list of NUS modules. +
+Format: `add MOD_NAME`
 
 ****
-* Adds a task which can be completed at any timing without restrictions. +
-* Format: `todo TASK_NAME`
+* The `MOD_NAME` must be in the format of the NUS module code name.
+* Example: `add CG2028`
 ****
 
-==== Adding a Deadline task: `deadline`
+=== Removing a module : `remove`
 
-Adds a task which has a specific date and time to be completed by. +
-Format: `deadline TASK_NAME /by DATE TIME`
-
-****
-* The date must be in the dd-mm-yyyy format that the program understands it.
-* The time must be in the hh:mm format that the program understands it.
-****
-
-==== Adding a DoWithin task: `doWithin`
-
-Adds a task which has to be done within a specific time period. +
-Format: `doWithin TASK_NAME /begin DATE TIME /end DATE TIME`
+Removes the specified module from the module list. +
+Format: `remove INDEX`
 
 ****
-* The first date and time is the starting date.
-* The second date and time is the ending date.
-* The date must be in the dd-mm-yyyy format that the program understands it.
-* The time must be in the hh:mm format that the program understands it.
-****
-
-Examples:
-
-* `doWithin write essay /begin 12-08-2019 12:00 /end 13-08-2019 12:00` +
-Adds a task, `write eassay` which has to be completed from 12/08/2019 12pm to 13/08/2019 12pm.
-
-==== Adding an Event task: `event`
-
-Adds a task which is occuring at a specific date and time. +
-Format: `event TASK_NAME /at DATE TIME`
-
-****
-* The date must be in the dd-mm-yyyy format that the program understands it.
-* The time must be in the hh:mm format that the program understands it.
-****
-
-==== Adding a FixedDuration task: `fixedDuration`
-
-Adds a task which requires a fixed amount of time to be completed in, but does not have a fixed starting or end time.
-Format: `fixedDuration TASK_NAME /needs TIME`
-
-****
-* The time must be in the hh:mm format that the program understands it.
-****
-
-==== Adding a Recurring task: `recurring`
-
-Adds a task which occurs periodically. +
-Format: `recurring TASK_NAME /every DAYS_NUMBER`
-
-Examples:
-
-* `recurring update diary /every 3`
-Adds a task, `update diary`, which occurs every 3 days.
-
-// tag::delete[]
-=== Deleting a task : `delete`
-
-Deletes the specified task from the task list. +
-Format: `delete INDEX`
-
-****
-* Deletes the task at the specified `INDEX`.
-* The index refers to the index number shown in the displayed task list list.
+* Removes the module at the specified `INDEX`.
+* The index refers to the index number shown in the displayed module list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd task in the task list.
+* `show` +
+`remove 2` +
+Removes the 2nd module in the module list.
 
-// end::delete[]
+=== Listing all modules : `show`
 
-=== Listing all tasks : `list`
-
-Shows a list of all tasks in the task list. +
-Format: `list`
-
-=== Locating tasks in the list by name: `find`
-
-Finds tasks from the task list whose description or date/time contain any of the given keywords. +
-Format: `find KEYWORD`
+Shows a list of all modules added in the module list. +
+Format: `show`
 
 ****
-* The search is case insensitive. e.g `event` will match `Event`
-* Part of the description will also be searched. e.g 'as' will match 'has', 'class' etc.
-* Searching for the full date/time must be done in the *dd-mm-yyyy hh:mm* format to match the task list.
+* Shows the module code, the number of MCs of the module and if the module can be SU-ed. +
 ****
 
-Examples:
+=== Calculating the CAP : `cap`
 
-* `find event` +
-Returns `event` and `this event`
-
-=== Marking a task as done: `done`
-
-Marks a certain task, which is completed, as done.
-Format: `done INDEX`
+Calculates the overall CAP or predicted CAP.
+Format: `cap`
 
 ****
-* Changes the status of completion of the task from [✗] to [✓].
-* The index of the task must be valid (i.e the task’s index must be in the task list).
+* Typing `cap` into the command line shows a CAP calculation message.
+* Type the module taken, along with it's letter grade. Keep typing all the module names in the module list and their respective grades. 
+* Format: `MOD_NAME GRADE_LETTER`
+* Type `done` when you are ready to calculate the CAP.
+* Shows your current cumulative or predicated CAP.
 ****
 
-=== Rescheduling tasks: `reschedule`
+Example: +
+`cap` + 
+`CG2028 A` +
+`CS2027 B-` + 
+`done`
 
-Reschedules a certain task to a different date and time. +
-Format: `reschedule INDEX DATE TIME`
+=== Sorting and printing the modules: `print`
 
-****
-* The index of the task must be valid (i.e the task's index must be in the task list).
-* A valid date and time must be inputted in the format that the program understands.
-* The date and time inputted must be an open timing, if there are clashes the program will warn the user about the clashing timing.
-****
+Sorts the module list according to alphabetical order and numerical order and prints the module list.+ 
+Format: `print`
 
-=== Schedule of the day: `schedule`
+=== Giving a report on the types of modules: `report`
 
-Lists the schedule one has for a specific date. +
-Format: `schedule DATE`
+Gives a report and the specified type of modules taken.
 
-****
-* A valid date must be inputted in the format that the program understands.
-* The list will be sorted from earliest to latest.
-****
+==== Giving a report on core modules: `core`
 
-=== Reminders: `reminder`
+Prints out a report on all the core modules taken in the semester.+
+Format: `report core`
 
-Reminds the user upon startup of the program of any upcoming tasks.
+==== Giving a report on general education modules: `ge`
 
-****
-* Notifies for any task due within the next 6 hours.
-* Rechecks every hour for new upcoming tasks.
-****
+Prints out a report on all the general education modules taken in the semester.+
+Format: `report ge`
+
+==== Giving a report on unrestricted electives modules: `ue`
+
+Prints out a report on all the unrestricted electives modules taken in the semester.+
+Format: `report ue`
+
+=== Adding CCA: `addCca`
+
+Adds a CCA task into the cca list. 
+Format: `addCca CCA_NAME --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+
+=== Rescheduling CCA: `scheduleCca`
+
+Reschedules a CCA which is added.
+Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+
+=== Removing a CCA: `removeCca`
+
+Removes a CCA which is added.
+Format: `removeCca INDEX`
 
 === Exiting the program : `bye`
 
-****
-* Typing `bye` into the command line shows a goodbye message, saves the task list, and closes the program.
-****
-
 Exits the program. +
 Format: `bye`
+
+****
+* Typing `bye` into the command line shows a goodbye message, saves the module list, and closes the program.
+****
 
 === Saving the data
 
@@ -223,91 +168,30 @@ There is no need to save manually.
 [TIP]
 If you follow what the errors tell you to fix in your command, you can get the program to work as intended!
 
-=== `DukeInvalidIndexException`
-This error appears when the user inputs a number that is out of bounds of the task list.
+=== `ModBadRequestStatus`
+This error appears when there is bad internet connection. The information from the nusMods V2 API is not fully fetched.
 
-image::DukeException.png[width="250"]
+Example of error message: `Error: Bad Status Connection!`
 
-****
-* Example:  `delete -1`
-****
+=== `ModFailedJsonException`
+This error appears when the file from the nusMods V2 API is not correctly converted for Java usage.
 
-=== `DukeInvalidTimeException`
-This error appears when the user inputs a date or time that is not of an acceptable format.
+Example of error message: `Error: Failed to parse data file!`
 
-image::DukeInvalidTimeException.png[width="300"]
+=== `ModNotFoundException`
+This error appears when the user searches for a module code that is not found in the nusMod list.
 
-****
-* Example: `deadline assignment /by 30/9/2019 12 o'clock` +
-Here 12 o'clock is not an acceptable format, instead use 1200.
-****
-=== `DukeInvalidTimePeriodException`
-This error appears when the use inputs a time period that is not of an acceptable range.
+image::ModNotFoundException.png[width="250"]
 
-****
-* This is only valid for the DoWithin task.
-* Example: `doWithin write essay /begin 12-08-2019 12:00 /end 1-08-2019 12:00`+
-Here the end date is earlier than the start date.
-****
-
-=== `DukeMissingArgumentException`
-This error appears when the user does not input valid parameters into the command line.
-
-****
-* Example: `deadline /by 30-9-2019 12:45` +
-Here the description is missing for the Deadline task, and the error message is shown.
-****
-
-=== `DukeCommandException`
+=== `ModCommandException`
 This error appears when the user does not input a valid command name into the command line.
 
-image::DukeCommandException.png[width="300"]
+image::ModCommandException.png[width="250"]
 
-****
-* Example: `activity finish writing book` +
-Since there is no such command for activity, the program will be unable to process the unknown command.
-****
+=== `ModCcaScheduleException`
+This error appears when the user inputs a CCA whose time period clashes with another CCA.
 
-=== `DukeEmptyCommandException`
-This error appears when the user does not input anything after writing a valid command into the command line.
-
-image::DukeCommandException.png[width="300"]
-
-****
-* Example: `delete`  +
-Since there is no index specified after `delete`, the program is unable to process which task to delete.
-****
-
-=== `DukeEmptyListException`
-This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list.
-
-image::DukeEmptyListException.png[width="300"]
-
-****
-* This is only valid for the `list` command.
-****
-
-=== `DukeMultipleValuesForSameArgumentException`
-This error appears when the user inputs duplicated commands into the command line.
-
-image::DukeMultipleValuesForSameArgumentException.png[width="400"]
-
-****
-* Example: `doWithin test /begin 10am /begin 2pm /end 3pm` +
-Here the `/begin` is repeated twice so the program is unable to determine which start time to be procesed.
-****
-
-=== `DukeScheduleException`
-This error appears when the user inputs a task that already exists in the task list.
-
-image::DukeScheduleException.png[width="400"]
-
-=== `DukeNoTimeException`
-This error appears when the user reschedule a non-time-based task.
-
-****
-* This is only valid for rescheduling a todo task.
-****
+Example of error message: `Error: This CCA clashes with existing CCAs!`
 
 == FAQ
 
@@ -316,10 +200,8 @@ This error appears when the user reschedule a non-time-based task.
 
 == Command Summary
 
-* *Add* `add TASK_TYPE TASK_DESCRIPTION [TASK_DATETIME]` +
-e.g. `add deadline finish project milestone /by 10/10/2019 12:00`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find homework`
-* *List* : `list`
+* *Add* `add MOD_NAME` +
+e.g. `add CG2028`
+* *Remove* : `remove INDEX` +
+e.g. `remove 3`
+* *Show* : `show`
