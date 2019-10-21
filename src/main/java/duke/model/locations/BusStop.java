@@ -1,9 +1,11 @@
 package duke.model.locations;
 
+import duke.commons.enumerations.Constraint;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class BusStop extends Venue {
+public class BusStop extends RouteNode {
     private String busCode;
     private String description;
     private Set<String> buses;
@@ -13,7 +15,7 @@ public class BusStop extends Venue {
      *
      */
     public BusStop(String busCode, String description, String address, double latitude, double longitude) {
-        super(address, latitude, longitude, 0, 0);
+        super(Constraint.valueOf("BUS"), address, busCode, latitude, longitude);
         this.busCode = busCode;
         this.description = description;
         this.buses = new HashSet<>();

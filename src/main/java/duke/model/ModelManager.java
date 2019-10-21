@@ -17,6 +17,7 @@ import java.util.List;
 public class ModelManager implements Model {
     private Storage storage;
     private TaskList tasks;
+    private RouteList routes;
     private CreateMap map;
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
@@ -29,6 +30,8 @@ public class ModelManager implements Model {
         storage = new Storage();
         tasks = storage.getTasks();
         map = storage.getMap();
+        //routes = storage.getRoutes();
+
         //allBusStops = storage.getBusStops();
         //allTrainStations = storage.getTrainStations();
         //userRoutes = storage.getRoutes();
@@ -42,6 +45,11 @@ public class ModelManager implements Model {
     @Override
     public TaskList getTasks() {
         return tasks;
+    }
+
+    @Override
+    public RouteList getRoutes() {
+        return routes;
     }
 
     @Override

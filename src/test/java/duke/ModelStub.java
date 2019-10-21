@@ -3,6 +3,7 @@ package duke;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.Model;
+import duke.model.RouteList;
 import duke.model.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ModelStub implements Model {
     private Storage storage;
     private TaskList tasks;
+    private RouteList routes;
     private CreateMap map;
 
     public ModelStub() {
@@ -75,6 +77,9 @@ public class ModelStub implements Model {
     public List<Venue> getRecommendations() throws DukeException {
         return storage.readVenues();
     }
+
+    @Override
+    public RouteList getRoutes() { return routes; }
 
     @Override
     public void save() throws DukeException {

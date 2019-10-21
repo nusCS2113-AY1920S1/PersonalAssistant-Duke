@@ -79,6 +79,9 @@ public class MessagesPrompt {
     public static final String RECOMMEND_PROMPT_STARTER = "How many days will you be visiting SG?";
     public static final String RECOMMEND_PROMPT_SUCCESS = "Recommended Attractions:";
 
+    public static final String ROUTE_ADD_STARTER = "What is the name of the new Route?";
+    public static final String ROUTE_ADD_SUCCESS = "Route Added!";
+
     public static final String CANCEL_PROMPT = "Current conversation has ended.";
     public static final String STARTING_POINT_PROMPT = "Choose your starting point.";
     public static final String ENDPOINT_PROMPT = "Choose your end point.";

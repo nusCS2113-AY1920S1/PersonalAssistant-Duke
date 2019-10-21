@@ -58,6 +58,11 @@ public interface Model {
     List<Venue> getRecommendations() throws DukeException;
 
     /**
+     * Returns the list of Routes.
+     */
+    RouteList getRoutes();
+
+    /**
      * Saves the Model data in storage.
      */
     void save() throws DukeException;

@@ -1,4 +1,4 @@
-package duke.model.transports;
+package duke.model.locations;
 
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
@@ -7,19 +7,16 @@ import duke.commons.exceptions.DukeException;
 import java.util.ArrayList;
 
 public class Route {
-    private Constraint type;
     private ArrayList<RouteNode> nodes;
     private String name;
     private String description;
 
     /**
      * Constructs an empty route object.
-     * @param type The type of the route.
      * @param name The name of the route.
      * @param description The description of the route.
      */
-    public Route(Constraint type, String name, String description) {
-        this.type = type;
+    public Route(String name, String description) {
         this.nodes = new ArrayList<RouteNode>();
         this.name = name;
         this.description = description;
@@ -27,13 +24,11 @@ public class Route {
 
     /**
      * Alternative constructor with predefined nodes.
-     * @param type The type of the route.
      * @param nodes The nodes of the route.
      * @param name The name of the route.
      * @param description The description of the route.
      */
-    public Route(Constraint type, ArrayList<RouteNode> nodes, String name, String description) {
-        this.type = type;
+    public Route(ArrayList<RouteNode> nodes, String name, String description) {
         this.nodes = nodes;
         this.name = name;
         this.description = description;
@@ -41,18 +36,12 @@ public class Route {
 
     /**
      * Adds a new node to the route at a given index.
-     * @param type The constraint of the node.
-     * @param latitude The latitude of the node.
-     * @param longitude The longitude of the node.
-     * @param name The name of the node.
-     * @param description The description of the node.
+     * @param newNode The new node to add.
      * @param index The index of the node to add to.
      */
-    public void addNode(Constraint type, double latitude, double longitude, String name,
-                        String description, int index) throws DukeException {
-        RouteNode newNode = new RouteNode(type, name, description, latitude, longitude);
+    public void addNode(RouteNode newNode, int index) throws DukeException {
         for (RouteNode node: nodes) {
-            if (node.getName().equals(name)) {
+            if (node.getAddress().equals(newNode.getAddress())) {
                 throw new DukeException(Messages.DUPLICATED_ROUTENODE);
             }
         }
@@ -62,6 +51,20 @@ public class Route {
         } else {
             nodes.add(index - 1, newNode);
         }
+    }
+
+    /**
+     * Alternate method to add a node at the end of the Route.
+     * @param newNode The new node to add.
+     */
+    public void addNode(RouteNode newNode) throws DukeException {
+        for (RouteNode node: nodes) {
+            if (node.getAddress().equals(newNode.getAddress())) {
+                throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+            }
+        }
+
+        nodes.add(newNode);
     }
 
     /**
@@ -86,12 +89,20 @@ public class Route {
      */
     public RouteNode fetchNode(String name) throws DukeException {
         for (RouteNode node: nodes) {
-            if (node.getName().equals(name.toLowerCase())) {
+            if (node.getAddress().equals(name.toLowerCase())) {
                 return node;
             }
         }
 
         throw new DukeException(Messages.DATA_NULL);
+    }
+
+    /**
+     * Gets the arraylist of Route Nodes.
+     * @return nodes The arrayList of Route Nodes.
+     */
+    public ArrayList<RouteNode> getNodes() {
+        return nodes;
     }
 
     /**
@@ -122,15 +133,34 @@ public class Route {
         return nodes.size();
     }
 
-    public Constraint getType() {
-        return type;
-    }
-
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public void remove(int index) throws IndexOutOfBoundsException {
+        nodes.remove(index);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Returns true if both routes are the same.
+     */
+    public boolean isSameRoute(Route otherRoute) {
+        if (otherRoute == this) {
+            return true;
+        }
+
+        return otherRoute != null && otherRoute.getDescription().equals(getDescription());
     }
 }

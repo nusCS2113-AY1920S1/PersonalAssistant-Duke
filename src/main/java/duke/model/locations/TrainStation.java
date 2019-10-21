@@ -1,8 +1,10 @@
 package duke.model.locations;
 
+import duke.commons.enumerations.Constraint;
+
 import java.util.ArrayList;
 
-public class TrainStation extends Venue {
+public class TrainStation extends RouteNode {
     private ArrayList<String> trainCode;
 
     /**
@@ -13,9 +15,11 @@ public class TrainStation extends Venue {
      * @param longitude longitude of train station
      */
     public TrainStation(ArrayList<String> trainCode, String address, double latitude, double longitude) {
-        super(address, latitude, longitude, 0, 0);
+        super(Constraint.valueOf("MRT"), address, null, latitude, longitude);
         this.trainCode = trainCode;
     }
+
+    //Constraint type, String address, String description, double latitude, double longitude
 
     public ArrayList<String> getTrainCode() {
         return trainCode;
