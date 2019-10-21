@@ -37,87 +37,116 @@ public class SetBudgetCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         try {
-            if (budget.getAmount() < 0) {
-                System.out.println(MESSAGE_NO_NEGATIVE_BUDGET);
-                System.out.println(MESSAGE_USAGE);
-                return false;
-            }
             if (budget != null) {
                 BudgetList budgetList = wallet.getBudgetList();
-                if (budgetList.getBudgetList().size() == 0 && budget.getAmount() == 0) {
-                    System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
+                if (budget.getAmount() < 0) {
+                    System.out.println(MESSAGE_NO_NEGATIVE_BUDGET);
+                    System.out.println(MESSAGE_USAGE);
                     return false;
-                } else if (budgetList.getBudgetList().size() != 0 && budget.getAmount() == 0) {
-                    int index = checkDuplicates(wallet.getBudgetList());
-                    if (index != -1) {
-                        wallet.getBudgetList().getBudgetList().remove(index);
-                        updateSaveFile(wallet);
-                        System.out.println(MESSAGE_REMOVE_BUDGET
-                                + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
-                                + budget.getYear());
-                    } else {
-                        System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
-                    }
-                    return false;
-                } else if (budgetList.getBudgetList().size() != 0 && budget.getAmount() > 0) {
-                    int index = checkDuplicates(wallet.getBudgetList());
-                    if (index != -1) {
-                        wallet.getBudgetList().editBudget(index, budget);
-                    } else {
-                        wallet.getBudgetList().addBudget(budget);
-                    }
-
-                    for (Expense e : wallet.getExpenseList().getExpenseList()) {
-                        LocalDate expenseDate = e.getDate();
-                        if (expenseDate.getMonthValue() == budget.getMonth()
-                                && expenseDate.getYear() == budget.getYear()) {
+                } else if (budget.getAmount() > 0) {
+                    if (budgetList.getBudgetList().size() != 0) {
+                        if (checkExpensesMatch(wallet)) {
                             System.out.println(MESSAGE_EXISTING_EXPENSES
                                     + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                                     + " " + budget.getYear());
                             System.out.println(MESSAGE_ADD_EXISTING_EXPENSES);
-                            Scanner scanner = new Scanner(System.in);
-                            String reply = scanner.nextLine().toLowerCase();
-                            while (!reply.equals("yes") || !reply.equals("no")) {
-                                if (reply.equals("yes")) {
-                                    budget.setAmount(budget.getAmount()
-                                            - wallet.getExpenseList().getMonthExpenses(budget.getMonth(),
-                                            budget.getYear()));
-                                    System.out.println("Alright, " + budget.getAmount() + MESSAGE_SET_BUDGET
-                                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
-                                            + " " + budget.getYear());
-                                    updateSaveFile(wallet);
-                                    break;
-                                } else if (reply.equals("no")) {
-                                    System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
-                                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
-                                            + " " + budget.getYear());
-                                    updateSaveFile(wallet);
-                                    break;
-                                } else {
-                                    System.out.println(MESSAGE_YES_OR_NO);
-                                    reply = scanner.nextLine().toLowerCase();
-                                }
-                            }
+                            takeInUserReply(wallet);
                         }
-                    }
-                    if (index != -1) {
-                        System.out.println(MESSAGE_EDIT_BUDGET
-                                + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
+                        int index = checkDuplicates(budgetList);
+                        if (index != -1) {
+                            wallet.getBudgetList().editBudget(index, budget);
+                            System.out.println(MESSAGE_EDIT_BUDGET
+                                    + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                    + " " + budget.getYear());
+                        } else {
+                            System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
+                                    + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                    + " " + budget.getYear());
+                            wallet.getBudgetList().addBudget(budget);
+                        }
+                        updateSaveFile(wallet);
+                    } else {
+                        if (checkExpensesMatch(wallet)) {
+                            System.out.println(MESSAGE_EXISTING_EXPENSES
+                                    + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                    + " " + budget.getYear());
+                            System.out.println(MESSAGE_ADD_EXISTING_EXPENSES);
+                            takeInUserReply(wallet);
+                        } else {
+                            System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
+                                    + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                    + " " + budget.getYear());
+                        }
+                        wallet.getBudgetList().addBudget(budget);
+                        updateSaveFile(wallet);
+                        System.out.println(MESSAGE_NOTE);
                     }
                     return false;
+                } else if (budget.getAmount() == 0) {
+                    if (budgetList.getBudgetList().size() == 0) {
+                        System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
+                        return false;
+                    } else {
+                        int index = checkDuplicates(budgetList);
+                        if (index != -1) {
+                            budgetList.getBudgetList().remove(index);
+                            updateSaveFile(wallet);
+                            System.out.println(MESSAGE_REMOVE_BUDGET
+                                    + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                    + budget.getYear());
+                        } else {
+                            System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
+                        }
+                        return false;
+                    }
                 }
-                wallet.getBudgetList().addBudget(budget);
-                System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
-                        + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
-                updateSaveFile(wallet);
-                System.out.println(MESSAGE_NOTE);
             }
         } catch (Exception e) {
             System.out.println(MESSAGE_USAGE);
         }
         return false;
     }
-    
+
+    private boolean checkExpensesMatch(Wallet wallet) {
+        for (Expense e : wallet.getExpenseList().getExpenseList()) {
+            LocalDate expenseDate = e.getDate();
+            if (expenseDate.getMonthValue() == budget.getMonth()
+                    && expenseDate.getYear() == budget.getYear()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void takeInUserReply(Wallet wallet) {
+        Scanner scanner = new Scanner(System.in);
+        String reply = scanner.nextLine().toLowerCase();
+        while (!reply.equals("yes") || !reply.equals("no")) {
+            if (reply.equals("yes")) {
+                budget.setAmount(budget.getAmount()
+                        - wallet.getExpenseList().getMonthExpenses(budget.getMonth(),
+                        budget.getYear()));
+                if (budget.getAmount() < 0) {
+                    System.out.println(AddCommand.MESSAGE_EXCEED_BUDGET);
+                } else if (budget.getAmount() == 0) {
+                    System.out.println(AddCommand.MESSAGE_REACH_BUDGET);
+                }
+                System.out.println("Alright, " + budget.getAmount() + MESSAGE_SET_BUDGET
+                        + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                        + " " + budget.getYear());
+                break;
+            } else if (reply.equals("no")) {
+                System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
+                        + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                        + " " + budget.getYear());
+                break;
+            } else {
+                System.out.println(MESSAGE_YES_OR_NO);
+                reply = scanner.nextLine().toLowerCase();
+            }
+        }
+    }
+
     private int checkDuplicates(BudgetList budgetList) {
         for (int i = 0; i < budgetList.getBudgetList().size(); i++) {
             if (budget.getMonth() == budgetList.getBudgetList().get(i).getMonth()

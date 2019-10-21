@@ -9,7 +9,6 @@ import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The AddCommand Class which extends Command.
@@ -26,7 +25,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
     public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
     public static final String MESSAGE_NEW_BUDGET = " is your new budget for ";
-    public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!";
+    public static final String MESSAGE_EXCEED_BUDGET = "Your budget has exceeded!!";
+    public static final String MESSAGE_REACH_BUDGET = "You have reached your budget!!";
     public static final String MESSAGE_ERROR_ADD_EXPENSE = "Error in format when adding expense.\n"
             + MESSAGE_USAGE;
 
@@ -76,13 +76,13 @@ public class AddCommand extends Command {
                 if (b.getMonth() == date.getMonthValue() && b.getYear() == date.getYear()) {
                     b.setAmount(b.getAmount() - expense.getAmount());
                     wallet.getBudgetList().setModified(true);
-                    if (b.getAmount() <= 0) {
+                    if (b.getAmount() < 0) {
                         System.out.println(MESSAGE_EXCEED_BUDGET);
-                        System.out.println(MESSAGE_NEW_BUDGET + b.getAmount());
-                    } else {
-                        System.out.println("$" + b.getAmount() + MESSAGE_NEW_BUDGET
-                                + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
+                    } else if (b.getAmount() == 0) {
+                        System.out.println(MESSAGE_REACH_BUDGET);
                     }
+                    System.out.println("$" + b.getAmount() + MESSAGE_NEW_BUDGET
+                            + new DateFormatSymbols().getMonths()[b.getMonth() - 1] + " " + b.getYear());
                 }
             }
             wallet.getRecordList().addRecord(expense);
