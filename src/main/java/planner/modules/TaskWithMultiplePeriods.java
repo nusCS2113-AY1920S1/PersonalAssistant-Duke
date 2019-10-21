@@ -120,6 +120,7 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends TaskWithMultiplePeriods> boolean isClashing(T other) {
         return this.isClashing(other.getPeriods());
     }

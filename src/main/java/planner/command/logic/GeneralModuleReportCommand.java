@@ -12,10 +12,6 @@ import java.util.HashMap;
 
 public class GeneralModuleReportCommand extends ModuleCommand {
 
-    public GeneralModuleReportCommand() {
-
-    }
-
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
                         ModuleTasksList tasks,
@@ -25,7 +21,6 @@ public class GeneralModuleReportCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper) {
         plannerUi.geModReport();
         int count = 1;
-
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
             if (moduleCode.startsWith("GE")) {

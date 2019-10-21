@@ -46,6 +46,10 @@ public class TaskWithMultipleWeeklyPeriod extends TaskWithMultiplePeriods<TimePe
         this.addPeriod(new TimePeriodWeekly(dayOfWeek));
     }
 
+    public void removePeriod(int index) {
+        this.periods.remove(index);
+    }
+
     public void setPeriod(int index, LocalTime begin, LocalTime end) throws ModInvalidIndexException {
         this.getPeriod(index).setPeriod(begin, end);
     }

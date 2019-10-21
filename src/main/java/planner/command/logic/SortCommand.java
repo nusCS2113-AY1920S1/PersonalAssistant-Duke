@@ -1,6 +1,8 @@
 package planner.command.logic;
 
+import planner.command.logic.Arguments;
 import planner.exceptions.ModException;
+import planner.modules.Cca;
 import planner.modules.data.ModuleInfoDetailed;
 import planner.modules.data.ModuleTask;
 import planner.util.CcaList;
@@ -12,10 +14,12 @@ import planner.util.commons.ModuleTasksList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SortCommand extends ModuleCommand {
 
-    public SortCommand() {
+    public SortCommand(Arguments args) {
+        super(args);
     }
 
     @Override
@@ -24,11 +28,24 @@ public class SortCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws ModException {
-        plannerUi.sortModuleMsg();
-        List<ModuleTask> hold = tasks.getTasks();
-        hold.sort(Comparator.comparing(ModuleTask::getModuleCode));
+                        JsonWrapper jsonWrapper) {
+        String toSort = arg("toSort");
+        plannerUi.sortMsg(toSort);
+        List<?> hold;
+        switch (toSort) {
+            case ("ccas"): {
+                hold = ccas;
+                hold.sort(Comparator.comparing((Object t) -> ((Cca) t).getTask()));
+                break;
+            }
+            case ("modules"):
+            default: {
+                hold = tasks.getTasks();
+                hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
+                break;
+            }
+        }
         //hold.sort(Comparator.comparing(ModuleTask::getModuleCredit));
-        plannerUi.showSortedModules(hold);
+        plannerUi.showSorted(hold);
     }
 }

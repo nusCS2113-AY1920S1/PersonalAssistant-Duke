@@ -55,16 +55,15 @@ public class AddCcaScheduleCommand extends ModuleCommand {
         if (index < 0 || index >= ccas.size()) {
             throw new ModOutOfBoundException();
         }
-        CcaList temp = (CcaList) ccas.clone();
-        Cca cca = temp.get(this.index);
+        Cca cca = ccas.get(this.index);
         if (cca.isClashing(new TimePeriodWeekly(this.begin, this.end, this.dayOfWeek))) {
             throw new ModCcaScheduleException();
         }
         cca.addPeriod(this.begin, this.end, this.dayOfWeek);
         if (ccas.clashes(cca)) {
+            cca.removePeriod(cca.getPeriods().size() - 1);
             throw new ModCcaScheduleException();
         }
-        ccas.set(this.index, cca);
         plannerUi.addedMsg(cca);
     }
 }

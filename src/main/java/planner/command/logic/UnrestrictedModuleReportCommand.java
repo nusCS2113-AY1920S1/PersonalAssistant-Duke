@@ -55,7 +55,6 @@ public class UnrestrictedModuleReportCommand extends ModuleCommand {
         plannerUi.ueModReport();
         int count = 1;
         coreModList = getCoreModList();
-
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
             if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {

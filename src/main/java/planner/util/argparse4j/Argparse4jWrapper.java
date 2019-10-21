@@ -1,28 +1,26 @@
 package planner.util.argparse4j;
 
-import planner.command.logic.AddCcaCommand;
-import planner.command.logic.AddCcaScheduleCommand;
-import planner.command.logic.EndCommand;
-import planner.command.logic.ModuleCommand;
-import planner.command.logic.RemoveCcaCommand;
-import planner.command.logic.RemoveModCommand;
-import planner.command.logic.SearchThenAddCommand;
-import planner.command.logic.ShowCcaCommand;
-import planner.command.logic.ShowModuleCommand;
-import planner.exceptions.ModException;
-import planner.util.argparse4j.action.Join;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+
 import net.sourceforge.argparse4j.ArgumentParsers;
-import net.sourceforge.argparse4j.inf.Argument;
 import net.sourceforge.argparse4j.inf.ArgumentAction;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import net.sourceforge.argparse4j.inf.Subparsers;
+import planner.command.logic.AddCcaScheduleCommand;
+import planner.command.logic.Arguments;
+import planner.command.logic.ClearCommand;
+import planner.command.logic.EndCommand;
+import planner.command.logic.ModuleCommand;
+import planner.command.logic.RemoveCommand;
+import planner.command.logic.SearchThenAddCommand;
+import planner.command.logic.ShowCommand;
+import planner.command.logic.SortCommand;
+import planner.exceptions.ModException;
+import planner.util.argparse4j.action.Join;
 
 public class Argparse4jWrapper {
 
@@ -30,8 +28,6 @@ public class Argparse4jWrapper {
     private Subparsers subParserManager;
     private HashMap<String, Subparser> subParsers;
     private HashMap<String, Class<? extends ModuleCommand>> commandMapper;
-    private HashMap<String, List<String>> argumentMapper;
-    private HashMap<Class, Class> typeMapper;
     private ArgumentAction joinString;
 
     /**
@@ -47,30 +43,17 @@ public class Argparse4jWrapper {
     }
 
     /**
-     * Map CLI command to arguments used in respective ModuleCommand classes.
-     */
-    // Map arguments here -> this.mapArgument("commandName", "arg1", "arg2", "arg3", ...);
-    public void mapBuiltinCommandsArguments() {
-        this.mapArgument("add", "moduleCode");
-        this.mapArgument("remove", "index");
-        this.mapArgument("addCca", "name", "begin", "end", "dayOfWeek");
-        this.mapArgument("removeCca", "index");
-        this.mapArgument("scheduleCca", "index", "begin", "end", "dayOfWeek");
-    }
-
-    /**
      * Map CLI commands to respective ModuleCommand classes.
      */
     // Add new command types here
-    public void mapBuiltinCommands() {
+    private void mapBuiltinCommands() {
         this.mapCommand("add", SearchThenAddCommand.class);
-        this.mapCommand("show", ShowModuleCommand.class);
-        this.mapCommand("showCca", ShowCcaCommand.class);
+        this.mapCommand("show", ShowCommand.class);
         this.mapCommand("bye", EndCommand.class);
-        this.mapCommand("remove", RemoveModCommand.class);
-        this.mapCommand("addCca", AddCcaCommand.class);
-        this.mapCommand("removeCca", RemoveCcaCommand.class);
+        this.mapCommand("remove", RemoveCommand.class);
         this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
+        this.mapCommand("clear", ClearCommand.class);
+        this.mapCommand("sort", SortCommand.class);
     }
 
     /**
@@ -78,18 +61,15 @@ public class Argparse4jWrapper {
      */
     // Add arguments for parsers here
     public void mapBuiltinParserArguments() {
-        Subparser addParser = this.getSubParser("add");
-        addParser.addArgument("moduleCode")
+        Subparsers addParsers = getSubParser("add").addSubparsers()
+                .help("add command options");
+        addParsers.addParser("module")
+                .help("Add a module")
+                .addArgument("moduleCode")
                 .required(true)
                 .help("Codename of module to add");
-
-        Subparser removeParser = this.getSubParser("remove");
-        removeParser.addArgument("index")
-                .type(Integer.class)
-                .required(true)
-                .help("Index of module to remove");
-
-        Subparser addCcaParser = this.getSubParser("addCca");
+        Subparser addCcaParser = addParsers.addParser("cca")
+                .help("Add a cca");
         addCcaParser.addArgument("name")
                 .required(true)
                 .nargs("+")
@@ -109,16 +89,22 @@ public class Argparse4jWrapper {
                 .required(true)
                 .help("Day of week on which cca takes place");
 
-        Subparser removeCcaParser = this.getSubParser("removeCca");
-        removeCcaParser.addArgument("index")
-                .type(Integer.class)
-                .required(true)
-                .help("Index of cca to remove");
+        getSubParser("show").addArgument("toShow")
+                .choices("module", "core", "ge", "ue", "cca")
+                .help("What to show");
 
-        Subparser scheduleCcaParser = this.getSubParser("scheduleCca");
+        Subparser removeParser = getSubParser("remove");
+        removeParser.addArgument("toRemove")
+                .choices("module", "cca")
+                .help("What to remove");
+        removeParser.addArgument("index")
+                .type(int.class)
+                .help("Index to remove");
+
+        Subparser scheduleCcaParser = getSubParser("scheduleCca")
+                .help("Add schedule to a CCA");
         scheduleCcaParser.addArgument("index")
                 .type(Integer.class)
-                .required(true)
                 .help("Index of cca to schedule");
         scheduleCcaParser.addArgument("--begin")
                 .required(true)
@@ -133,52 +119,47 @@ public class Argparse4jWrapper {
         scheduleCcaParser.addArgument("--dayOfWeek")
                 .required(true)
                 .help("Day of week on which cca takes place");
+
+        getSubParser("clear")
+                .help("Clear your data as specified")
+                .addArgument("toClear")
+                .choices("modules", "ccas", "data")
+                .help("What to clear");
+
+        getSubParser("sort")
+                .help("Sort your modules in alphabet order")
+                .addArgument("toSort")
+                .choices("modules", "ccas")
+                .help("What to sort");
     }
 
-    // This point onwards is automatic
-    public void initTypeMapper() {
-        this.typeMapper.put(Integer.class, int.class);
-    }
-
-    public void initBuiltinActions() {
+    private void initBuiltinActions() {
         this.joinString = new Join();
     }
 
     /**
      * Initialize sub-parsers and command mappers.
      */
-    public void init() {
+    private void init() {
         this.subParserManager = this.parser.addSubparsers();
         this.subParsers = new HashMap<>();
-        this.argumentMapper = new HashMap<>();
         this.commandMapper = new HashMap<>();
-        this.typeMapper = new HashMap<>();
         this.initBuiltinActions();
         this.mapBuiltinCommands();
-        this.mapBuiltinCommandsArguments();
         this.initBuiltinParsers();
         this.mapBuiltinParserArguments();
-        this.initTypeMapper();
     }
 
     /**
      * Map CLI commands to sub-parsers.
      */
-    public void initBuiltinParsers() {
+    private void initBuiltinParsers() {
         for (String command: this.commandMapper.keySet()) {
             this.addParser(command);
         }
     }
 
-    public void mapArgument(String command, String... arguments) {
-        this.argumentMapper.put(command, Arrays.asList(arguments));
-    }
-
-    public void mapArgument(String command, List<String> arguments) {
-        this.argumentMapper.put(command, arguments);
-    }
-
-    public void mapCommand(String command, Class<? extends ModuleCommand> type) {
+    private void mapCommand(String command, Class<? extends ModuleCommand> type) {
         this.commandMapper.put(command, type);
     }
 
@@ -189,32 +170,28 @@ public class Argparse4jWrapper {
      * @param prefixChars prefix character to distinguish arguments
      * @return added sub-parser
      */
-    public Subparser addParser(String name, boolean addHelp, String prefixChars) {
+    private Subparser addParser(String name, boolean addHelp, String prefixChars) {
         this.subParsers.put(name,
                 this.subParserManager
                 .addParser(name, addHelp, prefixChars)
-                .setDefault("subParserName", name));
+                .setDefault("command", name));
         return this.getSubParser(name);
     }
 
-    public Subparser addParser(String name, boolean addHelp) {
+    private Subparser addParser(String name, boolean addHelp) {
         return this.addParser(name, addHelp, "--");
     }
 
-    public Subparser addParser(String name) {
+    private Subparser addParser(String name) {
         return this.addParser(name, true);
     }
 
-    public ArgumentParser getParser() {
+    private ArgumentParser getParser() {
         return this.parser;
     }
 
-    public Subparser getSubParser(String subParserName) {
+    private Subparser getSubParser(String subParserName) {
         return this.subParsers.get(subParserName);
-    }
-
-    public Argument addArgument(String subParserName, String name) {
-        return this.getSubParser(subParserName).addArgument(name);
     }
 
     /**
@@ -262,23 +239,11 @@ public class Argparse4jWrapper {
     }
 
     /**
-     * Remap some classes for compatibility.
-     * @param classes parsed classes.
-     */
-    private void remapTypes(Class[] classes) {
-        for (int i = 0; i < classes.length; ++i) {
-            if (this.typeMapper.containsKey(classes[i])) {
-                classes[i] = this.typeMapper.get(classes[i]);
-            }
-        }
-    }
-
-    /**
      * Invoke a module command.
      * @param commandClass command class to invoke
      * @param argumentsClasses corresponding classes of arguments
      * @param objects corresponding arguments
-     * @return
+     * @return ModuleCommand if input is valid else null
      */
     private ModuleCommand invokeCommand(Class<? extends ModuleCommand> commandClass,
                                         Class[] argumentsClasses,
@@ -305,21 +270,15 @@ public class Argparse4jWrapper {
     public ModuleCommand parseCommand(String userInput) throws ModException {
         Namespace parsedInput = this.parse(userInput);
         if (parsedInput != null) {
-            String command = parsedInput.get("subParserName");
+            String command = parsedInput.get("command");
             Class<? extends ModuleCommand> commandClass = this.commandMapper.get(command);
-            List<String> arguments = this.argumentMapper.get(command);
-            Object[] objects = null;
-            Class[] argumentsClasses = null;
-            if (arguments != null) {
-                objects = new Object[arguments.size()];
-                argumentsClasses = new Class[arguments.size()];
-                for (int i = 0; i < argumentsClasses.length; ++i) {
-                    objects[i] = parsedInput.get(arguments.get(i));
-                    argumentsClasses[i] = objects[i].getClass();
-                }
-                this.remapTypes(argumentsClasses);
+            if (parsedInput.getAttrs().size() > 1) {
+                return this.invokeCommand(commandClass,
+                                          new Class[]{Arguments.class},
+                                          new Arguments[]{new Arguments(parsedInput.getAttrs())});
+            } else {
+                return this.invokeCommand(commandClass, null, null);
             }
-            return this.invokeCommand(commandClass, argumentsClasses, objects);
         } else {
             return null;
         }

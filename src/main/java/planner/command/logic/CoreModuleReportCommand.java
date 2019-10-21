@@ -14,10 +14,6 @@ import java.util.HashSet;
 
 public class CoreModuleReportCommand extends ModuleCommand {
 
-    public CoreModuleReportCommand() {
-
-    }
-
     private Set<String> coreModList = new HashSet<>();
 
     private Set<String> getCoreModList() {

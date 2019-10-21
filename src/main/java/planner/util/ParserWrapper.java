@@ -1,16 +1,24 @@
 package planner.util;
 
 
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
+
+import planner.command.AddCommand;
+import planner.command.ByeCommand;
 import planner.command.CapCommand;
+import planner.command.Command;
+import planner.command.ListCommand;
+import planner.command.ReportCommand;
+import planner.command.ScheduleCommand;
 import planner.command.logic.CoreModuleReportCommand;
 import planner.command.logic.EndCommand;
 import planner.command.logic.GeneralModuleReportCommand;
 import planner.command.logic.ModuleCommand;
-import planner.command.logic.SortCommand;
-import planner.command.logic.RemoveModCommand;
-import planner.command.logic.SearchThenAddCommand;
-import planner.command.logic.ShowModuleCommand;
 import planner.command.logic.UnrestrictedModuleReportCommand;
+import planner.exceptions.ModCommandException;
+import planner.exceptions.ModException;
+import planner.exceptions.ModInvalidTimeException;
 import planner.modules.Cca;
 import planner.modules.Deadline;
 import planner.modules.DoWithin;
@@ -19,18 +27,6 @@ import planner.modules.FixedDurationTask;
 import planner.modules.RecurringTask;
 import planner.modules.Task;
 import planner.modules.Todo;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
-
-import planner.command.AddCommand;
-import planner.command.ByeCommand;
-import planner.command.Command;
-import planner.command.ListCommand;
-import planner.command.ScheduleCommand;
-import planner.command.ReportCommand;
-import planner.exceptions.ModCommandException;
-import planner.exceptions.ModException;
-import planner.exceptions.ModInvalidTimeException;
 
 
 public class ParserWrapper {
@@ -74,24 +70,24 @@ public class ParserWrapper {
         String[] hold = splitFirstSpace(input);
         //TODO: update the parsing below with a more robust Argsj4 library
         switch (hold[0]) {
-            case "add": {
-                return new SearchThenAddCommand(hold[hold.length - 1]);
-            }
-            case "show": {
-                return new ShowModuleCommand();
-            }
-            case "bye": {
-                return new EndCommand();
-            }
-            case "remove": {
-                return new RemoveModCommand(Integer.parseInt(hold[hold.length - 1]));
-            }
+            //case "add": {
+            //    return new SearchThenAddCommand(hold[hold.length - 1]);
+            //}
+            //case "show": {
+            //    return new ShowCommand();
+            //}
+            //case "bye": {
+            //    return new EndCommand();
+            //}
+            //case "remove": {
+            //    return new RemoveCommand(Integer.parseInt(hold[hold.length - 1]));
+            //}
             case "cap": {
                 return new CapCommand(input);
             }
-            case "print": {
-                return new SortCommand();
-            }
+            //case "print": {
+            //    return new SortCommand(hold[hold.length - 1]);
+            //}
             case "report": {
                 switch (hold[1]) {
                     case ("core"): {
