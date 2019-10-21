@@ -367,7 +367,8 @@ public class Ui {
     }
 
     public static String showBackupMessageGui() {
-        return "     Duke Manager has been backed up!";
+        return "     Duke Manager has been backed up! \n"
+                + "     Duke has opened the backup file location in file explorer!";
     }
     //@@author
 
