@@ -33,9 +33,9 @@ ModPlan is a module planning system that expands on NUSMODS to help NUS Computer
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 .  Some example commands you can try:
 
-* *`list`* : lists all tasks
-* **`add`**`todo finish homework` : adds a Todo task with the description `finish homework` to the task list.
-* **`delete`**`3` : deletes the 3rd task shown in the current list
+* *`show module`* : shows all modules
+* **`add`**`module CG2028` : searches for a module with a module code of CG2028 and adds the module into the module list
+* **`remove`**`module 3` : deletes the 3rd module shown in the module list
 * *`bye`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,26 +46,38 @@ ModPlan is a module planning system that expands on NUSMODS to help NUS Computer
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add TASK_TYPE`, `TASK_TYPE` is a parameter which can be used as `add todo` or `add deadline`.
-* Items in square brackets are optional e.g `KEYWORD [MORE_KEYWORDS]` can be used as `find book` or as `find book read`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add module MOD_CODE`, `MOD_CODE` is a parameter which can be used as `add module CG1112` or `add module GES1012`.
 //* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 //* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Searching and adding a module: `add`
+=== Adding a module or CCA: `add`
+
+Adds the specified module or CCA to the module list or CCA list respectively.
+
+==== Searching and adding a module: `add module`
 
 Searchs for a module and adds it to the module list, if the module is present in the list of NUS modules. +
-Format: `add MOD_NAME`
+Format: `add module MOD_CODE`
 
 ****
-* The `MOD_NAME` must be in the format of the NUS module code name.
+* The `MOD_CODE` must be in the format of the NUS module code name.
 * Example: `add CG2028`
 ****
 
-=== Removing a module : `remove`
+==== Adding CCA : `add cca`
+
+Adds a CCA task into the CCA list. +
+Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+=== Removing a module or CCA : `remove`
+
+Removes the specified module or CCA.
+
+==== Removing a module : `remove module`
 
 Removes the specified module from the module list. +
-Format: `remove INDEX`
+Format: `remove module INDEX`
 
 ****
 * Removes the module at the specified `INDEX`.
@@ -79,24 +91,53 @@ Examples:
 `remove 2` +
 Removes the 2nd module in the module list.
 
-=== Listing all modules : `show`
+==== Removing a CCA: `remove cca`
+
+Removes a CCA which is added. +
+Format: `remove cca INDEX`
+
+=== Listing modules or cca : `show`
+
+Shows a list of specificed modules or ccas added in the module or cca list respectively.
+
+==== Listing all modules : `show module`
 
 Shows a list of all modules added in the module list. +
-Format: `show`
+Format: `show module`
 
 ****
-* Shows the module code, the number of MCs of the module and if the module can be SU-ed. +
+* Shows the module code, the number of MCs of the module and if the module can be SU-ed. 
 ****
+
+==== Giving a report on core modules: `show core`
+
+Prints out a report on all the core modules taken in the semester. +
+Format: `show core`
+
+==== Giving a report on general education modules: `show ge`
+
+Prints out a report on all the general education modules taken in the semester. +
+Format: `show ge`
+
+==== Giving a report on unrestricted electives modules: `show ue`
+
+Prints out a report on all the unrestricted electives modules taken in the semester. +
+Format: `show ue`
+
+==== Listing all CCAs: `show cca`
+
+Shows a list of all CCAs added in the cca list. + 
+Format: `show cca`
 
 === Calculating the CAP : `cap`
 
-Calculates the overall CAP or predicted CAP.
+Calculates the overall CAP or predicted CAP. +
 Format: `cap`
 
 ****
 * Typing `cap` into the command line shows a CAP calculation message.
 * Type the module taken, along with it's letter grade. Keep typing all the module names in the module list and their respective grades. 
-* Format: `MOD_NAME GRADE_LETTER`
+* Format: `MOD_CODE GRADE_LETTER`
 * Type `done` when you are ready to calculate the CAP.
 * Shows your current cumulative or predicated CAP.
 ****
@@ -107,44 +148,38 @@ Example: +
 `CS2027 B-` + 
 `done`
 
-=== Sorting and printing the modules: `print`
+=== Sorting and printing the modules or ccas : `sort`
 
-Sorts the module list according to alphabetical order and numerical order and prints the module list.+ 
-Format: `print`
+Sorts out modules or ccas accordingly.
 
-=== Giving a report on the types of modules: `report`
+==== Sorting and printing the modules : `sort module`
 
-Gives a report and the specified type of modules taken.
+Sorts the module list according to alphabetical order and numerical order and prints the module list. + 
+Format: `sort module`
 
-==== Giving a report on core modules: `core`
+==== Sorting and printing the CCAs : `sort cca`
 
-Prints out a report on all the core modules taken in the semester.+
-Format: `report core`
+Sorts the cca list according to alphabetical order and prints the cca list. + 
+Format: `sort cca` 
 
-==== Giving a report on general education modules: `ge`
+=== Clearing the data : `clear`
 
-Prints out a report on all the general education modules taken in the semester.+
-Format: `report ge`
+Clears the specified data.
 
-==== Giving a report on unrestricted electives modules: `ue`
+==== Clearing the modules data : `clear modules`
 
-Prints out a report on all the unrestricted electives modules taken in the semester.+
-Format: `report ue`
+Clears and empties the list of modules being added. +
+Format: `clear modules`
 
-=== Adding CCA: `addCca`
+==== Clearing the CCA data : `clear ccas`
 
-Adds a CCA task into the cca list. 
-Format: `addCca CCA_NAME --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+Clears and empties the list of modules being added. +
+Format: `clear ccas`
 
-=== Rescheduling CCA: `scheduleCca`
+=== Rescheduling CCA : `scheduleCca`
 
-Reschedules a CCA which is added.
+Reschedules a CCA which is added. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
-
-=== Removing a CCA: `removeCca`
-
-Removes a CCA which is added.
-Format: `removeCca INDEX`
 
 === Exiting the program : `bye`
 
@@ -191,7 +226,7 @@ image::ModCommandException.png[width="250"]
 === `ModCcaScheduleException`
 This error appears when the user inputs a CCA whose time period clashes with another CCA.
 
-Example of error message:`Error: This CCA clashes with existing CCAs!`
+Example of error message:`Error: This CCA clashes with existing CCA!`
 
 == FAQ
 
@@ -200,7 +235,7 @@ Example of error message:`Error: This CCA clashes with existing CCAs!`
 
 == Command Summary
 
-* *Add* `add MOD_NAME` +
+* *Add* `add MOD_CODE` +
 e.g. `add CG2028`
 * *Remove* : `remove INDEX` +
 e.g. `remove 3`
