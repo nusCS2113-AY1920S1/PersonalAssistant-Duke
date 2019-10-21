@@ -6,16 +6,13 @@ import duke.commons.exceptions.DukeApiException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.conversations.ConversationManager;
-import duke.logic.edits.EditorManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
-import duke.model.UnmodifiableEditorList;
 
 public class LogicManager extends Logic {
     private Model model;
     private ConversationManager conversationManager;
-    private EditorManager editorManager;
 
     /**
      * Creates LogicManager instance.
@@ -23,7 +20,6 @@ public class LogicManager extends Logic {
     public LogicManager() {
         conversationManager = new ConversationManager();
         model = new ModelManager();
-        editorManager = new EditorManager();
     }
 
     /**
@@ -57,14 +53,5 @@ public class LogicManager extends Logic {
             String prompt = conversationManager.getPrompt();
             return Parser.parsePromptCommand(prompt);
         }
-    }
-
-    public void activateEditor() {
-        editorManager.set(model.getTasks());
-        editorManager.activate();
-    }
-
-    public UnmodifiableEditorList getUnmodifiableEditorList() {
-        return editorManager.getUnmodifiableEditorList();
     }
 }

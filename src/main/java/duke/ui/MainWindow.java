@@ -9,11 +9,6 @@ import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
-import duke.model.TaskList;
-import duke.model.UnmodifiableEditorList;
-import duke.model.events.BindableEvent;
-import duke.model.events.Event;
-import duke.model.events.Task;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.dialogbox.DialogBox;
 import duke.ui.dialogbox.DialogBoxImage;
@@ -21,13 +16,11 @@ import duke.ui.map.MapWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.util.logging.Logger;
@@ -97,23 +90,6 @@ public class MainWindow extends UiPart<Stage> {
         }
         echoUserInput(input);
         dukeResponse(input);
-        updateList();
-    }
-
-    private void updateList() {
-        taskContainer.getChildren().clear();
-        miniMap.getChildren().clear();
-        UnmodifiableEditorList tasks = logic.getUnmodifiableEditorList();
-        for (BindableEvent b : tasks) {
-            taskContainer.getChildren().add(EventCard.getEventCard(b));
-            EventPointCard card = new EventPointCard(b);
-            if (b.isDone()) {
-                card.setColor(Paint.valueOf("green"));
-            } else {
-                card.setColor(Paint.valueOf("red"));
-            }
-            miniMap.getChildren().add(card.getRoot());
-        }
     }
 
     private void dukeResponse(String input) {
