@@ -18,6 +18,7 @@ import javacake.tasks.RecurringTask;
 import com.joestelmach.natty.DateGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class Parser {
      */
     private static void helper(String input) throws DukeException {
         for (int i = 0; i < commands.length; i++) {
+            boolean isTypo = false;
             String command = commands[i];
             int length = command.length();
             if (length > input.length()) {
@@ -80,6 +82,16 @@ public class Parser {
                 }
             }
             if (similarity + 1 == length) {
+                isTypo = true;
+            }
+
+            if (!command.equals(input)) {
+                if (command.contains(input) || input.contains(command)) {
+                    isTypo = true;
+                }
+            }
+
+            if(isTypo) {
                 throw new DukeException("Sorry, but do you mean this : " + command);
             }
         }
