@@ -10,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +27,11 @@ public class Storage {
     }
 
     private File file;
+    private FileOutputStream fileOutputStream;
+    private ObjectOutputStream objectOutputStream;
+    private FileInputStream fileInputStream;
+    private ObjectInputStream objectInputStream;
+
 
     /**
      * This Storage constructor is used to function is used to assign the different
@@ -52,8 +56,7 @@ public class Storage {
      */
     public void saveFile(ArrayList<Task> listOfTasks) throws DukeException {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            setOutputStreams();
             objectOutputStream.writeObject(listOfTasks);
             objectOutputStream.close(); // always close
             fileOutputStream.close(); // always close
@@ -73,10 +76,9 @@ public class Storage {
      *                       class in not found.
      */
     public ArrayList<Task> loadFile(File file) throws DukeException {
-        ArrayList<Task> listOfTasks = new ArrayList<Task>();
+        ArrayList<Task> listOfTasks;
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            setInputStreams();
             listOfTasks = (ArrayList<Task>)(objectInputStream.readObject());
             fileInputStream.close();
             objectInputStream.close();
@@ -90,5 +92,15 @@ public class Storage {
         } catch (Exception e) {
             throw new DukeException(DukeException.classDoesNotExist());
         }
+    }
+
+    private void setOutputStreams() throws IOException {
+        this.fileOutputStream = new FileOutputStream(file);
+        this.objectOutputStream = new ObjectOutputStream(fileOutputStream);
+    }
+
+    private void setInputStreams() throws IOException {
+        this.fileInputStream = new FileInputStream(file);
+        this.objectInputStream = new ObjectInputStream(fileInputStream);
     }
 }
