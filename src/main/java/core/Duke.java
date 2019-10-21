@@ -1,3 +1,5 @@
+package core;
+
 import members.Member;
 import gui.Window;
 import commands.Command;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  * @author T14-4 team
  */
 public class Duke {
-
+	
     /**
      * deals with loading tasks from the file and saving tasks in the file
      */
@@ -29,6 +31,8 @@ public class Duke {
     private ArrayList<Task> tasks;
 
     private ArrayList<Member> members;
+    
+    public static Duke instance;
 
 
     /**
@@ -41,13 +45,14 @@ public class Duke {
         storage = new Storage(taskFilePath, memberFilePath);
         tasks = storage.loadTaskList();
         members = storage.loadMemberList();
+        Duke.instance = this;
     }
 
     /**
      * main running structure of Duke.
      */
     public void run() {
-        Window window = new Window();
+        new Window();
         Ui.welcome();
         Reminder.checkReminders(tasks);
         boolean isExit = false;
@@ -62,6 +67,33 @@ public class Duke {
                 Ui.print(e.getMessage());
             }
         }
+    }
+    
+    /**
+     * Attempts to parse and execute given input
+     * 
+     * @param command input line from user
+     */
+    public void doCommand(String command)	{
+    	Command c;
+		try {
+			c = Parser.commandLine(command);
+	        c.execute(tasks, members, storage);
+	        if (c.isExit())
+	        	System.exit(0);
+		} catch (DukeException e) {
+			 Ui.print(e.getMessage());
+		}
+    }
+    
+    
+   /**
+    * Static version of doCommand. For window access
+    * 
+    * @param command input line from user
+    */
+    public static void processCommand(String command)	{
+    	instance.doCommand(command);
     }
 
     /**
