@@ -2,14 +2,10 @@ package duke.command;
 
 import duke.core.DukeException;
 import duke.core.Ui;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.task.Task;
 import duke.patient.PatientManager;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
+import duke.storage.StorageManager;
+import duke.task.Task;
 import duke.task.TaskManager;
 
 public class UpdateTaskCommand extends Command {
@@ -31,15 +27,12 @@ public class UpdateTaskCommand extends Command {
      * @param taskManager        .
      * @param patientManager     .
      * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+                        Ui ui, StorageManager storageManager) throws DukeException {
         String[] tempCommand = command.split(" ", 3);
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {
@@ -53,7 +46,7 @@ public class UpdateTaskCommand extends Command {
                     throw new DukeException("You can only update 'Description' of the task");
                 }
 
-                taskStorage.save(taskManager.getTaskList());
+                storageManager.saveTasks(taskManager.getTaskList());
                 ui.showUpdatedSuccessfully();
                 ui.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {

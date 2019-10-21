@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CSVStorage extends Storage {
+public class CsvStorage extends Storage {
 
     private String filePath;
 
@@ -25,11 +25,17 @@ public class CSVStorage extends Storage {
      * @param filePath A string that represents the path of the file to read or
      *                 write.
      */
-    public CSVStorage(String filePath) {
+    public CsvStorage(String filePath) {
         this.filePath = filePath;
     }
 
     @Override
+    /**
+     * .
+     * @param infoList A list of records to be to be written in rows to csv file
+     * @param headers
+     * @throws DukeException
+     */
     public void write(ArrayList<ArrayList<String>> infoList, String[] headers) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(this.filePath));
@@ -48,12 +54,12 @@ public class CSVStorage extends Storage {
     /**
      * Read data from the file and store into a ArrayList of task.
      *
-     * @return A ArrayList of Map<Header, value> from the file.
+     * @return A list of rows in Map with header as key and column in row as value
      * @throws DukeException If file is not found.
      */
     public ArrayList<Map<String, String>> read() throws DukeException {
         // Initialize capacity for 3000 rows of records.
-        ArrayList<Map<String,String>> infoList = new ArrayList<>(3000);
+        ArrayList<Map<String, String>> infoList = new ArrayList<>(3000);
         File csvFile = new File(filePath);
         try {
             if (csvFile.createNewFile()) {
@@ -63,7 +69,7 @@ public class CSVStorage extends Storage {
                 Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
                 for (CSVRecord record : records) {
                     // There are maximum 9 columns per row
-                    Map<String,String> headerValueMap = record.toMap();
+                    Map<String, String> headerValueMap = record.toMap();
                     infoList.add(headerValueMap);
                 }
             }

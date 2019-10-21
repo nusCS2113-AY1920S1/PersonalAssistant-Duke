@@ -15,11 +15,10 @@ public abstract class Storage {
      */
     public abstract void write(ArrayList<ArrayList<String>> infoList, String[] headers) throws DukeException;
 
-
     /**
      * Load the patients' info from local csv files.
      *
-     * @return A arrayList of Map<Header, Value> to be saved
+     * @return A list of rows in Map with header as key and column in row as value
      * @throws DukeException throw a dukeException with error message for debugging
      */
     public abstract ArrayList<Map<String, String>> read() throws DukeException;
