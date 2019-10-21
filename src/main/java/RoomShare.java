@@ -4,9 +4,6 @@ import Model_Classes.*;
 import Operations.*;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Main class of the RoomShare program.
@@ -136,10 +133,14 @@ public class RoomShare {
                 try {
                     String input = parser.getCommandLine();
                     taskCreator = new TaskCreator();
-                    taskList.add(taskCreator.create(input));
-                    ui.showAdd();
+                    if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
+                        taskList.add(taskCreator.create(input));
+                        ui.showAdd();
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
                 } catch (RoomShareException e) {
-
+                    ui.showWriteError();
                 }
                 break;
                 
