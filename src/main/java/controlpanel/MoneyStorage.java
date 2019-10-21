@@ -68,7 +68,7 @@ public class MoneyStorage {
                         ArrayList<Pair<String, Boolean>> parties = new ArrayList<>();
                         for (String name : names) {
                             name = name.replaceAll(" ", "");
-                            String[] splitStr = name.split("#", 2);
+                            String[] splitStr = name.split("&", 2);
                             boolean status = false;
                             if (splitStr[1].equals("1")) {
                                 status = true;
