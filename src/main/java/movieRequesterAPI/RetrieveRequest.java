@@ -129,7 +129,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
                 jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key=" +
                     RetrieveRequest.API_KEY));
                 index = 0;
-            } else if (getMovieType == 1){
+            } else if (getMovieType == 1) {
                 jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/content_ratings?api_key=" +
                     RetrieveRequest.API_KEY + "&language=en-US"));
                 index = 1;

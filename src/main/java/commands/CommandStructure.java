@@ -1,5 +1,8 @@
 package commands;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.TreeMap;
 
 public class CommandStructure {
@@ -59,7 +62,7 @@ public class CommandStructure {
     public static TreeMap<COMMANDKEYS , String> cmdHelp = new TreeMap<>() {
         {
             put(COMMANDKEYS.search ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+                    "Search for movies,tvshows, cast etc.\nusage: search []");
             put(COMMANDKEYS.view ,
                     "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
             put(COMMANDKEYS.add ,
@@ -76,6 +79,8 @@ public class CommandStructure {
                     "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
         }
     };
+
+
 
     public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{ COMMANDKEYS.search , COMMANDKEYS.remove , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.preference};
 }

@@ -1,5 +1,6 @@
 package commands;
 
+import EPstorage.HelpStorage;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 
@@ -17,19 +18,7 @@ public class HelpCommand extends CommandSuper {
     }
 
     private String getHelp() {
-        if (getPayload() == "") {
-            return "Try one of the following commands : \n" + CommandStructure.AllRoots.toString();
-        }
-        String printer = "";
-        for (Map.Entry<COMMANDKEYS, COMMANDKEYS[]> entry : CommandStructure.cmdStructure.entrySet()) {
-            if (entry.getKey() == this.getSubRootCommand()) {
-                for (COMMANDKEYS c: entry.getValue()) {
-                    printer += ("\n\t" + c.toString() + " " + CommandStructure.cmdHelp.get(getSubRootCommand()));
-                }
-            }
-        }
-
-        return this.getSubRootCommand().toString() + printer;
+        return HelpStorage.getCmdHelp().get(getSubRootCommand());
     }
 
 
