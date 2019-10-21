@@ -56,7 +56,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @param input User input arguments
      */
     private Contact parseContact(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
-
+        //@@author Xdecosee
         String[] arguments = input.split(" ", 2);
         if (arguments.length == 2) {
 
@@ -73,6 +73,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         }
         return null;
+        //@@author
 
     }
 

@@ -97,6 +97,7 @@ public class Ui {
         System.out.println("Please wait while we draw the pie chart...");
     }
 
+    //@@author Xdecosee
     /**
      * Displays the contact list in table format.
      */
@@ -126,6 +127,7 @@ public class Ui {
         }
         System.out.println(lineBreak);
     }
+    //@@author
 
     /**
      * Displays the loan list in table format.

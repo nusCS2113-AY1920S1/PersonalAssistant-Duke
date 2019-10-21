@@ -78,7 +78,7 @@ public class EditCommand extends Command {
             System.out.println(MESSAGE_SUCCESS_EDIT_EXPENSE);
             System.out.println(currentExpense.toString());
         } else if (contact != null) {
-
+            //@@author Xdecosee
             int index = wallet.getContactList().findIndexWithId(contact.getId());
             if (index != -1) {
                 Contact currentContact = wallet.getContactList().getContact(index);
@@ -118,6 +118,7 @@ public class EditCommand extends Command {
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
+            //@@author
         } else if (loan != null) {
 
             int index = wallet.getLoanList().findIndexWithId(loan.getId());

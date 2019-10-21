@@ -60,11 +60,13 @@ public class ListCommand extends Command {
             break;
 
         case "contact":
+            //@@author Xdecosee
             System.out.println(MESSAGE_LIST_CONTACTS);
             Ui.printContactTable();
             if (!isListAll) {
                 break;
             }
+            //@@author
             //fallthrough
 
         case "loan":

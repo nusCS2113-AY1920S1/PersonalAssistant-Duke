@@ -21,6 +21,7 @@ public class HelpCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
+        //@@author Xdecosee
         HelpPrompt helpPrompt = new HelpPrompt();
         HelpStorage helpData = new HelpStorage();
         ArrayList<String[]> pathList = helpData.retrievePaths();
@@ -29,5 +30,6 @@ public class HelpCommand extends Command {
             helpData.sectionData(selectedSection);
         }
         return false;
+        //@@author
     }
 }

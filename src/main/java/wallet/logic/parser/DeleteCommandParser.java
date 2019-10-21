@@ -26,6 +26,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
         int id = Integer.parseInt(arguments[1]);
+        //@@author Xdecosee
         switch (arguments[0]) {
 
         case "contact":
@@ -37,8 +38,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         default:
             return new DeleteCommand(arguments[0], id);
         }
+        //@@author
     }
 
+    //@@author Xdecosee
     private Boolean parseContact(int id) {
 
         ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();

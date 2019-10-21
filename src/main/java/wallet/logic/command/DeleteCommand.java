@@ -71,6 +71,8 @@ public class DeleteCommand extends Command {
             break;
 
         case "contact":
+
+            //@@author Xdecosee
             Contact contact = wallet.getContactList().deleteContact(id);
             if (contact != null) {
                 wallet.getContactList().setModified(true);
@@ -80,6 +82,7 @@ public class DeleteCommand extends Command {
                 System.out.println(MESSAGE_ERROR_DELETE_CONTACT);
             }
             break;
+            //@@author
 
         default:
             break;
