@@ -41,7 +41,12 @@ public class Duke {
 
     private BudgetStorage budgetStorage;
     private BudgetList budgetList;
+
     private static final int ZERO = 0;
+    //private static final String FILEPATH_TASKLIST;
+    //private static final String FILEPATH_BUDGETLIST;
+    //private static final String FILEPATH_PRIORITYLIST;
+    //private static final String FILEPATH_CONTACTLIST;
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
@@ -118,6 +123,10 @@ public class Duke {
      * @throws IOException  If there is an error writing the text file.
      */
     public void saveState(Command cmd) throws IOException {
+        priorityStorage.write(priorityList);
+        budgetStorage.write(budgetList);
+        contactStorage.write(contactList);
+        storage.write(items);
         cmd.executeStorage(items,ui,storage);
     }
 
@@ -169,8 +178,7 @@ public class Duke {
             try {
                 Command cmd = Parser.parse(sentence, items, budgetList);
                 if (cmd instanceof ExitCommand) {
-                    priorityStorage.write(priorityList);
-                    budgetStorage.write(budgetList);
+                    saveState(cmd);
                     cmd.executeStorage(items, ui, storage);
                     break;
                 } else if (cmd instanceof ListPriorityCommand
@@ -179,10 +187,7 @@ public class Duke {
                         || cmd instanceof SetPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
-                    priorityStorage.write(priorityList);
-                    budgetStorage.write(budgetList);
-                    contactStorage.write(contactList);
-                    storage.write(items);
+                    saveState(cmd);
                     cmd.execute(items, ui);
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
