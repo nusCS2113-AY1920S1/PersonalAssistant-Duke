@@ -3,7 +3,7 @@ package duke.Dishes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dishes{
+public class Dishes {
 
     private String dishname;
     private int total = 0;

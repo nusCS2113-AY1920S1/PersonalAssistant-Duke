@@ -62,7 +62,7 @@ public class Duke {
                     isExit = c.isExit();
                 }
                 else {
-                    Cmd<TaskList> c = Parser.parse(fullCommand, tasks.size()); //execute the recipeCommands, add dishes etc
+                    Cmd<TaskList> c = Parser.parse(fullCommand, tasks.size()); //execute the ingredientCommands, add dishes etc
                     c.execute(tasks, ui, storage);
                     isExit = c.isExit();
                 }
