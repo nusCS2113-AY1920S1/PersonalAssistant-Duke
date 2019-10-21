@@ -178,32 +178,33 @@ class ProjectInputControllerTest {
 
     @Test
     void testProjectEditTaskRequirements() {
-        
-    }
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
 
-    @Test
-    void testProjectViewTaskRequirements() {
+        simulatedUserinput = "edit task requirements i/1 r/do nothing";
+        projectInputController.projectEditTaskRequirements(project,simulatedUserinput);
+        actualOutput = "";
+        for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
+                "1. do something2. do another thing3. do nothing";
+        assertEquals(expectedOutput,actualOutput);
 
+        simulatedUserinput = "edit task requirements i/1 rm/1 2 r/do everything";
+        projectInputController.projectEditTaskRequirements(project,simulatedUserinput);
+        actualOutput = "";
+        for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
+                "1. do nothing2. do everything";
+        assertEquals(expectedOutput,actualOutput);
     }
 
     @Test
     void testProjectAssignTask() {
-
+        
     }
-
-    @Test
-    void testProjectViewAssignedTasks() {
-
-    }
-
-    @Test
-    void testProjectViewTasks() {
-
-    }
-
-    @Test
-    void testProjectExit() {
-
-    }
-
 }

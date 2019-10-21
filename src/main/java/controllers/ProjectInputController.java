@@ -221,7 +221,6 @@ public class ProjectInputController implements IController {
         }
     }
 
-
     /**
      * Updates the task requirements of a given task in the project.
      * @param projectToManage The project specified by the user.
