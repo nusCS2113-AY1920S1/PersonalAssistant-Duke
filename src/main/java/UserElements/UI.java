@@ -203,7 +203,8 @@ public class UI {
      */
     public void eventFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm' or 'dd-MM-yyyy'.");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'.\n" +
+                "First time entered is start time, second time entered is end time.");
         System.out.print(lineSeparation);
     }
 
