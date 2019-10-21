@@ -49,7 +49,7 @@ jacocoTestReport {
 }
 
 coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+    jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 }
 
 test {
