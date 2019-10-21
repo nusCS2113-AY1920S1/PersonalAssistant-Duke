@@ -6,20 +6,14 @@ import dolla.Ui;
  * Limit is a class that stores all limit related methods (savings and budgets)
  */
 public class Limit extends Log {
-    protected char sign; // '+' for saving, '-' for budget
-    protected LimitType type;
+
+    protected String type;
     protected double amount;
-    protected Duration duration;
-    protected LimitList limitList;
+    protected String duration;
     protected String saveType;
 
-    public enum LimitType {
-        SAVING, BUDGET
-    }
-
-    public enum Duration {
-        DAILY, WEEKLY, MONTHLY
-    }
+    String[] LimitType = {"saving", "budget"};
+    String[] Duration = {"day", "week", "month"};
 
     /**
      * Creates an instance of Limit.
@@ -27,8 +21,7 @@ public class Limit extends Log {
      * @param amount Amount of money to be limited.
      * @param duration Duration of the limit.
      */
-    public Limit(LimitType type, double amount, Duration duration) {
-        this.sign = (type.equals(LimitType.SAVING) ? '+' : '-');
+    public Limit(String type, double amount, String duration) {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
@@ -39,6 +32,11 @@ public class Limit extends Log {
      * to the user.
      * @return String with information of limit.
      */
+    public String getLogText() {
+        return "[" + type + "] "
+                + "[" + amountToMoney() + "] "
+                + "[/every " + duration + "]";
+    }
 
     @Override
     public String getDescription() {
@@ -56,7 +54,7 @@ public class Limit extends Log {
      */
 
     public void AddLimit(Limit limit, LimitList limitList) {
-        if (limit.type.equals(LimitType.BUDGET) || limit.type.equals(LimitType.SAVING)) {
+        if (limit.type.equals(LimitType[0]) || limit.type.equals(LimitType[1])) {
             //dosmth
             //check if limit exists in limitlist
         } else {
@@ -67,14 +65,6 @@ public class Limit extends Log {
 
     public void EditCurrLimit() {
         //edit budget after adding in expenses or income
-    }
-
-    //remove
-    @Override
-    public String getLogText() {
-        return "[" + type + "] "
-                + "[" + amountToMoney() + "] "
-                + "[/for " + duration + "]";
     }
 
     @Override

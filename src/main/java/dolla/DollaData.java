@@ -97,4 +97,9 @@ public class DollaData {
     public int getModifyIndex() {
         return modifyIndex;
     }
+
+    public void removeLimit(String type, String duration) {
+        //remove limit from list
+    }
+
 }
