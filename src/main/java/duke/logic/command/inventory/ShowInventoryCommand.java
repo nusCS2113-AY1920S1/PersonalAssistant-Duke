@@ -5,7 +5,7 @@ import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 
 /**
- * A command that displays all orders displayed with their indices.
+ * A command that displays the inventory list.
  */
 public class ShowInventoryCommand extends InventoryCommand {
     public static final String COMMAND_WORD = "";
