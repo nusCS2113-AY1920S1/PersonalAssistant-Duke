@@ -21,6 +21,7 @@ public class MainWindow extends AnchorPane {
     private ImageView icon;
 
     private Image optixImage = new Image(this.getClass().getResourceAsStream("/img/optixImage.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/img/userImage.png"));
     private Image optixIcon = new Image(this.getClass().getResourceAsStream("/img/optixIcon.png"));
 
     private Optix optix;
@@ -34,19 +35,23 @@ public class MainWindow extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        icon.setImage(optixIcon);
         this.optix = optix;
+        String greetings = this.optix.getResponse();
+        chatBox.getChildren().add(DialogBox.getOptixDialog(greetings, optixImage));
+
+        icon.setImage(optixIcon);
     }
 
     @FXML
     private void handleResponse() {
-        String input = userInput.getText();
-        String response = userInput.getText();
-        chatBox.getChildren().addAll(
-                DialogBox.getUserDialog(input, optixImage),
-                DialogBox.getDukeDialog(response, optixImage)
-        );
+        String fullCommand = userInput.getText();
+        optix.runGUI(fullCommand);
+        String response = optix.getResponse();
 
+        chatBox.getChildren().addAll(
+                DialogBox.getUserDialog(fullCommand, userImage),
+                DialogBox.getOptixDialog(response, optixImage)
+        );
         userInput.clear();
     }
 }

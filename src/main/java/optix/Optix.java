@@ -49,7 +49,6 @@ public class Optix {
      * To boot up the software.
      */
     public void run() {
-
         boolean isExit = false;
         System.out.println(ui.showCommandLine());
 
@@ -65,7 +64,19 @@ public class Optix {
                 System.out.println(ui.showCommandLine());
             }
         }
+    }
 
+    public void runGUI(String fullCommand) {
+        try {
+            Command c = Parser.parse(fullCommand);
+            c.execute(model, ui, storage);
+        } catch (OptixException e) {
+            ui.setMessage(e.getMessage());
+        }
+    }
+
+    public String getResponse() {
+        return ui.getMessage();
     }
 }
 

@@ -55,14 +55,14 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <ScrollPane layoutX="712.0" layoutY="80.0" prefHeight="531.0" prefWidth="487.0">
-         <content>
-            <VBox fx:id="chatBox" prefHeight="528.0" prefWidth="470.0" />
-         </content></ScrollPane>
       <JFXTextField fx:id="userInput" layoutX="713.0" layoutY="612.0" onAction="#handleResponse" prefHeight="26.0" prefWidth="428.0" promptText="Enter Command Here">
          <padding>
             <Insets left="5.0" />
          </padding></JFXTextField>
+      <ScrollPane layoutX="712.0" layoutY="80.0" prefWidth="487.0" vvalue="0.89">
+         <content>
+            <VBox fx:id="chatBox" prefHeight="528.0" prefWidth="470.0" />
+         </content></ScrollPane>
       <JFXButton buttonType="RAISED" layoutX="1148.0" layoutY="613.0" onMouseClicked="#handleResponse" prefHeight="26.0" prefWidth="52.0" style="-fx-background-color: #CACFD2;" text="Enter" />
    </children>
 </fx:root>
