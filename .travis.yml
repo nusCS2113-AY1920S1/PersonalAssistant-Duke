@@ -6,7 +6,7 @@ before_install:
 
 script: >-
   ./config/travis/run-checks.sh &&
-  ./gradlew clean checkstyleMain checkstyleTest asciidoctor coverage coveralls jacocoTestReport
+  ./gradlew clean checkstyleMain checkstyleTest asciidoctor coveralls jacocoTestReport
 
 deploy:
   skip_cleanup: true
