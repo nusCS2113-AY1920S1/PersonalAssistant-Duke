@@ -10,11 +10,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//@@author maxxyx96
 public class BudgetStorage {
     //protected String filePath = "./";
     protected String filePath = "";
     String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
 
     /**
      * Creates a storage with path pointing to the file in the system.
@@ -68,3 +68,4 @@ public class BudgetStorage {
         writer.close();
     }
 }
+//@@author

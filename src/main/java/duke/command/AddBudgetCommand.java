@@ -8,6 +8,7 @@ import duke.task.BudgetList;
 import duke.dukeexception.DukeException;
 import java.io.IOException;
 
+//@@author maxxyx96
 public class AddBudgetCommand extends Command {
     protected BudgetList budgetList;
     protected Ui ui = new Ui();
@@ -65,3 +66,4 @@ public class AddBudgetCommand extends Command {
 
     }
 }
+//@@author

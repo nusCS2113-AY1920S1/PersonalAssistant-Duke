@@ -1,24 +1,26 @@
 package duke.parser;
 
-import duke.command.SetPriorityCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.DeleteCommand;
 import duke.command.Command;
-import duke.command.ListPriorityCommand;
-import duke.command.ExitCommand;
-import duke.command.BackupCommand;
-import duke.command.ListCommand;
-import duke.command.AddCommand;
-import duke.command.RemindCommand;
-import duke.command.DoneCommand;
 import duke.command.FindCommand;
-import duke.command.UpdateCommand;
+import duke.command.ListCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.DoneCommand;
+import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.AddCommand;
 import duke.command.DuplicateFoundCommand;
+import duke.command.RemindCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
 import duke.command.AddContactsCommand;
 import duke.command.ListContactsCommand;
-import duke.command.AddBudgetCommand;
-import duke.command.ResetBudgetCommand;
 import duke.command.ViewBudgetCommand;
+import duke.command.ResetBudgetCommand;
+import duke.command.AddBudgetCommand;
+import duke.command.BackupCommand;
+import duke.command.UpdateCommand;
+import duke.command.ExitCommand;
+import duke.dukeexception.DukeException;
 
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -29,7 +31,6 @@ import duke.task.Repeat;
 import duke.task.DoAfter;
 import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
-import duke.dukeexception.DukeException;
 import duke.task.Contacts;
 import duke.task.BudgetList;
 
@@ -274,7 +275,7 @@ public class Parser {
                     return new AddCommand(fixedDuration);
                 }
             }
-        } else if (arr.length > ZERO && (arr[ZERO].equals("setpriority"))) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("setpriority") || arr[ZERO].equals("sp"))) {
             //fixedduration <taskNum> <priority>
             String description = "";
 
@@ -384,8 +385,8 @@ public class Parser {
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     }
                 }
-            }
-        } else if (arr.length > ZERO && arr[ZERO].equals("addcontact")) {
+            }   //@@author e0318465
+        } else if (arr.length > ZERO && (arr[ZERO].equals("addcontact") || arr[ZERO].equals("ac"))) {
             String[] userInput = sentence.split(" ",TWO);
             String[] contactDetails = userInput[ONE].split(",");
             try {
@@ -395,8 +396,14 @@ public class Parser {
             } catch (Exception e) {
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
-        } else if (sentence.equals("listcontacts")) {
+        } else if (sentence.equals("listcontacts") || sentence.equals("lc")) {
             return new ListContactsCommand();
+        } else if (arr.length > ZERO && (arr[ZERO].equals("deletecontact") || arr[ZERO].equals("dc"))) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The contact index cannot be empty.");
+            } else {
+                return new DeleteContactCommand(Integer.parseInt(arr[ONE]) - ONE);
+            }  //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
             try {
                 String budgetCommandString = sentence.split(" ", TWO)[ONE];

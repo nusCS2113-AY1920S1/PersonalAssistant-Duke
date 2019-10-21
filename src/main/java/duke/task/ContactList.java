@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents a list of contacts.
  */
+//@@author e0318465
 public class ContactList {
     protected ArrayList<Contacts> contactList;
     private static final int ZERO = 0;
@@ -65,5 +66,14 @@ public class ContactList {
      */
     public int size() {
         return contactList.size();
+    }
+
+    /**
+     * To remove a contact from the contact list.
+     *
+     * @param indexOfContact The index of contact to be removed.
+     */
+    public void remove(int indexOfContact) {
+        contactList.remove(indexOfContact);
     }
 }

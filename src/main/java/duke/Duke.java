@@ -3,8 +3,10 @@ package duke;
 import duke.command.SetPriorityCommand;
 import duke.command.AddMultipleCommand;
 import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
 import duke.command.AddContactsCommand;
 import duke.command.Command;
+import duke.command.ListContactsCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.ExitCommand;
 import duke.command.BackupCommand;
@@ -18,7 +20,6 @@ import duke.storage.BudgetStorage;
 import duke.task.BudgetList;
 import duke.task.PriorityList;
 import duke.task.ContactList;
-import duke.command.ListContactsCommand;
 
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -126,14 +127,26 @@ public class Duke {
      * @param cmd Command to be executed.
      * @return String to be outputted.
      */
-    public String executeCommand(Command cmd) {
-        String str = cmd.executeGui(items, ui);
-        return str;
+    public String executeCommand(Command cmd) throws IOException {
+        if (cmd instanceof AddContactsCommand) {
+            String str = cmd.executeGui(items, contactList, ui);
+            cmd.executeStorage(items, ui, contactStorage, contactList);
+            return str;
+        } else if (cmd instanceof ListContactsCommand) {
+            String str = cmd.executeGui(items, contactList, ui);
+            return str;
+        } else if (cmd instanceof DeleteContactCommand) {
+            String str = cmd.executeGui(items, contactList, ui);
+            cmd.executeStorage(items, ui, contactStorage, contactList);
+            return str;
+        } else {
+            String str = cmd.executeGui(items, ui);
+            return str;
+        }
     }
 
     /**
      * Executes a command and outputs the result to the user (GUI).
-     *
      *
      * @return String to be outputted.
      */
@@ -177,6 +190,9 @@ public class Duke {
                     cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else if (cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
+                } else if (cmd instanceof DeleteContactCommand) {
+                    cmd.execute(items, contactList, ui);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addDefaultPriority(cmd);

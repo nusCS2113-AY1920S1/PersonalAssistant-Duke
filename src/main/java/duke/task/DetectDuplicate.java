@@ -3,6 +3,7 @@ package duke.task;
 /**
  * Finds duplicated tasks and alerts the user.
  */
+//@@author e0318465
 public class DetectDuplicate {
     protected TaskList items;
     private static final int ZERO = 0;

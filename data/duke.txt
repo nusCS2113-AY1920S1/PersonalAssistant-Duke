@@ -1,9 +1,8 @@
 T|0|read a book
 D|0|submit homework|01/10/2019 2359
-E|0|concert|10/10/2019 1700
 F|0|take computing class|2 hours
 R|0|workout|10/10/2019 1000
 R|0|workout|11/10/2019 1000
 R|0|workout|12/10/2019 1000
-T|0|dance
 A|0|nap|read a book
+T|0|dance

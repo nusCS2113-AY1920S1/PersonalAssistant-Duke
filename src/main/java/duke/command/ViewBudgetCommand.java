@@ -8,6 +8,7 @@ import duke.task.BudgetList;
 import duke.dukeexception.DukeException;
 import java.io.IOException;
 
+//@@author maxxyx96
 public class ViewBudgetCommand extends Command {
 
     protected Ui ui = new Ui();
@@ -61,3 +62,4 @@ public class ViewBudgetCommand extends Command {
 
     }
 }
+//@@author
