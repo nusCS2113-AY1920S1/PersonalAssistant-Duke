@@ -25,8 +25,7 @@ public class TaskList {
      * @param task contains the task that needs to be added.
      */
     public static final Comparator<Task> DateComparator = (firstDate, secondDate) -> {
-        if (firstDate.startDate == null && secondDate != null)
-        {
+        if (firstDate.startDate == null && secondDate != null) {
             return -1;
         } else if (firstDate.startDate != null && secondDate.startDate == null) {
             return 1;

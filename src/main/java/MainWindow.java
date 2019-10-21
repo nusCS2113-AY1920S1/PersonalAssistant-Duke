@@ -52,7 +52,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox timelineContainer;
     @FXML
-    private ListView<Task> mondayTask, tuesdayTask, wednesdayTask, thursdayTask, fridayTask, saturdayTask, sundayTask;
+    private ListView<Task> mondayTask;
+    @FXML
+    private ListView<Task> tuesdayTask;
+    @FXML
+    private ListView<Task> wednesdayTask;
+    @FXML
+    private ListView<Task> thursdayTask;
+    @FXML
+    private ListView<Task> fridayTask;
+    @FXML
+    private ListView<Task> saturdayTask;
+    @FXML
+    private ListView<Task> sundayTask;
 
     /**
      * Allocation of the images for the chat bot.
@@ -65,7 +77,13 @@ public class MainWindow extends AnchorPane {
     private static TaskList tasks;
     private static File file = new File(filePath);
     private static ObservableList<Task> holdTodayTasks;
-    private static ObservableList<Task> mondayTasks, tuesdayTasks, wednesdayTasks, thursdayTasks, fridayTasks, saturdayTasks, sundayTasks;
+    private static ObservableList<Task> mondayTasks;
+    private static ObservableList<Task> tuesdayTasks;
+    private static ObservableList<Task> wednesdayTasks;
+    private static ObservableList<Task> thursdayTasks;
+    private static ObservableList<Task> fridayTasks;
+    private static ObservableList<Task> saturdayTasks;
+    private static ObservableList<Task> sundayTasks;
 
     /**
      * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
