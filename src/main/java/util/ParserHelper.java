@@ -60,6 +60,62 @@ public class ParserHelper {
         return memberDetails;
     }
 
+    public ArrayList<String> parseTaskDetails(String input) {
+        ArrayList<String> newTask = new ArrayList<>();
+
+        String newTaskName = "-";
+        String newTaskPriority = "0";
+        String newTaskDate = null;
+        String newTaskCredit = "0";
+        String newTaskState = "OPEN";
+
+        String [] newTaskDetails = input.split(" ");
+        for (String s : newTaskDetails) {
+            switch (s.substring(0, 2)) {
+                case "t/":
+                    newTaskName = s.substring(2);
+                    break;
+                case "p/":
+                    newTaskPriority = s.substring(2);
+                    break;
+                case "d/":
+                    newTaskDate = s.substring(2);
+                    break;
+                case "c/":
+                    newTaskCredit = s.substring(2);
+                    break;
+                case "s/":
+                    newTaskState = s.substring(2);
+                    break;
+            }
+        }
+        int indexOfNameFlag = input.indexOf("t/");
+        int indexOfPriorityFlag = input.indexOf("p/");
+        int indexOfDateFlag = input.indexOf("d/");
+        int indexOfCreditFlag = input.indexOf("c/");
+        int indexOfStateFlag = input.indexOf("s/");
+
+        if (indexOfPriorityFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfPriorityFlag - 1);
+        } else if (indexOfDateFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfDateFlag - 1);
+        } else if (indexOfCreditFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfCreditFlag - 1);
+        } else if (indexOfStateFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfStateFlag - 1);
+        } else {
+            newTaskName = input.substring(2);
+        }
+
+        newTask.add(newTaskName);
+        newTask.add(newTaskPriority);
+        newTask.add(newTaskDate);
+        newTask.add(newTaskCredit);
+        newTask.add(newTaskState);
+
+        return newTask;
+    }
+
     /**
      * Parses the criteria specified by the user to sort the list of tasks.
      * @param taskList A list of all tasks in the project.

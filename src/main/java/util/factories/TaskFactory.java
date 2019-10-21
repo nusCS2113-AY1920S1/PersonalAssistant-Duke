@@ -4,6 +4,7 @@ import models.task.ITask;
 import models.task.NullTask;
 import models.task.Task;
 import models.task.TaskState;
+import util.ParserHelper;
 import util.date.DateTimeHelper;
 
 import java.text.ParseException;
@@ -11,6 +12,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class TaskFactory {
+    private ParserHelper parserHelper;
+    DateTimeHelper dateTimeHelper;
+
+    public TaskFactory() {
+        parserHelper = new ParserHelper();
+        dateTimeHelper = new DateTimeHelper();
+    }
 
     /**
      * Method to create a new task and put it into a list.
@@ -18,63 +26,27 @@ public class TaskFactory {
      * @return Task as an object
      */
     public ITask createTask(String input) throws ParseException {
-        String [] taskDetails = input.split("[tpdcsr]\\/");
-        ITask newTask;
-        String newTaskName = taskDetails[1].trim();
-        DateTimeHelper dateTimeHelper = new DateTimeHelper();
-        int newTaskPriority = Integer.parseInt(taskDetails[2].trim());
-        boolean hasDueDateFlag = input.contains(" d/");
-        boolean hasStateFlag = input.contains(" s/");
         if (!input.contains("t/") || !input.contains("p/") || !input.contains("c/")) {
             return new NullTask();
         }
-        if (!hasDueDateFlag && !hasStateFlag) {
-            if (taskDetails.length == 4) {
-                newTask = new Task(newTaskName, newTaskPriority,
-                        null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
-                        new ArrayList<>());
-            } else {
-                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 4);
-                newTask = new Task(newTaskName, newTaskPriority,
-                        null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
-                        taskRequirements);
-            }
 
-        } else if (hasDueDateFlag && !hasStateFlag) {
-            if (taskDetails.length == 5) {
-                Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
-                newTask = new Task(newTaskName, newTaskPriority,
-                        dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, new ArrayList<>());
-            } else {
-                Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
-                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
-                newTask = new Task(newTaskName, newTaskPriority,
-                        dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, taskRequirements);
-            }
-        } else if (!hasDueDateFlag) {
-            TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
-            if (taskDetails.length == 5) {
-                newTask = new Task(newTaskName, newTaskPriority,
-                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState, new ArrayList<>());
-            } else {
-                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
-                newTask = new Task(newTaskName, newTaskPriority,
-                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState, taskRequirements);
-            }
-
-        } else {
-            Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
-            TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
-            if (taskDetails.length == 6) {
-                newTask = new Task(newTaskName, newTaskPriority,
-                        dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState, null);
-            } else {
-                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 6);
-                newTask = new Task(newTaskName, newTaskPriority,
-                        dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState, taskRequirements);
-            }
+        String [] taskDetails = input.split("[r]\\/");
+        ArrayList<String> taskRequirements = new ArrayList<>();
+        if (taskDetails.length > 1) {
+            taskRequirements = parseTaskRequirements(taskDetails,1);
         }
-        return newTask;
+
+        ArrayList<String> newTaskDetails = parserHelper.parseTaskDetails(taskDetails[0]);
+        String newTaskName = newTaskDetails.get(0);
+        int newTaskPriority = Integer.parseInt(newTaskDetails.get(1));
+        Date newTaskDate = null;
+        if (newTaskDetails.get(2) != null) {
+            newTaskDate = dateTimeHelper.formatDate(newTaskDetails.get(2));
+        }
+        int newTaskCredit = Integer.parseInt(newTaskDetails.get(3));
+        TaskState newTaskState = convertStringToTaskState(newTaskDetails.get(4));
+
+        return new Task(newTaskName, newTaskPriority, newTaskDate, newTaskCredit, newTaskState, taskRequirements);
     }
 
     /**

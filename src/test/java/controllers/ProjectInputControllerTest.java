@@ -115,10 +115,10 @@ class ProjectInputControllerTest {
         projectInputController.projectAddTask(project, simulatedUserInput);
 
         // the following test fails
-        /*
+
         simulatedUserInput = "add task t/Documentation for product p/2 c/40 s/done r/do something r/do another thing";
         projectInputController.projectAddTask(project,simulatedUserInput);
-        */
+
 
         simulatedUserInput = "add task t/Documentation for product p/2 c/40 r/do something r/do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
@@ -130,17 +130,17 @@ class ProjectInputControllerTest {
         for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        /*expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
+        expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
                 + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
                 + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
                 + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
-         */
+
 
         // temporary expectedOutput
-        expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
+        /*expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
                 + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
                 + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
-
+*/
 
         assertEquals(expectedOutput,actualOutput);
     }
