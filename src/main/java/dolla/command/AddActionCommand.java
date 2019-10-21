@@ -6,7 +6,6 @@ import dolla.action.undo;
 import dolla.parser.DebtsParser;
 import dolla.parser.EntryParser;
 import dolla.parser.MainParser;
-import dolla.parser.Parser;
 
 public class AddActionCommand extends Command{
     private String mode;
@@ -38,7 +37,6 @@ public class AddActionCommand extends Command{
     public void execute(DollaData dollaData) throws Exception {
         if(command.equals("undo")) {
             undoCommand();
-//            redo.redoReady(mode); move to somewhere else
         } else if (command.equals("redo")) {
             redo.redoReady(mode);
             redoCommand();

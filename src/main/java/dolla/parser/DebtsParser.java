@@ -55,8 +55,8 @@ public class DebtsParser extends Parser {
         }
     }
 
-    public static void setPrePosition(int prePosition) {
-        DebtsParser.prevPosition = prePosition;
+    public static void setPrePosition(int prevPosition) {
+        DebtsParser.prevPosition = prevPosition;
         undoFlag = 1;
     }
 }

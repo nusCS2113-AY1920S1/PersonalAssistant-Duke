@@ -14,7 +14,6 @@ public class AddDebtsCommand extends Command {
     private double amount;
     private String description;
     private int prevPosition;
-    private static int undoFlag = 0;
 
     public AddDebtsCommand(String type, String name, double amount, String description, int prePosition) { //prePosition is -1 by default
         this.type = type;
@@ -26,20 +25,18 @@ public class AddDebtsCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
+        String mode = "debt";
         Debt newDebt = new Debt(type, name, amount, description);
-        index = dollaData.getLogList("debt").size();
+        index = dollaData.getLogList(mode).size();
         if(prevPosition != -1) { //an undo input
-            dollaData.addToPrevPosition("debt", newDebt, prevPosition);
-            redo.removeCommand("debt", prevPosition);
+            dollaData.addToPrevPosition(mode, newDebt, prevPosition);
+            redo.removeCommand(mode, prevPosition);
             System.out.println(prevPosition);
             prevPosition = -1;
         } else { //normal input
-            dollaData.addToLogList("debt", newDebt);
-
-//            index = dollaData.getLogList("debt").size();
-            undo.removeCommand("debt",index);
-            redo.clearRedo();
-//            redo.setRedoFlag(0);
+            dollaData.addToLogList(mode, newDebt);
+            undo.removeCommand(mode,index);
+            redo.clearRedo(mode);
         }
         Ui.echoAddDebt(newDebt);
     }

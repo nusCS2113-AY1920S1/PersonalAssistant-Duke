@@ -16,7 +16,7 @@ public class EntryParser extends Parser {
         if (commandToRun.equals("entries")) { //show entry list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("add")) {
-            if (verifyAddCommand() == true) {
+            if (verifyAddCommand()) {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
@@ -30,7 +30,7 @@ public class EntryParser extends Parser {
                 return new ErrorCommand();
             }
         } else if (commandToRun.equals("modify")) {
-            if (verifyModifyCommand() == true) {
+            if (verifyModifyCommand()) {
                 return new InitialModifyCommand(inputArray[1]);
             } else {
                 return new ErrorCommand();
@@ -49,8 +49,8 @@ public class EntryParser extends Parser {
         }
     }
 
-    public static void setPrePosition(int prePosition) {
-        EntryParser.prevPosition = prePosition;
+    public static void setPrePosition(int prevPosition) {
+        EntryParser.prevPosition = prevPosition;
         undoFlag = 1;
     }
 }

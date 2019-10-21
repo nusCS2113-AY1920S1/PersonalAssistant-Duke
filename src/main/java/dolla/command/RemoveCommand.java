@@ -42,28 +42,22 @@ public class RemoveCommand extends Command {
     //@Override
     public void execute(DollaData dollaData) {
         int logNumInt;
-        int flag;
-        if(logNumStr.contains("/")) { //from undo
-            String[] parser = logNumStr.split("/", 2);
-            logNumInt = stringToInt(parser[0]) - 1;
-            flag = 0;
-        } else { //normal input
-            logNumInt  = stringToInt(logNumStr) - 1;
-            flag = 1;
-        }
-        LogList logList = new LogList(new ArrayList<>());
-        logList = dollaData.getLogList(mode);
-
+//        logList = dollaData.getLogList(mode);
+        LogList logList = dollaData.getLogList(mode);
         boolean isListEmpty = (logList.size() == 0);
 
-        if (logNumInt < 0 || isListEmpty) {
+        if (isListEmpty) {
             return; // TODO: return error command
         }
-        if(flag == 1) {
-            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
-            redo.clearRedo();
-        } else {
-            redo.addCommand(mode,logList.get().get(logNumInt).getUserInput());
+
+        if(logNumStr.contains("/")) { //input from undo
+            String[] parser = logNumStr.split("/", 2);
+            logNumInt = stringToInt(parser[0]) - 1;
+            redo.addCommand(mode,logList.get().get(logNumInt).getUserInput()); //add undo input to redo
+        } else { //normal user input
+            logNumInt  = stringToInt(logNumStr) - 1;
+            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
+            redo.clearRedo(mode); //clear the list in redo
         }
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());

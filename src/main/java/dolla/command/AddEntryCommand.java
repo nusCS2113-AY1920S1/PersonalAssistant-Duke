@@ -18,7 +18,6 @@ public class AddEntryCommand extends Command {
     private String description;
     private LocalDateTime date;
     private int prevPosition;
-    private static int undoFlag;
 
     /**
      * Creates an instance of AddEntryCommand.
@@ -37,25 +36,19 @@ public class AddEntryCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
+        String mode = "entry";
         Entry newEntry = new Entry(type, amount, description, date);
 
         if(prevPosition != -1) { //an undo input
-            dollaData.addToPrevPosition("entry", newEntry, prevPosition);
-            redo.removeCommand("entry",prevPosition);
+            dollaData.addToPrevPosition(mode, newEntry, prevPosition);
+            redo.removeCommand(mode,prevPosition);
             prevPosition = -1; //reset to -1
         } else { //normal input
-            dollaData.addToLogList("entry", newEntry);
-            index = dollaData.getLogList("entry").size();
-            undo.removeCommand("entry",index);
-            redo.clearRedo();
-
-
-//            redo.setRedoFlag(0);
+            dollaData.addToLogList(mode, newEntry);
+            index = dollaData.getLogList(mode).size();
+            undo.removeCommand(mode, index);
+            redo.clearRedo(mode);
         }
         Ui.echoAddEntry(newEntry);
-    }
-
-    public static void setUndoFlag(int undoFlag) {
-        AddEntryCommand.undoFlag = undoFlag;
     }
 }
