@@ -482,23 +482,7 @@ public class CommandParser {
         }
         try {
             String timeString = extractTime(optionList);
-            String day = null;
-            String timing = null;
-            if (!timeString.contains("/") && !timeString.isEmpty()) {
-                timeString = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
-                if (timeString.contains(" ")) {
-                    String[] tokens = timeString.split("\\s+", 3);
-                    day = tokens[0];
-                    timing = tokens[1];
-                } else {
-                    day = timeString;
-                }
-            }
-            if (Task.isCorrectNaturalDate(day)) {
-                time = Task.convertNaturalDate(day, timing);
-            } else {
-                time = Task.parseDate(timeString);
-            }
+            time  = convertTime(timeString);
         } catch (UserInputException e) {
             time = null; //todo can tolerate a null time, but not event and deadline
         }
@@ -520,6 +504,33 @@ public class CommandParser {
             return parseEventCommand(taskList, input, time, doAfter, tags, priority);
         } else {
             return new InvalidCommand();
+        }
+    }
+
+    /**
+     * Checks if timeString is in naturalDate format and converts timeString from String to LocalDateTime.
+     *
+     * @param timeString time of the task extracted from the input
+     * @return the time in LocalDateTime
+     * @throws UserInputException when time is not in the correct format
+     */
+    public static LocalDateTime convertTime(String timeString) throws UserInputException {
+        String day = null;
+        String timing = null;
+        if (!timeString.contains("/") && !timeString.isEmpty()) {
+            timeString = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
+            if (timeString.contains(" ")) {
+                String[] tokens = timeString.split("\\s+", 3);
+                day = tokens[0];
+                timing = tokens[1];
+            } else {
+                day = timeString;
+            }
+        }
+        if (Task.isCorrectNaturalDate(day)) {
+            return Task.convertNaturalDate(day, timing);
+        } else {
+            return Task.parseDate(timeString);
         }
     }
 
