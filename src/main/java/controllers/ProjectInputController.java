@@ -85,7 +85,7 @@ public class ProjectInputController implements IController {
             } else if (projectCommand.length() > 23
                     && ("edit task requirements ").equals(projectCommand.substring(0, 23))) {
                 projectEditTaskRequirements(projectToManage, projectCommand);
-            } else if (projectCommand.length() > 10 && ("edit task ").equals(projectCommand.substring(0, 10))) {
+            } else if (projectCommand.length() >= 10 && ("edit task ").equals(projectCommand.substring(0, 10))) {
                 projectEditTask(projectToManage, projectCommand);
             } else if (projectCommand.length() >= 12 && ("delete task ").equals(projectCommand.substring(0,12))) {
                 projectDeleteTask(projectToManage, projectCommand);
@@ -198,10 +198,14 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTask(Project projectToManage, String projectCommand) {
-        String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
-        int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
+//        String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
+//        int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
+
+        int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
+        String updatedTaskDetails = projectCommand.substring(12);
+
         if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-            consoleView.editTask(projectToManage, projectCommand, taskIndexNumber);
+            consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
         } else {
             consoleView.consolePrint("The task index entered is invalid.");
         }

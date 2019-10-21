@@ -63,10 +63,10 @@ public class ParserHelper {
     public ArrayList<String> parseTaskDetails(String input) {
         ArrayList<String> newTask = new ArrayList<>();
 
-        String newTaskName = "-";
-        String newTaskPriority = "0";
+        String newTaskName = "--";
+        String newTaskPriority = "-1";
         String newTaskDate = null;
-        String newTaskCredit = "0";
+        String newTaskCredit = "-1";
         String newTaskState = "OPEN";
 
         String [] newTaskDetails = input.split(" ");

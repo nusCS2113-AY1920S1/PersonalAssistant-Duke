@@ -72,7 +72,7 @@ public class TaskList {
      *                           edit task i/TASK_INDEX [n/TASK_NAME] [p/TASK_PRIORITY]
      *                           [d/TASK_DUEDATE] [c/TASK_CREDIT] [s/STATE]
      */
-    public void editTask(String updatedTaskDetails) {
+    public void editTask1(String updatedTaskDetails) {
         String[] updatedTaskDetailsArray = updatedTaskDetails.split(" [itpdcs]\\/");
         int taskIndex = Integer.parseInt(updatedTaskDetailsArray[1]);
         TreeMap<Integer, String> orderOfInputs = new TreeMap<>();
@@ -112,6 +112,34 @@ public class TaskList {
                 }
                 currentIndex++;
             }
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
+        ArrayList<String> taskDetails = parserHelper.parseTaskDetails(updatedTaskDetails);
+        String taskName = taskDetails.get(0);
+        String taskPriority = taskDetails.get(1);
+        String taskDueDate = taskDetails.get(2);
+        String taskCredit = taskDetails.get(3);
+        String taskState = taskDetails.get(4);
+        System.out.println(taskName);
+
+        Task task = taskList.get(taskIndexNumber-1);
+        if (!("--".equals(taskName))) {
+            task.setTaskName(taskName);
+        }
+        if (!("-1".equals(taskPriority))) {
+            task.setTaskPriority(Integer.parseInt(taskPriority));
+        }
+        if (taskDueDate != null) {
+            task.setDueDate(taskDueDate);
+        }
+        if (!("-1".equals(taskCredit))) {
+            task.setTaskCredit(Integer.parseInt(taskCredit));
+        }
+        if (!("OPEN".equals(taskCredit))) {
+            task.setTaskState(taskState);
         }
     }
 

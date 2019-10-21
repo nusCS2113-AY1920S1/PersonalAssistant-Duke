@@ -114,11 +114,8 @@ class ProjectInputControllerTest {
                 + "r/do something r/do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
-        // the following test fails
-
         simulatedUserInput = "add task t/Documentation for product p/2 c/40 s/done r/do something r/do another thing";
         projectInputController.projectAddTask(project,simulatedUserInput);
-
 
         simulatedUserInput = "add task t/Documentation for product p/2 c/40 r/do something r/do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
@@ -135,13 +132,6 @@ class ProjectInputControllerTest {
                 + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
                 + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
 
-
-        // temporary expectedOutput
-        /*expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
-                + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
-                + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
-*/
-
         assertEquals(expectedOutput,actualOutput);
     }
 
@@ -152,8 +142,7 @@ class ProjectInputControllerTest {
                 + "r/do something r/do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
-        // the following test fails
-        /*simulatedUserInput = "edit task i/1 t/No documentation p/5 d/22/09/2019 c/50 s/done "
+        simulatedUserInput = "edit task 1 t/No documentation p/5 d/22/09/2019 c/50 s/done "
                     + "r/do nothing r/do another thing";
         projectInputController.projectEditTask(project,simulatedUserInput);
         actualOutput = "";
@@ -162,7 +151,7 @@ class ProjectInputControllerTest {
         }
         expectedOutput = "1. No documentation | Priority: 5 | Due: 22 Sep 2019 | Credit: 50 | State: DONE";
         assertEquals(expectedOutput,actualOutput);
-        */
+
     }
 
     @Test
