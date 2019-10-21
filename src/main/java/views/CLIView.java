@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import models.data.IProject;
 import models.data.Project;
-import models.member.Member;
-import models.member.MemberList;
 import models.task.Task;
-import java.util.Arrays;
 import java.util.HashMap;
 import util.log.DukeLogger;
 
