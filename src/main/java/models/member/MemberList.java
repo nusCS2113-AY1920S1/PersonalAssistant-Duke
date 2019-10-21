@@ -38,9 +38,9 @@ public class MemberList implements IMemberList {
 
         for (Member currentMember : memberList) {
             if (currentMember.getIndexNumber() == memberIndexNumber) {
-                String updatedName = ("No name".equals(name)) ? currentMember.getName() : name;
-                String updatedPhone = ("No phone number".equals(phone)) ? currentMember.getPhone() : phone;
-                String updatedEmail = ("No email address".equals(email)) ? currentMember.getEmail() : email;
+                String updatedName = ("--".equals(name)) ? currentMember.getName() : name;
+                String updatedPhone = ("--".equals(phone)) ? currentMember.getPhone() : phone;
+                String updatedEmail = ("--".equals(email)) ? currentMember.getEmail() : email;
                 currentMember.updateDetails(updatedName, updatedPhone, updatedEmail);
                 break;
             }

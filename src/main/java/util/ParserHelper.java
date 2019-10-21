@@ -3,6 +3,7 @@ package util;
 import models.task.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -18,9 +19,9 @@ public class ParserHelper {
      */
     public String[] parseMemberDetails(String input) {
         String[] memberDetails = new String[4];
-        memberDetails[0] = "No name";
-        memberDetails[1] = "No phone number";
-        memberDetails[2] = "No email address";
+        memberDetails[0] = "--";
+        memberDetails[1] = "--";
+        memberDetails[2] = "--";
         memberDetails[3] = "0";
         String[] tempInput = input.split(" ");
         for (String s : tempInput) {
@@ -96,5 +97,44 @@ public class ParserHelper {
             }
         }
         return taskDetails;
+    }
+
+    /**
+     * Parses input String to get valid task and member index numbers, as well as error messages
+     * for invalid index numbers.
+     * @param input The input from the user.
+     */
+    public ArrayList<ArrayList<String>> parseAssignmentInputHelper(String input) {
+        ArrayList<String> allIndexesToAssign = new ArrayList<>();
+        ArrayList<String> allIndexesToUnassign = new ArrayList<>();
+        ArrayList<String> allTasksIndexes = new ArrayList<>();
+
+        String [] inputParts = input.split("-");
+
+        for (String s : inputParts) {
+            String [] part = s.split(" ");
+            switch (part[0]) {
+            case "i":
+                allTasksIndexes = new ArrayList<>(Arrays.asList(part));
+                allTasksIndexes.remove("i");
+                break;
+            case "to":
+                allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
+                allIndexesToAssign.remove("to");
+                break;
+            case "rm":
+                allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
+                allIndexesToUnassign.remove("rm");
+                break;
+            default:
+            }
+        }
+
+        ArrayList<ArrayList<String>> assignmentOutput = new ArrayList<>();
+        assignmentOutput.add(allIndexesToAssign);
+        assignmentOutput.add(allIndexesToUnassign);
+        assignmentOutput.add(allTasksIndexes);
+
+        return assignmentOutput;
     }
 }
