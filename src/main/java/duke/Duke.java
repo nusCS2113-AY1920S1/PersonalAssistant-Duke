@@ -61,7 +61,7 @@ public class Duke {
             taskManager = new TaskManager(taskStorage.load());
             patientManager = new PatientManager(patientStorage.load());
             counter = new Counter(counterStorage.load());
-            shortCutter = new ShortCutter(counter , ui);
+            shortCutter = new ShortCutter(counter, ui);
 
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -83,10 +83,10 @@ public class Duke {
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
                 if (c instanceof DukeCommand) {
-                    Command cmd = shortCutter.runShortCut();
-                    cmd.execute(patientTaskList, taskManager, patientManager,
+                    Command command = shortCutter.runShortCut();
+                    command.execute(patientTaskList, taskManager, patientManager,
                             ui, patientTaskStorage, taskStorage, patientStorage);
-                } else{
+                } else {
                     c.execute(patientTaskList, taskManager, patientManager,
                             ui, patientTaskStorage, taskStorage, patientStorage);
                     counter.runCommandCounter(c, counterStorage, counter);

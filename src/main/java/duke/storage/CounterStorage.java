@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * CounterStorage.java - a class for load/save of command frequency in csv format,
+ * A class for load/save of command frequency in csv format,
  * written with Storage template written by HUANG XUAN KUN
  *
  * @author QIAN JIE
