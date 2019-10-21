@@ -27,7 +27,7 @@ public class Duke {
     private User user;
     private boolean isExit;
     private Storage roomStorage;
-    private RoomList roomList;
+
 
     /**
      * Constructor for control.Duke
