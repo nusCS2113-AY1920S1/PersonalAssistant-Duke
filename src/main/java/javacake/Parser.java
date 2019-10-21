@@ -24,6 +24,7 @@ import java.util.List;
 public class Parser {
 
     private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "tree", "deadline"};
+
     /**
      * Allows the user input to be parsed before running 'execute'.
      * @param inputCommand String inputted by user, which needs to be parsed
@@ -62,11 +63,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to help handle small typo made by user.
+     */
     private static void helper(String input) throws DukeException {
         for (int i = 0; i < commands.length; i++) {
             String command = commands[i];
             int length = command.length();
-            if (length > input.length()){
+            if (length > input.length()) {
                 length = input.length();
             }
             int similarity = 0;
