@@ -175,7 +175,13 @@ public class Ui {
         print("Ok, I've deleted the category named " + category.toString() + ".");
     }
 
-
+    /**
+     * Prints out when a expenditure is deleted.
+     * @param category name of the expenditure to be deleted
+     */
+    public void showRemovedExpenditureMessage(Category category) {
+        print("Ok, I've deleted the expenditure under " + category.toString() + ".");
+    }
     /**
      * Prints out when a new expenditure is created.
      * @param categoryName name of the new expenditure
@@ -200,6 +206,12 @@ public class Ui {
         print("Please enter a name for which category's expenditure and amount with a '-' in between");
     }
 
+    /**
+     * Prompts the user to enter a expenditure name.
+     */
+    public void showDeleteExpenditureMessage() {
+        print("Please enter a category's index number and the amount to delete with a '-' in between");
+    }
 
     /**
      * Shows the user his total spending for the month in a category.

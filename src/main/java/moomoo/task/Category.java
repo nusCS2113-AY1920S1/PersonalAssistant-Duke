@@ -38,6 +38,10 @@ public class Category {
         category.add(newExpenditure);
     }
 
+    public void deleteExpenditure(int expenditureNumber) {
+        category.remove(expenditureNumber);
+    }
+
     /**
      * Calculates the total expenditure for every entry in the category.
      * @return totalCost
@@ -113,18 +117,6 @@ public class Category {
         return monthTotal;
     }
 
-    public void addExpenditure() {
-
-    }
-
-    public void editExpenditure() {
-
-    }
-
-    public void deleteExpenditure() {
-
-    }
-    
     /**
      * Set the month total (FOR TESTING PURPOSES).
      * @param value The value to be set

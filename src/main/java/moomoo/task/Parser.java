@@ -145,7 +145,7 @@ public class Parser {
         
         return new AddExpenditureCommand(false, amount, expenditureName);
     }
-    
+
     private static String parseInput(Scanner scanner, Ui ui, String text) {
         String input;
         try {
