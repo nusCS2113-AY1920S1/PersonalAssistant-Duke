@@ -8,7 +8,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
-import Events.Storage.CalendarView;
+import Events.Formatting.CalendarView;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -188,6 +188,9 @@ public class Command {
         }
     }
 
+    /**
+     * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
+     */
     public void checkFreeDays(EventList events, UI ui) {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -212,6 +215,9 @@ public class Command {
         ui.printFreeDays(daysFree);
     }
 
+    /**
+     * Searches list for events found in a singular date, passes to UI for printing.
+     */
     public void viewEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -277,6 +283,8 @@ public class Command {
                 }
 
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+                ui.eventFormatWrong();
+            } catch (ArrayIndexOutOfBoundsException e) {
                 ui.eventFormatWrong();
             }
         }
