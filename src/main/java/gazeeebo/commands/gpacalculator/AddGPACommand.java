@@ -21,8 +21,8 @@ public class AddGPACommand {
         String semNumber = splitCommand[0];
         String moduleCode = splitCommand[1];
         int moduleCredit = Integer.parseInt(splitCommand[2]);
-        double gpa = Double.parseDouble(splitCommand[3]);
-        GPACommand inputGpa = new GPACommand(moduleCode, moduleCredit, gpa);
+        String grade = splitCommand[3];
+        GPACommand inputGpa = new GPACommand(moduleCode, moduleCredit, grade);
         if (gpalist.containsKey(semNumber)) {
             gpalist.get(semNumber).add(inputGpa);
         } else {

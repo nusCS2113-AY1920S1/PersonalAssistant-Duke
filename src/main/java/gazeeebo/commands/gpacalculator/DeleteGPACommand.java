@@ -13,21 +13,27 @@ public class DeleteGPACommand {
      * @param gpalist the object that deals stores semNumber, moduleCode, moduleCredits and GPA score.
      */
     public DeleteGPACommand(final Ui ui, final Map<String, ArrayList<GPACommand>> gpalist) {
-        String moduleName = ui.fullCommand.split(" ")[1];
-        for (String key: gpalist.keySet()) {
-            for (int i = 0; i < gpalist.get(key).size(); i++) {
-                if (ui.fullCommand.equals("delete")) {
-                    System.out.print("Incorrect format: delete module\n");
-                    break;
-                } else if (moduleName.equals(gpalist.get(key).get(i).moduleCode)) {
-                    if (gpalist.get(key).size() == 1) {
-                        gpalist.remove(key);
-                    } else {
-                        gpalist.get(key).remove(i);
+        if(ui.fullCommand.equals("delete")) {
+            System.out.println("Incorrect format: delete moduleCode");
+        } else {
+            boolean haveDeleted = false;
+            String moduleName = ui.fullCommand.split(" ")[1];
+            for (String key : gpalist.keySet()) {
+                for (int i = 0; i < gpalist.get(key).size(); i++) {
+                    if (moduleName.equals(gpalist.get(key).get(i).moduleCode)) {
+                        if (gpalist.get(key).size() == 1) {
+                            gpalist.remove(key);
+                        } else {
+                            gpalist.get(key).remove(i);
+                        }
+                        System.out.println("Successfully deleted: " + moduleName);
+                        haveDeleted = true;
+                        break;
                     }
-                    System.out.println("Successfully deleted: " + moduleName);
-                    break;
                 }
+            }
+            if(!haveDeleted) {
+                System.out.println(ui.fullCommand.split(" ")[1] + " is not found in the list.");
             }
         }
     }

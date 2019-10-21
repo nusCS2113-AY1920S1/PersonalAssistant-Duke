@@ -47,7 +47,7 @@ public class ListGPACommand {
                 for (int j = 0; j < noBlankSpacing; j++) {
                     System.out.print(" ");
                 }
-                System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).score
+                System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).grade
                         + "\n" + lineBreak);
             }
         }
@@ -72,7 +72,7 @@ public class ListGPACommand {
                     for (int j = 0; j < noBlankSpacing; j++) {
                         System.out.print(" ");
                     }
-                    System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).score
+                    System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).grade
                             + "\n" + lineBreak);
                 }
             }

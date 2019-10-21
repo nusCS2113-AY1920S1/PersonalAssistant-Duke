@@ -29,8 +29,8 @@ public class Parser {
         } else if(splitCommand[0].equals("gpa")) {
             String moduleCode = "";
             int moduleCredit = 0;
-            double score = 0.0;
-            return new GPACommand(moduleCode,moduleCredit,score);
+            String grade = "";
+            return new GPACommand(moduleCode,moduleCredit,grade);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

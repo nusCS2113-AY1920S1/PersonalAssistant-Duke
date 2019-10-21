@@ -14,12 +14,12 @@ import java.util.*;
 public class GPACommand extends Command {
     public String moduleCode;
     public int moduleCredit;
-    public double score;
+    public String grade;
 
-    public GPACommand(String moduleCode, int moduleCredit, double score) {
+    public GPACommand(String moduleCode, int moduleCredit, String grade) {
         this.moduleCode = moduleCode;
         this.moduleCredit = moduleCredit;
-        this.score = score;
+        this.grade = grade;
     }
 
     /* Main Command to execute all the GPA commands */
@@ -56,7 +56,7 @@ public class GPACommand extends Command {
                 for (int i = 0; i < gpalist.get(key).size(); i++) {
                     toStore = toStore.concat(key + "|" + gpalist.get(key).get(i).moduleCode
                             + "|" + gpalist.get(key).get(i).moduleCredit
-                            + "|" + gpalist.get(key).get(i).score + "\n");
+                            + "|" + gpalist.get(key).get(i).grade + "\n");
 
                 }
             }

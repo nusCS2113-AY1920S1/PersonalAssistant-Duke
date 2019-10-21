@@ -27,7 +27,7 @@ public class FindGPACommand {
                     for (int j = 0; j < noBlankSpacing; j++) {
                         System.out.print(" ");
                     }
-                    System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).score
+                    System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).grade
                             + "\n" + lineBreak);
                 } else if (gpalist.get(key).get(i).moduleCode.equals(findInput)) {
                     int noBlankSpacing = BLANK_SPACING - gpalist.get(key).get(i).moduleCode.length();
@@ -35,7 +35,7 @@ public class FindGPACommand {
                     for (int j = 0; j < noBlankSpacing; j++) {
                         System.out.print(" ");
                     }
-                    System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).score
+                    System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).grade
                             + "\n" + lineBreak);
                 }
             }

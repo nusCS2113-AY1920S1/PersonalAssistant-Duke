@@ -26,7 +26,6 @@ public class ChangePasswordCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Enter your current password:");
         ui.readCommand();
-        ArrayList<String> password_list = new ArrayList<>();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals(storage.Password().get(0).toString())) {
                 System.out.println("Enter new password:");

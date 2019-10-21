@@ -16,8 +16,11 @@ public class CalculateGPACommand {
         int sumMCS = 0;
         for (String key : gpalist.keySet()) {
             for(int i = 0; i < gpalist.get(key).size(); i++) {
-                sumGPAMCS += gpalist.get(key).get(i).moduleCredit * gpalist.get(key).get(i).score;
-                sumMCS += gpalist.get(key).get(i).moduleCredit;
+                double score = new ConverterGradetoScoreCommand().converter(gpalist.get(key).get(i).grade);
+                if(score != 0.1) {
+                    sumGPAMCS += gpalist.get(key).get(i).moduleCredit * score;
+                    sumMCS += gpalist.get(key).get(i).moduleCredit;
+                }
             }
         }
         cap = sumGPAMCS / sumMCS;
@@ -38,8 +41,11 @@ public class CalculateGPACommand {
         for (String key : gpalist.keySet()) {
             if (key.equals(semNumber)) {
                 for(int i = 0; i < gpalist.get(key).size(); i++) {
-                    sumGPAMCS += gpalist.get(key).get(i).moduleCredit * gpalist.get(key).get(i).score;
-                    sumMCS += gpalist.get(key).get(i).moduleCredit;
+                    double score = new ConverterGradetoScoreCommand().converter(gpalist.get(key).get(i).grade);
+                    if(score != 0.1) {
+                        sumGPAMCS += gpalist.get(key).get(i).moduleCredit * score;
+                        sumMCS += gpalist.get(key).get(i).moduleCredit;
+                    }
                 }
             }
         }

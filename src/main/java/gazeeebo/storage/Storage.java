@@ -303,8 +303,8 @@ public class Storage {
                 String semNumber = split[0];
                 String moduleCode = split[1];
                 int mc = Integer.parseInt(split[2]);
-                double score = Double.parseDouble(split[3]);
-                GPACommand gpa = new GPACommand(moduleCode, mc, score);
+                String grade = split[3];
+                GPACommand gpa = new GPACommand(moduleCode, mc, grade);
                 boolean isEqual = false;
                 for (String key : gpaList.keySet()) {
                     if (semNumber.equals(key)) {
