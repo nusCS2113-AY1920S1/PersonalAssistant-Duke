@@ -2,6 +2,7 @@ package javacake.ui;
 
 import javacake.Duke;
 import javacake.Main;
+import javacake.commands.QuizCommand;
 import javacake.quiz.QuestionList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -154,11 +155,11 @@ public class TopBar extends HBox {
      * Method to set up progressBars.
      */
     public static void setUpProgressBars() {
-        TopBar.progValueA = (double) Duke.profile.getContentMarks(0) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueB = (double) Duke.profile.getContentMarks(1) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueC = (double) Duke.profile.getContentMarks(2) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueD = (double) Duke.profile.getContentMarks(3) / QuestionList.MAX_QUESTIONS;
-        TopBar.progValueT = (double) Duke.profile.getTotalProgress() / (QuestionList.MAX_QUESTIONS * 4);
+        TopBar.progValueA = (double) Duke.profile.getContentMarks(0) / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueB = (double) Duke.profile.getContentMarks(1) / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueC = (double) Duke.profile.getContentMarks(2) / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueD = (double) Duke.profile.getContentMarks(3) / QuizCommand.MAX_QUESTIONS;
+        TopBar.progValueT = (double) Duke.profile.getTotalProgress() / (QuizCommand.MAX_QUESTIONS * 4);
     }
 
 }
