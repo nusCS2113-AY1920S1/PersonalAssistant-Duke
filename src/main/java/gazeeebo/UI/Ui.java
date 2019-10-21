@@ -44,10 +44,10 @@ public class Ui {
 
         while (true) {
             readCommand();
-            ArrayList<String> password_list;
+            ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.Password();
-            if (fullCommand.equals(password_list.get(0))) {
+            if (fullCommand.equals(password_list.get(0).toString())) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));

@@ -1,4 +1,5 @@
-package gazeeebo.commands;
+package gazeeebo.commands.tasks;
+import gazeeebo.commands.Command;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;

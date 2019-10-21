@@ -144,13 +144,20 @@ public class Storage {
         fileWriter.close();
     }
 
-    public ArrayList<String> Password() throws IOException {
-        ArrayList<String> passwordList = new ArrayList<>();
+    public ArrayList<StringBuilder> Password() throws IOException {
+        ArrayList<StringBuilder> passwordList = new ArrayList<>();
         if (new File(absolutePath_password).exists()) {
             File file = new File(absolutePath_password);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                passwordList.add(sc.nextLine());
+                String decodedPassword = sc.nextLine();
+                char[] decryption = decodedPassword.toCharArray();
+                StringBuilder realPassword = new StringBuilder();
+                for(int i = decodedPassword.length() - 1; i >= 0; i--) {
+                    realPassword.append(decryption[i]);
+                }
+                System.out.println(realPassword);
+                passwordList.add(realPassword);
             }
         }
         return passwordList;
@@ -196,72 +203,75 @@ public class Storage {
         fileWriter.close();
 
     }
-        public void Storages_Places (String fileContent) throws IOException {
-            FileWriter fileWriter = new FileWriter(absolutePath_Places);
-            fileWriter.write(fileContent);
-            fileWriter.flush();
-            fileWriter.close();
-        }
 
-        public HashMap<LocalDate, ArrayList<String>> Expenses () throws IOException {
-            HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            if (new File(absolutePath_Expenses).exists()) {
-                File file = new File(absolutePath_Expenses);
-                Scanner sc = new Scanner(file);
-                while (sc.hasNext()) {
-                    ArrayList<String> itemAndPriceList = new ArrayList<>();
-                    String[] split = sc.nextLine().split("\\|");
-                    LocalDate dateOfPurchase = LocalDate.parse(split[0], fmt);
-                    boolean isEqual = false;
-                    for (LocalDate key : expenses.keySet()) {
-                        if (dateOfPurchase.equals(key)) { //if date equal
-                            expenses.get(key).add(split[1]);
-                            isEqual = true;
-                        }
-                    }
+    public void Storages_Places(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_Places);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
 
-                    if (isEqual == false) {
-                        itemAndPriceList.add(split[1]);
-                        expenses.put(dateOfPurchase, itemAndPriceList);
+    public HashMap<LocalDate, ArrayList<String>> Expenses() throws IOException {
+        HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if (new File(absolutePath_Expenses).exists()) {
+            File file = new File(absolutePath_Expenses);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                ArrayList<String> itemAndPriceList = new ArrayList<>();
+                String[] split = sc.nextLine().split("\\|");
+                LocalDate dateOfPurchase = LocalDate.parse(split[0], fmt);
+                boolean isEqual = false;
+                for (LocalDate key : expenses.keySet()) {
+                    if (dateOfPurchase.equals(key)) { //if date equal
+                        expenses.get(key).add(split[1]);
+                        isEqual = true;
                     }
                 }
-            }
-            return expenses;
-        }
-        public HashMap<String, String> Read_Places () throws IOException {
-            HashMap<String, String> placesList = new HashMap<String, String>();
-            if (new File(absolutePath_Places).exists()) {
-                File file = new File(absolutePath_Places);
-                Scanner sc = new Scanner(file);
-                while (sc.hasNext()) {
-                    String[] split = sc.nextLine().split("\\|");
-                    placesList.put(split[0], split[1]);
+
+                if (isEqual == false) {
+                    itemAndPriceList.add(split[1]);
+                    expenses.put(dateOfPurchase, itemAndPriceList);
                 }
             }
-            return placesList;
         }
+        return expenses;
+    }
+
+    public HashMap<String, String> Read_Places() throws IOException {
+        HashMap<String, String> placesList = new HashMap<String, String>();
+        if (new File(absolutePath_Places).exists()) {
+            File file = new File(absolutePath_Places);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                placesList.put(split[0], split[1]);
+            }
+        }
+        return placesList;
+    }
 
     public void Read_Trivia(TriviaManager triviamanager) throws IOException {
         if (new File(absolutePath_Trivia).exists()) {
             File file = new File(absolutePath_Trivia);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                String InputCommand= sc.nextLine();
-                if(triviamanager.CommandMemory.containsKey(InputCommand.split(" ")[0])) {
+                String InputCommand = sc.nextLine();
+                if (triviamanager.CommandMemory.containsKey(InputCommand.split(" ")[0])) {
                     ArrayList<String> oldlist = new ArrayList<String>(triviamanager.CommandMemory.get(InputCommand.split(" ")[0]));
                     oldlist.add(InputCommand);
                     triviamanager.CommandMemory.put(InputCommand.split(" ")[0], oldlist);
-                }else{
+                } else {
                     ArrayList<String> newlist = new ArrayList<String>();
                     newlist.add(InputCommand);
-                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0],newlist);
+                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0], newlist);
                 }
             }
         }
     }
-    public void Storage_Trivia(String fileContent) throws IOException{
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia,true));
+
+    public void Storage_Trivia(String fileContent) throws IOException {
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia, true));
         fileWriter.newLine();
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -282,20 +292,33 @@ public class Storage {
      * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
      * @throws IOException
      */
-    public HashMap<String, GPACommand> gpa() throws IOException {
-        HashMap<String, GPACommand> gpaList = new HashMap<String, GPACommand>();
+    public HashMap<String, ArrayList<GPACommand>> gpa() throws IOException {
+        HashMap<String, ArrayList<GPACommand>> gpaList = new HashMap<String, ArrayList<GPACommand>>();
         if (new File(absolutePath_GPA).exists()) {
             File file = new File(absolutePath_GPA);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
+                ArrayList<GPACommand> moduleList = new ArrayList<>();
                 String[] split = sc.nextLine().split("\\|");
-                int firstNo = Integer.parseInt(split[1]);
-                double secondNo = Double.parseDouble(split[2]);
-                GPACommand gpa = new GPACommand(firstNo,secondNo);
-                gpaList.put(split[0], gpa);
+                String semNumber = split[0];
+                String moduleCode = split[1];
+                int mc = Integer.parseInt(split[2]);
+                String grade = split[3];
+                GPACommand gpa = new GPACommand(moduleCode, mc, grade);
+                boolean isEqual = false;
+                for (String key : gpaList.keySet()) {
+                    if (semNumber.equals(key)) {
+                        gpaList.get(key).add(gpa);
+                        isEqual = true;
+                    }
+                }
+                /* semNumber doesn't exist in the list */
+                if (isEqual == false) {
+                    moduleList.add(gpa);
+                    gpaList.put(semNumber, moduleList);
+                }
             }
         }
         return gpaList;
     }
-
 }

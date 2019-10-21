@@ -12,44 +12,53 @@ import java.text.ParseException;
 import java.util.*;
 
 public class GPACommand extends Command {
-//    private String moduleName;
+    public String moduleCode;
     public int moduleCredit;
-    public double score;
+    public String grade;
 
-    public GPACommand(int moduleCredit, double score) {
-//        this.moduleName = moduleName;
+    public GPACommand(String moduleCode, int moduleCredit, String grade) {
+        this.moduleCode = moduleCode;
         this.moduleCredit = moduleCredit;
-        this.score = score;
+        this.grade = grade;
     }
+
+    /* Main Command to execute all the GPA commands */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final  Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+        String helpGPA = "__________________________________________________________\n"
+                + "1. Add module: add\n"
+                + "2. Find module: find moduleCode/semNumber\n"
+                + "3. Delete a module: delete module\n"
+                + "4. See your GPA list: list\n"
+                + "5. Exit GPA page: esc\n"
+                + "__________________________________________________________\n";
         System.out.println("Welcome to your GPA Calculator page! What would you like to do?\n");
-        System.out.println("__________________________________________________________");
-        System.out.println("1. Add module: add");
-        System.out.println("2. Find module GPA base on module_code: find module");
-        System.out.println("3. Delete a module: delete module");
-        System.out.println("4. See your GPA list: list");
-        System.out.println("5. Exit GPA page: esc");
-        System.out.println("__________________________________________________________");
-        HashMap<String, GPACommand> map = storage.gpa(); //Read the file
-        Map<String, GPACommand> GPAList = new TreeMap<>(map);
-        String LINE_BREAK = "------------------------------------------\n";
+        System.out.println(helpGPA);
+        HashMap<String, ArrayList<GPACommand>> map = storage.gpa(); //Read the file
+        Map<String, ArrayList<GPACommand>> gpalist = new TreeMap<>(map);
+        String lineBreak = "------------------------------\n";
         ui.readCommand();
-        while(!ui.fullCommand.equals("esc")) {
-            double cap = new CalculateGPACommand().GPACalculator(GPAList);
-            if(ui.fullCommand.equals("add")) {
-                new AddGPACommand(ui,GPAList);
-            } else if(ui.fullCommand.equals("list")) {
-                new ListGPACommand(GPAList,LINE_BREAK, cap);
-            } else if(ui.fullCommand.split(" ")[0].equals("find")) {
-                new FindGPACommand(ui, GPAList, LINE_BREAK);
-            } else if(ui.fullCommand.split(" ")[0].equals("delete")) {
-                new DeleteGPACommand(ui, GPAList);
+        while (!ui.fullCommand.equals("esc")) {
+            double cap = new CalculateGPACommand().GPACalculator(gpalist);
+            if (ui.fullCommand.equals("add")) {
+                new AddGPACommand(ui, gpalist);
+            } else if (ui.fullCommand.equals("list")) {
+                new ListGPACommand(ui, gpalist, lineBreak, cap);
+            } else if (ui.fullCommand.split(" ")[0].equals("find")) {
+                new FindGPACommand(ui, gpalist, lineBreak);
+            } else if (ui.fullCommand.split(" ")[0].equals("delete")) {
+                new DeleteGPACommand(ui, gpalist);
+            } else {
+                System.out.println("Command not Found:\n" + helpGPA);
             }
             String toStore = "";
-            for (String key : GPAList.keySet()) {
+            for (String key : gpalist.keySet()) {
+                for (int i = 0; i < gpalist.get(key).size(); i++) {
+                    toStore = toStore.concat(key + "|" + gpalist.get(key).get(i).moduleCode
+                            + "|" + gpalist.get(key).get(i).moduleCredit
+                            + "|" + gpalist.get(key).get(i).grade + "\n");
 
-                toStore = toStore.concat(key + "|" + GPAList.get(key).moduleCredit + "|" + GPAList.get(key).score + "\n");
+                }
             }
             storage.Storages_gpa(toStore);
             System.out.println("What do you want to do next ?");
@@ -57,6 +66,7 @@ public class GPACommand extends Command {
         }
         System.out.println("Going back to Main Menu");
     }
+
     @Override
     public boolean isExit() {
         return false;
