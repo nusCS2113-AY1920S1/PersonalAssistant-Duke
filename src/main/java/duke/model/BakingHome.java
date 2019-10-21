@@ -39,6 +39,9 @@ public class BakingHome implements ReadOnlyBakingHome {
         shortcuts = new UniqueEntityList<>();
     }
 
+    /**
+     * Creates BakingHome fro {@code toBeCopied}.
+     */
     public BakingHome(ReadOnlyBakingHome toBeCopied) {
         this();
         resetData(toBeCopied);
@@ -50,10 +53,18 @@ public class BakingHome implements ReadOnlyBakingHome {
     public void resetData(ReadOnlyBakingHome newData) {
         requireNonNull(newData);
 
-        setOrders(newData.getOrderList());
         setShortcuts(newData.getShortcutList());
-
+        setInventory(newData.getInventoryList());
+        setSale(newData.getSaleList());
+        setProducts(newData.getProductList());
+        setShoppingList(newData.getShoppingList());
+        setOrders(newData.getOrderList());
     }
+
+    public void setProducts(List<Product> products) {
+        this.products.setAll(products);
+    }
+
 
     //================Order operations================
 
@@ -62,6 +73,9 @@ public class BakingHome implements ReadOnlyBakingHome {
      */
     public void setOrders(List<Order> orders) {
         this.orders.setAll(orders);
+        for (Order order : orders) {
+            order.listenToInventory(getInventoryList());
+        }
     }
 
     /**
@@ -134,6 +148,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireNonNull(editedSale);
 
         sales.set(target, editedSale);
+    }
+
+    public void setSale(List<Sale> allSale) {
+        this.sales.setAll(allSale);
     }
 
     /**
@@ -242,7 +260,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Shopping operations==============
 
     /**
-     * Adds an ingredient to the shopping list
+     * Adds an ingredient to the shopping list.
      * @param toAdd The ingredient to be added to the shopping list.
      */
     public void addShoppingList(Item<Ingredient> toAdd) {
@@ -250,7 +268,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Removes an ingredient from the shopping list
+     * Removes an ingredient from the shopping list.
      * @param toRemove The ingredient to be removed from the shopping list.
      */
     public void removeShoppingList(Item<Ingredient> toRemove) {

@@ -25,7 +25,9 @@ class OrderCommandUtil {
      * @param items containing the name of the products.
      * @throws CommandException if one or more product names in {@code items} are not found in {@code allProducts}
      */
-    static Set<Item<Product>> getProductItems(List<Product> allProducts, Set<Item<String>> items) throws CommandException {
+    static Set<Item<Product>> getProductItems(List<Product> allProducts,
+                                              Set<Item<String>> items)
+            throws CommandException {
         requireAllNonNull(allProducts, items);
 
         Set<Item<Product>> products = new HashSet<>();
@@ -70,7 +72,9 @@ class OrderCommandUtil {
         String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
         double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
-        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal, inventoryList);
+        Order order = new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+        order.listenToInventory(inventoryList);
+        return order;
     }
 
 }

@@ -14,7 +14,8 @@ import java.util.Set;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to set {@code Status} of order(s) to {@code COMPLETED}.
+ * A command to set {@code Status} of order(s) to {@code COMPLETED} and
+ * creates a corresponding sale entry.
  *
  * @see Order#getStatus()
  */
@@ -69,6 +70,10 @@ public class CompleteOrderCommand extends OrderCommand {
                         model.getFilteredInventoryList()
                     )
             );
+
+            //Add new sale entry
+            model.addSaleFromOrder(model.getFilteredOrderList().get(index.getZeroBased()));
+
         }
 
         model.commit(MESSAGE_COMMIT);
