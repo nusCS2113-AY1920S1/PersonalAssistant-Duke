@@ -88,20 +88,16 @@ public class TaskList {
      */
     public void add(Task task) {
         list.add(task);
-        if (!CommandLog.isRestoring()) {
-            AddTask.increment();
-            AddTask.updateAchievementLevel();
-            AddTask.updatePoints();
-            AchievementList.updateAddTask(addAchievementLevel);
-            String output = "\t  " + list.get(list.size() - 1).toString();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tGot it. I've added this task:");
-            System.out.println(output);
-            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-            System.out.println("\t_____________________________________\n\n");
-        } else {
-            System.out.println("Task clashes with another existing task in the list!");
-        }
+        AddTask.increment();
+        AddTask.updateAchievementLevel();
+        AddTask.updatePoints();
+        AchievementList.updateAddTask(addAchievementLevel);
+        String output = "\t  " + list.get(list.size() - 1).toString();
+        System.out.println("\t_____________________________________");
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println(output);
+        System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+        System.out.println("\t_____________________________________\n\n");
     }
 
     /**
@@ -210,19 +206,21 @@ public class TaskList {
                 return;
             }
         }
-        if (!CommandLog.isRestoring()) {
-            if (!checkAnomaly) {
-                AddTask.increment();
-                AddTask.updateAchievementLevel();
-                AddTask.updatePoints();
-                AchievementList.updateAddTask(addAchievementLevel);
-                String output = "\t  " + list.get(list.size() - 1).toString();
+        if (!checkAnomaly) {
+            AddTask.increment();
+            AddTask.updateAchievementLevel();
+            AddTask.updatePoints();
+            AchievementList.updateAddTask(addAchievementLevel);
+            String output = "\t  " + list.get(list.size() - 1).toString();
+            if (!CommandLog.isRestoring()) {
                 System.out.println("\t_____________________________________");
                 System.out.println("\tGot it. I've added this task:");
                 System.out.println(output);
                 System.out.println("\tNow you have " + list.size() + " tasks in the list.");
                 System.out.println("\t_____________________________________\n\n");
-            } else {
+            }
+        } else {
+            if (!CommandLog.isRestoring()) {
                 System.out.println("Task clashes with another existing task in the list!");
             }
         }
@@ -247,11 +245,11 @@ public class TaskList {
         try {
             list.get(i).markAsDone();
             if (list.get(i).isDone) {
+                DoneTask.increment();
+                DoneTask.updateAchievementLevel();
+                DoneTask.updatePoints();
+                AchievementList.updateDoneTask(doneAchievementLevel);
                 if (!CommandLog.isRestoring()) {
-                    DoneTask.increment();
-                    DoneTask.updateAchievementLevel();
-                    DoneTask.updatePoints();
-                    AchievementList.updateDoneTask(doneAchievementLevel);
                     System.out.println("\t_____________________________________");
                     System.out.println("\tNice! I've marked this task as done:");
                     System.out.println("\t  " + (i + 1) + ". " + list.get(i).toString());

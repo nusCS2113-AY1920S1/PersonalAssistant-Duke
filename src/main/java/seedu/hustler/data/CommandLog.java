@@ -31,13 +31,10 @@ public class CommandLog {
             for (int i = 0; i < restoreDataUntil; i++) {
                 try {
                     CommandParser parser = new CommandParser();
-
                     Command command = parser.parse(commandlog.get(i));
                     command.execute();
-
                     Hustler.saveStorage();
                 } catch (CommandLineException | IOException e) {
-
                 }
             }
 
@@ -52,12 +49,6 @@ public class CommandLog {
                 }
                 System.out.println("       _____________________________________");
             }
-
-
-
-
-
-
 
             while (commandlog.size() > restoreDataUntil) {
                 commandlog.remove(restoreDataUntil);
