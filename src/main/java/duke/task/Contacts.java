@@ -26,7 +26,7 @@ public class Contacts {
     }
 
     /**
-     * Extracting a contact content into string that is suitable for text file.
+     * Extracts a contact content into string that is suitable for text file.
      *
      * @return String that contains the details of the contact.
      */
@@ -35,7 +35,7 @@ public class Contacts {
     }
 
     /**
-     * Extracting a contact content into readable string.
+     * Extracts a contact content into readable string.
      *
      * @return String that contains the details of the contact.
      */
@@ -48,7 +48,7 @@ public class Contacts {
     }
 
     /**
-     * Extracting a contact content into readable string (GUI).
+     * Extracts a contact content into readable string (GUI).
      *
      * @return String that contains the details of the contact.
      */

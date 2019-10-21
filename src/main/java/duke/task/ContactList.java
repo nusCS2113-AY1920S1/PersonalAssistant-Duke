@@ -28,7 +28,7 @@ public class ContactList {
     }
 
     /**
-     * To add a contact into the contact list.
+     * Adds a contact into the contact list.
      *
      * @param contactObj A contact to be added.
      */
@@ -60,7 +60,7 @@ public class ContactList {
     }
 
     /**
-     * The size of the contact list.
+     * Gets the size of the contact list.
      *
      * @return int that represents the contact list size.
      */
@@ -69,7 +69,7 @@ public class ContactList {
     }
 
     /**
-     * To remove a contact from the contact list.
+     * Removes a contact from the contact list.
      *
      * @param indexOfContact The index of contact to be removed.
      */
