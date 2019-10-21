@@ -174,7 +174,7 @@ public class ProjectInputController implements IController {
                         + "necessary parameters are given");
             }
         } catch (NumberFormatException | ParseException e) {
-            consoleView.consolePrint("Please enter your task format correctly");
+            consoleView.consolePrint("Please enter your task format correctly.");
         }
     }
 
@@ -199,12 +199,16 @@ public class ProjectInputController implements IController {
     }
 
     private void projectEditMember(Project projectToManage, String projectCommand) {
-        int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
-        if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-            String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("n/"));
-            consoleView.editMember(projectToManage, memberIndexNumber, updatedMemberDetails);
-        } else {
-            consoleView.consolePrint("The member index entered is invalid.");
+        try {
+            int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
+            if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
+                String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("n/"));
+                consoleView.editMember(projectToManage, memberIndexNumber, updatedMemberDetails);
+            } else {
+                consoleView.consolePrint("The member index entered is invalid.");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            consoleView.consolePrint("Please enter the updated member details format correctly.");
         }
     }
 

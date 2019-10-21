@@ -1,10 +1,11 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import models.data.Project;
 import models.member.Member;
 import models.task.Task;
+import util.ParserHelper;
+
+import java.util.ArrayList;
 
 public class AssignmentController {
     private ArrayList<Integer> validMembersToAssign;
@@ -12,6 +13,7 @@ public class AssignmentController {
     private ArrayList<Integer> validTaskIndexes;
     private ArrayList<String> errorMessages;
     private ArrayList<String> successMessages;
+    private ParserHelper parserHelper;
     private Project project;
 
     /**
@@ -25,6 +27,7 @@ public class AssignmentController {
         this.validTaskIndexes = new ArrayList<>();
         this.errorMessages = new ArrayList<>();
         this.successMessages = new ArrayList<>();
+        this.parserHelper = new ParserHelper();
         this.project = project;
     }
 
@@ -78,30 +81,10 @@ public class AssignmentController {
      * @param input The input from the user.
      */
     public void parseAssignmentInput(String input) {
-        ArrayList<String> allIndexesToAssign = new ArrayList<>();
-        ArrayList<String> allIndexesToUnassign = new ArrayList<>();
-        ArrayList<String> allTasksIndexes = new ArrayList<>();
-
-        String [] inputParts = input.split("-");
-
-        for (String s : inputParts) {
-            String [] part = s.split(" ");
-            switch (part[0]) {
-            case "i":
-                allTasksIndexes = new ArrayList<>(Arrays.asList(part));
-                allTasksIndexes.remove("i");
-                break;
-            case "to":
-                allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
-                allIndexesToAssign.remove("to");
-                break;
-            case "rm":
-                allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
-                allIndexesToUnassign.remove("rm");
-                break;
-            default:
-            }
-        }
+        ArrayList<ArrayList<String>> assignmentOutput = this.parserHelper.parseAssignmentInputHelper(input);
+        ArrayList<String> allIndexesToAssign = assignmentOutput.get(0);
+        ArrayList<String> allIndexesToUnassign = assignmentOutput.get(1);
+        ArrayList<String> allTasksIndexes = assignmentOutput.get(2);
 
         validateTaskIndexes(allTasksIndexes); //shortlists all valid task numbers
         if (!allIndexesToAssign.isEmpty()) {
