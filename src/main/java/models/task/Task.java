@@ -18,7 +18,7 @@ public class Task implements ITask {
     private TaskState taskState;
     private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
-    DateTimeHelper dateTimeHelper;
+    private DateTimeHelper dateTimeHelper;
 
     @Override
     public boolean equals(Object obj) {

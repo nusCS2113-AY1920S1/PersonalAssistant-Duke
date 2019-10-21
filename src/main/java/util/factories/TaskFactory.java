@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class TaskFactory {
     private ParserHelper parserHelper;
-    DateTimeHelper dateTimeHelper;
+    private DateTimeHelper dateTimeHelper;
 
     public TaskFactory() {
         parserHelper = new ParserHelper();
