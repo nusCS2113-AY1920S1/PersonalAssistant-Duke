@@ -3,6 +3,7 @@ package wallet.logic.command;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
@@ -67,6 +68,14 @@ public class ListCommand extends Command {
             }
             //fallthrough
 
+        case "loan":
+            ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
+            Ui.printLoanTable(loanList);
+            if (!isListAll) {
+                break;
+            }
+            //fallthrough
+
         case "expense":
             ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
             Ui.printExpenseTable(expenseList);
@@ -74,10 +83,6 @@ public class ListCommand extends Command {
                 break;
             }
             //fallthrough
-
-        case "loan":
-            Ui.printLoanTable();
-            break;
 
         default:
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -100,11 +105,6 @@ public class ListCommand extends Command {
                             + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
                             + " " + date.getYear());
                 }
-                /*for (Loan l : wallet.getLoanList().getLoanList()) {
-                    if (l.getDate().equals(date)) {
-                        System.out.println(l.toString());
-                    }
-                }*/
                 break;
             } else {
                 System.out.println(MESSAGE_USAGE);

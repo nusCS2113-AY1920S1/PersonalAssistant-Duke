@@ -130,9 +130,8 @@ public class Ui {
     /**
      * Displays the loan list in table format.
      */
-    public static void printLoanTable() {
+    public static void printLoanTable(ArrayList<Loan> loanList) {
 
-        ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
         System.out.println("Here are the loans in your list:");
         printLoanTableHeaders();
         for (Loan loan : loanList) {

@@ -120,8 +120,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         info = info[3].split("/c ");
         int contactId = Integer.parseInt(info[1]);
 
-        System.out.println("AddCommandParser: " + info[0]);
-
         if (input.contains("/l")) {
             System.out.println("l");
             isLend = true;
@@ -129,7 +127,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             System.out.println("b");
             isLend = false;
         }
-        System.out.println("isLend: " + isLend);
 
         ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
         int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
