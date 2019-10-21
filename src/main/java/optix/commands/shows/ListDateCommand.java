@@ -23,7 +23,7 @@ public class ListDateCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         String[] splitStr = monthOfYear.split(" ");
 
         int year = getYear(splitStr[1]);
@@ -50,6 +50,8 @@ public class ListDateCommand extends Command {
         } finally {
             ui.setMessage(message.toString());
         }
+
+        return "show";
     }
 
     @Override

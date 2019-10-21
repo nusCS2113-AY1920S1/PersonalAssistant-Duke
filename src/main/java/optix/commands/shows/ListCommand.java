@@ -13,7 +13,7 @@ public class ListCommand extends Command {
     private static final String MESSAGE_LIST_NOT_FOUND = "☹ OOPS!!! There are no shows in the near future.\n";
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         ShowMap shows = model.getShows();
         StringBuilder message = new StringBuilder();
 
@@ -25,10 +25,6 @@ public class ListCommand extends Command {
         }
 
         ui.setMessage(message.toString());
-    }
-
-    @Override
-    public boolean isExit() {
-        return super.isExit();
+        return "show";
     }
 }

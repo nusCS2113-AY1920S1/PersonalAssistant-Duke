@@ -35,7 +35,7 @@ public class SellSeatCommand extends Command {
 
     //need to refactor
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder();
         try {
             if (!formatter.isValidDate(showDate)) {
@@ -55,10 +55,6 @@ public class SellSeatCommand extends Command {
         } finally {
             ui.setMessage(message.toString());
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return super.isExit();
+        return "seat";
     }
 }

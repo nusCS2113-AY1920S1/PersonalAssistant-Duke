@@ -35,7 +35,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         String message;
 
         try {
@@ -57,10 +57,7 @@ public class EditCommand extends Command {
         } catch (OptixInvalidDateException e) {
             ui.setMessage(e.getMessage());
         }
-    }
 
-    @Override
-    public boolean isExit() {
-        return super.isExit();
+        return "show";
     }
 }

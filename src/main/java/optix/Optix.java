@@ -66,13 +66,15 @@ public class Optix {
         }
     }
 
-    public void runGUI(String fullCommand) {
+    public String runGUI(String fullCommand) {
+        String taskType = "";
         try {
             Command c = Parser.parse(fullCommand);
-            c.execute(model, ui, storage);
+            taskType = c.execute(model, ui, storage);
         } catch (OptixException e) {
             ui.setMessage(e.getMessage());
         }
+        return taskType;
     }
 
     public String getResponse() {

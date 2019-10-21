@@ -20,7 +20,7 @@ public class ResetAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         // open target file
         File currentDir = new File(System.getProperty("user.dir"));
         File filePath = new File(currentDir.toString() + "\\src\\main\\data\\ParserPreferences.txt");
@@ -32,6 +32,7 @@ public class ResetAliasCommand extends Command {
         } catch (FileNotFoundException e) {
             ui.setMessage(e.getMessage());
         }
+        return null;
     }
 }
 

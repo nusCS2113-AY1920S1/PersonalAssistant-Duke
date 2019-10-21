@@ -37,7 +37,7 @@ public class AddAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         commandAliasMap.put(this.newAlias, this.command);
         // open target file
         File currentDir = new File(System.getProperty("user.dir"));
@@ -53,6 +53,7 @@ public class AddAliasCommand extends Command {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return null;
     }
 }
 

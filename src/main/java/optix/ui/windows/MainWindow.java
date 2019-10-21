@@ -1,18 +1,25 @@
 package optix.ui.windows;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import optix.Optix;
 
 import java.io.IOException;
 
 public class MainWindow extends AnchorPane {
-    //// All the elements on the right side of the Bot.
+    //// All the elements on the left side of the window.
+    @FXML
+    private VBox display;
+
+    //// All the elements on the right side of the window.
     @FXML
     private VBox chatBox;
     @FXML
@@ -45,13 +52,45 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleResponse() {
         String fullCommand = userInput.getText();
-        optix.runGUI(fullCommand);
+        String taskType = optix.runGUI(fullCommand);
         String response = optix.getResponse();
 
         chatBox.getChildren().addAll(
                 DialogBox.getUserDialog(fullCommand, userImage),
                 DialogBox.getOptixDialog(response, optixImage)
         );
+
+        switch (taskType) {
+        case "bye":
+            shutDown();
+            break;
+        case "show":
+            displayShows();
+            break;
+        case "seat":
+            displaySeats();
+            break;
+        default:
+            break;
+        }
         userInput.clear();
+    }
+
+    private void shutDown() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
+    private void displayShows() {
+        clearDisplay();
+    }
+
+    private void displaySeats() {
+        clearDisplay();
+    }
+
+    private void clearDisplay() {
+        display.getChildren().removeAll(display.getChildren());
     }
 }

@@ -37,7 +37,7 @@ public class RemoveAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         // edit command alias map
         commandAliasMap.remove(this.alias, this.command);
         // open target file
@@ -54,5 +54,6 @@ public class RemoveAliasCommand extends Command {
         } catch (IOException e) {
             ui.setMessage(e.getMessage());
         }
+        return null;
     }
 }
