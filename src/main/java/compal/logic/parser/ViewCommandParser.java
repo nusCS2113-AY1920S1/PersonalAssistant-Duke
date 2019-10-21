@@ -39,18 +39,24 @@ public class ViewCommandParser implements CommandParser {
         case "day":
 
             String finalDate;
-            if (viewArgs.length == 1) {
+
+            if (!restOfInput.contains("/date")) {
                 Calendar currentDay = Calendar.getInstance();
                 finalDate = CompalUtils.dateToString(currentDay.getTime());
-                return new ViewCommand(viewType, finalDate);
+            } else {
+                ArrayList<String> startDateList = getTokenDate(restOfInput);
+                int lastStartDateIndex = startDateList.size() - 1;
+                finalDate = startDateList.get(lastStartDateIndex);
             }
-            ArrayList<String> startDateList = getTokenDate(restOfInput);
-            int lastStartDateIndex = startDateList.size() - 1;
-
-            finalDate = startDateList.get(lastStartDateIndex);
-
-            if (viewArgs.length == 3) {
+            if (viewArgs.length == 1) {
                 return new ViewCommand(viewType, finalDate);
+            } else if (viewArgs.length == 3) {
+                if (restOfInput.contains("/type")) {
+                    String type = getType(restOfInput);
+                    return new ViewCommand(viewType, finalDate, type);
+                } else {
+                    return new ViewCommand(viewType, finalDate);
+                }
             } else if (viewArgs.length == 5) {
                 String type = getType(restOfInput);
                 return new ViewCommand(viewType, finalDate, type);
