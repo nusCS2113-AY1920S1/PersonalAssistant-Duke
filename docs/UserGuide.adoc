@@ -62,7 +62,6 @@ Format: `add MOD_NAME`
 * Example: `add CG2028`
 ****
 
-// tag::remove[]
 === Removing a module : `remove`
 
 Removes the specified module from the module list. +
@@ -79,8 +78,6 @@ Examples:
 * `show` +
 `remove 2` +
 Removes the 2nd module in the module list.
-
-// end::remove[]
 
 === Listing all modules : `show`
 
@@ -124,12 +121,12 @@ Gives a report and the specified type of modules taken.
 Prints out a report on all the core modules taken in the semester.+
 Format: `report core`
 
-==== Giving a report on general education modules: `core`
+==== Giving a report on general education modules: `ge`
 
 Prints out a report on all the general education modules taken in the semester.+
 Format: `report ge`
 
-==== Giving a report on unrestricted electives modules: `core`
+==== Giving a report on unrestricted electives modules: `ue`
 
 Prints out a report on all the unrestricted electives modules taken in the semester.+
 Format: `report ue`
@@ -174,21 +171,17 @@ If you follow what the errors tell you to fix in your command, you can get the p
 === `ModBadRequestStatus`
 This error appears when there is bad internet connection. The information from the nusMods V2 API is not fully fetched.
 
-Example of error message:`Error: Bad Status Connection!`
+Example of error message: `Error: Bad Status Connection!`
 
 === `ModFailedJsonException`
 This error appears when the file from the nusMods V2 API is not correctly converted for Java usage.
 
-Example of error message:`Error: Failed to parse data file!`
+Example of error message: `Error: Failed to parse data file!`
 
 === `ModNotFoundException`
 This error appears when the user searches for a module code that is not found in the nusMod list.
 
-****
-* Example: `add CS111`
-* Example of error message: 
 image::ModNotFoundException.png[width="250"]
-****
 
 === `ModCommandException`
 This error appears when the user does not input a valid command name into the command line.
