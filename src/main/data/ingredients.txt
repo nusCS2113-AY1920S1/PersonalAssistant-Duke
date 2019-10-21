@@ -4,4 +4,4 @@ apple | 5
 apple | 10
 apple | 10
 apple | 10
-orange | 5
+apple | 1

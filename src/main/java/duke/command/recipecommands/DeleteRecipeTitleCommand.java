@@ -42,7 +42,7 @@ public class DeleteRecipeTitleCommand extends Command<RecipeTitleList, Ui, Recip
                         arrayList.add(ERROR_MESSAGE_INVALID_INDEX + recipeTitleList.getSize() + ".");
                     }
                 } else {
-                    arrayList.add(MESSAGE_DELETE_RECIPE + "         " + recipeTitleList.getRecipeTitleList().get(index - 1));
+                    arrayList.add(MESSAGE_RECIPE_DELETED + "         " + recipeTitleList.getRecipeTitleList().get(index - 1));
                     recipeTitleList.deleteIngredient(index - 1);
                     recipeTitleStorage.saveFile(recipeTitleList);
                 }

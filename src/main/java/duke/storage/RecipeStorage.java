@@ -3,7 +3,6 @@ package duke.storage;
 import duke.exception.DukeException;
 import duke.list.recipelist.RecipeList;
 import duke.task.recipetasks.Recipe;
-import duke.task.recipetasks.RecipeTitle;
 
 import java.io.*;
 import java.util.LinkedHashMap;
@@ -13,7 +12,7 @@ import java.util.LinkedHashMap;
  */
 public class RecipeStorage {
 
-    private final LinkedHashMap<RecipeTitle, Recipe> LHMRecipeList = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Recipe> LHMRecipeList = new LinkedHashMap<>();
     private final String filePathRecipes;
 
     /**
@@ -55,13 +54,13 @@ public class RecipeStorage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public LinkedHashMap<RecipeTitle, Recipe> load() throws DukeException {
+    public LinkedHashMap<String, Recipe> load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
-                // can use a splitMethod() here for tidyness.
+                // can use a splitMethod() here for tidyness?
                 String recipeTitle, rating, prepStep, requiredIngredients, feedback, remaining, remaining2, remaining3;
                 String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
@@ -80,7 +79,7 @@ public class RecipeStorage {
                                 requiredIngredients = remaining3.split("\\|", 2)[0];
                                 feedback = remaining3.split("\\|", 2)[1];
                                 Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
-                                LHMRecipeList.put(new RecipeTitle(recipeTitle), recipe);
+                                LHMRecipeList.put(recipeTitle, recipe);
                             }
                         }
                     }

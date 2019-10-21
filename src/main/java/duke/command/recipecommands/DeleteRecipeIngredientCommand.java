@@ -16,7 +16,7 @@ import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 import static duke.common.RecipeMessages.COMMAND_DELETE_RECIPE_INGREDIENT;
-import static duke.common.RecipeMessages.MESSAGE_DELETE_RECIPE;
+import static duke.common.RecipeMessages.MESSAGE_RECIPE_DELETED;
 
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
@@ -53,7 +53,7 @@ public class DeleteRecipeIngredientCommand extends Command<RecipeIngredientList,
                         arrayList.add(ERROR_MESSAGE_INVALID_INDEX + recipeIngredientList.getSize() + ".");
                     }
                 } else {
-                    arrayList.add(MESSAGE_DELETE_RECIPE + "         " + recipeIngredientList.getRecipeIngredientList().get(index - 1));
+                    arrayList.add(MESSAGE_RECIPE_DELETED + "         " + recipeIngredientList.getRecipeIngredientList().get(index - 1));
                     recipeIngredientList.deleteIngredient(index - 1);
                     recipeIngredientStorage.saveFile(recipeIngredientList);
                 }

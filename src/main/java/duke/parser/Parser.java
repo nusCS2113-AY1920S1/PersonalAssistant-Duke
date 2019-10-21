@@ -51,9 +51,11 @@ public class Parser {
     public static Command<RecipeList, Ui, RecipeStorage> parseRecipe(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             return new AddRecipeCommand(input);
-        } else if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
-            return new AddRecipeIngredientCommand(input);
-        }else {
+//        } else if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
+//            return new AddRecipeIngredientCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
+            return new DeleteRecipeCommand(input);
+        } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);
         }
