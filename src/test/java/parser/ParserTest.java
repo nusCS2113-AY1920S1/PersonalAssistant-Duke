@@ -5,7 +5,9 @@ import command.Command;
 import command.DeleteCommand;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static parser.Parser.parseAdd;
 import static parser.Parser.parseDelete;
 
@@ -18,7 +20,7 @@ class ParserTest {
             Command returnedObject = parseAdd(taskInfo);
             assertNotNull(returnedObject);
             assertTrue(returnedObject instanceof AddCommand);
-        } catch(Exception e) {
+        }catch(Exception e) {
             fail("parseAdd method failed with the error message: " + e.getMessage());
         }
     }
@@ -30,7 +32,7 @@ class ParserTest {
             Command returnedObject = parseDelete(taskInfo);
             assertNotNull(returnedObject);
             assertTrue(returnedObject instanceof DeleteCommand);
-        } catch(Exception e) {
+        }catch(Exception e) {
             fail("parseDelete method failed with the error message: " + e.getMessage());
         }
     }
