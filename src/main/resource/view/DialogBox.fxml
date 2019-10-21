@@ -16,7 +16,7 @@
       </ImageView>
       <AnchorPane maxWidth="400.0" prefHeight="74.0">
          <children>
-            <Label fx:id="dialog" layoutY="14.0" maxWidth="400.0" style="-fx-background-radius: 10; -fx-background-color: #AED6F1;" text="Label">
+            <Label fx:id="dialog" layoutY="14.0" maxWidth="350.0" style="-fx-background-radius: 10; -fx-background-color: #AED6F1;" text="Label">
                <padding>
                   <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
                </padding>

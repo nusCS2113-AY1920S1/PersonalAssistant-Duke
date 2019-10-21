@@ -54,6 +54,6 @@ public class RemoveAliasCommand extends Command {
         } catch (IOException e) {
             ui.setMessage(e.getMessage());
         }
-        return null;
+        return "";
     }
 }

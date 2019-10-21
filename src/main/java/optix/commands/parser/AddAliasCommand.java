@@ -53,7 +53,7 @@ public class AddAliasCommand extends Command {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return "";
     }
 }
 

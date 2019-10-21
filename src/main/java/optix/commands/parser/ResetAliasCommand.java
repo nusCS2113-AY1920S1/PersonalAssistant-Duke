@@ -32,7 +32,7 @@ public class ResetAliasCommand extends Command {
         } catch (FileNotFoundException e) {
             ui.setMessage(e.getMessage());
         }
-        return null;
+        return "";
     }
 }
 

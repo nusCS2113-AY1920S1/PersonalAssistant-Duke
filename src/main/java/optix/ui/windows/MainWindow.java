@@ -11,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import optix.Optix;
+import optix.commons.model.ShowMap;
 import optix.commons.model.Theatre;
+import optix.util.OptixDateFormatter;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -76,7 +78,7 @@ public class MainWindow extends AnchorPane {
             displayShows();
             break;
         case "seat":
-            displaySeats();
+            displaySeats(fullCommand);
             break;
         default:
             break;
@@ -98,8 +100,15 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    private void displaySeats() {
+    private void displaySeats(String fullCommand) {
         clearDisplay();
+
+        String[] splitStr = fullCommand.split("\\|");
+        LocalDate localDate = new OptixDateFormatter().toLocalDate(splitStr[1].trim());
+        ShowMap shows = optix.getShows();
+        Theatre theatre = shows.get(localDate);
+
+        display.getChildren().add(SeatsDisplayController.displaySeats(theatre, localDate));
     }
 
     private void clearDisplay() {

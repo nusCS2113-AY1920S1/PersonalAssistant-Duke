@@ -15,8 +15,7 @@ public class HelpCommand extends Command {
     private static final String ADD_MENU = "To add a new show:                            "
                                            + "add SHOW_NAME | SEATS_BASE_PRICE | SHOW_DATE1 | SHOW_DATE2 | ...\n";
 
-    private static String DELETE_MENU = "To delete shows:         "
-                                        + "To delete shows with the same name:           "
+    private static String DELETE_MENU = "To delete shows with the same name:           "
                                         + "delete SHOW_NAME | SHOW_DATE1 | SHOW_DATE2 | ...\n";
 
     private static String VIEW_MENU = "To view availability of seats for a show:     view SHOW_NAME | SHOW_DATE\n";
@@ -73,7 +72,7 @@ public class HelpCommand extends Command {
         } catch (OptixException e) {
             ui.setMessage(e.getMessage());
         }
-        return null;
+        return "";
     }
 
     /**
