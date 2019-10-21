@@ -1,9 +1,8 @@
 //@@author LL-Pengfei
-
 package cube.storage;
 
 /**
- * Class for revenue-related methods for storage.
+ * This class supports revenue-related methods for storage.
  */
 public class RevenueStorage {
     private double revenue;
