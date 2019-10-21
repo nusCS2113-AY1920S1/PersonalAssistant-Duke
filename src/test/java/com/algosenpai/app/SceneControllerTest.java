@@ -1,7 +1,7 @@
 package com.algosenpai.app;
 
-import com.algosenpai.app.constant.JavaFxConstant;
-import com.algosenpai.app.controller.SceneController;
+import com.algosenpai.app.logic.constant.JavaFxConstant;
+import com.algosenpai.app.ui.controller.SceneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.matcher.control.TextMatchers;
 
 public class SceneControllerTest extends ApplicationTest {
