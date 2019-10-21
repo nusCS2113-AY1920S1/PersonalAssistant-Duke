@@ -79,5 +79,5 @@ public class CommandStructure {
         }
     };
 
-    public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{ COMMANDKEYS.search , COMMANDKEYS.remove , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist };
+    public static COMMANDKEYS[] AllRoots = new COMMANDKEYS[]{ COMMANDKEYS.search , COMMANDKEYS.remove , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.preference};
 }

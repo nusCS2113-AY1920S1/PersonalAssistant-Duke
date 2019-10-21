@@ -71,13 +71,17 @@ public abstract class CommandSuper {
      * @param commandArr command that was entered by the user in split array form
      * @param command   command that was entered by the user.
      */
-    public void initCommand(String[] commandArr , String command) {
-        subCommand(commandArr);
+    public boolean initCommand(String[] commandArr , String command) {
+        if (!subCommand(commandArr)) {
+            return false;
+        }
         processFlags(commandArr , command);
         processPayload(commandArr);
-        if (subCommand.length == 0) {
-            execute = true;
-        }
+//        if (subCommand.length == 0) {
+//            execute = true;
+//        }
+//
+        return true;
     }
 
 
@@ -93,6 +97,7 @@ public abstract class CommandSuper {
         this.subRootCommand = subRootCommand;
         processFlags(commandArr , command);
         processPayload(commandArr);
+        setExecute(false);
 
 
     }
@@ -102,12 +107,17 @@ public abstract class CommandSuper {
      *
      * @param commandArr command that was entered by the user in split array form
      */
-    public void subCommand(String[] commandArr) {
+    public boolean subCommand(String[] commandArr) {
         if (commandArr.length <= 1) {
             subRootCommand = COMMANDKEYS.none;
             if (CommandStructure.cmdStructure.get(root).length > 0) {
+                //Supposed to have Sub root but doesnt
                 setExecute(false);
-                ((MovieHandler) uicontroller).setFeedbackText("You are missing a few Arguments!!");
+                ((MovieHandler) uicontroller).setAutoCompleteText("You are missing a few Arguments!!");
+                return false;
+            } else {
+                setExecute(true);
+                return true;
             }
 
         } else {
@@ -116,15 +126,22 @@ public abstract class CommandSuper {
                     if (COMMANDKEYS.valueOf(commandArr[1]) == cmd) {
                         subRootCommand = cmd;
                         execute = true;
-                        return;
+                        return true;
                     }
                 }
             } catch (Exception e) {
                 System.out.println(e);
             }
 
+            //Matching Subroot command not found
+
             CommandPair cmds = CommandDebugger.commandSpellChecker(commandArr, root, this.uicontroller);
             subRootCommand = cmds.getSubRootCommand();
+            setExecute(false);
+            ((MovieHandler) uicontroller).setAutoCompleteText("Did you mean :" + root + " " + subRootCommand + " "
+                    + String.join(" ", Arrays.copyOfRange(commandArr, 2 , commandArr.length)));
+            return true;
+
         }
 
 

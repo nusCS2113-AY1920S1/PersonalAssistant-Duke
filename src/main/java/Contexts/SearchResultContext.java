@@ -15,8 +15,8 @@ public class SearchResultContext {
 
     static ArrayList<MovieInfoObject> mCurrentMovies = new ArrayList<>();
 
-    public static void initialiseContext(String[] listOfKeys){
-        for(String a:listOfKeys){
+    public static void initialiseContext(String[] listOfKeys) {
+        for (String a:listOfKeys) {
 
             keywords.add(a);
         }

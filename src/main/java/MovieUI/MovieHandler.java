@@ -4,6 +4,7 @@ import Contexts.CommandContext;
 import Contexts.ContextHelper;
 import Contexts.SearchResultContext;
 import EPstorage.*;
+import Execution.CommandStack;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -102,7 +103,8 @@ public class MovieHandler extends Controller implements RequestListener {
     private static SortProfile sortProfile;
     private static PastCommands pastCommands = new PastCommands();;
     static String command = "";
-    private Controller controller;
+    Controller controller;
+
 
     public static void updatePastCommands(String now) {
         PastCommandStructure pastCommandStructure = new PastCommandStructure(now, command);
@@ -130,15 +132,15 @@ public class MovieHandler extends Controller implements RequestListener {
         public void handle(KeyEvent event) {
 
             System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
-            if (event.getCode().equals(KeyCode.ENTER)) {
+            if ((event.getCode().equals(KeyCode.ENTER))) {
                 System.out.println("Hello");
                 command = mSearchTextField.getText();
-                clickEntered(command, control);
-               // try {
-                 //   CommandParser.parseCommands(command, control);
-                //} catch (IOException e) {
-                  //  e.printStackTrace();
-                //}
+                //clickEntered(command, control);
+               try {
+                    CommandParser.parseCommands(command, control);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 clearSearchTextField();
             } else if (event.getCode().equals(KeyCode.TAB)) {
                 System.out.println("Tab presjenksjessed");
@@ -149,18 +151,6 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         }
 
-    }
-
-    public void clickEntered(String command, Controller controller) {
-        try {
-            CommandParser.parseCommands(command, controller);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Controller getController() {
-        return controller;
     }
 
     /**
@@ -219,7 +209,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 System.out.println("Tab pressed");
 
 
-                setFeedbackText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
+                setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Enter pressed");
@@ -307,12 +297,12 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovies.clear();
         System.out.println("cleared");
         for (MovieInfoObject mf : MoviesFinal) {
-            mMovies.add(mf);
-            System.out.println(mf.getTitle());
+            //mMovies.add(mf);
+            //System.out.println("yaaz" + mf.getTitle());
         }
         //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
-        //mMovies = MoviesFinal;
+        mMovies = MoviesFinal;
 
         //System.out.println("this is size: " + mMovies.size());
         mImagesLoadingProgress = new double[mMovies.size()];
@@ -520,14 +510,7 @@ public class MovieHandler extends Controller implements RequestListener {
         mSearchTextField.setText("");
     }
 
-    /**
-     * Prints message in UI.
-     *
-     * @param txt which is the string text to be printed.
-     */
-    public void setFeedbackText(String txt) {
-        generalFeedbackText.setText(txt);
-    }
+
 
     /**
      * Updates the components in the SortProfile accordingly.
@@ -584,6 +567,30 @@ public class MovieHandler extends Controller implements RequestListener {
         generalFeedbackText.setText(output);
     }
 
+
+    /**
+     * Prints message in UI.
+     *
+     * @param txt which is the string text to be printed.
+     */
+    public void setFeedbackText(String txt) {
+        generalFeedbackText.setText(txt);
+    }
+
+
+    public void setAutoCompleteText(String text) {
+        autoCompleteText.setText(text);
+    }
+
+    public void setAutoCompleteText(ArrayList<String> txtArr) {
+        String output = "";
+        for (String s : txtArr) {
+            output += s;
+            output += "\n";
+
+        }
+        autoCompleteText.setText(output);
+    }
 
     /**
      * Retrieves the RetrieveRequest class.
@@ -700,6 +707,5 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest.getOfflineSearch(payload, trial, userProfile.isAdult());
 
     }
-
 
 }

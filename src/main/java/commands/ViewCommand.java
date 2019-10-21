@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-
-public class ViewCommand extends CommandSuper{
+public class ViewCommand extends CommandSuper {
     private Controller controller;
 
     public ViewCommand(Controller uicontroller) {
@@ -70,6 +69,39 @@ public class ViewCommand extends CommandSuper{
     }
 
     private void executeBackCommands() {
+        PastCommandStructure pastCommandStructure = ((MovieHandler) this.getUIController()).getPastCommands().getMap().get(
+                ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 2);
+        String command = pastCommandStructure.getQuery();
+        System.out.println("this is past command " + command);
+
+        if (command.startsWith("view entry")) {
+            //System.out.println("riyazzz");
+            String pastCommand = ((MovieHandler) this.getUIController()).getPastCommands().getMap().get(
+                    ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 3).getQuery();
+            System.out.println("this is past command " + pastCommand);
+
+            try {
+                CommandParser.parseCommands(pastCommand, ((MovieHandler) this.getUIController()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //movieHandler.showMovie(2);
+        } else {
+            try {
+                CommandParser.parseCommands(command, ((MovieHandler) this.getUIController()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ((MovieHandler) this.getUIController()).getPastCommands().getMap().remove(
+                ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 1);
+        PastUserCommands.update(((MovieHandler) this.getUIController()).getPastCommands());
+        ((MovieHandler) this.getUIController()).getPastCommands().getMap().remove(
+                ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 1);
+        PastUserCommands.update(((MovieHandler) this.getUIController()).getPastCommands());
+
+
     }
 
 
@@ -79,18 +111,18 @@ public class ViewCommand extends CommandSuper{
         String now = formatter.format(date);
         String payload = getPayload();
         if (payload.equals("current")) {
-          //  ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
+            //  ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
             //        RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,
-             //       ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
-           // )
+            //       ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
+            // )
             //;
             ((MovieHandler) this.getUIController()).showCurrentMovies();
         } else if (payload.equals("upcoming")) {
-           // ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
-             //       RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES,
-              //      ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
+            // ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieRequest(
+            //       RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES,
+            //      ((MovieHandler) this.getUIController()).getUserProfile().isAdult()
             //);
-           ((MovieHandler)this.getUIController()).showUpcomingMovies();
+            ((MovieHandler) this.getUIController()).showUpcomingMovies();
         } else if (payload.equals("trending")) {
             ((MovieHandler) this.getUIController()).showTrendMovies();
         } else if (payload.equals("popular")) {
