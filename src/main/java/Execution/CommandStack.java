@@ -8,10 +8,8 @@ import java.util.ArrayList;
 
 public class CommandStack {
     private static ArrayList<CommandSuper> myStack = new ArrayList<>();
-
-    public static ArrayList<CommandSuper> getMyStack() {
-        return myStack;
-    }
+    private static int counter = 0;
+    private static long lastexec = System.currentTimeMillis();
 
     public static void pushCmd(CommandSuper cmd) throws IOException {
         if (cmd.getRoot() == COMMANDKEYS.yes) {
@@ -25,25 +23,22 @@ public class CommandStack {
 
     }
 
-    public static void executePrevious () {
-        for (int i = 0; i < myStack.size(); i += 1) {
-            System.out.println("this is " + myStack.get(i));
-        }
-        CommandSuper cmd = myStack.get(myStack.size() - 4);
-        try {
-            cmd.executeCommands();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public static String nextCommand() {
 
-    public static void executeLast () {
-        CommandSuper cmd = myStack.get(myStack.size() - 3);
-        try {
-            cmd.executeCommands();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (myStack.size() == 0) {
+            return null;
         }
+
+        if (System.currentTimeMillis() - lastexec > 3000) {
+            counter = 0;
+        } else {
+            counter += 1;
+            counter %= myStack.size();
+        }
+        lastexec = System.currentTimeMillis();
+
+
+        return myStack.get(myStack.size() - 1 - counter).toString();
     }
 
     public static CommandSuper popCmd() {

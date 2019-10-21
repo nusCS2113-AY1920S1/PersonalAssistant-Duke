@@ -42,9 +42,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * This is main page of GUI.
@@ -211,8 +209,17 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
-            } else if (event.getCode().equals(KeyCode.ENTER)) {
-                System.out.println("Enter pressed");
+            } else if (event.getCode().equals(KeyCode.SHIFT)) {
+                System.out.println("I pressed bit");
+                mSearchTextField.clear();
+                String cmd = CommandStack.nextCommand();
+                if (cmd == null) {
+                    setAutoCompleteText("You dont have any commands in history!");
+                } else {
+                    mSearchTextField.setText(cmd);
+                }
+
+                mSearchTextField.positionCaret(mSearchTextField.getText().length());
             }
         });
 
@@ -584,7 +591,12 @@ public class MovieHandler extends Controller implements RequestListener {
 
     public void setAutoCompleteText(ArrayList<String> txtArr) {
         String output = "";
+        Set<String> hashSet = new HashSet<String>();
         for (String s : txtArr) {
+            hashSet.add(s);
+        }
+
+        for (String s:hashSet) {
             output += s;
             output += "\n";
 

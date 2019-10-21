@@ -2,6 +2,7 @@ package commands;
 
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
+import com.sun.prism.CompositeMode;
 import wrapper.CommandPair;
 
 import java.io.IOException;
@@ -183,7 +184,7 @@ public abstract class CommandSuper {
                 listOfString = new ArrayList<String>();
             }
             for (String individualFlags: flagsIndividualValues) {
-                listOfString.add(individualFlags);
+                listOfString.add(individualFlags.toLowerCase().trim());
 
             }
 
@@ -239,6 +240,22 @@ public abstract class CommandSuper {
             payload += " ";
         }
         return payload.trim();
+    }
+
+    public String toString() {
+        String payload = getPayload();
+
+        String flagsStr = "";
+        for (Map.Entry<String, ArrayList<String>> entry : flagMap.entrySet()) {
+            flagsStr += entry.getKey();
+            flagsStr += " ";
+            for (String val : entry.getValue()) {
+                flagsStr += val;
+                flagsStr += " , ";
+            }
+        }
+
+        return getRoot().toString() + " " + getSubRootCommand().toString() + " "  + payload + " " + flagsStr;
     }
 
     /**
