@@ -1,12 +1,16 @@
-package duke.orderCommand;
+package duke.command.orderCommand;
 
-import duke.order.Order;
+import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.storage.Storage;
+import duke.order.Order;
 import duke.order.OrderList;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
-public class AlterServingDateCmd extends OrderCommand {
+/**
+ * Represents a specific {@link Cmd} used to alter the {@link Order} serving date.
+ */
+public class AlterServingDateCmd extends Cmd<OrderList> {
 
     private int orderNb;
     private String date;

@@ -1,20 +1,12 @@
-package duke.dishesCommand;
+package duke.command.dishesCommand;
 
-import duke.exception.DukeException;
 import duke.Dishes.DishList;
+import duke.command.Cmd;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.DoubleUnaryOperator;
-
-public class DeleteDishCommand extends RecipeCommand {
+public class DeleteDishCommand extends Cmd<DishList> {
 
     private int Nb;
 
@@ -23,7 +15,7 @@ public class DeleteDishCommand extends RecipeCommand {
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, Ui ui, Storage storage) throws DukeException {
         try {
             ui.showDeletedDIsh(dish1.getDish(Nb - 1).toString());
             //System.out.println("deleted " + DishList.getDish(Nb).toString());

@@ -1,16 +1,16 @@
-package duke.dishesCommand;
+package duke.command.dishesCommand;
 
-import duke.exception.DukeException;
 import duke.Dishes.DishList;
+import duke.command.Cmd;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
 
-public class ListDishCommand extends RecipeCommand {
+public class ListDishCommand extends Cmd<DishList> {
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, Ui ui, Storage storage) throws DukeException {
         if (dish1.getSize() == 0) {
             throw new DukeException("No Dishes yet!");
         } else {
@@ -21,4 +21,5 @@ public class ListDishCommand extends RecipeCommand {
             }
         }
     }
+
 }

@@ -1,18 +1,12 @@
 package duke.parser;
 
+import duke.command.Cmd;
 import duke.Duke;
-import duke.command.*;
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindIngredientCommand;
-import duke.command.RemindCommand;
-import duke.command.ViewCommand;
+import duke.command.ingredientCommand.*;
 import duke.exception.DukeException;
-import duke.orderCommand.*;
-import duke.dishesCommand.*;
-import duke.dishesCommand.InitCommand;
+import duke.command.orderCommand.*;
+import duke.command.dishesCommand.*;
+import duke.command.dishesCommand.InitCommand;
 import duke.Dishes.Dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
@@ -39,7 +33,7 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
-    public static Command parse(String fullCommand, int size) throws DukeException {
+    public static Cmd parse(String fullCommand, int size) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)
         String[] splitted = fullCommand.split(" ", 2);
         //switching on the keyword
@@ -90,9 +84,12 @@ public class Parser {
         }
     }
 
-    public static RecipeCommand Parse(String fullCommaand) throws DukeException {
-        String[] splitted = fullCommaand.split(" ", 2);
+    public static Cmd Parse(String fullCommand) throws DukeException {
+        //splitted contains the keyword and the rest (description or task number)
+        String[] splitted = fullCommand.split(" ", 2);
+        //switching on the keyword
         switch (splitted[0]) {
+            //RecipeCommand
             case "dishadd":
                 String[] getnum = splitAndCheck(splitted[1], " /num ");
                 int amount = Integer.parseInt(getnum[1]);
@@ -108,16 +105,7 @@ public class Parser {
                 return new AddIngredient(getIng[0], listNum);
             case "dishinit" :
                 return new InitCommand();
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
-        }
-    }
-
-    public static OrderCommand parse(String fullCommand) throws DukeException {
-        //splitted contains the keyword and the rest (description or task number)
-        String[] splitted = fullCommand.split(" ", 2);
-        //switching on the keyword
-        switch (splitted[0]) {
+            // OrderCommand
             case "orderAdd":
                 return new AddOrder();
             case "orderList":

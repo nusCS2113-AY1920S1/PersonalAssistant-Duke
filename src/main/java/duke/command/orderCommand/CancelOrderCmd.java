@@ -1,9 +1,10 @@
-package duke.orderCommand;
+package duke.command.orderCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.storage.Storage;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a specific {@link OrderCommand} used to cancel/delete a {@link Order} from the {@link OrderList}.
+ * Represents a specific {@link Cmd} used to cancel/delete a {@link Order} from the {@link OrderList}.
  */
-public class CancelOrderCmd extends OrderCommand {
+public class CancelOrderCmd extends Cmd<OrderList> {
     private int orderNb;
 
     /**
@@ -33,6 +34,9 @@ public class CancelOrderCmd extends OrderCommand {
 
     @Override
     public void execute(OrderList orderList, Ui ui, Storage storage) throws DukeException {
+        if (orderList.size()==0) {
+            throw new DukeException("No order in the list! No order can be cancelled!");
+        }
         if (orderNb < orderList.size() && orderNb >= 0) {
             Order removed = orderList.removeOrder(orderNb);
             List<String> fileContent = null;

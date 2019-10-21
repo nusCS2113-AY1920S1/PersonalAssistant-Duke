@@ -1,20 +1,19 @@
-package duke.dishesCommand;
+package duke.command.dishesCommand;
 
-import duke.exception.DukeException;
 import duke.Dishes.DishList;
+import duke.command.Cmd;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
-import duke.Dishes.Dishes;
 
-public class InitCommand extends RecipeCommand {
+public class InitCommand extends Cmd<DishList> {
 
     public InitCommand() {
         //clears all the amount in dishes
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, Ui ui, Storage storage) throws DukeException {
         System.out.println("\t are you sure you want to clear list? (yes or no)");
         String command = ui.readCommand();
         if(command.equals("yes")){

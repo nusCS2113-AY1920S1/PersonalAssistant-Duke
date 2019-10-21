@@ -1,15 +1,16 @@
-package duke.orderCommand;
+package duke.command.orderCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.storage.Storage;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link OrderCommand} used to mark a {@link Order} as done.
+ * Represents a specific {@link Cmd} used to mark a {@link Order} as done.
  */
-public class DoneOrderCmd extends OrderCommand {
+public class DoneOrderCmd extends Cmd<OrderList> {
     private int orderNb;
 
     /**
@@ -27,6 +28,9 @@ public class DoneOrderCmd extends OrderCommand {
 
     @Override
     public void execute(OrderList orderList, Ui ui, Storage storage) throws DukeException {
+        if (orderList.size()==0) {
+            throw new DukeException("No order in the list! No order can be done!");
+        }
         if (orderNb < orderList.size() && orderNb >= 0) {
             orderList.markOrderDone(orderNb);
             ui.showMarkDone(orderList.getOrder(orderNb).toString());

@@ -1,13 +1,13 @@
-package duke.dishesCommand;
+package duke.command.dishesCommand;
 
-import duke.exception.DukeException;
-import duke.Dishes.Dishes;
 import duke.Dishes.DishList;
+import duke.Dishes.Dishes;
+import duke.command.Cmd;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class AddDishCommand extends RecipeCommand {
+public class AddDishCommand extends Cmd<DishList> {
 
     private Dishes dish;
     private int amount;
@@ -19,7 +19,7 @@ public class AddDishCommand extends RecipeCommand {
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, Ui ui, Storage storage) throws DukeException {
         boolean flag = true;
         try {
             if(dish1.getSize() == 0) {

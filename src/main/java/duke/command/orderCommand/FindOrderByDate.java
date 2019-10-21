@@ -1,15 +1,15 @@
-package duke.orderCommand;
+package duke.command.orderCommand;
 
-import duke.command.Command;
-import duke.parser.Convert;
-import duke.storage.Storage;
+import duke.command.Cmd;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.parser.Convert;
+import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.Date;
 
-public class FindOrderByDate extends OrderCommand {
+public class FindOrderByDate extends Cmd<OrderList> {
 
     private Date toView;
 

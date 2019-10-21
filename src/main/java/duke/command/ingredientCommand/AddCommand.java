@@ -1,9 +1,7 @@
-package duke.command;
+package duke.command.ingredientCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.Dishes.DishList;
-import duke.Dishes.Dishes;
-import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -14,7 +12,7 @@ import java.io.IOException;
 /**
  * Represents a Command to add a specific {@link Task} in the {@link TaskList}.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Cmd<TaskList> {
 
     private Task task;
 
@@ -31,14 +29,13 @@ public class AddCommand extends Command {
      * Public method used to add the task in the taskList, and write it on the hard disc.
      *
      *
-     * @param dish1
      * @param taskList the {@link TaskList} to be expanded
      * @param ui       {@link Ui} used for printing the task output
      * @param storage  {@link Storage} writes in the file on the hard disc
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(task);
         ui.showAddCommand(task.toString(), taskList.size());
         try {

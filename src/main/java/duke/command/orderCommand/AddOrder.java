@@ -1,5 +1,6 @@
-package duke.orderCommand;
+package duke.command.orderCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.order.Order;
 import duke.order.OrderList;
@@ -8,7 +9,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-public class AddOrder extends OrderCommand{
+public class AddOrder extends Cmd<OrderList> {
 
     private Order order;
 
@@ -69,7 +70,7 @@ public class AddOrder extends OrderCommand{
         //Add dishes into order
         for (String s : orders) {
             String[] Dish = s.split("\\*", 2);
-            order.addDish(Integer.parseInt(Dish[0]), Integer.parseInt(Dish[1]));
+            //order.addDish(Integer.parseInt(Dish[0]), Integer.parseInt(Dish[1]));
         }
 
         orderList.addOrder(order);
@@ -111,12 +112,11 @@ public class AddOrder extends OrderCommand{
         System.out.println("==============================================");
     }
 
-    public void printConfirmMsg(Order orrder, String preOrderDate, String customerName) {
+    public void printConfirmMsg(Order order, String preOrderDate, String customerName) throws DukeException {
         if (preOrderDate=="") {
             System.out.println("Order received. Start preparing now...");
         } else {
             order.setDate(preOrderDate);
-            order.setCustomerName(customerName);
             System.out.println("Order received. Please come at "+preOrderDate+" on time."); }
     }
 

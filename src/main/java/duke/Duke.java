@@ -1,13 +1,16 @@
 package  duke;
 
-import duke.command.Command;
+import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.order.OrderList;
 import duke.parser.Parser;
-import duke.dishesCommand.RecipeCommand;
 import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 
 /**
  * MAIN CLASS DUKE, start from main function.
@@ -18,6 +21,7 @@ public class Duke {
     private TaskList tasks;
     private Ui ui;
     private DishList dish;
+    private OrderList order;
 
     /**
      * The constructor method for Duke.
@@ -25,6 +29,7 @@ public class Duke {
      */
     public Duke(String filePath) {
         dish = new DishList();
+        order = new OrderList();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -46,9 +51,21 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
 //                Command c = Parser.parse(fullCommand, tasks.size());
-                RecipeCommand c = Parser.Parse(fullCommand); //execute the recipeCommands, add dishes etc
-                c.execute(dish, tasks, ui, storage);
-                isExit = c.isExit();
+                if (fullCommand.startsWith("order")) {
+                    Cmd<OrderList> c = Parser.Parse(fullCommand); //execute the orderCommands, add order etc
+                    c.execute(order, ui, storage);
+                    isExit = c.isExit();
+                }
+                else if (fullCommand.startsWith("dish")) {
+                    Cmd<DishList> c = Parser.Parse(fullCommand); //execute the recipeCommands, add dishes etc
+                    c.execute(dish, ui, storage);
+                    isExit = c.isExit();
+                }
+                else {
+                    Cmd<TaskList> c = Parser.parse(fullCommand, tasks.size()); //execute the recipeCommands, add dishes etc
+                    c.execute(tasks, ui, storage);
+                    isExit = c.isExit();
+                }
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
