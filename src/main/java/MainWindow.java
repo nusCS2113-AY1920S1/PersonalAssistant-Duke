@@ -1,10 +1,7 @@
-import com.sun.source.tree.Tree;
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import help.MemorisePreviousFunctions;
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
-import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -154,6 +151,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private void help() {
         autoCompleteFunction();
+        userInput.setPromptText("Commands");
         userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
