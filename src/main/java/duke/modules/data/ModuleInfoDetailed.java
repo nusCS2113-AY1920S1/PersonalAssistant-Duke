@@ -1,5 +1,8 @@
 package duke.modules.data;
 
+import duke.exceptions.ModBadGradeException;
+import duke.exceptions.ModException;
+
 public class ModuleInfoDetailed {
 
     private String moduleCode = "";
@@ -10,6 +13,7 @@ public class ModuleInfoDetailed {
     private String faculty = "";
     private String preclusion = "";
     private Attributes attributes = new Attributes();
+    private String grade = "";
     private ExamInfo[] semesterData;
 
 
@@ -50,6 +54,25 @@ public class ModuleInfoDetailed {
         return semesterData;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String score) {
+        try {
+            if (score.equalsIgnoreCase("S") || score.equalsIgnoreCase("U")) {
+                if (this.attributes.isSu()) {
+                    this.grade = score;
+                } else {
+                    throw new ModBadGradeException();
+                }
+            }
+            this.grade = score;
+        } catch (ModBadGradeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     @Override
     public String toString() {
         return "ModuleCode:"
@@ -57,6 +80,8 @@ public class ModuleInfoDetailed {
                 + ", MC:"
                 + getModuleCredit()
                 + ", SU:"
-                + getAttributes().isSu();
+                + getAttributes().isSu()
+                + ", grade:"
+                + getGrade();
     }
 }

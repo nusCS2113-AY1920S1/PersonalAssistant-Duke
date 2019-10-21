@@ -136,7 +136,7 @@ public class Argparse4jWrapper {
 
         Subparser capParser = getSubParser("cap");
         capParser.addArgument("toCap")
-            .choices("overall", "list", "prediction")
+            .choices("overall", "list", "module")
             .help("What type of CAP to calculate");
 
     }
