@@ -2,6 +2,7 @@ package duke.util.argparse4j;
 
 import duke.command.logic.AddCcaScheduleCommand;
 import duke.command.logic.Arguments;
+import duke.command.logic.CapCommand;
 import duke.command.logic.ClearCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
@@ -53,6 +54,7 @@ public class Argparse4jWrapper {
         this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
         this.mapCommand("clear", ClearCommand.class);
         this.mapCommand("sort", SortCommand.class);
+        this.mapCommand("cap", CapCommand.class);
     }
 
     /**
@@ -131,6 +133,12 @@ public class Argparse4jWrapper {
                 .addArgument("toSort")
                 .choices("modules", "ccas")
                 .help("What to sort");
+
+        Subparser capParser = getSubParser("cap");
+        capParser.addArgument("toCap")
+            .choices("overall", "list", "prediction")
+            .help("What type of CAP to calculate");
+
     }
 
     private void initBuiltinActions() {
