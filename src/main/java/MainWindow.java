@@ -19,6 +19,7 @@ import parser.ParserFactory;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
+import task.Todo;
 import ui.Ui;
 
 import java.io.File;
@@ -45,9 +46,25 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
-    private Label test;
+    private Label todayTaskLabel;
     @FXML
     private ListView<Task> tasksForTheDay;
+    @FXML
+    private VBox timelineContainer;
+    @FXML
+    private ListView<Task> mondayTask;
+    @FXML
+    private ListView<Task> tuesdayTask;
+    @FXML
+    private ListView<Task> wednesdayTask;
+    @FXML
+    private ListView<Task> thursdayTask;
+    @FXML
+    private ListView<Task> fridayTask;
+    @FXML
+    private ListView<Task> saturdayTask;
+    @FXML
+    private ListView<Task> sundayTask;
 
     /**
      * Allocation of the images for the chat bot.
@@ -60,6 +77,13 @@ public class MainWindow extends AnchorPane {
     private static TaskList tasks;
     private static File file = new File(filePath);
     private static ObservableList<Task> holdTodayTasks;
+    private static ObservableList<Task> mondayTasks;
+    private static ObservableList<Task> tuesdayTasks;
+    private static ObservableList<Task> wednesdayTasks;
+    private static ObservableList<Task> thursdayTasks;
+    private static ObservableList<Task> fridayTasks;
+    private static ObservableList<Task> saturdayTasks;
+    private static ObservableList<Task> sundayTasks;
 
     /**
      * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
@@ -74,6 +98,7 @@ public class MainWindow extends AnchorPane {
             Ui.printMessage(e.getMessage());
         }
         populateTodayTasks();
+        populateEveryDay();
     }
 
     /**
@@ -83,6 +108,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         tasksForTheDay.setItems(holdTodayTasks);
+        todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
     }
 
     /**
@@ -98,6 +124,7 @@ public class MainWindow extends AnchorPane {
             tasks = new TaskList(storage.loadFile(file));
             populateTodayTasks();
             tasksForTheDay.setItems(holdTodayTasks);
+            todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
         } catch (DukeException e) {
             errorMessageContainer.getChildren().addAll(
                 ErrorMessageBar.getErrorMessage(e.getMessage())
@@ -105,7 +132,7 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(Ui.userOutputForUI, dukeImage)
+            DialogBox.getUserDialog(Ui.userOutputForUI, dukeImage)
         );
         userInput.clear();
     }
@@ -116,4 +143,9 @@ public class MainWindow extends AnchorPane {
         holdTodayTasks = FXCollections.observableArrayList(tasks.schedule(dtf.format(now)));
     }
 
+    private static void populateEveryDay() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        now.getDayOfWeek();
+    }
 }
