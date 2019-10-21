@@ -3,6 +3,7 @@ package dolla;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -32,6 +33,17 @@ public class Time {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
         LocalDate time = LocalDate.parse(timeStr, formatter);
         return time;
+    }
+
+    /**
+     * Converts the date from LocalDate to string.
+     * @param date in LocalDate format
+     * @return dateStr in "dd/MM/yyyy" format
+     */
+    public static String dateToString(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        String dateStr = date.format(formatter);
+        return dateStr;
     }
 
     /**

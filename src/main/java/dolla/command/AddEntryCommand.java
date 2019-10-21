@@ -5,6 +5,7 @@ import dolla.Ui;
 import dolla.action.undo;
 import dolla.task.Entry;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +16,7 @@ public class AddEntryCommand extends Command {
     private String type;
     private double amount;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
     private int prevPosition;
 
     /**
@@ -25,7 +26,7 @@ public class AddEntryCommand extends Command {
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
      */
-    public AddEntryCommand(String type, double amount, String description, LocalDateTime date, int prevPosition) {
+    public AddEntryCommand(String type, double amount, String description, LocalDate date, int prevPosition) {
         this.type = type;
         this.amount = amount;
         this.description = description;

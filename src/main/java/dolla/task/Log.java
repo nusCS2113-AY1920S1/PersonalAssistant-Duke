@@ -1,5 +1,6 @@
 package dolla.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public abstract class Log {
     protected String description;
-    protected LocalDateTime date;
+    protected LocalDate date;
     protected String name;
     protected String userInput;
 
@@ -16,7 +17,7 @@ public abstract class Log {
 
     public abstract String formatSave();//currently assuming no tags
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

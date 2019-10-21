@@ -2,6 +2,7 @@ package dolla.task;
 
 import dolla.Time;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -21,13 +22,13 @@ public class Entry extends Log{
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
      */
-    public Entry(String type, double amount, String description, LocalDateTime date) {
+    public Entry(String type, double amount, String description, LocalDate date) {
         this.sign = (type.equals("income") ? '+' : '-');
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.userInput = type + " " + amount + " " + description + " " + "/on " +Time.dateTimeToString(date);
+        this.userInput = type + " " + amount + " " + description + " " + "/on " +Time.dateToString(date);
     }
 
     public String amountToMoney() {
@@ -45,7 +46,7 @@ public class Entry extends Log{
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "
-                + "[/on " + Time.dateTimeToString(date) + "]";
+                + "[/on " + Time.dateToString(date) + "]";
     }
 
     /**
@@ -58,7 +59,7 @@ public class Entry extends Log{
         return  saveType + " | "
                 + amount + " | "
                 + description + " | "
-                + Time.dateTimeToString(date);
+                + Time.dateToString(date);
     }
 
     @Override
