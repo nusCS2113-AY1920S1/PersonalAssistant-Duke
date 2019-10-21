@@ -125,42 +125,41 @@ public class Email {
     }
 
     /**
-     * Colors the email body with the tag of highest relevance. Also, longer expression will have a higher
+     * Highlights the email body with all the tags. Also, longer expression will have a higher
      * priority to be colored currently.
      *
      * @return email body after the coloring
      */
-    public String colorBodyOnTag() {
-        Tag highestTag = findHighestTag();
-        if (highestTag == null) {
-            return body;
-        }
+    public String highlightBodyOnTag() {
+        ArrayList<String> expressions = getAllExpressions();
         String output = this.body;
-        ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
         expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
-        output = addColorToExpressions(output, expressions);
+        output = addHighlightToExpressions(output, expressions);
         return output;
     }
 
-    private String addColorToExpressions(String output, ArrayList<String> expressions) {
+    private ArrayList<String> getAllExpressions() {
+        ArrayList<String> expressions = new ArrayList<>();
+        for (Tag tag : this.tags) {
+            if (tag.getKeywordPair().getKeyword().equals("Spam")) {
+                continue;
+            }
+            for (String expression : tag.getKeywordPair().getExpressions()) {
+                expressions.add(expression);
+            }
+        }
+        return expressions;
+    }
+
+    private String addHighlightToExpressions(String output, ArrayList<String> expressions) {
         for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(output);
-            output = colorMatcher.replaceAll("<font style=\"color:red\">" + expression + "</font>");
+            output =
+                    colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">" + expression + "</mark>");
         }
         return output;
-    }
-
-    private Tag findHighestTag() {
-        Tag highestTag = null;
-        for (Tag tag : tags) {
-            if (!tag.getKeywordPair().getKeyword().equals("Spam")
-                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
-                highestTag = tag;
-            }
-        }
-        return highestTag;
     }
 
     public String getRawJson() {
