@@ -15,10 +15,10 @@ public class BuySeedAction extends Action {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioException, FarmioFatalException {
+    public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioException, FarmioFatalException {
         if (farmer.getMoney() < Market.PRICE_OF_SEED || !farmer.getLocation().equals("Market")) {
             farmer.setTaskFailed();
-            Simulation.animate(ui, storage, farmer, "ErrorInExecution", 0);
+            simulation.animate("ErrorInExecution", 0, false);
             if (!farmer.getLocation().equals("Market")) {
                 ui.typeWriter("Error! you have attempted to buy seeds despite not being at the market\n");
             } else {
@@ -26,9 +26,9 @@ public class BuySeedAction extends Action {
             }
             throw new FarmioException("Task Error!");
         }
-        Simulation.animate(ui, storage, farmer,"BuySeedSimulation", 0, 4);
+        simulation.animate("BuySeedSimulation", 0, 4);
         farmer.getWheatFarm().buySeeds();
         farmer.spendMoney(Market.PRICE_OF_SEED);
-        Simulation.animate(ui, storage, farmer, 1000, "BuySeedSimulation", 5);
+        simulation.animate(1000, "BuySeedSimulation", 5);
     }
 }

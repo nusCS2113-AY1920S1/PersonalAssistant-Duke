@@ -11,17 +11,17 @@ public class GotoFarmAction extends Action {
         this.type = ActionType.gotoWheatFarm;
     }
 
-    public void execute(Ui ui, Storage storage, Farmer farmer) {
+    public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) {
         try {
             if (farmer.getLocation().equals("WheatFarm")) {
-                Simulation.animate(ui, storage, farmer, 1000, "GotoWheatFarmSimulation", 12);
+                simulation.animate(1000, "GotoWheatFarmSimulation", 12);
                 ui.typeWriter("You are already at the WheatFarm");
                 return;
             }
             farmer.changeLocation("Traveling");
-            Simulation.animate(ui, storage, farmer, "GotoWheatFarmSimulation", 1, 11);
+            simulation.animate("GotoWheatFarmSimulation", 1, 11);
             farmer.changeLocation("WheatFarm");
-            Simulation.animate(ui, storage, farmer, 1000, "GotoWheatFarmSimulation", 12);
+            simulation.animate(1000, "GotoWheatFarmSimulation", 12);
             ui.typeWriter("You have arrived at the WheatFarm");
         } catch (Exception e) {
             e.getMessage();
