@@ -1,4 +1,4 @@
-package duke.parser;
+package duke.parser.utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,51 +6,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class MapPrefixesToArguments {
-    private final Map<Prefix, List<String>> mapPrefixesToArguments = new HashMap<>();
+public class MapTokensToArguments {
+    private final Map<Token, List<String>> mapTokensToArguments = new HashMap<>();
 
     /**
      * This function is used for mapping a given string to its corresponding prefix.
      * In this implementation, prefix is the key for the mapping
-     * @param prefix stores the prefix
+     * @param token stores the prefix
      * @param args stores the arguments mapped to a given key
      */
-    public void setMapping(Prefix prefix, String args) {
-        List<String> arguments = getAllValues(prefix);
+    public void setMapping(Token token, String args) {
+        List<String> arguments = getAllValues(token);
         arguments.add(args);
-        mapPrefixesToArguments.put(prefix, arguments);
+        mapTokensToArguments.put(token, arguments);
     }
 
     /**
      * This function is used to get all the arguments mapped to a prefix.
      * As per the current implementation, we can have multiple arguments for the
      * same prefix.
-     * @param prefix stores the prefix/key for the mapping
+     * @param token stores the prefix/key for the mapping
      * @return a list of all the arguments mapped to the prefix
      */
-    public List<String> getAllValues(Prefix prefix) {
+    public List<String> getAllValues(Token token) {
 
-        if (!mapPrefixesToArguments.containsKey(prefix)) {
+        if (!mapTokensToArguments.containsKey(token)) {
             return new ArrayList<>();
         }
-        return new ArrayList<>(mapPrefixesToArguments.get(prefix));
+        return new ArrayList<>(mapTokensToArguments.get(token));
     }
 
     /**
      * This function is used to get the argument that was mapped to the prefix.
-     * @param prefix stores the prefix
+     * @param token stores the prefix
      * @return the argument mapped to the prefix
      */
-    public Optional<String> getValue(Prefix prefix) {
+    public Optional<String> getValue(Token token) {
         /*In case of multiple arguments related to a prefix
           this function will return the last argument associated with that token.
           Optional accounts for the case when the user does not input anything as argument
          */
-        List<String> arguments = getAllValues(prefix);
+        List<String> arguments = getAllValues(token);
         return arguments.isEmpty() ? Optional.empty() : Optional.of(arguments.get(arguments.size() - 1));
     }
 
-    public String getTextBeforeFirstPrefix() {
-        return getValue(new Prefix("")).orElse("");
+    public String getTextBeforeFirstToken() {
+        return getValue(new Token("")).orElse("");
     }
 }

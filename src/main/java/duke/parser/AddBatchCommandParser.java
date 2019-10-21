@@ -8,16 +8,19 @@ import duke.models.Locker;
 import duke.models.SerialNumber;
 import duke.models.Tag;
 import duke.models.Zone;
+import duke.parser.utilities.MapTokensToArguments;
+import duke.parser.utilities.ParserTokenizer;
+import duke.parser.utilities.Token;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 
-import static duke.parser.PrefixSyntax.PREFIX_ADDRESS;
-import static duke.parser.PrefixSyntax.PREFIX_SERIAL;
-import static duke.parser.PrefixSyntax.PREFIX_SIZE;
-import static duke.parser.PrefixSyntax.PREFIX_ZONE;
+import static duke.parser.utilities.Syntax.TOKEN_ADDRESS;
+import static duke.parser.utilities.Syntax.TOKEN_SERIAL;
+import static duke.parser.utilities.Syntax.TOKEN_SIZE;
+import static duke.parser.utilities.Syntax.TOKEN_ZONE;
 import static java.util.Objects.requireNonNull;
 
 public class AddBatchCommandParser {
@@ -30,31 +33,31 @@ public class AddBatchCommandParser {
      * @throws DukeException when the command syntax is invalid
      */
     public Command parse(String userInput) throws DukeException {
-        MapPrefixesToArguments mapPrefixesToArguments = ParserTokenizer
-                .tokenize(userInput, PREFIX_SIZE, PREFIX_SERIAL,PREFIX_ADDRESS,PREFIX_ZONE);
-        if (!checkAllPrefixesPresent(mapPrefixesToArguments,
-                PREFIX_SIZE,PREFIX_SERIAL,PREFIX_ADDRESS,PREFIX_ZONE)
-                || !mapPrefixesToArguments.getTextBeforeFirstPrefix().isEmpty()) {
+        MapTokensToArguments mapTokensToArguments = ParserTokenizer
+                .tokenize(userInput, TOKEN_SIZE, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE);
+        if (!checkAllPrefixesPresent(mapTokensToArguments,
+                TOKEN_SIZE, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE)
+                || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
             throw new DukeException(" Invalid command format");
         }
 
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(
-                mapPrefixesToArguments.getValue(PREFIX_SERIAL).get());
+                mapTokensToArguments.getValue(TOKEN_SERIAL).get());
         Address address = ParserCheck.parseAddress(
-                mapPrefixesToArguments.getValue(PREFIX_ADDRESS).get());
+                mapTokensToArguments.getValue(TOKEN_ADDRESS).get());
         Zone zone  = ParserCheck.parseZone(
-                mapPrefixesToArguments.getValue(PREFIX_ZONE).get());
+                mapTokensToArguments.getValue(TOKEN_ZONE).get());
         int size = ParserCheck.parseSize(
-                mapPrefixesToArguments.getValue(PREFIX_SIZE).get());
+                mapTokensToArguments.getValue(TOKEN_SIZE).get());
         List<Locker> addBatchOfLockers = new ArrayList<>();
         addBatchOfLockers = addLockersToList(addBatchOfLockers,serialNumber,address,zone,size);
         return new AddBatchCommand(addBatchOfLockers);
     }
 
     private static boolean checkAllPrefixesPresent(
-            MapPrefixesToArguments mapPrefixesToArguments,Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> mapPrefixesToArguments
-                .getValue(prefix).isPresent());
+            MapTokensToArguments mapTokensToArguments, Token... tokens) {
+        return Stream.of(tokens).allMatch(token -> mapTokensToArguments
+                .getValue(token).isPresent());
     }
 
     private static List<Locker> addLockersToList(List<Locker> addBatchOfLockers,

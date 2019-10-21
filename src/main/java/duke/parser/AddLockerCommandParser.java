@@ -9,13 +9,16 @@ import duke.models.Locker;
 import duke.models.SerialNumber;
 import duke.models.Tag;
 import duke.models.Zone;
+import duke.parser.utilities.MapTokensToArguments;
+import duke.parser.utilities.ParserTokenizer;
+import duke.parser.utilities.Token;
 
 
 import java.util.stream.Stream;
 
-import static duke.parser.PrefixSyntax.PREFIX_ADDRESS;
-import static duke.parser.PrefixSyntax.PREFIX_SERIAL;
-import static duke.parser.PrefixSyntax.PREFIX_ZONE;
+import static duke.parser.utilities.Syntax.TOKEN_ADDRESS;
+import static duke.parser.utilities.Syntax.TOKEN_SERIAL;
+import static duke.parser.utilities.Syntax.TOKEN_ZONE;
 
 public class AddLockerCommandParser {
 
@@ -27,28 +30,28 @@ public class AddLockerCommandParser {
      * @throws DukeException when the command format is invalid
      */
     public Command parse(String userInput) throws DukeException {
-        MapPrefixesToArguments mapPrefixesToArguments =
-                ParserTokenizer.tokenize(userInput, PREFIX_SERIAL, PREFIX_ADDRESS, PREFIX_ZONE);
-        if (!checkAllPrefixesPresent(mapPrefixesToArguments,
-                PREFIX_SERIAL, PREFIX_ADDRESS, PREFIX_ZONE)
-                || !mapPrefixesToArguments.getTextBeforeFirstPrefix().isEmpty()) {
+        MapTokensToArguments mapTokensToArguments =
+                ParserTokenizer.tokenize(userInput, TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE);
+        if (!checkAllTokensPresent(mapTokensToArguments,
+                TOKEN_SERIAL, TOKEN_ADDRESS, TOKEN_ZONE)
+                || !mapTokensToArguments.getTextBeforeFirstToken().isEmpty()) {
             throw new DukeException(" Invalid command format");
         }
 
         SerialNumber serialNumber = ParserCheck.parseSerialNumber(
-                mapPrefixesToArguments.getValue(PREFIX_SERIAL).get());
+                mapTokensToArguments.getValue(TOKEN_SERIAL).get());
         Address address = ParserCheck.parseAddress(
-                mapPrefixesToArguments.getValue(PREFIX_ADDRESS).get());
-        Zone zone = ParserCheck.parseZone(mapPrefixesToArguments.getValue(PREFIX_ZONE).get());
+                mapTokensToArguments.getValue(TOKEN_ADDRESS).get());
+        Zone zone = ParserCheck.parseZone(mapTokensToArguments.getValue(TOKEN_ZONE).get());
         Tag tag = new Tag("not-in-use");
         Locker locker = new Locker(serialNumber, address, zone, tag);
         return new AddLockerCommand(locker);
     }
 
-    private static boolean checkAllPrefixesPresent(MapPrefixesToArguments mapPrefixesToArguments,
-                                                   Prefix... prefixes) {
+    private static boolean checkAllTokensPresent(MapTokensToArguments mapTokensToArguments,
+                                                 Token... tokens) {
 
-        return Stream.of(prefixes).allMatch(prefix -> mapPrefixesToArguments
-                .getValue(prefix).isPresent());
+        return Stream.of(tokens).allMatch(token -> mapTokensToArguments
+                .getValue(token).isPresent());
     }
 }
