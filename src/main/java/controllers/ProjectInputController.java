@@ -96,6 +96,11 @@ public class ProjectInputController implements IController {
         return isManagingAProject;
     }
 
+    /**
+     * Manages the assignment to and removal of tasks from members.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectAssignTask(Project projectToManage, String projectCommand) {
         AssignmentController assignmentController = new AssignmentController(projectToManage);
         assignmentController.assignAndUnassign(projectCommand.substring(12));
@@ -103,6 +108,11 @@ public class ProjectInputController implements IController {
         consoleView.consolePrint(assignmentController.getSuccessMessages().toArray(new String[0]));
     }
 
+    /**
+     * Deletes a task from the project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectDeleteTask(Project projectToManage, String projectCommand) {
         int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
         if (projectToManage.getNumOfTasks() >= taskIndexNumber) {
@@ -112,6 +122,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Updates the task details of a given task in the project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectEditTask(Project projectToManage, String projectCommand) {
         String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
         int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
@@ -122,6 +137,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Updates the task requirements of a given task in the project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectEditTaskRequirements(Project projectToManage, String projectCommand) {
         String[] updatedTaskRequirements = projectCommand.split(" [ir]m?/");
         int taskIndexNumber = Integer.parseInt(updatedTaskRequirements[1]);
@@ -137,6 +157,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Displays the tasks in the current project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectViewTaskRequirements(Project projectToManage, String projectCommand) {
         int taskIndex = Integer.parseInt(projectCommand.substring(25));
         if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
@@ -150,10 +175,19 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Displays the assigned tasks in the current project.
+     * @param assignedTaskList The list containing the assignment of the tasks.
+     */
     private void projectViewAssignedTasks(ArrayList<String> assignedTaskList) {
         consoleView.consolePrint(assignedTaskList.toArray(new String[0]));
     }
 
+    /**
+     * Displays all the tasks in the given project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectViewTasks(Project projectToManage, String projectCommand) {
         if (("view tasks").equals(projectCommand)) {
             consoleView.viewAllTasks(projectToManage);
@@ -163,6 +197,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Adds a task to the current project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectAddTask(Project projectToManage, String projectCommand) {
         try {
             TaskFactory taskFactory = new TaskFactory();
@@ -178,15 +217,27 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Displays the members’ credits, their index number, name, and name of tasks completed.
+     */
     private void projectViewCredits() {
         // TODO view all credits.
         consoleView.consolePrint("Not implemented yet");
     }
 
+    /**
+     * Displays all the members in the current project.
+     * @param projectToManage The project specified by the user.
+     */
     private void projectViewMembers(Project projectToManage) {
         consoleView.viewAllMembers(projectToManage);
     }
 
+    /**
+     * Deletes a member from the current project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectDeleteMember(Project projectToManage, String projectCommand) {
         int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
         if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
@@ -198,6 +249,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Updates the details of a given member in the current project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectEditMember(Project projectToManage, String projectCommand) {
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
@@ -212,6 +268,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Adds a member to the current project.
+     * @param projectToManage The project specified by the user.
+     * @param projectCommand The user input.
+     */
     private void projectAddMember(Project projectToManage, String projectCommand) {
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
@@ -226,6 +287,11 @@ public class ProjectInputController implements IController {
         }
     }
 
+    /**
+     * Exits the current project.
+     * @param projectToManage The project specified by the user.
+     * @return Boolean variable specifying the exit status.
+     */
     private boolean projectExit(Project projectToManage) {
         boolean isManagingAProject;
         isManagingAProject = false;

@@ -99,10 +99,11 @@ public class ParserHelper {
     }
 
     /**
-     * Parses input String to get valid task and member index numbers, as well as error messages for invalid index numbers.
+     * Parses input String to get valid task and member index numbers, as well as error messages
+     * for invalid index numbers.
      * @param input The input from the user.
      */
-    public ArrayList<ArrayList<String>> parseAssignmentInputHelper (String input) {
+    public ArrayList<ArrayList<String>> parseAssignmentInputHelper(String input) {
         ArrayList<String> allIndexesToAssign = new ArrayList<>();
         ArrayList<String> allIndexesToUnassign = new ArrayList<>();
         ArrayList<String> allTasksIndexes = new ArrayList<>();
@@ -112,19 +113,19 @@ public class ParserHelper {
         for (String s : inputParts) {
             String [] part = s.split(" ");
             switch (part[0]) {
-                case "i":
-                    allTasksIndexes = new ArrayList<>(Arrays.asList(part));
-                    allTasksIndexes.remove("i");
-                    break;
-                case "to":
-                    allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
-                    allIndexesToAssign.remove("to");
-                    break;
-                case "rm":
-                    allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
-                    allIndexesToUnassign.remove("rm");
-                    break;
-                default:
+            case "i":
+                allTasksIndexes = new ArrayList<>(Arrays.asList(part));
+                allTasksIndexes.remove("i");
+                break;
+            case "to":
+                allIndexesToAssign = new ArrayList<>(Arrays.asList(part));
+                allIndexesToAssign.remove("to");
+                break;
+            case "rm":
+                allIndexesToUnassign = new ArrayList<>(Arrays.asList(s.split(" ")));
+                allIndexesToUnassign.remove("rm");
+                break;
+            default:
             }
         }
 
