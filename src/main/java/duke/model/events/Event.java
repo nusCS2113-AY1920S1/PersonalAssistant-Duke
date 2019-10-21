@@ -50,4 +50,18 @@ public class Event extends TaskWithDates {
     public void setLocation(Venue venue) {
         this.venue = venue;
     }
+
+    @Override
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask instanceof Event
+                && ((TaskWithDates) otherTask).getStartDate().isEqual(getStartDate())
+                && ((TaskWithDates) otherTask).getEndDate().isEqual(getEndDate())
+                && ((Event) otherTask).getLocation().equals(getLocation());
+    }
 }
