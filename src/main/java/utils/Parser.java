@@ -10,8 +10,10 @@ import commands.FindCommand;
 import commands.LinkCommand;
 import commands.ListCommand;
 import commands.MemberAddCommand;
+import commands.MemberDeleteCommand;
 import commands.RecurringCommand;
 import commands.SnoozeCommand;
+import commands.UnlinkCommand;
 import commands.ViewScheCommand;
 import members.Member;
 import core.Ui;
@@ -158,6 +160,10 @@ public class Parser {
             temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals("LINK")) {
             temp = new LinkCommand(splites[1]);
+        } else if (splites[0].equals("UNLINK")) {
+            temp = new UnlinkCommand(splites[1]);
+        } else if (splites[0].equals("REMOVE")) {
+            temp = new MemberDeleteCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
             temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
         } else if (splites[0].equals("CHECK")) {
@@ -278,7 +284,8 @@ public class Parser {
     /**
      * This method automatically correct typos of command, only support the command words
      * in the dict String Array: <br />
-     * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK"};
+     * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK",
+     * "LINK", "UNLINK", "REMOVE"};
      * </code>
      * @param command the original command word
      * @return If the method can recognize the word, return the correct(ed) command word;
@@ -286,7 +293,7 @@ public class Parser {
      */
     public static String commandCorrector(String command) {
         String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
-            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK"};
+            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
