@@ -1,5 +1,6 @@
 package wallet.logic.parser;
 
+import wallet.logic.LogicManager;
 import wallet.logic.command.DoneCommand;
 
 import java.text.ParseException;
@@ -23,6 +24,7 @@ public class DoneCommandParser implements Parser<DoneCommand> {
         String[] arguments = input.split(" ", 2);
 
         int id = Integer.parseInt(arguments[1]);
+        LogicManager.getCommandHistory().add("done " + arguments[0] + " " + arguments[1]);
         return new DoneCommand(id);
     }
 }

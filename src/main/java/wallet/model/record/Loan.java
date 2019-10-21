@@ -14,6 +14,16 @@ public class Loan extends Record {
     private boolean isLend;
     private boolean isSettled;
 
+    /**
+     * Default constructor.
+     */
+    public Loan() {
+        description = null;
+        amount = 0.0;
+        person = null;
+        createdDate = null;
+        isSettled = false;
+    }
 
     /**
      * The constructor for Loan objects.
@@ -52,6 +62,14 @@ public class Loan extends Record {
      */
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
     /**
@@ -129,5 +147,9 @@ public class Loan extends Record {
 
     public Contact getPerson() {
         return person;
+    }
+
+    public void setPerson(Contact person) {
+        this.person = person;
     }
 }
