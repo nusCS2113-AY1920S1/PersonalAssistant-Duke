@@ -10,8 +10,6 @@ import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
-import duke.model.shortcut.Shortcut;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,7 @@ class JsonSerializableBakingHome {
     private final List<JsonAdaptedProduct> products = new ArrayList<>();
     private final List<JsonAdaptedIngredientItem> inventory = new ArrayList<>();
     private final List<JsonAdaptedIngredientItem> shoppingList = new ArrayList<>();
+    private final List<JsonAdaptedSale> sales = new ArrayList<>();
     private final List<JsonAdaptedShortcut> shortcuts = new ArrayList<>();
 
     /**
@@ -55,7 +54,8 @@ class JsonSerializableBakingHome {
                 .collect(Collectors.toList()));
         shortcuts.addAll(source.getShortcutList().stream().map(JsonAdaptedShortcut::new)
                 .collect(Collectors.toList()));
-
+        sales.addAll(source.getSaleList().stream().map(JsonAdaptedSale::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -90,6 +90,10 @@ class JsonSerializableBakingHome {
 
         for (JsonAdaptedShortcut jsonAdaptedShortcut : shortcuts) {
             bakingHome.setShortcut(jsonAdaptedShortcut.toModelType());
+        }
+
+        for (JsonAdaptedSale jsonAdaptedSale : sales) {
+            bakingHome.addSale(jsonAdaptedSale.toModelType());
         }
 
         return bakingHome;

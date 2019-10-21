@@ -26,7 +26,7 @@ class OrderParserUtil {
     private static final int MAX_NAME_LENGTH = 20;
     private static final int MAX_CONTACT_LENGTH = 20;
     private static final int MAX_REMARKS_LENGTH = 50;
-    private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a double no more than "
+    private static final String MESSAGE_NUMBER_EXCEED_LIMIT = "Numbers should be a positive double no more than "
                                                                 + MAX_NUMBER;
     private static final String MESSAGE_NAME_EXCEED_LIMIT = "Name should be less than "
                                                             + MAX_NAME_LENGTH + " characters.";
@@ -125,7 +125,8 @@ class OrderParserUtil {
 
     /**
      * Checks if a {@code toCheck}'s length is no more than {@code max}.
-     * @throws ParseException if the string's  is more than {@code max} with exception message specified by {@code message}.
+     * @throws ParseException if the string's is more than {@code max}
+     * with exception message specified by {@code message}.
      */
     private static void checkStringLength(String toCheck, int max, String message) throws ParseException {
         if (toCheck.length() > max) {
