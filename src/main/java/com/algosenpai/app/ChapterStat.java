@@ -54,4 +54,21 @@ public class ChapterStat {
         this.comments = referenceChapter.comments;
     }
 
+    /**
+     * Converts the chapter stats to a string.
+     * @return the String.
+     */
+    @Override
+    public String toString() {
+        String result = "";
+        result += "Chapter " + Integer.toString(chapterNumber) + " : " + chapterName + '\n';
+        result += "Total Attempts made : " + Integer.toString(attempts) + '\n';
+        result += "Total Questions answered : " + Integer.toString(totalAnswered) + '\n';
+        result += "Total Questions correct : " + Integer.toString(correctAnswers) + '\n';
+        result += "Total Questions wrong : " + Integer.toString(wrongAnswers) + '\n';
+        result += "Percentage of Questions correct : " + Double.toString(percentage) + '\n';
+        result += "Comments : \"" + comments + "\"\n";
+        return result;
+    }
+
 }

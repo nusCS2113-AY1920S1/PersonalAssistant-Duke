@@ -42,7 +42,9 @@ public class UserStorageParser {
         inputScanner.skip("Percentage of Questions correct : ");
         final double percentage = Double.parseDouble(inputScanner.nextLine());
         inputScanner.skip("Comments : ");
-        final String comments = inputScanner.nextLine();
+        String comments = inputScanner.nextLine();
+        // remove the quotes (1st and last character)
+        comments = comments.substring(1,comments.length()-1);
         return new ChapterStat(chapterName, chapterNo, attempts, answered,
                 correctAnswers, wrongAnswers, percentage, comments);
     }
