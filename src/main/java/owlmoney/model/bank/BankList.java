@@ -18,6 +18,7 @@ public class BankList {
     private ArrayList<Bank> bankLists;
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
+    private static final String CARD = "card";
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
@@ -633,5 +634,32 @@ public class BankList {
             return;
         }
         throw new BankException("Insufficient amount for transfer in this bank: " + bank.getAccountName());
+    }
+
+    /**
+     * Checks whether the bank object has sufficient amount to transfer.
+     *
+     * @param accName   the bank object.
+     * @throws BankException If bank does not have sufficient fund.
+     */
+    public void findBankAccount(String accName, String type, Ui ui) throws BankException {
+        ArrayList<Bank> tempBankList = new ArrayList<Bank>();
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().contains(accName) && SAVING.equals(bankLists.get(i).getType())) {
+                tempBankList.add(bankLists.get(i));
+            } else if (bankLists.get(i).getAccountName().contains(accName)
+                    && INVESTMENT.equals(bankLists.get(i).getType())) {
+                tempBankList.add(bankLists.get(i));
+            }
+        }
+        if (tempBankList.isEmpty()) {
+            throw new BankException("Savings account with the following keyword could not be found: " + accName);
+        }
+
+        for (int i = ISZERO; i < tempBankList.size(); i++) {
+            printOneHeader(i, ui);
+            printOneBank((i+ONE_INDEX), tempBankList.get(i), ISMULTIPLE, ui);
+        }
+        ui.printDivider();
     }
 }

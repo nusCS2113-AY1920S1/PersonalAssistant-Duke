@@ -30,6 +30,9 @@ public class Profile {
     private GoalsList goalsList;
 
     private static final String SAVING = "saving";
+    private static final String INVESTMENT = "investment";
+    private static final String CARD = "card";
+
     private static final String ISBANK = "savings transfer";
     private static final String ISINVESTMENT = "investment transfer";
 
@@ -433,7 +436,7 @@ public class Profile {
      * @param amount The amount to be transferred.
      * @param date   The date that the fund was transferred.
      * @param ui     Required for printing.
-     * @throws GoalsException If any of the bank does not exist or insufficient fund to transfer.
+     * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
@@ -460,5 +463,23 @@ public class Profile {
         } else {
             return ISINVESTMENT;
         }
+    }
+
+    /**
+     * Transfers fund from one bank account to another bank account from GoalsList.
+     *
+     * @param accName   The account name to be searched for.
+     * @param ui     Required for printing.
+     * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
+     */
+    public void findBankOrCard(String accName, String type, Ui ui) throws BankException, CardException {
+        if (SAVING.equals(type)) {
+            bankList.findBankAccount(accName, type, ui);
+        } else if (INVESTMENT.equals(type)) {
+            bankList.findBankAccount(accName, type, ui);
+        } else if (CARD.equals(type)) {
+
+        }
+
     }
 }

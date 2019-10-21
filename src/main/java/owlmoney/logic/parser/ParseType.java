@@ -19,6 +19,8 @@ import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
+import owlmoney.logic.parser.find.ParseFind;
+import owlmoney.logic.parser.find.ParseFindBankOrCard;
 import owlmoney.logic.parser.goals.ParseAddGoals;
 import owlmoney.logic.parser.goals.ParseDeleteGoals;
 import owlmoney.logic.parser.goals.ParseEditGoals;
@@ -60,6 +62,8 @@ class ParseType extends Parser {
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
     private static final String CARD = "card";
+    private static final String SAVING = "saving";
+    private static final String INVESTMENT = "investment";
     private static final String BOND = "bond";
     private static final String GOALS = "goals";
 
@@ -131,6 +135,11 @@ class ParseType extends Parser {
                 return parseDeleteSaving.getCommand();
             } else if ("/list".equals(command)) {
                 return new ListSavingsCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBankOrCard parseFindSaving = new ParseFindBankOrCard(rawData, SAVING);
+                parseFindSaving.fillHashTable();
+                parseFindSaving.checkParameter();
+                return parseFindSaving.getCommand();
             }
             throw new ParserException("You entered an invalid type for savings");
         case "/investment":
@@ -220,6 +229,8 @@ class ParseType extends Parser {
                 editExp.fillHashTable();
                 editExp.checkParameter();
                 return editExp.getCommand();
+            } else if ("/find".equals(command)) {
+
             }
             throw new ParserException("You entered an invalid type for card expenditure");
         case "/deposit":
