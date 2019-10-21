@@ -31,6 +31,6 @@ public class DishList {
     }
 
     public String toString(Dishes dish) {
-        return dish.toString();
+        return dish.getDishname();
     }
 }

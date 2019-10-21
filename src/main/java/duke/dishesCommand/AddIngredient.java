@@ -21,7 +21,7 @@ public class AddIngredient extends RecipeCommand {
     public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             dish1.getDish(Nb - 1).addIngredients(ingredient);
-            System.out.println("\t added ingredient: " + ingredient + "\n\t to dish: " + dish1.getDish(Nb - 1).toString());
+            System.out.println("\t added ingredient: " + ingredient + "\n\t to dish: " + dish1.getDish(Nb - 1).getDishname());
         } catch (Exception e) {
             throw new DukeException("cannot add ingredient");
         }

@@ -16,7 +16,7 @@ public class ListDishCommand extends RecipeCommand {
         } else {
             System.out.println("\t Here are the dishes in your list:");
             for (int i = 1; i <= dish1.getSize(); i++) { // looping to print all the saved tasks
-                ui.showDishes("\t " + i + "." + dish1.getDish(i - 1).toString()
+                ui.showDishes("\t " + i + "." + dish1.getDish(i - 1).getDishname()
                         , dish1.getDish(i - 1).getTotalNumberOfOrders());
             }
         }

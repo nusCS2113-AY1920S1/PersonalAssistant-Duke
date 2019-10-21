@@ -25,11 +25,11 @@ public class AddDishCommand extends RecipeCommand {
             if(dish1.getSize() == 0) {
                 dish1.addDish(dish);
                 dish1.getDish(0).setNumberOfOrders(amount);
-                ui.showAddedDishes(dish.toString(), amount);
+                ui.showAddedDishes(dish.getDishname(), amount);
             }
             else {
                 for( int i = 0; i < dish1.getSize(); i++) {
-                    if(dish1.getDish(i).getDishname().equals(dish.toString())){
+                    if(dish1.getDish(i).getDishname().equals(dish.getDishname())){
                         Nb = i;
                         flag = false; //dish already exist in list
                         break;
@@ -38,12 +38,12 @@ public class AddDishCommand extends RecipeCommand {
                 if(flag) {
                     dish1.addDish(dish); // add dish into list found in dishes class
                     dish1.getDish(dish1.getSize() - 1).setNumberOfOrders(amount);
-                    ui.showAddedDishes(dish.toString(), dish1.getDish(dish1.getSize() - 1).getTotalNumberOfOrders());
+                    ui.showAddedDishes(dish.getDishname(), dish1.getDish(dish1.getSize() - 1).getTotalNumberOfOrders());
                 }
                 else {
                     dish1.getDish(Nb).setNumberOfOrders(amount);
                     System.out.println("\t your updated orders:\n\t "
-                            + dish.toString() + "\t amount: " +
+                            + dish.getDishname() + "\t amount: " +
                             String.valueOf(dish1.getDish(Nb).getTotalNumberOfOrders()));
                 }
             }

@@ -78,7 +78,7 @@ The Ui component contains all the messages or replies whenever the User enters a
 
 `dishadd chicken rice /num 2`
 
-`deletedish 1`
+`dishdelete 1`
 
 The Ui will reply to the User with the following messages:
 
@@ -147,27 +147,65 @@ API: `Task.java`
 
 API: `DukeException.java`
 
-#### 2.8 Recipebook Component
+#### 2.8 Dishes Component
 
-The Recipebook contains 2 classes, Dishes Class and DishList Class
+The Recipebook contains 2 classes, Dishes Class and DishList Class. The Dishes Class 
+
+![Dishes]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/dishes diagram.png)
 
 **<u>Dishes Class</u>**
 
-| Attributes | Description |
-| ---------- | ----------- |
-|            |             |
-|            |             |
-|            |             |
-
-| Methods | Description |
-| ------- | ----------- |
-|         |             |
-|         |             |
-|         |             |
+| Attributes                   | Description                                     |
+| ---------------------------- | ----------------------------------------------- |
+| dishName: String             | name of the dish                                |
+| total: int                   | the total number of orders for that dish        |
+| rating: float                | the overall rating for that dish                |
+| ingredientList: List<String> | a list of ingredients associated with that dish |
 
 
 
-#### 2.9 RecipeCommand
+| Constructor    | Description                              |
+| -------------- | ---------------------------------------- |
+| Dishes(String) | assigns the name of the dish with String |
+
+
+
+| Methods                       | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| getTotalNumberOfOrders(): int | returns `total` which is an int                              |
+| setNumberofOrders(int): void  | takes in an `int` and increment `total` number of orders     |
+| clearOrders(): void           | clears the ingredient list                                   |
+| getDishName(): String         | returns the name of the dish                                 |
+| setRating(int): void          | takes in an `int` and sets the new overall rating of the dish |
+| getRating(): float            | returns the rating of that dish                              |
+| addIngredients(String): void  | takes a string and adds into ingredientlist                  |
+
+**<u>DishList Class</u>**
+
+| Atrributes             | Description |
+| ---------------------- | ----------- |
+| dishList: List<dishes> |             |
+
+
+
+| Constructor | Description                                       |
+| ----------- | ------------------------------------------------- |
+| DishList()  | initalize the empty dishLIst as a new ArrayList<> |
+
+
+
+| Methods                  | Description |
+| ------------------------ | ----------- |
+| addDishes(Dishes): void  |             |
+| deleteDish(int): void    |             |
+| getDish(int): Dishes     |             |
+| getSize(): int           |             |
+| clearList(): void        |             |
+| toString(Dishes): String |             |
+
+
+
+#### 2.9 RecipeCommand Component
 
 The RecipeCommand class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes
 
@@ -176,7 +214,8 @@ The RecipeCommand class is used as an abstract class for other classes, its meth
 - DeleteDishCommand
 - InitCommand
 - ListDishCommand
-- RemindCommand
+
+![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/dishesCommand diagram.png)
 
 ### 3. Implementation
 

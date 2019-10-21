@@ -25,8 +25,7 @@ public class DeleteDishCommand extends RecipeCommand {
     @Override
     public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
-            ui.showDeletedDIsh(dish1.getDish(Nb - 1).toString());
-            //System.out.println("deleted " + DishList.getDish(Nb).toString());
+            ui.showDeletedDIsh(dish1.getDish(Nb - 1).getDishname());
             dish1.deleteDish(Nb - 1);
         } catch (Exception e) {
             throw new DukeException("dish does not exist");
