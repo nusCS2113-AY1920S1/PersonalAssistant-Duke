@@ -11,23 +11,9 @@ import planner.command.logic.RemoveModCommand;
 import planner.command.logic.SearchThenAddCommand;
 import planner.command.logic.ShowModuleCommand;
 import planner.command.logic.UnrestrictedModuleReportCommand;
-import planner.modules.Cca;
-import planner.modules.Deadline;
-import planner.modules.DoWithin;
-import planner.modules.Events;
-import planner.modules.FixedDurationTask;
-import planner.modules.RecurringTask;
-import planner.modules.Task;
-import planner.modules.Todo;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
-import planner.command.AddCommand;
-import planner.command.ByeCommand;
-import planner.command.Command;
-import planner.command.ListCommand;
-import planner.command.ScheduleCommand;
-import planner.command.ReportCommand;
 import planner.exceptions.ModCommandException;
 import planner.exceptions.ModException;
 import planner.exceptions.ModInvalidTimeException;
@@ -111,84 +97,6 @@ public class ParserWrapper {
             default: {
                 throw new ModCommandException();
             }
-        }
-    }
-
-    /**
-     * Main parser for user commands, checking for any invalid input
-     * placed and empty command placed. Returns the specified command
-     * class for each valid input.
-     * @param input User input.
-     * @return Command class based on user input.
-     * @throws ModException error based on user input.
-     */
-    public Command parse(String input) throws ModException {
-        // Checks every input for keywords
-        input = input.trim();
-        LinkedHashMap<String, String> args;
-        if (input.startsWith("todo ")) {
-            String[] split = DukeParser.parseAdding(input, "todo");
-            Task hold = new Todo(split);
-            return new AddCommand(hold);
-        } else if (input.startsWith("event ")) {
-            String[] split = DukeParser.parseAdding(input, "event");
-            split[split.length - 1] = formatInputToStringDate(split[split.length - 1]);
-            Task hold = new Events(split);
-            return new AddCommand(hold);
-        } else if (input.startsWith("deadline ")) {
-            String[] split = DukeParser.parseAdding(input, "deadline");
-            split[split.length - 1] = formatInputToStringDate(split[split.length - 1]);
-            Task hold = new Deadline(split);
-            return new AddCommand(hold);
-        } else if (input.startsWith("recurring ")) {
-            args = DukeParser.parse(input, false, true);
-            RecurringTask hold = new RecurringTask(
-                    args.get("description"),
-                    args.get("/days"),
-                    args.get("/hours"),
-                    args.get("/minutes"),
-                    args.get("/seconds"));
-            return new AddCommand(hold);
-        } else if (input.startsWith("fixedDuration ")) {
-            args = DukeParser.parse(input, false, true);
-            FixedDurationTask hold = new FixedDurationTask(
-                    args.get("description"),
-                    args.get("/days"),
-                    args.get("/hours"),
-                    args.get("/minutes"),
-                    args.get("/seconds"));
-            return new AddCommand(hold);
-        } else if (input.startsWith("doWithin ")) {
-            args = DukeParser.parse(input, false, true);
-            DukeParser.checkContainRequiredArguments(args, "/begin", "/end");
-            this.parseDateTime(args, "/begin", "/end");
-            Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
-            return new AddCommand(hold);
-        } else if (input.startsWith("cca ")) {
-            args = DukeParser.parse(input, false, true);
-            DukeParser.checkContainRequiredArguments(args, "/begin", "/end", "/day");
-            this.parseDateTime(args, "/begin", "/end");
-            Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
-            return new AddCommand(hold);
-        } else if (input.equals("bye")) {
-            return new ByeCommand();
-        } else if (input.startsWith("done ")) {
-            return DukeParser.checkValidDoneIndex(input);
-        } else if (input.startsWith("delete ")) {
-            return DukeParser.deleteTask(input);
-        } else if (input.equals("list")) {
-            return new ListCommand();
-        } else if (input.startsWith("find ")) {
-            return DukeParser.parseFind(input);
-        } else if (input.startsWith("reschedule ")) {
-            return DukeParser.checkValidRescheduleIndex(input);
-        } else if (input.startsWith("schedule ")) {
-            return new ScheduleCommand(input);
-        } else if (input.startsWith("report")) {
-            return new ReportCommand();
-        } else {
-            //throws invalid command exception when user inputs non-keywords
-            throw new ModCommandException();
         }
     }
 
