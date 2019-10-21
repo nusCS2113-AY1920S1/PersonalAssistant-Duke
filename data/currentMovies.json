@@ -2,12 +2,8 @@
   "results": [
     {
       "popularity": 602.723,
-      "vote_count": 2742,
-      "video": false,
-      "poster_path": "\/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
       "id": 475557,
       "adult": false,
-      "backdrop_path": "\/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",
       "original_language": "en",
       "original_title": "Joker",
       "genre_ids": [
@@ -16,36 +12,25 @@
         53
       ],
       "title": "Joker",
-      "vote_average": 8.7,
       "overview": "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
       "release_date": "2019-10-04"
     },
     {
       "popularity": 182.507,
-      "vote_count": 1539,
-      "video": false,
-      "poster_path": "\/zfE0R94v1E8cuKAerbskfD3VfUt.jpg",
       "id": 474350,
       "adult": false,
-      "backdrop_path": "\/8moTOzunF7p40oR5XhlDvJckOSW.jpg",
       "original_language": "en",
       "original_title": "It Chapter Two",
       "genre_ids": [
         27
       ],
       "title": "It Chapter Two",
-      "vote_average": 7,
       "overview": "27 years after overcoming the malevolent supernatural entity Pennywise, the former members of the Losers' Club, who have grown up and moved away from Derry, are brought back together by a devastating phone call.",
       "release_date": "2019-09-06"
     },
     {
-      "popularity": 186.811,
-      "vote_count": 200,
-      "video": false,
-      "poster_path": "\/lRyesi2S9u8gIwcxeuPAFNYAYTy.jpg",
       "id": 453405,
       "adult": false,
-      "backdrop_path": "\/c3F4P2oauA7IQmy4hM0OmRt2W7d.jpg",
       "original_language": "en",
       "original_title": "Gemini Man",
       "genre_ids": [
@@ -58,13 +43,8 @@
       "release_date": "2019-10-11"
     },
     {
-      "popularity": 85.951,
-      "vote_count": 442,
-      "video": false,
-      "poster_path": "\/kTQ3J8oTTKofAVLYnds2cHUz9KO.jpg",
       "id": 522938,
       "adult": false,
-      "backdrop_path": "\/spYx9XQFODuqEVoPpvaJI1ksAVt.jpg",
       "original_language": "en",
       "original_title": "Rambo: Last Blood",
       "genre_ids": [
@@ -77,13 +57,8 @@
       "release_date": "2019-09-20"
     },
     {
-      "popularity": 63.871,
-      "vote_count": 804,
-      "video": false,
-      "poster_path": "\/lNnomQxXpRP9mgUwMuSZhA8LXfA.jpg",
       "id": 419704,
       "adult": false,
-      "backdrop_path": "\/p3TCqUDoVsrIm8fHK9KOTfWnDjZ.jpg",
       "original_language": "en",
       "original_title": "Ad Astra",
       "genre_ids": [
@@ -97,13 +72,8 @@
       "release_date": "2019-09-20"
     },
     {
-      "popularity": 52.383,
-      "vote_count": 28,
-      "video": false,
-      "poster_path": "\/4E2lyUGLEr3yH4q6kJxPkQUhX7n.jpg",
       "id": 568012,
       "adult": false,
-      "backdrop_path": "\/iGnCzXEx0cFlUbpyAMeHwHWhPhx.jpg",
       "original_language": "ja",
       "original_title": "ワンピーススタンピード",
       "genre_ids": [
@@ -117,13 +87,8 @@
       "release_date": "2019-10-24"
     },
     {
-      "popularity": 56.569,
-      "vote_count": 283,
-      "video": false,
-      "poster_path": "\/zBhv8rsLOfpFW2M5b6wW78Uoojs.jpg",
       "id": 540901,
       "adult": false,
-      "backdrop_path": "\/5GynP6w2OQWSbKnCLHrBIriF4Cw.jpg",
       "original_language": "en",
       "original_title": "Hustlers",
       "genre_ids": [
@@ -137,13 +102,8 @@
       "release_date": "2019-09-13"
     },
     {
-      "popularity": 55.524,
-      "vote_count": 152,
-      "video": false,
-      "poster_path": "\/ebe8hJRCwdflNQbUjRrfmqtUiNi.jpg",
       "id": 454640,
       "adult": false,
-      "backdrop_path": "\/k7sE3loFwuU2mqf7FbZBeE3rjBa.jpg",
       "original_language": "en",
       "original_title": "The Angry Birds Movie 2",
       "genre_ids": [
@@ -159,13 +119,7 @@
       "release_date": "2019-08-14"
     },
     {
-      "popularity": 44.88,
-      "vote_count": 775,
-      "video": false,
-      "poster_path": "\/rXsh4MI6uyVgZBSSzXCfitJnVPy.jpg",
-      "id": 530385,
       "adult": false,
-      "backdrop_path": "\/g6GtOfXtzDpY73ef7wludoorTti.jpg",
       "original_language": "en",
       "original_title": "Midsommar",
       "genre_ids": [
@@ -180,13 +134,8 @@
       "release_date": "2019-07-03"
     },
     {
-      "popularity": 23.927,
-      "vote_count": 247,
-      "video": false,
-      "poster_path": "\/jIthqo2tQmW8TFN1fYpF8FmVL0o.jpg",
       "id": 521777,
       "adult": false,
-      "backdrop_path": "\/6Xsz9KHQmCcIcj3CoWQq5eLtVoT.jpg",
       "original_language": "en",
       "original_title": "Good Boys",
       "genre_ids": [
@@ -198,13 +147,8 @@
       "release_date": "2019-08-16"
     },
     {
-      "popularity": 19.165,
-      "vote_count": 176,
-      "video": false,
-      "poster_path": "\/xvYCZ740XvngXK0FNeSNVTJJJ5v.jpg",
       "id": 499701,
       "adult": false,
-      "backdrop_path": "\/n9lOuPxdnb6YceTjePhOBAJggOm.jpg",
       "original_language": "en",
       "original_title": "Dora and the Lost City of Gold",
       "genre_ids": [
@@ -218,13 +162,8 @@
       "release_date": "2019-08-09"
     },
     {
-      "popularity": 16.224,
-      "vote_count": 9,
-      "video": false,
-      "poster_path": "\/pbGveUC8mk0QRkdXpERPLbMFnrg.jpg",
       "id": 466081,
       "adult": false,
-      "backdrop_path": "\/xvmbs8vzXkBE0bvcXIBcMiNQMmL.jpg",
       "original_language": "en",
       "original_title": "The Informer",
       "genre_ids": [
@@ -237,13 +176,8 @@
       "release_date": "2020-01-10"
     },
     {
-      "popularity": 16.982,
-      "vote_count": 53,
-      "video": false,
-      "poster_path": "\/uNWk5HZfVBHpARcV1z9cwUAbtpF.jpg",
       "id": 537739,
       "adult": false,
-      "backdrop_path": "\/sQBVmI8jra82O6dVswBQgmNI0lq.jpg",
       "original_language": "en",
       "original_title": "Can You Keep a Secret?",
       "genre_ids": [
@@ -256,13 +190,8 @@
       "release_date": "2019-09-13"
     },
     {
-      "popularity": 9.899,
-      "vote_count": 5,
-      "video": false,
-      "poster_path": "\/rqHzHops7SudBKvxjbB15ZnUABp.jpg",
       "id": 585026,
       "adult": false,
-      "backdrop_path": "\/egF1yQttHQLbZFi2MpQalRfxTji.jpg",
       "original_language": "id",
       "original_title": "Dua Garis Biru",
       "genre_ids": [
@@ -274,13 +203,8 @@
       "release_date": "2019-07-11"
     },
     {
-      "popularity": 14.028,
-      "vote_count": 75,
-      "video": false,
-      "poster_path": "\/g4z7mDmJmx23vsVg6XNWcnXb6gc.jpg",
       "id": 480105,
       "adult": false,
-      "backdrop_path": "\/3uG3aOhEzFCjcQulsJQiAzLSrw8.jpg",
       "original_language": "en",
       "original_title": "47 Meters Down: Uncaged",
       "genre_ids": [
@@ -294,11 +218,7 @@
       "release_date": "2019-08-16"
     },
     {
-      "popularity": 11.371,
       "id": 472674,
-      "video": false,
-      "vote_count": 42,
-      "vote_average": 6.8,
       "title": "The Goldfinch",
       "release_date": "2019-09-13",
       "original_language": "en",
@@ -306,19 +226,12 @@
       "genre_ids": [
         18
       ],
-      "backdrop_path": "\/lXSJETt0cbiemixfHuBpopAg8pT.jpg",
       "adult": false,
-      "overview": "A boy in New York is taken in by a wealthy family after his mother is killed in a bombing at the Metropolitan Museum of Art. In a rush of panic, he steals 'The Goldfinch', a painting that eventually draws him into a world of crime.",
-      "poster_path": "\/8NwONmcJmPr0w9A176JorJ3tbJx.jpg"
+      "overview": "A boy in New York is taken in by a wealthy family after his mother is killed in a bombing at the Metropolitan Museum of Art. In a rush of panic, he steals 'The Goldfinch', a painting that eventually draws him into a world of crime."
     },
     {
-      "popularity": 11.271,
-      "vote_count": 2,
-      "video": false,
-      "poster_path": "\/wcr8JInmUhkYyn60uEA42UKuVDd.jpg",
       "id": 578906,
       "adult": false,
-      "backdrop_path": "\/jdffBSam3cgglm5bUaPPtSfl7bn.jpg",
       "original_language": "zh",
       "original_title": "诛仙Ⅰ",
       "genre_ids": [
@@ -332,13 +245,9 @@
       "release_date": "2019-09-13"
     },
     {
-      "popularity": 15.102,
-      "vote_count": 14,
-      "video": false,
-      "poster_path": "\/wCds1E0y9dNWPYFl1CN0UuFX05V.jpg",
+
       "id": 615453,
       "adult": false,
-      "backdrop_path": "\/58W0GbpzJlOC0Mce9R2N4ZSG97w.jpg",
       "original_language": "zh",
       "original_title": "哪吒之魔童降世",
       "genre_ids": [
@@ -352,13 +261,8 @@
       "release_date": "2019-07-26"
     },
     {
-      "popularity": 13.11,
-      "vote_count": 36,
-      "video": false,
-      "poster_path": "\/w0fOppZoVfjEgHyMfTRm3HwdRXa.jpg",
       "id": 568160,
       "adult": false,
-      "backdrop_path": "\/ize3ZieqSy0TCWljmVoEiy8fSFS.jpg",
       "original_language": "ja",
       "original_title": "天気の子",
       "genre_ids": [
@@ -372,13 +276,9 @@
       "release_date": "2019-07-19"
     },
     {
-      "popularity": 5.56,
-      "vote_count": 3,
-      "video": false,
-      "poster_path": "\/iQlItCCnVFV5xgJfSzh3kpnXsFe.jpg",
+
       "id": 589712,
       "adult": false,
-      "backdrop_path": "\/hqthSemehAJxf55Gp4YZwZnBnDw.jpg",
       "original_language": "zh",
       "original_title": "中国机长",
       "genre_ids": [

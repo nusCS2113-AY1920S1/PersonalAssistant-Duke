@@ -34,5 +34,8 @@ public enum COMMANDKEYS {
     clear,
     sort ,
     get,
-    recommendation
+    recommendation,
+    tv,
+    back,
+    entry
 }

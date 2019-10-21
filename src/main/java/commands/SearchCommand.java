@@ -49,16 +49,7 @@ public class SearchCommand extends CommandSuper {
      */
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        MovieHandler movieHandler = new MovieHandler();
-        if (treeMap.containsKey("-c")) {
-            movieHandler.showCurrentMovies();
-        } else if (treeMap.containsKey("-u")) {
-            movieHandler.showUpcomingMovies();
-        } else if (treeMap.containsKey("-t")) {
-            movieHandler.showTrendMovies();
-        } else if (treeMap.containsKey("-p")) {
-            movieHandler.showPopMovies();
-        } else {
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
             if (!this.getFlagMap().containsKey("-g")) {
                 if (movieHandler.getUserProfile().isAdult()) {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
@@ -67,7 +58,7 @@ public class SearchCommand extends CommandSuper {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
                             .beginMovieSearchRequest(getPayload() ,  false);
                 }
-                movieHandler.clearSearchTextField();
+                ((MovieHandler) this.getUIController()).clearSearchTextField();
             } else {
                 ArrayList<Integer> inputGenrePreference = new ArrayList<>(10);
                 ArrayList<Integer> inputGenreRestriction = new ArrayList<>(10);
@@ -89,10 +80,9 @@ public class SearchCommand extends CommandSuper {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
                             .beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
                 }
-                movieHandler.clearSearchTextField();
+                ((MovieHandler) this.getUIController()).clearSearchTextField();
             }
         }
-    }
 
     private void executeTvShowSearch() {
         MovieHandler movieHandler = new MovieHandler();

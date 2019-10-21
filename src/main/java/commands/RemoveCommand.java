@@ -37,6 +37,7 @@ public class RemoveCommand extends CommandSuper {
             case blacklist:
                 String movie = getPayload();
                 removeFromBlackList();
+                Blacklist.saveBlackList();
                 break;
             default:
                 break;

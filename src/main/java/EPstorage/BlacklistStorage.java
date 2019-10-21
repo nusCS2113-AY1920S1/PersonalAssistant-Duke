@@ -94,6 +94,8 @@ public class BlacklistStorage {
         oldFile.delete();
         newFile.renameTo(new File(file.getAbsolutePath()));
 
+        System.out.println("Successfully DONE SAVING!");
+
 
     }
 

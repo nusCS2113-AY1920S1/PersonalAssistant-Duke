@@ -15,8 +15,8 @@ public class SearchResultContext {
 
     static ArrayList<MovieInfoObject> mCurrentMovies = new ArrayList<>();
 
-    public static void initialiseContext(String[] listOfKeys){
-        for(String a:listOfKeys){
+    public static void initialiseContext(String[] listOfKeys) {
+        for (String a:listOfKeys) {
 
             keywords.add(a);
         }
@@ -82,9 +82,9 @@ public class SearchResultContext {
             movieDup.put( a.getID() , new Integer(1) );
         }
         for(MovieInfoObject e: moviesInfo){
-            System.out.println(e.getTitle());
+          //  System.out.println(e.getTitle());
             if(movieDup.get(e.getID())== null){
-                System.out.println(e.getTitle());
+             //   System.out.println(e.getTitle());
                 mMovies.add(e);
                 keywords.add(e.getTitle());
             }
