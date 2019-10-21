@@ -15,6 +15,9 @@ public class VenueList implements Iterable<Venue> {
         list = new ArrayList<>();
     }
 
+    /**
+     * Alternative constructor given a list of tasks.
+     */
     public VenueList(List<Task> tasks) {
         this();
         for (Task t : tasks) {

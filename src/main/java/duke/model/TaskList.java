@@ -154,6 +154,9 @@ public class TaskList implements Iterable<Task> {
         return list.stream().filter((Task t) -> (t instanceof Event)).collect(Collectors.toList());
     }
 
+    /**
+     * Returns a copy of task with dates sorted in chronological order.
+     */
     public List<Task> getChronoList() {
         List<Task> result = new ArrayList<>(getFilteredList());
         result.sort(Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));

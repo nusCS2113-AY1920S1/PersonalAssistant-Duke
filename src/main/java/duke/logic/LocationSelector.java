@@ -12,6 +12,11 @@ public class LocationSelector {
     private int index;
     private boolean isLock;
 
+    /**
+     * Constructs a new Location Selector object.
+     * @param venues The venues to be iterated through.
+     * @throws DukeException If there is no venues in the list.
+     */
     public LocationSelector(VenueList venues) throws DukeException {
         if (venues.isEmpty()) {
             throw new DukeException(Messages.LOCATION_SELECTOR_ERROR);
@@ -52,8 +57,8 @@ public class LocationSelector {
             Venue v = venues.get(i);
             if (LocationHelper.checkDirection(keyCode, currentVenue, v)
                     && v.getDistance(currentVenue) < min) {
-                    nextIndex = i;
-                    min = v.getDistance(currentVenue);
+                nextIndex = i;
+                min = v.getDistance(currentVenue);
             }
         }
         return nextIndex;

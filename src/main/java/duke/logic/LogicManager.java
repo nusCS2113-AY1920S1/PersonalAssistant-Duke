@@ -9,7 +9,6 @@ import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
-import duke.model.VenueList;
 
 public class LogicManager extends Logic {
     private Model model;
@@ -54,9 +53,5 @@ public class LogicManager extends Logic {
             String prompt = conversationManager.getPrompt();
             return Parser.parsePromptCommand(prompt);
         }
-    }
-
-    public VenueList getVenueList() {
-        return model.getEventVenues();
     }
 }

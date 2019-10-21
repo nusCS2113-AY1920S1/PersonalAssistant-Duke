@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.Main;
-import duke.logic.LocationSelector;
 import duke.logic.commands.results.CommandResult;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.logic.commands.results.CommandResultExit;
@@ -10,7 +9,6 @@ import duke.logic.commands.results.CommandResultMap;
 import duke.commons.exceptions.DukeException;
 import duke.logic.LogicManager;
 
-import duke.model.VenueList;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.dialogbox.DialogBox;
 import duke.ui.dialogbox.DialogBoxImage;
@@ -21,10 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.util.logging.Level;
@@ -56,10 +52,6 @@ public class MainWindow extends UiPart<Stage> {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
 
-
-    VenueList list;
-    LocationSelector l;
-
     /**
      * Initialises the MainWindow.
      */
@@ -69,6 +61,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.getScene().getStylesheets().addAll(
                 this.getClass().getResource("/css/mainStyle.css").toExternalForm());
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        logger.log(Level.INFO, "Starting SGTravel up...");
     }
 
     /**
@@ -85,28 +78,6 @@ public class MainWindow extends UiPart<Stage> {
         this.main = main;
         logic = new LogicManager();
         dukeShow("Hi, welcome to SGTravel.");
-        try {
-            list = logic.getVenueList();
-            l = new LocationSelector(list);
-        } catch (DukeException e) {
-            logger.log(Level.INFO, "No venues");
-        }
-    }
-
-    @FXML
-    void handleKeyEvent(KeyEvent keyEvent) {
-            l.feedKeyEvent(keyEvent);
-            int glowing = l.getIndex();
-            logger.log(Level.INFO, "index now is: " + glowing);
-            for (int i = 0; i < list.size(); ++i) {
-                EventPointCard card = new EventPointCard(list.get(i));
-                if (glowing == i) {
-                    card.setColor(Paint.valueOf("yellow"));
-                } else {
-                    card.setColor(Paint.valueOf("green"));
-                }
-                miniMap.getChildren().add(card.getRoot());
-            }
     }
 
     /**
@@ -189,8 +160,6 @@ public class MainWindow extends UiPart<Stage> {
                 DialogBoxImage.getDukeDialog(message, dukeImage, image)
         );
     }
-
-
 
     private void tryExitApp() {
         try {

@@ -6,7 +6,7 @@ public class Venue {
     private double longitude;
     private double distX;
     private double distY;
-    private final static int R = 6371; // Radius of the earth
+    private static final int R = 6371; // Radius of the earth
 
     /**
      * Creates a location object.
@@ -52,6 +52,9 @@ public class Venue {
         return getAddress() + " | " + getLatitude() + " | " + getLongitude() + " | " + getDistX() + " | " + getDistY();
     }
 
+    /**
+     * Overloads the equals method.
+     */
     public boolean equals(Venue otherVenue) {
         if (otherVenue == this) {
             return true;
@@ -64,6 +67,11 @@ public class Venue {
                 && getDistY() == otherVenue.getDistY();
     }
 
+    /**
+     * Calculates flat earth distance between 2 points based on latitude & longitude.
+     * @param otherVenue The other venue.
+     * @return The absolute flat earth distance between the 2 venues.
+     */
     public double getDistance(Venue otherVenue) {
         double latDistance = Math.toRadians(otherVenue.getLatitude() - getLatitude());
         double lonDistance = Math.toRadians(otherVenue.getLongitude() - getLongitude());
