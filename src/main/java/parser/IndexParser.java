@@ -16,7 +16,6 @@ public abstract class IndexParser extends Parser {
     void extract() throws DukeException {
         this.taskFeatures = removeCommandInput(userInput);
         this.indexOfTask = parseIndex(taskFeatures);
-
     }
 
     private int parseIndex(String taskFeatures) throws DukeException {

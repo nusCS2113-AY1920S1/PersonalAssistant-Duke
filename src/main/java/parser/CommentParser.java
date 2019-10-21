@@ -22,8 +22,8 @@ public class CommentParser extends IndexParser {
     private String extractComment(String taskFeatures) throws DukeException {
         String comment;
         try {
-            String[] commentCommandParts = taskFeatures.split(" ", 2);
-            comment = commentCommandParts[1];
+            String[] commentCommandParts = taskFeatures.split("\\s+", 2);
+            comment = commentCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(DukeException.emptyComment());
         }
