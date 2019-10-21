@@ -4,6 +4,8 @@ import wallet.model.Wallet;
 import wallet.ui.HelpPrompt;
 import wallet.storage.HelpStorage;
 
+import java.util.ArrayList;
+
 /**
  * The HelpCommand Class shows users what the valid commands are.
  */
@@ -21,8 +23,8 @@ public class HelpCommand extends Command {
 
         HelpPrompt helpPrompt = new HelpPrompt();
         HelpStorage helpData = new HelpStorage();
-
-        int selectedSection = helpPrompt.prompt();
+        ArrayList<String[]> pathList = helpData.retrievePaths();
+        int selectedSection = helpPrompt.prompt(pathList);
         if (selectedSection > 0) {
             helpData.sectionData(selectedSection);
         }

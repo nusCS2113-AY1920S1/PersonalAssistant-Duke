@@ -1,6 +1,7 @@
 package wallet.ui;
 
-import wallet.ui.Ui;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * The HelpPrompt Class prompts user for the help section they want.
@@ -18,18 +19,18 @@ public class HelpPrompt {
     /**
      * Prompt user for help section index they want.
      *
+     * @param pathList list of available help sections
      * @return An integer indicating section index.
      */
-    public int prompt() {
+    public int prompt(ArrayList<String[]> pathList) {
 
         int selection;
         int index = 1;
-        Ui tempInterface = new Ui();
 
         System.out.println(MESSAGE_AVAILABLE_SECTIONS);
 
-        for (String s : HELP_SECTIONS) {
-            System.out.println(index + "." + s);
+        for (String[] s : pathList) {
+            System.out.println(index + "." + s[0]);
             index++;
         }
 
@@ -41,8 +42,9 @@ public class HelpPrompt {
         System.out.println(MESSAGE_ACCESS_SECTION);
 
         try {
-
-            selection = Integer.parseInt(tempInterface.readLine());
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine();
+            selection = Integer.parseInt(input);
 
         } catch (NumberFormatException e) {
 
