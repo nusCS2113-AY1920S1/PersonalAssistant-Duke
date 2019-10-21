@@ -19,12 +19,12 @@ public class HelpCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
 
-        HelpPrompt helpData = new HelpPrompt();
-        HelpStorage accessSections = new HelpStorage();
+        HelpPrompt helpPrompt = new HelpPrompt();
+        HelpStorage helpData = new HelpStorage();
 
-        int selectedSection = helpData.prompt();
+        int selectedSection = helpPrompt.prompt();
         if (selectedSection > 0) {
-            accessSections.sectionData(selectedSection);
+            helpData.sectionData(selectedSection);
         }
         return false;
     }
