@@ -211,6 +211,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest = new RetrieveRequest(this);
         CommandContext.initialiseContext();
 
+        BlacklistStorage bp = new BlacklistStorage();
+        bp.load();
+
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
