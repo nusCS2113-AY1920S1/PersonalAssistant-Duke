@@ -24,7 +24,7 @@
                         <AnchorPane prefHeight="600.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <JFXTextField fx:id="userInput" focusColor="#00bfa5" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="338.0" promptText="Enter any duke.logic.command to start" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                                <Label fx:id="currentPage" text="Orders" textFill="#5086ec" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+                                <Label fx:id="currentPage" text="BakingHome" textFill="#5086ec" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                                     <font>
                                         <Font name="Arial Bold" size="30.0" />
                                     </font>
