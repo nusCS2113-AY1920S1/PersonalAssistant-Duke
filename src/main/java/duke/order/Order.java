@@ -111,11 +111,10 @@ public class Order {
         description = "["+this.getStatusIcon()+"] ";
         if (this.isToday()) description += "Order today: ";
         else description += "Order at " + this.date + ": ";
-        int cnt = 1;
         for (Map.Entry<Dishes, Integer> entry : content.entrySet()) {
             Dishes dish = entry.getKey();
             int amount = entry.getValue();
-            description += "\n"+cnt+"." + amount + " \u2718 " + dish.getDishname();
+            description += "\n"+"    - " + amount + " \u2718 " + dish.getDishname();
         }
         return description;
     }

@@ -9,16 +9,16 @@ import duke.ui.Ui;
 /**
  * Represents a specific {@link OrderCommand} used to mark a {@link Order} as done.
  */
-public class DoneOrder extends OrderCommand {
+public class DoneOrderCmd extends OrderCommand {
     private int orderNb;
 
     /**
-     * the constructor method of {@link DoneOrder}
+     * the constructor method of {@link DoneOrderCmd}
      *
      * @param number order number in the order list
      * @throws DukeException if input cannot be converted into number
      */
-    public DoneOrder(String number) throws DukeException{
+    public DoneOrderCmd(String number) throws DukeException{
         int index;
         try { index = Integer.parseInt(number) - 1; }
         catch (Exception e) { throw new DukeException("Please enter a valid order number."); }

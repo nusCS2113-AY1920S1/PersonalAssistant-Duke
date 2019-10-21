@@ -15,16 +15,16 @@ import java.util.List;
 /**
  * Represents a specific {@link OrderCommand} used to cancel/delete a {@link Order} from the {@link OrderList}.
  */
-public class CancelOrder extends OrderCommand {
+public class CancelOrderCmd extends OrderCommand {
     private int orderNb;
 
     /**
-     * the constructor method of class {@link CancelOrder}
+     * the constructor method of class {@link CancelOrderCmd}
      *
      * @param number order number in the order list
      * @throws DukeException if input cannot be converted into a number
      */
-    public CancelOrder(String number) throws DukeException {
+    public CancelOrderCmd(String number) throws DukeException {
         int index;
         try { index = Integer.parseInt(number) - 1; }
         catch (Exception e) { throw new DukeException(e.getMessage()); }

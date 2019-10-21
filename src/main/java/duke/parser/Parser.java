@@ -118,21 +118,24 @@ public class Parser {
         String[] splitted = fullCommand.split(" ", 2);
         //switching on the keyword
         switch (splitted[0]) {
-            case "orderadd":
+            case "orderAdd":
                 return new AddOrder();
-            case "orderlist":
-                if (splitted[1].startsWith("undone")) { return new ListUndoneOrders(); }
-                else return new ListAllOrders();
-            case "orderdone":
+            case "orderList":
+                // splitted[1] can be orderList all, orderList undone,
+                //                    orderList today, orderList undoneToday
                 checkLength(splitted);
-                return new DoneOrder(splitted[1]);
-            case "ordercancel":
-                return new CancelOrder(splitted[1]);
-            case "orderpostpone":
+                return new ListOrderCmd(splitted[1]);
+            case "orderDone":
                 checkLength(splitted);
-                String[] getUntil = splitAndCheck(splitted[1], " /by ");
-                return new ChangeOrderDate(Integer.parseInt(getUntil[0]), getUntil[1]);
-            case "orderfind":
+                return new DoneOrderCmd(splitted[1]);
+            case "orderCancel":
+                return new CancelOrderCmd(splitted[1]);
+            case "orderAlterDate":
+                checkLength(splitted);
+                String[] getDate = splitAndCheck(splitted[1], " /to ");
+                // getDate[0] is the order index, getDate[1] is the newly set date
+                return new AlterServingDateCmd(Integer.parseInt(getDate[0]), getDate[1]);
+            case "orderFindDate":
                 return new FindOrderByDate(splitted[1]);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");

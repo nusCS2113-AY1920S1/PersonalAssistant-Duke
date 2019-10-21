@@ -2,25 +2,22 @@ package duke.orderCommand;
 
 import duke.order.Order;
 import duke.exception.DukeException;
-import duke.parser.Convert;
 import duke.storage.Storage;
 import duke.order.OrderList;
 import duke.ui.Ui;
 
-import java.util.Date;
-
-public class ChangeOrderDate extends OrderCommand {
+public class AlterServingDateCmd extends OrderCommand {
 
     private int orderNb;
     private String date;
 
     /**
-     * The constructor method for {@link ChangeOrderDate}.
+     * The constructor method for {@link AlterServingDateCmd}.
      *
      * @param number order number
      * @param newDate new serving date of the {@link Order}
      */
-    public ChangeOrderDate(int number, String newDate) {
+    public AlterServingDateCmd(int number, String newDate) {
         this.orderNb = number;
         this.date = newDate;
     }
