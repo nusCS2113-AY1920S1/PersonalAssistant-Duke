@@ -1,6 +1,7 @@
 package command;
 
 import dictionary.WordBank;
+import dictionary.WordCount;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -27,7 +28,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         try {
             if (tags.size() == 0) {                     //delete word
                 word = wordBank.getAndDelete(this.deletedWord);

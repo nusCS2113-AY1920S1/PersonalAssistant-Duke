@@ -1,6 +1,7 @@
 package command;
 
 import dictionary.WordBank;
+import dictionary.WordCount;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -18,7 +19,7 @@ public class AddTagCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         try {
             HashSet<String> tagList = wordBank.addTag(wordDescription, tags);
             return ui.showAddTag(wordDescription, tags, tagList);

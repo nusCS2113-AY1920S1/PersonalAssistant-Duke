@@ -2,6 +2,7 @@ package command;
 
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.WordCount;
 import storage.Storage;
 import ui.Ui;
 
@@ -19,7 +20,7 @@ public abstract class Command {
      * @param storage File extracted to store all data
      * @return a string to show to user
      */
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         return null;
     }
 }

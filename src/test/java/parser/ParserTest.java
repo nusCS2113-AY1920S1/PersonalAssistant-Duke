@@ -2,10 +2,12 @@ package parser;
 
 import command.AddCommand;
 import command.Command;
+import command.DeleteCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static parser.Parser.parseAdd;
+import static parser.Parser.parseDelete;
 
 class ParserTest {
 
@@ -23,6 +25,14 @@ class ParserTest {
 
     @Test
     void parseDeleteTest() {
+        try {
+            String[] taskInfo = {"delete", "w/happy"};
+            Command returnedObject = parseDelete(taskInfo);
+            assertNotNull(returnedObject);
+            assertTrue(returnedObject instanceof DeleteCommand);
+        } catch(Exception e) {
+            fail("parseDelete method failed with the error message: " + e.getMessage());
+        }
     }
 
     @Test

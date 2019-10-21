@@ -2,6 +2,7 @@ package scene;
 
 import dictionary.WordBank;
 import command.QuizCommand;
+import dictionary.WordCount;
 import exception.ChangeSceneException;
 import exception.InvalidAnswerException;
 import exception.WordBankNotEnoughForQuizException;
@@ -18,8 +19,8 @@ public class QuizScene extends NewScene {
     private QuizCommand quizCommand;
     boolean startQuiz = false;
 
-    public QuizScene(Ui ui, WordBank wordBank, Storage storage, Stage window) {
-        super(ui, wordBank, storage, ui.quizGreet(), window);
+    public QuizScene(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount, Stage window) {
+        super(ui, wordBank, storage, wordCount, ui.quizGreet(), window);
         setupHandleInput();
     }
 
@@ -87,7 +88,7 @@ public class QuizScene extends NewScene {
     @Override
     public void resolveException(WordUpException e) {
         if (e instanceof ChangeSceneException) {
-            window.setScene(new MainScene(ui, wordBank, storage, window).getScene());
+            window.setScene(new MainScene(ui, wordBank, storage, wordCount, window).getScene());
         }
     }
 }

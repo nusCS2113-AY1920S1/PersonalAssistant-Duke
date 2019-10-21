@@ -2,6 +2,7 @@ package command;
 
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.WordCount;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -21,7 +22,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         try {
             // edit word
             String oldWordToString = wordBank.getWordBank().get(editedWord).toString();

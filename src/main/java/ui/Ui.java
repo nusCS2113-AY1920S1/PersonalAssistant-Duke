@@ -2,6 +2,7 @@ package ui;
 
 import dictionary.Word;
 import dictionary.WordBank;
+import dictionary.WordCount;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -132,16 +133,17 @@ public class Ui {
 
     /**
      * Shows a list of words ordered by their search count in ascending or descending order as specified by the user.
-     * @param wordBank a main class object containing the word bank content
+     * @param wordCount a main class object containing the word bank content
      * @param order the order (asc/desc) in which to display the word list
      * @return a string to show list of words and their search count
      */
-    public String showSearchFrequency(WordBank wordBank, String order) {
-        TreeMap<Integer, TreeMap<String, Word>> wordCount = wordBank.getWordCount(); //get map ordered by word count
+    public String showSearchFrequency(WordCount wordCount, String order) {
+        TreeMap<Integer, TreeMap<String, Word>> wordCountMap = wordCount.getWordCount(); //get map ordered by word count
         String returnedString = "You have searched for these words ";
-        if (order.equals("asc") || order.equals("")) { //list in ascending order
+        if (order.equals(
+                "asc") || order.equals("")) { //list in ascending order
             returnedString += "least:\n";
-            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCount.entrySet()) {
+            for (Map.Entry<Integer, TreeMap<String, Word>> entry : wordCountMap.entrySet()) {
                 returnedString += entry.getKey() + " searches -\n";
                 for (Map.Entry<String, Word> word : entry.getValue().entrySet()) {
                     returnedString += word.getKey() + "\n";
@@ -149,9 +151,9 @@ public class Ui {
             }
         } else { //list in descending order
             returnedString += "most:\n";
-            for (Integer searchCount : wordCount.descendingKeySet()) {
+            for (Integer searchCount : wordCountMap.descendingKeySet()) {
                 returnedString += searchCount + " searches -\n";
-                for (Map.Entry<String, Word> word : wordCount.get(searchCount).entrySet()) {
+                for (Map.Entry<String, Word> word : wordCountMap.get(searchCount).entrySet()) {
                     returnedString += word.getKey() + "\n";
                 }
             }

@@ -2,6 +2,7 @@ package scene;
 
 import dictionary.WordBank;
 import command.Command;
+import dictionary.WordCount;
 import exception.WordUpException;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -30,6 +31,7 @@ public abstract class NewScene {
     protected Ui ui;
     protected WordBank wordBank;
     protected Storage storage;
+    protected WordCount wordCount;
     protected String greet;
     protected Stage window;
 
@@ -41,12 +43,13 @@ public abstract class NewScene {
      * @param greet greeting from bot to user when user moves to a new scene
      * @param window main window containing the scene
      */
-    public NewScene(Ui ui, WordBank wordBank, Storage storage, String greet, Stage window) {
+    public NewScene(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount, String greet, Stage window) {
         this.window = window;
         this.greet = greet;
         this.ui = ui;
         this.wordBank = wordBank;
         this.storage = storage;
+        this.wordCount = wordCount;
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -131,7 +134,7 @@ public abstract class NewScene {
 
     protected String getResponse(String fullCommand) throws WordUpException {
         Command c = Parser.parse(fullCommand);
-        return c.execute(ui, wordBank, storage);
+        return c.execute(ui, wordBank, storage, wordCount);
     }
 
     protected Scene getScene() {
