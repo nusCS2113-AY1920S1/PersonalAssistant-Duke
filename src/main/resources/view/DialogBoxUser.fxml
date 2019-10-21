@@ -15,7 +15,7 @@
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
     </padding>
     <style>
-        -fx-background-color: #DCF8C6;
+        -fx-background-color: #34B7F1;
         -fx-font-family: 'Montserrat';
     </style>
 </fx:root>

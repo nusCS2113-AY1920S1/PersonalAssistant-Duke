@@ -2,14 +2,12 @@ package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.CommandEnum;
-import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 
 import java.util.ArrayList;
 
 public class Logic {
 
-    private Ui ui;
     private Parser parser;
     private QuizGenerator quizMaker = new QuizGenerator();
 
@@ -26,12 +24,10 @@ public class Logic {
     private int questionNumber = 0;
     private int prevResult = 0;
 
-
-
-    public Logic(Parser parser, Ui ui) {
+    public Logic(Parser parser) {
         this.parser = parser;
-        this.ui = ui;
     }
+
     /**
      * Parses the user input for the command to be created and executed.
      * @param userString the user input from the GUI.
@@ -41,13 +37,13 @@ public class Logic {
         //if the program is in quiz mode, the input is not parsed
         if (isQuizMode) {
             return new Command(CommandEnum.QUIZ, 0, userString);
+        } else if (isSettingUp) {
+            return new Command(CommandEnum.SETUP, 0, userString);
         } else {
             return parser.parseInput(userString);
         }
 
     }
-
-
 
     /**
      * Executes the command.
@@ -57,6 +53,15 @@ public class Logic {
     public String executeCommand(Command currCommand) {
         String responseString;
         switch (currCommand.getType()) {
+        case SETUP:
+            if (isNew) {
+                responseString = checkStatus();
+                return responseString;
+            } else {
+                responseString = "Are you a boy or a girl?";
+                isSettingUp = false;
+                return responseString;
+            }
         case MENU:
             String allCommands = "These are all the commands available: \n" +
                     "MENU, " + "START, " + "SELECT, " + "RESULT, " +
@@ -134,6 +139,7 @@ public class Logic {
      */
     public String checkStatus() {
         if (isNew) {
+            isSettingUp = true;
             isNew = false;
             return "Oh it seems that it is your first time here! Can I get your name?";
         } else {

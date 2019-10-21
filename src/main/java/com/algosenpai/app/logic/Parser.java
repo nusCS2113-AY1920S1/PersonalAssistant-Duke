@@ -26,6 +26,8 @@ public class Parser {
         }
 
         switch (commandWord) {
+        case "hello":
+            return new Command(CommandEnum.SETUP, 0, input);
         case "menu":
             return new Command(CommandEnum.MENU, 0, input);
         case "start":

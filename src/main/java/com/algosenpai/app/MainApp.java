@@ -1,7 +1,6 @@
 package com.algosenpai.app;
 
 
-import com.algosenpai.app.ui.controller.MainWindow;
 import com.algosenpai.app.ui.Ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,21 +16,20 @@ import java.io.IOException;
  * A one scene chatbot GUI.
  * There are two fxml files, MainWindow and DialogBox.
  */
-public class GUI extends Application {
+public class MainApp extends Application {
 
     //Initialise the different components here
     private Parser parser = new Parser();
-    private Ui ui = new Ui();
-    private Logic logic = new Logic(parser, ui);
+    private Logic logic = new Logic(parser);
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setLogic(logic);
+            fxmlLoader.<Ui>getController().setLogic(logic);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -3,6 +3,7 @@ package com.algosenpai.app.ui.controller;
 import java.io.IOException;
 import java.util.Collections;
 
+import com.algosenpai.app.ui.Ui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,9 +26,17 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+
+    private DialogBox(String text, Image img, boolean isUser) {
+        String fxmlPath = null;
+        if (!isUser) {
+            fxmlPath = "/view/DialogBox.fxml";
+        }
+        if (isUser) {
+            fxmlPath = "/view/DialogBoxUser.fxml";
+        }
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource(fxmlPath));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -55,7 +64,7 @@ public class DialogBox extends HBox {
      * @param text the text to be put into the DialogBox.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, true);
     }
 
     /**
@@ -64,7 +73,7 @@ public class DialogBox extends HBox {
      * @param text the text to be put into the DialogBox.
      */
     public static DialogBox getSenpaiDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, false);
         db.flip();
         return db;
     }
