@@ -6,6 +6,7 @@ import duke.command.ListCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.DoneCommand;
 import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
 import duke.command.AddCommand;
 import duke.command.DuplicateFoundCommand;
 import duke.command.RemindCommand;
@@ -19,7 +20,6 @@ import duke.command.AddBudgetCommand;
 import duke.command.BackupCommand;
 import duke.command.UpdateCommand;
 import duke.command.ExitCommand;
-
 import duke.dukeexception.DukeException;
 
 import duke.task.TaskList;
@@ -397,7 +397,13 @@ public class Parser {
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
         } else if (sentence.equals("listcontacts")) {
-            return new ListContactsCommand();   //@@author
+            return new ListContactsCommand();
+        } else if (arr.length > ZERO && arr[ZERO].equals("deletecontact")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The contact index cannot be empty.");
+            } else {
+                return new DeleteContactCommand(Integer.parseInt(arr[ONE]) - ONE);
+            }  //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
             try {
                 String budgetCommandString = sentence.split(" ", TWO)[ONE];

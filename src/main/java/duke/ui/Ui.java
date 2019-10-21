@@ -411,7 +411,31 @@ public class Ui {
             str += contactList.get(contactList.size() - ONE);
             str += "\nNow you have " + contactList.size() + " contacts.";
         }
-        System.out.println("I was here");
+        return str;
+    }
+
+    /**
+     * Outputs contact that is deleted, to the user through CLI.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param deletedContact The contact that is deleted.
+     */
+    public void showContactDeleted(ContactList contactList, String deletedContact) {
+        out.println("Noted. I've removed this contact:");
+        out.println(deletedContact);
+        out.println("Now you have " + contactList.size() + " contact(s) in the list.");
+    }
+
+    /**
+     * Outputs contact that is deleted to the user through GUI.
+     *
+     * @param contactList The contact list that contains a list of contacts.
+     * @param deletedContact The contact that is deleted.
+     */
+    public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
+        String str = "     Noted. I've removed this contact:\n";
+        str += deletedContact;
+        str += "\n     Now you have " + contactList.size() + " contact(s) in the list.";
         return str;
     }
     //@@author
