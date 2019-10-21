@@ -95,10 +95,8 @@ public class UserStats {
         currentChapter.totalAnswered++;
         if (wasAnsweredCorrectly) {
             currentChapter.correctAnswers++;
-        } else {
-            currentChapter.wrongAnswers++;
         }
-        currentChapter.percentage = (double)currentChapter.correctAnswers / currentChapter.totalAnswered;
+        currentChapter.recalculateStats();
     }
 
     /**
@@ -121,6 +119,7 @@ public class UserStats {
     public void saveCurrentChapterToChapterData(int index) {
         chapterData.get(index).correctAnswers += currentChapter.correctAnswers;
         chapterData.get(index).totalAnswered += currentChapter.totalAnswered;
+        chapterData.get(index).recalculateStats();
         // Increment the number of attempts, we assume this function is called once per attempt.
         chapterData.get(index).attempts++;
     }

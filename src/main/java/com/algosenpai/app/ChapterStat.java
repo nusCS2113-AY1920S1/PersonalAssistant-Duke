@@ -71,4 +71,11 @@ public class ChapterStat {
         return result;
     }
 
+    /**
+     * Recalculates the percentage and wrong answers when the correct answers or total answers is updated.
+     */
+    public void recalculateStats() {
+        percentage = 100.0* correctAnswers/(double) totalAnswered;
+        wrongAnswers = totalAnswered - correctAnswers;
+    }
 }
