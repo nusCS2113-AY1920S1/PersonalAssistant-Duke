@@ -1,11 +1,12 @@
+import com.sun.source.tree.Tree;
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
-import javafx.application.Platform;
 import help.MemorisePreviousFunctions;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -13,11 +14,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.*;
 import java.text.ParseException;
-import java.util.List;
+import java.util.*;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -36,12 +38,6 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     private TextField userInput;
     @FXML
     private TextField searchBar;
-    @FXML
-    public VBox PopUpContainer;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private Button searchButton;
 
     private Duke duke;
     private UserIcon userIcon;
@@ -139,28 +135,47 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     }
 
     @FXML
-    private void autoCompleteSuggestion() {
+    private void autoCompleteFunction() {
+        AutoComplete autoComplete = new AutoComplete();
+        AutoCompletionBinding<String> suggestions = TextFields.bindAutoCompletion(userInput, sc -> {
+            TreeSet<String> suggestedCommands = new TreeSet<>();
+            for (String i: autoComplete.getCommandList()) {
+                if (!sc.getUserText().isEmpty() && !i.equals(sc.getUserText())
+                        && i.startsWith(sc.getUserText().trim().toLowerCase())) {
+                    suggestedCommands.add(i);
+                }
+            }
+            return suggestedCommands;
+        });
+        suggestions.setVisibleRowCount(3);
+        suggestions.setPrefWidth(200);
+    }
+
+    @FXML
+    private void help() {
+        autoCompleteFunction();
         userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.UP) {
                     userInput.clear();
-                    previousFunctions.setFlagTrue();
-                    userInput.setText(previousFunctions.getPreviousCommand());
-                } else if(ke.getCode() == KeyCode.DOWN) {
-                    if(previousFunctions.getCurrIndex() == previousFunctions.getMaxIndex() - 1) {
-                        userInput.clear();
-                        previousFunctions.setFlagForFirstPress();
-                    } else {
-                        userInput.clear();
-                        previousFunctions.setFlagFalse();
-                        userInput.setText(previousFunctions.getNextCommand());
+                    if(previousFunctions.getMaxIndex() != 0) {
+                        previousFunctions.setFlagTrue();
+                        userInput.appendText(previousFunctions.getPreviousCommand() + "\n");
+                    }
+                } else if (ke.getCode() == KeyCode.DOWN) {
+                    if(previousFunctions.getMaxIndex() != 0) {
+                        if (previousFunctions.getCurrIndex() == previousFunctions.getMaxIndex() - 1) {
+                            userInput.clear();
+                            previousFunctions.setFlagForFirstPress();
+                        } else {
+                            userInput.clear();
+                            previousFunctions.setFlagFalse();
+                            userInput.appendText(previousFunctions.getNextCommand() + "\n");
+                        }
                     }
                 }
             }
         });
-        AutoComplete autoComplete = new AutoComplete();
-        List<String> commands = autoComplete.Populate(userInput.getText());
-        TextFields.bindAutoCompletion(userInput, commands);
     }
 }
