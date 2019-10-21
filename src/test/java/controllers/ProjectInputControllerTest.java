@@ -136,6 +136,7 @@ class ProjectInputControllerTest {
                 + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
          */
 
+        // temporary expectedOutput
         expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
                 + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
                 + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
