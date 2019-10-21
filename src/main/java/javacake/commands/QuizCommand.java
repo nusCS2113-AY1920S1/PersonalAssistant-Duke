@@ -59,7 +59,7 @@ public class QuizCommand extends Command {
      * @return
      * @throws DukeException
      */
-    private void getQuestions() throws DukeException {
+    public void getQuestions() throws DukeException {
 
 
         for (int i = 1; i <= totalNumOfQns; i++) {

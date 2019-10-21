@@ -34,7 +34,7 @@ public class Duke  {
         ui = new Ui();
         try {
             progressStack = new ProgressStack();
-            //storage = new Storage();
+            storage = new Storage();
             //tasks = new TaskList(storage.load());
             profile = new Profile();
             userProgress = profile.getTotalProgress();
