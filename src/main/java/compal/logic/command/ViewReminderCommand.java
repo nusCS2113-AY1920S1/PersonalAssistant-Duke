@@ -6,18 +6,20 @@ import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 
 public class ViewReminderCommand extends Command {
+
+    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
+
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
-        Comparator<Task> compareByDateTime = Comparator.comparing(Task::getDate);
-        ArrayList<Task> currList = taskList.getArrList();
-        currList.sort(compareByDateTime);
-
-        String taskReminders = getTaskReminders(currList);
-
+        String taskReminders;
+        try {
+            taskReminders = getTaskReminders(taskList.getArrList());
+        } catch (Exception e) {
+            throw new CommandException(MESSAGE_UNABLE_TO_EXECUTE);
+        }
         return new CommandResult(taskReminders, false);
     }
 
@@ -38,12 +40,13 @@ public class ViewReminderCommand extends Command {
         calendar.add(Calendar.DATE, 7);
         Date dateAfter = calendar.getTime();
 
+        /*
         calendar.setTime(currentDate);
         Date dateToday = calendar.getTime();
+         */
 
         for (Task task : currList) {
-            if (!task.gethasReminder() && ((task.getEndTime().after(dateToday)
-                && task.getEndTime().before(dateAfter)) || task.gethasReminder())) {
+            if (!task.getisDone() && (task.getEndTime().before(dateAfter) || task.gethasReminder())) {
                 String taskString = task.toString() + "\n";
                 taskReminder.append(taskString);
             }
