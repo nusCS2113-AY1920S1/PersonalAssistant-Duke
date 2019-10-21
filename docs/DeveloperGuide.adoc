@@ -113,6 +113,10 @@ Extensions 4.1: Selected practice session has already been rated.
 Extensions 5.1: User inputs an invalid rating.
 5.1.1. System displays an error message to inform the user of the correct rating format until a valid input is detected.
 
+=== Viewing all events in the coming 7 days.
+. User enters a command to view all events in the next 7 days.
+. System shows all events in the next 7 days in a calendar table.
+
 == Non-functional requirements
 . System should work on windows and linux.
 . System response within 1 second.
@@ -218,3 +222,12 @@ Expected: Prints the success of editing event of index `<event index>`.
 Key in `<reschedule> <event index> <new date> <new start time> <new end time>`,
 where `<new date> <new start time> <new end time>` has the format dd-MM-yyyy HH:mm HH:mm. +
 Expected: Prints the success of rescheduling event of index `<event index>`.
+
+=== Check the next 3 free days
+Key in `check`. +
+Expected: Prints the next 3 days without any events.
+
+=== View the calendar table of the next 7 days.
+Key in `calendar`.+
+Expected: Prints the calendar table containing all events of the next 7 days, 
+where the first column of the table is the current day.
