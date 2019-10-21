@@ -30,9 +30,6 @@ public class SearchCommand extends CommandSuper {
             case tvshows:
                 executeTvShowSearch();
                 break;
-//        case all:
-//            executeTvShowSearch();
-//            break;
             default:
                 break;
         }
@@ -50,44 +47,33 @@ public class SearchCommand extends CommandSuper {
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         MovieHandler movieHandler = new MovieHandler();
-        if (treeMap.containsKey("-c")) {
-            movieHandler.showCurrentMovies();
-        } else if (treeMap.containsKey("-u")) {
-            movieHandler.showUpcomingMovies();
-        } else if (treeMap.containsKey("-t")) {
-            movieHandler.showTrendMovies();
-        } else if (treeMap.containsKey("-p")) {
-            movieHandler.showPopMovies();
-        } else {
-            if (!this.getFlagMap().containsKey("-g")) {
-                if (movieHandler.getUserProfile().isAdult()) {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), true);
-                } else {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), false);
-                }
-                movieHandler.clearSearchTextField();
+        if (!this.getFlagMap().containsKey("-g")) {
+            if (movieHandler.getUserProfile().isAdult()) {
+                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), true);
             } else {
-                ArrayList<Integer> inputGenrePreference = new ArrayList<>(10);
-                ArrayList<Integer> inputGenreRestriction = new ArrayList<>(10);
-
-                for (String log : this.getFlagMap().get("-g")) {
-                    if (log.equalsIgnoreCase("preferences")) {
-                        inputGenrePreference.addAll(movieHandler.getUserProfile().getGenreIdPreference());
-                    } else if (log.equalsIgnoreCase("restrictions")) {
-                        inputGenreRestriction.addAll(movieHandler.getUserProfile().getGenreIdRestriction());
-                    }
-                    else {
-                        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-                        inputGenrePreference.add(command.findGenreID(log));
-                    }
-                }
-                if (movieHandler.getUserProfile().isAdult()) {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, true);
-                } else {
-                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
-                }
-                movieHandler.clearSearchTextField();
+                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), false);
             }
+            movieHandler.clearSearchTextField();
+        } else {
+            ArrayList<Integer> inputGenrePreference = new ArrayList<>(10);
+            ArrayList<Integer> inputGenreRestriction = new ArrayList<>(10);
+
+            for (String log : this.getFlagMap().get("-g")) {
+                if (log.equalsIgnoreCase("preferences")) {
+                    inputGenrePreference.addAll(movieHandler.getUserProfile().getGenreIdPreference());
+                } else if (log.equalsIgnoreCase("restrictions")) {
+                    inputGenreRestriction.addAll(movieHandler.getUserProfile().getGenreIdRestriction());
+                } else {
+                    ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+                    inputGenrePreference.add(command.findGenreID(log));
+                }
+            }
+            if (movieHandler.getUserProfile().isAdult()) {
+                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, true);
+            } else {
+                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
+            }
+            movieHandler.clearSearchTextField();
         }
     }
 

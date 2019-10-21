@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MovieUI.InfoController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MovieUI.InfoController">
   <children>
     <Label fx:id="movieTitleLabel" alignment="CENTER" layoutX="0.0" prefHeight="30.0" prefWidth="503.0" text="MovieName" textAlignment="CENTER" wrapText="true" AnchorPane.topAnchor="-1.0">
       <font>
@@ -17,15 +17,15 @@
       </font>
     </Label>
     <ImageView fx:id="movieBackdropImageView" fitHeight="134.25" fitWidth="179.0" layoutX="27.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" />
-    <GridPane fx:id="movieGridPane" layoutX="13.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="-1.0">
+    <GridPane fx:id="movieGridPane" layoutX="13.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="450.0">
       <children>
         <Label text="Plot Summary:" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <GridPane.margin>
             <Insets top="5.0" fx:id="x1" />
           </GridPane.margin>
         </Label>
-        <Label id="movieCastLabel" fx:id="movieSummaryLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="0" />
-        <Label fx:id="movieGenresLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+        <Label id="movieCastLabel" fx:id="movieSummaryLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="300.0" text="Label" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="0" />
+        <Label fx:id="movieGenresLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="300.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
           <GridPane.margin>
             <Insets top="15.0" fx:id="x2" />
           </GridPane.margin>
