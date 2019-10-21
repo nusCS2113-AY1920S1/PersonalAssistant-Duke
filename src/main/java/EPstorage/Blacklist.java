@@ -45,6 +45,9 @@ public class Blacklist {
         if (movie.trim() == "") {
             return;
         }
+        if (blackListKeyWords.contains(movie.toLowerCase())) {
+            return;
+        }
         blackListKeyWords.add(movie.toLowerCase());
         saveBlackList();
     }
@@ -53,12 +56,20 @@ public class Blacklist {
         if (mo == null) {
             return;
         }
+        for (MovieModel mm: blackListMovies) {
+            if (mm.getTitle().toLowerCase().trim().equals(mo.getTitle().toLowerCase().trim())) {
+                return;
+            }
+        }
         blackListMovies.add(new MovieModel(mo.getID() , mo.getTitle().toLowerCase()));
         saveBlackList();
     }
 
     public static void addToBlacklistMovie(String movie) {
         if (movie.trim() == "") {
+            return;
+        }
+        if (blackListMoviesTitle.contains(movie.toLowerCase().trim())) {
             return;
         }
         blackListMoviesTitle.add(movie.toLowerCase());
