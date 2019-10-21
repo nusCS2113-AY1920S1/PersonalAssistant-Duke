@@ -82,7 +82,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleUserInput() {
         String inputString = userInput.getText();
-
         try {
             CommandResult commandResult = logic.execute(inputString);
             console.setText(commandResult.getConsoleInfo());
