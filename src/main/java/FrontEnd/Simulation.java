@@ -24,7 +24,7 @@ public class Simulation {
         if (is_fullscreen) {
             ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, 103, 22)));
         } else {
-            ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer));
+            ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer, farmio.getLevel().getGoals()));
         }
     }
 
@@ -36,7 +36,7 @@ public class Simulation {
 
     public void animate(String framePath, int frameId) throws FarmioFatalException {
         refresh();
-        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer));
+        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer, farmio.getLevel().getGoals()));
     }
 
     public void animate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {

@@ -18,13 +18,13 @@ public class CommandGameNew extends Command {
         Level level = new Level(storage.getLevel(1.1), farmio.getFarmer());
         farmio.setLevel(level);
         farmio.getSimulation().animate("GameNew", 0 );
-        ui.getInput();
-        int frameId = 0;
-        for(String narrative: level.getNarratives()){
-            farmio.getSimulation().animate("Level1-01", frameId++);
-            ui.show(narrative);
-            ui.getInput();
-        }
+//        ui.getInput();
+//        int frameId = 0;
+//        for(String narrative: level.getNarratives()){
+//            farmio.getSimulation().animate("Level1-01", frameId++);
+//            ui.show(narrative);
+//            ui.getInput();
+//        }
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }
