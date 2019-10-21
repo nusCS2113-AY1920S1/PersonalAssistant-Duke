@@ -50,15 +50,6 @@ public class SearchCommand extends CommandSuper {
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         MovieHandler movieHandler = ((MovieHandler) this.getUIController());
-        if (treeMap.containsKey("-c")) {
-            movieHandler.showCurrentMovies();
-        } else if (treeMap.containsKey("-u")) {
-            movieHandler.showUpcomingMovies();
-        } else if (treeMap.containsKey("-t")) {
-            movieHandler.showTrendMovies();
-        } else if (treeMap.containsKey("-p")) {
-            movieHandler.showPopMovies();
-        } else {
             if (!this.getFlagMap().containsKey("-g")) {
                 if (movieHandler.getUserProfile().isAdult()) {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
@@ -92,7 +83,6 @@ public class SearchCommand extends CommandSuper {
                 ((MovieHandler) this.getUIController()).clearSearchTextField();
             }
         }
-    }
 
     private void executeTvShowSearch() {
         MovieHandler movieHandler = new MovieHandler();
