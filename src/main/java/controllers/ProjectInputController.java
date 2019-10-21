@@ -45,11 +45,11 @@ public class ProjectInputController implements IController {
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
         boolean isManagingAProject = true;
         while (isManagingAProject) {
-            isManagingAProject = isManagingAProject(projectToManage, isManagingAProject);
+            isManagingAProject = manageProject(projectToManage, isManagingAProject);
         }
     }
 
-    private boolean isManagingAProject(Project projectToManage, boolean isManagingAProject) {
+    private boolean manageProject(Project projectToManage, boolean isManagingAProject) {
         if (manageProjectInput.hasNextLine()) {
             String projectCommand = manageProjectInput.nextLine();
             DukeLogger.logInfo(ProjectInputController.class, "Managing:"
