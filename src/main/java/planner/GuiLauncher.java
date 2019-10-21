@@ -1,4 +1,4 @@
-package duke;
+package planner;
 
 import planner.gui.Main;
 import javafx.application.Application;

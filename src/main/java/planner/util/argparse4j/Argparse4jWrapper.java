@@ -10,16 +10,16 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import net.sourceforge.argparse4j.inf.Subparsers;
-import planner.command.logic.AddCcaScheduleCommand;
-import planner.command.logic.Arguments;
-import planner.command.logic.ClearCommand;
-import planner.command.logic.EndCommand;
-import planner.command.logic.ModuleCommand;
-import planner.command.logic.RemoveCommand;
-import planner.command.logic.SearchThenAddCommand;
-import planner.command.logic.ShowCommand;
-import planner.command.logic.SortCommand;
-import planner.exceptions.ModException;
+import planner.command.AddCcaScheduleCommand;
+import planner.command.Arguments;
+import planner.command.ClearCommand;
+import planner.command.EndCommand;
+import planner.command.ModuleCommand;
+import planner.command.RemoveCommand;
+import planner.command.SearchThenAddCommand;
+import planner.command.ShowCommand;
+import planner.command.SortCommand;
+import planner.exceptions.original.ModException;
 import planner.util.argparse4j.action.Join;
 
 public class Argparse4jWrapper {

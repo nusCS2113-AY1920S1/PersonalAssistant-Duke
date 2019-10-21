@@ -4,19 +4,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
-import planner.command.logic.ModuleCommand;
-import planner.exceptions.ModException;
+import planner.command.ModuleCommand;
+import planner.exceptions.original.ModException;
 import planner.exceptions.planner.ModBadRequestStatus;
 import planner.exceptions.planner.ModFailedJsonException;
 import planner.modules.data.ModuleInfoDetailed;
-import planner.util.CcaList;
-import planner.util.JsonWrapper;
-import planner.util.ParserWrapper;
-import planner.util.PlannerUi;
-import planner.util.Reminder;
-import planner.util.Storage;
-import planner.util.TaskList;
-import planner.util.Ui;
+import planner.util.periods.CcaList;
+import planner.util.commons.JsonWrapper;
+import planner.util.commons.PlannerUi;
+import planner.util.periods.Reminder;
+import planner.util.commons.Storage;
 import planner.util.argparse4j.Argparse4jWrapper;
 import planner.util.commons.ModuleTasksList;
 
@@ -27,11 +24,8 @@ public class Planner {
      * active tasks in TaskList and reminder.
      */
     private Storage store;
-    private Ui ui;
-    private TaskList tasks;
     private ModuleTasksList modTasks;
     private CcaList ccas;
-    private ParserWrapper parser;
     private Argparse4jWrapper argparser;
     private Reminder reminder;
     private JsonWrapper jsonWrapper;
@@ -44,10 +38,7 @@ public class Planner {
      */
     public Planner(boolean gui) {
         store = new Storage();
-        ui = new Ui();
         modUi = new PlannerUi();
-        tasks = new TaskList(store);
-        parser = new ParserWrapper();
         argparser = new Argparse4jWrapper();
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
