@@ -1,11 +1,11 @@
 plugins {
     id 'java'
     id 'jacoco'
-    id 'application'
     id 'checkstyle'
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'com.github.kt3k.coveralls' version '2.8.4'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.asciidoctor.convert' version '1.5.8'
+    id 'application'
 }
 
 group 'seedu.OwlMoney'
@@ -40,19 +40,12 @@ run {
     standardInput = System.in
 }
 
-jacoco {
-    toolVersion = "0.8.4"
-}
-
 jacocoTestReport {
     reports {
-        xml.enabled true
-        csv.enabled true
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
     }
-}
-
-coveralls {
-    jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
 }
 
 test {
@@ -62,7 +55,30 @@ test {
     }
 }
 
+task coverage(type: JacocoReport) {
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(sourceSets.main.output)
+    executionData = files(jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
+    }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+}
 
+coveralls {
+    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
+    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
+}
+
+tasks.coveralls {
+    dependsOn coverage
+    onlyIf { System.env.'CI' }
+}
 
 asciidoctor {
     backends 'html5'
@@ -113,3 +129,5 @@ task deployOfflineDocs(type: Copy) {
 
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
+
+defaultTasks 'clean', 'headless', 'coverage', 'asciidoctor'
