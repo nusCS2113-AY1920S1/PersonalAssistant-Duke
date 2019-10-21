@@ -144,6 +144,17 @@ public class Order {
     public boolean hasDishes(Dishes dishes) { return content.containsKey(dishes); }
 
     /**
+     * Returns the amount of the dishes ordered in the {@link Order}
+     * @param dishes dishes
+     * @return dishes amount
+     */
+    public int getDishesAmount(Dishes dishes) {
+        if (this.hasDishes(dishes)) {
+            return content.get(dishes);
+        } else {return 0; }
+    }
+
+    /**
      * Add dishes to the undone {@link Order}. By default,
      * add one more if not specifying the amount.
      * If the dishes is not found in the {@link Order},
@@ -155,7 +166,7 @@ public class Order {
             if (!this.hasDishes(dishes)) {
                 content.put(dishes, 1);
             } else {
-                int oldAmount = content.get(dishes);
+                int oldAmount = this.getDishesAmount(dishes);
                 content.put(dishes, oldAmount+1);
             }
     }
