@@ -1,6 +1,7 @@
 package javacake;
 
 import javacake.commands.AddCommand;
+import javacake.commands.ChangeColorCommand;
 import javacake.commands.Command;
 import javacake.commands.ExitCommand;
 import javacake.commands.ListCommand;
@@ -16,6 +17,7 @@ import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;
 import javacake.tasks.RecurringTask;
 import com.joestelmach.natty.DateGroup;
+import javacake.ui.MainWindow;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +57,9 @@ public class Parser {
             return new MegaListCommand();
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
+        } else if (input.equals("change")) {
+            MainWindow.isChanged = true;
+            return new ChangeColorCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

@@ -5,7 +5,10 @@ import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
 import javacake.storage.Profile;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -16,7 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.apache.commons.lang.WordUtils;
 
 import java.util.logging.Level;
 
@@ -48,6 +50,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button themeModeButton;
     public static boolean isLightMode = true;
+    public static boolean isChanged = false;
 
     private Duke duke;
     private Stage primaryStage;
@@ -82,6 +85,20 @@ public class MainWindow extends AnchorPane {
                     + Ui.showWelcomeMsgPhaseB(duke.isFirstTimeUser, duke.userName, duke.userProgress);
             showContentContainer();
         }
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), ev -> {
+
+            if (isLightMode && isChanged) { //change to dark mode
+                handleGuiMode();
+                isChanged = false;
+            }
+            if (!isLightMode && isChanged) { //change to light mode
+                handleGuiMode();
+                isChanged = false;
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
 
