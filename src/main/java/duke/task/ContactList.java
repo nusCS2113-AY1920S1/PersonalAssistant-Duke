@@ -67,4 +67,13 @@ public class ContactList {
     public int size() {
         return contactList.size();
     }
+
+    /**
+     * To remove a contact from the contact list.
+     *
+     * @param indexOfContact The index of contact to be removed.
+     */
+    public void remove(int indexOfContact) {
+        contactList.remove(indexOfContact);
+    }
 }

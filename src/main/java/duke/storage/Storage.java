@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     //protected String filePath = "./";
-    protected String filePath = "";   //27-28, 36-43
+    protected String filePath = "";   //27-28, 40-47
     String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
     private static final int ONE = 1;

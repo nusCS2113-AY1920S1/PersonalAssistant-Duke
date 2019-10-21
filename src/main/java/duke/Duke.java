@@ -3,8 +3,10 @@ package duke;
 import duke.command.SetPriorityCommand;
 import duke.command.AddMultipleCommand;
 import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
 import duke.command.AddContactsCommand;
 import duke.command.Command;
+import duke.command.ListContactsCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.ExitCommand;
 import duke.command.BackupCommand;
@@ -18,7 +20,6 @@ import duke.storage.BudgetStorage;
 import duke.task.BudgetList;
 import duke.task.PriorityList;
 import duke.task.ContactList;
-import duke.command.ListContactsCommand;
 
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -134,6 +135,10 @@ public class Duke {
         } else if (cmd instanceof ListContactsCommand) {
             String str = cmd.executeGui(items, contactList, ui);
             return str;
+        } else if (cmd instanceof DeleteContactCommand) {
+            String str = cmd.executeGui(items, contactList, ui);
+            cmd.executeStorage(items, ui, contactStorage, contactList);
+            return str;
         } else {
             String str = cmd.executeGui(items, ui);
             return str;
@@ -182,9 +187,12 @@ public class Duke {
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
-                    //cmd.executeStorage(items, ui, contactStorage,contactList);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else if (cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
+                } else if (cmd instanceof DeleteContactCommand) {
+                    cmd.execute(items, contactList, ui);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addDefaultPriority(cmd);
