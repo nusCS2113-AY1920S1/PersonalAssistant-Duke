@@ -44,8 +44,10 @@ public class TaskFactory {
             newTaskDate = dateTimeHelper.formatDate(newTaskDetails.get(2));
         }
         int newTaskCredit = Integer.parseInt(newTaskDetails.get(3));
-        TaskState newTaskState = convertStringToTaskState(newTaskDetails.get(4));
-
+        TaskState newTaskState = TaskState.OPEN;
+        if (!("NONE".equals(newTaskDetails.get(4)))) {
+            newTaskState = convertStringToTaskState(newTaskDetails.get(4));
+        }
         return new Task(newTaskName, newTaskPriority, newTaskDate, newTaskCredit, newTaskState, taskRequirements);
     }
 

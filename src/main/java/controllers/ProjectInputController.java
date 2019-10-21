@@ -198,9 +198,6 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTask(Project projectToManage, String projectCommand) {
-//        String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
-//        int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
-
         int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
         String updatedTaskDetails = projectCommand.substring(12);
 

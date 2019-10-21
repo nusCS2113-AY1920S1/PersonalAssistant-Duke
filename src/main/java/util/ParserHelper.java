@@ -15,7 +15,7 @@ public class ParserHelper {
     /**
      * Parses the string input to extract the name, phone number and email.
      * @param input Contains the name, phone number and email.
-     * @return An array consisting on name in index 0, phone number in index 1 and email in index 2.
+     * @return An array consisting of name in index 0, phone number in index 1 and email in index 2.
      */
     public String[] parseMemberDetails(String input) {
         String[] memberDetails = new String[4];
@@ -60,6 +60,12 @@ public class ParserHelper {
         return memberDetails;
     }
 
+    /**
+     * Parses the string input to extract the name, priority, due date, credit and task state.
+     * @param input Contains the name, priority, due date, credit and task state.
+     * @return An ArrayList consisting of name in index 0, priority in index 1, due date in index 2,
+     *         credit in index 3, task state in index 4.
+     */
     public ArrayList<String> parseTaskDetails(String input) {
         ArrayList<String> newTask = new ArrayList<>();
 
@@ -67,26 +73,28 @@ public class ParserHelper {
         String newTaskPriority = "-1";
         String newTaskDate = null;
         String newTaskCredit = "-1";
-        String newTaskState = "OPEN";
+        String newTaskState = "NONE";
 
         String [] newTaskDetails = input.split(" ");
         for (String s : newTaskDetails) {
             switch (s.substring(0, 2)) {
-                case "t/":
-                    newTaskName = s.substring(2);
-                    break;
-                case "p/":
-                    newTaskPriority = s.substring(2);
-                    break;
-                case "d/":
-                    newTaskDate = s.substring(2);
-                    break;
-                case "c/":
-                    newTaskCredit = s.substring(2);
-                    break;
-                case "s/":
-                    newTaskState = s.substring(2);
-                    break;
+            case "t/":
+                newTaskName = s.substring(2);
+                break;
+            case "p/":
+                newTaskPriority = s.substring(2);
+                break;
+            case "d/":
+                newTaskDate = s.substring(2);
+                break;
+            case "c/":
+                newTaskCredit = s.substring(2);
+                break;
+            case "s/":
+                newTaskState = s.substring(2);
+                break;
+            default:
+                break;
             }
         }
         int indexOfNameFlag = input.indexOf("t/");
