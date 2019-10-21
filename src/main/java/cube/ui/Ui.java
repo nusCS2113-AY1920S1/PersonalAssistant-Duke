@@ -1,14 +1,14 @@
 //@@author LL-Pengfei
-/**
- * This class is used as an user interface. It supports
- * interactions with the users, including data and instructions
- * input and output.
- */
 package cube.ui;
 
 import cube.logic.command.CommandResult;
 import java.util.Scanner;
 
+/**
+ * This class is used as an user interface. It supports
+ * interactions with the users, including data and instructions
+ * input and output.
+ */
 public class Ui {
 	private Scanner in = new Scanner(System.in);
 
