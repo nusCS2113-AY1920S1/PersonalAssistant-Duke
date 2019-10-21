@@ -61,6 +61,8 @@ public class ParserManager {
             return new DeadlineCommandParser().parseCommand(restOfInput);
         case CMD_DONE:
             return new DoneParser().parseCommand(restOfInput);
+        case CMD_FIND:
+            return new FindCommandParser().parseCommand(restOfInput);
         case CMD_EVENT:
             return new EventCommandParser().parseCommand(restOfInput);
         default:

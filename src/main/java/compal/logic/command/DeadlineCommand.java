@@ -47,8 +47,8 @@ public class DeadlineCommand extends Command {
             while (!startDate.after(finalDate)) {
                 startDateString = CompalUtils.dateToString(startDate);
                 Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
-                finalList += indivDeadline.toString();
                 taskList.addTask(indivDeadline);
+                finalList += indivDeadline.toString();
                 startDate = incrementDateByWeek(startDate);
             }
         }
