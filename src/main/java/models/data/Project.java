@@ -12,8 +12,8 @@ public class Project implements IProject {
     private String description;
     private MemberList memberList;
     private TaskList taskList;
-    private HashMap<Task, ArrayList<Member>> tasksAssignedToMembers;
-    private HashMap<Member,ArrayList<Task>> membersAssignedToTask;
+    private HashMap<Task, ArrayList<Member>> taskAndListOfMembersAssigned; //task_membersAssigned
+    private HashMap<Member, ArrayList<Task>> memberAndIndividualListOfTasks; //member_individualTaskList
 
     /**
      * Class representing a task in a project.
@@ -23,8 +23,8 @@ public class Project implements IProject {
         this.description = description;
         this.memberList = new MemberList();
         this.taskList = new TaskList();
-        this.tasksAssignedToMembers = new HashMap<>();
-        this.membersAssignedToTask = new HashMap<>();
+        this.taskAndListOfMembersAssigned = new HashMap<Task, ArrayList<Member>>();
+        this.memberAndIndividualListOfTasks = new HashMap<Member, ArrayList<Task>>();
     }
 
     @Override
@@ -55,6 +55,7 @@ public class Project implements IProject {
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
+        this.memberAndIndividualListOfTasks.put(newMember, new ArrayList<>());
     }
 
     @Override
@@ -70,6 +71,8 @@ public class Project implements IProject {
     @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
+
+        this.taskAndListOfMembersAssigned.put(newTask, new ArrayList<>());
     }
 
     @Override
@@ -100,7 +103,7 @@ public class Project implements IProject {
     @Override
     public ArrayList<String> getAssignedTaskList() {
         ArrayList<String> assignedTaskListString = new ArrayList<>();
-        for (HashMap.Entry<Task, ArrayList<Member>> task: tasksAssignedToMembers.entrySet()) {
+        for (HashMap.Entry<Task, ArrayList<Member>> task: taskAndListOfMembersAssigned.entrySet()) {
             assignedTaskListString.add(task.getKey().getTaskName() + " is assigned to: ");
             for (Member member: task.getValue()) {
                 assignedTaskListString.add(member.getName());
@@ -110,60 +113,34 @@ public class Project implements IProject {
     }
 
     /**
-     * This method assign task to a list of member.
-     * @param task the task which you wish to assign to the member
+     * This method assigns a task to a member by adding the task to a member's individual
+     * task list - tasksAssignedToMembers.
+     * @param task the task which you wish to assign to the member.
      * @param member the member you wish to assign the task to.
      */
     @Override
-    public void assignTaskToMembers(Task task, Member member) {
-        if (tasksAssignedToMembers.containsKey(task)) {
-            tasksAssignedToMembers.get(task).add(member);
-        } else {
-            ArrayList<Member> memberList = new ArrayList<>();
-            memberList.add(member);
-            tasksAssignedToMembers.put(task,memberList);
-        }
+    public void createAssignment(Task task, Member member) {
+        taskAndListOfMembersAssigned.get(task).add(member);
+        memberAndIndividualListOfTasks.get(member).add(task);
     }
 
     /**
-     * This method assign member to a list of task.
-     * @param member the member which you wish to assign to a task.
-     * @param task the task you wish to assign the member to.
+     * Removes the assignment between member and task.
+     * @param member the member to unassign the task from.
+     * @param task the task to be unassigned.
      */
-    @Override
-    public void assignMemberToTasks(Member member, Task task) {
-        if (membersAssignedToTask.containsKey(member)) {
-            membersAssignedToTask.get(member).add(task);
-        } else {
-            ArrayList<Task> taskList = new ArrayList<>();
-            taskList.add(task);
-            membersAssignedToTask.put(member, taskList);
-        }
+    public void removeAssignment(Member member, Task task) {
+        taskAndListOfMembersAssigned.get(task).remove(member);
+        memberAndIndividualListOfTasks.get(member).remove(task);
     }
 
     /**
-     * This method is used when a task is removed.
-     * This removes the task from the taskToMembers and memberToTasks.
-     * @param task to  be remove from the HashMap
+     * Checks if assignment exists between a member and task.
+     * @param task The task in question.
+     * @param member The member in question.
+     * @return true task has already been assigned to a member.
      */
-    public void removeTaskToMembers(Task task) {
-        ArrayList<Member> listOfMember = tasksAssignedToMembers.get(task);
-        for (Member member: listOfMember) {
-            membersAssignedToTask.get(member).remove(task);
-        }
-        tasksAssignedToMembers.remove(task);
-    }
-
-    /**
-     * This method is used when a member is removed.
-     * This removes the member from the memberToTasks and taskToMembers.
-     * @param member the member to be remove from the HashMap
-     */
-    public void removeMemberToTasks(Member member) {
-        ArrayList<Task> listOfTask = membersAssignedToTask.get(member);
-        for (Task task: listOfTask) {
-            tasksAssignedToMembers.get(task).remove(member);
-        }
-        membersAssignedToTask.remove(member);
+    public boolean containsAssignment(Task task, Member member) {
+        return memberAndIndividualListOfTasks.get(member).contains(task);
     }
 }
