@@ -62,6 +62,7 @@ public class Argparse4jWrapper {
     // Add arguments for parsers here
     public void mapBuiltinParserArguments() {
         Subparsers addParsers = getSubParser("add").addSubparsers()
+                .dest("toAdd")
                 .help("add command options");
         addParsers.addParser("module")
                 .help("Add a module")

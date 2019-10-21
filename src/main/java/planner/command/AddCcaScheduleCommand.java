@@ -6,37 +6,23 @@ import java.util.HashMap;
 
 import planner.exceptions.original.ModCcaScheduleException;
 import planner.exceptions.original.ModEmptyListException;
+import planner.exceptions.original.ModException;
 import planner.exceptions.original.ModInvalidTimeException;
 import planner.exceptions.original.ModOutOfBoundException;
-import planner.modules.inherited.Cca;
 import planner.modules.data.ModuleInfoDetailed;
-import planner.util.periods.CcaList;
-import planner.util.periods.DateTimeParser;
-import planner.util.periods.TimePeriodWeekly;
+import planner.modules.inherited.Cca;
 import planner.util.commons.JsonWrapper;
 import planner.util.commons.ModuleTasksList;
 import planner.util.commons.PlannerUi;
 import planner.util.commons.Storage;
+import planner.util.periods.CcaList;
+import planner.util.periods.DateTimeParser;
+import planner.util.periods.TimePeriodWeekly;
 
 public class AddCcaScheduleCommand extends ModuleCommand {
-    private int index;
-    private LocalTime begin;
-    private LocalTime end;
-    private DayOfWeek dayOfWeek;
 
-    /**
-     * Constructor for AddCcaScheduleCommand.
-     * @param index input index of Cca
-     * @param begin begin time
-     * @param end end time
-     * @param dayOfWeek day of week on which cca takes place
-     * @throws ModInvalidTimeException when input time is invalid
-     */
-    public AddCcaScheduleCommand(int index, String begin, String end, String dayOfWeek) throws ModInvalidTimeException {
-        this.index = index - 1;
-        this.begin = DateTimeParser.getStringToDate(begin).toLocalTime();
-        this.end = DateTimeParser.getStringToDate(end).toLocalTime();
-        this.dayOfWeek = DayOfWeek.valueOf(dayOfWeek.toUpperCase());
+    public AddCcaScheduleCommand(Arguments args) throws ModInvalidTimeException {
+        super(args);
     }
 
     @Override
@@ -46,21 +32,22 @@ public class AddCcaScheduleCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) throws
-            ModCcaScheduleException,
-            ModEmptyListException,
-            ModOutOfBoundException {
+                        JsonWrapper jsonWrapper) throws ModException {
+        int index = arg("index", Integer.class) - 1;
         if (ccas.size() == 0) {
             throw new ModEmptyListException("ccas");
         }
         if (index < 0 || index >= ccas.size()) {
             throw new ModOutOfBoundException();
         }
-        Cca cca = ccas.get(this.index);
-        if (cca.isClashing(new TimePeriodWeekly(this.begin, this.end, this.dayOfWeek))) {
+        Cca cca = ccas.get(index);
+        LocalTime begin = DateTimeParser.getStringToDate(arg("begin")).toLocalTime();
+        LocalTime end = DateTimeParser.getStringToDate(arg("end")).toLocalTime();
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(arg("dayOfWeek").toUpperCase());
+        if (cca.isClashing(new TimePeriodWeekly(begin, end, dayOfWeek))) {
             throw new ModCcaScheduleException();
         }
-        cca.addPeriod(this.begin, this.end, this.dayOfWeek);
+        cca.addPeriod(begin, end, dayOfWeek);
         if (ccas.clashes(cca)) {
             cca.removePeriod(cca.getPeriods().size() - 1);
             throw new ModCcaScheduleException();
