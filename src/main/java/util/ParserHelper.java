@@ -22,6 +22,7 @@ public class ParserHelper {
         memberDetails[0] = "No name";
         memberDetails[1] = "No phone number";
         memberDetails[2] = "No email address";
+        memberDetails[3] = "0";
         String[] tempInput = input.split(" ");
         for (String s : tempInput) {
             if (s.length() >= 2) {

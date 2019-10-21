@@ -16,9 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TaskListTest {
-    private Project project = new Project("Infinity_Gauntlet");
-    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
+    private Project project;
+    private DateTimeHelper dateTimeHelper;
 
+    TaskListTest() {
+        project = new Project("Infinity_Gauntlet");
+        dateTimeHelper = new DateTimeHelper();
+    }
+    
     @Test
     void alwaysTrue() {
         assertEquals(2, 2);
