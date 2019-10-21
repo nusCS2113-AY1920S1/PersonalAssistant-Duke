@@ -1,9 +1,7 @@
 package Interface;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +17,11 @@ public class LookupTable {
      */
     public LookupTable() throws IOException {
         String line;
-        BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\data\\Lookup.txt"));
+        // InputStream is = getClass().getResourceAsStream("Lookup.txt");
+         //InputStreamReader isr = new InputStreamReader(is);
+         //BufferedReader reader = new BufferedReader(isr);
+         BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\data\\Lookup.txt"));
+
         while ((line = reader.readLine()) != null)
         {
             String[] parts = line.split(":", 2);
@@ -27,10 +29,12 @@ public class LookupTable {
             {
                 String key = parts[0].trim();
                 String value = parts[1].trim();
-                this.map.put(key.toLowerCase(), value);
+                this.map.put(key.trim().toLowerCase(), value);
             }
         }
         reader.close();
+        //isr.close();
+        //is.close();
     }
 
 
