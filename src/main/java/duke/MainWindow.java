@@ -81,8 +81,11 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         if (input.isEmpty()) {
             showMessage("Pls input a command to proceed");
+//            resultDisplay.setText("Pls input a command to proceed");
         } else {
             resultDisplay.clear();
+//            listView.getItems().clear();
+//            listViewResult.getItems().clear();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input)
             );
@@ -95,6 +98,8 @@ public class MainWindow extends AnchorPane {
                 //causing items to be added twice
                 ArrayList<String> arrayList = new ArrayList<>(duke.runProgram(input));
                 showMessage(arrayList.get(0));
+//                showMessage(duke.runProgram(input).get(0));
+//                resultDisplay.setText(duke.runProgram(input).get(0));
                 if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
                     listViewResult.getItems().clear();
                     for (int i = 1; i < arrayList.size(); i++) {

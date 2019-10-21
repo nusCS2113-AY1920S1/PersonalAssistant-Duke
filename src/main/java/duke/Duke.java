@@ -3,6 +3,7 @@ package duke;
 import duke.command.Command;
 import duke.command.CommandBooking;
 import duke.command.CommandIngredients;
+import duke.command.*;
 import duke.exception.DukeException;
 import duke.list.bookinglist.BookingList;
 import duke.list.ingredientlist.IngredientList;
@@ -105,8 +106,8 @@ public class Duke {
             System.out.println("stuck here5");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
                 System.out.println("stuck here6");
-                Command<RecipeList, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, ui, recipeStorage);
+                Command<RecipeTitleList, Ui, RecipeTitleStorage> command = Parser.parseRecipeTitle(userInput);
+                return command.execute(recipeTitleList, ui, recipeTitleStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
