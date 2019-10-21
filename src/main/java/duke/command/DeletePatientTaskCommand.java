@@ -43,8 +43,8 @@ public class DeletePatientTaskCommand extends Command {
                 this.deletedPatientInfo = deleteInfo;
             }
         } catch (Exception e) {
-            throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>" +
-                    "/<patientName>. ");
+            throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>"
+                    + "/<patientName>. ");
         }
 
     }
