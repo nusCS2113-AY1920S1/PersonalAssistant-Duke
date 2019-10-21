@@ -14,9 +14,9 @@ import cube.logic.command.exception.CommandErrorMessage;
 /**
  * This class supports commands related to delete.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 	/**
-	 * Use enums to specify the states of delete.
+	 * Use enums to specify the states of the food to be deleted.
 	 */
 	public enum DeleteBy {
 		INDEX, NAME, TYPE
@@ -43,7 +43,7 @@ public class DeleteCommand extends Command{
 	/**
 	 * The constructor for delete using index.
 	 *
-	 * @param index The index of the object to be deleted.
+	 * @param index The index of the food to be deleted.
 	 * @param param The parameter is used to specify the type of deletion.
 	 */
 	public DeleteCommand(int index, String param) {
@@ -57,7 +57,7 @@ public class DeleteCommand extends Command{
 	 * @param deleteDescription The food name or food type to be deleted.
 	 * @param param The parameter is used to specify the type of deletion.
 	 */
-	public DeleteCommand(String deleteDescription, String param){
+	public DeleteCommand(String deleteDescription, String param) {
 		this.deleteDescription = deleteDescription;
 		this.param = DeleteBy.valueOf(param);
 	}
@@ -98,7 +98,7 @@ public class DeleteCommand extends Command{
 	}
 
 	/**
-	 * The class removes the food object commanded to be removed.
+	 * The class removes the food the user wishes to remove.
 	 *
 	 * @param list The food list.
 	 * @param storage The storage we have.
