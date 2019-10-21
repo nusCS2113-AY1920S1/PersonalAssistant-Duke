@@ -4,7 +4,9 @@ import models.data.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectRepositoryTest {
     private ProjectRepository projectRepository;
