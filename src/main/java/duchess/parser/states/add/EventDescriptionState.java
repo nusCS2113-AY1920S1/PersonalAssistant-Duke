@@ -11,34 +11,34 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Handles the parsing of module names.
+ * Handles the parsing of event descriptions.
  */
-public class ModuleNameState implements ParserState {
+public class EventDescriptionState implements ParserState {
     private final Parser parser;
 
-    public ModuleNameState(Parser parser) {
+    public EventDescriptionState(Parser parser) {
         this.parser = parser;
     }
 
     @Override
     public Command parse(String input) throws DuchessException {
         Map<String, String> parameters = Util.parameterizeWithoutCommand(input);
-        return processModuleName(parameters.get("general"), parameters);
+        return processDescription(parameters.get("general"), parameters);
     }
 
     @Override
     public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        return processModuleName(parameters.get("name"), parameters);
+        return processDescription(parameters.get("name"), parameters);
     }
 
-    private Command processModuleName(String name, Map<String, String> parameters) throws DuchessException {
-        Optional<ParserState> nextState = Optional.ofNullable(name)
-                .map(moduleName -> new ModuleCodeState(parser, moduleName));
+    private Command processDescription(String description, Map<String, String> parameters) throws DuchessException {
+        Optional<ParserState> nextState = Optional.ofNullable(description)
+                .map(desc -> new EventFromState(parser, desc));
 
         if (nextState.isPresent()) {
             return parser.setParserState(nextState.get()).continueParsing(parameters);
         } else {
-            return new DisplayCommand(Parser.MODULE_NAME_PROMPT);
+            return new DisplayCommand(Parser.EVENT_DESCRIPTION_PROMPT);
         }
     }
 }

@@ -106,26 +106,6 @@ public class DefaultState implements ParserState {
                         .parseDateTime(arguments, separatorIndex + 1);
                 return new AddDeadlineCommand(description, deadline);
             }
-        case "event":
-            int atSeparatorIndex = arguments.indexOf("/at");
-            int toSeparatorIndex = arguments.indexOf("/to");
-            if (arguments.size() == 0 || atSeparatorIndex <= 0 || toSeparatorIndex < atSeparatorIndex) {
-                throw new DuchessException("Format for event: event <event> /at <start datetime> /to <end datetime>");
-            }
-            if (arguments.get(arguments.size() - 1).charAt(0) == '#') {
-                String description = String.join(" ", arguments.subList(0, atSeparatorIndex));
-                LocalDateTime end = Util
-                        .parseDateTime(arguments.subList(0, arguments.size() - 1), toSeparatorIndex + 1);
-                LocalDateTime start = Util
-                        .parseDateTime(arguments.subList(0, arguments.size() - 1), atSeparatorIndex + 1);
-                String moduleCode = arguments.get(arguments.size() - 1).substring(1);
-                return new AddEventCommand(description, end, start, moduleCode);
-            } else {
-                String description = String.join(" ", arguments.subList(0, atSeparatorIndex));
-                LocalDateTime end = Util.parseDateTime(arguments, toSeparatorIndex + 1);
-                LocalDateTime start = Util.parseDateTime(arguments, atSeparatorIndex + 1);
-                return new AddEventCommand(description, end, start);
-            }
         case "reminder":
             return new ReminderCommand();
         case "snooze":
@@ -168,7 +148,6 @@ public class DefaultState implements ParserState {
 
     @Override
     public Command continueParsing(Map<String, String> parameters) throws DuchessException {
-        // This should never be called theoretically
         throw new DuchessException("An unexpected error occurred while processing your command.");
     }
 }

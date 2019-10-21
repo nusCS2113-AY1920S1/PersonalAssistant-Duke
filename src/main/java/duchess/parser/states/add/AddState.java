@@ -13,6 +13,9 @@ import java.util.Optional;
 
 import static duchess.parser.Parser.ADD_TYPE_PROMPT;
 
+/**
+ * Handles the parsing of entity type to add.
+ */
 public class AddState implements ParserState {
     private final Parser parser;
 
@@ -38,6 +41,8 @@ public class AddState implements ParserState {
                 .map(type -> {
                     if (type.charAt(0) == 'm') {
                         return new ModuleNameState(parser);
+                    } else if (type.charAt(0) == 'e') {
+                        return new EventDescriptionState(parser);
                     } else {
                         return null;
                     }

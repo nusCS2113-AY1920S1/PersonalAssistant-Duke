@@ -23,6 +23,10 @@ class AddStateTest {
         assertTrue(
                 addState.parse("module") instanceof DisplayCommand);
         assertTrue(parser.getParserState() instanceof ModuleNameState);
+
+        assertTrue(
+                addState.parse("event") instanceof DisplayCommand);
+        assertTrue(parser.getParserState() instanceof EventDescriptionState);
     }
 
     @Test

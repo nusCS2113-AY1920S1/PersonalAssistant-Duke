@@ -11,6 +11,9 @@ import duchess.parser.states.ParserState;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Handles the parsing of module code.
+ */
 public class ModuleCodeState implements ParserState {
     private final Parser parser;
     private final String moduleName;

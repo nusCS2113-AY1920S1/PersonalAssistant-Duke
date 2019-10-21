@@ -32,6 +32,14 @@ public class Parser {
             "What's the name of the module? (e.g. Discrete Mathematics)";
     public static final String MODULE_CODE_PROMPT =
             "What's the module code for %s? (e.g. CS1231)";
+    public static final String EVENT_DESCRIPTION_PROMPT =
+            "What's the name of the event?";
+    public static final String EVENT_START_PROMPT =
+            "When does %s start? (dd/mm/yyyy hhmm)";
+    public static final String EVENT_END_PROMPT =
+            "When does %s end? (dd/mm/yyyy hhmm)";
+    public static final String EVENT_MODULE_PROMPT =
+            "What module is %s for? (enter 'nil' to skip)";
 
     private ParserState parserState;
 
