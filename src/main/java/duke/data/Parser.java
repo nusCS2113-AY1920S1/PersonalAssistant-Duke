@@ -391,7 +391,6 @@ public class Parser {
                 System.out.print("What do you want to edit for ");
                 students.getStudentName(index);
                 System.out.println("?");
-
                 // editStudentDetails(detail)
                 break;
 
@@ -409,6 +408,14 @@ public class Parser {
                 index = Integer.parseInt(word[2]);
                 System.out.print("You have selected: ");
                 students.getStudentName(index);
+                break;
+
+            case "particulars":
+                // Edit particulars of the student
+                break;
+
+            case "progress":
+                //Add student progress
                 break;
 
             default:
