@@ -188,7 +188,6 @@ public class TaskList {
         return taskToBeEdited;
     }
 
-
     public ArrayList<Task> getTasks() {
         return listOfTasks;
     }

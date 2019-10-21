@@ -22,10 +22,16 @@ import task.TaskList;
 import task.Todo;
 import ui.Ui;
 
+import javax.xml.stream.Location;
 import java.io.File;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -49,8 +55,6 @@ public class MainWindow extends AnchorPane {
     private Label todayTaskLabel;
     @FXML
     private ListView<Task> tasksForTheDay;
-    @FXML
-    private VBox timelineContainer;
     @FXML
     private ListView<Task> mondayTask;
     @FXML
@@ -109,6 +113,13 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         tasksForTheDay.setItems(holdTodayTasks);
         todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
+        mondayTask.setItems(mondayTasks);
+        tuesdayTask.setItems(tuesdayTasks);
+        wednesdayTask.setItems(wednesdayTasks);
+        thursdayTask.setItems(thursdayTasks);
+        fridayTask.setItems(fridayTasks);
+        saturdayTask.setItems(saturdayTasks);
+        sundayTask.setItems(sundayTasks);
     }
 
     /**
@@ -125,6 +136,14 @@ public class MainWindow extends AnchorPane {
             populateTodayTasks();
             tasksForTheDay.setItems(holdTodayTasks);
             todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
+            populateEveryDay();
+            mondayTask.setItems(mondayTasks);
+            tuesdayTask.setItems(tuesdayTasks);
+            wednesdayTask.setItems(wednesdayTasks);
+            thursdayTask.setItems(thursdayTasks);
+            fridayTask.setItems(fridayTasks);
+            saturdayTask.setItems(saturdayTasks);
+            sundayTask.setItems(sundayTasks);
         } catch (DukeException e) {
             errorMessageContainer.getChildren().addAll(
                 ErrorMessageBar.getErrorMessage(e.getMessage())
@@ -145,7 +164,30 @@ public class MainWindow extends AnchorPane {
 
     private static void populateEveryDay() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        now.getDayOfWeek();
+
+        final DayOfWeek Monday = DayOfWeek.MONDAY;
+        final DayOfWeek Tuesday = DayOfWeek.TUESDAY;
+        final DayOfWeek Wednesday = DayOfWeek.WEDNESDAY;
+        final DayOfWeek Thursday = DayOfWeek.THURSDAY;
+        final DayOfWeek Friday = DayOfWeek.FRIDAY;
+        final DayOfWeek Saturday = DayOfWeek.SATURDAY;
+        final DayOfWeek Sunday = DayOfWeek.SUNDAY;
+
+        String monday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Monday)));
+        String tuesday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Tuesday)));
+        String wednesday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Wednesday)));
+        String thursday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Thursday)));
+        String friday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Friday)));
+        String saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Saturday)));
+        String sunday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)));
+
+        mondayTasks = FXCollections.observableArrayList(tasks.schedule(monday));
+        tuesdayTasks = FXCollections.observableArrayList(tasks.schedule(tuesday));
+        wednesdayTasks = FXCollections.observableArrayList(tasks.schedule(wednesday));
+        thursdayTasks = FXCollections.observableArrayList(tasks.schedule(thursday));
+        fridayTasks = FXCollections.observableArrayList(tasks.schedule(friday));
+        saturdayTasks = FXCollections.observableArrayList(tasks.schedule(saturday));
+        sundayTasks = FXCollections.observableArrayList(tasks.schedule(sunday));
     }
+
 }
