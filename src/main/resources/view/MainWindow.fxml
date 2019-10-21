@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algosenpai.app.ui.Ui">
-    <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="317.0" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="317.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
-            <content>
-                <VBox fx:id="dialogContainer" prefHeight="800.0" prefWidth="398.0" />
-            </content>
-        </ScrollPane>
-        <ProgressBar layoutX="405.0" layoutY="127.0" prefHeight="18.0" prefWidth="120.0" progress="1.0" />
-      <TextFlow layoutX="413.0" layoutY="8.0" prefHeight="113.0" prefWidth="104.0" />
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0"
+            prefWidth="539.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.algosenpai.app.ui.Ui">
     <style>
         -fx-background-color: #ECE5DD;
         -fx-font-family: 'Montserrat';
     </style>
+    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="317.0"
+               AnchorPane.bottomAnchor="1.0"/>
+    <Button fx:id="sendButton" layoutX="317.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput"
+            prefHeight="41.0" prefWidth="76.0" text="Send"/>
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+        <VBox fx:id="dialogContainer" prefHeight="400.0" prefWidth="400.0"/>
+    </ScrollPane>
+    <ProgressBar layoutX="405.0" layoutY="127.0" prefHeight="18.0" prefWidth="120.0" progress="1.0"/>
+    <TextFlow layoutX="413.0" layoutY="8.0" prefHeight="113.0" prefWidth="104.0"/>
 </AnchorPane>

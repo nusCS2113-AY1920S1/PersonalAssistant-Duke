@@ -1,4 +1,4 @@
-package com.algosenpai.app.ui.controller;
+package com.algosenpai.app.ui.components;
 
 import java.io.IOException;
 import java.util.Collections;

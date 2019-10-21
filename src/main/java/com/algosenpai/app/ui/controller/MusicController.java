@@ -1,14 +1,14 @@
 package com.algosenpai.app.ui.controller;
 
-import com.algosenpai.app.logic.constant.ResourcePathConstant;
 import com.algosenpai.app.logic.constant.SoundConstant;
-import com.algosenpai.app.logic.constant.SoundEnum;
+import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
-class MusicController {
+public class MusicController {
 
     private static MediaPlayer mediaPlayer;
 
@@ -16,24 +16,30 @@ class MusicController {
 
     private static boolean isMuted = false;
 
-    MusicController() {
-        playMusic(SoundConstant.homeSound.get(SoundEnum.PROMISE));
+    public MusicController() throws URISyntaxException {
+        playMusic();
     }
 
-    /**
-     * Play and change music.
-     * @param musicName name of the music.
-     */
-    static void playMusic(String musicName) {
+    static void playMusic() throws URISyntaxException {
         if (isLoaded) {
             mediaPlayer.stop();
         }
-        String musicFile = ResourcePathConstant.soundFilePath + musicName;
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.play();
+        randomMusic();
         isLoaded = true;
+        mediaPlayer.setOnEndOfMedia(() -> {
+            try {
+                randomMusic();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    static void randomMusic() throws URISyntaxException {
+        String musicName = ResourceRandomUtility.randomResources(SoundConstant.music);
+        Media sound = new Media(MusicController.class.getResource("/sound/" + musicName).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
     static void toggleVolume() {

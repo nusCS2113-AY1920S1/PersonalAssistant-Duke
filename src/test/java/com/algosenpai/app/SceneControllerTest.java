@@ -1,7 +1,5 @@
 package com.algosenpai.app;
 
-import com.algosenpai.app.logic.constant.JavaFxConstant;
-import com.algosenpai.app.ui.controller.SceneController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
