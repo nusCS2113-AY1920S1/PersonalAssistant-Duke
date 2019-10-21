@@ -7,6 +7,7 @@ import duke.task.BudgetList;
 
 import java.io.IOException;
 
+//@@author maxxyx96
 public class ResetBudgetCommand extends Command {
     protected BudgetList budgetList;
     protected Ui ui = new Ui();
@@ -68,3 +69,4 @@ public class ResetBudgetCommand extends Command {
 
     }
 }
+//@@author
