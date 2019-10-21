@@ -128,7 +128,7 @@ public class Ui {
     }
 
     public String showSearch(String description, String meaning) {
-        return ("Here is the meaning of " + description + ": " + meaning);
+        return ("Here is the meaning of " + description + ": " + meaning + "\n");
     }
 
     /**

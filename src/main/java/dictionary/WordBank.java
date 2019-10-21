@@ -7,6 +7,7 @@ import command.OxfordCall;
 import storage.Storage;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class WordBank {
@@ -38,12 +39,32 @@ public class WordBank {
         word = word.toLowerCase();
         String s = "";
         if (!(wordBank.containsKey(word))) {
-            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
-            String result = OxfordCall.onlineSearch(word);
-            Word temp = new Word(word, result);
-            wordBank.put(word, temp);
+//            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
+//            String result = OxfordCall.onlineSearch(word);
+//            Word temp = new Word(word, result);
+//            wordBank.put(word, temp);
+            throw new NoWordFoundException(word);
         }
         return s + wordBank.get(word).getMeaning();
+    }
+
+    public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
+        word = word.toLowerCase();
+        ArrayList<String> arrayList = new ArrayList<>();
+        String upperBoundWord = wordBank.ceilingKey(word);
+        if (!upperBoundWord.startsWith(word)) {
+            throw new NoWordFoundException(word);
+        }
+        TreeMap<String, Word> subMap = (TreeMap<String, Word>) wordBank.subMap(upperBoundWord, wordBank.lastKey());
+        for (String s : subMap.keySet()) {
+            if (s.startsWith(word)) {
+                arrayList.add(s);
+            }
+            else {
+                break;
+            }
+        }
+        return arrayList;
     }
 
     /**
