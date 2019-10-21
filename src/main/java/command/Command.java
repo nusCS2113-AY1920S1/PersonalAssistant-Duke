@@ -1,5 +1,6 @@
 package command;
 
+import control.Duke;
 import exception.DukeException;
 import room.RoomList;
 import storage.Storage;
