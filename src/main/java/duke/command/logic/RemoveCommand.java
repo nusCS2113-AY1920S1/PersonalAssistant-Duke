@@ -27,7 +27,7 @@ public class RemoveCommand extends ModuleCommand {
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
-        int index = arg("index", int.class);
+        int index = arg("index", Integer.class);
         switch (arg("toRemove")) {
             case "cca": {
                 if (ccas.size() == 0) {
