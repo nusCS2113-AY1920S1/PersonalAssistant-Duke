@@ -70,14 +70,6 @@ public class Limit extends Log {
         //edit budget after adding in expenses or income
     }
 
-    //remove
-    @Override
-    public String getLogText() {
-        return "[" + type + "] "
-                + "[" + amountToMoney() + "] "
-                + "[/for " + duration + "]";
-    }
-
     @Override
     public String formatSave() {
         saveType = type.equals("saving") ? "S" : "BU";
