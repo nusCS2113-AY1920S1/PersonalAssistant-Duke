@@ -6,6 +6,7 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.thread.ChartThread;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
