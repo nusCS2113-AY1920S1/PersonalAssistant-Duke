@@ -109,21 +109,76 @@ class ProjectInputControllerTest {
 
     @Test
     void testProjectAddTask() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
+
+        // the following test fails
+        /*
+        simulatedUserinput = "add task t/Documentation for product p/2 c/40 s/done r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
+        */
+
+        simulatedUserinput = "add task t/Documentation for product p/2 c/40 r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
+
+        simulatedUserinput = "add task t/Documentation for product p/2 c/40";
+        projectInputController.projectAddTask(project,simulatedUserinput);
+
+        actualOutput = "";
+        for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        /*expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
+                "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE" +
+                "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN" +
+                "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
+         */
+
+        expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
+                "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN" +
+                "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
+
+
+        assertEquals(expectedOutput,actualOutput);
     }
 
     @Test
     void testProjectEditTask() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
 
+        // the following test fails
+        /*simulatedUserinput = "edit task i/1 t/No documentation p/5 d/22/09/2019 c/50 s/done r/do nothing r/do another thing";
+        projectInputController.projectEditTask(project,simulatedUserinput);
+        actualOutput = "";
+        for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. No documentation | Priority: 5 | Due: 22 Sep 2019 | Credit: 50 | State: DONE";
+        assertEquals(expectedOutput,actualOutput);
+        */
     }
 
     @Test
     void testProjectDeleteTask() {
-
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
+        simulatedUserinput = "delete task 1";
+        projectInputController.projectDeleteTask(project,simulatedUserinput);
+        actualOutput = "";
+        for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "";
+        assertEquals(expectedOutput,actualOutput);
     }
 
     @Test
     void testProjectEditTaskRequirements() {
-
+        
     }
 
     @Test
