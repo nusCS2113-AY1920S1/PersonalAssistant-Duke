@@ -3,17 +3,17 @@ package Events.Storage;
 import Events.EventTypes.Event;
 import Events.Formatting.EventDate;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class CalendarTable {
+public class CalendarView {
     private List<Queue<Event>> eventsOfTheWeek = new ArrayList<Queue<Event>>(7);
 
-    private ArrayList<String> dayOfWeek = new ArrayList<String>();
-    private ArrayList<String> dateOfWeek = new ArrayList<String>();
-    private String calendarInfo;
+    private ArrayList<String> daysToDisplay = new ArrayList<String>();
+    private ArrayList<String> datesToDisplay = new ArrayList<String>();
+    private String stringForOutput;
+    static final int MONDAY = 0, TUESDAY = 1, WEDNESDAY = 2, THURSDAY = 3, FRIDAY = 4, SATURDAY = 6, SUNDAY = 7;
 
-    public CalendarTable(EventList eventList) {
+    public CalendarView(EventList eventList) {
         ArrayList<Event> eventArrayList = eventList.getEventArrayList();
         for (int i = 0; i < 7; i++) {
             eventsOfTheWeek.add(new LinkedList<Event>());
@@ -23,15 +23,15 @@ public class CalendarTable {
         getEventsOfTheWeek(eventArrayList, today);
     }
 
-    public String getCalendarInfo() {
-        return calendarInfo;
+    public String getStringForOutput() {
+        return stringForOutput;
     }
 
     /**
      * Find all the events in the coming 7 days.
      *
      * @param eventArrayList List of all events.
-     * @param today The current day.
+     * @param today          The current day.
      */
     private void getEventsOfTheWeek(ArrayList<Event> eventArrayList, EventDate today) {
         EventDate yesterday = new EventDate(new Date());
@@ -57,39 +57,57 @@ public class CalendarTable {
     }
 
     /**
-     * Sets the two Arraylists containing days and dates info for the coming 7 days.
+     * Sets the two ArrayLists containing days and dates info for the coming 7 days.
      *
      * @param today The current day.
      */
     private void setDaysAndDatesList(EventDate today) {
-        String dayOfToday = today.getEventJavaDate().toString().split(" ")[0];
-        String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednsday>   ",
+        String currDay = today.getEventJavaDate().toString().split(" ")[0];
+        String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>   ",
                 "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
-        int startDay;
-        if (dayOfToday.equals("Mon")) {
-            startDay = 0;
-        } else if (dayOfToday.equals("Tue")) {
-            startDay = 1;
-        } else if (dayOfToday.equals("Wed")) {
-            startDay = 2;
-        } else if (dayOfToday.equals("Thu")) {
-            startDay = 3;
-        } else if (dayOfToday.equals("Fri")) {
-            startDay = 4;
-        } else if (dayOfToday.equals("Sat")) {
-            startDay = 5;
-        } else {
-            startDay = 6;
+
+        int startDay = 0;
+        switch (currDay) {
+            case "Mon": {
+                startDay = MONDAY;
+                break;
+            }
+            case "Tue": {
+                startDay = TUESDAY;
+                break;
+            }
+            case "Wed": {
+                startDay = WEDNESDAY;
+                break;
+            }
+            case "Thu": {
+                startDay = THURSDAY;
+                break;
+            }
+            case "Fri": {
+                startDay = FRIDAY;
+                break;
+            }
+            case "Sat": {
+                startDay = SATURDAY;
+                break;
+            }
+            case "Sun": {
+                startDay = SUNDAY;
+                break;
+            }
+
         }
-        for(int i=0; i<7; i++) {
-            this.dayOfWeek.add(weekdays[(startDay + i) % 7]);
+
+        for (int i = 0; i < 7; i++) {
+            this.daysToDisplay.add(weekdays[(startDay + i) % 7]);
         }
 
         EventDate tempDay = today;
-        for (int i=0; i<7; i++) {
+        for (int i = 0; i < 7; i++) {
             tempDay.addDaysAndSetMidnight(i);
             String thisDate = tempDay.getUserInputDateString().split(" ")[0];
-            this.dateOfWeek.add("   " + thisDate + "   ");
+            this.datesToDisplay.add("   " + thisDate + "   ");
         }
     }
 
@@ -108,25 +126,26 @@ public class CalendarTable {
                 "________________________________________________________________________________________________________________________\n";
 
         // row of days
-        for(int i=0; i<7; i++) {
-            calendarInfo += "|" + this.dayOfWeek.get(i);
+        for (int i = 0; i < 7; i++) {
+            calendarInfo += "|" + this.daysToDisplay.get(i);
         }
         calendarInfo += "|\n";
 
         // row of dates
-        for(int i=0; i<7; i++) {
-            calendarInfo += "|" + this.dateOfWeek.get(i);
+        for (int i = 0; i < 7; i++) {
+            calendarInfo += "|" + this.datesToDisplay.get(i);
         }
         calendarInfo += "|\n" +
-                "________________________________________________________________________________________________________________________\n";;
+                "________________________________________________________________________________________________________________________\n";
+        ;
 
         // rows of events
-        for(int idxOfEventRow=0; idxOfEventRow<maxNumOfEvent; idxOfEventRow++) {
+        for (int idxOfEventRow = 0; idxOfEventRow < maxNumOfEvent; idxOfEventRow++) {
             String[][] eventsLine = null;
             eventsLine = getEventsOfOneRow(idxOfEventRow);
 
-            for (int row=0; row<3; row++) {
-                for (int day=0; day<7; day++) {
+            for (int row = 0; row < 3; row++) {
+                for (int day = 0; day < 7; day++) {
                     calendarInfo += "|" + eventsLine[row][day];
                 }
                 calendarInfo += "|\n";
@@ -135,7 +154,7 @@ public class CalendarTable {
 
         calendarInfo += "|                |                |                |                |                |                |                |\n" +
                 "________________________________________________________________________________________________________________________";
-        this.calendarInfo = calendarInfo;
+        this.stringForOutput = calendarInfo;
     }
 
     /**
@@ -148,7 +167,7 @@ public class CalendarTable {
     private String[][] getEventsOfOneRow(int idxOfEventRow) {
         String[][] eventsLine = new String[3][7];
         String emptySection = "                ";
-        for(int day=0; day<7; day++) {
+        for (int day = 0; day < 7; day++) {
             String thisTime = emptySection;
             String thisDescription = emptySection;
             String thisDashes = emptySection;
@@ -158,12 +177,12 @@ public class CalendarTable {
                 //time
                 String thisStartTime = null, thisEndTime = null;
                 assert tempEvent != null;
-                if (!(tempEvent.getStartDate()==null) &&
-                        (tempEvent.getStartDate().getFormattedDateString().split(", ").length>2)) {
+                if (!(tempEvent.getStartDate() == null) &&
+                        (tempEvent.getStartDate().getFormattedDateString().split(", ").length > 2)) {
                     thisStartTime = tempEvent.getStartDate().getFormattedDateString().split(", ")[2];
                     thisTime = "* " + thisStartTime;
-                    if (!(tempEvent.getEndDate()==null) &&
-                            (tempEvent.getEndDate().getFormattedDateString().split(", ").length>2)) {
+                    if (!(tempEvent.getEndDate() == null) &&
+                            (tempEvent.getEndDate().getFormattedDateString().split(", ").length > 2)) {
                         thisEndTime = tempEvent.getEndDate().getFormattedDateString().split(", ")[2];
                         thisTime += " ~ " + thisEndTime + " ";
                     }
@@ -174,10 +193,10 @@ public class CalendarTable {
                 //description
                 String tempDescription = tempEvent.getDescription();
                 if (tempDescription.length() > 13) {
-                    thisDescription = tempDescription.substring(0,13) + "...";
+                    thisDescription = tempDescription.substring(0, 13) + "...";
                 } else {
                     String spaces = "";
-                    for (int i=0; i<(16-tempDescription.length()); i++) {
+                    for (int i = 0; i < (16 - tempDescription.length()); i++) {
                         spaces += " ";
                     }
                     thisDescription = tempDescription + spaces;

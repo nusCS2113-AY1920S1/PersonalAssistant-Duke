@@ -8,7 +8,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
-import Events.Storage.CalendarTable;
+import Events.Storage.CalendarView;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -129,14 +129,6 @@ public class Command {
                 rescheduleEvents(events, ui);
                 break;
 
-            case "details":
-                addEventDetails(events, ui);
-                break;
-
-            case "viewdetails":
-                viewDetails(events, ui);
-                break;
-            
             case "edit":
                 editEvent(events, ui);
                 break;
@@ -157,9 +149,9 @@ public class Command {
     }
 
     private void printCalendar(EventList events, UI ui) {
-        CalendarTable calendarTable = new CalendarTable(events);
-        calendarTable.setCalendarInfo();
-        ui.printCalendar(calendarTable.getCalendarInfo());
+        CalendarView calendarView = new CalendarView(events);
+        calendarView.setCalendarInfo();
+        ui.printCalendar(calendarView.getStringForOutput());
     }
 
     /**
@@ -239,12 +231,6 @@ public class Command {
         }
     }
 
-    public void viewDetails(EventList events, UI ui) {
-        int eventNo = Integer.parseInt(continuation);
-        Event currEvent = events.getEvent(eventNo - 1);
-        ui.printEventDetails(currEvent);
-    }
-
     public void createNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -277,20 +263,16 @@ public class Command {
                         break;
                 }
 
-                if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                    try {
+                try {
+                    if (entryForEvent.getPeriod() == NO_PERIOD) {
                         events.addEvent(newEvent);
                         ui.eventAdded(newEvent, events.getNumEvents());
-                    } catch (ClashException e) {
-                        ui.scheduleClash(e.getClashEvent());
-                    }
-                } else { //add recurring event
-                    try {
+                    } else {
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                         ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    } catch (ClashException e) {
-                        ui.scheduleClash(e.getClashEvent());
                     }
+                } catch (ClashException e) {
+                    ui.scheduleClash(e.getClashEvent());
                 }
 
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
@@ -332,22 +314,6 @@ public class Command {
             } else {
                 ui.noSuchEvent();
             }
-        } catch (IndexOutOfBoundsException outOfBoundsE) {
-            ui.noSuchEvent();
-        } catch (NumberFormatException notInteger) {
-            ui.notAnInteger();
-        }
-    }
-
-    public void addEventDetails(EventList events, UI ui) {
-        try {
-            Parser parser = new Parser();
-            int eventNo = Integer.parseInt(continuation);
-            Event currEvent = events.getEvent(eventNo - 1);
-            ui.inputDetails();
-            String detailsInput = parser.readUserInput();
-            currEvent.addDetails(detailsInput);
-            ui.eventDetailsAdded(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {
