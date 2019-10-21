@@ -6,10 +6,12 @@ import duke.command.logic.CoreModuleReportCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.GeneralModuleReportCommand;
 import duke.command.logic.ModuleCommand;
-import duke.command.logic.SortCommand;
 import duke.command.logic.RemoveModCommand;
 import duke.command.logic.SearchThenAddCommand;
 import duke.command.logic.ShowModuleCommand;
+import duke.command.logic.SortByCodeCommand;
+import duke.command.logic.SortByMcCommand;
+import duke.command.logic.SortByLevelCommand;
 import duke.command.logic.UnrestrictedModuleReportCommand;
 import duke.modules.Cca;
 import duke.modules.Deadline;
@@ -90,7 +92,20 @@ public class ParserWrapper {
                 return new CapCommand(input);
             }
             case "print": {
-                return new SortCommand();
+                switch (hold[1]) {
+                    case ("level"): {
+                        return new SortByLevelCommand();
+                    }
+                    case ("code"): {
+                        return new SortByCodeCommand();
+                    }
+                    case ("mc"): {
+                        return new SortByMcCommand();
+                    }
+                    default: {
+                        throw new ModCommandException();
+                    }
+                }
             }
             case "report": {
                 switch (hold[1]) {

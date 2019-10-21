@@ -13,9 +13,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class SortCommand extends ModuleCommand {
-
-    public SortCommand() {
+public class SortByCodeCommand extends ModuleCommand {
+    public SortByCodeCommand() {
     }
 
     @Override
@@ -28,7 +27,6 @@ public class SortCommand extends ModuleCommand {
         plannerUi.sortModuleMsg();
         List<ModuleTask> hold = tasks.getTasks();
         hold.sort(Comparator.comparing(ModuleTask::getModuleCode));
-        //hold.sort(Comparator.comparing(ModuleTask::getModuleCredit));
         plannerUi.showSortedModules(hold);
     }
 }

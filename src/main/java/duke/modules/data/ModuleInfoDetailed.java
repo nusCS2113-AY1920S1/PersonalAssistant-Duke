@@ -29,6 +29,10 @@ public class ModuleInfoDetailed {
         return Integer.parseInt(moduleCredit);
     }
 
+    public String getModuleLevel() {
+        return moduleCode.replaceAll("[^0-9]", "");
+    }
+
     public String getDepartment() {
         return department;
     }
@@ -36,7 +40,6 @@ public class ModuleInfoDetailed {
     public String getFaculty() {
         return faculty;
     }
-
 
     public String getPreclusion() {
         return preclusion;
