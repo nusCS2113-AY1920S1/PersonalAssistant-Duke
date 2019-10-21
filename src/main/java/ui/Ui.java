@@ -71,6 +71,18 @@ public class Ui {
         return returnedString + stringBuilder.toString();
     }
 
+    public String showAddSyn(String word, ArrayList<String> synonyms, HashSet<String> synonymList) {
+        String returnedString = "I have added " + (synonyms.size() == 1 ? "this synonym \"" + synonyms.get(0) + "\"" : "these synonyms")
+                + " to word \"" + word + "\"" + "\n";
+        returnedString += "Here " + (synonymList.size() == 1 ? "is the synonym " : "are the synonyms ")
+                + "of word \"" + word + "\"" + "\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String syn : synonymList) {
+            stringBuilder.append(syn + "\n");
+        }
+        return returnedString + stringBuilder.toString();
+    }
+
     /**
      * Shows the list of all words in the word bank.
      * @param wordBank to store all words

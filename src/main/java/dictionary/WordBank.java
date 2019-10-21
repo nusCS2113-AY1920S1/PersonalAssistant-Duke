@@ -94,16 +94,18 @@ public class WordBank {
     }
     /**
      * Adds synonyms to a specific word in word bank
+     * synonymsWords will be added to the wordKey(MAIN WORD)
      */
     public HashSet<String> addSyn(String wordKey, ArrayList<String> synonymsWords) throws NoWordFoundException {
         if(!wordBank.containsKey(wordKey)){
             throw new NoWordFoundException(wordKey);
         }
         Word word = wordBank.get(wordKey);
+        /**For each synonym in the ArrayList, we add it into hashset synonym of wordKey*/
         for(String synoWord : synonymsWords){
             word.addSyn(synoWord);
         }
-        return word.getSynonyms();
+        return word.getSynonyms(); //return of HashSet<String> is from Word class
     }
 
     /**

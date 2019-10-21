@@ -1,30 +1,9 @@
 package parser;
 
+import command.*;
 import dictionary.Word;
-import command.Command;
-import command.QuizCommand;
-import command.BadCommand;
-import command.DeleteCommand;
-import command.AddTagCommand;
-import command.ListCommand;
-import command.ExitCommand;
-import command.AddCommand;
-import command.SearchCommand;
-import command.HistoryCommand;
-import command.EditCommand;
 
-import exception.WrongQuizFormatException;
-import exception.WrongAddFormatException;
-import exception.EmptyWordException;
-import exception.WrongAddTagFormatException;
-import exception.WrongDeleteFormatException;
-import exception.WrongListFormatDescription;
-import exception.WrongEditFormatException;
-import exception.WrongHistoryFormatException;
-import exception.ZeroHistoryRequestException;
-import exception.CommandInvalidException;
-import exception.WordUpException;
-import exception.WrongSearchFormatException;
+import exception.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -147,7 +126,33 @@ public class Parser {
                     tags.add(wordAndTags[i].trim());
                 }
                 return new AddTagCommand(wordDescription, tags);
-            }  else if (taskInfo[0].equals("quiz")) {
+            } else if(taskInfo[0].equals("addsyn")){
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongAddSynonymException();
+                }
+                String[] wordDetail = taskInfo[1].split(" ",2);// should get w/beverage and s/drink
+                if (wordDetail.length != 2) {
+                    throw new WrongAddSynonymException();
+                }
+                String mainWord = wordDetail[0].substring(2).trim();
+                System.out.println("Main word is "+mainWord);
+                if (mainWord.length() == 0) {
+                    throw new EmptyWordException();
+                }
+                String synonymWords = wordDetail[1].substring(2).trim(); // drink alcohol spirits
+                if(synonymWords.length()==0){
+                    throw new EmptyWordException();
+                }
+                String [] synonyms1 = synonymWords.split(" "); //drink , alcohol , spirits
+                ArrayList<String> synonyms = new ArrayList<>();
+                for (int i = 0; i < synonyms1.length; ++i) {
+                    synonyms.add(synonyms1[i].trim());
+                }
+                return new AddSynonymCommand(mainWord,synonyms);
+            }//close addsyn
+
+
+            else if (taskInfo[0].equals("quiz")) {
                 if (taskInfo.length > 1) {
                     throw new WrongQuizFormatException();
                 }
