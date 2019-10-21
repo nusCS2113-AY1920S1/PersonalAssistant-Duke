@@ -214,6 +214,10 @@ public class UserStats {
         String userName = tokens[2];
         String characterImagePath = tokens[3];
 
+        // No chapters in the list, so exit early, otherwise will cause parsing error.
+        if (tokens.length < 6) {
+            return new UserStats(userName,characterImagePath,new ArrayList<>());
+        }
         // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
         String[] chapterDataTokens = tokens[5].split("\n\n");
         ArrayList<ChapterStat> chapterStats = new ArrayList<>();
@@ -221,5 +225,34 @@ public class UserStats {
             chapterStats.add(ChapterStat.parseString(chapterString));
         }
         return new UserStats(userName, characterImagePath, chapterStats);
+    }
+
+    /**
+     * Overriding the equals method so JUnit can work.
+     * We manually check if each property is equal.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof UserStats) {
+
+            UserStats other = (UserStats) obj;
+            boolean isEqual = true;
+
+            if (other.chapterData.size() != chapterData.size()) {
+                return false;
+            }
+
+            // Check if each chapter is equal
+            for (int i = 0; i < chapterData.size(); i++) {
+                isEqual = isEqual && chapterData.get(i).equals(other.chapterData.get(i));
+            }
+
+            return isEqual
+                    && username.equals(other.username)
+                    && characterImagePath.equals(other.characterImagePath);
+
+        } else {
+            return false;
+        }
     }
 }
