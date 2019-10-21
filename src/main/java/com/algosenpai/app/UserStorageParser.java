@@ -18,6 +18,7 @@ public class UserStorageParser {
         String workingDir = System.getProperty("user.dir") + File.separator + "UserData.txt";
         FileReader reader = new FileReader(workingDir);
         this.inputScanner = new Scanner(reader);
+
     }
 
     /**
