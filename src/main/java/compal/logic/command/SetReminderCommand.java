@@ -8,6 +8,7 @@ public class SetReminderCommand extends Command {
 
     public static final String MESSAGE_INVALID_INPUT = "Error: Invalid input!";
     public static final String COMMAND_PREFIX = "Noted. I have changed the reminder status of this task.\n";
+    public static final String MESSAGE_INVALID_ID = "Error: Invalid task ID!";
     private int taskID;
     private String status;
 
@@ -18,7 +19,10 @@ public class SetReminderCommand extends Command {
 
     @Override
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
-        Task task = taskList.getTaskById(taskID);
+        Task task;
+
+        task = taskList.getTaskById(taskID);
+
         boolean state;
         if ("Y".equals(status)) {
             state = true;
