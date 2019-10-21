@@ -113,11 +113,6 @@ public class Loan extends Record {
         }
     }
 
-    /**
-     * Form a string to write to loan.txt.
-     *
-     * @return The String to be written in contact.txt.
-     */
     @Override
     public String writeToFile() {
         if (!isLend && !isSettled) {
@@ -140,6 +135,7 @@ public class Loan extends Record {
         return null;
     }
 
+
     /**
      * Sets the contact for loan entry
      *
@@ -158,3 +154,4 @@ public class Loan extends Record {
     }
 
 }
+
