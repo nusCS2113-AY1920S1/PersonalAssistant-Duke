@@ -71,7 +71,8 @@ public abstract class Task {
 
     public String getModCode() {
         String[] split = description.trim().split(" ");
-        return split[0];
+        String modcode = split[0].toUpperCase();
+        return modcode;
     }
 
 
