@@ -1,25 +1,12 @@
 package Commands;
 
-import Interface.DukeException;
-import Interface.Storage;
-import Interface.Ui;
+import Interface.*;
 import Tasks.Task;
 import Tasks.TaskList;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
-
-import java.io.FileNotFoundException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class RemindCommand extends Command {
 
@@ -27,19 +14,20 @@ public class RemindCommand extends Command {
     private Date time;
     private Timer timer;
     private HashMap<Date, Timer> timerHashMap;
-    private HashMap<Date, Timeline> timelineHashMap;
-    private Image img;
     private boolean remind;
-    private Timeline timeline;
-    private long seconds;
+    private Reminder reminder;
 
+    /**
+     * Creates RemindCommand object
+     * @param task Task to have a reminder set
+     * @param time Time for the reminder to be set at
+     * @param remind Whether a reminder needs to be set
+     */
     public RemindCommand (Task task, Date time, boolean remind) {
         this.task = task;
         this.time = time;
         timerHashMap = new HashMap<>();
-        timelineHashMap = new HashMap<>();
         timer = new Timer();
-        img = new Image("/images/DaDuke.png");
         this.remind = remind;
     }
 
@@ -50,37 +38,38 @@ public class RemindCommand extends Command {
      * @param ui The Ui object to display the done task message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display remind message
-     * @throws ParseException On date parsing error
+     * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
+        reminder = storage.getReminderObject();
+        reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
-        HashMap<Date, Task> reminderMap = storage.getReminderMap();
+        HashMap<Date, Task> remindMap = reminder.getRemindMap();
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
         String reminderTime = dateFormat.format(time);
         if (!remind) {
-            timer = timerHashMap.get(time);
-            timer.cancel();
-            timerHashMap.remove(time);
-            timeline = timelineHashMap.get(time);
-            timeline.stop();
-            timelineHashMap.remove(time);
+            if (!remindMap.containsKey(time)) {
+                throw new DukeException("Sorry, you have no such reminder at that inputted time.");
+            } else if (!remindMap.get(time).getDescription().equals(task.getDescription())) {
+                throw new DukeException("Sorry, you have no such reminder with inputted description at that time");
+            }
+            reminder.removeTimerTask(task, time, reminderTime);
             return ui.showCancelReminder(task, reminderTime);
         }
         if (this.time.before(currentDate)) {
             throw new DukeException("Sorry, you cannot set a time that has already passed!");
         } else if (this.time.after(currentDate)) {
-            seconds = time.getTime() - currentDate.getTime();
             if (timerHashMap.containsKey(time)) {
-                Task remindedTask = reminderMap.get(time);
+                Task remindedTask = remindMap.get(time);
                 throw new DukeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
             } else if (!deadlineMap.containsKey(task.getModCode())) {
                 throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
-            } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDateTime())) {
+            } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDate())) {
                 throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
             } else {
-                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDateTime());
+                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDate());
                 boolean hasTask = false;
                 for (Task taskInList : allTaskInDate) {
                     if (taskInList.getDescription().equals(task.getDescription())) {
@@ -92,44 +81,8 @@ public class RemindCommand extends Command {
                     throw new DukeException("Sorry, there are no such task description in your deadline table!");
                 }
             }
-            deadlines.setReminder(task , reminderTime, remind);
-            notification(deadlines, reminderTime);
-/*            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Notifications notificationBuilder = Notifications.create()
-                            .title("REMINDER!!!")
-                            .graphic(new ImageView(img))
-                            .text(task.getModCode() + " " + task.getDescription() + "\n" + task.getDateTime())
-                            .darkStyle()
-                            .position(Pos.BOTTOM_RIGHT);
-                    notificationBuilder.show();
-                    timer.cancel();
-                    deadlines.setReminder(task , reminderTime, false);
-                }
-            }, seconds);*/
-            timerHashMap.put(time, timer);
         }
-        storage.updateDeadlineList(deadlines);
+        reminder.setReminderThread(time, task);
         return ui.showReminder(task, reminderTime);
-    }
-
-    private void notification(TaskList deadlines, String reminderTime) {
-        timeline = new Timeline(new KeyFrame(Duration.seconds(seconds), event -> {
-            Notifications notificationBuilder = Notifications.create()
-                    .title("REMINDER!!!")
-                    .graphic(new ImageView(img))
-                    .text(task.getModCode() + " " + task.getDescription() + "\n" + task.getDateTime())
-                    .darkStyle()
-                    .position(Pos.BOTTOM_RIGHT)
-                    .onAction(notificationEvent -> {
-                        timeline.stop();
-                    });
-            notificationBuilder.show();
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-        timelineHashMap.put(time,timeline);
-        deadlines.setReminder(task , reminderTime, false);
     }
 }

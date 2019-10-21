@@ -23,7 +23,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return super.getModCode() + " " + "[D]" + super.toString() + "(by: " + by + ")";
+        return super.getModCode() + " " + "[D]" + super.toString() + "(by: " + getDateTime() + ")";
     }
 
     @Override

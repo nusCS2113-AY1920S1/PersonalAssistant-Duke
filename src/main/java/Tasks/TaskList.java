@@ -80,9 +80,15 @@ public class TaskList {
     public void setReminder(Task task, String time, boolean reminder){
         for (Task taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
             if (taskInList.getDescription().equals(task.getDescription())) {
-                taskInList.setRemindTime(time);
-                taskInList.setReminder(reminder);
-                break;
+                if (reminder) {
+                    taskInList.setRemindTime(time);
+                    taskInList.setReminder(true);
+                    break;
+                } else {
+                    taskInList.setRemindTime("");
+                    taskInList.setReminder(false);
+                    break;
+                }
             }
         }
     }

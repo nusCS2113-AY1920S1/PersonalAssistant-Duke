@@ -66,12 +66,7 @@ public abstract class Task {
     }
 
     public String toString() {
-        if (isReminder) {
-            return "[" + getStatusIcon()
-                    + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
-        } else {
-            return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
-        }
+        return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
     }
 
     public String getModCode() {

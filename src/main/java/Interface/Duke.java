@@ -18,6 +18,7 @@ public class Duke extends Application {
     private final TaskList events;
     private final TaskList deadlines;
     private final Ui ui;
+    private final Reminder reminder;
 
     /**
      * Creates Duke object.
@@ -28,10 +29,14 @@ public class Duke extends Application {
         storage = new Storage();
         events = new TaskList();
         deadlines = new TaskList();
+        reminder = new Reminder();
+        storage.setReminderObject(reminder);
         try {
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
-        } catch (IOException | ParseException e) {
+            reminder.setDeadlines(deadlines);
+            storage.setReminderOnStart();
+        } catch (IOException | ParseException | DukeException e) {
             ui.showLoadingError(e);
         }
     }

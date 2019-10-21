@@ -223,14 +223,14 @@ public class Parser {
                         weekDate = LT.getDate(weekDate) + " " + time;
                         time = split1[1].substring(split1[1].length()- 4);
                         reminderDate = LT.getDate(reminderDate) + " " + time;
-                    }else{
+                    } else {
                         weekDate = split1[0];
                         reminderDate = split1[1];
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date dateOfTask = formatter.parse(weekDate);
                     Date dateOfReminder = formatter.parse(reminderDate);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
                     String dateString = dateFormat.format(dateOfTask);
                     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String timeString = timeFormat.format(dateOfTask);
@@ -291,7 +291,7 @@ public class Parser {
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date date = formatter.parse(weekDate);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
                     String dateString = dateFormat.format(date);
                     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String timeString = timeFormat.format(date);

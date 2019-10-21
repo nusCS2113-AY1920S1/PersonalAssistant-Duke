@@ -22,6 +22,7 @@ public class Storage {
     private File filePath;
     private String filePathEvent;
     private String filePathDeadline;
+    private Reminder reminder;
 
     private HashMap<String, HashMap<String, ArrayList<Task>>> map;
     private HashMap<Date, Task> reminderMap;
@@ -36,6 +37,14 @@ public class Storage {
         filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
         reminderMap = new HashMap<>();
         map = new HashMap<>();
+    }
+
+    public void setReminderObject(Reminder reminder) {
+        this.reminder = reminder;
+    }
+
+    public Reminder getReminderObject() {
+        return this.reminder;
     }
 
     public void updateEventList(TaskList list) throws FileNotFoundException {
@@ -104,7 +113,8 @@ public class Storage {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
             String remindTime = string.substring(string.indexOf("[<R") + 3, string.indexOf("/R>]"));
-            String dateString = format.format(date);
+            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+            String dateString = dateFormat.format(date);
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
             String timeString = timeFormat.format(date);
             line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2), dateString, timeString);
@@ -127,5 +137,24 @@ public class Storage {
             line.setReminder(true);
         }
         return line;
+    }
+
+    public void setReminderOnStart() throws DukeException {
+        Set<Date> dateKey = reminderMap.keySet();
+        for(Date date : dateKey) {
+            Date remindDate = new Date();
+            Date currentDate = new Date();
+            Task task = reminderMap.get(date);
+            String remindTime = task.getRemindTime();
+            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+            try {
+                remindDate = dateFormat.parse(remindTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(remindDate.after(currentDate)) {
+                reminder.setReminderThread(remindDate, task);
+            }
+        }
     }
 }
