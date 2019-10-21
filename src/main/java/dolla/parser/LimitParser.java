@@ -1,7 +1,6 @@
 package dolla.parser;
 
 import dolla.command.*;
-import dolla.task.Limit;
 import dolla.ui.LimitUi;
 
 /**
@@ -31,7 +30,7 @@ public class LimitParser extends Parser {
                 amount = amountFinder();
                 duration = durationFinder();
             } catch (IndexOutOfBoundsException e) {
-                LimitUi.invalidFormatPrinter();
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand();
             } catch (Exception e) {
                 LimitUi.printErrorMsg();
@@ -47,7 +46,7 @@ public class LimitParser extends Parser {
                 limitType = typeFinder();
                 duration = durationFinder();
             } catch (IndexOutOfBoundsException e) {
-                LimitUi.invalidFormatPrinter();
+                LimitUi.invalidSetCommandPrinter();
                 return new ErrorCommand(); //todo: change to "limit does not exist" etc
             } catch (Exception e) {
                 LimitUi.printErrorMsg();
