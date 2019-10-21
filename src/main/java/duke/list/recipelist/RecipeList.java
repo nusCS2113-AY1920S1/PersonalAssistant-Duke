@@ -1,26 +1,35 @@
 package duke.list.recipelist;
 
 import duke.task.recipetasks.Recipe;
+import duke.task.recipetasks.RecipeTitle;
+import javafx.scene.effect.SepiaTone;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 
 public class RecipeList {
 
-    LinkedHashMap<String, Recipe> recipeLHM;
+    LinkedHashMap<Integer, Recipe> recipeLHM;
 
     public RecipeList() {
         this.recipeLHM = new LinkedHashMap<>();
     }
 
-    public RecipeList(LinkedHashMap<String, Recipe> recipeListFromStorage) {
+    public RecipeList(LinkedHashMap<Integer, Recipe> recipeListFromStorage) {
         this.recipeLHM = recipeListFromStorage;
     }
 
-    public void addRecipe(String recipeTitle) {
-        this.recipeLHM.put(recipeTitle, createNewRecipe(recipeTitle));
+    public String getRecipeIndex() {
+        Map.Entry entry = (Map.Entry) this.recipeLHM.entrySet();
+        return entry.getKey().toString();
+    }
+
+    public void addRecipe(int index, String recipeTitle) {
+        this.recipeLHM.put(index, createNewRecipe(recipeTitle));
     }
 
     public Recipe deleteRecipe(String recipeTitle) {
@@ -32,12 +41,14 @@ public class RecipeList {
         return new Recipe(recipeTitle);
     }
 
-    public LinkedHashMap<String, Recipe> getRecipeList() {
+    public LinkedHashMap<Integer, Recipe> getRecipeList() {
         return this.recipeLHM;
     }
 
     public boolean containsRecipe(String recipeTitle) {
-        if (this.recipeLHM.containsKey(recipeTitle)) {
+        Map.Entry entry = (Map.Entry) this.recipeLHM.entrySet();
+        Recipe recipe = (Recipe) entry.getValue();
+        if (recipeTitle.equals(recipe.getRecipeTitle())) {
             return true;
         } else {
             return false;

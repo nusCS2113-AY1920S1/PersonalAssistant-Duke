@@ -14,6 +14,10 @@ public class RecipeTitle {
         this.index = index;
     }
 
+    public RecipeTitle(int index) {
+        this.index = index;
+    }
+
     public int getIndex() {
         return this.index;
     }

@@ -1,31 +1,29 @@
 package duke.task.recipetasks;
 
-import duke.exception.DukeException;
-
 public class Recipe {
 
-    RecipeTitle recipeTitle;
+    String recipeTitle;
     Rating rating;
     PrepStep prepStep;
     RequiredIngredients requiredIngredients; // requiredIngredients is a list of recipeIngredient objects.
     Feedback feedback;
 
     public Recipe(String recipeTitle) {
-        this.recipeTitle = new RecipeTitle(recipeTitle);
+        this.recipeTitle = recipeTitle;
         this.rating = Rating.UNRATED;
         this.prepStep = new PrepStep();
         this.requiredIngredients = new RequiredIngredients();
         this.feedback = new Feedback();
     }
 
-    public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) throws DukeException {
-        this.recipeTitle = new RecipeTitle(recipeTitle);
+    public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) {
+        this.recipeTitle = recipeTitle;
         this.rating = assignRating(rating);
         this.prepStep = new PrepStep(prepStep);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
     }
 
-    public RecipeTitle getRecipeTitle() {
+    public String getRecipeTitle() {
         return this.recipeTitle;
     }
 
@@ -37,10 +35,6 @@ public class Recipe {
         return this.prepStep;
     }
 
-    public void setRequiredIngredients(String description) throws DukeException{
-        this.requiredIngredients = new RequiredIngredients(description);
-    }
-
     public RequiredIngredients getRequiredIngredients() {
         return this.requiredIngredients;
     }
@@ -50,7 +44,7 @@ public class Recipe {
     }
 
     public String toSaveString() {
-        return this.recipeTitle.toSaveString() + " | "
+        return this.recipeTitle + " | "
                 + checkRating() + " | "
                 + this.prepStep.toSaveString() + " | "
                 + this.requiredIngredients.toSaveString() + " | "

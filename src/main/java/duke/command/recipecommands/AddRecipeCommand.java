@@ -1,10 +1,8 @@
 package duke.command.recipecommands;
 
 import duke.command.Command;
-import duke.command.CommandRecipe;
 import duke.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
-import duke.task.recipetasks.RecipeTitle;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -29,13 +27,17 @@ public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { /
             System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(9) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
-            if (recipeList.containsRecipe(description)) {
-                arrayList.add(ERROR_MESSAGE_RECIPE_ALREADY_EXISTS);
-                recipeStorage.saveFile(recipeList);
-            } else {
-                recipeList.addRecipe(description);
-                recipeStorage.saveFile(recipeList);
-                arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+            if (description.contains(" ")) {
+                String index = description.split("\\s", 2)[0].trim();
+                String title = description.split("\\s", 2)[1].trim();
+//                if (recipeList.containsRecipe(title)) {
+//                    arrayList.add(ERROR_MESSAGE_RECIPE_ALREADY_EXISTS);
+//                    recipeStorage.saveFile(recipeList);
+//                } else {
+                    recipeList.addRecipe(Integer.parseInt(index), title);
+                    recipeStorage.saveFile(recipeList);
+                    arrayList.add(MESSAGE_RECIPE_ADDED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+//                }
             }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);

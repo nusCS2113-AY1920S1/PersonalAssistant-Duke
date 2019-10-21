@@ -1,8 +1,6 @@
 package duke.command.recipecommands;
 
 import duke.command.Command;
-import duke.list.recipelist.RecipeTitleList;
-import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
 import duke.list.recipelist.RecipeList;
 import duke.storage.RecipeStorage;
@@ -10,7 +8,6 @@ import duke.task.recipetasks.Recipe;
 
 import java.util.*;
 
-import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
 import static duke.common.RecipeMessages.MESSAGE_HERE_ARE_THE_RECIPES;
@@ -36,7 +33,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
 
     @Override
     public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
-        System.out.println("went into execute");
+        System.out.println("went into execute list all recipes");
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {
             arrayList.add(MESSAGE_HERE_ARE_THE_RECIPES);
@@ -48,17 +45,12 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
         return arrayList;
     }
 
-//    @Override
-//    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
-//        return null;
-//    }
-
     @Override
     public boolean isExit() {
         return false;
     }
 
-    private ArrayList<String> listOfRecipes(LinkedHashMap<String, Recipe> map) {
+    private ArrayList<String> listOfRecipes(LinkedHashMap<Integer, Recipe> map) {
         Set entries = map.entrySet();
         Iterator entryIter = entries.iterator();
         ArrayList<String> arrayList = new ArrayList<>();
@@ -66,7 +58,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
             Map.Entry entry = (Map.Entry) entryIter.next();
             Object key = entry.getKey();  // Get the key from the entry.
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add(key + " " + value.getRecipeTitle().getTitle());
+            arrayList.add(key + " " + value.getRecipeTitle());
         }
         return arrayList;
     }
