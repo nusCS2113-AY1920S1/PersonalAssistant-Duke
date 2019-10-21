@@ -61,7 +61,7 @@ public class Parser {
                         if (pArray.length != 2) {
                             throw new DukeException("☹ OOPS!!! You are missing either the index of the priority level");
                         }
-                        return new EditCommand(editCommand, pArray[0], pArray[1]);
+                        return new EditCommand(editArray[1], editArray[0]);
                     default:
                         throw new DukeException("Sorry I don't know what you want me to do :-(");
                 }
