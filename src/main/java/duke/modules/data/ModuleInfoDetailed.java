@@ -12,6 +12,7 @@ public class ModuleInfoDetailed {
     private String department = "";
     private String faculty = "";
     private String preclusion = "";
+    private String prerequisites = "";
     private Attributes attributes = new Attributes();
     private String grade = "";
     private ExamInfo[] semesterData;
@@ -41,10 +42,11 @@ public class ModuleInfoDetailed {
         return faculty;
     }
 
-
     public String getPreclusion() {
         return preclusion;
     }
+
+    public String getPrerequisites() {return  prerequisites;}
 
     public Attributes getAttributes() {
         return attributes;

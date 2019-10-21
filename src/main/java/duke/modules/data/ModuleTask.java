@@ -23,6 +23,8 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed;
     }
 
+    public String getGrade() {return moduleInfoDetailed.getGrade();}
+
     @Override
     public String toString() {
         return super.toString() + " | " + moduleInfoDetailed.toString();

@@ -18,6 +18,7 @@ import net.sourceforge.argparse4j.inf.Argument;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class CapCommand extends ModuleCommand {
@@ -59,74 +60,12 @@ public class CapCommand extends ModuleCommand {
      * `cap module to check predicted cap for a specific module from prerequisites
      */
     public CapCommand(Argument args) {
+        super((Arguments) args);
         mcCount = 0;
         currentCap = 0;
         projectedModuleCap = 0;
         projectedCap = 0;
     }
-    /*public CapCommand(String input) throws ModEmptyCommandException
-                                            , ModMissingArgumentException
-                                                , ModCommandException {
-        specificModuleCap.clear();
-        currentCap = 0;
-        projectedModuleCap = 0;
-        try {
-            this.command = input.split(" ");
-            //completedModuleList.clear();
-            if (command.length > 1) {
-                addPrerequisiteCap(command[1]);
-            } else {
-                currentCap = addTotalCap(moduleList);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-            // init moduleCap if isDone
-
-
-        */
-    //}
-
-    /**
-     * Method for predicting CAP for a specific module.
-     * @param specificModule something
-     */
-    public void addPrerequisiteCap(String specificModule) {
-        /*
-        try {
-
-            for (ModuleInfoSummary module : moduleList){
-                if (module.getDone() &&
-                ModulePrerequisiteHashMap.get(specificModule).find(module.moduleCode))
-                { // if module is completed, and is within the prerequisite tree
-                    specificModuleCap.add(module);
-                }
-            }
-            projectedModuleCap = addTotalCap(specificModuleCap);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        */
-    }
-
-    /*public double addTotalCap(ModuleList moduleList) throws ModEmptyListException {
-
-        if (moduleList.isEmpty()) {
-            throw new ModEmptyListException();
-        }
-        double tempCap = 0;
-        int mcCount = 0;
-        for (ModuleInfoSummary module : moduleList) {
-            if (module.getDone()) {
-                tempCap += module.getWeightage();
-                mcCount += module.MC;
-            }
-        }
-        return tempCap/mcCount;
-    }
-    */
-
 
     public boolean isComplete(String input) {
         return input.equalsIgnoreCase("done");
@@ -192,11 +131,14 @@ public class CapCommand extends ModuleCommand {
                 plannerUi.capStartMsg();
                 calculateOverallCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
                 break;
-            case "predicted":
+            case "module":
+                plannerUi.capModStartMsg();
+                calculateModuleCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
                 //calculate the module's predicted cap from its prerequisites
-                break;
             case "list":
-                //check modules taken this sem, calculate predicted cap for the sem according to user input
+                List<ModuleTask> hold = moduleTasksList.getTasks();
+                plannerUi.capListStartMsg(hold);
+                calculateListCap(moduleTasksList, detailedMap, plannerUi, store, scanner, hold);
                 break;
             }
         }
@@ -212,7 +154,6 @@ public class CapCommand extends ModuleCommand {
                                     Scanner scanner)
         throws ModMissingArgumentException, ModNotFoundException {
         String userInput = scanner.nextLine();
-        double cumulativeCap = 0.00;
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
                 throw new ModMissingArgumentException("Please input a completed module and your grade for it,"
@@ -228,10 +169,64 @@ public class CapCommand extends ModuleCommand {
             if (userInfo[1].isEmpty()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
-            cumulativeCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
+            currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
-        double averageCap = cumulativeCap / mcCount;
+        double averageCap = currentCap / mcCount;
         plannerUi.capMsg(averageCap);
+    }
+
+    public void calculateModuleCap(ModuleTasksList moduleTasksList,
+                                    HashMap<String, ModuleInfoDetailed> detailedMap,
+                                    PlannerUi plannerUi,
+                                    Storage store,
+                                    Scanner scanner)
+        throws ModMissingArgumentException, ModNotFoundException {
+        boolean isPrerequisiteCompleted = true;
+        String moduleCode = scanner.nextLine().toUpperCase();
+        if (!detailedMap.containsKey(moduleCode)) {
+            throw new ModNotFoundException();
+        }
+        String[] modules = parsePrerequisiteTree(moduleCode);
+        //for (ModuleInfoDetailed modules : detailedMap.get(moduleCode).getPreclusion()) {
+
+        //}
+    }
+
+    public void calculateListCap(ModuleTasksList moduleTasksList,
+                                 HashMap<String, ModuleInfoDetailed> detailedMap,
+                                 PlannerUi plannerUi,
+                                 Storage store,
+                                 Scanner scanner,
+                                 List<ModuleTask> moduleList) {
+        for (ModuleTask module : moduleList) {
+            if (!module.getModuleInfoDetailed().getAttributes().isSu() || letterGradeToCap(module.getGrade()) != 0.00) {
+                mcCount += module.getModuleCredit();
+            }
+            projectedModuleCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
+        }
+        double averageCap = projectedModuleCap / mcCount;
+        plannerUi.capMsg(averageCap);
+    }
+
+    public String[] parsePrerequisiteTree(String prerequisites) {
+        //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
+        // (check for and after because some have AY19/20 and after, then need to reject those 'ands')
+        // need to logic and/or from array to cut down size of array
+        String[] initialParsedModules = prerequisites.split("[a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or");
+        String[] prunedModules = null;
+        //prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and (MA1100 or (CS1231 or its equivalent))"
+        //prerequisite":"CG2027/EE2027 (for AY2017 intake & after)
+        //prerequisite":"EE2028 or CG2028 (for AY2017 intake & after)
+        //prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and CS2102
+        //prerequisite":"CG2027/EE2027 (for AY2017 intake & after) ; EE2021 (for AY2016 intake & prior)
+        // what does or its equivalent mean? get preclusion of mod and add it to the
+        for (int i = 0; i < initialParsedModules.length; i++) {
+            if (initialParsedModules[i].equals("and")) {
+
+            }
+        }
+
+        return prunedModules;
     }
 }

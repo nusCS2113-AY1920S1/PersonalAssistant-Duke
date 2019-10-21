@@ -4,6 +4,8 @@ import duke.modules.Cca;
 
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
+import duke.util.commons.ModuleTasksList;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -87,7 +89,7 @@ public class PlannerUi {
      * @param mod Module Tasks to be added.
      */
     public void addedMsg(ModuleTask mod) {
-        System.out.println("Got it, added the follow module!");
+        System.out.println("Got it, added the following module!");
         showObject(mod);
     }
 
@@ -96,7 +98,7 @@ public class PlannerUi {
      * @param cca Cca to be added.
      */
     public void addedMsg(Cca cca) {
-        System.out.println("Got it, added the follow cca!");
+        System.out.println("Got it, added the following cca!");
         println(cca);
     }
 
@@ -114,7 +116,7 @@ public class PlannerUi {
      * @param cca Cca to be deleted.
      */
     public void deleteMsg(Cca cca) {
-        System.out.println("Got it, module will be deleted");
+        System.out.println("Got it, cca will be deleted");
         println(cca);
     }
 
@@ -159,8 +161,22 @@ public class PlannerUi {
      * Message shown at start of CapCommand.
      */
     public void capStartMsg() {
-        System.out.println("Start typing the module you have taken, along with it's letter grade");
-        System.out.println("Type 'done' when you are ready to calculate your CAP");
+        System.out.println(
+            "Start typing the module you have taken, along with it's letter grade\n"
+            +"Type 'done' when you are ready to calculate your CAP");
+    }
+
+    public void capModStartMsg() {
+        System.out.println("Type the module code that you want to predict your CAP for: ");
+    }
+
+    public void capListStartMsg(List<ModuleTask> moduleTasksList) {
+        System.out.println("Here is your list of modules to calculate CAP from.");
+        int counter = 1;
+        for (ModuleTask temp : moduleTasksList) {
+            System.out.print(counter++ + " ");
+            showObject(temp);
+        }
     }
 
     /**
@@ -171,6 +187,13 @@ public class PlannerUi {
         System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
     }
+
+    public void capModMsg(double predictedCap, String moduleCode) {
+        showLine();
+        System.out.println("Here is your predicted CAP for " + moduleCode);
+        System.out.printf("%.2f\n", predictedCap);
+    }
+
 
     /**
      * Message to print the sorted module list.
