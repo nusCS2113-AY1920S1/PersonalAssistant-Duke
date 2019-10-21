@@ -5,12 +5,10 @@ import duke.commons.enumerations.Constraint;
 import duke.logic.PathFinder;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.logic.api.ApiConstraintParser;
 import duke.model.Model;
 import duke.model.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;
-import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;
@@ -71,13 +69,11 @@ public class FindPathCommand extends Command {
         Venue startLocation = startPoint.getLocation();
         Event endPoint = getHoliday(this.endPointIndex, model.getTasks());
         Venue endLocation = endPoint.getLocation();
-        startPoint = ApiConstraintParser.getConstraintLocation(startPoint, this.constraint);
-        endPoint = ApiConstraintParser.getConstraintLocation(endPoint, this.constraint);
 
         // calculate the shortest path using algorithm with 2 locations as parameters
 
         PathFinder pathFinder = new PathFinder(model.getMap());
-        ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
+        ArrayList<Venue> route = pathFinder.execute(startLocation, endLocation, this.constraint);
 
         CommandResultMap commandResult = new CommandResultMap(MESSAGE_FIND_PATH);
         commandResult.setRoute(route);

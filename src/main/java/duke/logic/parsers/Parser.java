@@ -66,7 +66,7 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(getWord(input), getHolidayIndexInList(1, input),
+            return new FindPathCommand(input.strip().split(" ")[1], getHolidayIndexInList(1, input),
                     getHolidayIndexInList(2, input));
         case "recommend":
             return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);

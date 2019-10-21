@@ -7,6 +7,7 @@ import duke.model.TaskList;
 import duke.model.events.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
@@ -30,9 +31,9 @@ public class Storage {
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
-    private static final String TRAIN_FILE_PATH = "data/train.txt";
-    private static final String EVENTS_FILE_PATH = "data/events.txt";
-    private static final String ROUTES_FILE_PATH = "data/routes.txt";
+    private static final String TRAIN_FILE_PATH = "/data/train.txt";
+    private static final String EVENTS_FILE_PATH = "memory/events.txt";
+    //private static final String ROUTES_FILE_PATH = "/data/routes.txt";
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
     //private List<Route> userRoutes;
@@ -54,13 +55,30 @@ public class Storage {
      */
     private void read() throws DukeException {
         readEvent();
-        readMap();
+        readBus();
+        readTrain();
+    }
+
+
+    /**
+     * Reads train from filepath.
+     */
+    protected void readTrain() {
+        assert this.map != null : "Map must be created first";
+        HashMap<String, TrainStation> trainMap = new HashMap<>();
+        Scanner s = new Scanner(getClass().getResourceAsStream(TRAIN_FILE_PATH));
+        while (s.hasNext()) {
+            TrainStation newTrain = ParserStorageUtil.createTrainFromStorage(s.nextLine());
+            trainMap.put(newTrain.getAddress(), newTrain);
+        }
+        s.close();
+        this.map.setTrainMap(trainMap);
     }
 
     /**
-     * Reads bus map from filepath.
+     * Reads bus from filepath.
      */
-    private void readMap() {
+    private void readBus() {
         HashMap<String, BusStop> busStopData = new HashMap<>();
         HashMap<String, BusService> busData = new HashMap<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(BUS_FILE_PATH));
@@ -80,6 +98,7 @@ public class Storage {
         }
         s.close();
         this.map = new CreateMap(busStopData, busData);
+
     }
 
     /**

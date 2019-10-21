@@ -1,11 +1,11 @@
 package duke.logic.commands.results;
 
-import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
 
 import java.util.ArrayList;
 
 public class CommandResultMap extends CommandResult implements Routeable {
-    private ArrayList<BusStop> route;
+    private ArrayList<Venue> route;
 
     /**
      * Constructs a basic CommandResultMap object.
@@ -17,12 +17,12 @@ public class CommandResultMap extends CommandResult implements Routeable {
     }
 
     @Override
-    public ArrayList<BusStop> getRoute() {
+    public ArrayList<Venue> getRoute() {
         return route;
     }
 
     @Override
-    public void setRoute(ArrayList<BusStop> route) {
+    public void setRoute(ArrayList<Venue> route) {
         this.route = route;
     }
 }

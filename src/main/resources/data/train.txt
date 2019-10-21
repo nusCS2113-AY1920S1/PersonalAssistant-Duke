@@ -1,0 +1,119 @@
+Jurong East | 1.3331 | 103.7421 | NS1 | EW24
+Bukit Batok | 1.3491 | 103.7496 | NS2
+Bukit Gombak | 1.3589 | 103.7518 | NS3
+Chua Chu Kang | 1.3854 | 103.7443 | NS4
+Yew Tee | 1.3973 | 103.7475 | NS5
+Kranji | 1.4252 | 103.7620 | NS7
+Marsiling | 1.4326 | 103.7742 | NS8
+Woodlands | 1.437094 | 103.786483 | NS9
+Admiralty | 1.4406 | 103.8010 | NS10
+Sembawang | 104491 | 103.8200 | NS11
+Yishun | 1.4295 | 103.8350 | NS13
+Khatib | 1.4173 | 103.8330 | NS14
+Yio Chu Kang | 1.3817 | 103.8449 | NS15
+Ang Mo Kio | 1.3700 | 103.8496 | NS16
+Bishan | 1.3508 | 103.8482 | NS17 | CC15
+Bradell | 1.3405 | 103.8471 | NS18
+Toa Payoh | 1.3323 | 103.8474 | NS19
+Novena | 1.3200 | 103.8434 | NS20
+Newton | 1.3138 | 103.8380 | NS21 | DT11
+Orchard | 1.3040 | 103.8318 | NS22
+Somerset | 1.3004 | 103.8384 | NS23
+Dhoby Ghaut | 1.2991 | 103.8458 | NS24 | NE6 | CC1
+City Hall | 1.2931 | 103.8521 | NS25 | EW13
+Raffles Place | 1.2830 | 103.8513 | NS26 | EW14
+Marina Bay | 1.2764 | 103.8546 | NS27 | CC2 | CE2
+Marina South Pier | 1.2714 | 103.8636 | NS28
+Bayfront | 1.2813 | 103.8590 | CC1 | CE1 | DT16
+Bras Basah | 1.2969 | 103.8507 | CC2
+Esplanade | 1.2939 | 103.8554 | CC3
+Promenade | 1.2540 | 103.8602 | CC4 | DT15 | CE0
+Nicoll Highway | 1.3002 | 103.8635 | CC5
+Stadium | 1.3028 | 103.8754 | CC6
+Mountbatten | 1.3061 | 103.8832 | CC7
+Dakota | 1.3084 | 103.8888 | CC8
+Paya Lebar | 1.3182 | 103.8931 | CC9 | EW8
+MacPherson | 1.3267 | 103.8899 | CC10 | DT26
+Tai Seng | 1.3359 | 103.8877 | CC11
+Bartley | 1.3429 | 103.8796 | CC12
+Serangoon | 1.3498 | 103.8736 | CC13 | NE12
+Lorong Chuan | 1.3515 | 103.8649 | CC14
+Marymount | 1.3490 | 103.83391 | CC16
+Caldecott | 1.3376 | 103.8396 | CC17
+Botanic Garden | 1.3223 | 103.8149 | CC19 | DT9
+Farrer Road | 1.3176 | 103.8077 | CC20
+Holland Village | 1.3111 | 103.7961 | CC21
+Buona Vista | 1.3073 | 103.8077 | CC22 | EW21
+One-north | 1.2998 | 103.7876 | CC23
+Kent Ridge | 1.2936 | 103.7845 | CC24
+Haw Par Villa | 1.2831 | 103.7820 | CC25
+Pasir Panjang | 1.2761 | 103.7919 | CC26
+Larbrador Park | 1.2721 | 103.8026 | CC27
+Telok Blangah | 1.2707 | 103.8099 | CC28
+HarbourFront | 1.2656 | 103.8209 | CC29 | NE1
+Outram Park | 1.2803 | 103.8403 | NE3 | EW16
+Chinatown | 1.2848 | 103.8439 | NE4 | DT19
+Clarke Quay | 1.2882 | 103.8467 | NE5
+Little India | 1.3063 | 103.8494 | NE7 | DT12
+Farrer Park | 1.3126 | 103.8549 | NE8
+Boon Keng | 1.3200 | 103.8616 | NE9
+Potong Pasir | 1.3312 | 103.8691 | NE10
+Woodleigh | 1.3391 | 103.8707 | NE11
+Kovan | 1.3602 | 103.8852 | NE12
+Hougang | 1.3713 | 103.8925 | NE13
+Buangkok | 1.3829 | 103.8934 | NE14
+Sengkang | 1.3917 | 103.8955 | NE15
+Punggol | 1.4052 | 103.9024 | NE16
+Pasir Ris | 1.3732 | 103.9494 | EW1
+Tampines | 1.3544 | 103.9433 | EW2 | D32
+Simei | 1.3432 | 103.9534 | EW3
+Tanah Merah | 1.3272 | 103.9465 | EW4 | CG0
+Expo | 1.3344 | 103.9615 | EW1 | CG1
+Changi Airport | 1.3576 | 103.9885 | EW2 | CG2
+Bedok | 1.3240 | 103.9302 | EW5
+Kembangan | 1.3210 | 103.9129 | EW6
+Eunos | 1.3197 | 103.9029 | EW7
+Aljunied | 1.3164 | 103.8828 | EW9
+Kallang | 1.3115 | 103.8714 | EW10
+Lavender | 1.3074 | 103.8628 | EW11
+Bugis | 1.3007 | 103.8559 | EW12 | DT14
+Tanjong Pagar | 1.2763 | 103.8468 | EW15
+Tiong Bahru | 1.2865 | 13.8270 | EW17
+Redhill | 1.2896 | 103.8168 | EW18
+Queenstown | 1.2948 | 103.8059 | EW19
+Commonwealth | 1.3024 | 103.7983 | Ew20
+Dover | 1.3114 | 103.7786 | EW22
+Clementi | 1.3152 | 103.7652 | EW23
+Chinese Garden | 1.3385 | 103.7304 | EW25
+Lakeside | 1.3442 | 103.7208 |  EW26
+Boon Lay | 1.3386 | 103.7326 | EW27
+Pioneer | 1.3376 | 103.6974 | EW28
+Joo Koon | 1.3278 | 1303.6783 | EW29
+Gul Circle | 1.3198 | 103.66008 | EW30
+Tuas Crescent | 1.3210 | 103.66491 | EW31
+Tuas West Road | 1.3300 | 103.6396 | EW32
+Tuas Link | 1.3403 | 103.6369 | EW33
+Bukit Panjang | 1.378436 | 103.761767 | DT0
+Cashew | 1.3700 | 103.7646 | DT2
+Hillview | 1.3631 | 103.7674 | DT3
+Beauty World | 1.3416 | 103.7757 | DT5
+King Albert park | 1.3357 | 103.7832 | DT6
+Sixth Avenue | 1.3312 | 103.7972 | DT7
+Tan Kah Kee | 1.3258 | 103.8080 | DT8
+Stevens | 1.3200 | 103.8259 | DT10
+Rochor | 1.3035 | 103.8526 | DT13
+Downtown | 1.2822 | 103.8486 | DT17
+Telok Ayer | 1.2822 | 103.8486 | DT18
+Fort Canning | 1.28485 | 103.844006 | DT20
+Bencoolen | 1.2985 | 103.8500 | DT21
+Jalan Besar | 1.3055 | 103.8554 | DT22
+Bendemeer | 1.3136 | 103.8631 | DT23
+Geylang Bahru | 1.3213 | 103.8714 | DT24
+Mattar | 1.3272 | 103.8829 | DT25
+Ubi | 1.3299 | 103.8989 | DT7
+Kaki Bukit | 1.3349 | 103.9090 | DT28
+Bedok North | 1.3351 | 103.9184 | DT29
+Bedok Revervoir | 1.3365 | 103.9331 | DT30
+Tampines West | 1.3456 | 103.9382 | DT31
+Tampines East | 1.3563 | 103.9547 | DT33
+Upper Changi | 1.33416 | 103.9615 | DT34

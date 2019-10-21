@@ -9,10 +9,12 @@ import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.events.Todo;
 import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * Parser for Storage related operations.
@@ -173,5 +175,23 @@ public class ParserStorageUtil {
         double distX = Double.parseDouble(taskParts[3].strip());
         double distY = Double.parseDouble(taskParts[4].strip());
         return new Venue(address, latitude, longitude, distX, distY);
+    }
+
+    /**
+     * Parses a train station from String format back to Train.
+     *
+     * @param line The String description of a train station.
+     * @return The corresponding Train object.
+     */
+    public static TrainStation createTrainFromStorage(String line) {
+        String[] trainParts = line.split("\\|");
+        String address = trainParts[0].strip();
+        double longitude = Double.parseDouble(trainParts[2].strip());
+        double latitude = Double.parseDouble(trainParts[1].strip());
+        ArrayList<String> trainCode = new ArrayList<>();
+        for (int i = 3; i < trainParts.length; i++) {
+            trainCode.add(trainParts[i].strip());
+        }
+        return new TrainStation(trainCode, address, latitude, longitude);
     }
 }
