@@ -1,6 +1,7 @@
 package wallet.logic.parser;
 
 import org.junit.jupiter.api.Test;
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -17,7 +18,7 @@ public class EditCommandParserTest {
             () -> assertEquals("Supper", expense.getDescription()),
             () -> assertEquals(null, expense.getDate()),
             () -> assertEquals(10.0, expense.getAmount()),
-            () -> assertEquals("Others", expense.getCategory()),
+            () -> assertEquals(Category.OTHERS, expense.getCategory()),
             () -> assertEquals(false, expense.isRecurring()),
             () -> assertEquals("", expense.getRecFrequency())
         );
@@ -33,7 +34,7 @@ public class EditCommandParserTest {
             () -> assertEquals("Supper", expense.getDescription()),
             () -> assertEquals(null, expense.getDate()),
             () -> assertEquals(10.0, expense.getAmount()),
-            () -> assertEquals("Others", expense.getCategory()),
+            () -> assertEquals(Category.OTHERS, expense.getCategory()),
             () -> assertEquals(true, expense.isRecurring()),
             () -> assertEquals("DAILY", expense.getRecFrequency())
         );

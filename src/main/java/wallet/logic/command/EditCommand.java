@@ -49,6 +49,9 @@ public class EditCommand extends Command {
                 currentExpense.setRecurring(expense.isRecurring());
                 currentExpense.setRecFrequency(expense.getRecFrequency());
             }
+            if (expense.getDate() != null) {
+                currentExpense.setDate(expense.getDate());
+            }
             if (expense.getAmount() != 0.0) {
                 currentExpense.setAmount(expense.getAmount());
             }

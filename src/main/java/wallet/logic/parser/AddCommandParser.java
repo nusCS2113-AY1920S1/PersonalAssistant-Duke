@@ -4,6 +4,7 @@ import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 
@@ -67,14 +68,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         String desc = arguments[0].trim();
         arguments = arguments[1].split(" ", 2);
         Double amount = Double.parseDouble(arguments[0].trim());
-        String cat;
+        Category cat;
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String freq = null;
 
         if (arguments[1].contains("/on")) {
             arguments = arguments[1].split(" ", 2);
-            cat = arguments[0].trim();
+            cat = Category.getCategory(arguments[0].trim());
+            if (cat == null) {
+                return null;
+            }
             if (isRecurring) {
                 arguments = arguments[1].split("/on");
                 arguments = arguments[1].split("/r");
@@ -89,7 +93,10 @@ public class AddCommandParser implements Parser<AddCommand> {
                 date = LocalDate.parse(arguments[1].trim(), formatter);
             }
         } else {
-            cat = arguments[1].trim();
+            cat = Category.getCategory(arguments[1].trim());
+            if (cat == null) {
+                return null;
+            }
         }
         Expense expense = new Expense(desc, date, amount, cat, isRecurring, freq);
 

@@ -2,7 +2,11 @@ package wallet.logic.parser;
 
 import wallet.logic.command.EditCommand;
 import wallet.model.contact.Contact;
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The EditCommandParser class helps to
@@ -89,19 +93,23 @@ public class EditCommandParser implements Parser<EditCommand> {
             }
             parameters = getRecurring[0].trim();
         }
-
+        if (parameters.contains("/t")) {
+            String[] getDate = parameters.split("/t");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(getDate[1].trim(), formatter);
+            expense.setDate(date);
+            parameters = getDate[0].trim();
+        }
         if (parameters.contains("/c")) {
             String[] getCategory = parameters.split("/c");
-            expense.setCategory(getCategory[1].trim());
+            expense.setCategory(Category.getCategory(getCategory[1].trim()));
             parameters = getCategory[0].trim();
         }
-
         if (parameters.contains("/a")) {
             String[] getAmount = parameters.split("/a");
             expense.setAmount(Double.parseDouble(getAmount[1].trim()));
             parameters = getAmount[0].trim();
         }
-
         if (parameters.contains("/d")) {
             String[] getDescription = parameters.split("/d");
             expense.setDescription(getDescription[1].trim());

@@ -1,5 +1,6 @@
 package wallet.storage;
 
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
 
 import java.io.FileNotFoundException;
@@ -31,10 +32,10 @@ public class ExpenseStorage extends Storage<Expense> {
                 Expense expense = null;
                 if (data.length == 5) {
                     expense = new Expense(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
-                            data[4], false, null);
+                            Category.getCategory(data[4]), false, null);
                 } else {
                     expense = new Expense(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
-                            data[4], true, data[5]);
+                            Category.getCategory(data[4]), true, data[5]);
                 }
 
                 if (expense != null) {

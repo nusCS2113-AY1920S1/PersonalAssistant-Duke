@@ -3,6 +3,7 @@ package wallet.logic.command;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import wallet.model.Wallet;
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
 
 import java.time.LocalDate;
@@ -14,8 +15,8 @@ public class DeleteCommandTest {
 
     @BeforeAll
     public static void setUp() {
-        testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3, "Food", false, null));
-        testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5, "Food", false, null));
+        testWallet.getExpenseList().addExpense(new Expense("Lunch", LocalDate.now(), 3, Category.FOOD, false, null));
+        testWallet.getExpenseList().addExpense(new Expense("Dinner", LocalDate.now(), 5, Category.FOOD, false, null));
     }
 
     @Test
