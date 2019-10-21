@@ -22,8 +22,8 @@ public class GenerateRevenueCommand extends Command {
         INDEX, NAME, TYPE
     }
 
-    private int GenerateRevenueIndex;
-    private String GenerateRevenueDescription;
+    private int generateRevenueIndex;
+    private String generateRevenueDescription;
     private GenerateRevenueCommand.GenerateRevenueBy param;
     private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the revenue for this food:\n"
             + "%1$s\n"
@@ -47,7 +47,7 @@ public class GenerateRevenueCommand extends Command {
      * @param param The parameter is used to specify the type of generating revenue.
      */
     public GenerateRevenueCommand(int index, String param) {
-        this.GenerateRevenueIndex = index - 1;
+        this.generateRevenueIndex = index - 1;
         this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
     }
 
@@ -58,7 +58,7 @@ public class GenerateRevenueCommand extends Command {
      * @param param The parameter is used to specify the type of generating revenue.
      */
     public GenerateRevenueCommand(String GenerateRevenueDescription, String param) {
-        this.GenerateRevenueDescription = GenerateRevenueDescription;
+        this.generateRevenueDescription = GenerateRevenueDescription;
         this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
     }
 
@@ -69,7 +69,7 @@ public class GenerateRevenueCommand extends Command {
      * @throws CommandException If the given index is invalid.
      */
     private void checkValidIndex(FoodList list) throws CommandException {
-        if (GenerateRevenueIndex < 0 || GenerateRevenueIndex >= list.size()) {
+        if (generateRevenueIndex < 0 || generateRevenueIndex >= list.size()) {
             throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
         }
     }
@@ -81,7 +81,7 @@ public class GenerateRevenueCommand extends Command {
      * @throws CommandException If the given food name is not inside the food list.
      */
     private void checkValidName(FoodList list) throws CommandException {
-        if (!list.existsName(GenerateRevenueDescription)) {
+        if (!list.existsName(generateRevenueDescription)) {
             throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
         }
     }
@@ -92,7 +92,7 @@ public class GenerateRevenueCommand extends Command {
      * @throws CommandException If the given food type is not inside the food list.
      */
     private void checkValidType(FoodList list) throws CommandException {
-        if (!list.existsType(GenerateRevenueDescription)) {
+        if (!list.existsType(generateRevenueDescription)) {
             throw new CommandException(CommandErrorMessage.FOOD_NOT_EXISTS);
         }
     }
@@ -111,21 +111,21 @@ public class GenerateRevenueCommand extends Command {
         switch (param) {
             case INDEX:
                 checkValidIndex(list);
-                toGenerateRevenue = list.get(GenerateRevenueIndex);
-                list.removeIndex(GenerateRevenueIndex);
+                toGenerateRevenue = list.get(generateRevenueIndex);
+                list.removeIndex(generateRevenueIndex);
                 storage.storeFoodList(list);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue, list.size()));
             case NAME:
                 checkValidName(list);
-                toGenerateRevenue = list.get(GenerateRevenueDescription);
-                list.removeName(GenerateRevenueDescription);
+                toGenerateRevenue = list.get(generateRevenueDescription);
+                list.removeName(generateRevenueDescription);
                 storage.storeFoodList(list);
                 return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue, list.size()));
             case TYPE:
                 checkValidType(list);
-                int count = list.removeType(GenerateRevenueDescription);
+                int count = list.removeType(generateRevenueDescription);
                 storage.storeFoodList(list);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, GenerateRevenueDescription, count, list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, generateRevenueDescription, count, list.size()));
         }
         return null;
     }
