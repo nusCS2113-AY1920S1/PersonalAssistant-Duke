@@ -60,7 +60,8 @@ public abstract class Event implements Comparable<Event> {
      */
     public String toString() {
         if (getType() == 'T') { //if todo, then only one date entry
-            return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
+            return "[" + getDoneSymbol() + "][T] " + getDescription()
+                    + " BY: " + this.getStartDate().getFormattedDateString();
         } else { //multiple date entries
             return "[" + getDoneSymbol() + "][" + getType() + "] " +
                     getDescription() + " START: " + startEventDate.getFormattedDateString() +

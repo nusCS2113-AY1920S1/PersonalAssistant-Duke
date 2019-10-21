@@ -193,7 +193,7 @@ public class Command {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDay = formatter.format(dayToCheckIfFree.getTime());
         EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
-        Queue<String> daysFree = new LinkedList<String>();
+        Queue<String> daysFree = new LinkedList<>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean isFree = true;
@@ -268,6 +268,7 @@ public class Command {
                         events.addEvent(newEvent);
                         ui.eventAdded(newEvent, events.getNumEvents());
                     } else {
+                        assert newEvent != null;
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                         ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                     }
@@ -288,7 +289,7 @@ public class Command {
         }
         EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
         Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addNewTodo(newEvent, ui);
+        events.addNewTodo(newEvent);
         ui.eventAdded(newEvent, events.getNumEvents());
     }
 
@@ -393,7 +394,7 @@ public class Command {
         /**
          * contains all info regarding an entry for a non-recurring event
          *
-         * @return
+         * @return organized entryForEvent information
          */
         public EntryForEvent invoke() {
             int NON_RECURRING = -1;
