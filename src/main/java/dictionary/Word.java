@@ -31,7 +31,7 @@ public class Word {
         this.word = word;
         this.meaning = meaning;
         this.tags = new HashSet<>();
-        this.numberOfSearches = 1;
+        this.numberOfSearches = 0;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Word {
         this.word = word;
         this.meaning = meaning;
         this.tags = tags;
-        this.numberOfSearches = 1;
+        this.numberOfSearches = 0;
     }
 
     public void setClosetSearch(String closetSearch) {
@@ -57,6 +57,10 @@ public class Word {
 
     public int getNumberOfSearches() {
         return numberOfSearches;
+    }
+
+    public void incrementNumberOfSearches() {
+        this.numberOfSearches += 1;
     }
 
     public String getClosetSearch() {
