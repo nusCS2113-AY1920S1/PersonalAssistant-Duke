@@ -1,17 +1,17 @@
 package duke.core;
 
+import duke.command.AddPatientCommand;
 import duke.command.AddStandardTaskCommand;
 import duke.command.AssignTaskToPatientCommand;
 import duke.command.Command;
-import duke.command.AddPatientCommand;
-import duke.command.ListPatientsCommand;
-import duke.command.ListTasksCommand;
-import duke.command.DeletePatientTaskCommand;
 import duke.command.DeletePatientCommand;
+import duke.command.DeletePatientTaskCommand;
 import duke.command.DeleteTaskCommand;
+import duke.command.ExitCommand;
 import duke.command.FindPatientCommand;
 import duke.command.FindPatientTaskCommand;
-import duke.command.ExitCommand;
+import duke.command.ListPatientsCommand;
+import duke.command.ListTasksCommand;
 import duke.command.UpdatePatientCommand;
 import duke.command.UpdateTaskCommand;
 
@@ -75,12 +75,15 @@ public class CommandManager {
                     throw new DukeException("Invalid 'list' command.");
                 }
             case "delete":
-                if ((secondKeyword != "") && (thirdKeyword != "") && secondKeyword.equals("patient") && thirdKeyword.equals("task")) {
-                return new DeletePatientTaskCommand(parser.parseDeletePatientTask());
+                if ((secondKeyword != "")
+                        && (thirdKeyword != "")
+                        && secondKeyword.equals("patient")
+                        && thirdKeyword.equals("task")) {
+                    return new DeletePatientTaskCommand(parser.parseDeletePatientTask());
                 } else if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseDeletePatient();
                     return new DeletePatientCommand(formattedInput);
-                }  else if ((secondKeyword != "") &&  secondKeyword.equals("task")) {
+                } else if ((secondKeyword != "") && secondKeyword.equals("task")) {
                     return new DeleteTaskCommand(parser.parseDeleteTask());
                 } else {
                     throw new DukeException("Invalid 'delete' command.");

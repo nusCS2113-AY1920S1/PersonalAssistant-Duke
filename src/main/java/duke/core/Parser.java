@@ -19,7 +19,7 @@ public class Parser {
      *
      * @return A formatted string that will work for the available 'add' commands.
      * @throws DukeException If the method is unable to parse the userInput correctly, it will throw
-     * a DukeException.
+     *                       a DukeException.
      */
     public String[] parseAdd() throws DukeException {
         String[] parsedCommand = userInput.toLowerCase().split("\\s+", 3);
@@ -48,21 +48,21 @@ public class Parser {
     public String[] parseAssign() throws DukeException {
         String[] formattedInput = new String[5];
         try {
-                String[] tempInput = userInput.trim().replaceAll(
-                        "(?i)assign ", "").split("\\s+", 4);
-                if (tempInput[0].equals("E")) {
-                    String[] parsedTimes = tempInput[3].split(" to ", 2);
+            String[] tempInput = userInput.trim().replaceAll(
+                    "(?i)assign ", "").split("\\s+", 4);
+            if (tempInput[0].equals("E")) {
+                String[] parsedTimes = tempInput[3].split(" to ", 2);
 
-                    for (int i = 0; i < 3; i++) {
-                        formattedInput[i] = tempInput[i];
-                    }
-                    formattedInput[3] = parsedTimes[0];
-                    formattedInput[4] = parsedTimes[1];
-                } else {
-                    for (int i = 0; i < tempInput.length; i++) {
-                        formattedInput[i] = tempInput[i];
-                    }
+                for (int i = 0; i < 3; i++) {
+                    formattedInput[i] = tempInput[i];
                 }
+                formattedInput[3] = parsedTimes[0];
+                formattedInput[4] = parsedTimes[1];
+            } else {
+                for (int i = 0; i < tempInput.length; i++) {
+                    formattedInput[i] = tempInput[i];
+                }
+            }
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Invalid 'assign' command.");
@@ -84,6 +84,7 @@ public class Parser {
             throw new DukeException("Invalid 'list' command.");
         }
     }
+
     /**
      * Takes the user input and formats it so it is compatible with 'delete patient' command.
      *
@@ -120,6 +121,7 @@ public class Parser {
 
     /**
      * Takes user input and formats it so it is compatible with 'delete patient task' command.
+     *
      * @return Array of strings to be used by 'delete patient task' command.
      * @throws DukeException when user input cannot be parsed properly.
      */
