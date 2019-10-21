@@ -1,5 +1,6 @@
 package command;
 
+
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
@@ -19,5 +20,7 @@ public class ListRoomCommand extends Command {
         for (int i = 0; i < roomList.size(); i++) {
             ui.addToOutput(i + 1 + ". " + roomList.get(i).toString());
         }
+
+
     }
 }
