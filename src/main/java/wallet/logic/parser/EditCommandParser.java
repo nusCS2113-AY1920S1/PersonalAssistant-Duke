@@ -5,6 +5,7 @@ import wallet.logic.command.EditCommand;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
-                LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
                 return new EditCommand(expense);
             } else {
                 break;
@@ -31,7 +31,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         case "loan":
             Loan loan = parseLoan(arguments[1]);
             if (loan != null) {
-                LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
                 return new EditCommand(loan);
             }
             break;
@@ -39,7 +38,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         case "contact":
             Contact contact = parseContact(arguments[1]);
             if (contact != null) {
-                LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
                 return new EditCommand(contact);
             } else {
                 break;
@@ -92,8 +90,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         loan.setId(loanId);
         String parameters = arguments[1].trim();
 
-        int index = LogicManager.getWallet().getLoanList().findIndexWithId(loan.getId());
+        int index = LogicManager.getWallet().getLoanList().findIndexWithId(loanId);
         Loan currentLoan = LogicManager.getWallet().getLoanList().getLoan(index);
+        loan = currentLoan;
 
         if (parameters.contains("/c")) {
             String[] getContact = parameters.split("/c");
@@ -106,45 +105,40 @@ public class EditCommandParser implements Parser<EditCommand> {
                 }
             }
             parameters = getContact[0].trim();
-        } else { //parameters does not contain "/c"
-            loan.setPerson(currentLoan.getPerson());
         }
         if (parameters.contains("/l")) {
-            String[] getIsLend = parameters.split("/l");
             loan.setIsLend(true);
+            if (parameters.equals("/l")) {
+                return loan;
+            }
+            String[] getIsLend = parameters.split("/l");
             parameters = getIsLend[0].trim();
         } else if (parameters.contains("/b")) {
-            String[] getIsLend = parameters.split("/b");
             loan.setIsLend(false);
+            if (parameters.equals("/b")) {
+                return loan;
+            }
+            String[] getIsLend = parameters.split("/b");
             parameters = getIsLend[0].trim();
-        } else if (!parameters.contains("/l") || !parameters.contains("/b")) {
-            loan.setIsLend(currentLoan.getIsLend());
         }
         if (parameters.contains("/t")) {
             String[] getDate = parameters.split("/t");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate createdDate = LocalDate.parse(getDate[1].trim(), formatter);
-            loan.setCreatedDate(createdDate);
+            loan.setDate(createdDate);
             parameters = getDate[0].trim();
-        } else if (!parameters.contains("/t")) {
-            loan.setCreatedDate(currentLoan.getCreatedDate());
         }
         if (parameters.contains("/a")) {
             String[] getAmount = parameters.split("/a");
             double amount = Double.parseDouble(getAmount[1].trim());
             loan.setAmount(amount);
             parameters = getAmount[0].trim();
-        } else {
-            loan.setAmount(currentLoan.getAmount());
         }
         if (parameters.contains("/d")) {
             String[] getDescription = parameters.split("/d");
             String description = getDescription[1].trim();
             loan.setDescription(description);
-        } else {
-            loan.setDescription(currentLoan.getDescription());
         }
-        loan.setIsSettled(currentLoan.getIsSettled());
         return loan;
     }
 

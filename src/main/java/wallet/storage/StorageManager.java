@@ -83,22 +83,28 @@ public class StorageManager {
     /**
      * Checks if lists are modified and updates save file.
      */
-    public void save(Wallet wallet) {
+    public boolean save(Wallet wallet) {
+        boolean isModified = false;
         if (wallet.getExpenseList().getIsModified()) {
             expenseStorage.writeListToFile(wallet.getExpenseList().getExpenseList());
             wallet.getExpenseList().setModified(false);
+            isModified = true;
         }
         if (wallet.getLoanList().getIsModified()) {
             loanStorage.writeListToFile(wallet.getLoanList().getLoanList());
             wallet.getLoanList().setModified(false);
+            isModified = true;
         }
         if (wallet.getContactList().getIsModified()) {
             contactStorage.writeListToFile(wallet.getContactList().getContactList());
             wallet.getContactList().setModified(false);
+            isModified = true;
         }
         if (wallet.getBudgetList().getIsModified()) {
             budgetStorage.writeListToFile(wallet.getBudgetList().getBudgetList());
             wallet.getBudgetList().setModified(false);
+            isModified = true;
         }
+        return isModified;
     }
 }

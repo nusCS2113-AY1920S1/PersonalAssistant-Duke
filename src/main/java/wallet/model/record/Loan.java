@@ -10,7 +10,6 @@ public class Loan extends Record {
     private String description;
     private double amount;
     private Contact person;
-    private LocalDate createdDate;
     private boolean isLend;
     private boolean isSettled;
 
@@ -21,7 +20,6 @@ public class Loan extends Record {
         description = null;
         amount = 0.0;
         person = null;
-        createdDate = null;
         isSettled = false;
     }
 
@@ -40,7 +38,6 @@ public class Loan extends Record {
         super(description, createdDate);
         this.description = description;
         this.amount = amount;
-        this.createdDate = createdDate;
         this.isLend = isLend;
         this.isSettled = isSettled;
         this.person = person;
@@ -64,13 +61,6 @@ public class Loan extends Record {
         this.amount = amount;
     }
 
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-    }
 
     /**
      * Returns true or false.
