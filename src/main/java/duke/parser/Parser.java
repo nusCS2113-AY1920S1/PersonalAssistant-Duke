@@ -60,9 +60,9 @@ public class Parser {
             return new DeleteBookingCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
             return new ViewBookingScheduleCommand(userInputCommand);
-        } else if (userInputCommand.contains("vieworders")) {
+        } else if (userInputCommand.contains(COMMAND_VIEW_ORDERS)) {
             return new ViewOrdersCommand(userInputCommand);
-        } else { //userInputCommand.equals(COMMAND_LIST_BOOKINGS)
+        } else {
             return new AllBookingsCommand();
         }
     }

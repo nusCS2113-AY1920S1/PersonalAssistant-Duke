@@ -46,11 +46,6 @@ public class Duke {
     private Rating rating;
     private Feedback feedback;
 
-//    /**
-//     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
-//     * @param filePath String containing the directory in which the tasks are to be stored
-//     */
-
     public Duke(Ui ui) {
         this.ui = ui;
         ingredientStorage = new IngredientStorage(filePathIngredients);
@@ -73,83 +68,66 @@ public class Duke {
         return ui.showWelcome();
     }
 
+    //Should the runProgram method deals with string manipulations?
+    // I hope its responsibility is to call relevant objects to initiate the run
+    //I hope it is not the responsibility of the runProgram method to decide what does the command user type and react to it.
+    // Please check it again
     public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
-        System.out.println("stuck here1");
+
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.contains(COMMAND_ADD_RECIPE_TITLE)) {
-            System.out.println("stuck here2");
             if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_RECIPE_TITLE)) {
-                System.out.println("stuck here3");
                 CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
                 return command.execute(recipeTitleList, ui, recipeTitleStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
-                System.out.println("stuck here4");
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
-            System.out.println("stuck here5");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
-                System.out.println("stuck here6");
                 CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
                 return command.execute(recipeTitleList, ui, recipeTitleStorage);
             } else {
-                System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
-            System.out.println("stuck here8");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPE_INGREDIENT)) {
-                System.out.println("stuck here9");
                 CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
                 return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
-                System.out.println("stuck here10");
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
-            System.out.println("stuck here11");
             if (userInput.trim().substring(0, 19).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
-                System.out.println("stuck here12");
                 CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
                 return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
             } else {
-                System.out.println("stuck here13");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_DELETE_RECIPE_INGREDIENT)) {
-            System.out.println("stuck here14");
             if (userInput.trim().substring(0, 5).equals(COMMAND_DELETE_RECIPE_INGREDIENT)) {
-                System.out.println("stuck here15");
                 CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
                 return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
             } else {
-                System.out.println("stuck here16");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_DELETE_RECIPE_TITLE)) {
-            System.out.println("stuck here33");
             if (userInput.trim().substring(0, 5).equals(COMMAND_DELETE_RECIPE_TITLE)) {
-                System.out.println("stuck here34");
                 CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
                 return command.execute(recipeTitleList, ui, recipeTitleStorage);
             } else {
-                System.out.println("stuck here35");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
-            System.out.println("stuck here17");
             if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_INGREDIENT)) {
-                System.out.println("stuck here18");
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
             } else {
-                System.out.println("stuck here19");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
@@ -158,7 +136,6 @@ public class Duke {
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
             } else {
-                System.out.println("stuck here19");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
@@ -167,19 +144,15 @@ public class Duke {
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
             } else {
-                System.out.println("stuck here19");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
         } else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) {
-            System.out.println("stuck here 20");
             CommandBooking command = Parser.parseBooking(userInput);
             return command.execute(bookingList, ui, bookingStorage);
 
         } else if (userInput.contains(COMMAND_ADD_BOOKING)) {
-            System.out.println("stuck here 21");
             if (userInput.trim().substring(0, 10).equals(COMMAND_ADD_BOOKING)) {
-                System.out.println("stuck here 21.1");
                 CommandBooking command = Parser.parseBooking(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
@@ -187,9 +160,7 @@ public class Duke {
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_DELETE_BOOKING)) {
-            System.out.println("stuck here 22");
             if (userInput.trim().substring(0, 13).equals(COMMAND_DELETE_BOOKING)) {
-                System.out.println("stuck here 22.1");
                 CommandBooking command = Parser.parseBooking(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
@@ -197,9 +168,7 @@ public class Duke {
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-            System.out.println("stuck here 23");
             if (userInput.trim().substring(0, 19).equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-                System.out.println("stuck here 23.1");
                 CommandBooking command = Parser.parseBooking(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
@@ -207,19 +176,15 @@ public class Duke {
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_FIND_BOOKING)) {
-            System.out.println("stuck here 24");
             if (userInput.trim().substring(0, 11).equals(COMMAND_FIND_BOOKING)) {
-                System.out.println("stuck here 24.1");
                 CommandBooking command = Parser.parseBooking(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains("vieworders")) {
-            System.out.println("stuck here 25");
-            if (userInput.trim().substring(0, 10).equals("vieworders")) {
-                System.out.println("stuck here 25.1");
+        } else if (userInput.contains(COMMAND_VIEW_ORDERS)) {
+            if (userInput.trim().substring(0, 10).equals(COMMAND_VIEW_ORDERS)) {
                 CommandBooking command = Parser.parseBooking(userInput);
                 return command.execute(bookingList, ui, bookingStorage);
             } else {
@@ -227,7 +192,6 @@ public class Duke {
                 return arrayList;
             }
         } else {
-            System.out.println("stuck here 99");
             arrayList.add(ERROR_MESSAGE_RANDOM);
             return arrayList;
         }
