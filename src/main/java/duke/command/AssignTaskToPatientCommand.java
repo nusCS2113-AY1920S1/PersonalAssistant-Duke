@@ -84,7 +84,6 @@ public class AssignTaskToPatientCommand extends Command {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             throw new DukeException("You are missing some information!");
         }
 

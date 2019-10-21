@@ -276,7 +276,7 @@ public class Ui {
      * @param id the patients to be listed out
      */
     public void patientTaskDeleted(int id) {
-        System.out.println("Got it. The task with unique ID: " + id + "has been deleted");
+        System.out.println("Got it. The task with unique ID: " + id + " has been deleted");
     }
 
     /**
