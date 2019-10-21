@@ -137,7 +137,7 @@ public class Loan extends Record {
 
 
     /**
-     * Sets the contact for loan entry
+     * Sets the contact for loan entry.
      *
      * @param person contact for loan
      */
@@ -146,7 +146,7 @@ public class Loan extends Record {
     }
 
     /**
-     * Gets the contact for loan entry
+     * Gets the contact for loan entry.
      *
      */
     public Contact getPerson() {
