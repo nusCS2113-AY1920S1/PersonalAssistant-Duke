@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.Optional;
+
 /**
  * Subclass of duke.task.Task
  * Describes a task which has a fixed duration to complete
@@ -14,8 +16,8 @@ public class FixedDurationTask extends Task {
 	 * @param description the description of the task
 	 * @param duration how long the task needs to complete in hours
 	 */
-	public FixedDurationTask(String description, int duration) {
-		super(description);
+	public FixedDurationTask(String description, Optional<String> filter, int duration) {
+		super(description, filter);
 		this.duration = duration;
 		this.key = "[F]";
 	}

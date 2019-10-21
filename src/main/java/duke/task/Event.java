@@ -1,6 +1,7 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 /**
  * Subclass of duke.task.Task
@@ -17,14 +18,14 @@ public class Event extends Task {
 	 * @param description the description of the event
 	 * @param at the date and time at which the event will be held
 	 */
-	public Event(String description, LocalDate at, String recurrencePeriod) {
-		super(description, recurrencePeriod);
+	public Event(String description, Optional<String> filter, LocalDate at, String recurrencePeriod) {
+		super(description, filter, recurrencePeriod);
 		this.datetime = at;
 		this.key = "[E]";
 	}
 
-	public Event(String description, LocalDate at) {
-		this(description, at, "none");
+	public Event(String description, Optional<String> filter, LocalDate at) {
+		this(description, filter, at, "none");
 	}
 
 	public LocalDate getDatetime() {
