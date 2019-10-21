@@ -99,6 +99,29 @@ public class AchievementStorage {
         }
     }
 
+    public static int reloadStatus() throws IOException {
+        try {
+            Scanner scanner = new Scanner(new File(STATUS_FILEPATH_BACKUP));
+            while (scanner.hasNextLine()) {
+                String[] txt = scanner.nextLine().split(" ");
+                if(txt[0].equals("Add:")) {
+                    numberOfTasks = Integer.parseInt(txt[1]);
+                } else if(txt[0].equals("Done:")) {
+                    numberOfDone = Integer.parseInt(txt[1]);
+                } else if(txt[0].equals("TotalPoints:")) {
+                    totalPoints = Integer.parseInt(txt[1]);
+                } else if(txt[0].equals("LastLogin:")) {
+                    storedDateTime = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
+                } else if(txt[0].equals("ConsecutiveCount:")) {
+                    consecutiveCount = Integer.parseInt(txt[1]);
+                }
+            }
+            return numberOfTasks;
+        } catch (FileNotFoundException e) {
+            return numberOfTasks;
+        }
+    }
+
     /**
      * Save all current achievement progress.
      * @throws IOException when writing of file has errors.
@@ -168,6 +191,50 @@ public class AchievementStorage {
                 }
                 return achievementList;
             } catch(FileNotFoundException e) {
+            return achievementList;
+        }
+    }
+
+    public static ArrayList<Achievements> reloadAchievements() throws FileNotFoundException {
+        try {
+            Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH_BACKUP));
+            achievementList = new ArrayList<>();
+            while (scanner.hasNextLine()) {
+                String[] txt = scanner.nextLine().split("\\|");
+                if(txt[3].equals("Busybee")) {
+                    AddTask addTask = new AddTask(txt[2]);
+                    addTask.setPoints(Integer.parseInt(txt[1]));
+                    if(txt[0].equals("true")) {
+                        addTask.setLock(true);
+                    } else if(txt[0].equals("false")) {
+                        addTask.setLock(false);
+                    }
+                    achievementList.add(addTask);
+                } else if(txt[3].equals("Completionist")) {
+                    DoneTask doneTask = new DoneTask(txt[2]);
+                    doneTask.setPoints(Integer.parseInt(txt[1]));
+                    if(txt[0].equals("true")) {
+                        doneTask.setLock(true);
+                    } else if(txt[0].equals("false")) {
+                        doneTask.setLock(false);
+                    }
+                    achievementList.add(doneTask);
+                } else if(txt[3].equals("Dedicated to the art")) {
+                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
+                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
+                    if(txt[0].equals("true")) {
+                        consecutiveLogin.setLock(true);
+                    } else if(txt[0].equals("false")) {
+                        consecutiveLogin.setLock(false);
+                    }
+                    achievementList.add(consecutiveLogin);
+                } else if(txt[3].equals("Fresh off the boat")) {
+                    FirstLogin firstLogin = new FirstLogin();
+                    achievementList.add(firstLogin);
+                }
+            }
+            return achievementList;
+        } catch(FileNotFoundException e) {
             return achievementList;
         }
     }

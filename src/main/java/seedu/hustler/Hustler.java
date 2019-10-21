@@ -144,9 +144,11 @@ public class Hustler extends Application {
         AchievementStorage.createBackup(achievementList);
     }
 
-    public static void reloadBackup() {
+    public static void reloadBackup() throws IOException {
         list = new TaskList(storage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
+        AchievementStorage.reloadStatus();
+        AchievementStorage.reloadAchievements();
     }
 
     /**
