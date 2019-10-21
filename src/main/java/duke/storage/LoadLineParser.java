@@ -15,17 +15,27 @@ public class LoadLineParser {
     public static void parse(MealList meals, String line) throws DukeException {
         String[] splitLine = line.split("\\|", 4);
         String taskType = splitLine[0];
+        String status = splitLine[1];
         String description = splitLine[2];
         String[] nutritionalValue = splitLine[3].split("\\|");
         Meal newMeal;
         if (taskType.equals("B")) {
             newMeal = new Breakfast(description, nutritionalValue);
+            if (status.equals("1")) {
+                newMeal.markAsDone();
+            }
             LoadMealUtil.load(meals, newMeal);
         } else if (taskType.equals("L")) {
             newMeal = new Lunch(description, nutritionalValue);
+            if (status.equals("1")) {
+                newMeal.markAsDone();
+            }
             LoadMealUtil.load(meals, newMeal);
         } else if (taskType.equals("D")) {
             newMeal = new Dinner(description, nutritionalValue);
+            if (status.equals("1")) {
+                newMeal.markAsDone();
+            }
             LoadMealUtil.load(meals, newMeal);
         } else if (taskType.equals("S")) {
             newMeal = new Item(description, nutritionalValue);

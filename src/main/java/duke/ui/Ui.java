@@ -72,7 +72,9 @@ public class Ui {
     public void showCaloriesLeft(ArrayList<Meal> meals, User user, String dateStr) {
         int totalConsume = 0;
         for (int i = 0; i < meals.size(); i += 1) {
-            totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+            if (meals.get(i).getIsDone()) {
+                totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+            }
         }
         System.out.println(padding + "Now you have " + (user.getDailyCalorie()
                 - totalConsume) + " calories left on " + dateStr);
@@ -133,8 +135,10 @@ public class Ui {
     public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user, int remainingCalories) {
         int limit = user.getDailyCalorie();
         int consumeTotal = 0;
-        for (int i = 0; i < mealsOfDay.size(); i += 1) {
-            consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+        for (int i = 0; i < mealsOfDay.size(); i++) {
+            if (mealsOfDay.get(i).getIsDone()) {
+                consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+            }
         }
         if (remainingCalories == -1) {
             System.out.println(padding + "You have this many calories left today: " + (limit - consumeTotal));
