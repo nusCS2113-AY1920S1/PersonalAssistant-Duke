@@ -1,4 +1,8 @@
 //@@author LL-Pengfei
+/**
+ * RevenueStorage.java
+ * Support revenue-related methods for storage.
+ */
 package cube.storage;
 
 /**
