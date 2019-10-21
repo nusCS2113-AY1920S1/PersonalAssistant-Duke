@@ -1,5 +1,7 @@
 package core;
 
+import gui.Window;
+
 import java.util.Scanner;
 
 /**
@@ -32,6 +34,7 @@ public class Ui {
      * @param toPrint the message need to be printed
      */
     public static void print(String toPrint) {
+        Window.outputArea.setText(toPrint);
         System.out.println(horizontalLine);
         toPrint = "\t" + toPrint;
         for (int i = 0; i < toPrint.length(); i++) {

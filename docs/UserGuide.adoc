@@ -94,7 +94,7 @@ Format: `find [keyword]`
 === Listing all tasks: `list`
 
 Lists all tasks, in order of index. +
-Format: `list`
+Format: `list [tasks/members]`
 
 === Deleting a task : `delete`
 
