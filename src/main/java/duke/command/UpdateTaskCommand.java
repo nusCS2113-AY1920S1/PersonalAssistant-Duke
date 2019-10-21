@@ -58,7 +58,7 @@ public class UpdateTaskCommand extends Command {
                 ui.showTaskInfo(taskToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(
-                        "Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+                        "Please follow the format 'update task #<id> description <new description>'.");
             }
 
         }
