@@ -36,6 +36,10 @@ public class MainWindow extends AnchorPane {
 
     private Optix optix;
 
+    /**
+     * Initialize the main display for Optix.
+     * @param optix The software Optix.
+     */
     public MainWindow(Optix optix) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
         fxmlLoader.setRoot(this);
@@ -56,7 +60,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleResponse() {
         String fullCommand = userInput.getText();
-        String taskType = optix.runGUI(fullCommand);
+        String taskType = optix.runGui(fullCommand);
         String response = optix.getResponse();
 
         chatBox.getChildren().addAll(

@@ -67,7 +67,12 @@ public class Optix {
         }
     }
 
-    public String runGUI(String fullCommand) {
+    /**
+     * Processes user input command.
+     * @param fullCommand User input command.
+     * @return String for the type of Model that command deals with. E.g Show, Seat and Alias.
+     */
+    public String runGui(String fullCommand) {
         String taskType = "";
         try {
             Command c = Parser.parse(fullCommand);
