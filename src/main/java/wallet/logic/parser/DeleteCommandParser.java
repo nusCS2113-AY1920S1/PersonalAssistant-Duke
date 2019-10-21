@@ -25,25 +25,25 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     @Override
     public DeleteCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
-        int index = Integer.parseInt(arguments[1]);
+        int id = Integer.parseInt(arguments[1]);
         switch (arguments[0]) {
 
         case "contact":
-            if (parseContact(index)) {
+            if (parseContact(id)) {
                 return null;
             }
-            return new DeleteCommand(arguments[0], index);
+            return new DeleteCommand(arguments[0], id);
 
         default:
-            return new DeleteCommand(arguments[0], index);
+            return new DeleteCommand(arguments[0], id);
         }
     }
 
-    private Boolean parseContact(int index) {
+    private Boolean parseContact(int id) {
 
         ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
         for (Loan l : loanList) {
-            if (l.getPerson().getId() == index) {
+            if (l.getPerson().getId() == id) {
                 System.out.println(MESSAGE_ERROR_DELETE_CONTACT);
                 return true;
             }
