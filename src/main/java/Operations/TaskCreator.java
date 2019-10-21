@@ -6,6 +6,7 @@ import Enums.Priority;
 import Enums.RecurrenceScheduleType;
 import Enums.TimeUnit;
 import Model_Classes.Assignment;
+import Model_Classes.Leave;
 import Model_Classes.Meeting;
 import Model_Classes.Task;
 import java.util.Timer;
@@ -133,6 +134,12 @@ public class TaskCreator {
                 meeting.setRecurrenceSchedule(recurrence);
                 return meeting;
             }
+        } else if (type.contains("leave")) {
+            //short leave
+            Leave leave = new Leave(description, assignee, date, duration, unit);
+            leave.setPriority(priority);
+            leave.setRecurrenceSchedule(recurrence);
+            return leave;
         } else throw new RoomShareException(ExceptionType.wrongTaskType);
     }
 }
