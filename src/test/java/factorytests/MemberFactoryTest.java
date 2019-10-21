@@ -39,14 +39,14 @@ public class MemberFactoryTest {
     void memberCreation_correctPartialInputs_creationSuccess() {
         simulatedFactoryInput = "n/Iron man i/12345678 x/2";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
-        Member expectedMember = new Member("Iron man", "12345678", "No email address", 2);
+        Member expectedMember = new Member("Iron man", "12345678", "--", 2);
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
 
         simulatedFactoryInput = "n/Dr Strange x/3";
         simulatedMember = memberFactory.create(simulatedFactoryInput);
-        expectedMember = new Member("Dr Strange", "No phone number", "No email address", 3);
+        expectedMember = new Member("Dr Strange", "--", "--", 3);
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());

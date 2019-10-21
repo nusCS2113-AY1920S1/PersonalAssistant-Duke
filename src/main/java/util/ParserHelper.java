@@ -19,9 +19,9 @@ public class ParserHelper {
      */
     public String[] parseMemberDetails(String input) {
         String[] memberDetails = new String[4];
-        memberDetails[0] = "No name";
-        memberDetails[1] = "No phone number";
-        memberDetails[2] = "No email address";
+        memberDetails[0] = "--";
+        memberDetails[1] = "--";
+        memberDetails[2] = "--";
         memberDetails[3] = "0";
         String[] tempInput = input.split(" ");
         for (String s : tempInput) {
