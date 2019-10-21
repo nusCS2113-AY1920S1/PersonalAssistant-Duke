@@ -3,7 +3,6 @@ package duke.ui.calendar;
 import duke.logic.commands.results.CommandResultCalender;
 import duke.commons.exceptions.DukeException;
 import duke.model.TaskList;
-import duke.model.events.DoWithin;
 import duke.model.events.Task;
 import duke.model.events.TaskWithDates;
 import duke.ui.UiPart;
@@ -127,9 +126,6 @@ public class CalendarWindow extends UiPart<Stage> {
         LocalDate startDate = ((TaskWithDates) t).getStartDate().toLocalDate();
         if (isSameYearMonth(startDate)) {
             filteredTasks.get(startDate.getDayOfMonth()).add(t);
-            if (t instanceof DoWithin) {
-                //do something
-            }
         }
     }
 

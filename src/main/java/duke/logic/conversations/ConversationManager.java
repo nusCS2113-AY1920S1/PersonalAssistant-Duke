@@ -77,9 +77,6 @@ public class ConversationManager {
         case "todo":
             conversation = new ToDoConversation();
             break;
-        case "deadline":
-            conversation = new DeadlineConversation();
-            break;
         case "find":
             conversation = new FindConversation();
             break;
