@@ -50,7 +50,13 @@
          <content>
             <AnchorPane prefHeight="555.0" prefWidth="694.0">
                <children>
-                  <VBox layoutX="65.0" layoutY="31.0" prefHeight="502.0" prefWidth="583.0" style="-fx-background-color: #CACFD2;" />
+                  <VBox fx:id="display" layoutX="65.0" layoutY="31.0" prefHeight="481.0" prefWidth="583.0">
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></VBox>
                </children>
             </AnchorPane>
          </content>

@@ -93,6 +93,22 @@ public class Theatre {
         return seats;
     }
 
+    public String getTierOneSeats() {
+        return Integer.toString(tierOneSeats);
+    }
+
+    public String getTierTwoSeats() {
+        return Integer.toString(tierTwoSeats);
+    }
+
+    public String getTierThreeSeats() {
+        return Integer.toString(tierThreeSeats);
+    }
+
+    public double getSeatBasePrice() {
+        return seatBasePrice;
+    }
+
     /**
      * function to set the status of a seat (change it to booked when a seat is bought).
      *

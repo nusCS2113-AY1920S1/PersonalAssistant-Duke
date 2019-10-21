@@ -11,8 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import optix.Optix;
+import optix.commons.model.Theatre;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Map;
 
 public class MainWindow extends AnchorPane {
     //// All the elements on the left side of the window.
@@ -47,6 +50,7 @@ public class MainWindow extends AnchorPane {
         chatBox.getChildren().add(DialogBox.getOptixDialog(greetings, optixImage));
 
         icon.setImage(optixIcon);
+        displayShows();
     }
 
     @FXML
@@ -77,13 +81,17 @@ public class MainWindow extends AnchorPane {
     }
 
     private void shutDown() {
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        PauseTransition delay = new PauseTransition(new Duration(500));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
 
     private void displayShows() {
         clearDisplay();
+
+        for (Map.Entry<LocalDate, Theatre> entry : optix.getShows().entrySet()) {
+            display.getChildren().add(ShowController.displayShow(entry.getValue(), entry.getKey()));
+        }
     }
 
     private void displaySeats() {

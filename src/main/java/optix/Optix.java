@@ -3,6 +3,7 @@ package optix;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.commons.model.ShowMap;
 import optix.exceptions.OptixException;
 import optix.ui.Ui;
 import optix.util.Parser;
@@ -75,6 +76,10 @@ public class Optix {
             ui.setMessage(e.getMessage());
         }
         return taskType;
+    }
+
+    public ShowMap getShows() {
+        return model.getShows();
     }
 
     public String getResponse() {
