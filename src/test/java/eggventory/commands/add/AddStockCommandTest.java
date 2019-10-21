@@ -43,4 +43,27 @@ public class AddStockCommandTest {
                 + "Quantity: %d Description: %s","testStockType", "t0000", 100, "testDescription"), output);
 
     }
+
+    //@@author cyanoei
+    @Test
+    void testExecute_AddDuplicateStock_Error() {
+        StockList testList = new StockList();
+
+        String testStockType = "Uncategorised";
+        String testStockCode = "R5";
+        int testQuantity = 1000;
+        String testDescription = "A resistor";
+
+        //Add an existing stock to the list.
+        testList.addStock(testStockType, testStockCode, testQuantity, testDescription);
+
+        //Add another stock with the same stock code. The other attributes can be different.
+        String output = new AddStockCommand(CommandType.ADD, testStockType, testStockCode, 10,
+                "Another resistor").execute(testList, testCli, testStorage);
+
+        //Check whether execute prints the error message to CLI.
+        assertEquals(String.format("Sorry, the stock code \"%s\" is already assigned to a stock in the system. "
+                + "Please enter a different stock code.", testStockCode), output);
+    }
+    //@@author
 }

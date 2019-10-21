@@ -234,6 +234,22 @@ public class StockType {
         return null;
     }
 
+    //@@author cyanoei
+    /**
+     * Determines if any of the stocks in this stockType have the same stockCode.
+     * @param stockCode the queried stockCode.
+     * @return true if a stock in this stockType has that stockCode and false if none of the stocks have this stockCode.
+     */
+    public boolean isExistingStockCode(String stockCode) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                return true;
+            }
+        }
+        return false; //If none of the stocks had the same code.
+    }
+
+    //@@author
     /**
      * A string of all the stock objects within this stocktype. Should only be called by Cli and StockList.
      * @return A string list of all the stock objects and their details.

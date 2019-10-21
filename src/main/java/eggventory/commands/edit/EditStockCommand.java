@@ -42,6 +42,14 @@ public class EditStockCommand extends Command {
     @Override
     public String execute(StockList list, Cli cli, Storage storage) {
         String output;
+
+        if (property == Property.STOCKCODE && list.isExistingStockCode(newValue)) {
+            output = String.format("Sorry, the stock code \"%s\" is already assigned to a stock in the system. "
+                    + "Please enter a different stock code.", newValue);
+            cli.print(output);
+            return output;
+        }
+
         Stock edited = list.setStock(stockCode, property, newValue);
         output = String.format("Awesome! I have successfully updated the following stock: %s | %s | %d | %s\n",
                 edited.getStockType(), edited.getStockCode(), edited.getQuantity(),
