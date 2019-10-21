@@ -78,7 +78,7 @@ public class Storage {
     public ArrayList<Task> loadFile(File file) throws DukeException {
         ArrayList<Task> listOfTasks;
         try {
-            setInputStreams();
+            setInputStreams(file);
             listOfTasks = (ArrayList<Task>)(objectInputStream.readObject());
             fileInputStream.close();
             objectInputStream.close();
@@ -99,7 +99,7 @@ public class Storage {
         this.objectOutputStream = new ObjectOutputStream(fileOutputStream);
     }
 
-    private void setInputStreams() throws IOException {
+    private void setInputStreams(File file) throws IOException {
         this.fileInputStream = new FileInputStream(file);
         this.objectInputStream = new ObjectInputStream(fileInputStream);
     }
