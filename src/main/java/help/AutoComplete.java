@@ -20,7 +20,6 @@ public class AutoComplete {
             "deposit",
             "done goal",
             "goal",
-            "goal-short",
             "graph curr finance",
             "graph expenditure trend",
             "graph income trend",
