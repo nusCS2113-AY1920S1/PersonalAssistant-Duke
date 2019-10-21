@@ -161,5 +161,9 @@ public class TaskList implements Iterable<Task> {
         return new SortedList<Task>(getFilteredList(),
                 Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));
     }
+
+    public ObservableList<Task> getInternalList() {
+        return internalList;
+    }
 }
 

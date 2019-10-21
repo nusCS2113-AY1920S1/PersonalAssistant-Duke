@@ -29,4 +29,6 @@ public class DoWithin extends TaskWithDates {
     protected String getEndDate() {
         return this.endDate.toString();
     }
+
+    public LocalDateTime getEndingDate() {return endDate; }
 }
