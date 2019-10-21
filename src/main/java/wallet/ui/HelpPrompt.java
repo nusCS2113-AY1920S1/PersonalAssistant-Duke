@@ -1,4 +1,5 @@
 //@@author Xdecosee
+
 package wallet.ui;
 
 import java.util.ArrayList;

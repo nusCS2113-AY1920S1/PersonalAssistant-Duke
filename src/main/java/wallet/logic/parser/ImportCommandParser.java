@@ -1,4 +1,5 @@
 //@@author Xdecosee
+
 package wallet.logic.parser;
 
 import wallet.logic.command.ImportCommand;
