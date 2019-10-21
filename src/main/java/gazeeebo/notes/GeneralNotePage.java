@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GeneralNotePage {
-    public static String goal = "";
+    private static String goal = "";
     public static ArrayList<Module> modules = new ArrayList<>();
 
     public void viewGeneralNotePage() {
@@ -29,6 +29,12 @@ public class GeneralNotePage {
     public void addModule(Ui ui) throws IOException {
         System.out.println("What module do you want to add?");
         ui.readCommand();
+        for (Module m : modules) {
+            if (m.name.equals(ui.fullCommand)) {
+                System.out.println("You already have a module with the same name. Please add a module with a different name.");
+                return;
+            }
+        }
         modules.add(new Module(ui.fullCommand));
         System.out.println("Okay we have successfully added this module:");
         System.out.println(ui.fullCommand);

@@ -16,19 +16,24 @@ import java.util.Stack;
 
 public class GeneralNoteCommand extends Command {
 
-    @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
-        System.out.println("Welcome to your note page! What would you like to do?\n");
+    private void showListOfCommands() {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: view");
         System.out.println("2. Edit goal: edit goal");
         System.out.println("3. Add module: add module");
         System.out.println("4. Delete module: delete module");
         System.out.println("5. View/edit a particular module: module");
-        System.out.println("6. View help page: help");
-        System.out.println("7. View individual help: help COMMAND_NAME");
-        System.out.println("8. Exit note page: esc");
+        System.out.println("6. View list of commands for note page: commands");
+        System.out.println("7. View help page: help");
+        System.out.println("8. View individual help: help COMMAND_NAME");
+        System.out.println("9. Exit note page: esc");
         System.out.println("__________________________________________________________");
+    }
+
+    @Override
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
+        System.out.println("Welcome to your note page! What would you like to do?\n");
+        showListOfCommands();
         ui.readCommand();
         GeneralNotePage gnp = new GeneralNotePage();
         while (!ui.fullCommand.equals("esc")) {
@@ -42,6 +47,8 @@ public class GeneralNoteCommand extends Command {
                 gnp.deleteModule(ui);
             } else if (ui.fullCommand.equals("module")) {
                 (new ModuleCommand()).execute(null, ui, null, null, null, null);
+            } else if (ui.fullCommand.equals("commands")) {
+                showListOfCommands();
             } else if (ui.fullCommand.split(" ")[0].equals("help")) {
                 (new HelpCommand()).execute(null, ui, null, null, null, null);
             } else {
