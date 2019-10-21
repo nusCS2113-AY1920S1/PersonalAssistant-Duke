@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.redo;
 import dolla.action.undo;
 import dolla.task.Entry;
 
@@ -17,6 +18,7 @@ public class AddEntryCommand extends Command {
     private String description;
     private LocalDateTime date;
     private int prevPosition;
+    private static int undoFlag;
 
     /**
      * Creates an instance of AddEntryCommand.
@@ -44,7 +46,14 @@ public class AddEntryCommand extends Command {
             dollaData.addToLogList("entry", newEntry);
             index = dollaData.getLogList("entry").size();
             undo.removeCommand("entry",index);
+
+            new redo("entry", newEntry.getUserInput());
+            redo.setRedoFlag(0);
         }
         Ui.echoAddEntry(newEntry);
+    }
+
+    public static void setUndoFlag(int undoFlag) {
+        AddEntryCommand.undoFlag = undoFlag;
     }
 }

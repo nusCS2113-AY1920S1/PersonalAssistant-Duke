@@ -1,6 +1,7 @@
 package dolla.command;
 
 import dolla.DollaData;
+import dolla.action.redo;
 import dolla.action.undo;
 import dolla.parser.DebtsParser;
 import dolla.parser.EntryParser;
@@ -29,12 +30,15 @@ public class AddActionCommand extends Command{
         }
     }
 
-    //process redo
+    public void redoCommand() {
+
+    }
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
         if(command.equals("undo")) {
             undoCommand();
+//            redo.redoReady(mode);
         } else if (command.equals("redo")) {
             //redo
         }

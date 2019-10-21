@@ -23,13 +23,13 @@ public class undo {
 //        undo.userInput = userInput;
 //        undo.command = command;
 //    }
-    public static void removeCommand(String mode, int index) {
+    public static void removeCommand(String mode, int index) { //if input is add
         undo.mode = mode;
         undo.index = index;
         remove();
     }
 
-    public static void addCommand(String mode, String userInput, int prevPosition) {
+    public static void addCommand(String mode, String userInput, int prevPosition) { //if input is remove
         undo.mode = mode;
         undo.userInput = userInput;
         undo.prevPosition = prevPosition;
@@ -37,7 +37,7 @@ public class undo {
     }
 
     public static void remove() {
-        undoInput = "remove " + index;
+        undoInput = "remove " + index + "/-1";//1 to check if the remove is from undo command.
         if(mode.equals("entry")) {
             undoEntryCommand.push(undoInput);
         } else if(mode.equals("debt")) {

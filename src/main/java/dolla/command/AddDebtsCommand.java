@@ -2,8 +2,10 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.redo;
 import dolla.action.undo;
 import dolla.task.Debt;
+
 
 public class AddDebtsCommand extends Command {
 
@@ -12,6 +14,7 @@ public class AddDebtsCommand extends Command {
     private double amount;
     private String description;
     private int prevPosition;
+    private static int undoFlag = 0;
 
     public AddDebtsCommand(String type, String name, double amount, String description, int prePosition) { //prePosition is -1 by default
         this.type = type;
@@ -29,8 +32,12 @@ public class AddDebtsCommand extends Command {
             prevPosition = -1;
         } else { //normal input
             dollaData.addToLogList("debt", newDebt);
+
             index = dollaData.getLogList("debt").size();
             undo.removeCommand("debt",index);
+
+            new redo("debt", newDebt.getUserInput());
+            redo.setRedoFlag(0);
         }
         Ui.echoAddDebt(newDebt);
     }

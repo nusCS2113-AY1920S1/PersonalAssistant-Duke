@@ -2,7 +2,9 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.redo;
 import dolla.action.undo;
+import dolla.parser.Parser;
 import dolla.task.Log;
 import dolla.task.LogList;
 import dolla.task.TaskList;
@@ -39,9 +41,16 @@ public class RemoveCommand extends Command {
      */
     //@Override
     public void execute(DollaData dollaData) {
-
-        int logNumInt = stringToInt(logNumStr) - 1;
-
+        int logNumInt;
+        int flag;
+        if(logNumStr.indexOf("/") != -1) {
+            String[] parser = logNumStr.split("/", 2);
+            logNumInt = stringToInt(parser[0]) - 1;
+            flag = 0;
+        } else {
+            logNumInt  = stringToInt(logNumStr);
+            flag = 1;
+        }
         LogList logList = new LogList(new ArrayList<>());
         logList = dollaData.getLogList(mode);
 
@@ -50,8 +59,10 @@ public class RemoveCommand extends Command {
         if (logNumInt < 0 || isListEmpty) {
             return; // TODO: return error command
         }
-
-        undo.addCommand(mode,logList.get().get(logNumInt).getUserInput(),logNumInt);
+        if(flag == 1) {
+            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
+        }
+        new redo(mode,"remove " + logNumStr);
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);
