@@ -67,16 +67,16 @@ public class Window {
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         JPanel panel1 = new JPanel();
-		panel1.setLayout(null);
-		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		panel1.setBackground(Color.WHITE);
-		panel1.setBounds(408, 508, 363, 40);
+        panel1.setLayout(null);
+        panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+        panel1.setBackground(Color.WHITE);
+        panel1.setBounds(408, 508, 363, 40);
         frame.getContentPane().add(panel1);
 
         inputField = new JTextField();
         inputField.setFont(new Font("Constantia", Font.PLAIN, 15));
         inputField.setBounds(10, 10, 343, 19);
-		panel1.add(inputField);
+        panel1.add(inputField);
         inputField.setColumns(10);
         inputField.setBorder(BorderFactory.createEmptyBorder());
         frame.setBounds(100, 100, 800, 600);
