@@ -28,6 +28,7 @@ public class Duke {
     private boolean isExit;
     private Storage roomStorage;
 
+
     /**
      * Constructor for control.Duke
      * @param bookingListFile path of text file containing bookings list
