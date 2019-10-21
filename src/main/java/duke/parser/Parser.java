@@ -3,14 +3,17 @@ package duke.parser;
 import duke.Duke;
 import duke.command.*;
 import duke.command.AddCommand;
+import duke.command.Command;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
-import duke.command.FindCommand;
+import duke.command.FindIngredientCommand;
 import duke.command.RemindCommand;
 import duke.command.ViewCommand;
 import duke.exception.DukeException;
 import duke.orderCommand.*;
-import duke.recipebook.dishes;
+import duke.dishesCommand.*;
+import duke.dishesCommand.InitCommand;
+import duke.Dishes.Dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
@@ -38,7 +41,7 @@ public class Parser {
      */
     public static Command parse(String fullCommand, int size) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)
-        String[] splitted = fullCommand.split(" ", 3);
+        String[] splitted = fullCommand.split(" ", 2);
         //switching on the keyword
         switch (splitted[0]) {
             case "list":
@@ -63,7 +66,7 @@ public class Parser {
                 return new AddCommand(new Event(getAt[0], getAt[1]));
             case "find":
                 checkLength(splitted);
-                return new FindCommand(splitted[1]);
+                return new FindIngredientCommand(splitted[1]);
             case "delete":
                 checkLength(splitted);
                 return new DeleteCommand(checkNumber(splitted[1], size));
@@ -82,9 +85,29 @@ public class Parser {
                 String[] getPart = splitAndCheck(splitted[1], " /from ");
                 String[] part = splitAndCheck(getPart[1], " /to ");
                 return new AddCommand(new DoWithinPeriodTasks(getPart[0], part[0], part[1]));
-            case "add":
-                int amount = Integer.parseInt(splitted[2]);
-                return new AddCommand(new dishes(splitted[1], amount));
+            default:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    public static RecipeCommand Parse(String fullCommaand) throws DukeException {
+        String[] splitted = fullCommaand.split(" ", 2);
+        switch (splitted[0]) {
+            case "dishadd":
+                String[] getnum = splitAndCheck(splitted[1], " /num ");
+                int amount = Integer.parseInt(getnum[1]);
+                return new AddDishCommand(new Dishes(getnum[0]), amount);
+            case "dishlist":
+                return new ListDishCommand();
+            case "dishdelete" :
+                int Nb = Integer.parseInt(splitted[1]);
+                return new DeleteDishCommand(Nb);
+            case "addingredient" :
+                String[] getIng = splitAndCheck(splitted[1], " /add ");
+                int listNum = Integer.parseInt(getIng[1]);
+                return new AddIngredient(getIng[0], listNum);
+            case "dishinit" :
+                return new InitCommand();
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -115,6 +138,8 @@ public class Parser {
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
+
+
     /**
      * Checks the length of a String array is of size 2.
      * @throws DukeException when array is not of size 2.

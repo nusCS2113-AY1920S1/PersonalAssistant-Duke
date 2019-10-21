@@ -3,7 +3,8 @@ package  duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
-import duke.recipebook.dishlist;
+import duke.dishesCommand.RecipeCommand;
+import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -16,14 +17,14 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private dishlist dish;
+    private DishList dish;
 
     /**
      * The constructor method for Duke.
      * @param filePath used to specify the location of the file in the hard disc.
      */
     public Duke(String filePath) {
-        dish = new dishlist();
+        dish = new DishList();
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -44,7 +45,8 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand, tasks.size());
+//                Command c = Parser.parse(fullCommand, tasks.size());
+                RecipeCommand c = Parser.Parse(fullCommand); //execute the recipeCommands, add dishes etc
                 c.execute(dish, tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {

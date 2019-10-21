@@ -191,6 +191,10 @@ Index | Keyword  | Usage
 12 | preorder | preorder <desc> <indx> 
 13 | cancel | cancel <indx> 
 14 | help | help 
+15 | dishadd | dishadd <desc> /num <indx> 
+16 | dishdelete | dishdelete <indx> 
+17 | dishlist | dishlist 
+18 | addingredient | addingredient <indx> /add <desc> 
 
 # 5. FAQ
 

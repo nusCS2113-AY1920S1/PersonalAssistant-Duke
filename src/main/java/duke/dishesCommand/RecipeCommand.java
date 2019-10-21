@@ -1,7 +1,6 @@
-package duke.command;
+package duke.dishesCommand;
 
 import duke.exception.DukeException;
-import duke.Dishes.DishList;
 import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -10,7 +9,7 @@ import duke.ui.Ui;
 /**
  * Represents  an abstract Command that could be an add, delete, exit, done, find or list.
  */
-public abstract class Command {
+public abstract class RecipeCommand {
 
     public abstract void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException;
 

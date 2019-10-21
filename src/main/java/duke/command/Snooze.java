@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.parser.Convert;
-import duke.recipebook.dishlist;
+import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -32,7 +32,7 @@ public class Snooze extends Command {
     }
 
     @Override
-    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
             if (taskList.getTask(taskNb).isDone()) {
                 throw new DukeException("Seems like you've already finished that task, no need to snooze it now");

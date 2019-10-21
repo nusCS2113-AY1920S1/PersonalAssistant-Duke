@@ -1,7 +1,8 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.recipebook.dishlist;
+import duke.Dishes.DishList;
+import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -24,7 +25,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
             Task removed = taskList.removeTask(taskNb);
             List<String> fileContent = null;
