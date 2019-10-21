@@ -204,8 +204,7 @@ public class Parser {
      * Parses a frequency command which requests for a list of the number of searches for each word.
      * @param taskInfo String array containing first stage parsed user input
      * @return a SearchFrequencyCommand object
-     * @throws WrongSearchFrequencyFormatException when the format of the frequency command does not match required
-     * format
+     * @throws WrongSearchFrequencyFormatException when format of the frequency command does not match required format
      */
     protected static Command parseSearchFrequency(String[] taskInfo) throws WrongSearchFrequencyFormatException {
         String order = "";
