@@ -6,6 +6,7 @@ import Tasks.TaskList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class RemindCommand extends Command {
@@ -16,6 +17,7 @@ public class RemindCommand extends Command {
     private HashMap<Date, Timer> timerHashMap;
     private boolean remind;
     private Reminder reminder;
+    private static final Logger LOGGER = Logger.getLogger(RemindCommand.class.getName());
 
     /**
      * Creates RemindCommand object

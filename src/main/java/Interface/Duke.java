@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A program that manages tasks input by user
@@ -19,6 +21,7 @@ public class Duke extends Application {
     private final TaskList deadlines;
     private final Ui ui;
     private final Reminder reminder;
+    private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
 
     /**
      * Creates Duke object.
@@ -36,8 +39,9 @@ public class Duke extends Application {
             storage.readEventList(events);
             reminder.setDeadlines(deadlines);
             storage.setReminderOnStart();
-        } catch (IOException | ParseException | DukeException e) {
+        } catch (DukeException e) {
             ui.showLoadingError(e);
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
@@ -56,8 +60,10 @@ public class Duke extends Application {
             Command c = Parser.parse(input);
             return c.execute(events, deadlines, ui, storage);
         } catch (DukeException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
             return ui.showError(e);
         } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
             return e.getMessage();
         }
     }

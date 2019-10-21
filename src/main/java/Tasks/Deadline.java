@@ -1,7 +1,5 @@
 package Tasks;
 
-import java.text.SimpleDateFormat;
-
 /**
  * Represents a task called deadline.
  */

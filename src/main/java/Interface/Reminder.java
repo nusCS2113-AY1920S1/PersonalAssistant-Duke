@@ -1,5 +1,6 @@
 package Interface;
 
+import Commands.RemindCommand;
 import JavaFx.AlertBox;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -20,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Reminder {
 
@@ -29,6 +32,7 @@ public class Reminder {
     private Storage storage;
     private Image img;
     private TaskList deadlines;
+    private static final Logger LOGGER = Logger.getLogger(Reminder.class.getName());
 
     /**
      * Creates reminder object.
@@ -44,11 +48,7 @@ public class Reminder {
         timerMap.get(date).cancel();
         timerMap.remove(date);
         deadlines.setReminder(task , reminderTime, false);
-        try {
-            storage.updateDeadlineList(deadlines);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        storage.updateDeadlineList(deadlines);
     }
 
     public void setDeadlines(TaskList deadlines) {
@@ -107,20 +107,12 @@ public class Reminder {
 //                    owner.close();
                     deadlines.setReminder(task , reminderTime, false);
                     remindMap.remove(date);
-                    try {
-                        storage.updateDeadlineList(deadlines);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    storage.updateDeadlineList(deadlines);
                 });
             }
         }, seconds);
         timerMap.put(date, timer);
         remindMap.put(date, task);
-        try {
-            storage.updateDeadlineList(deadlines);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        storage.updateDeadlineList(deadlines);
     }
 }
