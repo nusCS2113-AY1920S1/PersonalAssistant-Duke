@@ -19,6 +19,7 @@ import parser.ParserFactory;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
+import task.Todo;
 import ui.Ui;
 
 import java.io.File;
@@ -45,9 +46,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
-    private Label test;
+    private Label todayTaskLabel;
     @FXML
     private ListView<Task> tasksForTheDay;
+    @FXML
+    private VBox timelineContainer;
+    @FXML
+    private ListView<Task> mondayTask, tuesdayTask, wednesdayTask, thursdayTask, fridayTask, saturdayTask, sundayTask;
 
     /**
      * Allocation of the images for the chat bot.
@@ -60,6 +65,7 @@ public class MainWindow extends AnchorPane {
     private static TaskList tasks;
     private static File file = new File(filePath);
     private static ObservableList<Task> holdTodayTasks;
+    private static ObservableList<Task> mondayTasks, tuesdayTasks, wednesdayTasks, thursdayTasks, fridayTasks, saturdayTasks, sundayTasks;
 
     /**
      * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
@@ -74,6 +80,7 @@ public class MainWindow extends AnchorPane {
             Ui.printMessage(e.getMessage());
         }
         populateTodayTasks();
+        populateEveryDay();
     }
 
     /**
@@ -83,6 +90,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         tasksForTheDay.setItems(holdTodayTasks);
+        todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
     }
 
     /**
@@ -98,6 +106,7 @@ public class MainWindow extends AnchorPane {
             tasks = new TaskList(storage.loadFile(file));
             populateTodayTasks();
             tasksForTheDay.setItems(holdTodayTasks);
+            todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
         } catch (DukeException e) {
             errorMessageContainer.getChildren().addAll(
                 ErrorMessageBar.getErrorMessage(e.getMessage())
@@ -105,7 +114,7 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(Ui.userOutputForUI, dukeImage)
+            DialogBox.getUserDialog(Ui.userOutputForUI, dukeImage)
         );
         userInput.clear();
     }
@@ -116,4 +125,9 @@ public class MainWindow extends AnchorPane {
         holdTodayTasks = FXCollections.observableArrayList(tasks.schedule(dtf.format(now)));
     }
 
+    private static void populateEveryDay() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        now.getDayOfWeek();
+    }
 }

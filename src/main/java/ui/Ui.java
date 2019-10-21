@@ -31,15 +31,6 @@ public class Ui {
     private static Scanner scanner = new Scanner(System.in);
 
     /**
-     * Prints Duke logo.
-     */
-    public static void printLogo() {
-        String logo = " ____        _        \n" + "|  _ \\ _   _| | _____ \n" + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-    }
-
-    /**
      * Prints a 'dashed' line.
      */
     public static void printDash() {

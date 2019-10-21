@@ -1,12 +1,6 @@
 import java.io.IOException;
-import java.util.Collections;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,16 +39,6 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_RIGHT);
-    }
-
-    /**
      * The getUserDialog distinction is needed to enable the flipping of the labels to create the chat bot like
      * structure.
      *
@@ -65,17 +49,4 @@ public class DialogBox extends HBox {
         return new DialogBox(text, image);
     }
 
-    /**
-     * The getDukeDialog is used to flip the labels that are created for Duke to create the chat bot like
-     * structure.
-     *
-     * @param text the text portion of the label for Duke is passed in through this parameter.
-     * @param image the image portion of the label for Duke is passed in through this parameter.
-     */
-
-    public static DialogBox getDukeDialog(String text, Image image) {
-        var dialogBox = new DialogBox(text, image);
-        dialogBox.flip();
-        return dialogBox;
-    }
 }
