@@ -17,7 +17,7 @@ public class LookupTable {
      */
     public LookupTable() throws IOException {
         String line;
-         //InputStream is = getClass().getResourceAsStream("Lookup.txt");
+        // InputStream is = getClass().getResourceAsStream("Lookup.txt");
          //InputStreamReader isr = new InputStreamReader(is);
          //BufferedReader reader = new BufferedReader(isr);
          BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\data\\Lookup.txt"));
@@ -29,7 +29,7 @@ public class LookupTable {
             {
                 String key = parts[0].trim();
                 String value = parts[1].trim();
-                this.map.put(key.toLowerCase(), value);
+                this.map.put(key.trim().toLowerCase(), value);
             }
         }
         reader.close();

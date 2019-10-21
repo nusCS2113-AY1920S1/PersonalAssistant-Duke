@@ -60,3 +60,4 @@ javafx {
 run {
     standardInput = System.in
 }
+
