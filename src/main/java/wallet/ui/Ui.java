@@ -105,7 +105,6 @@ public class Ui {
         String dash = "-";
         String lineBreak = dash.repeat(100);
         String headerBreak = dash.repeat(98);
-        System.out.println("Here are the contacts in your list:");
         System.out.println(lineBreak);
         System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", "ID", "Name", "Phone", "Detail");
         System.out.println("|" + headerBreak + "|");
