@@ -2,8 +2,10 @@ package dolla;
 
 import dolla.task.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * duke.Ui is a class that handles all interactions to the user.
@@ -307,7 +309,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    public static void printSearch(String mode, LogList logList, String searchContent) {
+    public static void printSearchDesc(String mode, LogList logList, String searchContent) {
 
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
@@ -320,6 +322,35 @@ public abstract class Ui {
             }
         }
     }
+
+    public static void printSearchName(String mode, LogList logList, String searchContent) {
+
+        System.out.println(line);
+        System.out.println("\tHere are the matching results found in " + mode);
+        int listNum = 0;
+        for (int i = 0; i < logList.size(); i++) {
+            String tempt = logList.get().get(i).getName();
+            if (tempt.contains(searchContent)) {
+                listNum += 1;
+                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            }
+        }
+    }
+
+    public static void printSearchDate(String mode, LogList logList, String searchContent) {
+
+        System.out.println(line);
+        System.out.println("\tHere are the matching results found in " + mode);
+        int listNum = 0;
+        for (int i = 0; i < logList.size(); i++) {
+            String temp = Time.dateToString(logList.get().get(i).getDate());
+            if (temp.contains(searchContent)) {
+                listNum += 1;
+                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            }
+        }
+    }
+
 
         public static void printSortedList(ArrayList<Log> list, String type){
             System.out.println(line);
@@ -350,4 +381,11 @@ public abstract class Ui {
             System.out.println("\tWhat would you want to change this entry to?");
             System.out.println(line);
         }
+
+        public static void printNoReminderMsg() {
+            System.out.println(line);
+            System.out.println("\tThere are no reminders :)");
+            System.out.println(line);
+        }
+
 }

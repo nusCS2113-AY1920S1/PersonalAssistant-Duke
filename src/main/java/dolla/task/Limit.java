@@ -57,6 +57,7 @@ public class Limit extends Log {
      * @param limit limit to be added to the limitList.
      * @param limitList list in which limit is to be added to.
      */
+
     public void AddLimit(Limit limit, LimitList limitList) {
         if (limit.type.equals(LimitType.BUDGET) || limit.type.equals(LimitType.SAVING)) {
             //dosmth
@@ -65,6 +66,7 @@ public class Limit extends Log {
             Ui.printErrorMsg();
         }
     }
+
 
     public void EditCurrLimit() {
         //edit budget after adding in expenses or income
