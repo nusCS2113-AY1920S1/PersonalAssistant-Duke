@@ -8,7 +8,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
-import Events.Storage.CalendarTable;
+import Events.Storage.CalendarView;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -129,14 +129,6 @@ public class Command {
                 rescheduleEvents(events, ui);
                 break;
 
-            case "details":
-                addEventDetails(events, ui);
-                break;
-
-            case "viewdetails":
-                viewDetails(events, ui);
-                break;
-            
             case "edit":
                 editEvent(events, ui);
                 break;
@@ -157,9 +149,9 @@ public class Command {
     }
 
     private void printCalendar(EventList events, UI ui) {
-        CalendarTable calendarTable = new CalendarTable(events);
-        calendarTable.setCalendarInfo();
-        ui.printCalendar(calendarTable.getCalendarInfo());
+        CalendarView calendarView = new CalendarView(events);
+        calendarView.setCalendarInfo();
+        ui.printCalendar(calendarView.getStringForOutput());
     }
 
     /**
@@ -173,7 +165,7 @@ public class Command {
             int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
             String newDescription = splitInfo[1];
             events.editEvent(eventIndex, newDescription);
-            ui.printEditedEvent(eventIndex+1, events.getEvent(eventIndex));
+            ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
         }
     }
 
@@ -186,11 +178,11 @@ public class Command {
             int viewIndex = 1;
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(searchKeyWords)) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";    
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                 }
                 viewIndex++;
             }
-            
+
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
@@ -201,7 +193,7 @@ public class Command {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDay = formatter.format(dayToCheckIfFree.getTime());
         EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
-        Queue<String> daysFree = new LinkedList<String>();
+        Queue<String> daysFree = new LinkedList<>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean isFree = true;
@@ -239,12 +231,6 @@ public class Command {
         }
     }
 
-    public void viewDetails(EventList events, UI ui) {
-        int eventNo = Integer.parseInt(continuation);
-        Event currEvent = events.getEvent(eventNo - 1);
-        ui.printEventDetails(currEvent);
-    }
-
     public void createNewEvent(EventList events, UI ui, char eventType) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -277,20 +263,17 @@ public class Command {
                         break;
                 }
 
-                if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                    try {
+                try {
+                    if (entryForEvent.getPeriod() == NO_PERIOD) {
                         events.addEvent(newEvent);
                         ui.eventAdded(newEvent, events.getNumEvents());
-                    } catch (ClashException e) {
-                        ui.scheduleClash(e.getClashEvent());
-                    }
-                } else { //add recurring event
-                    try {
+                    } else {
+                        assert newEvent != null;
                         events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                         ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    } catch (ClashException e) {
-                        ui.scheduleClash(e.getClashEvent());
                     }
+                } catch (ClashException e) {
+                    ui.scheduleClash(e.getClashEvent());
                 }
 
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
@@ -306,7 +289,7 @@ public class Command {
         }
         EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
         Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addNewTodo(newEvent, ui);
+        events.addNewTodo(newEvent);
         ui.eventAdded(newEvent, events.getNumEvents());
     }
 
@@ -332,22 +315,6 @@ public class Command {
             } else {
                 ui.noSuchEvent();
             }
-        } catch (IndexOutOfBoundsException outOfBoundsE) {
-            ui.noSuchEvent();
-        } catch (NumberFormatException notInteger) {
-            ui.notAnInteger();
-        }
-    }
-
-    public void addEventDetails(EventList events, UI ui) {
-        try {
-            Parser parser = new Parser();
-            int eventNo = Integer.parseInt(continuation);
-            Event currEvent = events.getEvent(eventNo - 1);
-            ui.inputDetails();
-            String detailsInput = parser.readUserInput();
-            currEvent.addDetails(detailsInput);
-            ui.eventDetailsAdded(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {
@@ -427,7 +394,7 @@ public class Command {
         /**
          * contains all info regarding an entry for a non-recurring event
          *
-         * @return
+         * @return organized entryForEvent information
          */
         public EntryForEvent invoke() {
             int NON_RECURRING = -1;
@@ -453,7 +420,7 @@ public class Command {
             } else {
                 period = Integer.parseInt(splitEvent[2]);
             }
-            return this; 
+            return this;
         }
     }
 }
