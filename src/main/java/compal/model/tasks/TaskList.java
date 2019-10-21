@@ -1,47 +1,41 @@
 package compal.model.tasks;
 
-import compal.commons.Compal;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Date;
 
-import static compal.commons.Messages.MESSAGE_INVALID_TASK_ID;
-
 
 public class TaskList {
 
-    //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    public ArrayList<Task> arrlist;
-    public Compal compal;
-    private BitSet idBitSet;
-
-    //----------------------->
-    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
+    private ArrayList<Task> arrlist;
+    private TaskIdManager taskIdManager;
 
     /**
      * Constructs TaskList object.
-     *
-     * @param d Compal.
      */
-    public TaskList(Compal d) {
-        this.compal = d;
-        BitSet bs = readIdBitSet();
-        if (bs != null) {
-            idBitSet = (BitSet) readIdBitSet().clone();
-        } else {
-            System.out.println("TaskList:LOG: No saved idbitset found");
-            idBitSet = new BitSet(1_000_000); //bitset of 1,000,000 bits (hard limit of no. of tasks)
-        }
-
+    public TaskList() {
+        taskIdManager = new TaskIdManager();
     }
+
+    public ArrayList<Task> getArrList() {
+        return this.arrlist;
+    }
+
+    /**
+     * Sets the arrlist to arrlist. Called after loading data from file.
+     * @param arrlist arraylist to set the arrlist
+     */
+    public void setArrList(ArrayList<Task> arrlist) {
+        this.arrlist = arrlist;
+        //make sure any user edits are brought over to the binary file as well
+        taskIdManager.synchronizeTaskIds(this);
+    }
+
 
     //----------------------->
 
@@ -57,84 +51,61 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      */
     public void addTask(Task task) {
-
         //generate unique ID for task
-        int taskID;
-        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
-            if (!idBitSet.get(i)) {
-                idBitSet.set(i);
-                taskID = i;
-                task.setId(taskID);
-                System.out.println("Task assigned id of " + taskID);
-                writeIdBitSet();
-                break;
-            }
-        }
-
-
+        taskIdManager.generateAndSetId(task);
         arrlist.add(task);
         sortTask(arrlist);
-        compal.storage.saveCompal(arrlist);
-        /*if (compal.ui.dateState.equals(task.getStringDate())) {
-            compal.ui.dateViewRefresh(task.getStringDate());
-        }*/
-        if (!task.getSymbol().equals("D")) {
-            compal.ui.dateViewRefresh(task.getStringDate());
-        }
-        compal.ui.secondaryScreenRefresh(task.getDate());
 
-        compal.ui.showSize();
     }
 
 
     /**
      * Returns a task that has an id value of id.
      */
-    public Task getTaskById(int id) throws Compal.DukeException {
-
+    public Task getTaskById(int id) {
         //search for task with id of id
-        for (Task t:arrlist) {
+        for (Task t : arrlist) {
             if (t.getId() == id) {
                 return t;
             }
         }
-        throw new Compal.DukeException(MESSAGE_INVALID_TASK_ID);
-
+        throw null;
     }
 
     /**
      * Removes a task that has an id value of id.
      */
-    public Task removeTaskById(int id) throws Compal.DukeException {
-
+    public Task removeTaskById(int id) {
         //search for task with id of id
-        for (Task t:arrlist) {
+        for (Task t : arrlist) {
             if (t.getId() == id) {
                 arrlist.remove(t);
             }
         }
-        throw new Compal.DukeException(MESSAGE_INVALID_TASK_ID);
-
+        throw null;
     }
 
 
     /**
      * Remove a task from the arrayList.
      */
-    public void removeTask(int index) {
+    public void removeTaskByIndex(int index) {
         arrlist.remove(index);
     }
 
     /**
      * Clears the current id for future tasks to use (used in deletion of tasks).
+     *
      * @param id task id
      */
     public void unsetId(int id) {
+        taskIdManager.clearId(id);
         System.out.println("TaskList:LOG:" + id + " unset");
-        idBitSet.clear(id);
     }
 
-
+    public ArrayList<Task> returnTaskList() {
+        return this.arrlist;
+    }
 
     /**
      * Sorts all the tasks in arrlist by date.
@@ -155,67 +126,49 @@ public class TaskList {
                     arrlist.set(i + 1, temp);
                     sorted = false;
                 }
-                if (task1Date.equals(task2Date)) {
-                    Date task1Time = arrlist.get(i).getStartTime();
-                    Date task2Time = arrlist.get(i + 1).getStartTime();
 
-                    if (task1Time == null) {
-                        task1Time = arrlist.get(i).getEndTime();
+                if (task1Date.equals(task2Date)) {
+                    Date task1StartTime = arrlist.get(i).getStartTime();
+                    Date taskStart2Time = arrlist.get(i + 1).getStartTime();
+
+                    Date task1EndTime = arrlist.get(i).getEndTime();
+                    Date task2EndTime = arrlist.get(i + 1).getEndTime();
+
+                    /*if (task1StartTime == null) {
+                        task1StartTime = arrlist.get(i).getEndTime();
                     }
-                    if (task2Time == null) {
-                        task2Time = arrlist.get(i + 1).getEndTime();
-                    }
-                    if (task1Time.after(task2Time)) {
-                        Task temp = arrlist.get(i);
-                        arrlist.set(i, arrlist.get(i + 1));
-                        arrlist.set(i + 1, temp);
-                        sorted = false;
+                    if (taskStart2Time == null) {
+                        taskStart2Time = arrlist.get(i + 1).getEndTime();
+                    }*/
+
+                    if ((task1StartTime == null && taskStart2Time == null)
+                        || (task1StartTime == null && taskStart2Time != null)
+                        || (task1StartTime != null && taskStart2Time == null)) {
+                        if (task1EndTime.after(task2EndTime)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+                        }
+                    } else if (task1StartTime != null && task1StartTime != null) {
+                        if (task1StartTime.after(taskStart2Time)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+                        } else if (task1StartTime.equals(taskStart2Time) && task1EndTime.after(task1EndTime)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+
+                        }
                     }
                 }
             }
         }
     }
 
-
-    /**
-     * Writes(saves) the current id bitset to file.
-     */
-    public void writeIdBitSet() {
-
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serial"));
-            oos.writeObject(idBitSet);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-
-
-
-    /**
-     * Reads in the saved idbitset as an object and returns it.
-     *
-     * @return saved idbitset
-     * @author Jaedonkey
-     */
-    public BitSet readIdBitSet() {
-        BitSet bs = null;
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serial"));
-            bs = (BitSet) ois.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        return bs;
-
-    }
 
 
 }
