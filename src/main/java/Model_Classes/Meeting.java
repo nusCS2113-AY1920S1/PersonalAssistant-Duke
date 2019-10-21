@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class Meeting extends Task {
     private boolean isFixedDuration;
-    private int duration;
-    private TimeUnit timeUnit;
+    private int duration = 0;
+    private TimeUnit timeUnit = TimeUnit.unDefined;
     /**
      * Constructor for Event object
      * Takes in inputs for description of the event and the time the event occurs
@@ -22,8 +22,8 @@ public class Meeting extends Task {
         this.isFixedDuration = false;
     }
 
-    public Meeting (String description, String duration, TimeUnit unit) {
-        super(description, null);
+    public Meeting (String description, Date date, int duration, TimeUnit unit) {
+        super(description, date);
         this.duration = duration;
         this.timeUnit = unit;
         this.isFixedDuration = true;
@@ -36,7 +36,7 @@ public class Meeting extends Task {
     @Override
     public String toString() {
         if (isFixedDuration){
-            return "[M]" + super.toString() + " (in: " + duration + " " + timeUnit.toString() + ")";
+            return "[M]" + super.toString() + " (on: " + super.getDate() + ") (duration: " + duration + " " + timeUnit.toString() + ")";
         } else {
             return "[M]" + super.toString() + " (on: " + super.getDate() + ")";
         }

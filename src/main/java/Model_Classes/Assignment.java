@@ -1,8 +1,5 @@
 package Model_Classes;
 
-
-import Enums.TimeUnit;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,10 +20,6 @@ public class Assignment extends Task {
      */
     public Assignment (String description, Date by) {
         super(description, by);
-    }
-
-    public Assignment (String description, String duration, TimeUnit unit) {
-        super(description, null);
     }
 
     /**
@@ -50,9 +43,5 @@ public class Assignment extends Task {
     @Override
     public String toString() {
         return "[A]" + super.toString() + " (by: " + super.getDate() + ")";
-    }
-
-    public Date getBy() {
-        return by;
     }
 }

@@ -30,10 +30,8 @@ public class Task{
         this.isDone = false;
         this.priority = Priority.low;
         this.time = time;
-        this.user = null;
+        this.user = "everyone";
         this.recurrenceSchedule = RecurrenceScheduleType.none;
-        this.hasRecurring = false;
-        this.subTasks = new ArrayList<>();
     }
 
     /**
@@ -49,7 +47,7 @@ public class Task{
      * @return time the task was created
      */
 
-    public void setUser(String user) {
+    public void setAssignee(String user) {
         this.user = user;
     }
 
@@ -165,5 +163,4 @@ public class Task{
     public void snoozeMinute(int amount){
         this.time.setMinutes(this.time.getMinutes() + amount);
     }
-
 }
