@@ -37,7 +37,7 @@ public class ShowListCommand extends Command {
 
         LogList logList = new LogList(new ArrayList<>());
 
-        switch (mode) {
+        switch (mode) { //TODO: is this needed?
         case "entry":
             logList = dollaData.getLogList(mode);
             break;
@@ -63,9 +63,10 @@ public class ShowListCommand extends Command {
             return;
         } else if (mode.equals("debt")) {
             Ui.printList(mode, logList);
+//            System.out.println(logList.get().size());//test
             return;
         } else if (mode.equals("limit")) {
-            Ui.printList(mode, logList);
+            Ui.printList(mode,logList);
         }
     }
 }
