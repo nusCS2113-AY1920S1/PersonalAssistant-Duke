@@ -48,44 +48,34 @@ public class ModuleCommand extends Command {
         System.out.println("7. Add miscellaneous information: add msc");
         System.out.println("8. Edit miscellaneous information: edit msc");
         System.out.println("9. Delete miscellaneous information: delete msc");
-        System.out.println("10. Exit module notes: esc");
+        System.out.println("10. View help page: help");
+        System.out.println("11. View individual help: help COMMAND_NAME");
+        System.out.println("12. Exit module notes: esc");
         System.out.println("__________________________________________________________");
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            switch (ui.fullCommand) {
-            case "view":
+            if (ui.fullCommand.equals("view")) {
                 module.viewModule();
-                break;
-            case "edit name":
+            } else if (ui.fullCommand.equals("edit name")) {
                 module.editName(ui);
-                break;
-            case "add assmt":
+            } else if (ui.fullCommand.equals("add assmt")) {
                 module.addAssessment(ui);
-                break;
-            case "edit assmt":
+            } else if (ui.fullCommand.equals("edit assmt")) {
                 module.editAssessmentName(ui);
-                break;
-            case "edit weightage":
+            } else if (ui.fullCommand.equals("edit weightage")) {
                 module.editAssessmentWeightage(ui);
-                break;
-            case "delete assmt":
+            } else if (ui.fullCommand.equals("delete assmt")) {
                 module.deleteAssessment(ui);
-                break;
-            case "add msc":
+            } else if (ui.fullCommand.equals("add msc")) {
                 module.addMiscellaneous(ui);
-                break;
-            case "edit msc":
+            } else if (ui.fullCommand.equals("edit msc")) {
                 module.editMiscellaneous(ui);
-                break;
-            case "delete msc":
+            } else if (ui.fullCommand.equals("delete msc")) {
                 module.deleteMiscellaneous(ui);
-                break;
-            case "help":
+            } else if (ui.fullCommand.split(" ")[0].equals("help")) {
                 (new HelpCommand()).execute(null, ui, null, null, null, null);
-                break;
-            default:
+            } else {
                 ui.showDontKnowErrorMessage();
-                break;
             }
             ui.readCommand();
         }

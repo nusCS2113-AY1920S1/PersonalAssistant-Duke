@@ -128,12 +128,12 @@ public class Module {
         System.out.println("Which assessment do you want to delete?");
         String[] indexAndAssmtToDelete = checkIfValidIndexAssmt(ui);
         int assmtNum = Integer.parseInt(indexAndAssmtToDelete[0]);
-        String assmtToDelete = indexAndAssmtToDelete[1];
-        assert assmtToDelete != null: "Bug in notes.Module: deleteAssessment: assmtToDeleteName";
+        //String assmtToDelete = indexAndAssmtToDelete[1];
+        //assert assmtToDelete != null: "Bug in notes.Module: deleteAssessment: assmtToDeleteName";
         assert assmtNum != -1 : "Bug in notes.Module: deleteAssessment: assmtNum";
         assessments.remove(assmtNum);
         System.out.println("Okay we have successfully deleted this assessment:");
-        System.out.println(assmtToDelete);
+        System.out.println(assessments.get(assmtNum).toString());
     }
 
     //MISCELLANOUS INFORMATION FEATURES-----------------------------------------------------------------

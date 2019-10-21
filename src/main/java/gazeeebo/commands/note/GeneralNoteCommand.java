@@ -25,33 +25,27 @@ public class GeneralNoteCommand extends Command {
         System.out.println("3. Add module: add module");
         System.out.println("4. Delete module: delete module");
         System.out.println("5. View/edit a particular module: module");
-        System.out.println("6. Exit note page: esc");
+        System.out.println("6. View help page: help");
+        System.out.println("7. View individual help: help COMMAND_NAME");
+        System.out.println("8. Exit note page: esc");
         System.out.println("__________________________________________________________");
         ui.readCommand();
         GeneralNotePage gnp = new GeneralNotePage();
         while (!ui.fullCommand.equals("esc")) {
-            switch (ui.fullCommand) {
-            case "view":
+            if (ui.fullCommand.equals("view")) {
                 gnp.viewGeneralNotePage();
-                break;
-            case "edit goal":
+            } else if (ui.fullCommand.equals("edit goal")) {
                 gnp.editGoal(ui);
-                break;
-            case "add module":
+            } else if (ui.fullCommand.equals("add module")) {
                 gnp.addModule(ui);
-                break;
-            case "delete module":
+            } else if (ui.fullCommand.equals("delete module")) {
                 gnp.deleteModule(ui);
-                break;
-            case "module":
+            } else if (ui.fullCommand.equals("module")) {
                 (new ModuleCommand()).execute(null, ui, null, null, null, null);
-                break;
-            case "help":
+            } else if (ui.fullCommand.split(" ")[0].equals("help")) {
                 (new HelpCommand()).execute(null, ui, null, null, null, null);
-                break;
-            default:
+            } else {
                 ui.showDontKnowErrorMessage();
-                break;
             }
             ui.readCommand();
         }
