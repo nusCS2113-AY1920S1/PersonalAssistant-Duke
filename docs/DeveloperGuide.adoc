@@ -144,12 +144,12 @@ The Ui component of the code is in charge of:
 
 === Add command
 
-The Add feature aims to allow users to be able to quickly and efficiently add their meals to DIYeats. It accomplishes this by giving the user the ability to assign default nutritional values associated with certain meal names.
+The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
 
 This section describes the implementation and design considerations involved in the Add feature, and how the Add feature expedites user input.
 
 ==== Current implementation
-When the user enters a command associated with an add command, like: `add hotcakes /calories 300`, the application processes the command through the following steps:
+Assuming that there are no preexisting default values assigned to meals, and the user inputs the `add` command `add hotcakes /calories 300`, the application processes the command through the following steps:
 
 . The `Main` class calls the parse function of the `Parser` class to parse the user input. During this stage, the following validation checks are carried out before parsing:
 .. The autocorrect function (implemented by: Foo Chi Hen) takes in the user input, and determines if there are any typos present in the user input.
@@ -159,14 +159,30 @@ When the user enters a command associated with an add command, like: `add hotcak
 * Ensures that the command structure is correct.
 . After parsing, the data is then used to create an instance of the `AddItemCommand` object, which is then returned to the `Main` function.
 . The `Main` function would then invoke the `AddItemCommand#execute()` function.
-. The `AddItemCommand#execute()` function then further invokes the `MealList#addStoredItem(...)` function, which assigns the new default values of `/calories 300` to a meal of name `hotcakes`
+. The `AddItemCommand#execute()` function then further invokes the `MealList#addStoredItem(...)` function, which stores the data in a `storedItems` object of type `HashMap<String, HashMap<String, Integer>>`, in the following format:
+* The key of the encapsulating hashmap is the name of the meal that is to be assigned default values, in this instance, it has only one member `hotcakes`
+* The internal hashmap associated with the key `hotcakes` is used to store the nutritional tags (e.g calories, sodium, etc.), along with the default quantity associated with it. In this case, the internal hashmap only has one key `calories`, which is associated with the integer value `300`
 
 The steps carried out by the program as described above are captured in figure 5, the sequence diagram as shown below.
 
-
-
 .Add command sequence diagram
 image::addcommand.png[width="800"]
+
+==== Design considerations
+
+Problem 1: *How to store the data associated with this command*
+
+* Solution 1 (current implementation): Hashmap of a Hashmap
+** By storing the data in this format, this feature can be easily extendable to store multiple different default values associated to different nutritional tags to a single meal. Additionally, read and write access can be carried out in approximately O(n) time, where n is the amount of nutritional tags associated to a single meal. As n is unlikely to be large (n > 10), the process is not time complex.
+
+Problem 2: *Where to instantiate the data structure used to store the data for this command*
+
+* Solution 1 (current implementation): Directly in the MealList data structure
+** By instantiating the data structure directly in the MealList data structure, it becomes straightforward to access the data whenever a new meal is added.
+** However, this violates the separation of concerns architecture principle
+* Solution 2 (planned implementation by v1.3): In a separate class
+** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
+
 
 == Documentation
 === Introduction
