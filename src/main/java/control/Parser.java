@@ -32,8 +32,12 @@ public class Parser {
             return new AddRoomCommand(input, splitStr);
         case "list":
             return new ListCommand();
-            case "edit":
-                return new EditBookingCommand(input, splitStr);
+        case "edit":
+            return new EditBookingCommand(input, splitStr);
+        case "approve":
+            return new ApproveCommand(input, splitStr);
+        case "reject":
+            return new RejectCommand(input, splitStr);
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

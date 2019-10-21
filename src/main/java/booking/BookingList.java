@@ -16,10 +16,10 @@ public class BookingList extends ArrayList<Booking> {
      */
     public BookingList(ArrayList<String> loader) throws DukeException {
         for (String line : loader) {
-            String[] splitStr = line.split(" \\| ", 5);
+            String[] splitStr = line.split(" \\| ", 6);
             this.add(new Booking(splitStr[BookingConstants.USERNAME],
                     splitStr[BookingConstants.VENUE], splitStr[BookingConstants.DESCRIPTION],
-                    splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND]));
+                    splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND], splitStr[BookingConstants.STATUS]));
         }
     }
 
