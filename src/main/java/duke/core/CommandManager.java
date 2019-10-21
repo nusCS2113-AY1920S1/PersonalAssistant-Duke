@@ -48,21 +48,21 @@ public class CommandManager {
         Parser parser = new Parser(userInput);
 
         switch (firstKeyword) {
-        case "add":
-            if ((secondKeyword != "") && secondKeyword.equals("patient")) {
-                String[] formattedInput = parser.parseAdd();
-                AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
-                return addPatientCommand;
-            } else if ((secondKeyword != "") && secondKeyword.equals("task")) {
-                String formattedInput = parser.parseAdd()[0];
-                AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
-                return addStandardTaskCommand;
-            } else {
-                throw new DukeException("Add command fails.");
-            }
-        case "assign":
-            return new AssignTaskToPatientCommand(parser.parseAssign());
-        case "list":
+            case "add":
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
+                    String[] formattedInput = parser.parseAdd();
+                    AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
+                    return addPatientCommand;
+                } else if ((secondKeyword != "") && secondKeyword.equals("task")) {
+                    String formattedInput = parser.parseAdd()[0];
+                    AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
+                    return addStandardTaskCommand;
+                } else {
+                    throw new DukeException("Add command fails.");
+                }
+            case "assign":
+                return new AssignTaskToPatientCommand(parser.parseAssign());
+            case "list":
                 String[] tempCommand = parser.parseList();
                 String nextKeyword = tempCommand[0].toLowerCase();
                 if (nextKeyword.equals("patients")) {
@@ -72,7 +72,7 @@ public class CommandManager {
                 } else {
                     throw new DukeException("Invalid 'list' command.");
                 }
-        case "delete":
+            case "delete":
                 if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseDeletePatient();
                     return new DeletePatientCommand(formattedInput);
@@ -81,15 +81,15 @@ public class CommandManager {
                 } else {
                     throw new DukeException("Invalid 'delete' command.");
                 }
-        case "find":
+            case "find":
                 if ((secondKeyword != "") && secondKeyword.equals("patient")) {
-                        return new FindPatientCommand(parser.parseFind());
+                    return new FindPatientCommand(parser.parseFind());
                 } else if (secondKeyword.equals("patient") && ((thirdKeyword != "") && thirdKeyword.equals("task"))) {
-                        return new FindPatientTaskCommand(parser.parseFind());
+                    return new FindPatientTaskCommand(parser.parseFind());
                 } else {
                     throw new DukeException("Invalid 'find' command. ");
                 }
-        case "update":
+            case "update":
                 if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseUpdatePatient();
                     return new UpdatePatientCommand(formattedInput);
@@ -99,11 +99,11 @@ public class CommandManager {
                 } else {
                     throw new DukeException("Invalid 'update' command. ");
                 }
-        case "bye":
-            ExitCommand exitCommand = new ExitCommand();
-            return exitCommand;
-        default:
-            throw new DukeException("Could not understand user input");
+            case "bye":
+                ExitCommand exitCommand = new ExitCommand();
+                return exitCommand;
+            default:
+                throw new DukeException("Could not understand user input");
         }
     }
 }

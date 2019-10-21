@@ -17,6 +17,11 @@ public class FindPatientCommand extends Command {
     private String patientInfo;
     private int id;
 
+    /**
+     * Constructor method for FindPatientCommand.
+     * @param patientInfo Takes in patient information to be used to locate the desired patient.
+     * @throws DukeException when unable to successfully parse a patient ID number.
+     */
     public FindPatientCommand(String patientInfo) throws DukeException {
 
         this.patientInfo = patientInfo;
