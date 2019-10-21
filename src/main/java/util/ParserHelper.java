@@ -19,7 +19,7 @@ public class ParserHelper {
      */
     public String[] parseMemberDetails(String input) {
         String[] memberDetails = new String[4];
-        memberDetails[0] = "No name";
+        memberDetails[0] = "--";
         memberDetails[1] = "--";
         memberDetails[2] = "--";
         memberDetails[3] = "0";
