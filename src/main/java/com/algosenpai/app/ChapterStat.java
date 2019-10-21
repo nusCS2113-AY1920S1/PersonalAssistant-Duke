@@ -80,7 +80,7 @@ public class ChapterStat {
         if (totalAnswered == 0) {
             return; // to avoid division by 0
         }
-        percentage = 100.0* correctAnswers/(double) totalAnswered;
+        percentage = 100.0 * correctAnswers / (double) totalAnswered;
         wrongAnswers = totalAnswered - correctAnswers;
     }
 

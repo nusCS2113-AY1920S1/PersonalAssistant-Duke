@@ -45,7 +45,7 @@ public class UserStorageParser {
         inputScanner.skip("Comments : ");
         String comments = inputScanner.nextLine();
         // remove the quotes (1st and last character)
-        comments = comments.substring(1,comments.length()-1);
+        comments = comments.substring(1,comments.length() - 1);
         return new ChapterStat(chapterName, chapterNo, attempts, answered,
                 correctAnswers, wrongAnswers, percentage, comments);
     }
