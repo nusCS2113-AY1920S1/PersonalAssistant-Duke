@@ -10,9 +10,10 @@ public class CommandDebugger {
     //TODO MOVE THIS SOMEWHERE ELSE
 
     public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS root, Controller controller) {
+
         System.out.println("Cant find anything");
         double score = -1;
-        if (root == COMMANDKEYS.none) {
+        if (root == COMMANDKEYS.none && undefinedCommandArr.length > 0) {
             for (COMMANDKEYS s : CommandStructure.AllRoots) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[0]);
                 if (temp > score) {
@@ -26,7 +27,8 @@ public class CommandDebugger {
         }
         score = -1;
         COMMANDKEYS mostSimilarSub = COMMANDKEYS.none;
-        if (root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(root).length != 0) {
+
+        if (root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(root).length != 0 && undefinedCommandArr.length > 1) {
             for (COMMANDKEYS s : CommandStructure.cmdStructure.get(root)) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[1]);
                 if (temp > score) {
@@ -37,7 +39,13 @@ public class CommandDebugger {
             System.out.println("Did you mean" + mostSimilarSub);
         }
 
-        return new CommandPair(root, mostSimilarSub);
+        CommandPair cp = new CommandPair(root, mostSimilarSub);
+
+        if (undefinedCommandArr.length < 1 && CommandStructure.cmdStructure.get(root).length != 0) {
+            cp.setValidCommand(false);
+        }
+
+        return cp;
 
     }
 

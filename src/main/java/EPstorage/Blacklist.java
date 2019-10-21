@@ -53,7 +53,7 @@ public class Blacklist {
         if (mo == null) {
             return;
         }
-        blackListMovies.add(new MovieModel(mo.getID() , mo.getTitle()));
+        blackListMovies.add(new MovieModel(mo.getID() , mo.getTitle().toLowerCase()));
         saveBlackList();
     }
 
@@ -65,10 +65,11 @@ public class Blacklist {
         saveBlackList();
     }
 
-    private static void saveBlackList() {
+    public static void saveBlackList() {
         try {
             BlacklistStorage allbl = new BlacklistStorage();
             allbl.updateBlacklistFile(blackListKeyWords , blackListMovies , blackListMoviesTitle);
+
         } catch (Exception e) {
             //TODO ADD exception handling
         }
@@ -214,6 +215,52 @@ public class Blacklist {
 
     public static ArrayList<String> getBlackListMovies() {
         return (ArrayList<String>) blackListKeyWords.clone();
+    }
+
+    public static ArrayList<String> getBlackListAll() {
+        ArrayList<String> hints = new ArrayList<>();
+        for (String a: blackListKeyWords) {
+
+             hints.add(a);
+        }
+
+        for (String a: blackListMoviesTitle) {
+
+            hints.add(a);
+
+        }
+
+        for (MovieModel a: blackListMovies) {
+
+            hints.add(a.getTitle());
+
+        }
+
+        return hints;
+    }
+
+    public static ArrayList<String> getBlackListHints(String keyword) {
+        keyword = keyword.toLowerCase();
+        ArrayList<String> hints = new ArrayList<>();
+        for (String a: blackListKeyWords) {
+            if (a.toLowerCase().startsWith(keyword)) {
+                hints.add(a);
+            }
+        }
+
+        for (String a: blackListMoviesTitle) {
+            if (a.toLowerCase().startsWith(keyword)) {
+                hints.add(a);
+            }
+        }
+
+        for (MovieModel a: blackListMovies) {
+            if (a.getTitle().toLowerCase().startsWith(keyword)) {
+                hints.add(a.getTitle());
+            }
+        }
+
+        return hints;
     }
 
     public static String printHint() {
