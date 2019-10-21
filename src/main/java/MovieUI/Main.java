@@ -33,7 +33,8 @@ public class Main extends Application {
     }
 
     /**
-     * This function sets the scene for the window.
+     * This function se
+     * ts the scene for the window.
      */
     private void setUp() {
         try {

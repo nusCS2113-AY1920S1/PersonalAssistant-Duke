@@ -17,7 +17,9 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.view , new COMMANDKEYS[]{
-                COMMANDKEYS.profile , COMMANDKEYS.filters , COMMANDKEYS.preferences , COMMANDKEYS.watchlist , COMMANDKEYS.info , COMMANDKEYS.showtimes , COMMANDKEYS.blacklist
+                COMMANDKEYS.profile , COMMANDKEYS.filters , COMMANDKEYS.preferences , COMMANDKEYS.watchlist , COMMANDKEYS.info , COMMANDKEYS.showtimes , COMMANDKEYS.blacklist,
+                COMMANDKEYS.movies, COMMANDKEYS.tv, COMMANDKEYS.back, COMMANDKEYS.entry
+
         });
 
         put(COMMANDKEYS.add , new COMMANDKEYS[]{

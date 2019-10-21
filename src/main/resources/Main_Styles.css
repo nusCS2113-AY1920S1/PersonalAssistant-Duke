@@ -1,7 +1,7 @@
-BorderPane, ScrollPane, VBox, HBox, FlowPane, AnchorPane{
+BorderPane, ScrollPane, HBox, VBox, FlowPane {
     -fx-background-color: #1d1d1d;
     -fx-background: #1d1d1d;
-    -fx-border-width: 0px;
+    -fx-border-width: 1px;
 }
 
 #autoCompleteLabel{
@@ -10,8 +10,6 @@ BorderPane, ScrollPane, VBox, HBox, FlowPane, AnchorPane{
 #generalFeedbackLabel{
 -fx-background-color: #6b6565;
 }
-
-
 
 ProgressBar .track{
     -fx-background-radius: 2em;
