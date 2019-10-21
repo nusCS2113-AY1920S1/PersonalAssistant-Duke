@@ -14,8 +14,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskTest {
-    private TaskFactory consoleInputFactory = new TaskFactory();
-    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
+    private TaskFactory consoleInputFactory;
+    private DateTimeHelper dateTimeHelper;
+
+    TaskTest() {
+        this.consoleInputFactory = new TaskFactory();
+        this.dateTimeHelper = new DateTimeHelper();
+    }
 
     @Test
     void alwaysTrue() {

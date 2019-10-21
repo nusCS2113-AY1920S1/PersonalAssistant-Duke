@@ -1,41 +1,38 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import controllers.AssignmentController;
-import java.util.ArrayList;
 import models.data.Project;
 import models.member.Member;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
-import views.CLIView;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class AssignmentControllerTest {
     private final Project project;
     private final Member member1;
     private final Member member2;
     private final Member member3;
-    private final CLIView consoleView;
 
+    AssignmentControllerTest() {
+        this.project = new Project("Test Project");
+        this.member1 = new Member("Tom", "NIL", "NIL", 1);
+        this.member2 = new Member("Dick", "NIL", "NIL", 2);
+        this.member3 = new Member("Harry", "NIL", "NIL", 3);
+
+        Task task = new Task("Test task", 0,null, 0, TaskState.OPEN, new ArrayList<>());
+        this.project.addMember(member1);
+        this.project.addMember(member2);
+        this.project.addMember(member3);
+        this.project.addTask(task);
+    }
 
     @Test
     void alwaysTrue() {
         assertEquals(2, 2);
-    }
-
-    AssignmentControllerTest() {
-        project = new Project("Test Project");
-        member1 = new Member("Tom", "NIL", "NIL", 1);
-        member2 = new Member("Dick", "NIL", "NIL", 2);
-        member3 = new Member("Harry", "NIL", "NIL", 3);
-
-        Task task = new Task("Test task", 0,null, 0, TaskState.OPEN, new ArrayList<>());
-        project.addMember(member1);
-        project.addMember(member2);
-        project.addMember(member3);
-        project.addTask(task);
-        this.consoleView = new CLIView();
     }
 
     @Test

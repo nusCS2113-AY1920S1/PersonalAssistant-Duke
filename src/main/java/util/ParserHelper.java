@@ -15,7 +15,7 @@ public class ParserHelper {
     /**
      * Parses the string input to extract the name, phone number and email.
      * @param input Contains the name, phone number and email.
-     * @return An array consisting on name in index 0, phone number in index 1 and email in index 2.
+     * @return An array consisting of name in index 0, phone number in index 1 and email in index 2.
      */
     public String[] parseMemberDetails(String input) {
         String[] memberDetails = new String[4];
@@ -58,6 +58,70 @@ public class ParserHelper {
             memberDetails[0] = input.substring(2);
         }
         return memberDetails;
+    }
+
+    /**
+     * Parses the string input to extract the name, priority, due date, credit and task state.
+     * @param input Contains the name, priority, due date, credit and task state.
+     * @return An ArrayList consisting of name in index 0, priority in index 1, due date in index 2,
+     *         credit in index 3, task state in index 4.
+     */
+    public ArrayList<String> parseTaskDetails(String input) {
+        ArrayList<String> newTask = new ArrayList<>();
+
+        String newTaskName = "--";
+        String newTaskPriority = "-1";
+        String newTaskDate = null;
+        String newTaskCredit = "-1";
+        String newTaskState = "NONE";
+
+        String [] newTaskDetails = input.split(" ");
+        for (String s : newTaskDetails) {
+            switch (s.substring(0, 2)) {
+            case "t/":
+                newTaskName = s.substring(2);
+                break;
+            case "p/":
+                newTaskPriority = s.substring(2);
+                break;
+            case "d/":
+                newTaskDate = s.substring(2);
+                break;
+            case "c/":
+                newTaskCredit = s.substring(2);
+                break;
+            case "s/":
+                newTaskState = s.substring(2);
+                break;
+            default:
+                break;
+            }
+        }
+        int indexOfNameFlag = input.indexOf("t/");
+        int indexOfPriorityFlag = input.indexOf("p/");
+        int indexOfDateFlag = input.indexOf("d/");
+        int indexOfCreditFlag = input.indexOf("c/");
+        int indexOfStateFlag = input.indexOf("s/");
+
+        if (indexOfPriorityFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfPriorityFlag - 1);
+        } else if (indexOfDateFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfDateFlag - 1);
+        } else if (indexOfCreditFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfCreditFlag - 1);
+        } else if (indexOfStateFlag != -1) {
+            newTaskName = input.substring(indexOfNameFlag + 2, indexOfStateFlag - 1);
+        } else {
+            newTaskName = input.substring(2);
+        }
+
+        newTask.add(newTaskName);
+        newTask.add(newTaskPriority);
+        newTask.add(newTaskDate);
+        newTask.add(newTaskCredit);
+        newTask.add(newTaskState);
+
+        return newTask;
     }
 
     /**

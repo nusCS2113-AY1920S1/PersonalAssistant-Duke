@@ -91,8 +91,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public void editTask(String updatedTaskDetails) {
-        this.taskList.editTask(updatedTaskDetails);
+    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
+        this.taskList.editTask(taskIndexNumber, updatedTaskDetails);
     }
 
     @Override

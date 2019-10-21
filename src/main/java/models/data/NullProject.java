@@ -79,7 +79,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public void editTask(String updatedTaskDetails) {
+    public void editTask(int taskIndexNumber, String updatedTaskDetails) {
         /*
         Empty method
          */
