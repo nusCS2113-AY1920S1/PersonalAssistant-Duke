@@ -5,8 +5,20 @@ import seedu.duke.email.entity.Email;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class EmailList extends ArrayList<Email> {
+
+    public enum SortOrder {
+        TIME,
+        RELEVANCE
+    }
+
+    private SortOrder order = SortOrder.TIME;
+
+    public void setOrder(SortOrder order) {
+        this.order = order;
+    }
 
     /**
      * Converts the email list to a string of the pre-determined format that is ready to be displayed by the
@@ -70,5 +82,16 @@ public class EmailList extends ArrayList<Email> {
             emailStringList.add(email.toGuiString());
         }
         return emailStringList;
+    }
+
+    /**
+     * Sort the email list by the order given earlier.
+     */
+    public void sortByGivenOrder() {
+        switch (order){
+        case TIME:
+            sort(Comparator.comparing(Email::getReceivedDateTime).reversed());
+            break;
+        }
     }
 }
