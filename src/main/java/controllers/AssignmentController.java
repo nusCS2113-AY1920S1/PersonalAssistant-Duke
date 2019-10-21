@@ -103,12 +103,12 @@ public class AssignmentController {
             }
         }
 
-        getValidTaskIndexes(allTasksIndexes); //shortlists all valid task numbers
+        validateTaskIndexes(allTasksIndexes); //shortlists all valid task numbers
         if (!allIndexesToAssign.isEmpty()) {
-            getValidAssignees(allIndexesToAssign);
+            validateAssignees(allIndexesToAssign);
         }
         if (!allIndexesToUnassign.isEmpty()) {
-            getValidUnassignees(allIndexesToUnassign);
+            validateUnassignees(allIndexesToUnassign);
         }
 
         //check if any assignees and unassignees are the same, remove if necessary
@@ -150,7 +150,7 @@ public class AssignmentController {
      * used later to do task assignment.
      * @param allTaskIndexes all index numbers as indicated by user.
      */
-    public void getValidTaskIndexes(ArrayList<String> allTaskIndexes) {
+    public void validateTaskIndexes(ArrayList<String> allTaskIndexes) {
         for (String taskIndex : allTaskIndexes) {
             try {
                 Integer taskNumber = Integer.parseInt(taskIndex);
@@ -196,11 +196,11 @@ public class AssignmentController {
         return indexNumber > 0 && indexNumber <= project.getNumOfMembers();
     }
 
-    private void getValidAssignees(ArrayList<String> allIndexesToAssign) {
+    private void validateAssignees(ArrayList<String> allIndexesToAssign) {
         getValidMemberIndexes(allIndexesToAssign, this.validMembersToAssign);
     }
 
-    private void getValidUnassignees(ArrayList<String> allIndexesToUnassign) {
+    private void validateUnassignees(ArrayList<String> allIndexesToUnassign) {
         getValidMemberIndexes(allIndexesToUnassign, this.validMembersToUnassign);
     }
 
@@ -220,4 +220,15 @@ public class AssignmentController {
         return successMessages;
     }
 
+    public ArrayList<Integer> getValidMembersToAssign() {
+        return this.validMembersToAssign;
+    }
+
+    public ArrayList<Integer> getValidTaskIndexes() {
+        return validTaskIndexes;
+    }
+
+    public ArrayList<Integer> getValidMembersToUnassign() {
+        return validMembersToUnassign;
+    }
 }
