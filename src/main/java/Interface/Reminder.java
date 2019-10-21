@@ -1,6 +1,4 @@
 package Interface;
-
-import Commands.RemindCommand;
 import JavaFx.AlertBox;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -16,12 +14,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-
-import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Reminder {
@@ -44,6 +39,12 @@ public class Reminder {
         remindMap = storage.getReminderMap();
     }
 
+    /**
+     * Removes thread and sets the reminder to false for update.
+     * @param task Task with reminder set
+     * @param date Date of reminder
+     * @param reminderTime String version of the date of reminder
+     */
     public void removeTimerTask(Task task, Date date, String reminderTime) {
         timerMap.get(date).cancel();
         timerMap.remove(date);

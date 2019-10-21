@@ -1,6 +1,5 @@
 package Interface;
 import Tasks.*;
-import javafx.application.Platform;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,10 +41,17 @@ public class Storage {
         map = new HashMap<>();
     }
 
+    /**
+     * Sets the reminder object in Storage as the one in Duke.
+     * @param reminder reminder object from duke
+     */
     public void setReminderObject(Reminder reminder) {
         this.reminder = reminder;
     }
 
+    /**
+     * Retrieves the reminder object from Storage, which is the same as reminder object in Duke.
+     */
     public Reminder getReminderObject() {
         return this.reminder;
     }
@@ -176,6 +182,10 @@ public class Storage {
         return line;
     }
 
+    /**
+     * Starts the thread on existing reminders set from deadline.txt
+     * @throws DukeException On setReminderThread invalid date parameter
+     */
     public void setReminderOnStart() throws DukeException {
         Set<Date> dateKey = reminderMap.keySet();
         for(Date date : dateKey) {
