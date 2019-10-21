@@ -28,6 +28,8 @@ public class Ui {
     private static final int INDEX_START_OF_ARRAY = 0;
     private static final int TEXT_SIZE_SHORT = 13;
     private static final int TEXT_SIZE_LONG = 19;
+    private static final int TEXT_WIDTH = 35;
+    private static final int HEADER_WIDTH = 49;
     private static final int DESCRIPTION_SHORT_START = 0;
     private static final int DESCRIPTION_SHORT_END = 11;
     private static final int DESCRIPTION_LONG_START = 0;
@@ -729,21 +731,48 @@ public class Ui {
     }
 
     /**
-     * Prints header for free time slots.
+     * Prints the header for the user specified date to search for free time in.
+     *
+     * @param freeDate  The user specified date to search for free time.
+     * @param dayOfWeek The day of the week for the user specified date.
      */
-    public void printFree() {
-        System.out.println("\t Here are your free time slots: ");
+    public void printFreeTimeHeader(String freeDate, String dayOfWeek) {
+        System.out.println("-----------------------------------------------------");
+        String dayWithDate = dayOfWeek + " " + freeDate;
+        int padSize = HEADER_WIDTH - dayWithDate.length();
+        int padStart = dayWithDate.length() + padSize / 2;
+        dayWithDate = String.format("%" + padStart + "s", dayWithDate);
+        dayWithDate = String.format("%-" + HEADER_WIDTH + "s", dayWithDate);
+        System.out.println("| " + dayWithDate + " |");
+        System.out.println("-----------------------------------------------------");
     }
 
     /**
-     * Prints the free time slots that the user has.
+     * Prints the free time slots in that day.
      *
-     * @param startDate The starting time of the free time slot.
-     * @param endDate   The ending time of the free time slot.
-     * @param count     The index of the free time slots.
+     * @param timeSlotStart  The start time of the time slot.
+     * @param timeSlotEnd    The end time of the time slot.
      */
-    public void printFreeTimes(String startDate, String endDate, int count) {
-        System.out.println("\t" + count + ". " + startDate + " to " + endDate);
+    public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
+        System.out.println("| " + timeSlotStart + " - " + timeSlotEnd + " |               free                |");
+        System.out.println("-----------------------------------------------------");
+    }
+
+    /**
+     * Prints the event details.
+     *
+     * @param eventName     The name of the event to be printed.
+     * @param timeSlotStart The start time of the time slot.
+     * @param timeSlotEnd   The end time of the time slot.
+     */
+    public void printEventDetails(String eventName, String timeSlotStart, String timeSlotEnd) {
+        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
+        int padSize = TEXT_WIDTH - eventName.length();
+        int padStart = eventName.length() + padSize / 2;
+        eventName = String.format("%" + padStart + "s", eventName);
+        eventName = String.format("%-" + TEXT_WIDTH + "s", eventName);
+        System.out.println(eventName + "|");
+        System.out.println("-----------------------------------------------------");
     }
 
     /**

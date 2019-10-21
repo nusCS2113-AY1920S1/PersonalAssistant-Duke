@@ -1,3 +1,4 @@
+
 package oof.command;
 
 import oof.Storage;
@@ -19,33 +20,37 @@ import java.util.Date;
  */
 public class FreeCommand extends Command {
 
-    private String endTiming;
+    private String dateWanted;
     private static final int EMPTY = 0;
-    private static final int INDEX_DATE = 1;
-    private static final int INDEX_START_DATE = 0;
-    private static final int INDEX_END_DATE = 1;
+    private static final int INDEX_TIME = 0;
+    private static final int INDEX_NAME = 0;
+    private static final int INDEX_START_TIME = 1;
+    private String[] startingTimeSlots = {"07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
+            "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    private String[] endingTimeSlots = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00",
+            "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00"};
 
     /**
      * Constructor for FreeCommand.
      *
-     * @param endTiming Command inputted by user.
+     * @param dateWanted The date to search for free time slots given by user.
      */
-    public FreeCommand(String endTiming) {
+    public FreeCommand(String dateWanted) {
         super();
-        this.endTiming = endTiming;
+        this.dateWanted = dateWanted;
     }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
         Date current = new Date();
         try {
-            if (isEndDateAfterCurrentTime(current, endTiming)) {
-                findFreeTime(ui, taskList, this.endTiming, current);
+            if (isDateAfterCurrentDate(current, dateWanted) || isDateSame(current, dateWanted)) {
+                findFreeTime(ui, taskList, this.dateWanted);
             } else {
-                throw new OofException("OOPS!!! Please enter a valid date and time!");
+                throw new OofException("OOPS!!! Please enter a valid date!");
             }
         } catch (ParseException e) {
-            throw new OofException("OOPS!!! Datetime is in the wrong format!");
+            throw new OofException("OOPS!!! Date is in the wrong format!");
         }
     }
 
@@ -54,136 +59,169 @@ public class FreeCommand extends Command {
      *
      * @param ui Instance of Ui that is responsible for visual feedback.
      * @param taskList Instance of TaskList that stores Task Objects.
-     * @param endTiming The user specified end date.
-     * @param current Current time.
-     * @throws ParseException Throws an exception if datetime cannot be parsed.
+     * @param freeSlotsDate The user specified date.
      */
-    private void findFreeTime(Ui ui, TaskList taskList, String endTiming, Date current) throws ParseException {
-        ui.printFree();
-        int count = 1;
-        Date rangeStop = convertStringToDate(endTiming);
+    private void findFreeTime(Ui ui, TaskList taskList, String freeSlotsDate) throws ParseException {
+        ArrayList<String> eventsOnSameDay = new ArrayList<>();
         ArrayList<Date> eventStartTimes = new ArrayList<>();
         ArrayList<Date> eventEndTimes = new ArrayList<>();
+        ArrayList<String> eventNamesSorted = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Event) {
-                String[] lineSplit = task.toString().split("from: ");
-                String[] dateSplit = lineSplit[INDEX_DATE].split("to: ");
-                String start = dateSplit[INDEX_START_DATE].trim();
-                String end = dateSplit[INDEX_END_DATE].substring(0, dateSplit[INDEX_END_DATE].length() - 1);
-                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                Event event = (Event) taskList.getTask(i);
+                String date = event.getStartTiming().substring(0, 10).trim();
+                String startTime = event.getStartTiming().substring(11, 16).trim();
+                String endTime = event.getEndTiming().substring(11,16).trim();
                 try {
-                    Date startDate = format.parse(start);
-                    Date endDate = format.parse(end);
-                    if (!isEventOver(endDate, current)) {
-                        eventStartTimes.add(startDate);
-                        eventStartTimes.add(endDate);
+                    if (isSameDate(date, freeSlotsDate)) {
+                        String eventNameAndStartTime = event.getLine() + "-" + startTime;
+                        eventsOnSameDay.add(eventNameAndStartTime);
+                        eventStartTimes.add(convertStringToDate(startTime));
+                        eventEndTimes.add(convertStringToDate(endTime));
                     }
-                } catch (ParseException | DateTimeException e) {
+                } catch (DateTimeException | ParseException e) {
                     System.out.println("Timestamp given is invalid! Please try again.");
                 }
             }
         }
-        if (!isEventBetween(eventStartTimes)) {
-            ui.printFreeTimes(convertDateToString(current), convertDateToString(rangeStop), count);
+        if (eventStartTimes.size() == EMPTY) {
+            ui.printFreeTimeHeader(freeSlotsDate, getDayOfTheWeek(freeSlotsDate));
+            for (int i = 0; i < 17; i++) {
+                ui.printFreeSlots(startingTimeSlots[i], endingTimeSlots[i]);
+            }
         } else {
-            eventStartTimes.sort(new SortByDate());
-            eventEndTimes.sort(new SortByDate());
-            for (int i = 0; i < eventStartTimes.size(); i++) {
-                if (isOutOfRange(eventStartTimes.get(i), rangeStop)) {
-                    ui.printFreeTimes(convertDateToString(current), convertDateToString(rangeStop), count);
-                    break;
-                } else if (!isClash(eventStartTimes.get(i), eventEndTimes.get(i), current)) {
-                    ui.printFreeTimes(convertDateToString(current), convertDateToString(eventStartTimes.get(i)), count);
-                    current = eventEndTimes.get(i);
-                    count++;
-                }
-                if (isOutOfRange(current, rangeStop)) {
-                    break;
-                }
-                if (isLastTask(i, taskList)) {
-                    ui.printFreeTimes(convertDateToString(current), convertDateToString(rangeStop), count);
+            eventStartTimes.sort(new SortByTime());
+            eventEndTimes.sort(new SortByTime());
+            sortEventNames(eventsOnSameDay, eventStartTimes, eventNamesSorted);
+            ui.printFreeTimeHeader(freeSlotsDate, getDayOfTheWeek(freeSlotsDate));
+            for (int i = 0; i < 17; i++) {
+                Date startTimeSlot = convertStringToDate(startingTimeSlots[i]);
+                Date endTimeSlot = convertStringToDate(endingTimeSlots[i]);
+                if (eventStartTimes.size() == EMPTY) {
+                    ui.printFreeSlots(startingTimeSlots[i], endingTimeSlots[i]);
+                } else if (isClash(startTimeSlot, endTimeSlot, eventStartTimes.get(INDEX_TIME),
+                        eventEndTimes.get(INDEX_TIME))) {
+                    ui.printEventDetails(eventNamesSorted.get(INDEX_NAME), startingTimeSlots[i], endingTimeSlots[i]);
+                    if (isEventEndTimeWithinSlot(endTimeSlot, eventEndTimes.get(INDEX_TIME))) {
+                        eventStartTimes.remove(INDEX_TIME);
+                        eventEndTimes.remove(INDEX_TIME);
+                        eventNamesSorted.remove(INDEX_NAME);
+                    }
+                } else {
+                    ui.printFreeSlots(startingTimeSlots[i], endingTimeSlots[i]);
                 }
             }
         }
     }
 
     /**
-     * Checks if there is an overlap of current time and event timing.
+     * Checks if there is an overlap of event timing with hourly time slots.
      *
-     * @param eventStartTime Start time of event being compared.
-     * @param eventEndTime End time of event being compared.
-     * @param currTime Current time.
-     * @return true if there is an overlap of timings.
+     * @param slotStartTime Start time of the time slot being compared.
+     * @param slotEndTime   End time of the time slot being compared.
+     * @param eventStart    Start time of event being compared.
+     * @param eventEnd      End time of event being compared.
+     * @return true if there is an overlap of event timing.
      */
-    private boolean isClash(Date eventStartTime, Date eventEndTime, Date currTime) {
-        return (currTime.compareTo(eventStartTime) >= 0 && currTime.compareTo(eventEndTime) <= 0);
+    private boolean isClash(Date slotStartTime, Date slotEndTime, Date eventStart, Date eventEnd) {
+        return (slotStartTime.compareTo(eventStart) <= 0 && slotEndTime.compareTo(eventStart) > 0)
+                || (slotStartTime.compareTo(eventStart) >= 0 && eventEnd.compareTo(slotEndTime) <= 0);
     }
 
     /**
-     * Checks if the event being compared has ended.
+     * Checks if event end time falls within the time slot.
      *
-     * @param eventEndTime End time of event being compared.
-     * @param currTime Current time.
-     * @return true if current time is after event end time.
+     * @param slotEndTime End time of the time slot being compared.
+     * @param eventEnd    End time of event being compared.
+     * @return true if the event end time lies within the time slot.
      */
-    private boolean isEventOver(Date eventEndTime, Date currTime) {
-        return (currTime.compareTo(eventEndTime) >= 0);
+    private boolean isEventEndTimeWithinSlot(Date slotEndTime, Date eventEnd) {
+        return eventEnd.compareTo(slotEndTime) <= 0;
     }
 
     /**
-     * Checks if the current time being compared is out of the user specified end date.
+     * Checks if the event date is the same as the user specified date.
      *
-     * @param currTime Current time being compared.
-     * @param rangeEnd End time for free time slots to be found.
-     * @return true if current time occurs after end time, false otherwise.
+     * @param eventDate Date of event being compared.
+     * @param freeSlotsDate Date of free time to search for.
+     * @return true if event date and user specified date is the same.
      */
-    private boolean isOutOfRange(Date currTime, Date rangeEnd) {
-        return (currTime.compareTo(rangeEnd) >= 0);
+    private boolean isSameDate(String eventDate, String freeSlotsDate) {
+        return eventDate.equals(freeSlotsDate);
     }
 
     /**
-     * Checks if the task being compared is the final entry in the list.
-     *
-     * @param index Index of the task to be checked.
-     * @param taskList Instance of TaskList that stores Task objects.
-     * @return true if current task being compared is indeed the final entry, false otherwise.
-     */
-    private boolean isLastTask(int index, TaskList taskList) {
-        return (index == taskList.getSize() - 1);
-    }
-
-    /**
-     * Checks if user specified end date occurs after the current time
+     * Checks if user specified date is after the current date.
      * .
-     * @param currTime Current Time.
-     * @param end User specified end date.
-     * @return true if end date occurs after current time, false otherwise.
-     * @throws ParseException Throws an exception if datetime cannot be parsed.
+     * @param currDate Current date.
+     * @param freeDate User specified date to search for free time.
+     * @return true if user specified date is after the current date, false otherwise.
+     * @throws ParseException Throws an exception if date cannot be parsed.
      */
-    private boolean isEndDateAfterCurrentTime(Date currTime, String end) throws ParseException {
-        Date endDate = convertStringToDate(end);
-        return endDate.compareTo(currTime) > 0;
+    private boolean isDateAfterCurrentDate(Date currDate, String freeDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Date freeSlotsDate = format.parse(freeDate);
+        return freeSlotsDate.compareTo(currDate) >= 0;
     }
 
     /**
-     * Checks if there is an event between the specified time.
+     * Checks if user specified date is current date.
      *
-     * @param event The list of events between the specified time.
-     * @return true if there are events between the specified time, false otherwise.
+     * @param currDate Current Date.
+     * @param freeDate User specified date to search for free time.
+     * @return true if user specified date is current date.
      */
-    private boolean isEventBetween(ArrayList<Date> event) {
-        return event.size() != EMPTY;
+    private boolean isDateSame(Date currDate, String freeDate) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDate = format.format(currDate);
+        return currentDate.contains(freeDate);
     }
 
     /**
-     * Comparator to sort events by their date in ascending order.
+     * Comparator to sort events by their time in ascending order.
      */
-    class SortByDate implements Comparator<Date> {
+    class SortByTime implements Comparator<Date> {
         @Override
         public int compare(Date firstStartTime, Date secondStartTime) {
             return firstStartTime.compareTo(secondStartTime);
         }
+    }
+
+    /**
+     * Sorts all event names according to their event start time.
+     *
+     * @param eventsOnSameDay  ArrayList containing the unsorted event name and start time.
+     * @param eventStartTimes  ArrayList containing the start times sorted according in ascending order.
+     * @param eventNamesSorted ArrayList containing the sorted event names according to start time.
+     */
+    private void sortEventNames(ArrayList<String> eventsOnSameDay, ArrayList<Date> eventStartTimes,
+                                 ArrayList<String> eventNamesSorted) {
+        eventNamesSorted.addAll(eventsOnSameDay);
+        for (int i = 0; i < eventsOnSameDay.size(); i++) {
+            String[] lineSplit = eventsOnSameDay.get(i).split("-");
+            String time = lineSplit[INDEX_START_TIME];
+            String eventName = lineSplit[INDEX_NAME];
+            for (int j = 0; j < eventsOnSameDay.size(); j++) {
+                if (time.equals(convertDateToString(eventStartTimes.get(j)))) {
+                    eventNamesSorted.set(j, eventName);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Gets the day of the week from the user specified date.
+     *
+     * @param freeDate  The user specified date to search for free time.
+     * @return The day of the week spelt in full.
+     * @throws ParseException Throws an exception if datetime cannot be parsed.
+     */
+    private String getDayOfTheWeek(String freeDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("EEEE");
+        Date dayOfWeek = (new SimpleDateFormat("dd-MM-yyyy")).parse(freeDate);
+        return format.format(dayOfWeek);
     }
 
     @Override
