@@ -59,6 +59,10 @@ test {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.4"
+}
+
 asciidoctor {
     backends 'html5'
     sourceDir 'docs'
