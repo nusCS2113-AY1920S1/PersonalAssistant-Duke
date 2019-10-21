@@ -45,6 +45,6 @@ public class EditShoppingCommand extends ShoppingCommand {
         model.updateFilteredShoppingList(Model.PREDICATE_SHOW_ALL_SHOPPING);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, edited.getItem().getName()),
-                CommandResult.DisplayedPage.INVENTORY);
+                CommandResult.DisplayedPage.SHOPPING);
     }
 }

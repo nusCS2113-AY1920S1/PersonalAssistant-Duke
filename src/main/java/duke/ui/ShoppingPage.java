@@ -9,30 +9,30 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
-public class InventoryPage extends UiPart<AnchorPane> {
-    private static final String FXML = "InventoryPage.fxml";
+public class ShoppingPage extends UiPart<AnchorPane> {
+    private static final String FXML = "ShoppingPage.fxml";
 
     @FXML
-    private TableView inventoryListTable;
+    private TableView shoppingListTable;
 
-    private ObservableList<Item<Ingredient>> inventoryList;
+    private ObservableList<Item<Ingredient>> shoppingList;
 
     /**
-     * Creates a constructor for InventoryPage and sets the ObservableList of Items to be the 1 in the input
+     * Creates a constructor for ShoppingPage and sets the ObservableList of Items to be the 1 in the input
      * Sets up the table view, its columns and data inputted
-     * @param inventoryList An observable list containing the ingredients to be displayed in the inventory list
+     * @param shoppingList An observable list containing the ingredients to be displayed in the shopping list
      */
-    public InventoryPage(ObservableList<Item<Ingredient>> inventoryList) {
+    public ShoppingPage(ObservableList<Item<Ingredient>> shoppingList) {
         super(FXML);
-        this.inventoryList = inventoryList;
+        this.shoppingList = shoppingList;
         setupTable();
     }
 
     void setupTable() {
-        inventoryListTable.setItems(inventoryList);
-        inventoryListTable.getColumns().clear();
+        shoppingListTable.setItems(shoppingList);
+        shoppingListTable.getColumns().clear();
         setIndexColumn();
-        setInventoryInfoColumns();
+        setShoppingInfoColumns();
     }
 
     void setIndexColumn() {
@@ -60,13 +60,12 @@ public class InventoryPage extends UiPart<AnchorPane> {
         }
         ////////////////////////////////index column created
 
-        inventoryListTable.getColumns().add(indexColumn);
+        shoppingListTable.getColumns().add(indexColumn);
         indexColumn.setMinWidth(50);
         indexColumn.setMaxWidth(50);
     }
 
-    //Solution adapted from: http://fxapps.blogspot.com/2012/09/showing-object-properties-in-tableview.html
-    void setInventoryInfoColumns() {
+    void setShoppingInfoColumns() {
         TableColumn<Item<Ingredient>, String> ingredientColumn = new TableColumn<>("Ingredient");
         ingredientColumn.setResizable(true);
         ingredientColumn.setCellValueFactory(itemStringCellDataFeatures ->
@@ -77,12 +76,23 @@ public class InventoryPage extends UiPart<AnchorPane> {
         quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
 
-        TableColumn<Item<Ingredient>, String> unitColumn = new TableColumn<>("Remarks");
-        unitColumn.setResizable(true);
-        unitColumn.setCellValueFactory(itemStringCellDataFeatures ->
+        TableColumn<Item<Ingredient>, String> remarksColumn = new TableColumn<>("Remarks");
+        remarksColumn.setResizable(true);
+        remarksColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getRemarks()));
 
-        inventoryListTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
+        TableColumn<Item<Ingredient>, String> costColumn = new TableColumn<>("Unit Cost ($)");
+        costColumn.setResizable(true);
+        costColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getItem().getUnitPrice())));
+
+        TableColumn<Item<Ingredient>, String> totalCostColumn = new TableColumn<>("Cost ($)");
+        totalCostColumn.setResizable(true);
+        totalCostColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getTotalPrice())));
+
+        shoppingListTable.getColumns().addAll(ingredientColumn, quantityColumn, costColumn,
+                totalCostColumn, remarksColumn);
     }
 }
 

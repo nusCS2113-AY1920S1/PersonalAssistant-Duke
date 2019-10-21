@@ -31,6 +31,6 @@ public class AddShoppingCommand extends ShoppingCommand {
         model.addShoppingList(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getItem().getName()),
-                CommandResult.DisplayedPage.INVENTORY);
+                CommandResult.DisplayedPage.SHOPPING);
     }
 }

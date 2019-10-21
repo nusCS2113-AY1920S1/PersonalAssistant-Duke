@@ -39,7 +39,7 @@ public class DeleteShoppingCommand extends ShoppingCommand {
         model.deleteShoppingList(toDelete);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete.getItem().getName()),
-                CommandResult.DisplayedPage.INVENTORY);
+                CommandResult.DisplayedPage.SHOPPING);
     }
 }
 
