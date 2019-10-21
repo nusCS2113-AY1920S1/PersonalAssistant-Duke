@@ -36,86 +36,69 @@ public class CommandManager {
         }
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
+        String secondKeyword = "";
+        String thirdKeyword = "";
+        if (command.length >= 2) {
+            secondKeyword = command[1].toLowerCase();
+        }
+        if (command.length >= 3) {
+            thirdKeyword = command[2].toLowerCase();
+        }
+
         Parser parser = new Parser(userInput);
-        switch (firstKeyword) { //change this depending on how string is parsed
+
+        switch (firstKeyword) {
         case "add":
-            String secondKeyword = command[1].toLowerCase();
-            if (secondKeyword.equals("patient")) {
+            if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                 String[] formattedInput = parser.parseAdd();
                 AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
                 return addPatientCommand;
-            } else if (secondKeyword.equals("task")) {
+            } else if ((secondKeyword != "") && secondKeyword.equals("task")) {
                 String formattedInput = parser.parseAdd()[0];
                 AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
                 return addStandardTaskCommand;
             } else {
-                throw new DukeException("Add command fails. ");
+                throw new DukeException("Add command fails.");
             }
         case "assign":
             return new AssignTaskToPatientCommand(parser.parseAssign());
         case "list":
-            try {
-                String[] tempCommand = command[1].split("\\s+");
-                if (tempCommand[0].toLowerCase().equals("patients")) {
+                String[] tempCommand = parser.parseList();
+                String nextKeyword = tempCommand[0].toLowerCase();
+                if (nextKeyword.equals("patients")) {
                     return new ListPatientsCommand();
-                } else if (tempCommand[0].toLowerCase().equals("tasks")) {
+                } else if (nextKeyword.equals("tasks")) {
                     return new ListTasksCommand();
                 } else {
-                    throw new Exception("Invalid 'list' command. ");
+                    throw new DukeException("Invalid 'list' command.");
                 }
-            } catch (Exception e) {
-                throw new DukeException("List command fails. " + e.getMessage());
-            }
         case "delete":
-            try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseDeletePatient();
                     return new DeletePatientCommand(formattedInput);
                 } else if (secondKeyword.equals("task")) {
                     return new DeleteTaskCommand(parser.parseDeleteTask());
                 } else {
-                    throw new Exception("Invalid format. ");
+                    throw new DukeException("Invalid 'delete' command.");
                 }
-            } catch (Exception e) {
-                throw new DukeException("Delete command fails. " + e.getMessage());
-            }
         case "find":
-            try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
-                    try {
-                        return new FindPatientCommand(command[2]);
-                    } catch (Exception e) {
-                        throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
-                    }
-                } else if (secondKeyword.equals("patienttask")) {
-                    try {
-                        return new FindPatientTaskCommand(command[2]);
-                    } catch (Exception e) {
-                        throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
-                    }
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
+                        return new FindPatientCommand(parser.parseFind());
+                } else if (secondKeyword.equals("patient") && ((thirdKeyword != "") && thirdKeyword.equals("task"))) {
+                        return new FindPatientTaskCommand(parser.parseFind());
                 } else {
-                    throw new Exception("Invalid format. ");
+                    throw new DukeException("Invalid 'find' command. ");
                 }
-            } catch (Exception e) {
-                throw new DukeException("Find command fails. " + e.getMessage());
-            }
         case "update":
-            try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
+                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseUpdatePatient();
                     return new UpdatePatientCommand(formattedInput);
                 } else if (secondKeyword.equals("task")) {
                     String formattedInput = parser.parseUpdateTask();
                     return new UpdateTaskCommand(formattedInput);
                 } else {
-                    throw new Exception("Invalid format. ");
+                    throw new DukeException("Invalid 'update' command. ");
                 }
-            } catch (Exception e) {
-                throw new DukeException("update command fails. " + e.getMessage());
-            }
         case "bye":
             ExitCommand exitCommand = new ExitCommand();
             return exitCommand;

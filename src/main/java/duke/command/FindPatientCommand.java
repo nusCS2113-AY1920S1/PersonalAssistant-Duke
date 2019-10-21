@@ -4,8 +4,6 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
@@ -16,10 +14,20 @@ import java.util.ArrayList;
 
 public class FindPatientCommand extends Command {
 
-    private String command;
+    private String patientInfo;
+    private int id;
 
-    public FindPatientCommand(String command) {
-        this.command = command;
+    public FindPatientCommand(String patientInfo) throws DukeException {
+
+        this.patientInfo = patientInfo;
+
+        if (patientInfo.charAt(0) == '#') {
+            try {
+                this.id = Integer.parseInt(patientInfo.substring(1));
+            } catch (Exception e) {
+                throw new DukeException("Failed to find ID.");
+            }
+        }
     }
 
     /**
@@ -38,19 +46,13 @@ public class FindPatientCommand extends Command {
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
-        char firstChar = command.charAt(0);
-        if (firstChar == '#') {
-            int id;
-            try {
-                id = Integer.parseInt(command.substring(1, command.length()));
-            } catch (Exception e) {
-                throw new DukeException("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
-            }
+        char firstChar = patientInfo.charAt(0);
+        if (id != 0) {
             Patient patient = patientManager.getPatient(id);
             ui.patientsFoundById(patient);
         } else {
-            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);
-            ui.patientsFoundByName(patientsWithSameName, command);
+            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(patientInfo);
+            ui.patientsFoundByName(patientsWithSameName, patientInfo);
         }
     }
 
