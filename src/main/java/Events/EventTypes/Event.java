@@ -6,7 +6,7 @@ import Events.Formatting.EventDate;
  * Model_Class.Event object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
-public abstract class Event implements Comparable<Event>{
+public abstract class Event implements Comparable<Event> {
     protected String description;
     protected boolean isDone;
     protected EventDate startEventDate;
@@ -20,7 +20,7 @@ public abstract class Event implements Comparable<Event>{
      * @param isDone      boolean representing state of event completion
      * @param dateAndTime string representing date of event
      */
-    public Event(String description, boolean isDone, String dateAndTime) { 
+    public Event(String description, boolean isDone, String dateAndTime) {
         this.description = description;
         this.isDone = isDone;
         this.startEventDate = new EventDate(dateAndTime);
@@ -31,10 +31,10 @@ public abstract class Event implements Comparable<Event>{
     /**
      * Creates event with two date input
      *
-     * @param description event description
-     * @param isDone      boolean representing state of event completion
+     * @param description      event description
+     * @param isDone           boolean representing state of event completion
      * @param startDateAndTime string representing start date of event
-     * @param endDateAndTime string representing end date of event
+     * @param endDateAndTime   string representing end date of event
      */
     public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
         this.description = description;
@@ -78,7 +78,7 @@ public abstract class Event implements Comparable<Event>{
     }
 
     public char getType() {
-    	return eventType;
+        return eventType;
     }
 
     public EventDate getStartDate() {
@@ -89,7 +89,7 @@ public abstract class Event implements Comparable<Event>{
         return endEventDate;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 

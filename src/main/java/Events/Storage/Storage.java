@@ -73,7 +73,7 @@ public class Storage {
      * Saves current information to the storage file.
      *
      * @param events Eventlist where information is extracted to be saved
-     * @param ui    User interface
+     * @param ui     User interface
      */
     public void saveToFile(EventList events, UI ui) {
         String toWriteToFile = "";

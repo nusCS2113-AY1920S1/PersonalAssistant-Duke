@@ -165,7 +165,7 @@ public class Command {
             int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
             String newDescription = splitInfo[1];
             events.editEvent(eventIndex, newDescription);
-            ui.printEditedEvent(eventIndex+1, events.getEvent(eventIndex));
+            ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
         }
     }
 
@@ -178,11 +178,11 @@ public class Command {
             int viewIndex = 1;
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(searchKeyWords)) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";    
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                 }
                 viewIndex++;
             }
-            
+
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
@@ -419,7 +419,7 @@ public class Command {
             } else {
                 period = Integer.parseInt(splitEvent[2]);
             }
-            return this; 
+            return this;
         }
     }
 }
