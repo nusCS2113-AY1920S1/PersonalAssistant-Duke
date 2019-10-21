@@ -15,9 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class TaskFactoryTests {
-    private TaskFactory taskFactory = new TaskFactory();
-    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
+    private TaskFactory taskFactory;
+    private DateTimeHelper dateTimeHelper;
     private String simulatedFactoryInput;
+
+    TaskFactoryTests() {
+        taskFactory = new TaskFactory();
+        dateTimeHelper = new DateTimeHelper();
+    }
 
     /**
      * Always true test just to test if Junit is working.
