@@ -10,9 +10,9 @@ public class MapTokensToArguments {
     private final Map<Token, List<String>> mapTokensToArguments = new HashMap<>();
 
     /**
-     * This function is used for mapping a given string to its corresponding prefix.
-     * In this implementation, prefix is the key for the mapping
-     * @param token stores the prefix
+     * This function is used for mapping a given string to its corresponding token.
+     * In this implementation, token is the key for the mapping
+     * @param token stores the token
      * @param args stores the arguments mapped to a given key
      */
     public void setMapping(Token token, String args) {
@@ -22,11 +22,11 @@ public class MapTokensToArguments {
     }
 
     /**
-     * This function is used to get all the arguments mapped to a prefix.
+     * This function is used to get all the arguments mapped to a token.
      * As per the current implementation, we can have multiple arguments for the
-     * same prefix.
-     * @param token stores the prefix/key for the mapping
-     * @return a list of all the arguments mapped to the prefix
+     * same token.
+     * @param token stores the token/key for the mapping
+     * @return a list of all the arguments mapped to the token
      */
     public List<String> getAllValues(Token token) {
 
@@ -37,9 +37,9 @@ public class MapTokensToArguments {
     }
 
     /**
-     * This function is used to get the argument that was mapped to the prefix.
-     * @param token stores the prefix
-     * @return the argument mapped to the prefix
+     * This function is used to get the argument that was mapped to the token.
+     * @param token stores the token
+     * @return the argument mapped to the token
      */
     public Optional<String> getValue(Token token) {
         /*In case of multiple arguments related to a prefix

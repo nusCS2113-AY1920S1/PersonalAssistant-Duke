@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 public class ParserTokenizer {
 
     /**
-     * This function is responsible for mapping prefixes with their valid arguments.
+     * This function is responsible for mapping tokens with their valid arguments.
      * @param args stores the user input
-     * @param tokens stores the prefixes that are expected in the user input
-     * @return mapping of prefixes to arguments
+     * @param tokens stores the tokens that are expected in the user input
+     * @return mapping of tokens to arguments
      */
     public static MapTokensToArguments tokenize(String args, Token... tokens) {
         /*The triple dot notation is used for varArgs. It means that you can pass variable number
@@ -44,15 +44,15 @@ public class ParserTokenizer {
         return positions;
     }
 
-    private static int findTokenPosition(String args, String prefix, int startFromIndex) {
-        int tokenIndex = args.indexOf(" " + prefix,startFromIndex);
+    private static int findTokenPosition(String args, String token, int startFromIndex) {
+        int tokenIndex = args.indexOf(" " + token,startFromIndex);
         return tokenIndex == -1 ? -1 : tokenIndex + 1; //tokenIndex + 1 offsets for the whitespace
     }
 
     private static MapTokensToArguments getMapping(String args, List<PositionOfToken> positionOfTokens) {
-        //Sorting is required as we are trying to implement friendlier syntax where the order of prefixes
+        //Sorting is required as we are trying to implement friendlier syntax where the order of tokens
         //does not matter
-        positionOfTokens.sort((prefix1,prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
+        positionOfTokens.sort((token1,token2) -> token1.getStartPosition() - token2.getStartPosition());
         //Add a dummy start position so that it can mark the start of extracting and mapping arguments
         PositionOfToken startPosition = new PositionOfToken(new Token(""),0);
         positionOfTokens.add(0,startPosition);
@@ -63,10 +63,10 @@ public class ParserTokenizer {
         MapTokensToArguments mapTokensToArguments = new MapTokensToArguments();
         for (int i = 0; i < positionOfTokens.size() - 1; i++) {
             Token currentToken = positionOfTokens.get(i).getToken();
-            //The mapping takes place by considering everything between the two prefixes as argument
-            String argumentForCurrentPrefix = extractArgument(args,positionOfTokens.get(i),
+            //The mapping takes place by considering everything between the two tokens as argument
+            String argumentForCurrentToken = extractArgument(args,positionOfTokens.get(i),
                     positionOfTokens.get(i + 1));
-            mapTokensToArguments.setMapping(currentToken,argumentForCurrentPrefix);
+            mapTokensToArguments.setMapping(currentToken,argumentForCurrentToken);
         }
         return mapTokensToArguments;
     }
