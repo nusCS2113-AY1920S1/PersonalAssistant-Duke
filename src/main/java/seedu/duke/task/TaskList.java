@@ -168,10 +168,10 @@ public class TaskList extends ArrayList<Task> {
         Task task = this.get(index);
         if (task.getTaskType() == Task.TaskType.Deadline) {
             Deadline deadline = (Deadline) task;
-            deadline.setTime(Task.parseDate(description));
+            deadline.setTime(CommandParser.convertTime(description));
         } else if (task.getTaskType() == Task.TaskType.Event) {
             Event event = (Event) task;
-            event.setTime(Task.parseDate(description));
+            event.setTime(CommandParser.convertTime(description));
         }
         String msg = "Time for task " + (index + 1) + " has been changed to " + description;
         return msg;
