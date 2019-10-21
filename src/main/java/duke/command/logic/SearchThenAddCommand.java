@@ -40,7 +40,7 @@ public class SearchThenAddCommand extends ModuleCommand {
 
             case ("module"):
             default: {
-                String moduleCode = arg("moduleCode");
+                String moduleCode = arg("moduleCode").toUpperCase();
                 if (detailedMap.containsKey(moduleCode)) {
                     ModuleInfoDetailed mod = detailedMap.get(moduleCode);
                     ModuleTask temp = new ModuleTask(moduleCode, mod);
