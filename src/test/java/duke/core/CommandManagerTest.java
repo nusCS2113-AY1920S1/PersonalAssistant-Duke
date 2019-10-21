@@ -8,7 +8,6 @@ import duke.command.AddStandardTaskCommand;
 import duke.command.DeletePatientCommand;
 import duke.command.FindPatientCommand;
 import duke.command.FindPatientTaskCommand;
-import duke.command.HelpCommand;
 import duke.command.ListPatientsCommand;
 import duke.command.ListTasksCommand;
 import duke.command.UpdatePatientCommand;
