@@ -19,7 +19,15 @@ class OrderCommandUtil {
     private static final String MESSAGE_ITEM_NOT_FOUND = "[%s] is not an existing product. "
             + "Add it to Product List first? ";
 
-    static Set<Item<Product>> getProducts(List<Product> allProducts, Set<Item<String>> items) throws CommandException {
+    /**
+     * Returns a set of product items from product names.
+     * @param allProducts that are available.
+     * @param items containing the name of the products.
+     * @throws CommandException if one or more product names in {@code items} are not found in {@code allProducts}
+     */
+    static Set<Item<Product>> getProductItems(List<Product> allProducts,
+                                              Set<Item<String>> items)
+            throws CommandException {
         requireAllNonNull(allProducts, items);
 
         Set<Item<Product>> products = new HashSet<>();
@@ -35,10 +43,16 @@ class OrderCommandUtil {
         return products;
     }
 
-    static Order createNewOrder(Order original, OrderDescriptor orderDescriptor,
-                                List<Product> productList,
-                                ObservableList<Item<Ingredient>> inventoryList)
-            throws CommandException {
+    /**
+     * Modifies the {@code original} order based on {@code orderDescriptor}.
+     * {@code inventoryList} is used to detect if there are enough ingredients for the order.
+     * @throws CommandException if if items specified in the descriptor are not in {@code productList}.
+     */
+    static Order modifyOrder(Order original, OrderDescriptor orderDescriptor,
+                             List<Product> productList,
+                             ObservableList<Item<Ingredient>> inventoryList)
+        throws CommandException {
+
         assert original != null;
 
         Customer newCustomer = new Customer(
@@ -50,7 +64,7 @@ class OrderCommandUtil {
 
         Set<Item<Product>> newItems;
         if (orderDescriptor.getItems().isPresent()) {
-            newItems = getProducts(productList, orderDescriptor.getItems().get());
+            newItems = getProductItems(productList, orderDescriptor.getItems().get());
         } else {
             newItems = original.getItems();
         }
@@ -58,14 +72,9 @@ class OrderCommandUtil {
         String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
         double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
-        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal, inventoryList);
+        Order order = new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+        order.listenToInventory(inventoryList);
+        return order;
     }
 
-    static double calculateTotal(Set<Item<Product>> productItems) {
-        double total = 0;
-        for (Item<Product> productItem : productItems) {
-            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
-        }
-        return total;
-    }
 }

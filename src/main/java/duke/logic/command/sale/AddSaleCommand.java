@@ -2,15 +2,11 @@ package duke.logic.command.sale;
 
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.parser.commons.TimeParser;
 import duke.model.Model;
 import duke.model.sale.Sale;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -40,8 +36,6 @@ public class AddSaleCommand extends SaleCommand {
         this.addSaleDescriptor = addSaleDescriptor;
     }
 
-
-
     /**
      * Executes the add order command and returns the result message.
      *
@@ -59,7 +53,7 @@ public class AddSaleCommand extends SaleCommand {
     }
 
     private Sale createSale(SaleDescriptor saleDescriptor) throws CommandException {
-        String description = saleDescriptor.getDescription().orElse("N/A");
+        String description = saleDescriptor.getDescription().orElse(DEFAULT_DESCRIPTION);
         double value = saleDescriptor.getValue();
         Date saleDate = saleDescriptor.getSaleDate().orElse(Calendar.getInstance().getTime());
         String remarks = saleDescriptor.getRemarks().orElse("N/A");

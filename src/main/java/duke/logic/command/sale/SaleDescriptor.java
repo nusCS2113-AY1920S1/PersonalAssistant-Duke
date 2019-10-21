@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Stores the details a sale.
+ * A class that stores details in a Sale.
  */
 public class SaleDescriptor {
     private String description;

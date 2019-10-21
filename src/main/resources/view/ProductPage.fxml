@@ -1,61 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="591.0" prefWidth="877.0" stylesheets="@../css/product.css"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane prefHeight="591.0" prefWidth="877.0" stylesheets="@../css/product.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
-        <AnchorPane fx:id="productListPane" prefHeight="566.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0"
-                    xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <AnchorPane fx:id="productListPane" prefHeight="566.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
                 <children>
                     <SplitPane dividerPositions="0.15655577299412915" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="566.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <items>
-                            <AnchorPane maxHeight="80.0" minHeight="80.0" minWidth="0.0" prefHeight="80.0"
-                                        prefWidth="478.0" stylesheets="@../css/duke.css">
+                            <AnchorPane maxHeight="80.0" minHeight="80.0" minWidth="0.0" prefHeight="80.0" prefWidth="478.0" stylesheets="@../css/duke.css">
                                 <children>
-                                    <Label fx:id="tableTitle" alignment="CENTER"
-                                           contentDisplay="CENTER"
-                                           layoutX="293.0" layoutY="22.0"
-                                           prefHeight="77.0" prefWidth="758.0" text="All Products"
-                                           textAlignment="CENTER"
-                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Label fx:id="tableTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="22.0" prefHeight="77.0" prefWidth="758.0" text="All Products" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                         <font>
-                                            <Font name="Arial" size="25.0"/>
+                                            <Font name="Arial" size="25.0" />
                                         </font>
                                     </Label>
                                 </children>
                             </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="768.0">
-                                <children>
-                                    <SplitPane dividerPositions="0.7871485943775101" orientation="VERTICAL"
-                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                        <items>
-                                            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="379.0"
-                                                        prefWidth="815.0" vbarPolicy="NEVER">
-                                                <content>
-                                                    <TableView fx:id="productListTable"
-                                                               stylesheets="@../css/product.css">
-                                                        <columnResizePolicy>
-                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                                                        </columnResizePolicy>
-                                                    </TableView>
-                                                </content>
-                                            </ScrollPane>
-                                            <JFXTextArea prefHeight="113.0" prefWidth="815.0"
-                                                         promptText="Add Recipe Here (Ctrl + Enter)"
-                                                         style="-fx-background-color: white;"/>
-                                        </items>
-                                    </SplitPane>
-                                </children>
+                     <children>
+                        <SplitPane fx:id="splitPane" dividerPositions="0.5" layoutX="152.0" layoutY="54.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane fx:id="listPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                            <AnchorPane fx:id="cardPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                          </items>
+                        </SplitPane>
+                     </children>
                             </AnchorPane>
                         </items>
                     </SplitPane>

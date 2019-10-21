@@ -11,8 +11,6 @@ import java.util.List;
 
 /**
  * Parser to parse time.
- * Convert between date object and String date.
- * TODO: explain in detail with examples.
  */
 public class TimeParser {
     private static PrettyTime prettyTime = new PrettyTime();
@@ -20,18 +18,27 @@ public class TimeParser {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, yyyy HH:mm");
 
     /**
-     * Converts a Date object to a human-friendly string representing the date.
+     * If the difference (in absolute number) between the time given and current dime is within
+     * this threshold, TimeParser returns the human-friendly representation of time.
+     * Otherwise, TimeParser returns time in format specified in {@code dateFormat}.
+     */
+    private static final long THRESHOLD_TIME_MILLIS = 1000 * 3600 * 24 * 5;
+
+
+    /**
+     * Converts a Date object to a string representing the date.
      *
      * @param date Date object
-     * @return a human-friendly string representing the date
+     * @return a string representing the date
      */
     public static String convertDateToString(Date date) {
-        if (date.getTime() - System.currentTimeMillis() > 1000 * 3600 * 24 * 5) {
+        if (Math.abs(date.getTime() - System.currentTimeMillis()) > THRESHOLD_TIME_MILLIS) {
             return dateFormat.format(date);
         } else {
             return prettyTime.format(date);
         }
     }
+
 
     /**
      * Converts a string representing the date to a Date object.

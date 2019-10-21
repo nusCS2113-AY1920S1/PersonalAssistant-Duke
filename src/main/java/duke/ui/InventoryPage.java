@@ -6,14 +6,18 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class InventoryPage extends UiPart<AnchorPane> {
     private static final String FXML = "InventoryPage.fxml";
 
+    @FXML
+    private Accordion inventoryAccordion;
+    @FXML
+    private TitledPane inventoryListPane;
+    @FXML
+    private TitledPane shoppingListPane;
     @FXML
     private TableView inventoryListTable;
     @FXML

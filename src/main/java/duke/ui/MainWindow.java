@@ -3,9 +3,11 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
+import duke.commons.core.index.Index;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.product.ShowProductCommandResult;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
@@ -79,6 +81,8 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        this.popUp.setVisible(false);
+
         this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 autocomplete();
@@ -120,7 +124,8 @@ public class MainWindow extends UiPart<Stage> {
 
         try {
             CommandResult commandResult = logic.execute(input);
-            showPage(commandResult.getDisplayedPage());
+            showPage(commandResult);
+
             showMessagePopUp(commandResult.getFeedbackToUser());
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             showErrorPopUp(e.getMessage());
@@ -151,11 +156,15 @@ public class MainWindow extends UiPart<Stage> {
             keyEvent.consume();
             autocomplete();
             break;
+        case ESCAPE:
+            keyEvent.consume();
+            break;
         default:
             // let JavaFx handle the keypress
         }
     }
 
+    //@@author liujiajun
     private void autocomplete() {
         if (logic.isAutoCompletable(new AutoCompleter.UserInputState(
                 userInput.getText(),
@@ -166,6 +175,7 @@ public class MainWindow extends UiPart<Stage> {
             this.userInput.positionCaret(newState.caretPosition);
         }
     }
+    //@@author
 
     /**
      * Hides the pop up bar.
@@ -220,7 +230,8 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    private void showPage(CommandResult.DisplayedPage toDisplay) {
+    private void showPage(CommandResult commandResult) {
+        CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
         switch (toDisplay) {
         case SALE:
             showSalePage();
@@ -229,7 +240,11 @@ public class MainWindow extends UiPart<Stage> {
             showOrderPage();
             break;
         case PRODUCT:
-            showProductPage();
+            if (commandResult instanceof ShowProductCommandResult) {
+                showProductPage(((ShowProductCommandResult) commandResult).getIndex());
+            } else {
+                showProductPage();
+            }
             break;
         case INVENTORY:
             showInventoryPage();
@@ -262,6 +277,11 @@ public class MainWindow extends UiPart<Stage> {
         saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Products");
+    }
+
+    private void showProductPage(Index productIndex) {
+        showProductPage();
+        productPage.showProductDetail(productIndex);
     }
 
     private void showInventoryPage() {

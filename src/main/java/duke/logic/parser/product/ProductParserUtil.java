@@ -5,9 +5,10 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.model.product.Product;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 
 public class ProductParserUtil {
 
@@ -27,6 +28,10 @@ public class ProductParserUtil {
             productDescriptor.setStatus(Product.Status.valueOf(
                     map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase())
             );
+        }
+        if (map.getValue(PREFIX_PRODUCT_INGREDIENT).isPresent()) {
+            String input = map.getValue(PREFIX_PRODUCT_INGREDIENT).orElse("");
+            productDescriptor.setIngredientItemList(IngredientItemListParser.getIngredientsInInput(input));
         }
         return productDescriptor;
     }

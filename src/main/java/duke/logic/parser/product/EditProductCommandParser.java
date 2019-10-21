@@ -13,11 +13,7 @@ import duke.logic.parser.exceptions.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
+import static duke.logic.parser.commons.CliSyntax.*;
 import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
 
@@ -32,7 +28,8 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
                 PREFIX_PRODUCT_NAME,
                 PREFIX_PRODUCT_INGREDIENT,
                 PREFIX_PRODUCT_RETAIL_PRICE,
-                PREFIX_PRODUCT_INGREDIENT_COST
+                PREFIX_PRODUCT_INGREDIENT_COST,
+                PREFIX_PRODUCT_STATUS
         );
 
         Index index;

@@ -117,6 +117,11 @@ public class AutoCompleter {
         }
     }
 
+    /**
+     * Returns the starting index of the word at {@code caretPosition} in {@code commandText}.
+     * For example, if the text is "I am a bad guy" and caret is at position 3, the method returns 2,
+     * the starting index of "am"
+     */
     private int getSelectionStart(String commandText, int caretPosition) {
         int selectionStart = commandText.lastIndexOf(" ", caretPosition - 1);
         if (selectionStart == -1) {
@@ -127,6 +132,11 @@ public class AutoCompleter {
         return selectionStart;
     }
 
+    /**
+     * Returns the ending index of the word at {@code caretPosition} in {@code commandText}.
+     * For example, if the text is "I am a bad guy" and caret is at position 3, the method returns 3,
+     * the ending index of "am"
+     */
     private int getSelectionEnd(String commandText, int caretPosition) {
         int selectionEnd = commandText.indexOf(" ", caretPosition);
         if (selectionEnd == -1) {
@@ -137,11 +147,15 @@ public class AutoCompleter {
         return selectionEnd;
     }
 
+
     private String getCurrentWord(String commandText, int caretPosition) {
         return commandText.substring(getSelectionStart(commandText, caretPosition),
                 getSelectionEnd(commandText, caretPosition) + 1);
     }
 
+    /**
+     * Returns a list of suggested commands based on the incomplete {@code toComplete}.
+     */
     private List<String> generateCommandWordSuggestions(String toComplete) {
         List<String> suggestions = new ArrayList<>();
         for (Class<? extends Command> commandClass : commandClasses) {
@@ -155,6 +169,9 @@ public class AutoCompleter {
         return suggestions;
     }
 
+    /**
+     * Returns a list of suggested argument names based on the incomplete {@code toComplete}.
+     */
     private List<String> generateParameterSuggestions(String toComplete, Class<? extends Command> commandClass) {
         List<String> suggestions = new ArrayList<>();
 
@@ -170,6 +187,10 @@ public class AutoCompleter {
         return suggestions;
     }
 
+    /**
+     * Replaces the word at {code caretPosition} in {@code cmmandText} with {@code newWord}.
+     * @return the new command text after replacement.
+     */
     private String replaceWord(String commandText, int caretPosition, String newWord) {
         String beforeCurrent = commandText.substring(0, getSelectionStart(commandText, caretPosition));
         String afterCurrent = commandText.substring(getSelectionEnd(commandText, caretPosition) + 1);

@@ -1,0 +1,21 @@
+{
+  "orders" : [ ],
+  "products" : [ ],
+  "inventory" : [ {
+    "ingredient" : {
+      "name" : "Milk",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 20.0
+  } ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Milk",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  } ],
+  "shortcuts" : [ ]
+}

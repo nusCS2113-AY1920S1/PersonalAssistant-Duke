@@ -1,5 +1,7 @@
 package duke.model.product;
 
+import javafx.beans.property.StringProperty;
+
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;
@@ -12,19 +14,28 @@ public class Product {
         ARCHIVE
     }
 
+
     public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
             + "and should not be blank";
 
     private String productName;
     private IngredientItemList ingredients;
-    private double ingredientCost;
-    private double retailPrice;
+    private Double ingredientCost;
+    private Double retailPrice;
     private Status status;
+
+
+    public Product() {
+    }
 
     /** Constructor for Order parser.util*/
     public Product(String productName) {
         this.productName = productName;
     }
+
+    //public StringProperty productNameProperty() {
+    //    return productName;
+    //}
 
     /**
      * Creates a Product.
@@ -43,6 +54,9 @@ public class Product {
         }
     }
 
+    /**
+     * Creates a Product.
+     */
     public Product(String productName, String retailPrice, String ingredientCost, IngredientItemList ingredientItemList) {
         requireAllNonNull(productName);
         checkEmpty(productName, MESSAGE_CONSTRAINTS);
@@ -52,6 +66,25 @@ public class Product {
             this.ingredientCost = Double.parseDouble(ingredientCost);
             this.retailPrice = Double.parseDouble(retailPrice);
             this.status = Status.ACTIVE;
+            this.ingredients = ingredientItemList;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a Product.
+     */
+    public Product(String productName, Double retailPrice, Double ingredientCost,
+                   IngredientItemList ingredientItemList, Product.Status status) {
+        requireAllNonNull(productName);
+        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+
+        try {
+            this.productName = productName;
+            this.ingredientCost = ingredientCost;
+            this.retailPrice = retailPrice;
+            this.status = status;
             this.ingredients = ingredientItemList;
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -101,8 +134,16 @@ public class Product {
         return this.status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public IngredientItemList getIngredients() {
         return ingredients;
+    }
+
+    public void setIngredients(IngredientItemList ingredients) {
+        this.ingredients = ingredients;
     }
 
     /*
@@ -110,10 +151,15 @@ public class Product {
             return this.ingredients;
         }
 
-        public void setIngredients(List<Ingredient> ingredients) {
-            this.ingredients = ingredients;
-        }
-    */
+        /*
+            public List<Ingredient> getIngredients() {
+                return this.ingredients;
+            }
+
+            public void setIngredients(List<Ingredient> ingredients) {
+                this.ingredients = ingredients;
+            }
+        */
     @Override
     public String toString() {
         return productName + ": " + retailPrice + "$" + ingredients.toString();
