@@ -108,17 +108,11 @@ public class EditCommand extends Command {
             int index = wallet.getLoanList().findIndexWithId(loan.getId());
 
             if (index != -1) {
-                Loan currentLoan = wallet.getLoanList().getLoan(index);
-                currentLoan.setDescription(loan.getDescription());
-                currentLoan.setAmount(loan.getAmount());
-                currentLoan.setCreatedDate(loan.getCreatedDate());
-                currentLoan.setIsLend(loan.getIsLend());
-                currentLoan.setPerson(loan.getPerson());
-                wallet.getLoanList().editLoan(index, currentLoan);
+                wallet.getLoanList().editLoan(index, loan);
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_EDIT_LOAN);
                 Ui.printLoanTableHeaders();
-                Ui.printLoanRow(currentLoan);
+                Ui.printLoanRow(loan);
                 Ui.printLoanTableClose();
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);

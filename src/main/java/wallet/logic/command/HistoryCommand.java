@@ -21,8 +21,8 @@ public class HistoryCommand extends Command {
     public boolean execute(Wallet wallet) {
 
         System.out.println("Showing command history from earliest to latest:");
-        for (int i = 1; i < commandHistory.size(); i++) {
-            System.out.println(i + ". " + commandHistory.get(i));
+        for (int i = 0; i < commandHistory.size(); i++) {
+            System.out.println(i+1 + ". " + commandHistory.get(i));
         }
 
         return false;

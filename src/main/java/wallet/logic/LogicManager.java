@@ -52,13 +52,15 @@ public class LogicManager {
             if (command != null) {
                 isExit = command.execute(wallet);
                 ExpenseParser.updateRecurringRecords(wallet);
-                storageManager.save(wallet);
+                boolean isModified = storageManager.save(wallet);
+                if (isModified) {
+                    commandHistory.add(fullCommand);
+                }
             } else {
-                //System.out.println(MESSAGE_ERROR_COMMAND);
+                System.out.println(MESSAGE_ERROR_COMMAND);
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println(MESSAGE_ERROR_COMMAND);
         }
 
