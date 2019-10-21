@@ -266,6 +266,11 @@ public class MoneyStorage {
                                 account.getInstalments().add(index - 1, ins);
                             }
                             break;
+                        case "BAN":
+                            BankTracker b = new BankTracker(info[2], Float.parseFloat(info[1]),
+                                    LocalDate.parse(info[3]), Double.parseDouble(info[4]));
+                            account.getBankTrackerList().add(index - 1, b);
+                            break;
                         default:
                             break;
                     }
