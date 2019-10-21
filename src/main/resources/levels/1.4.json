@@ -1,0 +1,17 @@
+{
+  "narratives": [
+    "*Harvest Wheat!",
+    "Now that you have planted your seeds, you can start harvesting wheat when they are ready.",
+    "The seeds that you have planted will grow into seedlings only after a period of time. You can obtain wheat by harvesting seedlings.",
+    "Try typing [Do Harvestwheat]",
+    "Under the code section, you can see that 'Do Harvestwheat' is highlighted in red. This means that there is something incorrect with the code. For this case, there are no seedlings to be harvested as the seeds have not grown into seedlings yet. Thus, we are unable to harvestwheat at the moment.",
+    "For this level, we will be introducing a new task called 'If'.",
+    "'If' can be used when you want an action to be executed after a certain condition is met.",
+    "The format of using an 'If' statement is as follows:\nIf [condition] [action]"
+  ],
+  "money": 0,
+  "wheat_seed": 0,
+  "wheat_green": 0,
+  "wheat_ripe": 1,
+  "file_path": "Level1.4"
+}

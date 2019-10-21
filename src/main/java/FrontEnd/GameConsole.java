@@ -33,7 +33,12 @@ public class GameConsole {
         int day = farmer.getDay();
         ArrayList<String> userCode = farmer.getTasks().toStringArray();
         ArrayList<String> assets = formatAssets(farmer.getAssets(), Goals);
-        ArrayList<String> goals = formatGoals(Goals, farmer.getAssets());
+        ArrayList<String> goals;
+        if (level == 1.1) {
+            goals = tutorial1_1Goals(location);
+        } else {
+            goals = formatGoals(Goals, farmer.getAssets());
+        }
         userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
         output.append(AsciiColours.SANE).append(TOP_BORDER);
         output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: ", Double.toString(level), 10)).append(AsciiColours.SANE).append("  |");
@@ -98,21 +103,32 @@ public class GameConsole {
         }
         return output2.toString() + AsciiColours.WHITE + AsciiColours.BACKGROUND_BLACK;
     }
-    private static Map<String, Integer> dummyGoals() {
-        Map<String, Integer> dummy = new HashMap< String,Integer>();
-        dummy.put("Seeds", 3);
-        dummy.put("Chicken", 3);
-        dummy.put("Gold", 14);
-        return dummy;
+    private static ArrayList<String> tutorial1_1Goals(String location) {
+        ArrayList<String> goals = new ArrayList<>();
+        if (location.equals("Market")) {
+            goals.add(AsciiColours.DONE + "Location:Market" + AsciiColours.SANE);
+        } else {
+            goals.add(AsciiColours.HIGH_INTENSITY + "Location:Market" + AsciiColours.SANE);
+        }
+        while(goals.size() < 7) {
+            goals.add(" ".repeat(15));
+        }
+        return goals;
     }
     private static ArrayList<String> formatGoals(Map<String, Integer> goals, Map<String, Integer> assets) {
         ArrayList<String> formattedGoals = new ArrayList<>();
         Set< Map.Entry< String,Integer> > goalSet = goals.entrySet();
         for (Map.Entry< String,Integer> goal:goalSet) {
             String s = goal.getKey() + ": " +  goal.getValue();
-            if (assets.containsKey(goal.getKey()) && goal.getValue() <= assets.get(goal.getKey()) && goal.getValue() > 0) {
+            if (goal.getKey().equals("Location") && goal.getValue().equals(assets.get(goal.getKey()))) {
+                s = AsciiColours.HIGH_INTENSITY + "Location:Market" + AsciiColours.SANE;
+                formattedGoals.add(s);
+            } else if(goal.getKey().equals("Location")) {
+                s = AsciiColours.DONE + "Location:Market" + AsciiColours.SANE;
+                formattedGoals.add(s);
+            } else if (assets.containsKey(goal.getKey()) && goal.getValue() <= assets.get(goal.getKey()) && goal.getValue() > 0) {
                 formattedGoals.add(0, AsciiColours.DONE + s  + " ".repeat(15 - s.length() -3) + "[X]" + AsciiColours.SANE);
-            } else if (assets.containsKey(goal.getKey())&& goal.getValue() > 0){
+            } else if ((assets.containsKey(goal.getKey())&& goal.getValue() > 0)){
                 formattedGoals.add(AsciiColours.HIGH_INTENSITY + s + " ".repeat(15 - s.length() -3) + "[ ]"+ AsciiColours.SANE);
             }
         }
@@ -129,7 +145,7 @@ public class GameConsole {
         for (Map.Entry< String,Integer> asset:assetSet) {
             String s = asset.getKey() + ": " +  asset.getValue();
             String toAdd = s  + " ".repeat(15 - s.length());
-            if (!goals.containsKey(asset.getKey()) || goals.get(asset.getKey()) <= 0) {
+            if ((!goals.containsKey(asset.getKey()) || goals.get(asset.getKey()) <= 0)) {
                 formattedAssets.add(toAdd);
             } else if (asset.getValue() <= goals.get(asset.getKey())) {
                 formattedAssets.add(border, toAdd);
