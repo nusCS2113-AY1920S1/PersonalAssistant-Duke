@@ -17,7 +17,7 @@ import java.io.IOException;
  * A one scene chatbot GUI.
  * There are two fxml files, MainWindow and DialogBox.
  */
-public class Gui extends Application {
+public class GUI extends Application {
 
     //Initialise the different components here
     private Parser parser = new Parser();
@@ -27,7 +27,7 @@ public class Gui extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gui.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
