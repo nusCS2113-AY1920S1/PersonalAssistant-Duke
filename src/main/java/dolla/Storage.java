@@ -5,6 +5,7 @@ package dolla;
 import dolla.parser.MainParser;
 import dolla.task.Debt;
 import dolla.task.Entry;
+import dolla.task.Limit;
 import dolla.task.Log;
 
 import java.io.BufferedReader;
@@ -107,18 +108,19 @@ public class Storage {
 //                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
 //                    break;
-//                case "BU"://must include 3 additional word, every,for and tag
+                case "BU"://must include 3 additional word, every,for and tag
 //                    if(inArray[3].equals("every")) {
-//                        newLog = new budgetEvery(inArray[1],Time.readDate(inArray[2]));
-//                    } else if (inArray[3].equals("for")) {
+                        newLog = new Limit(Limit.LimitType.BUDGET,stringToDouble(inArray[1]),Limit.Duration.valueOf(inArray[2]));
+//                    }
+//                    else if (inArray[3].equals("for")) {
 //                        newLog = new budgetFor(inArray[1],Time.readDate(inArray[2]));
 //                    } else if (inArray[3].equals("tag")) {
 //                        newLog = new budgetTag(inArray[1],inArray[2]);
 //                    }
-//                    break;
-//                case "S":
-//                    newLog = new saving(inArray[1],Time.readDate(inArray[2]));
-//                    break;
+                    break;
+                case "S":
+                    newLog = new Limit(Limit.LimitType.SAVING,stringToDouble(inArray[1]), Limit.Duration.valueOf(inArray[2]));
+                    break;
                 case "O":
                     newLog = new Debt("owe",inArray[1],stringToDouble(inArray[2]),inArray[3],Time.readDate(inArray[4]));
                     break;
@@ -165,7 +167,6 @@ public class Storage {
     }
 
     public static ArrayList<Log> getDebtsFromSave() {
-
         return debts;
     }
 

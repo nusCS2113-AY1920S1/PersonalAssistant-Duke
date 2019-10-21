@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.undo;
 import dolla.task.Entry;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ public class AddEntryCommand extends Command {
     private double amount;
     private String description;
     private LocalDateTime date;
+    private int prevPosition;
 
     /**
      * Creates an instance of AddEntryCommand.
@@ -23,19 +25,26 @@ public class AddEntryCommand extends Command {
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
      */
-    public AddEntryCommand(String type, double amount, String description, LocalDateTime date) {
+    public AddEntryCommand(String type, double amount, String description, LocalDateTime date, int prevPosition) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.prevPosition = prevPosition;
     }
 
     @Override
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
-//        dollaData.addToEntryList(newEntry);
 
-        dollaData.addToLogList("entry", newEntry);
+        if(prevPosition != -1) { //an undo input
+            dollaData.addToPrevPosition("entry", newEntry, prevPosition);
+            prevPosition = -1; //reset to -1
+        } else { //normal input
+            dollaData.addToLogList("entry", newEntry);
+            index = dollaData.getLogList("entry").size();
+            undo.removeCommand("entry",index);
+        }
         Ui.echoAddEntry(newEntry);
     }
 }

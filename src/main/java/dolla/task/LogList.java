@@ -19,7 +19,10 @@ public class LogList {
 
     public void add(Log newLog) {
         list.add(newLog);
-//        Storage.setEntries(get()); //save
+    }
+
+    public void insertPrevPosition(int prevPosition, Log newLog) {
+        list.add(prevPosition, newLog);
     }
 
     public int size() {

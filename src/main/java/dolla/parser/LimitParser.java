@@ -2,6 +2,8 @@ package dolla.parser;
 
 import dolla.command.AddLimitCommand;
 import dolla.command.Command;
+import dolla.command.RemoveCommand;
+import dolla.command.ShowListCommand;
 
 /**
  * This class handles all limit related parsing.
@@ -14,11 +16,12 @@ public class LimitParser extends Parser {
 
     @Override
     public Command handleInput(String mode, String inputLine) {
-        if (commandToRun.equals("limits")) { //show limit list
-            //            return new ShowList(mode);
-
+        if(commandToRun.equals("limits")) {
+          return new ShowListCommand(mode);
+        } else if (commandToRun.equals("set")) {
+            //add limit command
         } else if (commandToRun.equals("remove")) {
-            //remove limit command
+            return new RemoveCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("edit")) {
             //edit limit command
         }

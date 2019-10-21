@@ -10,7 +10,7 @@ public class SortDescription extends Sort {
 
     public SortDescription(ArrayList<Log> list) {
         super(list);
-        Collections.sort(list,DescriptionComparator.DescComparator());
+        Collections.sort(list,ListComparator.DescComparator());
         Ui.printSortedList(list,"description");
     }
 }

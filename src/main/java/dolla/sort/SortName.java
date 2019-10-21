@@ -10,7 +10,7 @@ public class SortName extends Sort {
 
     public SortName(ArrayList<Log> list) {
         super(list);
-        Collections.sort(list,NameComparator.NameComparator());
+        Collections.sort(list,ListComparator.NameComparator());
         Ui.printSortedList(list,"name");
     }
 }

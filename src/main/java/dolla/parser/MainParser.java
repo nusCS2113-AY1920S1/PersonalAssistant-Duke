@@ -3,6 +3,7 @@ package dolla.parser;
 import dolla.Ui;
 //import dolla.command.;
 
+import dolla.action.undo;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
@@ -15,6 +16,7 @@ import java.util.Arrays;
  * to create the relevant command.
  */
 public class MainParser {
+    private static String[] prevCommand = {"dolla","1"};
 
     /**
      * Returns a command corresponding to the user input by directing
@@ -38,6 +40,22 @@ public class MainParser {
             return new SwitchModeCommand(command); // TODO
         }
 
+        if(prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
+            prevCommand[1] = "2";
+        } else if(prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
+            prevCommand[0] = command;
+            prevCommand[1] = "1";
+        } else { //not from redo
+            prevCommand[0] = command;
+            prevCommand[1] = "1";
+        }
+
+//    } else if(prevCommand[0].equals("redo") && prevCommand[1].equals("1")) {
+//        prevCommand[1] = "2";
+//    } else if(prevCommand[0].equals("redo") || prevCommand[1].equals("2")) {
+//        prevCommand[0] = command;
+//        prevCommand[1] = "1";
+
         switch (mode) {
         case "dolla":
             DollaParser dollaParser = new DollaParser(inputLine);
@@ -49,10 +67,10 @@ public class MainParser {
         case "debt":
             DebtsParser debtsParser = new DebtsParser(inputLine);
             return debtsParser.handleInput(mode, inputLine);
-        case "limits":
+        case "limit":
             LimitParser limitParser = new LimitParser(inputLine);
-            //return limitParser.handleInput(mode, inputLine);
-            return new ErrorCommand(); // catch
+            return limitParser.handleInput(mode, inputLine);
+            //return new ErrorCommand(); // catch
         case "modify entry":
             ModifyParser modifyParser = new ModifyParser(inputLine);
             return modifyParser.handleInput(mode, inputLine);

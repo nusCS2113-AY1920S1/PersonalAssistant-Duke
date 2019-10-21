@@ -19,6 +19,7 @@ public class Debt extends Log {
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.userInput = type + " " + name + " " + amount + " " + description + " " +"/due " + Time.dateToString(date);
     }
 
     @Override
@@ -51,5 +52,10 @@ public class Debt extends Log {
                 + amount + " | "
                 + description + " | "
                 + Time.dateToString(date);
+    }
+
+    @Override
+    public String getUserInput() {
+        return userInput;
     }
 }

@@ -10,11 +10,12 @@ import java.util.Arrays;
  */
 public abstract class Ui {
 
-    private static String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+    private static String logo =
+              " ____    _   _  _   _       \n"
+            + "|  _  \\/ _ \\| || | /  \\      \n"
+            + "| | | | | | | || |/ /\\ \\  \n"
+            + "| |_| | |_| | || |  __  | \n"
+            + "|____/ \\ _ /|_||_|_|  |_|       \n";
 
     protected static String line = "\t____________________________________________________________";
 
@@ -91,6 +92,13 @@ public abstract class Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've added this debt: ");
         System.out.println("\t" + currDebt.getLogText());
+        System.out.println(line);
+    }
+
+    public static void echoRemove (String log) {
+        System.out.println(line);
+        System.out.println("Noted. I've removed this log: ");
+        System.out.println(log);
         System.out.println(line);
     }
 
