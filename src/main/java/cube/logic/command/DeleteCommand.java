@@ -1,3 +1,4 @@
+//@@author LL-Pengfei
 package cube.logic.command;
 
 import cube.model.FoodList;
@@ -6,10 +7,12 @@ import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 import cube.logic.command.exception.CommandErrorMessage;
 
+/**
+ * This class supports commands related to delete.
+ */
 public class DeleteCommand extends Command{
-
 	/**
-	 * Enum to indicate the type of delete.
+	 * Use enums to specify the states of delete.
 	 */
 	public enum DeleteBy {
 		INDEX, NAME, TYPE
@@ -19,8 +22,8 @@ public class DeleteCommand extends Command{
 	private String deleteDescription;
 	private DeleteBy param;
 	private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've removed this food:\n"
-		+ "%1$s\n"
-		+ "Now you have %2$s food in the list.\n";
+			+ "%1$s\n"
+		    + "Now you have %2$s food in the list.\n";
 	private final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've removed this type:\n"
 			+ "%1$s\n"
 			+ "This type contains "
@@ -28,14 +31,17 @@ public class DeleteCommand extends Command{
 			+ "Now you have %3$s food in the list.\n";
 
 	/**
-	 * Default constructor.
+	 * The default constructor, empty since parameters are required to perform delete command.
 	 */
-	public DeleteCommand() {}
+	public DeleteCommand() {
+
+	}
 
 	/**
-	 * Constructor for delete using index.
-	 * @param index the index to be deleted.
-	 * @param param the parameter to indicate type of deletion.
+	 * The constructor for delete using index.
+	 *
+	 * @param index The index of the object to be deleted.
+	 * @param param The parameter is used to specify the type of deletion.
 	 */
 	public DeleteCommand(int index, String param) {
 		this.deleteIndex = index - 1;
