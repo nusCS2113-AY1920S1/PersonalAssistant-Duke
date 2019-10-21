@@ -1,5 +1,6 @@
 package duke.task;
 
+//@@author maxxyx96
 /**
  * Represents a do After that stores description only if task is Done.
  */
@@ -48,3 +49,4 @@ public class DoAfter extends Task {
         return "A|" + super.toFile() + "|" + after;
     }
 }
+//@@author

@@ -354,6 +354,7 @@ public class Ui {
     }
     //@@author
 
+    //@@author maxxyx96
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
@@ -368,6 +369,7 @@ public class Ui {
     public String showBackupMessageGui() {
         return "     Duke Manager has been backed up!";
     }
+    //@@author
 
     /**
      * Outputs a message to the user to let it know that it has changed the priority of a task.
@@ -416,6 +418,7 @@ public class Ui {
     }
     //@@author
 
+    //@@author maxxyx96
     /**
      * Shows the current budget of the user.
      *
@@ -482,4 +485,5 @@ public class Ui {
     public String showResetBudgetGui(float budget) {
         return "     Your previous budget of " + budget + " has been reset.";
     }
+    //@@author
 }
