@@ -2,6 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 
+//@@author maxxyx96
 public class BudgetList {
     private static final int ZERO = 0;
     public static final float INITIAL_BUDGET = ZERO;
@@ -74,3 +75,4 @@ public class BudgetList {
 
 
 }
+//@@author
