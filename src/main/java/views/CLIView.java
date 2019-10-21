@@ -173,23 +173,30 @@ public class CLIView {
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
     public void viewAllProjects(ArrayList<Project> allProjects) {
-        System.out.println("Here are all the Projects you are managing:");
-        HashMap<Integer, ArrayList<String>> toPrintPerProject = new HashMap<>();
-        for (int projNum = 0; projNum < allProjects.size(); projNum++) {
-            ArrayList<String> toPrint = new ArrayList<>();
-            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
-            toPrint.add("Members: ");
-            for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers(); memberIndex++) {
-                toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
+        if (allProjects.size() == 0) {
+            consolePrint("You currently have no projects!");
+        } else {
+            System.out.println("Here are all the Projects you are managing:");
+            HashMap<Integer, ArrayList<String>> toPrintPerProject = new HashMap<>();
+            for (int projNum = 0; projNum < allProjects.size(); projNum++) {
+                ArrayList<String> toPrint = new ArrayList<>();
+                toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
+                toPrint.add("Members: ");
+                if (allProjects.get(projNum).getNumOfMembers() == 0) {
+                    toPrint.add(" --");
+                } else {
+                    for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers(); memberIndex++) {
+                        toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
+                    }
+                }
+                toPrint.add("Next Deadline: ");
+                toPrint.add(" Feature not yet done");
+                toPrint.add("Overall Progress: ");
+                toPrint.add(" Feature not yet done");
+                toPrintPerProject.put(projNum, toPrint);
             }
-            toPrint.add("Next Deadline: ");
-            toPrint.add(" Feature not yet done");
-            toPrint.add("Overall Progress: ");
-            toPrint.add(" Feature not yet done");
-            toPrintPerProject.put(projNum, toPrint);
+            consolePrintTable(toPrintPerProject);
         }
-        consolePrintTable(toPrintPerProject);
-
     }
 
     /**
