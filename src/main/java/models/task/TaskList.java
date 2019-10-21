@@ -157,4 +157,8 @@ public class TaskList {
             this.taskList.get(taskIndexNumber - 1).addTaskRequirement(updatedTaskRequirements[i]);
         }
     }
+
+    public boolean contains(Task task) {
+        return (taskList.contains(task));
+    }
 }

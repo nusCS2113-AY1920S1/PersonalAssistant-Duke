@@ -53,4 +53,8 @@ public class ListOfMembersAssignedToTask implements IMemberList {
     public int getNumberOfAssignees() {
         return memberList.size();
     }
+
+    public boolean contains(Member member) {
+        return memberList.contains(member);
+    }
 }

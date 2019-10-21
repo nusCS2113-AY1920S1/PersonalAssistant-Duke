@@ -1,13 +1,12 @@
 package models.member;
 
-import models.task.Task;
+import java.util.Objects;
 
 public class Member implements IMember {
     private String name;
     private String phone;
     private String email;
     private int indexNumber;
-    private ListOfTasksAssignedToMember listOfTasksAssignedToMember;
 
     /**
      * Class representing a member in a project team.
@@ -21,6 +20,25 @@ public class Member implements IMember {
         this.phone = phone;
         this.email = email;
         this.indexNumber = indexNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof Member)) {
+            return false;
+        } else {
+            Member other = (Member) obj;
+            return this.name.equals(other.name)
+                && this.phone.equals(other.phone)
+                && this.email.equals(other.email);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.phone, this.email);
     }
 
     @Override
@@ -61,7 +79,4 @@ public class Member implements IMember {
         this.email = email;
     }
 
-    public void assignTask(Task task) {
-        this.listOfTasksAssignedToMember.addAssignedTask(task);
-    }
 }
