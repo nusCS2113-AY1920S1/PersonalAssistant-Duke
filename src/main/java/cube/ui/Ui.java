@@ -1,19 +1,19 @@
+//@@author LL-Pengfei
 /**
- * This class is used as interface with the user. It could reads from user and print message to the user.
- *
- * @author tygq13
+ * This class is used as an user interface. It supports
+ * interactions with the users, including data and instructions
+ * input and output.
  */
 package cube.ui;
 
 import cube.logic.command.CommandResult;
 import java.util.Scanner;
 
-
 public class Ui {
 	private Scanner in = new Scanner(System.in);
 
 	/**
-	 * Returns the next line of user input being read.
+	 * Return the next line of user input being read.
 	 *
 	 * @return next line of user input.
 	 */
@@ -21,9 +21,8 @@ public class Ui {
 		return in.nextLine();
 	}
 
-	//@@author LL-Pengfei
 	/**
-	 * Prints the welcome screen of Cube.
+	 * Print the welcome screen of Cube.
 	 */
 	public void showWelcome(){
 	    String logo = " ________  ___  ___  ________  _______      \n" +
@@ -38,7 +37,7 @@ public class Ui {
 	}
 
 	/**
-	 * Prints a dotted line with new line.
+	 * Prints a dotted line in anew line.
 	 */
 	public void showLine() {
 		System.out.println("------------------------------------------------------------------------------------------------------");
@@ -49,8 +48,8 @@ public class Ui {
 	}
 
 	/**
-	 * Prints the error message of loading error.
-	 * @param path the path that the user intended to load.
+	 * Print the error message of loading error.
+	 * @param path the filepath that the user intends to use to load.
 	 */
 	public void showLoadingError(String path) {
 		showLine();
