@@ -1,12 +1,14 @@
 package duke.util;
 
-import java.util.Comparator;
-import java.util.List;
 import duke.modules.Cca;
-import java.util.Scanner;
 
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Mod Planner inherits functionality from Original Duke Ui.
@@ -15,6 +17,8 @@ public class PlannerUi {
 
     private Scanner scan;
     private static final String LINE = "_______________________________";
+    private static Set<String> yes = new HashSet<>(Arrays.asList("y", "yes", "true", "1", "confirm", "t"));
+    private static Set<String> no = new HashSet<>(Arrays.asList("n", "no", "false", "0", "f"));
 
     /**
      * Default constructor for Ui.
@@ -41,6 +45,33 @@ public class PlannerUi {
 
     public String readCommand() {
         return scan.nextLine().strip();
+    }
+
+    /**
+     * Confirm user's action.
+     * @return true if user confirms else false
+     */
+    public boolean confirm() {
+        boolean result = true;
+        while (result) {
+            String input = this.readCommand();
+            if (yes.contains(input)) {
+                break;
+            } else if (no.contains(input)) {
+                result = false;
+            } else {
+                this.println("Please enter a valid response!");
+            }
+        }
+        return result;
+    }
+
+    public void clearedMsg(String type) {
+        System.out.println("Done! Your " + type + " have been cleared");
+    }
+
+    public void abortMsg() {
+        System.out.println("Aborted! No actions were taken");
     }
 
     /**
@@ -120,6 +151,10 @@ public class PlannerUi {
         closeScanner();
     }
 
+    public void clearMsg(String toClear) {
+        System.out.println("Are you sure you want to clear your " + toClear + "?");
+    }
+
     /**
      * Message shown at start of CapCommand.
      */
@@ -140,18 +175,17 @@ public class PlannerUi {
     /**
      * Message to print the sorted module list.
      */
-    public void sortModuleMsg() {
-        System.out.println("Here are your modules!");
+    public void sortMsg(String toSort) {
+        System.out.println("Here are your sorted " + toSort + ":");
     }
 
     /**
-     * Sorts the modules by ascending order and prints to the users.
-     * @param mods List of modules the student is taking
+     * Sorts by ascending order and prints to the users.
      */
-    public void showSortedModules(List<ModuleTask> mods) {
+    public void showSorted(List<?> list) {
         showLine();
-        for (ModuleTask hold : mods) {
-            System.out.println(hold);
+        for (Object object : list) {
+            System.out.println(object);
         }
     }
 

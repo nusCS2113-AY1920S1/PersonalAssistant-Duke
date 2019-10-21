@@ -11,6 +11,8 @@ import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import duke.command.Command;
@@ -38,11 +40,12 @@ public class Duke {
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
+    private transient ByteArrayOutputStream output;
 
     /**
      * Constructor for Duke class.
      */
-    public Duke() {
+    public Duke(boolean gui) {
         store = new Storage();
         ui = new Ui();
         modUi = new PlannerUi();
@@ -52,6 +55,24 @@ public class Duke {
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
         ccas = new CcaList();
+        if (gui) {
+            this.redirectOutput();
+            modUi.helloMsg();
+        }
+    }
+
+    public Duke() {
+        this(false);
+    }
+
+    /**
+     * Redirect output for GUI compatibility.
+     */
+    private void redirectOutput() {
+        this.output = new ByteArrayOutputStream();
+        PrintStream printStreamGui = new PrintStream(this.output);
+        System.setOut(printStreamGui);
+        System.setErr(printStreamGui);
     }
 
     private void modSetup() {
@@ -70,18 +91,7 @@ public class Duke {
         modUi.helloMsg();
         modSetup();
         while (true) {
-            try {
-                String fullCommand = modUi.readCommand();
-                modUi.showLine();
-                ModuleCommand c = argparser.parseCommand(fullCommand);
-                if (c != null) {
-                    c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
-                }
-            } catch (ModException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                modUi.showLine();
-            }
+            this.handleInput(modUi.readCommand());
         }
     }
 
@@ -144,6 +154,33 @@ public class Duke {
                 ui.showLine();
             }
         }
+    }
+
+    private void handleInput(String input) {
+        try {
+            modUi.showLine();
+            ModuleCommand c = argparser.parseCommand(input);
+            if (c != null) {
+                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+            }
+        } catch (ModException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            modUi.showLine();
+        }
+    }
+
+    /**
+     * Get output from commands.
+     * @param input user input
+     * @return command output
+     */
+    public String getResponse(String input) {
+        if (input != null) {
+            this.output.reset();
+            this.handleInput(input);
+        }
+        return this.output.toString();
     }
 
     /**
