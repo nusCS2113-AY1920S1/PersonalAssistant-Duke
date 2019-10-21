@@ -27,17 +27,19 @@ public class AddDebtsCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount, description);
+        index = dollaData.getLogList("debt").size();
         if(prevPosition != -1) { //an undo input
             dollaData.addToPrevPosition("debt", newDebt, prevPosition);
+            redo.removeCommand("debt", prevPosition);
+            System.out.println(prevPosition);
             prevPosition = -1;
         } else { //normal input
             dollaData.addToLogList("debt", newDebt);
 
-            index = dollaData.getLogList("debt").size();
+//            index = dollaData.getLogList("debt").size();
             undo.removeCommand("debt",index);
-
-            new redo("debt", newDebt.getUserInput());
-            redo.setRedoFlag(0);
+            redo.clearRedo();
+//            redo.setRedoFlag(0);
         }
         Ui.echoAddDebt(newDebt);
     }

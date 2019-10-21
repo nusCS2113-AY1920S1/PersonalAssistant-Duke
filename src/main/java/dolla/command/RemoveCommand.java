@@ -43,12 +43,12 @@ public class RemoveCommand extends Command {
     public void execute(DollaData dollaData) {
         int logNumInt;
         int flag;
-        if(logNumStr.indexOf("/") != -1) {
+        if(logNumStr.contains("/")) { //from undo
             String[] parser = logNumStr.split("/", 2);
             logNumInt = stringToInt(parser[0]) - 1;
             flag = 0;
-        } else {
-            logNumInt  = stringToInt(logNumStr);
+        } else { //normal input
+            logNumInt  = stringToInt(logNumStr) - 1;
             flag = 1;
         }
         LogList logList = new LogList(new ArrayList<>());
@@ -61,8 +61,10 @@ public class RemoveCommand extends Command {
         }
         if(flag == 1) {
             undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
+            redo.clearRedo();
+        } else {
+            redo.addCommand(mode,logList.get().get(logNumInt).getUserInput());
         }
-        new redo(mode,"remove " + logNumStr);
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);

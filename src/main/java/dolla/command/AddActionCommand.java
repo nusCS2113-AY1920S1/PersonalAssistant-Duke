@@ -31,16 +31,17 @@ public class AddActionCommand extends Command{
     }
 
     public void redoCommand() {
-
+        UserInput = redo.processRedo();
     }
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
         if(command.equals("undo")) {
             undoCommand();
-//            redo.redoReady(mode);
+//            redo.redoReady(mode); move to somewhere else
         } else if (command.equals("redo")) {
-            //redo
+            redo.redoReady(mode);
+            redoCommand();
         }
         if(mode.equals("debt")) {
             DebtsParser.setPrePosition(prevPosition);

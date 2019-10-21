@@ -41,14 +41,16 @@ public class AddEntryCommand extends Command {
 
         if(prevPosition != -1) { //an undo input
             dollaData.addToPrevPosition("entry", newEntry, prevPosition);
+            redo.removeCommand("entry",prevPosition);
             prevPosition = -1; //reset to -1
         } else { //normal input
             dollaData.addToLogList("entry", newEntry);
             index = dollaData.getLogList("entry").size();
             undo.removeCommand("entry",index);
+            redo.clearRedo();
 
-            new redo("entry", newEntry.getUserInput());
-            redo.setRedoFlag(0);
+
+//            redo.setRedoFlag(0);
         }
         Ui.echoAddEntry(newEntry);
     }
