@@ -2,8 +2,10 @@ package dolla;
 
 import dolla.task.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * duke.Ui is a class that handles all interactions to the user.
@@ -349,6 +351,7 @@ public abstract class Ui {
         }
     }
 
+
         public static void printSortedList(ArrayList<Log> list, String type){
             System.out.println(line);
             if (type.equals("date")) {
@@ -378,4 +381,11 @@ public abstract class Ui {
             System.out.println("\tWhat would you want to change this entry to?");
             System.out.println(line);
         }
+
+        public static void printNoReminderMsg() {
+            System.out.println(line);
+            System.out.println("\tThere are no reminders :)");
+            System.out.println(line);
+        }
+
 }
