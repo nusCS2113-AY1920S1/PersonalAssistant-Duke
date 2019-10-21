@@ -11,8 +11,6 @@ import java.util.Date;
 
 public class FindFreeSlotCommand extends Command {
 
-    private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
-
     private Date date;
     private int hour;
     private int min;
@@ -86,12 +84,13 @@ public class FindFreeSlotCommand extends Command {
      * Returns a String array of free time slots with input duration.
      *
      * @param arrayList list of tasks on input date
-     * @param startPointer start time
-     * @param endDay date of next day
+     * @param startTime start time
+     * @param endTime date of next day
      * @param duration duration of time slot needed
      * @return
      */
-    public ArrayList<String> getFreeSlots(ArrayList<Task> arrayList, Date startPointer, Date endDay, int duration) {
+    public ArrayList<String> getFreeSlots(ArrayList<Task> arrayList, Date startTime, Date endTime, int duration) {
+        Date startPointer = startTime;
         Date endPointer;
         ArrayList<String> stringArrayList = new ArrayList<>();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmm");
@@ -110,7 +109,7 @@ public class FindFreeSlotCommand extends Command {
             startPointer = arrayList.get(i).getEndTime();
         }
 
-        if ((endDay.getTime() - startPointer.getTime()) >= duration) {
+        if ((endTime.getTime() - startPointer.getTime()) >= duration) {
             String start = simpleDateFormat.format(startPointer);
             stringArrayList.add(start + " to 2400\n");
         }
