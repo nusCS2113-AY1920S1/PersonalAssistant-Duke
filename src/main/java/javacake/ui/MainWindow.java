@@ -134,28 +134,19 @@ public class MainWindow extends AnchorPane {
                 } else if (!isQuiz) {
                     //default afterStart: finding of response
                     response = duke.getResponse(input);
-                } else { //Must be quizCommand: checking of answers
-                    quizCommand.checkAnswer(input);
-                    if (quizCommand.chosenQuestions.size() > 0) {
-                        response = quizCommand.getNextQuestion();
-                    } else {
-                        isQuiz = false;
-                        response = quizCommand.getQuizScore();
-                        if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
-                            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
-                        } else if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.OKAY) {
-                            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
-                        }
-                    }
                     showContentContainer();
                     System.out.println("not quiz");
-
+                } else {
+                    //Must be quizCommand: checking of answers
+                    handleGuiQuiz();
+                    showContentContainer();
+                    System.out.println("quiz answer checking");
                 }
+
                 if (response.contains("!@#_QUIZ")) {
                     //checks for first execution of quizCommand
                     isQuiz = true;
                     Duke.logger.log(Level.INFO, "Response: " + response);
-                    //initalise the quiz here
                     response = getFirstQn(response);
                     showContentContainer();
                     System.out.println("quiz first time");
@@ -267,7 +258,7 @@ public class MainWindow extends AnchorPane {
     private void handleGuiQuiz() throws DukeException {
         quizCommand.checkAnswer(input);
         if (quizCommand.chosenQuestions.size() > 0) {
-            //response = quizCommand.getQuestions();
+            response = quizCommand.getNextQuestion();
         } else {
             isQuiz = false;
             response = quizCommand.getQuizScore();
