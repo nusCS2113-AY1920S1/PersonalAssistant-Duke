@@ -76,6 +76,21 @@ public class PatientTaskList {
         }
     }
 
+    /**
+     * .
+     *
+     * @param id .
+     * @throws DukeException .
+     */
+    public void deleteAllPatientTaskByTaskName(int id) throws DukeException {
+        for (PatientTask patientTask : patientTaskIdMap.values()) {
+            if (patientTask.getTaskID() == id) {
+                patientTaskIdMap.remove(patientTask.getPatientId(), patientTask);
+                return;
+            }
+        }
+    }
+
 
     /**
      * .
