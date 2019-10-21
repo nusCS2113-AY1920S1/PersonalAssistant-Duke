@@ -321,46 +321,47 @@ The tasks in each day can be classified into visual blocks to aid the users into
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
-== User Stories
+== Requirements
+
+=== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 [cols="5%,10%,10%,15%,30%,30%"]
 |===
 |*S/N*|*Use Case No*|*Priority Level*|*As a ...*|*I can ...*|*So that I can ...*
-|01|01|* * *|Computing Student|Add a task|Won’t forget the tasks I have to complete
-|02|02|* * *|Computing Student|Mark a task as complete|Can keep track of what is left to be completed 
-|03|03|* * *|Computing Student|View my tasks in a calendar|Can manage my time properly 
-|04|04|* *|Computing Student|View a summary of tomorrow’s task|Will know what to expect for the next day 
-|05|05|* * *|Computing Student|Add an event with the relevant dates, start and end times|Can keep track of my upcoming appointments and examinations 
-|06|06|* * *|Computing Student|Get reminders of deadlines due within 24 hours|Can prioritize those tasks to be completed first 
-|07|07|* * *|Computing Student|Sort my tasks|Can see my tasks in chronological order
-|08|08|*|Computing Student|Find my tasks|Do not need to scroll through the entire calendar to find certain tasks 
-|09|09|* *|Double degree computing student|Color code the tasks|Can quickly distinguish different type of tasks 
-|10|10|* *|Computing Student|View my tasks for the week|Can plan my time for the week 
-|11|11|* * *|Busy Computing Student|Find free time slots|Will know which dates and times I am free to conduct project meetings 
-|12|12|* * *|Computing Student|Cancel events|Keep my schedule updated 
-|13|13|* * *|Computing Student|Postpone the deadline of tasks|Can properly manage my priorities 
-|14|14|* *|Computing Student who procrastinates|View undone tasks carried forward to the next day in a bright color|Will know what assignments are lagging behind 
-|15|15|* * *|Computing Student|Add a recurring task|Do not have to do it multiple times 
-|16||*|Impatient Computing Student|Quickly type in one-liner commands|Can see the tasks being updated in the program quickly 
-|17||*|Business Analytics Student|View trends for my tasks|Can see if I am lagging behind 
-|18||* *|Paranoid Computing Student|Choose the threshold before the programs sends an alert for me to complete my tasks|Can stay ahead of my schedule 
-|19||*|Organized Computing Student|View all the tasks in a strict format|Will know what to type to enter my tasks 
-|20||*|Computing Student in NUSSU|Export my calendar to a shareable format|Can quickly share my schedule with other people 
-|21||* *|Computing Student|Have a do-after task|Know what tasks need to be done after completing a specific task
-|22||* * *|Computing Student|Have a task that needs to be done within a time period|Can better plan my schedule 
-|23||*|Computing Student|Add my estimated time taken to complete a task|Know how much free time I would have 
+|01|01|* * *|University Student|Add a task|Won’t forget the tasks I have to complete
+|02|02|* * *|University Student|Mark a task as complete|Can keep track of what is left to be completed 
+|03|03|* * *|University Student|View my tasks in a calendar|Can manage my time properly 
+|04|04|* *|University Student|View a summary of tomorrow’s task|Will know what to expect for the next day 
+|05|05|* * *|University Student|Add an event with the relevant dates, start and end times|Can keep track of my upcoming appointments and examinations 
+|06|06|* * *|University Student|Get reminders of deadlines due within 24 hours|Can prioritize those tasks to be completed first 
+|07|07|* * *|University Student|Sort my tasks|Can see my tasks in chronological order
+|08|08|*|University Student|Find my tasks|Do not need to scroll through the entire calendar to find certain tasks 
+|09|09|* *|Double degree University student|Color code the tasks|Can quickly distinguish different type of tasks 
+|10|10|* *|University Student|View my tasks for the week|Can plan my time for the week 
+|11|11|* * *|Busy University Student|Find free time slots|Will know which dates and times I am free to conduct project meetings 
+|12|12|* * *|University Student|Cancel events|Keep my schedule updated 
+|13|13|* * *|University Student|Postpone the deadline of tasks|Can properly manage my priorities 
+|14|14|* *|University Student who procrastinates|View undone tasks carried forward to the next day in a bright color|Will know what assignments are lagging behind 
+|15|15|* * *|University Student|Add a recurring task|Do not have to do it multiple times 
+|16||*|Impatient University Student|Quickly type in one-liner commands|Can see the tasks being updated in the program quickly 
+|17||*|University Student|View trends for my tasks|Can see if I am lagging behind 
+|18||* *|Paranoid University Student|Choose the threshold before the programs sends an alert for me to complete my tasks|Can stay ahead of my schedule 
+|19||*|Organized University Student|View all the tasks in a strict format|Will know what to type to enter my tasks 
+|20||*|University Student in NUSSU|Export my calendar to a shareable format|Can quickly share my schedule with other people 
+|21||* *|University Student|Have a do-after task|Know what tasks need to be done after completing a specific task
+|22||* * *|University Student|Have a task that needs to be done within a time period|Can better plan my schedule 
+|23||*|University Student|Add my estimated time taken to complete a task|Know how much free time I would have 
 |24||* *|Undergraduate Tutor|Have two instances of calendar|Can separate my tutor tasks and personal tasks 
-|25||* *|Computing Student|Filter my calendar by different categories|Can view my tasks for that category easier 
-|26||* * *|Computing Student|Add a tentative task|Can confirm it at a later date 
-|27||* * *|Computing Student|View all commands|Do not need to memorise all the commands 
-|28||* * *|Computing Student|Get warnings if an event I add clashes with an existing event|Will not have multiple events at the same time 
-|29||*|Computing Student|Sync my tasks to my phone via bluetooth|Can view my tasks on the go and not just on my laptop
-|30||**|Computing Student|Print out my tasks stored|Can view my tasks even if my laptop runs out of battery
+|25||* *|University Student|Filter my calendar by different categories|Can view my tasks for that category easier 
+|26||* * *|University Student|Add a tentative task|Can confirm it at a later date 
+|27||* * *|University Student|View all commands|Do not need to memorise all the commands 
+|28||* * *|University Student|Get warnings if an event I add clashes with an existing event|Will not have multiple events at the same time 
+|29||*|University Student|Sync my tasks to my phone via bluetooth|Can view my tasks on the go and not just on my laptop
+|30||**|University Student|Print out my tasks stored|Can view my tasks even if my laptop runs out of battery
 |===
 
-[appendix]
-== Use Cases
+=== Use Cases
 (MSS refers to Main Success Scenario.)
 
 *System: Outstanding Organization Friend (OOF)* +
@@ -715,8 +716,7 @@ Use case ends.
 ** User confirms the cancellation.
 ** Use case ends.
 	
-[appendix]
-== Non Functional Requirements
+=== Non Functional Requirements
 
 . Should work on any mainstream OS as long as it has Java 11 or above installed 
 . Should be able to hold up to 200 tasks/events without performance deterioration 
