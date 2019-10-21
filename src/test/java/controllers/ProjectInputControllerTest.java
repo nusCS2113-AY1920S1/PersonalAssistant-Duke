@@ -88,12 +88,18 @@ class ProjectInputControllerTest {
 
     @Test
     void testProjectDeleteMember() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserinput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
+        projectInputController.projectAddMember(project,simulatedUserinput);
 
-    }
-
-    @Test
-    void testProjectViewMembers() {
-
+        simulatedUserinput = "delete member 1";
+        projectInputController.projectDeleteMember(project,simulatedUserinput);
+        actualOutput = "";
+        for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "";
+        assertEquals(expectedOutput,actualOutput);
     }
 
     @Test
@@ -103,7 +109,6 @@ class ProjectInputControllerTest {
 
     @Test
     void testProjectAddTask() {
-
     }
 
     @Test

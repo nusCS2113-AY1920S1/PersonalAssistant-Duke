@@ -23,7 +23,7 @@ class TaskListTest {
         project = new Project("Infinity_Gauntlet");
         dateTimeHelper = new DateTimeHelper();
     }
-    
+
     @Test
     void alwaysTrue() {
         assertEquals(2, 2);
