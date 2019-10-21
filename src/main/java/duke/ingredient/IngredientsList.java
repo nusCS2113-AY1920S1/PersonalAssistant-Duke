@@ -1,20 +1,15 @@
-package duke.ingredients;
+package duke.ingredient;
 
 import duke.exception.DukeException;
-import duke.parser.Convert;
-import duke.ingredients.Ingredients;
-
-import javax.xml.crypto.Data;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
 public class IngredientsList
 {
-    private List<Ingredients> ingredientsList;
+    private List<Ingredient> ingredientsList;
 
-    public IngredientsList(List<Ingredients> ingredientsList)
+    public IngredientsList(List<Ingredient> ingredientsList)
     {
         this.ingredientsList = ingredientsList;
     }
@@ -23,7 +18,7 @@ public class IngredientsList
         this.ingredientsList = new ArrayList<>();
     }
 
-    public void addIngredients(Ingredients ingredients)
+    public void addIngredients(Ingredient ingredients)
     {
         ingredientsList.add(ingredients);
     }
@@ -31,7 +26,7 @@ public class IngredientsList
     {
         return ingredientsList.size();
     }
-    public Ingredients removeIngredients(int Nb)
+    public Ingredient removeIngredients(int Nb)
     {
         return ingredientsList.remove(Nb);
     }
