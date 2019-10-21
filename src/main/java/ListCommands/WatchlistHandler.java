@@ -9,12 +9,23 @@ import MovieUI.MovieHandler;
 public class WatchlistHandler {
     private static ArrayList<Tasks> watch;
     protected static String space =  "    ";
+
     public WatchlistHandler() {
         this.watch = new ArrayList<>();
     }
+
+    /**
+     * adds a task to the watchlist
+     * @param t: the task list to store the movies
+     */
     public static void add(Tasks t) {
         watch.add(t);
     }
+
+    /**
+     * prints the entire watchlist of the user
+     * @param handle: class to retrieve the ui controller to display the list on the users view
+     */
     public static void print_list(MovieHandler handle) {
         String result = "";
         result += "Here are the tasks in your list: \n";
@@ -38,6 +49,11 @@ public class WatchlistHandler {
         handle.setFeedbackText(result);
     }
 
+    /**
+     * marks the required task as done and feedbacks it to the user
+     * @param index: index of the movie to mark as done
+     * @param handle: moviehandler class to print out the completed task on the users view
+     */
     public static void markAsDone(int index, MovieHandler handle) {
         try {
             String result = "I've marked this task as Done: \n";
@@ -56,6 +72,13 @@ public class WatchlistHandler {
             handle.setFeedbackText("Please enter a valid index that is not greater than the size of the watchlist!");
         }
     }
+
+    /**
+     * removes a particular task from the watchlist by its name
+     * @param movie: name of the movie to be removed
+     * @param handle: moviehandler class to print out the completed task on the users view
+     * @return
+     */
     public static boolean removeFromWatchlist(String movie, MovieHandler handle) {
         movie = movie.toLowerCase();
         int index = -1;

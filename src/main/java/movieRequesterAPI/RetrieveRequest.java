@@ -317,15 +317,23 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
         }
     }
 
-    public void beginSearchGenre (String genre, boolean adult) {
+    public ArrayList<MovieInfoObject> beginSearchGenre (String genre, boolean adult) {
         try {
-            String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
+            String url = MAIN_URL + "discover/movie?with_genres=" + URLEncoder.encode(genre, "UTF-8") + "&api_key="
                     + API_KEY + "&language=en-US&page=1" + "&include_adult=";
             url += adult;
-            fetchJSONData(url);
+            URLRetriever retrieve = new URLRetriever();
+            String json = retrieve.readURLAsString(new URL(url));
+            fetchedMoviesJSON(json);
+            //fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
+        return p_Movies;
     }
 
     private String parseCastJSON(JSONObject jsonObject) {
@@ -743,7 +751,6 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
                 title = (String) movieData.get(kTV_TITLE);
                 movieType = 1;
             }
-
         }
         long ID = (long) movieData.get(kMOVIE_ID);
         double rating = 0.0;

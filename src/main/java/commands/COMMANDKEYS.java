@@ -32,7 +32,9 @@ public enum COMMANDKEYS {
     delete ,
     restriction ,
     clear,
-    sort,
+    sort ,
+    get,
+    recommendation,
     tv,
     back,
     entry

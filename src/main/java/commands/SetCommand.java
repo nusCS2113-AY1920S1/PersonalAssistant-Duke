@@ -115,6 +115,13 @@ public class SetCommand extends CommandSuper {
         movieHandler.setLabels();
     }
 
+    /**
+     * set the task on the watchlist as done
+     * root: set
+     * sub: watchlist
+     * payload: none
+     * flag: -d (index of the element in the watchlist to be marked as done)
+     */
     private void executeTaskDone()  {
         try {
             String index = this.getFlagMap().get("-d").get(0);

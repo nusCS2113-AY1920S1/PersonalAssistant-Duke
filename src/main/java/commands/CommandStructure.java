@@ -58,6 +58,9 @@ public class CommandStructure {
                 COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.clear
         });
 
+        put(COMMANDKEYS.get , new COMMANDKEYS[]{
+                COMMANDKEYS.recommendation
+        });
     }};
 
 

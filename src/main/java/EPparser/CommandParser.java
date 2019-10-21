@@ -223,6 +223,13 @@ public class CommandParser {
                     CommandStack.pushCmd(rc);
                 }
                 break;
+            case "get":
+                System.out.println("Get");
+                GetCommand gc = new GetCommand(uicontroller);
+                if (gc.initCommand(commandArr , command)) {
+                    CommandStack.pushCmd(gc);
+                }
+                break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none, uicontroller);
                 if (pair.getSubRootCommand() == COMMANDKEYS.none) {
