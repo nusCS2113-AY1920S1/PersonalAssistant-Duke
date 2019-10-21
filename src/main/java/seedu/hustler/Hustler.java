@@ -141,6 +141,7 @@ public class Hustler extends Application {
         ConsecutiveLogin.updateCount();
         ConsecutiveLogin.updatePoints();
         AchievementList.updateConsecutiveLogin(updateAchievementLevel());
+        AchievementStorage.createBackup(achievementList);
     }
 
     public static void reloadBackup() {

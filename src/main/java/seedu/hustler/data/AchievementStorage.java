@@ -24,6 +24,10 @@ public class AchievementStorage {
     public static final String ACHIEVEMENT_FILEPATH = "data/achievement.txt";
     public static final String LOGIN_FILEPATH = "data/login.txt";
     public static final String STATUS_FILEPATH = "data/status.txt";
+
+    public static final String ACHIEVEMENT_FILEPATH_BACKUP = "data/achievementBackup.txt";
+    public static final String STATUS_FILEPATH_BACKUP = "data/statusBackup.txt";
+
     private static Formatter formatter;
     private static int loginCount = 0;
 
@@ -176,6 +180,34 @@ public class AchievementStorage {
      */
     public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
+        for(int i = 0; i < achievementsList.size(); i += 1) {
+            writer.write(achievementsList.get(i).toTxt());
+            writer.write("\n");
+        }
+        writer.close();
+        return achievementsList;
+    }
+
+    public static ArrayList<Achievements> createBackup(ArrayList<Achievements> achievementsList) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH_BACKUP)));
+        writer.write("Add: " + numberOfTasks);
+        writer.write("\n");
+        writer.write("Done: " + numberOfDone);
+        writer.write("\n");
+        writer.write("TotalPoints: " + totalPoints);
+        if(reset() || checkLogin()) {
+            writer.write("\n");
+            writer.write("LastLogin: " + DateTimeParser.convertDateTime(LocalDateTime.now()));
+            writer.write("\n");
+        } else {
+            writer.write("\n");
+            writer.write("LastLogin: " + DateTimeParser.convertDateTime(storedDateTime));
+            writer.write("\n");
+        }
+        writer.write("ConsecutiveCount: " + consecutiveCount);
+        writer.close();
+
+        writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH_BACKUP)));
         for(int i = 0; i < achievementsList.size(); i += 1) {
             writer.write(achievementsList.get(i).toTxt());
             writer.write("\n");
