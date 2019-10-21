@@ -1,12 +1,10 @@
 package command;
 
-import Dictionary.Word;
-import Dictionary.WordBank;
+import dictionary.Word;
+import dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command from user to delete a task.
