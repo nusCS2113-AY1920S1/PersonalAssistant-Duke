@@ -21,6 +21,7 @@ public class RejectCommand extends Command {
     private LocalDateTime dateTimeStart;
     private String datetimeStartString;
 
+    //@@author Alex-Teo
     /**
      * Approve a request
      * format is reject name roomcode date time
