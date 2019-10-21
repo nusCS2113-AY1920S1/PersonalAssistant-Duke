@@ -57,6 +57,41 @@ public class LoansTest {
     }
 
     @Test
+    public void testListAllLoans() throws ParseException, DukeException {
+        String listInput = "list all loans";
+        MoneyCommand listAllLoansCommand = new ListLoansCommand(listInput);
+        ui.clearOutputString();
+        listAllLoansCommand.execute(account, ui, storage);
+        assertEquals("Got it! List of ALL Loans printed in the other pane! \n", ui.getOutputString());
+        assertEquals(" 1.[Outstanding] [O] my friends(loan: $500.0) (Lent On: 9/10/1997) " +
+                "Outstanding Amount: $500.0\n" +
+                " 2.[Outstanding] [I] my daddy(loan: $1000.0) (Lent On: 9/10/1997) " +
+                "Outstanding Amount: $1000.0\n" + "Total amount of ALL Loans: $1500.0\n", ui.getGraphContainerString());
+    }
+
+    @Test
+    public void testListIncomingLoans() throws ParseException, DukeException {
+        String listInput = "list incoming loans";
+        MoneyCommand listAllLoansCommand = new ListLoansCommand(listInput);
+        ui.clearOutputString();
+        listAllLoansCommand.execute(account, ui, storage);
+        assertEquals("Got it! List of INCOMING Loans printed in the other pane! \n", ui.getOutputString());
+        assertEquals(" 1.[Outstanding] [I] my daddy(loan: $1000.0) (Lent On: 9/10/1997) " +
+                "Outstanding Amount: $1000.0\n" + "Total amount of INCOMING Loans: $1000.0\n", ui.getGraphContainerString());
+    }
+
+    @Test
+    public void testListOutgoingLoans() throws ParseException, DukeException {
+        String listInput = "list outgoing loans";
+        MoneyCommand listAllLoansCommand = new ListLoansCommand(listInput);
+        ui.clearOutputString();
+        listAllLoansCommand.execute(account, ui, storage);
+        assertEquals("Got it! List of OUTGOING Loans printed in the other pane! \n", ui.getOutputString());
+        assertEquals(" 1.[Outstanding] [O] my friends(loan: $500.0) (Lent On: 9/10/1997) " +
+                "Outstanding Amount: $500.0\n" + "Total amount of OUTGOING Loans: $500.0\n", ui.getGraphContainerString());
+    }
+
+    @Test
     public void testSettleOutgoingLoan() throws ParseException, DukeException {
         String settleInput = "received 300 /from my friends";
         MoneyCommand settleOutgoingLoanCommand = new SettleLoanCommand(settleInput);
@@ -98,8 +133,25 @@ public class LoansTest {
                 "The incoming loan has been settled\n", ui.getOutputString());
     }
 
-    @Test
-    public void deleteLoans() {
 
+
+    @Test
+    public void deleteLoans() throws ParseException, DukeException {
+//        String deleteInput = "delete loan 2";
+//        MoneyCommand deleteLoanCommand = new DeleteLoanCommand(deleteInput);
+//        ui.clearOutputString();
+//        deleteLoanCommand.execute(account, ui, storage);
+//        LocalDate currDate = LocalDate.now();
+//        String passDate = dateTimeFormatter.format(currDate);
+//        assertEquals(" Noted. I've removed this incoming loan:\n" +
+//                "  [Settled] [I] my daddy(loan: $1000.0) " +
+//                "(Lent On: 9/10/1997) (Paid Back On: " + passDate + ")\n" +
+//                " Now you have 1 total loans.\n", ui.getOutputString());
+        String deleteInput = "delete loan 2";
+        MoneyCommand deleteLoanCommand = new DeleteLoanCommand(deleteInput);
+        deleteLoanCommand.execute(account, ui, storage);
+        deleteInput = "delete loan 1";
+        deleteLoanCommand = new DeleteLoanCommand(deleteInput);
+        deleteLoanCommand.execute(account, ui, storage);
     }
 }

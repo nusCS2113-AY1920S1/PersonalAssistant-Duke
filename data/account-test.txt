@@ -23,6 +23,12 @@ INC @ 300.0 @ From my friends @ 21/10/2019
 INC @ -2.0 @ From my friends @ 21/10/2019
 INC @ 300.0 @ From my friends @ 21/10/2019
 INC @ -2.0 @ From my friends @ 21/10/2019
+INC @ 300.0 @ From my friends @ 21/10/2019
+INC @ -2.0 @ From my friends @ 21/10/2019
+INC @ 300.0 @ From my friends @ 21/10/2019
+INC @ -2.0 @ From my friends @ 21/10/2019
+INC @ 300.0 @ From my friends @ 21/10/2019
+INC @ -2.0 @ From my friends @ 21/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
@@ -43,6 +49,8 @@ EXP @ 400.0 @ To my daddy @ Loan Repayment @ 21/10/2019
 EXP @ -2.0 @ To my daddy @ Loan Repayment @ 21/10/2019
 EXP @ 400.0 @ To my daddy @ Loan Repayment @ 21/10/2019
 EXP @ -2.0 @ To my daddy @ Loan Repayment @ 21/10/2019
+EXP @ 400.0 @ To my daddy @ Loan Repayment @ 21/10/2019
+EXP @ -2.0 @ To my daddy @ Loan Repayment @ 21/10/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
@@ -50,4 +58,3 @@ G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
-LOA @ 1000.0 @ my daddy @ 9/10/1997 @ INCOMING @ 21/10/2019 @ 1 @ 0.0
