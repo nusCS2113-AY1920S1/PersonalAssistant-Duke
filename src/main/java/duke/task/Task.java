@@ -4,6 +4,7 @@ import duke.extensions.Priority;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 
 /**
@@ -18,6 +19,7 @@ public class Task {
     protected LocalDate createdDate;
     protected RecurrencePeriod recurrencePeriod;
     protected Priority priority;
+    protected Optional<String> filter;
 
     /**
      * Constructor function for duke.task.Task
@@ -27,7 +29,7 @@ public class Task {
      *
      * @param description the description of the task
      */
-    public Task(String description, String recurrencePeriod) {
+    public Task(String description, Optional<String> filter, String recurrencePeriod) {
         this.description = description;
         this.isDone = false;
         this.key = "";
@@ -44,10 +46,11 @@ public class Task {
                 this.recurrencePeriod = RecurrencePeriod.WEEKLY;
                 break;
         }
+        this.filter = filter;
     }
 
-    public Task(String description) {
-    	this(description, "none");
+    public Task(String description, Optional<String> filter) {
+    	this(description, filter,"none");
 	}
 
     /**
@@ -71,6 +74,10 @@ public class Task {
 
     public void markAsUndone() {
         isDone = false;
+    }
+
+    public Optional<String> getFilter() {
+        return this.filter;
     }
 
     /**

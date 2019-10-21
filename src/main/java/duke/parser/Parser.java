@@ -3,6 +3,8 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.DukeException;
 
+import java.util.Optional;
+
 /**
  * duke.parser.Parser class that deals with making sense of user commands
  */
@@ -18,8 +20,14 @@ public class Parser {
      *                       specific error messages depending on the reason of the error
      */
     public static Command parse(String fullCommand) throws DukeException {
+        Optional<String> filter = Optional.empty();
+        if (fullCommand.charAt(0) == '-') {
+            filter = Optional.of(fullCommand.substring(1, fullCommand.indexOf(' ')));
+            fullCommand = fullCommand.substring(fullCommand.indexOf(' ') + 1);
+        }
         String[] fcArray = fullCommand.split(" ", 2);
         String keyword = fcArray[0];
+        System.out.println(fcArray.length);
 
         switch (keyword) {
             case "bye":
@@ -28,9 +36,9 @@ public class Parser {
                 return new HelpCommand();
             case "list":
                 if (fcArray.length == 1) {
-                    return new ListCommand();
+                    return new ListCommand(filter);
                 }
-                return new ListCommand(fcArray[1]);
+                return new ListCommand(fcArray[1], filter);
             case "delete":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of delete cannot be empty.");
@@ -71,7 +79,7 @@ public class Parser {
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of " + keyword + " cannot be empty.");
                 }
-                return new AddCommand(fcArray[1], keyword);
+                return new AddCommand(fcArray[1], keyword, filter);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

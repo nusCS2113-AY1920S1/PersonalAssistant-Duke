@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 /**
  * duke.command.AddCommand that deals with the adding of new duke.task.Task objects to the duke.tasklist.TaskList
@@ -20,11 +21,13 @@ public class AddCommand extends Command {
     boolean isRecurring = false;
     boolean hasDuration = false;
     String recurrencePeriod;
+    Optional<String> filter;
 
 
-    public AddCommand(String description, String taskType) {
+    public AddCommand(String description, String taskType, Optional<String> filter) {
         this.taskType = taskType;
         this.description = description;
+        this.filter = filter;
         checkForFlag();
     }
 
@@ -51,20 +54,20 @@ public class AddCommand extends Command {
                 if (hasDuration) {
                     String[] flagArray = description.split(" -", 2);
                     int duration = Integer.parseInt(flagArray[1].substring(2));
-                    tasks.add(new FixedDurationTask(flagArray[0], duration));
+                    tasks.add(new FixedDurationTask(flagArray[0], filter, duration));
                 } else if (isRecurring) {
-                    tasks.add(new ToDo(description, recurrencePeriod));
+                    tasks.add(new ToDo(description, filter, recurrencePeriod));
                 } else {
-                    tasks.add(new ToDo(description));
+                    tasks.add(new ToDo(description, filter));
                 }
                 break;
             case "deadline":
                 String[] dInfo = description.split(" /by ");
                 LocalDate by = convertToLocalDate(dInfo[1]);
                 if (isRecurring) {
-                    tasks.add(new Deadline(dInfo[0], by, recurrencePeriod));
+                    tasks.add(new Deadline(dInfo[0], filter, by, recurrencePeriod));
                 } else {
-                    tasks.add(new Deadline(dInfo[0], by));
+                    tasks.add(new Deadline(dInfo[0], filter, by));
                 }
 
                 break;
@@ -73,9 +76,9 @@ public class AddCommand extends Command {
                 LocalDate at = convertToLocalDate(eInfo[1]);
                 Event newEvent;
                 if (isRecurring) {
-                    newEvent = new Event(eInfo[0], at, recurrencePeriod);
+                    newEvent = new Event(eInfo[0], filter, at, recurrencePeriod);
                 } else {
-                    newEvent = new Event(eInfo[0], at);
+                    newEvent = new Event(eInfo[0], filter, at);
                 }
                 AbnormalityChecker abnormalityChecker = new AbnormalityChecker(tasks);
                 if (abnormalityChecker.checkEventClash(newEvent)) {
