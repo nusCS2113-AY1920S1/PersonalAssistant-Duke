@@ -112,6 +112,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showExpensePane() {
         commonBoard.getChildren().clear();
+        fillInnerPart();
         commonBoard.getChildren().add(expensePane.getRoot());
 
         expenseButton.setButtonType(JFXButton.ButtonType.RAISED);
