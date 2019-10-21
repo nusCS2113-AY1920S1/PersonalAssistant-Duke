@@ -26,14 +26,14 @@ public class GameConsole {
         return title + content + " ".repeat(totalSpace - title.length() - content.length());
     }
 
-    static String content(ArrayList<String> stage, Farmer farmer) { //does not include story
+    static String content(ArrayList<String> stage, Farmer farmer, Map<String, Integer> Goals) { //does not include story
         StringBuilder output = new StringBuilder();
         String location = farmer.getLocation();
         double level = farmer.getLevel();
         int day = farmer.getDay();
         ArrayList<String> userCode = farmer.getTasks().toStringArray();
-        ArrayList<String> assets = formatAssets(farmer.getAssets(), dummyGoals());
-        ArrayList<String> goals = formatGoals(dummyGoals(), farmer.getAssets());
+        ArrayList<String> assets = formatAssets(farmer.getAssets(), Goals);
+        ArrayList<String> goals = formatGoals(Goals, farmer.getAssets());
         userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
         output.append(AsciiColours.SANE).append(TOP_BORDER);
         output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: ", Double.toString(level), 10)).append(AsciiColours.SANE).append("  |");
@@ -101,6 +101,7 @@ public class GameConsole {
     private static Map<String, Integer> dummyGoals() {
         Map<String, Integer> dummy = new HashMap< String,Integer>();
         dummy.put("Seeds", 3);
+        dummy.put("Chicken", 3);
         dummy.put("Gold", 14);
         return dummy;
     }
@@ -109,9 +110,9 @@ public class GameConsole {
         Set< Map.Entry< String,Integer> > goalSet = goals.entrySet();
         for (Map.Entry< String,Integer> goal:goalSet) {
             String s = goal.getKey() + ": " +  goal.getValue();
-            if (goal.getValue() <= assets.get(goal.getKey())) {
+            if (assets.containsKey(goal.getKey()) && goal.getValue() <= assets.get(goal.getKey()) && goal.getValue() > 0) {
                 formattedGoals.add(0, AsciiColours.DONE + s  + " ".repeat(15 - s.length() -3) + "[X]" + AsciiColours.SANE);
-            } else {
+            } else if (assets.containsKey(goal.getKey())&& goal.getValue() > 0){
                 formattedGoals.add(AsciiColours.HIGH_INTENSITY + s + " ".repeat(15 - s.length() -3) + "[ ]"+ AsciiColours.SANE);
             }
         }
@@ -128,7 +129,7 @@ public class GameConsole {
         for (Map.Entry< String,Integer> asset:assetSet) {
             String s = asset.getKey() + ": " +  asset.getValue();
             String toAdd = s  + " ".repeat(15 - s.length());
-            if (!goals.containsKey(asset.getKey())) {
+            if (!goals.containsKey(asset.getKey()) || goals.get(asset.getKey()) <= 0) {
                 formattedAssets.add(toAdd);
             } else if (asset.getValue() <= goals.get(asset.getKey())) {
                 formattedAssets.add(border, toAdd);

@@ -81,8 +81,8 @@ public class Farmer {
         if(level >= 1)
         {
             assets.put("Seeds", wheatFarm.getSeeds());
-            assets.put("Seedlings", wheatFarm.getGreenWheat());
-            assets.put("Wheat", wheatFarm.getRipeWheat());
+            assets.put("Wheat", wheatFarm.getGreenWheat());
+            assets.put("Grain", wheatFarm.getRipeWheat());
             assets.put("Gold", money);
         }
         return assets;
