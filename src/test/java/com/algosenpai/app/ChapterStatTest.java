@@ -1,4 +1,5 @@
 package com.algosenpai.app;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.assertj.core.internal.bytebuddy.utility.RandomString;
