@@ -16,7 +16,7 @@ public class RecipeMessages {
 
     public static final String MESSAGE_RECIPE_DELETED = "Noted. I've removed this recipe:\n";
     public static final String MESSAGE_RECIPE_ADDED = "Got it. I've added this recipe:\n";
-    public static final String MESSAGE_HERE_ARE_THE_RECIPES = "Here are the recipes currently in the list:\n";
+    public static final String MESSAGE_HERE_ARE_THE_RECIPES = "Here are the recipe(s) currently in the list:\n";
 
     public static final String ERROR_MESSAGE_INVALID_RECIPE_QUANTITY = "Please input a valid value for the quantity";
     public static final String ERROR_MESSAGE_DELETE_RECIPE_NOT_FOUND = "The recipe that you wish to delete is not in your recipe list.";
@@ -24,5 +24,6 @@ public class RecipeMessages {
     public static final String ERROR_MESSAGE_RECIPE_INCOMPLETE = "     Please provide all information needed.";
     public static final String ERROR_MESSAGE_INVALID_RECIPE_FORMAT = "     Please input in this format:\n     Eg: addrecipeingredient garlic 100 grams.";
     public static final String ERROR_MESSAGE_RECIPE_ALREADY_EXISTS = "Sorry, the recipe you wish to add already exists.";
+    public static final String ERROR_MESSAGE_RECIPE_LIST_IS_EMPTY = "The recipe list is already empty.";
 
 }

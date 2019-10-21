@@ -64,20 +64,20 @@ public class RecipeStorage {
                 String recipeTitle, rating, prepStep, requiredIngredients, feedback, remaining, remaining2, remaining3;
                 String[] split = content.split("\\|", 2);
                 if (split.length == 2) {
-                    recipeTitle = content.split("\\|", 2)[0];
-                    remaining = content.split("\\|", 2)[1];
+                    recipeTitle = split[0];
+                    remaining = split[1];
                     String[] split2 = remaining.split("\\|", 2);
                     if (split2.length == 2) {
-                        rating = remaining.split("\\|", 2)[0];
-                        remaining2 = remaining.split("\\|", 2)[1];
+                        rating = split2[0];
+                        remaining2 = split2[1];
                         String[] split3 = remaining2.split("\\|", 2);
                         if (split3.length == 2) {
-                            prepStep = remaining2.split("\\|", 2)[0];
-                            remaining3 = remaining2.split("\\|", 2)[1];
+                            prepStep = split3[0];
+                            remaining3 = split3[1];
                             String[] split4 = remaining3.split("\\|", 2);
                             if (split4.length == 2) {
-                                requiredIngredients = remaining3.split("\\|", 2)[0];
-                                feedback = remaining3.split("\\|", 2)[1];
+                                requiredIngredients = split4[0];
+                                feedback = split4[1];
                                 Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
                                 LHMRecipeList.put(recipeTitle, recipe);
                             }

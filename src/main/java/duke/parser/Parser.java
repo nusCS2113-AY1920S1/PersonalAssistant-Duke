@@ -2,14 +2,14 @@ package duke.parser;
 
 import duke.command.*;
 import duke.command.bookingcommands.*;
-import duke.command.inventorycommands.AddIngredientCommand;
-import duke.command.inventorycommands.DeleteIngredientCommand;
-import duke.command.inventorycommands.ListIngredientsCommand;
+import duke.command.inventorycommands.AddToInventoryCommand;
+import duke.command.inventorycommands.DeleteFromInventoryCommand;
+import duke.command.inventorycommands.ListInventoryCommand;
 import duke.command.recipecommands.*;
 
 import static duke.common.BookingMessages.*;
-import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
-import static duke.common.IngredientMessages.COMMAND_DELETE_INGREDIENT;
+import static duke.common.InventoryMessages.COMMAND_ADD_TO_INVENTORY;
+import static duke.common.InventoryMessages.COMMAND_DELETE_FROM_INVENTORY;
 import static duke.common.RecipeMessages.*;
 
 
@@ -18,13 +18,13 @@ import static duke.common.RecipeMessages.*;
  */
 public class Parser {
 
-    public static CommandIngredients parseIngredient(String input) {
-        if (input.trim().contains(COMMAND_ADD_INGREDIENT)) {
-            return new AddIngredientCommand(input);
-        } else if (input.trim().contains(COMMAND_DELETE_INGREDIENT)) {
-            return new DeleteIngredientCommand(input);
+    public static CommandInventory parseIngredient(String input) {
+        if (input.trim().contains(COMMAND_ADD_TO_INVENTORY)) {
+            return new AddToInventoryCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_FROM_INVENTORY)) {
+            return new DeleteFromInventoryCommand(input);
         } else {
-            return new ListIngredientsCommand(input);
+            return new ListInventoryCommand(input);
         }
     }
 
