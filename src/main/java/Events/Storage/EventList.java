@@ -10,7 +10,6 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
-import UserElements.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,7 +56,7 @@ public class EventList {
         final char EXAM = 'E';
         final char RECITAL = 'R';
 
-        eventArrayList = new ArrayList<Event>();
+        eventArrayList = new ArrayList<>();
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
@@ -133,7 +132,7 @@ public class EventList {
         }
     }
 
-    public void addNewTodo(Event event, UI ui) {
+    public void addNewTodo(Event event) {
         this.eventArrayList.add(event);
     }
 
@@ -149,7 +148,7 @@ public class EventList {
         calendarStartDate.setTime(event.getStartDate().getEventJavaDate());
         calendarEndDate.setTime(event.getEndDate().getEventJavaDate());
 
-        ArrayList<Event> tempEventList = new ArrayList<Event>();
+        ArrayList<Event> tempEventList = new ArrayList<>();
 
         Event newEvent = null;
         for (int addEventCount = 0; addEventCount * period <= ONE_SEMESTER_DAYS; addEventCount++) {
@@ -163,6 +162,7 @@ public class EventList {
                         toFormatCalendarEndDate.getUserInputDateString());
             }
 
+            assert newEvent != null;
             if (clashEvent(newEvent) == null) {
                 tempEventList.add(newEvent);
             } else {
@@ -172,9 +172,7 @@ public class EventList {
             calendarEndDate.add(Calendar.DATE, period);
         }
 
-        for (Event tempEvent : tempEventList) {
-            this.eventArrayList.add(tempEvent);
-        }
+        this.eventArrayList.addAll(tempEventList);
         return true;
     }
 
