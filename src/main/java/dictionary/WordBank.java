@@ -64,15 +64,15 @@ public class WordBank {
             int searchCount = searchedWord.getNumberOfSearches();
             searchedWord.incrementNumberOfSearches();
             wordCount.get(searchCount).remove(searchTerm);
-            if (wordCount.get(searchCount).isEmpty()) {
+            if (wordCount.get(searchCount).isEmpty()) { //treemap is empty, delete key
                 wordCount.remove(searchCount);
             }
             int newSearchCount = searchCount + 1;
             if (wordCount.containsKey(newSearchCount)) {
-                wordCount.get(newSearchCount).put(searchTerm, searchedWord);
+                wordCount.get(newSearchCount).put(searchTerm, searchedWord); //add directly to existing treemap
             } else {
                 wordCount.put(newSearchCount, new TreeMap<>());
-                wordCount.get(newSearchCount).put(searchTerm, searchedWord);
+                wordCount.get(newSearchCount).put(searchTerm, searchedWord); //create new entry and add word to treemap
             }
         } else {
             throw new NoWordFoundException(searchTerm);

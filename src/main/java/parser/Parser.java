@@ -83,6 +83,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an add command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return an AddCommand object
+     * @throws WrongAddFormatException when the format of the delete command does not match the required format
+     * @throws EmptyWordException when there is no word entered with the command
+     */
     protected static Command parseAdd(String[] taskInfo) throws WrongAddFormatException, EmptyWordException {
         if (taskInfo.length == 1) {
             throw new WrongAddFormatException();
@@ -113,6 +120,12 @@ public class Parser {
         return new AddCommand(word);
     }
 
+    /**
+     * Parses a delete command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a DeleteCommand object
+     * @throws WrongDeleteFormatException when the format of the delete command does not match required format
+     */
     protected static Command parseDelete(String[] taskInfo) throws WrongDeleteFormatException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongDeleteFormatException();
@@ -130,6 +143,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a search command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a SearchCommand object
+     * @throws WrongSearchFormatException when the format of the search command does not match required format
+     */
     protected static Command parseSearch(String[] taskInfo) throws WrongSearchFormatException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongSearchFormatException();
@@ -137,6 +156,12 @@ public class Parser {
         return new SearchCommand(taskInfo[1].substring(2).trim());
     }
 
+    /**
+     * Parses a list command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a ListCommand object
+     * @throws WrongListFormatDescription when the format of the list command does not match required format
+     */
     protected static Command parseList(String[] taskInfo) throws WrongListFormatDescription {
         String order = "";
         if (taskInfo.length > 1) {
@@ -151,6 +176,13 @@ public class Parser {
         return new ListCommand(order);
     }
 
+    /**
+     * Parses a history command which requests for the list of words in order of entry.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a HistoryCommand object
+     * @throws WrongHistoryFormatException when the format of the history command does not match required format
+     * @throws ZeroHistoryRequestException when the requested number of entries to be shown is zero
+     */
     protected static Command parseHistory(String[] taskInfo)
             throws WrongHistoryFormatException, ZeroHistoryRequestException {
         int numberOfWordsToDisplay;
@@ -168,6 +200,13 @@ public class Parser {
         return new RecentlyAddedCommand(numberOfWordsToDisplay);
     }
 
+    /**
+     * Parses a frequency command which requests for a list of the number of searches for each word.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a SearchFrequencyCommand object
+     * @throws WrongSearchFrequencyFormatException when the format of the frequency command does not match required
+     * format
+     */
     protected static Command parseSearchFrequency(String[] taskInfo) throws WrongSearchFrequencyFormatException {
         String order = "";
         if (taskInfo.length > 1) {
@@ -182,6 +221,12 @@ public class Parser {
         return new SearchFrequencyCommand(order);
     }
 
+    /**
+     * Parses an edit command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return an EditCommand object
+     * @throws WrongEditFormatException when the format of the edit command does not match required format
+     */
     protected static Command parseEdit(String[] taskInfo) throws WrongEditFormatException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongEditFormatException();
@@ -195,6 +240,12 @@ public class Parser {
         return new EditCommand(wordDescription, meaning);
     }
 
+    /**
+     * Parses an add tag command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a AddTagCommand object
+     * @throws WrongAddTagFormatException when the format of the add tag command does not match required format
+     */
     protected static Command parseTag(String[] taskInfo) throws WrongAddTagFormatException {
         if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
             throw new WrongAddTagFormatException();
@@ -211,6 +262,12 @@ public class Parser {
         return new AddTagCommand(wordDescription, tags);
     }
 
+    /**
+     * Parses a quiz command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return a QuizCommand object
+     * @throws WrongQuizFormatException when the format of the quiz command does not match required format
+     */
     protected static Command parseQuiz(String[] taskInfo) throws WrongQuizFormatException {
         if (taskInfo.length > 1) {
             throw new WrongQuizFormatException();
