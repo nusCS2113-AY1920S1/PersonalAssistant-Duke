@@ -5,6 +5,7 @@ import guicommand.UserIcon;
 import help.MemorisePreviousFunctions;
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -60,6 +61,13 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
         userIcon = new UserIcon();
         userImage = userIcon.getIcon();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userInput.requestFocus();
+            }
+        });
     }
 
     public void setDuke(Duke d) {
@@ -122,16 +130,18 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
-        String[] response = duke.getResponse("find " + input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response[0], dukeImage)
-        );
-        if(!response[1].equals("")){
+        if(input.equals("")){
             graphContainer.getChildren().clear();
-            graphContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(response[1], dukeImage));
+        }else{
+            String[] response = duke.getResponse("find " + input);
+            graphContainer.getChildren().clear();
+            if(!response[1].equals("")){
+                graphContainer.getChildren().clear();
+                graphContainer.getChildren().addAll(
+                        DialogBox.getDukeDialog(response[1], dukeImage));
+            }
         }
+
     }
 
     @FXML

@@ -54,9 +54,9 @@ public class DoneGoalCommand extends MoneyCommand {
 
         Expenditure e = new Expenditure(price, desc, category, doneDate);
         account.getExpListTotal().add(e);
+        storage.markDeletedEntry("G", "@", "#", indexNo);
         account.getShortTermGoals().remove(indexNo-1);
         //account.sortShortTermGoals(account.getShortTermGoals());
-        storage.writeToFile(account);
 
         ui.appendToOutput(" Nice! This Goal is Completed:\n");
         ui.appendToOutput("  " + doneGoal.toString() + "\n");
@@ -67,8 +67,16 @@ public class DoneGoalCommand extends MoneyCommand {
         list.execute(account,ui,storage);
     }
 
+    //remove from getExpListTotal, add back to getShortTermGoals()
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        throw new DukeException("Command can't be undone!\n");
+        account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
+        String temp = inputString.replaceAll("[^0-9]", "");
+        int indexNo = Integer.parseInt(temp);
+        storage.undoDeletedEntry(account, "G", indexNo);
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(account.getShortTermGoals().get(indexNo - 1).toString() + " added to goals\n");
+        ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\nand " +
+                account.getExpListTotal().size() + "expenses listed\n");
     }
 }

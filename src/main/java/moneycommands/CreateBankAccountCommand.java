@@ -85,6 +85,14 @@ public class CreateBankAccountCommand extends MoneyCommand {
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        throw new DukeException("Command can't be undone!\n");
+        int lastIndex = account.getBankTrackerList().size() - 1;
+        BankTracker b = account.getBankTrackerList().get(lastIndex);
+        account.getBankTrackerList().remove(b);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(b.toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getBankTrackerList().size() + " bank " +
+                "accounts listed\n");
     };
 }

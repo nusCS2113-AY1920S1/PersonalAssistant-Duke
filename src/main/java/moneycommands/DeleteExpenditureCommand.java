@@ -47,7 +47,8 @@ public class DeleteExpenditureCommand extends MoneyCommand {
 
         ui.appendToOutput(" Noted. I've removed this expenditure:\n");
         ui.appendToOutput("  " + account.getExpListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) + " expenditures in the list.\n");
+        ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) +
+                " expenses in the list.\n");
 
         storage.markDeletedEntry("EXP", "@", "#", serialNo);
         account.getExpListTotal().remove(serialNo - 1);

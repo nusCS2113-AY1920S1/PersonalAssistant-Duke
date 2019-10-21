@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class SettleLoanCommand extends MoneyCommand {
 
     private String inputString;
+    private int serialNo;
     Loan.Type type;
 
     /**
@@ -110,7 +111,6 @@ public class SettleLoanCommand extends MoneyCommand {
             amount = Float.parseFloat(splitStr[0]);
         }
 
-        int serialNo;
         if (isNumeric(splitStr[1])) {
             serialNo = Integer.parseInt(splitStr[1]) - 1;
         } else {
@@ -131,7 +131,8 @@ public class SettleLoanCommand extends MoneyCommand {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
 
-        if (type == Loan.Type.OUTGOING && amount <= account.getOutgoingLoans().get(serialNo).getOutstandingLoan()) {
+        if (type == Loan.Type.OUTGOING &&
+                amount <= account.getOutgoingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getOutgoingLoans().get(serialNo);
             amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
@@ -139,8 +140,8 @@ public class SettleLoanCommand extends MoneyCommand {
             Income i = new Income(amount, "From " + l.getDescription(), Parser.shortcutTime("now"));
             account.getIncomeListTotal().add(i);
             account.getIncomeListCurrMonth().add(i);
-        } else if (type == Loan.Type.INCOMING &&
-                amount <= account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
+        } else if (type == Loan.Type.INCOMING && amount <=
+                account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getIncomingLoans().get(serialNo);
             amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
@@ -165,7 +166,21 @@ public class SettleLoanCommand extends MoneyCommand {
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        /*
+        String[] splitStr = inputString.split(" /to ", 2);
+        //undo the expenditure income from total and current, flip settled to unsettled(def)
+        Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);
+        float amount = -exp.getPrice();
+        switch (type) {
+            case INCOMING:
+                break;
+            case OUTGOING:
+                break;
+            default:
+                break;
+        }
+         */
+        return;
     }
 }
