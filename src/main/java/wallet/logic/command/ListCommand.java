@@ -57,6 +57,7 @@ public class ListCommand extends Command {
 
         case "all":
             isListAll = true;
+            break;
 
         case "contact":
             System.out.println(MESSAGE_LIST_CONTACTS);
@@ -64,6 +65,7 @@ public class ListCommand extends Command {
             if (!isListAll) {
                 break;
             }
+            //fallthrough
 
         case "loan":
             ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
@@ -71,6 +73,7 @@ public class ListCommand extends Command {
             if (!isListAll) {
                 break;
             }
+            //fallthrough
 
         case "expense":
             ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
@@ -78,6 +81,7 @@ public class ListCommand extends Command {
             if (!isListAll) {
                 break;
             }
+            //fallthrough
 
         default:
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
