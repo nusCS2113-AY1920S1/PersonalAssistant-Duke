@@ -5,6 +5,8 @@ import MovieUI.MovieHandler;
 import com.sun.prism.CompositeMode;
 import wrapper.CommandPair;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -19,6 +21,7 @@ public abstract class CommandSuper {
     private COMMANDKEYS subRootCommand;
     private String payload;
     private boolean execute = false;
+    private String helpInstructions;
 
 
     /**
@@ -59,6 +62,7 @@ public abstract class CommandSuper {
         this.subCommand = subCommand;
         this.root = root;
 
+
     }
 
     public Controller getUIController() {
@@ -78,6 +82,8 @@ public abstract class CommandSuper {
         }
         processFlags(commandArr , command);
         processPayload(commandArr);
+
+
 //        if (subCommand.length == 0) {
 //            execute = true;
 //        }
@@ -99,6 +105,8 @@ public abstract class CommandSuper {
         processFlags(commandArr , command);
         processPayload(commandArr);
         setExecute(false);
+
+
 
 
     }
@@ -242,6 +250,9 @@ public abstract class CommandSuper {
         return payload.trim();
     }
 
+    /**
+     * Print Command method.
+     */
     public String toString() {
         String payload = getPayload();
 
@@ -258,9 +269,12 @@ public abstract class CommandSuper {
         return getRoot().toString() + " " + getSubRootCommand().toString() + " "  + payload + " " + flagsStr;
     }
 
+
     /**
      * Abstract class to be implemented for each root command class.
      */
     public abstract void executeCommands() throws IOException;
+
+
 
 }
