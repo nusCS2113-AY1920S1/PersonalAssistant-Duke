@@ -185,6 +185,14 @@ public interface Model {
 
     void updateFilteredSaleList(Predicate<Sale> predicate);
 
+    /**
+     * Creates a Sale entry from a completed Order.
+     * @param order
+     */
+    void addSaleFromOrder(Order order);
+
+    void addSaleFromShopping();
+
     //========Ingredient operations======
     /**
      * Returns an unmodifiable view of the filtered inventory list.
