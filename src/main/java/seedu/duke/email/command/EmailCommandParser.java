@@ -26,8 +26,8 @@ public class EmailCommandParser {
      * @throws CommandParser.UserInputException an exception when the parsing is failed, probably due to the
      *                                          wrong format of input
      */
-    public static Command parseEmailCommand(String rawInput,
-                                            ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
+    public static Command parseEmailCommand(String rawInput, ArrayList<Command.Option> optionList)
+            throws CommandParser.UserInputException {
         String input = stripPrefix(rawInput);
         if (input == null) {
             return new InvalidCommand();
@@ -36,7 +36,8 @@ public class EmailCommandParser {
         return parseByCommandType(optionList, input, emailCommand);
     }
 
-    private static Command parseByCommandType(ArrayList<Command.Option> optionList, String input, String emailCommand) throws CommandParser.UserInputException {
+    private static Command parseByCommandType(ArrayList<Command.Option> optionList, String input,
+                                              String emailCommand) throws CommandParser.UserInputException {
         switch (emailCommand) {
         case "flip":
             return new FlipCommand();

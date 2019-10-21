@@ -1,10 +1,8 @@
 package seedu.duke;
 
-import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
@@ -13,9 +11,7 @@ import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.TaskList;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
@@ -23,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
@@ -126,7 +122,7 @@ public class CommandParserTest {
             method.setAccessible(true);
             assertTrue(method.invoke(null, "find 1", null) instanceof TaskFindCommand);
             assertTrue(method.invoke(null, "find 1 a", null) instanceof TaskFindCommand);
-            assertTrue(method.invoke(null, "find   ",  null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "find   ", null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -285,11 +281,11 @@ public class CommandParserTest {
     public void parseAddEventCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
-            Method method = parser.getDeclaredMethod("parseEventCommand", String.class, LocalDateTime.class
-                    , String.class, ArrayList.class, String.class);
+            Method method = parser.getDeclaredMethod("parseEventCommand", String.class, LocalDateTime.class,
+                    String.class, ArrayList.class, String.class);
             method.setAccessible(true);
 
-            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
+            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234")); 
             LocalDateTime time = Task.parseDate("11/12/2019 1220");
             String doafter = "345";
 

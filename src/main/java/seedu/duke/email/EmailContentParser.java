@@ -3,7 +3,6 @@ package seedu.duke.email;
 import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -118,7 +117,7 @@ public class EmailContentParser {
      * Computes the edit distance between first and second, which is the number of steps required to transform
      * first to second if only addition, deletion, update of a single character is allowed for each step.
      *
-     * @param first first string
+     * @param first  first string
      * @param second second string
      * @return edit distance between first and second
      */

@@ -3,7 +3,6 @@ package seedu.duke.email;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
 
 import java.time.LocalDateTime;

@@ -1,19 +1,18 @@
 package seedu.duke.ui;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -25,13 +24,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.duke.Duke;
 import seedu.duke.CommandParser;
-import seedu.duke.task.TaskList;
-import seedu.duke.task.entity.Task;
-import javafx.scene.Scene;
+import seedu.duke.Duke;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

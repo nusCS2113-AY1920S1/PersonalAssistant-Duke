@@ -4,7 +4,6 @@ import seedu.duke.CommandParser;
 import seedu.duke.Duke;
 import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
-import seedu.duke.task.entity.Task;
 
 /**
  * Add a task which do after another task.

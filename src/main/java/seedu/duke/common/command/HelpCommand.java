@@ -1,7 +1,6 @@
 package seedu.duke.common.command;
 
 import seedu.duke.Duke;
-import seedu.duke.ui.MainWindow;
 
 import java.util.ArrayList;
 

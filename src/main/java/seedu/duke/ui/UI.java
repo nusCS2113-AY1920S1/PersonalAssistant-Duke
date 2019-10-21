@@ -1,16 +1,10 @@
 package seedu.duke.ui;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import seedu.duke.CommandParser;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
-import seedu.duke.email.EmailStorage;
-import seedu.duke.task.TaskStorage;
-import seedu.duke.ui.MainWindow;
 
 import java.util.ArrayList;
 

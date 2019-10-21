@@ -1,12 +1,9 @@
 package seedu.duke;
 
 import seedu.duke.email.command.EmailCommandParser;
-import seedu.duke.email.command.EmailTagCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.email.EmailList;
-import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.task.command.TaskCommandParser;
 import seedu.duke.ui.UI;
 
@@ -137,6 +134,12 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Extracts tags from the option list.
+     *
+     * @param optionList the list of options where the tags are extracted
+     * @return the ArrayList of strings
+     */
     public static ArrayList<String> extractTags(ArrayList<Option> optionList) {
         ArrayList<String> tagList = new ArrayList<>();
         for (Option option : optionList) {
@@ -147,11 +150,17 @@ public class CommandParser {
         return tagList;
     }
 
+    /**
+     * Extracts time string from the option list.
+     * @param optionList the list of options where the time string is extracted
+     * @return the time string
+     * @throws UserInputException if time option appears more than once
+     */
     public static String extractTime(ArrayList<Option> optionList) throws UserInputException {
         String time = "";
         for (Option option : optionList) {
             if (option.getKey().equals("time")) {
-                if (time == "") {
+                if (time.equals("")) {
                     time = option.getValue();
                 } else {
                     throw new UserInputException("Each task can have only one time option");

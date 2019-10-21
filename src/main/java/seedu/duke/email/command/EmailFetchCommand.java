@@ -1,8 +1,6 @@
 package seedu.duke.email.command;
 
 import seedu.duke.Duke;
-import seedu.duke.common.model.Model;
-import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.common.command.Command;
 

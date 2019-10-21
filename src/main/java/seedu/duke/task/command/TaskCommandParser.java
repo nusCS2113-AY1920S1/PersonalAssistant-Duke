@@ -7,7 +7,6 @@ import seedu.duke.common.command.ExitCommand;
 import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.Task;
 import seedu.duke.ui.UI;
 
@@ -19,6 +18,13 @@ import java.util.regex.Pattern;
 public class TaskCommandParser {
     private static UI ui = Duke.getUI();
 
+    /**
+     * Parses a task command based on user input.
+     *
+     * @param rawInput the raw user input without the options
+     * @param optionList the options that are extracted from the raw input
+     * @return the command parsed
+     */
     public static Command parseTaskCommand(String rawInput,
                                            ArrayList<Command.Option> optionList) {
         if (rawInput.length() <= 5) {
@@ -71,7 +77,7 @@ public class TaskCommandParser {
             return new TaskDoneCommand(index);
         } catch (NumberFormatException e) {
             showError("Please enter correct task index: " + doneCommandMatcher.group(
-                        "index"));
+                    "index"));
         }
         return new InvalidCommand();
     }
@@ -87,7 +93,7 @@ public class TaskCommandParser {
                 return new TaskDeleteCommand(index);
             } catch (NumberFormatException e) {
                 showError("Please enter correct task index: " + deleteCommandMatcher.group(
-                            "index"));
+                        "index"));
             }
         }
         return new InvalidCommand();
@@ -116,7 +122,7 @@ public class TaskCommandParser {
         Matcher reminderCommandMatcher = prepareCommandMatcher(input, "^reminder(?:\\s+(?<dayLimit>[\\d]*)\\s*)?");
         if (!reminderCommandMatcher.matches()) {
             showError("Please enter reminder with or without a number, which is the maximum number "
-                        + "of days from now for a task to be considered as near");
+                    + "of days from now for a task to be considered as near");
             return new InvalidCommand();
         }
         try {
@@ -148,7 +154,7 @@ public class TaskCommandParser {
         Matcher doAfterCommandMatcher = prepareCommandMatcher(input, "^do[a|A]fter\\s+(?<index>[\\d]+)\\s*$");
         if (!doAfterCommandMatcher.matches()) {
             showError("Please enter doAfter command in the correct format with index and description"
-                        + " in -msg option");
+                    + " in -msg option");
             return new InvalidCommand();
         }
         String description = extractMsg(optionList);
@@ -223,46 +229,56 @@ public class TaskCommandParser {
             return new InvalidCommand();
         }
         try {
-            int index = parseTaskIndex(editMatcher.group("index"));
+            final int index = parseTaskIndex(editMatcher.group("index"));
             addTimeToUpdateCommand(optionList, attributes, descriptions);
             addDoAfterToUpdateCommand(optionList, attributes, descriptions);
             addPriorityToUpdateCommand(optionList, attributes, descriptions);
             return new TaskUpdateCommand(index, descriptions, attributes);
         } catch (NumberFormatException e) {
             showError("Please enter correct task index: " + editMatcher.group(
-                        "index"));
+                    "index"));
             return new InvalidCommand();
         } catch (CommandParser.UserInputException e) {
             return new InvalidCommand();
         }
     }
 
-    private static void addTimeToUpdateCommand(ArrayList<Command.Option> optionList, ArrayList<TaskUpdateCommand.Attributes> attributes, ArrayList<String> descriptions) throws CommandParser.UserInputException {
+    private static void addTimeToUpdateCommand(ArrayList<Command.Option> optionList,
+                                               ArrayList<TaskUpdateCommand.Attributes> attributes,
+                                               ArrayList<String> descriptions)
+            throws CommandParser.UserInputException {
         if (!CommandParser.extractTime(optionList).equals("")) {
             descriptions.add(CommandParser.extractTime(optionList));
             attributes.add(TaskUpdateCommand.Attributes.time);
         }
     }
 
-    private static void addDoAfterToUpdateCommand(ArrayList<Command.Option> optionList, ArrayList<TaskUpdateCommand.Attributes> attributes, ArrayList<String> descriptions) throws CommandParser.UserInputException {
+    private static void addDoAfterToUpdateCommand(ArrayList<Command.Option> optionList,
+                                                  ArrayList<TaskUpdateCommand.Attributes> attributes,
+                                                  ArrayList<String> descriptions)
+            throws CommandParser.UserInputException {
         if (!extractDoAfter(optionList).equals("")) {
             descriptions.add(extractDoAfter(optionList));
             attributes.add(TaskUpdateCommand.Attributes.doAfter);
         }
     }
 
-    private static void addPriorityToUpdateCommand(ArrayList<Command.Option> optionList, ArrayList<TaskUpdateCommand.Attributes> attributes, ArrayList<String> descriptions) throws CommandParser.UserInputException {
+    private static void addPriorityToUpdateCommand(ArrayList<Command.Option> optionList,
+                                                   ArrayList<TaskUpdateCommand.Attributes> attributes,
+                                                   ArrayList<String> descriptions)
+            throws CommandParser.UserInputException {
         if (!extractPriority(optionList).equals("")) {
             descriptions.add(extractPriority(optionList));
             attributes.add(TaskUpdateCommand.Attributes.priority);
         }
     }
 
-    private static String extractDoAfter(ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
+    private static String extractDoAfter(ArrayList<Command.Option> optionList)
+            throws CommandParser.UserInputException {
         String doafter = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("doafter")) {
-                if (doafter == "") {
+                if (doafter.equals("")) {
                     doafter = option.getValue();
                 } else {
                     throw new CommandParser.UserInputException("Each task can have only one doafter option");
@@ -272,11 +288,12 @@ public class TaskCommandParser {
         return doafter;
     }
 
-    private static String extractPriority(ArrayList<Command.Option> optionList) throws CommandParser.UserInputException {
+    private static String extractPriority(ArrayList<Command.Option> optionList)
+            throws CommandParser.UserInputException {
         String priority = "";
         for (Command.Option option : optionList) {
             if (option.getKey().equals("priority")) {
-                if (priority == "") {
+                if (priority.equals("")) {
                     priority = option.getValue();
                 } else {
                     throw new CommandParser.UserInputException("Each task can have only one priority");
@@ -318,7 +335,8 @@ public class TaskCommandParser {
         }
     }
 
-    private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time, ArrayList<String> tags, String priority) {
+    private static Command constructAddCommandByType(String input, String doAfter, LocalDateTime time,
+                                                     ArrayList<String> tags, String priority) {
         if (input.startsWith("todo")) {
             return parseAddToDoCommand(input, doAfter, tags, priority);
         } else if (input.startsWith("deadline")) {

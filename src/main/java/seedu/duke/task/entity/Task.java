@@ -51,13 +51,6 @@ public class Task {
     protected String priority;
 
     /**
-     * The enumeration of all task type.
-     */
-    public enum TaskType {
-        ToDo, Deadline, Event
-    }
-
-    /**
      * Instantiation of a task with the name and the default false value if isDone attribute.
      *
      * @param name the name of the task
@@ -68,59 +61,6 @@ public class Task {
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
         this.priority = null;
-    }
-
-    /**
-     * Marks the isDone as true.
-     */
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    /**
-     * Gets the status whether the task is done.
-     *
-     * @return the isDone attribute
-     */
-    public boolean getDone() {
-        return this.isDone;
-    }
-
-    /**
-     * The function that returns a human readable string of the basic information of the task.
-     *
-     * @return the human readable string of the basic information the task.
-     */
-    protected String getStatus() {
-        if (this.isDone) {
-            return "[✓] " + this.name;
-        } else {
-            return "[✗] " + this.name;
-        }
-    }
-
-    public TaskType getTaskType() {
-        return this.taskType;
-    }
-
-    /**
-     * Converts the task to a human readable string. This will return the same string as the get status
-     * function for a basic task, but is overridden by more advanced task class to add more information.
-     *
-     * @return a human readable string that contains all important information of a task.
-     */
-    public String toString() {
-        return this.getStatus();
-    }
-
-    /**
-     * The function returns a string that contains full information of the task which is used to be stored in
-     * a file for future usage.
-     *
-     * @return a string containing full information of the task.
-     */
-    public String toFileString() {
-        return this.toString();
     }
 
     /**
@@ -194,6 +134,59 @@ public class Task {
     }
 
     /**
+     * Marks the isDone as true.
+     */
+    public void markDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Gets the status whether the task is done.
+     *
+     * @return the isDone attribute
+     */
+    public boolean getDone() {
+        return this.isDone;
+    }
+
+    /**
+     * The function that returns a human readable string of the basic information of the task.
+     *
+     * @return the human readable string of the basic information the task.
+     */
+    protected String getStatus() {
+        if (this.isDone) {
+            return "[✓] " + this.name;
+        } else {
+            return "[✗] " + this.name;
+        }
+    }
+
+    public TaskType getTaskType() {
+        return this.taskType;
+    }
+
+    /**
+     * Converts the task to a human readable string. This will return the same string as the get status
+     * function for a basic task, but is overridden by more advanced task class to add more information.
+     *
+     * @return a human readable string that contains all important information of a task.
+     */
+    public String toString() {
+        return this.getStatus();
+    }
+
+    /**
+     * The function returns a string that contains full information of the task which is used to be stored in
+     * a file for future usage.
+     *
+     * @return a string containing full information of the task.
+     */
+    public String toFileString() {
+        return this.toString();
+    }
+
+    /**
      * The function checks whether this task, when converted to string, contains the keyword specified.
      *
      * @param keyword search target string
@@ -212,10 +205,6 @@ public class Task {
      */
     public boolean isNear(int dayLimit) {
         return false;
-    }
-
-    public void setDoAfterDescription(String description) {
-        this.doAfterDescription = description;
     }
 
     public void snooze() {
@@ -241,7 +230,18 @@ public class Task {
         return doAfterDescription;
     }
 
+    public void setDoAfterDescription(String description) {
+        this.doAfterDescription = description;
+    }
+
     public void setPriorityTo(String priority) {
         this.priority = priority;
+    }
+
+    /**
+     * The enumeration of all task type.
+     */
+    public enum TaskType {
+        ToDo, Deadline, Event
     }
 }

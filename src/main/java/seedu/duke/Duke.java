@@ -36,6 +36,9 @@ public class Duke {
         return model;
     }
 
+    /**
+     * Exits the entire program.
+     */
     public static void exit() {
         TaskStorage.saveTasks(model.getTaskList());
         EmailStorage.saveEmails(model.getEmailList());

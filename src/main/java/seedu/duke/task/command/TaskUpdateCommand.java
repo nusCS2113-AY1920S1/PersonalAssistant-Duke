@@ -5,7 +5,6 @@ import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.entity.ToDo;
 
 import java.util.ArrayList;
 
@@ -18,13 +17,11 @@ public class TaskUpdateCommand extends Command {
     private ArrayList<TaskUpdateCommand.Attributes> attributes;
 
     /**
-     * Instantiates a find command with all variables necessary.
-==== BASE ====
-     * @param taskList      list of tasks
-     * @param index         position of task as specified by input
-     * @param description   what to modify to
-     * @param attribute     what attribute to modify
-==== BASE ====
+     * Instantiates a find command with all variables necessary. ==== BASE ====
+     *
+     * @param index       position of task as specified by input
+     * @param descriptions what to modify to
+     * @param attributes   what attribute to modify ==== BASE ====
      */
     TaskUpdateCommand(int index, ArrayList<String> descriptions,
                       ArrayList<TaskUpdateCommand.Attributes> attributes) {

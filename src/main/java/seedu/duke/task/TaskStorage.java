@@ -96,7 +96,8 @@ public class TaskStorage {
         }
     }
 
-    private static void processTaskFileString(Scanner scanner, ArrayList<Boolean> doneList) throws StorageException, CommandParser.UserInputException {
+    private static void processTaskFileString(Scanner scanner, ArrayList<Boolean> doneList)
+            throws StorageException, CommandParser.UserInputException {
         String input = scanner.nextLine();
         prepareDoneList(doneList, input);
         input = input.split(" ", 2)[1];

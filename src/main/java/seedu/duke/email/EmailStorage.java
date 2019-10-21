@@ -194,20 +194,23 @@ public class EmailStorage {
         return emailList;
     }
 
-    private static void readEmailWithIndexString(EmailList emailList, String input) throws EmailFormatParser.EmailParsingException, FileNotFoundException {
+    private static void readEmailWithIndexString(EmailList emailList, String input)
+            throws EmailFormatParser.EmailParsingException, FileNotFoundException {
         Email indexEmail = EmailFormatParser.parseIndexJson(input);
         String filename = indexEmail.toFilename();
         Email fileEmail = readEmailFromFolder(indexEmail, filename);
         emailList.add(fileEmail);
     }
 
-    private static Email readEmailFromFolder(Email indexEmail, String filename) throws FileNotFoundException, EmailFormatParser.EmailParsingException {
+    private static Email readEmailFromFolder(Email indexEmail, String filename)
+            throws FileNotFoundException, EmailFormatParser.EmailParsingException {
         String emailContent = readEmailContentFromFolder(filename);
         Email fileEmail = parseEmailFromFolder(indexEmail, emailContent);
         return fileEmail;
     }
 
-    private static Email parseEmailFromFolder(Email indexEmail, String emailContent) throws EmailFormatParser.EmailParsingException {
+    private static Email parseEmailFromFolder(Email indexEmail, String emailContent)
+            throws EmailFormatParser.EmailParsingException {
         Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
         for (Email.Tag tag : indexEmail.getTags()) {
             fileEmail.addTag(tag);
