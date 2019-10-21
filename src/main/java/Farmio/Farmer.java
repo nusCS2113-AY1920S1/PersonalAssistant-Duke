@@ -27,7 +27,7 @@ public class Farmer {
 
     public Farmer() {
         this.money = 10;
-        this.level = 1;
+        this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
@@ -47,7 +47,7 @@ public class Farmer {
         //this.tasks = new TaskList((JSONArray) jsonObject.get("task_list"));
     }
 
-    public Farmer(int level, int money, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
+    public Farmer(double level, int money, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
         this.level = level;
         this.money = money;
         this.wheatFarm = wheatFarm;
@@ -78,11 +78,12 @@ public class Farmer {
         if(level >= 2) {
 
         }
-        if(level >= 1)
-        {
+        if(level >= 1.2) {
             assets.put("Seeds", wheatFarm.getSeeds());
             assets.put("Wheat", wheatFarm.getGreenWheat());
             assets.put("Grain", wheatFarm.getRipeWheat());
+        }
+        if (level >= 1.1) {
             assets.put("Gold", money);
         }
         return assets;

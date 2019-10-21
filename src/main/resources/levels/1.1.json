@@ -1,19 +1,20 @@
 {
   "narratives": [
-    "Game opening intro.",
-    "Tutorial 1 (Day 1)",
-    "Hi there partner, you only have enough money to start a small farm.\nWhy not we head over to the market and see what we can buy for you.",
-    "on your top right hand corner you can see the amount of money you have, and your current location",
-    "what you see in the center of the screen is your current location which in this case is your small farm that is currently empty.",
-    "At the buttom, you can see an opion that says 'A-Go to Market' as well as an empty box below with a title of user code; this is where you will send instructions to farmer John.",
-    "blah blah blah",
-    "the first command is a do command. it instructs farmer John to carry out an action.",
-    "Enter [Do GoToMarket} to instruct farmer John to go to the market.",
-    "Enter [Start] to execute the user code."
+    "Hi there partner, you only have enough money to start a small farm. Why not we head over to the market to get started.",
+    "On your top right hand corner, you can see the location you are at. Currently you are at your Wheatfarm.",
+    "On the bottom left hand corner of the screen, you can see the assets you hold. Currently you have 10 gold to start your farm.",
+    "On the top left corner you can see your current level which is 1.1. This tutorial ends at level 1.4",
+    "This is followed by the level goals. For this level the goal will be changing your location to the Market",
+    "Let's get started!",
+    "*Travel to the market!",
+    "The first command you will be using is a 'Do' command.\nThe 'Do' command instructs farmer John to carry out an action.",
+    "From the example above, 'Do' is the type of task given and 'gotoMarket' is the action to be carried out by the farmer.",
+    "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
+    "Enter [Do GoToMarket] to create a task that tells Farmer John to drive to the market."
   ],
-  "money": 25,
+  "money": 0,
   "wheat_seed": 0,
   "wheat_green": 0,
   "wheat_ripe": 0,
-  "file_path": "Level1-01"
+  "file_path": "Level1.1"
 }

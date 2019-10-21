@@ -63,13 +63,20 @@ public class Ui {
                 System.out.println();
                 System.out.print("   ");
                 lineLength = 0;
+            } else if (text.charAt(i) == '\n') {
+                lineLength = 0;
+            } else if (text.charAt(i) == '*') {
+                System.out.print(AsciiColours.RED + "[Objective]:" + AsciiColours.SANE + text.replace('*',' '));
+                show("\n\n" + " ".repeat(77) + "Press ENTER to continue..");
+                return;
             }
             System.out.printf("%c", text.charAt(i));
             try{
-                Thread.sleep(60);//0.5s pause between characters
+                Thread.sleep(40);//0.5s pause between characters
             }catch(InterruptedException ex){
                 Thread.currentThread().interrupt();
             }
         }
+        show("\n\n" + " ".repeat(77) + "Press ENTER to continue..");
     }
 }

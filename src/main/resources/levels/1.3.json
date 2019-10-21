@@ -1,0 +1,12 @@
+{
+  "narratives": [
+    "Now that you have some seeds, you can start growing your farm!",
+    "*Plant the seeds in your farm!",
+    "Note that your current location is at the market. You can only plant your seeds in your farm."
+  ],
+  "money": 0,
+  "wheat_seed": 0,
+  "wheat_green": 0,
+  "wheat_ripe": 0,
+  "file_path": "Level1.3"
+}

@@ -22,7 +22,7 @@ public class CommandGameNew extends Command {
         int frameId = 0;
         for(String narrative: level.getNarratives()){
             farmio.getSimulation().animate(level.getPath(), frameId++);
-            ui.show(narrative);
+            ui.typeWriter(narrative);
             ui.getInput();
         }
         farmio.setStage(Farmio.Stage.TASK_ADD);

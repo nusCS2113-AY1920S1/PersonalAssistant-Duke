@@ -20,6 +20,7 @@ public class Level {
     int endChickenEggs;
     int endCow;
     int endCowMilk;
+    int location;
 
     public Level(JSONObject object, Farmer farmer) {
         JSONArray array = (JSONArray) object.get("narratives");
@@ -36,6 +37,7 @@ public class Level {
         endChickenEggs = 0;
         endCow = 0;
         endCowMilk = 0;
+//        location = Math.toIntExact((Long) object.get("location"));
     }
 
     public ArrayList<String> getNarratives(){
@@ -52,15 +54,15 @@ public class Level {
     }
 
     public Map<String, Integer> getGoals() {
-        Map<String, Integer> dummy = new HashMap< String,Integer>();
-        dummy.put("Gold", endMoney);
-        dummy.put("Seeds", endWheatSeed);
-        dummy.put("Wheat", endWheatGreen);
-        dummy.put("Grain", endWheatRipe);
-        dummy.put("Chicken", endChicken);
-        dummy.put("Egg", endChickenEggs);
-        dummy.put("Cow", endCow);
-        dummy.put("Milk", endCowMilk);
-        return dummy;
+        Map<String, Integer> goals = new HashMap< String,Integer>();
+        goals.put("Gold", endMoney);
+        goals.put("Seeds", endWheatSeed);
+        goals.put("Wheat", endWheatGreen);
+        goals.put("Grain", endWheatRipe);
+        goals.put("Chicken", endChicken);
+        goals.put("Egg", endChickenEggs);
+        goals.put("Cow", endCow);
+        goals.put("Milk", endCowMilk);
+        return goals;
     }
 }
