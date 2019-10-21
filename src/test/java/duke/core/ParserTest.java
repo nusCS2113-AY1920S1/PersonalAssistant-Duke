@@ -8,8 +8,8 @@ public class ParserTest {
     String patientDummyInput = "add patient name NRIC room remark";
     String taskDummyInput = "add task Walk the dog";
 
-    String assignPatientIdToTaskS = "assign by id: S 1 2 02/02/2002 2222";
-    String assignPatientIdToTaskE = "assign by id: E 2 1 02/02/2002 2222 to 03/02/2002 1234";
+    String assignPatientIdToTaskS = "assign S 1 2 02/02/2002 2222";
+    String assignPatientIdToTaskE = "assign E 2 1 02/02/2002 2222 to 03/02/2002 1234";
 
     String deletePatientInputWithID = "delete patient #123";
     String deletePatientInputWithName = "delete patient billy joe";
@@ -97,6 +97,5 @@ public class ParserTest {
         assertTrue(testOutputName.equals("Take medicine"),
                 "Delete task by name parsing failed. Expected 'Take medicine' but got: " + testOutputName);
     }
-
 
 }

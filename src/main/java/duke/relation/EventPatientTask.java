@@ -84,6 +84,24 @@ public class EventPatientTask extends PatientTask {
     /**
      * .
      *
+     * @return .
+     */
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    /**
+     * .
+     *
      * @param time .
      */
     public void updateStartTime(String time) {

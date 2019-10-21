@@ -1,16 +1,17 @@
 package duke.core;
 
-import duke.command.AddPatientCommand;
 import duke.command.AddStandardTaskCommand;
 import duke.command.AssignTaskToPatientCommand;
 import duke.command.Command;
-import duke.command.DeletePatientCommand;
-import duke.command.DeleteTaskCommand;
-import duke.command.ExitCommand;
-import duke.command.FindPatientCommand;
-import duke.command.FindPatientTaskCommand;
+import duke.command.AddPatientCommand;
 import duke.command.ListPatientsCommand;
 import duke.command.ListTasksCommand;
+import duke.command.DeletePatientTaskCommand;
+import duke.command.DeletePatientCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.FindPatientCommand;
+import duke.command.FindPatientTaskCommand;
+import duke.command.ExitCommand;
 import duke.command.UpdatePatientCommand;
 import duke.command.UpdateTaskCommand;
 
@@ -34,15 +35,16 @@ public class CommandManager {
                 userInput = possibleCommand;
             }
         }
-        String[] command = userInput.split("\\s+", 3);
-        String firstKeyword = command[0].toLowerCase();
+        String[] command = userInput.toLowerCase().split("\\s+", 4);
+        String firstKeyword = command[0];
         String secondKeyword = "";
         String thirdKeyword = "";
         if (command.length >= 2) {
-            secondKeyword = command[1].toLowerCase();
+            secondKeyword = command[1];
         }
         if (command.length >= 3) {
-            thirdKeyword = command[2].toLowerCase();
+            thirdKeyword = command[2];
+
         }
 
         Parser parser = new Parser(userInput);
@@ -73,10 +75,12 @@ public class CommandManager {
                     throw new DukeException("Invalid 'list' command.");
                 }
             case "delete":
-                if ((secondKeyword != "") && secondKeyword.equals("patient")) {
+                if ((secondKeyword != "") && (thirdKeyword != "") && secondKeyword.equals("patient") && thirdKeyword.equals("task")) {
+                return new DeletePatientTaskCommand(parser.parseDeletePatientTask());
+                } else if ((secondKeyword != "") && secondKeyword.equals("patient")) {
                     String formattedInput = parser.parseDeletePatient();
                     return new DeletePatientCommand(formattedInput);
-                } else if (secondKeyword.equals("task")) {
+                }  else if ((secondKeyword != "") &&  secondKeyword.equals("task")) {
                     return new DeleteTaskCommand(parser.parseDeleteTask());
                 } else {
                     throw new DukeException("Invalid 'delete' command.");

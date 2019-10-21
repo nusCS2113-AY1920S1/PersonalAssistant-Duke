@@ -29,7 +29,6 @@ public class AssignTaskToPatientCommand extends Command {
     public AssignTaskToPatientCommand(String[] taskAssignmentInfo) throws DukeException {
         super();
         this.taskAssignmentInfo = taskAssignmentInfo;
-        this.newPatientTask = finalPatientTask(taskAssignmentInfo);
     }
 
     /**
@@ -49,51 +48,59 @@ public class AssignTaskToPatientCommand extends Command {
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
 
+        char firstChar = taskAssignmentInfo[1].charAt(0);
+
+        try {
+            if (taskAssignmentInfo[0].equals("S")) {
+                if (firstChar == '#') {
+                    int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
+                    int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
+                    String temptime = taskAssignmentInfo[3];
+                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0]);
+                } else {
+                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
+                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
+                    String temptime = taskAssignmentInfo[3];
+                    newPatientTask = new StandardPatientTask(tempPid, tempTid, temptime, taskAssignmentInfo[0]);
+                }
+            } else if (taskAssignmentInfo[0].equals("E")) {
+                if (firstChar == '#') {
+                    int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
+                    int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
+                    String stime = taskAssignmentInfo[3];
+                    String etime = taskAssignmentInfo[4];
+                    newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
+                            taskAssignmentInfo[0]);
+                } else {
+                    int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
+                    int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
+                    String stime = taskAssignmentInfo[3];
+                    String etime = taskAssignmentInfo[4];
+                    newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
+                            taskAssignmentInfo[0]);
+                }
+            } else {
+                throw new DukeException("Wrong format is detected!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DukeException("You are missing some information!");
+        }
+
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID())) {
-            patientTaskList.addPatientTask(newPatientTask);
-            patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-            ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(),
-                    tasksList.getTask(newPatientTask.getTaskID()).getDescription());
+            if (patientTaskList.isIdExist(newPatientTask.getUid()) || patientTaskList.isSameTaskExist(newPatientTask)) {
+                throw new DukeException("Either the unique task id is repeated or the same task exists");
+            } else {
+                patientTaskList.addPatientTask(newPatientTask);
+                patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(),
+                        tasksList.getTask(newPatientTask.getTaskID()).getDescription());
+            }
         } else {
             throw new DukeException("Either the patient or the task does not exist in our data record");
         }
 
-    }
-
-    /**
-     * .
-     *
-     * @param assignmentInfo .
-     * @return .
-     * @throws DukeException .
-     */
-    public PatientTask finalPatientTask(String[] assignmentInfo) throws DukeException {
-        try {
-            if (assignmentInfo[0].equals("S")) {
-
-                String type = assignmentInfo[0];
-                int patientId = Integer.parseInt(assignmentInfo[1]);
-                int taskId = Integer.parseInt(assignmentInfo[2]);
-                String deadline = assignmentInfo[3];
-
-                StandardPatientTask standardPatientTask = new StandardPatientTask(patientId, taskId, deadline, type);
-                return standardPatientTask;
-            } else if (assignmentInfo[0].equals("E")) {
-
-                String type = assignmentInfo[0];
-                int patientId = Integer.parseInt(assignmentInfo[1]);
-                int taskId = Integer.parseInt(assignmentInfo[2]);
-                String startTime = assignmentInfo[3];
-                String endTime = assignmentInfo[4];
-
-                EventPatientTask eventPatientTask = new EventPatientTask(patientId, taskId, startTime, endTime, type);
-                return eventPatientTask;
-            } else {
-                throw new DukeException("Parsing failed! Please ensure the format you have entered is correct!");
-            }
-        } catch (Exception e) {
-            throw new DukeException("Unable to parse your task assignment. Please check your command's format!");
-        }
     }
 
     /**

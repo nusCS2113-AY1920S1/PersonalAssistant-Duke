@@ -84,6 +84,7 @@ public class FindPatientTaskCommand extends Command {
                     tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
+
             } catch (Exception e) {
                 throw new DukeException(e.getMessage()
                         + "Please follow the format 'find patient task #<id>' or 'find patient <name>'.");

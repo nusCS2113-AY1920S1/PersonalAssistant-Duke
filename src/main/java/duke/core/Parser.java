@@ -48,11 +48,8 @@ public class Parser {
     public String[] parseAssign() throws DukeException {
         String[] formattedInput = new String[5];
         try {
-            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 4);
-            if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
-
-                String[] tempInput = userInput.replaceAll(
-                        "(?i)assign by id: ", "").split("\\s+", 4);
+                String[] tempInput = userInput.trim().replaceAll(
+                        "(?i)assign ", "").split("\\s+", 4);
                 if (tempInput[0].equals("E")) {
                     String[] parsedTimes = tempInput[3].split(" to ", 2);
 
@@ -66,9 +63,6 @@ public class Parser {
                         formattedInput[i] = tempInput[i];
                     }
                 }
-            } else {
-                throw new DukeException("Please use proper 'assign by id:' command format.");
-            }
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Invalid 'assign' command.");
@@ -121,6 +115,24 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Invalid 'delete task' command.");
+        }
+    }
+
+    /**
+     * Takes user input and formats it so it is compatible with 'delete patient task' command.
+     * @return Array of strings to be used by 'delete patient task' command.
+     * @throws DukeException when user input cannot be parsed properly.
+     */
+    public String[] parseDeletePatientTask() throws DukeException {
+        try {
+            String[] formattedInput;
+            String inputToParse = userInput.replaceAll("(?i)delete patient task ", "").trim();
+            formattedInput = inputToParse.split("\\s+", 2);
+
+            return formattedInput;
+
+        } catch (Exception e) {
+            throw new DukeException("Invalid 'delete patient task' command.");
         }
     }
 
