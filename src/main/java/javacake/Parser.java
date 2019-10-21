@@ -23,6 +23,7 @@ import java.util.List;
 
 public class Parser {
 
+    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "tree", "deadline"};
     /**
      * Allows the user input to be parsed before running 'execute'.
      * @param inputCommand String inputted by user, which needs to be parsed
@@ -34,6 +35,7 @@ public class Parser {
     public static Command parse(String inputCommand) throws DukeException {
         String[] buffer = inputCommand.split("\\s+");
         String input = buffer[0];
+        helper(input);
         if (input.equals("exit")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -57,6 +59,25 @@ public class Parser {
             return new AddCommand(inputCommand);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
+        }
+    }
+
+    private static void helper(String input) throws DukeException {
+        for (int i = 0; i < commands.length; i++) {
+            String command = commands[i];
+            int length = command.length();
+            if (length > input.length()){
+                length = input.length();
+            }
+            int similarity = 0;
+            for (int j = 0; j < length; j++) {
+                if (input.charAt(j) == command.charAt(j)) {
+                    similarity++;
+                }
+            }
+            if (similarity + 1 == length) {
+                throw new DukeException("Sorry, but do you mean this : " + command);
+            }
         }
     }
 
