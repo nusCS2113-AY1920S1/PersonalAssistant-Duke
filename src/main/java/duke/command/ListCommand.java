@@ -7,20 +7,23 @@ import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * duke.command.ListCommand class which executes the command of displaying the duke.tasklist.TaskList to the user
  */
 public class ListCommand extends Command {
     private String mode;
-    private final String defaultMode = "DEFAULT";
+    private Optional<String> filter;
 
-    public ListCommand() {
-        mode = defaultMode;
+    public ListCommand(Optional<String> filter) {
+        mode = "DEFAULT";
+        this.filter = filter;
     }
 
-    public ListCommand(String modeInformation) {
+    public ListCommand(String modeInformation, Optional<String> filter) {
         mode = modeInformation;
+        this.filter = filter;
     }
 
     public String getMode() {
@@ -28,7 +31,21 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+        TaskList tasks;
+        if (filter.isEmpty()) {
+            tasks = list;
+        } else {
+            tasks = new TaskList();
+            for (int i = 0; i < list.size(); i++) {
+                Task t = list.get(i);
+                if (t.getFilter().equals(filter)) {
+                    System.out.println("true");
+                    tasks.add(t);
+                    System.out.println("added");
+                }
+            }
+        }
         switch (mode) {
             case "DEFAULT":
                 if (tasks.size() > 0) {
