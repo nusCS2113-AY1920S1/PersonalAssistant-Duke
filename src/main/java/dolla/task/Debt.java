@@ -1,19 +1,25 @@
 package dolla.task;
 
+import dolla.Time;
 import dolla.task.Log;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Debt extends Log {
 
     protected String type;
     protected double amount;
     protected String saveType;
+    protected LocalDate date;
 
-    public Debt(String type, String name, double amount, String description) {
+    public Debt(String type, String name, double amount, String description, LocalDate date) {
         this.type = type;
         this.name = name;
         this.amount = amount;
         this.description = description;
-        this.userInput = type + " " + name + " " + amount + " " + description;
+        this.date = date;
+        this.userInput = type + " " + name + " " + amount + " " + description + " " +"/due " + Time.dateToString(date);
     }
 
     @Override
@@ -21,12 +27,21 @@ public class Debt extends Log {
         return "[" + type + "] "
                 + "[" + name + "] "
                 + "[" + amountToMoney() + "] "
-                + "[" + description + "]";
+                + "[" + description + "] "
+                + "[/due " + Time.dateToString(date) + "]";
     }
 
     @Override
     public String getDescription() {
         return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public String amountToMoney() {
@@ -43,7 +58,8 @@ public class Debt extends Log {
         return saveType + " | "
                 + name + " | "
                 + amount + " | "
-                + description;
+                + description + " | "
+                + Time.dateToString(date);
     }
 
     @Override

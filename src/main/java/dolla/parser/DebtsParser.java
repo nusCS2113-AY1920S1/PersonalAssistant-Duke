@@ -1,8 +1,11 @@
 package dolla.parser;
 
+import dolla.Time;
 import dolla.Ui;
 import dolla.command.*;
 import dolla.task.LogList;
+
+import java.time.LocalDate;
 
 
 public class DebtsParser extends Parser {
@@ -22,12 +25,15 @@ public class DebtsParser extends Parser {
             String type = commandToRun;
             String name = null;
             double amount = 0.0;
+            LocalDate date = null;
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
 
                 String[] desc = inputLine.split(inputArray[2] + " ");
-                description = desc[1];
+                String dateString[] = desc[1].split(" /due ");
+                description = dateString[0];
+                date = Time.readDate(dateString[1]);
 
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
@@ -37,13 +43,14 @@ public class DebtsParser extends Parser {
             }
             if(undoFlag == 1) {//undo input
                 undoFlag = 0;
-                return new AddDebtsCommand(type, name, amount, description, prevPosition);
+                return new AddDebtsCommand(type, name, amount, description, date, prevPosition);
             } else {//normal input, prePosition is -1
-                return new AddDebtsCommand(type, name, amount, description, -1);
+                return new AddDebtsCommand(type, name, amount, description, date, -1);
             }
         } else if (commandToRun.equals("search")) {
-            String content = inputArray[1];
-            return new SearchCommand(mode, content);
+            String component = inputArray[1];
+            String content = inputArray[2];
+            return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("sort")) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
