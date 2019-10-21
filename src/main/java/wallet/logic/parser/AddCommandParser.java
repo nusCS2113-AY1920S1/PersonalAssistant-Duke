@@ -27,6 +27,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
+                LogicManager.getCommandHistory().add("add " + arguments[0] + arguments[1]);
                 return new AddCommand(expense);
             } else {
                 break;
@@ -35,6 +36,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case "contact":
             Contact contact = parseContact(arguments[1]);
             if (contact != null) {
+                LogicManager.getCommandHistory().add("add " + arguments[0] + arguments[1]);
                 return new AddCommand(contact);
             } else {
                 break;
@@ -42,6 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         case "loan":
             Loan loan = parseLoan(arguments[1]);
             if (loan != null) {
+                LogicManager.getCommandHistory().add("add " + arguments[0] + arguments[1]);
                 return new AddCommand(loan);
             } else {
                 break;
@@ -117,14 +120,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         info = info[3].split("/c ");
         int contactId = Integer.parseInt(info[1]);
 
-        if (info[0].equals("/l")) {
+        if (input.contains("/l")) {
+            System.out.println("l");
             isLend = true;
-        } else if (info[0].equals("/b")) {
+        } else if (input.contains("/b")) {
+            System.out.println("b");
             isLend = false;
         }
 
         ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
-        Contact person = new ContactList(contactList).getContact(contactId - 1);
+        int index = LogicManager.getWallet().getContactList().findIndexWithId(contactId);
+        Contact person = new ContactList(contactList).getContact(index);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
     }

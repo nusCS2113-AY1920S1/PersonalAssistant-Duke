@@ -1,8 +1,13 @@
 package wallet.logic.parser;
 
+import wallet.logic.LogicManager;
 import wallet.logic.command.EditCommand;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The EditCommandParser class helps to
@@ -17,17 +22,24 @@ public class EditCommandParser implements Parser<EditCommand> {
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
+                LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
                 return new EditCommand(expense);
             } else {
                 break;
             }
 
         case "loan":
+            Loan loan = parseLoan(arguments[1]);
+            if (loan != null) {
+                LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
+                return new EditCommand(loan);
+            }
             break;
 
         case "contact":
             Contact contact = parseContact(arguments[1]);
             if (contact != null) {
+                LogicManager.getCommandHistory().add("edit " + arguments[0] + " " + arguments[1]);
                 return new EditCommand(contact);
             } else {
                 break;
@@ -64,6 +76,76 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         return null;
 
+    }
+
+    /**
+     * Parses the parameters of contact to be edited.
+     *
+     * @param input User input arguments
+     */
+    private Loan parseLoan(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+
+        Loan loan = new Loan();
+
+        String[] arguments = input.split(" ", 2);
+        int loanId = Integer.parseInt(arguments[0].trim());
+        loan.setId(loanId);
+        String parameters = arguments[1].trim();
+
+        int index = LogicManager.getWallet().getLoanList().findIndexWithId(loan.getId());
+        Loan currentLoan = LogicManager.getWallet().getLoanList().getLoan(index);
+
+        if (parameters.contains("/c")) {
+            String[] getContact = parameters.split("/c");
+            int contactId = Integer.parseInt(getContact[1].trim());
+            for (Contact contact : LogicManager.getWallet().getContactList().getContactList()) {
+                if (contact.getId() == contactId) {
+                    System.out.println("Edit: Contact found! " + contact.toString());
+                    loan.setPerson(contact);
+                    break;
+                }
+            }
+            parameters = getContact[0].trim();
+        } else { //parameters does not contain "/c"
+            loan.setPerson(currentLoan.getPerson());
+        }
+        if (parameters.contains("/l")) {
+            String[] getIsLend = parameters.split("/l");
+            loan.setIsLend(true);
+            parameters = getIsLend[0].trim();
+        } else if (parameters.contains("/b")) {
+            String[] getIsLend = parameters.split("/b");
+            loan.setIsLend(false);
+            parameters = getIsLend[0].trim();
+        } else if (!parameters.contains("/l") || !parameters.contains("/b")) {
+            loan.setIsLend(currentLoan.getIsLend());
+        }
+        if (parameters.contains("/t")) {
+            String[] getDate = parameters.split("/t");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate createdDate = LocalDate.parse(getDate[1].trim(), formatter);
+            loan.setCreatedDate(createdDate);
+            parameters = getDate[0].trim();
+        } else if (!parameters.contains("/t")) {
+            loan.setCreatedDate(currentLoan.getCreatedDate());
+        }
+        if (parameters.contains("/a")) {
+            String[] getAmount = parameters.split("/a");
+            double amount = Double.parseDouble(getAmount[1].trim());
+            loan.setAmount(amount);
+            parameters = getAmount[0].trim();
+        } else {
+            loan.setAmount(currentLoan.getAmount());
+        }
+        if (parameters.contains("/d")) {
+            String[] getDescription = parameters.split("/d");
+            String description = getDescription[1].trim();
+            loan.setDescription(description);
+        } else {
+            loan.setDescription(currentLoan.getDescription());
+        }
+        loan.setIsSettled(currentLoan.getIsSettled());
+        return loan;
     }
 
     /**

@@ -5,6 +5,7 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Budget;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
+import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
@@ -41,7 +42,6 @@ public class AddCommand extends Command {
     public AddCommand(Expense expense) {
         this.expense = expense;
     }
-
 
     /**
      * Constructs the AddCommand object with Contract object.
@@ -101,7 +101,9 @@ public class AddCommand extends Command {
             wallet.getRecordList().addRecord(loan);
             wallet.getLoanList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
-            System.out.println(loan.toString());
+            Ui.printLoanTableHeaders();
+            Ui.printLoanRow(loan);
+            Ui.printLoanTableClose();
         }
 
         return false;

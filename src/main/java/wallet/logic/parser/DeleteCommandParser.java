@@ -32,12 +32,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             if (parseContact(index)) {
                 return null;
             }
+            LogicManager.getCommandHistory().add("delete " + arguments[0] + " " + arguments[1]);
             return new DeleteCommand(arguments[0], index);
 
         default:
+            LogicManager.getCommandHistory().add("delete " + arguments[0] + " " + arguments[1]);
             return new DeleteCommand(arguments[0], index);
         }
-
     }
 
     private Boolean parseContact(int index) {

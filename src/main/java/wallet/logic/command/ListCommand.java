@@ -69,6 +69,14 @@ public class ListCommand extends Command {
             }
             //fallthrough
 
+        case "loan":
+            ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
+            Ui.printLoanTable(loanList);
+            if (!isListAll) {
+                break;
+            }
+            //fallthrough
+
         case "expense":
             ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
             Ui.printExpenseTable(expenseList);
@@ -76,10 +84,6 @@ public class ListCommand extends Command {
                 break;
             }
             //fallthrough
-
-        case "loan":
-            wallet.getLoanList().listLoanList();
-            break;
 
         default:
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -125,6 +129,16 @@ public class ListCommand extends Command {
                         }
                     }
                 }
+
+                if (expensesList.size() != 0) {
+                    Ui.printExpenseTable(expensesList);
+                } else {
+                    System.out.println(MESSAGE_LIST_NO_EXPENSES
+                            + date.getDayOfMonth() + " "
+                            + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                            + " " + date.getYear());
+                }
+                break;
             } else {
                 System.out.println(MESSAGE_USAGE);
             }
