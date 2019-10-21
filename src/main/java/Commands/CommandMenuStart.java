@@ -7,7 +7,7 @@ import Exceptions.FarmioException;
 public class CommandMenuStart extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
-        Menu.show(farmio.getUi(), farmio.getStorage(), false);
+        Menu.show(farmio, false);
         farmio.setStage(Farmio.Stage.MENU_START);
     }
 }

@@ -9,25 +9,44 @@ import java.util.concurrent.TimeUnit;
 
 public class Simulation {
     private static final int FRAME_PER_SECOND = 2;
-
-    public static void animate(Ui ui, Storage storage, String framePath, int frameId) throws FarmioFatalException {
-        refresh(ui);
-        ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, 103, 22)));
+    private Farmio farmio;
+    private Storage storage;
+    private Ui ui;
+    private Farmer farmer;
+    public Simulation(Farmio farmio) {
+        this.farmio = farmio;
+        storage = farmio.getStorage();
+        ui = farmio.getUi();
+        farmer = farmio.getFarmer();
     }
-
-    public static void animate(Ui ui, Storage storage, Farmer farmer, String framePath, int frameId) throws FarmioFatalException {
-        refresh(ui);
-        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer));
-    }
-
-    public static void animate(Ui ui, Storage storage, Farmer farmer, String framePath, int frameIdStart, int frameIdEnd) throws FarmioFatalException {
-        for(int i = frameIdStart; i <= frameIdEnd; ++i){
-            animate(ui, storage, farmer, framePath, i);
+    public void animate(String framePath, int frameId, boolean is_fullscreen) throws FarmioFatalException {
+        refresh();
+        if (is_fullscreen) {
+            ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, 103, 22)));
+        } else {
+            ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer));
         }
     }
 
-    public static void animate(Ui ui, Storage storage, Farmer farmer, int delay, String framePath, int frameId) throws FarmioFatalException {
-        animate(ui, storage, farmer, framePath, frameId);
+    public void animate(String framePath, int startFrame, int endFrame, boolean is_fullscreen) throws FarmioFatalException {
+        for(int i =  startFrame; i <= endFrame; i ++) {
+            animate(framePath, i, is_fullscreen);
+        }
+    }
+
+    public void animate(String framePath, int frameId) throws FarmioFatalException {
+        refresh();
+        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer));
+    }
+
+    public void animate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
+        for(int i =  startFrame; i <= endFrame; i ++) {
+            animate(framePath, i);
+        }
+    }
+
+    public void animate(int delay, String framePath, int frameId) throws FarmioFatalException {
+        animate(framePath, frameId);
         try {
             TimeUnit.MILLISECONDS.sleep(delay);
         } catch (InterruptedException e) {
@@ -35,8 +54,10 @@ public class Simulation {
             ui.showWarning("Simulator delay interrupted! Interface may not display correctly.");
         };
     }
-
-    private static void refresh(Ui ui) {
+    private void refresh() {
+        storage = farmio.getStorage();
+        ui = farmio.getUi();
+        farmer = farmio.getFarmer();
         try {
             TimeUnit.MILLISECONDS.sleep((int) (1000 / FRAME_PER_SECOND) );
             ui.clearScreen();

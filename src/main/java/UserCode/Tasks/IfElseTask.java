@@ -21,9 +21,9 @@ public class IfElseTask extends Task {
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
         {
             if (checkCondition(farmio)) {
-                ifAction.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer());
+                ifAction.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer(), farmio.getSimulation());
             } else {
-                elseAction.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer());
+                elseAction.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer(), farmio.getSimulation());
             }
         }
     }

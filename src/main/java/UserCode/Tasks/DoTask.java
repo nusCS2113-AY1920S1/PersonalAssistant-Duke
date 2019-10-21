@@ -3,10 +3,8 @@ package UserCode.Tasks;
 import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
-import Places.Farm;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
-import FrontEnd.Ui;
 
 public class DoTask extends Task {
 
@@ -17,7 +15,7 @@ public class DoTask extends Task {
     @Override
     public void execute(Farmio farmio) throws FarmioFatalException, FarmioException {
         {
-            action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer());
+            action.execute(farmio.getUi(), farmio.getStorage(), farmio.getFarmer(), farmio.getSimulation());
         }
     }
 

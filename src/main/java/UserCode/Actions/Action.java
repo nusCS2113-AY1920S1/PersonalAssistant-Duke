@@ -3,6 +3,7 @@ package UserCode.Actions;
 import Exceptions.FarmioFatalException;
 import Farmio.Storage;
 import Exceptions.FarmioException;
+import FrontEnd.Simulation;
 import FrontEnd.Ui;
 import Farmio.Farmer;
 
@@ -18,7 +19,7 @@ public abstract class Action {
      * }
      **/
 
-    public abstract void execute(Ui ui, Storage storage, Farmer farmer) throws FarmioException, FarmioFatalException;
+    public abstract void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioException, FarmioFatalException;
 
     public static boolean validateAction(String userInput) {
         for (ActionType type : ActionType.values()) {
