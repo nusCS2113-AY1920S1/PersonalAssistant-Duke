@@ -11,7 +11,7 @@
     "Enter [Do GoToMarket} to instruct farmer John to go to the market.",
     "Enter [Start] to execute the user code."
   ],
-  "money": 100,
+  "money": 25,
   "wheat_seed": 0,
   "wheat_green": 0,
   "wheat_ripe": 0,

@@ -50,6 +50,7 @@ public class Ui {
 
     public void typeWriter(String text) { //use terminal to see full effects, in console only seem to beline by line..
         int i;
+        int lineLength = 0;
         System.out.print(">>> ");
         try{
             Thread.sleep(150);//0.5s pause between characters
@@ -57,6 +58,12 @@ public class Ui {
             Thread.currentThread().interrupt();
         }
         for(i = 0; i < text.length(); i++) {
+            lineLength ++;
+            if (lineLength > 95 && text.charAt(i) == ' ') {
+                System.out.println();
+                System.out.print("   ");
+                lineLength = 0;
+            }
             System.out.printf("%c", text.charAt(i));
             try{
                 Thread.sleep(60);//0.5s pause between characters

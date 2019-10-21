@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CommandDayNew extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
-        final String PATH = "Level1-01";
+        final String PATH = farmio.getLevel().getPath();
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         farmio.getUi().show("Press ENTER to start the day!");
