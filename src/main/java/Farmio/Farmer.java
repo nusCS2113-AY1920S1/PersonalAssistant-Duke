@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Farmer {
     private int money;
-    private int level;
+    private double level;
     private int day;
     private String location;
     protected WheatFarm wheatFarm;
@@ -60,7 +60,7 @@ public class Farmer {
         return money;
     }
 
-    public int getLevel() { return level;}
+    public double getLevel() { return level;}
 
     public int getDay() {return day;}
 
@@ -120,6 +120,7 @@ public class Farmer {
     }
 
     public int getCurrentTask() {return this.currentTask;}
+
     public void nextLevel(){
         ++this.level;
     }
