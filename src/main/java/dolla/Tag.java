@@ -28,18 +28,16 @@ public class Tag {
 
     private Boolean hasTag() {
         Boolean hasTag = false;
-        for (int i = 0; i < inputArray.length; i++) {
-            if (inputArray[i].equalsIgnoreCase(PREFIX_TAG)) {
-                tagIndex = i + (PREFIX_TAG.length());
-                hasTag = true;
-                break;
-            }
+        int arraySize = inputArray.length;
+        if (inputArray[arraySize - 2].equalsIgnoreCase((PREFIX_TAG))) {
+            tagIndex = arraySize - 1;
+            hasTag = true;
         }
         return hasTag;
     }
 
     private void findTag() {
-        tagName = inputLine.substring(tagIndex);
+        tagName = inputArray[tagIndex];
     }
 
     public void parseTag() {

@@ -58,6 +58,7 @@ public class MainParser {
 //        prevCommand[1] = "1";
 
         Tag tag = new Tag(inputLine);
+        tag.parseTag();
 
         switch (mode) {
         case "dolla":
