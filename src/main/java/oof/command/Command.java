@@ -66,7 +66,7 @@ public abstract class Command {
      * @return A string in the date format specified.
      */
     public String convertDateToString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         return format.format(date);
     }
 
@@ -78,7 +78,7 @@ public abstract class Command {
      * @throws ParseException Throws an exception if datetime cannot be parsed.
      */
     public Date convertStringToDate(String date) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(date);
+        return new SimpleDateFormat("HH:mm").parse(date);
     }
 
     /**
