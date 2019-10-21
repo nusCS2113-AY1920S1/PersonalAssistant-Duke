@@ -161,7 +161,6 @@ public class EventList {
             } else if (event.getType() == 'P') {
                 newEvent = new Practice(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(),
                         toFormatCalendarEndDate.getUserInputDateString());
-                tempEventList.add(newEvent);
             }
 
             if (clashEvent(newEvent) == null) {
