@@ -22,6 +22,7 @@ public class MarkDoneCommand extends Command {
     private int index;
     private final String helpText = "Please follow: done <index> /date <date> or "
             + "done <index> to mark done the indexed meal for current day.";
+
     /**
      * This is a constructor for MarkDoneCommand with the date specified.
      * @param indexStr the index of meal on the date to be marked as done.
@@ -39,9 +40,9 @@ public class MarkDoneCommand extends Command {
     }
 
     /**
-     * This is a constructor for MarkDoneCommand with the date unspecified
+     * This is a constructor for MarkDoneCommand with the date unspecified.
      * @param indexStr the index of meal on the today to be marked as done.
-     * @throws DukeException when parseInt is unable to parse the index
+     * @throws DukeException when parseInt is unable to parse the index.
      */
     public MarkDoneCommand(String indexStr) throws DukeException {
         try {
@@ -50,6 +51,7 @@ public class MarkDoneCommand extends Command {
             throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
     }
+
     /**
      * The object will execute the "mark done" command, updating the current meals, ui, and storage in the process.
      * @param mealList the MealList object to be marked done
@@ -67,6 +69,5 @@ public class MarkDoneCommand extends Command {
         ui.showDone(currentMeal, mealList.getMealsList(currentDate));
         ArrayList<Meal> currentMeals = mealList.getMealsList(currentDate);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
-//        ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
     }
 }

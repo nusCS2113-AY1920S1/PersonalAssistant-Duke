@@ -44,6 +44,7 @@ public class MealList {
         this.mealTracker.get(date).remove(index - 1);
         return deletedMeal;
     }
+
     /**
      * This function is used to mark done the task of a particular index.
      * @param date date of the meal to be marked done.
