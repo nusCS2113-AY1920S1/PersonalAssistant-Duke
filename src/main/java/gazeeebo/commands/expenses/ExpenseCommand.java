@@ -53,6 +53,7 @@ public class ExpenseCommand extends Command {
             }
             ui.ReadCommand();
         }
+        System.out.println("Go back to Main Menu");
     }
     @Override
     public boolean isExit() {

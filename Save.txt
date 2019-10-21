@@ -1,3 +1,3 @@
-D|D|return book|by: 2008-07-07 03:03:03
-E|ND|123 |at: 2019-03-04 12:12:12-13:13:13
-T|ND| 123
+D|ND|yearly assignment|by: 2019-01-01 01:01:01
+E|ND|project meeting|at: 2019-09-09 12:12:12-13:13:13
+P|ND|buy book |2019-09-09 and 2019-01-01

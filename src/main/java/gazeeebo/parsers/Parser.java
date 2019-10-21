@@ -1,6 +1,6 @@
 package gazeeebo.parsers;
 
-import gazeeebo.commands.Modules.ModuleCommand;
+//import gazeeebo.commands.Modules.ModuleCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
 import gazeeebo.exception.DukeException;
@@ -102,9 +102,10 @@ public class Parser {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
-        } else if(command.equals("modules")) {
-            return new ModuleCommand();
         }
+//        else if(command.equals("modules")) {
+//            return new ModuleCommand();
+
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

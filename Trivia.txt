@@ -5,3 +5,11 @@ deadline return book /by 2019-10-10 09:09:09
 todo dinner
 snooze 1
 deadline return book /by 2008-07-07 03:03:03
+
+deadline yearly assignment 2019-09-09 01:01:01
+deadline yearly assignment /by 2019-01-01 01:01:01
+deadline yearly assignment 2019-01-01 01:01:01
+deadline yearly assignment /by 2019-01-01 01:01:01
+event project meeting /at 2019-09-09 12:12:12-13:13:13
+deadline list
+event list
