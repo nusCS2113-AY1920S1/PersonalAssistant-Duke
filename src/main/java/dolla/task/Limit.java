@@ -7,18 +7,13 @@ import dolla.Ui;
  */
 public class Limit extends Log {
 
-    protected LimitType type;
+    protected String type;
     protected double amount;
-    protected Duration duration;
+    protected String duration;
     protected String saveType;
 
-    public enum LimitType {
-        SAVING, BUDGET
-    }
-
-    public enum Duration {
-        DAY, WEEK, MONTH
-    }
+    String[] LimitType = {"saving", "budget"};
+    String[] Duration = {"day", "week", "month"};
 
     /**
      * Creates an instance of Limit.
@@ -26,7 +21,7 @@ public class Limit extends Log {
      * @param amount Amount of money to be limited.
      * @param duration Duration of the limit.
      */
-    public Limit(LimitType type, double amount, Duration duration) {
+    public Limit(String type, double amount, String duration) {
         this.type = type;
         this.amount = amount;
         this.duration = duration;
@@ -59,7 +54,7 @@ public class Limit extends Log {
      */
 
     public void AddLimit(Limit limit, LimitList limitList) {
-        if (limit.type.equals(LimitType.BUDGET) || limit.type.equals(LimitType.SAVING)) {
+        if (limit.type.equals(LimitType[0]) || limit.type.equals(LimitType[1])) {
             //dosmth
             //check if limit exists in limitlist
         } else {

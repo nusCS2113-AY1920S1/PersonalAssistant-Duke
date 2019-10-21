@@ -9,11 +9,11 @@ import dolla.ui.LimitUi;
  */
 public class AddLimitCommand extends Command {
 
-    private Limit.LimitType type;
+    private String type;
     private double amount;
-    private Limit.Duration duration;
+    private String duration;
 
-    public AddLimitCommand(Limit.LimitType type, double amount, Limit.Duration duration) {
+    public AddLimitCommand(String type, double amount, String duration) {
         this.type = type;
         this.amount = amount;
         this.duration = duration;

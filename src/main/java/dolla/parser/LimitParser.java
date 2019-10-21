@@ -13,18 +13,19 @@ public class LimitParser extends Parser {
         super(inputLine);
     }
 
-    protected enum CommandType {
-        LIMITS, SET, REMOVE
-    }
+    String[] CommandType = {"limits", "set", "remove"};
+    String[] LimitType = {"saving", "budget"};
+    String[] Duration = {"day", "week", "month"};
+
 
     @Override
     public Command handleInput(String mode, String inputLine) {
-        if (commandToRun.equals(CommandType.LIMITS)) { //show limit list
+        if (commandToRun.equals(CommandType[0])) { //show limit list
             return new ShowListCommand(mode);
-        } else if (commandToRun.equals(CommandType.SET)) { //add limit
-            Limit.LimitType limitType = null;
+        } else if (commandToRun.equals(CommandType[1])) { //add limit
+            String limitType = null;
             double amount = 0.0;
-            Limit.Duration duration = null;
+            String duration = null;
             try {
                 limitType = typeFinder();
                 amount = amountFinder();
@@ -38,10 +39,10 @@ public class LimitParser extends Parser {
             }
             return new AddLimitCommand(limitType, amount, duration);
 
-        } else if (commandToRun.equals(CommandType.REMOVE)) { //REMOVE DAILY BUDGET etc
+        } else if (commandToRun.equals(CommandType[2])) { //REMOVE DAILY BUDGET etc
             //remove limit command
-            Limit.LimitType limitType = null;
-            Limit.Duration duration = null;
+            String limitType = null;
+            String duration = null;
             try {
                 limitType = typeFinder();
                 duration = durationFinder();
@@ -69,13 +70,13 @@ public class LimitParser extends Parser {
      * Method finds the type of limit being mentioned.
      * @return SAVING or BUDGET
      */
-    private Limit.LimitType typeFinder() {
-        Limit.LimitType limitType = null;
+    private String typeFinder() {
+        String limitType = null;
         String limitTypeStr = inputArray[1];
-        if (limitTypeStr.equals(Limit.LimitType.SAVING)) {
-            limitType = Limit.LimitType.SAVING;
-        } else if (limitTypeStr.equals(Limit.LimitType.BUDGET)) {
-            limitType = Limit.LimitType.BUDGET;
+        if (limitTypeStr.equals(LimitType[0])) {
+            limitType = LimitType[0];
+        } else if (limitTypeStr.equals(LimitType[1])) {
+            limitType = LimitType[1];
         }
         return limitType;
     }
@@ -86,15 +87,15 @@ public class LimitParser extends Parser {
         return amount;
     }
 
-    private Limit.Duration durationFinder() {
-        Limit.Duration duration = null;
+    private String durationFinder() {
+        String duration = null;
         String durationStr = inputArray[3];
-        if (durationStr.equals(Limit.Duration.DAY)) {
-            duration = duration.DAY;
-        } else if (durationStr.equals(Limit.Duration.WEEK)) {
-            duration = duration.WEEK;
-        } else if (durationStr.equals(Limit.Duration.MONTH)) {
-            duration = duration.MONTH;
+        if (durationStr.equals(Duration[0])) {
+            duration = Duration[0];
+        } else if (durationStr.equals(Duration[1])) {
+            duration = Duration[0];
+        } else if (durationStr.equals(Duration[2])) {
+            duration = Duration[2];
         }
         return duration;
     }

@@ -98,7 +98,7 @@ public class DollaData {
         return modifyIndex;
     }
 
-    public void removeLimit(Limit.LimitType type, Limit.Duration duration) {
+    public void removeLimit(String type, String duration) {
         //remove limit from list
     }
 

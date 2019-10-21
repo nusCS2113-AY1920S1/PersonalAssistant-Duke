@@ -6,10 +6,10 @@ import dolla.ui.LimitUi;
 
 public class RemoveLimitCommand extends Command {
 
-    private Limit.LimitType type;
-    private Limit.Duration duration;
+    private String type;
+    private String duration;
 
-    public RemoveLimitCommand(Limit.LimitType type, Limit.Duration duration) {
+    public RemoveLimitCommand(String type, String duration) {
         this.type = type;
         this.duration = duration;
     }

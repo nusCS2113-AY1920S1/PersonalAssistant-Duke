@@ -21,7 +21,7 @@ public class LimitUi extends Ui {
         System.out.println(line);
     }
 
-    public static void echoRemoveLimit(Limit.LimitType type, Limit.Duration duration) {
+    public static void echoRemoveLimit(String type, String duration) {
         System.out.println(line);
         System.out.println("\tGot it. I've removed this Limit: ");
         System.out.println("\t" + type + " every " + duration);
