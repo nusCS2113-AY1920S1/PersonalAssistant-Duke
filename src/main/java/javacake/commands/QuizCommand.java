@@ -1,6 +1,7 @@
 package javacake.commands;
 
 import javacake.Duke;
+import javacake.Parser;
 import javacake.exceptions.DukeException;
 import javacake.storage.Profile;
 import javacake.ProgressStack;
@@ -125,6 +126,7 @@ public class QuizCommand extends Command {
             Question question = chosenQuestions.get(i);
             ui.displayQuiz(question.getQuestion(), i + 1, MAX_QUESTIONS);
             String userAnswer = ui.readCommand();
+            chosenQuestions.get(i).setUserAnswer(userAnswer);
             if (question.isAnswerCorrect(userAnswer)) {
                 currScore++;
             }
@@ -138,7 +140,13 @@ public class QuizCommand extends Command {
         overwriteOldScore(currScore, profile);
 
         ui.displayResults(currScore, MAX_QUESTIONS);
-        return "";
+        String nextCommand = ui.readCommand();
+        if (nextCommand.equals("review")) {
+            return new ReviewCommand(chosenQuestions).execute(progressStack, ui, storage, profile);
+        } else {
+            Command newCommand = Parser.parse(nextCommand);
+            return newCommand.execute(progressStack, ui, storage, profile);
+        }
     }
 
     /**

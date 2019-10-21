@@ -106,7 +106,7 @@ public class Duke  {
                 Command c = Parser.parse(fullCommand);
                 ui.showMessage(c.execute(progressStack, ui, storage, profile));
                 isExit = c.isExit();
-            } catch (DukeException | IOException e) {
+            } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -125,7 +125,7 @@ public class Duke  {
         try {
             Command c = Parser.parse(input);
             return c.execute(progressStack, ui, storage, profile);
-        } catch (DukeException | IOException e) {
+        } catch (DukeException e) {
             return e.getMessage();
         }
     }

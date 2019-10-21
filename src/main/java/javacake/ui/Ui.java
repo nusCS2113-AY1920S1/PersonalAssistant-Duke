@@ -2,7 +2,7 @@ package javacake.ui;
 
 import javacake.commands.QuizCommand;
 import javacake.exceptions.DukeException;
-import javacake.quiz.QuestionList;
+import javacake.quiz.Question;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -169,6 +169,7 @@ public class Ui {
             System.out.println("Congrats! Full marks, you're amazing!");
         }
 
+        System.out.println("Type \"review\" to review your answers.");
         System.out.println("Type \"back\" to go back to the table of contents.");
     }
 
@@ -193,5 +194,19 @@ public class Ui {
         }
         str.append(" ").append(progress).append("%\n");
         return  str.toString();
+    }
+
+    /**
+     * Displays a question, along with the user's answer and the correct answer.
+     * @param question the question to display. User's answer must not be null.
+     * @param index the current question the user is on.
+     * @param maxQuestions the maximum number of questions in the quiz session.
+     */
+    public void displayReview(Question question, int index, int maxQuestions) {
+        System.out.println("Enter a number to go to that question. Type \"back\" to go back to table of contents.");
+        displayQuiz(question.getQuestion(), index, maxQuestions);
+        System.out.println("\n");
+        System.out.println("Your answer: " + question.getUserAnswer());
+        System.out.println("Correct answer: " + question.getAnswer());
     }
 }
