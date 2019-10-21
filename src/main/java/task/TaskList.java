@@ -143,7 +143,6 @@ public class TaskList {
         return taskHasLocation;
     }
 
-
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
@@ -160,6 +159,24 @@ public class TaskList {
         }
         Collections.sort(sortedDateList, DateComparator);
         return sortedDateList;
+    }
+
+    /**
+     * This function allows the user to obtain the tasks on a particular date.
+     *
+     * @param dayToFind is of String type which contains the desired date of
+     *                  schedule.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     */
+    public ArrayList<String> scheduleForDay(String dayToFind) {
+        ArrayList<Task> obtainDescriptions = schedule(dayToFind);
+        ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
+        for (int i = 0; i < obtainDescriptions.size(); i++) {
+            if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split(" ",2)[0].trim());
+            }
+        }
+        return scheduleDescriptionOnly;
     }
 
     /**

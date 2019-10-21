@@ -48,6 +48,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox todayTaskContainer;
     @FXML
+    private ScrollPane mondayScrollPane;
+    @FXML
+    private ScrollPane tuesdayScrollPane;
+    @FXML
+    private ScrollPane wednesdayScrollPane;
+    @FXML
+    private ScrollPane thursdayScrollPane;
+    @FXML
+    private ScrollPane fridayScrollPane;
+    @FXML
+    private ScrollPane saturdayScrollPane;
+    @FXML
+    private ScrollPane sundayScrollPane;
+    @FXML
     private TextField userInput;
     @FXML
     private Button sendButton;
@@ -56,19 +70,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private ListView<Task> tasksForTheDay;
     @FXML
-    private ListView<Task> mondayTask;
+    private ListView<String> mondayTask;
     @FXML
-    private ListView<Task> tuesdayTask;
+    private ListView<String> tuesdayTask;
     @FXML
-    private ListView<Task> wednesdayTask;
+    private ListView<String> wednesdayTask;
     @FXML
-    private ListView<Task> thursdayTask;
+    private ListView<String> thursdayTask;
     @FXML
-    private ListView<Task> fridayTask;
+    private ListView<String> fridayTask;
     @FXML
-    private ListView<Task> saturdayTask;
+    private ListView<String> saturdayTask;
     @FXML
-    private ListView<Task> sundayTask;
+    private ListView<String> sundayTask;
 
     /**
      * Allocation of the images for the chat bot.
@@ -81,13 +95,13 @@ public class MainWindow extends AnchorPane {
     private static TaskList tasks;
     private static File file = new File(filePath);
     private static ObservableList<Task> holdTodayTasks;
-    private static ObservableList<Task> mondayTasks;
-    private static ObservableList<Task> tuesdayTasks;
-    private static ObservableList<Task> wednesdayTasks;
-    private static ObservableList<Task> thursdayTasks;
-    private static ObservableList<Task> fridayTasks;
-    private static ObservableList<Task> saturdayTasks;
-    private static ObservableList<Task> sundayTasks;
+    private static ObservableList<String> mondayTasks;
+    private static ObservableList<String> tuesdayTasks;
+    private static ObservableList<String> wednesdayTasks;
+    private static ObservableList<String> thursdayTasks;
+    private static ObservableList<String> fridayTasks;
+    private static ObservableList<String> saturdayTasks;
+    private static ObservableList<String> sundayTasks;
 
     /**
      * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
@@ -181,13 +195,34 @@ public class MainWindow extends AnchorPane {
         String saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Saturday)));
         String sunday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)));
 
-        mondayTasks = FXCollections.observableArrayList(tasks.schedule(monday));
-        tuesdayTasks = FXCollections.observableArrayList(tasks.schedule(tuesday));
-        wednesdayTasks = FXCollections.observableArrayList(tasks.schedule(wednesday));
-        thursdayTasks = FXCollections.observableArrayList(tasks.schedule(thursday));
-        fridayTasks = FXCollections.observableArrayList(tasks.schedule(friday));
-        saturdayTasks = FXCollections.observableArrayList(tasks.schedule(saturday));
-        sundayTasks = FXCollections.observableArrayList(tasks.schedule(sunday));
+        Integer sundayDate = Integer.parseInt(sunday.split("/", 2)[0].trim());
+
+        if(Integer.parseInt(monday.split("/", 2)[0].trim()) > sundayDate) {
+            monday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Monday)));
+        }
+        else if(Integer.parseInt(tuesday.split("/", 2)[0].trim()) > sundayDate) {
+           tuesday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Tuesday)));
+        }
+        else if(Integer.parseInt(wednesday.split("/", 2)[0].trim()) > sundayDate) {
+            wednesday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Wednesday)));
+        }
+        else if(Integer.parseInt(thursday.split("/", 2)[0].trim()) > sundayDate) {
+            thursday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Thursday)));
+        }
+        else if(Integer.parseInt(friday.split("/", 2)[0].trim()) > sundayDate) {
+            friday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Friday)));
+        }
+        else if(Integer.parseInt(saturday.split("/", 2)[0].trim()) > sundayDate) {
+            saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Saturday)));
+        }
+
+        mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
+        tuesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(tuesday));
+        wednesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(wednesday));
+        thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(thursday));
+        fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(friday));
+        saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(saturday));
+        sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
     }
 
 }
