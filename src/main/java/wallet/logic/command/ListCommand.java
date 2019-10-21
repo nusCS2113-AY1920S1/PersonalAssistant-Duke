@@ -3,6 +3,7 @@ package wallet.logic.command;
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.ui.Ui;
 
 import java.text.DateFormatSymbols;
@@ -20,6 +21,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_LIST_CONTACTS = "Here are the contacts in your list:";
     public static final String MESSAGE_LIST_EXPENSES = "Here are the expenses in your list:";
     public static final String MESSAGE_LIST_NO_EXPENSES = "There are no expenses for ";
+    public static final String MESSAGE_LIST_NO_LOANS = "There are no loans for ";
     public static final String MESSAGE_LIST_RECURRING_EXPENSES = "Here are the recurring expenses in your list:";
     public static final String MESSAGE_LIST_LOANS = "Here are the loans in your list:";
     public static final String MESSAGE_USAGE = "Error in format for command."
@@ -84,28 +86,45 @@ public class ListCommand extends Command {
             LocalDate date = LocalDate.parse(record.trim(), formatter);
 
             ArrayList<Expense> expensesList = new ArrayList<Expense>();
+            ArrayList<Loan> loansList = new ArrayList<>();
 
-            if (!date.equals(null) && wallet.getExpenseList().getExpenseList().size() != 0) {
-                for (Expense e : wallet.getExpenseList().getExpenseList()) {
-                    if (e.getDate().equals(date)) {
-                        expensesList.add(e);
+            if (!date.equals(null)) {
+                if (wallet.getExpenseList().getExpenseList().size() != 0
+                        || wallet.getLoanList().getLoanList().size() != 0) {
+                    if (wallet.getExpenseList().getExpenseList().size() != 0) {
+                        for (Expense e : wallet.getExpenseList().getExpenseList()) {
+                            if (e.getDate().equals(date)) {
+                                expensesList.add(e);
+                            }
+                        }
+
+                        if (expensesList.size() != 0) {
+                            Ui.printExpenseTable(expensesList);
+                        } else {
+                            System.out.println(MESSAGE_LIST_NO_EXPENSES
+                                    + date.getDayOfMonth() + " "
+                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                    + " " + date.getYear());
+                        }
+                    }
+
+                    if (wallet.getLoanList().getLoanList().size() != 0) {
+                        for (Loan l : wallet.getLoanList().getLoanList()) {
+                            if (l.getDate().equals(date)) {
+                                loansList.add(l);
+                            }
+                        }
+
+                        if (loansList.size() != 0) {
+                            //Ui.printLoansTable(loansList);
+                        } else {
+                            System.out.println(MESSAGE_LIST_NO_LOANS
+                                    + date.getDayOfMonth() + " "
+                                    + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
+                                    + " " + date.getYear());
+                        }
                     }
                 }
-
-                if (expensesList.size() != 0) {
-                    Ui.printExpenseTable(expensesList);
-                } else {
-                    System.out.println(MESSAGE_LIST_NO_EXPENSES
-                            + date.getDayOfMonth() + " "
-                            + new DateFormatSymbols().getMonths()[date.getMonthValue() - 1]
-                            + " " + date.getYear());
-                }
-                /*for (Loan l : wallet.getLoanList().getLoanList()) {
-                    if (l.getDate().equals(date)) {
-                        System.out.println(l.toString());
-                    }
-                }*/
-                break;
             } else {
                 System.out.println(MESSAGE_USAGE);
             }

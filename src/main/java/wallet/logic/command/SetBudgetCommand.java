@@ -3,7 +3,11 @@ package wallet.logic.command;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
 import wallet.model.record.BudgetList;
+import wallet.model.record.Expense;
+
 import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.util.Scanner;
 
 /**
  * The SetCommand Class deals with the 'set' command.
@@ -20,6 +24,9 @@ public class SetBudgetCommand extends Command {
     public static final String MESSAGE_REMOVE_BUDGET = "You have successfully removed your budget for ";
     public static final String MESSAGE_NO_BUDGET_TO_REMOVE = "There is no budget for removal";
     public static final String MESSAGE_NO_NEGATIVE_BUDGET = "Budget must be more than or equals to zero";
+    public static final String MESSAGE_EXISTING_EXPENSES = "There are existing expenses for ";
+    public static final String MESSAGE_ADD_EXISTING_EXPENSES = "Would you like to add them into the budget? (Yes/No)";
+    public static final String MESSAGE_YES_OR_NO = "Please reply with a Yes or No (Not case sensitive)";
 
     private Budget budget = null;
 
@@ -59,9 +66,40 @@ public class SetBudgetCommand extends Command {
                     } else {
                         wallet.getBudgetList().addBudget(budget);
                     }
-                    System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
-                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
-                    updateSaveFile(wallet);
+
+                    for (Expense e : wallet.getExpenseList().getExpenseList()) {
+                        LocalDate expenseDate = e.getDate();
+                        if (expenseDate.getMonthValue() == budget.getMonth()
+                                && expenseDate.getYear() == budget.getYear()) {
+                            System.out.println(MESSAGE_EXISTING_EXPENSES
+                                    + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                    + " " + budget.getYear());
+                            System.out.println(MESSAGE_ADD_EXISTING_EXPENSES);
+                            Scanner scanner = new Scanner(System.in);
+                            String reply = scanner.nextLine().toLowerCase();
+                            while (!reply.equals("yes") || !reply.equals("no")) {
+                                if (reply.equals("yes")) {
+                                    budget.setAmount(budget.getAmount()
+                                            - wallet.getExpenseList().getMonthExpenses(budget.getMonth(),
+                                            budget.getYear()));
+                                    System.out.println("Alright, " + budget.getAmount() + MESSAGE_SET_BUDGET
+                                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                            + " " + budget.getYear());
+                                    updateSaveFile(wallet);
+                                    break;
+                                } else if (reply.equals("no")) {
+                                    System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
+                                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                            + " " + budget.getYear());
+                                    updateSaveFile(wallet);
+                                    break;
+                                } else {
+                                    System.out.println(MESSAGE_YES_OR_NO);
+                                    reply = scanner.nextLine().toLowerCase();
+                                }
+                            }
+                        }
+                    }
                     if (index != -1) {
                         System.out.println(MESSAGE_EDIT_BUDGET
                                 + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
