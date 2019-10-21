@@ -3,7 +3,9 @@ package duke.relation;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import duke.core.DukeException;
+import duke.patient.Patient;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,7 @@ public class PatientTaskList {
      * An ArrayList structure.
      */
     private Multimap<Integer, PatientTask> patientTaskIdMap = ArrayListMultimap.create();
+    int maxId = 0;
 
     /**
      * .
@@ -23,7 +26,15 @@ public class PatientTaskList {
      */
     public PatientTaskList(ArrayList<PatientTask> newPatientTaskList) {
         for (PatientTask patientTasK : newPatientTaskList) {
+            if (patientTasK.getUid() == 0) {
+                maxId += 1;
+                patientTasK.setUid(maxId);
+            }
             patientTaskIdMap.put(patientTasK.getPatientId(), patientTasK);
+        }
+
+        if (!newPatientTaskList.isEmpty()) {
+            this.maxId = newPatientTaskList.get(newPatientTaskList.size() - 1).getUid();
         }
     }
 
@@ -42,30 +53,57 @@ public class PatientTaskList {
      * @param t .
      */
     public void addPatientTask(PatientTask t) {
+        if (t.getUid() == 0) {
+            maxId += 1; //Increment maxId by 1 for the new coming patient
+            t.setUid(maxId); //Set the unique id to patient
+        }
         patientTaskIdMap.put(t.getPatientId(), t);
+    }
+
+
+    /**
+     * .
+     *
+     * @param uid .
+     * @throws DukeException .
+     */
+    public void deletePatientTaskByUniqueId(int uid) throws DukeException {
+        for (PatientTask patientTask : patientTaskIdMap.values()) {
+            if (patientTask.getUid() == uid) {
+                patientTaskIdMap.remove(patientTask.getPatientId(), patientTask);
+                return;
+            }
+        }
+        throw new DukeException("Such Task does not exist!");
+    }
+
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public boolean isIdExist(int id) {
+        for (PatientTask patientTask: patientTaskIdMap.values()) {
+            if (patientTask.getUid() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * .
      *
-     * @param pid .
-     * @param tid .
-     * @throws DukeException .
+     * @return .
      */
-    public void deletePatientTask(Integer pid, Integer tid) throws DukeException {
-
-        if (patientTaskIdMap.containsKey(pid)) {
-            for (PatientTask patientTask : patientTaskIdMap.get(pid)) {
-                if (patientTask.getTaskID().equals(tid)) {
-                    patientTaskIdMap.remove(pid, patientTask);
-                } else {
-                    throw new DukeException(
-                            "The patient with id: " + pid + " has not been assigned with such task: " + tid);
-                }
+    public boolean isSameTaskExist(PatientTask patientTask) {
+        for (PatientTask newPatientTask: patientTaskIdMap.values()) {
+            if (newPatientTask.equals(patientTask)) {
+                return true;
             }
-        } else {
-            throw new DukeException("Patient id: " + pid + " does not have any tasks!");
         }
+        return false;
     }
 
     /**

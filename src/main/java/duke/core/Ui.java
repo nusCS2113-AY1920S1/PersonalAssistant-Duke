@@ -273,6 +273,19 @@ public class Ui {
     /**
      * It lists out all info of patients.
      *
+     * @param patient the patients to be listed out
+     * @param patientTask the patients to be listed out
+     */
+    public void patientTaskDeleted(PatientTask patientTask, Patient patient) {
+        System.out.println("Got it. The task with ");
+        System.out.println(patientTask.toString());
+        System.out.println("has been deleted from patient: " + patient.getID() + " " + patient.getName());
+    }
+
+
+    /**
+     * It lists out all info of patients.
+     *
      * @param patients the patients to be listed out
      */
     public void listAllPatients(ArrayList<Patient> patients) {

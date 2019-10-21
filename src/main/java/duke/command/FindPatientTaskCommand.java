@@ -66,7 +66,7 @@ public class FindPatientTaskCommand extends Command {
                 }
                 ui.patientTaskFound(patient, patientTask, tempTask);
             } catch (Exception e) {
-                throw new DukeException("Please follow the format 'find patient task #<id>' or 'find patient <name>'.");
+                throw new DukeException("Please follow the format 'find patient task #<id>' or 'find patient task <name>'.");
             }
         } else {
             String name = patientTaskInfo.toLowerCase();
@@ -86,7 +86,7 @@ public class FindPatientTaskCommand extends Command {
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
             } catch (Exception e) {
                 throw new DukeException(e.getMessage()
-                        + "Please follow the format 'find patient task #<id>' or 'find patient <name>'.");
+                        + "Please follow the format 'find patient task #<id>' or 'find patient task <name>'.");
             }
         }
     }
@@ -96,4 +96,5 @@ public class FindPatientTaskCommand extends Command {
     public boolean isExit() {
         return false;
     }
+
 }
