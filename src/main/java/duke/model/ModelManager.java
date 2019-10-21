@@ -10,6 +10,7 @@ import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -173,6 +174,28 @@ public class ModelManager implements Model {
     public void updateFilteredSaleList(Predicate<Sale> predicate) {
         requireNonNull(predicate);
         filteredSales.setPredicate(predicate);
+    }
+
+    @Override
+    public void addSaleFromOrder(Order order) {
+        String description = "Order " + order.getId() + " completed.";
+        double value = order.getTotal();
+        Date deliveryDate = order.getDeliveryDate();
+        String remarks = order.getRemarks();
+        bakingHome.addSale(new Sale(description, value, deliveryDate, remarks));
+        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
+    }
+
+    @Override
+    public void addSaleFromShopping(/*String purchaseDescription, double purchaseValue, Date purchaseDate, String purchaseRemarks*/) {
+        /*
+        String description = "Purchased ingredients!" + purchaseDescription;
+        double value = purchaseValue;
+        Date date = purchaseDate;
+        String remarks = purchaseRemarks;
+        bakingHome.addSale(new Sale(description, value, date, remarks));
+        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
+         */
     }
 
     //========Product operations==========
