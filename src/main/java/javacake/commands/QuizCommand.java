@@ -37,16 +37,16 @@ public class QuizCommand extends Command {
 
 
     /**
-     * QuizCommand constructor for topic-based quiz
+     * QuizCommand constructor for topic-based quiz.
      * @param questionType the topic of the quiz.
      */
-    public QuizCommand(Question.QuestionType questionType, Boolean isCLI) throws DukeException {
+    public QuizCommand(Question.QuestionType questionType, Boolean isCli) throws DukeException {
         type = CmdType.QUIZ;
         chosenQuestions = new ArrayList<>();
         qnType = questionType;
-        if (!isCLI) {
+        if (!isCli) {
             this.filePath = progressStack.getFullFilePath();
-            runGUI();
+            runGui();
         }
     }
 
@@ -56,8 +56,6 @@ public class QuizCommand extends Command {
 
     /**
      * Method to get all questions in the given directory.
-     * @return
-     * @throws DukeException
      */
     public void getQuestions() throws DukeException {
 
@@ -85,8 +83,7 @@ public class QuizCommand extends Command {
 
 
     /**
-     * Randomly selects MAX_QUESTIONS number of questions of the specified topic from the list of all questions.
-     * @return ArrayList of Question of specified topic of size MAX_QUESTIONS.
+     * Randomly selects MAX_QUESTIONS number of questions of the specified topic from the list of all questions..
      */
     public void pickQuestions() throws DukeException {
         ArrayList<Question> tempList = questionList;
@@ -145,11 +142,10 @@ public class QuizCommand extends Command {
     }
 
     /**
-     * Method to execute but for GUI
-     * @throws DukeException
+     * Method to execute but for GUI.
      */
 
-    public void runGUI() throws DukeException {
+    public void runGui() throws DukeException {
         totalNumOfQns = progressStack.getNumOfFiles();
         getQuestions();
         pickQuestions();

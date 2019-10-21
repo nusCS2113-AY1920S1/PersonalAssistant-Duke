@@ -15,13 +15,16 @@ public class GoToCommand extends Command {
 
     private Queue<String> index = new LinkedList<>();
 
+    /**
+     * constructor for goto command. Contains a queue of index in which user wants to navigate into.
+     * @param inputCommand Parsed goto command by user
+     */
     public GoToCommand(String inputCommand) {
-        //String[] buffer = inputCommand.split("\\s+");
         if (inputCommand.matches("\\d+")) { //check if input is numeric
             index.add(inputCommand);
         } else {
             String[] buffer = inputCommand.split("\\.");
-            for (int i=0; i<buffer.length; i++) {
+            for (int i = 0; i < buffer.length; i++) {
                 index.add(buffer[i]);
             }
         }
@@ -42,7 +45,7 @@ public class GoToCommand extends Command {
         if (filePath.contains("Quiz")) {
             if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.BASIC ,Duke.isCliMode())
+                    return new QuizCommand(Question.QuestionType.BASIC, Duke.isCliMode())
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
@@ -84,13 +87,13 @@ public class GoToCommand extends Command {
         }
         progressStack.insertQueries();
         if (progressStack.containsDirectory()) {
-            if(index.size() != 0) {
+            if (index.size() != 0) {
                 return execute(progressStack, ui, storage, profile);
             }
             return (progressStack.displayDirectories());
         } else {
             progressStack.updateFilePath(progressStack.gotoFilePath(0));
-            if(index.size() != 0) {
+            if (index.size() != 0) {
                 return execute(progressStack, ui, storage, profile);
             }
             return (progressStack.readQuery());

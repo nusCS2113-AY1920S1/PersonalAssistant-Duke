@@ -206,7 +206,7 @@ public class MainWindow extends AnchorPane {
             quizCommand = new QuizCommand(Question.QuestionType.BASIC, false);
             break;
         case "!@#_QUIZ_2":
-            quizCommand = new QuizCommand(Question.QuestionType.OOP , false);
+            quizCommand = new QuizCommand(Question.QuestionType.OOP, false);
             break;
         case "!@#_QUIZ_3":
             quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS, false);
