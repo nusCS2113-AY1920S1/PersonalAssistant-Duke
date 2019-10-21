@@ -1,4 +1,8 @@
 //@@author LL-Pengfei
+/**
+ * DeleteCommand.java
+ * Support commands related to delete.
+ */
 package cube.logic.command;
 
 import cube.model.FoodList;
@@ -34,7 +38,6 @@ public class DeleteCommand extends Command{
 	 * The default constructor, empty since parameters are required to perform delete command.
 	 */
 	public DeleteCommand() {
-
 	}
 
 	/**

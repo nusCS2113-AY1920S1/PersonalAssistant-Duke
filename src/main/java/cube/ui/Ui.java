@@ -1,4 +1,8 @@
 //@@author LL-Pengfei
+/**
+ * Ui.java
+ * Support user interaction.
+ */
 package cube.ui;
 
 import cube.logic.command.CommandResult;
