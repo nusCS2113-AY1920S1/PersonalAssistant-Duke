@@ -20,8 +20,8 @@ public class PriorityParser extends IndexParser {
     private String extractPriority(String taskFeatures) throws DukeException {
         String priorityString;
         try {
-            String[] priorityCommandParts = taskFeatures.split(" ", 2);
-            priorityString = priorityCommandParts[1];
+            String[] priorityCommandParts = taskFeatures.split("\\s+", 2);
+            priorityString = priorityCommandParts[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(DukeException.emptyPriorityLevel());
         }

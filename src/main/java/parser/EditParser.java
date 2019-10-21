@@ -18,8 +18,8 @@ public class EditParser extends IndexParser {
     }
 
     private String extractNewDescription(String taskFeatures) throws DukeException {
-        String[] editCommandParts = taskFeatures.split(" ", 2);
-        String newDescription = editCommandParts[1];
+        String[] editCommandParts = taskFeatures.split("\\s+", 2);
+        String newDescription = editCommandParts[1].trim();
         if (newDescription.isEmpty()) {
             throw new DukeException(DukeException.emptyUserDescription());
         }
