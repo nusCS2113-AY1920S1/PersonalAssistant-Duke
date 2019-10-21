@@ -110,7 +110,8 @@ class ProjectInputControllerTest {
     @Test
     void testProjectAddTask() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
+                + "r/do something r/do another thing";
         projectInputController.projectAddTask(project,simulatedUserinput);
 
         // the following test fails
@@ -129,15 +130,15 @@ class ProjectInputControllerTest {
         for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        /*expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
-                "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE" +
-                "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN" +
-                "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
+        /*expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
+                + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
+                + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
          */
 
-        expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
-                "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN" +
-                "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
+        expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
+                + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
 
 
         assertEquals(expectedOutput,actualOutput);
@@ -146,11 +147,13 @@ class ProjectInputControllerTest {
     @Test
     void testProjectEditTask() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
+                + "r/do something r/do another thing";
         projectInputController.projectAddTask(project,simulatedUserinput);
 
         // the following test fails
-        /*simulatedUserinput = "edit task i/1 t/No documentation p/5 d/22/09/2019 c/50 s/done r/do nothing r/do another thing";
+        /*simulatedUserinput = "edit task i/1 t/No documentation p/5 d/22/09/2019 c/50 s/done "
+                    + "r/do nothing r/do another thing";
         projectInputController.projectEditTask(project,simulatedUserinput);
         actualOutput = "";
         for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
@@ -164,7 +167,8 @@ class ProjectInputControllerTest {
     @Test
     void testProjectDeleteTask() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
+                + "r/do something r/do another thing";
         projectInputController.projectAddTask(project,simulatedUserinput);
         simulatedUserinput = "delete task 1";
         projectInputController.projectDeleteTask(project,simulatedUserinput);
@@ -179,7 +183,8 @@ class ProjectInputControllerTest {
     @Test
     void testProjectEditTaskRequirements() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo r/do something r/do another thing";
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
+                + "r/do something r/do another thing";
         projectInputController.projectAddTask(project,simulatedUserinput);
 
         simulatedUserinput = "edit task requirements i/1 r/do nothing";
@@ -188,8 +193,8 @@ class ProjectInputControllerTest {
         for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
-                "1. do something2. do another thing3. do nothing";
+        expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
+                + "1. do something2. do another thing3. do nothing";
         assertEquals(expectedOutput,actualOutput);
 
         simulatedUserinput = "edit task requirements i/1 rm/1 2 r/do everything";
@@ -198,13 +203,28 @@ class ProjectInputControllerTest {
         for (String message : project.getTask(1).getTaskRequirements().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO" +
-                "1. do nothing2. do everything";
+        expectedOutput = "Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
+                + "1. do nothing2. do everything";
         assertEquals(expectedOutput,actualOutput);
     }
 
     @Test
     void testProjectAssignTask() {
-        
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserinput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
+                + "r/do something r/do another thing";
+        projectInputController.projectAddTask(project,simulatedUserinput);
+        simulatedUserinput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
+        projectInputController.projectAddMember(project,simulatedUserinput);
+        simulatedUserinput = "add member n/Dillen i/911 e/dillen@hotmail.com";
+        projectInputController.projectAddMember(project,simulatedUserinput);
+        simulatedUserinput = "assign task -i 1 -to 1 2";
+        projectInputController.projectAssignTask(project,simulatedUserinput);
+        actualOutput = "";
+        for (String message : project.getAssignedTaskList().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "Documentation for product is assigned to: Jerry ZhangDillen";
+        assertEquals(expectedOutput,actualOutput);
     }
 }
