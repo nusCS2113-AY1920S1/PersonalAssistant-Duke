@@ -34,7 +34,7 @@ public class Ui {
      * @param toPrint the message need to be printed
      */
     public static void print(String toPrint) {
-        Window.outputArea.setText(toPrint);
+        Window.outputArea.setText(Window.outputArea.getText() +  "\n\n" + toPrint);
         System.out.println(horizontalLine);
         toPrint = "\t" + toPrint;
         for (int i = 0; i < toPrint.length(); i++) {
