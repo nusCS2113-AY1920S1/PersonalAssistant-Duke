@@ -120,7 +120,7 @@ public class ListCommand extends Command {
                         }
 
                         if (loansList.size() != 0) {
-                            //Ui.printLoansTable(loansList);
+                            Ui.printLoanTable(loansList);
                         } else {
                             System.out.println(MESSAGE_LIST_NO_LOANS
                                     + date.getDayOfMonth() + " "
