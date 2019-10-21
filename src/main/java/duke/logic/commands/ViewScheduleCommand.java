@@ -31,17 +31,6 @@ public class ViewScheduleCommand extends Command {
      */
     @Override
     public CommandResultCalender execute(Model model) throws DukeException {
-        SortedList<Task> tasks = model.getTasks().getChronoList();
-        TaskList result = new TaskList();
-
-        for (Task task : tasks) {
-            if (((TaskWithDates) task).getStartDate() != null
-                    && ((TaskWithDates) task).getStartDate().toString().substring(0,
-                        ((TaskWithDates) task).getStartDate().toString().indexOf("T"))
-                        .equals(date.toString().substring(0, date.toString().indexOf("T")))) {
-                result.add(task);
-            }
-        }
         CommandResultCalender commandResult = new CommandResultCalender(MESSAGE_SHOW_CALENDAR);
         commandResult.setTasks(model.getTasks());
         return commandResult;

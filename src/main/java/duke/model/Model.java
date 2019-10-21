@@ -25,12 +25,12 @@ public interface Model {
     /**
      * Returns the list of tasks that contains a date.
      */
-    FilteredList<Task> getFilteredList();
+    List<Task> getFilteredList();
 
     /**
      * Returns the list of tasks that is sorted chronologically.
      */
-    SortedList<Task> getChronoSortedList();
+    List<Task> getChronoSortedList();
 
     /**
      * Returns all the list of locations.
@@ -40,7 +40,7 @@ public interface Model {
     /**
      * Returns the list of tasks that is an Event.
      */
-    FilteredList<Task> getEventList();
+    List<Task> getEventList();
 
     /**
      * Returns the list of all bus stops.
@@ -61,4 +61,9 @@ public interface Model {
      * Saves the Model data in storage.
      */
     void save() throws DukeException;
+
+    /**
+     * Returns a list of event venues.
+     */
+    VenueList getEventVenues();
 }

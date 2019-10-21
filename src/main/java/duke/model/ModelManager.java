@@ -45,12 +45,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public FilteredList<Task> getFilteredList() {
+    public List<Task> getFilteredList() {
         return tasks.getFilteredList();
     }
 
     @Override
-    public SortedList<Task> getChronoSortedList() {
+    public List<Task> getChronoSortedList() {
         return tasks.getChronoList();
     }
 
@@ -65,7 +65,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public FilteredList<Task> getEventList() {
+    public List<Task> getEventList() {
         return tasks.getEventList();
     }
 
@@ -87,5 +87,10 @@ public class ModelManager implements Model {
     @Override
     public void save() throws DukeException {
         storage.write();
+    }
+
+    @Override
+    public VenueList getEventVenues() {
+        return new VenueList(tasks.getEventList());
     }
 }

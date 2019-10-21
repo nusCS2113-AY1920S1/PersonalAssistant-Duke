@@ -7,7 +7,6 @@ import duke.model.events.Task;
 import duke.model.events.TaskWithDates;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
-import javafx.collections.transformation.SortedList;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -102,7 +101,7 @@ public class CalendarWindow extends UiPart<Stage> {
      */
     private void findRelevantTasks() {
         filteredTasks = new ArrayList<>();
-        SortedList<Task> sortedTask = tasks.getChronoList();
+        List<Task> sortedTask = tasks.getChronoList();
         for (int i = 0; i <= numOfDays; ++i) {
             filteredTasks.add(new TaskList());
         }
