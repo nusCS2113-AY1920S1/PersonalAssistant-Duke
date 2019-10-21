@@ -71,21 +71,42 @@ public class CLIView {
 
     /**
      * Splits a long String into an array of smaller Strings to fit the table display.
+     * indexOfStringSplitStart refers to the index of the first char of the split string
+     * indexOfStringSplitEnd refers to the index after the index of the last char of the split string
      * @param toPrint String to be printed in table form.
      * @return array of Strings to be printed line by line to fit the table width requirement.
      */
     private String[] getArrayOfSplitStrings(String toPrint) {
         ArrayList<String> splitStrings = new ArrayList<>();
         int indexOfStringSplitStart = 0;
-        int indexOfStringSplitEnd = defaultHoriBorderLength - 1;
+        int indexOfStringSplitEnd = defaultHoriBorderLength;
         boolean isLastLine = false;
         while (!isLastLine) {
-            while (toPrint.charAt(indexOfStringSplitEnd) != ' ') {
-                indexOfStringSplitEnd--;
+            if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).contains(" ")) {
+                while (toPrint.charAt(indexOfStringSplitEnd - 1) != ' ') {
+                    indexOfStringSplitEnd--;
+                }
+                splitStrings.add(toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd));
+                indexOfStringSplitStart = indexOfStringSplitEnd;
+                indexOfStringSplitEnd += defaultHoriBorderLength;
+
+            } else {
+                //if a single word without space is longer than defaultHoriBorderLength
+                while (toPrint.charAt(indexOfStringSplitEnd - 1) != ' ') {
+                    indexOfStringSplitEnd++;
+                    if (indexOfStringSplitEnd == toPrint.length()) {
+                        break;
+                    }
+                }
+                int numOfLines = (indexOfStringSplitEnd - indexOfStringSplitStart) / (defaultHoriBorderLength - 1);
+                for (int i = 1; i <= numOfLines; i++) {
+                    String wordSegment = toPrint.substring(indexOfStringSplitStart,
+                            indexOfStringSplitStart + defaultHoriBorderLength - 1) + "-";
+                    splitStrings.add(wordSegment);
+                    indexOfStringSplitStart += (defaultHoriBorderLength - 1);
+                }
+                indexOfStringSplitEnd = indexOfStringSplitStart + defaultHoriBorderLength;
             }
-            splitStrings.add(toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd + 1));
-            indexOfStringSplitStart = indexOfStringSplitEnd;
-            indexOfStringSplitEnd += defaultHoriBorderLength;
             if (indexOfStringSplitEnd >= toPrint.length()) {
                 splitStrings.add(toPrint.substring(indexOfStringSplitStart));
                 isLastLine = true;
