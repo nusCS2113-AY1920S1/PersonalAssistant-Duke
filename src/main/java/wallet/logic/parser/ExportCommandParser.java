@@ -33,7 +33,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"Budget", "$1000"});
-        data.add(new String[]{"S/N", "Description", "Amount", "Created Date", "Name", "Phone", "Other Details", "Lend/Borrow", "Settled"});
+        data.add(new String[]{"S/N", "Description", "Amount", "Created Date", "Name", "Phone",
+            "Other Details", "Lend/Borrow", "Settled"});
         int index = 1;
         for (Loan l : loanList) {
             String indexOutput = Integer.toString(index);
@@ -51,7 +52,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             if (personDetail == null) {
                 personDetail = "";
             }
-            data.add(new String[]{indexOutput, description, amount, createdDate, personName, personPhone, personDetail, isLend, isSettled});
+            data.add(new String[]{indexOutput, description, amount, createdDate, personName, personPhone,
+                personDetail, isLend, isSettled});
             index++;
         }
         return data;
