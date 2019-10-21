@@ -1,5 +1,7 @@
 package Operations;
 
+import Enums.TimeUnit;
+
 /**
  * class to tell user about errors and completion of operations
  */
@@ -145,17 +147,10 @@ public class Ui {
     }
 
     /**
-     * tells the user to input the amount of time to snooze the task
-     */
-    public void showSnooze() {
-        System.out.println("Please indicate the amount of time you want to snooze this task");
-    }
-
-    /**
      * tells the user that the requested task has been snoozed
      */
-    public void showSnoozeComplete() {
-        System.out.println("Great I've snoozed your task");
+    public void showSnoozeComplete(int index, int amount, TimeUnit unit) {
+        System.out.println("Great I've snoozed task " + index + " by " + amount + " " + unit.name());
     }
 
     /**
