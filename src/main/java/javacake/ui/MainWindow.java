@@ -203,20 +203,20 @@ public class MainWindow extends AnchorPane {
     private String getFirstQn(String cmdMode) throws DukeException {
         switch (cmdMode) {
         case "!@#_QUIZ_1":
-            quizCommand = new QuizCommand(Question.QuestionType.BASIC);
+            quizCommand = new QuizCommand(Question.QuestionType.BASIC, false);
             break;
         case "!@#_QUIZ_2":
-            quizCommand = new QuizCommand(Question.QuestionType.OOP);
+            quizCommand = new QuizCommand(Question.QuestionType.OOP, false);
             break;
         case "!@#_QUIZ_3":
-            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
+            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS, false);
             break;
         case "!@#_QUIZ_4":
-            quizCommand = new QuizCommand();
+            quizCommand = new QuizCommand(Question.QuestionType.ALL, false);
             break;
         default:
         }
-        return quizCommand.getQuestion();
+        return quizCommand.getNextQuestion();
     }
 
     private void handleExit() {
@@ -253,10 +253,12 @@ public class MainWindow extends AnchorPane {
         isTryingReset = false;
     }
 
+
+
     private void handleGuiQuiz() throws DukeException {
         quizCommand.checkAnswer(input);
         if (quizCommand.chosenQuestions.size() > 0) {
-            response = quizCommand.getQuestion();
+            response = quizCommand.getNextQuestion();
         } else {
             isQuiz = false;
             response = quizCommand.getQuizScore();
