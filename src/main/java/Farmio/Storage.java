@@ -120,7 +120,7 @@ public class Storage {
         return frame;
     }
 
-    public JSONObject getLevel(int level) throws FarmioFatalException {
+    public JSONObject getLevel(double level) throws FarmioFatalException {
         String path = "levels/" + level + ".json";
         Reader reader;
         try {

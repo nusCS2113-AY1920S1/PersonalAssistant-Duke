@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Level {
     ArrayList<String> narratives;
+    String filePath;
     int startMoney;
     int startWheatSeed;
     int startWheatGreen;
@@ -32,6 +33,7 @@ public class Level {
         for (Object i : array) {
             narratives.add((String) i);
         }
+        filePath = (String) object.get("file_path");
         startMoney = farmer.getMoney();
         startWheatSeed = farmer.wheatFarm.getSeeds();
         startWheatGreen = farmer.wheatFarm.getGreenWheat();
@@ -52,6 +54,10 @@ public class Level {
 
     public ArrayList<String> getNarratives(){
         return narratives;
+    }
+
+    public String getPath(){
+        return filePath;
     }
 
     public boolean checkAnswer(Farmio farmio){

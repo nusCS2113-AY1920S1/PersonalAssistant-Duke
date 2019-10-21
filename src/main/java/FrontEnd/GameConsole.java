@@ -29,14 +29,14 @@ public class GameConsole {
     static String content(ArrayList<String> stage, Farmer farmer) { //does not include story
         StringBuilder output = new StringBuilder();
         String location = farmer.getLocation();
-        int level = farmer.getLevel();
+        double level = farmer.getLevel();
         int day = farmer.getDay();
         ArrayList<String> userCode = farmer.getTasks().toStringArray();
         ArrayList<String> assets = formatAssets(farmer.getAssets(), dummyGoals());
         ArrayList<String> goals = formatGoals(dummyGoals(), farmer.getAssets());
         userCode = formatAndHighlightCode(userCode, farmer.getCurrentTask(), farmer.isHasfailedCurrentTask());
         output.append(AsciiColours.SANE).append(TOP_BORDER);
-        output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: ", Integer.toString(level), 10)).append(AsciiColours.SANE).append("  |");
+        output.append("|   " + AsciiColours.BLUE).append(horizontalPanel("Level: ", Double.toString(level), 10)).append(AsciiColours.SANE).append("  |");
         output.append(MENU_TITLE);
         output.append("|" + AsciiColours.MAGENTA).append(horizontalPanel("Day: ", Integer.toString(day), 8)).append(AsciiColours.SANE).append(" ");
         output.append("| " + AsciiColours.GREEN).append(horizontalPanel("Location: ", location, 20)).append(AsciiColours.SANE);
