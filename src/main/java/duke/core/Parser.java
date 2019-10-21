@@ -43,12 +43,11 @@ public class Parser {
      * @return .
      * @throws DukeException .
      */
-    public String[] parseDeletePatientTask() throws DukeException {
-        String[] formattedInput = new String[2];
+    public String parseDeletePatientTask() throws DukeException {
+        String formattedInput;
         try {
-            String[] parsedCommand = userInput.split("\\s+", 4);
-            formattedInput[0] = parsedCommand[2];
-            formattedInput[1] = parsedCommand[3];
+            String[] parsedCommand = userInput.split("\\s+", 3);
+            formattedInput = parsedCommand[2];
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please use the correct format for the 'delete patienttask' command. ");

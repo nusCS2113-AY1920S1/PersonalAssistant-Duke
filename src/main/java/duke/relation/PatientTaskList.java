@@ -74,7 +74,6 @@ public class PatientTaskList {
                 return;
             }
         }
-        throw new DukeException("Such Task does not exist!");
     }
 
 
@@ -88,6 +87,18 @@ public class PatientTaskList {
             if (patientTask.getUid() == id) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * .
+     *
+     * @return .
+     */
+    public boolean isPatientIdExist(int id) {
+        if (patientTaskIdMap.containsKey(id)) {
+            return true;
         }
         return false;
     }

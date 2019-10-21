@@ -31,19 +31,20 @@ public class DeletePatientTaskCommand extends Command {
      * @param deleteInfo .
      * @throws DukeException .
      */
-    public DeletePatientTaskCommand(String[] deleteInfo) throws DukeException {
+    public DeletePatientTaskCommand(String deleteInfo) throws DukeException {
 
-        char firstChar = deleteInfo[0].charAt(0);
+        char firstChar = deleteInfo.charAt(0);
         try {
             if (firstChar == '#') {
-                this.patientId = Integer.parseInt(deleteInfo[0].replace("#","").trim());
-                this.taskId = Integer.parseInt(deleteInfo[1]);
+                this.patientId = Integer.parseInt(deleteInfo.replace("#","").trim());
+            } else if (firstChar == '%') {
+                this.taskId = Integer.parseInt(deleteInfo.replace("%","").trim());
             } else {
-                this.deletedPatientInfo = deleteInfo[0];
-                this.taskId = Integer.parseInt(deleteInfo[1]);
+                this.deletedPatientInfo = deleteInfo;
             }
         } catch (Exception e) {
-            throw new DukeException("Try to follow the format: delete patienttask #patientid taskuniqeid");
+            throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>" +
+                    "/<patientName>. ");
         }
 
     }
@@ -66,31 +67,33 @@ public class DeletePatientTaskCommand extends Command {
         if (patientId != 0) {
             try {
                 Patient toBeDeletedPatient = patientManager.getPatient(patientId);
-                for (PatientTask patientTask: patientTaskList.getPatientTask(patientId)) {
-                    if (patientTask.getUid() == taskId) {
-                        patientTaskList.deletePatientTaskByUniqueId(taskId);
-                        patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-                        ui.patientTaskDeleted(patientTask, toBeDeletedPatient);
-                    }
+                if (patientTaskList.isPatientIdExist(patientId)) {
+                    patientTaskList.deleteEntirePatientTask(patientId);
+                    patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                    ui.patientTaskAllDeleted(patientManager.getPatient(patientId));
                 }
             } catch (DukeException e) {
-                throw new DukeException("Task or patient is not found!" + e.getMessage());
+                throw new DukeException("Patient is not found!");
+            }
+        } else if (taskId != 0) {
+            try {
+                patientTaskList.deletePatientTaskByUniqueId(taskId);
+                patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                ui.patientTaskDeleted(taskId);
+            } catch (DukeException e) {
+                throw new DukeException("Task is not found!");
             }
         } else {
             try {
                 String patientName = this.deletedPatientInfo;
                 ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(patientName);
-                ArrayList<PatientTask> toBeDeleted =
-                        patientTaskList.getPatientTask(patientsWithSameName.get(0).getID());
-                for (PatientTask patientTask: toBeDeleted) {
-                    if (patientTask.getUid() == taskId) {
-                        patientTaskList.deletePatientTaskByUniqueId(taskId);
-                        patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-                        ui.patientTaskDeleted(patientTask, patientsWithSameName.get(0));
-                    }
+                if (patientTaskList.isPatientIdExist(patientsWithSameName.get(0).getID())) {
+                    patientTaskList.deleteEntirePatientTask(patientsWithSameName.get(0).getID());
+                    patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                    ui.patientTaskAllDeleted(patientManager.getPatient(patientsWithSameName.get(0).getID()));
                 }
             } catch (Exception e) {
-                throw new DukeException("Task or patient is not found!");
+                throw new DukeException("Patient is not found!");
             }
         }
     }
