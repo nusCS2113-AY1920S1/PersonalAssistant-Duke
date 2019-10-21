@@ -53,7 +53,6 @@ public class UI {
         System.out.println("Enter a command:");
     }
 
-
     /**
      * Obtains the current date and prints the events to be completed within the next
      * three days as a reminder.
@@ -225,15 +224,6 @@ public class UI {
                 eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
                 " END: " + eventAdded.getEndDate().getFormattedDateString() + " (every " + period + " days)");
         System.out.println("Now you have " + numEvents + " events in the list.");
-        System.out.print(lineSeparation);
-    }
-
-    /**
-     * prints message when format of input is wrong for adding new recurring events
-     */
-    public void recursionFormatWrong() {
-        System.out.print(lineSeparation);
-        System.out.println("Please enter the period of the recurring event (in days) after /every.");
         System.out.print(lineSeparation);
     }
 
