@@ -1,13 +1,14 @@
 AlgoSenpai Adventures Overall Report
 
 User1
+miku.png
 
 Chapter 1 : Sorting
 Total Attempts made : 2
 Total Questions answered : 20
 Total Questions correct : 15
 Total Questions wrong : 5
-Percentage of Questions correct : 0.75
+Percentage of Questions correct : 75.0
 Comments : "You are almost there!"
 
 Chapter 2 : Linked List

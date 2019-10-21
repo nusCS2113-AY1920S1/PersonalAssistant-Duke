@@ -64,6 +64,19 @@ public class UserStats {
     }
 
     /**
+     * Constructor. Needs no explanation.
+     */
+    public UserStats(String username, String characterImagePath, ArrayList<ChapterStat> chapterData) {
+        this.username = username;
+        this.characterImagePath = characterImagePath;
+        this.chapterData = chapterData;
+        chapterNumber = new HashMap<>();
+        for (ChapterStat stat: chapterData) {
+            chapterNumber.put(stat.chapterName, stat.chapterNumber);
+        }
+    }
+
+    /**
      * Get the stats for a particular chapter by searching for the chapter number then
      * calling the getStatsByIndex function.
      * @param chapterName The name of the chapter.
@@ -95,10 +108,8 @@ public class UserStats {
         currentChapter.totalAnswered++;
         if (wasAnsweredCorrectly) {
             currentChapter.correctAnswers++;
-        } else {
-            currentChapter.wrongAnswers++;
         }
-        currentChapter.percentage = (double)currentChapter.correctAnswers / currentChapter.totalAnswered;
+        currentChapter.recalculateStats();
     }
 
     /**
@@ -121,6 +132,7 @@ public class UserStats {
     public void saveCurrentChapterToChapterData(int index) {
         chapterData.get(index).correctAnswers += currentChapter.correctAnswers;
         chapterData.get(index).totalAnswered += currentChapter.totalAnswered;
+        chapterData.get(index).recalculateStats();
         // Increment the number of attempts, we assume this function is called once per attempt.
         chapterData.get(index).attempts++;
     }
@@ -171,5 +183,43 @@ public class UserStats {
      */
     public Pair<Integer,Integer> getCurrentChapter() {
         return new Pair<>(currentChapter.correctAnswers, currentChapter.totalAnswered);
+    }
+
+    /**
+     * Returns the string representation of userStats, which can be saved in a text file.
+     * @return The string representation of userStats.
+     */
+    @Override
+    public String toString() {
+        String result = "";
+        result += "AlgoSenpai Adventures Overall Report\n\n";
+        result += username + "\n";
+        result += characterImagePath + "\n";
+
+        for (ChapterStat chapterStat:chapterData) {
+            result += "\n" + chapterStat.toString();
+        }
+        return  result;
+    }
+
+    /**
+     * Given the string representation, it returns the UserStats object.
+     * TODO Handle invalid string.
+     * @param string The string version of the UserStats (obtained by calling toString()).
+     * @return The UserStats object.
+     */
+    public static UserStats parseString(String string) {
+        // Get the first 6 lines. 6th line contains the chapterData.
+        String [] tokens = string.split("\n",6);
+        String userName = tokens[2];
+        String characterImagePath = tokens[3];
+
+        // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
+        String[] chapterDataTokens = tokens[5].split("\n\n");
+        ArrayList<ChapterStat> chapterStats = new ArrayList<>();
+        for (String chapterString: chapterDataTokens) {
+            chapterStats.add(ChapterStat.parseString(chapterString));
+        }
+        return new UserStats(userName, characterImagePath, chapterStats);
     }
 }
