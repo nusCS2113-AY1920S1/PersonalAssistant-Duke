@@ -1,7 +1,7 @@
-package Events.Storage;
+package Events.Formatting;
 
 import Events.EventTypes.Event;
-import Events.Formatting.EventDate;
+import Events.Storage.EventList;
 
 import java.util.*;
 
@@ -65,7 +65,7 @@ public class CalendarView {
      */
     private void setDaysAndDatesList(EventDate today) {
         String currDay = today.getEventJavaDate().toString().split(" ")[0];
-        String[] weekdays = new String[] {"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>   ",
+        String[] weekdays = new String[] {"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
                 "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
 
         int startDay = 0;
