@@ -1,7 +1,7 @@
 package owlmoney.logic.command.exception;
 
 /**
- * FILL IN JAVADOCS HERE ##############################################################################
+ * FILL IN JAVADOCS HERE ##############################################################################.
  */
 public class CommandException extends Exception {
     private String message;

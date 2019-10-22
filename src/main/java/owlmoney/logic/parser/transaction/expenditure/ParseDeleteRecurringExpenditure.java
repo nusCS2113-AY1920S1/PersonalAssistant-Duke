@@ -7,7 +7,7 @@ import owlmoney.logic.command.transaction.DeleteRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * FILL IN JAVADOCS HERE #################################################################################
+ * FILL IN JAVADOCS HERE #################################################################################.
  */
 public class ParseDeleteRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String DELETE = "/delete";
