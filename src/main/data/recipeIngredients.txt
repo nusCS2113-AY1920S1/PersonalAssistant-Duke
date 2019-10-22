@@ -1,1 +1,2 @@
 1 | jasmine rice | 2.0 | CUP | No additional information.
+1 | garlic cloves | 2.0 | G | chopped

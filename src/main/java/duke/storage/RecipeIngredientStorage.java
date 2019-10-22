@@ -68,7 +68,8 @@ public class RecipeIngredientStorage {
                     String[] split1 = remaining.split("\\|", 2);
                     if (split1.length == 2) {
                         recipeIngredientName = split1[0].trim();
-                        String[] split2 = remaining.split("\\|", 2);
+                        remaining1 = split1[1].trim();
+                        String[] split2 = remaining1.split("\\|", 2);
                         if (split2.length == 2) {
                             quantity = split2[0].trim();
                             remaining2 = split2[1].trim();
@@ -76,6 +77,7 @@ public class RecipeIngredientStorage {
                             if (split3.length == 2) {
                                 unit = split3[0].trim();
                                 additionalInfo = split3[1].trim();
+                                System.out.println(recipeIndex + " " + recipeIngredientName + " " + quantity + " " + unit + " " + additionalInfo);
                                 RecipeIngredient ingredient = new RecipeIngredient(recipeIndex, recipeIngredientName, quantity, unit, additionalInfo);
                                 arrRecipeIngredientList.add(ingredient);
                             }

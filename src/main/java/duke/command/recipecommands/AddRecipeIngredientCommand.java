@@ -46,7 +46,7 @@ public class AddRecipeIngredientCommand extends Command<RecipeIngredientList, Ui
                             unit = remaining2;
                             additionalInfo = NO_ADDITIONAL_INFO;
                         }
-                        if (recipeIndex.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
+                        if (recipeIndex.isEmpty() || recipeIngredientName.isEmpty() || quantity.isEmpty() || unit.isEmpty()) {
                             arrayList.add(ERROR_MESSAGE_INCOMPLETE);
                         } else {
                             if (isParsable(quantity) && isKnownUnit(unit)) {
