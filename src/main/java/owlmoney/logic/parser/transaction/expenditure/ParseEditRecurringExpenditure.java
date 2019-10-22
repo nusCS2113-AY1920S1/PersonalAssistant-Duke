@@ -3,24 +3,22 @@ package owlmoney.logic.parser.transaction.expenditure;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.transaction.EditExpenditureCommand;
+import owlmoney.logic.command.transaction.EditRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for editing an expenditure.
+ * Represents the parsing of inputs for editing a recurring expenditure.
  */
-public class ParseEditExpenditure extends ParseExpenditure {
-    private static final String EDIT = "/edit";
+public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
 
     /**
-     * Constructor which creates an instance of ParseEditExpenditure.
+     * Constructor which creates an instance of ParseEditRecurringExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
-    public ParseEditExpenditure(String data, String type) throws ParserException {
+    public ParseEditRecurringExpenditure(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(NUM, EDIT);
         checkFirstParameter();
     }
 
@@ -56,10 +54,6 @@ public class ParseEditExpenditure extends ParseExpenditure {
                 checkDescription(value, key);
                 changeCounter++;
             }
-            if (DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
-                checkDate(value);
-                changeCounter++;
-            }
         }
         if (changeCounter == 0) {
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
@@ -67,15 +61,15 @@ public class ParseEditExpenditure extends ParseExpenditure {
     }
 
     /**
-     * Returns the command to execute the editing of an expenditure.
+     * Returns the command to execute the editing of a recurring expenditure.
      *
-     * @return EditExpenditureCommand to be executed.
+     * @return EditRecurringExpenditureCommand to be executed.
      */
     public Command getCommand() {
-        EditExpenditureCommand newEditExpenditureCommand = new EditExpenditureCommand(expendituresParameters.get(FROM),
-                expendituresParameters.get(AMOUNT), expendituresParameters.get(DATE),
+        EditRecurringExpenditureCommand newEditRecurringExpenditureCommand = new EditRecurringExpenditureCommand(
+                expendituresParameters.get(FROM), expendituresParameters.get(AMOUNT),
                 expendituresParameters.get(DESCRIPTION), expendituresParameters.get(CATEGORY),
                 Integer.parseInt(expendituresParameters.get(TRANSNO)), this.type);
-        return newEditExpenditureCommand;
+        return newEditRecurringExpenditureCommand;
     }
 }

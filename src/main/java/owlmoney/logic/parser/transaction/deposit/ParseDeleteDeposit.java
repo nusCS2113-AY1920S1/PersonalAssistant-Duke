@@ -15,7 +15,7 @@ public class ParseDeleteDeposit extends ParseDeposit {
     /**
      * Constructor which creates an instance of ParseDeleteDeposit.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if first parameter is invalid.
      */
     public ParseDeleteDeposit(String data) throws ParserException {

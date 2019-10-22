@@ -27,7 +27,7 @@ public abstract class ParseSaving {
     /**
      * Creates an instance of any ParseSaving type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseSaving(String data) {
         this.rawData = data;

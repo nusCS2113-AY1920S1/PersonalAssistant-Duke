@@ -139,4 +139,9 @@ public class Investment extends Bank {
     void investmentListBond(int displayNum, Ui ui) throws BondException {
         bonds.listBond(displayNum, ui);
     }
+
+    @Override
+    public void updateRecurringTransactions(Ui ui) {
+        //add your code here
+    }
 }
