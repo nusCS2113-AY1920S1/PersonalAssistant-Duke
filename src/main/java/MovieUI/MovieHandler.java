@@ -91,6 +91,15 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     private boolean isViewBack = false;
+    private boolean isViewBackMoreInfo = false;
+
+    public boolean isViewBackMoreInfo() {
+        return isViewBackMoreInfo;
+    }
+
+    public void setViewBackMoreInfo(boolean viewBackMoreInfo) {
+        isViewBackMoreInfo = viewBackMoreInfo;
+    }
 
     public void setViewBack(boolean viewBack) {
         isViewBack = viewBack;
@@ -319,9 +328,40 @@ public class MovieHandler extends Controller implements RequestListener {
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
 
-        //System.out.println("this is size: " + mMovies.size());
-        mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+        if (isViewBackMoreInfo) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    // Update UI here.
+            PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
+                    getPastCommands().getMap().size() - 2);
+            String command = pastCommandStructure.getQuery();
+            String[] getStrips = command.split(" ");
+            int num = 0;
+            if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
+                num = Integer.parseInt(getStrips[2]);
+            }
+            showMovie(num);
+            isViewBackMoreInfo = false;
+                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                        PastUserCommands.update(pastCommands);
+                        isViewBack = false;
+                }
+            });
+
+
+        } else {
+            //System.out.println("this is size: " + mMovies.size());
+            mImagesLoadingProgress = new double[mMovies.size()];
+            Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+            if (isViewBack == true) {
+                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                PastUserCommands.update(pastCommands);
+                isViewBack = false;
+            }
+        }
 
 
     }
@@ -451,7 +491,10 @@ public class MovieHandler extends Controller implements RequestListener {
                         getPastCommands().getMap().size() - 2);
                 String command = pastCommandStructure.getQuery();
                 String[] getStrips = command.split(" ");
-                int num = Integer.parseInt(getStrips[2]);
+                int num = 0;
+                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
+                    num = Integer.parseInt(getStrips[2]);
+                }
                 showMovie(num);
                 isViewBack = false;
                 getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);

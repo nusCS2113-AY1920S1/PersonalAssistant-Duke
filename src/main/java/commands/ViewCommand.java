@@ -78,6 +78,7 @@ public class ViewCommand extends CommandSuper {
 
         if (command.startsWith("view entry")) {
             //System.out.println("riyazzz");
+            ((MovieHandler) this.getUIController()).setViewBackMoreInfo(true);
             String pastCommand = ((MovieHandler) this.getUIController()).getPastCommands().getMap().get(
                     ((MovieHandler) this.getUIController()).getPastCommands().getMap().size() - 3).getQuery();
             System.out.println("this is past command " + pastCommand);
