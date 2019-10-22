@@ -70,18 +70,23 @@ public class Booking {
     }
 
     /**
-     * String version of the booking entry
+     * String version of the booking entry.
      * @return booking entry string version
      */
     public String toString() {
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return name + " " + venue + " " + dateTimeStart.format(formatterStart) + " to " + dateTimeEnd.format(formatterEnd)+ " " +  status;
+        return name + " " + venue + " " + dateTimeStart.format(formatterStart) + " to "
+                + dateTimeEnd.format(formatterEnd) + " " +  status;
     }
 
+    /**
+     * Version of entry to be stored in file
+     * @return
+     */
     public String toWriteFile() {
-        return this.name + " | " + this.venue + " | " + this.description + " | " +
-                this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
+        return this.name + " | " + this.venue + " | " + this.description + " | "
+                + this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
                 + this.dateTimeEnd.getLong(ChronoField.EPOCH_DAY) + " | " + this.status + "\n";
     }
 

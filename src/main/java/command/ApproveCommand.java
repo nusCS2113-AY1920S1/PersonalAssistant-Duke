@@ -4,6 +4,7 @@ import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import room.RoomList;
+import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import user.User;
@@ -23,7 +24,7 @@ public class ApproveCommand extends Command {
 
     //@@author Alex-Teo
     /**
-     * Approve a request
+     * Approve a request.
      * format is approve name roomcode date time
      * @param input from user
      * @param splitStr tokenized input
@@ -32,13 +33,14 @@ public class ApproveCommand extends Command {
      */
     public ApproveCommand(String input, String[] splitStr) throws DukeException, IOException {
         if (splitStr.length <= 1) {
-            throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: name, roomcode, start date and time");
+            throw new DukeException("☹ OOPS!!! Please create the booking you want to edit with the following format: "
+                    + "name, roomcode, start date and time");
         }
         splitC = input.split(" ", 5);
         name = splitC[1];
         roomcode = splitC[2];
-        if(!RoomList.checkRoom(roomcode,"data\\roomlist.txt")) {
-            throw new DukeException("\u2639 OOPS!!! This room doesn't exist!");
+        if (!RoomList.checkRoom(roomcode,"data\\roomlist.txt")) {
+            throw new DukeException(Constants.UNHAPPY + "OOPS!!! This room doesn't exist!");
         }
         datetimeStartString = splitC[3] + " " + splitC[4];
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -46,8 +48,8 @@ public class ApproveCommand extends Command {
     }
 
     @Override
-    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage, Storage roomstorage, User user)
-            throws DukeException, IOException, ParseException {
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
+                        Storage roomstorage, User user) throws DukeException, IOException, ParseException {
         for (Booking i: bookingList) {
             if ((i.getVenue() == roomcode) && (i.getDateTimeStart() == dateTimeStart) && (i.getName() == name)) {
                 i.setStatus("A");

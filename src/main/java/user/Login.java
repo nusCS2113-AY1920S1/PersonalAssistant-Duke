@@ -5,14 +5,15 @@ import ui.Ui;
 import java.io.*;
 import java.util.Scanner;
 
-public class Login{
+public class Login {
+
     private static String currentUser;
     /**
-     * verfiyLogin verifies if the email and password input by user is a registered account
+     * verfiyLogin verifies if the email and password input by user is a registered account.
      * @param email for login
      * @param password for login
      * @param filePath of members login and user info
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when file to refer to is not found
      */
     public static boolean verifyLogin(String email, String password, String filePath) throws IOException {
         BufferedReader reader;
@@ -23,7 +24,7 @@ public class Login{
 
         String line = reader.readLine();
 
-        while (line != null){
+        while (line != null) {
             String[] parts = line.split("[|]");
             tempEmail = parts[0];
             tempPassword = parts[1];
@@ -37,14 +38,22 @@ public class Login{
         return found;
     }
 
+
     public static String getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(String email){
+    public static void setCurrentUser(String email) {
         currentUser = email;
     }
 
+    /**
+     * checkExistance checks if the email supplied exists in the user list or not.
+     * @param email email input
+     * @param filePath the file we are referring to
+     * @return boolean value "found" if email ca be already found in system
+     * @throws IOException when line read error occurs
+     */
     public static boolean checkExistence(String email,String filePath) throws IOException {
         BufferedReader reader;
         boolean found = false;
@@ -53,8 +62,9 @@ public class Login{
 
         while (line != null){
             String[] parts = line.split("[|]");
-            if(parts[0].trim().equals(email.trim()))
+            if(parts[0].trim().equals(email.trim())) {
                 found = true;
+            }
             line = reader.readLine();
         }
         reader.close();
@@ -69,8 +79,9 @@ public class Login{
 
         while (line != null){
             String[] parts = line.split(" \\| ");
-            if(!parts[0].trim().equals(username.trim()))
+            if(!parts[0].trim().equals(username.trim())) {
                 exists = false;
+            }
             line = reader.readLine();
         }
         reader.close();

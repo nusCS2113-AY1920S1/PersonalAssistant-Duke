@@ -17,4 +17,5 @@ public class Constants {
     public static final int TIMEEND = 4;
     public static final int ROOMDATE = 1;
     public static final int ROOMTIMESLOT = 2;
+    public static final String UNHAPPY = "☹";
 }
