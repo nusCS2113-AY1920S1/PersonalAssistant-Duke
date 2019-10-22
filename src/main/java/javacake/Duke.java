@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Duke  {
-
     private static Ui ui;
     private static Storage storage;
     private static ProgressStack progressStack;

@@ -1,0 +1,4 @@
+What does the [finally] block do? Choose the best answer.
+    (1) specify code that is guaranteed to execute with or without exception.
+    (2) specify code that is guaranteed to execute at the end of a program.
+    (3) specify code that is guaranteed to execute after an assertion returns false. | 3

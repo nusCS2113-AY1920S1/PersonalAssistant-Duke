@@ -59,7 +59,6 @@ public class MegaListCommand extends Command {
                 while (true) {
                     ZipEntry e = zip.getNextEntry();
                     if (e == null) {
-                        isJarMode = false;
                         break;
                     }
 
@@ -69,14 +68,15 @@ public class MegaListCommand extends Command {
                         collectionOfNames.add(name);
                     }
                 }
-            }
-            if (isJarMode) {
+                isJarMode = false;
                 List<String> result = processFileNames(collectionOfNames);
                 sb.append(String.join("\n", result)).append("\n");
                 sb.append("Type 'goto' to access the topics you are interested in!").append("\n");
-            } else {
+            }
+            if (!isJarMode) {
 
             }
+
             return sb.toString();
         } catch (IOException e) {
             throw new DukeException(e.getMessage());

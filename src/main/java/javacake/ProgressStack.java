@@ -1,5 +1,6 @@
 package javacake;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import javacake.exceptions.DukeException;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -21,6 +23,7 @@ public class ProgressStack {
 
     private List<String> listOfFiles = new ArrayList<>();
     private static boolean isDirectory = true;
+    private int numOfFiles = 0;
 
     public ProgressStack() {
 
@@ -60,6 +63,8 @@ public class ProgressStack {
                         if (listingFiles.length == currFileSlashCounter + 1) {
                             System.out.println(name + " == " + currFileSlashCounter);
                             listOfFiles.add(listingFiles[currFileSlashCounter]);
+                            Collections.sort(listOfFiles);
+                            numOfFiles = listOfFiles.size();
                         }
                     }
                 }
@@ -73,11 +78,17 @@ public class ProgressStack {
                     //System.out.println(currentLine);
                     listOfFiles.add(currentLine);
                 }
+                Collections.sort(listOfFiles);
+                numOfFiles = listOfFiles.size();
                 br.close();
             }
         } catch (NullPointerException | IOException e) {
             throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
         }
+    }
+
+    public int getNumOfFiles() {
+        return numOfFiles;
     }
 
     /**
@@ -181,7 +192,7 @@ public class ProgressStack {
             br.close();
             return sb.toString();
         } catch (IOException e) {
-            throw new DukeException("FILE DED BRO");
+            throw new DukeException("Unable to read text file");
         }
     }
 

@@ -1,7 +1,6 @@
 package javacake.ui;
 
 import javacake.Duke;
-import javacake.commands.EditNoteCommand;
 import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
@@ -60,7 +59,6 @@ public class MainWindow extends AnchorPane {
     private boolean isQuiz = false;
     private boolean isStarting = true;
     private boolean isTryingReset = false;
-    private boolean isWritingNote = false;
     private String input = "";
     private String response = "";
 
@@ -120,15 +118,6 @@ public class MainWindow extends AnchorPane {
             } else if (isTryingReset) { //confirmation of reset
                 handleResetConfirmation();
                 System.out.println("resetting time");
-            } else if (isWritingNote) {
-                if (input.equals("/save")) {
-                    isWritingNote = false;
-                    response = EditNoteCommand.successSaveMessage();
-                } else {
-                    response = EditNoteCommand.writeSaveGui(input);
-                }
-                showContentContainer();
-
             } else {
                 if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
                     response = duke.getResponse(input);
@@ -136,20 +125,17 @@ public class MainWindow extends AnchorPane {
                     response = response.replaceAll("✗", "\u2717");
                     showTaskContainer();
                     System.out.println("deadline setting");
-                } else if (!isQuiz || isStarting) {
+                } else if (isStarting) {
+                    //default start: finding of response
+                    response = duke.getResponse(input);
                     isStarting = false;
+                    showContentContainer();
+                    System.out.println("starting BUT not firsttime");
+                } else if (!isQuiz) {
                     //default afterStart: finding of response
                     response = duke.getResponse(input);
-                    if (response.contains("!@#_EDIT_NOTE")) {
-                        Duke.logger.log(Level.INFO, "Response: " + response);
-                        isWritingNote = true;
-                        response = EditNoteCommand.getHeadingMessage();
-                        showContentContainer();
-                        EditNoteCommand.clearTextFileContent();
-                    } else {
-                        showContentContainer();
-                        System.out.println("not quiz || isStarting");
-                    }
+                    showContentContainer();
+                    System.out.println("not quiz");
                 } else {
                     //Must be quizCommand: checking of answers
                     handleGuiQuiz();
@@ -173,6 +159,7 @@ public class MainWindow extends AnchorPane {
                     showContentContainer();
                     System.out.println("reset command");
                 }
+
 
                 //System.out.println("End->Next");
             }
@@ -216,20 +203,20 @@ public class MainWindow extends AnchorPane {
     private String getFirstQn(String cmdMode) throws DukeException {
         switch (cmdMode) {
         case "!@#_QUIZ_1":
-            quizCommand = new QuizCommand(Question.QuestionType.BASIC);
+            quizCommand = new QuizCommand(Question.QuestionType.BASIC, false);
             break;
         case "!@#_QUIZ_2":
-            quizCommand = new QuizCommand(Question.QuestionType.OOP);
+            quizCommand = new QuizCommand(Question.QuestionType.OOP, false);
             break;
         case "!@#_QUIZ_3":
-            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS);
+            quizCommand = new QuizCommand(Question.QuestionType.EXTENSIONS, false);
             break;
         case "!@#_QUIZ_4":
-            quizCommand = new QuizCommand();
+            quizCommand = new QuizCommand(Question.QuestionType.ALL, false);
             break;
         default:
         }
-        return quizCommand.getQuestion();
+        return quizCommand.getNextQuestion();
     }
 
     private void handleExit() {
@@ -266,10 +253,12 @@ public class MainWindow extends AnchorPane {
         isTryingReset = false;
     }
 
+
+
     private void handleGuiQuiz() throws DukeException {
         quizCommand.checkAnswer(input);
         if (quizCommand.chosenQuestions.size() > 0) {
-            response = quizCommand.getQuestion();
+            response = quizCommand.getNextQuestion();
         } else {
             isQuiz = false;
             response = quizCommand.getQuizScore();

@@ -1,6 +1,15 @@
 package javacake;
 
-import javacake.commands.*;
+import javacake.commands.AddCommand;
+import javacake.commands.Command;
+import javacake.commands.ExitCommand;
+import javacake.commands.ListCommand;
+import javacake.commands.BackCommand;
+import javacake.commands.HelpCommand;
+import javacake.commands.ResetCommand;
+import javacake.commands.ScoreCommand;
+import javacake.commands.GoToCommand;
+import javacake.commands.MegaListCommand;
 import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
@@ -9,10 +18,13 @@ import javacake.tasks.RecurringTask;
 import com.joestelmach.natty.DateGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class Parser {
+
+    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "tree", "deadline"};
 
     /**
      * Allows the user input to be parsed before running 'execute'.
@@ -25,6 +37,7 @@ public class Parser {
     public static Command parse(String inputCommand) throws DukeException {
         String[] buffer = inputCommand.split("\\s+");
         String input = buffer[0];
+        helper(input);
         if (input.equals("exit")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -41,17 +54,46 @@ public class Parser {
             if (inputCommand.length() <= 4) {
                 throw new DukeException("Please specify index number in 'goto' command!");
             }
-            return new GoToCommand(inputCommand);
+            return new GoToCommand(inputCommand.substring(5));
         } else if (input.equals("overview")) {
             return new MegaListCommand();
-        } else if (input.equals("createnote")) {
-        return new CreateNoteCommand(inputCommand);
-        } else if (input.equals("editnote")) {
-            return new EditNoteCommand(inputCommand);
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
+        }
+    }
+
+    /**
+     * Method to help handle small typo made by user.
+     */
+    private static void helper(String input) throws DukeException {
+        for (int i = 0; i < commands.length; i++) {
+            boolean isTypo = false;
+            String command = commands[i];
+            int length = command.length();
+            if (length > input.length()) {
+                length = input.length();
+            }
+            int similarity = 0;
+            for (int j = 0; j < length; j++) {
+                if (input.charAt(j) == command.charAt(j)) {
+                    similarity++;
+                }
+            }
+            if (similarity + 1 == length) {
+                isTypo = true;
+            }
+
+            if (!command.equals(input)) {
+                if (command.contains(input) || input.contains(command)) {
+                    isTypo = true;
+                }
+            }
+
+            if (isTypo) {
+                throw new DukeException("Sorry, but do you mean this : " + command);
+            }
         }
     }
 
