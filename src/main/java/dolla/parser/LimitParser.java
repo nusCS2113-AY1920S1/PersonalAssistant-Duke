@@ -1,6 +1,10 @@
 package dolla.parser;
 
-import dolla.command.*;
+import dolla.command.Command;
+import dolla.command.AddLimitCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.RemoveLimitCommand;
 import dolla.ui.LimitUi;
 
 /**
@@ -22,11 +26,6 @@ public class LimitParser extends Parser {
     protected static final String LIMIT_DURATION_D = "day";
     protected static final String LIMIT_DURATION_W = "week";
     protected static final String LIMIT_DURATION_M = "month";
-
-    String[] CommandType = {"limits", "set", "remove"};
-    String[] LimitType = {"saving", "budget"};
-    String[] Duration = {"day", "week", "month"};
-
 
     @Override
     public Command handleInput(String mode, String inputLine) {

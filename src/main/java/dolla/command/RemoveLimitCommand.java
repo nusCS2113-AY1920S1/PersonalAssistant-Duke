@@ -17,7 +17,7 @@ public class RemoveLimitCommand extends Command {
     /**
      * This method is called execute the titular command after every user input.
      *
-     * @param dollaData
+     * @param dollaData dollaData
      * @throws Exception handle exception
      */
     @Override
