@@ -1,9 +1,8 @@
 package com.algosenpai.app.ui;
 
-
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
-
+import com.algosenpai.app.ui.controller.AnimationTimerController;
 import com.algosenpai.app.ui.components.DialogBox;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -35,6 +34,10 @@ public class Ui extends AnchorPane {
 
     private Logic logic;
 
+    int idleMaxMinutes = 180;
+
+    AnimationTimerController animationTimerController;
+
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/unknown.png"));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream("/images/miku.png"));
 
@@ -47,6 +50,7 @@ public class Ui extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(
                 "Welcome to AlgoSenpai Adventures! Type 'hello' to start!", senpaiImage));
+        handle();
     }
 
     public void setLogic(Logic l) {
@@ -59,11 +63,14 @@ public class Ui extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        resetIdle();
         String input = userInput.getText();
         Command currCommand = logic.parseInputCommand(input);
         String response = logic.executeCommand(currCommand);
         if (response.equals("undo")) {
             undoChat();
+        } else if (response.equals("clear")) {
+            clearChat();
         } else {
             printUserText(input, userImage);
             printSenpaiText(response, senpaiImage);
@@ -71,6 +78,10 @@ public class Ui extends AnchorPane {
         if (input.equals("exit")) {
             exit();
         }
+    }
+
+    private void resetIdle() {
+        idleMaxMinutes = 180;
     }
 
     /**
@@ -105,6 +116,15 @@ public class Ui extends AnchorPane {
     }
 
     /**
+     * Clear chat.
+     */
+    private void clearChat() {
+        int messageIndex = dialogContainer.getChildren().size();
+        dialogContainer.getChildren().remove(0, messageIndex);
+        userInput.clear();
+    }
+
+    /**
      * Closes the application.
      */
     private void exit() {
@@ -113,5 +133,20 @@ public class Ui extends AnchorPane {
             Platform.exit();
         });
         pause.play();
+    }
+
+    private void handle() {
+        animationTimerController = new AnimationTimerController(1000) {
+            @Override
+            public void handle() {
+                if (idleMaxMinutes > 0) {
+                    idleMaxMinutes--;
+                } else {
+                    dialogContainer.getChildren()
+                            .add(DialogBox.getSenpaiDialog("Hello do you need help?", senpaiImage));
+                }
+            }
+        };
+        animationTimerController.start();
     }
 }

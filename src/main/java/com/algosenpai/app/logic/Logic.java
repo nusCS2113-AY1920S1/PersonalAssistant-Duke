@@ -6,14 +6,18 @@ import com.algosenpai.app.logic.command.MenuCommand;
 import com.algosenpai.app.logic.command.PrintCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.HistoryCommand;
+import com.algosenpai.app.logic.command.QuizCommand;
 import com.algosenpai.app.logic.command.InvalidCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
+import com.algosenpai.app.logic.command.ClearCommand;
+import com.algosenpai.app.logic.command.BackCommand;
 import com.algosenpai.app.logic.command.CommandEnum;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
-
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.ArrayList;
 
 public class Logic {
@@ -30,9 +34,10 @@ public class Logic {
 
     //All variables for the quiz function
     private int selectedChapters = 0;
-    private boolean isQuizMode = false;
+    private AtomicBoolean isQuizMode = new AtomicBoolean(false);
+    private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     private ArrayList<QuestionModel> quizList;
-    private int questionNumber = 0;
+    private AtomicInteger questionNumber = new AtomicInteger(0);
     private int prevResult = 0;
 
     // Review features;
@@ -60,7 +65,10 @@ public class Logic {
      */
     public Command parseInputCommand(String userString) {
         //if the program is in quiz mode, the input is not parsed
-        if (isQuizMode) {
+        if (isQuizMode.get()) {
+            if (userString.equals("back")) {
+                return new Command(CommandEnum.BACK, 0, userString);
+            }
             return new Command(CommandEnum.QUIZ, 0, userString);
         } else if (isSettingUp) {
             return new Command(CommandEnum.SETUP, 0, userString);
@@ -80,37 +88,19 @@ public class Logic {
         String responseString;
         switch (currCommand.getType()) {
         case SETUP:
-            if (isNew) {
-                responseString = checkStatus();
-                return responseString;
-            } else {
-                responseString = "Are you a boy or a girl?";
-                isSettingUp = false;
-                return responseString;
-            }
+            return "setup";
         case HELP:
         case MENU:
             MenuCommand menuCommand = new MenuCommand(currCommand);
             return menuCommand.execute();
-        case START:
-            isQuizMode = true;
-            quizList = quizMaker.generateQuiz(selectedChapters, quizList);
-            return quizList.get(0).getQuestion();
         case SELECT:
-            selectedChapters = currCommand.getParameter();
-            responseString = "You have selected chapter "
-                    + currCommand.getParameter()
-                    + " for the quiz!";
-            return responseString;
+            return "You have selected chapter " + currCommand.getParameter() + " for the quiz!";
         case RESULT:
             ResultCommand resultCommand = new ResultCommand(currCommand, prevResult);
             return resultCommand.execute();
         case REPORT:
             PrintCommand printReportCommand = new PrintCommand(currCommand, userStats);
             return printReportCommand.execute();
-        case BACK:
-            responseString = "back";
-            return responseString;
         case HISTORY:
             HistoryCommand historyCommand = new HistoryCommand(currCommand, historyList);
             return historyCommand.execute();
@@ -118,14 +108,12 @@ public class Logic {
             UndoCommand undoCommand = new UndoCommand(currCommand);
             return undoCommand.execute();
         case CLEAR:
-            responseString = "clear";
-            return responseString;
+            ClearCommand clearCommand = new ClearCommand(currCommand);
+            return clearCommand.execute();
         case RESET:
-            responseString = "reset";
-            return responseString;
+            return "reset";
         case SAVE:
-            responseString = "save";
-            return responseString;
+            return "save";
         case EXIT:
             ByeCommand byeCommand = new ByeCommand(currCommand);
             return byeCommand.execute();
@@ -133,56 +121,25 @@ public class Logic {
             PrintCommand printQuizCommand = new PrintCommand(currCommand, quizList);
             return printQuizCommand.execute();
         case ARCHIVE:
-            responseString = "archive";
-            return responseString;
+            return "archive";
         case QUIZ:
-            quizList.get(questionNumber).setAnswer(currCommand.getUserString());
-            questionNumber++;
-
-            if (questionNumber < 10) {
-                return quizList.get(questionNumber).getQuestion();
-            } else if (questionNumber == 10) {
-                isQuizMode = false;
-                int correctCount = 0;
-
-                for (int i = 0; i < 10; i++) {
-                    QuestionModel currQuestion = quizList.get(i);
-                    if (currQuestion.checkAnswer()) {
-                        correctCount++;
-                    }
-                }
-                questionNumber = 0;
-                String endQuizMessage = "You got " + correctCount + "/10 questions correct!";
-                return endQuizMessage;
+            if (isNewQuiz.get()) {
+                quizList = quizMaker.generateQuiz(selectedChapters, quizList);
+                isNewQuiz.set(false);
+                isQuizMode.set(true);
             }
-            return "quiz";
+            QuizCommand quizCommand = new QuizCommand(currCommand, quizList, questionNumber, isQuizMode, isNewQuiz);
+            return quizCommand.execute();
+        case BACK:
+            if (isQuizMode.get()) {
+                BackCommand backCommand = new BackCommand(currCommand, quizList, questionNumber);
+                return backCommand.execute();
+            }
+            InvalidCommand invalidBackCommand = new InvalidCommand(currCommand);
+            return invalidBackCommand.execute();
         default:
             InvalidCommand invalidCommand = new InvalidCommand(currCommand);
             return invalidCommand.execute();
         }
     }
-
-
-    /**
-     * Checks whether it is the user's first time using the application.
-     * If it is his/her first time, the isSettingUp boolean flag will be set to true.
-     */
-    public String checkStatus() {
-        if (isNew) {
-            isSettingUp = true;
-            isNew = false;
-            return "Oh it seems that it is your first time here! Can I get your name?";
-        } else {
-            return " Welcome back " + name + " You are currently level " + level;
-        }
-    }
-
-    /**
-     * Sets the name of the user.
-     * @param userName the name input by the user.
-     */
-    public void setName(String userName) {
-        name = userName;
-    }
-
 }

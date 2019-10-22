@@ -30,8 +30,8 @@ public class Parser {
             return new Command(CommandEnum.SETUP, 0, input);
         case "menu":
             return new Command(CommandEnum.MENU, 0, input);
-        case "start":
-            return new Command(CommandEnum.START, 0, input);
+        case "quiz":
+            return new Command(CommandEnum.QUIZ, 0, input);
         case "select":
             return new Command(CommandEnum.SELECT, parameter, input);
         case "result":

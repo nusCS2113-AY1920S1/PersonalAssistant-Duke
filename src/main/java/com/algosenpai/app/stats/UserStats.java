@@ -1,14 +1,8 @@
 package com.algosenpai.app.stats;
 
-
-
-import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.storage.UserStorageParser;
 import javafx.util.Pair;
-
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 

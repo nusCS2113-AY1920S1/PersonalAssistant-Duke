@@ -76,14 +76,7 @@ public class PrintCommand extends Command {
      * Prepares user stats to write to pdf.
      */
     private void prepareUserStates() {
-        paragraphs.add(userStats.getUsername());
-        paragraphs.add(userStats.getCharacterImagePath());
-        paragraphs.add("\n");
-        ArrayList<ChapterStat> chapterStatsList = userStats.getChapterData();
-        for (ChapterStat chapterStat: chapterStatsList) {
-            paragraphs.add(chapterStat.toString());
-            paragraphs.add("\n");
-        }
+        paragraphs.add(userStats.toString());
     }
 
     @Override

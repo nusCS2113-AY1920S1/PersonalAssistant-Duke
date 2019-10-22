@@ -8,7 +8,7 @@ public abstract class AnimationTimerController extends AnimationTimer {
 
     private long prevTime = 0;
 
-    AnimationTimerController(long sleepMs) {
+    protected AnimationTimerController(long sleepMs) {
         this.sleepNs = sleepMs * 1_000_000;
     }
 
