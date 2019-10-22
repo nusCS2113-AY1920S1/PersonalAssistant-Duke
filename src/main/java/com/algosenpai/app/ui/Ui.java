@@ -20,12 +20,16 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class Ui extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private VBox dialogContainer;
+
     @FXML
     private TextField userInput;
+
     @FXML
     private Button sendButton;
 
@@ -58,9 +62,15 @@ public class Ui extends AnchorPane {
         String input = userInput.getText();
         Command currCommand = logic.parseInputCommand(input);
         String response = logic.executeCommand(currCommand);
-        printUserText(input, userImage);
-        printSenpaiText(response, senpaiImage);
-        exit(input);
+        if (response.equals("undo")) {
+            undoChat();
+        } else {
+            printUserText(input, userImage);
+            printSenpaiText(response, senpaiImage);
+        }
+        if (input.equals("exit")) {
+            exit();
+        }
     }
 
     /**
@@ -84,16 +94,24 @@ public class Ui extends AnchorPane {
     }
 
     /**
-     * Closes the application.
-     * @param input user input.
+     * Delete chat messages.
      */
-    private void exit(String input) {
-        if (input.equals("exit")) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> {
-                Platform.exit();
-            });
-            pause.play();
+    private void undoChat() {
+        if (dialogContainer.getChildren().size() > 1) {
+            int messageIndex = dialogContainer.getChildren().size() - 2;
+            dialogContainer.getChildren().remove(messageIndex, messageIndex + 2);
         }
+        userInput.clear();
+    }
+
+    /**
+     * Closes the application.
+     */
+    private void exit() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> {
+            Platform.exit();
+        });
+        pause.play();
     }
 }

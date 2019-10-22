@@ -245,6 +245,10 @@ public class UserStats {
         return new UserStats("Name", "miku.png", new ArrayList<>());
     }
 
+    public ArrayList<ChapterStat> getChapterData() {
+        return chapterData;
+    }
+
     /**
      * Overriding the equals method so JUnit can work.
      * We manually check if each property is equal.

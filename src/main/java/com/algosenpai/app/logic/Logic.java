@@ -5,6 +5,9 @@ import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.MenuCommand;
 import com.algosenpai.app.logic.command.PrintCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
+import com.algosenpai.app.logic.command.HistoryCommand;
+import com.algosenpai.app.logic.command.InvalidCommand;
+import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.command.CommandEnum;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.models.QuestionModel;
@@ -35,7 +38,8 @@ public class Logic {
     // Review features;
     private ArrayList<QuestionModel> reviewList;
 
-    //
+    // History features;
+    private ArrayList<String> historyList;
 
     /**
      * Initializes logic for the application.
@@ -46,6 +50,7 @@ public class Logic {
         this.parser = parser;
         this.userStats = userStats;
         quizMaker = new QuizGenerator();
+        historyList = new ArrayList<>();
     }
 
     /**
@@ -70,6 +75,8 @@ public class Logic {
      * @return the program String response to be displayed.
      */
     public String executeCommand(Command currCommand) {
+        historyList.add(currCommand.getUserString());
+
         String responseString;
         switch (currCommand.getType()) {
         case SETUP:
@@ -99,17 +106,17 @@ public class Logic {
             ResultCommand resultCommand = new ResultCommand(currCommand, prevResult);
             return resultCommand.execute();
         case REPORT:
-            responseString = "report";
-            return responseString;
+            PrintCommand printReportCommand = new PrintCommand(currCommand, userStats);
+            return printReportCommand.execute();
         case BACK:
             responseString = "back";
             return responseString;
         case HISTORY:
-            responseString = "history";
-            return responseString;
+            HistoryCommand historyCommand = new HistoryCommand(currCommand, historyList);
+            return historyCommand.execute();
         case UNDO:
-            responseString = "testing";
-            return responseString;
+            UndoCommand undoCommand = new UndoCommand(currCommand);
+            return undoCommand.execute();
         case CLEAR:
             responseString = "clear";
             return responseString;
@@ -123,8 +130,8 @@ public class Logic {
             ByeCommand byeCommand = new ByeCommand(currCommand);
             return byeCommand.execute();
         case PRINT:
-            PrintCommand printCommand = new PrintCommand(currCommand, quizList);
-            return printCommand.execute();
+            PrintCommand printQuizCommand = new PrintCommand(currCommand, quizList);
+            return printQuizCommand.execute();
         case ARCHIVE:
             responseString = "archive";
             return responseString;
@@ -150,7 +157,8 @@ public class Logic {
             }
             return "quiz";
         default:
-            return "INVALID";
+            InvalidCommand invalidCommand = new InvalidCommand(currCommand);
+            return invalidCommand.execute();
         }
     }
 
