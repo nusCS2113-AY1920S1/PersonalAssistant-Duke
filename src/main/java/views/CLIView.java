@@ -7,7 +7,6 @@ import models.task.Task;
 import util.log.DukeLogger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class CLIView {
@@ -38,16 +37,15 @@ public class CLIView {
     }
 
     /**
-     * Prints viewAllProjects in table form.
-     * @param toPrintPerProject HashMap of Project number as key and ArrayList of Strings of things to be printed as
-     *                          value.
+     * Prints input in table form.
+     * @param toPrintAll ArrayList with each element fitting into one table, and each element consists of an
+     *                   ArrayList of Strings containing the lines to be printed in a table
      */
-    public void consolePrintTable(HashMap<Integer, ArrayList<String>> toPrintPerProject) {
-
-        for (int i = 0; i < toPrintPerProject.size(); i++) {
+    public void consolePrintTable(ArrayList<ArrayList<String>> toPrintAll) {
+        for (ArrayList<String> toPrint : toPrintAll) {
             consolePrintTableHoriBorder(defaultHoriBorderLength);
-            boolean hasPrintedProjectName = false;
-            for (String s : toPrintPerProject.get(i)) {
+            boolean hasPrintedTableHeader = false;
+            for (String s : toPrint) {
                 if (s.length() <= defaultHoriBorderLength) {
                     System.out.println(indentation + vertiBorderUnit + s
                             + getRemainingSpaces(defaultHoriBorderLength - s.length()) + vertiBorderUnit);
@@ -58,9 +56,9 @@ public class CLIView {
                                 + getRemainingSpaces(defaultHoriBorderLength - s1.length()) + vertiBorderUnit);
                     }
                 }
-                if (!hasPrintedProjectName) {
+                if (!hasPrintedTableHeader) {
                     consolePrintTableHoriBorder(defaultHoriBorderLength);
-                    hasPrintedProjectName = true;
+                    hasPrintedTableHeader = true;
                 }
             }
             consolePrintTableHoriBorder(defaultHoriBorderLength);
@@ -170,32 +168,16 @@ public class CLIView {
 
     /**
      * Method called when users wishes to view all Projects that are currently created or stored.
-     * @param allProjects List of Projects returned to View model by the Controller from the Repository
+     * @param allProjectsDetails ArrayList of details to be presented in each table, with each element as an ArrayList
+     *                          containing each row in the table, returned to View model by the Controller from the
+     *                          Repository
      */
-    public void viewAllProjects(ArrayList<Project> allProjects) {
-        if (allProjects.size() == 0) {
+    public void viewAllProjects(ArrayList<ArrayList<String>> allProjectsDetails) {
+        if (allProjectsDetails.size() == 0) {
             consolePrint("You currently have no projects!");
         } else {
             System.out.println("Here are all the Projects you are managing:");
-            HashMap<Integer, ArrayList<String>> toPrintPerProject = new HashMap<>();
-            for (int projNum = 0; projNum < allProjects.size(); projNum++) {
-                ArrayList<String> toPrint = new ArrayList<>();
-                toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
-                toPrint.add("Members: ");
-                if (allProjects.get(projNum).getNumOfMembers() == 0) {
-                    toPrint.add(" --");
-                } else {
-                    for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers();memberIndex++) {
-                        toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
-                    }
-                }
-                toPrint.add("Next Deadline: ");
-                toPrint.add(" Feature not yet done");
-                toPrint.add("Overall Progress: ");
-                toPrint.add(" Feature not yet done");
-                toPrintPerProject.put(projNum, toPrint);
-            }
-            consolePrintTable(toPrintPerProject);
+            consolePrintTable(allProjectsDetails);
         }
     }
 
