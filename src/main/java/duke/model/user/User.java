@@ -25,6 +25,7 @@ public class User {
     private int activityLevel;
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private boolean loseWeight;
+    private Account account;
 
     /**
      * This is a contructor to create an empty user profile.
