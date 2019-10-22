@@ -38,15 +38,11 @@ public class CreateAccountCommand extends Command {
             throw new DukeException("\u2639 OOPS!!! Your password must contain at least " +
                     "one alphabet, one number and no special characters!");
         }
-        if (!splitC[4].contains("A") && !splitC[4].contains("R") && !splitC[4].contains("C")) {
-            throw new DukeException("\u2639 OOPS!!! Your userType can only be one of the following: " +
-                    "A (Admin), R (Resident) or C (Club Head)!");
-        }
     }
 
     public void execute(BookingList bookingList, Ui ui, Storage bookingStorage, User user)
             throws DukeException, IOException, ParseException {
-        User newUser = new User(splitC[1], splitC[2], splitC[3], splitC[4]);
+        User newUser = new User(splitC[1], splitC[2], splitC[3]);
         BufferedWriter bw = new BufferedWriter(new FileWriter("data\\members.txt", true));
         bw.write(newUser.toWriteFile());
         bw.newLine();

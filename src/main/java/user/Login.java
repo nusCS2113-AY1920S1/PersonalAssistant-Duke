@@ -1,9 +1,12 @@
 package user;
 
+import ui.Ui;
+
 import java.io.*;
 import java.util.Scanner;
 
 public class Login{
+    private static String currentUser;
     /**
      * verfiyLogin verifies if the email and password input by user is a registered account
      * @param email for login
@@ -24,12 +27,22 @@ public class Login{
             String[] parts = line.split("[|]");
             tempEmail = parts[0];
             tempPassword = parts[1];
-            if (email.trim().equals(tempEmail.trim()) && password.trim().equals(tempPassword.trim()))
+            if (email.trim().equals(tempEmail.trim()) && password.trim().equals(tempPassword.trim())) {
                 found = true;
+                setCurrentUser(tempEmail);
+            }
             line = reader.readLine();
         }
         reader.close();
         return found;
+    }
+
+    public static String getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(String email){
+        currentUser = email;
     }
 
     public static boolean checkExistence(String email,String filePath) throws IOException {
@@ -73,8 +86,8 @@ public class Login{
         while (line != null){
             String[] parts = line.split(" \\| ");
             if (parts[0].trim().equals(username.trim())) {
-                User validUser = new User(parts[0], parts[1], parts[2], parts[3]);
-                validUser.setLoginStatus();
+                User validUser = new User(parts[0], parts[1], parts[2]);
+                setCurrentUser(parts[0]);
                 return validUser;
             }
             line = reader.readLine();
