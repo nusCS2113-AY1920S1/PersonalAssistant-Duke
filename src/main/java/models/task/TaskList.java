@@ -3,6 +3,7 @@ package models.task;
 import util.ParserHelper;
 import util.SortHelper;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -153,5 +154,37 @@ public class TaskList {
     public String[] getClosestDeadlineTask() {
         ArrayList<String> sortedTaskList = sortHelper.sortTaskDueDate(this.taskList);
         return sortedTaskList.get(0).substring(3).split(" [|] ");
+    }
+
+    /**
+     * Method to calculate progress and store in presentable String format.
+     * @return String array containing output for overall progress to be printed in table.
+     */
+    public String[] getOverallProgress() {
+        int totalCredits = 0;
+        int creditsOpen = 0;
+        int creditsTodo = 0;
+        int creditsDoing = 0;
+        double creditsDone = 0;
+        for (Task task : this.taskList) {
+            totalCredits += task.getTaskCredit();
+            if (task.getTaskState() == TaskState.DONE) {
+                creditsDone += task.getTaskCredit();
+            } else if (task.getTaskState() == TaskState.DOING) {
+                creditsDoing += task.getTaskCredit();
+            } else if (task.getTaskState() == TaskState.TODO) {
+                creditsTodo += task.getTaskCredit();
+            } else {
+                creditsOpen += task.getTaskCredit();
+            }
+        }
+        ArrayList<String> progressDetails = new ArrayList<>();
+        String percentageDone = Integer.toString((int)(creditsDone/totalCredits*100));
+        progressDetails.add("Completed: " + percentageDone + "%");
+        String percentageInProgress = Integer.toString((int)((double)creditsDoing/totalCredits*100));
+        progressDetails.add("In Progress: " + percentageInProgress + "%");
+        String percentageNotDone = Integer.toString((int)((double)(creditsTodo+creditsOpen)/totalCredits*100));
+        progressDetails.add("Not Done: " + percentageNotDone + "%");
+        return progressDetails.toArray(new String[0]);
     }
 }
