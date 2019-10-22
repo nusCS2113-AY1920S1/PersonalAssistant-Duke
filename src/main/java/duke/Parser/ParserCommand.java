@@ -2,6 +2,8 @@ package duke.Parser;
 import duke.Ui;
 
 import java.io.FileNotFoundException;
+
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class ParserCommand implements IParser {
@@ -16,13 +18,17 @@ public class ParserCommand implements IParser {
      * @param input command.
      * @throws FileNotFoundException throws exception.
      */
+
     public void parseCommand(final String input) throws FileNotFoundException {
+
         Ui ui = new Ui();
         Scanner sc = new Scanner(System.in);
         switch (input) {
             case "1":
                 // Schedule
                 ui.trainingScheduleHeading();
+                ParserLesson parserLesson = new ParserLesson();
+                parserLesson.runLesson();
                 break;
             case "2":
                 ui.manageStudentsHeading();
