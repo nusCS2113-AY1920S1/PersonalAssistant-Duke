@@ -54,9 +54,9 @@ public class Storage {
      * Reads all storage file.
      */
     private void read() throws DukeException {
-        readEvent();
         readBus();
         readTrain();
+        readEvent();
     }
 
 
