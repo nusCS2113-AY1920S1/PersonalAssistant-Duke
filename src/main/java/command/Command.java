@@ -30,10 +30,6 @@ public abstract class Command {
      */
     public void execute(RoomList roomlist, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user)
             throws DukeException, IOException, ParseException {
-    }
-
-
-    public void execute (RoomList roomlist, Ui ui, Storage roomStorage) throws DukeException, IOException, ParseException {
 
     }
 

@@ -2,6 +2,7 @@ package control;
 
 import command.Command;
 import exception.DukeException;
+import room.Room;
 import room.RoomList;
 import storage.BookingConstants;
 import storage.Constants;
@@ -46,6 +47,7 @@ public class Duke {
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();
+            roomList = new RoomList();
         }
     }
 
