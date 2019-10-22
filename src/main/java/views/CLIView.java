@@ -262,20 +262,6 @@ public class CLIView {
     }
 
     /**
-     * Shows all the task that is assigned in the project.
-     * @param projectToManage The project specified by the user.
-     */
-    public void viewAssignedTask(IProject projectToManage) {
-        for (Task task: projectToManage.getTasks().getTaskList()) {
-            ArrayList<String> allAssignedTasks = new ArrayList<>();
-            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
-            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
-            DukeLogger.logDebug(CLIView.class,allAssignedTasks.toString());
-            consolePrint(allAssignedTasks.toArray(new String[0]));
-        }
-    }
-
-    /**
      * Shows specific requirements of a task.
      * @param projectToManage The project in which the aforementioned task belongs to.
      * @param taskIndex Index of task to be viewed.
@@ -284,6 +270,10 @@ public class CLIView {
         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
         DukeLogger.logDebug(CLIView.class,taskRequirements.toString());
         consolePrint(taskRequirements.toArray(new String[0]));
+    }
+
+    public void viewCredits(IProject projectToManage) {
+
     }
 
     public void editTask(IProject projectToManage, String updatedTaskDetails, int taskIndexNumber) {

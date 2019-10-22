@@ -56,7 +56,7 @@ public class ConsoleInputController implements IController {
             commandDelete(inputReader);
             break;
         case "help":
-            commandHelp("Not implemented");
+            commandHelp();
             break;
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
@@ -79,8 +79,6 @@ public class ConsoleInputController implements IController {
         ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
         consoleView.viewAllProjects(allProjectsDetails);
     }
-
-
 
     private void commandManage(Scanner inputReader) {
         if (inputReader.hasNext()) {
@@ -105,10 +103,9 @@ public class ConsoleInputController implements IController {
         }
     }
 
-    private void commandHelp(String s) {
+    private void commandHelp() {
         // TODO help page displaying all commands available
         // Not implemented
-        consoleView.consolePrint(s);
     }
 
     private void saveProjectsData() {

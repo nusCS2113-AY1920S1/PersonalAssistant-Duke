@@ -1,5 +1,6 @@
 package controllers;
 
+import models.data.IProject;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -72,7 +73,7 @@ public class ProjectInputController implements IController {
             } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                 projectViewMembers(projectToManage);
             } else if (projectCommand.length() == 12 && ("view credits").equals(projectCommand)) {
-                projectViewCredits();
+                projectViewCredits(projectToManage);
             } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                 projectAddTask(projectToManage, projectCommand);
             } else if (projectCommand.length() >= 10 && ("view tasks").equals(projectCommand.substring(0,10))) {
@@ -167,8 +168,9 @@ public class ProjectInputController implements IController {
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
      */
-    public void projectViewCredits() {
+    public void projectViewCredits(IProject projectToManage) {
         // TODO view all credits.
+        consoleView.viewCredits(projectToManage);
         consoleView.consolePrint("Not implemented yet");
     }
 
