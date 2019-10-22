@@ -35,16 +35,17 @@ public class QuizScene extends NewScene {
     @Override
     public String getResponse(String fullCommand)
             throws ChangeSceneException, InvalidAnswerException, WordBankNotEnoughForQuizException, CommandInvalidException {
-        if (fullCommand.equals("exit_quiz")||countQuiz==5) {
-            if(this.countQuiz>0){
-               return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
-            }
+        if (fullCommand.equals("exit_quiz")) {
             throw new ChangeSceneException();
         } else if (!startQuiz && fullCommand.equals("start")) {
             this.generateQuiz();
             startQuiz = true;
             return ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
-        } else {
+        } else if(countQuiz==5){
+            startQuiz = false;
+            return ui.quizIncorrect(wrongQuiz, countQuiz, quizArray);
+        }
+        else {
             if(!startQuiz){
                 throw new CommandInvalidException(fullCommand);
             } else{
