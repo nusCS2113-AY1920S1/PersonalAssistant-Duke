@@ -25,7 +25,7 @@ public class UiUtil {
         UiUtil.tabWindow = tabWindow;
     }
 
-
+    //@@author jaedonkey
     /**
      * Converts the object into string form using toString()
      * and prints it onto the GUI's primary display box.
@@ -38,6 +38,7 @@ public class UiUtil {
         vbox.getChildren().addAll(getDialogLabel(text.toString()));
     }
 
+    //@@author jaedonkey
     /**
      * Overloaded version of printg which allows you to customize style of text.
      * e.g usage; printg("hello world!", "verdana", 12, Color.RED);
@@ -50,6 +51,7 @@ public class UiUtil {
         vbox.getChildren().addAll(getDialogLabel(text.toString(), font, size, color));
     }
 
+    //@@author jaedonkey
     /**
      * Returns a label (node) with the text as text.
      *
@@ -63,6 +65,7 @@ public class UiUtil {
         return label;
     }
 
+    //@@author jaedonkey
     /**
      * Returns a label (node) with the input text, font, fontsize and color.
      * Used when function is overloaded.
@@ -81,6 +84,7 @@ public class UiUtil {
         return label;
     }
 
+    //@@author jaedonkey
     /**
      * Clears the display viewport on the GUI.
      * Parser calls this function when it receives a 'clear' command.

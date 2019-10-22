@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//@@author jaedonkey
 public class UserStorageManager implements Storage<String> {
 
     public static final String DEFAULT_USER_STORAGE = "./prefs.txt";
