@@ -2,6 +2,7 @@ package com.algosenpai.app.logic;
 
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.CommandEnum;
+import com.algosenpai.app.logic.command.PrintCommand;
 
 import java.util.Arrays;
 
@@ -24,6 +25,8 @@ public class Parser {
         } else {
             commandWord = input;
         }
+
+        System.out.println(commandWord);
 
         switch (commandWord) {
         case "hello":
@@ -55,7 +58,7 @@ public class Parser {
         case "exit":
             return new Command(CommandEnum.EXIT, 0, input);
         case "print":
-            return new Command(CommandEnum.PRINT, 0, input);
+            return new PrintCommand(CommandEnum.PRINT, 0, input);
         case "archive":
             return new Command(CommandEnum.ARCHIVE, 0, input);
         default:

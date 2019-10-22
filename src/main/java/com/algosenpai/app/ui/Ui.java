@@ -71,7 +71,7 @@ public class Ui extends AnchorPane {
      * @param text the String that user has typed in
      * @param image the profile picture of the user.
      */
-    public void printSenpaiText(String text, Image image) {
+    private void printSenpaiText(String text, Image image) {
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(text, image));
         userInput.clear();
     }

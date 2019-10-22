@@ -1,12 +1,14 @@
 package com.algosenpai.app.logic.command;
 
+import java.util.ArrayList;
+
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public class Command {
 
     private CommandEnum commandType;
-    private String userString;
+    String userString;
     private int commandParameter;
 
     /**
@@ -28,6 +30,14 @@ public class Command {
 
     public int getParameter() {
         return this.commandParameter;
+    }
+
+    public String execute() {
+        return "";
+    }
+
+    public ArrayList<String> parser() {
+        return new ArrayList<>();
     }
 
 }

@@ -3,6 +3,7 @@ package com.algosenpai.app.logic;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.CommandEnum;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
+import com.algosenpai.app.logic.command.PrintCommand;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,9 @@ public class Logic {
     private ArrayList<Question> quizList;
     private int questionNumber = 0;
     private int prevResult = 0;
+
+    // Attributes for review feature;
+    private ArrayList<Question> reviewList;
 
     public Logic(Parser parser) {
         this.parser = parser;
@@ -122,8 +126,8 @@ public class Logic {
             responseString = "exit";
             return responseString;
         case PRINT:
-            responseString = "print";
-            return responseString;
+            PrintCommand printCommand = new PrintCommand(currCommand, quizList);
+            return printCommand.execute();
         case ARCHIVE:
             responseString = "archive";
             return responseString;
@@ -143,9 +147,6 @@ public class Logic {
                         correctCount++;
                     }
                 }
-
-                this.prevResult = correctCount;
-                quizList.clear();
                 questionNumber = 0;
                 String endQuizMessage = "You got " + correctCount + "/10 questions correct!";
                 return endQuizMessage;

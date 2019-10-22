@@ -28,7 +28,11 @@ public class Question {
         return correctAnswer;
     }
 
-    public void setAnswer(String userAnswer) {
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    void setAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
     }
 
@@ -37,15 +41,15 @@ public class Question {
      * @return a boolean on whether the user answer is equal to the correct answer.
      */
     public boolean checkAnswer() {
-        if (this.userAnswer.equals(this.correctAnswer)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.userAnswer.equals(this.correctAnswer);
     }
 
-    public ReviewTracingListModel getRtlm() {
+    private ReviewTracingListModel getRtlm() {
         return rtlm;
+    }
+
+    public Question copy() {
+        return new Question(getQuestion(), getAnswer(), getRtlm());
     }
 
 }

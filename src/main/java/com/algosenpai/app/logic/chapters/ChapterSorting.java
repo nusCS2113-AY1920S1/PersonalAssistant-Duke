@@ -22,7 +22,7 @@ public class ChapterSorting {
      */
 
     public static Question generateQuestions() {
-        int questionType = random.nextInt(4);
+        int questionType = random.nextInt(3);
         switch (questionType) {
         case 0:
             return bubbleSortPassesQuestion();

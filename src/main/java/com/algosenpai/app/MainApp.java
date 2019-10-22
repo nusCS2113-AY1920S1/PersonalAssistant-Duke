@@ -1,6 +1,5 @@
 package com.algosenpai.app;
 
-import com.algosenpai.app.logic.constant.SoundConstant;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
 import javafx.animation.PauseTransition;
@@ -24,6 +23,7 @@ public class MainApp extends Application {
     //Initialise the different components here
     private Parser parser = new Parser();
     private Logic logic = new Logic(parser);
+
     private static MusicController musicController;
 
     static {
@@ -40,12 +40,12 @@ public class MainApp extends Application {
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event -> {
             try {
+                stage.close();
                 startMain(stage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        );
+        });
         pause.play();
     }
 
@@ -70,5 +70,4 @@ public class MainApp extends Application {
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
     }
-
 }
