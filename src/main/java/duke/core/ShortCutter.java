@@ -1,6 +1,15 @@
 package duke.core;
 
-import duke.command.*;
+import duke.command.AddPatientCommand;
+import duke.command.AddStandardTaskCommand;
+import duke.command.Command;
+import duke.command.DeletePatientCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.FindPatientCommand;
+import duke.command.ListPatientsCommand;
+import duke.command.ListTasksCommand;
+import duke.command.UpdatePatientCommand;
+import duke.command.UpdateTaskCommand;
 import duke.statistic.Counter;
 
 import java.util.ArrayList;
@@ -9,8 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+//@@author qjie7
+
 /**
- * This is a ShortCutter class to provide short cut implementation.
+ * This is a ShortCutter class to provide short cut implementation
  * DukeCommand will be used to activate the short cut mode.
  * This is not a simple UI implementation but also considered user's
  * daily work behavior to provide  personalised short cut solution.
@@ -23,8 +34,11 @@ public class ShortCutter {
     private Counter counter;
     private Ui ui;
 
+    public ShortCutter() {
+    }
+
     /**
-     * A constructor for ShortCutter class
+     * A constructor for ShortCutter class.
      *
      * @param counter receive a counter object
      * @param ui      receive a ui object
@@ -44,16 +58,20 @@ public class ShortCutter {
      * @param map a command frequency table in Map structure with key
      *            as the command type and value as the command frequency.
      * @return a Map structure that is sorted according to param's value
-     * which is the used command frequency.
+     *         which is the used command frequency.
      */
 
     public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
         Comparator<K> valueComparator = (k1, k2) -> {
             int compare = map.get(k2).compareTo(map.get(k1));
-            if (compare == 0)
+            if (compare == 0) {
+
                 return 1;
-            else
+            } else {
                 return compare;
+            }
+
+
         };
         Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
         sortedByValues.putAll(map);
@@ -67,10 +85,10 @@ public class ShortCutter {
      * @param sortedCommandTable a sorted command frequency table from high to low in Map structure with key
      *                           as the command type and value as the command frequency.
      * @return a Map structure with key being the index number for user to choose
-     * and value be the command type.
+     *         and value be the command type.
      */
 
-    public Map<Integer, String> MapSorter(Map<String, Integer> sortedCommandTable) throws DukeException {
+    public Map<Integer, String> mapSorter(Map<String, Integer> sortedCommandTable) throws DukeException {
         Map<Integer, String> topCommandTable = new HashMap<>();
         ArrayList<String> keys = new ArrayList<>(sortedCommandTable.keySet());
         System.out.println("< Most Frequently Used Commands >");
@@ -94,7 +112,7 @@ public class ShortCutter {
 
     /**
      * This function is used to run the short cut UI logic by getting
-     * necessary information from user to provide the target output
+     * necessary information from user to provide the target output.
      *
      * @return command the command that is to be executed.
      * @throws DukeException throw a dukeException with error message for debugging.
@@ -102,7 +120,7 @@ public class ShortCutter {
      */
     public Command runShortCut() throws DukeException {
         sortedCommandTable = sortByValues(counter.getCommandTable());
-        topUsedCommandTable = MapSorter(sortedCommandTable);
+        topUsedCommandTable = mapSorter(sortedCommandTable);
         String commandName;
         Command command;
         String choiceIndex = ui.readCommand();
@@ -165,9 +183,9 @@ public class ShortCutter {
             String patientId = ui.getPatientInfo("id");
             return new FindPatientCommand(patientId);
 
-        } else if (commandName.equals("FindPatientTaskCommand")) {
-            String taskId = ui.getTaskInfo("id");
-            return new FindPatientTaskCommand(taskId);
+            //} else if (commandName.equals("FindPatientTaskCommand")) {
+            //String taskId = ui.getTaskInfo("id");
+            //return new FindPatientTaskCommand(taskId);
 
         } else if (commandName.equals("ListPatientsCommand")) {
             return new ListPatientsCommand();
@@ -187,13 +205,22 @@ public class ShortCutter {
             String changeValue = ui.getTaskInfo("changeValue");
             String userInput = taskId + change + changeValue;
             return new UpdateTaskCommand(userInput);
-        } else {//Assign patient task will be add...
+        } else {
+            //Assign patient task will be add...
             throw new DukeException("No matching command!");
         }
-
     }
 
-    public String commandNameConverter (String commandClassName) throws DukeException {
+
+    /**
+     * This function is used to convert the provided command class name
+     * into a string that is much user friendly and easy to read by the user.
+     *
+     * @param commandClassName the command class name chosen by the user
+     * @return a String that is easy to read by the user.
+     * @throws DukeException throw a dukeException with error message for debugging.
+     */
+    public String commandNameConverter(String commandClassName) throws DukeException {
         String convertedName;
         if (commandClassName.equals("AddPatientCommand")) {
             convertedName = "Add Patient";
@@ -235,14 +262,13 @@ public class ShortCutter {
             convertedName = "Update Patient information";
             return convertedName;
 
-        }  else if (commandClassName.equals("UpdateTaskCommand")) {
+        } else if (commandClassName.equals("UpdateTaskCommand")) {
             convertedName = "Update Task information";
             return convertedName;
         } else if (commandClassName.equals("AssignTaskToPatientCommand")) {
             convertedName = "Assign a task to a patient";
             return convertedName;
-        }
-        else {
+        } else {
             throw new DukeException("No matching command!");
         }
     }

@@ -419,7 +419,7 @@ public class Ui {
             showLine();
         }
     }
-
+    //@@author qjie7
     /**
      * Provide the necessary task details from the user for short cut feature.
      *
@@ -448,9 +448,7 @@ public class Ui {
             System.out.println("Change to ?");
             String changeValue = ui.readCommand();
             return changeValue;
-        }
-
-        else {
+        } else {
             throw new DukeException("Please provide a proper parameter into getPatient function!");
         }
     }
@@ -498,6 +496,6 @@ public class Ui {
             throw new DukeException("Please provide a proper parameter into getPatient function!");
         }
     }
-
+    //@@author
 
 }

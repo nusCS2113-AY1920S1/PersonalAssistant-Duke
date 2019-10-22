@@ -8,6 +8,7 @@ import duke.storage.CounterStorage;
 
 import java.util.Map;
 
+//@@author qjie7
 /**
  * This is a Counter class that mainly used for counting purpose
  * which can then to be used for relevant application.

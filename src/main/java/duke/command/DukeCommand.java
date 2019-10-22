@@ -25,8 +25,9 @@ public class DukeCommand extends Command {
      * @throws DukeException .
      */
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        System.out.println("DUKE SHORTCUT");
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
+                        PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
+                        PatientStorage patientStorage) throws DukeException {
     }
 
     /**

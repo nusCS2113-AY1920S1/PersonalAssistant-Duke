@@ -16,14 +16,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * A class for load/save of command frequency in csv format,
- * written with Storage template written by HUANG XUAN KUN
+ * written with Storage template written by HUANG XUAN KUN.
  *
  * @author QIAN JIE
  * @version 1.3
  */
-
 public class CounterStorage {
     /**
      * A string that represents a relative file path from the project folder.
