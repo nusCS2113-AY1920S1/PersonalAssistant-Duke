@@ -85,37 +85,11 @@ public class ViewWeekCommand extends Command {
         calendar.setTime(date);
         for (Task task : tasks.getTasks()) {
             if (task instanceof Todo) {
-                Todo todo = (Todo) task;
-                String[] dateSplit = todo.getOn().split("-");
-                if (dateMatches(dateSplit)) {
-                    String description = todo.getDescription();
-                    String time = "";
-                    int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
-                            % lastDate;
-                    addEntry(time, description, day);
-                }
+                addToDoTask(task, calendar);
             } else if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                String[] dateTimeSplit = deadline.getBy().split(" ");
-                String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
-                if (dateMatches(dateSplit)) {
-                    String description = deadline.getDescription();
-                    String time = dateTimeSplit[INDEX_TIME];
-                    int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
-                            % lastDate;
-                    addEntry(time, description, day);
-                }
+                addDeadlineTask(task, calendar);
             } else if (task instanceof Event) {
-                Event event = (Event) task;
-                String[] dateTimeSplit = event.getStartTime().split(" ");
-                String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
-                if (dateMatches(dateSplit)) {
-                    String description = event.getDescription();
-                    String time = dateTimeSplit[INDEX_TIME];
-                    int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
-                            % lastDate;
-                    addEntry(time, description, day);
-                }
+                addEventTask(task, calendar);
             }
         }
         for (ArrayList<String[]> day : calendarTasks) {
@@ -124,6 +98,59 @@ public class ViewWeekCommand extends Command {
         int largestTaskSize = getLargestTaskNo(calendarTasks);
         int largestColSize = getLargestColSize(calendarTasks);
         ui.printViewWeek(calendarTasks, date, largestTaskSize, largestColSize);
+    }
+
+    /**
+     * Adds todo task to the list of task for the week if the task falls into the week of interest.
+     * @param task Task to be added to the list of task.
+     * @param calendar Instance of calendar index generation.
+     */
+    private void addToDoTask(Task task, Calendar calendar) {
+        Todo todo = (Todo) task;
+        String[] dateSplit = todo.getOn().split("-");
+        if (dateMatches(dateSplit)) {
+            String description = todo.getDescription();
+            String time = "";
+            int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
+                    % lastDate;
+            addEntry(time, description, day);
+        }
+    }
+
+    /**
+     * Adds deadline task to the list of task for the week if the task falls into the week of interest.
+     * @param task Task to be added to the list of task.
+     * @param calendar Instance of calendar index generation.
+     */
+    private void addDeadlineTask(Task task, Calendar calendar) {
+        Deadline deadline = (Deadline) task;
+        String[] dateTimeSplit = deadline.getBy().split(" ");
+        String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
+        if (dateMatches(dateSplit)) {
+            String description = deadline.getDescription();
+            String time = dateTimeSplit[INDEX_TIME];
+            int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
+                    % lastDate;
+            addEntry(time, description, day);
+        }
+    }
+
+    /**
+     * Adds event task to the list of task for the week if the task falls into the week of interest.
+     * @param task Task to be added to the list of task.
+     * @param calendar Instance of calendar index generation.
+     */
+    private void addEventTask(Task task, Calendar calendar) {
+        Event event = (Event) task;
+        String[] dateTimeSplit = event.getStartTime().split(" ");
+        String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
+        if (dateMatches(dateSplit)) {
+            String description = event.getDescription();
+            String time = dateTimeSplit[INDEX_TIME];
+            int day = ((Integer.parseInt(dateSplit[INDEX_DAY]) - calendar.get(Calendar.DATE)) + lastDate)
+                    % lastDate;
+            addEntry(time, description, day);
+        }
     }
 
     /**

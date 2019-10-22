@@ -293,7 +293,11 @@ Searches for free time on the given date of `10-10-2019`.
 === View all tasks in week view: `viewWeek`
 Transforms all current tasks recorded into a week view to plan for the week. 
 
-Format: `viewWeek`
+Format: `viewweek DD MM YYYY`
+
+[NOTE]
+Note that the parameters `DD MM YYYY` are optional and the command will automatically generate the current time if no date is entered or when the date entered is invalid.
+
 
 ===  Viewing all tasks in calendar view: `calendar`
 Transforms all current tasks recorded into a calendar view for easy time management. 
