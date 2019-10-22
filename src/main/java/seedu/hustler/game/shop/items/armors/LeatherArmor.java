@@ -4,15 +4,16 @@ package seedu.hustler.game.shop.items.armors;
  * The cheapest armor in the shop.
  */
 public class LeatherArmor extends Armor {
-
     /**
      * The defence increment of the leather armor.
      */
     private static final int DEF_INCR = 1;
+
     /**
      * The stamina increment of the leather armor.
      */
     private static final int STA_INCR = 3;
+
     /**
      * The cost of the leather armor.
      */

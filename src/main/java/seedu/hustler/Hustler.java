@@ -16,7 +16,7 @@ import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
-import seedu.hustler.ui.timer.timerManager;
+import seedu.hustler.ui.timer.TimerManager;
 import static seedu.hustler.game.achievement.AchievementList.achievementList;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
 
@@ -68,7 +68,7 @@ public class Hustler extends Application {
     /**
      * TimerManager instance that starts the timer.
      */
-    public static timerManager timermanager = new timerManager();
+    public static TimerManager timermanager = new TimerManager();
 
     /**
      * MemoryManager instance that starts the timer.

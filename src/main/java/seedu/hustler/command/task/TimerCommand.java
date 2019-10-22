@@ -2,7 +2,7 @@ package seedu.hustler.command.task;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.ui.timer.timerManager;
+import seedu.hustler.ui.timer.TimerManager;
 
 /**
  * Command that starts the timer.
@@ -31,7 +31,7 @@ public class TimerCommand extends Command {
             return;
         }
 
-        timerManager timermanager = new timerManager();
+        TimerManager timermanager = new TimerManager();
         timermanager.setTimer(taskInfo[1]);
         timermanager.startTimer();
     }

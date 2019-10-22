@@ -3,7 +3,7 @@ package seedu.hustler.ui.timer;
 /**
  * A class with functions that help process outputs, making them more readable before printing.
  */
-public class UILogic {
+public class UiLogic {
     /**
      * Takes in the integers to be printed and pads them with '0's where applicable.
      * @param timeArray the hours, minutes and seconds to be printed.

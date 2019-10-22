@@ -1,8 +1,16 @@
 package seedu.hustler.data;
 
-import seedu.hustler.game.achievement.*;
+import seedu.hustler.game.achievement.Achievements;
+import seedu.hustler.game.achievement.AddTask;
+import seedu.hustler.game.achievement.ConsecutiveLogin;
+import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.parser.DateTimeParser;
-import java.io.*;
+import seedu.hustler.game.achievement.FirstLogin;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Formatter;
