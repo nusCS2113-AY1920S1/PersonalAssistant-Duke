@@ -8,6 +8,7 @@ import seedu.hustler.ui.timer.Timer.ThreadStatus;
  * Acts as a node and HQ for all such user-interface activities.
  */
 public class TimerUI {
+    
     /**
      * All strings to be printed will always be generated else. This private
      * function will be the last part of every printing-related; this method
