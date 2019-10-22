@@ -90,7 +90,8 @@ public class LoansTest {
         listAllLoansCommand.execute(account, ui, storage);
         assertEquals("Got it! List of INCOMING Loans printed in the other pane! \n", ui.getOutputString());
         assertEquals(" 1.[Outstanding] [I] my bras(loan: $1000.0) (Lent On: 9/10/1997) " +
-                "Outstanding Amount: $1000.0\n" + "Total amount of INCOMING Loans: $1000.0\n", ui.getGraphContainerString());
+                "Outstanding Amount: $1000.0\n" + "Total amount of INCOMING Loans: $1000.0\n",
+                ui.getGraphContainerString());
     }
 
     @Test
@@ -106,7 +107,8 @@ public class LoansTest {
         listAllLoansCommand.execute(account, ui, storage);
         assertEquals("Got it! List of OUTGOING Loans printed in the other pane! \n", ui.getOutputString());
         assertEquals(" 1.[Outstanding] [O] my buds(loan: $500.0) (Lent On: 9/10/1997) " +
-                "Outstanding Amount: $500.0\n" + "Total amount of OUTGOING Loans: $500.0\n", ui.getGraphContainerString());
+                "Outstanding Amount: $500.0\n" + "Total amount of OUTGOING Loans: $500.0\n",
+                ui.getGraphContainerString());
     }
 
     @Test
@@ -156,8 +158,6 @@ public class LoansTest {
                 "(Lent On: 9/10/1997) (Paid Back On: " + passDate + ")\n" +
                 "The incoming loan has been settled\n", ui.getOutputString());
     }
-
-
 
     @Test
     public void deleteLoans() throws ParseException, DukeException {
