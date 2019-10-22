@@ -96,7 +96,7 @@ public class Split extends Expenditure {
             if (p.getValue()) {
                 status = "1";
             }
-            String infoPerPerson = p.getKey() + "#" + status;
+            String infoPerPerson = p.getKey() + "&" + status;
             everyone.append(infoPerPerson).append(" ! ");
         }
         return everyone.toString().substring(0, everyone.toString().length() - 3);

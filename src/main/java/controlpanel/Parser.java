@@ -114,6 +114,8 @@ public class Parser {
             moneyCommand = new ListLoansCommand(cmd);
         } else if ((cmd.startsWith("paid")) || (cmd.startsWith("received"))) {
             moneyCommand = new SettleLoanCommand(cmd);
+        } else if (cmd.startsWith("delete loan")) {
+            moneyCommand = new DeleteLoanCommand(cmd);
         } else if (cmd.startsWith("add bill")) {
             moneyCommand = new AddBillCommand(cmd);
         } else {
