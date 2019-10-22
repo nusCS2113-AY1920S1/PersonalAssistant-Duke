@@ -1,6 +1,14 @@
 package dolla.parser;
 
-import dolla.command.*;
+import dolla.command.Command;
+import dolla.command.AddEntryCommand;
+import dolla.command.AddActionCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.InitialModifyCommand;
+import dolla.command.SortCommand;
+import dolla.command.SearchCommand;
+import dolla.command.RemoveCommand;
 
 public class EntryParser extends Parser {
     private static int prevPosition;
@@ -20,11 +28,13 @@ public class EntryParser extends Parser {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
-                if(undoFlag == 1) {//Undo input
+                if (undoFlag == 1) { //Undo input
                     undoFlag = 0;
-                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
-                } else {//normal input, prePosition is -1
-                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
+                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                            description, date, prevPosition);
+                } else { //normal input, prePosition is -1
+                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),
+                            description, date, -1);
                 }
             } else {
                 return new ErrorCommand();
@@ -46,7 +56,7 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
             return new AddActionCommand(mode, commandToRun);
         } else {
-                return invalidCommand();
+            return invalidCommand();
         }
     }
 

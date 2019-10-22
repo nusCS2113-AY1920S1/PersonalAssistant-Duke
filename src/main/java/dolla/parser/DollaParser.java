@@ -62,7 +62,7 @@ public class DollaParser extends Parser {
                 amount = stringToDouble(inputArray[2]);
 
                 String[] desc = inputLine.split(inputArray[2] + " ");
-                String dateString[] = desc[1].split(" /due ");
+                String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
                 date = Time.readDate(dateString[1]);
 

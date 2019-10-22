@@ -40,21 +40,22 @@ public class MainParser {
             return new SwitchModeCommand(command); // TODO
         }
 
-        if(prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
+        if (prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
             prevCommand[1] = "2";
-        } else if(prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
+        } else if (prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
             prevCommand[0] = command;
             prevCommand[1] = "1";
         } else { //not from Redo
             prevCommand[0] = command;
             prevCommand[1] = "1";
         }
-
-//    } else if(prevCommand[0].equals("Redo") && prevCommand[1].equals("1")) {
-//        prevCommand[1] = "2";
-//    } else if(prevCommand[0].equals("Redo") || prevCommand[1].equals("2")) {
-//        prevCommand[0] = command;
-//        prevCommand[1] = "1";
+        /*
+        } else if(prevCommand[0].equals("Redo") && prevCommand[1].equals("1")) {
+            prevCommand[1] = "2";
+        } else if(prevCommand[0].equals("Redo") || prevCommand[1].equals("2")) {
+            prevCommand[0] = command;
+            prevCommand[1] = "1";
+        */
 
         Tag tag = new Tag(inputLine);
         tag.parseTag();
@@ -80,7 +81,6 @@ public class MainParser {
             Ui.printInvalidCommandError();
             return new ErrorCommand();
         }
-
 
         /*
         String[] inputArray = inputLine.split(" ");

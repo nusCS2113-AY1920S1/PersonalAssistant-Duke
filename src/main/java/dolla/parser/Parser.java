@@ -21,6 +21,10 @@ public abstract class Parser {
     protected static final String SPACE = " ";
 
 
+    /**
+     * Instantiates a new parser.
+     * @param inputLine inputLine
+     */
     public Parser(String inputLine) {
         this.inputLine = inputLine;
         this.inputArray = inputLine.split(SPACE);
@@ -116,10 +120,14 @@ public abstract class Parser {
         return true;
     }
 
+    /**
+     * Verifies modify command. //todo: edit javadoc
+     * @return
+     */
     public boolean verifyModifyCommand() {
         try {
             Integer.parseInt(inputArray[1]);
-            // TODO: Add support for modifying specific catogories
+            // TODO: Add support for modifying specific categories
         } catch (Exception e) {
             Ui.printInvalidModifyFormatError();
             return false;
