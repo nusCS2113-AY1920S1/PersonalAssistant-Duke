@@ -24,7 +24,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     private ExpensePane expensePane;
-    private PieChartSample pieChartSample;
     private TrendingPane trendingPane;
     /* todo: create controller for trendingPage;
     private TrendingPage trendingPage;
@@ -73,8 +72,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void fillInnerPart() {
-        pieChartSample = new PieChartSample(logic);
-        expensePane = new ExpensePane(logic.getExternalExpenseList());
+        expensePane = new ExpensePane(logic.getExternalExpenseList(), logic);
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
