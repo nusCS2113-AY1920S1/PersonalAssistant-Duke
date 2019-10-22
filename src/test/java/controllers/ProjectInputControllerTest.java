@@ -15,6 +15,7 @@ class ProjectInputControllerTest {
     private ProjectRepository projectRepository;
     private CLIView consoleView;
     private ProjectInputController projectInputController;
+    private DateTimeHelper dateTimeHelper;
     private String simulatedUserInput;
     private String actualOutput;
     private String expectedOutput;
@@ -24,6 +25,7 @@ class ProjectInputControllerTest {
         this.projectRepository = new ProjectRepository();
         this.consoleView = new CLIView();
         this.projectInputController = new ProjectInputController(consoleView,projectRepository);
+        this.dateTimeHelper = new DateTimeHelper();
     }
 
     /**
@@ -115,7 +117,6 @@ class ProjectInputControllerTest {
     void testProjectAddTask() {
         try {
             Project project = new Project("Infinity_Gauntlet");
-            DateTimeHelper dateTimeHelper = new DateTimeHelper();
             dueDate = dateTimeHelper.formatDate("21/09/2019");
             simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                     + "-r do something -r do another thing";
@@ -131,6 +132,9 @@ class ProjectInputControllerTest {
             simulatedUserInput = "add task -t Documentation for product -p 2 -c 40";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
+            simulatedUserInput = "add task -s doing -t Documentation for CS2113 -c 40 -d 21/09/2019 -p 2";
+            projectInputController.projectAddTask(project, simulatedUserInput);
+
             actualOutput = "";
             for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
                 actualOutput += message;
@@ -140,7 +144,10 @@ class ProjectInputControllerTest {
                     + " | Credit: 40 | State: TODO"
                     + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
                     + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
-                    + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
+                    + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                    + "5. Documentation for CS2113 | Priority: 2 | Due: 21 Sep 2019"
+                    + dateTimeHelper.getDifferenceDays(dueDate)
+                    + " | Credit: 40 | State: DOING";
 
             assertEquals(expectedOutput, actualOutput);
         } catch (ParseException e) {
@@ -152,7 +159,6 @@ class ProjectInputControllerTest {
     void testProjectEditTask() {
         try {
             Project project = new Project("Infinity_Gauntlet");
-            DateTimeHelper dateTimeHelper = new DateTimeHelper();
             dueDate = dateTimeHelper.formatDate("22/09/2019");
             simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                     + "-r do something -r do another thing";
@@ -192,6 +198,30 @@ class ProjectInputControllerTest {
                     + dateTimeHelper.getDifferenceDays(dueDate)
                     + " | Credit: 30 | State: TODO";
             assertEquals(expectedOutput,actualOutput);
+
+            simulatedUserInput = "edit task 1 -c 20 -p 2";
+            projectInputController.projectEditTask(project,simulatedUserInput);
+            actualOutput = "";
+            for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. Infinity War | Priority: 2 | Due: 22 Sep 2019"
+                    + dateTimeHelper.getDifferenceDays(dueDate)
+                    + " | Credit: 20 | State: TODO";
+            assertEquals(expectedOutput,actualOutput);
+
+            simulatedUserInput = "edit task 1 -c 70 -s doing -p 6 -d 12/12/2020 -t End Game";
+            dueDate = dateTimeHelper.formatDate("12/12/2020");
+            projectInputController.projectEditTask(project,simulatedUserInput);
+            actualOutput = "";
+            for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. End Game | Priority: 6 | Due: 12 Dec 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate)
+                    + " | Credit: 70 | State: DOING";
+            assertEquals(expectedOutput,actualOutput);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
