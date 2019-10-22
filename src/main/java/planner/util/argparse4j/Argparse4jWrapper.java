@@ -61,7 +61,9 @@ public class Argparse4jWrapper {
      */
     // Add arguments for parsers here
     public void mapBuiltinParserArguments() {
-        Subparsers addParsers = getSubParser("add").addSubparsers()
+        Subparser addParser = getSubParser("add")
+                .help("Add a module or cca");
+        Subparsers addParsers = addParser.addSubparsers()
                 .dest("toAdd")
                 .help("add command options");
         addParsers.addParser("module")
@@ -90,11 +92,17 @@ public class Argparse4jWrapper {
                 .required(true)
                 .help("Day of week on which cca takes place");
 
-        getSubParser("show").addArgument("toShow")
+        getSubParser("show")
+                .help("Show infos about your timetable")
+                .addArgument("toShow")
                 .choices("module", "core", "ge", "ue", "cca")
                 .help("What to show");
 
-        Subparser removeParser = getSubParser("remove");
+        getSubParser("bye")
+                .help("Exit ModPlanner");
+
+        Subparser removeParser = getSubParser("remove")
+                .help("Remove a module or cca");
         removeParser.addArgument("toRemove")
                 .choices("module", "cca")
                 .help("What to remove");
