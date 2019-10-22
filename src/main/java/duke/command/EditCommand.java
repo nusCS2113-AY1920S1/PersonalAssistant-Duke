@@ -19,7 +19,7 @@ public class EditCommand extends Command {
 
     //Takes in a string of all the parameters after the edit command
     public String[] getParameters(String rawParameters) throws DukeException {
-        String[] splitParameters = rawParameters.split("-");
+        String[] splitParameters = rawParameters.split(" -");
         if (splitParameters.length == 1) {
             throw new DukeException("Please enter something for me to edit!");
         }
@@ -28,7 +28,7 @@ public class EditCommand extends Command {
 
     //Get the index number
     public int getIndexFromCommand(String editCommand) throws DukeException {
-        String[] temp = editCommand.split(" ");
+        String[] temp = editCommand.split(" ", 2);
         try {
             int indexNo = Integer.parseInt(temp[0]) - 1;
             return indexNo;
@@ -44,7 +44,7 @@ public class EditCommand extends Command {
         if (filteredListIndex > tempTaskList.size()) {
             isIndexFound = false;
         } else if (filter.isPresent()) {
-            int filteredListCounter = 1;
+            int filteredListCounter = 0;
             for (int i = 0; i < tempTaskList.size(); i++) {
                 if (filteredListCounter == filteredListIndex) {
                     isIndexFound = true;
@@ -67,7 +67,7 @@ public class EditCommand extends Command {
     }
 
     public String[] getKeywordAndEditField(String param) throws DukeException {
-        String[] keywordAndEditArray = param.split(" ");
+        String[] keywordAndEditArray = param.split(" ", 2);
         if (keywordAndEditArray.length == 1) {
             throw new DukeException("Please enter the edit you wish to make");
         } else {
