@@ -138,10 +138,14 @@ public class Farmer {
         JSONObject obj = new JSONObject();
         obj.put("level", level);
         obj.put("money", money);
+        obj.put("day", day);
+        obj.put("location", location);
         obj.put("farm_wheat", wheatFarm.toJSON());
         obj.put("farm_chicken", chickenFarm.toJSON());
         obj.put("farm_cow", cowFarm.toJSON());
-        //obj.put("task_list", tasks.toJSON());
+        obj.put("task_list", tasks.toJSON());
+        obj.put("task_current", currentTask);
+        obj.put("task_failed_status", hasfailedCurrentTask);
         return obj;
     }
 }

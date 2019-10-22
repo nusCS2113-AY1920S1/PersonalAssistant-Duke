@@ -2,6 +2,7 @@ package UserCode.Conditions;
 
 import Farmio.Farmio;
 import Exceptions.FarmioException;
+import org.json.simple.JSONObject;
 
 public abstract class Condition {
 
@@ -75,4 +76,6 @@ public abstract class Condition {
         }
         throw new FarmioException("Failure Creating Condition!");
     }
+
+    public abstract JSONObject toJSON();
 }

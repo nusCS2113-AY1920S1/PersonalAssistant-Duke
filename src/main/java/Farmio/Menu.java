@@ -11,7 +11,6 @@ public class Menu {
     private static final String BULLET = "\t\u2022 ";
     public static void show(Farmio farmio, boolean resume) throws FarmioFatalException {
         Storage storage = farmio.getStorage();
-        Ui ui = farmio.getUi();
         Simulation simulation =farmio.getSimulation();
         if(resume && storage.getSaveExist()) { //resume, save and load
             simulation.animate("Menu", 2, true);

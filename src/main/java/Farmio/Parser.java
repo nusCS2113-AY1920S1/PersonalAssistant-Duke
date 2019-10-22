@@ -10,9 +10,12 @@ import javax.swing.plaf.multi.MultiSeparatorUI;
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         System.out.println(stage.name());
-        userInput = userInput.toLowerCase();
-        if (userInput.equals("exit")) {
+        userInput = userInput.toLowerCase().trim();
+        if (userInput.equals("quit game")) {
             return new CommandGameQuit();
+        }
+        if (userInput.matches("save game")) {
+            return new CommandGameSave();
         }
         switch (stage) {
             case WELCOME:

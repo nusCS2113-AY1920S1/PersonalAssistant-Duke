@@ -10,7 +10,7 @@ import FrontEnd.Ui;
 public class PlantSeedAction extends Action {
 
     public PlantSeedAction() {
-        this.type = ActionType.plantSeeds;
+        super(ActionType.plantSeeds);
     }
 
     /*public PlantSeedAction(JSONObject obj){
