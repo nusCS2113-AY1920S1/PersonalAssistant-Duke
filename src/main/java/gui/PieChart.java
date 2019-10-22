@@ -31,6 +31,10 @@ public class PieChart extends JComponent {
 		g.fillArc(area.x + 3, area.y + 3, area.width - 6, area.height - 6, angleIncomplete, 360 - angleIncomplete);
 	}
 	
+	/**
+	 * Updates percentage of the pie chart
+	 * @param percentage of tasks completed
+	 */
 	public void setPercentage(float percentage)	{
 		this.percentage = percentage;
 		this.paint(getGraphics());

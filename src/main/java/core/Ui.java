@@ -34,7 +34,7 @@ public class Ui {
      * @param toPrint the message need to be printed
      */
     public static void print(String toPrint) {
-        Window.instance.outputArea.setText(Window.instance.outputArea.getText() +  "\n\n" + toPrint);
+        Window.instance.outputArea.setText(Window.instance.outputArea.getText() + "\n\n" + toPrint);
         Window.instance.updatePercentage();
         System.out.println(horizontalLine);
         toPrint = "\t" + toPrint;
