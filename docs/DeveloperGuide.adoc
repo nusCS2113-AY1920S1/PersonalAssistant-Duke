@@ -97,15 +97,24 @@ The figure above illustrates how our program might look like from a high-level p
 * At shutdown: Stop all running processes, and initiate any cleanup methods whenever required
 
 === Model
-.Model Diagram
+.Model Diagram : Meal Management
 image::model.png[width="800"]
 
-The Model component of the code is in charge of tracking and managing all of the data involved during the application's runtime. It accomplishes this by:
+The Model component of the code is in charge of tracking and managing all of the meal data involved during the application's runtime. It accomplishes this by:
 
 * Initializing a MealList object, which stores:
 ** All of the user's meal info
 ** All of the previously defined default meal values
 * Initializing a Goal object, which stores the user defined dietary targets to be met.
+* Being capable of operating independently of all the other code components.
+
+.Model Diagram: Cost Management
+image::transactionmodel.png[width="800"]
+
+The Model component of the code is in charge of managing the transaction data involved during the application's runtime. It accomplishes this by:
+
+* Initializing a TransactionList object, which stores
+** All of the transactions information (e.g. transaction amount, dates of transaction).
 * Being capable of operating independently of all the other code components.
 
 === Storage
