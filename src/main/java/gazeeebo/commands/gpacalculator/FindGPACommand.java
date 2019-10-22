@@ -19,6 +19,7 @@ public class FindGPACommand {
     public FindGPACommand(final Ui ui, final Map<String, ArrayList<GPACommand>> gpalist, final String lineBreak) {
         System.out.print("Sem | Module code | MC | GPA\n" + lineBreak);
         String findInput = ui.fullCommand.split(" ")[1];
+        boolean isExist = false;
         for (String key : gpalist.keySet()) {
             for(int i = 0; i < gpalist.get(key).size(); i++) {
                 if (key.equals(findInput)) {
@@ -29,6 +30,7 @@ public class FindGPACommand {
                     }
                     System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).grade
                             + "\n" + lineBreak);
+                    isExist = true;
                 } else if (gpalist.get(key).get(i).moduleCode.equals(findInput)) {
                     int noBlankSpacing = BLANK_SPACING - gpalist.get(key).get(i).moduleCode.length();
                     System.out.print(key + "   | " + gpalist.get(key).get(i).moduleCode);
@@ -37,8 +39,12 @@ public class FindGPACommand {
                     }
                     System.out.print("| " + gpalist.get(key).get(i).moduleCredit + "  | " + gpalist.get(key).get(i).grade
                             + "\n" + lineBreak);
+                    isExist = true;
                 }
             }
+        }
+        if(!isExist) {
+            System.out.println(findInput + " is not found in the list.");
         }
     }
 }

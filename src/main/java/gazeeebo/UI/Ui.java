@@ -62,7 +62,7 @@ public class Ui {
     public void MajorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
-        majorCategories.add("contact");
+        majorCategories.add("contacts");
         majorCategories.add("expenses");
         majorCategories.add("places");
         majorCategories.add("tasks");

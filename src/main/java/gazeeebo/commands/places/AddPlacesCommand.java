@@ -23,7 +23,7 @@ public class AddPlacesCommand {
             String name = split_info[0];
             String number = split_info[1];
             places.put(name, number);
-            System.out.println("Okay we have successfully added the new location :" + ui.fullCommand);
+            System.out.println("Successfully added :" + ui.fullCommand);
             String toStore = "";
             for (String key : places.keySet()) {
                 toStore = toStore.concat(key + "|" + places.get(key) + "\n");

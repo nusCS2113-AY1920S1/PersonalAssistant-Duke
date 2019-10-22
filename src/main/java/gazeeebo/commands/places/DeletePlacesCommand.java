@@ -21,9 +21,9 @@ public class DeletePlacesCommand {
             System.out.println("You need to indicate what you want to delete, Format: delete name");
         } else if (places.containsKey(placeToDelete)) {
             places.remove(placeToDelete);
-            System.out.println(placeToDelete + " has been removed.");
+            System.out.println("Successfully deleted: " + placeToDelete);
         } else {
-            System.out.println(placeToDelete + " is not in the list.");
+            System.out.println(placeToDelete + " is not found in the list.");
         }
         String toStore = "";
         for (String key : places.keySet()) {

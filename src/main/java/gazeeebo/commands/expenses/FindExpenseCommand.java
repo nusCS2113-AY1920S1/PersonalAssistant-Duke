@@ -19,15 +19,12 @@ public class FindExpenseCommand {
      * @throws IOException catch any error if read file fails
      */
     public FindExpenseCommand(Ui ui, Map<LocalDate, ArrayList<String>> expenses) throws IOException, NullPointerException {
-        System.out.println("Please enter the date of expenses are you searching for:");
-        ui.readCommand();
-        String date = ui.fullCommand;
+        String date = ui.fullCommand.split(" ")[1];
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);
         boolean isExist = false;
         for(LocalDate key: expenses.keySet()) {
             if (dateOfPurchase.equals(key)) {
-                System.out.println("Expenses found:");
                 for (int i = 0; i < expenses.get(key).size(); i++) {
                     System.out.println((i+1) + "." + expenses.get(key).get(i));
                 }
@@ -36,7 +33,7 @@ public class FindExpenseCommand {
             }
         }
         if(!isExist) {
-            System.out.println("Date does not exist!");
+            System.out.println(date + " is not found in the list.");
         }
 
     }

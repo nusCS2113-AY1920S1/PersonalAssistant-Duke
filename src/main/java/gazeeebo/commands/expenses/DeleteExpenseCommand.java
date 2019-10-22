@@ -21,7 +21,6 @@ public class DeleteExpenseCommand {
      */
     public DeleteExpenseCommand(Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException {
         ArrayList<String> expenseList = new ArrayList<>();
-        System.out.println("Enter the expense index that you wish to delete:");
 
         /* Prints list of expenses*/
         for (LocalDate key : expenses.keySet()) {
@@ -33,11 +32,9 @@ public class DeleteExpenseCommand {
             System.out.println((j + 1) + ". " + expenseList.get(j));
         }
 
-         /* Reading the expense index that is entered*/
-        ui.readCommand();
-        String expenseIndex = ui.fullCommand;
+        String expenseIndex = ui.fullCommand.split(" ")[1];
         int index = Integer.parseInt(expenseIndex) - 1;
-        System.out.println("Expense " +  expenseList.get(index) + " deleted!");
+        System.out.println("Successfully deleted: " +  expenseList.get(index));
 
         String getKeyFromList = expenseList.get(index).split(" ")[0];
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -45,7 +42,6 @@ public class DeleteExpenseCommand {
 
         String getValueFromList = expenseList.get(index).split(" ")[1] + " " + expenseList.get(index).split(" ")[2];
         for(LocalDate key : expenses.keySet()) {
-
             if(key.equals(getKey)) {
                 for(int i = 0; i < expenses.get(key).size(); i++) {
                     if(expenses.get(key).get(i).equals(getValueFromList)) {
