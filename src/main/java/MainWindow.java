@@ -2,8 +2,6 @@ import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import help.MemorisePreviousFunctions;
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
-import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -150,7 +148,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             TreeSet<String> suggestedCommands = new TreeSet<>();
             for (String i: autoComplete.getCommandList()) {
                 if (!sc.getUserText().isEmpty() && !i.equals(sc.getUserText())
-                        && i.startsWith(sc.getUserText().trim().toLowerCase())) {
+                        && i.startsWith(sc.getUserText())) {
                     suggestedCommands.add(i);
                 }
             }

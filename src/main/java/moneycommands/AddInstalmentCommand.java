@@ -47,7 +47,6 @@ public class AddInstalmentCommand extends MoneyCommand{
         df.setRoundingMode(RoundingMode.CEILING);
 
         ui.appendToOutput(" Got it. I've added this to your instalments: \n");
-        ui.appendToOutput("     ");
         ui.appendToOutput(account.getInstalments().get(account.getInstalments().size() - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
         ui.appendToOutput(" You are paying $" + df.format(instalment.EqualMonthlyInstalment()) + " per month\n");
