@@ -52,6 +52,7 @@ public class AchievementList {
      * @return returns list of achievement.
      */
     public static ArrayList<Achievements> updateAddTask (String achievementLevel) {
+        System.out.println(AddTask.addAchievementLevel);
         for(int i = 0; i < achievementList.size(); i += 1) {
             if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);

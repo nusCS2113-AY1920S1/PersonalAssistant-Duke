@@ -1,18 +1,19 @@
 package seedu.hustler.task;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.util.*;
-
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.ui.Ui;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.*;
+
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
@@ -208,6 +209,7 @@ public class TaskList {
                 AddTask.updateAchievementLevel();
                 AddTask.updatePoints();
                 AchievementList.updateAddTask(addAchievementLevel);
+                System.out.println(addAchievementLevel);
                 String output = "\t  " + list.get(list.size() - 1).toString();
                 System.out.println("\t_____________________________________");
                 System.out.println("\tGot it. I've added this task:");

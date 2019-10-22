@@ -176,7 +176,7 @@ public class MainWindow extends AnchorPane{
             String token[] = input.split(" ");
             if(input.equals("achievement")) {
                 achievementAction();
-            } else if(token[0].equals("/add") || input.equals("list") || token[0].equals("done") || token[0].equals("delete")) {
+            } else if(token[0].equals("/add") || input.equals("list") || token[0].equals("done") || token[0].equals("delete") || input.equals("undo") || input.equals("/normal") || input.equals("/prioritize") || input.equals("/chronological")) {
                 taskAction();
             } else if(input.equals("bye")) {
                 Hustler.run("bye");
@@ -289,7 +289,7 @@ public class MainWindow extends AnchorPane{
                 flowPane.getChildren().add(stackPane);
             }
             else if(Hustler.list.get(i).getDateTime() != null) {
-                Text dateTime = new Text(DateTimeParser.convertDateTime(Hustler.list.get(i).getDateTime()));
+                Text dateTime = new Text(DateTimeParser.toDateTimeString(Hustler.list.get(i).getDateTime()));
                 stackPane.setMargin(dateTime, new Insets(0,0,3,70));
                 stackPane.setAlignment(dateTime,Pos.BOTTOM_LEFT);
                 stackPane.setMargin(imageView, new Insets(0,0,3,53));
