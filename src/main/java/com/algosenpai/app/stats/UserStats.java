@@ -1,9 +1,14 @@
 package com.algosenpai.app.stats;
 
+
+
+import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.storage.UserStorageParser;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -213,6 +218,10 @@ public class UserStats {
         String userName = tokens[2];
         String characterImagePath = tokens[3];
 
+        // No chapters in the list, so exit early, otherwise will cause parsing error.
+        if (tokens.length < 6) {
+            return new UserStats(userName,characterImagePath,new ArrayList<>());
+        }
         // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
         String[] chapterDataTokens = tokens[5].split("\n\n");
         ArrayList<ChapterStat> chapterStats = new ArrayList<>();
@@ -220,5 +229,43 @@ public class UserStats {
             chapterStats.add(ChapterStat.parseString(chapterString));
         }
         return new UserStats(userName, characterImagePath, chapterStats);
+    }
+
+    /**
+     * Get the default UserStats (if the user launches the game for the first time).
+     * @return The UserStats object.
+     */
+    public static UserStats getDefaultUserStats() {
+        // TODO Currently it returns an empty object, but it should ideally be a list of all chapters, with 0 attempts.
+        return new UserStats("Name", "miku.png", new ArrayList<>());
+    }
+
+    /**
+     * Overriding the equals method so JUnit can work.
+     * We manually check if each property is equal.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof UserStats) {
+
+            UserStats other = (UserStats) obj;
+            boolean isEqual = true;
+
+            if (other.chapterData.size() != chapterData.size()) {
+                return false;
+            }
+
+            // Check if each chapter is equal
+            for (int i = 0; i < chapterData.size(); i++) {
+                isEqual = isEqual && chapterData.get(i).equals(other.chapterData.get(i));
+            }
+
+            return isEqual
+                    && username.equals(other.username)
+                    && characterImagePath.equals(other.characterImagePath);
+
+        } else {
+            return false;
+        }
     }
 }

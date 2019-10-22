@@ -56,7 +56,7 @@ public class ChapterStatTest {
                     random.nextInt(),
                     random.nextInt(),
                     random.nextInt(),
-                    random.nextDouble(),
+                    random.nextDouble() * random.nextInt(),
                     RandomString.make(random.nextInt(100) + 1)
             );
             copy = ChapterStat.parseString(chapterStat.toString());
@@ -67,5 +67,12 @@ public class ChapterStatTest {
 
     }
 
-
+    /**
+     * Checks that dividing by 0 in the recalculateStats function does not cause a crash.
+     */
+    @Test
+    public void recalculateStats_divideByZero() {
+        ChapterStat stat = new ChapterStat("Test",0,0,0,0,0,0,"");
+        stat.recalculateStats();
+    }
 }
