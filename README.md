@@ -1,7 +1,7 @@
 ﻿# Dolla
 Dolla is a command line based expense tracker targeted at NUS students staying on campus.
 
-![Mock Ui Image](/docs/images/Ui.png)
+![Mock Ui Image](/docs/images/Ui/Ui.png)
 
 #Introduction
 A friendly mode-based bot that helps you handle your expenses and better track your finances!

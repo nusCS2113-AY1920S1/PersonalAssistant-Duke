@@ -12,7 +12,7 @@ By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-image::Ui.png[width="800", align="center"]
+image::Ui/Ui.png[width="800", align="center"]
 
 {nbsp} +
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
@@ -41,14 +41,14 @@ e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 image::Ui/Entries.png[width="500", align="center"]
 {nbsp} +
 Look through, edit and modify all the income and expenses that you have added.
-Data that is input here will then be used for various other features, such as tracking of your budgets and looking at daily spendings!
+Data that is input here will then be used for various other features, such as tracking of your budgets and looking at daily expenses!
 
-=== Limits
+=== Budget and Saving Tracking
 image::Ui/Limits.png[width="500", align="center"]
 {nbsp} +
-Find out your daily, monthly, or yearly progress in cutting down your spending on certain products, or see how much more you can spend before you break the savings goal you set for that new speaker!
+Find out your daily, weekly, or monthly progress in cutting down your spending, or see how much more you can spend before you break the savings goal you set for that new speaker!
 
-=== Debts
+=== Debts Tracking
 image::Ui/Debts.png[width="500", align="center"]
 {nbsp} +
 Do you lend or borrow money from friends a lot? Keep track of all your money circulation and mark them as done when the debts are repaid!
@@ -56,7 +56,7 @@ Do you lend or borrow money from friends a lot? Keep track of all your money cir
 === Shortcuts
 image::Ui/Shortcuts.png[width="500", align="center"]
 {nbsp} +
-Love eating pizza everyday but find it a chore to retype the same thing to keep track of your spendings? Add a shortcut so you need to type less to add frequent expenses or incomes!
+Love eating pizza everyday but find it a chore to retype the same thing to keep track of your spending? Add a shortcut so you need to type less to add frequent expenses or incomes!
 
 === Reminders
 Have Dolla let you know when an expense is coming up, and when a budget or saving is about to be exceeded!
@@ -87,11 +87,10 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 Format: +
 `*help*`
 {nbsp} +
-{nbsp} +
 
 === Common Commands
 
-These commands can be used in the modes `*entries*`, `*budgets*`, `*debts*` and `*shortcuts*`.
+These commands can be used in the modes `*entry*`, `*limit*`, `*debt*` and `*shortcut*`.
 
 Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
@@ -268,7 +267,7 @@ Examples:
 
 {nbsp} +
 
-=== Switch the mode to Entries: `entries`
+=== Switch the mode to Entries: `entry`
 
 Users can look through, edit and remove entries in this mode. +
 Format: +
@@ -291,24 +290,24 @@ Example:
 
 === Switch the mode to Limits: `limit`
 
-Users can look through, edit and remove budgets in this mode. +
+Users can add, edit and remove budgets and savings in this mode. +
 Format: +
-`*budgets*`
+`*limit*`
+
+*NOTE*: In this mode, `*[DURATION]*` can be daily, weekly or monthly.
 
 ==== Common Commands Available: +
 `*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
-==== Add target budget: `set budget`
+==== Set duration-based expense budget: `set budget`
 
 Set the budget on the amount you can spend within the time period you have input. +
 Format: +
-`*set budget* [AMOUNT] /every [DURATION]`
-
-*NOTE*: `*[DURATION]*` can be daily, weekly or monthly.
+`*set budget* [AMOUNT] [DURATION]`
 
 Example:
 
-* `set budget $50 /every week`
+* `set budget 50 weekly`
 
 ==== Add tag-based expense budget: `set budget /tag` [coming in v2.0]
 
@@ -318,19 +317,17 @@ Format: +
 
 Example:
 
-* `set budget $20 /tag bubble tea`
+* `set budget 20 /tag food`
 
 ==== Set target saving: `set saving`
 
 Set a target saving for a specified duration. +
 Format: +
-`*set saving* [AMOUNT] /for [DURATION]`
-
-*NOTE*: `*[DURATION]*` can be daily, weekly or monthly.
+`*set saving* [AMOUNT] [DURATION]`
 
 Example:
 
-* `set saving $300 /for every month`
+* `set saving 300 monthly`
 
 ==== Remove budget: `remove [DURATION] budget`
 
@@ -338,9 +335,14 @@ Remove a budget. +
 Format: +
 `*remove* [DURATION] *budget*`
 
+Example:
+
+* `remove monthly saving`
+* `remove daily budget`
+
 {nbsp} +
 
-=== Switch the mode to Debts: `debts`
+=== Switch the mode to Debts: `debt`
 
 Users can look through, edit and remove debts in this mode. +
 Format: +
