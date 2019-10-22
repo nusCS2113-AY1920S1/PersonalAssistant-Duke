@@ -15,14 +15,14 @@ public class GotoFarmAction extends Action {
         try {
             if (farmer.getLocation().equals("WheatFarm")) {
                 simulation.animate(1000, "GotoWheatFarmSimulation", 12);
-                ui.typeWriter("You are already at the WheatFarm");
+                ui.typeWriter("You are already at the WheatFarm/");
                 return;
             }
             farmer.changeLocation("Traveling");
             simulation.animate("GotoWheatFarmSimulation", 1, 11);
             farmer.changeLocation("WheatFarm");
             simulation.animate(1000, "GotoWheatFarmSimulation", 12);
-            ui.typeWriter("You have arrived at the WheatFarm");
+            ui.typeWriter("You have arrived at the WheatFarm/");
         } catch (Exception e) {
             e.getMessage();
         }

@@ -1,13 +1,12 @@
 {
   "narratives": [
-    "Congratulations, You have arrived at the Market. Objective Complete!",
     "At the market, you can buy and sell seeds in exchange for gold.",
-    "You will be able to view all your assets under the 'Assets' segment on the left of your screen.",
-    "[Objective] Buy some seeds from the market!",
-    "Enter [Task][Action] to buy seeds from the market.",
+    "You can now see 'seeds' under your Assets on the left of your screen.",
+    ":Buy some seeds from the market!",
+    "Enter [Task] [Action] to buy seeds from the market.~"
   ],
   "money": 0,
-  "wheat_seed": 0,
+  "wheat_seed": 1,
   "wheat_green": 0,
   "wheat_ripe": 0,
   "file_path": "Level1.2"

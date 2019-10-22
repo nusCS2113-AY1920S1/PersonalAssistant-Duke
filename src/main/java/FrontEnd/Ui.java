@@ -48,7 +48,8 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void typeWriter(String text) { //use terminal to see full effects, in console only seem to beline by line..
+    public void typeWriter(String text) { //ill clean this shit up soon.
+
         int i;
         int lineLength = 0;
         System.out.print(">>> ");
@@ -64,10 +65,16 @@ public class Ui {
                 System.out.print("   ");
                 lineLength = 0;
             } else if (text.charAt(i) == '\n') {
+                System.out.print("   ");
                 lineLength = 0;
-            } else if (text.charAt(i) == '*') {
-                System.out.print(AsciiColours.RED + "[Objective]:" + AsciiColours.SANE + text.replace('*',' '));
-                show("\n\n" + " ".repeat(77) + "Press ENTER to continue..");
+            } else if (text.charAt(i) == ':') {
+                show(AsciiColours.RED + AsciiColours.UNDERLINE + "[Objective]" + AsciiColours.SANE);
+                System.out.print("   ");
+                lineLength = 0;
+            } else if (text.charAt(i) == '~') {
+                System.out.println("\n\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
+                return;
+            } else if (text.charAt(i) == '/') {
                 return;
             }
             System.out.printf("%c", text.charAt(i));
