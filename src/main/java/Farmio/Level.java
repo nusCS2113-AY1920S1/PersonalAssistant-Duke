@@ -48,9 +48,15 @@ public class Level {
         return filePath;
     }
 
-    public boolean checkAnswer(Farmio farmio){
-        farmio.getUi().show("Checking answers now");
-        return true;
+    public enum objectiveResult {
+        NOT_DONE,
+        DONE,
+        FAILED
+    }
+
+    public objectiveResult checkAnswer(Farmio farmio){
+        //if (...)
+        return objectiveResult.NOT_DONE;
     }
 
     public Map<String, Integer> getGoals() {
