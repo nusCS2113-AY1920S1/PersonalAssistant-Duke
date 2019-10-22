@@ -94,7 +94,7 @@ public class ListCommand extends Command {
             ArrayList<Expense> expensesList = new ArrayList<Expense>();
             ArrayList<Loan> loansList = new ArrayList<>();
 
-            if (!date.equals(null)) {
+            if (date != null) {
                 if (wallet.getExpenseList().getExpenseList().size() != 0
                         || wallet.getLoanList().getLoanList().size() != 0) {
                     if (wallet.getExpenseList().getExpenseList().size() != 0) {

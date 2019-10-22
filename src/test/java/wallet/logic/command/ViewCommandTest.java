@@ -24,7 +24,7 @@ public class ViewCommandTest {
      * Test for viewing existing budget via view command.
      */
     @Test
-    public void execute_view_budget() {
+    public void executeViewBudget() {
         ViewCommand viewCommand = new ViewCommand("budget", "10/2019");
         viewCommand.execute(testWallet);
         assertEquals(1000, testWallet.getBudgetList().getBudgetList().get(0).getAmount());

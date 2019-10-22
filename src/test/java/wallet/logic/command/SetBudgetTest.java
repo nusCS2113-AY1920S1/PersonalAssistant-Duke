@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SetBudgetTest {
+
     private static Wallet testWallet = new Wallet();
 
     /**
@@ -38,18 +39,18 @@ public class SetBudgetTest {
      * Test for addition of budget with negative amount.
      */
     @Test
-    public void execute_add_budget_fail() {
+    public void executeAddBudgetFail() {
         Budget budget = new Budget(-10, 3, 2019);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
-        assertEquals(1, testWallet.getBudgetList().getBudgetList().size());
+        assertEquals(3, testWallet.getBudgetList().getBudgetList().size());
     }
 
     /**
      * Test for budget with proper parameters.
      */
     @Test
-    public void execute_add_budget_success() {
+    public void executeAddBudgetSuccess() {
         Budget budget = new Budget(50, 3, 2019);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
@@ -60,11 +61,11 @@ public class SetBudgetTest {
      * Test for removing budget.
      */
     @Test
-    public void execute_remove_budget() {
+    public void executeRemoveBudget() {
         Budget budget = new Budget(0, 3, 2019);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
-        assertEquals(2, testWallet.getBudgetList().getBudgetList().size());
+        assertEquals(1, testWallet.getBudgetList().getBudgetList().size());
 
     }
 
@@ -72,7 +73,7 @@ public class SetBudgetTest {
      * Test for editing existing budget.
      */
     @Test
-    public void execute_edit_budget() {
+    public void executeEditBudget() {
         Budget budget = new Budget(150, 10, 2019);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
         budgetCommand.execute(testWallet);
@@ -83,7 +84,7 @@ public class SetBudgetTest {
      * Test for adding expenses after having an existing budget.
      */
     @Test
-    public void execute_reduce_budget_from_existing_expenses() {
+    public void executeReduceBudgetFromExistingExpenses() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date1 = "10/10/2019";
         LocalDate localDate1 = LocalDate.parse(date1, formatter);
@@ -92,7 +93,7 @@ public class SetBudgetTest {
         addCommand.execute(testWallet);
         for (Budget b : testWallet.getBudgetList().getBudgetList()) {
             if (b.getMonth() == expense.getDate().getMonthValue() && b.getYear() == expense.getDate().getYear()) {
-                assertEquals(140, b.getAmount());
+                assertEquals(90, b.getAmount());
             }
         }
     }
@@ -101,7 +102,7 @@ public class SetBudgetTest {
      * Test for adding budget after existing expenses, with user input as "Yes".
      */
     @Test
-    public void execute_add_budget_with_existing_expenses_with_userInput_Yes() {
+    public void executeAddBudgetWithExistingExpensesWithUserInputYes() {
         Budget budget = new Budget(100, 1, 2019);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
 
@@ -117,7 +118,7 @@ public class SetBudgetTest {
      * Test for adding budget after existing expenses, with user input as "No".
      */
     @Test
-    public void execute_add_budget_with_existing_expenses_with_userInput_No() {
+    public void executeAddBudgetWithExistingExpensesWithUserInputNo() {
         Budget budget = new Budget(100, 1, 2019);
         SetBudgetCommand budgetCommand = new SetBudgetCommand(budget);
 

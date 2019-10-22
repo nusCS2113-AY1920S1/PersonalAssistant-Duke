@@ -17,7 +17,7 @@ public class SetBudgetParserTest {
      * Test for valid parsing of input into proper parameters.
      */
     @Test
-    public void parseBudget_validInput_success() {
+    public void parseBudgetValidInputSuccess() {
         SetBudgetParser setBudgetParser = new SetBudgetParser();
         String input = "$1000 01/2019";
         try {

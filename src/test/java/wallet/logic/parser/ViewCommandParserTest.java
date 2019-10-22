@@ -26,7 +26,7 @@ public class ViewCommandParserTest {
      * Test for valid parsing of input into proper parameters.
      */
     @Test
-    public void parseViewCommand_validInput_budget_success() {
+    public void parseViewCommandValidInputBudgetSuccess() {
         ViewCommandParser viewCommandParser = new ViewCommandParser();
         String input = "view budget 10/2019";
         ViewCommand viewCommand = viewCommandParser.parse(input);

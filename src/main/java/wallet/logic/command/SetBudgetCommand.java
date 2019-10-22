@@ -123,8 +123,8 @@ public class SetBudgetCommand extends Command {
     private void takeInUserReply(Wallet wallet) {
         Scanner scanner = new Scanner(System.in);
         String reply = scanner.nextLine().toLowerCase();
-        while (!reply.equals("yes") || !reply.equals("no")) {
-            if (reply.equals("yes")) {
+        while (!"yes".equals(reply) || !"no".equals(reply)) {
+            if ("yes".equals(reply)) {
                 budget.setAmount(budget.getAmount()
                         - wallet.getExpenseList().getMonthExpenses(budget.getMonth(),
                         budget.getYear()));
@@ -137,7 +137,7 @@ public class SetBudgetCommand extends Command {
                         + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                         + " " + budget.getYear());
                 break;
-            } else if (reply.equals("no")) {
+            } else if ("no".equals(reply)) {
                 System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
                         + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                         + " " + budget.getYear());
