@@ -94,8 +94,8 @@ public class TaskList {
      */
     public void add(Task task) {
         taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+        System.out.println("You have added this task:");
+        System.out.println(task.getDescription());
         int taskCount = taskList.size();
         if (taskCount == 1) {
             System.out.println("Now you have " + taskCount + " task in the list.");
