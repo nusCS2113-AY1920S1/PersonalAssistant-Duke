@@ -131,9 +131,9 @@ public class PlannerUi {
      */
     public void helloMsg() {
         showLine();
-        System.out.println(
+        System.out.print(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing to get started!"
+                + "Begin typing to get started!\n"
         );
         showLine();
     }
@@ -143,10 +143,11 @@ public class PlannerUi {
      */
     public void goodbyeMsg() {
         showLine();
-        System.out.println(
+        System.out.print(
                 "Thanks for using ModPlanner!\n"
-                 + "Your data will be stored in file shortly!"
+                 + "Your data will be stored in file shortly!\n"
         );
+        showLine();
         closeScanner();
     }
 
