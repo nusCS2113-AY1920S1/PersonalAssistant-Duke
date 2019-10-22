@@ -1,8 +1,8 @@
-package utils;
+package model;
 
 import members.Member;
-import parsers.DataParser;
-import tasks.Task;
+import logic.parsers.DataParser;
+import model.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
