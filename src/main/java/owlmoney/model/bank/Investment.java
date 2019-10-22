@@ -6,7 +6,6 @@ import owlmoney.model.bond.BondList;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
-import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**

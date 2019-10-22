@@ -179,7 +179,19 @@ class BondListTest {
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE;
         assertEquals(expectedOutput,outContent.toString());
+        outContent.reset();
         bondListTest.listBond(30,uiTest);
+        String expectedListOutput = "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years " + NEWLINE
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------" + NEWLINE
+                + "1                    TEST BOND 0                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          " + NEWLINE
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------" + NEWLINE;
+        assertEquals(expectedListOutput,outContent.toString());
     }
 
     @Test
@@ -225,11 +237,23 @@ class BondListTest {
     void bondExist_newBondConflictExistingBond_throwsBondException() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+        String expectedOutput = "Bond with the following details has been added: " + NEWLINE
+                + "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years " + NEWLINE
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------" + NEWLINE
+                + "1                    TEST BOND 0                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          " + NEWLINE
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------" + NEWLINE;
         BondList bondListTest = new BondList();
         Ui uiTest = new Ui();
         Bond testBond = new Bond("TEST BOND 0", 1000, 1.8,
                 new Date("1/3/2019"), 3);
         bondListTest.addBondToList(testBond, uiTest);
+        assertEquals(expectedOutput,outContent.toString());
         assertEquals(1, bondListTest.getSize());
         Bond testBondTwo = new Bond("TEST BOND 0", 1000, 1.8,
                 new Date("1/3/2019"), 3);
@@ -239,33 +263,12 @@ class BondListTest {
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
         assertEquals(1, bondListTest.getSize());
-        String expectedOutput = "Bond with the following details has been added: " + NEWLINE
-                + "Item No.             Bond Name                      Amount          Rate       "
-                + "Date of Purchased    "
-                + "Number of Years " + NEWLINE
-                + "-------------------------------------------------------------------------------"
-                + "--------------------------------------------------" + NEWLINE
-                + "1                    TEST BOND 0                    $1000.00        1.80       "
-                + "03 January 2019      "
-                + "3          " + NEWLINE
-                + "-------------------------------------------------------------------------------"
-                + "--------------------------------------------------" + NEWLINE;
-        assertEquals(expectedOutput,outContent.toString());
     }
 
     @Test
     void bondExist_bondDoesNotExist_success() throws BondException {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        BondList bondListTest = new BondList();
-        Ui uiTest = new Ui();
-        Bond testBond = new Bond("TEST BOND 0", 1000, 1.8,
-                new Date("1/3/2019"), 3);
-        bondListTest.addBondToList(testBond, uiTest);
-        assertEquals(1, bondListTest.getSize());
-        Bond testBondTwo = new Bond("TEST BOND 1", 1000, 1.8,
-                new Date("1/3/2019"), 3);
-        bondListTest.bondExist(testBondTwo);
         String expectedOutput = "Bond with the following details has been added: " + NEWLINE
                 + "Item No.             Bond Name                      Amount          Rate       "
                 + "Date of Purchased    "
@@ -277,7 +280,16 @@ class BondListTest {
                 + "3          " + NEWLINE
                 + "-------------------------------------------------------------------------------"
                 + "--------------------------------------------------" + NEWLINE;
+        BondList bondListTest = new BondList();
+        Ui uiTest = new Ui();
+        Bond testBond = new Bond("TEST BOND 0", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        bondListTest.addBondToList(testBond, uiTest);
         assertEquals(expectedOutput,outContent.toString());
+        assertEquals(1, bondListTest.getSize());
+        Bond testBondTwo = new Bond("TEST BOND 1", 1000, 1.8,
+                new Date("1/3/2019"), 3);
+        bondListTest.bondExist(testBondTwo);
     }
 
     @Test
