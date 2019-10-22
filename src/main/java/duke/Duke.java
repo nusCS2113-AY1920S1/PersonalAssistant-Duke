@@ -1,8 +1,19 @@
 package duke;
 
-import duke.command.*;
-
+import duke.command.FindTasksByPriorityCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.Command;
+import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.ListContactsCommand;
+import duke.command.AddContactsCommand;
 import duke.dukeexception.DukeException;
+
+
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;

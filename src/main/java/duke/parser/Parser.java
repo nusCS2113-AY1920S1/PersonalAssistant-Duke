@@ -1,6 +1,25 @@
 package duke.parser;
-
-import duke.command.*;
+import duke.command.ListCommand;
+import duke.command.FindTasksByPriorityCommand;
+import duke.command.DuplicateFoundCommand;
+import duke.command.UpdateCommand;
+import duke.command.FindCommand;
+import duke.command.DoneCommand;
+import duke.command.RemindCommand;
+import duke.command.AddCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.Command;
+import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.DeleteCommand;
+import duke.command.AddBudgetCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.ListContactsCommand;
+import duke.command.AddContactsCommand;
+import duke.command.ResetBudgetCommand;
+import duke.command.ViewBudgetCommand;
 import duke.dukeexception.DukeException;
 
 import duke.task.TaskList;

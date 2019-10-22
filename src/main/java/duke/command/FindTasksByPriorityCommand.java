@@ -54,8 +54,8 @@ public class FindTasksByPriorityCommand extends Command {
     @Override
     // this method needs to be rewritten
     public String executeGui(TaskList items, Ui ui) {
-    //    String str = Ui.showFindGui(items, targetPriority);
-    //    return str;
+        // String str = Ui.showFindGui(items, targetPriority);
+        // return str;
         return "";
     }
 
