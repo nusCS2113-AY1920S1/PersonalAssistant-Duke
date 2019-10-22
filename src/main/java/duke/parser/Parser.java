@@ -62,8 +62,7 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of edit cannot be empty.");
                 }
                 return new EditCommand(filter, fcArray[1]);
-            case "todo":
-            case "deadline":
+            case "task":
             case "event":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of " + keyword + " cannot be empty.");

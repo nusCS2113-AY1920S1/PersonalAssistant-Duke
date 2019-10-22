@@ -2,17 +2,11 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Abstract class duke.command.Command which dictates two necessary methods in all duke.command.Command subclasses

@@ -44,8 +44,7 @@ public class Storage {
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapterFactory(RuntimeTypeAdapterFactory
 						.of(Task.class)
-						.registerSubtype(ToDo.class)
-						.registerSubtype(Deadline.class)
+						.registerSubtype(Task.class)
 						.registerSubtype(Event.class))
 				.create();
 		JsonReader reader = new JsonReader(new FileReader("data/duke.json"));
@@ -66,8 +65,7 @@ public class Storage {
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapterFactory(RuntimeTypeAdapterFactory
 						.of(Task.class)
-						.registerSubtype(ToDo.class)
-						.registerSubtype(Deadline.class)
+						.registerSubtype(Task.class)
 						.registerSubtype(Event.class))
 				.create();
 		gson.toJson(list, writer);
