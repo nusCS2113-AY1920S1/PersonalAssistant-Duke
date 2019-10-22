@@ -129,7 +129,7 @@ public class ChapterStat {
                             && wrongAnswers == other.wrongAnswers
                             && percentage == other.percentage
                             && comments.equals(other.comments)
-            );
+                );
         } else {
             return false;
         }
