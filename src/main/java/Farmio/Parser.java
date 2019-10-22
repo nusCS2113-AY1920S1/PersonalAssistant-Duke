@@ -5,6 +5,8 @@ import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
+import javax.swing.plaf.multi.MultiSeparatorUI;
+
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         System.out.println(stage.name());
@@ -69,6 +71,12 @@ class Parser {
         }
         if (userInput.toLowerCase().equals("start")) {
             return new CommandDayStart();
+        }
+        if (userInput.equals("conditions") || userInput.equals("condition")) {
+            return new CommandConditionShow();
+        }
+        if (userInput.equals("actions") || userInput.equals("action")) {
+            return new CommandActionShow();
         }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);
