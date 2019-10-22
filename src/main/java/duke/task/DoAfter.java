@@ -1,5 +1,6 @@
 package duke.task;
 
+//@@author maxxyx96
 /**
  * Represents a do After that stores description only if task is Done.
  */
@@ -29,6 +30,16 @@ public class DoAfter extends Task {
     }
 
     /**
+     * Extracting a task content into readable string (GUI).
+     *
+     * @return String to be displayed.
+     */
+    @Override
+    public String toStringGui() {
+        return "[A]" + super.toStringGui() + " (Do after: " + after + ")";
+    }
+
+    /**
      * Extracting a task content into string that is suitable for text file.
      *
      * @return String to be written into text file.
@@ -38,3 +49,4 @@ public class DoAfter extends Task {
         return "A|" + super.toFile() + "|" + after;
     }
 }
+//@@author

@@ -3,58 +3,57 @@ package duke.command;
 import duke.storage.ContactStorage;
 import duke.storage.Storage;
 import duke.task.ContactList;
-import duke.task.Contacts;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
 
 /**
- * Representing a command that adds contacts.
+ * Representing a command that deletes a contact.
  */
-//@@author e0318465
-public class AddContactsCommand extends Command {
-    protected Contacts contactObj;
+public class DeleteContactCommand extends Command {
+    protected int indexOfContactToDelete;
 
     /**
-     * Creates a command with the specified contact.
+     * To delete a contact by the index of the contact.
      *
-     * @param contactObj The contacts to be added.
+     * @param indexOfContactToDelete The index of the contact to be deleted.
      */
-    public AddContactsCommand(Contacts contactObj) {
-        this.contactObj = contactObj;
+    public DeleteContactCommand(int indexOfContactToDelete) {
+        this.indexOfContactToDelete = indexOfContactToDelete;
     }
 
     /**
-     * Executes a command that adds the tasks into task list and outputs the result.
+     * Executes a command that deletes the task from the task list and outputs the result.
      * (Not in use)
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is executed successfully.
+     * @param ui To tell the user that it is deleted successfully.
      */
     @Override
     public void execute(TaskList items, Ui ui) {
     }
 
     /**
-     * Adds the user input to a list of contacts.
+     * Executes a command that deletes the contact from the contact list.
      *
      * @param items The task list that contains a list of tasks.
      * @param contactList The list of contacts.
      * @param ui To tell the user that it is executed successfully.
      */
+    @Override
     public void execute(TaskList items, ContactList contactList, Ui ui) {
-        contactList.add(contactObj);
-        ui.showAddedContact(contactList);
+        String deletedContact = contactList.get(indexOfContactToDelete).toString();
+        contactList.remove(indexOfContactToDelete);
+        ui.showContactDeleted(contactList, deletedContact);
     }
 
     /**
-     * Executes a command that adds the task into task list and outputs the result (GUI).
-     * (Not in use)
+     * Executes a command that deletes the task from the task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user that it is added successfully.
-     * @return String to be outputted to the user.
+     * @param ui To tell the user that it is executed successfully.
+     * @return String to be output to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
@@ -62,16 +61,17 @@ public class AddContactsCommand extends Command {
     }
 
     /**
-     * Executes a command that adds the contact into contact list and outputs the result (GUI).
+     * Executes a command that deletes the task from the task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
-     * @param contactList The list of contacts.
-     * @param ui To tell the user that it is executed successfully.
-     * @return A string value to be output to GUI.
+     * @param ui To tell the user that it is deleted successfully.
+     * @return String to be output to the user.
      */
+    @Override
     public String executeGui(TaskList items, ContactList contactList, Ui ui) {
-        contactList.add(contactObj);
-        String str = ui.showAddedContactGui(contactList);
+        String deletedContact = contactList.get(indexOfContactToDelete).toString();
+        contactList.remove(indexOfContactToDelete);
+        String str = ui.showContactDeletedGui(contactList, deletedContact);
         return str;
     }
 
@@ -82,6 +82,7 @@ public class AddContactsCommand extends Command {
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
      * @param storage The storage to be overwritten.
+     * @throws IOException If there is an error reading the file.
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
@@ -90,10 +91,9 @@ public class AddContactsCommand extends Command {
     /**
      * Executes a command that overwrites existing storage with the updated contact list.
      *
-     * @param items The task list that contains a list of tasks.
+     * @param items The task list that contains a list of tasks..
      * @param ui To tell the user that it is executed successfully.
-     * @param contactStorage Contacts stored in storage.
-     * @param contactList The list of contacts.
+     * @param contactStorage The storage to be overwritten.
      * @throws IOException If there is an error reading the file.
      */
     public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,

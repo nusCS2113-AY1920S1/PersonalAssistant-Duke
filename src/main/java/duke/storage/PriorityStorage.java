@@ -11,8 +11,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class PriorityStorage {
-
-    protected String filePath = "./";
+    //protected String filePath = "./";
+    protected String filePath = "";
+    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    private static final int ZERO = 0;
 
     /**
      * Creates a storage with a specified filePath.
@@ -20,6 +22,14 @@ public class PriorityStorage {
      * @param filePath The location of the text file.
      */
     public PriorityStorage(String filePath) {
+        String[] pathSplitter = storageClassPath.split("/");
+        for (String directory: pathSplitter) {
+            if (!directory.isEmpty() && !directory.equals("build")) {
+                this.filePath += directory + "/";
+            } else if (directory.equals("build")) {
+                break;
+            }
+        }
         this.filePath += filePath;
     }
 
@@ -52,7 +62,7 @@ public class PriorityStorage {
      */
     public void write(PriorityList priorityList) throws IOException {
         String fileContent = "";
-        for (int i = 0; i < priorityList.getSize(); i++) {
+        for (int i = ZERO; i < priorityList.getSize(); i++) {
             fileContent += priorityList.getList().get(i) + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));

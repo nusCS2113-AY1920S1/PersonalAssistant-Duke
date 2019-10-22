@@ -23,7 +23,13 @@ import java.util.ArrayList;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    protected String filePath = "./";
+    //protected String filePath = "./";
+    protected String filePath = "";   //27-28, 40-47
+    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
 
     /**
      * Creates a storage with a specified filePath.
@@ -31,6 +37,14 @@ public class Storage {
      * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
+        String[] pathSplitter = storageClassPath.split("/");
+        for (String directory: pathSplitter) {
+            if (!directory.isEmpty() && !directory.equals("build")) {
+                this.filePath += directory + "/";
+            } else if (directory.equals("build")) {
+                break;
+            }
+        }
         this.filePath += filePath;
     }
 
@@ -60,13 +74,13 @@ public class Storage {
                 dateDesc = "";
                 afterDesc = "";
                 durDesc = "";
-                for (int i = 0; i < commandList.length; i++) {
-                    if (i == 2) {
+                for (int i = ZERO; i < commandList.length; i++) {
+                    if (i == TWO) {
                         taskDesc = commandList[i];
-                    } else if (i == 3) {
-                        if (commandList[0].equals("A")) {
+                    } else if (i == THREE) {
+                        if (commandList[ZERO].equals("A")) {
                             afterDesc = commandList[i];
-                        } else if (commandList[0].equals("F")) {
+                        } else if (commandList[ZERO].equals("F")) {
                             durDesc = commandList[i];
                         } else {
                             dateDesc = commandList[i];
@@ -74,14 +88,14 @@ public class Storage {
                     }
                 }
                 boolean checked = false;
-                if (commandList.length > 1) {
-                    if (!(commandList[1].equals("1") || commandList[1].equals("0"))) {
+                if (commandList.length > ONE) {
+                    if (!(commandList[ONE].equals("1") || commandList[ONE].equals("0"))) {
                         throw new DukeException("Error reading 1 or 0, skipping to next line");
                     }
-                    checked = commandList[1].equals("1");
+                    checked = commandList[ONE].equals("1");
                 }
                 Task t;
-                if (commandList[0].equals("T")) {
+                if (commandList[ZERO].equals("T")) {
                     if (taskDesc.trim().isEmpty()) {
                         throw new DukeException("Error reading description, skipping to next line");
                     } else {
@@ -89,7 +103,7 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
-                } else if (commandList[0].equals("D")) {
+                } else if (commandList[ZERO].equals("D")) {
                     if (taskDesc.trim().isEmpty() || dateDesc.trim().isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
@@ -97,7 +111,7 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
-                } else if (commandList[0].equals("E")) {
+                } else if (commandList[ZERO].equals("E")) {
                     if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
@@ -105,7 +119,7 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
-                } else if (commandList[0].equals("R")) {
+                } else if (commandList[ZERO].equals("R")) {
                     if (taskDesc.isEmpty() || dateDesc.isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
@@ -113,7 +127,7 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
-                } else if (commandList[0].equals("A")) {
+                } else if (commandList[ZERO].equals("A")) {
                     if (taskDesc.isEmpty() || afterDesc.isEmpty()) {
                         throw new DukeException("Error reading description or do after description,"
                                 + " skipping to next line");
@@ -122,18 +136,18 @@ public class Storage {
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
-                } else if (commandList[0].equals("F")) {
+                } else if (commandList[ZERO].equals("F")) {
                     System.out.println(taskDesc + dateDesc);
                     if (taskDesc.isEmpty() || durDesc.isEmpty()) {
                         throw new DukeException("Error reading description or do after description,"
                                 + " skipping to next line");
                     } else {
-                        int duration = Integer.parseInt(durDesc.split(" ")[0]);
-                        t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[1]);
+                        int duration = Integer.parseInt(durDesc.split(" ")[ZERO]);
+                        t = new FixedDuration(taskDesc, duration, durDesc.split(" ")[ONE]);
                         t.setStatusIcon(checked);
                         items.add(t);
                     }
-                } else if (!commandList[0].isEmpty()) {
+                } else if (!commandList[ZERO].isEmpty()) {
                     throw new DukeException("Error reading whether if its T, D, E, R, A, or F skipping to next line");
                 }
             } catch (Exception e) {
@@ -155,7 +169,7 @@ public class Storage {
      */
     public void write(TaskList items) throws IOException {
         String fileContent = "";
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = ZERO; i < items.size(); i++) {
             fileContent += items.get(i).toFile() + "\n";
         }
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));

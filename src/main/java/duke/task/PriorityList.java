@@ -1,16 +1,21 @@
 package duke.task;
 
 import duke.command.AddCommand;
-
+import duke.task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.util.Pair;
 
 /**
  * Represents a priority list that stores a list of priorities associated with each task.
  */
 public class PriorityList {
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int FIVE = 5;
+
     private ArrayList<Integer> priorityList;
-    private int defultPriority = 5;
+    private int defultPriority = FIVE;
 
     /**
      * Creates an empty priority list using an array list.
@@ -38,7 +43,7 @@ public class PriorityList {
      */
     public PriorityList setPriority(int taskNum, int priority) {
 
-        priorityList.set(taskNum - 1, priority);
+        priorityList.set(taskNum - ONE, priority);
 
         return new PriorityList(priorityList);
     }
@@ -64,7 +69,7 @@ public class PriorityList {
      */
     public PriorityList addMultiDefaultPriority(int numOfTimes) {
 
-        for (int i = 0; i < numOfTimes; i++) {
+        for (int i = ZERO; i < numOfTimes; i++) {
             priorityList.add(defultPriority);
         }
 
@@ -80,31 +85,15 @@ public class PriorityList {
         priorityList.remove(index);
     }
 
+
     /**
      * Get user input for the priority of a task.
      *
+     * @param num The index number of the target priority.
      * @return The priority for a task.
      */
-    public int getPriority() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("     Enter the priority for the above added task: (1-high ~ 5-low)");
-        int priority;
-        while (true) {
-            String input = sc.nextLine();
-            try {
-                priority = Integer.parseInt(input.trim());
-                if ((1 <= priority) && (priority <= 5)) {
-                    System.out.printf("     Set the priority to %d\n", priority);
-                    break;
-                } else {
-                    System.out.println("Wrong input! Please enter an integer between 1 and 5!");
-                }
-            } catch (Exception e) {
-                System.out.println("Wrong input! Please enter an integer between 1 and 5!");
-                continue;
-            }
-        }
+    public int getPriority(int num) {
+        int priority = priorityList.get(num);
         return priority;
     }
 
@@ -136,10 +125,39 @@ public class PriorityList {
         return new PriorityList(new ArrayList<Integer>());
     }
 
+
+    /**
+     * Sort tasks based on their priority.
+     * @param taskList The list of tasks.
+     * @param priorities The list of priorities.
+     * @return The sorted list.
+     */
+    public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
+        ArrayList<Pair> pairList = new ArrayList<>();
+        for (int i = ZERO; i < taskList.size(); i++) {
+            Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i));
+            pairList.add(pair);
+        }
+
+        for (int i = ONE; i < taskList.size(); i++) {
+            for (int j = i; j > ZERO; j--) {
+                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - ONE).getKey()) {
+                    Pair<Integer, String> temp = pairList.get(j);
+                    pairList.set(j, pairList.get(j - ONE));
+                    pairList.set(j - ONE, temp);
+                } else {
+                    break;
+                }
+            }
+        }
+        return pairList;
+
+    }
+
     @Override
     public String toString() {
         String output = "";
-        for (int i = 0; i < priorityList.size(); i++) {
+        for (int i = ZERO; i < priorityList.size(); i++) {
             output += priorityList.get(i) + " ";
         }
 

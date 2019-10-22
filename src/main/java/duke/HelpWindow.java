@@ -34,7 +34,7 @@ public class HelpWindow extends AnchorPane {
      * @param mainWindow The main window that runs DUKE Manager.
      */
     @FXML
-    public void setHelpWindow(Duke d, MainWindow mainWindow){
+    public void setHelpWindow(Duke d, MainWindow mainWindow) {
         duke = d;
         this.mainWindow = mainWindow;
         cbCommands.getItems().addAll(
@@ -52,19 +52,16 @@ public class HelpWindow extends AnchorPane {
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                if (cbCommands.getSelectionModel().getSelectedItem().equals("todo")){
+                if (cbCommands.getSelectionModel().getSelectedItem().equals("todo")) {
                     getDescription.setText(cbCommands.getValue() + " <task description>");
                     getDescription.getScene().getWindow();
-                }
-                else if (cbCommands.getSelectionModel().getSelectedItem().equals("deadline")){
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("deadline")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /by <date and time>");
                     getDescription.getScene().getWindow();
-                }
-                else if (cbCommands.getSelectionModel().getSelectedItem().equals("event")){
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("event")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /at <date and time>");
                     getDescription.getScene().getWindow();
-                }
-                else if (cbCommands.getSelectionModel().getSelectedItem().equals("fixedduration")){
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("fixedduration")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /for <duration> <unit>");
                     getDescription.getScene().getWindow();
                 }

@@ -3,6 +3,7 @@ package duke.task;
 /**
  * Represents a contact that stores information of a person.
  */
+//@@author e0318465
 public class Contacts {
     protected String name;
     protected String contact;

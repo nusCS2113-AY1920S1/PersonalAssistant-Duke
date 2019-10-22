@@ -5,8 +5,11 @@ import java.util.ArrayList;
 /**
  * Represents a list of contacts.
  */
+//@@author e0318465
 public class ContactList {
     protected ArrayList<Contacts> contactList;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
 
     /**
      * Creates an empty contact list using an array list.
@@ -50,8 +53,8 @@ public class ContactList {
      */
     public String getContactList() {
         String fullContactList = "";
-        for (int i = 0; i < contactList.size(); i++) {
-            fullContactList += (i + 1) + ". " + contactList.get(i).toStringGui() + "\n";
+        for (int i = ZERO; i < contactList.size(); i++) {
+            fullContactList += (i + ONE) + ". " + contactList.get(i).toStringGui() + "\n";
         }
         return fullContactList;
     }
@@ -63,5 +66,14 @@ public class ContactList {
      */
     public int size() {
         return contactList.size();
+    }
+
+    /**
+     * To remove a contact from the contact list.
+     *
+     * @param indexOfContact The index of contact to be removed.
+     */
+    public void remove(int indexOfContact) {
+        contactList.remove(indexOfContact);
     }
 }

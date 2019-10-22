@@ -64,8 +64,13 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TIMER_DELAY = 500;
+    private static final int VBOX_WIDTH = 200;
+
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/myUser.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/myBot.png"));
 
     @FXML
     public void initialize() {
@@ -90,7 +95,7 @@ public class MainWindow extends AnchorPane {
     Timer timer = new Timer();
     TimerTask exitDuke = new TimerTask() {
         public void run() {
-            System.exit(0);
+            System.exit(ZERO);
         }
     };
 
@@ -109,26 +114,26 @@ public class MainWindow extends AnchorPane {
             Command cmd = duke.getCommand(input);
             if (cmd instanceof ExitCommand) {
                 duke.saveState(cmd);
-                response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
+                response = Ui.showByeGui();
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
-                timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
+                timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
             } else {
-                response = Ui.showLineGui() + duke.executeCommand(cmd) + Ui.showLineGui();
+                response = duke.executeCommand(cmd);
                 dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
                 );
                 updateGui();
             }
         } catch (DukeException e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
+            response = Ui.showErrorMsgGui(e.getMessage());
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui("     New error, please read console:")
-                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.") + Ui.showLineGui();
+            response = Ui.showErrorMsgGui("     New error, please read console:")
+                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -146,19 +151,19 @@ public class MainWindow extends AnchorPane {
         );
         try {
             Command cmd = duke.getCommand(input);
-            response = Ui.showLineGui() + duke.executeCommand(cmd) + Ui.showLineGui();
+            response =  duke.executeCommand(cmd);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
 
         } catch (DukeException e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
+            response = Ui.showErrorMsgGui(e.getMessage());
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui("     New error, please read console:")
-                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.") + Ui.showLineGui();
+            response = Ui.showErrorMsgGui("     New error, please read console:")
+                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -186,7 +191,7 @@ public class MainWindow extends AnchorPane {
         //System.out.println("CURRENTLY on " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
-        int itemNumber = items.getIndex(taskObj) + 1;
+        int itemNumber = items.getIndex(taskObj) + ONE;
         handleUserEvent("done " + itemNumber);
         updateGui();
     }
@@ -195,7 +200,7 @@ public class MainWindow extends AnchorPane {
     private void onMouseClickDelete() {
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
-        int itemNumber = items.getIndex(taskObj) + 1;
+        int itemNumber = items.getIndex(taskObj) + ONE;
         handleUserEvent("delete " + itemNumber);
         updateGui();
     }
@@ -225,7 +230,7 @@ public class MainWindow extends AnchorPane {
     private void onMouseClickOK() {
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
-        int itemNumber = items.getIndex(taskObj) + 1;
+        int itemNumber = items.getIndex(taskObj) + ONE;
         if (cbupdateType.getSelectionModel().getSelectedItem().equals("Description")) {
             handleUserEvent("update " + itemNumber + " /desc " + tfnewDesc.getText().trim());
         } else if (cbupdateType.getSelectionModel().getSelectedItem().equals("Date/Time")) {
@@ -269,10 +274,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void setVboxWidth(boolean isEnabled) {
         if (isEnabled) {
-            vboxUpdate.setPrefWidth(200);
+            vboxUpdate.setPrefWidth(VBOX_WIDTH);
             vboxUpdate.setVisible(true);
         } else {
-            vboxUpdate.setPrefWidth(0);
+            vboxUpdate.setPrefWidth(ZERO);
             vboxUpdate.setVisible(false);
         }
     }
@@ -306,7 +311,7 @@ public class MainWindow extends AnchorPane {
     protected void listViewRefresh() {
         listT.getItems().clear();
         TaskList items = duke.getTaskList();
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = ZERO; i < items.size(); i++) {
             listT.getItems().add(items.get(i));
         }
     }
@@ -328,19 +333,19 @@ public class MainWindow extends AnchorPane {
         try {
             Command cmd = duke.getCommand(input);
             duke.saveState(cmd);
-            response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
+            response = Ui.showByeGui();
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
-            timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
+            timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
         } catch (DukeException e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
+            response = Ui.showErrorMsgGui(e.getMessage());
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui("     New error, please read console:")
-                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.") + Ui.showLineGui();
+            response = Ui.showErrorMsgGui("     New error, please read console:")
+                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
