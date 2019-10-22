@@ -11,7 +11,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * BankList class that provides a layer of abstraction for the ArrayList that stores bank accounts.
+ * Contains a list of all bank objects in the profile.
  */
 public class BankList {
     private ArrayList<Bank> bankLists;
@@ -28,16 +28,6 @@ public class BankList {
      */
     public BankList() {
         bankLists = new ArrayList<Bank>();
-    }
-
-    /**
-     * Gets the name of the bank account.
-     *
-     * @param bankListIndex The index of the bank account in the arrayList.
-     * @return The name of the bank account.
-     */
-    public String bankListGetBankName(int bankListIndex) {
-        return bankLists.get(bankListIndex).getAccountName();
     }
 
     /**
@@ -589,7 +579,6 @@ public class BankList {
     }
 
     /**
-<<<<<<< HEAD
      * Adds a new recurring expenditure to the specified bank account.
      *
      * @param bankName Name of bank account.

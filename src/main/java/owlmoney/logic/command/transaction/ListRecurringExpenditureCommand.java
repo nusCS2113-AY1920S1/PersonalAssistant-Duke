@@ -25,7 +25,7 @@ public class ListRecurringExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a recurring expenditure.
+     * Executes the function to list all recurring expenditure.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

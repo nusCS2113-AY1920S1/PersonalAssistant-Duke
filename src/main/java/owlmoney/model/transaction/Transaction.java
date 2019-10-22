@@ -8,8 +8,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 /**
- * Transaction class abstracts various transaction types which the child will inherit from given that
- * it is abstract.
+ * Contains the details of a transaction.
  */
 public abstract class Transaction {
 

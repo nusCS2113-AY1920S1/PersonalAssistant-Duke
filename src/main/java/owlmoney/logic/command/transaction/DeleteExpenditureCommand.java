@@ -29,7 +29,7 @@ public class DeleteExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to delete an expenditure transaction.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

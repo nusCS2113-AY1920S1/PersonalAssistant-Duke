@@ -7,7 +7,7 @@ import owlmoney.logic.command.transaction.ListDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for listing deposits.
+ * Parses the inputs for listing deposits.
  */
 public class ParseListDeposit extends ParseDeposit {
     private static final String LIST = "/list";

@@ -25,7 +25,7 @@ public class ListDepositCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to list the specified number of deposit transactions.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

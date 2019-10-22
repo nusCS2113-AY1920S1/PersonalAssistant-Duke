@@ -7,7 +7,7 @@ import owlmoney.logic.command.transaction.ListRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for listing recurring expenditures.
+ * Parses the inputs for listing recurring expenditures.
  */
 public class ParseListRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String LIST = "/list";
