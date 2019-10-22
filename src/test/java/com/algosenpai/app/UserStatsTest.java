@@ -32,7 +32,7 @@ public class UserStatsTest {
                     random.nextInt(),
                     random.nextInt(),
                     random.nextInt(),
-                    random.nextDouble()*random.nextInt(),
+                    random.nextDouble() * random.nextInt(),
                     RandomString.make(random.nextInt(100) + 1)
             );
             chapterStats.add(chapterStat);

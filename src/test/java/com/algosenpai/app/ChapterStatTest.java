@@ -56,7 +56,7 @@ public class ChapterStatTest {
                     random.nextInt(),
                     random.nextInt(),
                     random.nextInt(),
-                    random.nextDouble()*random.nextInt(),
+                    random.nextDouble() * random.nextInt(),
                     RandomString.make(random.nextInt(100) + 1)
             );
             copy = ChapterStat.parseString(chapterStat.toString());

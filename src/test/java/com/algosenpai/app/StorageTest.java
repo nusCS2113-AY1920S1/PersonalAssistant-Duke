@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class StorageTest {
 
-    final String TEST_PATH = "testFile.txt";
+    static final String TEST_PATH = "testFile.txt";
 
     @Test
     public void saveData_fileExists() {
@@ -124,7 +124,7 @@ public class StorageTest {
                     random.nextInt(),
                     random.nextInt(),
                     random.nextInt(),
-                    random.nextDouble()*random.nextInt(),
+                    random.nextDouble() * random.nextInt(),
                     RandomString.make(random.nextInt(100) + 1)
             );
             chapterStats.add(chapterStat);
