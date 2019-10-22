@@ -27,7 +27,7 @@ public class Farmer {
 
     public Farmer() {
         this.money = 10;
-        this.level = 1.1;
+        this.level = 1.3;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
@@ -78,10 +78,12 @@ public class Farmer {
         if(level >= 2) {
 
         }
-        if(level >= 1.2) {
-            assets.put("Seeds", wheatFarm.getSeeds());
+        if(level >= 1.3) {
             assets.put("Wheat", wheatFarm.getGreenWheat());
             assets.put("Grain", wheatFarm.getRipeWheat());
+        }
+        if (level >= 1.2) {
+            assets.put("Seeds", wheatFarm.getSeeds());
         }
         if (level >= 1.1) {
             assets.put("Gold", money);

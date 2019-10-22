@@ -19,9 +19,9 @@ public class SellWheatAction extends Action {
             farmer.setTaskFailed();
             simulation.animate("ErrorInExecution", 0);
             if (!farmer.getWheatFarm().hasWheat()) {
-                ui.typeWriter("Error! you have attempted to sell wheat despite not having any wheat\n");
+                ui.typeWriter("Error! you have attempted to sell wheat despite not having any wheat/\n");
             } else {
-                ui.typeWriter("Error! you have attempted to sell wheat despite not being at the market\n");
+                ui.typeWriter("Error! you have attempted to sell wheat despite not being at the market/\n");
             }
             throw new FarmioException("Task Error!");
         }

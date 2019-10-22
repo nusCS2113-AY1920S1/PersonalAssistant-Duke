@@ -17,14 +17,14 @@ public class GotoMarketAction extends Action {
         try {
             if (farmer.getLocation().equals("Market")) {
                 simulation.animate(1000, "GotoMarketSimulation", 12);
-                ui.typeWriter("You are already at the market");
+                ui.typeWriter("You are already at the market/");
                 return;
             }
             farmer.changeLocation("Traveling");
             simulation.animate("GotoMarketSimulation", 1, 11);
             farmer.changeLocation("Market");
             simulation.animate(1000, "GotoMarketSimulation", 12);
-            ui.typeWriter("You have arrived at the market");
+            ui.typeWriter("You have arrived at the market/");
         } catch (Exception e) {
             e.getMessage();
         }

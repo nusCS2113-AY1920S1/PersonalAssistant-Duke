@@ -1,9 +1,9 @@
      .______.__________________._________________.
      |-Task-|----CONDITION-----|------ACTION-----| 
      |do    |                  |gotoMarket       |
-     |      |                  |                 |
-     |      |                  |                 |
-     |      |                  |                 |
+     |      |                  |buySeeds         |
+     |      |                  |gotoWheatFarm    |
+     |      |                  |plantSeeds       |
      |      |                  |                 |
      |      |                  |                 |
      |      |                  |                 |

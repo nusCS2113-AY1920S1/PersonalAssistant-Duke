@@ -23,9 +23,9 @@ public class HarvestWheatAction extends Action {
             farmer.setTaskFailed();
             simulation.animate("ErrorInExecution", 0);
             if (!farmer.getWheatFarm().hasWheat()) {
-                ui.typeWriter("Error! you have attempted to harvest wheat despite not having any seedlings\n");
+                ui.typeWriter("Error! you have attempted to harvest wheat despite not having any seedlings/\n");
             } else {
-                ui.typeWriter("Error! you have attempted to harvest wheat despite not being at the Wheatfarm\n");
+                ui.typeWriter("Error! you have attempted to harvest wheat despite not being at the Wheatfarm/\n");
             }
             throw new FarmioException("Task Error!");
         }

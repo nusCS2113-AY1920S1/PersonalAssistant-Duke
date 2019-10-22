@@ -20,9 +20,9 @@ public class BuySeedAction extends Action {
             farmer.setTaskFailed();
             simulation.animate("ErrorInExecution", 0, false);
             if (!farmer.getLocation().equals("Market")) {
-                ui.typeWriter("Error! you have attempted to buy seeds despite not being at the market\n");
+                ui.typeWriter("Error! you have attempted to buy seeds despite not being at the market/\n");
             } else {
-                ui.typeWriter("Error! you have attempted to buy seeds despite not having enough money\n");
+                ui.typeWriter("Error! you have attempted to buy seeds despite not having enough money/\n");
             }
             throw new FarmioException("Task Error!");
         }
