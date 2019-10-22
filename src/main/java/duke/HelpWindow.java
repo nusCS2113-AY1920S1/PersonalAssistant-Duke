@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
+//@@author gervaiseang
 /**
  * Controller for a help page.
  */
