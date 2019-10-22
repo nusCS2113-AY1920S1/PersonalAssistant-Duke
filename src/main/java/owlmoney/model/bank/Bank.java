@@ -63,7 +63,7 @@ public abstract class Bank {
      *
      * @return The accountName of the bank account.
      */
-    String getAccountName() {
+    public String getAccountName() {
         return this.accountName;
     }
 
@@ -72,7 +72,7 @@ public abstract class Bank {
      *
      * @return The currentAmount of money in the bank account.
      */
-    double getCurrentAmount() {
+    public double getCurrentAmount() {
         return this.currentAmount;
     }
 

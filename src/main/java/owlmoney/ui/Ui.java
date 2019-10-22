@@ -31,6 +31,10 @@ public class Ui {
     private static final String BONDRATE = "Rate";
     private static final String BONDDATE = "Date of Purchased";
     private static final String BONDYEAR = "Number of Years";
+    private static final String GOALPROGRESS = "Save another";
+    private static final String GOALBANKNAME = "Saving Account";
+    private static final String GOALACHIEVED = "Goal Achieved";
+
 
     /**
      * Prints a message line to the user.
@@ -130,7 +134,7 @@ public class Ui {
      * Prints goal header.
      */
     public void printGoalHeader() {
-        System.out.printf("%-20s %-15s %-20s %-20s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALDATE);
+        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME, GOALPROGRESS, GOALDATE, GOALACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
@@ -144,15 +148,15 @@ public class Ui {
      * @param amount Represents the amount to save up in the goal.
      * @param date   Represents the date to accomplish the goal.
      */
-    public void printGoal(int num, String name, String amount, String date) {
-        System.out.printf("%-20s %-15s %-20s %-20s %n", num, name, amount, date);
+    public void printGoal(int num, String name, String amount, String bankName, String progress, String date, String achieved) {
+        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress, date, achieved);
     }
 
     /**
      * Prints bond header.
      */
     public void printBondHeader() {
-        System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
+        System.out.printf("%-20s %-30s %-15s %-20s %-20s %-20s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
                 BONDYEAR);
 
         System.out.println("-----------------------------------------------------------------------------"

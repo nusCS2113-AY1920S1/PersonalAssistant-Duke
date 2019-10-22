@@ -37,6 +37,8 @@ public class ParseAddGoals extends ParseGoals {
     public void checkParameter() throws ParserException {
         Iterator<String> goalsIterator = goalsParameters.keySet().iterator();
 
+        checkOptionalParameter(goalsParameters.get(BY), goalsParameters.get(IN));
+
         while (goalsIterator.hasNext()) {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
@@ -50,11 +52,34 @@ public class ParseAddGoals extends ParseGoals {
             } else if (AMOUNT.equals(key)) {
                 checkAmount(value);
             }
-            if (BY.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when adding new goals");
-            } else if (BY.equals(key)) {
+            if (BY.equals(key) && (!value.isBlank())) {
                 by = checkDate(value);
+               // countNumOfDays(,by);
             }
+
+            if (IN.equals(key) && (!value.isBlank())) {
+                checkInt(IN, value);
+                by = convertDaysToDate(Integer.parseInt(value));
+            }
+
+            if (FROM.equals(key) && (!value.isBlank())) {
+                checkName(FROM, value);
+            }
+        }
+    }
+
+    /**
+     * Checks if only one of /by or /in is provided for Goals deadline.
+     *
+     * @param by Date of goals deadline.
+     * @param in Days of goals deadline.
+     * @throws ParserException If both /by and /in provided, or none provided.
+     */
+    void checkOptionalParameter(String by, String in) throws ParserException {
+        if (by.isBlank() && in.isBlank()) {
+            throw new ParserException("/by and /in cannot be both empty when adding new goals");
+        } else if (!by.isBlank() && !in.isBlank()) {
+            throw new ParserException("/by and /in cannot be specified concurrently when adding new goals");
         }
     }
 
@@ -66,7 +91,7 @@ public class ParseAddGoals extends ParseGoals {
     @Override
     public Command getCommand() {
         AddGoalsCommand newAddGoalsCommand = new AddGoalsCommand(goalsParameters.get(NAME),
-                Double.parseDouble(goalsParameters.get(AMOUNT)), by);
+                Double.parseDouble(goalsParameters.get(AMOUNT)), by, goalsParameters.get(FROM));
         return newAddGoalsCommand;
     }
 }

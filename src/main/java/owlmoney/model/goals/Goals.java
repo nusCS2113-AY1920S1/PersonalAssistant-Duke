@@ -1,8 +1,10 @@
 package owlmoney.model.goals;
 
-import owlmoney.model.bank.Saving;
+import owlmoney.model.bank.Bank;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,7 +14,8 @@ public class Goals {
     private String name;
     private double amount;
     private Date date;
-    private int days;
+    private Bank savingAcc = null;
+    private boolean done = false;
 
     /**
      * Creates an instance of Goals.
@@ -25,6 +28,24 @@ public class Goals {
         this.name = name;
         this.amount = amount;
         this.date = date;
+    }
+
+    /**
+     * Creates an instance of Goals which is tied to a saving account.
+     *
+     * @param name   The name used to understand the goal.
+     * @param amount The target amount to reach for the goal.
+     * @param date   The targeted date to meet the goal.
+     * @param savingAcc The saving account used to track goal progress.
+     */
+    public Goals(String name, double amount, Date date, Bank savingAcc) {
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+        this.savingAcc = savingAcc;
+        if (Double.parseDouble(getRemainingAmount()) <= 0) {
+            this.done = true;
+        }
     }
 
     /**
@@ -50,18 +71,60 @@ public class Goals {
      *
      * @return date of the Goal.
      */
-    public Date getGoalsDate() {
-        return this.date;
+    public String getGoalsDate() {
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        return temp.format(this.date);
     }
 
     /**
-     * Gets the full details of the Goal.
+     * Gets the saving account name which is tied to Goal.
      *
-     * @return name, amount and date of goal in the corrected format.
+     * @return name of Saving Account.
      */
-    protected String getGoalsDetails() {
-        return "To accomplish: " + getGoalsName() + "\nAmount to save: $"
-                + new DecimalFormat("0.00").format(getGoalsAmount()) + "\nBy: " + getGoalsDate();
+    public String getSavingAcc() {
+        if (savingAcc == null) {
+            return "";
+        } else {
+            return savingAcc.getAccountName();
+        }
+    }
+
+    /**
+     * Gets the remaining amount to save to reach the Goal.
+     *
+     * @return remaining amount left to reaching goal.
+     */
+    public String getRemainingAmount() {
+        if (savingAcc == null) {
+            return "";
+        } else {
+            double remainingAmount = getGoalsAmount() - savingAcc.getCurrentAmount();
+            if (remainingAmount <= 0) {
+                return "0.00";
+            } else {
+                return new DecimalFormat("0.00").format(remainingAmount);
+            }
+        }
+    }
+
+    /**
+     * Marks if Goal is achieved.
+     *
+     * @param remainingAmount amount remaining to reach goal.
+     */
+    public void isDone(Double remainingAmount) {
+        if (remainingAmount <= 0) {
+            done = true;
+        }
+    }
+
+    /**
+     * Gets the status of Goal if achieved.
+     *
+     * @return tick / cross if goal is achieved.
+     */
+    public String getStatus() {
+        return done ? "✓" : "✘";
     }
 
     /**
@@ -89,5 +152,14 @@ public class Goals {
      */
     void setGoalsDate(Date newDate) {
         this.date = newDate;
+    }
+
+    /**
+     * Sets the new saving account for Goal.
+     *
+     * @param newSavingAcc new saving account to tie to Goal.
+     */
+    void setSavingAcc(Bank newSavingAcc) {
+        this.savingAcc = newSavingAcc;
     }
 }

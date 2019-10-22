@@ -8,10 +8,9 @@ import owlmoney.logic.regex.RegexUtil;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
+// /add /goals /name /amount /by <DATE> /in <DAYS> /from <BANK NAME>
 
 /**
  * ParseGoals class which is abstract where various goals parser objects inherit from given that it is abstract.
@@ -21,14 +20,14 @@ public abstract class ParseGoals {
     ParseRawData parseRawData = new ParseRawData();
     String rawData;
 
-    private static final String[] GOALS_KEYWORD = new String[] {"/name", "/amount", "/by", "/newname", "/from", "/num"};
+    private static final String[] GOALS_KEYWORD = new String[] {"/name", "/amount", "/by", "/newname", "/from", "/num", "/in"};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
     static final String NAME = "/name";
     static final String AMOUNT = "/amount";
     static final String BY = "/by";
     static final String NEW_NAME = "/newname";
     static final String FROM = "/from";
-    static final String NUM = "/num";
+    static final String IN = "/in";
 
     /**
      * Creates an instance of any ParseGoals type object.
@@ -78,6 +77,10 @@ public abstract class ParseGoals {
                 parseRawData.extractParameter(rawData, BY, GOALS_KEYWORD));
         goalsParameters.put(NEW_NAME,
                 parseRawData.extractParameter(rawData, NEW_NAME, GOALS_KEYWORD));
+        goalsParameters.put(IN,
+                parseRawData.extractParameter(rawData, IN, GOALS_KEYWORD));
+        goalsParameters.put(FROM,
+                parseRawData.extractParameter(rawData, FROM, GOALS_KEYWORD));
     }
 
     /**
@@ -132,12 +135,34 @@ public abstract class ParseGoals {
         throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
+    /**
+     * Checks if days set for goal is valid format.
+     *
+     * @param variable number of days.
+     * @param valueString value of number of days.
+     * @throws ParserException If days is set too long after or contain invalid parameters.
+     */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
             throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
     }
 
+    /**
+     * Converts days to Date.
+     *
+     * @param day number of days in which user expects to achieve goal.
+     * @return Date of goal deadline.
+     */
+    Date convertDaysToDate(int day) {
+        //count from now to number of days left
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, day);
+        return calendar.getTime();
+    }
+    
     /**
      * Abstract method where each goal parser performs different checks on the parameters.
      *

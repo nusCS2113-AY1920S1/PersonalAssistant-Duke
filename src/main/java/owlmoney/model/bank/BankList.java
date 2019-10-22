@@ -30,13 +30,18 @@ public class BankList {
     }
 
     /**
-     * Gets the name of the bank account.
+     * Gets the saving account with the specified name.
      *
-     * @param bankListIndex The index of the bank account in the arrayList.
+     * @param bankName The name of the bank account in the arrayList.
      * @return The name of the bank account.
      */
-    public String bankListGetBankName(int bankListIndex) {
-        return bankLists.get(bankListIndex).getAccountName();
+    public Bank bankListGetSavingAccount(String bankName) throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName) && bankLists.get(i).getType().equals(SAVING)) {
+                return bankLists.get(i);
+            }
+        }
+        throw new BankException("Cannot find savings account with the name: " + bankName);
     }
 
     /**
@@ -585,5 +590,21 @@ public class BankList {
         if (num == 0) {
             ui.printBankHeader();
         }
+    }
+
+    /**
+     * Retrieves the total amount in Bank Saving.
+     *
+     * @param savingName Represents the account name of Saving.
+     * @return The total amount in Saving account.
+     * @throws BankException If no bank of such name is found.
+     */
+    public double getSavingAmount(String savingName) throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(savingName)) {
+                return bankLists.get(i).getCurrentAmount();
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + savingName);
     }
 }

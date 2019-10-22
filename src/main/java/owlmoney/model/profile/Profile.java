@@ -15,6 +15,8 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
+import java.util.Date;
+
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
  */
@@ -377,7 +379,7 @@ public class Profile {
      *
      * @param ui required for printing.
      */
-    public void listGoals(Ui ui) {
+    public void profileListGoals(Ui ui) {
         goalsList.listGoals(ui);
     }
 
@@ -388,7 +390,7 @@ public class Profile {
      * @param ui    required for printing.
      * @throws GoalsException If invalid parameters / attempt to add the same goal name.
      */
-    public void addGoals(Goals goals, Ui ui) throws GoalsException {
+    public void profileAddGoals(Goals goals, Ui ui) throws GoalsException {
         goalsList.addToGoals(goals, ui);
     }
 
@@ -399,21 +401,35 @@ public class Profile {
      * @param ui   required for printing.
      * @throws GoalsException If goal does not exists.
      */
-    public void deleteGoals(String name, Ui ui) throws GoalsException {
+    public void profileDeleteGoals(String name, Ui ui) throws GoalsException {
         goalsList.deleteFromGoalList(name, ui);
     }
 
     /**
-     * Edit goals from GoalsList.
+     * Edits goals from GoalsList.
      *
      * @param goalName name of goal.
      * @param amount   new target amount to reach for the goal.
      * @param date     new targeted date to meet goal.
      * @param newName  new name for the goal.
+     * @param savingName
      * @param ui       required for printing.
      * @throws GoalsException If goal does not exists.
      */
-    public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
-        goalsList.editGoals(goalName, amount, date, newName, ui);
+    public void profileEditGoals(String goalName, String amount, Date date, String newName, Bank savingName, Ui ui) throws GoalsException {
+        goalsList.editGoals(goalName, amount, date, newName, savingName, ui);
     }
+
+    /**
+     * Retrieves a Saving object.
+     *
+     * @param savingBankName Account name of Saving.
+     * @return Total amount in Saving Account.
+     * @throws BankException If no savingBankName is found.
+     */
+    public Bank profileGetSavingAccount (String savingBankName) throws BankException {
+        return bankList.bankListGetSavingAccount(savingBankName);
+    }
+
+
 }
