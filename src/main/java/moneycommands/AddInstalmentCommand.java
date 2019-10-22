@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class AddInstalmentCommand extends MoneyCommand{
     private String inputString;
 
+    //@@ ChenChao19
     public AddInstalmentCommand(String command) {
         inputString = command.replaceFirst("add instalment ", "");
     }

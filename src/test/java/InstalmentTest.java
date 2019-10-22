@@ -3,6 +3,7 @@ import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
 import moneycommands.AddInstalmentCommand;
+import moneycommands.DeleteInstalmentCommand;
 import moneycommands.MoneyCommand;
 import org.junit.jupiter.api.Test;
 
@@ -45,4 +46,20 @@ public class InstalmentTest {
                 + " The total amount you will pay is $" + account.getInstalments().get(last).totalAmount() + "\n"
                 , ui.getOutputString());
     }
+
+    /**@Test
+    public void testDeleteInstalmentException()throws ParseException, DukeException {
+        ui = new Ui();
+        Path currentDir = Paths.get("data/account-test.txt");
+        String filePath = currentDir.toAbsolutePath().toString();
+        moneyStorage = new MoneyStorage(filePath);
+        account = new Account(moneyStorage.load());
+        int last =  account.getInstalments().size() + 1;
+        String testInput = "delete instalment ";
+        MoneyCommand deleteInstalmentCommand =  new DeleteInstalmentCommand(testInput + last);
+        ui.clearOutputString();
+        deleteInstalmentCommand.execute(account, ui, moneyStorage);
+        assertEquals("ERROR: The serial number of the Instalments is Out Of Bounds!"
+                , ui.getOutputString());
+    }*/
 }

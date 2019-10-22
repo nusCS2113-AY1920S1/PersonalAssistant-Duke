@@ -15,6 +15,7 @@ import java.text.ParseException;
 public class UndoCommand extends  MoneyCommand {
     protected MoneyCommand lastIssuedCommand;
 
+    //@@ Chianhaoplanks
     public UndoCommand() { lastIssuedCommand = null; }
 
     public boolean isExit() { return  false; }

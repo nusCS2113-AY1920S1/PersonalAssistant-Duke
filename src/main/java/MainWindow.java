@@ -48,6 +48,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
+    //@@ therealnickcheong
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -75,6 +76,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
+    //@@ cctt1014
     @FXML
     private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
@@ -124,6 +126,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
         userInput.clear();
     }
 
+    //@@ therealnickcheong
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
@@ -141,6 +144,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     }
 
+    //@@ ChenChao19
     @FXML
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();

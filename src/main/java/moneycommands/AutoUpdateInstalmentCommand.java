@@ -14,6 +14,7 @@ import java.time.Period;
 public class AutoUpdateInstalmentCommand extends MoneyCommand{
     private LocalDate currDate = LocalDate.now();
 
+    //@@ ChenChao19
     public AutoUpdateInstalmentCommand() {}
 
     @Override

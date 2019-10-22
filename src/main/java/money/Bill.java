@@ -7,6 +7,7 @@ public class Bill extends Expenditure {
 
     private LocalDate nextPayDay;
 
+    //@@Chianhaoplanks
     public Bill(float price, String description, String category, LocalDate boughtDate, LocalDate nextPayDay) {
         super(price, description, category, boughtDate);
         this.nextPayDay = nextPayDay;

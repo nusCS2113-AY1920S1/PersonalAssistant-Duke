@@ -13,6 +13,7 @@ public class Goal extends Expenditure {
 
     private Priority priority;
 
+    //@@ therealnickcheong
     public Goal(float price, String description, String category, LocalDate goalBy, String priorityLevel) {
         super(price, description, category, goalBy);
         switch (priorityLevel) {

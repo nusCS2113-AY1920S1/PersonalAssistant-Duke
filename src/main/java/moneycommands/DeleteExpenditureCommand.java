@@ -19,6 +19,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
+    //@@ chengweixuan
     public DeleteExpenditureCommand(String command) {
         inputString = command;
         String temp = inputString.replaceAll("[^0-9]", "");

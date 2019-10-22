@@ -16,6 +16,7 @@ public class AddBillCommand extends MoneyCommand {
 
     private String inputString;
 
+    //@@ Chianhaoplanks
     public AddBillCommand (String command) {
         inputString = command.replaceFirst("add bill", "");
     }

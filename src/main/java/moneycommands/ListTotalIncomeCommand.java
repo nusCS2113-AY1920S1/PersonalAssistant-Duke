@@ -14,6 +14,7 @@ public class ListTotalIncomeCommand extends MoneyCommand {
     /**
      * Constructor of the list command.
      */
+    //@@ chengweixuan
     public ListTotalIncomeCommand(){
     }
 

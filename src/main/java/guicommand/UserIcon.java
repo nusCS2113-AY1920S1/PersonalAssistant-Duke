@@ -13,6 +13,7 @@ public class UserIcon {
 
     private Image icon;
 
+    //cctt 1014
     public UserIcon() throws IOException {
         FileReader fileReader = new FileReader("data/iconPath.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
