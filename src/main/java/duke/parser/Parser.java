@@ -1,17 +1,18 @@
 package duke.parser;
 
+import duke.command.Command;
+import duke.command.FindCommand;
+import duke.command.FilterCommand;
 import duke.command.ListCommand;
 import duke.command.FindTasksByPriorityCommand;
 import duke.command.DuplicateFoundCommand;
 import duke.command.UpdateCommand;
-import duke.command.FindCommand;
 import duke.command.DoneCommand;
 import duke.command.RemindCommand;
 import duke.command.AddCommand;
 import duke.command.BackupCommand;
 import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
-import duke.command.Command;
 import duke.command.AddMultipleCommand;
 import duke.command.SetPriorityCommand;
 import duke.command.DeleteCommand;
@@ -98,6 +99,16 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
                 } else {
                     return new FindCommand(arr[ONE]);
+                }
+            }
+        } else if (arr.length > ZERO && arr[ZERO].equals("filter")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+            } else {
+                if (arr[ONE].trim().isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+                } else {
+                    return new FilterCommand(arr[ONE]);
                 }
             }
         } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
