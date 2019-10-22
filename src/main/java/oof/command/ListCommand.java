@@ -1,7 +1,8 @@
 package oof.command;
 
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
 
 /**
@@ -17,15 +18,15 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Lists all the Tasks present in the TaskList.
-     *
-     * @param arr     Instance of TaskList that stores Task objects.
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
+     * List all the Tasks present in the TaskList.
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) {
-        ui.printTaskList(arr);
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) {
+        ui.printTaskList(tasks);
     }
 
     /**

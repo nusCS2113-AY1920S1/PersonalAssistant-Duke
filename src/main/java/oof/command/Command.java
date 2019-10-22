@@ -2,16 +2,18 @@ package oof.command;
 
 import oof.exception.OofException;
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -24,13 +26,14 @@ public abstract class Command {
     /**
      * Invokes other Command subclasses based on the input given by the user.
      *
-     * @param tasks   Instance of TaskList that stores Task objects.
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OofException;
+    public abstract void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException;
 
     /**
      * Parses the Timestamp given by the user and returns the parsed
@@ -80,6 +83,52 @@ public abstract class Command {
     public Date convertStringToDate(String date) throws ParseException {
         return new SimpleDateFormat("HH:mm").parse(date);
     }
+
+    /**
+     * Get Date from Task object.
+     *
+     * @param task Task object.
+     * @return String containing date from Task object.
+     */
+    protected String getDate(Task task) {
+        if (task instanceof Todo) {
+            return ((Todo) task).getOn().substring(0, 10);
+        } else if (task instanceof Deadline) {
+            return ((Deadline) task).getBy().substring(0, 10);
+        } else if (task instanceof Event) {
+            return ((Event) task).getStartTime().substring(0, 10);
+        }
+        return null;
+    }
+
+    /**
+     * Comparator to sort tasks by their time in ascending order.
+     */
+    class SortByTime implements Comparator<String[]> {
+        @Override
+        public int compare(String[] a, String[] b) {
+            if (a[0].equals("")) {
+                return -1;
+            } else if (b[0].equals("")) {
+                return 1;
+            }
+            int hour1 = Integer.parseInt(a[0].substring(0, 2));
+            int hour2 = Integer.parseInt(b[0].substring(0, 2));
+            if (hour1 != hour2) {
+                return hour1 - hour2;
+            } else {
+                int minute1 = Integer.parseInt(a[0].substring(3, 5));
+                int minute2 = Integer.parseInt(b[0].substring(3, 5));
+                return minute1 - minute2;
+            }
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            return this == object;
+        }
+    }
+
 
     /**
      * Checks if ExitCommand is called for Oof to terminate.

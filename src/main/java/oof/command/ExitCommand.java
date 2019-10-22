@@ -1,7 +1,8 @@
 package oof.command;
 
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
 
 /**
@@ -19,12 +20,12 @@ public class ExitCommand extends Command {
     /**
      * Exits the Oof program.
      *
-     * @param arr     Instance of TaskList that stores Task objects.
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) {
         ui.printByeMessage();
     }
 

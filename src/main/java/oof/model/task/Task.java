@@ -1,6 +1,4 @@
-package oof.task;
-
-import java.util.Date;
+package oof.model.task;
 
 /**
  * Abstract parent class of all subclasses of Task.
@@ -12,10 +10,10 @@ public abstract class Task {
         DAILY,
         WEEKLY,
         MONTHLY,
-        YEARLY;
+        YEARLY
     }
 
-    private String line;
+    private String description;
     private boolean status;
     private Frequency frequency;
     private static final int DAILY = 1;
@@ -29,10 +27,10 @@ public abstract class Task {
     /**
      * Constructor for Task.
      *
-     * @param line Command inputted by user.
+     * @param description Description of task.
      */
-    public Task(String line) {
-        this.line = line;
+    public Task(String description) {
+        this.description = description;
         this.status = false;
         this.frequency = Frequency.ONCE;
     }
@@ -45,8 +43,8 @@ public abstract class Task {
         return status;
     }
 
-    public String getLine() {
-        return line;
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -95,7 +93,7 @@ public abstract class Task {
      * @return Status icon of the Task.
      */
     public String getStatusIcon() {
-        return (status ? "Y" : "N"); //return tick or X symbols
+        return (status ? "[Y]" : "[N]"); //return tick or X symbols
     }
 
     /**
@@ -105,6 +103,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + line;
+        return getStatusIcon() + " " + description;
     }
 }

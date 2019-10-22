@@ -1,11 +1,12 @@
 package oof.command;
 
-import oof.task.Deadline;
-import oof.task.Event;
-import oof.task.Task;
-import oof.task.Todo;
+import oof.model.module.SemesterList;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 import oof.Storage;
-import oof.TaskList;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
 
@@ -43,9 +44,19 @@ public class RecurringCommand extends Command {
         this.frequency = frequency;
     }
 
+    /**
+     * Recurs a task.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     * @throws OofException if user input is invalid.
+     */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
-        if (!taskList.isIndexValid(this.index)) {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+        if (!tasks.isIndexValid(this.index)) {
             throw new OofException("OOPS!!! Please select a valid task!");
         } else if (!isCountValid(this.count)) {
             throw new OofException("OOPS!!! The valid number of recurrences is from 1-10!");
@@ -54,9 +65,9 @@ public class RecurringCommand extends Command {
                 if (!isFrequencyValid(this.frequency)) {
                     throw new OofException("OOPS!!! Please enter a valid number!");
                 } else {
-                    setRecurringTask(ui, taskList, this.index, this.count, this.frequency);
-                    ui.printRecurringMessage(taskList);
-                    storage.writeToFile(taskList);
+                    setRecurringTask(ui, tasks, this.index, this.count, this.frequency);
+                    ui.printRecurringMessage(tasks);
+                    storage.writeTaskList(tasks);
                 }
             } catch (InputMismatchException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
@@ -93,7 +104,7 @@ public class RecurringCommand extends Command {
             for (int i = 1; i <= count; i++) {
                 String date = ((Todo) task).getOn();
                 date = dateTimeIncrement(date, frequency, i);
-                Todo todo = new Todo(task.getLine(), date);
+                Todo todo = new Todo(task.getDescription(), date);
                 todo.setFrequency(frequency);
                 taskList.addTask(todo);
             }
@@ -101,17 +112,17 @@ public class RecurringCommand extends Command {
             for (int i = 1; i <= count; i++) {
                 String date = ((Deadline) task).getBy();
                 date = dateTimeIncrement(date, frequency, i);
-                Deadline deadline = new Deadline(task.getLine(), date);
+                Deadline deadline = new Deadline(task.getDescription(), date);
                 deadline.setFrequency(frequency);
                 taskList.addTask(deadline);
             }
         } else if (task instanceof Event) {
             for (int i = 1; i <= count; i++) {
-                String startTiming = ((Event) task).getStartTiming();
+                String startTiming = ((Event) task).getStartTime();
                 startTiming = dateTimeIncrement(startTiming, frequency, i);
-                String endTiming = ((Event) task).getEndTiming();
+                String endTiming = ((Event) task).getEndTime();
                 endTiming = dateTimeIncrement(endTiming, frequency, i);
-                Event event = new Event(task.getLine(), startTiming, endTiming);
+                Event event = new Event(task.getDescription(), startTiming, endTiming);
                 event.setFrequency(frequency);
                 taskList.addTask(event);
             }

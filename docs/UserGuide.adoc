@@ -310,6 +310,11 @@ Reminders will be given when the application is launched if deadlines are due in
 
 Format: `reminder`
 
+=== Viewing, adding, editing and removing of semester and module data: `semester`
+Opens menu to view, add, edit and remove Semester and Module data.
+
+Format: `semester`
+
 === Exiting the program: `bye`
 Exits the program.
 

@@ -3,15 +3,15 @@ package oof.command;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
-import oof.task.Deadline;
-import oof.task.Event;
-import oof.task.Task;
-import oof.task.Todo;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 
 /**
  * Represents a Command to print calendar.
@@ -55,15 +55,24 @@ public class CalendarCommand extends Command {
         }
     }
 
+    /**
+     * Prints the calendar for the queried month and year.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) {
         YearMonth yearMonth = YearMonth.of(year, month);
         for (Task task : tasks.getTasks()) {
             if (task instanceof Todo) {
                 Todo todo = (Todo) task;
                 String[] dateSplit = todo.getOn().split("-");
                 if (verifyTask(dateSplit)) {
-                    String description = todo.getLine();
+                    String description = todo.getDescription();
                     String time = "";
                     int day = Integer.parseInt(dateSplit[INDEX_DAY]);
                     addEntry(time, description, day);
@@ -73,17 +82,17 @@ public class CalendarCommand extends Command {
                 String[] dateTimeSplit = deadline.getBy().split(" ");
                 String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
                 if (verifyTask(dateSplit)) {
-                    String description = deadline.getLine();
+                    String description = deadline.getDescription();
                     String time = dateTimeSplit[INDEX_TIME];
                     int day = Integer.parseInt(dateSplit[INDEX_DAY]);
                     addEntry(time, description, day);
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                String[] dateTimeSplit = event.getStartTiming().split(" ");
+                String[] dateTimeSplit = event.getStartTime().split(" ");
                 String[] dateSplit = dateTimeSplit[INDEX_DATE].split("-");
                 if (verifyTask(dateSplit)) {
-                    String description = event.getLine();
+                    String description = event.getDescription();
                     String time = dateTimeSplit[INDEX_TIME];
                     int day = Integer.parseInt(dateSplit[INDEX_DAY]);
                     addEntry(time, description, day);
@@ -118,34 +127,6 @@ public class CalendarCommand extends Command {
     public void addEntry(String time, String description, int day) {
         String[] entry = {time, description};
         this.calendarTasks.get(day).add(entry);
-    }
-
-    /**
-     * Comparator to sort tasks by their time in ascending order.
-     */
-    class SortByTime implements Comparator<String[]> {
-        @Override
-        public int compare(String[] a, String[] b) {
-            if (a[0].equals("")) {
-                return -1;
-            } else if (b[0].equals("")) {
-                return 1;
-            }
-            int hour1 = Integer.parseInt(a[0].substring(0, 2));
-            int hour2 = Integer.parseInt(b[0].substring(0, 2));
-            if (hour1 != hour2) {
-                return hour1 - hour2;
-            } else {
-                int minute1 = Integer.parseInt(a[0].substring(3, 5));
-                int minute2 = Integer.parseInt(b[0].substring(3, 5));
-                return minute1 - minute2;
-            }
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            return this == object;
-        }
     }
 
     @Override
