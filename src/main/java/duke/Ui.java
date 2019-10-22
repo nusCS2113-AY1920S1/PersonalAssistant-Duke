@@ -2,12 +2,14 @@ package duke;
 
 import duke.Parser.ParserCommand;
 import duke.Parser.Parser;
+import duke.module.Lesson;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;
 import duke.task.TaskList;
 import duke.data.Storage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -33,7 +35,12 @@ public class Ui {
                 } else if (command.equals("home")) {
                     mainMenu();
                 } else {
-                    parser.parseCommand(command);
+                    try {
+
+                        parser.parseCommand(command);
+                    } catch (FileNotFoundException | ParseException io) {
+                        System.err.println("file not found");
+                    }
                 }
             }
         }
@@ -86,6 +93,17 @@ public class Ui {
             + "(Cmd: student delete [index of student in the list])\n"
             + "4. Search Student - Finding a particular student in the list "
             + "(Cmd: student search [name])");
+    }
+
+
+    public void lessonHeading(Lesson lessonDate) {
+        System.out.flush();
+        System.out.println("What would you like to do on \n" + lessonDate + "?\n"
+            + "1. View lessons of the day\n"
+            + "2. Add a lesson of the day\n"
+            + "3. Delete a lesson of the day\n"
+            + "4. Clear all lessons of the day\n"
+            + "5. Quit lesson of the day");
     }
 
     /**
