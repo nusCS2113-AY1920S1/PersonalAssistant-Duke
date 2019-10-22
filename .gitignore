@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Gradle build properties
+build.gradle
+
 # Gradle build files
 /.gradle/
 /build
@@ -11,17 +14,13 @@
 .DS_Store
 *.iml
 bin/
-build/test-results/test/binary/results.bin
-build/test-results/test/binary/output.bin.idx
-build/test-results/test/binary/output.bin
 build/scriptsShadow/duke.bat
 build/scriptsShadow/duke
 build/scripts/duke.bat
-build/scripts/duke
+build/scripts/duke  
 build/distributions/duke-0.1.0.tar
 build/distributions/duke-shadow-0.1.0.tar
 build/distributions/duke-0.1.0.zip
 build/libs/duke-0.1.0.jar
 build/distributions/duke-shadow-0.1.0.zip
 build/libs/mid-v1.1.jar
-/data/testData/
