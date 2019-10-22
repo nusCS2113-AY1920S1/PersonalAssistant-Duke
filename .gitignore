@@ -20,3 +20,4 @@ bin/
 .settings
 
 text-ui-test/ACTUAL.TXT
+sampleInput.txt

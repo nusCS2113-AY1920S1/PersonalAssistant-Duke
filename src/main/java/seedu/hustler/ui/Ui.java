@@ -164,6 +164,7 @@ public class Ui {
     }
 
     /**
+<<<<<<< HEAD
      * Prints a message if list is empty.
      */
     public void show_list_empty() {
@@ -272,5 +273,12 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("\tTask list has been successfully sorted!");
         show_list(list);
+    }
+
+    /** Issue an error if command not followed by number in case of
+     * commands like done, delete amongst others.
+     */
+    public void numberCommandError() {
+        this.show_message("Command should be followed by a number. /command <number>");
     }
 }

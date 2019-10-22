@@ -1,15 +1,33 @@
 package seedu.hustler.parser;
 
+import seedu.hustler.command.AchievementCommand;
 import seedu.hustler.command.Command;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
 import seedu.hustler.command.avatar.SetNameCommand;
-import seedu.hustler.command.shop.BuyCommand;
 import seedu.hustler.command.shop.ShopListCommand;
-import seedu.hustler.command.task.*;
-import seedu.hustler.command.timer.*;
+import seedu.hustler.command.task.AddCommand;
+import seedu.hustler.command.task.DeleteCommand;
+import seedu.hustler.command.task.DoneCommand;
+import seedu.hustler.command.task.FindCommand;
+import seedu.hustler.command.task.InvalidCommand;
+import seedu.hustler.command.task.ListCommand;
+import seedu.hustler.command.timer.PauseTimerCommand;
+import seedu.hustler.command.task.RemindCommand;
+import seedu.hustler.command.timer.ResumeTimerCommand;
+import seedu.hustler.command.task.ScheduleCommand;
+import seedu.hustler.command.timer.ShowTimerCommand;
+import seedu.hustler.command.task.SnoozeCommand;
+import seedu.hustler.command.task.SortCommand;
+import seedu.hustler.command.timer.StopTimerCommand;
+import seedu.hustler.command.timer.TimerCommand;
+import seedu.hustler.command.task.UndoCommand;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.command.schedulecommands.AddEntry;
+import seedu.hustler.command.schedulecommands.UpdateEntry;
+import seedu.hustler.command.schedulecommands.RemoveEntry;
+import seedu.hustler.command.task.ByeCommand;
+import seedu.hustler.command.shop.BuyCommand;
 
 /**
  * Takes raw user input as string, makes sense out of the input using
@@ -91,6 +109,12 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
+        } else if (userInput[0].equals("/remove"))  {
+            return new RemoveEntry(userInput);
+        } else if (userInput[0].equals("/update")) {
+            return new UpdateEntry(userInput);
+        } else if (userInput[0].equals("/addFromList")) {
+            return new AddEntry(userInput);
         } else if (userInput[0].equals("/sort")) {
             return new SortCommand(userInput[1]);
         } else if (userInput[0].equals("/bye")) {
