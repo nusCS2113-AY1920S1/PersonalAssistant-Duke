@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.email.EmailContentParser;
 import seedu.duke.email.EmailFormatParser;
+import seedu.duke.email.EmailStorage;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -14,27 +15,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Email {
-    protected String filepath;
-    protected String subject;
-    protected EmailFormatParser.Sender sender;
-    protected LocalDateTime receivedDateTime;
-    protected String body;
-    protected Boolean hasHtml;
     protected ArrayList<Tag> tags = new ArrayList<>();
-    protected String rawJson;
-
-    //@FXML
-    //private WebView webView;
+    private String subject;
+    private EmailFormatParser.Sender sender;
+    private LocalDateTime receivedDateTime;
+    private String body;
+    private String rawJson;
 
     public Email(String subject) {
         this.subject = subject;
-        this.filepath = getEmailFilePath();
     }
 
     /**
@@ -138,19 +131,18 @@ public class Email {
      * @return email body after the coloring
      */
     public String colorBodyOnTag() {
-        Tag highestTag = null;
-        for (Tag tag : tags) {
-            if (!tag.getKeywordPair().getKeyword().equals("Spam")
-                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
-                highestTag = tag;
-            }
-        }
+        Tag highestTag = findHighestTag();
         if (highestTag == null) {
             return body;
         }
         String output = this.body;
         ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
-        Collections.sort(expressions, (ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
+        expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
+        output = addColorToExpressions(output, expressions);
+        return output;
+    }
+
+    private String addColorToExpressions(String output, ArrayList<String> expressions) {
         for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
@@ -158,6 +150,17 @@ public class Email {
             output = colorMatcher.replaceAll("<font style=\"color:red\">" + expression + "</font>");
         }
         return output;
+    }
+
+    private Tag findHighestTag() {
+        Tag highestTag = null;
+        for (Tag tag : tags) {
+            if (!tag.getKeywordPair().getKeyword().equals("Spam")
+                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
+                highestTag = tag;
+            }
+        }
+        return highestTag;
     }
 
     public String getRawJson() {
@@ -174,52 +177,10 @@ public class Email {
      * @return pathname for this email.
      */
     public String getEmailFilePath() {
-        return getFolderDir() + File.separator + this.subject;
+        return EmailStorage.getFolderDir() + File.separator + this.subject;
     }
 
-    ///**
-    // * Show this email on browser. To be replaced by JavaFx code for UI display.
-    // *
-    // * @throws IOException if fails to load the filepath or open the browser.
-    // */
-    //@FXML
-    //public String getShowEmailPath() throws IOException {
-    //    File emailFile = new File(this.filepath);
-    //    //Desktop.getDesktop().browse(emailFile.toURI());
-    //    String path = emailFile.toURI().toURL().toString();
-    //    return path;
-    //}
-
-    /**
-     * Get the pathname of the data/emails folder.
-     *
-     * @return the pathname of the data/emails folder.
-     */
-    private static String getFolderDir() {
-        String dir;
-        String workingDir = System.getProperty("user.dir");
-        if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "emails";
-        } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "data" + File.separator + "emails";
-        } else {
-            dir = "emails";
-        }
-        return dir;
-    }
-
-    /**
-     * Outputs a string with all the information of this email to be stored in a file for future usage. The
-     * subject of the email is hashed and combined with date time to produce the filename.
-     *
-     * @return a string with all the information of this email.
-     */
-    public String toFileString() {
-        String fileString = this.subject + " | ";  // to add on info such as tags.
-        return fileString;
-    }
-
-    public String getFilename() {
+    public String toFilename() {
         String filename = shaHash(this.subject) + "-" + this.getDateTimePlainString() + ".htm";
         return filename;
     }
@@ -229,17 +190,22 @@ public class Email {
      *
      * @return a json object containing all the parsed information of the email object
      */
-    public JSONObject getIndexJson() throws JSONException {
+    public JSONObject toIndexJson() throws JSONException {
         JSONObject indexJson = new JSONObject();
         indexJson.put("subject", this.subject);
         indexJson.put("sender", this.sender.toString());
         indexJson.put("receivedDateTime", this.getDateTimeString());
+        JSONArray tagArray = prepareTagJsonArray();
+        indexJson.put("tags", tagArray);
+        return indexJson;
+    }
+
+    private JSONArray prepareTagJsonArray() throws JSONException {
         JSONArray tagArray = new JSONArray();
         for (Tag tag : this.tags) {
             tagArray.put(tag.toJsonObject());
         }
-        indexJson.put("tags", tagArray);
-        return indexJson;
+        return tagArray;
     }
 
     private String getDateTimeString() {
@@ -284,6 +250,7 @@ public class Email {
 
     /**
      * Converts information about email to string that will be displayed to user.
+     *
      * @return string that will be displayed in GUI
      */
     public String toGuiString() {
@@ -329,6 +296,7 @@ public class Email {
             }
             int relevance = json.getInt("relevance");
 
+
             this.keywordPair = new EmailContentParser.KeywordPair(keyword, expressionList);
             this.relevance = relevance;
         }
@@ -354,8 +322,8 @@ public class Email {
             JSONObject json = new JSONObject();
             json.put("keyword", this.keywordPair.getKeyword());
             JSONArray expressionArray = new JSONArray();
-            for (String expresion : this.keywordPair.getExpressions()) {
-                expressionArray.put(expresion);
+            for (String expression : this.keywordPair.getExpressions()) {
+                expressionArray.put(expression);
             }
             json.put("expressions", expressionArray);
             json.put("relevance", this.relevance);

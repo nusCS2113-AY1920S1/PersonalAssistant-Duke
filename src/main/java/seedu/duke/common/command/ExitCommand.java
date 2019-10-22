@@ -1,7 +1,6 @@
 package seedu.duke.common.command;
 
 import seedu.duke.Duke;
-import seedu.duke.common.command.Command;
 
 /**
  * Exit Command is a special kind of command called when the user ends the interaction.

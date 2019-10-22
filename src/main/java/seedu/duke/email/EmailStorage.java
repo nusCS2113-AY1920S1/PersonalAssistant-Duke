@@ -1,18 +1,15 @@
 package seedu.duke.email;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.common.network.Http;
 import seedu.duke.email.entity.Email;
-import seedu.duke.task.TaskStorage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static seedu.duke.email.EmailContentParser.allKeywordInEmail;
@@ -27,7 +24,7 @@ public class EmailStorage {
      *
      * @return pathname of the email.txt file.
      */
-    private static String getEmailIndexDir() {
+    public static String getEmailIndexDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
@@ -45,7 +42,7 @@ public class EmailStorage {
      *
      * @return pathname of the data/emails/ folder.
      */
-    private static String getFolderDir() {
+    public static String getFolderDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
@@ -71,44 +68,36 @@ public class EmailStorage {
         return dir;
     }
 
-
-    /**
-     * Get the list of html filenames currently saved in the data/emails folder.
-     *
-     * @return an array list of strings of html filenames.
-     */
-    public static ArrayList<String> getHtmlList() {
-        ArrayList<String> listOfHtml = new ArrayList<String>();
-        File emailFolder = new File(getFolderDir());
-        for (File fileEntry : emailFolder.listFiles()) {
-            if (fileEntry.isFile()) {
-                String emailFileName = fileEntry.getName();
-                listOfHtml.add(emailFileName);
-            }
-        }
-        return listOfHtml;
-    }
-
     /**
      * To implement with code to fetch emails from online server to local storage. May need to sync the
      * current email list with local storage after that by calling syncEmailListWithHtml().
      */
     public static void syncWithServer() {
         EmailList serverEmailList = Http.fetchEmail(60);
+        combineServerAndLocalEmailList(serverEmailList);
+        Duke.getModel().updateGuiEmailList();
+        saveEmails(Duke.getModel().getEmailList());
+    }
+
+    private static void combineServerAndLocalEmailList(EmailList serverEmailList) {
         for (Email serverEmail : serverEmailList) {
-            boolean exist = false;
-            for (Email localEmail : Duke.getEmailList()) {
-                if (localEmail.getSubject().equals(serverEmail.getSubject())) {
-                    exist = true;
-                    break;
-                }
-            }
-            if (!exist) {
+            if (!emailRepeated(serverEmail)) {
                 allKeywordInEmail(serverEmail);
-                Duke.getEmailList().add(serverEmail);
+                Duke.getModel().getEmailList().add(serverEmail);
             }
         }
-        saveEmails(Duke.getEmailList());
+    }
+
+    private static boolean emailRepeated(Email serverEmail) {
+        boolean exist = false;
+        for (Email localEmail : Duke.getModel().getEmailList()) {
+            if (localEmail.getSubject().equals(serverEmail.getSubject())
+                    && serverEmail.getReceivedDateTime().equals(localEmail.getReceivedDateTime())) {
+                exist = true;
+                break;
+            }
+        }
+        return exist;
     }
 
     /**
@@ -120,26 +109,8 @@ public class EmailStorage {
     public static void saveEmails(EmailList emailList) {
         try {
             prepareFolder();
-            String folderDir = getFolderDir();
-            String indexDir = getEmailIndexDir();
-            File indexFile = new File(indexDir);
-            indexFile.createNewFile();
-            FileOutputStream indexOut = new FileOutputStream(indexFile, false);
-            String content = "";
-            for (Email email : emailList) {
-                content += email.getIndexJson().toString() + "\n";
-            }
-            indexOut.write(content.getBytes());
-            indexOut.close();
-            for (Email email : emailList) {
-                if (email.getBody() != null) {
-                    File emailSource = new File(folderDir + email.getFilename());
-                    emailSource.createNewFile();
-                    FileOutputStream emailOut = new FileOutputStream(emailSource, false);
-                    emailOut.write(email.getRawJson().getBytes());
-                    emailOut.close();
-                }
-            }
+            saveEmailListToIndex(emailList);
+            saveEmailListToFolder(emailList);
         } catch (IOException e) {
             e.printStackTrace();
             Duke.getUI().showError("Write to output file IO exception!");
@@ -148,62 +119,39 @@ public class EmailStorage {
         }
     }
 
-    ///**
-    // * To sync the emailList with email html files saved in local storage. To prevent mismatch between
-    // * emailList and existing emails in local storage. To be called for execution after fetching html files
-    // * from server, to keep emailList updated. Creates a new emailList, which only adds email object from the
-    // * input emailList that are present in the html lists, and html files that are not included in the input
-    // * emailList.
-    // *
-    // * @param emailList is the current emailList from Duke to be synced with the html files in local storage.
-    // * @return the synced emailList.
-    // */
-    //public static EmailList syncEmailListWithHtml(EmailList emailList) {
-    //    ArrayList<String> htmlList = getHtmlList();
-    //    EmailList syncedEmailList = new EmailList();
-    //
-    //    //This boolean array will auto-initialize to false since boolean's default value is false.
-    //    boolean[] inEmailList = new boolean[htmlList.size()];
-    //
-    //    for (Email email : emailList) {
-    //        String subject = email.getSubject();
-    //        for (int j = 0; j < htmlList.size(); j++) {
-    //            if (htmlList.get(j).equals(subject)) {
-    //                inEmailList[j] = true;
-    //                // Add the email to syncedEmailList if the email has html file in local storage.
-    //                // So email without its html file will not be added.
-    //                syncedEmailList.add(email);
-    //            }
-    //        }
-    //    }
-    //    for (int j = 0; j < htmlList.size(); j++) {
-    //        if (!inEmailList[j]) {
-    //            String subject = htmlList.get(j);
-    //            // Add the email(previously not in emailList) to syncedEmailList.
-    //            syncedEmailList.add(new Email(subject));
-    //        }
-    //    }
-    //    emailList = null; // it will be automatically deleted by the garbage collector.
-    //    return syncedEmailList;
-    //}
-
-    /**
-     * Get emailList according to html files present in local storage. This method is not being used, but may
-     * be useful someday so it is kept here.
-     *
-     * @return EmailList created by according to html files present in local storage.
-     */
-    public static EmailList readEmailFromHtml() {
-        EmailList emailList = new EmailList();
-        File emailFolder = new File(getFolderDir());
-        for (File fileEntry : emailFolder.listFiles()) {
-            if (fileEntry.isFile()) {
-                String emailFileName = fileEntry.getName();
-                Email email = new Email(emailFileName);
-                emailList.add(email);
+    private static void saveEmailListToFolder(EmailList emailList) throws IOException {
+        String folderDir = getFolderDir();
+        for (Email email : emailList) {
+            if (email.getBody() != null) {
+                saveEmailToFolder(folderDir, email);
             }
         }
-        return emailList;
+    }
+
+    private static void saveEmailToFolder(String folderDir, Email email) throws IOException {
+        File emailSource = new File(folderDir + email.toFilename());
+        emailSource.createNewFile();
+        FileOutputStream emailOut = new FileOutputStream(emailSource, false);
+        emailOut.write(email.getRawJson().getBytes());
+        emailOut.close();
+    }
+
+    private static void saveEmailListToIndex(EmailList emailList) throws IOException, JSONException {
+        String indexDir = getEmailIndexDir();
+        File indexFile = new File(indexDir);
+        indexFile.createNewFile();
+        FileOutputStream indexOut = new FileOutputStream(indexFile, false);
+        String content = prepareEmailListIndexString(emailList);
+        indexOut.write(content.getBytes());
+        indexOut.close();
+    }
+
+    private static String prepareEmailListIndexString(EmailList emailList) throws JSONException {
+        String content = "";
+        for (Email email : emailList) {
+            content += email.toIndexJson().toString() + "\n";
+        }
+        return content;
     }
 
     private static void prepareFolder() throws IOException {
@@ -231,22 +179,7 @@ public class EmailStorage {
             Scanner scanner = new Scanner(indexIn);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
-                Email indexEmail = EmailFormatParser.parseIndexJson(input);
-                String filename = indexEmail.getFilename();
-
-                String fileDir = getFolderDir() + filename;
-                File emailFile = new File(fileDir);
-                FileInputStream emailIn = new FileInputStream(emailFile);
-                Scanner emailScanner = new Scanner(emailIn);
-                String emailContent = "";
-                while (emailScanner.hasNextLine()) {
-                    emailContent += emailScanner.nextLine();
-                }
-                Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
-                for (Email.Tag tag : indexEmail.getTags()) {
-                    fileEmail.addTag(tag);
-                }
-                emailList.add(fileEmail);
+                readEmailWithIndexString(emailList, input);
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");
             indexIn.close();
@@ -261,17 +194,40 @@ public class EmailStorage {
         return emailList;
     }
 
-    /**
-     * Executed at the start of the app, first to retrieve previously saved information about emails from
-     * data/email.txt, then sync the emailList with html files in present in data/emails.
-     *
-     * @return EmailList created from data/emails.txt and synced with data/emails.
-     */
-    public static EmailList readEmails() {
-        EmailList emailList = readEmailFromFile();
-        //EmailList syncedEmailList = syncEmailListWithHtml(emailList);
-        //return syncedEmailList;
-        return emailList;
+    private static void readEmailWithIndexString(EmailList emailList, String input)
+            throws EmailFormatParser.EmailParsingException, FileNotFoundException {
+        Email indexEmail = EmailFormatParser.parseIndexJson(input);
+        String filename = indexEmail.toFilename();
+        Email fileEmail = readEmailFromFolder(indexEmail, filename);
+        emailList.add(fileEmail);
+    }
+
+    private static Email readEmailFromFolder(Email indexEmail, String filename)
+            throws FileNotFoundException, EmailFormatParser.EmailParsingException {
+        String emailContent = readEmailContentFromFolder(filename);
+        Email fileEmail = parseEmailFromFolder(indexEmail, emailContent);
+        return fileEmail;
+    }
+
+    private static Email parseEmailFromFolder(Email indexEmail, String emailContent)
+            throws EmailFormatParser.EmailParsingException {
+        Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
+        for (Email.Tag tag : indexEmail.getTags()) {
+            fileEmail.addTag(tag);
+        }
+        return fileEmail;
+    }
+
+    private static String readEmailContentFromFolder(String filename) throws FileNotFoundException {
+        String fileDir = getFolderDir() + filename;
+        File emailFile = new File(fileDir);
+        FileInputStream emailIn = new FileInputStream(emailFile);
+        Scanner emailScanner = new Scanner(emailIn);
+        String emailContent = "";
+        while (emailScanner.hasNextLine()) {
+            emailContent += emailScanner.nextLine();
+        }
+        return emailContent;
     }
 
     /**
@@ -300,17 +256,22 @@ public class EmailStorage {
         String token = "";
         try {
             prepareFolder();
-            File userInfoFile = new File(getUserInfoDir());
-            userInfoFile.createNewFile();
-            FileInputStream in = new FileInputStream(userInfoFile);
-            Scanner scanner = new Scanner(in);
-            while (scanner.hasNext()) {
-                token += scanner.next();
-            }
+            token = readRefreshTokenContent(token);
         } catch (FileNotFoundException e) {
             Duke.getUI().showError("User info file not found");
         } catch (IOException e) {
             Duke.getUI().showError("Read user info file IO Exception");
+        }
+        return token;
+    }
+
+    private static String readRefreshTokenContent(String token) throws IOException {
+        File userInfoFile = new File(getUserInfoDir());
+        userInfoFile.createNewFile();
+        FileInputStream in = new FileInputStream(userInfoFile);
+        Scanner scanner = new Scanner(in);
+        while (scanner.hasNext()) {
+            token += scanner.next();
         }
         return token;
     }

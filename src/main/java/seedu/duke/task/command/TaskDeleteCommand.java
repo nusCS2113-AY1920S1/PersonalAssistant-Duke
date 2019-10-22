@@ -9,17 +9,14 @@ import seedu.duke.common.command.Command;
  * DeleteCommand that is used delete a task from the task list with its index.
  */
 public class TaskDeleteCommand extends Command {
-    private TaskList taskList;
     private int index;
 
     /**
      * Instantiation of delete command with all the necessary variables.
      *
-     * @param taskList the task list where the task is added to.
-     * @param index    the index of task that is to be deleted
+     * @param index the index of task that is to be deleted
      */
-    public TaskDeleteCommand(TaskList taskList, int index) {
-        this.taskList = taskList;
+    TaskDeleteCommand(int index) {
         this.index = index;
     }
 
@@ -32,6 +29,7 @@ public class TaskDeleteCommand extends Command {
     @Override
     public boolean execute() {
         try {
+            TaskList taskList = Duke.getModel().getTaskList();
             String msg = taskList.delete(index);
             if (!silent) {
                 responseMsg = msg;

@@ -3,6 +3,7 @@ package seedu.duke.task.command;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class TaskDoneCommand extends Command {
      *
      * @param i the index of the target task to be marked as done
      */
-    public TaskDoneCommand(int i) {
+    TaskDoneCommand(int i) {
         index = i;
     }
 
@@ -35,7 +36,8 @@ public class TaskDoneCommand extends Command {
     @Override
     public boolean execute() {
         try {
-            String msg = Duke.getTaskList().markDone(index);
+            TaskList taskList = Duke.getModel().getTaskList();
+            String msg = taskList.markDone(index);
             if (!silent) {
                 responseMsg = msg;
                 Duke.getUI().showResponse(msg);

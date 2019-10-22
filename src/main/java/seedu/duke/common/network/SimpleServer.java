@@ -20,7 +20,7 @@ public class SimpleServer {
     /**
      * Starts the server on port 3000.
      */
-    public static void startServer() {
+    static void startServer() {
         try {
             server = HttpServer.create(new InetSocketAddress(3000), 0);
             server.createContext("/", new MyHandler());
@@ -29,6 +29,17 @@ public class SimpleServer {
         } catch (IOException e) {
             Duke.getUI().showError("Server setup failed...");
         }
+    }
+
+    private static void parseAuthCode(String url) {
+        int index = url.indexOf("code=");
+        if (index == -1) {
+            Duke.getUI().showError("Auth code parsing failed: " + url);
+            return;
+        }
+        index += 5;
+        String code = url.substring(index);
+        Http.setAuthCode(code);
     }
 
     /**
@@ -46,23 +57,16 @@ public class SimpleServer {
         public void handle(HttpExchange exchange) throws IOException {
             String response = "Authorization/Authentication finished";
             exchange.sendResponseHeaders(200, response.length());
-            OutputStream os = exchange.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+            writeExchangeReponseBody(exchange, response);
             parseAuthCode(exchange.getRequestURI().getQuery());
             server.stop(200);
         }
-    }
 
-    private static void parseAuthCode(String url) {
-        int index = url.indexOf("code=");
-        if (index == -1) {
-            Duke.getUI().showError("Auth code parsing failed: " + url);
-            return;
+        private void writeExchangeReponseBody(HttpExchange exchange, String response) throws IOException {
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
         }
-        index += 5;
-        String code = url.substring(index);
-        Http.setAuthCode(code);
     }
 }
 //@@author

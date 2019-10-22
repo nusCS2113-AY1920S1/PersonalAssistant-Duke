@@ -3,7 +3,6 @@ package seedu.duke.email;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
 
 import java.time.LocalDateTime;
@@ -70,10 +69,11 @@ public class EmailFormatParser {
     }
 
     /**
-     * Parses JSON file to produce email objects todo write proper description.
-     * @param jsonString JSON string that contains email data
-     * @return email from JSON
-     * @throws EmailParsingException when JSON cannot parse
+     * Parses the email information stored in index file in the format of JSON to produce an email.
+     *
+     * @param jsonString email index json string loaded from index file
+     * @return email generated from the index json
+     * @throws EmailParsingException when the format of the index json is incorrect
      */
     public static Email parseIndexJson(String jsonString) throws EmailParsingException {
         try {
@@ -81,16 +81,21 @@ public class EmailFormatParser {
             String subject = indexJson.getString("subject");
             Sender sender = new Sender(indexJson.getString("sender"));
             LocalDateTime receivedDateTime = parseEmailDateTime(indexJson.getString("receivedDateTime"));
-            JSONArray tagArray = indexJson.getJSONArray("tags");
-            ArrayList<Email.Tag> tags = new ArrayList<>();
-            for (int i = 0; i < tagArray.length(); i++) {
-                JSONObject tagObject = tagArray.getJSONObject(i);
-                tags.add(new Email.Tag(tagObject));
-            }
+            ArrayList<Email.Tag> tags = extractTagsFromJson(indexJson);
             return new Email(subject, sender, receivedDateTime, tags);
         } catch (JSONException e) {
             throw new EmailParsingException("Email index json failed to parse");
         }
+    }
+
+    private static ArrayList<Email.Tag> extractTagsFromJson(JSONObject indexJson) throws JSONException {
+        JSONArray tagArray = indexJson.getJSONArray("tags");
+        ArrayList<Email.Tag> tags = new ArrayList<>();
+        for (int i = 0; i < tagArray.length(); i++) {
+            JSONObject tagObject = tagArray.getJSONObject(i);
+            tags.add(new Email.Tag(tagObject));
+        }
+        return tags;
     }
 
     /**
@@ -99,7 +104,7 @@ public class EmailFormatParser {
      * @param dateTimeString string of the date time
      * @return LocalDateTime object to be stored
      */
-    public static LocalDateTime parseEmailDateTime(String dateTimeString) {
+    private static LocalDateTime parseEmailDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, format);
     }
 

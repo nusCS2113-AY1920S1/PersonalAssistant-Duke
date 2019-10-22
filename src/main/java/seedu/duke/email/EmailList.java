@@ -45,8 +45,9 @@ public class EmailList extends ArrayList<Email> {
 
     /**
      * Adds tags to email specified in index.
+     *
      * @param index email to add tags to
-     * @param tags tags to be added to the email
+     * @param tags  tags to be added to the email
      * @return confirmation message to be displayed to user
      */
     public String addTags(int index, ArrayList<String> tags) {
@@ -56,5 +57,18 @@ public class EmailList extends ArrayList<Email> {
         }
         String responseMsg = "Tags added: " + tags.toString() + "\nto email: " + email.getSubject();
         return responseMsg;
+    }
+
+    /**
+     * Generates a list of string of all emails for gui display.
+     *
+     * @return list of string generated for gui display
+     */
+    public ArrayList<String> getEmailGuiStringList() {
+        ArrayList<String> emailStringList = new ArrayList<>();
+        for (Email email : this) {
+            emailStringList.add(email.toGuiString());
+        }
+        return emailStringList;
     }
 }

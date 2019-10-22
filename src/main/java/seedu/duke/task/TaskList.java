@@ -41,12 +41,11 @@ public class TaskList extends ArrayList<Task> {
      * @return a string containing all the tasks found and is ready to be displayed by UI
      */
     public String findKeyword(String keyword) {
-        ArrayList<Task> searchResult = new ArrayList<>();
-        for (Task task : this) {
-            if (task.matchKeyword(keyword)) {
-                searchResult.add(task);
-            }
-        }
+        ArrayList<Task> searchResult = prepareSearchResult(keyword);
+        return constructSearchMessage(searchResult);
+    }
+
+    private String constructSearchMessage(ArrayList<Task> searchResult) {
         String msg = "";
         if (searchResult.size() > 0) {
             msg += "Here are the matching tasks in your list:";
@@ -57,6 +56,16 @@ public class TaskList extends ArrayList<Task> {
             msg += "There is no matching task in your list.";
         }
         return msg;
+    }
+
+    private ArrayList<Task> prepareSearchResult(String keyword) {
+        ArrayList<Task> searchResult = new ArrayList<>();
+        for (Task task : this) {
+            if (task.matchKeyword(keyword)) {
+                searchResult.add(task);
+            }
+        }
+        return searchResult;
     }
 
     /**
@@ -71,9 +80,13 @@ public class TaskList extends ArrayList<Task> {
             throw new CommandParser.UserInputException("Invalid Index");
         }
         this.get(index).markDone();
+        return constructDoneMessage(index);
+    }
+
+    private String constructDoneMessage(int index) {
         String msg = "Nice! I've marked this task as done:\n";
         msg += this.get(index).toString() + "\n";
-        msg += "Now you have " + Integer.toString(this.size())
+        msg += "Now you have " + this.size()
                 + " tasks in the list.";
         return msg;
     }
@@ -86,10 +99,12 @@ public class TaskList extends ArrayList<Task> {
      * @throws CommandParser.UserInputException an exception thrown when index parsing failed or out of range
      */
     public String delete(int index) throws CommandParser.UserInputException {
-        if (index < 0 || index >= this.size()) {
-            throw new CommandParser.UserInputException("Invalid index");
-        }
+        validateIndex(index);
         Task deleted = this.remove(index);
+        return constructDeleteMessage(deleted);
+    }
+
+    private String constructDeleteMessage(Task deleted) {
         String msg = "Noted. I've removed this task: \n";
         msg += deleted + "\n";
         msg += "Now you have " + this.size() + " tasks in the list.";
@@ -119,19 +134,21 @@ public class TaskList extends ArrayList<Task> {
      * @return string msg.
      */
     public String snoozed(int index) throws CommandParser.UserInputException {
-        if (index < 0 || index >= this.size()) {
-            throw new CommandParser.UserInputException("Invalid index");
-        }
+        validateIndex(index);
         Task task = this.get(index);
-        String msg = "";
+        return constructSnoozeMessage(task);
+    }
+
+    private String constructSnoozeMessage(Task task) {
         if (task.getTaskType() != Task.TaskType.ToDo) {
             task.snooze();
-            msg = "Noted. I've snoozed this task: \n";
-            msg += task;
+            String msg = "Noted. I've snoozed this task: \n";
+            msg += task.getName();
+            return msg;
         } else {
             Duke.getUI().showError("This task cannot be snoozed");
+            return "This task cannot be snoozed";
         }
-        return msg;
     }
 
     /**
@@ -143,14 +160,14 @@ public class TaskList extends ArrayList<Task> {
      * @throws CommandParser.UserInputException when input is in wrong format
      */
     public String setDoAfter(int index, String description) throws CommandParser.UserInputException {
-        if (index < 0 || index >= this.size()) {
-            throw new CommandParser.UserInputException("Invalid index");
-        }
+        validateIndex(index);
         Task task = this.get(index);
         task.setDoAfterDescription(description);
-        int size = index + 1;
-        String msg = "Do after task " + description + " has been added to task " + size;
-        return msg;
+        return constructDoAfterMessage(description, index + 1);
+    }
+
+    private String constructDoAfterMessage(String description, int size) {
+        return "Do after task " + description + " has been added to task " + size;
     }
 
     /**
@@ -162,19 +179,34 @@ public class TaskList extends ArrayList<Task> {
      * @throws CommandParser.UserInputException when input is in wrong format
      */
     public String setTime(int index, String description) throws CommandParser.UserInputException {
-        if (index < 0 || index >= this.size()) {
-            throw new CommandParser.UserInputException("Invalid index");
-        }
-        Task task = this.get(index);
+        validateIndex(index);
+        setTimeByType(description, this.get(index));
+        return constructSetTimeMessage(index, description);
+    }
+
+    private void setTimeByType(String description, Task task) throws CommandParser.UserInputException {
         if (task.getTaskType() == Task.TaskType.Deadline) {
-            Deadline deadline = (Deadline) task;
-            deadline.setTime(CommandParser.convertTime(description));
+            ((Deadline) task).setTime(Task.parseDate(description));
         } else if (task.getTaskType() == Task.TaskType.Event) {
-            Event event = (Event) task;
-            event.setTime(CommandParser.convertTime(description));
+            ((Event) task).setTime(Task.parseDate(description));
         }
-        String msg = "Time for task " + (index + 1) + " has been changed to " + description;
-        return msg;
+    }
+
+    private String constructSetTimeMessage(int index, String description) {
+        return "Time for task " + (index + 1) + " has been changed to " + description;
+    }
+
+    /**
+     * Generates a list of string containing all tasks in string form.
+     *
+     * @return a list of task string
+     */
+    public ArrayList<String> getTaskGuiStringList() {
+        ArrayList<String> stringList = new ArrayList<>();
+        for (Task task : this) {
+            stringList.add(task.toString());
+        }
+        return stringList;
     }
 
     /**
@@ -186,14 +218,20 @@ public class TaskList extends ArrayList<Task> {
      * @throws CommandParser.UserInputException when input is in wrong format
      */
     public String setPriority(int index, String priority) throws CommandParser.UserInputException {
+        validateIndex(index);
+        Task task = this.get(index);
+        task.setPriorityTo(priority);
+        return constructSetPriorityMessage(priority, index + 1);
+    }
+
+    private void validateIndex(int index) throws CommandParser.UserInputException {
         if (index < 0 || index >= this.size()) {
             throw new CommandParser.UserInputException("Invalid index");
         }
-        Task task = this.get(index);
-        task.setPriorityTo(priority);
-        int size = index + 1;
-        String msg = "Priority of task " + size + " is set to " + priority;
-        return msg;
+    }
+
+    private String constructSetPriorityMessage(String priority, int size) {
+        return "Priority of task " + size + " is set to " + priority;
     }
 
     /**

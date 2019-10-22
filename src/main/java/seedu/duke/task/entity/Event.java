@@ -24,10 +24,6 @@ public class Event extends Task {
         this.taskType = TaskType.Event;
     }
 
-    public LocalDateTime getTime() {
-        return time;
-    }
-
     /**
      * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
      * cannot be changed later. Supports adding a task to be done after the first main task.
@@ -47,6 +43,14 @@ public class Event extends Task {
         setPriorityTo(priority);
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
     /**
      * Converts the Event to a human readable string containing important information about the Event,
      * including the type and time of this Event.
@@ -57,13 +61,13 @@ public class Event extends Task {
     public String toString() {
         String output = "";
         output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
-        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+        if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " #" + tagName;
         }
-        if (this.priority != null && this.priority != "") {
+        if (this.priority != null && !this.priority.equals("")) {
             output += " Priority: " + priority;
         }
         return output;
@@ -79,13 +83,13 @@ public class Event extends Task {
         String output = "";
         output = (this.isDone ? "1" : "0") + " event " + this.name + " -time "
                 + formatDate();
-        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+        if (this.doAfterDescription != null && !this.doAfterDescription.equals("")) {
             output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
             output += " -tag " + tagName;
         }
-        if (this.priority != null && this.priority != "") {
+        if (this.priority != null && !this.priority.equals("")) {
             output += " -priority " + priority;
         }
         return output;
@@ -97,7 +101,7 @@ public class Event extends Task {
      *
      * @return a formatted string of the time of this Event
      */
-    protected String formatDate() {
+    private String formatDate() {
         return format.format(this.time);
     }
 
@@ -111,9 +115,7 @@ public class Event extends Task {
     public boolean isNear(int dayLimit) {
         LocalDateTime now = LocalDateTime.now();
         if (this.time.compareTo(now) >= 0) {
-            if (now.compareTo(this.time.minusDays(dayLimit)) >= 0) {
-                return true;
-            }
+            return now.compareTo(this.time.minusDays(dayLimit)) >= 0;
         }
         return false;
     }
@@ -149,9 +151,5 @@ public class Event extends Task {
             Duke.getUI().showError("Error when finding clashes of tasks.");
         }
         return false;
-    }
-
-    public void setTime(LocalDateTime time) {
-        this.time = time;
     }
 }

@@ -3,7 +3,6 @@ package seedu.duke.email;
 import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +22,7 @@ public class EmailContentParser {
 
     /**
      * Finds all keywords in email.
+     *
      * @param email Email to be scanned for keywords
      */
     public static void allKeywordInEmail(Email email) {
@@ -70,7 +70,7 @@ public class EmailContentParser {
      * @param keywordPair the target keyword looking for
      * @return whether the keyword pair is found in the string
      */
-    public static int keywordInString(String input, KeywordPair keywordPair) {
+    private static int keywordInString(String input, KeywordPair keywordPair) {
         int occurrence = 0;
         for (int i = 0; i < keywordPair.getExpressions().size(); i++) {
             String expression = keywordPair.getExpressions().get(i);
@@ -117,7 +117,7 @@ public class EmailContentParser {
      * Computes the edit distance between first and second, which is the number of steps required to transform
      * first to second if only addition, deletion, update of a single character is allowed for each step.
      *
-     * @param first first string
+     * @param first  first string
      * @param second second string
      * @return edit distance between first and second
      */

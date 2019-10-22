@@ -1,14 +1,13 @@
-package seedu.duke.gui;
-
-import java.io.IOException;
+package seedu.duke.ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-
 import seedu.duke.task.entity.Task;
+
+import java.io.IOException;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -65,20 +64,5 @@ public class TaskCard extends HBox {
         taskName.setText(task.getName());
         String type = task.getTaskType().toString();
         taskType.setText(type);
-        /*
-        switch (type) {
-            case "D":
-                date.setText("Deadline date");
-                break;
-            case "E":
-                date.setText("Event date");
-                break;
-            default:
-                date.setText(null);
-        }
-        task.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-         */
     }
 }

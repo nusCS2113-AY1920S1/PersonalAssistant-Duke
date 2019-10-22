@@ -1,8 +1,12 @@
-package seedu.duke;
+package seedu.duke.ui;
 
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-import seedu.duke.gui.DialogBox;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import seedu.duke.CommandParser;
+import seedu.duke.Duke;
+import seedu.duke.common.command.Command;
+
+import java.util.ArrayList;
 
 public class UI {
     private static final String ANSI_RESET = "\u001B[0m";
@@ -17,13 +21,10 @@ public class UI {
     private static boolean debug = false;
 
     // to output result to GUI
-    private VBox dialogContainer;
-    private Image userImage;
-    private Image dukeImage;
+    private Stage mainStage;
+    private MainWindow mainWindow;
     private String input = "";
     private String command = "";
-
-    private boolean isGuiSet = false;
 
     // variable returned to GUI
     private String emailContent = "";
@@ -41,6 +42,27 @@ public class UI {
         logo = "Hello from\n" + logo + "\n";
         logo += "What can I do for you?";
         showMessage(logo);
+        debug = true;
+    }
+
+    public void setKeyBinding(Scene scene) {
+        mainWindow.setKeyBinding(scene);
+    }
+
+    /**
+     * Links up command output with GUI display.
+     *
+     * @param input user input
+     */
+    public void respond(String input) {
+        try {
+            setInput(input);
+            Command command = CommandParser.parseCommand(input);
+            setCommand(command.toString());
+            command.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDebug(boolean flag) {
@@ -94,30 +116,47 @@ public class UI {
         showGui(debugMsg);
     }
 
-    public void setEmailContent(String emailContent) {
-        this.emailContent = emailContent;
-    }
-
     public String getEmailContent() {
         return this.emailContent;
+    }
+
+    public void setEmailContent(String emailContent) {
+        this.emailContent = emailContent;
     }
 
     public String getResponseMsg() {
         return responseMsg;
     }
 
+    public void setMainStage(Stage stage) {
+        this.mainWindow.setMainStage(stage);
+    }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
+
     /**
-     * Setup GUI elements.
+     * Updates the task displayed in GUI when read from file or after user input handled.
      *
-     * @param dialogContainer VBox that contains all chats
-     * @param userImage       User avatar
-     * @param dukeImage       Duke avatar
+     * @param taskStringList list of tasks in string form to be displayed
      */
-    public void setupGui(VBox dialogContainer, Image userImage, Image dukeImage) {
-        this.dialogContainer = dialogContainer;
-        this.userImage = userImage;
-        this.dukeImage = dukeImage;
-        isGuiSet = true;
+    public void updateTaskList(ArrayList<String> taskStringList) {
+        mainWindow.updateTasksList(taskStringList);
+    }
+
+    /**
+     * Updates the emails displayed in GUI when read from file/Outlook server or after user input handled.
+     *
+     * @param emailStringList list of emails in string form to be displayed
+     */
+    public void updateEmailList(ArrayList<String> emailStringList) {
+        mainWindow.updateEmailsList(emailStringList);
+    }
+
+    void syncWithModel() {
+        Duke.getModel().updateGuiTaskList();
+        Duke.getModel().updateGuiEmailList();
     }
 
     /**
@@ -126,13 +165,19 @@ public class UI {
      * @param msg input
      */
     public void showGui(String msg) {
-        if (!isGuiSet) {
+        if (mainWindow == null) {
             return;
         }
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
-        );
+        mainWindow.showGuiMessage(msg, input, command);
+    }
+
+    /**
+     * Shows a popup displaying long text message.
+     *
+     * @param text the text that is to be displayed in the popup
+     */
+    public void showTextPopup(String text) {
+        mainWindow.showTextPopup(text);
     }
 
     public void setInput(String input) {
@@ -142,4 +187,13 @@ public class UI {
     public void setCommand(String command) {
         this.command = command;
     }
+
+    public String getPrefix() {
+        return CommandParser.getInputPrefix();
+    }
+
+    void exit() {
+        Duke.exit();
+    }
+
 }

@@ -23,11 +23,11 @@ public class TaskStorage {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
         if (workingDir.endsWith(File.separator + "text-ui-test")) {
-            dir = ".." + File.separator + "data" + File.separator + "duke.txt";
+            dir = ".." + File.separator + "data" + File.separator + "task.txt";
         } else if (workingDir.endsWith(File.separator + "main")) {
-            dir = "." + File.separator + "data" + File.separator + "duke.txt";
+            dir = "." + File.separator + "data" + File.separator + "task.txt";
         } else {
-            dir = "." + File.separator + "duke.txt";
+            dir = "." + File.separator + "task.txt";
         }
         return dir;
     }
@@ -46,15 +46,19 @@ public class TaskStorage {
             File file = new File(dir);
             file.createNewFile();
             out = new FileOutputStream(file, false);
-            String content = "";
-            for (Task task : taskList) {
-                content += task.toFileString() + "\n";
-            }
-            out.write(content.getBytes());
+            out.write(constructTaskListFileString(taskList).getBytes());
             out.close();
         } catch (IOException e) {
             Duke.getUI().showError("Write to output file IO exception!");
         }
+    }
+
+    private static String constructTaskListFileString(TaskList taskList) {
+        String content = "";
+        for (Task task : taskList) {
+            content += task.toFileString() + "\n";
+        }
+        return content;
     }
 
     /**
@@ -64,50 +68,60 @@ public class TaskStorage {
      *
      * @return task list re-constructed from the save file
      */
-    public static TaskList readTasks() {
-        TaskList taskList = new TaskList();
-        String dir = getSaveFileDir();
-        FileInputStream in;
-        File file = new File(dir);
+    public static TaskList readTaskFromFile() {
         try {
-            in = new FileInputStream(file);
+            String dir = getSaveFileDir();
+            File file = new File(dir);
+            FileInputStream in = new FileInputStream(file);
             Scanner scanner = new Scanner(in);
             ArrayList<Boolean> doneList = new ArrayList<>();
             while (scanner.hasNextLine()) {
-                String input = scanner.nextLine();
-                if (input.length() <= 2) {
-                    throw new StorageException("Invalid Save File!");
-                }
-                if (input.startsWith("1")) {
-                    doneList.add(true);
-                } else if (input.startsWith("0")) {
-                    doneList.add(false);
-                } else {
-                    throw new StorageException("Invalid Save File!");
-                }
-                input = input.split(" ", 2)[1];
-                Command addCommand = CommandParser.parseCommand("task " + input);
-                addCommand.setSilent();
-                addCommand.execute();
+                processTaskFileString(scanner, doneList);
             }
-            taskList = Duke.getTaskList();
-            for (int i = 0; i < taskList.size(); i++) {
-                if (doneList.get(i)) {
-                    taskList.get(i).markDone();
-                }
-            }
+            TaskList taskList = Duke.getModel().getTaskList();
+            applyDoneList(doneList, taskList);
+            Duke.getModel().updateGuiTaskList();
             Duke.getUI().showMessage("Saved task file successfully loaded... => " + taskList.size());
             in.close();
-            new TaskReminderCommand(taskList).execute();
+            new TaskReminderCommand().execute();
+            return taskList;
         } catch (FileNotFoundException e) {
-            return taskList; //it is acceptable if there is no save file
+            return new TaskList(); //it is acceptable if there is no save file
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
+            return new TaskList();
         } catch (StorageException | CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
-            taskList = new TaskList();
+            return new TaskList();
         }
-        return taskList;
+    }
+
+    private static void processTaskFileString(Scanner scanner, ArrayList<Boolean> doneList)
+            throws StorageException, CommandParser.UserInputException {
+        String input = scanner.nextLine();
+        prepareDoneList(doneList, input);
+        input = input.split(" ", 2)[1];
+        Command addCommand = CommandParser.parseCommand("task " + input);
+        addCommand.setSilent();
+        addCommand.execute();
+    }
+
+    private static void prepareDoneList(ArrayList<Boolean> doneList, String input) throws StorageException {
+        if (input.startsWith("1")) {
+            doneList.add(true);
+        } else if (input.startsWith("0")) {
+            doneList.add(false);
+        } else {
+            throw new StorageException("Invalid Save File!");
+        }
+    }
+
+    private static void applyDoneList(ArrayList<Boolean> doneList, TaskList taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (doneList.get(i)) {
+                taskList.get(i).markDone();
+            }
+        }
     }
 
     /**

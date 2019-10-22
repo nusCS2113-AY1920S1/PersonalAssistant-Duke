@@ -1,7 +1,6 @@
 package seedu.duke.common.command;
 
 import seedu.duke.Duke;
-import seedu.duke.gui.MainWindow;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,27 @@ public class HelpCommand extends Command {
      */
     public String toString() {
         String output = "Note: only A-Z a-z 0-9 \'_\' and \' \' are allowed for user input!\n";
+        ArrayList<String> categories = divideCategories();
+        String commandStrings = formatCommandStrings(categories);
+        output += commandStrings;
+        return output;
+    }
+
+    private String formatCommandStrings(ArrayList<String> categories) {
+        String commandStrings = "";
+        for (String category : categories) {
+            commandStrings += category + " command: \n";
+            for (CommandInfo commandInfo : commandInfoList) {
+                if (commandInfo.getCategory() == category) {
+                    commandStrings += commandInfo.toString() + "\n\n";
+                }
+            }
+            commandStrings += "\n";
+        }
+        return commandStrings;
+    }
+
+    private ArrayList<String> divideCategories() {
         ArrayList<String> categories = new ArrayList<>();
         for (CommandInfo commandInfo : commandInfoList) {
             boolean found = false;
@@ -37,22 +57,13 @@ public class HelpCommand extends Command {
                 categories.add(commandInfo.getCategory());
             }
         }
-        for (String category : categories) {
-            output += category + " command: \n";
-            for (CommandInfo commandInfo : commandInfoList) {
-                if (commandInfo.getCategory() == category) {
-                    output += commandInfo.toString() + "\n\n";
-                }
-            }
-            output += "\n";
-        }
-        return output;
+        return categories;
     }
 
     @Override
     public boolean execute() {
-        MainWindow.showTextPopup(this.toString());
-        //Duke.getUI().showGUI(this.toString());
+        responseMsg = this.toString();
+        Duke.getUI().showTextPopup(responseMsg);
         return true;
     }
 
@@ -76,6 +87,9 @@ public class HelpCommand extends Command {
                 + "task with the given index as to be done after the given description"));
         commandInfoList.add(new CommandInfo("Task", "snooze \'index\'", "Snooze the task at the given "
                 + "index by 3 days. "));
+        commandInfoList.add(new CommandInfo("Task", "set \'index\'\n"
+                + "\t-priority \'priority\'\t\t(Must) The priority level of the task in string", "Set a "
+                + "task to the given priority"));
         commandInfoList.add(new CommandInfo("Task", "todo \'name\'\n"
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags can "
                 + "be added to a single todo. "
@@ -98,6 +112,8 @@ public class HelpCommand extends Command {
         commandInfoList.add(new CommandInfo("Email", "show \'index\'", "Show a email content at the given "
                 + "index. "));
         commandInfoList.add(new CommandInfo("Email", "fetch", "Fetch emails from the Outlook server"));
+        commandInfoList.add(new CommandInfo("Email", "update \'index\'"
+                + "\t-tag \'tag name\'\t\t(Must) Name of the tag", "Tag an email with a tag name"));
     }
 
     /**
@@ -110,8 +126,9 @@ public class HelpCommand extends Command {
 
         /**
          * Constructor instantiate all attributes of a command type.
-         * @param category command category
-         * @param format format of a command
+         *
+         * @param category    command category
+         * @param format      format of a command
          * @param description description of the command
          */
         public CommandInfo(String category, String format, String description) {
@@ -134,6 +151,7 @@ public class HelpCommand extends Command {
 
         /**
          * Converts all the information of the command into a string.
+         *
          * @return String with information formatted
          */
         public String toString() {

@@ -15,7 +15,6 @@ import java.util.ArrayList;
  * AddCommand is a specific kind of command used to add task to the task list.
  */
 public class TaskAddCommand extends Command {
-    private TaskList taskList;
     private Task.TaskType taskType;
     private String name;
     private LocalDateTime time;
@@ -26,7 +25,6 @@ public class TaskAddCommand extends Command {
     /**
      * Instantiation of add command with all the necessary variables. it needs to execute.
      *
-     * @param taskList the task list where the task is added to.
      * @param taskType the type of task that is to be added.
      * @param name     he name of the task, which is needed to instantiate the task.
      * @param time     the time of the task, which is needed to instantiate the task. ToDo tasks does not have
@@ -35,9 +33,8 @@ public class TaskAddCommand extends Command {
      * @param tags     tag associated with the task
      * @param priority priority level of the task
      */
-    public TaskAddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time,
-                          String doAfter, ArrayList<String> tags, String priority) {
-        this.taskList = taskList;
+    TaskAddCommand(Task.TaskType taskType, String name, LocalDateTime time,
+                   String doAfter, ArrayList<String> tags, String priority) {
         this.taskType = taskType;
         this.name = name;
         this.time = time;
@@ -54,6 +51,20 @@ public class TaskAddCommand extends Command {
      */
     @Override
     public boolean execute() {
+        TaskList taskList = Duke.getModel().getTaskList();
+        Task task = prepareTaskByType();
+        if (task == null) {
+            return false;
+        }
+        String clashMsg = findClash(taskList, task);
+        taskList.add(task);
+        if (!silent) {
+            constructAddCommandMessage(taskList, task, clashMsg);
+        }
+        return true;
+    }
+
+    private Task prepareTaskByType() {
         Task task;
         switch (taskType) {
         case ToDo:
@@ -66,23 +77,27 @@ public class TaskAddCommand extends Command {
             task = new Event(name, time, doAfter, tags, priority);
             break;
         default:
-            return false;
+            task = null;
         }
+        return task;
+    }
+
+    private String findClash(TaskList taskList, Task task) {
         TaskList clashTasks = taskList.findClash(task);
         String clashMsg = "";
         if (clashTasks.size() > 0) {
             clashMsg = "\n\nWarning: New task added clashes with other task(s) in the list.\n";
             clashMsg += clashTasks.toString();
         }
-        taskList.add(task);
-        if (!silent) {
-            String msg = "Got it. I've added this task: \n";
-            msg += "  " + task.toString() + "\n";
-            msg += "Now you have " + taskList.size() + " task(s) in the list. ";
-            msg += clashMsg;
-            responseMsg = msg;
-            Duke.getUI().showResponse(msg);
-        }
-        return true;
+        return clashMsg;
+    }
+
+    private void constructAddCommandMessage(TaskList taskList, Task task, String clashMsg) {
+        String msg = "Got it. I've added this task: \n";
+        msg += "  " + task.toString() + "\n";
+        msg += "Now you have " + taskList.size() + " task(s) in the list. ";
+        msg += clashMsg;
+        responseMsg = msg;
+        Duke.getUI().showResponse(msg);
     }
 }

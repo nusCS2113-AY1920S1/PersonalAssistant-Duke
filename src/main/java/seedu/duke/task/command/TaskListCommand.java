@@ -8,15 +8,12 @@ import seedu.duke.common.command.Command;
  * ListCommand is a specific kind of command used to display all task in a task list.
  */
 public class TaskListCommand extends Command {
-    private TaskList taskList;
 
     /**
      * Instantiation of the list command with the target task list.
-     *
-     * @param taskList the target task list to be displayed.
      */
-    public TaskListCommand(TaskList taskList) {
-        this.taskList = taskList;
+    TaskListCommand() {
+
     }
 
     /**
@@ -26,10 +23,10 @@ public class TaskListCommand extends Command {
      */
     @Override
     public boolean execute() {
+        TaskList taskList = Duke.getModel().getTaskList();
         if (!silent) {
-            String msg = this.taskList.toString();
-            responseMsg = msg;
-            Duke.getUI().showResponse(msg);
+            responseMsg = taskList.toString();
+            Duke.getUI().showResponse(responseMsg);
         }
         return true;
     }
