@@ -52,7 +52,7 @@ public class Window {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
+        frame = new JFrame("Duke Pro");
         frame.getContentPane().setBackground(new Color(120, 168, 219));
         frame.getContentPane().setLayout(null);
 
