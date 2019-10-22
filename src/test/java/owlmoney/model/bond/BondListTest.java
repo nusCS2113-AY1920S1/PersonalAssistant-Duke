@@ -166,17 +166,17 @@ class BondListTest {
                 new Date("1/3/2019"), 3);
         bondListTest.addBondToList(testBond, uiTest);
         assertEquals(1, bondListTest.getSize());
-        String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       " +
-                "Date of Purchased    " +
-                "Number of Years \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n" +
-                "1                    TEST BOND 0                    $1000.00        1.80       " +
-                "03 January 2019      " +
-                "3          \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n";
+        String expectedOutput = "Bond with the following details has been added: \r\n"
+                + "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n"
+                + "1                    TEST BOND 0                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n";
         assertEquals(expectedOutput,outContent.toString());
         bondListTest.listBond(30,uiTest);
     }
@@ -196,27 +196,27 @@ class BondListTest {
         bondListTest.addBondToList(testBondTwo, uiTest);
         assertEquals(2, bondListTest.getSize());
         String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       " +
-                "Date of Purchased    " +
-                "Number of Years \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n" +
-                "1                    TEST BOND 0                    $1000.00        1.80       " +
-                "03 January 2019      " +
-                "3          \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n" +
-                "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       " +
-                "Date of Purchased    " +
-                "Number of Years \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n" +
-                "1                    TEST BOND 1                    $1000.00        1.80       " +
-                "03 January 2019      " +
-                "3          \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n";
+                "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n"
+                + "1                    TEST BOND 0                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n"
+                + "Bond with the following details has been added: \r\n"
+                + "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n"
+                + "1                    TEST BOND 1                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n";
         assertEquals(expectedOutput,outContent.toString());
     }
 
@@ -239,16 +239,16 @@ class BondListTest {
         assertEquals(expectedMessage, actualMessage);
         assertEquals(1, bondListTest.getSize());
         String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       " +
-                "Date of Purchased    " +
-                "Number of Years \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n" +
-                "1                    TEST BOND 0                    $1000.00        1.80       " +
-                "03 January 2019      " +
-                "3          \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n";
+                "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n"
+                + "1                    TEST BOND 0                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n";
         assertEquals(expectedOutput,outContent.toString());
     }
 
@@ -266,16 +266,16 @@ class BondListTest {
                 new Date("1/3/2019"), 3);
         bondListTest.bondExist(testBondTwo);
         String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       " +
-                "Date of Purchased    " +
-                "Number of Years \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n" +
-                "1                    TEST BOND 0                    $1000.00        1.80       " +
-                "03 January 2019      " +
-                "3          \r\n" +
-                "-------------------------------------------------------------------------------" +
-                "--------------------------------------------------\r\n";
+                "Item No.             Bond Name                      Amount          Rate       "
+                + "Date of Purchased    "
+                + "Number of Years \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n"
+                + "1                    TEST BOND 0                    $1000.00        1.80       "
+                + "03 January 2019      "
+                + "3          \r\n"
+                + "-------------------------------------------------------------------------------"
+                + "--------------------------------------------------\r\n";
         assertEquals(expectedOutput,outContent.toString());
     }
 
