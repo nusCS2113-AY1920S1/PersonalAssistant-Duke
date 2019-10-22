@@ -1,12 +1,9 @@
+import gazeeebo.commands.contact.*;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
 import gazeeebo.TriviaManager.TriviaManager;
-import gazeeebo.commands.contact.AddContactCommand;
-import gazeeebo.commands.contact.ContactsCommand;
 
-import gazeeebo.commands.contact.DeleteContactCommand;
-import gazeeebo.commands.contact.ListContactCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +11,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
-import java.util.TreeMap;
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContactsCommandTest {
@@ -50,80 +44,101 @@ public class ContactsCommandTest {
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         testc.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
-        assertEquals("CONTACTS PAGE\n\n"
-                + "Name:                         | Number:\n------------------------------------------\n"
-                + "RenHao                        | 8712 2345\n------------------------------------------\n"
-                + "janel                         | 9123 4567\n------------------------------------------\n"
-                + "jason                         | 9123 4567\n------------------------------------------\n"
-                + "jess                          | 9123 4567\n------------------------------------------\n"
-                + "yueyu                         | 9876 5432\n------------------------------------------\n"
-                + "\nNUS CONTACTS:\n"
-                + "NUS Campus.S(Bukit Timah)     | 6516 3636\n------------------------------------------\n"
-                + "NUS Campus.S(KR)              | 6874 1616\n------------------------------------------\n"
-                + "NUS Campus.S(Outram)          | 6222 5568\n------------------------------------------\n"
-                + "NUS Lifeline                  | 6516 7777\n------------------------------------------\n"
-                + "NUS OCS BTC                   | 6516 3636\n------------------------------------------\n"
-                + "NUS OCS KRC                   | 6874 1616\n------------------------------------------\n"
-                + "NUS OCS UTOWN                 | 6601 2004\n------------------------------------------\n"
-                + "NUS OSHE                      | 6778 6304\n------------------------------------------\n",
-                output.toString()
+        assertEquals("Welcome to your contacts page! What would you like to do?\n\n"
+                        + "__________________________________________________________\n"
+                        + "1. Add contacts: add\n"
+                        + "2. Find contacts: find name\n"
+                        + "3. Delete a contact: delete name\n"
+                        + "4. See your contacts list: list\n"
+                        + "5. Exit contact page: esc\n"
+                        + "__________________________________________________________\n\n"
+                + "Going back to Main Menu\n"
+                , output.toString()
         );
     }
 
     @Test
     void testAddContactsCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<String, String>(map);
         ByteArrayInputStream in = new ByteArrayInputStream("Test,9625 1822".getBytes());
         System.setIn(in);
-        AddContactCommand test = new AddContactCommand(ui, contact);
+        addContactCommand test = new addContactCommand(ui, contact);
         assertEquals("Input in this format: Name,Number\n"
-                + "Okay we have successfully added a new contact - Test,9625 1822\n", output.toString());
+                + "Successfully added: Test,9625 1822\n", output.toString());
     }
 
     @Test
-    void testDeleteInContactsCommand() throws IOException {
+    void testDeleteInContactsCommand() {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("jason", "9625 1722");
         ui.fullCommand = "delete jason";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("jason has been removed.\n", output.toString());
+        deleteContactCommand test = new deleteContactCommand(ui, contact);
+        assertEquals("Successfully deleted: jason\n", output.toString());
     }
 
     @Test
-    void testDeleteNotInContactsCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+    void testDeleteNotInContactsCommand() {
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
         ui.fullCommand = "delete jason";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("jason is not in the list.\n", output.toString());
+        deleteContactCommand test = new deleteContactCommand(ui, contact);
+        assertEquals("jason is not found in the list.\n", output.toString());
     }
 
     @Test
-    void testDeleteWrongFormatContactsCommand() throws IOException {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+    void testDeleteWrongFormatContactsCommand() {
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
         ui.fullCommand = "delete";
-        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
-        assertEquals("You need to indicate what you want to delete, Format: delete name\n", output.toString());
+        deleteContactCommand test = new deleteContactCommand(ui, contact);
+        assertEquals("Incorrect format: delete name\n", output.toString());
     }
 
     @Test
     void testListContactsCommand() {
-        HashMap<String, String> map = new HashMap<>(); //Read the file
+        HashMap<String, String> map = new HashMap<>();
         Map<String, String> contact = new TreeMap<String, String>(map);
         String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
-        ListContactCommand test = new ListContactCommand(contact, LINE_BREAK);
+        listContactCommand test = new listContactCommand(contact, LINE_BREAK);
         assertEquals("Name:                         | Number:\n"
                 + LINE_BREAK
                 + "janel                         | 9625 1722\n"
                 + LINE_BREAK
                 + "jason                         | 9825 1822\n"
-                + LINE_BREAK + "\nNUS CONTACTS:\n", output.toString());
+                + LINE_BREAK
+                + "\nCEG CONTACTS:\n"
+                + "\nNUS CONTACTS:\n", output.toString());
+    }
+    @Test
+    void testFindContactsCommand() {
+        HashMap<String, String> map = new HashMap<>();
+        Map<String, String> contact = new TreeMap<String, String>(map);
+        String LINE_BREAK = "------------------------------------------\n";
+        contact.put("janel", "9625 1722");
+        contact.put("jason", "9825 1822");
+        ui.fullCommand = "find jason";
+        findContactCommand test = new findContactCommand(ui, contact, LINE_BREAK);
+        assertEquals("Name:                         | Number:\n"
+                + LINE_BREAK
+                + "jason                         | 9825 1822\n"
+                + LINE_BREAK, output.toString());
+    }
+
+    @Test
+    void testUnableFindContactCommand() {
+        HashMap<String, String> map = new HashMap<>();
+        Map<String, String> contact = new TreeMap<String, String>(map);
+        String LINE_BREAK = "------------------------------------------\n";
+        contact.put("janel", "9625 1722");
+        contact.put("jason", "9825 1822");
+        ui.fullCommand = "find Elis";
+        findContactCommand test = new findContactCommand(ui, contact, LINE_BREAK);
+        assertEquals("Elis is not found in the list.", output.toString());
     }
 }

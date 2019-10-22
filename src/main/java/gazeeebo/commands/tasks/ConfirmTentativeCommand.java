@@ -8,7 +8,7 @@ import gazeeebo.UI.Ui;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.*;
-import gazeeebo.tasks.Task;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class ConfirmTentativeCommand extends Command {
                         sb.append(list.get(i).toString() + "\n");
                     }
                 }
-                storage.Storages(sb.toString());
+                storage.writeToSaveFile(sb.toString());
                 commandStack.push("confirm"+"~"+ev.toString()+"~"+tev.toString());
             }
         catch (DukeException e) {
@@ -95,7 +95,7 @@ public class ConfirmTentativeCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
 
     @Override

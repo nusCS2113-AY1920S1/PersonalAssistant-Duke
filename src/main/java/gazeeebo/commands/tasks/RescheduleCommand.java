@@ -47,7 +47,7 @@ public class RescheduleCommand extends Command {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                     }
-                    storage.Storages(sb.toString());
+                    storage.writeToSaveFile(sb.toString());
                 } else {
                     System.out.println("It's fine. Nothing has been changed.");
                 }

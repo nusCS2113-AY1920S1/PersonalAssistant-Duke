@@ -3,16 +3,16 @@ package gazeeebo.commands.contact;
 
 import java.util.Map;
 
-public class ListContactCommand {
-    static final int HORT_LINE_SEPARATOR = 30;
+public class listContactCommand {
+    private static final int HORT_LINE_SEPARATOR = 30;
 
     /**
-     * This method list out all the phone numbers.
+     * List out all the phone numbers.
      *
-     * @param contact   the object that Map each name to its phone number.
-     * @param lineBreak the object that print out a separator to separate each line in the list.
+     * @param contact   to Map each name to its phone number.
+     * @param lineBreak to print out a separator to separate each line in the list.
      */
-    public ListContactCommand(final Map<String, String> contact, final String lineBreak) {
+    public listContactCommand(Map<String, String> contact, String lineBreak) {
         System.out.print("Name:                         | Number:\n" + lineBreak);
         for (String key : contact.keySet()) {
             if (!key.contains("NUS") || !key.contains("CEG")) {
@@ -36,11 +36,11 @@ public class ListContactCommand {
     /**
      * To print the contact list.
      *
-     * @param contact   the object that Map each name to its phone number.
-     * @param lineBreak the object that print out a separator to separate each line in the list.
+     * @param contact   Map each name to its phone number.
+     * @param lineBreak print out a separator to separate each line in the list.
      * @param key       gets the key of the contact.
      */
-    public void forPrint(final Map<String, String> contact, final String lineBreak, final String key) {
+    public void forPrint(Map<String, String> contact, String lineBreak, String key) {
         System.out.print(key);
         int l = HORT_LINE_SEPARATOR - key.length();
         for (int i = 0; i < l; i++) {

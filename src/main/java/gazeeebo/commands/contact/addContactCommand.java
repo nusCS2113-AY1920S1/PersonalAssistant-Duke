@@ -3,16 +3,16 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;
 
-public class AddContactCommand {
+public class addContactCommand {
 
     /**
-     * This method allows add new contact into the contact page.
+     * Add new contact into the contact page.
      *
-     * @param ui      the object that deals with printing things to the user.
-     * @param contact the object that map each name to its own phone number
+     * @param ui      deals with printing things to the user.
+     * @param contact map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public AddContactCommand(final Ui ui, final Map<String, String> contact) throws IOException {
+    public addContactCommand(Ui ui, Map<String, String> contact) throws IOException {
         System.out.print("Input in this format: Name,Number\n");
         ui.readCommand();
         String[] splitCommand = ui.fullCommand.split(",");

@@ -1,8 +1,13 @@
-package gazeeebo.commands.gpacalculator;
+package gazeeebo.commands.capCalculator;
 
-public class ConverterGradetoScoreCommand {
-    public double converter(final String grade) {
-        double score = 0.0;
+public class convertGradetoScoreCommand {
+    /**
+     * Converts the alphabetical score to integer score.
+     * @param grade alphabetical score of the module
+     * @return the integer score of the grade according to NUS score syytem
+     */
+    public double converter(String grade) {
+        double score;
         if (grade.equals("A") || grade.equals("A+")) {
             score = 5.0;
         } else if(grade.equals("A-")) {
@@ -24,7 +29,7 @@ public class ConverterGradetoScoreCommand {
         } else if(grade.equals("F")) {
             score = 0.0;
         } else {
-            score = 0.1; //mark as not counted into GPA
+            score = 0.1; //denote this number to make it not counted into the CAP
         }
         return score;
     }

@@ -3,7 +3,7 @@ package gazeeebo.parsers;
 import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
-import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.tasks.taskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
@@ -26,11 +26,11 @@ public class Parser {
             return new ByeCommand();
         } else if(splitCommand[0].equals("tasks")) {
             return new taskCommand();
-        } else if(splitCommand[0].equals("gpa")) {
+        } else if(splitCommand[0].equals("cap")) {
             String moduleCode = "";
             int moduleCredit = 0;
             String grade = "";
-            return new GPACommand(moduleCode,moduleCredit,grade);
+            return new CAPCommand(moduleCode,moduleCredit,grade);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

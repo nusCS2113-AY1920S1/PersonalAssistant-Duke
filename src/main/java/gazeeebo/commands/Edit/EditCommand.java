@@ -25,7 +25,6 @@ public class EditCommand extends Command {
      * @throws IOException
      * @throws NullPointerException if tDate doesn't get updated.
      */
-
     @Override
     public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask, final TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String[] input = ui.fullCommand.split(" ");
@@ -43,7 +42,7 @@ public class EditCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
 
     /**

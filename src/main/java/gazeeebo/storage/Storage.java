@@ -3,7 +3,7 @@ package gazeeebo.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 
-import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
 import gazeeebo.tasks.Event;
@@ -29,16 +29,16 @@ public class Storage {
     private String absolutePath_Expenses = "Expenses.txt";
     private String absolutePath_Places = "Places.txt";
     private String absolutePath_Trivia = "Trivia.txt";
-    private String absolutePath_GPA = "Gpa.txt";
+    private String absolutePath_CAP = "CAP.txt";
 
-    public void Storages(String fileContent) throws IOException {
+    public void writeToSaveFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public ArrayList<Task> ReadFile() throws IOException {
+    public ArrayList<Task> realFromSaveFile() throws IOException {
         ArrayList<Task> tList = new ArrayList<Task>();
         if (new File(absolutePath).exists()) {
             File file = new File(absolutePath);
@@ -137,14 +137,26 @@ public class Storage {
         return tList;
     }
 
-    public void Storages_password(String fileContent) throws IOException {
+    /**
+     * Write the encoded password into the Password.txt file
+     *
+     * @param fileContent string to put into the txt file.
+     * @throws IOException catch the error if the read file fails.
+     */
+    public void writeToPasswordFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath_password);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public ArrayList<StringBuilder> Password() throws IOException {
+    /**
+     * Read from the Password.txt file, decode the passwords and put it into an array.
+     *
+     * @return the arrays of password
+     * @throws IOException catch the error if the read file fails.
+     */
+    public ArrayList<StringBuilder> readFromPasswordFile() throws IOException {
         ArrayList<StringBuilder> passwordList = new ArrayList<>();
         if (new File(absolutePath_password).exists()) {
             File file = new File(absolutePath_password);
@@ -167,9 +179,9 @@ public class Storage {
      * THis method writes to the file Contact.txt
      *
      * @param fileContent save the contact information into this file
-     * @throws IOException
+     * @throws IOException catch the error if the read file fails.
      */
-    public void Storages_Contact(String fileContent) throws IOException {
+    public void writeToContactFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath_Contact);
         fileWriter.write(fileContent);
         fileWriter.flush();
@@ -180,10 +192,10 @@ public class Storage {
     /**
      * This method read from the file Contact.txt and put the details into a HashMap
      *
-     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
-     * @throws IOException
+     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number.
+     * @throws IOException catch the error if the read file fails.
      */
-    public HashMap<String, String> Contact() throws IOException {
+    public HashMap<String, String> readFromContactFile() throws IOException {
         HashMap<String, String> contactList = new HashMap<String, String>();
         if (new File(absolutePath_Contact).exists()) {
             File file = new File(absolutePath_Contact);
@@ -278,8 +290,15 @@ public class Storage {
         fileWriter.close();
     }
 
-    public void Storages_gpa(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(absolutePath_GPA);
+    /**
+     * Write to the CAP.txt file (save in the file).
+     *
+     * @param fileContent string to put into the file.
+     * @throws IOException catch the error if the read file fails.
+     */
+
+    public void writeToCAPFile(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_CAP);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
@@ -287,38 +306,38 @@ public class Storage {
 
 
     /**
-     * This method read from the file Contact.txt and put the details into a HashMap
+     * Read from the file CAP.txt and put the details into a HashMap
      *
      * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
-     * @throws IOException
+     * @throws IOException catch the error if the read file fails.
      */
-    public HashMap<String, ArrayList<GPACommand>> gpa() throws IOException {
-        HashMap<String, ArrayList<GPACommand>> gpaList = new HashMap<String, ArrayList<GPACommand>>();
-        if (new File(absolutePath_GPA).exists()) {
-            File file = new File(absolutePath_GPA);
+    public HashMap<String, ArrayList<CAPCommand>> readFromCAPFile() throws IOException {
+        HashMap<String, ArrayList<CAPCommand>> CAPList = new HashMap<String, ArrayList<CAPCommand>>();
+        if (new File(absolutePath_CAP).exists()) {
+            File file = new File(absolutePath_CAP);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                ArrayList<GPACommand> moduleList = new ArrayList<>();
-                String[] split = sc.nextLine().split("\\|");
-                String semNumber = split[0];
-                String moduleCode = split[1];
-                int mc = Integer.parseInt(split[2]);
-                String grade = split[3];
-                GPACommand gpa = new GPACommand(moduleCode, mc, grade);
+                ArrayList<CAPCommand> moduleList = new ArrayList<>();
+                String[] splitStringTxtFile = sc.nextLine().split("\\|");
+                String semNumber = splitStringTxtFile[0];
+                String moduleCode = splitStringTxtFile[1];
+                int mc = Integer.parseInt(splitStringTxtFile[2]);
+                String grade = splitStringTxtFile[3];
+                CAPCommand newCAP = new CAPCommand(moduleCode, mc, grade);
                 boolean isEqual = false;
-                for (String key : gpaList.keySet()) {
+                for (String key : CAPList.keySet()) {
                     if (semNumber.equals(key)) {
-                        gpaList.get(key).add(gpa);
+                        CAPList.get(key).add(newCAP);
                         isEqual = true;
                     }
                 }
                 /* semNumber doesn't exist in the list */
                 if (isEqual == false) {
-                    moduleList.add(gpa);
-                    gpaList.put(semNumber, moduleList);
+                    moduleList.add(newCAP);
+                    CAPList.put(semNumber, moduleList);
                 }
             }
         }
-        return gpaList;
+        return CAPList;
     }
 }

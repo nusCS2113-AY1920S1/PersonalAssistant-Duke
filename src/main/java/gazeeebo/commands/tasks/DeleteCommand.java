@@ -80,7 +80,7 @@ public class DeleteCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.Storages(sb.toString());
+            storage.writeToSaveFile(sb.toString());
         }
     }
     public void undo(ArrayList<Task> list, Storage storage,ArrayList<Task> deletedTask) throws IOException {
@@ -89,7 +89,7 @@ public class DeleteCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.writeToSaveFile(sb.toString());
     }
     @Override
     public boolean isExit() {

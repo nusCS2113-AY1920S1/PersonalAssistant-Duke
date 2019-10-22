@@ -5,16 +5,15 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;
 
-public class DeleteContactCommand {
+public class deleteContactCommand {
 
     /**
-     * This method deletes the contact from the contact list.
+     * Deletes the contact from the contact list.
      *
-     * @param ui      the object that deals with printing things to the user.
-     * @param contact the object that map each name to its own phone number
-     * @throws IOException catch any error if read file fails
+     * @param ui      deals with printing things to the user.
+     * @param contact map each name to its own phone number
      */
-    public DeleteContactCommand(final Ui ui, final Map<String, String> contact) throws IOException {
+    public deleteContactCommand(Ui ui, Map<String, String> contact) {
         String nameToDelete = "";
         for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
             if (i != ui.fullCommand.split(" ").length - 1) {

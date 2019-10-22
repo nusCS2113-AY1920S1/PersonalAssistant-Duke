@@ -29,7 +29,7 @@ public class Duke {
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.ReadFile();
+            list = store.realFromSaveFile();
             store.Read_Trivia(triviaManager);
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
