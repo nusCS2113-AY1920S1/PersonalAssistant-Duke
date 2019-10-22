@@ -1,18 +1,15 @@
 package duke.parser;
 
-import duke.command.CommandBooking;
-import duke.command.CommandIngredients;
-import duke.command.CommandRecipeIngredient;
-import duke.command.CommandRecipeTitle;
+import duke.command.*;
 import duke.command.bookingcommands.*;
-import duke.command.inventorycommands.AddIngredientCommand;
-import duke.command.inventorycommands.DeleteIngredientCommand;
-import duke.command.inventorycommands.ListIngredientsCommand;
+import duke.command.inventorycommands.AddToInventoryCommand;
+import duke.command.inventorycommands.DeleteFromInventoryCommand;
+import duke.command.inventorycommands.ListInventoryCommand;
 import duke.command.recipecommands.*;
 
 import static duke.common.BookingMessages.*;
-import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
-import static duke.common.IngredientMessages.COMMAND_DELETE_INGREDIENT;
+import static duke.common.InventoryMessages.COMMAND_ADD_TO_INVENTORY;
+import static duke.common.InventoryMessages.COMMAND_DELETE_FROM_INVENTORY;
 import static duke.common.RecipeMessages.*;
 
 
@@ -21,22 +18,31 @@ import static duke.common.RecipeMessages.*;
  */
 public class Parser {
 
-    public static CommandIngredients parseIngredient(String input) {
-        if (input.trim().contains(COMMAND_ADD_INGREDIENT)) {
-            return new AddIngredientCommand(input);
-        } else if (input.trim().contains(COMMAND_DELETE_INGREDIENT)) {
-            return new DeleteIngredientCommand(input);
+    public static CommandInventory parseIngredient(String input) {
+        if (input.trim().contains(COMMAND_ADD_TO_INVENTORY)) {
+            return new AddToInventoryCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_FROM_INVENTORY)) {
+            return new DeleteFromInventoryCommand(input);
         } else {
-            return new ListIngredientsCommand(input);
+            return new ListInventoryCommand(input);
         }
     }
 
     public static CommandRecipeTitle parseRecipeTitle(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
             return new AddRecipeTitleCommand(input);
-        } else if (input.trim().contains(COMMAND_DELETE_RECIPE_TITLE)) {
-            return new DeleteRecipeTitleCommand(input);
         } else {
+            return new DeleteRecipeTitleCommand(input);
+        }
+    }
+
+    public static CommandRecipe parseRecipe(String input) {
+        if (input.trim().contains(COMMAND_ADD_RECIPE)) {
+            return new AddRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
+            return new DeleteRecipeCommand(input);
+        } else {
+            System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);
         }
     }
