@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * The ExpenseList Class that maintains a list of Expense objects.
  */
 public class ExpenseList {
+    //author kyang96
     private boolean isModified = false;
     private ArrayList<Expense> expenseList;
 
@@ -131,31 +132,18 @@ public class ExpenseList {
         return totalExpenses;
     }
 
-    //@@author
-    /**
-     * Lists all expenses in the expense list.
-     */
-    public void listExpenseList() {
-        int counter = 1;
-        System.out.println(ListCommand.MESSAGE_LIST_EXPENSES);
-        for (Expense e : this.expenseList) {
-            System.out.println(counter + ". " + e.toString());
-            counter++;
-        }
-    }
-
+    //@@author kyang96
     /**
      * Lists all recurring expenses in the expense list.
      */
-    public void listRecurringExpense() {
-        int counter = 1;
-        System.out.println(ListCommand.MESSAGE_LIST_RECURRING_EXPENSES);
+    public ArrayList<Expense> getRecurringExpense() {
+        ArrayList<Expense> recList = new ArrayList<>();
         for (Expense e : this.expenseList) {
             if (e.isRecurring()) {
-                System.out.println(counter + ". " + e.toString());
-                counter++;
+                recList.add(e);
             }
         }
+        return recList;
     }
 
     /**

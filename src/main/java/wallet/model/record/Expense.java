@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Expense extends Record {
     private double amount;
-    private String category;
+    private Category category;
     private boolean isRecurring;
     private String recFrequency;
 
@@ -27,7 +27,7 @@ public class Expense extends Record {
      * @param isRecurring Whether the expense is recurring.
      */
     public Expense(String description, LocalDate date, double amount,
-                   String category, boolean isRecurring, String recFrequency) {
+                   Category category, boolean isRecurring, String recFrequency) {
         super(description, date);
         this.amount = amount;
         this.category = category;
@@ -58,7 +58,7 @@ public class Expense extends Record {
      *
      * @return The category of the expense.
      */
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -67,7 +67,7 @@ public class Expense extends Record {
      *
      * @param category The category of the expense.
      */
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

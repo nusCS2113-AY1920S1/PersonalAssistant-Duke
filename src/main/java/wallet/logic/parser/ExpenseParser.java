@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * The ExpenseParser Class handles the logic of creating an Expense Object.
  */
 public class ExpenseParser {
+    //@@author kyang96
     /**
      * Returns the list of recurring expenses.
      * @param expenseList The list of all expenses.
@@ -115,4 +116,5 @@ public class ExpenseParser {
             }
         }
     }
+    //@@author
 }
