@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class ShowCommand extends ModuleCommand {
 
-    private static Set<String> coreModList = new HashSet<>();
+    private static Set<String> coreModList;
 
     public ShowCommand(Arguments args) {
         super(args);
@@ -24,8 +24,9 @@ public class ShowCommand extends ModuleCommand {
 
     private Set<String> getCoreModList() {
         if (coreModList == null) {
-            coreModList.add("CG111");
-            coreModList.add("CG112");
+            coreModList = new HashSet<>();
+            coreModList.add("CG1111");
+            coreModList.add("CG1112");
             coreModList.add("CS1010");
             coreModList.add("CS1231");
             coreModList.add("MA1511");
@@ -69,7 +70,7 @@ public class ShowCommand extends ModuleCommand {
             case ("core"): {
                 plannerUi.coreModReport();
                 int count = 1;
-                coreModList = getCoreModList();
+                Set<String> coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if (coreModList.contains(moduleCode)) {
@@ -98,7 +99,7 @@ public class ShowCommand extends ModuleCommand {
             case ("ue"): {
                 plannerUi.ueModReport();
                 int count = 1;
-                coreModList = getCoreModList();
+                Set<String> coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
