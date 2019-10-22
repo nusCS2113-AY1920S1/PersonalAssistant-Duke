@@ -187,9 +187,14 @@ public class CapCommand extends ModuleCommand {
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }
-        String[] modules = parsePrerequisiteTree(moduleCode);
-        //for (ModuleInfoDetailed modules : detailedMap.get(moduleCode).getPreclusion()) {
+        List<List<String>> prunedModules = parsePrerequisiteTree(moduleCode, detailedMap);
+        List<List<String>> toCalculate = prunedModules;
+        for (int i = 0; i < toCalculate.size(); i++) {
 
+        }
+
+        // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
+        // check if isempty, if it is then print cap score according to the cloned list of lists
         //}
     }
 
@@ -209,20 +214,32 @@ public class CapCommand extends ModuleCommand {
         plannerUi.capMsg(averageCap);
     }
 
-    public String[] parsePrerequisiteTree(String prerequisites) {
+    public List<List<String>> parsePrerequisiteTree(String prerequisites, HashMap<String, ModuleInfoDetailed> detailedMap) {
         //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
         // (check for and after because some have AY19/20 and after, then need to reject those 'ands')
         // need to logic and/or from array to cut down size of array
-        String[] initialParsedModules = prerequisites.split("[a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or");
-        String[] prunedModules = null;
-        //prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and (MA1100 or (CS1231 or its equivalent))"
-        //prerequisite":"CG2027/EE2027 (for AY2017 intake & after)
-        //prerequisite":"EE2028 or CG2028 (for AY2017 intake & after)
-        //prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and CS2102
-        //prerequisite":"CG2027/EE2027 (for AY2017 intake & after) ; EE2021 (for AY2016 intake & prior)
-        // what does or its equivalent mean? get preclusion of mod and add it to the
+        String[] initialParsedModules = prerequisites.split("[a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9][a-zA-Z]?|and|or|equivalent");
+        List<List<String>> prunedModules = null;
+        int j = 0;
+        /* EXAMPLES
+            prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and (MA1100 or (CS1231 or its equivalent))"
+            prerequisite":"CG2027/EE2027 (for AY2017 intake & after)
+            prerequisite":"EE2028 or CG2028 (for AY2017 intake & after)
+            prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and CS2102
+            prerequisite":"CG2027/EE2027 (for AY2017 intake & after) ; EE2021 (for AY2016 intake & prior)
+        */
+        // what does or its equivalent mean? get preclusion of mod and add it to the pruned
+        // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
+        // check if isempty, if it is then print cap score according to the cloned list of lists
+        // for 'or' check next input, if not equivalent, then add to same i dont increase i, if is check after if still or vs and
+        // if and, add to list i, move i
         for (int i = 0; i < initialParsedModules.length; i++) {
-            if (initialParsedModules[i].equals("and")) {
+            if (initialParsedModules[i].equals("equivalent")) {
+                String[] preclusions = detailedMap.get(initialParsedModules[i-1]).getPreclusion().split("[a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9][a-zA-Z]?");
+                //preclusion should be all ors, just split and add to pruned without incrementing j
+                for (String x : preclusions) {
+                    prunedModules.get(j).add(x);
+                }
 
             }
         }
