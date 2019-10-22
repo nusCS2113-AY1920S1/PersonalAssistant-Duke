@@ -64,6 +64,7 @@ public class CheckAnomaly {
             if( curr.get(i) instanceof Meeting && ((Meeting) curr.get(i)).checkDate().equals(at) ) {
                 return true;
             } else if( curr.get(i) instanceof FixedDuration ) {
+                /*
                 Date listDate = ((FixedDuration) curr.get(i)).checkDate();
                 if( listDate.getYear() == at.getYear() && listDate.getMonth() == at.getMonth() && listDate.getDay() == at.getDay() ) {
                     double checkTime = listDate.getTime();
@@ -73,6 +74,8 @@ public class CheckAnomaly {
                         return true;
                     }
                 }
+
+                 */
             }
         }
         return false;
