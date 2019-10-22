@@ -1,14 +1,13 @@
 package duke.Parser;
 import duke.Ui;
-import duke.data.ManageStudentsParser;
 
 import java.util.Scanner;
 
-public class ParseCommand implements IParser {
+public class ParserCommand implements IParser {
     /**
      * Declaring type ManageStudentsParser.
      */
-    private ManageStudentsParser manageStudentsParser = new ManageStudentsParser();
+    private ParserManageStudents parserManageStudents = new ParserManageStudents();
 
     /**
      * To parse the respective command.
@@ -26,7 +25,7 @@ public class ParseCommand implements IParser {
                 ui.manageStudentsHeading();
                 Scanner sc = new Scanner(System.in);
                 String nextInput = sc.nextLine();
-                manageStudentsParser.parseCommand(nextInput);
+                parserManageStudents.parseCommand(nextInput);
                 break;
             case "3":
                 ui.trainingProgramHeading();
