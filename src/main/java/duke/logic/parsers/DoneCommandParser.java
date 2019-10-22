@@ -7,12 +7,16 @@ public class DoneCommandParser implements ParserInterface<MarkDoneCommand> {
 
     @Override
     public MarkDoneCommand parse(String userInput) throws DukeException {
-        String name = userInput.split(" /date ", 2)[0];
-        if (userInput.split(" /date ").length > 1) {
-            String date = userInput.split(" /date ")[1];
-            return new MarkDoneCommand(name, date);
+        if (userInput.trim().length() != 0) {
+            if (userInput.split("/date").length >= 2) {
+                String[] splitArgs = userInput.split("/date", 2);
+                return new MarkDoneCommand(splitArgs[0], splitArgs[1]);
+            } else {
+                return new MarkDoneCommand(userInput);
+            }
         } else {
-            throw new DukeException("\u2639 OOPS!!! The done command was not entered correctly");
+            throw new DukeException("Please enter index of meal to be marked done on today's list or "
+                    + "date and index of meal to be marked done");
         }
     }
 }

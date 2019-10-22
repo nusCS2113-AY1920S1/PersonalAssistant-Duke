@@ -44,6 +44,18 @@ public class MealList {
         return deletedMeal;
     }
 
+    /**
+     * This function is used to mark done the task of a particular index.
+     * @param date date of the meal to be marked done.
+     * @param index the index of task to be marked done.
+     * @return Returns the meal that was marked done.
+     */
+    public Meal markDone(String date, int index) {
+        Meal markedDoneMeal = this.mealTracker.get(date).get(index - 1);
+        this.mealTracker.get(date).get(index - 1).markAsDone();
+        return markedDoneMeal;
+    }
+
     public void deleteAllMealsOnDate(String dateStr) {
         if (mealTracker.containsKey(dateStr)) {
             this.mealTracker.get(dateStr).clear();

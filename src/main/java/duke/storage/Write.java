@@ -106,7 +106,6 @@ public class Write {
             String toWrite = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
             HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
             if (nutritionData.size() != 0) {
-                toWrite += "|";
                 for (String k : nutritionData.keySet()) {
                     toWrite += k + "|" + nutritionData.get(k) + "|";
                 }

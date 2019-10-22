@@ -48,6 +48,7 @@ public class ListCommand extends Command {
             throw new DukeException("There isn't any food on " + currentDate);
         }
         ui.showList(currentMeals);
+        ui.showCaloriesLeft(currentMeals, user, currentDate);
         ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
     }
 }
