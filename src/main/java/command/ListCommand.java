@@ -8,6 +8,8 @@ import ui.Ui;
 import user.User;
 
 public class ListCommand extends Command {
+
+    //@@ AmosChan97
     /**
      * Prints to the UI a list containing all bookings made.
      * @param roomList list of rooms
