@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.exception.DukeException;
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
 /**
@@ -29,5 +30,10 @@ public interface Model {
     //******************************** Operations for other data....
     //******************************** For example, operations of monthly income list.
     // todo: add other data operations
+
+    //PlanBot
+    public ObservableList<PlanBot.PlanDialog> getDialogObservableList();
+    public void processPlanInput(String input);
+
 
 }

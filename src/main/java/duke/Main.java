@@ -5,6 +5,7 @@ import duke.logic.Logic;
 import duke.logic.LogicManager;
 import duke.model.DukePP;
 import duke.model.Model;
+import duke.model.PlanBot;
 import duke.storage.ExpenseListStorage;
 import duke.storage.ExpenseListStorageManager;
 import duke.storage.Storage;
@@ -35,7 +36,8 @@ public class Main extends Application {
         ExpenseListStorage expenseListStorage = new ExpenseListStorageManager();
         storage = new StorageManager(expenseListStorage);
 
-        model = new DukePP(storage.loadExpenseList());
+
+        model = new DukePP(storage.loadExpenseList(), new PlanBot());
 
         int size = storage.loadExpenseList().getExternalList().size();
         logger.info("The size of external list from storage is " + size);
@@ -54,6 +56,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setResizable(false);
         ui.start(primaryStage);
 
     }

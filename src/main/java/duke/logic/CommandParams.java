@@ -46,7 +46,8 @@ public class CommandParams {
         new FilterExpenseCommand(),
         new SortExpenseCommand(),
         new ViewExpenseCommand(),
-        new GoToCommand()
+        new GoToCommand(),
+        new PlanBotCommand()
     );
 
     /**

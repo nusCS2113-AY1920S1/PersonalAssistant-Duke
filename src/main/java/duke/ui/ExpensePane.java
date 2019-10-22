@@ -27,6 +27,7 @@ public class ExpensePane extends UiPart<BorderPane> {
 
     @FXML
     TableView expenseTableView;
+
     public ExpensePane(ObservableList<Expense> expenseList) {
         super(FXML_FILE_NAME, null);
         logger.info("expenseList has length " + expenseList.size());
