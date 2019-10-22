@@ -38,14 +38,15 @@ public class Duke {
             ui.MajorCategories();
             while (!isExit) {
                 ui.readCommand();
-                String command = ui.fullCommand.trim();
-                Command c = Parser.parse(command);
-                c.execute(list, ui, store, CommandStack, deletedTask,triviaManager);
-                if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                    CommandStack.push(command);
+                String command = ui.fullCommand;
+                Command c = Parser.parse(command, ui);
+                if (c != null) {
+                    c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
+                    if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                        CommandStack.push(command);
+                    }
+                    isExit = c.isExit();
                 }
-
-                isExit = c.isExit();
             }
         } catch (DukeException | ParseException | IOException | NullPointerException e) {
             if (e instanceof ParseException) {
