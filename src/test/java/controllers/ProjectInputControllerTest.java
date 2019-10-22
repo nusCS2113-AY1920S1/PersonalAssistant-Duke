@@ -126,7 +126,8 @@ class ProjectInputControllerTest {
                     + "-s done -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task  -p 2 -t Documentation for product -c 40 -r do something -r do another thing";
+            simulatedUserInput = "add task  -p 2 -t Documentation for product -c 40 -r do something "
+                    + "-r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             simulatedUserInput = "add task -t Documentation for product -p 2 -c 40";
