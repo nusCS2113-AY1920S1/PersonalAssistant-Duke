@@ -1,0 +1,56 @@
+package duke.ingredient;
+
+import duke.exception.DukeException;
+
+import java.util.Date;
+
+public class Ingredient {
+    private Integer Nb;
+    private String name;
+    private int amount;
+    private Date expiryDate = new Date();
+
+    public Ingredient(String name, Integer amount, Date expiryDate) throws DukeException       //beef 200 19/07/2019
+    {
+        this.name = name;
+        if (amount < 0)
+            throw new DukeException("The ingredient amount can not be negative, use a valid amount");
+        this.amount = amount;
+        this.expiryDate = expiryDate;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void changeDate(Date date)       //to change date, we need new date
+    {
+        this.expiryDate = date;
+    }
+
+    public void setName(String name)        //to change name, we need new name
+    {
+        this.name = name;
+    }
+
+    public void changeAmount(Integer amount) //to change amount, we need new amount
+    {
+        this.amount = amount;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Ingredient && ((Ingredient) other).getName().equals(this.name);
+    }
+    //private String pattern = "dd/MM/yyyy";
+    //private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    //private String TodayDate = simpleDateFormat.format(today);
+}
