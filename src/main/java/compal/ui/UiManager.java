@@ -47,17 +47,6 @@ public class UiManager implements Ui {
             mainTab.setContent(mainPane);
             tabReference.getTabs().add(0, mainTab);
 
-            //Create DailyCalUI Pane
-            DailyCalUi dc = new DailyCalUi();
-            String datePattern = "dd/MM/yyyy";
-            String stringTodayDate = new SimpleDateFormat(datePattern).format(new Date());
-            ScrollPane dailyPane = dc.init(stringTodayDate);
-
-            Tab dailyTab = new Tab();
-            dailyTab.setText("Daily View: " + stringTodayDate);
-            dailyTab.setContent(dailyPane);
-            tabReference.getTabs().add(1, dailyTab);
-
             uiUtil.setMainWindow(mainPane);
             Scene s1 = new Scene(ap);
             primaryStage.setScene(s1);

@@ -39,8 +39,6 @@ public abstract class Task implements Serializable {
     }
 
 
-
-
     /**
      * Gets priority status (HIGH, MEDIUM, LOW) of task.
      *
@@ -199,6 +197,9 @@ public abstract class Task implements Serializable {
      * @return Time of task.
      */
     public Date getStartTime() {
+        if (getStringStartTime().equals("-")) {
+            return null;
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         String startTime = getStringStartTime();
@@ -287,7 +288,7 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         int strCase = 0;
-        if (getStartTime() == null && getEndTime() != null) {
+        if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
 

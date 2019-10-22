@@ -262,7 +262,6 @@ public interface CommandParser {
             int dateCount = 0;
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
-                System.out.println(eachDateString);
                 if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
                     break;
                 }
