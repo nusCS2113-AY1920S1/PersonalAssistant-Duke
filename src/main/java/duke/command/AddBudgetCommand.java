@@ -48,9 +48,8 @@ public class AddBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String beforeBudgetAdd = ui.showAddBudgetGui(amount, budgetList.getBudget());
         budgetList.addToBudget(amount);
-        return beforeBudgetAdd + "\n" + ui.showBudgetGui(budgetList.getBudget());
+        return ui.showAddBudgetGui(amount, budgetList.getBudget()) + "\n" + ui.showBudgetGui(budgetList.getBudget());
     }
 
     /**

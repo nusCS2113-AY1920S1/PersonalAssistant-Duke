@@ -56,7 +56,7 @@ public class BudgetList {
     }
 
     /**
-     * Gets the size of the budget list.
+     * Get the size of the budget list.
      *
      * @return The size of the budget list.
      */
@@ -65,7 +65,7 @@ public class BudgetList {
     }
 
     /**
-     * Gets the list of budgets.
+     * Get the list of budgets.
      *
      * @return The list of budget.
      */

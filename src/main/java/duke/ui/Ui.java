@@ -93,6 +93,20 @@ public class Ui {
     }
 
     /**
+     * Outputs task that is successfully sets a reminder to the user (GUI).
+     *
+     * @param num indicated number of days to set the reminder
+     * @param items The task list that contains a list of tasks.
+     * @return String of the task that is completed.
+     */
+    public static String showReminderGui(Task num, TaskList items) {
+        String str = ("     You will get a reminder for this task in "
+                + num.getReminder()
+                + " days\n" + items.toString());
+        return str;
+    }
+
+    /**
      * Outputs all the tasks of the task list to the user.
      *
      * @param items The task list that contains a list of tasks.
@@ -467,13 +481,15 @@ public class Ui {
      * Outputs a message to the user to let it know that it is updating.
      */
     public void showBackupMessage() {
-        out.println("     Duke Manager has been backed up!\n"
-                    + "     Duke has opened the backup file location in file explorer!");
+        out.println("     Duke Manager has been backed up!");
     }
 
-    public static String showBackupMessageGui() {
-        return "     Duke Manager has been backed up! \n"
-                + "     Duke has opened the backup file location in file explorer!";
+    public void showBackupFolderMessage() {
+        out.println("     Duke has opened the backup file location in file explorer!");
+    }
+
+    public String showBackupMessageGui() {
+        return "     Duke Manager has been backed up!";
     }
     //@@author
 
