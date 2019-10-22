@@ -195,8 +195,8 @@ class BondListTest {
                 new Date("1/3/2019"), 3);
         bondListTest.addBondToList(testBondTwo, uiTest);
         assertEquals(2, bondListTest.getSize());
-        String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       "
+        String expectedOutput = "Bond with the following details has been added: \r\n"
+                + "Item No.             Bond Name                      Amount          Rate       "
                 + "Date of Purchased    "
                 + "Number of Years \r\n"
                 + "-------------------------------------------------------------------------------"
@@ -238,8 +238,8 @@ class BondListTest {
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage, actualMessage);
         assertEquals(1, bondListTest.getSize());
-        String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       "
+        String expectedOutput = "Bond with the following details has been added: \r\n"
+                + "Item No.             Bond Name                      Amount          Rate       "
                 + "Date of Purchased    "
                 + "Number of Years \r\n"
                 + "-------------------------------------------------------------------------------"
@@ -265,8 +265,8 @@ class BondListTest {
         Bond testBondTwo = new Bond("TEST BOND 1", 1000, 1.8,
                 new Date("1/3/2019"), 3);
         bondListTest.bondExist(testBondTwo);
-        String expectedOutput = "Bond with the following details has been added: \r\n" +
-                "Item No.             Bond Name                      Amount          Rate       "
+        String expectedOutput = "Bond with the following details has been added: \r\n"
+                + "Item No.             Bond Name                      Amount          Rate       "
                 + "Date of Purchased    "
                 + "Number of Years \r\n"
                 + "-------------------------------------------------------------------------------"
