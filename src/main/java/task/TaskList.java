@@ -38,6 +38,21 @@ public class TaskList {
     };
 
     /**
+     * This custom comparator allows the sorting of both deadlines and events.
+     *
+     * @param task contains the task that needs to be added.
+     */
+    public static final Comparator<Task> PriorityComparator = (firstPriority, secondPriority) -> {
+        if (firstPriority.priority.equals(Priority.HIGH) && secondPriority.priority.equals(Priority.MEDIUM)) {
+            return -1;
+        } else if (firstPriority.priority.equals(Priority.MEDIUM) && secondPriority.priority.equals(Priority.MEDIUM)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    };
+
+    /**
      * This function allows the use to add a particular task.
      *
      * @param task contains the task that needs to be added.
@@ -143,7 +158,6 @@ public class TaskList {
         return taskHasLocation;
     }
 
-
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
@@ -160,6 +174,43 @@ public class TaskList {
         }
         Collections.sort(sortedDateList, DateComparator);
         return sortedDateList;
+    }
+
+    /**
+     * This function allows the user to obtain the tasks on a particular date sorted by priority.
+     *
+     * @param dayToFind is of String type which contains the desired date of
+     *                  schedule.
+     * @return priorityList the tasks of the given day sorted by priority
+     */
+    public ArrayList<Task> obtainPriorityList(String dayToFind) {
+        ArrayList<Task> priorityList = new ArrayList<Task>();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            if (listOfTasks.get(i).toString().contains(dayToFind) && !listOfTasks.get(i).priority.equals(Priority.LOW)
+                && !listOfTasks.get(i).priority.equals(Priority.INVALID)) {
+                priorityList.add(listOfTasks.get(i));
+            }
+        }
+        Collections.sort(priorityList, PriorityComparator);
+        return priorityList;
+    }
+
+    /**
+     * This function allows the user to obtain the tasks on a particular date, but only with description.
+     *
+     * @param dayToFind is of String type which contains the desired date of
+     *                  schedule.
+     * @return sortDateList which contains only the descriptions of the tasks.
+     */
+    public ArrayList<String> scheduleForDay(String dayToFind) {
+        ArrayList<Task> obtainDescriptions = schedule(dayToFind);
+        ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
+        for (int i = 0; i < obtainDescriptions.size(); i++) {
+            if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+",2)[0].trim());
+            }
+        }
+        return scheduleDescriptionOnly;
     }
 
     /**

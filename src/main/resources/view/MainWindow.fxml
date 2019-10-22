@@ -6,48 +6,120 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="1063.0" style="-fx-background-color: grey;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="MainWindow">
+<AnchorPane maxHeight="503.0" maxWidth="1407.0" minHeight="503.0" minWidth="1407.0" prefHeight="503.0" prefWidth="1407.0" style="-fx-background-color: #303030;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
    <children>
-      <TextField fx:id="userInput" layoutX="2.0" layoutY="456.0" onAction="#handleUserInput" prefHeight="42.0" prefWidth="876.0" style="-fx-background-color: #000000; -fx-text-fill: #01f222;" AnchorPane.bottomAnchor="1.0" />
-      <Button fx:id="sendButton" layoutX="879.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="529.0" prefHeight="455.0" prefWidth="225.0" vvalue="1.0">
+      <TextField fx:id="userInput" layoutX="2.0" layoutY="456.0" onAction="#handleUserInput" prefHeight="49.0" prefWidth="1062.0" style="-fx-background-color: #000000; -fx-text-fill: #01f222;" />
+      <Button fx:id="sendButton" layoutX="1064.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="50.0" prefWidth="76.0" style="-fx-background-color: #303030;" text="Send" textFill="#a8a8a8">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <ScrollPane fx:id="scrollPane" hvalue="1.0" layoutX="1140.0" layoutY="-2.0" prefHeight="354.0" prefWidth="267.0" vbarPolicy="ALWAYS" vvalue="1.0">
          <content>
-            <VBox fx:id="dialogContainer" prefHeight="456.0" prefWidth="230.0" style="-fx-background-color: #D3D3D3;">
+            <VBox fx:id="dialogContainer" prefHeight="354.0" prefWidth="253.0" style="-fx-background-color: #696969;">
             <padding>
-               <Insets left="10.0" />
+               <Insets left="0.0" />
             </padding>
             </VBox>
          </content>
       </ScrollPane>
-      <Label fx:id="todayTaskLabel" layoutX="586.0" layoutY="1.0" prefWidth="200.0" style="-fx-background-color: light grey;" textFill="black">
+      <Label fx:id="priorityTaskLabel" layoutX="940.0" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: #303030; -fx-border-color: #696969;" textFill="#a8a8a8" wrapText="true">
       <padding>
          <Insets left="8.0" />
       </padding>
       </Label>
-      <ScrollPane fx:id="todayTaskPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="755.0" layoutY="1.0" prefHeight="300.0" prefWidth="200.0" vvalue="1.0">
+      <ScrollPane fx:id="todayTaskPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="940.0" layoutY="42.0" prefHeight="413.0" prefWidth="200.0" vvalue="1.0">
          <content>
-            <ListView fx:id="tasksForTheDay" fixedCellSize="0.0" layoutY="1.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
+            <ListView fx:id="tasksForTheDay" fixedCellSize="0.0" layoutY="1.0" prefHeight="412.0" prefWidth="182.0" style="-fx-background-color: #696969;" />
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="errorScrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="755.0" layoutY="298.0" prefHeight="158.0" prefWidth="200.0" vvalue="1.0">
+      <ScrollPane fx:id="errorScrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="1139.0" layoutY="352.0" prefHeight="151.0" prefWidth="267.0" vvalue="1.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <content>
-            <VBox fx:id="errorMessageContainer" layoutX="586.0" layoutY="1.0" prefHeight="158.0" prefWidth="200.0" style="-fx-background-color: #000000;" />
+            <VBox fx:id="errorMessageContainer" alignment="TOP_CENTER" layoutX="586.0" layoutY="1.0" prefHeight="150.0" prefWidth="252.0" style="-fx-background-color: #000000;" />
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="mondayScrollPane" layoutX="2.0" layoutY="124.0" prefHeight="206.0" prefWidth="526.0" style="-fx-background-color: white; -fx-border-color: #000000;" >
+      <ScrollPane fx:id="mondayScrollPane" layoutX="2.0" layoutY="124.0" prefHeight="206.0" prefWidth="133.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;">
          <content>
-            <ListView fx:id="mondayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
-            <ListView fx:id="tuesdayTask" fixedCellSize="0.0" layoutY="300.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
-            <ListView fx:id="wednesdayTask" fixedCellSize="0.0" layoutY="40.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
-            <ListView fx:id="thursdayTask" fixedCellSize="0.0" layoutY="50.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
-            <ListView fx:id="fridayTask" fixedCellSize="0.0" layoutY="60.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
-            <ListView fx:id="saturdayTask" fixedCellSize="0.0" layoutY="70.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
-            <ListView fx:id="sundayTask" fixedCellSize="0.0" layoutY="90.0" prefHeight="299.0" prefWidth="182.0" style="-fx-background-color: grey;" />
+            <ListView fx:id="mondayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="207.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
          </content>
       </ScrollPane>
-
+      <ScrollPane fx:id="tuesdayScrollPane" layoutX="136.0" layoutY="124.0" prefHeight="206.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: #000000;">
+         <content>
+            <ListView fx:id="tuesdayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="207.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="wednesdayScrollPane" layoutX="270.0" layoutY="124.0" prefHeight="206.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: #000000;">
+         <content>
+             <ListView fx:id="wednesdayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="207.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="thursdayScrollPane" layoutX="404.0" layoutY="124.0" prefHeight="206.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: #000000;">
+         <content>
+             <ListView fx:id="thursdayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="207.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="fridayScrollPane" layoutX="538.0" layoutY="124.0" prefHeight="206.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: #000000;">
+         <content>
+             <ListView fx:id="fridayTask" fixedCellSize="0.0" layoutY="40.0" prefHeight="207.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="saturdayScrollPane" layoutX="672.0" layoutY="124.0" prefHeight="206.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: #000000;">
+         <content>
+             <ListView fx:id="saturdayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="207.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="sundayScrollPane" layoutX="806.0" layoutY="124.0" prefHeight="206.0" prefWidth="134.0" style="-fx-background-color: white; -fx-border-color: #000000;">
+         <content>
+             <ListView fx:id="sundayTask" fixedCellSize="0.0" layoutY="1.0" prefHeight="206.0" prefWidth="115.0" style="-fx-background-color: #696969;" />
+         </content>
+       </ScrollPane>
+      <Label layoutX="305.0" layoutY="14.0" text="Your timeline for this week" textFill="#a8a8a8">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="mondayLabel" layoutX="29.0" layoutY="90.0" text="Monday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="90.0" text="Tuesday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="280.0" layoutY="90.0" text="Wednesday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="426.0" layoutY="90.0" text="Thursday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="575.0" layoutY="90.0" text="Friday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="837.0" layoutY="90.0" text="Sunday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="696.0" layoutY="90.0" text="Saturday" textFill="#a8a8a8">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="todayLabel" layoutY="86.0" prefHeight="40.0" prefWidth="134.0" style="-fx-border-color: #009933; -fx-border-width: 3;" textFill="#787878" />
    </children>
 </AnchorPane>
