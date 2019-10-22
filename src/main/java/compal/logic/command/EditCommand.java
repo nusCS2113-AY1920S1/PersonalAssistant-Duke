@@ -10,13 +10,13 @@ import java.util.Date;
 public class EditCommand extends Command {
     private String description;
     private Date date;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private int taskId;
     private Task.Priority priority;
 
 
-    public EditCommand(int taskId, String description, Date date, Date startTime, Date endTime,
+    public EditCommand(int taskId, String description, Date date, String startTime, String endTime,
                        Task.Priority priority) {
         this.taskId = taskId;
         this.description = description;
@@ -36,11 +36,11 @@ public class EditCommand extends Command {
         if (date != null) {
             toEdit.setDate(CompalUtils.dateToString(date));
         }
-        if (startTime != null) {
-            toEdit.setStartTime(CompalUtils.dateToString(startTime));
+        if (startTime != null && !toEdit.getSymbol().equalsIgnoreCase("D")) { //dealine has no start time
+            toEdit.setStartTime(startTime);
         }
         if (endTime != null) {
-            toEdit.setEndTime(CompalUtils.dateToString(endTime));
+            toEdit.setEndTime(endTime);
         }
         if (priority != null) {
             toEdit.setPriority(priority);

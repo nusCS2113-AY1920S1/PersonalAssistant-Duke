@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class EditCommandParser implements CommandParser {
     private String description;
     private Date date;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private int taskId;
     private Task.Priority priority;
 
@@ -24,10 +24,9 @@ public class EditCommandParser implements CommandParser {
         taskId = getTokenTaskID(restOfInput);
         description = getTokenDescription(restOfInput);
         date = getDate(restOfInput);
-        if (getTokenStartTime(restOfInput) != null) {
-            startTime = CompalUtils.stringToDate(getTokenStartTime(restOfInput));
-        }
-
+        priority = getTokenPriority(restOfInput);
+        startTime = getTokenStartTime(restOfInput);
+        endTime = getTokenEndTime(restOfInput);
 
         return new EditCommand(taskId,description,date,startTime,endTime,priority);
 
@@ -91,5 +90,22 @@ public class EditCommandParser implements CommandParser {
             return null;
         }
 
+    }
+
+    @Override
+    public String getTokenEndTime(String restOfInput) throws ParserException {
+        if (restOfInput.contains(TOKEN_END_TIME)) {
+            int startPoint = restOfInput.indexOf(TOKEN_END_TIME);
+            String endTimeStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(endTimeStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String endTimeField = scanner.next();
+            return endTimeField;
+        } else {
+            return null;
+        }
     }
 }
