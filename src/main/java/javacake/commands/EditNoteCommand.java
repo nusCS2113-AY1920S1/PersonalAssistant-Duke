@@ -7,7 +7,14 @@ import javacake.storage.Profile;
 import javacake.storage.Storage;
 import javacake.ui.Ui;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class EditNoteCommand extends Command {
 
@@ -16,8 +23,8 @@ public class EditNoteCommand extends Command {
     private static String nameOfEditFile;
     private static String currentFilePath;
 
-    private static String headingMessage = "Write your notes below!\n" +
-            "To save edited content, type '/save' and enter!\n";
+    private static String headingMessage = "Write your notes below!\n"
+            + "To save edited content, type '/save' and enter!\n";
 
     private static String endingMessage = "Edited file is saved!\n";
 
@@ -41,7 +48,8 @@ public class EditNoteCommand extends Command {
                 throw new DukeException("Pls enter a valid file name! Type 'listnote' to view available notes!");
             }
         } else {
-            throw new DukeException("Pls enter a valid editnote command: 'editnote - [name of the file you wish you edit]'");
+            throw new DukeException("Pls enter a valid editnote command:"
+                    + " 'editnote - [name of the file you wish you edit]'");
         }
     }
 
@@ -97,10 +105,12 @@ public class EditNoteCommand extends Command {
     }
 
     /**
-     *
-     * @throws DukeException
+     * For CLI only.
+     * Read input from user and write into specified note file.
+     * If '/save' is called, file will be saved.
+     * @throws DukeException File does not exist.
      */
-    private void readAndSaveNewContent() throws DukeException{
+    private void readAndSaveNewContent() throws DukeException {
         BufferedWriter bw;
         try {
             Ui ui = new Ui();
@@ -136,7 +146,8 @@ public class EditNoteCommand extends Command {
                 readAndSaveNewContent();
                 return endingMessage;
             } else {
-                ui.showMessage("Below is your previous saved content! Copy your previous content and edit accordingly\n");
+                ui.showMessage("Below is your previous saved content! "
+                        + "Copy your previous content and edit accordingly\n");
                 ui.showMessage("To save edited content, type '/save' and enter!\n");
                 ui.showMessage(displayContentInFile());
                 readAndSaveNewContent();
@@ -158,9 +169,9 @@ public class EditNoteCommand extends Command {
         if (checkFileIsEmpty(currentFilePath)) {
             return headingMessage;
         } else {
-            String secondHeadingMessage = "Below is your previous saved content! " +
-                    "Copy your previous content and edit accordingly\n" +
-                    "To save edited content, type '/save' and enter!\n";
+            String secondHeadingMessage = "Below is your previous saved content! "
+                    + "Copy your previous content and edit accordingly\n"
+                    + "To save edited content, type '/save' and enter!\n";
             return secondHeadingMessage + readTextFileContent();
         }
     }
@@ -168,7 +179,7 @@ public class EditNoteCommand extends Command {
     /**
      * Removes all content of text file before user can edit file.
      * EditFileCommand does not append content to file.
-     * @throws DukeException
+     * @throws DukeException File does not exist.
      */
     public static void clearTextFileContent() throws DukeException {
         try {

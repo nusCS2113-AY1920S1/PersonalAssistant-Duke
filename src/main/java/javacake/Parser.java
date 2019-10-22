@@ -1,6 +1,18 @@
 package javacake;
 
-import javacake.commands.*;
+
+import javacake.commands.AddCommand;
+import javacake.commands.BackCommand;
+import javacake.commands.Command;
+import javacake.commands.CreateNoteCommand;
+import javacake.commands.EditNoteCommand;
+import javacake.commands.ExitCommand;
+import javacake.commands.GoToCommand;
+import javacake.commands.HelpCommand;
+import javacake.commands.ListCommand;
+import javacake.commands.MegaListCommand;
+import javacake.commands.ResetCommand;
+import javacake.commands.ScoreCommand;
 import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
@@ -15,8 +27,7 @@ import java.util.List;
 
 public class Parser {
 
-    private static String[] commands = {"exit", "list", "back", "help", "score",
-            "reset", "goto", "overview", "deadline", "editnote", "createnote"};
+    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "overview", "deadline", "editnote", "createnote"};
 
     /**
      * Allows the user input to be parsed before running 'execute'.

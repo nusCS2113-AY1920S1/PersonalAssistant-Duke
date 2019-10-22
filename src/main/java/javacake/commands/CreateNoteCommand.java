@@ -25,7 +25,7 @@ public class CreateNoteCommand extends Command {
      * @param inputCommand Input Command from the user to create note.
      * @throws DukeException If the input command is invalid.
      */
-    public CreateNoteCommand(String inputCommand) throws DukeException{
+    public CreateNoteCommand(String inputCommand) throws DukeException {
         type = CmdType.CREATENOTE;
         String[] wordsInInputCommand = inputCommand.split("\\s+");
         if (createNoteCommandHasSpecifiedFileName(inputCommand)) {
@@ -35,7 +35,8 @@ public class CreateNoteCommand extends Command {
                 generateNewDefaultFileName();
             }
         } else {
-            throw new DukeException("Invalid command: To write notes, type 'createnote' followed by desired (optional) filename.");
+            throw new DukeException("Invalid command: To write notes, "
+                    + "type 'createnote' followed by desired (optional) filename.");
         }
     }
 
@@ -94,7 +95,8 @@ public class CreateNoteCommand extends Command {
             String newFilePath = sb.toString();
             //System.out.println(newFilePath);
             if (checkNotesFileExist(newFilePath)) {
-                throw new DukeException("File already exists, please type 'editnote " + formattedFileName + "' to edit the file instead");
+                throw new DukeException("File already exists, please type 'editnote "
+                        + formattedFileName + "' to edit the file instead");
             } else  {
                 File file = new File(newFilePath);
                 if (!file.createNewFile()) {

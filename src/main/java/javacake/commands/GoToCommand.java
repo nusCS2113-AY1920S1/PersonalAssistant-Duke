@@ -39,7 +39,8 @@ public class GoToCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
+            throws DukeException, IOException {
         int intIndex = Integer.parseInt(index.poll()) - 1;
         progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
         String filePath = progressStack.getFullFilePath();

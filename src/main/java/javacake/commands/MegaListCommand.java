@@ -6,18 +6,11 @@ import javacake.ProgressStack;
 import javacake.storage.Storage;
 import javacake.ui.Ui;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -25,6 +18,9 @@ public class MegaListCommand extends Command {
 
     private static String currentFilePath = "content/MainList";
 
+    /**
+     * Constructor for MegaListCommand.
+     */
     public MegaListCommand() {
         type = CmdType.TREE;
     }
@@ -72,9 +68,6 @@ public class MegaListCommand extends Command {
                 List<String> result = processFileNames(collectionOfNames);
                 sb.append(String.join("\n", result)).append("\n");
                 sb.append("Type 'goto' to access the topics you are interested in!").append("\n");
-            }
-            if (!isJarMode) {
-
             }
             return sb.toString();
         } catch (IOException e) {

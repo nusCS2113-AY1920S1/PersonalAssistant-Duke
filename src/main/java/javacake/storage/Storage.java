@@ -103,7 +103,12 @@ public class Storage {
 
     }
 
-    private static void generateFolder(File sampleFile) throws DukeException{
+    /**
+     * Generates starting folder when program starts.
+     * @param sampleFile File that is auto-generated when program starts.
+     * @throws DukeException If file does not exist.
+     */
+    private static void generateFolder(File sampleFile) {
         if (!sampleFile.getParentFile().exists()) {
             sampleFile.getParentFile().mkdirs();
             sampleFile.mkdirs();
