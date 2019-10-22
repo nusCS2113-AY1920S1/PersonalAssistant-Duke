@@ -16,7 +16,7 @@ public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
     static final String ADD = "/add";
 
     /**
-     * Constructor which creates an instance of ParseAddRecurringExpenditure.
+     * Creates an instance of ParseAddRecurringExpenditure.
      *
      * @param data Raw user input data.
      * @param type Represents type of recurring expenditure to be added.

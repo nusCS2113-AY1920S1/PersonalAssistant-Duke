@@ -9,7 +9,7 @@ import owlmoney.ui.Ui;
 import java.util.Date;
 
 /**
- * AddGoalsCommand class which contains the execution function to add a new goal object.
+ * Executes AddGoalsCommand to add a new goal object.
  */
 public class AddGoalsCommand extends Command {
 

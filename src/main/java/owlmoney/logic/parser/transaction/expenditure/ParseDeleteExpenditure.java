@@ -14,7 +14,7 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteExpenditure.
+     * Creates an instance of ParseDeleteExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if first parameter is invalid.

@@ -13,7 +13,7 @@ public class ParseEditExpenditure extends ParseExpenditure {
     private static final String EDIT = "/edit";
 
     /**
-     * Constructor which creates an instance of ParseEditExpenditure.
+     * Creates an instance of ParseEditExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * ParseGoals class which is abstract where various goals parser objects inherit from given that it is abstract.
+ * Abstracts common Goals methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseGoals {
     HashMap<String, String> goalsParameters = new HashMap<>();

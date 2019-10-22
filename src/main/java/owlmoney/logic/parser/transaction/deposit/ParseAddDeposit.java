@@ -15,7 +15,7 @@ public class ParseAddDeposit extends ParseDeposit {
     private Date date;
 
     /**
-     * Constructor which creates an instance of ParseAddDeposit.
+     * Creates an instance of ParseAddDeposit.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.

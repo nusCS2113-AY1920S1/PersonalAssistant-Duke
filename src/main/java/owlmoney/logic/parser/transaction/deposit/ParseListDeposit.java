@@ -13,7 +13,7 @@ public class ParseListDeposit extends ParseDeposit {
     private static final String LIST = "/list";
 
     /**
-     * Constructor which creates an instance of ParseListDeposit.
+     * Creates an instance of ParseListDeposit.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters.

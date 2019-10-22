@@ -5,7 +5,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * ListGoalsCommand class which contains the execution function to list goals object.
+ * Executes ListGoalsCommand to list goals object.
  */
 public class ListGoalsCommand extends Command {
 

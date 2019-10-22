@@ -10,8 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseExpenditure class which is abstract where various recurring expenditure parser objects inherit from.
- * given that it is abstract.
+ * Abstracts common RecurringExpenditure methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseRecurringExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
@@ -30,7 +29,7 @@ public abstract class ParseRecurringExpenditure {
     static final String TRANSNO = "/transno";
 
     /**
-     * Constructor which creates an instance of any ParseRecurringExpenditure type object.
+     * Creates an instance of any ParseRecurringExpenditure type object.
      *
      * @param data Raw user input data.
      * @param type Represents type of recurring expenditure to be added.

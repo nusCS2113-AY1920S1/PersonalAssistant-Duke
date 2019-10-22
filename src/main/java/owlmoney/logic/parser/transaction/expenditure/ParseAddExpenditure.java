@@ -16,7 +16,7 @@ public class ParseAddExpenditure extends ParseExpenditure {
     private Date date;
 
     /**
-     * Constructor which creates an instance of ParseAddExpenditure.
+     * Creates an instance of ParseAddExpenditure.
      *
      * @param data Raw user input data.
      * @param type Represents type of expenditure to be added.

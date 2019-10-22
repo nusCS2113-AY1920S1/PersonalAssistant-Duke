@@ -13,7 +13,7 @@ public class ParseDeleteCard extends ParseCard {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteCard.
+     * Creates an instance of ParseDeleteCard.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if the first parameter is not valid.

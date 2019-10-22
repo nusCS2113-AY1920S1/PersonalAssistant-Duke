@@ -8,7 +8,7 @@ import owlmoney.ui.Ui;
 import java.util.Date;
 
 /**
- * EditGoalsCommand class which contains the execution function to edit goal object.
+ * Executes EditGoalsCommand to edit goal object.
  */
 public class EditGoalsCommand extends Command {
 
