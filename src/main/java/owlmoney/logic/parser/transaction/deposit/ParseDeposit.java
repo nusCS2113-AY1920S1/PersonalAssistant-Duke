@@ -14,7 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * Parses the inputs for a given deposit command.
+ * Abstracts common Deposit methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseDeposit {
     HashMap<String, String> depositParameters = new HashMap<String, String>();

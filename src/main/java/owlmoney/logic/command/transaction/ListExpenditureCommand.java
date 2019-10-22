@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes ListExpenditureCommand and prints the result.
+ * Executes ListExpenditureCommand to list expenditures.
  */
 public class ListExpenditureCommand extends Command {
     private final String accName;

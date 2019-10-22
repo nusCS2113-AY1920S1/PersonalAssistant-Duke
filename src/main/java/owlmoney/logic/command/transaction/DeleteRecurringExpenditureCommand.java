@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes DeleteRecurringExpenditureCommand and prints the result.
+ * Executes DeleteRecurringExpenditureCommand to delete a recurring expenditure.
  */
 public class DeleteRecurringExpenditureCommand extends Command {
     private final int expenditureNumber;

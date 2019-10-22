@@ -10,7 +10,7 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
 /**
- * Executes AddDepositCommand and prints the result.
+ * Executes AddDepositCommand to add a new deposit transaction.
  */
 public class AddDepositCommand extends Command {
 

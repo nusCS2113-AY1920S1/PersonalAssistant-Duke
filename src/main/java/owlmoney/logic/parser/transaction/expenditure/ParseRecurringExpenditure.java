@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * Parses the inputs for a given recurring expenditure command.
+ * Abstracts common RecurringExpenditure methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseRecurringExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
@@ -140,6 +140,7 @@ public abstract class ParseRecurringExpenditure {
 
     /**
      * Gets the command to be executed.
+     *
      * @return Command to be executed.
      */
     public abstract Command getCommand();

@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * Executes EditSavingsCommand and prints the result.
+ * Executes EditSavingsCommand to edit a saving object.
  */
 public class EditSavingsCommand extends Command {
     private final String name;

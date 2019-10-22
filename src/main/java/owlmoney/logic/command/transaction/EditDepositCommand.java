@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes EditDepositCommand and prints the result.
+ * Executes EditDepositCommand to edit a deposit transaction.
  */
 public class EditDepositCommand extends Command {
     private final String accName;
@@ -17,7 +17,7 @@ public class EditDepositCommand extends Command {
     private final int index;
 
     /**
-     * Constructor to create an instance of EditDepositCommand.
+     * Creates an instance of EditDepositCommand.
      *
      * @param name        Bank account name.
      * @param amount      New deposit amount if any.

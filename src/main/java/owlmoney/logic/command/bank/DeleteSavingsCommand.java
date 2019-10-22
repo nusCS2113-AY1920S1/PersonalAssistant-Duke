@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * Executes DeleteSavingsCommand and prints the result.
+ * Executes DeleteSavingsCommand to delete a saving object.
  */
 public class DeleteSavingsCommand extends Command {
     private final String bankName;

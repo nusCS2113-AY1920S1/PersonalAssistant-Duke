@@ -11,7 +11,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * Executes AddExpenditureCommand and prints the result.
+ * Executes AddExpenditureCommand to add an expenditure transaction.
  */
 public class AddExpenditureCommand extends Command {
 

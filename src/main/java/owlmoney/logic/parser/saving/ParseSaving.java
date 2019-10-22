@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * Parses the inputs for a given saving command.
+ * Abstracts common Savings methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseSaving {
     HashMap<String, String> savingsParameters = new HashMap<String, String>();

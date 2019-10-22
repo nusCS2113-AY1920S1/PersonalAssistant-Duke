@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes ListDepositCommand and prints the result.
+ * Executes ListDepositCommand to list deposits.
  */
 public class ListDepositCommand extends Command {
     private final String accName;

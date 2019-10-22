@@ -39,7 +39,7 @@ public class ParseEditCard extends ParseCard {
                 checkName(value);
             }
             if (LIMIT.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkLimist(value);
+                checkLimit(value);
                 changeCounter++;
             }
             if (REBATE.equals(key) && !(value.isEmpty() || value.isBlank())) {

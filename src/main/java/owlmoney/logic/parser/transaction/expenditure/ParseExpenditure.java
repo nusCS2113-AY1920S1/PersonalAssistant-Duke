@@ -14,7 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * Parses the inputs for a given expenditure command.
+ * Abstracts common Expenditure methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();

@@ -11,7 +11,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes AddRecurringExpenditureCommand and prints the result.
+ * Executes AddRecurringExpenditureCommand to add a recurring expenditure transaction.
  */
 public class AddRecurringExpenditureCommand extends Command {
     private final String accName;

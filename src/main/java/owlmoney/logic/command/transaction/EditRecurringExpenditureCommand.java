@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes EditRecurringExpenditureCommand and prints the result.
+ * Executes EditRecurringExpenditureCommand to edit a recurring expenditure transaction.
  */
 public class EditRecurringExpenditureCommand extends Command {
 

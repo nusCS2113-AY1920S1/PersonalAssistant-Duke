@@ -91,7 +91,7 @@ public class Ui {
     }
 
     /**
-     * Prints bank header.
+     * Prints the bank header.
      */
     public void printBankHeader() {
         System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", ITEMNO, ACCNAME, ACCTYPE, CURRAMOUNT, INCOME);
@@ -126,7 +126,7 @@ public class Ui {
     }
 
     /**
-     * Prints goal header.
+     * Prints the goal header.
      */
     public void printGoalHeader() {
         System.out.printf("%-20s %-15s %-20s %-20s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALDATE);
@@ -148,7 +148,7 @@ public class Ui {
     }
 
     /**
-     * Prints bond header.
+     * Prints the bond header.
      */
     public void printBondHeader() {
         System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,

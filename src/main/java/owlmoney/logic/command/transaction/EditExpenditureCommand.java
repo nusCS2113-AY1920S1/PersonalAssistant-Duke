@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes EditExpenditureCommand and prints the result.
+ * Executes EditExpenditureCommand to edit an expenditure transaction.
  */
 public class EditExpenditureCommand extends Command {
 
@@ -21,7 +21,7 @@ public class EditExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Construction to create an instance of EditExpenditureCommand.
+     * Creates an instance of EditExpenditureCommand.
      *
      * @param name        Bank account name.
      * @param amount      New amount of expenditure if any.

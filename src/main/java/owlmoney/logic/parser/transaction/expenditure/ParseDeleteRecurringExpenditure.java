@@ -7,7 +7,7 @@ import owlmoney.logic.command.transaction.DeleteRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Parses the inputs for deleting a recurring expenditure.
+ * Represents the parsing of inputs for deleting a recurring expenditure.
  */
 public class ParseDeleteRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String DELETE = "/delete";

@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes DeleteDepositCommand and prints the result.
+ * Executes DeleteDepositCommand to delete a deposit transaction.
  */
 public class DeleteDepositCommand extends Command {
     private final int expNumber;

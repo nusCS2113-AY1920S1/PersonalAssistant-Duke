@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Executes DeleteExpenditureCommand and prints the result.
+ * Executes DeleteExpenditureCommand to delete an expenditure.
  */
 public class DeleteExpenditureCommand extends Command {
     private final int expNumber;

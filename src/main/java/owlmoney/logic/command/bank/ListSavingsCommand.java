@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * Executes ListSavingsCommand and prints the result.
+ * Executes ListSavingsCommand to list saving objects.
  */
 public class ListSavingsCommand extends Command {
     private static final String SAVING = "saving";
