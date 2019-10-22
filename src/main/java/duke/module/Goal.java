@@ -34,22 +34,18 @@ public class Goal {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         String message = "";
-        boolean hasGoal = false;
         for (Date d : goals.keySet()) {
             if (d.equals(today)) {
-                if (!goals.get(d).isEmpty()) {
-                    hasGoal = true;
+                if (goals.get(d).isEmpty()) {
+                    return "There is no goal of the day";
+                } else {
                     for (String str : goals.get(d)) {
                         message += str + "\n";
                     }
                 }
             }
         }
-        if (!hasGoal) {
-            return "There is no goal of the day";
-        } else {
-            return message;
-        }
+        return message;
     }
 
     /**
