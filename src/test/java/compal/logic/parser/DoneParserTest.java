@@ -1,24 +1,15 @@
 package compal.logic.parser;
 
 
-import compal.logic.command.DoneCommand;
-import compal.logic.command.exceptions.CommandException;
-import compal.model.tasks.Deadline;
-import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import compal.storage.TaskStorageManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static compal.logic.parser.CommandParser.MESSAGE_MISSING_INPUT;
 import static compal.logic.parser.CommandParser.MESSAGE_MISSING_TOKEN;
 
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static compal.model.tasks.Task.Priority.high;
-
 
 class DoneParserTest {
     private DoneParser parser = new DoneParser();

@@ -1,7 +1,6 @@
 package compal.logic.command;
 
 import compal.logic.command.exceptions.CommandException;
-import compal.model.tasks.Deadline;
 import compal.model.tasks.TaskList;
 
 //@@author LTPZ
