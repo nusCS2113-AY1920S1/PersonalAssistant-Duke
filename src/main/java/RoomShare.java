@@ -4,9 +4,6 @@ import Model_Classes.*;
 import Operations.*;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Main class of the RoomShare program.
@@ -20,6 +17,7 @@ public class RoomShare {
     private TempDeleteList tempDeleteList;
     private TaskCreator taskCreator;
     private Help help;
+    private ProgressBar pg;
 
 
     /**
@@ -46,12 +44,14 @@ public class RoomShare {
             ui.showChangeInTaskList();
             taskList.list();
         }
+        pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
+        pg.showBar();
     }
 
     /**
      * Deals with the operation flow of Duke.
      */
-    public void run() {
+    public void run() throws RoomShareException {
         boolean isExit = false;
         while (!isExit) {
             String command = parser.getCommand();
@@ -63,8 +63,9 @@ public class RoomShare {
             }
             switch (type) {
             case help:
+                help.helpCommandList();
                 help.showHelp(parser.getCommandLine());
-                break;
+            break;
 
             case list:
                 ui.showList();
@@ -73,7 +74,9 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showWriteError();
                 }
-                break;
+                pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
+                pg.showBar();
+            break;
 
             case bye:
                 isExit = true;
@@ -104,7 +107,7 @@ public class RoomShare {
                 }
                 break;
 
-             case restore:
+            case restore:
                 int restoreIndex = parser.getIndex();
                 tempDeleteList.restore(restoreIndex, taskList);
                 break;
@@ -132,12 +135,20 @@ public class RoomShare {
                 break;
 
             case add:
-                String input = parser.getCommandLine();
-                taskCreator = new TaskCreator();
-                taskList.add(taskCreator.create(input));
-                ui.showAdd();
+                try {
+                    String input = parser.getCommandLine();
+                    taskCreator = new TaskCreator();
+                    if(!(CheckAnomaly.checkTask((taskCreator.create(input))))) {
+                        taskList.add(taskCreator.create(input));
+                        ui.showAdd();
+                    } else {
+                        throw new RoomShareException(ExceptionType.timeClash);
+                    }
+                } catch (RoomShareException e) {
+                    ui.showWriteError();
+                }
                 break;
-
+                
             case snooze :
                 try {
                     int index = parser.getIndex();
@@ -160,6 +171,16 @@ public class RoomShare {
                 int secondIndex = parser.getIndex();
                 ui.showReordering();
                 taskList.reorder(firstIndex, secondIndex);
+                break;
+
+            case subtask:
+                int index = parser.getIndexSubtask();
+                String subtasks = parser.getCommandLine();
+                if( TaskList.currentList().get(index) instanceof Assignment ) {
+                    ((Assignment) TaskList.currentList().get(index)).setSubTasks(subtasks);
+                } else {
+                    throw new RoomShareException(ExceptionType.subTask);
+                }
                 break;
 
             default:

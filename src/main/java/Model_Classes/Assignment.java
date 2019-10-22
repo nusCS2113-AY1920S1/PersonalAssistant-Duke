@@ -1,20 +1,17 @@
 package Model_Classes;
 
-
-import Enums.Priority;
-import Enums.TimeUnit;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+
+
 
 /**
  * An object class representing types of tasks with deadlines.
  * Stores the description and when the task should be done by.
  */
 public class Assignment extends Task {
-    private Date by;
-    private boolean isFixedDuration;
-    private String duration;
-    private TimeUnit timeUnit;
+    private ArrayList<String> subTasks;
     /**
      * Constructor for the Deadline object.
      * Takes in inputs for description and date/time the tasks should be done by.
@@ -22,49 +19,22 @@ public class Assignment extends Task {
      * @param by The time the tasks should be done by.
      */
     public Assignment (String description, Date by) {
-        super(description);
-        this.by = by;
-        this.isFixedDuration = false;
-    }
-
-    public Assignment (String description, String duration, TimeUnit unit) {
-        super(description);
-        this.duration = duration;
-        this.timeUnit = unit;
-        this.isFixedDuration = true;
-    }
-
-
-   
-    public void snoozeMonth(int amount) {
-        this.by.setMonth(this.by.getMonth() + amount);;
+        super(description, by);
     }
 
     /**
-     * Snoozes the Event by set amount of days
-     * @param amount number of days to snooze
+     * Takes in a String, splits it by "," and sets each new String as a subtask of current Task
+     * @param input String containing subtasks separated by ","
      */
-    public void snoozeDay(int amount) {
-        this.by.setDate(this.by.getDate() + amount);;
+    public void setSubTasks(String input) {
+        subTasks = new ArrayList<>(Arrays.asList(input.split(",")));
     }
-
 
     /**
-     * Snoozes the Event by set amount of hours
-     * @param amount number of hours to snooze
+     * Returns the ArrayList containing the Assignment's subtasks
+     * @return ArrayList<String> subtasks.
      */
-    public void snoozeHour(int amount){
-        this.by.setHours(this.by.getHours() + amount);
-    }
-
-
-    /**
-     * Snoozes the Event by set amount of hours
-     * @param amount number of minutes to snooze
-     */
-    public void snoozeMinute(int amount){
-        this.by.setMinutes(this.by.getMinutes() + amount);
-    }
+    public ArrayList<String> getSubTasks() { return subTasks; }
 
     /**
      * Returns the full description including the deadline of the task.
@@ -72,27 +42,6 @@ public class Assignment extends Task {
      */
     @Override
     public String toString() {
-        if (isFixedDuration) {
-            return "[A]" + super.toString() + " (in: " + duration + " " + timeUnit.toString() + ")";
-        } else {
-            return "[A]" + super.toString() + " (by: " + by + ")";
-        }
+        return "[A]" + super.toString() + " (by: " + super.getDate() + ")";
     }
-
-    public boolean isFixedDuration() {
-        return isFixedDuration;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
-    }
-
-    public Date getBy() {
-        return by;
-    }
-
 }
