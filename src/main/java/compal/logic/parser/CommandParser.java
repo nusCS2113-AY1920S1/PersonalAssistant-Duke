@@ -32,6 +32,7 @@ public interface CommandParser {
     String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
+    String TOKEN_DESCRIPTION = "/description";
     String TOKEN_START_TIME = "/start";
     String TOKEN_FINAL_DATE = "/final-date";
     char TOKEN_SLASH_CHAR = '/';
@@ -363,6 +364,7 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Final date of iteration in the form of a String
      * @throws ParserException if final date is not entered after the /final-date token
+     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenFinalDate(String restOfInput) throws ParserException {
         int startPoint = restOfInput.indexOf(TOKEN_FINAL_DATE);

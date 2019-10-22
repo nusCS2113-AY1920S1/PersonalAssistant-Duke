@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+//@@author jaedonkey
 /**
  * Represents file used to store COMPal.
  */
