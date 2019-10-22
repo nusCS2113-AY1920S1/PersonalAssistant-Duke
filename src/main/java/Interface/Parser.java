@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Deals with the input of the user and tries to understand the
@@ -18,12 +20,9 @@ public class Parser {
     private static String[] split1;
     private static String[] split2;
     private static String[] split3;
-    private static String[] arr;
-    private static String[] arr1;
-    private static String[] arr2;
-    private static String[] arr3;
-    private static String[] arr4;
+    private static String[] split4;
     private static LookupTable LT;
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
     static {
         try {
@@ -60,6 +59,7 @@ public class Parser {
                         throw new DukeException("\u2639" + " OOPS!!! Please enter name of list");
                     }
                 } catch (StringIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter list as follows:\n" +
                             "list name_of_list_to_view\n" +
                             "For example: list todo");
@@ -104,6 +104,7 @@ public class Parser {
                     String endTimeString = timeFormat.format(endTime);
                     return new AddCommand(new Event(split[0].trim(), dateString, startTimeString, endTimeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
                             "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                             "For example: add/e CS1231 project meeting /at 1/1/2020 from 1500 to 1700");
@@ -113,41 +114,42 @@ public class Parser {
                     String activity = fullCommand.trim().substring(7);
                     String startWeekDate;
                     String endWeekDate;
-                    arr = activity.split("/start"); //arr[0] is " module_code description", arr[1] is "date to date from time to time"
-                    if (arr[0].trim().isEmpty()) {
+                    split = activity.split("/start"); //split[0] is " module_code description", split[1] is "date to date from time to time"
+                    if (split[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-                    arr1 = arr[1].split("/from"); //arr1[0] is "date to date" or "week X mon to week X mon", arr1[1] is "time to time"
-                    arr3 = arr1[0].split("/to"); //arr3[0] is (start) "date", arr3[1] is (end) "date"
-                    arr4 = arr3[0].trim().split(" "); //split the start date
+                    split1 = split[1].split("/from"); //split1[0] is "date to date" or "week X mon to week X mon", split1[1] is "time to time"
+                    split3 = split1[0].split("/to"); //split3[0] is (start) "date", split3[1] is (end) "date"
+                    split4 = split3[0].trim().split(" "); //split the start date
                     //recess week mon / week 3 mon / exam week mon / reading week tue
-                    startWeekDate = arr4[0].trim();
+                    startWeekDate = split4[0].trim();
                     if (startWeekDate.equalsIgnoreCase("reading") || startWeekDate.equalsIgnoreCase("exam")
                             || startWeekDate.equalsIgnoreCase("week") || startWeekDate.equalsIgnoreCase("recess")) {
-                        startWeekDate = LT.getDate(arr3[0].trim());
+                        startWeekDate = LT.getDate(split3[0].trim());
                     } else {
-                        startWeekDate = arr3[0].trim();
+                        startWeekDate = split3[0].trim();
                     }
-                    arr4 = arr3[1].trim().split(" "); //split the end date
-                    endWeekDate = arr4[0].trim();
+                    split4 = split3[1].trim().split(" "); //split the end date
+                    endWeekDate = split4[0].trim();
                     if (endWeekDate.equalsIgnoreCase("reading") || endWeekDate.equalsIgnoreCase("exam")
                             || endWeekDate.equalsIgnoreCase("week") || endWeekDate.equalsIgnoreCase("recess")) {
-                        endWeekDate = LT.getDate(arr3[1].trim());
+                        endWeekDate = LT.getDate(split3[1].trim());
                     } else {
-                        endWeekDate = arr3[1].trim();
+                        endWeekDate = split3[1].trim();
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
                     Date startDate = formatter.parse(startWeekDate);
                     Date endDate = formatter.parse(endWeekDate);
-                    arr2 = arr1[1].split("/to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                    split2 = split1[1].split("/to"); //split2[0] is (start) "time", split2[1] is (end) "time"
                     SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
-                    Date startTime = formatter1.parse(arr2[0].trim());
-                    Date endTime = formatter1.parse(arr2[1].trim());
+                    Date startTime = formatter1.parse(split2[0].trim());
+                    Date endTime = formatter1.parse(split2[1].trim());
                     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String startTimeString = timeFormat.format(startTime);
                     String endTimeString = timeFormat.format(endTime);
-                    return new RecurringCommand(arr[0].trim(),startDate, endDate, startTimeString, endTimeString);
+                    return new RecurringCommand(split[0].trim(),startDate, endDate, startTimeString, endTimeString);
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter recurring event as follows:\n" +
                             "recur/e modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy from HHmm to HHmm\n" +
                             "For example: recur/e CS1231 project meeting /start 1/10/2019 to 15/11/2019 from 1500 to 1700");
@@ -182,6 +184,7 @@ public class Parser {
                     String endTimeString = timeFormat.format(endTime);
                     return new DeleteCommand("event",new Event(split[0].trim(), dateString, startTimeString, endTimeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
                             "delete/e mod_code name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                             "or delete/e mod_code name_of_event /at week x day from HHmm to HHmm\n");
@@ -221,19 +224,20 @@ public class Parser {
                         weekDate = LT.getDate(weekDate) + " " + time;
                         time = split1[1].substring(split1[1].length()- 4);
                         reminderDate = LT.getDate(reminderDate) + " " + time;
-                    }else{
+                    } else {
                         weekDate = split1[0];
                         reminderDate = split1[1];
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date dateOfTask = formatter.parse(weekDate);
                     Date dateOfReminder = formatter.parse(reminderDate);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
                     String dateString = dateFormat.format(dateOfTask);
                     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String timeString = timeFormat.format(dateOfTask);
                     return new RemindCommand(new Deadline(description, dateString, timeString), dateOfReminder, set);
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter remind as follows:\n" +
                             "remind/(set/rm) mod_code description /by week n.o day time /to week n.o day time\n" +
                             "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /to week 9 thu 1500");
@@ -265,6 +269,7 @@ public class Parser {
                     return new DeleteCommand("deadline",new Deadline(split[0].trim(), dateString, timeString));
 
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
                             "delete/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                             "or delete/d mod_code name_of_event /by week x day HHmm\n");
@@ -289,12 +294,13 @@ public class Parser {
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date date = formatter.parse(weekDate);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
                     String dateString = dateFormat.format(date);
                     SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
                     String timeString = timeFormat.format(date);
                     return new AddCommand(new Deadline(split[0].trim(), dateString, timeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                             "or add/d mod_code name_of_event /by week x day HHmm\n");
@@ -336,6 +342,7 @@ public class Parser {
                         return new SnoozeCommand(index, dateString, startTimeString, endTimeString);
                     }
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException(" OOPS!!! Please enter snooze as follows respectively:\n" +
                             "To snooze deadlines: snooze deadline index /to dd/MM/yyyy HHmm\n" +
                             "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
@@ -366,6 +373,7 @@ public class Parser {
                     System.out.println("start date: " + startDate + " Current date: " + currentDate);
                     return new DoWithinPeriodTasksCommand(taskDescription, startDate, endDate, isValid);
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
@@ -374,6 +382,7 @@ public class Parser {
             }
 
         } catch (StringIndexOutOfBoundsException e) {
+            LOGGER.log(Level.INFO, e.toString(), e);
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

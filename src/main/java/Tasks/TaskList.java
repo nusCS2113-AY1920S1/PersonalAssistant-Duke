@@ -55,10 +55,6 @@ public class TaskList {
         }
         this.map.get(task.getModCode()).get(task.getDate()).add(task);
     }
-    //Do not use this
-    public void removeTask(int index){
-        this.list.remove(index);
-    }
 
     public void removeTask(Task task) {
         for(Task taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
@@ -76,11 +72,7 @@ public class TaskList {
     public String taskToString(int index){
         return list.get(index).toString();
     }
-    //Do not use this: Use setDone method in Task
-    public void markAsDone(int index){
-        this.list.get(index).setDone(true);
-    }
-    //Use the getArrayList method then arrayList.size()
+
     public int taskListSize(){
         return list.size();
     }
@@ -88,9 +80,15 @@ public class TaskList {
     public void setReminder(Task task, String time, boolean reminder){
         for (Task taskInList : this.map.get(task.getModCode()).get(task.getDate())) {
             if (taskInList.getDescription().equals(task.getDescription())) {
-                taskInList.setRemindTime(time);
-                taskInList.setReminder(reminder);
-                break;
+                if (reminder) {
+                    taskInList.setRemindTime(time);
+                    taskInList.setReminder(true);
+                    break;
+                } else {
+                    taskInList.setRemindTime("");
+                    taskInList.setReminder(false);
+                    break;
+                }
             }
         }
     }
