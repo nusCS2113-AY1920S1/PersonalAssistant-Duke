@@ -79,12 +79,12 @@ public class Duke {
     public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
         System.out.println("stuck here1");
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.contains(COMMAND_ADD_RECIPE_TITLE)) {
+        if (userInput.contains(COMMAND_EDIT_RECIPE)) {
             System.out.println("stuck here2");
-            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_RECIPE_TITLE)) {
+            if (userInput.trim().substring(0, 9).equals(COMMAND_EDIT_RECIPE)) {
                 System.out.println("stuck here3");
-                Command<RecipeTitleList, Ui, RecipeTitleStorage> command = Parser.parseRecipeTitle(userInput);
-                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+                Command<RecipeList, Ui, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, ui, ui, recipeStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 System.out.println("stuck here4");
@@ -94,8 +94,8 @@ public class Duke {
             System.out.println("stuck here5");
             if (userInput.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
                 System.out.println("stuck here6");
-                Command<RecipeList, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, ui, recipeStorage);
+                Command<RecipeList, Ui, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, ui, ui, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -105,8 +105,8 @@ public class Duke {
             System.out.println("stuck here add recipe ingredient");
             if (userInput.trim().substring(0, 21).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
                 System.out.println("stuck here add recipe ingredient 1");
-                Command<RecipeIngredientList, Ui, RecipeIngredientStorage> command = Parser.parseRecipeIngredient(userInput);
-                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+                Command<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> command = Parser.parseRecipeIngredient(userInput);
+                return command.execute(recipeIngredientList, recipeList, recipeIngredientStorage, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -115,8 +115,8 @@ public class Duke {
         } else if (userInput.contains(COMMAND_DELETE_RECIPE)) {
             if (userInput.trim().substring(0, 12).equals(COMMAND_DELETE_RECIPE)) {
                 System.out.println("stuck here6");
-                Command<RecipeList, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, ui, recipeStorage);
+                Command<RecipeList, Ui, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, ui, ui, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -126,8 +126,8 @@ public class Duke {
             System.out.println("stuck here list all recipes 100");
             if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
                 System.out.println("stuck here list all recipes 101");
-                Command<RecipeList, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, ui, recipeStorage);
+                Command<RecipeList, Ui, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
+                return command.execute(recipeList, ui, ui, recipeStorage);
             } else {
                 System.out.println("stuck here7");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
@@ -159,8 +159,8 @@ public class Duke {
             System.out.println("stuck here33");
             if (userInput.trim().substring(0, 5).equals(COMMAND_DELETE_RECIPE_TITLE)) {
                 System.out.println("stuck here34");
-                Command<RecipeTitleList, Ui, RecipeTitleStorage> command = Parser.parseRecipeTitle(userInput);
-                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+                Command<RecipeTitleList, Ui, Ui, RecipeTitleStorage> command = Parser.parseRecipeTitle(userInput);
+                return command.execute(recipeTitleList, ui, ui, recipeTitleStorage);
             } else {
                 System.out.println("stuck here35");
                 arrayList.add(ERROR_MESSAGE_RANDOM);

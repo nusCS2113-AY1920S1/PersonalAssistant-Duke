@@ -60,4 +60,16 @@ public class RecipeIngredientList {
     public ArrayList<RecipeIngredient> getRecipeIngredientList() {
         return recipeIngredientList;
     }
+
+    public String toSaveString() {
+        String joinedString = "";
+        if (recipeIngredientList.isEmpty()) {
+            joinedString = "No required ingredient.";
+        }
+        for (RecipeIngredient recipeIngredient : recipeIngredientList) {
+            String.join(recipeIngredient.toSaveString(), joinedString);
+            String.join(" | ", joinedString);
+        }
+        return joinedString;
+    }
 }

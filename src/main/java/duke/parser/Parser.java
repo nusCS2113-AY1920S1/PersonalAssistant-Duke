@@ -37,25 +37,23 @@ public class Parser {
         }
     }
 
-    public static Command<RecipeIngredientList, Ui, RecipeIngredientStorage> parseRecipeIngredient(String input) {
+    public static Command<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> parseRecipeIngredient(String input) {
         return new AddRecipeIngredientCommand(input);
     }
 
-    public static Command<RecipeTitleList, Ui, RecipeTitleStorage> parseRecipeTitle(String input) {
-        if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
-            return new AddRecipeTitleCommand(input);
-        } else {
-            return new DeleteRecipeTitleCommand(input);
-        }
+    public static Command<RecipeTitleList, Ui, Ui, RecipeTitleStorage> parseRecipeTitle(String input) {
+        return new DeleteRecipeTitleCommand(input);
     }
 
-    public static Command<RecipeList, Ui, RecipeStorage> parseRecipe(String input) {
+    public static Command<RecipeList, Ui, Ui, RecipeStorage> parseRecipe(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             return new AddRecipeCommand(input);
 //        } else if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
 //            return new AddRecipeIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
             return new DeleteRecipeCommand(input);
+        } else if (input.trim().contains(COMMAND_EDIT_RECIPE)) {
+            return new EditRecipeCommand(input);
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);

@@ -17,6 +17,10 @@ public class RequiredIngredients {
         parseIngredientsFromStorage(requiredIngredientsFromStorage);
     }
 
+    public RequiredIngredients parseIngredient(String recipeIngredientName, String quantity, String unit, String additionalInfo) {
+        return this.requiredIngredientList.add(new Ingredient(recipeIngredientName, quantity, unit, additionalInfo));
+    }
+
     public void parseIngredientsFromStorage(String requiredIngredientsFromStorage) {
         String[] split = requiredIngredientsFromStorage.split("\\|", 2);
         String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;

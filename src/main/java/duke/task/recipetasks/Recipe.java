@@ -16,6 +16,14 @@ public class Recipe {
         this.feedback = new Feedback();
     }
 
+    public Recipe(String recipeTitle, RequiredIngredients requiredIngredient) {
+        this.recipeTitle = recipeTitle;
+        this.rating = Rating.UNRATED;
+        this.prepStep = new PrepStep();
+        this.requiredIngredients = requiredIngredient;
+        this.feedback = new Feedback();
+    }
+
     public Recipe(String recipeTitle, String rating, String prepStep, String requiredIngredients, String feedback) {
         this.recipeTitle = recipeTitle;
         this.rating = assignRating(rating);

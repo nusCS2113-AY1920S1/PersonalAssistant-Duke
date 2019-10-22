@@ -2,9 +2,10 @@ package duke.common;
 
 public class RecipeMessages {
     public static final String COMMAND_ADD_RECIPE = "addrecipe";
-    public static final String COMMAND_ADD_RECIPE_TITLE = "addrecipetitle";
     public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addtorecipeingredient";
+    public static final String COMMAND_EDIT_RECIPE = "editrecipe";
     public static final String COMMAND_LIST_RECIPES = "listallrecipes";
+
     public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
     public static final String COMMAND_DELETE_RECIPE = "deleterecipe";
     public static final String COMMAND_DELETE_RECIPE_INGREDIENT = "delri";
@@ -29,5 +30,4 @@ public class RecipeMessages {
     public static final String ERROR_MESSAGE_INVALID_RECIPE_FORMAT = "     Please input in this format:\n     Eg: addrecipeingredient garlic 100 grams.";
     public static final String ERROR_MESSAGE_RECIPE_ALREADY_EXISTS = "Sorry, the recipe you wish to add already exists.";
     public static final String ERROR_MESSAGE_RECIPE_LIST_IS_EMPTY = "The recipe list is already empty.";
-
 }

@@ -15,7 +15,7 @@ import static duke.common.RecipeMessages.MESSAGE_HERE_ARE_THE_RECIPES;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
+public class ListAllRecipeCommand extends Command<RecipeList, Ui, Ui, RecipeStorage> {
 
     /**
      * Constructor for class ListCommand.
@@ -32,7 +32,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
      */
 
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, Ui ui1, RecipeStorage recipeStorage) {
         System.out.println("went into execute list all recipes");
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {

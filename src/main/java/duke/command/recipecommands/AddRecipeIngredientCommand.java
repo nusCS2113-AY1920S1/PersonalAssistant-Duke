@@ -3,7 +3,9 @@ package duke.command.recipecommands;
 import duke.command.Command;
 import duke.list.recipelist.RecipeIngredientList;
 
+import duke.list.recipelist.RecipeList;
 import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -13,14 +15,14 @@ import static duke.common.InventoryMessages.*;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class AddRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, RecipeIngredientStorage> {
+public class AddRecipeIngredientCommand extends Command<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> {
 
     public AddRecipeIngredientCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws ParseException {
+    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, RecipeList recipeList, RecipeIngredientStorage recipeIngredientStorage, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
@@ -51,7 +53,9 @@ public class AddRecipeIngredientCommand extends Command<RecipeIngredientList, Ui
                         } else {
                             if (isParsable(quantity) && isKnownUnit(unit)) {
                                 recipeIngredientList.addRecipeIngredient(recipeIndex, recipeIngredientName, quantity, unit, additionalInfo);
+                                recipeList.addRecipeIngredient(recipeIndex, recipeIngredientName, quantity, unit, additionalInfo);
                                 recipeIngredientStorage.saveFile(recipeIngredientList);
+                                recipeStorage.saveFile(recipeList);
                                 int index = recipeIngredientList.getSize();
                                 arrayList.add(MESSAGE_ADDED_TO_INVENTORY);
                             } else if (!isParsable(quantity) && isKnownUnit(unit)) {

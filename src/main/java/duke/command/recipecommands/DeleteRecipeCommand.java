@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { // need to settle: if no such recipe is found, tell user.
+public class DeleteRecipeCommand extends Command<RecipeList, Ui, Ui, RecipeStorage> { // need to settle: if no such recipe is found, tell user.
 
     public DeleteRecipeCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws DukeException, ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, Ui ui1, RecipeStorage recipeStorage) throws DukeException, ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
