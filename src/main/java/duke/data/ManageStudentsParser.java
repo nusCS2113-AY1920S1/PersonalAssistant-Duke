@@ -5,7 +5,7 @@ import duke.sports.MyStudent;
 
 import java.util.Scanner;
 
-public class ManageStudentParser implements IParser {
+public class ManageStudentsParser implements IParser {
     String io;
     public ManageStudents students = new ManageStudents();
     @Override
@@ -80,9 +80,10 @@ public class ManageStudentParser implements IParser {
                 break;
 
             default:
-                System.out.println("(Add statement here?)");
-
-
+                System.out.println("Incorrect Command.");
         }
+//        Storage storage = new Storage();
+//        storage.updateStudentList(students.getStudentList());
+//        break;
     }
 }

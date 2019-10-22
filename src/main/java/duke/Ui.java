@@ -1,5 +1,6 @@
 package duke;
 
+import duke.data.ParseCommand;
 import duke.data.Parser;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
@@ -9,8 +10,34 @@ import duke.data.Storage;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.Scanner;
 
 public class Ui {
+    /**
+     * Declaring new Parser type.
+     */
+    private ParseCommand parser = new ParseCommand();
+
+    /**
+     * A method to run the program.
+     */
+    public void execute() {
+        Scanner sc = new Scanner(System.in);
+        welcome();
+        while (true) {
+            if (sc.hasNextLine()) {
+                String command = sc.nextLine();
+                if (command.equals("bye")) {
+                    goodbye();
+                    System.exit(0);
+                } else if (command.equals("home")) {
+                    mainMenu();
+                } else {
+                    parser.parseCommand(command);
+                }
+            }
+        }
+    }
 
     /**
      * This function prints out the welcome message of Duke.

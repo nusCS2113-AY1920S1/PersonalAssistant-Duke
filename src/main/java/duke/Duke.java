@@ -71,13 +71,12 @@ public class Duke extends Application {
     /**
      * This program runs the main duke program.
      *
-     * @param args                  expects array of string objects
-     * @throws  FileNotFoundException if Storage class cannot find files
-     * @throws  ParseException        upon loadSchedule error
+     * @param args expects array of string objects
      */
-    public static void main(final String[] args)
-        throws FileNotFoundException, ParseException {
-        new Duke().run();
+    public static void main(final String[] args) {
+        Ui ui = new Ui();
+        ui.execute();
+//        new Duke().run();
     }
 
     /**
