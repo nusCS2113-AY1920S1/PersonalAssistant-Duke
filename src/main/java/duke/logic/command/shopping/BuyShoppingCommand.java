@@ -61,6 +61,6 @@ public class BuyShoppingCommand extends ShoppingCommand {
         model.updateFilteredInventoryList(Model.PREDICATE_SHOW_ALL_INVENTORY);
         model.updateFilteredShoppingList(Model.PREDICATE_SHOW_ALL_SHOPPING);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, CommandResult.DisplayedPage.INVENTORY));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, CommandResult.DisplayedPage.SHOPPING));
     }
 }

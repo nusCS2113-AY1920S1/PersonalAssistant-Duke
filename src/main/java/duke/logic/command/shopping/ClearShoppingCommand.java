@@ -25,6 +25,6 @@ public class ClearShoppingCommand extends ShoppingCommand {
         model.clearShoppingList(emptyList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS),
-                CommandResult.DisplayedPage.INVENTORY);
+                CommandResult.DisplayedPage.SHOPPING);
     }
 }

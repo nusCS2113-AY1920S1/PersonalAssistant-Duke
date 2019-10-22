@@ -44,6 +44,7 @@ public class CommandResult {
         PRODUCT,
         ORDER,
         INVENTORY,
+        SHOPPING,
         SALE,
         SAME;
 
