@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
+import wallet.model.record.Category;
 import wallet.model.record.Expense;
 
 import java.io.ByteArrayInputStream;
@@ -30,8 +31,8 @@ public class SetBudgetTest {
         LocalDate localDate1 = LocalDate.parse(date1, formatter);
         LocalDate localDate2 = LocalDate.parse(date2, formatter);
 
-        testWallet.getExpenseList().addExpense(new Expense("Lunch", localDate1, 3, "Food", false, null));
-        testWallet.getExpenseList().addExpense(new Expense("Dinner", localDate2, 5, "Food", false, null));
+        testWallet.getExpenseList().addExpense(new Expense("Lunch", localDate1, 3, Category.FOOD, false, null));
+        testWallet.getExpenseList().addExpense(new Expense("Dinner", localDate2, 5, Category.FOOD, false, null));
         testWallet.getBudgetList().addBudget(new Budget(100, 10, 2019));
     }
 
@@ -88,7 +89,7 @@ public class SetBudgetTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date1 = "10/10/2019";
         LocalDate localDate1 = LocalDate.parse(date1, formatter);
-        Expense expense = new Expense("Breakfast", localDate1, 10, "Food", false, null);
+        Expense expense = new Expense("Breakfast", localDate1, 10, Category.FOOD, false, null);
         AddCommand addCommand = new AddCommand(expense);
         addCommand.execute(testWallet);
         for (Budget b : testWallet.getBudgetList().getBudgetList()) {

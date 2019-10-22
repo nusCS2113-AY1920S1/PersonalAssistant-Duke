@@ -12,12 +12,13 @@ import java.util.ArrayList;
 
 public class ExpenseStorage extends Storage<Expense> {
     public static final String DEFAULT_STORAGE_FILEPATH_EXPENSE = "./data/expense.txt";
-    //@@author kyang96
+
     /**
      * Loads the expenses from expense.txt into a temporary ArrayList of Expense objects.
      *
      * @return The ArrayList of Expense objects.
      */
+    //@@author kyang96
     @Override
     public ArrayList<Expense> loadFile() {
         ArrayList<Expense> expenseList = new ArrayList<>();

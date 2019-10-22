@@ -53,7 +53,8 @@ public class ListCommand extends Command {
 
         switch (record) {
         case "recurring":
-            wallet.getExpenseList().listRecurringExpense();
+            ArrayList<Expense> recList = LogicManager.getWallet().getExpenseList().getRecurringExpense();
+            Ui.printExpenseTable(recList);
             break;
 
         case "all":
@@ -79,7 +80,7 @@ public class ListCommand extends Command {
             //fallthrough
 
         case "expense":
-            ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
+            ArrayList<Expense> expenseList = wallet.getExpenseList().getExpenseList();
             Ui.printExpenseTable(expenseList);
             if (!isListAll) {
                 break;
