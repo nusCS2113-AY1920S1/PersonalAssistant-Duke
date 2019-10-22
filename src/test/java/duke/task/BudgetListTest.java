@@ -3,6 +3,8 @@ package duke.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+
+//@@author maxxyx96
 public class BudgetListTest {
     @Test
     void newBudgetListTest() {
@@ -32,3 +34,5 @@ public class BudgetListTest {
         assertEquals(0, budgetList.getBudget());
     }
 }
+//@@author
+
