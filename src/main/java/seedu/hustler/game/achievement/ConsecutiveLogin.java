@@ -73,7 +73,6 @@ public class ConsecutiveLogin extends Achievements {
      */
     private static final int GOLD_POINT = 15;
 
-
     /**
      * Initialise this achievement.
      * @param achievementLevel Achievement level of the achievement.
@@ -91,10 +90,9 @@ public class ConsecutiveLogin extends Achievements {
      * @return true if user logs in consecutively.
      */
     public static Boolean checkLogin() {
-
         LocalDateTime currentTime = LocalDateTime.now();
         long duration = Duration.between(storedDateTime,currentTime).toDays();
-        if(duration == 1) {
+        if (duration == 1) {
             consecutiveCheck = true;
         } else {
             consecutiveCheck = false;
@@ -109,7 +107,7 @@ public class ConsecutiveLogin extends Achievements {
     public static Boolean reset() {
         LocalDateTime currentTime = LocalDateTime.now();
         long duration = Duration.between(storedDateTime,currentTime).toMinutes();
-        if(duration > 1) {
+        if (duration > 1) {
             return true;
         } else {
             return false;
@@ -121,10 +119,10 @@ public class ConsecutiveLogin extends Achievements {
      * @return consecutive counts.
      */
     public static int updateCount() {
-        if(!checkLogin() && reset()) {
+        if (!checkLogin() && reset()) {
             consecutiveCount = 0;
-        } else if(checkLogin()) {
-            consecutiveCount ++;
+        } else if (checkLogin()) {
+            consecutiveCount++;
         }
         return consecutiveCount;
     }
@@ -135,9 +133,9 @@ public class ConsecutiveLogin extends Achievements {
      * @return Achievement level.
      */
     public static String updateAchievementLevel() {
-        if(consecutiveCount == 5) {
+        if (consecutiveCount == 5) {
             loginAchievementLevel = "\uD83E\uDD49 Bronze";
-        } else if(consecutiveCount == 10) {
+        } else if (consecutiveCount == 10) {
             loginAchievementLevel = "\uD83E\uDD48 Silver";
         } else if (consecutiveCount == 15) {
             loginAchievementLevel = "\uD83E\uDD47 Gold";
@@ -150,13 +148,13 @@ public class ConsecutiveLogin extends Achievements {
      * @return points attained from consecutive login.
      */
     public static int updatePoints() {
-        if(consecutiveCount == 5) {
+        if (consecutiveCount == 5) {
             loginPoints = BRONZE_POINT;
             totalPoints += loginPoints;
-        } else if(consecutiveCount == 10) {
+        } else if (consecutiveCount == 10) {
             totalPoints += loginPoints;
             loginPoints += SILVER_POINT;
-        } else if(consecutiveCount == 15) {
+        } else if (consecutiveCount == 15) {
             totalPoints += loginPoints;
             loginPoints += GOLD_POINT;
         }
@@ -177,21 +175,27 @@ public class ConsecutiveLogin extends Achievements {
      * @return description.
      */
     @Override
-    public String getDescription() { return this.description; }
+    public String getDescription() {
+        return this.description;
+    }
 
     /**
      * Retrieve information regarding the achievement.
      * @return information.
      */
     @Override
-    public String getInformation() { return this.information; }
+    public String getInformation() {
+        return this.information;
+    }
 
     /**
      * Retrieve current points from achievement.
      * @return points.
      */
     @Override
-    public int getPoints() { return points; }
+    public int getPoints() {
+        return points;
+    }
 
     /**
      * Update points gained from unlocking achievement.
@@ -208,7 +212,9 @@ public class ConsecutiveLogin extends Achievements {
      * @return true or false.
      */
     @Override
-    public Boolean checkLock() { return locked; }
+    public Boolean checkLock() {
+        return locked;
+    }
 
     /**
      * Unlocks achievement.

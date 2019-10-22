@@ -6,11 +6,11 @@ import seedu.hustler.game.shop.items.ShopItem;
  * The abstract class that all armor that the avatar yields inherits from.
  */
 public abstract class Armor extends ShopItem {
-
     /**
      * The defence increment of the armor.
      */
     private final int DEF_INCR;
+
     /**
      * The stamina increment of the armor.
      */
