@@ -169,6 +169,25 @@ class ProjectInputControllerTest {
         }
         expectedOutput = "1. Infinity War | Priority: 1 | Due: 22 Sep 2019 | Credit: 30 | State: TODO";
         assertEquals(expectedOutput,actualOutput);
+
+        simulatedUserInput = "edit task 1 c/20 p/2";
+        projectInputController.projectEditTask(project,simulatedUserInput);
+        actualOutput = "";
+        for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. Infinity War | Priority: 2 | Due: 22 Sep 2019 | Credit: 20 | State: TODO";
+        assertEquals(expectedOutput,actualOutput);
+
+        simulatedUserInput = "edit task 1 c/70 s/doing p/6 d/12/12/2020 t/End Game";
+        projectInputController.projectEditTask(project,simulatedUserInput);
+        actualOutput = "";
+        for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
+            actualOutput += message;
+        }
+        expectedOutput = "1. End Game | Priority: 6 | Due: 12 Dec 2020 | Credit: 70 | State: DOING";
+        assertEquals(expectedOutput,actualOutput);
+
     }
 
     @Test

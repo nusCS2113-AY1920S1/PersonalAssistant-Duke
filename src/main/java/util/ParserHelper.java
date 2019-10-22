@@ -97,22 +97,15 @@ public class ParserHelper {
                 break;
             }
         }
-        int indexOfNameFlag = input.indexOf("t/");
-        int indexOfPriorityFlag = input.indexOf("p/");
-        int indexOfDateFlag = input.indexOf("d/");
-        int indexOfCreditFlag = input.indexOf("c/");
-        int indexOfStateFlag = input.indexOf("s/");
 
-        if (indexOfPriorityFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfPriorityFlag - 1);
-        } else if (indexOfDateFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfDateFlag - 1);
-        } else if (indexOfCreditFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfCreditFlag - 1);
-        } else if (indexOfStateFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfStateFlag - 1);
-        } else {
-            newTaskName = input.substring(2);
+        int indexOfNameFlag = input.indexOf("t/");
+        if (indexOfNameFlag != -1) {
+            int indexOfAnotherFlag = input.substring(indexOfNameFlag+2).indexOf("/");
+            if (indexOfAnotherFlag != -1) {
+                newTaskName = input.substring(indexOfNameFlag+2, indexOfAnotherFlag);
+            } else {
+                newTaskName = input.substring(indexOfNameFlag+2);
+            }
         }
 
         newTask.add(newTaskName);
