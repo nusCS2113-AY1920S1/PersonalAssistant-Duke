@@ -31,6 +31,10 @@ and completed.
 [width="100%",cols="25%, <75%", options="header"]
 |=======================================================================
 | Revision Date | Summary of Changes
+| 23 October 2019   | Version 1.0: Added implementation design for Assignment Controller and Project functions
+| 22 October 2019   | Version 0.9: Updated Architecture Design
+| 15 October 2019   | Version 0.8: Updated the name of project from Duke to ArchDuke
+| 2 October 2019    | Version 0.7: Updated Prerequisites and removed unwanted lines
 | 30 September 2019 | Version 0.6: Added table of contents, preface and document history
 | 26 September 2019 | Version 0.5: Updated use cases for a cleaner look
 | 24 September 2019 | Version 0.4: Added Non-functional Requirements to DeveloperGuide
@@ -107,30 +111,38 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 == 2. Design
 
-// === 2.1. Architecture
+=== 2.1. Architecture Design
 
-// .Architecture Diagram
-// // image::ArchitectureDiagram.png[]
+.Architecture Diagram
+image::images/ArchDuke_Architecture.png[]
 
-// The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The Architecture Diagram given above explains the high-level design of ArchDuke. ArchDuke is based on the n-tier
+architecture design. Below is a quick overview of each component based on our Architecture.
 
-// `Main` talk about our main method here. (For reference only)
+Not included in the diagram is the `Main` program in the folder *_launcher_*. The Main program is responsible for
+initializing the `View` layer.
 
-// * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-// * At shut down: Shuts down the components and invokes cleanup method where necessary.
+* In our case, as ArchDuke is a command line program, `Main` will initialize `CLIView`.
 
-// *`Commons`* represents a collection of classes used by multiple other components.
-// The following class plays an important role at the architecture level:
+`Utility` represents a collection of classes used by multiple other components and can be accessed by all layers.
 
-// * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
+* `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
+* `ParserHelper` class: Used by all classes for user user input parsing
+* `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
+before a Response model is generated for the `View` layer.
+* `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
 
-// The rest of the App consists of four main components.
+The rest of the App consists of four main layers.
 
-// * *`UI`*: The UI of the App.
-// * *`Logic`*: The command executor.
-// * *`Model`*: Holds the data of the App in-memory.
-// * *`Storage`*: Reads data from, and writes data to, the hard disk.
+* `View` layer: The UI of ArchDuke. Responsible for printing everything that the user will see and reading inputs
+from the user.
+* `Controller` layer: Responsible for handling user inputs and sending them to the respective classes for parsing,
+cleaning, or object creation.
+* `Repository` layer: Responsible for holding data in-memory
+* `Data` layer: Responsible for saving and loading persistent data from hard disk.
 
+Each layer will be discussed in detail below.
 // Each of the four components
 
 // * Defines its _API_ in an `interface` with the same name as the Component.
@@ -151,35 +163,47 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 // The sections below give more details of each component.
 
-// [[Design-Ui]]
-// === 2.2. UI component
+=== 2.2. View Layer
+Our main UI Component is a class called CLIView. It is mainly responsible for reading the user input and displaying
+formatted messages to the user.
+
+When ArchDuke is running, CLIView repeatedly reads the user input line by line, and sends it to the parsing components
+(Controllers) to make sense of the input. Eventually, the controllers will retrieve the relevant messages and
+information for CLIView to display. Currently, the main CLIView is being called directly by the controllers to execute
+the commands by coordinating all other components.
 
 // .Structure of the UI Component
 // image::UiClassDiagram.png[]
 
-// *API* : link:{repoURL}/src/main/java/seedu/address/views.ui/Ui.java[`Ui.java`]
-
-// The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-// The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/views.ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-
-// The `UI` component,
-
-// * Executes user commands using the `Logic` component.
-// * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
-// [[Design-Logic]]
-// === 2.3. Logic component
+=== 2.3. Controller Layer
 
 // [[fig-LogicClassDiagram]]
 // .Structure of the Logic Component
 // image::LogicClassDiagram.png[]
-
 // *API* :
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-// [[Design-Model]]
-// === 2.4. Model component
+==== 2.3.1 ConsoleInputController
+
+==== 2.3.2 ProjectInputController
+
+==== 2.3.3 AssignmentController
+AssignmentController is a class which acts as a parser for commands regarding the assignment of tasks to group members.
+
+*Rationale for implementation*
+
+Before the implementation of AssignmentController, the parsing of assign commands was planned to be done within the
+ProjectInputController class. However, we realised that parsing for assignment commands would be extremely complex due
+to the potentially high number of arguments.
+
+* Example command: `assign task -i 1 2 -to 1 2 3 -rm 4 5`
+
+The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From the parsed input, task assignments can then be managed. Therefore, the AssignmentController was created for the following reasons:
+
+1. To ensure that these 3 parts of the input can be easily managed
+2. To isolate the assignment commands to avoid making the code in projectInputController too long
+
+=== 2.4. Repository layer
 
 // .Structure of the Model Component
 // image::ModelClassDiagram.png[]
@@ -198,8 +222,7 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 //  +
 // image:BetterModelClassDiagram.png[]
 
-// [[Design-Storage]]
-// === 2.5. Storage component
+=== 2.5. Data Layer
 
 // .Structure of the Storage Component
 // image::StorageClassDiagram.png[]
@@ -218,69 +241,42 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 //Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == 3. Implementation
+This section describes in detail on how certain features of ArchDuke are implemented. Most features are based on
+Create, Read, Update, Delete, also known as *CRUD* functions
 
-// This section describes some noteworthy details on how certain features are implemented.
+=== 3.1. CRUD functionality for Projects
+==== Implementation
 
-// tag::undoredo[]
-// === 3.1. [Proposed] Undo/Redo feature
-// ==== Proposed Implementation
+CRUD functions are facilitated by `ConsoleInputController`, `ProjectRepository` and `ProjectFactory`. It allows
+ArchDuke to be able to do some basic CRUD functions for a Project, namely only Creation, Reading and Deletion.
+`ConsoleInputController` will
+read the relevant
+commands from the `View` layer and call the relevant methods in `ProjectRepository`.
 
-// The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-// It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-// Additionally, it implements the following operations:
+It implements the following commands:
 
-// * `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-// * `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-// * `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `create -n PROJECT_NAME` -- Creation of a new Project
+* `list` --  Viewing all Projects that have been created
+* `delete -i PROJECT_INDEX` -- Delete a Project that has been created previously
 
-// These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `IRepository` interface as `addToRepo()`, `getAll()` and `deleteItem()`.
 
-// Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+[NOTE]
+However, in order to create a object, inputs sent to the `Repository` layer must be sent to a `Factory` class as the
+`Repository` layer is not responsible for the creation of Objects.
 
-// Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The example usage scenario below will explain in detail the data flow and how the program behaves at each step of
+CRUD functions with regards to a Project object.
 
-// image::UndoRedoState0.png[]
+Step 1)
 
-// Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2)
 
-// image::UndoRedoState1.png[]
+Step 3)
 
-// Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 4)
 
-// image::UndoRedoState2.png[]
-
-// [NOTE]
-// If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-// Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-// image::UndoRedoState3.png[]
-
-// [NOTE]
-// If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-// The following sequence diagram shows how the undo operation works:
-
-// image::UndoSequenceDiagram.png[]
-
-// NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-// The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-// [NOTE]
-// If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-// Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-// image::UndoRedoState4.png[]
-
-// Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-// image::UndoRedoState5.png[]
-
-// The following activity diagram summarizes what happens when a user executes a new command:
-
-// image::CommitActivityDiagram.png[]
+Step 5)
 
 // ==== Design Considerations
 
