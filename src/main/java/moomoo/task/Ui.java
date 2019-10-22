@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
@@ -73,7 +74,12 @@ public class Ui {
      * Prints out response from command.
      */
     public void showResponse() {
-        System.out.println(this.output);
+        try {
+            PrintStream out = new PrintStream(System.out, true, "UTF-8");
+            out.println(this.output);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         this.output = "";
     }
 

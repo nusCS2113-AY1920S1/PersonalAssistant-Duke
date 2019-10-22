@@ -118,7 +118,8 @@ public class BudgetCommand extends Command {
                 throw new MooMooException("You have not typed in a valid format. "
                         + " Please use budget set c/CATEGORY b/BUDGET.");
             }
-            ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+            //ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+            ui.setOutput(outputValue);
             storage.saveBudgetToFile(budget);
         } else if (input.startsWith("edit ")) {
             input = input.substring(5);
@@ -168,7 +169,8 @@ public class BudgetCommand extends Command {
                 throw new MooMooException("You have not typed in a valid format. "
                         + " Please use budget set c/CATEGORY b/BUDGET.");
             }
-            ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+            //ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+            ui.setOutput(outputValue);
             storage.saveBudgetToFile(budget);
         } else if (input.startsWith("list")) {
             if (input.length() == 4) {
@@ -209,7 +211,8 @@ public class BudgetCommand extends Command {
                     throw new MooMooException("You have not typed in a valid format. "
                             + "Please list down the categories using c/CATEGORY.");
                 }
-                ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+                //ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+                ui.setOutput(outputValue);
             }
         } else if (input.startsWith("savings ")) {
             input = input.substring(8);
@@ -248,11 +251,12 @@ public class BudgetCommand extends Command {
                 outputValue += viewSavings(budget, catList, startMonth, endMonth, "", null);
             }
 
-            if (outputValue.endsWith("\n")) {
-                ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
-            } else {
-                ui.setOutput(outputValue);
-            }
+//            if (outputValue.endsWith("\n")) {
+//                ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
+//            } else {
+//                ui.setOutput(outputValue);
+//            }
+            ui.setOutput(outputValue);
         } else {
             throw new MooMooException("There is only edit/set/list/savings sub command under budget.");
         }
@@ -570,6 +574,14 @@ public class BudgetCommand extends Command {
                 throw new MooMooException("The budget for " + iteratorCategory + " does not exist."
                         + "Please set it using budget set.");
             }
+            Category currentCat = null;
+            for (Category innerCat : catList.getCategoryList()) {
+                if (innerCat.toString().equals(iteratorCategory)) {
+                    currentCat = innerCat;
+                    break;
+                }
+            }
+            
             if ("".equals(endMonth)) {
                 outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
                         + " " + start.getYear() + " is: $"

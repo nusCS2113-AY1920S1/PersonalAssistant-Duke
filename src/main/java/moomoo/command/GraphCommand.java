@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class GraphCommand extends Command {
     private ArrayList<String> verticalAxis;
-    private final String fullBlock = "@";
-    private final String halfBlock = "#";
-    private final String topBorder = "$";
-    private final String bottomBorder = "%";
+    private final String fullBlock = "\u2588";
+    private final String halfBlock = "\u258c";
+    private final String topBorder = "\u252c";
+    private final String bottomBorder = "\u2534";
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";
@@ -38,6 +38,7 @@ public class GraphCommand extends Command {
         }
         input = input.substring(6);
         if ("total".equals(input)) {
+            catList.testPopulate();
             if (catList.size() == 0) {
                 throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
             }
