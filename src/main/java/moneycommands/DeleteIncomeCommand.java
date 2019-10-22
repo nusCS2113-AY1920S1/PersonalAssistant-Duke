@@ -51,7 +51,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
 
-        storage.markDeletedEntry("INC", "@", "#", serialNo);
+        storage.markDeletedEntry("INC", serialNo);
         account.getIncomeListTotal().remove(serialNo - 1);
     }
 
@@ -61,6 +61,6 @@ public class DeleteIncomeCommand extends MoneyCommand {
         storage.writeToFile(account);
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income listed\n");
+        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
     }
 }

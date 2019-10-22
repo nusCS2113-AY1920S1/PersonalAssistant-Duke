@@ -172,8 +172,7 @@ public class MoneyStorage {
         }
     }
 
-    public void markDeletedEntry(String type, String stringRead, String stringWrite,
-                                 int index) throws DukeException {
+    public void markDeletedEntry(String type, int index) throws DukeException {
         try {
             File tempFile = File.createTempFile("moneyAccountTemp", ".txt",
                     new File("data/"));
@@ -188,11 +187,9 @@ public class MoneyStorage {
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.startsWith(type) && !line.contains("#")) {
                     i--;
-                } else if (i != 0 && line.contains("#")) {
-                    continue;
                 }
                 if (line.startsWith(type) && i == 0) {
-                    line = line.replaceAll(stringRead, stringWrite);
+                    line = line.replaceAll("@", "#");
                 }
                 bufferedWriter.write(line + '\n');
             }
