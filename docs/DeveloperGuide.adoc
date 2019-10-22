@@ -142,6 +142,13 @@ The Ui component of the code is in charge of:
 
 == Implementation
 
+As of now, all commands entered by the user go through the following validation checks:
+
+. The autocorrect function takes in the user input, and determines if there are any typos present in the user input.
+* If autocorrectable typos are present, the program attempts to replace the erroneous text with the correct command from a predetermined set of words.
+* If no typos are present, or there exists a word that cannot be autocorrected, the command is returned as is to the parser.
+. This autocorrected command is then subjected to additional checks in the `*CommandParser` class (e.g AddCommandParser, EditCommandParser, etc.), which ensures that the command structure is correct.
+
 === User initialization
 
 User initialization personalises the program for each user to cater to their needs
@@ -166,6 +173,13 @@ The following step describes the flow of the initialisation:
 . The `Main` will continue on with the function.
 . On exit, `Main` will save the `User` data to `user.txt`
 
+==== Design considerations
+
+Problem 1: *How to store weight data to be displayed over time*
+
+*Solution 1 (current implementation): HashMap
+** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap. 
+
 === Add command
 
 The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
@@ -175,12 +189,8 @@ This section describes the implementation and design considerations involved in 
 ==== Current implementation
 Assuming that there are no preexisting default values assigned to meals, and the user inputs the `add` command `add hotcakes /calories 300`, the application processes the command through the following steps:
 
-. The `Main` class calls the parse function of the `Parser` class to parse the user input. During this stage, the following validation checks are carried out before parsing:
-.. The autocorrect function takes in the user input, and determines if there are any typos present in the user input.
-* If autocorrectable typos are present, the program attempts to replace the erroneous text with the correct command from a predetermined set of words.
-* If no typos are present, or there exists a word that cannot be autocorrected, the command is returned as is to the parser.
-.. This autocorrected command is then subjected to additional checks in the `AddItemCommandParser` class:
-* Ensures that the command structure is correct.
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
+
 . After parsing, the data is then used to create an instance of the `AddItemCommand` object, which is then returned to the `Main` function.
 . The `Main` function would then invoke the `AddItemCommand#execute()` function.
 . The `AddItemCommand#execute()` function then further invokes the `MealList#addStoredItem(...)` function, which stores the data in a `storedItems` object of type `HashMap<String, HashMap<String, Integer>>`, in the following format:
