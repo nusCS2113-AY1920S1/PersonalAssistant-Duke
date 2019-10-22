@@ -103,6 +103,11 @@ public class Task {
         }
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+        System.out.println(this + " description has been successfully updated");
+    }
+
     public void setPriority(int i) throws DukeException {
         switch(i) {
             case 0:
@@ -121,6 +126,7 @@ public class Task {
                 throw new DukeException("No such priority exists.");
         }
     }
+
 
     public int getPriorityLevel() {
         return priority.priorityLevel();

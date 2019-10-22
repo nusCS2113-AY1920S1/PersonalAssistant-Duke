@@ -9,77 +9,95 @@ import duke.ui.Ui;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Optional;
 
 public class EditCommand extends Command {
-	String filter;
+	Optional<String> filter;
 	String command;
 
-	public EditCommand(String filter, String command) {
+	public EditCommand(Optional<String> filter, String command) {
 		this.filter = filter;
 		this.command = command;
 	}
 
-	public EditCommand(String command) {
-		this("", command);
-	}
-
 	//Takes in a string of all the parameters after the edit command
-	public HashMap<String, String> getParameters(String rawParameters) {
-		HashMap<String, String> parameters = new HashMap<String, String>();
+	public String[] getParameters(String rawParameters) throws DukeException {
 		String[] splitParameters = rawParameters.split("-");
-		for(int i = 0; i < splitParameters.length; i++) {
-			String[] parameterDetailPair = splitParameters[i].split(" ");
-			String p = parameterDetailPair[0];
-			String d = parameterDetailPair[1];
-			parameters.put(p,d);
+		if (splitParameters.length == 1) {
+			throw new DukeException("Please enter something for me to edit!");
 		}
-		return parameters;
+		return splitParameters;
 	}
 
 	//Get the index number
-	public int getIndexFromCommand(String editCommand) {
+	public int getIndexFromCommand(String editCommand) throws DukeException {
 		String[] temp = editCommand.split(" ");
-		int indexNo = Integer.parseInt(temp[1]);
-		return indexNo;
+		try {
+			int indexNo = Integer.parseInt(temp[0]) + 1;
+			return indexNo;
+		} catch (NumberFormatException e) {
+			throw new DukeException("Please enter a valid index");
+		}
 	}
 
-	public int getIndexFromTaskList(String filter, int filteredListIndex, TaskList tasks) {
+	public int getIndexFromTaskList(Optional<String> filter, int filteredListIndex, TaskList tasks) throws DukeException {
 		int actualIndex = -1;
-		int filteredListCounter = 0;
-		ArrayList<Task> tempTaskList = new ArrayList<Task>(); //To search and put the task list here, need to record their index though
-		//Implement filter here to search. Search filter then add the task list?
-
-		if (filter == "") {
-			actualIndex = filteredListIndex;
-		} else {
-			tempTaskList = tasks.getList();
+		ArrayList<Task> tempTaskList = tasks.getList(); //different kind of search?
+		if (filter.isPresent()) {
+			int filteredListCounter = 0;
 			for(int i = 0; i < tempTaskList.size(); i++) {
-//				if (filter == tempTaskList.get(i).getfilter()) {
-//					filterCounter++;
-//				}
+				if (filter == tempTaskList.get(i).getFilter()) {
+					filteredListCounter++;
+				}
 				if (filteredListCounter == filteredListIndex) {
 					actualIndex = i;
 				}
 			}
+
+		} else if (filteredListIndex < tempTaskList.size()){
+			actualIndex = filteredListIndex;
+		} else {
+			throw new DukeException("Please enter a valid index");
 		}
-		return actualIndex; //TODO add exception to throw if not found ):
+		return actualIndex;
 	}
 
-	//method to get the task, replace it with new parameters then replace it.....
+	public String[] getKeywordAndEditField(String param) throws DukeException {
+		String[] keywordAndEditArray = param.split(" ");
+		if (keywordAndEditArray.length == 1) {
+			throw new DukeException("Please enter the edit you wish to make");
+		} else {
+			return keywordAndEditArray;
+		}
+	}
+
 
 	@Override
-	public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, ParseException, DukeException {
-//		switch(keyword) {
-//			case "priority":
-//				int index = Integer.parseInt(information.get(0)) - 1;
-//				Task t = tasks.get(index);
-//				int level = Integer.parseInt(information.get(1));
-//				t.setPriority(level);
-//				break;
-//			default:
-//				throw new DukeException("Sorry I don't know what that means :-(");
-//		}
+	public void execute(TaskList tasks, Ui ui, Storage storage) {
+		try {
+			String[] parameters = getParameters(command);
+			int commandIndex = getIndexFromCommand(command);
+			int taskListIndex = getIndexFromTaskList(filter, commandIndex, tasks);
+			for (int i = 1; i < parameters.length; i++) {
+				String[] p = getKeywordAndEditField(parameters[i]);
+				String keyword = p[0];
+				String editField = p[1];
+				Task t = tasks.get(taskListIndex);
+				switch(keyword) {
+					case "description":
+						t.setDescription(editField);
+						break;
+					case "priority":
+						int priorityLevel = Integer.parseInt(editField);
+						t.setPriority(priorityLevel);
+						break;
+					default:
+						throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what field you are trying to edit!");
+				}
+			}
+		} catch (DukeException e) {
+			ui.showError(e.getMessage());
+		}
 	}
 
 	@Override

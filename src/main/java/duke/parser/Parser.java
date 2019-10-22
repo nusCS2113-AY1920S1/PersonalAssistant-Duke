@@ -27,7 +27,6 @@ public class Parser {
         }
         String[] fcArray = fullCommand.split(" ", 2);
         String keyword = fcArray[0];
-        System.out.println(fcArray.length);
 
         switch (keyword) {
             case "bye":
@@ -54,25 +53,11 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of done cannot be empty.");
                 }
                 return new DoneCommand(fcArray[1]);
-            case "set":
+            case "edit":
                 if (fcArray.length == 1) {
-                    throw new DukeException("☹ OOPS!!! The description of set cannot be empty.");
+                    throw new DukeException("☹ OOPS!!! The description of edit cannot be empty.");
                 }
-                String[] editArray = fcArray[1].split(" ", 2);
-                if (editArray.length == 1) {
-                    throw new DukeException("☹ OOPS!!! You are missing the description of the edit.");
-                }
-                String editCommand = editArray[0];
-                switch (editCommand) {
-                    case "priority":
-                        String[] pArray = editArray[1].split(" ");
-                        if (pArray.length != 2) {
-                            throw new DukeException("☹ OOPS!!! You are missing either the index of the priority level");
-                        }
-                        return new EditCommand(editArray[1], editArray[0]);
-                    default:
-                        throw new DukeException("Sorry I don't know what you want me to do :-(");
-                }
+                return new EditCommand(filter, fcArray[1]);
             case "todo":
             case "deadline":
             case "event":
