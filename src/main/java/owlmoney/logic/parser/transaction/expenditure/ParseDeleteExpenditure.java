@@ -7,7 +7,7 @@ import owlmoney.logic.command.transaction.DeleteExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for deleting an expenditure.
+ * Parses the inputs for deleting an expenditure.
  */
 public class ParseDeleteExpenditure extends ParseExpenditure {
 

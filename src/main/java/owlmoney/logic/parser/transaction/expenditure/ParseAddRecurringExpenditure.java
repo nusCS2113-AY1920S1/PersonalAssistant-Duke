@@ -9,7 +9,7 @@ import owlmoney.logic.command.transaction.AddRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for adding a recurring expenditure.
+ * Parses the inputs for adding a recurring expenditure.
  */
 public class ParseAddRecurringExpenditure extends ParseRecurringExpenditure {
 

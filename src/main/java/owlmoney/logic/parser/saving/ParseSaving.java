@@ -113,14 +113,14 @@ public abstract class ParseSaving {
     }
 
     /**
-     * Abstract method where each saving parser performs different checks on the parameters.
+     * Checks the parameters entered by the user.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each saving parser creates different commands.
+     * Gets the command needed to be executed.
      *
      * @return Command to be executed.
      */

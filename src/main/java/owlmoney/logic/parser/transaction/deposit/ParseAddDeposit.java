@@ -8,7 +8,7 @@ import owlmoney.logic.command.transaction.AddDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for adding a deposit.
+ * Parses the inputs for adding a deposit.
  */
 public class ParseAddDeposit extends ParseDeposit {
     private static final String ADD = "/add";

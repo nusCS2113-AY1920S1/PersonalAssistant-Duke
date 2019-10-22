@@ -7,7 +7,7 @@ import owlmoney.logic.command.transaction.DeleteDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for deleting a deposit.
+ * Parses the inputs for deleting a deposit.
  */
 public class ParseDeleteDeposit extends ParseDeposit {
     private static final String DELETE = "/delete";
