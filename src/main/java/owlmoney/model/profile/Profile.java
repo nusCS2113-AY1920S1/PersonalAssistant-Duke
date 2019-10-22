@@ -426,7 +426,6 @@ public class Profile {
     }
 
     /**
-<<<<<<< HEAD
      * Adds a recurring expenditure to the specified account.
      *
      * @param accountName Bank account name to add the recurring expenditure to.
@@ -441,6 +440,7 @@ public class Profile {
             throws BankException, TransactionException {
         if ("card".equals(type)) {
             //card recurring transaction
+            System.out.println("Do card recurring transaction here");
         } else if ("bank".equals(type)) {
             bankList.bankListAddRecurringExpenditure(accountName, newRecurringExpenditure, ui);
         }
@@ -460,6 +460,7 @@ public class Profile {
             throws BankException, TransactionException {
         if ("card".equals(type)) {
             //card recurring transaction
+            System.out.println("Do card recurring transaction here");
         } else if ("bank".equals(type)) {
             bankList.bankListDeleteRecurringExpenditure(accountName, index, ui);
         }
@@ -478,6 +479,7 @@ public class Profile {
             throws BankException, TransactionException {
         if ("card".equals(type)) {
             //card recurring transaction
+            System.out.println("Do card recurring transaction here");
         } else if ("bank".equals(type)) {
             bankList.bankListListRecurringExpenditure(accountName, ui);
         }
@@ -526,7 +528,6 @@ public class Profile {
      * @param amount The amount to be transferred.
      * @param date   The date that the fund was transferred.
      * @param ui     Required for printing.
-     * @throws GoalsException If any of the bank does not exist or insufficient fund to transfer.
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
