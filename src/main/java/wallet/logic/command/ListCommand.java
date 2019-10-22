@@ -16,8 +16,6 @@ import java.util.ArrayList;
  */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_LIST_TASKS = "Here are the tasks in your list:";
     public static final String MESSAGE_LIST_CONTACTS = "Here are the contacts in your list:";
     public static final String MESSAGE_LIST_EXPENSES = "Here are the expenses in your list:";
     public static final String MESSAGE_LIST_NO_EXPENSES = "There are no expenses for ";
@@ -60,13 +58,16 @@ public class ListCommand extends Command {
 
         case "all":
             isListAll = true;
-            //fallthrough
+            break;
 
         case "contact":
+            //@@author Xdecosee
+            System.out.println(MESSAGE_LIST_CONTACTS);
             Ui.printContactTable();
             if (!isListAll) {
                 break;
             }
+            //@@author
             //fallthrough
 
         case "loan":

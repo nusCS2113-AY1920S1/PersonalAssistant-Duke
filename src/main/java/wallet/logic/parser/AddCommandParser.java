@@ -138,6 +138,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
     private Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
+        //@@author Xdecosee
         String[] info = input.split(" ");
         ContactParserHelper contactHelper = new ContactParserHelper();
         Contact contact = contactHelper.newInput(info);
@@ -146,5 +147,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             return contact;
         }
+        //@@author
     }
 }

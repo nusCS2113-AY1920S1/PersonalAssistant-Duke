@@ -1,3 +1,5 @@
+//@@author Xdecosee
+
 package wallet.logic.parser;
 
 import java.util.ArrayList;

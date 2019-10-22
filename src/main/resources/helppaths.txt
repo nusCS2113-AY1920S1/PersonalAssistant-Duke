@@ -1,0 +1,5 @@
+General,/general.txt
+Expense,/expense.txt
+Loans,/loan.txt
+Contacts,/contact.txt
+Command History,/cmdhistory.txt
