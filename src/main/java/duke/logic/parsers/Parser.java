@@ -1,5 +1,8 @@
 package duke.logic.parsers;
 
+import duke.commons.MessagesPrompt;
+import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.AddCommand;
 import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
@@ -18,11 +21,6 @@ import duke.logic.commands.PromptCommand;
 import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
-import duke.commons.MessagesPrompt;
-import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.DukeUnknownCommandException;
-
-import java.io.IOException;
 
 
 /**

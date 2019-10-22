@@ -6,8 +6,6 @@ import duke.model.Model;
 import duke.model.planning.Itinerary;
 import duke.storage.Storage;
 
-import java.io.IOException;
-
 /**
  * Class representing a command to list items in a task list.
  */
