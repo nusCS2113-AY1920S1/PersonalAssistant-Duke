@@ -287,7 +287,7 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         int strCase = 0;
-        if (getStartTime() == null && getEndTime() != null) {
+        if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
 
