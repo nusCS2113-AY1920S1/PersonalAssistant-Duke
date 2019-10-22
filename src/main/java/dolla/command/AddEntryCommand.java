@@ -2,11 +2,10 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.action.undo;
+import dolla.action.Undo;
 import dolla.task.Entry;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * AddEntryCommand is used to create a new Entry entity.
@@ -38,13 +37,13 @@ public class AddEntryCommand extends Command {
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
 
-        if(prevPosition != -1) { //an undo input
+        if (prevPosition != -1) { //an Undo input
             dollaData.addToPrevPosition("entry", newEntry, prevPosition);
             prevPosition = -1; //reset to -1
         } else { //normal input
             dollaData.addToLogList("entry", newEntry);
             index = dollaData.getLogList("entry").size();
-            undo.removeCommand("entry",index);
+            Undo.removeCommand("entry",index);
         }
         Ui.echoAddEntry(newEntry);
     }

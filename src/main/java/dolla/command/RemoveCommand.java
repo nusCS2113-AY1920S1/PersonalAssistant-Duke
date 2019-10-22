@@ -2,10 +2,8 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.action.undo;
-import dolla.task.Log;
+import dolla.action.Undo;
 import dolla.task.LogList;
-import dolla.task.TaskList;
 
 import java.util.ArrayList;
 
@@ -35,7 +33,7 @@ public class RemoveCommand extends Command {
      *     If taskNumInt does not correspond to any task in the specified TaskList, an
      *     alert is printed to the user, and the method will return.
      * </p>
-     * @param dollaData
+     * @param dollaData dollaData
      */
     //@Override
     public void execute(DollaData dollaData) {
@@ -51,11 +49,11 @@ public class RemoveCommand extends Command {
             return; // TODO: return error command
         }
 
-        undo.addCommand(mode,logList.get().get(logNumInt).getUserInput(),logNumInt);
+        Undo.addCommand(mode,logList.get().get(logNumInt).getUserInput(),logNumInt);
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);
-/*
+        /*
         ArrayList<String> msg = new ArrayList<String>();
         try {
             tasks.getFromList(taskNumInt - 1); // Check if the task exists first
@@ -68,6 +66,6 @@ public class RemoveCommand extends Command {
             return;
         }
         Ui.printMsg(msg);
- */
+        */
     }
 }

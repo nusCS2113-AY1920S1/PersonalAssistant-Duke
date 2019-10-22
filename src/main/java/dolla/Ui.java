@@ -1,6 +1,10 @@
 package dolla;
 
-import dolla.task.*;
+import dolla.task.Log;
+import dolla.task.Debt;
+import dolla.task.Task;
+import dolla.task.Entry;
+import dolla.task.LogList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,14 +17,20 @@ import java.util.List;
 public abstract class Ui {
 
     private static String logo =
-              " ____    _   _  _   _       \n"
-            + "|  _  \\/ _ \\| || | /  \\      \n"
-            + "| | | | | | | || |/ /\\ \\  \n"
-            + "| |_| | |_| | || |  __  | \n"
-            + "|____/ \\ _ /|_||_|_|  |_|       \n";
+            " ____    _   _  _   _       \n"
+                    + "|  _  \\/ _ \\| || | /  \\      \n"
+                    + "| | | | | | | || |/ /\\ \\  \n"
+                    + "| |_| | |_| | || |  __  | \n"
+                    + "|____/ \\ _ /|_||_|_|  |_|       \n";
 
+    /**
+     * The constant line.
+     */
     protected static String line = "\t____________________________________________________________";
 
+    /**
+     * Show welcome.
+     */
     public static void showWelcome() {
         System.out.println("Hello from\n" + logo);
     }
@@ -75,11 +85,8 @@ public abstract class Ui {
     }
 
     /**
-     * This method prints the details of the specified entry.
-     * <p>
-     * This method is typically called when an entry is entered, so that the user can
-     * check the details of the created entry.
-     * </p>
+     * This method prints the details of the specified entry and is typically called when an entry is entered,
+     * so that the user can check the details of the created entry.
      *
      * @param currEntry Entry to be printed.
      */
@@ -90,6 +97,11 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Echo add debt.
+     *
+     * @param currDebt the curr debt
+     */
     public static void echoAddDebt(Debt currDebt) {
         System.out.println(line);
         System.out.println("\tGot it. I've added this debt: ");
@@ -97,7 +109,12 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    public static void echoRemove (String log) {
+    /**
+     * Echo remove.
+     *
+     * @param log the log
+     */
+    public static void echoRemove(String log) {
         System.out.println(line);
         System.out.println("Noted. I've removed this log: ");
         System.out.println(log);
@@ -161,6 +178,8 @@ public abstract class Ui {
     /**
      * This method will print the error message when the user enter a time that conflicts with a task
      * that's in the task list.
+     *
+     * @param conflictingTask the conflicting task
      */
     public static void printTimeConflictError(Task conflictingTask) {
         System.out.println(line);
@@ -185,6 +204,8 @@ public abstract class Ui {
 
     /**
      * Prints an error message for no date in task.
+     *
+     * @param taskToSnooze the task to snooze
      */
     public static void printNoDateToSnoozeError(Task taskToSnooze) {
         System.out.println(line);
@@ -261,6 +282,9 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Print invalid debt format error.
+     */
     public static void printInvalidDebtFormatError() {
         System.out.println(line);
         System.out.println("\tplease follow the format"
@@ -290,7 +314,7 @@ public abstract class Ui {
         System.out.println(line);
     }
 
-    // public static void printList(String mode, LogList entryList) {
+    //public static void printList(String mode, LogList entryList) {
 
     /**
      * Prints out a list depending on the mode where 'list' is called.
@@ -309,6 +333,13 @@ public abstract class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Print search desc.
+     *
+     * @param mode          the mode
+     * @param logList       the log list
+     * @param searchContent the search content
+     */
     public static void printSearchDesc(String mode, LogList logList, String searchContent) {
 
         System.out.println(line);
@@ -323,6 +354,13 @@ public abstract class Ui {
         }
     }
 
+    /**
+     * Print search name.
+     *
+     * @param mode          the mode
+     * @param logList       the log list
+     * @param searchContent the search content
+     */
     public static void printSearchName(String mode, LogList logList, String searchContent) {
 
         System.out.println(line);
@@ -337,8 +375,14 @@ public abstract class Ui {
         }
     }
 
+    /**
+     * Print search date.
+     *
+     * @param mode          the mode
+     * @param logList       the log list
+     * @param searchContent the search content
+     */
     public static void printSearchDate(String mode, LogList logList, String searchContent) {
-
         System.out.println(line);
         System.out.println("\tHere are the matching results found in " + mode);
         int listNum = 0;
@@ -352,40 +396,54 @@ public abstract class Ui {
     }
 
 
-        public static void printSortedList(ArrayList<Log> list, String type){
-            System.out.println(line);
-            if (type.equals("date")) {
-                System.out.println("sorting date.........");
-            } else if (type.equals("description")) {
-                System.out.println("sorting description.........");
-            } else if (type.equals("name")) {
-                System.out.println("sorting name.........");
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                int listNum = i + 1;
-                System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
-            }
+    /**
+     * Print sorted list.
+     *
+     * @param list the list to be printed
+     * @param type the type of input of the list
+     */
+    public static void printSortedList(ArrayList<Log> list, String type) {
+        System.out.println(line);
+        if (type.equals("date")) {
+            System.out.println("sorting date.........");
+        } else if (type.equals("description")) {
+            System.out.println("sorting description.........");
+        } else if (type.equals("name")) {
+            System.out.println("sorting name.........");
         }
 
-        public static void printInvalidModifyFormatError() {
-            System.out.println(line);
-            System.out.println("\tplease follow the format "
-                    + "'modify [LIST NUM]"
-                    + "");
-            System.out.println(line);
+        for (int i = 0; i < list.size(); i++) {
+            int listNum = i + 1;
+            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
         }
+    }
 
-        public static void printInitialModifyMsg() {
-            System.out.println(line);
-            System.out.println("\tWhat would you want to change this entry to?");
-            System.out.println(line);
-        }
+    /**
+     * Print invalid modify format error.
+     */
+    public static void printInvalidModifyFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format "
+                + "'modify [LIST NUM]"
+                + "");
+        System.out.println(line);
+    }
 
-        public static void printNoReminderMsg() {
-            System.out.println(line);
-            System.out.println("\tThere are no reminders :)");
-            System.out.println(line);
-        }
+    /**
+     * Print initial modify msg.
+     */
+    public static void printInitialModifyMsg() {
+        System.out.println(line);
+        System.out.println("\tWhat would you want to change this entry to?");
+        System.out.println(line);
+    }
 
+    /**
+     * Print no reminder msg.
+     */
+    public static void printNoReminderMsg() {
+        System.out.println(line);
+        System.out.println("\tThere are no reminders :)");
+        System.out.println(line);
+    }
 }

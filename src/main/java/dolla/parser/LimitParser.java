@@ -1,6 +1,10 @@
 package dolla.parser;
 
-import dolla.command.*;
+import dolla.command.Command;
+import dolla.command.AddLimitCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.RemoveLimitCommand;
 import dolla.ui.LimitUi;
 
 /**
@@ -12,16 +16,22 @@ public class LimitParser extends Parser {
         super(inputLine);
     }
 
-    String[] CommandType = {"limits", "set", "remove"};
-    String[] LimitType = {"saving", "budget"};
-    String[] Duration = {"day", "week", "month"};
+    protected static final String LIMIT_COMMAND_LIST = "limits";
+    protected static final String LIMIT_COMMAND_SET = "set";
+    protected static final String LIMIT_COMMAND_REMOVE = "remove";
 
+    protected static final String LIMIT_TYPE_S = "saving";
+    protected static final String LIMIT_TYPE_B = "budget";
+
+    protected static final String LIMIT_DURATION_D = "day";
+    protected static final String LIMIT_DURATION_W = "week";
+    protected static final String LIMIT_DURATION_M = "month";
 
     @Override
     public Command handleInput(String mode, String inputLine) {
-        if (commandToRun.equals(CommandType[0])) { //show limit list
+        if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
             return new ShowListCommand(mode);
-        } else if (commandToRun.equals(CommandType[1])) { //add limit
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit
             String limitType = null;
             double amount = 0.0;
             String duration = null;
@@ -37,8 +47,7 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new AddLimitCommand(limitType, amount, duration);
-
-        } else if (commandToRun.equals(CommandType[2])) { //REMOVE DAILY BUDGET etc
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_REMOVE)) { //REMOVE DAILY BUDGET etc
             //remove limit command
             String limitType = null;
             String duration = null;
@@ -70,12 +79,19 @@ public class LimitParser extends Parser {
      * @return SAVING or BUDGET
      */
     private String typeFinder() {
-        String limitType = null;
-        String limitTypeStr = inputArray[1];
-        if (limitTypeStr.equals(LimitType[0])) {
-            limitType = LimitType[0];
-        } else if (limitTypeStr.equals(LimitType[1])) {
-            limitType = LimitType[1];
+        String limitType = "";
+        String inputType;
+        try {
+            inputType = inputArray[1];
+            if (inputType.equalsIgnoreCase(LIMIT_TYPE_S)) {
+                limitType = LIMIT_TYPE_S;
+            } else if (inputType.equalsIgnoreCase(LIMIT_TYPE_B)) {
+                limitType = LIMIT_TYPE_B;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //todo: handle exception
+        } catch (Exception e) {
+            //todo: handle exception
         }
         return limitType;
     }
@@ -87,15 +103,22 @@ public class LimitParser extends Parser {
     }
 
     private String durationFinder() {
-        String duration = null;
-        String durationStr = inputArray[3];
-        if (durationStr.equals(Duration[0])) {
-            duration = Duration[0];
-        } else if (durationStr.equals(Duration[1])) {
-            duration = Duration[0];
-        } else if (durationStr.equals(Duration[2])) {
-            duration = Duration[2];
+        String limitDuration = "";
+        String inputDuration;
+        try {
+            inputDuration = inputArray[4];
+            if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_D))) {
+                limitDuration = LIMIT_DURATION_D;
+            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_W))) {
+                limitDuration = LIMIT_DURATION_W;
+            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_M))) {
+                limitDuration = LIMIT_DURATION_M;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //todo: handle exception
+        } catch (Exception e) {
+            //todo: handle exception
         }
-        return duration;
+        return limitDuration;
     }
 }

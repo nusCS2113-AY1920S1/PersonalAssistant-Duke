@@ -2,11 +2,16 @@ package dolla.parser;
 
 import dolla.Time;
 import dolla.Ui;
-import dolla.command.*;
-import dolla.task.LogList;
+import dolla.command.Command;
+import dolla.command.AddActionCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.AddDebtsCommand;
+import dolla.command.SortCommand;
+import dolla.command.SearchCommand;
+import dolla.command.RemoveCommand;
 
 import java.time.LocalDate;
-
 
 public class DebtsParser extends Parser {
     private static int prevPosition;
@@ -18,7 +23,6 @@ public class DebtsParser extends Parser {
 
     @Override
     public Command handleInput(String mode, String inputLine) {
-
         if (commandToRun.equals("debts")) { //show debt list
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
@@ -29,22 +33,20 @@ public class DebtsParser extends Parser {
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
-
                 String[] desc = inputLine.split(inputArray[2] + " ");
-                String dateString[] = desc[1].split(" /due ");
+                String[] dateString = desc[1].split(" /due ");
                 description = dateString[0];
                 date = Time.readDate(dateString[1]);
-
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
                 return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            if(undoFlag == 1) {//undo input
+            if (undoFlag == 1) { //Undo input
                 undoFlag = 0;
                 return new AddDebtsCommand(type, name, amount, description, date, prevPosition);
-            } else {//normal input, prePosition is -1
+            } else { //normal input, prePosition is -1
                 return new AddDebtsCommand(type, name, amount, description, date, -1);
             }
         } else if (commandToRun.equals("search")) {
@@ -55,7 +57,7 @@ public class DebtsParser extends Parser {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
+        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();

@@ -11,6 +11,12 @@ public class SearchCommand extends Command {
     private String component;
     private String searchContent;
 
+    /**
+     * Instantiates a new SearchCommand.
+     * @param mode mode Dolla is in
+     * @param component component
+     * @param searchContent search content
+     */
     public SearchCommand(String mode, String component, String searchContent) {
         this.mode = mode;
         this.searchContent = searchContent;
@@ -22,21 +28,22 @@ public class SearchCommand extends Command {
         LogList logList = new LogList(new ArrayList<>());
 
         switch (mode) {
-            case "entry":
-                logList = dollaData.getLogList(mode);
-                break;
-            case "debt":
-                logList = dollaData.getLogList(mode);
-                break;
-            case "limit":
-                logList = dollaData.getLogList(mode);
-            default:
-                break;
+        case "entry":
+            logList = dollaData.getLogList(mode);
+            break;
+        case "debt":
+            logList = dollaData.getLogList(mode);
+            break;
+        case "limit":
+            logList = dollaData.getLogList(mode);
+            break;
+        default:
+            break;
         }
 
-        boolean ListisEmpty = (logList.size() == 0);
+        boolean listIsEmpty = (logList.size() == 0);
 
-        if (ListisEmpty) {
+        if (listIsEmpty) {
             Ui.printEmptyListError(mode);
             return;
         } else if (mode.equals("entry")) {

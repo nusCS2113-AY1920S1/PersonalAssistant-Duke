@@ -13,6 +13,12 @@ public class AddLimitCommand extends Command {
     private double amount;
     private String duration;
 
+    /**
+     * Instantiates a new AddLimitCommand.
+     * @param type type of limit
+     * @param amount amount of limit
+     * @param duration duration of limit
+     */
     public AddLimitCommand(String type, double amount, String duration) {
         this.type = type;
         this.amount = amount;
