@@ -131,18 +131,6 @@ public class ExpenseList {
     }
 
     /**
-     * Lists all expenses in the expense list.
-     */
-    public void listExpenseList() {
-        int counter = 1;
-        System.out.println(ListCommand.MESSAGE_LIST_EXPENSES);
-        for (Expense e : this.expenseList) {
-            System.out.println(counter + ". " + e.toString());
-            counter++;
-        }
-    }
-
-    /**
      * Lists all recurring expenses in the expense list.
      */
     public void listRecurringExpense() {

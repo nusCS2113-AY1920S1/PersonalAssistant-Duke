@@ -26,6 +26,7 @@ run {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile group: 'com.opencsv', name: 'opencsv', version: '4.6'
 }
 
 test {

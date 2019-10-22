@@ -10,7 +10,7 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
 
     @Override
     public ReminderCommand parse(String input) {
-        if (input != "") {
+        if (!"".equals(input)) {
             return new ReminderCommand(input);
         }
 

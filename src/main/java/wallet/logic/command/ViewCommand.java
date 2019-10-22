@@ -47,6 +47,7 @@ public class ViewCommand extends Command {
                 System.out.println(MESSAGE_EMPTY_BUDGET
                         +  new DateFormatSymbols().getMonths()[month - 1] + " " + year);
             } else if (type[0].equals("stats")) {
+                //@@author kyang96
                 HashMap<Category, ArrayList<Expense>> categoryMap
                         = getCategoryMap(wallet.getExpenseList().getExpenseList(), month, year);
                 System.out.println(MESSAGE_VIEW_STATS + month + "/" + year);
@@ -56,13 +57,14 @@ public class ViewCommand extends Command {
                         Ui.printExpenseTable(expenseList);
                     }
                 }
+                //@@author
             }
         } else {
             System.out.println(MESSAGE_USAGE);
         }
         return false;
     }
-
+    //@@author kyang96
     /**
      * Generate a HashMap containing all expenses of a certain month in each category.
      * @param expenseList The entire list of expenses.
@@ -111,4 +113,5 @@ public class ViewCommand extends Command {
         }
         return categoryMap;
     }
+    //@@author
 }

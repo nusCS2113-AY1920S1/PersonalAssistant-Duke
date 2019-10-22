@@ -6,6 +6,8 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.ui.Ui;
 
+import java.util.ArrayList;
+
 /**
  * EditCommand Class deals with commands that involves
  * in editing a specific object
@@ -55,6 +57,7 @@ public class EditCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         if (expense != null) {
+            //@@author kyang96
             int index = wallet.getExpenseList().findIndexWithId(expense.getId());
             Expense currentExpense = wallet.getExpenseList().getExpense(index);
             if (expense.getRecFrequency() == null || !expense.getRecFrequency().equals("")) {
@@ -77,34 +80,49 @@ public class EditCommand extends Command {
             wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_EDIT_EXPENSE);
             System.out.println(currentExpense.toString());
+            //@@author
         } else if (contact != null) {
-
+            //@@author Xdecosee
             int index = wallet.getContactList().findIndexWithId(contact.getId());
             if (index != -1) {
                 Contact currentContact = wallet.getContactList().getContact(index);
+                ArrayList<Loan> loanList = wallet.getLoanList().getLoanList();
                 if (contact.getName() != null) {
                     currentContact.setName(contact.getName());
                 }
                 //resetting detail
-                if (contact.getDetail().equals("")) {
+                if ("".equals(contact.getDetail())) {
                     currentContact.setDetail(null);
                 } else if (contact.getDetail() != null) {
                     currentContact.setDetail(contact.getDetail());
                 }
                 //resetting phone number
-                if (contact.getPhoneNum().equals("")) {
+                if ("".equals(contact.getPhoneNum())) {
                     currentContact.setPhoneNum(null);
                 } else if (contact.getPhoneNum() != null) {
                     currentContact.setPhoneNum(contact.getPhoneNum());
                 }
-
                 wallet.getContactList().editContact(index, currentContact);
                 wallet.getContactList().setModified(true);
+
+                for (Loan l : loanList) {
+                    if (l.getPerson().getId() == currentContact.getId()) {
+                        int loanIndex = wallet.getLoanList().findIndexWithId(l.getId());
+                        Loan toUpdate = wallet.getLoanList().getLoan(loanIndex);
+                        toUpdate.setPerson(currentContact);
+                        wallet.getLoanList().editLoan(loanIndex, toUpdate);
+                        wallet.getLoanList().setModified(true);
+
+                    }
+                }
+
+
                 System.out.println(MESSAGE_SUCCESS_EDIT_CONTACT);
                 System.out.println(currentContact.toString());
             } else {
                 System.out.println(MESSAGE_ERROR_COMMAND);
             }
+            //@@author
         } else if (loan != null) {
 
             int index = wallet.getLoanList().findIndexWithId(loan.getId());
