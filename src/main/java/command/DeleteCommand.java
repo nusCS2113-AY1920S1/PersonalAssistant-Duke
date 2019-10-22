@@ -9,12 +9,17 @@ import ui.Ui;
 import user.User;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 public class DeleteCommand extends Command {
     private int index;
     private Booking deletedBooking;
 
+    /**
+     * Deletes a booking from the booking list based on the index.
+     * @param input raw user input
+     * @param splitStr tokenized user input
+     * @throws DukeException if no index is entered or index is not an integer
+     */
     public DeleteCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length <= 1) {
             throw new DukeException("OOPS!!! Please add the index for the booking you want to delete");
