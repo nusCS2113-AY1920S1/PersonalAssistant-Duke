@@ -76,8 +76,11 @@ public class Task implements ITask {
     public String getDetails() {
         if (this.dueDate != null) {
             return this.taskName + " | Priority: "
-                    + this.taskPriority + " | Due: " + dateTimeHelper.formatDateForDisplay(this.dueDate) + " | Credit: "
-                    + this.taskCredit + " | State: " + this.taskState;
+                    + this.taskPriority
+                    + " | Due: " + dateTimeHelper.formatDateForDisplay(this.dueDate)
+                    + dateTimeHelper.getDifferenceDays(this.dueDate)
+                    + " | Credit: " + this.taskCredit
+                    + " | State: " + this.taskState;
         } else {
             return this.taskName + " | Priority: "
                     + this.taskPriority + " | Due: -- | Credit: " + this.taskCredit + " | State: "
