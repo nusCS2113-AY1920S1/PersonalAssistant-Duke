@@ -1,5 +1,6 @@
 package storage;
 
+import room.AddRoom;
 import room.RoomList;
 import room.Room;
 import task.Task;
@@ -73,7 +74,7 @@ public class Storage {
     public void saveToFile(RoomList roomList) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
-        for (Room i : roomList) {
+        for (AddRoom i : roomList) {
             toWrite += i.toWriteFile();
         }
         fileOutputStream.write(toWrite.getBytes());

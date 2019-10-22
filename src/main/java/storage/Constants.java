@@ -10,11 +10,11 @@ public class Constants {
     public static final int ISDONE = 1;
     public static final int ISBOOKED = 0;
     public static final int DESCRIPTION = 2;
-    public static final int ROOMCODE = 1;
+    public static final int ROOMCODE = 0;
     public static final int TIME = 3;
     public static final int NEEDS = 3;
     public static final int TIMESTART = 3;
     public static final int TIMEEND = 4;
-    public static final int ROOMDATE = 2;
-    public static final int ROOMTIMESLOT = 3;
+    public static final int ROOMDATE = 1;
+    public static final int ROOMTIMESLOT = 2;
 }
