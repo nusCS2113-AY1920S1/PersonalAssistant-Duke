@@ -40,9 +40,7 @@ public class ListCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 Task t = list.get(i);
                 if (t.getFilter().equals(filter)) {
-                    System.out.println("true");
                     tasks.add(t);
-                    System.out.println("added");
                 }
             }
         }
