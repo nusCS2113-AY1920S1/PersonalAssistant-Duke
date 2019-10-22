@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import planner.exceptions.original.ModCommandException;
 import planner.exceptions.original.ModEmptyListException;
 import planner.exceptions.original.ModException;
 import planner.exceptions.original.ModMissingArgumentException;
@@ -133,11 +134,14 @@ public class CapCommand extends ModuleCommand {
                 calculateModuleCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
                 //calculate the module's predicted cap from its prerequisites
                 //TODO in progress
+                break;
             case "list":
                 List<ModuleTask> hold = moduleTasksList.getTasks();
                 plannerUi.capListStartMsg(hold);
                 calculateListCap(moduleTasksList, detailedMap, plannerUi, store, scanner, hold);
                 break;
+            default:
+                throw new ModCommandException();
             }
         }
 
@@ -163,7 +167,8 @@ public class CapCommand extends ModuleCommand {
                 throw new ModNotFoundException();
             }
             int mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
-            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu() || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
+            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu() ||
+                letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
                 mcCount += mcTemp;
             }
             if (userInfo[1].isEmpty()) {
@@ -255,15 +260,19 @@ public class CapCommand extends ModuleCommand {
      *
      * @return A List of lists of string of prerequisite modules to be graded before calculating cap
      */
-    public List<List<String>> parsePrerequisiteTree(String prerequisites, HashMap<String, ModuleInfoDetailed> detailedMap) {
+    public List<List<String>> parsePrerequisiteTree(String prerequisites,
+                                                    HashMap<String,
+                                                    ModuleInfoDetailed> detailedMap) {
         //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
         // (check for and after because some have AY19/20 and after, then need to reject those 'ands')
         // need to logic and/or from array to cut down size of array
-        String[] initialParsedModules = prerequisites.split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?|and|or|equivalent");
+        String[] initialParsedModules = prerequisites
+            .split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?|and|or|equivalent");
         List<List<String>> prunedModules = null;
         int j = 0;
         /* EXAMPLES
-            prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and (MA1100 or (CS1231 or its equivalent))"
+            prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent))
+            and (MA1100 or (CS1231 or its equivalent))"
             prerequisite":"CG2027/EE2027 (for AY2017 intake & after)
             prerequisite":"EE2028 or CG2028 (for AY2017 intake & after)
             prerequisite":"((CS2010 or its equivalent) or CS2020 or (CS2040 or its equivalent)) and CS2102
@@ -272,18 +281,20 @@ public class CapCommand extends ModuleCommand {
         // what does or its equivalent mean? get preclusion of mod and add it to the pruned
         // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
         // check if isempty, if it is then print cap score according to the cloned list of lists
-        // for 'or' check next input, if not equivalent, then add to same i dont increase i, if is check after if still or vs and
+        // for 'or' check next input, if not equivalent
+        // then add to same i dont increase i, if is check after if still or vs and
         // if and, add to list i, move i
         for (int i = 0; i < initialParsedModules.length; i++) {
             if (initialParsedModules[i].equals("equivalent")) {
-                String[] preclusions = detailedMap.get(initialParsedModules[i-1]).getPreclusion().split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?");
+                String[] preclusions = detailedMap.get(initialParsedModules[i - 1]).getPreclusion()
+                    .split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?");
                 //preclusion should be all ors, just split and add to pruned without incrementing j
                 for (String x : preclusions) {
                     prunedModules.get(j).add(x);
                 }
             } else if (initialParsedModules[i].equals("and")) {
                 j++;
-                prunedModules.get(j).add(initialParsedModules[i+1]);
+                prunedModules.get(j).add(initialParsedModules[i + 1]);
                 i++;
             } else if (!initialParsedModules[i].equals("or")) {
                 prunedModules.get(j).add(initialParsedModules[i]);
