@@ -1,6 +1,6 @@
 package seedu.duke.email.command;
 
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.ExitCommand;
@@ -23,11 +23,11 @@ public class EmailCommandParser {
      *
      * @param rawInput user/file input ready to be parsed.
      * @return an email-relevant Command.
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, probably due to the
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, probably due to the
      *                                          wrong format of input
      */
     public static Command parseEmailCommand(String rawInput, ArrayList<Command.Option> optionList)
-            throws CommandParser.UserInputException {
+            throws CommandParseHelper.UserInputException {
         String input = stripPrefix(rawInput);
         if (input == null) {
             return new InvalidCommand();
@@ -37,7 +37,7 @@ public class EmailCommandParser {
     }
 
     private static Command parseByCommandType(ArrayList<Command.Option> optionList, String input,
-                                              String emailCommand) throws CommandParser.UserInputException {
+                                              String emailCommand) throws CommandParseHelper.UserInputException {
         switch (emailCommand) {
         case "flip":
             return new FlipCommand();
@@ -54,7 +54,7 @@ public class EmailCommandParser {
         case "update":
             return parseEmailTagCommand(optionList, input);
         default:
-            throw new CommandParser.UserInputException("OOPS!!! Enter \'email help\' to get list of methods for "
+            throw new CommandParseHelper.UserInputException("OOPS!!! Enter \'email help\' to get list of methods for "
                     + "email.");
         }
     }
@@ -70,7 +70,7 @@ public class EmailCommandParser {
         return rawInput.split("email ", 2)[1].strip();
     }
 
-    private static Command parseShowEmailCommand(String input) throws CommandParser.UserInputException {
+    private static Command parseShowEmailCommand(String input) throws CommandParseHelper.UserInputException {
         Pattern showCommandPattern = Pattern.compile("^show\\s+(?<index>\\d+)\\s*$");
         Matcher showCommandMatcher = showCommandPattern.matcher(input);
         if (!showCommandMatcher.matches()) {
@@ -82,13 +82,13 @@ public class EmailCommandParser {
         try {
             int index = parseEmailIndex(showCommandMatcher.group("index"));
             return new EmailShowCommand(index);
-        } catch (CommandParser.UserInputException e) {
-            throw new CommandParser.UserInputException(e.toString());
+        } catch (CommandParseHelper.UserInputException e) {
+            throw new CommandParseHelper.UserInputException(e.toString());
         }
     }
 
     private static Command parseEmailTagCommand(ArrayList<Command.Option> optionList,
-                                                String input) throws CommandParser.UserInputException {
+                                                String input) throws CommandParseHelper.UserInputException {
         Pattern emailTagCommandPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher emailTagCommandMatcher = emailTagCommandPattern.matcher(input);
         if (!emailTagCommandMatcher.matches()) {
@@ -97,15 +97,15 @@ public class EmailCommandParser {
             }
             return new InvalidCommand();
         }
-        ArrayList<String> tags = CommandParser.extractTags(optionList);
+        ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
         if (!tagsNotEmpty(tags)) {
             return new InvalidCommand();
         }
         try {
             int index = parseEmailIndex(emailTagCommandMatcher.group("index"));
             return new EmailTagCommand(index, tags);
-        } catch (CommandParser.UserInputException e) {
-            throw new CommandParser.UserInputException(e.toString());
+        } catch (CommandParseHelper.UserInputException e) {
+            throw new CommandParseHelper.UserInputException(e.toString());
         }
     }
 
@@ -119,11 +119,11 @@ public class EmailCommandParser {
         return true;
     }
 
-    private static int parseEmailIndex(String input) throws CommandParser.UserInputException {
+    private static int parseEmailIndex(String input) throws CommandParseHelper.UserInputException {
         EmailList emailList = Duke.getModel().getEmailList();
         int index = Integer.parseInt(input) - 1;
         if (index < 0 || index >= emailList.size()) {
-            throw new CommandParser.UserInputException("Invalid index");
+            throw new CommandParseHelper.UserInputException("Invalid index");
         }
         return index;
     }

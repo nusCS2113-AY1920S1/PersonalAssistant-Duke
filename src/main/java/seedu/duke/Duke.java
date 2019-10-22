@@ -5,7 +5,7 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 import seedu.duke.common.model.Model;
 import seedu.duke.common.network.Http;
-import seedu.duke.email.EmailContentParser;
+import seedu.duke.email.EmailContentParseHelper;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.task.TaskList;
@@ -50,7 +50,7 @@ public class Duke {
     private void initModel() {
         TaskList taskList = TaskStorage.readTaskFromFile();
         EmailList emailList = EmailStorage.readEmailFromFile();
-        EmailContentParser.initKeywordList();
+        EmailContentParseHelper.initKeywordList();
 
         model.setTaskList(taskList);
         model.setEmailList(emailList);

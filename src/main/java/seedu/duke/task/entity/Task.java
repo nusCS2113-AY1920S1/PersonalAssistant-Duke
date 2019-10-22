@@ -1,6 +1,6 @@
 package seedu.duke.task.entity;
 
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -88,11 +88,11 @@ public class Task {
      * @param parsedDay    an input that contains the day of the task to be done.
      * @param parsedTiming an input that contains the time of the task to be done.
      * @return dateTime that gives the date and time of the input.
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due to a
      *                                          wrong format
      */
     public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
-            throws CommandParser.UserInputException {
+            throws CommandParseHelper.UserInputException {
         LocalDate date = LocalDate.now();
         LocalDateTime dateTime;
         try {
@@ -110,7 +110,7 @@ public class Task {
                 day = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
             }
         } catch (DateTimeParseException e) {
-            throw new CommandParser.UserInputException("Wrong Date Time format");
+            throw new CommandParseHelper.UserInputException("Wrong Date Time format");
         }
         return dateTime;
     }
@@ -122,14 +122,14 @@ public class Task {
      *
      * @param dateString an input string to be parsed
      * @return parsed result from the input string
-     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due to a
      *                                          wrong format
      */
-    public static LocalDateTime parseDate(String dateString) throws CommandParser.UserInputException {
+    public static LocalDateTime parseDate(String dateString) throws CommandParseHelper.UserInputException {
         try {
             return LocalDateTime.parse(dateString, format);
         } catch (DateTimeParseException e) {
-            throw new CommandParser.UserInputException("Wrong Date Time format");
+            throw new CommandParseHelper.UserInputException("Wrong Date Time format");
         }
     }
 
@@ -150,15 +150,24 @@ public class Task {
     }
 
     /**
+     * Snoozes the task for future
+     */
+    public void snooze() {
+        if (taskType == TaskType.ToDo) {
+            return;
+        }
+    }
+
+    /**
      * The function that returns a human readable string of the basic information of the task.
      *
      * @return the human readable string of the basic information the task.
      */
     protected String getStatus() {
         if (this.isDone) {
-            return "[✓] " + this.name;
+            return "[/] " + this.name;
         } else {
-            return "[✗] " + this.name;
+            return "[X] " + this.name;
         }
     }
 
@@ -205,9 +214,6 @@ public class Task {
      */
     public boolean isNear(int dayLimit) {
         return false;
-    }
-
-    public void snooze() {
     }
 
     public boolean isClash(Task task) {

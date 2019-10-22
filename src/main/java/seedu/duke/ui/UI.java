@@ -2,7 +2,7 @@ package seedu.duke.ui;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 
@@ -21,7 +21,6 @@ public class UI {
     private static boolean debug = false;
 
     // to output result to GUI
-    private Stage mainStage;
     private MainWindow mainWindow;
     private String input = "";
     private String command = "";
@@ -57,7 +56,7 @@ public class UI {
     public void respond(String input) {
         try {
             setInput(input);
-            Command command = CommandParser.parseCommand(input);
+            Command command = CommandParseHelper.parseCommand(input);
             setCommand(command.toString());
             command.execute();
         } catch (Exception e) {
@@ -154,7 +153,10 @@ public class UI {
         mainWindow.updateEmailsList(emailStringList);
     }
 
-    void syncWithModel() {
+    /**
+     * Synchronizes the gui display of tasks and emails with the model
+     */
+    public void syncWithModel() {
         Duke.getModel().updateGuiTaskList();
         Duke.getModel().updateGuiEmailList();
     }
@@ -189,11 +191,10 @@ public class UI {
     }
 
     public String getPrefix() {
-        return CommandParser.getInputPrefix();
+        return CommandParseHelper.getInputPrefix();
     }
 
-    void exit() {
+    public void exit() {
         Duke.exit();
     }
-
 }

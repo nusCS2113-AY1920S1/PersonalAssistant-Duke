@@ -1,6 +1,6 @@
 package seedu.duke.task.command;
 
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.task.TaskList;
@@ -39,7 +39,7 @@ public class TaskDoAfterCommand extends Command {
                 Duke.getUI().showResponse(responseMsg);
             }
             return true;
-        } catch (CommandParser.UserInputException e) {
+        } catch (CommandParseHelper.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             return false;
         }

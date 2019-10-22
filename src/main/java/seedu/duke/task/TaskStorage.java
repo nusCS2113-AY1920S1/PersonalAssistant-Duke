@@ -1,6 +1,6 @@
 package seedu.duke.task;
 
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.task.command.TaskReminderCommand;
@@ -89,18 +89,18 @@ public class TaskStorage {
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
             return new TaskList();
-        } catch (StorageException | CommandParser.UserInputException e) {
+        } catch (StorageException | CommandParseHelper.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             return new TaskList();
         }
     }
 
     private static void processTaskFileString(Scanner scanner, ArrayList<Boolean> doneList)
-            throws StorageException, CommandParser.UserInputException {
+            throws StorageException, CommandParseHelper.UserInputException {
         String input = scanner.nextLine();
         prepareDoneList(doneList, input);
         input = input.split(" ", 2)[1];
-        Command addCommand = CommandParser.parseCommand("task " + input);
+        Command addCommand = CommandParseHelper.parseCommand("task " + input);
         addCommand.setSilent();
         addCommand.execute();
     }
