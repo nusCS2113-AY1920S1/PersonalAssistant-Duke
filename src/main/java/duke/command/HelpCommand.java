@@ -6,6 +6,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+//@@author gervaiseang
 /**
  * Displaying full help instructions that list down all functions and commands available.
  */
