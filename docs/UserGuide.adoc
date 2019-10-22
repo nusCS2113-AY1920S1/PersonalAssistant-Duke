@@ -119,7 +119,7 @@ Examples:
 
 * `editrecipe 2`
 * `editrecipe garlic prawn`
-* `rating 9/10, ingredient garlic & prawn, cooking_steps pan-fry prawn for 8 minutes, feedback too salty`
+* `rating2 9/10, ingredient garlic & prawn, cooking_steps pan-fry prawn for 8 minutes, feedback too salty`
 
 ===  Viewing all recipes: `viewallrecipes`
 

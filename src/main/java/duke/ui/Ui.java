@@ -35,7 +35,7 @@ public class Ui {
         mainWindow.handleLoadingError();
     }
     public void showIngredientLoadingError() {
-        System.out.println(ERROR_MESSAGE_LOADING + filePathIngredients);
+        System.out.println(ERROR_MESSAGE_LOADING + filePathInventory);
     }
     /*
     public void showBookingLoadingError() {
