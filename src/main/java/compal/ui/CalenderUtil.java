@@ -22,11 +22,21 @@ public class CalenderUtil {
      */
     public void dateViewRefresh(String dateToStore) {
         DailyCalUi dc = new DailyCalUi();
-        tabWindow.getTabs().remove(1);
-        Tab dailyTab = new Tab();
-        dailyTab.setText("Daily View: " + dateToStore);
-        dailyTab.setContent(dc.init(dateToStore));
-        tabWindow.getTabs().add(1, dailyTab);
-    }
 
+        int totalTabSize = tabWindow.getTabs().size();
+
+        if (totalTabSize > 1) {
+            for (int i = totalTabSize - 1; i >= 1; i--) {
+                tabWindow.getTabs().remove(i);
+            }
+        }
+
+        Tab dailyTab = new Tab();
+        dailyTab.setText("Daily Task: " + dateToStore);
+        dailyTab.setContent(dc.init(dateToStore));
+
+        totalTabSize = tabWindow.getTabs().size();
+        tabWindow.getTabs().add(totalTabSize, dailyTab);
+        tabWindow.getSelectionModel().select(1);
+    }
 }
