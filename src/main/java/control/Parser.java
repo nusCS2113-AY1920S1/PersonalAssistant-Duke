@@ -42,6 +42,8 @@ public class Parser {
             return new ApproveCommand(input, splitStr);
         case "reject":
             return new RejectCommand(input, splitStr);
+        case "delete":
+            return new DeleteCommand(input, splitStr);
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
