@@ -10,28 +10,31 @@ import javax.swing.JComponent;
 public class PieChart extends JComponent {
     private float percentage = 0f;
 
-	/**
-	 * Creates a new PieChart with provided completed percentage
-	 * @param percentage percentage of tasks completed
-	 */
-	PieChart(float percentage) {
+    /**
+     * Creates a new PieChart with provided completed percentage
+     *
+     * @param percentage percentage of tasks completed
+     */
+    PieChart(float percentage) {
         this.percentage = percentage;
     }
 
-	/**
-	 * Paints the pie chart
-	 * @param g Graphics object of the Component
-	 */
-	public void paint(Graphics g) {
+    /**
+     * Paints the pie chart
+     *
+     * @param g Graphics object of the Component
+     */
+    public void paint(Graphics g) {
         drawPie((Graphics2D) g, getBounds());
     }
 
-	/**
-	 * Draws the pie chart with the given percentages with a 3 pixel border
-	 * @param g Graphics object of the Component
-	 * @param area Bounds of the space to draw
-	 */
-	void drawPie(Graphics2D g, Rectangle area) {
+    /**
+     * Draws the pie chart with the given percentages with a 3 pixel border
+     *
+     * @param g    Graphics object of the Component
+     * @param area Bounds of the space to draw
+     */
+    void drawPie(Graphics2D g, Rectangle area) {
         g.rotate(Math.toRadians(270));
         g.translate(-getBounds().width, 0);
 

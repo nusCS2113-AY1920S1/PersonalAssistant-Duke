@@ -20,9 +20,9 @@ public class InputMemory {
      * @return new text to replace inputField
      */
     public String moveUp(String currentInput) {
-        if (inputHistory.size() == 0)
+        if (inputHistory.size() == 0) {
             return currentInput;
-        else {
+        } else {
             if (currentPointer == inputHistory.size()) {
                 tempInput = currentInput;
             }

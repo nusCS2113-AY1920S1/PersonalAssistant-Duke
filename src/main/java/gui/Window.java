@@ -153,15 +153,17 @@ public class Window {
         inputField.getInputMap().put(keyStroke, key);
         inputField.getActionMap().put(key, upPressed);
 
+
+        key = "DOWN";
+        keyStroke = KeyStroke.getKeyStroke(key);
+        inputField.getInputMap().put(keyStroke, key);
+
         Action downPressed = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 inputField.setText(im.moveDown(inputField.getText()));
             }
         };
-        key = "DOWN";
-        keyStroke = KeyStroke.getKeyStroke(key);
-        inputField.getInputMap().put(keyStroke, key);
         inputField.getActionMap().put(key, downPressed);
     }
 
