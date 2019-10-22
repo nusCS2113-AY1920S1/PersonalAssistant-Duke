@@ -6,16 +6,24 @@ import javacake.ProgressStack;
 import javacake.storage.Storage;
 import javacake.ui.Ui;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class MegaListCommand extends Command {
+
+    private static String currentFilePath = "content/MainList";
 
     public MegaListCommand() {
         type = CmdType.TREE;
@@ -39,11 +47,36 @@ public class MegaListCommand extends Command {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Here is the lesson directory!").append("\n");
-        try (Stream<Path> walk = Files.walk(Paths.get(progressStack.getDefaultFilePath()))) {
-            List<String> result = walk.filter(Files::isDirectory).map(Path::toString).collect(Collectors.toList());
-            result = processFileNames(result);
-            sb.append(String.join("\n", result)).append("\n");
-            sb.append("Type 'goto' to access the topics you are interested in!").append("\n");
+
+        List<String> collectionOfNames = new ArrayList<>();
+
+        try {
+            CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
+            boolean isJarMode = true;
+            if (src != null) { //jar
+                URL jar = src.getLocation();
+                ZipInputStream zip = new ZipInputStream(jar.openStream());
+                while (true) {
+                    ZipEntry e = zip.getNextEntry();
+                    if (e == null) {
+                        break;
+                    }
+
+                    String name = e.getName();
+                    //sb.append(name).append("\n");
+                    if (name.startsWith(currentFilePath)) {
+                        collectionOfNames.add(name);
+                    }
+                }
+                isJarMode = false;
+                List<String> result = processFileNames(collectionOfNames);
+                sb.append(String.join("\n", result)).append("\n");
+                sb.append("Type 'goto' to access the topics you are interested in!").append("\n");
+            }
+            if (!isJarMode) {
+
+            }
+
             return sb.toString();
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
@@ -60,12 +93,14 @@ public class MegaListCommand extends Command {
     private List<String> processFileNames(List<String> listOfFilesNames) {
         List<String> processedList = new ArrayList<>();
         for (String filesNames : listOfFilesNames) {
-            String[] individualPath = filesNames.split("\\\\");
+            String[] individualPath = filesNames.split("/");
             StringBuilder sb = new StringBuilder();
-            int numberOfSpaces = individualPath.length - 6;
-            sb.append(" ".repeat(Math.max(0, numberOfSpaces) * 5));
-            sb.append(individualPath[individualPath.length - 1]);
-            processedList.add(sb.toString());
+            if (!(individualPath[individualPath.length - 1]).contains(".txt")) {
+                int numberOfSpaces = individualPath.length - 3;
+                sb.append(" ".repeat(Math.max(0, numberOfSpaces) * 5));
+                sb.append(individualPath[individualPath.length - 1]);
+                processedList.add(sb.toString());
+            }
         }
         processedList.remove(0);
         return processedList;

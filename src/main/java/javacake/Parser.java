@@ -55,7 +55,7 @@ public class Parser {
                 throw new DukeException("Please specify index number in 'goto' command!");
             }
             return new GoToCommand(inputCommand.substring(5));
-        } else if (input.equals("tree")) {
+        } else if (input.equals("overview")) {
             return new MegaListCommand();
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
