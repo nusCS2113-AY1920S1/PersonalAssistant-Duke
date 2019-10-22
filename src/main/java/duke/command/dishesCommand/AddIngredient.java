@@ -1,13 +1,12 @@
-package duke.dishesCommand;
+package duke.command.dishesCommand;
 
-import duke.command.AddCommand;
-import duke.exception.DukeException;
 import duke.Dishes.DishList;
+import duke.command.Cmd;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class AddIngredient extends RecipeCommand {
+public class AddIngredient extends Cmd<DishList> {
 
     private String ingredient;
     private int Nb;
@@ -18,7 +17,7 @@ public class AddIngredient extends RecipeCommand {
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, Ui ui, Storage storage) throws DukeException {
         try {
             dish1.getDish(Nb - 1).addIngredients(ingredient);
             System.out.println("\t added ingredient: " + ingredient + "\n\t to dish: " + dish1.getDish(Nb - 1).getDishname());
