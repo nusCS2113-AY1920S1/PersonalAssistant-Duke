@@ -1,7 +1,6 @@
 package dolla;
 
 
-
 import dolla.parser.MainParser;
 import dolla.task.Debt;
 import dolla.task.Entry;
@@ -54,10 +53,8 @@ public class Storage {
      * <p>
      *     If an error occurs while reading from ./data/duke.txt, exit duke.
      * </p>
-     * @return duke.task.TaskList containing data (if any) from ./data/duke.txt.
      */
     public static void load() {
-//        ArrayList<Task> list = new ArrayList<Task>();
 
         Ui.showWelcome();
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
@@ -76,40 +73,46 @@ public class Storage {
                 int numOfElements = inArray.length;
                 String type = inArray[0];
                 Log newLog = null;
-//                System.out.println(inArray[0] + " ===----"+inArray[1]);
-                switch(type) {
+                //System.out.println(inArray[0] + " ===----"+inArray[1]);
+                switch (type) {
                 case "I": //check if there is a tag
-                    if(numOfElements == 4) {
+                    if (numOfElements == 4) {
                         newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
-//                    else if (numOfElements == 5) {
-//                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
+                    /*
+                    else if (numOfElements == 5) {
+                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                     */
                     break;
                 case "E": //check if there is a tag
-                    if(numOfElements == 4) {
+                    if (numOfElements == 4) {
                         newLog = new Entry("expense",stringToDouble(inArray[1]),inArray[2],Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
-//                    else if (numOfElements == 5) {
-//                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
-//                    break;
-//                case "RI"://no start date, check if there is a tag
-//                    if(numOfElements == 4) {
-//                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
-//                    } else if(numOfElements == 5) {
-//                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
-//                    break;
-//                case "RE"://no start date, check if there is a tag
-//                    if(numOfElements == 4) {
-//                        newLog = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
-//                    } else if (numOfElements == 5) {
-//                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
-//                    break;
-                case "BU"://must include 3 additional word, every,for and tag
-//                    if(inArray[3].equals("every")) {
+                    break;
+                    /*
+                    else if (numOfElements == 5) {
+                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                    break;
+                case "RI"://no start date, check if there is a tag
+                    if(numOfElements == 4) {
+                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
+                    } else if(numOfElements == 5) {
+                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                    break;
+                case "RE"://no start date, check if there is a tag
+                    if(numOfElements == 4) {
+                        newLog = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
+                    } else if (numOfElements == 5) {
+                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                    break;
+                    */
+                case "BU":
+                    //must include 3 additional word, every,for and tag
+                    //if (inArray[3].equals("every")) {
                         newLog = new Limit("budget",stringToDouble(inArray[1]), inArray[2]);
 //                    }
 //                    else if (inArray[3].equals("for")) {
@@ -155,7 +158,7 @@ public class Storage {
         }
 
         Ui.printMsg(msg);
-//        return list;
+        //return list;
     }
 
     public static ArrayList<Log> getEntriesFromSave() {

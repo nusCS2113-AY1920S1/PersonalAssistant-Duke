@@ -1,32 +1,45 @@
 package dolla;
 
-import dolla.command.Command;
-import dolla.task.Log;
 import dolla.task.LogList;
-import dolla.task.Task;
-import dolla.task.TaskList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 
-
-
+/**
+ * Class handles Reminder-related methods.
+ */
 public class Reminder {
+
     protected LocalDate today;
     private String mode;
 
-    public Reminder (String mode) {
+    /**
+     * Instantiates a new Reminder.
+     *
+     * @param mode the mode
+     */
+    public Reminder(String mode) {
         this.mode = "debt";
     }
 
-    public void showReminder (DollaData dollaData) {
+    /**
+     * Show reminder.
+     *
+     * @param dollaData the dolla data
+     */
+    public void showReminder(DollaData dollaData) {
         LogList logList = new LogList(new ArrayList<>());
         logList = dollaData.getLogList(mode);
         today = LocalDate.now();
         printReminder(today, logList);
     }
 
+    /**
+     * Print reminder.
+     *
+     * @param today   the today
+     * @param logList the log list
+     */
     public void printReminder(LocalDate today, LogList logList) {
         System.out.println("\tREMINDER!!!");
         int listNum = 0;
