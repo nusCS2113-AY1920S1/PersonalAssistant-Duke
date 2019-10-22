@@ -3,6 +3,7 @@ package duke.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+
 //@@author maxxyx96
 public class BudgetListTest {
     @Test
@@ -34,3 +35,4 @@ public class BudgetListTest {
     }
 }
 //@@author
+
