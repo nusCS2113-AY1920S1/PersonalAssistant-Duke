@@ -89,8 +89,10 @@ public class Storage {
 
                 String scanUnit = temp[9].trim();
                 TimeUnit unit = TimeUnit.valueOf(scanUnit);
-
-                String scanSubTask = temp[10].trim();
+                String scanSubTask = "";
+                if (temp.length > 10) {
+                    scanSubTask = temp[10].trim();
+                }
 
                 if (type.equals(SaveType.A)) {
                     // Assignment type
@@ -99,7 +101,7 @@ public class Storage {
                     assignment.setAssignee(user);
                     assignment.setRecurrenceSchedule(recurrence);
                     assignment.setDone(done);
-                    if (scanSubTask.length() != 0) assignment.setSubTasks(scanSubTask);
+                    if (!scanSubTask.equals("")) assignment.setSubTasks(scanSubTask);
                     taskArrayList.add(assignment);
                 } else {
                     //Meeting type
@@ -120,7 +122,7 @@ public class Storage {
                     }
                 }
             }
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
         return (taskArrayList);

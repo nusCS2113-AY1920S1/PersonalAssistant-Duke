@@ -3,6 +3,7 @@ import Enums.*;
 import Model_Classes.*;
 import Operations.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -65,7 +66,7 @@ public class RoomShare {
             case help:
                 help.helpCommandList();
                 help.showHelp(parser.getCommandLine());
-            break;
+                break;
 
             case list:
                 ui.showList();
@@ -76,7 +77,8 @@ public class RoomShare {
                 }
                 pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
                 pg.showBar();
-            break;
+                break;
+
 
             case bye:
                 isExit = true;
@@ -152,12 +154,10 @@ public class RoomShare {
             case snooze :
                 try {
                     int index = parser.getIndex();
-                    TaskList.currentList().get(index);
-                    ui.showSnooze();
                     int amount = parser.getAmount();
                     TimeUnit timeUnit = parser.getTimeUnit();
                     taskList.snooze(index, amount, timeUnit);
-                    ui.showSnoozeComplete();
+                    ui.showSnoozeComplete(index + 1, amount, timeUnit);
                 } catch (IndexOutOfBoundsException e) {
                     ui.showIndexError();
                 } catch (IllegalArgumentException e) {
