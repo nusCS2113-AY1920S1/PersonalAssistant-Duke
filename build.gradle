@@ -11,11 +11,11 @@ checkstyle {
 }
 
 group 'duke'
-version '1.1'
+version '1.2.1'
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "1.1"
+    archiveVersion = "1.2.1"
     archiveClassifier = null
     archiveAppendix = null
     archiveAppendix = null
