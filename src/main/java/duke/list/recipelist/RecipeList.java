@@ -4,28 +4,25 @@ import duke.task.recipetasks.Recipe;
 import duke.task.recipetasks.RecipeTitle;
 import javafx.scene.effect.SepiaTone;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 
 public class RecipeList {
 
-    LinkedHashMap<Integer, Recipe> recipeLHM;
+    HashMap<Integer, Recipe> recipeLHM;
 
     public RecipeList() {
-        this.recipeLHM = new LinkedHashMap<>();
+        this.recipeLHM = new HashMap<>();
     }
 
-    public RecipeList(LinkedHashMap<Integer, Recipe> recipeListFromStorage) {
+    public RecipeList(HashMap<Integer, Recipe> recipeListFromStorage) {
         this.recipeLHM = recipeListFromStorage;
     }
 
     public String getRecipeIndex() {
-        Map.Entry entry = (Map.Entry) this.recipeLHM.entrySet();
-        return entry.getKey().toString();
+        Set entry = this.recipeLHM.keySet();
+        return entry.toString();
     }
 
     public void addRecipe(int index, String recipeTitle) {
@@ -41,7 +38,7 @@ public class RecipeList {
         return new Recipe(recipeTitle);
     }
 
-    public LinkedHashMap<Integer, Recipe> getRecipeList() {
+    public HashMap<Integer, Recipe> getRecipeList() {
         return this.recipeLHM;
     }
 

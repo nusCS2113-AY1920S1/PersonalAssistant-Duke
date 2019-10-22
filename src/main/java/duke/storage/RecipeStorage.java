@@ -5,14 +5,15 @@ import duke.list.recipelist.RecipeList;
 import duke.task.recipetasks.Recipe;
 
 import java.io.*;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.HashMap;
 
 /**
  * Handles the ability to read and write to the storage location.
  */
 public class RecipeStorage {
 
-    private final LinkedHashMap<Integer, Recipe> LHMRecipeList = new LinkedHashMap<>();
+    private final HashMap<Integer, Recipe> LHMRecipeList = new HashMap<>();
     private final String filePathRecipes;
 
     /**
@@ -36,7 +37,7 @@ public class RecipeStorage {
             recipeList.getRecipeList().forEach((Integer, Recipe) ->
             {
                 try {
-                    bufferedWriter.write(recipeList.getRecipeIndex() + " | " + Recipe.toSaveString() + "\n");
+                    bufferedWriter.write(Integer.toString() + " | " + Recipe.toSaveString() + "\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -53,7 +54,7 @@ public class RecipeStorage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public LinkedHashMap<Integer, Recipe> load() throws DukeException {
+    public HashMap<Integer, Recipe> load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePathRecipes);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
