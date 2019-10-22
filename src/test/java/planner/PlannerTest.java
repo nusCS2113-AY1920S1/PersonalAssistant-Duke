@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import planner.main.CliLauncher;
 
 public class PlannerTest extends InputTest {
 
@@ -21,7 +22,7 @@ public class PlannerTest extends InputTest {
         final String test = "bye";
         provideInput(test);
         final String[] hold = {""};
-        Planner.main(hold);
+        CliLauncher.main(hold);
         String expected =
                 LINE
                 + "\n"
