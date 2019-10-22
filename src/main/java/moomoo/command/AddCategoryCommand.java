@@ -23,7 +23,7 @@ public class AddCategoryCommand extends Command {
         categoryList.list(ui);
         ui.showAddCategoryMessage();
         String categoryName = ui.readCommand();
-        Category newCategory = new Category(categoryName);
+        Category newCategory = new Category(categoryName.toLowerCase());
         categoryList.add(newCategory);
         ui.showNewCategoryMessage(categoryName);
     }

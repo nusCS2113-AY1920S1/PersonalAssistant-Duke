@@ -1,5 +1,6 @@
 package moomoo.command;
 
+import moomoo.MooMoo;
 import moomoo.task.Budget;
 import moomoo.task.Category;
 import moomoo.task.CategoryList;
@@ -102,7 +103,7 @@ public class BudgetCommand extends Command {
                         if (!inCategoryList(category, catList)) {
                             throw new MooMooException(category + " does not exist. Please create it first.");
                         }
-                        outputValue += addBudget(budget, splitInput[i].substring(2), category);
+                        outputValue += addBudget(budget, catList, splitInput[i].substring(2), category);
                     } else {
                         if (!reset) {
                             category += " " + splitInput[i];
@@ -169,13 +170,12 @@ public class BudgetCommand extends Command {
                 throw new MooMooException("You have not typed in a valid format. "
                         + " Please use budget set c/CATEGORY b/BUDGET.");
             }
-            //ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
             ui.setOutput(outputValue);
             storage.saveBudgetToFile(budget);
         } else if (input.startsWith("list")) {
             if (input.length() == 4) {
                 if (budget.getBudgetSize() > 0) {
-                    ui.setOutput(budget.toString().substring(0, budget.toString().length() - 1));
+                    ui.setOutput(budget.toString());
                 } else {
                     throw new MooMooException("You have not set your budget for any categories.");
                 }
@@ -211,7 +211,6 @@ public class BudgetCommand extends Command {
                     throw new MooMooException("You have not typed in a valid format. "
                             + "Please list down the categories using c/CATEGORY.");
                 }
-                //ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
                 ui.setOutput(outputValue);
             }
         } else if (input.startsWith("savings ")) {
@@ -297,7 +296,7 @@ public class BudgetCommand extends Command {
                         inputVal = "\nPlease type in the budget that you would like to set for " + category;
                         String inputBudget = ui.confirmPrompt(inputVal);
 
-                        ui.setOutput(addBudget(budget, inputBudget, category));
+                        ui.setOutput(addBudget(budget, catList, inputBudget, category));
                         ui.showResponse();
 
                         category = initialPrompt(catList, ui,
@@ -434,14 +433,14 @@ public class BudgetCommand extends Command {
 
     private boolean inCategoryList(String value, CategoryList catList) {
         for (Category cat : catList.getCategoryList()) {
-            if (cat.toString().equals(value)) {
+            if (cat.toString().toLowerCase().equals(value.toLowerCase())) {
                 return true;
             }
         }
         return false;
     }
 
-    private String addBudget(Budget budget, String inputBudget, String category) throws MooMooException {
+    private String addBudget(Budget budget, CategoryList catList, String inputBudget, String category) throws MooMooException {
         double addedBudget = 0;
         String outputValue;
         try {
@@ -456,12 +455,19 @@ public class BudgetCommand extends Command {
                     + "Please type in a positive number greater than 0";
             return outputValue;
         }
-        if (budget.getBudgetFromCategory(category) != 0) {
+
+        if (!inCategoryList(category.toLowerCase(), catList)) {
+            throw new MooMooException("The " + category  + " does not exist. Please create it first.");
+        }
+
+            if (budget.getBudgetFromCategory(category) != 0) {
             outputValue = "The budget for " + category + " has already been set. "
                     + "Please edit it using budget edit.";
             return outputValue;
         }
-        budget.addNewBudget(category, addedBudget);
+
+
+        budget.addNewBudget(category.toLowerCase(), addedBudget);
         outputValue = "You have set $" + df.format(addedBudget)
                 + " as the budget for " + category + "\n";
 
@@ -547,9 +553,37 @@ public class BudgetCommand extends Command {
                     + " " + start.getYear() + " is: " + df.format(budget.getTotalBudget()
                     - catList.getMonthlyGrandTotal(start.getMonthValue()));
         } else {
+            int numberOfMonths = end.getMonthValue() - start.getMonthValue();
+            int numberOfYears = end.getYear() - start.getYear();
+            double totalExpenditure = 0;
+
+            if (numberOfYears > 0) {
+                int startMonthValue = start.getMonthValue();
+                int endMonthValue = 12;
+                int yearValue = start.getYear();
+                for (int i = 0; i < numberOfYears; ++i) {
+                    for (int x = startMonthValue; i < endMonthValue; ++x) {
+                        for (int a = 0; a < catList.getCategoryList().size(); ++a) {
+                            totalExpenditure += catList.getCategoryList().get(a).getCategoryTotalPerMonthYear(x, yearValue);
+                        }
+                    }
+                    startMonthValue = 1;
+                    if (numberOfYears - i == 1) {
+                        endMonthValue = end.getMonthValue();
+                    }
+                    yearValue += 1;
+                }
+            } else {
+                for (int i = start.getMonthValue(); i < end.getMonthValue(); ++i) {
+                    for (int a = 0; a < catList.getCategoryList().size(); ++a) {
+                        totalExpenditure += catList.getCategoryList().get(a).getCategoryTotalPerMonthYear(i, start.getYear());
+                    }
+                }
+            }
+
             outputValue = "Your total savings from " + start.getMonth()
                     + " " + start.getYear() + " to "
-                    + end.getMonth() + " " + end.getYear() + " is: ";
+                    + end.getMonth() + " " + end.getYear() + " is: " + df.format((numberOfMonths * budget.getTotalBudget()) - totalExpenditure);
         }
         return outputValue;
     }
@@ -570,13 +604,13 @@ public class BudgetCommand extends Command {
                 throw new MooMooException(iteratorCategory + " does not exist."
                         + " Please create it first.");
             }
-            if (budget.getBudgetFromCategory(iteratorCategory) == 0) {
+            if (budget.getBudgetFromCategory(iteratorCategory.toLowerCase()) == 0) {
                 throw new MooMooException("The budget for " + iteratorCategory + " does not exist."
                         + "Please set it using budget set.");
             }
             Category currentCat = null;
             for (Category innerCat : catList.getCategoryList()) {
-                if (innerCat.toString().equals(iteratorCategory)) {
+                if (innerCat.toString().toLowerCase().equals(iteratorCategory.toLowerCase())) {
                     currentCat = innerCat;
                     break;
                 }
@@ -597,7 +631,7 @@ public class BudgetCommand extends Command {
                     int endMonthValue = 12;
                     int yearValue = start.getYear();
                     for (int i = 0; i < numberOfYears; ++i) {
-                        for (int x = startMonthValue; i < endMonthValue; ++x) {
+                        for (int x = startMonthValue; x < endMonthValue; ++x) {
                             totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(x, yearValue);
                         }
                         startMonthValue = 1;
