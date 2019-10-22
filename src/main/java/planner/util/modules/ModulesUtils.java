@@ -9,7 +9,7 @@ import planner.logic.modules.legacy.task.Task;
 import planner.logic.modules.legacy.task.TaskWithPeriod;
 import planner.util.legacy.periods.TimePeriodSpanning;
 
-public class modulesUtils {
+public class ModulesUtils {
 
     /**
      * Get free time slots for a specific date.
