@@ -21,6 +21,7 @@ public class ListRoomCommand extends Command {
      * @param user Current user
      * @throws DukeException
      */
+
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
         if (roomList.isEmpty()) {
