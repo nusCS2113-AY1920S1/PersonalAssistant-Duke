@@ -213,7 +213,7 @@ public class PlannerUi {
 
     public void gradedMsg(String moduleCode, String letterGrade) {
         showLine();
-        System.out.println("Got it, graded " + moduleCode + " with grade : " + letterGrade);
+        System.out.println("Got it, graded " + moduleCode + " with grade: " + letterGrade);
     }
 
 
