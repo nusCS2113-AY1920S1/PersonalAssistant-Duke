@@ -335,7 +335,7 @@ public class Parser {
             } else if (afterTaskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description for "
                         + arr[ZERO] + " cannot be empty.");
-            } else{
+            } else {
                 duration = Integer.parseInt(taskDesc.split("/in", TWO)[ZERO].trim()) - ONE;
                 int howManyDays = Integer.parseInt(afterTaskDesc);
                 return new RemindCommand(duration, howManyDays);
