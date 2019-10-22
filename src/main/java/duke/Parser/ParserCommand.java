@@ -1,19 +1,20 @@
-package duke.data;
+package duke.Parser;
 import duke.Ui;
 
 import java.util.Scanner;
 
-public class ParseCommand implements IParser {
+public class ParserCommand implements IParser {
     /**
      * Declaring type ManageStudentsParser.
      */
-    private ManageStudentsParser manageStudentsParser = new ManageStudentsParser();
-    private Ui ui = new Ui();
+    private ParserManageStudents parserManageStudents = new ParserManageStudents();
+
     /**
      * To parse the respective command.
      * @param input command.
      */
     public void parseCommand(final String input) {
+        Ui ui = new Ui();
         switch (input) {
             case "1":
                 // Schedule
@@ -24,7 +25,7 @@ public class ParseCommand implements IParser {
                 ui.manageStudentsHeading();
                 Scanner sc = new Scanner(System.in);
                 String nextInput = sc.nextLine();
-                manageStudentsParser.parseCommand(nextInput);
+                parserManageStudents.parseCommand(nextInput);
                 break;
             case "3":
                 ui.trainingProgramHeading();

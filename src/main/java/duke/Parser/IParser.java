@@ -1,4 +1,4 @@
-package duke.data;
+package duke.Parser;
 
 public interface IParser {
     /**

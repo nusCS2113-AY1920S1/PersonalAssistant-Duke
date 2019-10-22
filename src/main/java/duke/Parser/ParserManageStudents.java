@@ -1,11 +1,11 @@
-package duke.data;
+package duke.Parser;
 
 import duke.sports.ManageStudents;
 import duke.sports.MyStudent;
 
 import java.util.Scanner;
 
-public class ManageStudentsParser implements IParser {
+public class ParserManageStudents implements IParser {
     String io;
     public ManageStudents students = new ManageStudents();
     @Override
