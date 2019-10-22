@@ -19,7 +19,7 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
     - [4.1.2. Deleting a Task: `delete`](/docs/UserGuide.md#412-deleting-a-task-delete)
     - [4.1.3. Completing a Task: `done`](/docs/UserGuide.md#413-completing-a-task-done)
     - [4.1.4. Finding a Task: `find`](/docs/UserGuide.md#414-finding-a-task-find)
-    - [4.1.5. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#415-viewing-tasks-on-a-specified-date-view)
+    - [4.1.5. Viewing Tasks on a Specified Date: `view(/docs/UserGuide.md#415-viewing-tasks--view)
     - [4.1.6. View Reminder: `view-reminder`](/docs/UserGuide.md#416-view-reminder-view-reminder)
     - [4.1.7. Set Reminder: `set-reminder`](/docs/UserGuide.md#417-set-reminder-set-reminder)
     - [4.1.8. Exiting **COMPal**: `bye`](/docs/UserGuide.md#418-exiting-compal-bye)
