@@ -1,6 +1,5 @@
 package leduc.exception;
 
-import leduc.Ui;
 
 public class FileException extends DukeException {
     /**
