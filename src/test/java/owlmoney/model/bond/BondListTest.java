@@ -92,7 +92,6 @@ class BondListTest {
     @Test
     void bondListStubGetBond_noBond_throwsBondException() {
         BondListStub bondListTest = new BondListStub();
-        Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
                 bondListTest.getBond("TEST BOND 0"),
@@ -118,7 +117,6 @@ class BondListTest {
     @Test
     void bondListStubEditBond_noBond_throwsBondException() {
         BondListStub bondListTest = new BondListStub();
-        Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
                         bondListTest.getBond("TEST BOND 0"),
@@ -343,7 +341,6 @@ class BondListTest {
     @Test
     void getBond_noBond_throwsBondException() {
         BondList bondListTest = new BondList();
-        Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
                         bondListTest.getBond("TEST BOND 0"),
