@@ -28,8 +28,8 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
- + [5.1 Architecture](/docs/DeveloperGuide.md#51-view-feature)
- + [5.5 Architecture](/docs/DeveloperGuide.md#55-find-feature)
+ + [5.1 View Feature](/docs/DeveloperGuide.md#51-view-feature)
+ + [5.5 Find Feature](/docs/DeveloperGuide.md#55-find-feature)
 
 
 [**6. Documentation**](/docs/DeveloperGuide.md#6-documentation)
