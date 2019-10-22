@@ -13,12 +13,10 @@ import static seedu.hustler.game.achievement.DoneTask.*;
  * Also prints out achievement list.
  */
 public class AchievementList {
-
     /**
      * List of all unlocked and locked achievements.
      */
     public static ArrayList<Achievements> achievementList = new ArrayList<>();
-
 
     /**
      * When user first starts Hustler, Hustler will create a list of locked achievements.
@@ -26,8 +24,7 @@ public class AchievementList {
      * @return list of locked achievements.
      */
     public static ArrayList<Achievements> firstStart(int loginCount) {
-
-        if(loginCount == 1) {
+        if (loginCount == 1) {
             achievementList.add(new DoneTask("\uD83E\uDD49 Bronze"));
             achievementList.add(new DoneTask("\uD83E\uDD48 Silver"));
             achievementList.add(new DoneTask("\uD83E\uDD47 Gold"));
@@ -51,15 +48,14 @@ public class AchievementList {
      * @param achievementLevel achievement level of the achievement.
      * @return returns list of achievement.
      */
-    public static ArrayList<Achievements> updateAddTask (String achievementLevel) {
-        for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
+    public static ArrayList<Achievements> updateAddTask(String achievementLevel) {
+        for (int i = 0; i < achievementList.size(); i += 1) {
+            if (achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(addPoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
             }
         }
-
         return achievementList;
     }
 
@@ -69,9 +65,9 @@ public class AchievementList {
      * @param achievementLevel achievement level of the achievement.
      * @return returns list of achievement.
      */
-    public static ArrayList<Achievements> updateDoneTask (String achievementLevel) {
-        for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
+    public static ArrayList<Achievements> updateDoneTask(String achievementLevel) {
+        for (int i = 0; i < achievementList.size(); i++) {
+            if (achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(donePoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
@@ -86,9 +82,9 @@ public class AchievementList {
      * @param achievementLevel achievement level of the achievement.
      * @return returns list of achievement.
      */
-    public static ArrayList<Achievements> updateConsecutiveLogin (String achievementLevel) {
-        for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
+    public static ArrayList<Achievements> updateConsecutiveLogin(String achievementLevel) {
+        for (int i = 0; i < achievementList.size(); i++) {
+            if (achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(loginPoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
@@ -102,27 +98,25 @@ public class AchievementList {
      */
     public static void showList() {
         System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
-        if(!achievementList.isEmpty()) {
+        if (!achievementList.isEmpty()) {
             int l = 0;
-            for(int i = 0; i < achievementList.size(); i ++) {
-                if(!achievementList.get(i).checkLock()) {
-                    l ++;
+            for (int i = 0; i < achievementList.size(); i++) {
+                if (!achievementList.get(i).checkLock()) {
+                    l++;
                     System.out.print(l + ". ");
                     System.out.println(achievementList.get(i));
                 }
             }
             System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
             int j = 0;
-            for(int i = 0; i < achievementList.size(); i ++) {
-                if(achievementList.get(i).checkLock()) {
-                    j ++;
+            for (int i = 0; i < achievementList.size(); i++) {
+                if (achievementList.get(i).checkLock()) {
+                    j++;
                     System.out.print(j + ". ");
                     System.out.println(achievementList.get(i));
                 }
             }
             System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
         }
-
     }
-
 }

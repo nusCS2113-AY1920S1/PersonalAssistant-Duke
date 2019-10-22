@@ -72,14 +72,18 @@ public class FirstLogin extends Achievements {
      * @return information.
      */
     @Override
-    public String getInformation() { return information; }
+    public String getInformation() {
+        return information;
+    }
 
     /**
      * Retrieve current points from achievement.
      * @return points.
      */
     @Override
-    public int getPoints() { return points; }
+    public int getPoints() {
+        return points;
+    }
 
     /**
      * Update points gained from unlocking achievement.

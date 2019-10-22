@@ -7,7 +7,6 @@ import seedu.hustler.ui.timer.threadErrorUIMessages.threadErrorType;
  * The access point for all timer-related things.
  */
 public class timerManager {
-
     /**
      * All instances of timerManager share the same timer and
      * thread so that all things timer-related are in sync.
@@ -21,8 +20,8 @@ public class timerManager {
      * have these two attributes initialised.
      */
     public timerManager() {
-	    countdownTimer = new timer();
-            countdownThread = new Thread(countdownTimer);
+        countdownTimer = new timer();
+        countdownThread = new Thread(countdownTimer);
     }
 
     /**

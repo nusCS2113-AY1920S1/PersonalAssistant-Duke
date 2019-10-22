@@ -62,7 +62,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/avatar")) {
             if (userInput[1].equals("stats")) {
                 return new CheckAvatarCommand();
-            } else if(userInput[1].contains("setname")) {
+            } else if (userInput[1].contains("setname")) {
                 return new SetNameCommand(userInput);
             } else {
                 return new InvalidCommand();
@@ -94,8 +94,8 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
-        } else if (userInput[0].equals("/prioritize") || userInput[0].equals("/chronological") ||
-                    userInput[0].equals("/normal")) {
+        } else if (userInput[0].equals("/prioritize") || userInput[0].equals("/chronological")
+                || userInput[0].equals("/normal")) {
             return new SortCommand(rawInput);
         } else if (userInput[0].equals("/bye")) {
             return new ByeCommand();

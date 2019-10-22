@@ -1,12 +1,9 @@
 package seedu.hustler.ui.timer;
 
-import java.util.*;
-
 /**
  * The timer device operated by timerManager.
  */
 public class timer implements Runnable {
-
     /**
      * The current status of the timer, an attribute that is
      * affected by the types of commands used by the user.
@@ -26,7 +23,7 @@ public class timer implements Runnable {
      */
     protected timer() {
         timeArray = new int[3];
-	threadstatus = threadStatus.DEFAULT;
+	    threadstatus = threadStatus.DEFAULT;
     }
 
     /**
@@ -48,8 +45,8 @@ public class timer implements Runnable {
      */
     protected enum threadStatus {
         DEFAULT,
-	RUNNING,
-	PAUSED,
+	    RUNNING,
+	    PAUSED,
         RESUMED,
         RESET,
         STOPPED,

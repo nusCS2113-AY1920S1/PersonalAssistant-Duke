@@ -2,8 +2,6 @@ package seedu.hustler.data;
 
 import seedu.hustler.game.achievement.*;
 import seedu.hustler.parser.DateTimeParser;
-
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -69,15 +67,15 @@ public class AchievementStorage {
             Scanner scanner = new Scanner(new File(STATUS_FILEPATH));
             while (scanner.hasNextLine()) {
                 String[] txt = scanner.nextLine().split(" ");
-                if(txt[0].equals("Add:")) {
+                if (txt[0].equals("Add:")) {
                     numberOfTasks = Integer.parseInt(txt[1]);
-                } else if(txt[0].equals("Done:")) {
+                } else if (txt[0].equals("Done:")) {
                     numberOfDone = Integer.parseInt(txt[1]);
-                } else if(txt[0].equals("TotalPoints:")) {
+                } else if (txt[0].equals("TotalPoints:")) {
                     totalPoints = Integer.parseInt(txt[1]);
-                } else if(txt[0].equals("LastLogin:")) {
+                } else if (txt[0].equals("LastLogin:")) {
                     storedDateTime = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
-                } else if(txt[0].equals("ConsecutiveCount:")) {
+                } else if (txt[0].equals("ConsecutiveCount:")) {
                     consecutiveCount = Integer.parseInt(txt[1]);
                 }
             }
@@ -106,7 +104,7 @@ public class AchievementStorage {
         writer.write("Done: " + numberOfDone);
         writer.write("\n");
         writer.write("TotalPoints: " + totalPoints);
-        if(reset() || checkLogin()) {
+        if (reset() || checkLogin()) {
             writer.write("\n");
             writer.write("LastLogin: " + DateTimeParser.convertDateTime(LocalDateTime.now()));
             writer.write("\n");
@@ -123,47 +121,47 @@ public class AchievementStorage {
      * Loads achievement from text file and add them into achievement list.
      * @return list of achievement.
      * @throws FileNotFoundException when file is not found, will create a
-     * new txtfile to start data storage.
+     *     new txtfile to start data storage.
      */
     public static ArrayList<Achievements> loadAchievements() throws FileNotFoundException {
         try {
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
             while (scanner.hasNextLine()) {
                 String[] txt = scanner.nextLine().split("\\|");
-                    if(txt[3].equals("Busybee")) {
-                        AddTask addTask = new AddTask(txt[2]);
-                        addTask.setPoints(Integer.parseInt(txt[1]));
-                        if(txt[0].equals("true")) {
-                            addTask.setLock(true);
-                        } else if(txt[0].equals("false")) {
-                            addTask.setLock(false);
-                        }
-                        achievementList.add(addTask);
-                    } else if(txt[3].equals("Completionist")) {
-                        DoneTask doneTask = new DoneTask(txt[2]);
-                        doneTask.setPoints(Integer.parseInt(txt[1]));
-                        if(txt[0].equals("true")) {
-                            doneTask.setLock(true);
-                        } else if(txt[0].equals("false")) {
-                            doneTask.setLock(false);
-                        }
-                        achievementList.add(doneTask);
-                    } else if(txt[3].equals("Dedicated to the art")) {
-                        ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
-                        consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
-                        if(txt[0].equals("true")) {
-                            consecutiveLogin.setLock(true);
-                        } else if(txt[0].equals("false")) {
-                            consecutiveLogin.setLock(false);
-                        }
-                        achievementList.add(consecutiveLogin);
-                    } else if(txt[3].equals("Fresh off the boat")) {
-                        FirstLogin firstLogin = new FirstLogin();
-                        achievementList.add(firstLogin);
+                if (txt[3].equals("Busybee")) {
+                    AddTask addTask = new AddTask(txt[2]);
+                    addTask.setPoints(Integer.parseInt(txt[1]));
+                    if (txt[0].equals("true")) {
+                        addTask.setLock(true);
+                    } else if (txt[0].equals("false")) {
+                        addTask.setLock(false);
                     }
+                    achievementList.add(addTask);
+                } else if (txt[3].equals("Completionist")) {
+                    DoneTask doneTask = new DoneTask(txt[2]);
+                    doneTask.setPoints(Integer.parseInt(txt[1]));
+                    if (txt[0].equals("true")) {
+                        doneTask.setLock(true);
+                    } else if (txt[0].equals("false")) {
+                        doneTask.setLock(false);
+                    }
+                    achievementList.add(doneTask);
+                } else if (txt[3].equals("Dedicated to the art")) {
+                    ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
+                    consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
+                    if (txt[0].equals("true")) {
+                        consecutiveLogin.setLock(true);
+                    } else if (txt[0].equals("false")) {
+                        consecutiveLogin.setLock(false);
+                    }
+                    achievementList.add(consecutiveLogin);
+                } else if (txt[3].equals("Fresh off the boat")) {
+                    FirstLogin firstLogin = new FirstLogin();
+                    achievementList.add(firstLogin);
                 }
-                return achievementList;
-            } catch(FileNotFoundException e) {
+            }
+            return achievementList;
+        } catch (FileNotFoundException e) {
             return achievementList;
         }
     }
@@ -176,7 +174,7 @@ public class AchievementStorage {
      */
     public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
-        for(int i = 0; i < achievementsList.size(); i += 1) {
+        for (int i = 0; i < achievementsList.size(); i += 1) {
             writer.write(achievementsList.get(i).toTxt());
             writer.write("\n");
         }
