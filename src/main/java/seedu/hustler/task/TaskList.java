@@ -3,7 +3,12 @@ package seedu.hustler.task;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.Hustler;
@@ -13,6 +18,7 @@ import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.schedule.Scheduler;
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
@@ -218,6 +224,7 @@ public class TaskList {
                 System.out.println("Task clashes with another existing task in the list!");
             }
         }
+        Scheduler.add(this.getLastTask());
     }
 
     /**
