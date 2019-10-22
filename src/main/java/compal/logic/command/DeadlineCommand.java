@@ -15,6 +15,7 @@ import java.util.Date;
 public class DeadlineCommand extends Command {
 
     private static final String MESSAGE_GREETING = "The following tasks were added: \n";
+    private static final int DEFAULT_WEEK_INTERVAL = 7;
     private String description;
     private ArrayList<String> startDateList;
     private Task.Priority priority;
@@ -49,7 +50,7 @@ public class DeadlineCommand extends Command {
                 Deadline indivDeadline = new Deadline(description, priority, startDateString, endTime);
                 taskList.addTask(indivDeadline);
                 finalList += indivDeadline.toString();
-                startDate = incrementDateByWeek(startDate);
+                startDate = incrementDateByDays(startDate, DEFAULT_WEEK_INTERVAL);
             }
         }
         return new CommandResult(finalList, true);
