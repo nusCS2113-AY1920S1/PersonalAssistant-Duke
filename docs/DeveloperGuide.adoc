@@ -1,4 +1,4 @@
-= ModPlan v1.1 - Developer's Guide
+= ModPlan v1.3 - Developer's Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -57,6 +57,27 @@ This is assuming you have a JDK version of `11` and above.
 * If you are not using `gradle`, simply locate the `Duke.java` file under `PROJECT_DIRECTORY/src/main/java/Duke.java`, and run it in your IDE.
 
 * If you are using `gradle`, import the project as a gradle project using the `Import Gradle Project` function in IntelliJ, and run `Duke.java` from the Gradle toolbar.
+
+== Overall Design
+
+=== Architecture
+
+=== JsonWrapper
+
+=== Storage
+
+=== Parser
+
+=== PlannerUi
+
+=== Command
+
+=== CCA
+
+== Implementation
+
+
+=== CapCommand
 
 [appendix]
 == Product Scope
