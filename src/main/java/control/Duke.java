@@ -43,7 +43,6 @@ public class Duke {
         try {
             bookingList = new BookingList(bookingStorage.load());
             roomList = new RoomList(roomStorage.load());
-
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();

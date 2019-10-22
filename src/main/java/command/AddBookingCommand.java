@@ -59,6 +59,17 @@ public class AddBookingCommand extends Command {
         this.timeStart = datetime[0];
     }
 
+    /**
+     * Executes the command to add a room to the system.
+     * @param roomList room list
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param bookingstorage booking storage in command execution
+     * @param roomstorage room storage in command execution
+     * @param user current user
+     * @throws DukeException if a clash in booking is found
+     * @throws IOException if input entry is incorrect
+     */
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
                         Storage roomstorage, User user) throws DukeException, IOException, ParseException {

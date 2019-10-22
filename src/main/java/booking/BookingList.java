@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class BookingList extends ArrayList<Booking> {
 
     /**
-     * Create tasklist from text file.
-     * @param loader strings from text file containing task info
+     * Create booking list from text file.
+     * @param loader strings from text file containing booking info
      * @throws DukeException if file format incorrect
      */
     public BookingList(ArrayList<String> loader) throws DukeException {
