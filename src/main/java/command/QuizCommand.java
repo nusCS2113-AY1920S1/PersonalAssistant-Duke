@@ -53,4 +53,5 @@ public class QuizCommand extends Command  {
 
         optionSequence = random.nextInt(4);
     }
+
 }
