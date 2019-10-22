@@ -199,7 +199,21 @@ public abstract class Task implements Serializable {
      * @return Time of task.
      */
     public Date getStartTime() {
-        return startTime;
+        int hour;
+        int min;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String startTime = getStringStartTime();
+        try {
+            hour = Integer.parseInt(startTime.substring(0, 2));
+            min = Integer.parseInt(startTime.substring(2, 4));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+
+        calendar.set(Calendar.HOUR, hour);
+        calendar.set(Calendar.MINUTE, min);
+        return calendar.getTime();
     }
 
     /**
