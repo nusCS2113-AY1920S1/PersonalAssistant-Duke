@@ -62,7 +62,7 @@ Format: `add module MOD_CODE`
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
-* Example: `add CG2028`
+* Example: `add module CG2028`
 ****
 
 ==== Adding CCA : `add cca`
