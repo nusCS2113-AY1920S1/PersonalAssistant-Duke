@@ -20,6 +20,7 @@ public class SettleLoanCommand extends MoneyCommand {
     private String inputString;
     private static int serialNo;
     private static Loan.Type type;
+    static final int SETTLE_ALL_FLAG = -2;
 
     /**
      * Constructor of the command which initialises the settle loan command.
@@ -107,7 +108,7 @@ public class SettleLoanCommand extends MoneyCommand {
         String[] splitStr = inputString.split(regex, 2);
         float amount;
         if (splitStr[0].equals("all")) {
-            amount = -2;
+            amount = SETTLE_ALL_FLAG;
         } else {
             amount = Float.parseFloat(splitStr[0]);
         }
@@ -135,7 +136,7 @@ public class SettleLoanCommand extends MoneyCommand {
         if (type == Loan.Type.OUTGOING &&
                 amount <= account.getOutgoingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getOutgoingLoans().get(serialNo);
-            amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
+            amountToPrint = (amount == SETTLE_ALL_FLAG) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
             account.getOutgoingLoans().set(serialNo, l);
             Income i = new Income(amount, "From " + l.getDescription(), Parser.shortcutTime("now"));
