@@ -28,7 +28,7 @@ public class MemoryManager {
         CommandLog.restoreData(numberOfCommandsToUndo);
     }
 
-    public void redo() {
+    public void redo() throws IOException {
         CommandLog.redo();
     }
 }

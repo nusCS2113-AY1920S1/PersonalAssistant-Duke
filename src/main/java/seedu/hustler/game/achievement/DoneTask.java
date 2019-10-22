@@ -91,11 +91,14 @@ public class DoneTask extends Achievements {
     public static String updateAchievementLevel() {
 
         if(numberOfDone == 5) {
-            doneAchievementLevel = "\uD83E\uDD49 Bronze";
+            doneAchievementLevel = "Bronze";
         } else if(numberOfDone == 10) {
-            doneAchievementLevel = "\uD83E\uDD48 Silver";
+            doneAchievementLevel = "Silver";
         } else if (numberOfDone == 15) {
-            doneAchievementLevel = "\uD83E\uDD47 Gold";
+            doneAchievementLevel = "Gold";
+        }
+        else {
+            doneAchievementLevel = null;
         }
         return doneAchievementLevel;
     }
@@ -114,6 +117,8 @@ public class DoneTask extends Achievements {
         } else if (numberOfDone == 15) {
             totalPoints += donePoints;
             donePoints = GOLD_POINT;
+        } else {
+            donePoints = 0;
         }
         return donePoints;
     }

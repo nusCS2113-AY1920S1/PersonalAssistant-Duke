@@ -88,16 +88,14 @@ public class TaskList {
      */
     public void add(Task task) {
         list.add(task);
-        AddTask.increment();
-        AddTask.updateAchievementLevel();
-        AddTask.updatePoints();
-        AchievementList.updateAddTask(addAchievementLevel);
         String output = "\t  " + list.get(list.size() - 1).toString();
-        System.out.println("\t_____________________________________");
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println(output);
-        System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-        System.out.println("\t_____________________________________\n\n");
+        if (!CommandLog.isRestoring()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. I've added this task:");
+            System.out.println(output);
+            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+            System.out.println("\t_____________________________________\n\n");
+        }
     }
 
     /**
@@ -275,11 +273,13 @@ public class TaskList {
         try {
             final Task lastTask = list.get(i);
             list.remove(i);
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNoted. I have removed this task:");
-            System.out.println("\t  " + (i + 1) + ". " + lastTask.toString());
-            System.out.println("\tNow there are " + list.size() + " tasks left.");
-            System.out.println("\t_____________________________________\n\n");
+            if (!CommandLog.isRestoring()) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tNoted. I have removed this task:");
+                System.out.println("\t  " + (i + 1) + ". " + lastTask.toString());
+                System.out.println("\tNow there are " + list.size() + " tasks left.");
+                System.out.println("\t_____________________________________\n\n");
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -290,14 +290,18 @@ public class TaskList {
      */
     public void clearList() {
         if (list.isEmpty()) {
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNothing to be cleared! Task list is already empty!");
-            System.out.println("\t_____________________________________");
+            if (!CommandLog.isRestoring()) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tNothing to be cleared! Task list is already empty!");
+                System.out.println("\t_____________________________________");
+            }
         } else {
             list.clear();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
-            System.out.println("\t_____________________________________");
+            if (!CommandLog.isRestoring()) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
+                System.out.println("\t_____________________________________");
+            }
         }
     }
 
@@ -338,10 +342,12 @@ public class TaskList {
                     return;
                 }
             }
-            System.out.println("\t_____________________________________");
-            System.out.println("\tGot it. You have snoozed the task.");
-            System.out.println("\t" + list.get(i).toString());
-            System.out.println("\t_____________________________________");
+            if (!CommandLog.isRestoring()) {
+                System.out.println("\t_____________________________________");
+                System.out.println("\tGot it. You have snoozed the task.");
+                System.out.println("\t" + list.get(i).toString());
+                System.out.println("\t_____________________________________");
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -406,8 +412,10 @@ public class TaskList {
             System.out.println("Task list has remained the same. Please check your sort command.");
             return;
         }
-        System.out.println("\t_____________________________________");
-        System.out.println("\tTask list has been successfully sorted!");
+        if (!CommandLog.isRestoring()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tTask list has been successfully sorted!");
+        }
         displayList();
     }
 
@@ -416,16 +424,20 @@ public class TaskList {
      */
     public void displayList() {
         if (list.isEmpty()) {
-            ui.show_empty_list_error();
+            if (!CommandLog.isRestoring()) {
+                ui.show_empty_list_error();
+            }
             return;
         }
 
-        System.out.println("\t_____________________________________");
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + list.get(i).toString());
-        }
-        System.out.println("\t_____________________________________\n\n");
+        if (!CommandLog.isRestoring()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tHere are the tasks in your list:");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("\t" + (i + 1) + ". " + list.get(i).toString());
+            }
+            System.out.println("\t_____________________________________\n\n");
+	}
     }
 
     /**

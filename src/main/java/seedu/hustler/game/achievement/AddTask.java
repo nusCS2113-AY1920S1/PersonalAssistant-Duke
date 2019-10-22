@@ -35,7 +35,7 @@ public class AddTask extends Achievements {
     /**
      * Achievement level - Bronze, Silver, Gold.
      */
-    private String achievementLevel;
+    public static String achievementLevel;
 
     /**
      * Points earned.
@@ -90,11 +90,13 @@ public class AddTask extends Achievements {
      */
     public static String updateAchievementLevel() {
         if(numberOfTasks == 5) {
-            addAchievementLevel = "\uD83E\uDD49 Bronze";
+            addAchievementLevel = "Bronze";
         } else if(numberOfTasks == 10) {
-            addAchievementLevel = "\uD83E\uDD48 Silver";
+            addAchievementLevel = "Silver";
         } else if (numberOfTasks == 15) {
-            addAchievementLevel = "\uD83E\uDD47 Gold";
+            addAchievementLevel = "Gold";
+        } else {
+            addAchievementLevel = null;
         }
         return addAchievementLevel;
     }
@@ -113,6 +115,8 @@ public class AddTask extends Achievements {
         } else if (numberOfTasks == 15) {
            addPoints = GOLD_POINT;
            totalPoints += addPoints;
+        } else {
+            addPoints = 0;
         }
         return addPoints;
     }
@@ -122,7 +126,9 @@ public class AddTask extends Achievements {
      * @return achievement level.
      */
     @Override
-    public String getAchievementLevel() { return this.achievementLevel; }
+    public String getAchievementLevel() {
+        //System.out.println(this.achievementLevel);
+        return this.achievementLevel; }
 
     /**
      * Retrieve description of achievement.

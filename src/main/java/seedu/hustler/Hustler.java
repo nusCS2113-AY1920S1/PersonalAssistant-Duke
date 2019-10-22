@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import seedu.hustler.data.*;
 import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
@@ -149,6 +150,7 @@ public class Hustler extends Application {
         avatar = AvatarStorage.reloadBackup();
         AchievementStorage.reloadStatus();
         AchievementStorage.reloadAchievements();
+        AddTask.updateAchievementLevel();
     }
 
     /**

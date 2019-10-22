@@ -204,6 +204,7 @@ public class AchievementStorage {
                 if(txt[3].equals("Busybee")) {
                     AddTask addTask = new AddTask(txt[2]);
                     addTask.setPoints(Integer.parseInt(txt[1]));
+
                     if(txt[0].equals("true")) {
                         addTask.setLock(true);
                     } else if(txt[0].equals("false")) {

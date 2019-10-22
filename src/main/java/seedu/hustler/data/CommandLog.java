@@ -59,7 +59,7 @@ public class CommandLog {
         isRestoring = false;
     }
 
-    public static void redo() {
+    public static void redo() throws IOException {
         isRestoring = true;
         if (redoLog.size() > 0) {
             for (int i = 0; i < redoLog.size(); i += 1) {
@@ -68,6 +68,7 @@ public class CommandLog {
             while (redoLog.size() == 0) {
                 redoLog.remove(0);
             }
+            Hustler.reloadBackup();
             restoreData(0);
             System.out.println("All previously undone commands have been redone!");
         } else {

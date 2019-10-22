@@ -3,9 +3,9 @@ package seedu.hustler.game.achievement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.AddTask.addPoints;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.loginPoints;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.storedDateTime;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
 import static seedu.hustler.game.achievement.DoneTask.*;
 
 /**
@@ -28,15 +28,15 @@ public class AchievementList {
     public static ArrayList<Achievements> firstStart(int loginCount) {
 
         if(loginCount == 1) {
-            achievementList.add(new DoneTask("\uD83E\uDD49 Bronze"));
-            achievementList.add(new DoneTask("\uD83E\uDD48 Silver"));
-            achievementList.add(new DoneTask("\uD83E\uDD47 Gold"));
-            achievementList.add(new AddTask("\uD83E\uDD49 Bronze"));
-            achievementList.add(new AddTask("\uD83E\uDD48 Silver"));
-            achievementList.add(new AddTask("\uD83E\uDD47 Gold"));
-            achievementList.add(new ConsecutiveLogin("\uD83E\uDD49 Bronze"));
-            achievementList.add(new ConsecutiveLogin("\uD83E\uDD48 Silver"));
-            achievementList.add(new ConsecutiveLogin("\uD83E\uDD47 Gold"));
+            achievementList.add(new DoneTask("Bronze"));
+            achievementList.add(new DoneTask("Silver"));
+            achievementList.add(new DoneTask("Gold"));
+            achievementList.add(new AddTask("Bronze"));
+            achievementList.add(new AddTask("Silver"));
+            achievementList.add(new AddTask("Gold"));
+            achievementList.add(new ConsecutiveLogin("Bronze"));
+            achievementList.add(new ConsecutiveLogin("Silver"));
+            achievementList.add(new ConsecutiveLogin("Gold"));
             achievementList.add(new FirstLogin());
             System.out.println("You have unlocked this achievement!\n" + new FirstLogin());
             FirstLogin.updatePoints();
@@ -53,7 +53,7 @@ public class AchievementList {
      */
     public static ArrayList<Achievements> updateAddTask (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
+            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(addAchievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(addPoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
@@ -71,7 +71,7 @@ public class AchievementList {
      */
     public static ArrayList<Achievements> updateDoneTask (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
+            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(doneAchievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(donePoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
@@ -88,7 +88,7 @@ public class AchievementList {
      */
     public static ArrayList<Achievements> updateConsecutiveLogin (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
+            if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(loginAchievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(loginPoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
