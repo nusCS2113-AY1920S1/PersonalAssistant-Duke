@@ -16,10 +16,18 @@ public class Reminder {
     protected LocalDate today;
     private String mode;
 
-    public Reminder (String mode) {
+    /**
+     * Initialise the mode to debt mode
+     * @param mode debt
+     */
+    public Reminder(String mode) {
         this.mode = "debt";
     }
 
+    /**
+     * Get the loglist of debt mode and print the reminder
+     * @param dollaData
+     */
     public void showReminder (DollaData dollaData) {
         LogList logList = new LogList(new ArrayList<>());
         logList = dollaData.getLogList(mode);
@@ -27,6 +35,11 @@ public class Reminder {
         printReminder(today, logList);
     }
 
+    /**
+     * Check through the loglist. Print the logs if the due date is less than 2 days from today.
+     * @param today today's date
+     * @param logList loglist of debt
+     */
     public void printReminder(LocalDate today, LogList logList) {
         System.out.println("\tREMINDER!!!");
         int listNum = 0;

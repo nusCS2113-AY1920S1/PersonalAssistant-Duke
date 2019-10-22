@@ -18,8 +18,8 @@ public class DollaData {
     private int modifyIndex;
 
     public DollaData() {
- //       this.entryList = new EntryList(new ArrayList<Log>());
-         this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
+        //this.entryList = new EntryList(new ArrayList<Log>());
+        this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
         this.limitList = new LimitList(getLimitsFromSave()); //Import from save file
         this.debtList = new DebtList(getDebtsFromSave()); //Import from save file
     }
@@ -81,6 +81,7 @@ public class DollaData {
             entryList.addWithIndex(modifyIndex, newLog);
         }
     }
+
     public String getMode() {
         return mode;
     }
