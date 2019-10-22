@@ -130,7 +130,7 @@ public class ProjectInputController implements IController {
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
-                String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("/")-1);
+                String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("/") - 1);
                 consoleView.editMember(projectToManage, memberIndexNumber, updatedMemberDetails);
             } else {
                 consoleView.consolePrint("The member index entered is invalid.");
