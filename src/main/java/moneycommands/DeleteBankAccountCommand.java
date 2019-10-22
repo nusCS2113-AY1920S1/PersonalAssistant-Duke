@@ -45,7 +45,7 @@ public class DeleteBankAccountCommand extends MoneyCommand {
         if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
             account.getExpListCurrMonth().add(expenditure);
         }
-        storage.markDeletedEntry("BAN", "@", "#", index + 1);
+        storage.markDeletedEntry("BAN", index + 1);
         account.getBankTrackerList().remove(index);
         ui.appendToOutput("The bank account tracker below has been removed: \n");
         ui.appendToOutput(bankTracker.getBankAccountInfo() + "\n");

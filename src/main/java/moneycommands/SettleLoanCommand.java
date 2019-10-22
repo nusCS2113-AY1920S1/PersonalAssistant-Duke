@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class SettleLoanCommand extends MoneyCommand {
 
     private String inputString;
-    private int serialNo;
-    Loan.Type type;
+    private static int serialNo;
+    private static Loan.Type type;
 
     /**
      * Constructor of the command which initialises the settle loan command.
@@ -103,7 +103,8 @@ public class SettleLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        String[] splitStr = inputString.split(" /to ", 2);
+        String regex = type == Loan.Type.INCOMING ? " /to " : " /from ";
+        String[] splitStr = inputString.split(regex, 2);
         float amount;
         if (splitStr[0].equals("all")) {
             amount = -2;
@@ -146,7 +147,7 @@ public class SettleLoanCommand extends MoneyCommand {
             amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
             account.getIncomingLoans().set(serialNo, l);
-            Expenditure e = new Expenditure(amount, l.getDescription(), "Loan Repayment",
+            Expenditure e = new Expenditure(amount, "To " + l.getDescription(), "Loan Repayment",
                     Parser.shortcutTime("now"));
             account.getExpListTotal().add(e);
             account.getExpListCurrMonth().add(e);
@@ -161,19 +162,23 @@ public class SettleLoanCommand extends MoneyCommand {
         ui.appendToOutput(l.getDescription() + " for the following loan: \n");
         ui.appendToOutput("     " + l.toString() + "\n");
         if (l.getStatus()) {
-            ui.appendToOutput("The " + type.toString().toLowerCase() + " loan has been settled");
+            ui.appendToOutput("The " + type.toString().toLowerCase() + " loan has been settled\n");
         }
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         /*
         String[] splitStr = inputString.split(" /to ", 2);
         //undo the expenditure income from total and current, flip settled to unsettled(def)
         Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);
         float amount = -exp.getPrice();
+        Loan l;
         switch (type) {
             case INCOMING:
+                l = account.getIncomingLoans().get(serialNo);
+                l.settleLoanDebt(amount);
+                account.getIncomingLoans().set(serialNo, l);
                 break;
             case OUTGOING:
                 break;

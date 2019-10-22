@@ -78,6 +78,6 @@ public class AddIncomeCommand extends MoneyCommand {
 
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(i.toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income listed\n");
+        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
     }
 }
