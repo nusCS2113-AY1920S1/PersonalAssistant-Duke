@@ -9,9 +9,6 @@ import duke.model.Model;
  */
 public class NewItineraryCommand extends Command {
 
-    public NewItineraryCommand() {
-    }
-
     /**
      * Executes this command on the given task list and user interface.
      *
