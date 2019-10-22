@@ -1,11 +1,12 @@
 package oof.command;
 
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.Storage;
 import oof.exception.OofException;
-import oof.task.Event;
-import oof.task.Task;
+import oof.model.task.Event;
+import oof.model.task.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,13 +39,14 @@ public class AddEventCommand extends Command {
      * and prints the object added before calling methods in Storage to
      * store the object added in the hard disk.
      *
-     * @param arr     Instance of TaskList that stores Task objects.
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     * @throws OofException if user input invalid commands.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split(" /from ");
         if (!hasDescription(lineSplit)) {
             throw new OofException("OOPS!!! The event needs a description.");
@@ -65,7 +67,7 @@ public class AddEventCommand extends Command {
                 if (!isStartDateBeforeEndDate(newStartTime, newEndTime)) {
                     throw new OofException("OOPS!!! The start date of an event cannot be after the end date.");
                 }
-                ArrayList<Event> eventClashes = checkClashes(arr, newStartTime, newEndTime);
+                ArrayList<Event> eventClashes = checkClashes(tasks, newStartTime, newEndTime);
                 boolean hasClashes = !eventClashes.isEmpty();
                 if (hasClashes) {
                     ui.printClashWarning(eventClashes);
@@ -77,9 +79,9 @@ public class AddEventCommand extends Command {
                 throw new OofException("Timestamp given is invalid! Please try again.");
             }
             Task task = new Event(description, dateSplit[0], dateSplit[1]);
-            arr.addTask(task);
-            ui.addTaskMessage(task, arr.getSize());
-            storage.writeToFile(arr);
+            tasks.addTask(task);
+            ui.addTaskMessage(task, tasks.getSize());
+            storage.writeTaskList(tasks);
         } else if (isDateValid(startDate)) {
             throw new OofException("OOPS!!! The end date is invalid.");
         } else if (isDateValid(endDate)) {
@@ -95,7 +97,7 @@ public class AddEventCommand extends Command {
      * @param arr          Instance of TaskList that stores Task objects.
      * @param newStartTime Start time of event.
      * @param newEndTime   End time of event.
-     * @throws ParseException Catches invalid time entry.
+     * @throws ParseException if time entry is invalid.
      */
     public ArrayList<Event> checkClashes(TaskList arr, Date newStartTime, Date newEndTime) throws ParseException {
         ArrayList<Event> clashes = new ArrayList<>();
@@ -103,8 +105,8 @@ public class AddEventCommand extends Command {
         for (Task t : arr.getTasks()) {
             if (t instanceof Event) {
                 Event event = (Event) t;
-                Date currStartTime = format.parse(event.getStartTiming());
-                Date currEndTime = format.parse(event.getEndTiming());
+                Date currStartTime = format.parse(event.getStartTime());
+                Date currEndTime = format.parse(event.getEndTime());
                 if (isClash(newStartTime, newEndTime, currStartTime, currEndTime)) {
                     clashes.add(event);
                 }

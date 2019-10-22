@@ -1,11 +1,12 @@
 package oof.command;
 
-import oof.task.Deadline;
-import oof.task.Event;
-import oof.task.Task;
-import oof.task.Todo;
+import oof.model.module.SemesterList;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 import oof.Storage;
-import oof.TaskList;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
 
@@ -28,7 +29,7 @@ public class RecurringCommand extends Command {
     private static final int WEEKLY = 2;
     private static final int MONTHLY = 3;
     private static final int YEARLY = 4;
-    private static final int WEEK = 7;
+    private static final int DAYS_IN_WEEK = 7;
 
     /**
      * Constructor for RecurringCommand.
@@ -43,9 +44,19 @@ public class RecurringCommand extends Command {
         this.frequency = frequency;
     }
 
+    /**
+     * Recurs a task.
+     *
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks        Instance of TaskList that stores Task objects.
+     * @param ui           Instance of Ui that is responsible for visual feedback.
+     * @param storage      Instance of Storage that enables the reading and writing of Task
+     *                     objects to hard disk.
+     * @throws OofException if user input is invalid.
+     */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
-        if (!taskList.isIndexValid(this.index)) {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
+        if (!tasks.isIndexValid(this.index)) {
             throw new OofException("OOPS!!! Please select a valid task!");
         } else if (!isCountValid(this.count)) {
             throw new OofException("OOPS!!! The valid number of recurrences is from 1-10!");
@@ -54,9 +65,9 @@ public class RecurringCommand extends Command {
                 if (!isFrequencyValid(this.frequency)) {
                     throw new OofException("OOPS!!! Please enter a valid number!");
                 } else {
-                    setRecurringTask(ui, taskList, this.index, this.count, this.frequency);
-                    ui.printRecurringMessage(taskList);
-                    storage.writeToFile(taskList);
+                    setRecurringTask(ui, tasks, this.index, this.count, this.frequency);
+                    ui.printRecurringMessage(tasks);
+                    storage.writeTaskList(tasks);
                 }
             } catch (InputMismatchException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
@@ -91,31 +102,67 @@ public class RecurringCommand extends Command {
     private void recurInstances(Ui ui, TaskList taskList, Task task, int count, int frequency) throws OofException {
         if (task instanceof Todo) {
             for (int i = 1; i <= count; i++) {
-                String date = ((Todo) task).getOn();
-                date = dateTimeIncrement(date, frequency, i);
-                Todo todo = new Todo(task.getLine(), date);
-                todo.setFrequency(frequency);
-                taskList.addTask(todo);
+                addToDoTask(taskList, task, i, frequency);
             }
         } else if (task instanceof Deadline) {
             for (int i = 1; i <= count; i++) {
-                String date = ((Deadline) task).getBy();
-                date = dateTimeIncrement(date, frequency, i);
-                Deadline deadline = new Deadline(task.getLine(), date);
-                deadline.setFrequency(frequency);
-                taskList.addTask(deadline);
+                addDeadlineTask(taskList, task, i, frequency);
             }
         } else if (task instanceof Event) {
             for (int i = 1; i <= count; i++) {
-                String startTiming = ((Event) task).getStartTiming();
-                startTiming = dateTimeIncrement(startTiming, frequency, i);
-                String endTiming = ((Event) task).getEndTiming();
-                endTiming = dateTimeIncrement(endTiming, frequency, i);
-                Event event = new Event(task.getLine(), startTiming, endTiming);
-                event.setFrequency(frequency);
-                taskList.addTask(event);
+                addEventTask(taskList, task, i, frequency);
             }
         }
+    }
+
+    /**
+     * Adds recurring todo task to the current list of task.
+     * @param taskList Current list of tasks stored in program.
+     * @param task Task to be set as a recurring instance.
+     * @param index Represents the nth time to which the recurring instance has been generated.
+     * @param frequency Represents the frequency of recurrence.
+     * @throws OofException dateTimeIncrement method throws OofException.
+     */
+    private void addToDoTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
+        String date = ((Todo) task).getOn();
+        date = dateTimeIncrement(date, frequency, index);
+        Todo todo = new Todo(task.getDescription(), date);
+        todo.setFrequency(frequency);
+        taskList.addTask(todo);
+    }
+
+    /**
+     * Adds recurring deadline task to the current list of task.
+     * @param taskList Current list of tasks stored in program.
+     * @param task Task to be set as a recurring instance.
+     * @param index Represents the nth time to which the recurring instance has been generated.
+     * @param frequency Represents the frequency of recurrence.
+     * @throws OofException dateTimeIncrement method throws OofException.
+     */
+    private void addDeadlineTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
+        String date = ((Deadline) task).getBy();
+        date = dateTimeIncrement(date, frequency, index);
+        Deadline deadline = new Deadline(task.getDescription(), date);
+        deadline.setFrequency(frequency);
+        taskList.addTask(deadline);
+    }
+
+    /**
+     * Adds recurring event task to the current list of task.
+     * @param taskList Current list of tasks stored in program.
+     * @param task Task to be set as a recurring instance.
+     * @param index Represents the nth time to which the recurring instance has been generated.
+     * @param frequency Represents the frequency of recurrence.
+     * @throws OofException dateTimeIncrement method throws OofException.
+     */
+    private void addEventTask(TaskList taskList, Task task, int index, int frequency) throws OofException {
+        String startTiming = ((Event) task).getStartTime();
+        startTiming = dateTimeIncrement(startTiming, frequency, index);
+        String endTiming = ((Event) task).getEndTime();
+        endTiming = dateTimeIncrement(endTiming, frequency, index);
+        Event event = new Event(task.getDescription(), startTiming, endTiming);
+        event.setFrequency(frequency);
+        taskList.addTask(event);
     }
 
     /**
@@ -139,7 +186,7 @@ public class RecurringCommand extends Command {
             if (frequency == DAILY) {
                 calendar.add(Calendar.DATE, DAILY * increment);
             } else if (frequency == WEEKLY) {
-                calendar.add(Calendar.DATE, WEEK * increment);
+                calendar.add(Calendar.DATE, DAYS_IN_WEEK * increment);
             } else if (frequency == MONTHLY) {
                 calendar.add(Calendar.MONTH, COUNT_MIN * increment);
             } else if (frequency == YEARLY) {

@@ -279,21 +279,25 @@ Gives a list of all the tasks not done that were brought forward to the next day
 Format: `viewUndone`
 
 === View free time slots: `free`
-Gives a list of free time slots from current time to the date given.
+Gives a list of free time slots for the date given.
 
-Format: `free DD-MM-YYYY HH:MM`
+Format: `free DD-MM-YYYY`
 
-* `Date and time` have to *strictly* be in the format as stated above.
+* `Date` has to *strictly* be in the format as stated above.
 
 Example:
 
-* `free 10-10-2019 23:59` +
-Searches for free time slots between current time and end date `10-10-2019 23:59`.
+* `free 10-10-2019` +
+Searches for free time on the given date of `10-10-2019`.
 
 === View all tasks in week view: `viewWeek`
 Transforms all current tasks recorded into a week view to plan for the week. 
 
-Format: `viewWeek`
+Format: `viewweek DD MM YYYY`
+
+[NOTE]
+Note that the parameters `DD MM YYYY` are optional and the command will automatically generate the current time if no date is entered or when the date entered is invalid.
+
 
 ===  Viewing all tasks in calendar view: `calendar`
 Transforms all current tasks recorded into a calendar view for easy time management. 
@@ -309,6 +313,11 @@ Example: `calendar 10 2019`
 Reminders will be given when the application is launched if deadlines are due in less than 24 hours.
 
 Format: `reminder`
+
+=== Viewing, adding, editing and removing of semester and module data: `semester`
+Opens menu to view, add, edit and remove Semester and Module data.
+
+Format: `semester`
 
 === Exiting the program: `bye`
 Exits the program.
@@ -414,7 +423,7 @@ e.g. `schedule 04-10-2019`
 * *ViewUndone*: `viewUndone`
 
 * *Free*: `free DD-MM-YYYY` +
-e.g. `free 10-10-2019 23:59`
+e.g. `free 10-10-2019`
 
 * *ViewWeek*: `viewWeek`
 

@@ -1,11 +1,12 @@
 package oof.command;
 
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.Storage;
 import oof.exception.OofException;
-import oof.task.Task;
-import oof.task.Todo;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,13 +38,14 @@ public class AddToDoCommand extends Command {
      * Adds the Todo object to TaskList
      * Stores the object in hard disk by calling Storage before printing the object added.
      *
-     * @param arr     Instance of TaskList that stores Task objects.
+     * @param semesterList Instance of SemesterList that stores Semester objects.
+     * @param tasks     Instance of TaskList that stores Task objects.
      * @param ui      Instance of Ui that is responsible for visual feedback.
      * @param storage Instance of Storage that enables the reading and writing of Task
      *                objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
+     * @throws OofException if user input invalid commands.
      */
-    public void execute(TaskList arr, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         String[] lineSplit = line.split("/on");
         if (!hasDescription(lineSplit)) {
             throw new OofException("OOPS!!! The todo needs a description.");
@@ -54,9 +56,9 @@ public class AddToDoCommand extends Command {
         String onDate = parseTimeStamp(lineSplit[INDEX_DATE_ON].trim());
         if (isDateValid(onDate)) {
             Task task = new Todo(description, onDate);
-            arr.addTask(task);
-            storage.writeToFile(arr);
-            ui.addTaskMessage(task, arr.getSize());
+            tasks.addTask(task);
+            storage.writeTaskList(tasks);
+            ui.addTaskMessage(task, tasks.getSize());
         } else {
             throw new OofException("OOPS!!! The date is invalid.");
         }

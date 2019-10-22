@@ -1,11 +1,10 @@
 package oof;
 
+import oof.model.task.TaskList;
+import oof.model.task.Deadline;
+import oof.model.task.Task;
 
-import oof.exception.OofException;
-import oof.task.Deadline;
-import oof.task.Task;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -40,12 +39,9 @@ public class Reminder {
                     if (isUpcoming(dueDate, now, upcomingThreshold)) {
                         if (isFirstReminder(count)) {
                             ui.printReminder();
-                            ui.printUpcomingDeadline(count, taskList.getTask(i));
-                            count++;
-                        } else {
-                            ui.printUpcomingDeadline(count, taskList.getTask(i));
-                            count++;
                         }
+                        ui.printUpcomingDeadline(count, taskList.getTask(i));
+                        count++;
                     }
                 } catch (ParseException | DateTimeException e) {
                     System.out.println("Timestamp given is invalid! Please try again.");
@@ -55,7 +51,6 @@ public class Reminder {
                 ui.printNoDeadlines();
             }
         }
-        ui.printLine();
     }
 
     /**
@@ -74,9 +69,9 @@ public class Reminder {
     /**
      * Checks if there are no deadlines being reminded.
      *
-     * @param index Index of the task to be checked.
+     * @param index    Index of the task to be checked.
      * @param taskList Instance of TaskList that stores Task objects.
-     * @param count Count of the deadlines being reminded
+     * @param count    Count of the deadlines being reminded
      * @return true if there are no deadlines being reminded, false otherwise.
      */
     private boolean isNoDeadlineReminded(int index, TaskList taskList, int count) {

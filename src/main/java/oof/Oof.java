@@ -1,5 +1,7 @@
 package oof;
 
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.command.Command;
 import oof.exception.OofException;
 
@@ -12,7 +14,8 @@ import java.io.IOException;
 public class Oof {
 
     private Storage storage;
-    private TaskList arr;
+    private TaskList tasks;
+    private SemesterList semesterList;
     private Ui ui;
     private Reminder reminder;
 
@@ -24,24 +27,31 @@ public class Oof {
         storage = new Storage();
         reminder = new Reminder();
         try {
-            arr = new TaskList(storage.readFromFile());
+            semesterList = new SemesterList(storage.readSemesterList());
         } catch (IOException e) {
-            arr = new TaskList();
+            semesterList = new SemesterList();
+        }
+        try {
+            tasks = new TaskList(storage.readTaskList());
+        } catch (IOException e) {
+            tasks = new TaskList();
         }
     }
 
-    /**
-     * Allows developers to run tests using this public method.
-     * @param line Command to be tested.
-     * @throws OofException Exceptions to be handled during tests.
-     */
-    public void runTest(String line) throws OofException {
-        Command command = CommandParser.parse(line);
-        command.execute(arr, ui, storage);
+    public TaskList getArr() {
+        return tasks;
     }
 
-    public TaskList getArr() {
-        return arr;
+    /**
+     * Executes command entered by user.
+     *
+     * @param line Command to be tested.
+     * @throws OofException Exceptions thrown by Command classes.
+     */
+    public boolean executeCommand(String line) throws OofException {
+        Command command = CommandParser.parse(line);
+        command.execute(semesterList, tasks, ui, storage);
+        return command.isExit();
     }
 
     /**
@@ -49,14 +59,13 @@ public class Oof {
      */
     private void run() {
         ui.hello();
-        reminder.checkDeadline(arr, ui, storage);
+        reminder.checkDeadline(tasks, ui, storage);
         boolean isExit = false;
         while (!isExit) {
             try {
+                ui.printCommandPrompt();
                 String line = ui.scanLine();
-                Command command = CommandParser.parse(line);
-                command.execute(arr, ui, storage);
-                isExit = command.isExit();
+                isExit = executeCommand(line);
             } catch (OofException exception) {
                 ui.printOofException(exception);
             }

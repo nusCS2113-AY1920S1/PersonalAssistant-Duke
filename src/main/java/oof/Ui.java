@@ -1,10 +1,16 @@
 package oof;
 
 import oof.exception.OofException;
-import oof.task.Event;
-import oof.task.Task;
+import oof.model.module.Assessment;
+import oof.model.module.Lesson;
+import oof.model.module.Module;
+import oof.model.module.Semester;
+import oof.model.module.SemesterList;
+import oof.model.task.Assignment;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.TaskList;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
@@ -28,6 +34,8 @@ public class Ui {
     private static final int INDEX_START_OF_ARRAY = 0;
     private static final int TEXT_SIZE_SHORT = 13;
     private static final int TEXT_SIZE_LONG = 19;
+    private static final int TEXT_WIDTH = 35;
+    private static final int HEADER_WIDTH = 49;
     private static final int DESCRIPTION_SHORT_START = 0;
     private static final int DESCRIPTION_SHORT_END = 11;
     private static final int DESCRIPTION_LONG_START = 0;
@@ -63,47 +71,58 @@ public class Ui {
      *
      * @return Scanner to scan for next line of user input.
      */
-    String scanLine() {
+    public String scanLine() {
+        scan.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
         return scan.nextLine();
     }
 
     /**
      * Prints 3D ascii logo OOF.
      */
-    private void printOofLogo() {
-        String logo = "\t ________  ________  ________ \n"
-                + "\t|\\   __  \\|\\   __  \\|\\  _____\\\n"
-                + "\t\\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
-                + "\t \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
-                + "\t  \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
-                + "\t   \\ \\_______\\ \\_______\\ \\__\\ \n"
-                + "\t    \\|_______|\\|_______|\\|__|\n";
+    public void printOofLogo() {
+        String logo = "                ________  ________  ________ \n"
+                + "               |\\   __  \\|\\   __  \\|\\  _____\\\n"
+                + "               \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\__/ \n"
+                + "                \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\   __\\\n"
+                + "                 \\ \\  \\\\\\  \\ \\  \\\\\\  \\ \\  \\_|\n"
+                + "                  \\ \\_______\\ \\_______\\ \\__\\ \n"
+                + "                   \\|_______|\\|_______|\\|__|\n";
+        printLine();
         System.out.println(logo);
     }
 
     /**
      * Prints welcome message for OOF.
      */
-    void hello() {
-        printLine();
+    public void hello() {
         printOofLogo();
-        System.out.println("\tHello! I'm OOF");
-        System.out.println("\tWhat can I do for you?");
         printLine();
+        System.out.println(" Hello! I'm OOF");
+        System.out.println(" What can I do for you?");
+    }
+
+    /**
+     * Prints command prompt.
+     */
+    public void printCommandPrompt() {
+        printLine();
+        System.out.println(" Enter a command: ");
     }
 
     /**
      * Shows termination message before OOF exits.
      */
     public void printByeMessage() {
-        System.out.println("\tBye. Hope to see you again soon!");
+        printLine();
+        System.out.println(" Bye. Hope to see you again soon!");
+        printLine();
     }
 
     /**
      * Prints lines.
      */
-    void printLine() {
-        System.out.println("\t____________________________________________________________");
+    public void printLine() {
+        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -114,12 +133,12 @@ public class Ui {
      */
     public void addTaskMessage(Task task, int size) {
         printLine();
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t\t" + task);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println(" \t" + task);
         if (size > 1) {
-            System.out.println("\tNow you have " + size + " tasks in your list.");
+            System.out.println(" Now you have " + size + " tasks in your list.");
         } else {
-            System.out.println("\tNow you have " + size + " task in the list.");
+            System.out.println(" Now you have " + size + " task in the list.");
         }
         printLine();
     }
@@ -131,9 +150,8 @@ public class Ui {
      */
     public void completeMessage(Task task) {
         printLine();
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t\t" + task);
-        printLine();
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(" \t" + task);
     }
 
     /**
@@ -144,14 +162,13 @@ public class Ui {
      */
     public void deleteMessage(Task task, int size) {
         printLine();
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t\t" + task);
+        System.out.println(" Noted. I've removed this task:");
+        System.out.println(" \t" + task);
         if (size > 1) {
-            System.out.println("\tNow you have " + size + " tasks in your list.");
+            System.out.println(" Now you have " + size + " tasks in your list.");
         } else {
-            System.out.println("\tNow you have " + size + " task in the list.");
+            System.out.println(" Now you have " + size + " task in the list.");
         }
-        printLine();
     }
 
     /**
@@ -161,8 +178,7 @@ public class Ui {
      */
     public void printOofException(OofException exception) {
         printLine();
-        System.out.println("\t" + exception.getMessage());
-        printLine();
+        System.out.println(" " + exception.getMessage());
     }
 
     /**
@@ -172,9 +188,8 @@ public class Ui {
      */
     public void printSnoozeMessage(Task task) {
         printLine();
-        System.out.println("\tI have changed the date of this task!");
-        System.out.println("\t\t" + task);
-        printLine();
+        System.out.println(" I have changed the date of this task!");
+        System.out.println(" \t" + task);
     }
 
     /**
@@ -183,7 +198,7 @@ public class Ui {
      * @return Timestamp input by user.
      */
     public String getTimeStamp() {
-        System.out.println("\tPlease enter the new date: ");
+        System.out.println(" Please enter the new date: ");
         return scanLine();
     }
 
@@ -195,7 +210,7 @@ public class Ui {
     public String printContinuePrompt() {
         String input;
         while (true) {
-            System.out.println("Continue anyway? (Y/N)");
+            System.out.println(" Continue anyway? (Y/N)");
             input = scanLine();
             if (input.equals("Y") || input.equals("N")) {
                 return input;
@@ -207,24 +222,26 @@ public class Ui {
      * Prints a warning regarding event clashes.
      */
     public void printClashWarning(ArrayList<Event> eventClashes) {
-        System.out.println("Warning! Event being added clashes with the following events:");
+        System.out.println(" Warning! Event being added clashes with the following events:");
         for (Event e : eventClashes) {
-            System.out.println(e.toString());
+            System.out.println(" \t" + e.toString());
         }
     }
 
     /**
      * Prints a reminder regarding upcoming deadlines.
      */
-    void printReminder() {
-        System.out.println("\tReminder these tasks have upcoming deadlines:");
+    public void printReminder() {
+        printLine();
+        System.out.println(" Reminder these tasks have upcoming deadlines:");
     }
 
     /**
      * Prints a reminder that the user has no deadlines.
      */
-    void printNoDeadlines() {
-        System.out.println("\tYou have no upcoming deadlines :)");
+    public void printNoDeadlines() {
+        printLine();
+        System.out.println(" You have no upcoming deadlines :)");
     }
 
     /**
@@ -233,8 +250,8 @@ public class Ui {
      * @param count Position of upcoming deadline in reminder list.
      * @param task  Task object of upcoming deadline.
      */
-    void printUpcomingDeadline(int count, Task task) {
-        System.out.println("\t" + count + "." + task);
+    public void printUpcomingDeadline(int count, Task task) {
+        System.out.println(" \t" + count + "." + task);
     }
 
     /**
@@ -245,11 +262,10 @@ public class Ui {
      */
     public void printTasksByDate(TaskList scheduledTasks, String date) {
         printLine();
-        System.out.println("\t Here are your tasks for " + date + ": ");
+        System.out.println(" Here are your tasks for " + date + ": ");
         for (int i = 0; i < scheduledTasks.getSize(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + scheduledTasks.getTask(i));
+            System.out.println(" \t" + (i + 1) + ". " + scheduledTasks.getTask(i));
         }
-        printLine();
     }
 
     /**
@@ -259,27 +275,26 @@ public class Ui {
      */
     public void printMatchingTasks(ArrayList<Task> matchedTasks) {
         if (matchedTasks.size() == 0) {
-            System.out.println("\tThere are no matching tasks in your list!");
+            System.out.println(" There are no matching tasks in your list!");
         } else {
             printLine();
-            System.out.println("\tHere are the matching tasks in your list:");
+            System.out.println(" Here are the matching tasks in your list:");
             for (int i = 0; i < matchedTasks.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + matchedTasks.get(i));
+                System.out.println(" \t" + (i + 1) + ". " + matchedTasks.get(i));
             }
-            printLine();
         }
     }
 
     /**
      * Prints list of options for the recurring frequency of a task.
      */
-    void printRecurringOptions() {
-        String options = "\tListed are the available options for recurring tasks!\n"
-                + "\t1. Daily\n"
-                + "\t2. Weekly\n"
-                + "\t3. Monthly\n"
-                + "\t4. Yearly\n"
-                + "\tPlease choose one of the four options for your recurring frequency!\n";
+    public void printRecurringOptions() {
+        String options = " Here are the available options for recurring tasks:\n"
+                + " \t1. Daily\n"
+                + " \t2. Weekly\n"
+                + " \t3. Monthly\n"
+                + " \t4. Yearly\n"
+                + " \tPlease choose one of the four options for your recurring frequency.\n";
         System.out.println(options);
     }
 
@@ -290,7 +305,7 @@ public class Ui {
      */
     public void printRecurringMessage(TaskList arr) {
         printLine();
-        System.out.println("\tI have added recurring tasks:");
+        System.out.println(" I have added recurring tasks:");
         printTaskList(arr);
     }
 
@@ -301,11 +316,10 @@ public class Ui {
      */
     public void printTaskList(TaskList arr) {
         printLine();
-        System.out.println("\t Here are the tasks in your list:");
+        System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < arr.getSize(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + arr.getTask(i));
+            System.out.println(" \t" + (i + 1) + ". " + arr.getTask(i));
         }
-        printLine();
     }
 
     /**
@@ -315,10 +329,10 @@ public class Ui {
      */
     public void printHelpCommands() throws OofException {
         ArrayList<String> commands = storage.readManual();
-        for (String command : commands) {
-            System.out.println("\t" + command);
-        }
         printLine();
+        for (String command : commands) {
+            System.out.println(" \t" + command);
+        }
     }
 
     /**
@@ -328,17 +342,16 @@ public class Ui {
      */
     public void printHelpCommand(String command) {
         printLine();
-        System.out.println("\t" + command);
-        printLine();
+        System.out.println(" \t" + command);
     }
 
     /**
      * Prints the tasks for a particular week.
      *
-     * @param tasks Tasks for the particular week to be printed.
-     * @param startDate Starting date of the week.
+     * @param tasks           Tasks for the particular week to be printed.
+     * @param startDate       Starting date of the week.
      * @param largestTaskSize Size of the day with the largest number of tasks.
-     * @param largestColSize Size of the largest column in the View Week output.
+     * @param largestColSize  Size of the largest column in the View Week output.
      */
     public void printViewWeek(ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize,
                               int largestColSize) {
@@ -423,10 +436,10 @@ public class Ui {
     /**
      * Prints the body for ViewWeek command.
      *
-     * @param startDate Starting date of the week.
+     * @param startDate      Starting date of the week.
      * @param largestColSize Size of the largest column in the View Week output.
      */
-    private void printViewWeekBody(Date startDate,int largestColSize) {
+    private void printViewWeekBody(Date startDate, int largestColSize) {
         ArrayList<String> calendarDates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
@@ -445,7 +458,7 @@ public class Ui {
     /**
      * Prints the dates for the ViewWeek command.
      *
-     * @param calendarDates List of dates for the week to be printed.
+     * @param calendarDates  List of dates for the week to be printed.
      * @param largestColSize Size of the largest column in the View Week output.
      */
     private void printViewWeekDates(ArrayList<String> calendarDates, int largestColSize) {
@@ -471,8 +484,8 @@ public class Ui {
     /**
      * Prints the details of tasks in the ViewWeek command.
      *
-     * @param tasks Tasks to be printed for the particular week.
-     * @param largestTaskNo Size of the day with the largest number of tasks.
+     * @param tasks          Tasks to be printed for the particular week.
+     * @param largestTaskNo  Size of the day with the largest number of tasks.
      * @param largestColSize Size of the largest column in the View Week output.
      */
     private void printViewWeekDetails(ArrayList<ArrayList<String[]>> tasks, int largestTaskNo, int largestColSize) {
@@ -491,8 +504,8 @@ public class Ui {
     /**
      * Prints the tasks for ViewWeek command line by line.
      *
-     * @param tasks Tasks for the particular week to be printed.
-     * @param taskNo Current index of the task that is being printed.
+     * @param tasks          Tasks for the particular week to be printed.
+     * @param taskNo         Current index of the task that is being printed.
      * @param largestColSize Size of the largest column in the View Week output.
      */
     private void printDetailsByLine(ArrayList<ArrayList<String[]>> tasks, int taskNo, int largestColSize) {
@@ -535,7 +548,7 @@ public class Ui {
     /**
      * Pads the details of a task to fit into a day of the ViewWeek command output.
      *
-     * @param details Details of a task.
+     * @param details        Details of a task.
      * @param largestColSize Size of the largest column in the ViewWeek command output.
      * @return Padded details of a task.
      */
@@ -729,48 +742,75 @@ public class Ui {
     }
 
     /**
-     * Prints header for free time slots.
+     * Prints the header for the user specified date to search for free time in.
+     *
+     * @param freeDate  The user specified date to search for free time.
+     * @param dayOfWeek The day of the week for the user specified date.
      */
-    public void printFree() {
-        System.out.println("\t Here are your free time slots: ");
+    public void printFreeTimeHeader(String freeDate, String dayOfWeek) {
+        System.out.println("-----------------------------------------------------");
+        String dayWithDate = dayOfWeek + " " + freeDate;
+        int padSize = HEADER_WIDTH - dayWithDate.length();
+        int padStart = dayWithDate.length() + padSize / 2;
+        dayWithDate = String.format("%" + padStart + "s", dayWithDate);
+        dayWithDate = String.format("%-" + HEADER_WIDTH + "s", dayWithDate);
+        System.out.println("| " + dayWithDate + " |");
+        System.out.println("-----------------------------------------------------");
     }
 
     /**
-     * Prints the free time slots that the user has.
+     * Prints the free time slots in that day.
      *
-     * @param startDate The starting time of the free time slot.
-     * @param endDate   The ending time of the free time slot.
-     * @param count     The index of the free time slots.
+     * @param timeSlotStart  The start time of the time slot.
+     * @param timeSlotEnd    The end time of the time slot.
      */
-    public void printFreeTimes(String startDate, String endDate, int count) {
-        System.out.println("\t" + count + ". " + startDate + " to " + endDate);
+    public void printFreeSlots(String timeSlotStart, String timeSlotEnd) {
+        System.out.println("| " + timeSlotStart + " - " + timeSlotEnd + " |               free                |");
+        System.out.println("-----------------------------------------------------");
+    }
+
+    /**
+     * Prints the event details.
+     *
+     * @param eventName     The name of the event to be printed.
+     * @param timeSlotStart The start time of the time slot.
+     * @param timeSlotEnd   The end time of the time slot.
+     */
+    public void printEventDetails(String eventName, String timeSlotStart, String timeSlotEnd) {
+        System.out.print("| " + timeSlotStart + " - " + timeSlotEnd + " |");
+        int padSize = TEXT_WIDTH - eventName.length();
+        int padStart = eventName.length() + padSize / 2;
+        eventName = String.format("%" + padStart + "s", eventName);
+        eventName = String.format("%-" + TEXT_WIDTH + "s", eventName);
+        System.out.println(eventName + "|");
+        System.out.println("-----------------------------------------------------");
     }
 
     /**
      * Print when Start Tracker Command is completed.
-     * @param task      description of Task object.
-     * @param date      current date.
+     *
+     * @param task description of Task object.
+     * @param date current date.
      */
     public void printStartAtCurrent(Task task, String date, long difference) {
         printLine();
-        System.out.println("Begin " + task.getLine());
+        System.out.println("Begin " + task.getDescription());
         System.out.println("It is currently " + date);
-        System.out.println("Current total time spent on " + task.getLine() + ": " + difference + " minutes");
-        printLine();
+        System.out.println("Current total time spent on " + task.getDescription() + ": " + difference + " minutes");
     }
 
     /**
      * Print when Stop Tracker Command is completed.
-     * @param task          description of Task object.
-     * @param date          current date.
-     * @param difference    calculated time taken.
+     *
+     * @param task       description of Task object.
+     * @param date       current date.
+     * @param difference calculated time taken.
      */
     public void printEndAtCurrent(Task task, String date, long difference) {
         printLine();
-        System.out.println("Ending " + task.getLine());
+        System.out.println("Ending " + task.getDescription());
         System.out.println("It is currently " + date);
-        System.out.println("Total time spent on " + task.getLine() + ": " + difference + " minutes");
-        printLine();
+        System.out.println("Total time spent on " + task.getDescription() + ": " + difference + " minutes");
     }
 
     /**
@@ -781,10 +821,9 @@ public class Ui {
      */
     public void printPauseAtCurrent(Task task, String date, long difference) {
         printLine();
-        System.out.println("Pausing " + task.getLine());
+        System.out.println("Pausing " + task.getDescription());
         System.out.println("It is currently " + date);
-        System.out.println("Total time spent on " + task.getLine() + ": " + difference + " minutes");
-        printLine();
+        System.out.println("Total time spent on " + task.getDescription() + ": " + difference + " minutes");
     }
 
     /**
@@ -793,6 +832,524 @@ public class Ui {
      * @param threshold The threshold for upcoming deadlines requested by the user.
      */
     public void printUpdatedThreshold(String threshold) {
-        System.out.println("\tThreshold has been updated to " + threshold);
+        System.out.println(" Threshold has been updated to " + threshold);
+    }
+
+    /**
+     * Prints Semester menu and returns option selected by user.
+     *
+     * @return Option selected by user.
+     */
+    public int scanSemesterMenuOption() {
+        int response = 0;
+        while (response < 1 || response > 5) {
+            printLine();
+            System.out.println(" Choose one of the following options:");
+            System.out.println(" \t1. View Semester List");
+            System.out.println(" \t2. Add Semester");
+            System.out.println(" \t3. Edit Semester");
+            System.out.println(" \t4. Delete Semester");
+            System.out.println(" \t5. Quit");
+            printLine();
+            response = scanInt();
+        }
+        return response;
+    }
+
+    /**
+     * Prints Module menu and returns option selected by user.
+     *
+     * @param semester Instance of Semester object.
+     * @return Option selected by user.
+     */
+    public int scanModuleMenuOption(Semester semester) {
+        int response = 0;
+        while (response < 1 || response > 5) {
+            printLine();
+            ;
+            System.out.println(" " + semester.toString());
+            System.out.println(" Choose one of the following options:");
+            System.out.println(" \t1. View Module List");
+            System.out.println(" \t2. Add Module");
+            System.out.println(" \t3. Edit Module");
+            System.out.println(" \t4. Delete Module");
+            System.out.println(" \t5. Back");
+            response = scanInt();
+        }
+        return response;
+    }
+
+    /**
+     * Scans Academic Year of Semester.
+     *
+     * @return String containing Academic Year of Semester.
+     */
+    public String scanAcademicYear() {
+        printLine();
+        System.out.println(" Enter Academic Year: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans name of Semester.
+     *
+     * @return String containing name of Semester.
+     */
+    public String scanSemesterName() {
+        printLine();
+        System.out.println(" Enter Semester Name (e.g. \"Semester 1\"): ");
+        return scanLine();
+    }
+
+    /**
+     * Scans start date of Semester.
+     *
+     * @return String containing start date of Semester.
+     */
+    public String scanSemesterStartDate() {
+        printLine();
+        System.out.println(" Enter Start Date: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans end date of Semester.
+     *
+     * @return String containing end date of Semester.
+     */
+    public String scanSemesterEndDate() {
+        printLine();
+        System.out.println(" Enter End Date: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans Module Code.
+     *
+     * @return String containing Module Code.
+     */
+    public String scanModuleCode() {
+        printLine();
+        System.out.println(" Enter Module Code: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans name of Module.
+     *
+     * @return String containing name of Module.
+     */
+    public String scanModuleName() {
+        printLine();
+        System.out.println(" Enter Module Name: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans name of Lesson.
+     *
+     * @return String containing name of Lesson.
+     */
+    public String scanLessonName() {
+        printLine();
+        System.out.println(" Enter Lesson Name: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans location of Lesson.
+     *
+     * @return String containing location of Lesson.
+     */
+    public String scanLocation() {
+        printLine();
+        System.out.println(" Enter Lesson Location: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans day of week.
+     *
+     * @return Enum representing day of the week.
+     */
+    public DayOfWeek scanDay() {
+        while (true) {
+            printLine();
+            System.out.println(" Enter Lesson Day: ");
+            System.out.println(" \t1. Monday\n \t2. Tuesday\n \t3. Wednesday\n \t4. Thursday\n \t5. Friday");
+            System.out.println(" \t6. Saturday\n \t7. Sunday");
+            int day = scan.nextInt();
+            switch (day) {
+            case 1:
+                return DayOfWeek.MONDAY;
+            case 2:
+                return DayOfWeek.TUESDAY;
+            case 3:
+                return DayOfWeek.WEDNESDAY;
+            case 4:
+                return DayOfWeek.THURSDAY;
+            case 5:
+                return DayOfWeek.FRIDAY;
+            case 6:
+                return DayOfWeek.SATURDAY;
+            case 7:
+                return DayOfWeek.SUNDAY;
+            default:
+                break;
+            }
+        }
+    }
+
+    /**
+     * Scans starting time.
+     *
+     * @return String containing start time.
+     */
+    public String scanStartTime() {
+        printLine();
+        System.out.println(" Enter Start Time: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans ending time.
+     *
+     * @return String containing end time.
+     */
+    public String scanEndTime() {
+        printLine();
+        System.out.println(" Enter End Time: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans name of Assignment.
+     *
+     * @return String containing name of Assignment.
+     */
+    public String scanAssignmentName() {
+        printLine();
+        System.out.println(" Enter Assignment Name: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans deadline of Assignment.
+     *
+     * @return String containing deadline of Assignment.
+     */
+    public String scanAssignmentDeadline() {
+        printLine();
+        System.out.println(" Enter Deadline: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans name of Assessment.
+     *
+     * @return String containing name of Assessment.
+     */
+    public String scanAssessmentName() {
+        printLine();
+        System.out.println(" Enter Assessment Name: ");
+        return scanLine();
+    }
+
+    /**
+     * Scans date of Assessment.
+     *
+     * @return String containing date of Assessment.
+     */
+    public String scanAssessmentDate() {
+        printLine();
+        System.out.println(" Enter Assessment Date: ");
+        return scanLine();
+    }
+
+    /**
+     * Prints list of Semesters and returns selected Semester.
+     *
+     * @param semesterList Instance of SemesterList object.
+     * @return Semester selected by user.
+     */
+    public int scanSemesterOption(SemesterList semesterList) {
+        int response = 0;
+        while (response < 1 || response > semesterList.getSize() + 1) {
+            printLine();
+            System.out.println(" Choose one of the following options:");
+            printSemesterList(semesterList);
+            response = scanInt();
+        }
+        return response - 1;
+    }
+
+    /**
+     * Prints edit options for Semester.
+     *
+     * @param semester Instance of Semester object.
+     * @return Edit option selected by user.
+     */
+    public int scanSemesterEditOption(Semester semester) {
+        int response = 0;
+        while (response < 1 || response > 5) {
+            printLine();
+            System.out.println(" Choose one of the options to edit:");
+            System.out.println(" \t1. Academic Year: " + semester.getAcademicYear());
+            System.out.println(" \t2. Semester Name: " + semester.getSemesterName());
+            System.out.println(" \t3. Start Date:    " + semester.getStartDate());
+            System.out.println(" \t4. End Date:      " + semester.getEndDate());
+            System.out.println(" \t5. Back");
+            response = scanInt();
+        }
+        return response;
+    }
+
+    /**
+     * Prints list of Modules and returns selected Module.
+     *
+     * @param semester Instance of Semester object.
+     * @return Module selected by user.
+     */
+    public int scanModuleOption(Semester semester) {
+        int response = 0;
+        while (response < 1 || response > semester.getModules().size() + 1) {
+            printLine();
+            System.out.println(semester.toString());
+            System.out.println(" Choose one of the following options:");
+            int index;
+            for (index = 1; index <= semester.getModules().size(); index++) {
+                System.out.println(" \t" + index + ". " + semester.getModules().get(index - 1).toString());
+            }
+            System.out.println(" \t" + index + ". Back");
+            response = scanInt();
+        }
+        return response - 1;
+    }
+
+    /**
+     * Prints edit options for Module.
+     *
+     * @param module Instance of Module object.
+     * @return Edit option selected by user.
+     */
+    public int scanModuleEditOption(Module module) {
+        int response = 0;
+        while (response < 1 || response > 3) {
+            printLine();
+            System.out.println(" Choose one of the options to edit:");
+            System.out.println(" \t1. Module Code: " + module.getModuleCode());
+            System.out.println(" \t2. Module Name: " + module.getModuleName());
+            System.out.println(" \t3. Back");
+            response = scanInt();
+        }
+        return response;
+    }
+
+    /**
+     * Prints list of Lessons and returns selected Lesson.
+     *
+     * @param module Instance of Module object.
+     * @return Lesson selected by user.
+     */
+    public int scanLessonOption(Module module) {
+        int response = 0;
+        while (response < 1 || response > module.getLessons().size() + 1) {
+            printLine();
+            System.out.println(module.toString());
+            System.out.println(" Choose one of the following options:\n");
+            int index;
+            for (index = 1; index <= module.getLessons().size(); index++) {
+                System.out.println(" \t" + index + ". " + module.getLessons().get(index - 1).getLessonName());
+            }
+            System.out.println(" \t" + index + ". Back");
+            response = scanInt();
+        }
+        return response - 1;
+    }
+
+    /**
+     * Prints list of Assignments and returns selected assignment.
+     *
+     * @param module Instance of Module object.
+     * @return Assignment selected by user.
+     */
+    public int scanAssignmentOption(Module module) {
+        int response = 0;
+        while (response < 1 || response > module.getAssignments().size() + 1) {
+            printLine();
+            System.out.println(module.toString());
+            System.out.println(" Choose one of the following options:\n");
+            int index;
+            for (index = 1; index <= module.getAssignments().size(); index++) {
+                System.out.println(" \t" + index + ". " + module.getAssignments().get(index - 1).getDescription());
+            }
+            System.out.println(" \t" + index + ". Back");
+            response = scanInt();
+        }
+        return response - 1;
+    }
+
+    /**
+     * Prints list of Assessments and returns selected assessment.
+     *
+     * @param module Instance of Module object.
+     * @return Assessment selected by user.
+     */
+    public int scanAssessmentOption(Module module) {
+        int response = 0;
+        while (response < 1 || response > module.getAssessments().size() + 1) {
+            printLine();
+            System.out.println(" " + module.toString());
+            System.out.println(" Choose one of the following options:\n");
+            int index;
+            for (index = 1; index <= module.getAssessments().size(); index++) {
+                System.out.println(" \t" + index + ". " + module.getAssessments().get(index - 1).getName());
+            }
+            System.out.println(" \t" + index + ". Back");
+            response = scanInt();
+        }
+        return response - 1;
+    }
+
+    /**
+     * Prints list of semesters.
+     *
+     * @param semesterList Instance containing List of all Semester objects.
+     */
+    private void printSemesterList(SemesterList semesterList) {
+        int index = 1;
+        for (Semester semester : semesterList.getSemesterList()) {
+            System.out.println(" \t" + index++ + ". " + semester.getAcademicYear() + " "
+                    + semester.getSemesterName());
+        }
+        System.out.println(" \t" + index + ". Back");
+    }
+
+    /**
+     * Adds or removes Lesson, Assignment and Assessment.
+     *
+     * @param module Module object being modified.
+     * @return Option input by user.
+     */
+    public int scanViewModuleOption(Module module) {
+        int response = 0;
+        while (response < 1 || response > 7) {
+            printLine();
+            System.out.println(" " + module.getModuleCode() + " " + module.getModuleName());
+            System.out.println(" Choose one of the following options:");
+            System.out.println(" \t1. Add Lesson");
+            System.out.println(" \t2. Add Assignment");
+            System.out.println(" \t3. Add Assessment");
+            System.out.println(" \t4. Remove Lesson");
+            System.out.println(" \t5. Remove Assignment");
+            System.out.println(" \t6. Remove Assessment");
+            System.out.println(" \t7. Back");
+            response = scanInt();
+        }
+        return response;
+    }
+
+    /**
+     * Prints notification for added Semester.
+     *
+     * @param semester Semester object being added.
+     */
+    public void printSemesterAddedMessage(Semester semester) {
+        printLine();
+        System.out.println(" \"" + semester.getAcademicYear() + " " + semester.getSemesterName()
+                + "\" has been added!");
+    }
+
+    /**
+     * Prints notification for removed Semester.
+     *
+     * @param semester Semester object being removed.
+     */
+    public void printSemesterRemovalMessage(Semester semester) {
+        printLine();
+        System.out.println(" " + semester.getAcademicYear() + " " + semester.getSemesterName() + " has been removed.");
+    }
+
+    /**
+     * Prints notification for added Module.
+     *
+     * @param module Module object being added.
+     */
+    public void printModuleAddedMessage(Module module) {
+        printLine();
+        System.out.println(" \"" + module.getModuleCode() + " " + module.getModuleName() + "\" has been added!");
+    }
+
+    /**
+     * Prints notification for removed Module.
+     *
+     * @param module Module object being removed.
+     */
+    public void printModuleRemovalMessage(Module module) {
+        printLine();
+        System.out.println(" " + module.getModuleCode() + " " + module.getModuleName() + " has been removed.");
+    }
+
+    /**
+     * Prints notification for added Lesson.
+     *
+     * @param moduleCode Module code of Lesson being added.
+     * @param lesson     Lesson object being added.
+     */
+    public void printLessonAddedMessage(String moduleCode, Lesson lesson) {
+        printLine();
+        System.out.println(" \"" + moduleCode + " " + lesson.getLessonName() + "\" has been added!");
+    }
+
+    /**
+     * Prints notification for removed Lesson.
+     *
+     * @param moduleCode Module code of Lesson being removed.
+     * @param lesson     Lesson object being removed.
+     */
+    public void printLessonRemovalMessage(String moduleCode, Lesson lesson) {
+        printLine();
+        System.out.println(" " + moduleCode + " " + lesson.getLessonName() + " has been removed.");
+    }
+
+    /**
+     * Prints notification for added Assignment.
+     *
+     * @param assignment Assignment object being added.
+     */
+    public void printAssignmentAddedMessage(Assignment assignment) {
+        printLine();
+        System.out.println(" \"" + assignment.getModuleCode() + " " + assignment.getDescription()
+                + "\" has been added!");
+    }
+
+    /**
+     * Prints notification for removed Assignment.
+     *
+     * @param assignment Assignment object being removed.
+     */
+    public void printAssignmentRemovalMessage(Assignment assignment) {
+        printLine();
+        System.out.println(" " + assignment.getModuleCode() + " " + assignment.getDescription() + " has been removed.");
+    }
+
+    /**
+     * Prints notification for added Assessment.
+     *
+     * @param assessment Assessment object being added.
+     */
+    public void printAssessmentAddedMessage(Assessment assessment) {
+        printLine();
+        System.out.println(" \"" + assessment.getModuleCode() + " " + assessment.getName() + "\" has been added!");
+    }
+
+    /**
+     * Prints notification for removed Assessment.
+     *
+     * @param assessment Assessment object being removed.
+     */
+    public void printAssessmentRemovalMessage(Assessment assessment) {
+        printLine();
+        System.out.println(" " + assessment.getModuleCode() + " " + assessment.getName() + " has been removed.");
     }
 }

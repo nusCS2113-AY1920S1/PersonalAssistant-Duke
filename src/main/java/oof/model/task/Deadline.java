@@ -1,4 +1,4 @@
-package oof.task;
+package oof.model.task;
 
 /**
  * Represents a Task object. A Deadline object is a type of Task.

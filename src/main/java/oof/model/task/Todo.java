@@ -1,4 +1,4 @@
-package oof.task;
+package oof.model.task;
 
 /**
  * A Todo object is a type of Task.
