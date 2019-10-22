@@ -160,7 +160,7 @@ public abstract class Task {
      * @return the status icon ("V" for done and "x" for todo) of the task
      */
     public String getStatusIcon() {
-        return (isDone ? "✔" : "✘"); //return tick or X symbols
+        return (isDone ? "\u2713" : "\u2715"); //return tick or X symbols
     }
 
     /**

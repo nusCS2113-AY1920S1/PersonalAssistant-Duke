@@ -68,7 +68,7 @@ public class Window {
         JTextArea outputArea = new JTextArea();
         outputArea.setEditable(false);
         scrollPane.setViewportView(outputArea);
-        outputArea.setFont(new Font("Constantia", Font.PLAIN, 15));
+        outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
         outputArea.setWrapStyleWord(true);
         outputArea.setLineWrap(true);
         DefaultCaret caret = (DefaultCaret) outputArea.getCaret();
