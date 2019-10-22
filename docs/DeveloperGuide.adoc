@@ -142,6 +142,30 @@ The Ui component of the code is in charge of:
 
 == Implementation
 
+=== User initialization
+
+User initialization personalises the program for each user to cater to their needs
+
+This section describes the implmentation and design considerations.
+
+==== Current implementation
+
+On start up, `Main` will load `user.txt` file. If no data is found, `Main` class will instead ask for user information before starting the program.
+
+The following step describes the flow of the initialisation:
+
+. The `Main` class will load `user.txt` via `Storage` class and check if there is user data already stored.
+.. If no data is found, `Main` will request for user to input personal data in this order:
+... `Name`
+... `Age`
+... `Weight`
+... `Height`
+... `Activity Level`
+... If they would like to maintain or lose weight
+.. If data is found, `Main` will load the data from `user.txt` via `Storage`
+. The `Main` will continue on with the function.
+. On exit, `Main` will save the `User` data to `user.txt`
+
 === Add command
 
 The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
@@ -152,7 +176,7 @@ This section describes the implementation and design considerations involved in 
 Assuming that there are no preexisting default values assigned to meals, and the user inputs the `add` command `add hotcakes /calories 300`, the application processes the command through the following steps:
 
 . The `Main` class calls the parse function of the `Parser` class to parse the user input. During this stage, the following validation checks are carried out before parsing:
-.. The autocorrect function (implemented by: Foo Chi Hen) takes in the user input, and determines if there are any typos present in the user input.
+.. The autocorrect function takes in the user input, and determines if there are any typos present in the user input.
 * If autocorrectable typos are present, the program attempts to replace the erroneous text with the correct command from a predetermined set of words.
 * If no typos are present, or there exists a word that cannot be autocorrected, the command is returned as is to the parser.
 .. This autocorrected command is then subjected to additional checks in the `AddItemCommandParser` class:
@@ -167,6 +191,7 @@ The steps carried out by the program as described above are captured in figure 5
 
 .Add command sequence diagram
 image::addcommand.png[width="800"]
+
 
 ==== Design considerations
 
