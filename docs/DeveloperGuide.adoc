@@ -136,6 +136,12 @@ image::UiComponent.png[width="800"]
 .High Level Logic Diagram
 image::HighLevelLogic.png[width="800"]
 
+.General Parser Class Diagram
+image::HighLevelLogicParser.png[width="800"]
+
+.General Parsing Sequence Diagram
+image::GeneralParsingSequenceDiagram.png[width="970"]
+
 === Model Component
 .Model Component Diagram
 image::ModelComponent.png[width="800"]
