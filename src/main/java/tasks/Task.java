@@ -70,6 +70,15 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
+    
+    /**
+     * get tasks's isDone status
+     * 
+     * @return isDone boolean
+     */
+    public boolean getIsDone()	{
+    	return isDone;
+    }
 
     /**
      * set the description of task
