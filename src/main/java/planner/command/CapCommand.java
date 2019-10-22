@@ -251,7 +251,7 @@ public class CapCommand extends ModuleCommand {
      * Across the whole list is modules that are 'and'ed with each other
      * The whole List of Lists must be complete and graded in order for prerequisites to be fulfilled
      *
-     * @return A List of
+     * @return A List of lists of string of prerequisite modules to be graded before calculating cap
      */
     public List<List<String>> parsePrerequisiteTree(String prerequisites, HashMap<String, ModuleInfoDetailed> detailedMap) {
         //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
