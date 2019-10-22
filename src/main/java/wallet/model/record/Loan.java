@@ -1,3 +1,5 @@
+//@@author A0171206R
+
 package wallet.model.record;
 
 import wallet.model.contact.Contact;

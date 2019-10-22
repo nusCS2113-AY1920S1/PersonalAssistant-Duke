@@ -76,6 +76,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     }
 
+    //@@author A0171206R
     /**
      * Parses the parameters of contact to be edited.
      *
@@ -141,6 +142,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         return loan;
     }
+    //@@author
 
     /**
      * Parses the parameters of expense to be edited.
