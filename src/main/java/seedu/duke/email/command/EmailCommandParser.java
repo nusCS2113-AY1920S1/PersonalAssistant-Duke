@@ -46,7 +46,7 @@ public class EmailCommandParser {
         case "help":
             return new HelpCommand();
         case "list":
-            return new EmailListCommand();
+            return parseEmailListCommand(optionList, input);
         case "show":
             return parseShowEmailCommand(input);
         case "fetch":
@@ -68,6 +68,17 @@ public class EmailCommandParser {
             return null;
         }
         return rawInput.split("email ", 2)[1].strip();
+    }
+
+    private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) {
+        if(optionList.size() == 0) {
+            return new EmailListCommand();
+        }
+        ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
+        if (!tagsNotEmpty(tags)) {
+            return new InvalidCommand();
+        }
+        return new EmailListTagCommand(tags);
     }
 
     private static Command parseShowEmailCommand(String input) throws CommandParseHelper.UserInputException {
