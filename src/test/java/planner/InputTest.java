@@ -1,16 +1,16 @@
 package planner;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 /**
  * Adapted from https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println.
- * Helper class to test for capturing the console output of duke.
+ * Helper class to test for capturing the console output of planner.
  */
 public class InputTest {
 
@@ -24,7 +24,7 @@ public class InputTest {
 
 
     /**
-     * Setting stream redirection for duke testing.
+     * Setting stream redirection for planner testing.
      */
     @BeforeEach
     public void setUpStreams() {

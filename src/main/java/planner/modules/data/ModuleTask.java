@@ -1,6 +1,6 @@
 package planner.modules.data;
 
-import planner.modules.Task;
+import planner.modules.inherited.Task;
 
 public class ModuleTask extends Task {
 

@@ -1,23 +1,21 @@
 package planner;
 
-import planner.command.logic.ModuleCommand;
-
-import planner.util.argparse4j.Argparse4jWrapper;
-import planner.util.CcaList;
-import planner.util.JsonWrapper;
-import planner.util.ParserWrapper;
-import planner.util.PlannerUi;
-import planner.util.Reminder;
-import planner.util.Storage;
-import planner.util.TaskList;
-import planner.util.Ui;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 
+import planner.command.EndCommand;
+import planner.command.ModuleCommand;
+import planner.exceptions.original.ModException;
 import planner.exceptions.planner.ModBadRequestStatus;
-import planner.exceptions.ModException;
 import planner.exceptions.planner.ModFailedJsonException;
-import planner.exceptions.ModTimeIntervalTooCloseException;
 import planner.modules.data.ModuleInfoDetailed;
+import planner.util.periods.CcaList;
+import planner.util.commons.JsonWrapper;
+import planner.util.commons.PlannerUi;
+import planner.util.periods.Reminder;
+import planner.util.commons.Storage;
+import planner.util.argparse4j.Argparse4jWrapper;
 import planner.util.commons.ModuleTasksList;
 
 public class Planner {
@@ -27,30 +25,43 @@ public class Planner {
      * active tasks in TaskList and reminder.
      */
     private Storage store;
-    private Ui ui;
-    private TaskList tasks;
     private ModuleTasksList modTasks;
     private CcaList ccas;
-    private ParserWrapper parser;
     private Argparse4jWrapper argparser;
     private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
+    private transient ByteArrayOutputStream output;
 
     /**
-     * Constructor for Duke class.
+     * Constructor for Planner class.
      */
-    public Planner() {
+    public Planner(boolean gui) {
         store = new Storage();
-        ui = new Ui();
         modUi = new PlannerUi();
-        tasks = new TaskList(store);
-        parser = new ParserWrapper();
         argparser = new Argparse4jWrapper();
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
         ccas = new CcaList();
+        if (gui) {
+            this.redirectOutput();
+            modUi.helloMsg();
+        }
+    }
+
+    private Planner() {
+        this(false);
+    }
+
+    /**
+     * Redirect output for GUI compatibility.
+     */
+    private void redirectOutput() {
+        this.output = new ByteArrayOutputStream();
+        PrintStream printStreamGui = new PrintStream(this.output);
+        System.setOut(printStreamGui);
+        System.setErr(printStreamGui);
     }
 
     private void modSetup() {
@@ -68,37 +79,40 @@ public class Planner {
     private void modRunArgparse4j() {
         modUi.helloMsg();
         modSetup();
-        while (true) {
-            try {
-                String fullCommand = modUi.readCommand();
-                modUi.showLine();
-                ModuleCommand c = argparser.parseCommand(fullCommand);
-                if (c != null) {
-                    c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
-                }
-            } catch (ModException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                modUi.showLine();
-            }
+        boolean isExit = true;
+        while (isExit) {
+            isExit = this.handleInput(modUi.readCommand());
         }
     }
 
-    private void modRun() {
-        modUi.helloMsg();
-        modSetup();
-        while (true) {
-            try {
-                String fullCommand = modUi.readCommand();
-                modUi.showLine();
-                ModuleCommand c = parser.parse(fullCommand, false);
+    private boolean handleInput(String input) {
+        try {
+            ModuleCommand c = argparser.parseCommand(input);
+            if (c != null) {
                 c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
-            } catch (ModException e) {
-                System.out.println(e.getMessage());
-            } finally {
-                modUi.showLine();
+                if (c instanceof EndCommand) {
+                    return false;
+                }
             }
+        } catch (ModException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            modUi.showLine();
         }
+        return true;
+    }
+
+    /**
+     * Get output from commands.
+     * @param input user input
+     * @return command output
+     */
+    public String getResponse(String input) {
+        if (input != null) {
+            this.output.reset();
+            this.handleInput(input);
+        }
+        return this.output.toString();
     }
 
     /**

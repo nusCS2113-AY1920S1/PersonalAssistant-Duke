@@ -1,14 +1,15 @@
 package planner.util;
 
-import planner.exceptions.ModInvalidTimeException;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDateTime;
 import java.util.Date;
-
 import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import planner.exceptions.original.ModInvalidTimeException;
+import planner.util.commons.NattyWrapper;
 
 
 public class NattyTesting {

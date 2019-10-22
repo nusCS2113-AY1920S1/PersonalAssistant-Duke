@@ -1,6 +1,6 @@
 package planner.exceptions.planner;
 
-import planner.exceptions.ModException;
+import planner.exceptions.original.ModException;
 
 public class ModFailedJsonException extends ModException {
 

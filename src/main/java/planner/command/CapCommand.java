@@ -1,19 +1,17 @@
 package planner.command;
 
-import planner.command.logic.ModuleCommand;
-import planner.exceptions.ModException;
-import planner.exceptions.ModMissingArgumentException;
-import planner.exceptions.planner.ModNotFoundException;
-import planner.modules.data.ModuleInfoDetailed;
-import planner.util.CcaList;
-import planner.util.JsonWrapper;
-import planner.util.PlannerUi;
-import planner.util.Storage;
-import planner.util.commons.ModuleTasksList;
-
-
 import java.util.HashMap;
 import java.util.Scanner;
+
+import planner.exceptions.original.ModException;
+import planner.exceptions.original.ModMissingArgumentException;
+import planner.exceptions.planner.ModNotFoundException;
+import planner.modules.data.ModuleInfoDetailed;
+import planner.util.periods.CcaList;
+import planner.util.commons.JsonWrapper;
+import planner.util.commons.PlannerUi;
+import planner.util.commons.Storage;
+import planner.util.commons.ModuleTasksList;
 
 public class CapCommand extends ModuleCommand {
 
