@@ -1,6 +1,5 @@
 import duke.DukeCore;
 import duke.exception.DukeFatalException;
-import duke.gui.Gui;
 import duke.data.PatientMap;
 import duke.data.TaskList;
 import org.junit.jupiter.api.AfterAll;
@@ -32,7 +31,6 @@ public abstract class CommandTest {
             fail("Could not create data directory!");
         }
 
-        Gui ui = new Gui();
         try {
             core = new DukeCore();
             core.patientMap = new PatientMap();

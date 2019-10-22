@@ -11,11 +11,11 @@
 Dr. Duke is a command-line based personal assistant for doctors to manage their patients' data.
 
 ## Site Map
-  * [User Guide](docs/UserGuide.adoc)
-  * [Developer Guide](docs/DeveloperGuide.adoc)
-  * [Learning Outcomes](docs/LearningOutcomes.adoc)
-  * [About Us](docs/AboutUs.adoc)
-  * [Contact Us](docs/ContactUs.adoc)
+* [User Guide](docs/UserGuide.adoc)
+* [Developer Guide](docs/DeveloperGuide.adoc)
+* [Learning Outcomes](docs/LearningOutcomes.adoc)
+* [About Us](docs/AboutUs.adoc)
+* [Contact Us](docs/ContactUs.adoc)
 
 ## Acknowledgements
-  * Libraries used: [JUnit5](https://github.com/junit-team/junit5)
+  * Libraries used: [JavaFX](https://openjfx.io/), [JUnit5](https://github.com/junit-team/junit5)
