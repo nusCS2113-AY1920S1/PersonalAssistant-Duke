@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Duke {
+public class Gazeeebo {
     /**
      * Returns main function for duke.
      *

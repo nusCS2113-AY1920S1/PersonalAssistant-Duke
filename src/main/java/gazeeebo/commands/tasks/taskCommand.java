@@ -25,7 +25,10 @@ public class taskCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to your Tasks page! What would you like to do?\n");
+        CalendarMonthlyView calendarMonthlyView = new CalendarMonthlyView();
+        calendarMonthlyView.MonthlyView(list);
         while(!ui.fullCommand.equals("esc")) {
+            ui.readCommand();
             String command = ui.fullCommand;
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
@@ -102,8 +105,11 @@ public class taskCommand extends Command {
                 new ChangePriority().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (command.contains("#")) {
                 new TagCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+            } else if (command.equals("calendar monthly view")) {
+                new CalendarMonthlyView().MonthlyView(list);
+            }else {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            ui.readCommand();
         }
         System.out.println("Back to the main page!");
     }

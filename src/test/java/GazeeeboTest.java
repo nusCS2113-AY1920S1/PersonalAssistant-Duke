@@ -1,19 +1,18 @@
-import gazeeebo.storage.Storage;
-import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.tasks.DeadlineCommand;
+import gazeeebo.exception.DukeException;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import gazeeebo.exception.DukeException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DukeTest {
+public class GazeeeboTest {
 
     @Test
     public void test() {
