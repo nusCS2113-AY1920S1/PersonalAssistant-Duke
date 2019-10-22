@@ -370,6 +370,8 @@ public class Ui {
     public void showRedo(int redoCounter) {
         if (redoCounter == 1) {
             printIndented("I redid the last command.");
+        } else if (redoCounter == 0) {
+            printIndented("There's nothing to redo.");
         } else {
             printIndented("I redid the last few commands.");
         }

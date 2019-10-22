@@ -8,7 +8,6 @@ import duchess.ui.Ui;
 import java.util.List;
 
 public class RedoCommand extends Command {
-
     private int redoCounter;
 
     /**
@@ -29,12 +28,15 @@ public class RedoCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        if (redoCounter > 1) {
-            while (redoCounter > 0 && storage.getRedoStack().size() > 0) {
+        if (storage.getRedoStack().size() == 0) {
+            redoCounter = 0;
+        } else if (storage.getRedoStack().size() > 0 && redoCounter > 1) {
+            int tempCounter = redoCounter;
+            while (tempCounter > 0 && storage.getRedoStack().size() > 0) {
                 setToNextStore(store, storage);
-                redoCounter--;
+                tempCounter--;
             }
-        } else {
+        } else if (storage.getRedoStack().size() > 0 && redoCounter == 1) {
             setToNextStore(store, storage);
         }
         // showUndo should only be placed after execution of undo.

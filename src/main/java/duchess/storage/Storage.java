@@ -20,13 +20,22 @@ public class Storage {
     private Deque<String> undoStack;
     private Deque<String> redoStack;
 
-    //private static final String RUN_TIME_ERROR_MESSAGE = "JSON run time error.";
     private static final String UNREADABLE_FILE_MESSAGE
             = "Unable to read file, continuing with empty list.";
     private static final String FILE_WRITE_ERROR_MESSAGE
             = "An unexpected error occurred when writing to the file. ";
-
-    private static final String JSON_PARSE_ERROR_MESSAGE = "JSON parse was unsuccessful.";
+    private static final String JSON_PARSE_ERROR_MESSAGE
+            = "JSON parse was unsuccessful.";
+    private static final String UNSUCCESSFUL_MAP_ERROR_MESSAGE
+            = "Mapping was unsuccessful.";
+    private static final String EMPTY_REDO_STACK_ERROR_MESSAGE
+            = "Redo stack is empty.";
+    private static final String EMPTY_UNDO_STACK_ERROR_MESSAGE
+            = "Undo stack is empty.";
+    private static final String DUCHESS_STORAGE_ERROR_MESSAGE
+            = "Check duchess.storage input.";
+    private static final String STRING_TO_STORE_ERROR_MESSAGE
+            = "Unable to convert String to Store.";
 
     /**
      * Constructs Storage object.
@@ -91,13 +100,11 @@ public class Storage {
      * @return last Store object
      * @throws DuchessException throws exception when unable to obtain Store object
      */
-    public Store getLastSnapshot(int undoCounter) throws DuchessException {
+    public Store getLastSnapshot() throws DuchessException {
         if (undoStack.size() == 0) {
-            throw new DuchessException("There's nothing to undo.");
+            throw new DuchessException(EMPTY_UNDO_STACK_ERROR_MESSAGE);
         }
-
         String jsonVal = undoStack.pollLast();
-
         try {
             Store store = getObjectMapper().readValue(jsonVal, Store.class);
             return store;
@@ -105,10 +112,10 @@ public class Storage {
             throw new DuchessException(JSON_PARSE_ERROR_MESSAGE);
         } catch (JsonMappingException e) {
             e.printStackTrace();
-            throw new DuchessException("Mapping was unsuccessful.");
+            throw new DuchessException(UNSUCCESSFUL_MAP_ERROR_MESSAGE);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new DuchessException("Check duchess.storage input.");
+            throw new DuchessException(DUCHESS_STORAGE_ERROR_MESSAGE);
         }
     }
 
@@ -145,9 +152,8 @@ public class Storage {
      */
     public Store getFirstSnapshot() throws DuchessException {
         if (redoStack.size() == 0) {
-            throw new DuchessException("There's nothing to redo.");
+            throw new DuchessException(EMPTY_REDO_STACK_ERROR_MESSAGE);
         }
-
         String jsonVal = redoStack.pollFirst();
         // Add this string to undoStack
         undoStack.addLast(jsonVal);
@@ -157,13 +163,13 @@ public class Storage {
             return store;
         } catch (JsonParseException e) {
             e.printStackTrace();
-            throw new DuchessException("JSON parse was unsuccessful.");
+            throw new DuchessException(JSON_PARSE_ERROR_MESSAGE);
         } catch (JsonMappingException e) {
             e.printStackTrace();
-            throw new DuchessException("Mapping was unsuccessful.");
+            throw new DuchessException(UNSUCCESSFUL_MAP_ERROR_MESSAGE);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new DuchessException("Check duchess.storage input.");
+            throw new DuchessException(DUCHESS_STORAGE_ERROR_MESSAGE);
         }
     }
 
@@ -172,7 +178,7 @@ public class Storage {
     }
 
     public Deque<String> getRedoStack() {
-        return this.undoStack;
+        return this.redoStack;
     }
 
     /**
@@ -188,7 +194,7 @@ public class Storage {
                 return store;
 
             } catch (Exception e) {
-                System.out.println("Unable to convert String to Store.");
+                System.out.println(STRING_TO_STORE_ERROR_MESSAGE);
             }
         }
         return new Store();
