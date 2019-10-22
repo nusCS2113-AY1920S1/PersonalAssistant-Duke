@@ -7,6 +7,7 @@ import duke.logic.CommandResult;
 import duke.logic.Logic;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +24,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     private ExpensePane expensePane;
+    private PieChartSample pieChartSample;
     private TrendingPane trendingPane;
     /* todo: create controller for trendingPage;
     private TrendingPage trendingPage;
@@ -71,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void fillInnerPart() {
+        pieChartSample = new PieChartSample(logic);
         expensePane = new ExpensePane(logic.getExternalExpenseList());
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
@@ -114,6 +117,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showExpensePane() {
         commonBoard.getChildren().clear();
         commonBoard.getChildren().add(expensePane.getRoot());
+        //commonBoard.getChildren().add(pieChartSample.getRoot());
 
         expenseButton.setButtonType(JFXButton.ButtonType.RAISED);
         incomeButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -136,9 +140,4 @@ public class MainWindow extends UiPart<Stage> {
 
         boardTitle.setText("Trending");
     }
-
-
-
-
-
 }
