@@ -21,6 +21,7 @@ public class Recipe {
         this.rating = Rating.UNRATED;
         this.prepStep = new PrepStep();
         this.requiredIngredients = requiredIngredient;
+        System.out.println("this is the value for inner required ingredient: " + this.requiredIngredients.toSaveString());
         this.feedback = new Feedback();
     }
 
