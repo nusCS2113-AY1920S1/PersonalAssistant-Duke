@@ -2,7 +2,6 @@ package controllers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import models.data.Project;
 import repositories.ProjectRepository;
 import util.log.DukeLogger;
 import views.CLIView;
@@ -44,44 +43,20 @@ public class ConsoleInputController implements IController {
         case "bye":
             consoleView.end();
             break;
-        case "list":
-            ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
-            consoleView.viewAllProjects(allProjectsDetails);
-            break;
         case "create":
-            // Creation of a new project with a given name and a number of numbers
-            boolean isProjectCreated = projectRepository.addToRepo(input);
-            if (!isProjectCreated) {
-                consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
-            } else {
-                consoleView.consolePrint("Project created!");
-                saveProjectsData();
-            }
+            commandCreate(input);
+            break;
+        case "list":
+            commandList();
             break;
         case "manage":
-            if (inputReader.hasNext()) {
-                this.projectInputController.onCommandReceived(inputReader.next());
-            } else {
-                consoleView.consolePrint("Please enter a project number!");
-            }
+            commandManage(inputReader);
             break;
         case "delete":
-            if (inputReader.hasNext()) {
-                int projectIndex = Integer.parseInt(inputReader.next());
-                boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
-                if (isProjectDeleted) {
-                    consoleView.consolePrint("Project " + projectIndex + " has been deleted");
-                } else {
-                    consoleView.consolePrint("Index out of bounds! Please check project index!");
-                }
-            } else {
-                consoleView.consolePrint("Please enter a project number to delete");
-            }
+            commandDelete(inputReader);
             break;
         case "help":
-            // TODO help page displaying all commands available
-            // Not implemented
-            consoleView.consolePrint("Not implemented");
+            commandHelp("Not implemented");
             break;
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
@@ -89,6 +64,52 @@ public class ConsoleInputController implements IController {
         }
     }
 
+    // Creation of a new project with a given name and a number of numbers
+    private void commandCreate(String input) {
+        boolean isProjectCreated = projectRepository.addToRepo(input);
+        if (!isProjectCreated) {
+            consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
+        } else {
+            consoleView.consolePrint("Project created!");
+            saveProjectsData();
+        }
+    }
+
+    private void commandList() {
+        ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
+        consoleView.viewAllProjects(allProjectsDetails);
+    }
+
+
+
+    private void commandManage(Scanner inputReader) {
+        if (inputReader.hasNext()) {
+            this.projectInputController.onCommandReceived(inputReader.next());
+        } else {
+            consoleView.consolePrint("Please enter a project number!");
+        }
+    }
+
+
+    private void commandDelete(Scanner inputReader) {
+        if (inputReader.hasNext()) {
+            int projectIndex = Integer.parseInt(inputReader.next());
+            boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
+            if (isProjectDeleted) {
+                consoleView.consolePrint("Project " + projectIndex + " has been deleted");
+            } else {
+                consoleView.consolePrint("Index out of bounds! Please check project index!");
+            }
+        } else {
+            consoleView.consolePrint("Please enter a project number to delete");
+        }
+    }
+
+    private void commandHelp(String s) {
+        // TODO help page displaying all commands available
+        // Not implemented
+        consoleView.consolePrint(s);
+    }
 
     private void saveProjectsData() {
         Gson gson = new GsonBuilder()
