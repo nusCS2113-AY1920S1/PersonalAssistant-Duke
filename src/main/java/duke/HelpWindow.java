@@ -69,11 +69,13 @@ public class HelpWindow extends AnchorPane {
                     getDescription.getScene().getWindow();
                 }
                 else if (cbCommands.getSelectionModel().getSelectedItem().equals("repeat")){
-                    getDescription.setText(cbCommands.getValue() + " <task> /from <date and time> /for <duration> <day/week/month>");
+                    getDescription.setText(cbCommands.getValue() +
+                            " <task> /from <date and time> /for <duration> <day/week/month>");
                     getDescription.getScene().getWindow();
                 }
                 else if (cbCommands.getSelectionModel().getSelectedItem().equals("doafter")){
-                    getDescription.setText(cbCommands.getValue() + " <task description> /after <existing task description>");
+                    getDescription.setText(cbCommands.getValue() +
+                            " <task description> /after <existing task description>");
                     getDescription.getScene().getWindow();
                 }
             }
