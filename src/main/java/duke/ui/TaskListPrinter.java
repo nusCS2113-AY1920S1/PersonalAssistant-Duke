@@ -17,7 +17,7 @@ public class TaskListPrinter {
 			Task t = list.get(i);
 			curr += " | " + t.getPriority();
 			curr += " | " + t.getRecurring();
-			curr += " | " + "N"; // TODO optimise duration of tasks
+			curr += " | " + t.getDuration();
 			curr += " |   " + t.getStatusIcon();
 			curr += "   | " + t.getDescription();
 			ui.showLine(curr);

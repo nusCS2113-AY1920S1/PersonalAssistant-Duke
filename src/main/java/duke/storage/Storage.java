@@ -46,8 +46,7 @@ public class Storage {
 						.of(Task.class)
 						.registerSubtype(ToDo.class)
 						.registerSubtype(Deadline.class)
-						.registerSubtype(Event.class)
-						.registerSubtype(FixedDurationTask.class))
+						.registerSubtype(Event.class))
 				.create();
 		JsonReader reader = new JsonReader(new FileReader("data/duke.json"));
 		Type type = new TypeToken<ArrayList<Task>>() {}.getType();
@@ -69,8 +68,7 @@ public class Storage {
 						.of(Task.class)
 						.registerSubtype(ToDo.class)
 						.registerSubtype(Deadline.class)
-						.registerSubtype(Event.class)
-						.registerSubtype(FixedDurationTask.class))
+						.registerSubtype(Event.class))
 				.create();
 		gson.toJson(list, writer);
 		writer.close();
