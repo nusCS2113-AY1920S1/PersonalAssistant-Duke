@@ -1,5 +1,6 @@
-package duke.data;
+package duke.Parser;
 
+import duke.data.Storage;
 import duke.module.Goal;
 import duke.module.Lesson;
 import duke.module.Reminder;
