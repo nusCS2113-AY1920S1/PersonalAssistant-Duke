@@ -32,11 +32,11 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initialize duke.
-     * @param d given duke
+     * Initialize Planner.
+     * @param p given planner
      */
-    public void setDuke(Planner d) {
-        this.planner = d;
+    public void setDuke(Planner p) {
+        this.planner = p;
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(this.planner.getResponse(null), dukeImage)
         );

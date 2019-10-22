@@ -24,7 +24,7 @@ public class ModException extends Throwable {
     /**
      * Over-writing the exception class GetMessage method,
      * so that other sub-classes would have this message.
-     * @return Starting portion indicating a DukeException.
+     * @return Starting portion indicating a ModException.
      */
 
     @Override

@@ -1,7 +1,5 @@
 package planner.util.periods;
 
-import planner.exceptions.original.ModInvalidTimeException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,13 +10,15 @@ import java.time.temporal.ChronoField;
 import java.util.Arrays;
 import java.util.List;
 
+import planner.exceptions.original.ModInvalidTimeException;
+
 public class DateTimeParser {
 
     /**
      * Parser for date with or without time inputs for deadline and event tasks.
      * @param dateAndTime Date and time portion of the user input string.
      * @return LocalDateTime parsed based on the user input format.
-     * @throws ModInvalidTimeException if user inputs a date format that is not supported by Duke.
+     * @throws ModInvalidTimeException if user inputs a date format that is not supported by Planner.
      */
     public static LocalDateTime getStringToDate(String dateAndTime) throws ModInvalidTimeException {
         boolean am = dateAndTime.contains("am");

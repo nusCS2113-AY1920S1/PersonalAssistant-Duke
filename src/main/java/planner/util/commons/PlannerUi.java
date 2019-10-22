@@ -11,7 +11,7 @@ import planner.modules.data.ModuleTask;
 import planner.modules.inherited.Task;
 
 /**
- * Mod Planner inherits functionality from Original Duke Ui.
+ * Mod Planner based on morphed implementation of Duke.
  */
 public class PlannerUi {
 

@@ -35,7 +35,7 @@ public class Planner {
     private transient ByteArrayOutputStream output;
 
     /**
-     * Constructor for Duke class.
+     * Constructor for Planner class.
      */
     public Planner(boolean gui) {
         store = new Storage();

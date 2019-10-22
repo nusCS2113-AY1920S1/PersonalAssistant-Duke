@@ -10,7 +10,7 @@ public class PlannerTest extends InputTest {
     private static final String LINE = "_______________________________";
 
     /**
-     * Testing the Duke class with bye as the only input
+     * Testing the Planner class with bye as the only input
      * and checking the expected output.
      * outContent must have it's carriage return removed due
      * to windows/linus newline differences.
