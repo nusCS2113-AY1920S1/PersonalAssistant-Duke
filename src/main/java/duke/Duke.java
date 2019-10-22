@@ -2,10 +2,10 @@ package duke;
 
 import duke.command.Command;
 import duke.command.CommandBooking;
-import duke.command.CommandIngredients;
+import duke.command.CommandInventory;
 import duke.exception.DukeException;
 import duke.list.bookinglist.BookingList;
-import duke.list.ingredientlist.IngredientList;
+import duke.list.inventorylist.InventoryList;
 import duke.list.recipelist.RecipeIngredientList;
 import duke.list.recipelist.RecipeList;
 import duke.list.recipelist.RecipeTitleList;
@@ -20,7 +20,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.BookingMessages.*;
-import static duke.common.IngredientMessages.*;
+import static duke.common.InventoryMessages.*;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
@@ -31,11 +31,11 @@ public class Duke {
 
     private Ui ui;
 
-    private IngredientStorage ingredientStorage;
+    private InventoryStorage inventoryStorage;
     private RecipeIngredientStorage recipeIngredientStorage;
     private BookingStorage bookingStorage;
     private RecipeTitleStorage recipeTitleStorage;
-    private IngredientList ingredientList;
+    private InventoryList inventoryList;
     private RecipeIngredientList recipeIngredientList;
     private BookingList bookingList;
     private RecipeTitleList recipeTitleList;
@@ -54,14 +54,14 @@ public class Duke {
 
     public Duke(Ui ui) {
         this.ui = ui;
-        ingredientStorage = new IngredientStorage(filePathIngredients);
+        inventoryStorage = new InventoryStorage(filePathInventory);
         recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
         recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
         bookingStorage = new BookingStorage(filePathBookings);
         recipeStorage = new RecipeStorage(filePathRecipes);
 
         try {
-            ingredientList = new IngredientList(ingredientStorage.load());
+            inventoryList = new InventoryList(inventoryStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
             recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
             bookingList = new BookingList(bookingStorage.load());
@@ -166,30 +166,30 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
+        } else if (userInput.contains(COMMAND_ADD_TO_INVENTORY)) {
             System.out.println("stuck here17");
-            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_INGREDIENT)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_TO_INVENTORY)) {
                 System.out.println("stuck here18");
-                CommandIngredients command = Parser.parseIngredient(userInput);
-                return command.execute(ingredientList, ui, ingredientStorage);
+                CommandInventory command = Parser.parseIngredient(userInput);
+                return command.execute(inventoryList, inventoryStorage);
             } else {
                 System.out.println("stuck here19");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_DELETE_INGREDIENT)) {
-            if (userInput.trim().substring(0, 19).equals(COMMAND_DELETE_INGREDIENT)) {
-                CommandIngredients command = Parser.parseIngredient(userInput);
-                return command.execute(ingredientList, ui, ingredientStorage);
+        } else if (userInput.contains(COMMAND_DELETE_FROM_INVENTORY)) {
+            if (userInput.trim().substring(0, 19).equals(COMMAND_DELETE_FROM_INVENTORY)) {
+                CommandInventory command = Parser.parseIngredient(userInput);
+                return command.execute(inventoryList, inventoryStorage);
             } else {
                 System.out.println("stuck here19");
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains(COMMAND_LIST_INGREDIENTS)) {
-            if (userInput.trim().substring(0, 13).equals(COMMAND_LIST_INGREDIENTS)) {
-                CommandIngredients command = Parser.parseIngredient(userInput);
-                return command.execute(ingredientList, ui, ingredientStorage);
+        } else if (userInput.contains(COMMAND_LIST_INVENTORY)) {
+            if (userInput.trim().substring(0, 13).equals(COMMAND_LIST_INVENTORY)) {
+                CommandInventory command = Parser.parseIngredient(userInput);
+                return command.execute(inventoryList, inventoryStorage);
             } else {
                 System.out.println("stuck here19");
                 arrayList.add(ERROR_MESSAGE_RANDOM);

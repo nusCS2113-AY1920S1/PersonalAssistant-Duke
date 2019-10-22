@@ -1,31 +1,46 @@
 package duke.task.recipetasks;
 
+import duke.task.ingredienttasks.Ingredient;
+
 import java.util.ArrayList;
 
 public class RequiredIngredients {
 
-    ArrayList<RecipeIngredient> requiredIngredientList;
+    ArrayList<Ingredient> requiredIngredientList;
 
     public RequiredIngredients() {
-        this.requiredIngredientList = new ArrayList<RecipeIngredient>();
+        this.requiredIngredientList = new ArrayList<Ingredient>();
     }
 
     public RequiredIngredients(String requiredIngredientsFromStorage) {
-        this.requiredIngredientList = new ArrayList<RecipeIngredient>();
+        this.requiredIngredientList = new ArrayList<Ingredient>();
         parseIngredientsFromStorage(requiredIngredientsFromStorage);
     }
 
     public void parseIngredientsFromStorage(String requiredIngredientsFromStorage) {
-        String[] split = requiredIngredientsFromStorage.split("/", 2);
+        String[] split = requiredIngredientsFromStorage.split("\\|", 2);
+        String ingredientName, quantity, unit, additionalInfo, remaining, remaining2;
         if (split.length == 2) {
-            String name, quantity, weight, remaining1, remaining2;
-            String ingredient = split[0];
-            remaining1 = split[1];
-            name = remaining1.split("\\|", 2)[0];
-            remaining2 = remaining1.split("\\|", 2)[1];
-            quantity = remaining2.split("\\|", 2)[0];
-            weight = remaining2.split("\\|", 2)[1];
-            this.requiredIngredientList.add(new RecipeIngredient(name, quantity, weight));
+            ingredientName = split[0];
+            remaining = split[1];
+            String[] split2 = remaining.split("\\|", 2);
+            if (split2.length == 2) {
+                quantity = split2[0];
+                remaining2 = split2[1];
+                String[] split3 = remaining2.split("\\|", 2);
+                if (split3.length == 2) {
+                    unit = split3[0];
+                    additionalInfo = split3[1];
+                    this.requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
+                }
+                /*
+                else if (split3.length == 1) {
+                    unit = split3[0];
+                    additionalInfo = "No additional information.";
+                    this.requiredIngredientList.add(new Ingredient(ingredientName, quantity, unit, additionalInfo));
+                }
+                 */
+            }
         }
     }
 
@@ -34,9 +49,9 @@ public class RequiredIngredients {
         if (requiredIngredientList.isEmpty()) {
             joinedString = "No required ingredient.";
         }
-        for (RecipeIngredient recipeIngredient : requiredIngredientList) {
-            String.join(recipeIngredient.toSaveString(), joinedString);
-            String.join(" / ", joinedString);
+        for (Ingredient Ingredient : requiredIngredientList) {
+            String.join(Ingredient.toSaveString(), joinedString);
+            String.join(" | ", joinedString);
         }
         return joinedString;
     }

@@ -58,7 +58,7 @@ public class ListAllRecipeCommand extends Command<RecipeList, Ui, RecipeStorage>
             Map.Entry entry = (Map.Entry) entryIter.next();
             Object key = entry.getKey();  // Get the key from the entry.
             Recipe value = (Recipe) entry.getValue();  // Get the value.
-            arrayList.add(" " + key + " " + value.getRecipeTitle());
+            arrayList.add("     " + key + " " + value.getRecipeTitle());
         }
         return arrayList;
     }

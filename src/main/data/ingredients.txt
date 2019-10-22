@@ -1,7 +1,1 @@
-apple | 5
-apple | 5
-apple | 5
-apple | 10
-apple | 10
-apple | 10
-apple | 1
+prawn | 5.0 | G | No additional information.

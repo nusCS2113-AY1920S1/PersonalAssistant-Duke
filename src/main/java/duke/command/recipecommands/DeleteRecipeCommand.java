@@ -26,14 +26,22 @@ public class DeleteRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> 
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInput.trim().charAt(12) == ' ') {
             String description = userInput.split("\\s", 2)[1].trim();
+            boolean isListEmpty = false;
+            if (recipeList.getSize() == 0) {
+                isListEmpty = true;
+            }
             Recipe value = recipeList.deleteRecipe(description);
-            if (value == null) {
-                arrayList.add(ERROR_MESSAGE_DELETE_RECIPE_NOT_FOUND);
-                recipeStorage.saveFile(recipeList);
+            if (!isListEmpty) {
+                if (value == null) {
+                    arrayList.add(ERROR_MESSAGE_DELETE_RECIPE_NOT_FOUND);
+                    recipeStorage.saveFile(recipeList);
+                } else {
+                    System.out.println(value.getFeedback());
+                    arrayList.add(MESSAGE_RECIPE_DELETED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
+                    recipeStorage.saveFile(recipeList);
+                }
             } else {
-                System.out.println(value.getFeedback());
-                arrayList.add(MESSAGE_RECIPE_DELETED + "       " + description + "\n" + "Now you have " + recipeList.getSize() + " recipe(s) in the list.");
-                recipeStorage.saveFile(recipeList);
+                arrayList.add(ERROR_MESSAGE_RECIPE_LIST_IS_EMPTY);
             }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
