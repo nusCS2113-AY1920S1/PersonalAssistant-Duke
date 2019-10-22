@@ -47,8 +47,8 @@ public class CommandStack {
         return topCmd;
     }
 
-    public static void topCmd() {
-        myStack.get(myStack.size() - 1);
+    public static String topCmd() {
+        return (myStack.get(myStack.size() - 1)).toString();
     }
 
     public static void clearStack() {
