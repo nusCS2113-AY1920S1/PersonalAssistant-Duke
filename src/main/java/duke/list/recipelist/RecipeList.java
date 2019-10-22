@@ -2,6 +2,7 @@ package duke.list.recipelist;
 
 import duke.task.recipetasks.Recipe;
 import duke.task.recipetasks.RecipeTitle;
+import duke.task.recipetasks.RequiredIngredients;
 import javafx.scene.effect.SepiaTone;
 
 import java.util.*;
@@ -32,7 +33,7 @@ public class RecipeList {
     public void addRecipeIngredient(String recipeIndex, String recipeIngredientName, String quantity, String unit, String additionalInfo) {
         Recipe value = this.recipeLHM.get(Integer.parseInt(recipeIndex));
         System.out.println(value);
-        this.recipeLHM.put(Integer.parseInt(recipeIndex), new Recipe(value.getRecipeTitle(), value.getRequiredIngredients().parseIngredient(recipeIngredientName, quantity, unit, additionalInfo));
+        this.recipeLHM.put(Integer.parseInt(recipeIndex), new Recipe(value.getRecipeTitle(), new RequiredIngredients(recipeIngredientName, quantity, unit, additionalInfo)));
     }
 
     public Recipe deleteRecipe(String recipeTitle) {

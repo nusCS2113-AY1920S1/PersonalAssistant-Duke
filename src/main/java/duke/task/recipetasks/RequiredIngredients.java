@@ -17,8 +17,13 @@ public class RequiredIngredients {
         parseIngredientsFromStorage(requiredIngredientsFromStorage);
     }
 
-    public RequiredIngredients parseIngredient(String recipeIngredientName, String quantity, String unit, String additionalInfo) {
-        return this.requiredIngredientList.add(new Ingredient(recipeIngredientName, quantity, unit, additionalInfo));
+    public RequiredIngredients(String recipeIngredientName, String quantity, String unit, String additionalInfo) {
+        this.requiredIngredientList = new ArrayList<Ingredient>();
+        parseIngredient(recipeIngredientName, quantity, unit, additionalInfo);
+    }
+
+    public void parseIngredient(String recipeIngredientName, String quantity, String unit, String additionalInfo) {
+        this.requiredIngredientList.add(new Ingredient(recipeIngredientName, quantity, unit, additionalInfo));
     }
 
     public void parseIngredientsFromStorage(String requiredIngredientsFromStorage) {
