@@ -207,4 +207,16 @@ public class TaskList {
             break;
         }
     }
+
+    public int getSize() {
+        return tasks.size();
+    }
+
+    public int getDoneSize(){
+        int count = 0;
+        for (Task t: tasks){
+            if (t.getDone()) count++;
+        }
+        return count;
+    }
 }

@@ -121,37 +121,25 @@ public class TaskCreator {
         } else if (type.contains("meeting")) {
             if (unit.equals(TimeUnit.unDefined)) {
                 // duration was not specified or not correctly input
-                if( !CheckAnomaly.checkTime(date) ) {
-                    Meeting meeting = new Meeting(description,date);
-                    meeting.setPriority(priority);
-                    meeting.setAssignee(assignee);
-                    meeting.setRecurrenceSchedule(recurrence);
-                    return meeting;
-                }
-                else
-                    throw new RoomShareException(ExceptionType.timeClash);
+                Meeting meeting = new Meeting(description,date);
+                meeting.setPriority(priority);
+                meeting.setAssignee(assignee);
+                meeting.setRecurrenceSchedule(recurrence);
+                return meeting;
             }
             else {
-                if( !CheckAnomaly.checkTime(date, duration, unit) ) {
-                    Meeting meeting = new Meeting(description, date, duration, unit);
-                    meeting.setPriority(priority);
-                    meeting.setAssignee(assignee);
-                    meeting.setRecurrenceSchedule(recurrence);
-                    return meeting;
-                }
-                else
-                    throw new RoomShareException(ExceptionType.timeClash);
+                Meeting meeting = new Meeting(description, date, duration, unit);
+                meeting.setPriority(priority);
+                meeting.setAssignee(assignee);
+                meeting.setRecurrenceSchedule(recurrence);
+                return meeting;
             }
-        }
-
-        if (type.contains("leave")) {
+        } else if (type.contains("leave")) {
             //short leave
             Leave leave = new Leave(description, assignee, date, duration, unit);
             leave.setPriority(priority);
             leave.setRecurrenceSchedule(recurrence);
-        }
-
-        return null;
+            return leave;
         } else throw new RoomShareException(ExceptionType.wrongTaskType);
     }
 }
