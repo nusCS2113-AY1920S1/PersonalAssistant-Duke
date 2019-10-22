@@ -374,10 +374,11 @@ The user enters `free 30-10-2019`. The `parse` method in the `CommandParser` cla
 The `execute` method in `FreeCommand` class is then called by the `Oof.run()` method in the main class `Oof`.
 
 *Step 3.* +
-The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does four main things:
+The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does the following:
 
-* Finds all `Event` previously stored by the user and checks if it lies within the date given.
-* Calls `sortByTime` method in `FreeCommand` class to sort all `Event` start and end times in ascending order.
+* Iterates through the the current list of `Task` from the `TaskList` class and checks if an `Event` lies within the date given.
+* All 'Event' corresponding to the date given will be addded to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
+* Calls `sort` method in `Collections` class to sort all `Event` start and end times in ascending order.
 * Checks if an `Event` coincides with a time slot.
 * Prints the time slots with the relevant details by:
 ** Calling `printEventDescription` method in `Ui` class if `Event` coincides with the time slot
