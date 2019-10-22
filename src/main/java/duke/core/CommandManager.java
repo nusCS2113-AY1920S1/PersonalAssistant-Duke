@@ -46,16 +46,16 @@ public class CommandManager {
             return new AddPatientCommand(parser.parseAddPatient());
         case "add task":
             return new AddStandardTaskCommand(parser.parseAddTask());
-        case "assign standard task":
-            return new AssignTaskToPatientCommand(parser.parseAssignStandardTask());
+        case "assign deadline task":
+            return new AssignTaskToPatientCommand(parser.parseAssignDeadlineTask());
         case "assign event task":
             return new AssignTaskToPatientCommand(parser.parseAssignEventTask());
         case "list patients":
             return new ListPatientsCommand();
         case "list tasks":
             return new ListTasksCommand();
-        case "delete patient task":
-            return new DeletePatientTaskCommand(parser.parseDeletePatientTask());
+        case "delete assigned task":
+            return new DeletePatientTaskCommand(parser.parseDeleteAssignedTask());
         case "delete patient":
             return new DeletePatientCommand(parser.parseDeletePatient());
         case "delete task":

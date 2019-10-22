@@ -10,15 +10,15 @@ public class ParserTest {
     String patientDummyInput = "add patient :name :NRIC :room :remark";
     String taskDummyInput = "add task Walk the dog";
 
-    String assignPatientToStandardTask = "assign standard task :patient name :#2 :02/02/2002 2222";
+    String assignPatientToDeadlineTask = "assign standard task :patient name :#2 :02/02/2002 2222";
     String assignPatientToEventTask = "assign event task :#2 :#1 :01/02/2003 1234 to 06/05/2004 2312";
 
     String deletePatientInputWithID = "delete patient #123";
     String deletePatientInputWithName = "delete patient billy joe";
     String deleteTaskInputWithID = "delete task #10";
     String deleteTaskInputWithName = "delete task Take medicine";
-    String deletePatientTaskInputWithID = "delete patient task #2 #5";
-    String deletePatientTaskInputWithName = "delete patient task patient name task name";
+    String deleteAssignedTaskInputWithID = "delete patient task #2 #5";
+    String deleteAssignedTaskInputWithName = "delete patient task patient name task name";
 
     @Test
     public void parseAddPatientTest() throws DukeException {
@@ -44,19 +44,19 @@ public class ParserTest {
 
     @Test
     public void parseAssignStandardAndEventTasks() throws DukeException {
-        Parser testParserStandard = new Parser(assignPatientToStandardTask);
+        Parser testParserDeadline = new Parser(assignPatientToDeadlineTask);
         Parser testParserEvent = new Parser(assignPatientToEventTask);
 
-        final String[] testStandardOutput = testParserStandard.parseAssignStandardTask();
+        final String[] testDeadlineOutput = testParserDeadline.parseAssignDeadlineTask();
         final String[] testEventOutput = testParserEvent.parseAssignEventTask();
 
-        String[] desiredStandardOutput = {"patient name", "#2", "02/02/2002 2222"};
+        String[] desiredDeadlineOutput = {"patient name", "#2", "02/02/2002 2222"};
         String[] desiredEventOutput = {"#2", "#1", "01/02/2003 1234", "06/05/2004 2312"};
 
-        assertTrue(desiredStandardOutput.length == testStandardOutput.length);
-        for (int i = 0; i < desiredStandardOutput.length; i++) {
-            assertTrue(desiredStandardOutput[i].equals(testStandardOutput[i]), "Parsing failed. Expected: "
-                    + desiredStandardOutput[i] + " but got: " + testStandardOutput[i]);
+        assertTrue(desiredDeadlineOutput.length == testDeadlineOutput.length);
+        for (int i = 0; i < desiredDeadlineOutput.length; i++) {
+            assertTrue(desiredDeadlineOutput[i].equals(testDeadlineOutput[i]), "Parsing failed. Expected: "
+                    + desiredDeadlineOutput[i] + " but got: " + testDeadlineOutput[i]);
         }
 
         assertTrue(desiredEventOutput.length == testEventOutput.length);
@@ -96,11 +96,11 @@ public class ParserTest {
 
     @Test
     public void parseDeletePatientTask() throws DukeException {
-        Parser testParserID = new Parser(deletePatientTaskInputWithID);
-        Parser testParserName = new Parser(deletePatientTaskInputWithName);
+        Parser testParserID = new Parser(deleteAssignedTaskInputWithID);
+        Parser testParserName = new Parser(deleteAssignedTaskInputWithName);
 
-        String[] testOutputID = testParserID.parseDeletePatientTask();
-        String[] testOutputName = testParserName.parseDeletePatientTask();
+        String[] testOutputID = testParserID.parseDeleteAssignedTask();
+        String[] testOutputName = testParserName.parseDeleteAssignedTask();
 
         String[] desiredOutputID = {"#2", "#5"};
         String[] desiredOutputName = {"patient name", "task name"};

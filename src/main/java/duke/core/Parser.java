@@ -64,14 +64,14 @@ public class Parser {
     }
 
     /**
-     * Takes the user input and formats it so it is compatible with `assign standard task` commands.
+     * Takes the user input and formats it so it is compatible with `assign deadline task` commands.
      * <p>
-     * `assign standard task` output: patient_name or #patient_id, task_name or #task_id, dateTime
+     * `assign standard task` output: patient_name or #patient_id, task_name or #task_id, deadline
      *
-     * @return A string of formatted output to be used by `assign standard task` command.
+     * @return A string of formatted output to be used by `assign deadline task` command.
      * @throws DukeException Thrown when the user input cannot be parsed in the desired manner.
      */
-    public String[] parseAssignStandardTask() throws DukeException {
+    public String[] parseAssignDeadlineTask() throws DukeException {
         String[] formattedInput = new String[3];
         try {
             for (int i = 1; i <= formattedInput.length; i++) {
@@ -155,7 +155,7 @@ public class Parser {
      * @return Array of strings to be used by 'delete patient task' command.
      * @throws DukeException when user input cannot be parsed properly.
      */
-    public String[] parseDeletePatientTask() throws DukeException {
+    public String[] parseDeleteAssignedTask() throws DukeException {
         try {
             String[] formattedInput = new String[2];
             for (int i = 1; i <= formattedInput.length; i++) {
