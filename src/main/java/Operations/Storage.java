@@ -139,7 +139,8 @@ public class Storage {
      */
     public void writeFile(ArrayList<Task> list, String fileName) throws RoomShareException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            FileWriter fw = new FileWriter(fileName);
+            BufferedWriter writer = new BufferedWriter(fw);
             for (Task s : list) {
                 String out = "";
                 String type = String.valueOf(s.toString().charAt(1));
@@ -149,7 +150,7 @@ public class Storage {
                 String date = convertForStorage(s);
                 String recurrence = s.getRecurrenceSchedule().toString();
                 String user = s.getUser();
-                if (s instanceof Assignment) {
+                if (type.contains("A")) {
                         out =   type + "#" +
                                 isDone + "#" +
                                 priority + "#" +
@@ -168,7 +169,7 @@ public class Storage {
                             }
                         }
                         out += "#";
-                } else if (s instanceof Meeting){
+                } else if (type.contains("M")){
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();
                         String unit = ((Meeting) s).getTimeUnit().toString();
@@ -197,7 +198,7 @@ public class Storage {
                                 + "#";
                     }
                 }
-                writer.write(out);
+                writer.write(out );
                 writer.newLine();
             }
             writer.close();

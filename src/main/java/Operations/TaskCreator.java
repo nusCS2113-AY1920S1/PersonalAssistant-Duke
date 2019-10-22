@@ -22,6 +22,7 @@ public class TaskCreator {
 
     public Task create(String input) throws RoomShareException {
         // extract the Task Type
+        Parser parser = new Parser();
         String[] typeArray = input.split("#");
         String type;
         if (typeArray.length != 1)
@@ -60,7 +61,12 @@ public class TaskCreator {
         if (dateArray.length != 1) {
             String dateInput = dateArray[1].trim();
             try {
-                date = new Parser().formatDate(dateInput);
+                if (parser.formatDateCustom_1(dateInput) != null)
+                    date = parser.formatDateCustom_1(dateInput);
+                else if (parser.formatDateCustom_2(dateInput) != null)
+                    date = parser.formatDateCustom_2(dateInput);
+                else
+                    date = parser.formatDate(dateInput);
             } catch (RoomShareException e) {
                 System.out.println("Wrong date format, date is set default to current date");
                 date = new Date();

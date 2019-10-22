@@ -62,6 +62,9 @@ public class RoomShareException extends Exception {
             System.out.println(emptyTaskType_Text);
             break;
 
+        case others:
+            break;
+
         default:
             System.out.println(anomaly_Text);
             break;

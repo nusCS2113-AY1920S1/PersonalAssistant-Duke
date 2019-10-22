@@ -69,7 +69,6 @@ public class RoomShare {
                 break;
 
             case list:
-                ui.showList();
                 try {
                     taskList.list();
                 } catch (RoomShareException e) {
@@ -78,7 +77,6 @@ public class RoomShare {
                 pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
                 pg.showBar();
                 break;
-
 
             case bye:
                 isExit = true;
@@ -147,7 +145,7 @@ public class RoomShare {
                         throw new RoomShareException(ExceptionType.timeClash);
                     }
                 } catch (RoomShareException e) {
-                    ui.showWriteError();
+//                    ui.showWriteError();
                 }
                 break;
                 
@@ -198,5 +196,6 @@ public class RoomShare {
      */
     public static void main(String[] args) throws RoomShareException {
         new RoomShare().run();
+        System.exit(0);
     }
 }
