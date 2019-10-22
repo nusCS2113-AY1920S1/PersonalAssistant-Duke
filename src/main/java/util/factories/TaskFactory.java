@@ -26,11 +26,11 @@ public class TaskFactory {
      * @return Task as an object
      */
     public ITask createTask(String input) throws ParseException {
-        if (!input.contains("t/") || !input.contains("p/") || !input.contains("c/")) {
+        if (!input.contains("-t") || !input.contains("-p") || !input.contains("-c")) {
             return new NullTask();
         }
 
-        String [] taskDetails = input.split("[r]\\/");
+        String [] taskDetails = input.split("-r");
         ArrayList<String> taskRequirements = new ArrayList<>();
         if (taskDetails.length > 1) {
             taskRequirements = parseTaskRequirements(taskDetails,1);

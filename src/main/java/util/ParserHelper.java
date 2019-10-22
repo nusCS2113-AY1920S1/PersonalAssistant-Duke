@@ -75,44 +75,29 @@ public class ParserHelper {
         String newTaskCredit = "-1";
         String newTaskState = "NONE";
 
-        String [] newTaskDetails = input.split(" ");
-        for (String s : newTaskDetails) {
-            switch (s.substring(0, 2)) {
-            case "t/":
-                newTaskName = s.substring(2);
+        String [] newTaskDetails = input.split("-");
+        ArrayList<String> newTaskDetailsA  =  new ArrayList<>(Arrays.asList(newTaskDetails));
+        newTaskDetailsA.remove(0);
+        for (String s : newTaskDetailsA) {
+            switch (s.charAt(0)) {
+            case 't':
+                newTaskName = s.substring(1).trim();
                 break;
-            case "p/":
-                newTaskPriority = s.substring(2);
+            case 'p':
+                newTaskPriority = s.substring(1).trim();
                 break;
-            case "d/":
-                newTaskDate = s.substring(2);
+            case 'd':
+                newTaskDate = s.substring(1).trim();
                 break;
-            case "c/":
-                newTaskCredit = s.substring(2);
+            case 'c':
+                newTaskCredit = s.substring(1).trim();
                 break;
-            case "s/":
-                newTaskState = s.substring(2);
+            case 's':
+                newTaskState = s.substring(1).trim();
                 break;
             default:
                 break;
             }
-        }
-        int indexOfNameFlag = input.indexOf("t/");
-        int indexOfPriorityFlag = input.indexOf("p/");
-        int indexOfDateFlag = input.indexOf("d/");
-        int indexOfCreditFlag = input.indexOf("c/");
-        int indexOfStateFlag = input.indexOf("s/");
-
-        if (indexOfPriorityFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfPriorityFlag - 1);
-        } else if (indexOfDateFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfDateFlag - 1);
-        } else if (indexOfCreditFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfCreditFlag - 1);
-        } else if (indexOfStateFlag != -1) {
-            newTaskName = input.substring(indexOfNameFlag + 2, indexOfStateFlag - 1);
-        } else {
-            newTaskName = input.substring(2);
         }
 
         newTask.add(newTaskName);
