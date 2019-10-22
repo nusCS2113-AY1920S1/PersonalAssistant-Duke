@@ -25,6 +25,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -42,7 +44,7 @@ import java.util.logging.Logger;
 public class MainWindow extends BorderPane implements Initializable {
     private static final String NO_FIELD = "void";
     @FXML
-    private Label currentTime;
+    private Text currentTime;
     @FXML
     private Label currentWeek;
     @FXML
@@ -104,8 +106,9 @@ public class MainWindow extends BorderPane implements Initializable {
             events = new ArrayList<>();
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
-            setClock();
+           // setClock();
             setWeek(true, NO_FIELD);
+            displayQuoteOfTheDay();
 
             retrieveList();
             openReminderBox();
@@ -117,13 +120,36 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
-
+            //seeList();
             setProgressContainer();
             setListView();
         } catch (NullPointerException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
+
+    private void displayQuoteOfTheDay(){
+        try {
+            File path = new File(System.getProperty("user.dir") + "\\data\\quotes.txt");
+            Scanner scanner = new Scanner(path);
+            String firstLine = scanner.nextLine();
+            FileWriter writer = new FileWriter(path);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line != firstLine)
+                    writer.write(line + "\n");
+            }
+            writer.write(firstLine+"\n");
+            AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
+
+            scanner.close();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * This method creates the progress indicator for the different modules.
@@ -139,14 +165,12 @@ public class MainWindow extends BorderPane implements Initializable {
         }
         Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
         number_of_modules = result.getKey().keySet().size();
-        //System.out.println("Number of times: " + (String.valueOf(number_of_modules)));
 
         HashMap<String, String> modules = result.getKey();
-        int totalNumTasks = 0;
-        int completedValue = 0;
         for (String module : modules.keySet()) {
+            int totalNumTasks = 0;
+            int completedValue = 0;
             ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
-            //totalNumTasks = tasks.size();
             for (Pair<String, Pair<String, String>> as : tasks) {
                 if (as.getKey().equals(module)) {
                     totalNumTasks += 1;
@@ -179,12 +203,12 @@ public class MainWindow extends BorderPane implements Initializable {
      * Animates the clock timer in MainWindow GUI.
      */
     private void setClock() {
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
-            currentTime.setText(LocalDateTime.now().format(formatter));
-        }), new KeyFrame(Duration.seconds(1)));
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
+//        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
+//            currentTime.setText(LocalDateTime.now().format(formatter));
+//        }), new KeyFrame(Duration.seconds(1)));
+//        clock.setCycleCount(Animation.INDEFINITE);
+//        clock.play();
     }
 
     /**
@@ -281,6 +305,7 @@ public class MainWindow extends BorderPane implements Initializable {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        retrieveList();
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
