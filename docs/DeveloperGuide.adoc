@@ -282,7 +282,7 @@ The following object diagram summarises what happens when a user executes a new 
 image::ViewWeekSequenceDiagram.png[]
 
 [NOTE]
-The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent over-cluttering of the diagram. It must be noted that the for loop and condition for `dateMatches` method are also not shown due to software limitations.
+The lifeline of the User is a bar due to limitations in the software used to draw the diagram. Full details of the entire program are omitted to prevent over-cluttering of the diagram.
 
 ==== Design Considerations
 
