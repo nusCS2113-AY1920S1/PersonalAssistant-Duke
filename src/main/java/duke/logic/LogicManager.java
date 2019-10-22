@@ -3,6 +3,17 @@ package duke.logic;
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.inventory.AddInventoryCommand;
+import duke.logic.command.inventory.EditInventoryCommand;
+import duke.logic.command.inventory.DeleteInventoryCommand;
+import duke.logic.command.inventory.ClearInventoryCommand;
+import duke.logic.command.inventory.InventoryCommand;
+import duke.logic.command.shopping.AddShoppingCommand;
+import duke.logic.command.shopping.EditShoppingCommand;
+import duke.logic.command.shopping.DeleteShoppingCommand;
+import duke.logic.command.shopping.ClearShoppingCommand;
+import duke.logic.command.shopping.BuyShoppingCommand;
+import duke.logic.command.shopping.ShoppingCommand;
 import duke.logic.command.order.AddOrderCommand;
 import duke.logic.command.order.CompleteOrderCommand;
 import duke.logic.command.order.DeleteOrderCommand;
@@ -11,6 +22,7 @@ import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.AddProductCommand;
 import duke.logic.command.product.EditProductCommand;
 import duke.logic.command.product.ProductCommand;
+import duke.logic.command.shopping.*;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -102,6 +114,16 @@ public class LogicManager implements Logic {
         autoCompleter.addCommand(ProductCommand.class);
         autoCompleter.addCommand(AddProductCommand.class);
         autoCompleter.addCommand(EditProductCommand.class);
-
+        autoCompleter.addCommand(InventoryCommand.class);
+        autoCompleter.addCommand(AddInventoryCommand.class);
+        autoCompleter.addCommand(EditInventoryCommand.class);
+        autoCompleter.addCommand(DeleteInventoryCommand.class);
+        autoCompleter.addCommand(ClearInventoryCommand.class);
+        autoCompleter.addCommand(ShoppingCommand.class);
+        autoCompleter.addCommand(AddShoppingCommand.class);
+        autoCompleter.addCommand(EditShoppingCommand.class);
+        autoCompleter.addCommand(DeleteShoppingCommand.class);
+        autoCompleter.addCommand(ClearShoppingCommand.class);
+        autoCompleter.addCommand(BuyShoppingCommand.class);
     }
 }
