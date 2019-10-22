@@ -203,4 +203,22 @@ public class TaskList {
             }
         }
     }
+
+    public void undonePrint(Ui ui) {
+        ArrayList<Task> list = new ArrayList<>();
+        for (Task t : taskList) {
+            if (t.getStatusIcon().equals("N")) {
+                list.add(t);
+            }
+        }
+        int tasks = list.size();
+        if (tasks == 0) {
+            ui.showLine("Congratulations, you have no undone tasks. Take a break, have a kit kat");
+        } else {
+            ui.showLine("You have " + list.size() + ((list.size() == 1) ? " undone task" : " undone tasks"));
+            for (Task t : list) {
+                ui.showLine(t.toString());
+            }
+        }
+    }
 }

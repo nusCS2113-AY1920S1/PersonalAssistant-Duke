@@ -59,7 +59,7 @@ public class Task {
      * @return tick if done or X symbol if not done
      */
     public String getStatusIcon() {
-        return (isDone ? "✓" : "✗");
+        return (isDone ? "Y" : "N");
     }
 
     /**

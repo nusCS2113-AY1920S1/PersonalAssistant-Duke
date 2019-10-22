@@ -58,6 +58,9 @@ public class ListCommand extends Command {
             case "week":
                 tasks.weekViewPrint(ui);
                 break;
+            case "undone":
+                tasks.undonePrint(ui);
+                break;
             default:
                 throw new DukeException("The description of list is invalid");
         }
