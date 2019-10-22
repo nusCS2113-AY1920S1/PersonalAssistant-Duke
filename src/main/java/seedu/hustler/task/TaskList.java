@@ -58,19 +58,10 @@ public class TaskList {
     /**
      * Returns size of task list.
      *
-     * @return length of tasklist.
+     * @return length of task list.
      */
     public int size() {
         return list.size();
-    }
-
-    /**
-     * Checks whether list is empty or not.
-     *
-     * @return true or false to whether the internal ArrayList is empty or not.
-     */
-    public boolean isEmpty() {
-        return list.isEmpty();
     }
 
     /**
@@ -85,14 +76,9 @@ public class TaskList {
             AddTask.updateAchievementLevel();
             AddTask.updatePoints();
             AchievementList.updateAddTask(addAchievementLevel);
-            String output = "\t  " + list.get(list.size() - 1).toString();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tGot it. I've added this task:");
-            System.out.println(output);
-            System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-            System.out.println("\t_____________________________________\n\n");
+            ui.show_task_added(list);
         } else {
-            System.out.println("Task clashes with another existing task in the list!");
+            ui.show_task_clash();
         }
     }
 
@@ -137,30 +123,8 @@ public class TaskList {
                 if (splitInput.contains("/every")) {
                     int everyIndex = splitInput.indexOf("/every");
                     String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
-                    int number = Integer.parseInt(frequency.split(" ")[0]);
-                    String period = frequency.split(" ")[1];
-                    int numOfMin = 0;
+                    int numOfMin = convertToMinute(frequency);
 
-                    switch (period) {
-                    case "minutes":
-                        numOfMin = number;
-                        break;
-                    case "hours":
-                        numOfMin = number * 60;
-                        break;
-                    case "days":
-                        numOfMin = number * 60 * 24;
-                        break;
-                    case "weeks":
-                        numOfMin = number * 60 * 24 * 7;
-                        break;
-                    case "months":
-                        numOfMin = number * 60 * 24 * 7 * 28;
-                        break;
-                    default:
-                        numOfMin = 0;
-                        break;
-                    }
                     if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
                         list.add(new RecurringDeadline(onlyDescription, by, difficulty, tag,
                                 LocalDateTime.now(), frequency, numOfMin, false));
@@ -187,14 +151,28 @@ public class TaskList {
             try {
                 String timeStr = getTime(splitInput);
                 LocalDateTime at = getDateTime(timeStr);
-                if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
+
+                if (splitInput.contains("/every")) {
+                    int everyIndex = splitInput.indexOf("/every");
+                    String frequency = splitInput.get(everyIndex + 1) + " " + splitInput.get(everyIndex + 2);
+                    int numOfMin = convertToMinute(frequency);
+
+                    if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
+                        list.add(new RecurringEvent(onlyDescription, at, difficulty, tag,
+                                LocalDateTime.now(), frequency, numOfMin, false));
+                        String taskDate = getOnlyDate(splitInput);
+                        if (Schedule.isValidDate(taskDate)) {
+                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
+                        }
+                    }
+                } else if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
                     list.add(new Event(onlyDescription, at, difficulty, tag, LocalDateTime.now()));
                     String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                    checkAnomaly = false;
                 }
+                checkAnomaly = false;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.wrong_description_error();
                 return;
@@ -208,14 +186,9 @@ public class TaskList {
                 AddTask.updateAchievementLevel();
                 AddTask.updatePoints();
                 AchievementList.updateAddTask(addAchievementLevel);
-                String output = "\t  " + list.get(list.size() - 1).toString();
-                System.out.println("\t_____________________________________");
-                System.out.println("\tGot it. I've added this task:");
-                System.out.println(output);
-                System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-                System.out.println("\t_____________________________________\n\n");
+                ui.show_task_added(list);
             } else {
-                System.out.println("Task clashes with another existing task in the list!");
+                ui.show_task_clash();
             }
         }
     }
@@ -244,10 +217,7 @@ public class TaskList {
                     DoneTask.updateAchievementLevel();
                     DoneTask.updatePoints();
                     AchievementList.updateDoneTask(doneAchievementLevel);
-                    System.out.println("\t_____________________________________");
-                    System.out.println("\tNice! I've marked this task as done:");
-                    System.out.println("\t  " + (i + 1) + ". " + list.get(i).toString());
-                    System.out.println("\t_____________________________________\n\n");
+                    ui.show_task_done(list.get(i).toString());
                 }
                 Hustler.avatar.gainXp();
                 AvatarStorage.save(Hustler.avatar);
@@ -267,13 +237,9 @@ public class TaskList {
      */
     public void removeTask(int i) {
         try {
-            final Task lastTask = list.get(i);
+            final Task removedTask = list.get(i);
             list.remove(i);
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNoted. I have removed this task:");
-            System.out.println("\t  " + (i + 1) + ". " + lastTask.toString());
-            System.out.println("\tNow there are " + list.size() + " tasks left.");
-            System.out.println("\t_____________________________________\n\n");
+            ui.show_task_removed(list, removedTask.toString());
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -284,14 +250,10 @@ public class TaskList {
      */
     public void clearList() {
         if (list.isEmpty()) {
-            System.out.println("\t_____________________________________");
-            System.out.println("\tNothing to be cleared! Task list is already empty!");
-            System.out.println("\t_____________________________________");
+            ui.show_list_empty();
         } else {
             list.clear();
-            System.out.println("\t_____________________________________");
-            System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
-            System.out.println("\t_____________________________________");
+            ui.show_list_cleared();
         }
     }
 
@@ -332,10 +294,7 @@ public class TaskList {
                     return;
                 }
             }
-            System.out.println("\t_____________________________________");
-            System.out.println("\tGot it. You have snoozed the task.");
-            System.out.println("\t" + list.get(i).toString());
-            System.out.println("\t_____________________________________");
+            ui.show_task_snoozed(list.get(i).toString());
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -400,9 +359,7 @@ public class TaskList {
             System.out.println("Task list has remained the same. Please check your sort command.");
             return;
         }
-        System.out.println("\t_____________________________________");
-        System.out.println("\tTask list has been successfully sorted!");
-        displayList();
+        ui.show_list_sorted(list);
     }
 
     /**
@@ -411,15 +368,9 @@ public class TaskList {
     public void displayList() {
         if (list.isEmpty()) {
             ui.show_empty_list_error();
-            return;
+        } else {
+            ui.show_list(list);
         }
-
-        System.out.println("\t_____________________________________");
-        System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + list.get(i).toString());
-        }
-        System.out.println("\t_____________________________________\n\n");
     }
 
     /**
@@ -437,24 +388,48 @@ public class TaskList {
         }
         if (matchingTasks.isEmpty()) {
             ui.task_doesnt_exist_error();
-            return;
+        } else {
+            ui.show_matching_tasks(list, matchingTasks);
         }
-        System.out.println("\t_____________________________________");
-        System.out.println("\tFound " + matchingTasks.size() + ". Here you go.");
-        for (Integer id : matchingTasks) {
-            System.out.println("\t  " + (id + 1) + ". " + list.get(id).toString());
-        }
-        System.out.println("\t_____________________________________\n\n");
     }
 
-    public Task getLastTask() {
-        return this.list.get(list.size() - 1);
+    /**
+     * Converts the frequency into number of minutes.
+     * @param frequency string that denotes the frequency.
+     * @return number of minutes.
+     */
+    public int convertToMinute(String frequency) {
+        int number = Integer.parseInt(frequency.split(" ")[0]);
+        String period = frequency.split(" ")[1];
+        int minutes = 0;
+
+        switch (period) {
+        case "minutes":
+            minutes = number;
+            break;
+        case "hours":
+            minutes = number * 60;
+            break;
+        case "days":
+            minutes = number * 60 * 24;
+            break;
+        case "weeks":
+            minutes = number * 60 * 24 * 7;
+            break;
+        case "months":
+            minutes = number * 60 * 24 * 7 * 28;
+            break;
+        default:
+            minutes = 0;
+            break;
+        }
+        return minutes;
     }
 
     private String getDescription(List<String> splitInput) {
         String description = "";
         for (String str : splitInput) {
-            if (str.equals("/d") || str.equals("-tag") || str.equals("/by")
+            if (str.equals("/d") || str.equals("/tag") || str.equals("/by")
                 || str.equals("/at")) {
                 break;
             }
