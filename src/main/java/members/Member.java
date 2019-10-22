@@ -53,6 +53,18 @@ public class Member {
         tasksInCharge.add(indexInList);
     }
 
+    /**
+     * a method to remove a task from the list of members
+     * @param indexInList the index in the list of members
+     */
+    public void removeTask(int indexInList) {
+        for (int i = 0; i < tasksInCharge.size(); i++) {
+            if (tasksInCharge.get(i) == indexInList) {
+                tasksInCharge.remove(i);
+            }
+        }
+    }
+
 
     @Override
     public String toString() {
