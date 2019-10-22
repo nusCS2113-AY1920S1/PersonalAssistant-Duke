@@ -159,7 +159,11 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
     }
 
-
-
-
+    /**
+     * Issue an error if command not followed by number in case of
+     * commands like done, delete amongst others.
+     */
+    public void numberCommandError () {
+        this.show_message("Command should be followed by a number. /command <number>");
+    }
 }

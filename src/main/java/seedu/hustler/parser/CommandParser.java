@@ -1,14 +1,32 @@
 package seedu.hustler.parser;
 
+import seedu.hustler.command.AchievementCommand;
 import seedu.hustler.command.Command;
 import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
 import seedu.hustler.command.avatarCommand.SetNameCommand;
 import seedu.hustler.command.shopCommand.buyCommand;
 import seedu.hustler.command.shopCommand.shopListCommand;
-import seedu.hustler.command.taskCommand.*;
+import seedu.hustler.command.taskCommand.AddCommand;
+import seedu.hustler.command.taskCommand.DeleteCommand;
+import seedu.hustler.command.taskCommand.DoneCommand;
+import seedu.hustler.command.taskCommand.FindCommand;
+import seedu.hustler.command.taskCommand.InvalidCommand;
+import seedu.hustler.command.taskCommand.ListCommand;
+import seedu.hustler.command.taskCommand.PauseTimerCommand;
+import seedu.hustler.command.taskCommand.RemindCommand;
+import seedu.hustler.command.taskCommand.ResumeTimerCommand;
+import seedu.hustler.command.taskCommand.ScheduleCommand;
+import seedu.hustler.command.taskCommand.ShowTimerCommand;
+import seedu.hustler.command.taskCommand.SnoozeCommand;
+import seedu.hustler.command.taskCommand.SortCommand;
+import seedu.hustler.command.taskCommand.StopTimerCommand;
+import seedu.hustler.command.taskCommand.TimerCommand;
+import seedu.hustler.command.taskCommand.UndoCommand;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.command.schedulecommands.AddEntry;
+import seedu.hustler.command.schedulecommands.UpdateEntry;
+import seedu.hustler.command.schedulecommands.RemoveEntry;
 
 /**
  * Takes raw user input as string, makes sense out of the input using
@@ -43,50 +61,50 @@ public class CommandParser extends Parser {
     public Command parse(String rawInput) throws CommandLineException {
         String[] userInput = this.split(rawInput);
 
-        if (userInput[0].equals("find")) {
+        if (userInput[0].equals("/find")) {
             return new FindCommand(userInput);
-        } else if (userInput[0].equals("delete")) {
+        } else if (userInput[0].equals("/delete")) {
             CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
-        } else if (userInput[0].equals("list")) {
+        } else if (userInput[0].equals("/list")) {
             return new ListCommand();
-        } else if (userInput[0].equals("remind")) {
+        } else if (userInput[0].equals("/remind")) {
             return new RemindCommand();
-        } else if (userInput[0].equals("done")) {
+        } else if (userInput[0].equals("/done")) {
             CommandLog.recordCommand(rawInput);
             return new DoneCommand(userInput);
-        } else if (userInput[0].equals("show")) {
+        } else if (userInput[0].equals("/show")) {
             return new ScheduleCommand(userInput);
-        } else if (userInput[0].equals("snooze")) {
+        } else if (userInput[0].equals("/snooze")) {
             return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar")) {
-            if (userInput[1].equals("stats")) {
+            if (userInput[1].equals("/stats")) {
                 return new CheckAvatarCommand();
-            } else if(userInput[1].contains("setname")) {
+            } else if (userInput[1].contains("/setname")) {
                 return new SetNameCommand(userInput);
             } else {
                 return new InvalidCommand();
             }
-        } else if (userInput[0].equals("achievement")) {
+        } else if (userInput[0].equals("/achievement")) {
             return new AchievementCommand();
         } else if (userInput[0].equals("/add")) {
             CommandLog.recordCommand(rawInput);
             return new AddCommand(userInput);
-        } else if (userInput[0].equals("timer")) {
+        } else if (userInput[0].equals("/timer")) {
             return new TimerCommand(userInput);
-        } else if (userInput[0].equals("undo")) {
+        } else if (userInput[0].equals("/undo")) {
             return new UndoCommand(userInput);
-        } else if (userInput[0].equals("pausetimer")) {
+        } else if (userInput[0].equals("/pausetimer")) {
             return new PauseTimerCommand();
-        } else if (userInput[0].equals("resumetimer")) {
+        } else if (userInput[0].equals("/resumetimer")) {
             return new ResumeTimerCommand();
-        } else if (userInput[0].equals("stoptimer")) {
+        } else if (userInput[0].equals("/stoptimer")) {
             return new StopTimerCommand();
-        } else if (userInput[0].equals("showtimer")) {
+        } else if (userInput[0].equals("/showtimer")) {
             return new ShowTimerCommand();
         } else if (userInput[0].equals("/shop")) {
             return new shopListCommand();
-        } else if (userInput[0].equals("buy")) {
+        } else if (userInput[0].equals("/buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
                 return new buyCommand(index);
@@ -94,9 +112,15 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
-        } else if (userInput[0].equals("/prioritize") || userInput[0].equals("/chronological") ||
-                    userInput[0].equals("/normal")) {
+        } else if (userInput[0].equals("/prioritize") || userInput[0].equals("/chronological") 
+            || userInput[0].equals("/normal")) {
             return new SortCommand(rawInput);
+        } else if (userInput[0].equals("/remove"))  {
+            return new RemoveEntry(userInput);
+        } else if (userInput[0].equals("/update")) {
+            return new UpdateEntry(userInput);
+        } else if (userInput[0].equals("/addFromList")) {
+            return new AddEntry(userInput);
         } else {
             return new InvalidCommand();
         }

@@ -13,6 +13,7 @@ import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.schedule.Scheduler;
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
@@ -218,6 +219,7 @@ public class TaskList {
                 System.out.println("Task clashes with another existing task in the list!");
             }
         }
+        Scheduler.add(this.getLastTask());
     }
 
     /**
