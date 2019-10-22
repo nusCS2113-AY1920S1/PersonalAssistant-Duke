@@ -13,7 +13,6 @@ import owlmoney.ui.Ui;
 /**
  * BankList class that provides a layer of abstraction for the ArrayList that stores bank accounts.
  */
-
 public class BankList {
     private ArrayList<Bank> bankLists;
     private static final String SAVING = "saving";

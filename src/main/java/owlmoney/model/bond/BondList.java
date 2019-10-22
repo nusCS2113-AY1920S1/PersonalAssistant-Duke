@@ -10,7 +10,6 @@ import owlmoney.ui.Ui;
  * BondList  provides a layer of abstraction for the ArrayList.
  * The ArrayList will store elements of type Bond.
  */
-
 public class BondList {
     private ArrayList<Bond> bondLists;
     private static final int ONE_INDEX = 1;

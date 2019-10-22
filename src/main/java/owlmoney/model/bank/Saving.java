@@ -18,7 +18,6 @@ import owlmoney.ui.Ui;
 /**
  * Savings account class that extends a normal bank account.
  */
-
 public class Saving extends Bank {
 
     private double income;

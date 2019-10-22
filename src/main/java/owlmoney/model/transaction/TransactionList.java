@@ -14,7 +14,6 @@ import owlmoney.ui.Ui;
  * TransactionList  provides a layer of abstraction for the ArrayList.
  * The ArrayList will store both expenditures and deposits.
  */
-
 public class TransactionList {
 
     private ArrayList<Transaction> transactionLists;

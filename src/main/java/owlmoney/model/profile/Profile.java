@@ -22,7 +22,6 @@ import owlmoney.ui.Ui;
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
  */
-
 public class Profile {
     private String username;
     private BankList bankList;

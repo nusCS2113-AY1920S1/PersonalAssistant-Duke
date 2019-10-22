@@ -52,7 +52,6 @@ import owlmoney.logic.parser.transfer.ParseTransfer;
  * Represents the second layer of parsing for secondary category of command.
  * This determines what type of command the user desires after specifying the command.
  */
-
 class ParseType extends Parser {
 
     /**

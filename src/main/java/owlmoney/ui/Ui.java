@@ -5,7 +5,6 @@ package owlmoney.ui;
  * It does not need to be instantiated with any tasks; these are passed
  * as arguments to its methods.
  */
-
 public class Ui {
 
     private static final String ITEMNO = "Item No.";
