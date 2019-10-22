@@ -15,6 +15,7 @@ public class DeleteCommand extends Command {
     private int index;
     private Booking deletedBooking;
 
+    //@@ AmosChan97
     /**
      * Deletes a booking from the booking list based on the index.
      * @param input raw user input

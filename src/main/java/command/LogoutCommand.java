@@ -15,6 +15,7 @@ import java.text.ParseException;
 public class LogoutCommand extends Command {
     private String[] splitL;
 
+    //@@ AmirAzhar
     /**
      * User logout
      *
