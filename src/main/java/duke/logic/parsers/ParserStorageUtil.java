@@ -3,8 +3,6 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.model.events.Deadline;
-import duke.model.events.DoWithin;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.events.Todo;
@@ -32,17 +30,7 @@ public class ParserStorageUtil {
         String status = taskParts[1].strip();
         String description = taskParts[2].strip();
         Task task;
-        if ("D".equals(type)) {
-            try {
-                task = new Deadline(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
-            } catch (DukeDateTimeParseException e) {
-                task = new Deadline(description, taskParts[3].strip());
-            }
-        } else if ("W".equals(type)) {
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
-            task = new DoWithin(description, start, end);
-        } else if ("E".equals(type)) {
+        if ("E".equals(type)) {
             LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
             LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
             Venue location = getLocationFromStorage(taskParts);
@@ -73,14 +61,11 @@ public class ParserStorageUtil {
      * @return The corresponding String format of the task object.
      */
     public static String toStorageString(Task task) throws DukeException {
-        if (task instanceof Deadline) {
-            return "D | " + task.isDone() + " | " + task.getDescription() + " | " + ((Deadline) task).getDeadline();
-        } else if (task instanceof Todo) {
+        if (task instanceof Todo) {
             return "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
-            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getHoliday();
-        } else if (task instanceof DoWithin) {
-            return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
+            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getStartDate()
+                    + " | " + ((Event) task).getEndDate() + " | " + ((Event) task).getLocation();
         }
         throw new DukeException(Messages.CORRUPTED_TASK);
     }
@@ -104,40 +89,6 @@ public class ParserStorageUtil {
             busStop.addBuses(busStopData[i].strip());
         }
         return busStop;
-    }
-
-    /**
-     * Parses a bus stop from BusStop to String format.
-     *
-     * @param busStop The bus stop.
-     * @return The corresponding String format of the BusStop object.
-     */
-    public static String busStopToStorageString(BusStop busStop) {
-        String buses = "";
-        for (String bus : busStop.getBuses()) {
-            buses += " | " + bus;
-        }
-        return busStop.getBusCode() + " | " + busStop.getDescription() + " | " + busStop.getAddress()
-                + " | " + busStop.getLatitude() + " | " + busStop.getLongitude() + buses;
-    }
-
-    /**
-     * Parses a bus service from BusService to String format.
-     *
-     * @param busService The bus.
-     * @return The corresponding String format of the BusService object.
-     */
-    public static String busToStorageString(BusService busService) {
-        String busRoute1 = "";
-        String busRoute2 = "";
-        for (String busCode : busService.getDirection(1)) {
-            busRoute1 += busCode + " | ";
-        }
-        for (String busCode : busService.getDirection(2)) {
-            busRoute2 += " | " + busCode;
-        }
-
-        return  busService.getBus() + " | " + busRoute1 + "change" + busRoute2;
     }
 
     /**

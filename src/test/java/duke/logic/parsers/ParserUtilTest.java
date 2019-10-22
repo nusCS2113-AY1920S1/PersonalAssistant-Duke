@@ -1,7 +1,6 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.events.Deadline;
 import duke.model.events.Todo;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +17,6 @@ class ParserUtilTest {
     @Test
     void getIndex() throws Exception {
         assertEquals(ParserUtil.getIndex("done 1"), 0);
-    }
-
-    @Test
-    void createDeadline() throws DukeException {
-        assertTrue(ParserUtil.createDeadline("deadline Go China by Wed") instanceof Deadline);
     }
 
     @Test

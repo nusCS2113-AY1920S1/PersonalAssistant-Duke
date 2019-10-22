@@ -15,8 +15,6 @@ import duke.logic.commands.LocationSearchCommand;
 import duke.logic.commands.MarkDoneCommand;
 import duke.logic.commands.PromptCommand;
 import duke.logic.commands.RecommendationsCommand;
-import duke.logic.commands.ReminderCommand;
-import duke.logic.commands.RescheduleCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.commons.MessagesPrompt;
@@ -41,8 +39,6 @@ public class Parser {
         switch (commandWord) {
         case "todo":
             return new AddCommand(ParserUtil.createTodo(input));
-        case "deadline":
-            return new AddCommand(ParserUtil.createDeadline(input));
         case "done":
             return new MarkDoneCommand(ParserUtil.getIndex(input));
         case "delete":
@@ -51,12 +47,6 @@ public class Parser {
             return new FindCommand(getWord(input));
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(input));
-        case "fetch":
-            return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(input)));
-        case "within":
-            return new AddCommand(ParserUtil.createWithin(input));
-        case "reschedule":
-            return new RescheduleCommand(ParserUtil.getSafeIndex(input), ParserUtil.getScheduleDate(input));
         case "search":
             return new LocationSearchCommand(getWord(input));
         case "busStop":
@@ -66,8 +56,8 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(input.strip().split(" ")[1], getHolidayIndexInList(1, input),
-                    getHolidayIndexInList(2, input));
+            return new FindPathCommand(input.strip().split(" ")[1], getEventIndexInList(1, input),
+                    getEventIndexInList(2, input));
         case "recommend":
             return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);
         case "cancel":
@@ -92,10 +82,10 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
-        case "reminder":
-            return new ReminderCommand();
         case "help":
             return new HelpCommand();
+        case "fetch":
+            return new ViewScheduleCommand();
         default:
             return parseComplexCommand(userInput);
         }
@@ -129,7 +119,7 @@ public class Parser {
         }
     }
 
-    private static String getHolidayIndexInList(int index, String userInput) {
+    private static String getEventIndexInList(int index, String userInput) {
         if (index == 1) {
             return userInput.strip().split(" ", 4)[2];
         } else {

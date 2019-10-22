@@ -7,17 +7,19 @@ import java.time.LocalDateTime;
  */
 public class TaskWithDates extends Task {
     private LocalDateTime startDate;
-
-    public TaskWithDates(String description, LocalDateTime startDate) {
-        super(description);
-        this.startDate = startDate;
-    }
+    private LocalDateTime endDate;
 
     /**
-     * Constructor to work around Tasks that should contain dates but does not.
+     * Constructs a TaskWithDates object.
+     *
+     * @param description The description of the task.
+     * @param startDate The start date of the task.
+     * @param endDate The end date of the task.
      */
-    public TaskWithDates(String... description) {
-        super(description[0]);
+    protected TaskWithDates(String description, LocalDateTime startDate, LocalDateTime endDate) {
+        super(description);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public LocalDateTime getStartDate() {
@@ -26,6 +28,27 @@ public class TaskWithDates extends Task {
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    @Override
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask instanceof TaskWithDates
+                && ((TaskWithDates) otherTask).getStartDate().isEqual(getStartDate())
+                && ((TaskWithDates) otherTask).getEndDate().isEqual(getEndDate());
     }
 }
 

@@ -3,15 +3,15 @@ package duke;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.Model;
-import duke.model.TaskList;
+import duke.model.lists.EventList;
+import duke.model.lists.TaskList;
+import duke.model.lists.VenueList;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +37,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public FilteredList<Task> getFilteredList() {
+    public List<Task> getFilteredList() {
         return tasks.getFilteredList();
     }
 
     @Override
-    public SortedList<Task> getChronoSortedList() {
+    public List<Task> getChronoSortedList() {
         return tasks.getChronoList();
     }
 
@@ -57,8 +57,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public FilteredList<Task> getEventList() {
-        return tasks.getEventList();
+    public EventList getEventList() {
+        return new EventList(tasks);
     }
 
     @Override
@@ -78,5 +78,10 @@ public class ModelStub implements Model {
 
     @Override
     public void save() throws DukeException {
+    }
+
+    @Override
+    public VenueList getEventVenues() {
+        return new VenueList();
     }
 }
