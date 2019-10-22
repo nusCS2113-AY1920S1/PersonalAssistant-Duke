@@ -6,7 +6,7 @@ public class AddRoom {
     private String timeslot;
 
     /**
-     * Public constructor, returns the details of the room to be added
+     * Public constructor, returns the details of the room to be added.
      * @param roomcode Room code
      * @param date Available booking date of the room
      * @param timeslot Available booking time slot of the room
@@ -18,6 +18,7 @@ public class AddRoom {
     }
 
     /**
+     * Returns the format written into the room list.
      * @return returns the statement and symbols as shown in room list
      */
     public String toString() {
@@ -25,6 +26,7 @@ public class AddRoom {
     }
 
     /**
+     * Returns the format written into the text file.
      * @return returns the statement and symbols as shown in the text file
      */
     public String toWriteFile() {
@@ -32,7 +34,7 @@ public class AddRoom {
     }
 
     /**
-     * Getter, returns room code
+     * Getter, returns room code.
      * @return the room code
      */
     public String getRoomcode() {

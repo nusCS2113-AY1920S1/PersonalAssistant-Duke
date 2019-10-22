@@ -1,6 +1,5 @@
 package room;
 
-import exception.DukeException;
 import storage.Constants;
 
 import java.io.BufferedReader;

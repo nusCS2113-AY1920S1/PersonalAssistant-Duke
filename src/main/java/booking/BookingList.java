@@ -19,7 +19,8 @@ public class BookingList extends ArrayList<Booking> {
             String[] splitStr = line.split(" \\| ", 6);
             this.add(new Booking(splitStr[BookingConstants.USERNAME],
                     splitStr[BookingConstants.VENUE], splitStr[BookingConstants.DESCRIPTION],
-                    splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND], splitStr[BookingConstants.STATUS]));
+                    splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND],
+                    splitStr[BookingConstants.STATUS]));
         }
     }
 
@@ -29,7 +30,7 @@ public class BookingList extends ArrayList<Booking> {
     }
 
     /**
-     * To check if a request with the same place and time slot has already been made
+     * To check if a request with the same place and time slot has already been made.
      * @param bookinglist the list of requests
      * @param roomcode the room in question
      * @param timeStart the starting time
@@ -44,10 +45,10 @@ public class BookingList extends ArrayList<Booking> {
         LocalDateTime endTime = LocalDateTime.parse(timeEnd, formatterEnd);
         for (int i = 0; i < bookinglist.size(); i++) {
             if (bookinglist.get(i).venue == roomcode) {
-                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime) ||
-                        bookinglist.get(i).dateTimeStart.isEqual(startTime)) &&
-                        (bookinglist.get(i).dateTimeEnd.isAfter(endTime) ||
-                                bookinglist.get(i).dateTimeEnd.isEqual(endTime))) {
+                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime)
+                        || bookinglist.get(i).dateTimeStart.isEqual(startTime))
+                        && (bookinglist.get(i).dateTimeEnd.isAfter(endTime)
+                        || bookinglist.get(i).dateTimeEnd.isEqual(endTime))) {
                     found = true;
                 }
             }
