@@ -81,6 +81,7 @@ public class PauseTrackerCommand extends Command {
             String date = convertDateToString(new Date());
             task.setEndDate(date);
             totalTime += getDateDiff(task, TimeUnit.MINUTES);
+            task.setTimeTaken(totalTime);
             ui.printPauseAtCurrent(task, date, totalTime);
             resetStartEnd(task);
         }

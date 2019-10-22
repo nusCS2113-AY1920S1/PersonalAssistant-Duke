@@ -72,6 +72,7 @@ public class StopTrackerCommand extends Command {
             String date = convertDateToString(new Date());
             task.setEndDate(date);
             totalTime += ptc.getDateDiff(task, TimeUnit.MINUTES);
+            task.setTimeTaken(totalTime);
             ui.printEndAtCurrent(task, date, totalTime);
             ptc.resetStartEnd(task);
             task.setStatus();
