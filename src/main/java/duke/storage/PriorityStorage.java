@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * Representing a class to store the list of priorities.
  */
 public class PriorityStorage {
-    //protected String filePath = "./";
-    protected String filePath = "";
+    protected String filePath = "./";
+    //protected String filePath = "";
     String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     private static final int ZERO = 0;
 

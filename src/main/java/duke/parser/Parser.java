@@ -1,27 +1,27 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.FindCommand;
 import duke.command.ListCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.DoneCommand;
-import duke.command.DeleteCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.AddCommand;
+import duke.command.FindTasksByPriorityCommand;
 import duke.command.DuplicateFoundCommand;
+import duke.command.UpdateCommand;
+import duke.command.FindCommand;
+import duke.command.DoneCommand;
 import duke.command.RemindCommand;
+import duke.command.AddCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.Command;
 import duke.command.AddMultipleCommand;
 import duke.command.SetPriorityCommand;
-import duke.command.AddContactsCommand;
-import duke.command.ListContactsCommand;
-import duke.command.ViewBudgetCommand;
-import duke.command.ResetBudgetCommand;
+import duke.command.DeleteCommand;
 import duke.command.AddBudgetCommand;
-import duke.command.BackupCommand;
-import duke.command.UpdateCommand;
-import duke.command.ExitCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.ListContactsCommand;
+import duke.command.AddContactsCommand;
+import duke.command.ResetBudgetCommand;
+import duke.command.ViewBudgetCommand;
 import duke.dukeexception.DukeException;
-
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -33,7 +33,6 @@ import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
 import duke.task.Contacts;
 import duke.task.BudgetList;
-
 import java.util.ArrayList;
 
 /**
@@ -317,6 +316,26 @@ public class Parser {
                 return new SetPriorityCommand(taskNum, priority);
             }
 
+        } else if (arr.length > ZERO && arr[ZERO].equals("findpriority")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
+            } else {
+                int target;
+                if (arr[ONE].trim().isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The target priority cannot be empty.");
+                } else {
+                    try {
+                        target = Integer.parseInt(arr[ONE]);
+                    } catch (Exception e) {
+                        throw new DukeException("The target priority must be an integer");
+                    }
+
+                    if (!((target > ZERO) && (target < 6))) {
+                        throw new DukeException("     (>_<) OOPS!!! Invalid target priority! (1 ~ 5).");
+                    }
+                    return new FindTasksByPriorityCommand(target);
+                }
+            }
         } else if (arr.length > ZERO && arr[ZERO].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String description = "";

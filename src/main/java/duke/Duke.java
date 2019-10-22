@@ -1,16 +1,16 @@
 package duke;
 
-import duke.command.SetPriorityCommand;
+import duke.command.FindTasksByPriorityCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.Command;
 import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
 import duke.command.DeleteCommand;
 import duke.command.DeleteContactCommand;
-import duke.command.AddContactsCommand;
-import duke.command.Command;
 import duke.command.ListContactsCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.ExitCommand;
-import duke.command.BackupCommand;
-
+import duke.command.AddContactsCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
@@ -20,10 +20,8 @@ import duke.storage.BudgetStorage;
 import duke.task.BudgetList;
 import duke.task.PriorityList;
 import duke.task.ContactList;
-
 import duke.task.TaskList;
 import duke.ui.Ui;
-
 import java.io.IOException;
 
 /**
@@ -181,7 +179,8 @@ public class Duke {
                 } else if (cmd instanceof ListPriorityCommand
                         || cmd instanceof AddMultipleCommand
                         || cmd instanceof DeleteCommand
-                        || cmd instanceof SetPriorityCommand) {
+                        || cmd instanceof SetPriorityCommand
+                        || cmd instanceof FindTasksByPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
                     saveState(cmd);
