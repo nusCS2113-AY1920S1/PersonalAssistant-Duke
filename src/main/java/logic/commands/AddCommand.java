@@ -1,10 +1,9 @@
-package commands;
+package logic.commands;
 
-import members.Member;
-import core.Ui;
-import parsers.AddCommandParser;
-import tasks.Task;
-import utils.CommandResult;
+import model.members.Member;
+import logic.parsers.AddCommandParser;
+import model.tasks.Task;
+import logic.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 

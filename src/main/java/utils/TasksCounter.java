@@ -2,7 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
-import tasks.Task;
+import model.tasks.Task;
 
 public class TasksCounter {
     private ArrayList<Task> tasks;

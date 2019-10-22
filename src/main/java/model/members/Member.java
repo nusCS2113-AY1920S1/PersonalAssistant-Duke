@@ -1,4 +1,4 @@
-package members;
+package model.members;
 
 import java.util.ArrayList;
 

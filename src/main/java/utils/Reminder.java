@@ -1,13 +1,10 @@
 package utils;
 
 import core.Ui;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
+import model.tasks.Deadline;
+import model.tasks.Event;
+import model.tasks.Task;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

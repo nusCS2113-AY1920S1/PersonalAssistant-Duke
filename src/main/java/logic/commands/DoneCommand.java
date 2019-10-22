@@ -1,11 +1,10 @@
-package commands;
+package logic.commands;
 
-import members.Member;
-import tasks.Task;
-import utils.CommandResult;
+import model.members.Member;
+import model.tasks.Task;
+import logic.CommandResult;
 import utils.DukeException;
 import utils.Storage;
-import core.Ui;
 
 import java.util.ArrayList;
 

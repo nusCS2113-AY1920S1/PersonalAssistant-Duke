@@ -1,8 +1,8 @@
 package parser;
 
 import org.junit.jupiter.api.Test;
-import parsers.DukeParser;
-import parsers.SpellingErrorCorrector;
+import logic.parsers.DukeParser;
+import logic.parsers.SpellingErrorCorrector;
 import utils.DukeException;
 
 import java.text.ParseException;

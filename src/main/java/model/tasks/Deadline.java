@@ -1,4 +1,4 @@
-package tasks;
+package model.tasks;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

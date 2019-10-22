@@ -1,10 +1,8 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
-import commands.DeleteCommand;
+import logic.commands.Command;
+import logic.commands.DeleteCommand;
 import utils.DukeException;
-
-import java.text.ParseException;
 
 public class DeleteCommandParser {
 

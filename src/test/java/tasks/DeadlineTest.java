@@ -1,5 +1,6 @@
 package tasks;
 
+import model.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 import utils.DukeException;
 

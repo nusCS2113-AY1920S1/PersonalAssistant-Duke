@@ -1,8 +1,8 @@
-package parsers;
+package logic.parsers;
 
-import commands.ByeCommand;
-import commands.Command;
-import commands.HelpCommand;
+import logic.commands.ByeCommand;
+import logic.commands.Command;
+import logic.commands.HelpCommand;
 
 /**
  * This parser is to parse some simple commands, which have no arguments at all.

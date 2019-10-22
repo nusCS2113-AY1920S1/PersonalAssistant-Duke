@@ -1,7 +1,7 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
-import commands.FindCommand;
+import logic.commands.Command;
+import logic.commands.FindCommand;
 
 public class FindCommandParser {
     public static Command parse(String userInput) {

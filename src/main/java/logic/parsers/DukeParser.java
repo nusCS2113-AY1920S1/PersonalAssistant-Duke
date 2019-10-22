@@ -1,6 +1,6 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
+import logic.commands.Command;
 import utils.DukeException;
 
 import java.lang.reflect.InvocationTargetException;

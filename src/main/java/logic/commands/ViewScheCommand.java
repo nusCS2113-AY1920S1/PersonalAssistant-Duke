@@ -1,16 +1,15 @@
-package commands;
+package logic.commands;
 
-import members.Member;
-import core.Ui;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Last;
-import tasks.Period;
-import tasks.ToDo;
-import tasks.Task;
-import utils.CommandResult;
+import model.members.Member;
+import model.tasks.Deadline;
+import model.tasks.Event;
+import model.tasks.Last;
+import model.tasks.Period;
+import model.tasks.ToDo;
+import model.tasks.Task;
+import logic.CommandResult;
 import utils.DukeException;
-import parsers.DukeParser;
+import logic.parsers.DukeParser;
 import utils.Storage;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package utils;
+package logic;
 
 public class CommandResult {
     private String message;

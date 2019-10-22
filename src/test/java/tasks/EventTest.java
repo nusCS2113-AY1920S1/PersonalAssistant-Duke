@@ -2,6 +2,7 @@ package tasks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import model.tasks.Event;
 import org.junit.jupiter.api.Test;
 import utils.DukeException;
 

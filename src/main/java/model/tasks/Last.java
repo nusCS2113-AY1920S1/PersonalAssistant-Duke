@@ -1,4 +1,4 @@
-package tasks;
+package model.tasks;
 
 /**
  * Provide support for managing tasks that takes a fixed amount of time but does not have a fixed start/end time

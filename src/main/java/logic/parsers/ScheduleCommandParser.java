@@ -1,7 +1,7 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
-import commands.ViewScheCommand;
+import logic.commands.Command;
+import logic.commands.ViewScheCommand;
 
 public class ScheduleCommandParser {
     public static Command parse(String userInput) {

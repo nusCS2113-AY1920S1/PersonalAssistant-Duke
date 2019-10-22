@@ -1,7 +1,7 @@
-package parsers;
+package logic.parsers;
 
-import commands.CheckAnomaliesCommand;
-import commands.Command;
+import logic.commands.CheckAnomaliesCommand;
+import logic.commands.Command;
 
 public class CheckCommandParser {
     public static Command parse(String userInput) {

@@ -1,7 +1,7 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
-import commands.RecurringCommand;
+import logic.commands.Command;
+import logic.commands.RecurringCommand;
 
 public class RecurringCommandParser {
     public static Command parse(String userInput) {

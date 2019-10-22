@@ -1,15 +1,15 @@
-package parsers;
+package logic.parsers;
 
 import core.Ui;
-import members.Member;
+import model.members.Member;
 import utils.DukeException;
 
-import tasks.ToDo;
-import tasks.Event;
-import tasks.Deadline;
-import tasks.Last;
-import tasks.Period;
-import tasks.Task;
+import model.tasks.ToDo;
+import model.tasks.Event;
+import model.tasks.Deadline;
+import model.tasks.Last;
+import model.tasks.Period;
+import model.tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

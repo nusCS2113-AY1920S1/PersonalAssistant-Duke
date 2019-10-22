@@ -1,7 +1,7 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
-import commands.ListCommand;
+import logic.commands.Command;
+import logic.commands.ListCommand;
 
 public class ListCommandParser {
     /**

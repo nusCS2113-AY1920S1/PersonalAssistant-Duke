@@ -1,6 +1,6 @@
-package model;
+package utils;
 
-import members.Member;
+import model.members.Member;
 import logic.parsers.DataParser;
 import model.tasks.Task;
 

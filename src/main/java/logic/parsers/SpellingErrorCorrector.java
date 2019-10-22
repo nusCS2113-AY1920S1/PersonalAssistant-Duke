@@ -1,4 +1,4 @@
-package parsers;
+package logic.parsers;
 
 public class SpellingErrorCorrector {
     //@@author chenyuheng

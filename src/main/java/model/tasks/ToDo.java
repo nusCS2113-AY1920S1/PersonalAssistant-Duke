@@ -1,4 +1,4 @@
-package tasks;
+package model.tasks;
 
 /**
  * ToDo task

@@ -1,4 +1,4 @@
-package parsers;
+package logic.parsers;
 
 import utils.DukeException;
 
@@ -12,7 +12,7 @@ public class ArgumentTokenizer {
      * arg0 can be accessed by a null String ("") as the key,
      * other arguments can be accessed by the corresponding keys.
      * @param userInput the String need to tokenize
-     * @return a HashMap<String, String> represents the argument multimap
+     * @return a HashMap from String to String represents the argument multimap
      * @throws DukeException if duplicate keys occurs
      */
     public static HashMap<String, String> getArgumentMultimap(String userInput) throws DukeException {
@@ -27,7 +27,8 @@ public class ArgumentTokenizer {
         int j = 0;
         if (userInput.length() > 0) {
             if (userInput.charAt(0) == ' ' || userInput.charAt(0) == '\t') {
-                while (userInput.charAt(j++) != '/' && j <userInput.length()) ;
+                while (userInput.charAt(j++) != '/' && j < userInput.length()) {
+                }
             }
         }
         for (int i = 0, p = 0; i < userInput.length(); i++) {
@@ -47,7 +48,8 @@ public class ArgumentTokenizer {
                 argumentMultimap.put(splites[0].trim(), splites[1].trim());
                 if (i < userInput.length()) {
                     if (userInput.charAt(i) == ' ' || userInput.charAt(i) == '\t') {
-                        while (userInput.charAt(j++) != '/' && j <userInput.length()) ;
+                        while (userInput.charAt(j++) != '/' && j < userInput.length()) {
+                        }
                     }
                 }
             }

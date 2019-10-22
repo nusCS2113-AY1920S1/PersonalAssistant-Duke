@@ -1,12 +1,12 @@
 package core;
 
-import members.Member;
+import model.members.Member;
 import gui.Window;
-import commands.Command;
-import tasks.Task;
-import utils.CommandResult;
+import logic.commands.Command;
+import model.tasks.Task;
+import logic.CommandResult;
 import utils.DukeException;
-import parsers.DukeParser;
+import logic.parsers.DukeParser;
 import utils.Storage;
 import utils.TasksCounter;
 

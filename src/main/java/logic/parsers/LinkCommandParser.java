@@ -1,7 +1,7 @@
-package parsers;
+package logic.parsers;
 
-import commands.Command;
-import commands.LinkCommand;
+import logic.commands.Command;
+import logic.commands.LinkCommand;
 
 public class LinkCommandParser {
     public static Command parse(String userInput) {
