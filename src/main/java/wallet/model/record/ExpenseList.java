@@ -131,6 +131,7 @@ public class ExpenseList {
         return totalExpenses;
     }
 
+    //@@author
     /**
      * Lists all expenses in the expense list.
      */

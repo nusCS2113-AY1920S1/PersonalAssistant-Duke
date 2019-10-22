@@ -41,6 +41,7 @@ public class Ui {
         printLine();
     }
 
+    //@@author
     /**
      * Prints the goodbye message when the user exits the program.
      */
