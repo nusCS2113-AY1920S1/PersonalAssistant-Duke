@@ -1,16 +1,20 @@
 package com.algosenpai.app.logic;
 
+import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.MenuCommand;
+import com.algosenpai.app.logic.command.PrintCommand;
 import com.algosenpai.app.logic.command.CommandEnum;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
-import com.algosenpai.app.logic.command.PrintCommand;
+import com.algosenpai.app.stats.UserStats;
 
 import java.util.ArrayList;
 
 public class Logic {
 
     private Parser parser;
-    private QuizGenerator quizMaker = new QuizGenerator();
+    private UserStats userStats;
+    private QuizGenerator quizMaker;
 
     //All variables for the settings of the program
     private boolean isNew = true;
@@ -28,8 +32,15 @@ public class Logic {
     // Attributes for review feature;
     private ArrayList<Question> reviewList;
 
-    public Logic(Parser parser) {
+    /**
+     * Initializes logic for the application.
+     * @param parser parser for user inputs.
+     * @param userStats user states.
+     */
+    public Logic(Parser parser, UserStats userStats) {
         this.parser = parser;
+        this.userStats = userStats;
+        quizMaker = new QuizGenerator();
     }
 
     /**
@@ -66,25 +77,10 @@ public class Logic {
                 isSettingUp = false;
                 return responseString;
             }
+        case HELP:
         case MENU:
-            String allCommands = "These are all the commands available: \n"
-                    + "MENU, "
-                    + "START, "
-                    + "SELECT, "
-                    + "RESULT, "
-                    + "REPORT, "
-                    + "BACK, "
-                    + "HISTORY, "
-                    + "UNDO, \n"
-                    + "CLEAR, "
-                    + "RESET, "
-                    + "SAVE, "
-                    + "HELP, "
-                    + "EXIT, "
-                    + "PRINT, "
-                    + "ARCHIVE, "
-                    + "INVALID";
-            return allCommands;
+            MenuCommand menuCommand = new MenuCommand(currCommand);
+            return menuCommand.execute();
         case START:
             isQuizMode = true;
             quizList = quizMaker.generateQuiz(selectedChapters, quizList);
@@ -119,12 +115,9 @@ public class Logic {
         case SAVE:
             responseString = "save";
             return responseString;
-        case HELP:
-            responseString = "help";
-            return responseString;
         case EXIT:
-            responseString = "exit";
-            return responseString;
+            ByeCommand byeCommand = new ByeCommand(currCommand);
+            return byeCommand.execute();
         case PRINT:
             PrintCommand printCommand = new PrintCommand(currCommand, quizList);
             return printCommand.execute();

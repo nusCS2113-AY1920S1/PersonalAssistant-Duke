@@ -39,7 +39,7 @@ public class UserStats {
     // Stats for the current chapter
     private ChapterStat currentChapter;
 
-    private String characterImagePath = "miku.png";
+    private String characterImagePath;
 
     //Maps the chapter names to an index value
     private HashMap<String, Integer> chapterNumber;
@@ -54,9 +54,11 @@ public class UserStats {
         chapterNumber = new HashMap<>();
         UserStorageParser userStorageParser = new UserStorageParser();
         //Reads in redundant blank lines
+
         userStorageParser.nextLine();
         userStorageParser.nextLine();
         this.username = userStorageParser.nextLine();
+        this.characterImagePath = userStorageParser.nextLine();
 
         while (userStorageParser.hasMoreTokens()) {
             userStorageParser.nextLine();
@@ -64,7 +66,10 @@ public class UserStats {
             chapterData.add(currStat);
             chapterNumber.put(currStat.chapterName, currStat.chapterNumber);
         }
+    }
 
+    public String getUsername() {
+        return username;
     }
 
     /**

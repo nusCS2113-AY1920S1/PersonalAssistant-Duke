@@ -5,6 +5,7 @@ import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
 
 import com.algosenpai.app.ui.components.DialogBox;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -58,11 +60,7 @@ public class Ui extends AnchorPane {
         String response = logic.executeCommand(currCommand);
         printUserText(input, userImage);
         printSenpaiText(response, senpaiImage);
-
-        //to close the application
-        if (response.equals("exit")) {
-            Platform.exit();
-        }
+        exit(input);
     }
 
     /**
@@ -85,4 +83,17 @@ public class Ui extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getUserDialog(text, image));
     }
 
+    /**
+     * Closes the application.
+     * @param input user input.
+     */
+    private void exit(String input) {
+        if (input.equals("exit")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> {
+                Platform.exit();
+            });
+            pause.play();
+        }
+    }
 }
