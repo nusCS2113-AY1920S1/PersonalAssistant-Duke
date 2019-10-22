@@ -18,7 +18,7 @@ import java.util.Date;
  */
 public class ViewCommand extends Command {
 
-    public static final String MESSAGE_USAGE ="view\n\t"
+    public static final String MESSAGE_USAGE = "view\n\t"
             + "Format: view {day [/date dd/mm/yyyy]}|{week [dd/mm/yyyy]}|{month [dd/mm/yyyy]}"
             + "[/type deadline|event]\n\n\t"
             + "Note: content in \"{} \": must be entered together\n\t"

@@ -9,7 +9,7 @@ import compal.model.tasks.TaskList;
  */
 public class DoneCommand extends Command {
 
-    public static final String MESSAGE_USAGE ="done\n\t"
+    public static final String MESSAGE_USAGE = "done\n\t"
             + "Format: done /id <num>\n\n\t"
             + "Note: content in \"<>\": need to be fulfilled by the user\n\n"
             + "This command will mark a task as done\n"

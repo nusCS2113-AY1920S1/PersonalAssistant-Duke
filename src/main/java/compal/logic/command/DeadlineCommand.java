@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class DeadlineCommand extends Command {
 
-    public static final String MESSAGE_USAGE ="deadline\n\t"
+    public static final String MESSAGE_USAGE = "deadline\n\t"
             + "Format: deadline <description> /date dd/mm/yyyy... /end hhhh "
             + "[/priority low|medium|high] [/final-date dd/mm/yyyy]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"

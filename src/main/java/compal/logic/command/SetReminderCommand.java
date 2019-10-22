@@ -6,7 +6,7 @@ import compal.model.tasks.TaskList;
 
 public class SetReminderCommand extends Command {
 
-    public static final String MESSAGE_USAGE ="set-reminder\n\t"
+    public static final String MESSAGE_USAGE = "set-reminder\n\t"
             + "Format: set-reminder /id <num> /status Y|N\n\n\t"
             + "Note: content in \"<>\": need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\n"

@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class ViewReminderCommand extends Command {
 
-    public static final String MESSAGE_USAGE ="view-reminder\n\t"
+    public static final String MESSAGE_USAGE = "view-reminder\n\t"
             + "Format: view-reminder\n\n\t"
             + "This command will show all tasks with reminder on\n"
             + "Examples:\n\t"

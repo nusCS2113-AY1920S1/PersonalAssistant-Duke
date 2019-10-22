@@ -5,8 +5,15 @@ import compal.model.tasks.Deadline;
 import compal.model.tasks.TaskList;
 
 //@@author LTPZ
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
 
+    public static final String MESSAGE_USAGE = "help\n\t"
+            + "Format: help /command <command>\n\n\t"
+            + "Note: content in \"<>\": need to be fulfilled by the user\n\n\t"
+            + "This command will tell you how to use command\n"
+            + "Examples:\n\t"
+            + "help /command deadline\n\t\t"
+            + "show how to use deadline command";
     public static final String CMD_EXIT = "bye";
     public static final String CMD_CLEAR = "clear";
     public static final String CMD_DONE = "done";
@@ -58,28 +65,28 @@ public class HelpCommand extends Command{
             return new CommandResult(HELP_STRING, false);
         } else {
             switch (command) {
-                case CMD_EXIT:
-                    return new CommandResult(ByeCommand.MESSAGE_USAGE, false);
-                case CMD_VIEW:
-                    return new CommandResult(ViewCommand.MESSAGE_USAGE, false);
-                case CMD_SET_REMINDER:
-                    return new CommandResult(SetReminderCommand.MESSAGE_USAGE, false);
-                case CMD_VIEW_REMINDER:
-                    return new CommandResult(ViewReminderCommand.MESSAGE_USAGE, false);
-                case CMD_FIND_FREE_SLOT:
-                    return new CommandResult(FindFreeSlotCommand.MESSAGE_USAGE, false);
-                case CMD_DEADLINE:
-                    return new CommandResult(DeadlineCommand.MESSAGE_USAGE, false);
-                case CMD_DONE:
-                    return new CommandResult(DoneCommand.MESSAGE_USAGE, false);
-                case CMD_FIND:
-                    return new CommandResult(FindCommand.MESSAGE_USAGE, false);
-                case CMD_EVENT:
-                    return new CommandResult(EventCommand.MESSAGE_USAGE, false);
-                case CMD_EDIT:
-                    return new CommandResult(EditCommand.MESSAGE_USAGE, false);
-                default:
-                    return new CommandResult(WRONG_COMMAND + HELP_STRING, false);
+            case CMD_EXIT:
+                return new CommandResult(ByeCommand.MESSAGE_USAGE, false);
+            case CMD_VIEW:
+                return new CommandResult(ViewCommand.MESSAGE_USAGE, false);
+            case CMD_SET_REMINDER:
+                return new CommandResult(SetReminderCommand.MESSAGE_USAGE, false);
+            case CMD_VIEW_REMINDER:
+                return new CommandResult(ViewReminderCommand.MESSAGE_USAGE, false);
+            case CMD_FIND_FREE_SLOT:
+                return new CommandResult(FindFreeSlotCommand.MESSAGE_USAGE, false);
+            case CMD_DEADLINE:
+                return new CommandResult(DeadlineCommand.MESSAGE_USAGE, false);
+            case CMD_DONE:
+                return new CommandResult(DoneCommand.MESSAGE_USAGE, false);
+            case CMD_FIND:
+                return new CommandResult(FindCommand.MESSAGE_USAGE, false);
+            case CMD_EVENT:
+                return new CommandResult(EventCommand.MESSAGE_USAGE, false);
+            case CMD_EDIT:
+                return new CommandResult(EditCommand.MESSAGE_USAGE, false);
+            default:
+                return new CommandResult(WRONG_COMMAND + HELP_STRING, false);
             }
         }
     }

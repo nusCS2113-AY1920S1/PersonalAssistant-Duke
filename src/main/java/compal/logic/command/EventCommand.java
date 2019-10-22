@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class EventCommand extends Command {
 
-    public static final String MESSAGE_USAGE ="event\n\t"
+    public static final String MESSAGE_USAGE = "event\n\t"
             + "Format: event <description> /date dd/mm/yyyy... /start hhhh /end hhhh "
             + "[/priority low|medium|high] [/final-date dd/mm/yyyy]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"
