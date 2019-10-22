@@ -1,9 +1,16 @@
 package duke.ui;
 
+import duke.task.Todo;
+import duke.task.Deadline;
 import duke.task.ContactList;
-import duke.task.PriorityList;
+import duke.task.FixedDuration;
+import duke.task.DoAfter;
+import duke.task.Repeat;
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.task.PriorityList;
+import duke.task.Event;
+
 import javafx.util.Pair;
 
 import java.io.InputStream;
@@ -128,6 +135,7 @@ public class Ui {
      * Outputs all the contacts of the contact list to user through GUI.
      *
      * @param contactList The list of contacts.
+     * @return String of all contacts from contact list.
      */
     public static String showContactListGui(ContactList contactList) {
         String str = "";
@@ -167,7 +175,7 @@ public class Ui {
      */
     public static String showUpdateGui(TaskList items, int index) {
         String str = "     Nice! I've updated this task ^^:\n"
-                + "       " + (index + ONE) + "." + items.get(index).toString();
+                + "       " + (index + ONE) + "." + items.get(index).toStringGui();
         return str;
     }
 
@@ -348,6 +356,78 @@ public class Ui {
     }
 
     /**
+     * Outputs the tasks that are filtered to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param taskType The task that is deleted.
+     */
+    public void showFilter(TaskList items, String taskType) {
+        out.println("     Here are the filtered tasks in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (taskType.equals("todo") && items.get(i) instanceof Todo) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("event") && items.get(i) instanceof Event) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+
+    /**
+     * Outputs the tasks that are filtered to the user. (GUI)
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param taskType The task that is deleted.
+     * @return String of the matching tasks of the task list.
+     */
+    public static String showFilterGui(TaskList items, String taskType) {
+        String str = "     Here are the filtered tasks in your list:\n";
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (taskType.equals("todo") && items.get(i) instanceof Todo) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("event") && items.get(i) instanceof Event) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            str += "     No matching tasks found." + "\n";
+        }
+        return str;
+    }
+
+    /**
      * Outputs the error when loading the file to the user.
      */
     public void showLoadingError() {
@@ -462,6 +542,7 @@ public class Ui {
      *
      * @param contactList The contact list that contains a list of contacts.
      * @param deletedContact The contact that is deleted.
+     * @return String of deleted contact to user.
      */
     public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
         String str = "     Noted. I've removed this contact:\n";

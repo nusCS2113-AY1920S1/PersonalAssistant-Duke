@@ -39,7 +39,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#createHelpWindow" text="View Commands"/>
+              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#createHelpWindow" text="View Commands" />
             </items>
           </Menu>
         </menus>
@@ -61,7 +61,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TabPane prefHeight="260.0" prefWidth="438.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane fx:id="tpTabs" onMouseClicked="#onMouseClickTabs" prefHeight="260.0" prefWidth="438.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
                         <Tab text="All" />
                       <Tab text="Todo" />
@@ -69,7 +69,7 @@
                         <Tab text="Event" />
                         <Tab text="Repeat" />
                         <Tab text="DoAfter" />
-                        <Tab text="Etc." />
+                        <Tab text="FixedDuration" />
                     </tabs>
                      <opaqueInsets>
                         <Insets />

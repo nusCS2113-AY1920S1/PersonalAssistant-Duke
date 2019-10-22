@@ -3,7 +3,9 @@ package duke;
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.BackupCommand;
+import duke.command.FilterCommand;
 import duke.dukeexception.DukeException;
+import duke.task.FilterList;
 import duke.task.Task;
 import duke.task.TaskList;
 import javafx.fxml.FXML;
@@ -13,9 +15,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -62,9 +67,14 @@ public class MainWindow extends AnchorPane {
     private TextField tfnewDateTime;
     @FXML
     private ComboBox<String> cbtaskType;
+    @FXML
+    private TabPane tpTabs;
+    @FXML
+    SingleSelectionModel<Tab> selectedTab;
 
     private Duke duke;
 
+    private int refreshType = 0;
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TIMER_DELAY = 500;
@@ -87,6 +97,7 @@ public class MainWindow extends AnchorPane {
         updateGui();
         setVboxWidth(false);
         setButtonsVisibility(true);
+        selectedTab =  tpTabs.getSelectionModel();
 
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
@@ -127,6 +138,9 @@ public class MainWindow extends AnchorPane {
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
             } else {
+                if (cmd instanceof FilterCommand) {
+                    refreshType = 1;
+                }
                 response = duke.executeCommand(cmd);
                 dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
@@ -151,7 +165,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     protected void handleUserEvent(String input) {
-        //String input = userInput.getText();
         String response;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
@@ -181,7 +194,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void onMouseClick_ListView() {
-        //System.out.println("clicked on " + listT.getSelectionModel().getSelectedItem());
         labelSelectedTask.setText("Selected Task: " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         if (taskObj.isDone()) {
@@ -194,8 +206,20 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
+    private void onMouseClickTabs() {
+        String str = selectedTab.getSelectedItem().getText();
+        if (str.toLowerCase().equals("all")) {
+            handleUserEvent("list");
+        } else {
+            handleUserEvent("filter " + str.toLowerCase());
+            refreshType = 1;
+        }
+        updateGui();
+    }
+
+
+    @FXML
     private void onMouseClickDone() {
-        //System.out.println("CURRENTLY on " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
         int itemNumber = items.getIndex(taskObj) + ONE;
@@ -304,7 +328,6 @@ public class MainWindow extends AnchorPane {
             btnUpdate.setVisible(false);
             btnDelete.setVisible(false);
         }
-
     }
 
     @FXML
@@ -318,9 +341,21 @@ public class MainWindow extends AnchorPane {
     protected void listViewRefresh() {
         listT.getItems().clear();
         TaskList items = duke.getTaskList();
-        for (int i = ZERO; i < items.size(); i++) {
-            listT.getItems().add(items.get(i));
+        FilterList filterList = duke.getFilterList();
+        if (refreshType == 0) {
+            if (selectedTab != null) {
+                selectedTab.selectFirst();
+            }
+            for (int i = ZERO; i < items.size(); i++) {
+                listT.getItems().add(items.get(i));
+            }
+        } else {
+            for (int i = ZERO; i < filterList.size(); i++) {
+                listT.getItems().add(filterList.get(i));
+            }
+            selectedTab.select(filterList.getFilterIndex());
         }
+        refreshType = 0;
     }
 
     @FXML

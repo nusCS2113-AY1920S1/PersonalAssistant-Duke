@@ -11,6 +11,8 @@ import duke.command.DeleteCommand;
 import duke.command.DeleteContactCommand;
 import duke.command.ListContactsCommand;
 import duke.command.AddContactsCommand;
+import duke.command.FilterCommand;
+
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
@@ -19,6 +21,7 @@ import duke.storage.ContactStorage;
 import duke.storage.BudgetStorage;
 import duke.task.BudgetList;
 import duke.task.PriorityList;
+import duke.task.FilterList;
 import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -30,6 +33,7 @@ import java.io.IOException;
 public class Duke {
     private Storage storage;
     private TaskList items;
+    private FilterList filterList;
     private Ui ui;
     private ContactStorage contactStorage;
     private ContactList contactList;
@@ -56,6 +60,7 @@ public class Duke {
      */
     public Duke(String filePath1, String filePath2, String filePathForBudget, String filePathForContacts) {
         ui = new Ui();
+        filterList = new FilterList();
         storage = new Storage(filePath1);
         priorityStorage = new PriorityStorage(filePath2);
         contactStorage = new ContactStorage(filePathForContacts);
@@ -130,6 +135,7 @@ public class Duke {
      *
      * @param cmd Command to be executed.
      * @return String to be outputted.
+     * @throws IOException  If there is an error writing the text file
      */
     public String executeCommand(Command cmd) throws IOException {
         if (cmd instanceof AddContactsCommand) {
@@ -145,18 +151,29 @@ public class Duke {
             return str;
         } else {
             String str = cmd.executeGui(items, ui);
+            if (cmd instanceof FilterCommand) {
+                cmd.execute(items,filterList);
+            }
             return str;
         }
     }
 
     /**
-     * Executes a command and outputs the result to the user (GUI).
+     * Retrieves the current task list (GUI).
      *
-     * @return String to be outputted.
+     * @return A list of tasks.
      */
     public TaskList getTaskList() {
-        //String str = cmd.executeGui(items, ui);
         return items;
+    }
+
+    /**
+     * Retrieves the current task list (GUI).
+     *
+     * @return A list of tasks.
+     */
+    public FilterList getFilterList() {
+        return filterList;
     }
 
     /**
