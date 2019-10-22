@@ -11,6 +11,16 @@ import user.User;
 
 public class ListRoomCommand extends Command {
 
+    /**
+     * Executes the command to list the rooms in the text file
+     * @param roomList list of rooms
+     * @param bookingList bookings list
+     * @param ui user interface
+     * @param bookingstorage booking storage in command execution
+     * @param roomstorage room storage in command execution
+     * @param user Current user
+     * @throws DukeException
+     */
     @Override
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage, Storage roomstorage, User user) throws DukeException {
         if (roomList.isEmpty()) {
