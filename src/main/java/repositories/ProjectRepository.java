@@ -1,10 +1,11 @@
 package repositories;
 
+import models.data.IProject;
 import models.data.Project;
 import util.factories.ProjectFactory;
-import java.util.ArrayList;
-import models.data.IProject;
 import util.log.DukeLogger;
+
+import java.util.ArrayList;
 
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
