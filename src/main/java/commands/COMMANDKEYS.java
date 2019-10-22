@@ -37,5 +37,6 @@ public enum COMMANDKEYS {
     recommendation,
     tv,
     back,
-    entry
+    entry,
+    done
 }
