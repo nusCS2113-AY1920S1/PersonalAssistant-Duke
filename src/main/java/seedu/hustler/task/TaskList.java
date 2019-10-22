@@ -364,7 +364,7 @@ public class TaskList {
                 list.add(entry.getValue());
             }
             break;
-        case "chronological":
+        case "datetime":
             TreeMap<LocalDateTime,Task> toDoList = new TreeMap<>();
             TreeMap<LocalDateTime,Task> otherTasksList = new TreeMap<>();
 
@@ -384,7 +384,7 @@ public class TaskList {
                 list.add(entry.getValue());
             }
             break;
-        case "prioritize":
+        case "priority":
             Collections.sort(list, (t1, t2) -> {
                 if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
                     return 0;

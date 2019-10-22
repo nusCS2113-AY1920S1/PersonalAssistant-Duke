@@ -5,7 +5,6 @@ package seedu.hustler.game.achievement;
  * There is 3 achievement level which depends on the number of tasks added.
  */
 public class AddTask extends Achievements {
-
     /**
      * Number of tasks added.
      */
@@ -89,9 +88,9 @@ public class AddTask extends Achievements {
      * @return Achievement level.
      */
     public static String updateAchievementLevel() {
-        if(numberOfTasks == 5) {
+        if (numberOfTasks == 5) {
             addAchievementLevel = "\uD83E\uDD49 Bronze";
-        } else if(numberOfTasks == 10) {
+        } else if (numberOfTasks == 10) {
             addAchievementLevel = "\uD83E\uDD48 Silver";
         } else if (numberOfTasks == 15) {
             addAchievementLevel = "\uD83E\uDD47 Gold";
@@ -104,15 +103,15 @@ public class AddTask extends Achievements {
      * @return points attained from number of tasks done.
      */
     public static int updatePoints() {
-        if(numberOfTasks == 5) {
+        if (numberOfTasks == 5) {
             addPoints = BRONZE_POINT;
             totalPoints += addPoints;
-        } else if(numberOfTasks == 10) {
+        } else if (numberOfTasks == 10) {
             addPoints = SILVER_POINT;
             totalPoints += addPoints;
         } else if (numberOfTasks == 15) {
-           addPoints = GOLD_POINT;
-           totalPoints += addPoints;
+            addPoints = GOLD_POINT;
+            totalPoints += addPoints;
         }
         return addPoints;
     }
@@ -122,28 +121,36 @@ public class AddTask extends Achievements {
      * @return achievement level.
      */
     @Override
-    public String getAchievementLevel() { return this.achievementLevel; }
+    public String getAchievementLevel() {
+        return this.achievementLevel;
+    }
 
     /**
      * Retrieve description of achievement.
      * @return description.
      */
     @Override
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Retrieve information regarding the achievement.
      * @return information.
      */
     @Override
-    public String getInformation() { return this.information; }
+    public String getInformation() {
+        return this.information;
+    }
 
     /**
      * Retrieve current points from achievement.
      * @return points.
      */
     @Override
-    public int getPoints() { return points; }
+    public int getPoints() {
+        return points;
+    }
 
     /**
      * Update points gained from unlocking achievement.
@@ -161,7 +168,9 @@ public class AddTask extends Achievements {
      * @return true or false.
      */
     @Override
-    public Boolean checkLock() { return locked; }
+    public Boolean checkLock() {
+        return locked;
+    }
 
     /**
      * Unlocks achievement.

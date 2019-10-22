@@ -1,8 +1,7 @@
 package seedu.hustler.game.avatar;
 
 /**
- * Class representing the level of the
- * avatar. Also contains the current xp.
+ * Class representing the level of the avatar. Also contains the current xp.
  */
 public class Level implements Convertible {
     /**
