@@ -214,7 +214,7 @@ public class UserStats {
         String userName = tokens[2];
         String characterImagePath = tokens[3];
 
-        // No chapters in the list, so exit early, otherwise will cause parsing error.
+        // If there are 0 chapters, exit early, otherwise there will be parsing error.
         if (tokens.length < 6) {
             return new UserStats(userName,characterImagePath,new ArrayList<>());
         }
