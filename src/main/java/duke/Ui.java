@@ -1,7 +1,7 @@
 package duke;
 
-import duke.data.ParseCommand;
-import duke.data.Parser;
+import duke.Parser.ParseCommand;
+import duke.Parser.Parser;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;

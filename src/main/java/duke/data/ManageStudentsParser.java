@@ -1,5 +1,6 @@
 package duke.data;
 
+import duke.Parser.IParser;
 import duke.sports.ManageStudents;
 import duke.sports.MyStudent;
 
