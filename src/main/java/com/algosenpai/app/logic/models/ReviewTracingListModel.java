@@ -1,4 +1,4 @@
-package com.algosenpai.app.model;
+package com.algosenpai.app.logic.models;
 
 import java.util.ArrayList;
 

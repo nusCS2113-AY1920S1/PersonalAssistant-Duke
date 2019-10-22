@@ -4,8 +4,11 @@ import com.algosenpai.app.logic.command.ByeCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.MenuCommand;
 import com.algosenpai.app.logic.command.PrintCommand;
+import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.CommandEnum;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
+import com.algosenpai.app.logic.models.QuestionModel;
+import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 
 import java.util.ArrayList;
@@ -25,12 +28,14 @@ public class Logic {
     //All variables for the quiz function
     private int selectedChapters = 0;
     private boolean isQuizMode = false;
-    private ArrayList<Question> quizList;
+    private ArrayList<QuestionModel> quizList;
     private int questionNumber = 0;
     private int prevResult = 0;
 
-    // Attributes for review feature;
-    private ArrayList<Question> reviewList;
+    // Review features;
+    private ArrayList<QuestionModel> reviewList;
+
+    //
 
     /**
      * Initializes logic for the application.
@@ -57,7 +62,6 @@ public class Logic {
         } else {
             return parser.parseInput(userString);
         }
-
     }
 
     /**
@@ -92,8 +96,8 @@ public class Logic {
                     + " for the quiz!";
             return responseString;
         case RESULT:
-            responseString = "You got " + prevResult + "/10 questions correct for the last attempt";
-            return responseString;
+            ResultCommand resultCommand = new ResultCommand(currCommand, prevResult);
+            return resultCommand.execute();
         case REPORT:
             responseString = "report";
             return responseString;
@@ -135,7 +139,7 @@ public class Logic {
                 int correctCount = 0;
 
                 for (int i = 0; i < 10; i++) {
-                    Question currQuestion = quizList.get(i);
+                    QuestionModel currQuestion = quizList.get(i);
                     if (currQuestion.checkAnswer()) {
                         correctCount++;
                     }

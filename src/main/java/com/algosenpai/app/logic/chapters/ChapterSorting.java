@@ -1,8 +1,8 @@
 package com.algosenpai.app.logic.chapters;
 
-import com.algosenpai.app.logic.Question;
-import com.algosenpai.app.model.ReviewTracingListModel;
-import com.algosenpai.app.model.ReviewTracingModel;
+import com.algosenpai.app.logic.models.QuestionModel;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
+import com.algosenpai.app.logic.models.ReviewTracingModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class ChapterSorting {
      * @return A question class that contains the question and expected answer.
      */
 
-    public static Question generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = random.nextInt(3);
         switch (questionType) {
         case 0:
@@ -45,7 +45,7 @@ public class ChapterSorting {
      * 
      * @return the question class with the question.
      */
-    private static Question selectionSortSwapsQuestion() {
+    private static QuestionModel selectionSortSwapsQuestion() {
         int arraySize = random.nextInt(4) + 5;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int swaps = random.nextInt(arraySize - 5) + 1;
@@ -58,7 +58,7 @@ public class ChapterSorting {
                 + "       swap(arr[min_idx], arr[i]);\n" + "   }" + "}\n";
         ReviewTracingListModel rtlm = new ReviewTracingListModel();
         selectionSort(initialArray, swaps, rtlm);
-        Question newQuestion = new Question(question, initialArray.toString(), rtlm);
+        QuestionModel newQuestion = new QuestionModel(question, initialArray.toString(), rtlm);
         return newQuestion;
     }
 
@@ -70,7 +70,7 @@ public class ChapterSorting {
      * 
      * @return the question class with the question.
      */
-    private static Question insertionSortSwapsQuestion() {
+    private static QuestionModel insertionSortSwapsQuestion() {
         int arraySize = random.nextInt(4) + 5;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int swaps = random.nextInt(arraySize - 2) + 1;
@@ -82,7 +82,7 @@ public class ChapterSorting {
                 + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
         ReviewTracingListModel rtlm = new ReviewTracingListModel();
         insertionSort(initialArray, swaps, rtlm);
-        Question newQuestion = new Question(question, initialArray.toString(), rtlm);
+        QuestionModel newQuestion = new QuestionModel(question, initialArray.toString(), rtlm);
         return newQuestion;
     }
 
@@ -94,7 +94,7 @@ public class ChapterSorting {
      * 
      * @return the question class with the question.
      */
-    private static Question quickSortPivotsQuestion() {
+    private static QuestionModel quickSortPivotsQuestion() {
         int arraySize = random.nextInt(6) + 6;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         Integer[] arr = initialArray.toArray(new Integer[arraySize]);
@@ -122,7 +122,7 @@ public class ChapterSorting {
                 answer++;
             }
         }
-        Question newQuestion = new Question(question, Integer.toString(answer), new ReviewTracingListModel());
+        QuestionModel newQuestion = new QuestionModel(question, Integer.toString(answer), new ReviewTracingListModel());
         return newQuestion;
     }
 
@@ -134,7 +134,7 @@ public class ChapterSorting {
      * 
      * @return the question class with the question.
      */
-    private static Question bubbleSortPassesQuestion() {
+    private static QuestionModel bubbleSortPassesQuestion() {
         int arraySize = random.nextInt(7) + 3;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int passes = random.nextInt(arraySize - 2) + 1;
@@ -146,7 +146,7 @@ public class ChapterSorting {
                 + "            swap (arr[j], arr[j+1]);\n" + "       }\n" + "   }\n" + "}\n\n";
         ReviewTracingListModel rtlm = new ReviewTracingListModel();
         bubbleSort(initialArray, passes, rtlm);
-        Question newQuestion = new Question(question, initialArray.toString(), rtlm);
+        QuestionModel newQuestion = new QuestionModel(question, initialArray.toString(), rtlm);
         return newQuestion;
     }
 

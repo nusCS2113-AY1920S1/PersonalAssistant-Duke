@@ -1,8 +1,6 @@
-package com.algosenpai.app.logic;
+package com.algosenpai.app.logic.models;
 
-import com.algosenpai.app.model.ReviewTracingListModel;
-
-public class Question {
+public class QuestionModel {
     private String question;
     private String correctAnswer;
     private String userAnswer;
@@ -14,7 +12,7 @@ public class Question {
      * @param answer    The correct answer to the question
      * @param rtlm      The steps leading to the correct answer
      */
-    public Question(String question, String answer, ReviewTracingListModel rtlm) {
+    public QuestionModel(String question, String answer, ReviewTracingListModel rtlm) {
         this.question = question;
         this.correctAnswer = answer;
         this.rtlm = rtlm;
@@ -32,7 +30,7 @@ public class Question {
         return userAnswer;
     }
 
-    void setAnswer(String userAnswer) {
+    public void setAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
     }
 
@@ -46,10 +44,6 @@ public class Question {
 
     private ReviewTracingListModel getRtlm() {
         return rtlm;
-    }
-
-    public Question copy() {
-        return new Question(getQuestion(), getAnswer(), getRtlm());
     }
 
 }

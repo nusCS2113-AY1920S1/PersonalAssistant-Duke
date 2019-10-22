@@ -1,6 +1,6 @@
 package com.algosenpai.app.logic.command;
 
-import com.algosenpai.app.logic.Question;
+import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.utility.PdfDocumentWriterUtility;
 import com.itextpdf.text.DocumentException;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class PrintCommand extends Command {
 
-    ArrayList<Question> printList;
+    ArrayList<QuestionModel> printList;
 
     PdfDocumentWriterUtility pdfWriter = new PdfDocumentWriterUtility();
 
@@ -25,13 +25,13 @@ public class PrintCommand extends Command {
         super(commandType, specifier, input);
     }
 
-    private PrintCommand(CommandEnum commandType, int specifier, String input, ArrayList<Question> printList)  {
+    private PrintCommand(CommandEnum commandType, int specifier, String input, ArrayList<QuestionModel> printList)  {
         this(commandType, specifier, input);
         this.printList = printList;
         this.execute();
     }
 
-    public PrintCommand(Command command, ArrayList<Question> printList) {
+    public PrintCommand(Command command, ArrayList<QuestionModel> printList) {
         this(command.getType(), command.getParameter(), command.getUserString(), printList);
     }
 
@@ -45,7 +45,7 @@ public class PrintCommand extends Command {
         try {
             ArrayList<String> paragraphs = new ArrayList<>();
             int questionCount = 1;
-            for (Question question: printList) {
+            for (QuestionModel question: printList) {
                 paragraphs.add("Q" + questionCount++ + ")");
                 paragraphs.add(question.getQuestion());
                 paragraphs.add(question.getUserAnswer());

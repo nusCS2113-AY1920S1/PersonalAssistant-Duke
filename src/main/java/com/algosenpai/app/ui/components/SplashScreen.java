@@ -1,4 +1,4 @@
-package com.algosenpai.app.ui.controller;
+package com.algosenpai.app.ui.components;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SplashScreenController implements Initializable {
+public class SplashScreen implements Initializable {
 
     @FXML
     private Text appTitle;
@@ -21,7 +21,7 @@ public class SplashScreenController implements Initializable {
     /**
      * Initialize home scene.
      */
-    public SplashScreenController() {
+    public SplashScreen() {
     }
 
     @Override

@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import com.algosenpai.app.logic.Logic;
-import com.algosenpai.app.logic.Parser;
+import com.algosenpai.app.logic.parser.Parser;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
