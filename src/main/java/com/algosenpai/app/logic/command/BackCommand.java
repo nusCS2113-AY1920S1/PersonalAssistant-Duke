@@ -13,28 +13,22 @@ public class BackCommand extends Command {
 
     /**
      * Create new command.
-     *
-     * @param commandType type of command.
-     * @param specifier specifier.
-     * @param input input from user.
+     * @param inputs input from user.
      */
-    private BackCommand(CommandEnum commandType, int specifier, String input) {
-        super(commandType, specifier, input);
+    private BackCommand(ArrayList<String> inputs) {
+        super(inputs);
     }
 
-    private BackCommand(Command command) {
-        this(command.getType(), command.getParameter(), command.getUserString());
-    }
 
     /**
      * Initializes back command to go to previous question in the quiz.
-     * @param command back command.
+     * @param inputs user inputs.
      * @param quizList quiz.
      * @param questionNumber question number.
      */
-    public BackCommand(Command command, ArrayList<QuestionModel> quizList,
+    public BackCommand(ArrayList<String> inputs, ArrayList<QuestionModel> quizList,
                        AtomicInteger questionNumber) {
-        this(command);
+        this(inputs);
         this.quizList = quizList;
         this.questionNumber = questionNumber;
     }

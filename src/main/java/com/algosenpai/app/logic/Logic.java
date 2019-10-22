@@ -11,7 +11,6 @@ import com.algosenpai.app.logic.command.InvalidCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.BackCommand;
-import com.algosenpai.app.logic.command.CommandEnum;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
@@ -59,87 +58,70 @@ public class Logic {
     }
 
     /**
-     * Parses the user input for the command to be created and executed.
-     * @param userString the user input from the GUI.
-     * @return the Command object with the correct attributes to be executed.
-     */
-    public Command parseInputCommand(String userString) {
-        //if the program is in quiz mode, the input is not parsed
-        if (isQuizMode.get()) {
-            if (userString.equals("back")) {
-                return new Command(CommandEnum.BACK, 0, userString);
-            }
-            return new Command(CommandEnum.QUIZ, 0, userString);
-        } else if (isSettingUp) {
-            return new Command(CommandEnum.SETUP, 0, userString);
-        } else {
-            return parser.parseInput(userString);
-        }
-    }
-
-    /**
      * Executes the command.
-     * @param currCommand the Command to be executed.
+     * @param input user input.
      * @return the program String response to be displayed.
      */
-    public String executeCommand(Command currCommand) {
-        historyList.add(currCommand.getUserString());
+    public Command executeCommand(String input) {
+        ArrayList<String> inputs = Parser.parseInput(input);
 
-        String responseString;
-        switch (currCommand.getType()) {
-        case SETUP:
-            return "setup";
-        case HELP:
-        case MENU:
-            MenuCommand menuCommand = new MenuCommand(currCommand);
-            return menuCommand.execute();
-        case SELECT:
-            return "You have selected chapter " + currCommand.getParameter() + " for the quiz!";
-        case RESULT:
-            ResultCommand resultCommand = new ResultCommand(currCommand, prevResult);
-            return resultCommand.execute();
-        case REPORT:
-            PrintCommand printReportCommand = new PrintCommand(currCommand, userStats);
-            return printReportCommand.execute();
-        case HISTORY:
-            HistoryCommand historyCommand = new HistoryCommand(currCommand, historyList);
-            return historyCommand.execute();
-        case UNDO:
-            UndoCommand undoCommand = new UndoCommand(currCommand);
-            return undoCommand.execute();
-        case CLEAR:
-            ClearCommand clearCommand = new ClearCommand(currCommand);
-            return clearCommand.execute();
-        case RESET:
-            return "reset";
-        case SAVE:
-            return "save";
-        case EXIT:
-            ByeCommand byeCommand = new ByeCommand(currCommand);
-            return byeCommand.execute();
-        case PRINT:
-            PrintCommand printQuizCommand = new PrintCommand(currCommand, quizList);
-            return printQuizCommand.execute();
-        case ARCHIVE:
-            return "archive";
-        case QUIZ:
+        if (isQuizMode.get()) {
+            if (inputs.get(0).equals("back")) {
+                if (isQuizMode.get()) {
+                    return new BackCommand(inputs, quizList, questionNumber);
+                }
+            }
+            return new QuizCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+        }
+
+        switch (inputs.get(0)) {
+        case "setup":
+            // TODO
+            return null;
+        case "help":
+            // TODO
+        case "menu":
+            return new MenuCommand(inputs);
+        case "select":
+            // TODO
+            return null;
+        case "result":
+            return new ResultCommand(inputs, prevResult);
+        case "report":
+            return new PrintCommand(inputs, userStats);
+        case "history":
+            return new HistoryCommand(inputs, historyList);
+        case "undo":
+            return new UndoCommand(inputs);
+        case "clear":
+            return new ClearCommand(inputs);
+        case "reset":
+            // TODO
+            return null;
+        case "save":
+            // TODO
+            return null;
+        case "exit":
+            return new ByeCommand(inputs);
+        case "print":
+            return new PrintCommand(inputs, quizList);
+        case "archive":
+            // TODO
+            return null;
+        case "quiz":
             if (isNewQuiz.get()) {
                 quizList = quizMaker.generateQuiz(selectedChapters, quizList);
                 isNewQuiz.set(false);
                 isQuizMode.set(true);
             }
-            QuizCommand quizCommand = new QuizCommand(currCommand, quizList, questionNumber, isQuizMode, isNewQuiz);
-            return quizCommand.execute();
-        case BACK:
+            return new QuizCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
+        case "back":
             if (isQuizMode.get()) {
-                BackCommand backCommand = new BackCommand(currCommand, quizList, questionNumber);
-                return backCommand.execute();
+                return new BackCommand(inputs, quizList, questionNumber);
             }
-            InvalidCommand invalidBackCommand = new InvalidCommand(currCommand);
-            return invalidBackCommand.execute();
+            return new InvalidCommand(inputs);
         default:
-            InvalidCommand invalidCommand = new InvalidCommand(currCommand);
-            return invalidCommand.execute();
+            return new InvalidCommand(inputs);
         }
     }
 }

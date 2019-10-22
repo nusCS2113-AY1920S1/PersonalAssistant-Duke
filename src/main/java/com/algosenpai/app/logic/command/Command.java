@@ -5,40 +5,18 @@ import java.util.ArrayList;
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public class Command {
+public abstract class Command {
 
-    private CommandEnum commandType;
-    String userString;
-    private int commandParameter;
+    protected ArrayList<String> inputs;
 
     /**
      * Create new command.
      */
-    public Command(CommandEnum commandType, int specifier, String input) {
-        this.commandType = commandType;
-        this.commandParameter = specifier;
-        this.userString = input;
+    public Command(ArrayList<String> inputs) {
+        this.inputs = inputs;
     }
 
-    public CommandEnum getType() {
-        return this.commandType;
-    }
-
-    public String getUserString() {
-        return this.userString;
-    }
-
-    public int getParameter() {
-        return this.commandParameter;
-    }
-
-    public String execute() {
-        return "";
-    }
-
-    public ArrayList<String> parser() {
-        return new ArrayList<>();
-    }
+    public abstract String execute();
 
 }
 

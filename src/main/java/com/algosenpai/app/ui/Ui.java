@@ -65,15 +65,14 @@ public class Ui extends AnchorPane {
     private void handleUserInput() {
         resetIdle();
         String input = userInput.getText();
-        Command currCommand = logic.parseInputCommand(input);
-        String response = logic.executeCommand(currCommand);
-        if (response.equals("undo")) {
+        Command command = logic.executeCommand(input);
+        if (input.equals("undo")) {
             undoChat();
-        } else if (response.equals("clear")) {
+        } else if (input.equals("clear")) {
             clearChat();
         } else {
             printUserText(input, userImage);
-            printSenpaiText(response, senpaiImage);
+            printSenpaiText(command.execute(), senpaiImage);
         }
         if (input.equals("exit")) {
             exit();

@@ -1,20 +1,15 @@
 package com.algosenpai.app.logic.command;
 
+import java.util.ArrayList;
+
 public class InvalidCommand extends Command {
 
     /**
      * Create new command.
-     *
-     * @param commandType type of command.
-     * @param specifier specifier.
-     * @param input input from user.
+     * @param inputs input from user.
      */
-    private InvalidCommand(CommandEnum commandType, int specifier, String input) {
-        super(commandType, specifier, input);
-    }
-
-    public InvalidCommand(Command command) {
-        this(command.getType(), command.getParameter(), command.getUserString());
+    public InvalidCommand(ArrayList<String> inputs) {
+        super(inputs);
     }
 
     @Override

@@ -1,22 +1,22 @@
 package com.algosenpai.app.logic.command;
 
+import java.util.ArrayList;
+
 public class ResultCommand extends Command {
 
     private int results;
 
     /**
      * Create new command.
-     *
-     * @param commandType type of command.
-     * @param specifier specifier.
-     * @param input input from user.
+     * @param inputs input from user.
      */
-    private ResultCommand(CommandEnum commandType, int specifier, String input) {
-        super(commandType, specifier, input);
+    private ResultCommand(ArrayList<String> inputs) {
+        super(inputs);
     }
 
-    public ResultCommand(Command command, int results) {
-        this(command.getType(), command.getParameter(), command.getUserString());
+
+    public ResultCommand(ArrayList<String> inputs, int results) {
+        this(inputs);
         this.results = results;
     }
 

@@ -8,21 +8,15 @@ public class HistoryCommand extends Command {
 
     /**
      * Create new command.
-     *
-     * @param commandType type of command.
-     * @param specifier specifier.
-     * @param input input from user.
+     * @param inputs input from user.
      */
-    private HistoryCommand(CommandEnum commandType, int specifier, String input) {
-        super(commandType, specifier, input);
+    private HistoryCommand(ArrayList<String> inputs) {
+        super(inputs);
     }
 
-    private HistoryCommand(Command command) {
-        this(command.getType(), command.getParameter(), command.getUserString());
-    }
 
-    public HistoryCommand(Command command, ArrayList<String> historyList) {
-        this(command);
+    public HistoryCommand(ArrayList<String> inputs, ArrayList<String> historyList) {
+        this(inputs);
         this.historyList = historyList;
     }
 

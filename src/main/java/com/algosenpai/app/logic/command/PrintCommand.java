@@ -5,6 +5,7 @@ import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.utility.PdfDocumentWriterUtility;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -21,41 +22,35 @@ public class PrintCommand extends Command {
 
     /**
      * Create new command.
-     * @param commandType type of command.
-     * @param specifier specifier.
-     * @param input input from user.
+     * @param inputs input from user.
      */
-    public PrintCommand(CommandEnum commandType, int specifier, String input) {
-        super(commandType, specifier, input);
+    private PrintCommand(ArrayList<String> inputs) {
+        super(inputs);
         this.paragraphs = new ArrayList<>();
     }
 
 
+
     /**
      * Creates print command.
-     * @param command command type.
+     * @param inputs user inputs.
      * @param printList list of questions to write to pdf.
      */
-    public PrintCommand(Command command, ArrayList<QuestionModel> printList) {
-        this(command.getType(), command.getParameter(), command.getUserString());
+    public PrintCommand(ArrayList<String> inputs, ArrayList<QuestionModel> printList) {
+        this(inputs);
         this.printList = printList;
         this.prepareQuestions();
     }
 
     /**
      * Creates print command.
-     * @param command command type.
+     * @param inputs user inputs.
      * @param userStats user stats to write to pdf.
      */
-    public PrintCommand(Command command, UserStats userStats) {
-        this(command.getType(), command.getParameter(), command.getUserString());
+    public PrintCommand(ArrayList<String> inputs, UserStats userStats) {
+        this(inputs);
         this.userStats = userStats;
         this.prepareUserStates();
-    }
-
-    @Override
-    public ArrayList<String> parser() {
-        return new ArrayList<>(Arrays.asList(userString.split(" ")));
     }
 
     /**
@@ -82,9 +77,8 @@ public class PrintCommand extends Command {
     @Override
     public String execute() {
         try {
-            ArrayList<String> parsedInput = parser();
-            pdfWriter.saveToPdf(paragraphs, parsedInput.get(2));
-            return userString;
+            pdfWriter.saveToPdf(paragraphs, inputs.get(1));
+            return "Successfully write to pdf";
         } catch (DocumentException | FileNotFoundException e) {
             return "Error writing to file";
         }
