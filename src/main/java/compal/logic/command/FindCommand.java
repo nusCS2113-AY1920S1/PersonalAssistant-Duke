@@ -6,6 +6,13 @@ import compal.model.tasks.TaskList;
 
 public class FindCommand extends Command {
 
+    public static final String MESSAGE_USAGE ="find\n\t"
+            + "Format: find <description>\n\n\t"
+            + "Note: content in \"<>\": need to be fulfilled by the user\n\n\t"
+            + "This command will search for all tasks containing the description\n"
+            + "Examples:\n\t"
+            + "find cs2106\n\t\t"
+            + "show all tasks containing cs2106 in their description";
     private String keyWord;
 
     public FindCommand(String keyWord) {

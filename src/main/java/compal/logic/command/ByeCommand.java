@@ -5,6 +5,11 @@ import compal.model.tasks.TaskList;
 
 
 public class ByeCommand extends Command {
+    public static final String MESSAGE_USAGE ="Bye\n\t"
+            + "Format: bye\n\t"
+            + "e.g. \"bye\"\n\n"
+            + "This command will exit COMPal. Have a nice day! :)";
+
     @Override
     public CommandResult commandExecute(TaskList task) {
         return new CommandResult("bye.", true);

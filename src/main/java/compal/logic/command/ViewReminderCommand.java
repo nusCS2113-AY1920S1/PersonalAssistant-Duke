@@ -10,6 +10,12 @@ import java.util.Date;
 
 public class ViewReminderCommand extends Command {
 
+    public static final String MESSAGE_USAGE ="view-reminder\n\t"
+            + "Format: view-reminder\n\n\t"
+            + "This command will show all tasks with reminder on\n"
+            + "Examples:\n\t"
+            + "view-reminder\n\t\t"
+            + "show all tasks with reminder on";
     private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
 
     @Override
