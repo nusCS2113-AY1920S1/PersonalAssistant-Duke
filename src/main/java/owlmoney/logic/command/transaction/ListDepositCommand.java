@@ -7,14 +7,14 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * ListDepositCommand class which contains the execution function to list deposits.
+ * Executes ListDepositCommand and prints the result.
  */
 public class ListDepositCommand extends Command {
     private final String accName;
     private final int displayNum;
 
     /**
-     * Constructor to create an instance of ListDepositCommand.
+     * Creates an instance of ListDepositCommand.
      *
      * @param name       Bank account name.
      * @param displayNum Number of deposits to display.
@@ -25,7 +25,7 @@ public class ListDepositCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to list the specified number of deposit transactions.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

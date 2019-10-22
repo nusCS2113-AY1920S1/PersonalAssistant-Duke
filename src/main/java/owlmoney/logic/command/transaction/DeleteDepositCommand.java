@@ -7,14 +7,14 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteDepositCommand class which contains the execution function to delete a deposit transaction.
+ * Executes DeleteDepositCommand and prints the result.
  */
 public class DeleteDepositCommand extends Command {
     private final int expNumber;
     private final String from;
 
     /**
-     * Constructor to create an instance of DeleteDepositCommand.
+     * Creates an instance of DeleteDepositCommand.
      *
      * @param bankName Bank account name.
      * @param index    Transaction number.

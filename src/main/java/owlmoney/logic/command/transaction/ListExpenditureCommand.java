@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * ListExpenditureCommand class which contains the execution function to list expenditures.
+ * Executes ListExpenditureCommand and prints the result.
  */
 public class ListExpenditureCommand extends Command {
     private final String accName;
@@ -16,7 +16,7 @@ public class ListExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Constructor to create an instance of ListExpenditureCommand.
+     * Creates an instance of ListExpenditureCommand.
      *
      * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
@@ -29,7 +29,7 @@ public class ListExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to list the specified number of expenditures.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

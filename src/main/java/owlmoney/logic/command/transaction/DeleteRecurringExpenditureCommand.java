@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteRecurringExpenditureCommand class which contains the execution function to delete a recurring expenditure.
+ * Executes DeleteRecurringExpenditureCommand and prints the result.
  */
 public class DeleteRecurringExpenditureCommand extends Command {
     private final int expenditureNumber;
@@ -15,7 +15,7 @@ public class DeleteRecurringExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Constructor to create an instance of a DeleteRecurringExpenditureCommand.
+     * Creates an instance of a DeleteRecurringExpenditureCommand.
      *
      * @param index       Recurring expenditure index number.
      * @param accountName Card or Bank account name.
@@ -28,7 +28,7 @@ public class DeleteRecurringExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to delete a recurring expenditure transaction.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

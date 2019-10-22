@@ -10,8 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseExpenditure class which is abstract where various recurring expenditure parser objects inherit from.
- * given that it is abstract.
+ * Parses the inputs for a given recurring expenditure command.
  */
 public abstract class ParseRecurringExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
@@ -30,7 +29,7 @@ public abstract class ParseRecurringExpenditure {
     static final String TRANSNO = "/transno";
 
     /**
-     * Constructor which creates an instance of any ParseRecurringExpenditure type object.
+     * Creates an instance of any ParseRecurringExpenditure type object.
      *
      * @param data Raw user input data.
      * @param type Represents type of recurring expenditure to be added.
@@ -133,15 +132,14 @@ public abstract class ParseRecurringExpenditure {
     }
 
     /**
-     * Abstract method where each saving parser performs different checks on the parameters.
+     * Checks the parameters given by the user.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each saving parser creates different commands.
-     *
+     * Gets the command to be executed.
      * @return Command to be executed.
      */
     public abstract Command getCommand();

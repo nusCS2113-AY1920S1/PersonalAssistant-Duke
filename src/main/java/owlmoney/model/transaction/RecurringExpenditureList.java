@@ -7,8 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * RecurringExpenditureList  provides a layer of abstraction for the ArrayList.
- * The ArrayList will store both expenditures and deposits.
+ * Contains the details of recurring expenditures.
  */
 public class RecurringExpenditureList {
     private ArrayList<Transaction> recurringExpenditures;

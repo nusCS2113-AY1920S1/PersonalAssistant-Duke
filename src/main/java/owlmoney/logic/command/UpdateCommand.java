@@ -4,7 +4,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * UpdateCommandClass which contains the execution function to update outdated recurring transactions.
+ * Executes UpdateCommand and prints the result.
  */
 public class UpdateCommand extends Command {
 

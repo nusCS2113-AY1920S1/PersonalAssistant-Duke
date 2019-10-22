@@ -8,7 +8,7 @@ import owlmoney.logic.command.transaction.AddExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for adding a expenditure.
+ * Parses the inputs for adding an expenditure.
  */
 public class ParseAddExpenditure extends ParseExpenditure {
 
@@ -16,7 +16,7 @@ public class ParseAddExpenditure extends ParseExpenditure {
     private Date date;
 
     /**
-     * Constructor which creates an instance of ParseAddExpenditure.
+     * Creates an instance of ParseAddExpenditure.
      *
      * @param data Raw user input data.
      * @param type Represents type of expenditure to be added.

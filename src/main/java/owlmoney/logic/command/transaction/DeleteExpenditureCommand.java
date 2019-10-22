@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteExpenditureCommand class which contains the execution function to delete an expenditure.
+ * Executes DeleteExpenditureCommand and prints the result.
  */
 public class DeleteExpenditureCommand extends Command {
     private final int expNumber;
@@ -16,7 +16,7 @@ public class DeleteExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Constructor to create an instance of a DeleteExpenditureCommand.
+     * Creates an instance of a DeleteExpenditureCommand.
      *
      * @param index       Transaction number.
      * @param accountName Card or Bank account name.
@@ -29,7 +29,7 @@ public class DeleteExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to delete an expenditure transaction.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

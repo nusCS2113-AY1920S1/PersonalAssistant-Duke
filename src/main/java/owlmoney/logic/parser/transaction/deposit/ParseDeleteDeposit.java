@@ -7,13 +7,13 @@ import owlmoney.logic.command.transaction.DeleteDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for deleting a deposit.
+ * Parses the inputs for deleting a deposit.
  */
 public class ParseDeleteDeposit extends ParseDeposit {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteDeposit.
+     * Creates an instance of ParseDeleteDeposit.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if first parameter is invalid.

@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * ListRecurringExpenditureCommand class which contains the execution function to list expenditures.
+ * Executes ListRecurringExpenditureCommand and prints the result.
  */
 public class ListRecurringExpenditureCommand extends Command {
     private final String accName;
@@ -25,7 +25,7 @@ public class ListRecurringExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a recurring expenditure.
+     * Executes the function to list all recurring expenditure.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

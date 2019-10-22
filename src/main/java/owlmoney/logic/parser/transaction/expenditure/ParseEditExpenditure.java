@@ -7,13 +7,13 @@ import owlmoney.logic.command.transaction.EditExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for editing an expenditure.
+ * Parses the inputs for editing an expenditure.
  */
 public class ParseEditExpenditure extends ParseExpenditure {
     private static final String EDIT = "/edit";
 
     /**
-     * Constructor which creates an instance of ParseEditExpenditure.
+     * Creates an instance of ParseEditExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.

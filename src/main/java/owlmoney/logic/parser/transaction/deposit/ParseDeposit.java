@@ -14,7 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseDeposit class which is abstract where various deposit parser objects inherit from given that it is abstract.
+ * Parses the inputs for a given deposit command.
  */
 public abstract class ParseDeposit {
     HashMap<String, String> depositParameters = new HashMap<String, String>();
@@ -33,7 +33,7 @@ public abstract class ParseDeposit {
     static final String NUM = "/num";
 
     /**
-     * Constructor which creates an instance of any ParseSaving type object.
+     * Creates an instance of any ParseSaving type object.
      *
      * @param data Raw user input data.
      */
@@ -165,14 +165,14 @@ public abstract class ParseDeposit {
     }
 
     /**
-     * Abstract method where each saving parser performs different checks on the parameters.
+     * Checks the parameters given by the user.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each saving parser creates different commands.
+     * Gets the expected command to be executed.
      *
      * @return Command to be executed.
      */

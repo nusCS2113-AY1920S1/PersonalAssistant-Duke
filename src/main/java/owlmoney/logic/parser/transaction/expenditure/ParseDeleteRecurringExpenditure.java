@@ -7,13 +7,13 @@ import owlmoney.logic.command.transaction.DeleteRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * FILL IN JAVADOCS HERE #################################################################################.
+ * Parses the inputs for deleting a recurring expenditure.
  */
 public class ParseDeleteRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteRecurringExpenditure.
+     * Creates an instance of ParseDeleteRecurringExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if first parameter is invalid.
