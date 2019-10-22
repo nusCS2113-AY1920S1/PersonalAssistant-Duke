@@ -3,6 +3,11 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.DukeException;
 
+import java.lang.reflect.Array;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,6 +36,7 @@ public class Parser {
         }
         String[] fcArray = fullCommand.split(" ", 2);
         String keyword = fcArray[0];
+        keyword = OffByOneChecker.offByOne(keyword);
 
         switch (keyword) {
             case "bye":
@@ -51,7 +57,7 @@ public class Parser {
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
                 }
-                return new FindCommand(fcArray[1]);
+                return new FindCommand(fcArray[1], filter);
             case "done":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of done cannot be empty.");
