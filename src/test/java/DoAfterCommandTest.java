@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DoAfterCommandTest {
 
     DoAfter testdoAfter = new DoAfter("read book","read book","return book");
+
     @Test
     void testtoString() {
         assertEquals("DA|ND|return book|read book", testdoAfter.toString());
     }
-
 
     @Test
     void testlistformat() {

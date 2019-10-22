@@ -4,15 +4,12 @@ import gazeeebo.UI.Ui;
 import gazeeebo.commands.note.ListNoteCommand;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ListNoteCommandTest extends ListNoteCommand {
@@ -38,14 +35,14 @@ class ListNoteCommandTest extends ListNoteCommand {
         note.notes.add("note 2");
         note.notes.add("note 3");
         NoteList.daily.add(note);
-        ui.FullCommand = "listNote day 2019-11-12";
+        ui.fullCommand = "listNote day 2019-11-12";
         execute(null, ui, null, null, null,null);
         assertEquals("Here are your notes for that day:\r\n" + "1. note 1\r\n2. note 2\r\n3. note 3\r\n", output.toString());
     }
 
     @Test
     void execute_noNotesExistForTheSpecifiedPeriod_success() throws IOException {
-        ui.FullCommand = "listNote month 2019-10";
+        ui.fullCommand = "listNote month 2019-10";
         execute(null, ui, null, null, null,null);
         assertEquals("There are no notes for that month.\r\n", output.toString());
     }

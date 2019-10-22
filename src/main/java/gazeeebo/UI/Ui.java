@@ -17,12 +17,12 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Ui {
-    public String FullCommand;
+    public String fullCommand;
 
 
-    public void ReadCommand() throws IOException {
+    public void readCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        FullCommand = reader.readLine();
+        fullCommand = reader.readLine();
     }
 
     /**
@@ -43,11 +43,11 @@ public class Ui {
                 + "\n__________________________________________\n";
 
         while (true) {
-            ReadCommand();
-            ArrayList<String> password_list;
+            readCommand();
+            ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.Password();
-            if (FullCommand.equals(password_list.get(0))) {
+            if (fullCommand.equals(password_list.get(0).toString())) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -57,6 +57,22 @@ public class Ui {
             }
         }
         return welcomemessage;
+    }
+
+    public void MajorCategories() {
+        ArrayList<String> majorCategories = new ArrayList<>();
+        majorCategories.add("help");
+        majorCategories.add("contact");
+        majorCategories.add("expenses");
+        majorCategories.add("places");
+        majorCategories.add("tasks");
+        majorCategories.add("gpa");
+        System.out.println("\nContent Page:");
+        System.out.println("------------------ " +
+                "");
+        for(int i = 0; i < majorCategories.size(); i++) {
+            System.out.println(i+1 + ". " + majorCategories.get(i));
+        }
     }
 
     public void UpcomingTask(ArrayList<Task> list) throws ParseException {

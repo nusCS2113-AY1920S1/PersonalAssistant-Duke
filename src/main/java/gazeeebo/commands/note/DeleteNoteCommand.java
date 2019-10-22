@@ -66,7 +66,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         //deleteNote day/week/month yyyy-MM-dd <note_num>
-        String[] command = ui.FullCommand.split(" ");
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "deleteNote");

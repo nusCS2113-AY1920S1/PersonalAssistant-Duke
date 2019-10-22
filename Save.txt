@@ -1,3 +1,1 @@
-D|ND|yearly assignment|by: 2019-01-01 01:01:01
-E|ND|project meeting|at: 2019-09-09 12:12:12-13:13:13
-P|ND|buy book |2019-09-09 and 2019-01-01
+

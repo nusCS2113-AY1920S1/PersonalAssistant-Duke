@@ -11,8 +11,8 @@ public class FindPlacesCommand {
      * @param places Map each name to its own phone number
      * @param LINE_BREAK String separator
      */
-    public FindPlacesCommand(Ui ui, Map<String,String> places, String LINE_BREAK) {
-        String placeSearchingFor = ui.FullCommand.split("-")[1];
+    public FindPlacesCommand(Ui ui, Map<String,String> places, String LINE_BREAK) throws ArrayIndexOutOfBoundsException{
+        String placeSearchingFor = ui.fullCommand.split("-")[1];
         Boolean isFound = false;
         for(String keys:places.keySet()) {
             if(keys.contains(placeSearchingFor)) {

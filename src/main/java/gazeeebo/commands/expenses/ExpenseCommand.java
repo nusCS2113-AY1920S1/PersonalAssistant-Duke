@@ -40,18 +40,18 @@ public class ExpenseCommand extends Command {
         System.out.println("5. Exit Expense page: esc");
         System.out.println("__________________________________________________________");
 
-        ui.ReadCommand();
-        while(!ui.FullCommand.equals("esc")) {
-            if (ui.FullCommand.contains("add")) {
+        ui.readCommand();
+        while(!ui.fullCommand.equals("esc")) {
+            if (ui.fullCommand.contains("add")) {
                 new AddExpensesCommand(ui, storage, expenses);
-            } else if(ui.FullCommand.equals("find")) {
+            } else if(ui.fullCommand.equals("find")) {
                 new FindExpenseCommand(ui, expenses);
-            } else if(ui.FullCommand.equals("delete")) {
+            } else if(ui.fullCommand.equals("delete")) {
                 new DeleteExpenseCommand(ui, storage, expenses);
-            } else if(ui.FullCommand.equals("expense list")) {
+            } else if(ui.fullCommand.equals("expense list")) {
                 new ExpenseListCommand(ui, expenses);
             }
-            ui.ReadCommand();
+            ui.readCommand();
         }
         System.out.println("Go back to Main Menu");
     }
