@@ -58,7 +58,6 @@ public class EditCommand extends Command {
         	isIndexFound = true;
             actualIndex = filteredListIndex;
         }
-
         if (isIndexFound) {
             return actualIndex;
         } else {
