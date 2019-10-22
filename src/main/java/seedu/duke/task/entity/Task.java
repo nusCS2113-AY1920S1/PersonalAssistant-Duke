@@ -150,7 +150,7 @@ public class Task {
     }
 
     /**
-     * Snoozes the task for future
+     * Snoozes the task for future.
      */
     public void snooze() {
         if (taskType == TaskType.ToDo) {

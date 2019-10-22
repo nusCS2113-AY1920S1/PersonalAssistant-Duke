@@ -281,6 +281,11 @@ public class MainWindow extends AnchorPane {
         userInputHandler.setUserInputText(prefix);
     }
 
+    /**
+     * Updates the gui for task list display.
+     *
+     * @param taskStringList the task list to be displayed.
+     */
     public void updateTasksList(ArrayList<String> taskStringList) {
         ObservableList<String> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < taskStringList.size(); i++) {
@@ -291,6 +296,11 @@ public class MainWindow extends AnchorPane {
         tasksListView.setItems(observableList);
     }
 
+    /**
+     * Updates the gui for email list display.
+     *
+     * @param emailStringList the email list to be displayed.
+     */
     public void updateEmailsList(ArrayList<String> emailStringList) {
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < emailStringList.size(); i++) {

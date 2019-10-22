@@ -86,7 +86,7 @@ class UserInputHandler {
     }
 
     /**
-     * Moves the position of caret to the right by 1
+     * Moves the position of caret to the right by 1.
      */
     public void moveCaretRight() {
         int pos = userInput.getCaretPosition();
@@ -94,7 +94,7 @@ class UserInputHandler {
     }
 
     /**
-     * Moves the position of caret to the left by 1
+     * Moves the position of caret to the left by 1.
      */
     public void moveCaretLeft() {
         int pos = userInput.getCaretPosition();

@@ -154,7 +154,7 @@ public class UI {
     }
 
     /**
-     * Synchronizes the gui display of tasks and emails with the model
+     * Synchronizes the gui display of tasks and emails with the model.
      */
     public void syncWithModel() {
         Duke.getModel().updateGuiTaskList();
