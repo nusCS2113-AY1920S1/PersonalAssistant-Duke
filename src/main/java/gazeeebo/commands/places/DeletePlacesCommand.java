@@ -20,9 +20,9 @@ public class DeletePlacesCommand {
             String placeToDelete = ui.fullCommand.split("-")[1];
             if (places.containsKey(placeToDelete)) {
                 places.remove(placeToDelete);
-                System.out.println(placeToDelete + " has been removed.");
+                System.out.println("Successfully deleted: " + placeToDelete);
             } else {
-                System.out.println(placeToDelete + " is not in the list.");
+                System.out.println(placeToDelete + " is not found in the list.");
             }
         }
         else {
