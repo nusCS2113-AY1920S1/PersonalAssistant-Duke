@@ -30,7 +30,7 @@ public class QuizCommand extends Command  {
         return false;
     }
 
-    public void generateQuiz(WordBank wordBank) throws WordBankNotEnoughForQuizException {
+    public String generateQuiz(WordBank wordBank) throws WordBankNotEnoughForQuizException {
         int sizeOfWordBank = wordBank.getWordBank().size();
         if(sizeOfWordBank<4){
             throw new WordBankNotEnoughForQuizException();
@@ -52,6 +52,7 @@ public class QuizCommand extends Command  {
         }
 
         optionSequence = random.nextInt(4);
+        return this.question+": "+this.answer;
     }
 
 }

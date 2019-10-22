@@ -142,5 +142,16 @@ public class Ui {
             return ("Sorry, The answer is \""+ answer + "\".");
         }
     }
+
+    public String quizIncorrect(Integer wrongQuiz, Integer countQuiz, ArrayList<String> quizArray){
+        if(wrongQuiz==0){
+            return ("Congratulations! You got " + (countQuiz-wrongQuiz) + "/" + countQuiz +" on this quiz!");
+        }
+        else{
+            return ("You got " + (countQuiz-wrongQuiz) + "/" + countQuiz +" on this quiz!\n" +
+                    "These are the words you might want to review:\n" +
+                    quizArray);
+        }
+    }
 }
 
