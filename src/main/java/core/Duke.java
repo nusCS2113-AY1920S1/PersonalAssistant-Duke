@@ -9,7 +9,6 @@ import utils.Parser;
 import utils.Storage;
 import utils.TasksCounter;
 import utils.Reminder;
-import core.Ui;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class Duke {
      * main running structure of Duke.
      */
     public void run() {
-    	TasksCounter tc = new TasksCounter(tasks);
+        TasksCounter tc = new TasksCounter(tasks);
         new Window(tc);
         Ui.welcome();
         Reminder.checkReminders(tasks);

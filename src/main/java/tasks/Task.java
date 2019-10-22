@@ -37,7 +37,6 @@ public abstract class Task {
     protected int recurringWeeks;
 
 
-
     /**
      * default constructor of Task
      */
@@ -70,14 +69,14 @@ public abstract class Task {
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * get tasks's isDone status
-     * 
+     *
      * @return isDone boolean
      */
-    public boolean getIsDone()	{
-    	return isDone;
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**
@@ -136,8 +135,9 @@ public abstract class Task {
 
     /**
      * This method marks the task status as 'done'
+     *
      * @throws DukeException if the preconditions (if it has) are not satisfied,
-     * that is, this task cannot be marked as 'done' at this point
+     *                       that is, this task cannot be marked as 'done' at this point
      */
     public void markAsDone() throws DukeException {
         boolean preconditionDone = true;
@@ -164,9 +164,9 @@ public abstract class Task {
     }
 
     /**
+     * @param numWeeks the number (quantity) of weeks for the recurrence task
      * @author Justin Chia
      * Toggle the recurrence flag
-     * @param numWeeks the number (quantity) of weeks for the recurrence task
      */
     public void setRecurring(int numWeeks) {
         this.isRecurring = true;
@@ -222,6 +222,7 @@ public abstract class Task {
 
     /**
      * This method gets prerequisite task to the precondition list.
+     *
      * @return the string of precondition, represented by indexes of prerequisite tasks,
      * separated by space, for example: 1 2 10 11
      */

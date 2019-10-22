@@ -31,15 +31,15 @@ public class Window {
 
     public static Window instance;
     public JTextArea outputArea;
-    
+
     private JTextField completedPercField;
 
     /**
      * Create the Window
      */
     public Window(TasksCounter tc) {
-    	Window.instance = this;
-    	this.tasksCounter = tc;
+        Window.instance = this;
+        this.tasksCounter = tc;
         initialize();
         this.frame.setVisible(true);
     }
@@ -97,14 +97,14 @@ public class Window {
             }
         });
         this.outputArea = outputArea;
-        
+
         JPanel panel2 = new JPanel();
         panel2.setLayout(null);
         panel2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         panel2.setBackground(Color.WHITE);
         panel2.setBounds(106, 307, 197, 40);
         frame.getContentPane().add(panel2);
-        
+
         completedPercField = new JTextField();
         completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
         completedPercField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -127,7 +127,7 @@ public class Window {
     /**
      * Updates the percentage displayed on the window
      */
-    public void updatePercentage()	{
+    public void updatePercentage() {
         completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
     }
 }
