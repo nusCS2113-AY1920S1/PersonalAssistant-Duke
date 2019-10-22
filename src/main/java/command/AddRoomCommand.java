@@ -18,6 +18,7 @@ public class AddRoomCommand extends Command {
     private String date;
     private String timeslot;
 
+    //@@ zkchang97
     /**
      * Creates a new room entry in the list of rooms.
      * Format is addroom ROOMCODE /date DD/MM/YYYY /timeslot HH:MM AM/PM to HH:MM AM/PM
