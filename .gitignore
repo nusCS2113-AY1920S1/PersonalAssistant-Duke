@@ -7,3 +7,5 @@
 .gradle/5.5.1/fileHashes/fileHashes.lock
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 .idea/workspace.xml
+build/
+.gradle/
