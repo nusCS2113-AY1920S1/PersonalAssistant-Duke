@@ -27,14 +27,14 @@ public class DeletePatientTaskCommand extends Command {
         char firstChar = deleteInfo[0].charAt(0);
         try {
             if (firstChar == '#') {
-                this.patientId = Integer.parseInt(deleteInfo[0].substring(1).trim());
+                Integer.parseInt(deleteInfo[0].replace("#","").trim());
                 this.taskId = Integer.parseInt(deleteInfo[1]);
             } else {
                 this.deletedPatientInfo = deleteInfo[0];
                 this.taskId = Integer.parseInt(deleteInfo[1]);
             }
         } catch (Exception e) {
-            throw new DukeException("Try to follow the format: delete patient task #patientid taskuniqueid");
+            throw new DukeException("Try to follow the format: delete patienttask #patientid taskuniqeid");
         }
 
     }
