@@ -23,8 +23,8 @@ public class GeneralNoteCommand extends Command {
         System.out.println("__________________________________________________________");
         System.out.println("1. View goal and list of modules: view");
         System.out.println("2. Edit goal: edit goal");
-        System.out.println("3. Add module: add module");
-        System.out.println("4. Delete module: delete module");
+        System.out.println("3. Add a module: add module");
+        System.out.println("4. Delete a module: delete module");
         System.out.println("5. View/edit a particular module: module");
         System.out.println("6. View list of commands for note page: commands");
         System.out.println("7. View help page: help");
