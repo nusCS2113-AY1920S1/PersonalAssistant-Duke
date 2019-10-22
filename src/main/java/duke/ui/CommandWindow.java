@@ -1,7 +1,7 @@
 package duke.ui;
 
-import duke.DukeCore;
 import duke.command.Command;
+import duke.command.Executor;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import javafx.fxml.FXML;
@@ -24,8 +24,8 @@ import java.util.List;
  */
 class CommandWindow extends UiElement<Region> {
     private static final String FXML = "CommandWindow.fxml";
-    static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
-    static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
+    private static final String MESSAGE_WELCOME_GREET = "Hello! I'm Dr. Duke.";
+    private static final String MESSAGE_WELCOME_QUESTION = "What can I do for you today?";
 
     @FXML
     private ScrollPane scrollPane;
@@ -36,9 +36,8 @@ class CommandWindow extends UiElement<Region> {
     @FXML
     private Button sendButton;
 
-    private DukeCore core;
     private Parser parser;
-    private String input;
+    private Executor executor;
 
     // TODO: A separate (inner) class for input history
     private List<String> inputHistory;
@@ -47,12 +46,14 @@ class CommandWindow extends UiElement<Region> {
 
     /**
      * Constructs the command window of the application.
+     *
+     * @param executor Executor object responsible for executing user commands.
      */
-    CommandWindow(DukeCore core) {
+    CommandWindow(Executor executor) {
         super(FXML, null);
 
-        this.core = core;
-        parser = new Parser();
+        this.parser = new Parser();
+        this.executor = executor;
 
         inputHistory = new ArrayList<>();
         historyPointer = 0;
@@ -92,7 +93,8 @@ class CommandWindow extends UiElement<Region> {
      */
     @FXML
     private void handleAction() {
-        input = inputTextField.getText().trim();
+        String input = inputTextField.getText().trim();
+        input = input.replaceAll("\t", "    ");
 
         if (!input.isEmpty()) {
             if (historyPointer != inputHistory.size() - 1 || (historyPointer == inputHistory.size() - 1
@@ -106,9 +108,7 @@ class CommandWindow extends UiElement<Region> {
             messageContainer.getChildren().add(MessageBox.getUserMessage(input).getRoot());
 
             try {
-                // TODO: Should this UI element be responsible for the execution of the command?
-                Command c = parseCommand();
-                c.execute(core);
+                executor.execute(parseCommand(input));
             } catch (DukeException e) {
                 printError(e);
             }
@@ -157,12 +157,12 @@ class CommandWindow extends UiElement<Region> {
      * Uses the Parser to retrieve the requested command, which will be loaded with parameters
      * extracted from the user's input arguments.
      *
+     * @param input Input string to be parsed.
      * @return The command specified by the user, with arguments parsed.
      * @throws DukeException If the parser fails to find a matching command or the arguments do not meet the command's
      *                       requirements.
      */
-    private Command parseCommand() throws DukeException {
-        input = input.replaceAll("\t", "    ");
+    private Command parseCommand(String input) throws DukeException {
         return parser.parse(input);
     }
 

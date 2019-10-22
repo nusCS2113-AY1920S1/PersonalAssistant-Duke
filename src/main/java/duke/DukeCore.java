@@ -6,6 +6,7 @@ import duke.data.TaskList;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 import duke.ui.Ui;
+import duke.ui.UiContext; 
 import duke.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,16 +16,18 @@ import java.io.IOException;
 
 /**
  * Main class of the application.
- * The core of Dr. Duke, which holds the UI and storage.
+ * The core of Dr. Duke, which holds the UI and storage components.
  */
 public class DukeCore extends Application {
     private static final String FILE_PATH = "data" + File.separator + "patients.json";
 
     public Ui ui;
+    public UiContext context;
     public GsonStorage storage;
     public PatientMap patientMap;
-    public TaskList taskList = null; //deprecated
 
+    public TaskList taskList = null; //deprecated
+  
     /**
      * Entry point into the application.
      *
@@ -39,6 +42,7 @@ public class DukeCore extends Application {
      */
     public DukeCore() {
         ui = new UiManager(this);
+        context = new UiContext();
 
         try {
             try {
