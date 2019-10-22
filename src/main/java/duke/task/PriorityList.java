@@ -135,17 +135,17 @@ public class PriorityList {
      */
     public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
         ArrayList<Pair> pairList = new ArrayList<>();
-        for (int i = ZERO; i < taskList.size(); i++) {
-            Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i));
+        for (int i = ONE; i <= taskList.size(); i++) {
+            Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i - 1));
             pairList.add(pair);
         }
 
         for (int i = ONE; i < taskList.size(); i++) {
             for (int j = i; j > ZERO; j--) {
-                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - ONE).getKey()) {
+                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j).getKey()) {
                     Pair<Integer, String> temp = pairList.get(j);
-                    pairList.set(j, pairList.get(j - ONE));
-                    pairList.set(j - ONE, temp);
+                    pairList.set(j, pairList.get(j));
+                    pairList.set(j, temp);
                 } else {
                     break;
                 }

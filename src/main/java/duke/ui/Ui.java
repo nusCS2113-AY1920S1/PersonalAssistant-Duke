@@ -107,7 +107,7 @@ public class Ui {
         ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
-        for (int i = ZERO; i < items.size() && i < priorities.getSize(); i++) {
+        for (int i = ZERO; i < items.size() || i < priorities.getSize(); i++) {
             out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
@@ -299,6 +299,31 @@ public class Ui {
             out.println("     No matching tasks found.");
         }
     }
+
+
+    //@@author Dou-Maokang
+    /**
+     * Outputs the tasks with the target priority.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities associated with the task list.
+     * @param targetPriority The target priority to search.
+     */
+    public void showFindTasksByPriority(TaskList items, PriorityList priorities, int targetPriority) {
+        out.println("     Here are the matching tasks in your list:");
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
+            if (priorities.getPriority(i + 1) == targetPriority) {
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
+                numFound++;
+            }
+        }
+        if (numFound == ZERO) {
+            out.println("     No matching tasks found.");
+        }
+    }
+    //@@author
+
 
     /**
      * Outputs the tasks that are matched from the keyword to the user (GUI).

@@ -1,15 +1,6 @@
 package duke;
 
-import duke.command.SetPriorityCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.DeleteCommand;
-import duke.command.DeleteContactCommand;
-import duke.command.AddContactsCommand;
-import duke.command.Command;
-import duke.command.ListContactsCommand;
-import duke.command.ListPriorityCommand;
-import duke.command.ExitCommand;
-import duke.command.BackupCommand;
+import duke.command.*;
 
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
@@ -181,7 +172,8 @@ public class Duke {
                 } else if (cmd instanceof ListPriorityCommand
                         || cmd instanceof AddMultipleCommand
                         || cmd instanceof DeleteCommand
-                        || cmd instanceof SetPriorityCommand) {
+                        || cmd instanceof SetPriorityCommand
+                        || cmd instanceof FindTasksByPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
                     saveState(cmd);
