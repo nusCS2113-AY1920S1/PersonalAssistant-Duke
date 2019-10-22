@@ -1,4 +1,4 @@
 package duke.Parser;
 
-public class TrainingPlanParser {
+public class ParserTrainingPlan {
 }

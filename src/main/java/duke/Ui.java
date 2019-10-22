@@ -1,6 +1,6 @@
 package duke;
 
-import duke.Parser.ParseCommand;
+import duke.Parser.ParserCommand;
 import duke.Parser.Parser;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
@@ -16,7 +16,7 @@ public class Ui {
     /**
      * Declaring new Parser type.
      */
-    private ParseCommand parser = new ParseCommand();
+    private ParserCommand parser = new ParserCommand();
 
     /**
      * A method to run the program.
