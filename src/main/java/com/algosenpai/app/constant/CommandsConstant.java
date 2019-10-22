@@ -5,9 +5,15 @@ import java.util.ArrayList;
 public class CommandsConstant {
 
     public static final ArrayList<String> homeCommand = new ArrayList<>() {{
-            add("/play");
+            add("/menu");
             add("/date");
             add("/sound");
+            add("/start");
+            add("/select");
+            add("/report");
+            add("/clear");
+            add("/history");
+            add("/help");
             add("/exit");
         }};
     public static final ArrayList<String> quizCommand = new ArrayList<>() {{
@@ -15,6 +21,9 @@ public class CommandsConstant {
             add("/end");
             add("/prev");
             add("/next");
+            add("/save");
+            add("/result");
+            add("/help");
             add("/exit");
         }};
     public static final ArrayList<String> dateCommand = new ArrayList<>() {{
