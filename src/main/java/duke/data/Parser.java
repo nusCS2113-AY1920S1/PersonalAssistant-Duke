@@ -329,30 +329,7 @@ public class Parser {
             Ui viewMenu = new Ui();
             viewMenu.mainMenu();
             break;
-
-        case "1":
-            System.out.flush();
-            // Write go to direct to View Schedule (Scott)
-            Ui trainingSchedule = new Ui();
-            trainingSchedule.trainingScheduleHeading();
-            break;
-
-        case "2":
-            System.out.flush();
-            Ui manageStudents = new Ui();
-            manageStudents.manageStudentsHeading();
-            ManageStudents viewCategory = new ManageStudents();
-//                viewCategory.manageStudentsCategory();
-            // Write Code to direct to manage Students (Danish)
-            break;
-
-        case "3":
-            System.out.flush();
-            Ui trainingProgram = new Ui();
-            trainingProgram.trainingProgramHeading();
-            //Write Code to direct to Training Circuits (Jing Sen)
-            break;
-
+            
         case "plan":
             if (word[1].equals("view")) {
                 //int num = 2;
