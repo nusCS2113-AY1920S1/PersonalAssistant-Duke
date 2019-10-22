@@ -142,8 +142,8 @@ public class CapCommand extends ModuleCommand {
                 break;
             default:
                 throw new ModCommandException();
-            }
         }
+    }
 
     /**
      * User will keep inputting "[moduleCode] [letterGrade]" until satisfied.
@@ -167,8 +167,8 @@ public class CapCommand extends ModuleCommand {
                 throw new ModNotFoundException();
             }
             int mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
-            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu() ||
-                letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
+            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu()
+                || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
                 mcCount += mcTemp;
             }
             if (userInfo[1].isEmpty()) {
@@ -224,9 +224,9 @@ public class CapCommand extends ModuleCommand {
     }
 
 
-        // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
-        // check if isempty, if it is then print cap score according to the cloned list of lists
-        //}
+    // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
+    // check if isempty, if it is then print cap score according to the cloned list of lists
+    //}
 
     /**
      * Calculates CAP according to the modules with grades in the ModuleTaskList.
