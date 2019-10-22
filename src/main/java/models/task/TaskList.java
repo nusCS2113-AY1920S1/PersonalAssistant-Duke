@@ -147,8 +147,8 @@ public class TaskList {
     }
 
     /**
-     * Get details of task with closest deadline and return in String array form
-     * @return String array of details of task which has the closest deadline
+     * Get details of task with closest deadline and return in String array form.
+     * @return String array of details of task which has the closest deadline.
      */
     public String[] getClosestDeadlineTask() {
         ArrayList<String> sortedTaskList = sortHelper.sortTaskDueDate(this.taskList);
