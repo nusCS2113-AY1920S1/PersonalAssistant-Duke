@@ -1,5 +1,6 @@
 package duke.tasklist;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import duke.task.Deadline;
@@ -155,12 +156,12 @@ public class TaskList {
 
         for (Task t : taskList) {
             if (t instanceof Event) {
-                LocalDate taskDate = ((Event) t).getDatetime();
+                LocalDateTime taskDate = ((Event) t).getDateTime();
                 if (ChronoUnit.DAYS.between(currDate, taskDate) == 0) {
                     temp.add(t);
                 }
             } else if (t instanceof Deadline) {
-                LocalDate taskDate = ((Deadline) t).getDatetime();
+                LocalDateTime taskDate = ((Deadline) t).getDateTime();
                 if (ChronoUnit.DAYS.between(currDate, taskDate) == 0) {
                     temp.add(t);
                 }
@@ -182,12 +183,12 @@ public class TaskList {
 
         for (Task t : taskList) {
             if (t instanceof Event) {
-                LocalDate taskDate = ((Event) t).getDatetime();
+                LocalDateTime taskDate = ((Event) t).getDateTime();
                 if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 && ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
             } else if (t instanceof Deadline) {
-                LocalDate taskDate = ((Deadline) t).getDatetime();
+                LocalDateTime taskDate = ((Deadline) t).getDateTime();
                 if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 && ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
