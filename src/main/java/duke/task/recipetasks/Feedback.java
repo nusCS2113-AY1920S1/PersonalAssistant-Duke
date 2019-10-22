@@ -2,7 +2,9 @@ package duke.task.recipetasks;
 
 public class Feedback {
 
-    private String feedback;
+    private String feedback = "No feedback yet.";
+
+    public Feedback() {};
 
     public Feedback(int i, String feedback) {
         this.feedback = feedback;

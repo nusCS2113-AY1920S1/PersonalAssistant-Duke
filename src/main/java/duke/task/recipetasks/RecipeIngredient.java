@@ -7,6 +7,13 @@ public class RecipeIngredient {
     private double recipeIngredientQuantity;
     private String recipeIngredientWeight;
 
+    public RecipeIngredient(String recipeIngredientName, String recipeIngredientQuantity, String recipeIngredientWeight) {
+        // this.recipeIndex = recipeIndex;
+        this.recipeIngredientName = recipeIngredientName;
+        this.recipeIngredientQuantity = Double.parseDouble(recipeIngredientQuantity);
+        this.recipeIngredientWeight = recipeIngredientWeight;
+    }
+
     public RecipeIngredient(int recipeIndex, String recipeIngredientName, double recipeIngredientQuantity, String recipeIngredientWeight) {
         this.recipeIndex = recipeIndex;
         this.recipeIngredientName = recipeIngredientName;
@@ -31,10 +38,10 @@ public class RecipeIngredient {
     }
 
     public String toSaveString() {
-        return recipeIndex + " | " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight;
+        return recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight;
     }
 
     public String toString() {
-        return "[" + recipeIndex + "] " + recipeIngredientName + "[" + recipeIngredientQuantity + " " + recipeIngredientWeight + "] ";
+        return " [ " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight + "] ";
     }
 }
