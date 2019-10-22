@@ -38,7 +38,7 @@ public class LoginCommand extends Command{
     public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingStorage, Storage roomStorage, User user) throws DukeException, IOException, ParseException {
         boolean isVerified = Login.verifyLogin(splitL[1], splitL[2], "data\\members.txt");
         if (isVerified) {
-            user = Login.getUser(splitL[1], "data\\members.txt");
+            Login.setCurrentUser(splitL[1]);
             ui.addToOutput("You have successfully logged in!");
         }
         else {
