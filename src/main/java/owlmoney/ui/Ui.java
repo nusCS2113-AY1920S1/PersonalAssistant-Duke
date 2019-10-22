@@ -158,7 +158,7 @@ public class Ui {
      * Prints the bond header.
      */
     public void printBondHeader() {
-        System.out.printf("%-20s %-30s %-15s %-20s %-20s %-20s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
+        System.out.printf("%-20s %-30s %-15s %-10s %-20s %-10s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,
                 BONDYEAR);
 
         System.out.println("-----------------------------------------------------------------------------"
