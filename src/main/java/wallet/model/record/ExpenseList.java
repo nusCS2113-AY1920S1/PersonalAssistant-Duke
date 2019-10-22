@@ -107,6 +107,7 @@ public class ExpenseList {
         return expenseList.size();
     }
 
+    //@@author matthewng1996
     /**
      * Returns the monthly expenses.
      * @param month month of user expenses.
@@ -130,6 +131,7 @@ public class ExpenseList {
         return totalExpenses;
     }
 
+    //@@author
     /**
      * Lists all recurring expenses in the expense list.
      */
