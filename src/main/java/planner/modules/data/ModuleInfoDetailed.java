@@ -46,7 +46,9 @@ public class ModuleInfoDetailed {
         return preclusion;
     }
 
-    public String getPrerequisites() {return  prerequisites;}
+    public String getPrerequisites() {
+        return  prerequisites;
+    }
 
     public Attributes getAttributes() {
         return attributes;
@@ -60,6 +62,9 @@ public class ModuleInfoDetailed {
         return grade;
     }
 
+    /**
+     * Checks if module is S/U-able, and assigns grade based on String score.
+     */
     public void setGrade(String score) {
         try {
             if (score.equalsIgnoreCase("S") || score.equalsIgnoreCase("U")) {
