@@ -15,23 +15,31 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 import core.Duke;
+import utils.TasksCounter;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Window {
 
     private JFrame frame;
     private JTextField inputField;
+    private TasksCounter tasksCounter;
 
-    public static JTextArea outputArea;
+    public static Window instance;
+    public JTextArea outputArea;
+
+    private JTextField completedPercField;
 
     /**
-     * Create the application.
+     * Create the Window
      */
-    public Window() {
+    public Window(TasksCounter tc) {
+        Window.instance = this;
+        this.tasksCounter = tc;
         initialize();
         this.frame.setVisible(true);
     }
@@ -45,7 +53,7 @@ public class Window {
         frame.getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBounds(22, 397, 363, 151);
+        panel.setBounds(22, 357, 363, 191);
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         panel.setBackground(SystemColor.window);
         frame.getContentPane().add(panel);
@@ -54,13 +62,13 @@ public class Window {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(10, 10, 343, 131);
+        scrollPane.setBounds(10, 10, 343, 171);
         panel.add(scrollPane);
 
         JTextArea outputArea = new JTextArea();
         outputArea.setEditable(false);
         scrollPane.setViewportView(outputArea);
-        outputArea.setFont(new Font("Constantia", Font.PLAIN, 15));
+        outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
         outputArea.setWrapStyleWord(true);
         outputArea.setLineWrap(true);
         DefaultCaret caret = (DefaultCaret) outputArea.getCaret();
@@ -88,7 +96,23 @@ public class Window {
                 inputField.requestFocus();
             }
         });
-        Window.outputArea = outputArea;
+        this.outputArea = outputArea;
+
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(null);
+        panel2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+        panel2.setBackground(Color.WHITE);
+        panel2.setBounds(106, 307, 197, 40);
+        frame.getContentPane().add(panel2);
+
+        completedPercField = new JTextField();
+        completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
+        completedPercField.setHorizontalAlignment(SwingConstants.CENTER);
+        completedPercField.setFont(new Font("Constantia", Font.PLAIN, 15));
+        completedPercField.setColumns(10);
+        completedPercField.setBorder(BorderFactory.createEmptyBorder());
+        completedPercField.setBounds(10, 10, 177, 19);
+        panel2.add(completedPercField);
 
         Action enterPressed = new AbstractAction() {
             @Override
@@ -98,5 +122,12 @@ public class Window {
             }
         };
         inputField.addActionListener(enterPressed);
+    }
+
+    /**
+     * Updates the percentage displayed on the window
+     */
+    public void updatePercentage() {
+        completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
     }
 }
