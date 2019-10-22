@@ -39,7 +39,7 @@ class ProjectInputControllerTest {
     @Test
     void testProjectAddMember() {
         Project project = new Project("Infinity_Gauntlet");
-        String simulatedUserInput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
+        String simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project,simulatedUserInput);
         actualOutput = "";
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
@@ -52,10 +52,10 @@ class ProjectInputControllerTest {
     @Test
     void testProjectEditMember() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
+        simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
-        simulatedUserInput = "edit member 1 n/Dillen i/9123456 e/dillen@gmail.com";
+        simulatedUserInput = "edit member 1 -n Dillen -i 9123456 -e dillen@gmail.com";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
@@ -64,7 +64,7 @@ class ProjectInputControllerTest {
         expectedOutput = "1. Dillen (Phone: 9123456 | Email: dillen@gmail.com)";
         assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "edit member 1 n/Jerry";
+        simulatedUserInput = "edit member 1 -n Jerry";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
@@ -73,7 +73,7 @@ class ProjectInputControllerTest {
         expectedOutput = "1. Jerry (Phone: 9123456 | Email: dillen@gmail.com)";
         assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "edit member 1 i/911";
+        simulatedUserInput = "edit member 1 -i 911";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
@@ -82,7 +82,7 @@ class ProjectInputControllerTest {
         expectedOutput = "1. Jerry (Phone: 911 | Email: dillen@gmail.com)";
         assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "edit member 1 e/jerry@gmail.com";
+        simulatedUserInput = "edit member 1 -e jerry@gmail.com";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
@@ -287,9 +287,9 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
                 + "-r do something -r do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
-        simulatedUserInput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
+        simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
-        simulatedUserInput = "add member n/Dillen i/911 e/dillen@hotmail.com";
+        simulatedUserInput = "add member -n Dillen -i 911 -e dillen@hotmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
         simulatedUserInput = "assign task -i 1 -to 1 2";
         projectInputController.projectAssignTask(project, simulatedUserInput);
