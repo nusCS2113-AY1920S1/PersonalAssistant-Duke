@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
-import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;

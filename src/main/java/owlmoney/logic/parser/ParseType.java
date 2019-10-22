@@ -60,7 +60,7 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-            "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund"
+        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";

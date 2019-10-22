@@ -681,7 +681,7 @@ public class BankList {
         }
     }
 
-     /** Checks whether the bank object to transfer the fund actually exist in the list.
+    /** Checks whether the bank object to transfer the fund actually exist in the list.
      *
      * @param accName the bank account name.
      * @param amount  the amount to transfer.

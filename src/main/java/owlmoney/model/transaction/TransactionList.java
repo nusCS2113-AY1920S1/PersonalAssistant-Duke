@@ -126,7 +126,7 @@ public class TransactionList {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }
-            transactionLists.add(dep);
+        transactionLists.add(dep);
         if ("bank".equals(bankType) || "savings transfer".equals(bankType)
                 || "investment transfer".equals(bankType)) {
             ui.printMessage("Added deposit with the following details:");

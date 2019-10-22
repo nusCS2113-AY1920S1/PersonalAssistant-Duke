@@ -501,6 +501,7 @@ public class Profile {
             throws BankException, TransactionException {
         if ("card".equals(type)) {
             //card recurring transaction
+            System.out.println("Do card recurring transaction here");
         } else if ("bank".equals(type)) {
             bankList.bankListEditRecurringExpenditure(accountName, index, description, amount, category, ui);
         }

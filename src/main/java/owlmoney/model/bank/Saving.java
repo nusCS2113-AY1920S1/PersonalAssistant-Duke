@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.RecurringExpenditureList;
@@ -249,6 +248,7 @@ public class Saving extends Bank {
             throws BankException {
         DateFormat dateOutputFormat = new SimpleDateFormat("dd MMMM yyyy");
         Date expenditureDate = null;
+        boolean currentState = outdatedState;
         try {
             expenditureDate = dateOutputFormat.parse(recurringExpenditure.getDate());
         } catch (ParseException e) {
@@ -264,9 +264,9 @@ public class Saving extends Bank {
             calendar.setTime(expenditureDate);
             calendar.add(Calendar.MONTH, 1);
             recurringExpenditure.setDate(calendar.getTime());
-            outdatedState = true;
+            currentState = true;
         }
-        return outdatedState;
+        return currentState;
     }
 
     /**
