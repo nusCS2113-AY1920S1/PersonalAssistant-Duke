@@ -9,6 +9,7 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * Represents the data structure containing all tasks added to the task manager
@@ -34,6 +35,16 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> tasks) {
         taskList = tasks;
+    }
+
+    public TaskList(TaskList list, Optional<String> filter) {
+        taskList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            Task t = list.get(i);
+            if (t.getFilter().equals(filter)) {
+                taskList.add(t);
+            }
+        }
     }
 
     /**

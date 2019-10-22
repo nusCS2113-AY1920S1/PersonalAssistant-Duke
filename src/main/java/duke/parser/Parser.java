@@ -27,7 +27,6 @@ public class Parser {
         }
         String[] fcArray = fullCommand.split(" ", 2);
         String keyword = fcArray[0];
-        System.out.println(fcArray.length);
 
         switch (keyword) {
             case "bye":
