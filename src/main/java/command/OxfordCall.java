@@ -44,7 +44,6 @@ public class OxfordCall {
 
     /**
      * Request for metaData
-     * @author Ng Jian Wei
      * Searches for the word online.
      * @param word word to be searched
      * @return Meanings found by online dictionary

@@ -1,1 +1,4 @@
 
+plane: a flying vehicle
+purple: a purple colour
+papaya: a tropical fruit shaped like an elongated melon with edible orange flesh and small black seeds

@@ -21,7 +21,7 @@ public class AddSynonymCommand extends Command {
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
         try {
-            HashSet<String> synonymList = wordBank.addTag(mainWord, synonyms);
+            HashSet<String> synonymList = wordBank.addSyn(mainWord, synonyms);
             return ui.showAddSyn(mainWord, synonyms, synonymList);
         } catch (NoWordFoundException e) {
             return e.showError();
