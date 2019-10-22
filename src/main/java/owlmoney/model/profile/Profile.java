@@ -419,11 +419,12 @@ public class Profile {
      * @param amount   new target amount to reach for the goal.
      * @param date     new targeted date to meet goal.
      * @param newName  new name for the goal.
-     * @param savingName
+     * @param savingName new saving name for goal.
      * @param ui       required for printing.
      * @throws GoalsException If goal does not exists.
      */
-    public void profileEditGoals(String goalName, String amount, Date date, String newName, Bank savingName, Ui ui) throws GoalsException {
+    public void profileEditGoals(String goalName, String amount, Date date, String newName, Bank savingName, Ui ui)
+            throws GoalsException {
         goalsList.editGoals(goalName, amount, date, newName, savingName, ui);
     }
 
@@ -434,7 +435,7 @@ public class Profile {
      * @return Total amount in Saving Account.
      * @throws BankException If no savingBankName is found.
      */
-    public Bank profileGetSavingAccount (String savingBankName) throws BankException {
+    public Bank profileGetSavingAccount(String savingBankName) throws BankException {
         return bankList.bankListGetSavingAccount(savingBankName);
     }
 

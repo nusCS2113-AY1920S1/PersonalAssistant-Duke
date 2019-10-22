@@ -54,7 +54,6 @@ public class ParseAddGoals extends ParseGoals {
             }
             if (BY.equals(key) && (!value.isBlank())) {
                 by = checkDate(value);
-               // countNumOfDays(,by);
             }
 
             if (IN.equals(key) && (!value.isBlank())) {

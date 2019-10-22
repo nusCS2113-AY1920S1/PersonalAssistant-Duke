@@ -8,9 +8,12 @@ import owlmoney.logic.regex.RegexUtil;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-// /add /goals /name /amount /by <DATE> /in <DAYS> /from <BANK NAME>
 
 /**
  * Abstracts common Goals methods and functions where the child parsers will inherit from.
@@ -20,7 +23,8 @@ public abstract class ParseGoals {
     ParseRawData parseRawData = new ParseRawData();
     String rawData;
 
-    private static final String[] GOALS_KEYWORD = new String[] {"/name", "/amount", "/by", "/newname", "/from", "/num", "/in"};
+    private static final String[] GOALS_KEYWORD = new String[]{"/name", "/amount", "/by",
+        "/newname", "/from", "/num", "/in"};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
     static final String NAME = "/name";
     static final String AMOUNT = "/amount";
@@ -123,7 +127,7 @@ public abstract class ParseGoals {
             Date date;
             try {
                 date = temp.parse(dateString);
-                if (date.compareTo(new Date()) < 0) {
+                if (((Date) date).compareTo(new Date()) < 0) {
                     throw new ParserException("/date has already passed");
                 }
                 return date;
@@ -138,7 +142,7 @@ public abstract class ParseGoals {
     /**
      * Checks if days set for goal is valid format.
      *
-     * @param variable number of days.
+     * @param variable    number of days.
      * @param valueString value of number of days.
      * @throws ParserException If days is set too long after or contain invalid parameters.
      */
@@ -162,7 +166,7 @@ public abstract class ParseGoals {
         calendar.add(Calendar.DATE, day);
         return calendar.getTime();
     }
-    
+
     /**
      * Abstract method where each goal parser performs different checks on the parameters.
      *

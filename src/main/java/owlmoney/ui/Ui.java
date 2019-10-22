@@ -133,7 +133,8 @@ public class Ui {
      * Prints the goal header.
      */
     public void printGoalHeader() {
-        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME, GOALPROGRESS, GOALDATE, GOALACHIEVED);
+        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME,
+                GOALPROGRESS, GOALDATE, GOALACHIEVED);
 
         System.out.println("-----------------------------------------------------------------------------"
                 + "----------------------------------------------------");
@@ -147,8 +148,10 @@ public class Ui {
      * @param amount Represents the amount to save up in the goal.
      * @param date   Represents the date to accomplish the goal.
      */
-    public void printGoal(int num, String name, String amount, String bankName, String progress, String date, String achieved) {
-        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress, date, achieved);
+    public void printGoal(int num, String name, String amount, String bankName, String progress, String date,
+                          String achieved) {
+        System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-20s %n", num, name, amount, bankName, progress,
+                date, achieved);
     }
 
     /**

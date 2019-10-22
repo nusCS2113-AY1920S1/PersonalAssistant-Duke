@@ -45,12 +45,12 @@ public class AddGoalsCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException, BankException {
         Goals newGoals;
-        if(savingName.isBlank()) {
+        if (savingName.isBlank()) {
             newGoals = new Goals(this.name, this.amount, this.date);
 
         } else {
             Bank savingAccount = profile.profileGetSavingAccount(savingName);
-            newGoals = new Goals(this.name, this.amount,this.date, savingAccount);
+            newGoals = new Goals(this.name, this.amount, this.date, savingAccount);
         }
         profile.profileAddGoals(newGoals, ui);
         return this.isExit;

@@ -123,7 +123,8 @@ public class GoalsList {
      * @throws GoalsException If date is not in correct format, or changing to a name that already exists,
      *                        or no goal with the goalName.
      */
-    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc, Ui ui) throws GoalsException {
+    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc, Ui ui)
+            throws GoalsException {
         for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalList.get(i).getGoalsName().equals(goalName)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -135,13 +136,6 @@ public class GoalsList {
                 }
                 if (date != null) {
                     goalList.get(i).setGoalsDate(date);
-                    /*DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        goalList.get(i).setGoalsDate(temp.parse(date));
-                    } catch (ParseException e) {
-                        //check handled in ParseEditGoals
-                        throw new GoalsException(e.toString());
-                    }*/
                 }
                 if (savingAcc != null) {
                     goalList.get(i).setSavingAcc(savingAcc);

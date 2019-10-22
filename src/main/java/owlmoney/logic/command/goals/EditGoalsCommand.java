@@ -23,7 +23,8 @@ public class EditGoalsCommand extends Command {
 
     /**
      * Creates an instance of AddSavingCommand.
-     *  @param name    Name of goal object.
+     *
+     * @param name    Name of goal object.
      * @param amount  Income of new goal object.
      * @param date    Initial amount of new goal object.
      * @param newName New name of the goal object
@@ -46,7 +47,7 @@ public class EditGoalsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException, BankException {
-        if(!(savingName.isEmpty() || savingName.isBlank())) {
+        if (!(savingName.isEmpty() || savingName.isBlank())) {
             savingAccount = profile.profileGetSavingAccount(savingName);
         }
         profile.profileEditGoals(name, amount, date, newName, savingAccount, ui);

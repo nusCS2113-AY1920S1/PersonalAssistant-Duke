@@ -54,7 +54,7 @@ public class ParseEditGoals extends ParseGoals {
                 by = checkDate(value);
                 changeCounter++;
             }
-            if(FROM.equals(key) && !(value.isEmpty() || value.isBlank())) {
+            if (FROM.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkName(FROM, value);
                 changeCounter++;
             }
