@@ -1,16 +1,15 @@
-package duke.command;
+package duke.command.ingredientCommand;
 
-import duke.Dishes.DishList;
+import duke.command.Cmd;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FindToday extends Command {
+public class FindToday extends Cmd<TaskList> {
     private Date today = new Date();
     private String pattern = "dd/MM/yyyy";
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -21,7 +20,7 @@ public class FindToday extends Command {
         return false;
     }
 
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
 

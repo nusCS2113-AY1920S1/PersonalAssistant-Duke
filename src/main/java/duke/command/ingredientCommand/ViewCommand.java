@@ -1,18 +1,19 @@
-package duke.command;
+package duke.command.ingredientCommand;
 
-import duke.Dishes.DishList;
+import duke.command.Cmd;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
+
 import java.util.Date;
 
 /**
- * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}.
+ * Represents a specific {@link Cmd} used to find a String occurring in the {@link TaskList}.
  * One of the B-Extensions.
  * @author x3chillax
  */
-public class ViewCommand extends Command {
+public class ViewCommand extends Cmd<TaskList> {
 
     private Date toView;
 
@@ -21,7 +22,7 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         try {

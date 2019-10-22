@@ -1,7 +1,7 @@
-package duke.command;
+package duke.command.ingredientCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -14,14 +14,14 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author 9hafidz6
  */
-public class RemindCommand extends Command {
+public class RemindCommand extends Cmd<TaskList> {
 
     public RemindCommand() {
         //An empty constructor method
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         int num = 1;
         LocalDate date = LocalDate.now();
         LocalDate date1 = date.plusDays(5);
