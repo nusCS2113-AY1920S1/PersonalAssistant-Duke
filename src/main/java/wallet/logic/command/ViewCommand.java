@@ -1,3 +1,5 @@
+//@@author matthewng1996
+
 package wallet.logic.command;
 
 import wallet.model.Wallet;
@@ -14,7 +16,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " budget 01/2019";
 
-    private String[] type;
+    public String[] type;
 
     public ViewCommand(String... type) {
         this.type = type;

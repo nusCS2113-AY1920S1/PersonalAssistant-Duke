@@ -23,7 +23,7 @@ public class Ui {
         sc = new Scanner(System.in);
     }
 
-
+    //@@author matthewng1996
     /**
      * Prints the welcome message of the program.
      */
@@ -41,6 +41,7 @@ public class Ui {
         printLine();
     }
 
+    //@@author
     /**
      * Prints the goodbye message when the user exits the program.
      */
@@ -92,6 +93,7 @@ public class Ui {
         System.out.println("Total amount spent: $" + total);
     }
 
+    //@@author matthewng1996
     public void drawPieChart() {
         ChartThread chartThread = new ChartThread();
         System.out.println("Please wait while we draw the pie chart...");

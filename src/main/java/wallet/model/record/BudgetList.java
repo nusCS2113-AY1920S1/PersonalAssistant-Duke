@@ -1,3 +1,5 @@
+//@@author matthewng1996
+
 package wallet.model.record;
 
 import java.util.ArrayList;
