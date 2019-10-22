@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
      * @param text the text portion of the label is passed in through this parameter.
      * @param image the image portion of the label is passed in through this parameter.
      */
-    private DialogBox(String text, Image image) {
+    private DialogBox(String text, Image image, Boolean isDuke) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -33,7 +33,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         displayPicture.setImage(image);
     }
@@ -45,8 +44,12 @@ public class DialogBox extends HBox {
      * @param text the text portion of the label designated for the user is passed in through this parameter.
      * @param image the image portion of the label designated for the user is passed in through this parameter.
      */
-    public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(text, image);
+    public static DialogBox getUserDialog(String text, Image image, Boolean isDuke) {
+        return new DialogBox(text, image, isDuke);
+    }
+
+    public static DialogBox getDukeDialog(String text, Image image, Boolean isDuke) {
+        return new DialogBox(text, image, isDuke);
     }
 
 }
