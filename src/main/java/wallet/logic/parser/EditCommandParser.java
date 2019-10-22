@@ -6,10 +6,6 @@ import wallet.model.contact.Contact;
 import wallet.model.record.Category;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
-import wallet.ui.Ui;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

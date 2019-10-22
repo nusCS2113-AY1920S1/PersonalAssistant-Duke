@@ -62,7 +62,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws NumberFormatException          Wrong format.
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
-    private Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+    public Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
         boolean isRecurring = input.contains("/r");
         String[] arguments = input.split("\\$");
         String desc = arguments[0].trim();

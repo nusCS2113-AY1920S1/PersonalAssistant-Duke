@@ -6,7 +6,6 @@ import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.ui.Ui;
 
-
 /**
  * EditCommand Class deals with commands that involves
  * in editing a specific object
