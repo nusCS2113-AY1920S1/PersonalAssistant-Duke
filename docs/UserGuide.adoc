@@ -1,4 +1,4 @@
-= ModPlan v1.1 - User Guide
+= ModPlan v1.3 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
