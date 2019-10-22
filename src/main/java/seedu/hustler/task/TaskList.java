@@ -237,9 +237,9 @@ public class TaskList {
      */
     public void removeTask(int i) {
         try {
-            final Task removedTask = list.get(i);
+            String taskDescription = list.get(i).toString();
             list.remove(i);
-            ui.show_task_removed(list, removedTask.toString());
+            ui.show_task_removed(list, taskDescription);
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
