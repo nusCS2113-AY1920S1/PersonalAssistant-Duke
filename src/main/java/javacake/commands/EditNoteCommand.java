@@ -11,19 +11,28 @@ import java.io.*;
 
 public class EditNoteCommand extends Command {
 
-    private String defaultDirectoryPath = "src/main/resources/notes/";
+    private String defaultDirectoryPath = "data/notes/";
     private static String nameOfEditFile;
     private static String currentFilePath;
+
     private static String headingMessage = "Write your notes below!\n" +
             "To save edited content, type '/save' and enter!\n";
-    private static String secondHeadingMessage = "Below is your previous saved content! Copy your previous content and edit accordingly\n" +
-                "To save edited content, type '/save' and enter!\n";
+
     private static String endingMessage = "Edited file is saved!\n";
 
+    /**
+     * Constructor for EditNoteCommand.
+     * Checks if command has two parameters - "editnote" and "name of file to be edited".
+     * Checks if "name of file to be edited" exists.
+     * If former checks passed, update nameOfEditFile and currentFilePath variables.
+     * Else inform user to either provide valid file name or valid EditNoteCommand.
+     * @param inputCommand Input command from the user.
+     * @throws DukeException if invalid command or invalid file name.
+     */
     public EditNoteCommand(String inputCommand) throws DukeException {
         type = CmdType.EDITNOTE;
         String[] wordsInInputCommand = inputCommand.split("\\s+");
-        if (wordsInInputCommand.length == 2 ) {
+        if (wordsInInputCommand.length == 2) {
             if (fileExist(wordsInInputCommand[1])) {
                 nameOfEditFile = wordsInInputCommand[1];
                 createCurrentFilePath();
@@ -71,7 +80,7 @@ public class EditNoteCommand extends Command {
 
     private void readAndSaveNewContent() throws DukeException{
         BufferedWriter bw;
-        try{
+        try {
             Ui ui = new Ui();
             bw = new BufferedWriter(new FileWriter(new File(currentFilePath)));
             String lineRead;
@@ -111,11 +120,14 @@ public class EditNoteCommand extends Command {
             //System.out.println("hello");
             return headingMessage;
         } else {
+            String secondHeadingMessage = "Below is your previous saved content! " +
+                    "Copy your previous content and edit accordingly\n" +
+                    "To save edited content, type '/save' and enter!\n";
             return secondHeadingMessage + readTextFileContent();
         }
     }
     public static void clearTextFileContent() throws DukeException {
-        try  {
+        try {
             PrintWriter pw = new PrintWriter(currentFilePath);
             pw.close();
         } catch (FileNotFoundException e) {
@@ -141,7 +153,7 @@ public class EditNoteCommand extends Command {
 
     public static String writeSaveGui(String input) throws DukeException {
         BufferedWriter bw;
-        try{
+        try {
             bw = new BufferedWriter(new FileWriter(new File(currentFilePath), true));
             bw.write(input);
             bw.newLine();

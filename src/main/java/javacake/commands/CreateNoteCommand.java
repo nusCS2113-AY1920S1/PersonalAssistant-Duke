@@ -12,9 +12,9 @@ import java.io.IOException;
 public class CreateNoteCommand extends Command {
 
     private String defaultFileName = "Notes";
-    private static int defaultFileNameCounter = 1;
-    private String defaultDirectoryPath = "src/main/resources/notes/";
     private static String userGivenFileName = "Notes";
+    private static int defaultFileNameCounter = 1;
+    private String defaultDirectoryPath = "data/notes/";
 
     public CreateNoteCommand(String inputCommand) throws DukeException{
         type = CmdType.CREATENOTE;
