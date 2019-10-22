@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.lists;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeDuplicateTaskException;

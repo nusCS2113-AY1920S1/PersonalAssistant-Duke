@@ -3,8 +3,9 @@ package duke;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.Model;
-import duke.model.TaskList;
-import duke.model.VenueList;
+import duke.model.lists.EventList;
+import duke.model.lists.TaskList;
+import duke.model.lists.VenueList;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.locations.BusStop;
@@ -56,8 +57,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Task> getEventList() {
-        return tasks.getEventList();
+    public EventList getEventList() {
+        return new EventList(tasks);
     }
 
     @Override

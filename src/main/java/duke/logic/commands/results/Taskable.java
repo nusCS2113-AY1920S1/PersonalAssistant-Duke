@@ -1,6 +1,6 @@
 package duke.logic.commands.results;
 
-import duke.model.TaskList;
+import duke.model.lists.TaskList;
 
 public interface Taskable {
 

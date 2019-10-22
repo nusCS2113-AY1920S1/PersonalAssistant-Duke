@@ -1,10 +1,10 @@
 package duke.logic.commands.results;
 
-import duke.model.TaskList;
+import duke.model.lists.EventList;
 
-public class CommandResultCalender extends CommandResult implements Calenderable, Taskable {
+public class CommandResultCalender extends CommandResult implements Calenderable {
     private String message;
-    private TaskList tasks;
+    private EventList events;
 
     /**
      * Constructs a basic CommandResultCalender object.
@@ -16,13 +16,13 @@ public class CommandResultCalender extends CommandResult implements Calenderable
     }
 
     @Override
-    public void setTasks(TaskList tasks) {
-        this.tasks = tasks;
+    public void setEvents(EventList events) {
+        this.events = events;
     }
 
     @Override
-    public TaskList getTasks() {
-        return tasks;
+    public EventList getEvents() {
+        return events;
     }
 
     @Override

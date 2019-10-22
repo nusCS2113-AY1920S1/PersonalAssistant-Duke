@@ -4,12 +4,13 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.events.Event;
 import duke.model.events.Task;
+import duke.model.lists.EventList;
+import duke.model.lists.TaskList;
+import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +62,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Task> getEventList() {
-        return tasks.getEventList();
+    public EventList getEventList() {
+        return new EventList(tasks);
     }
 
     @Override

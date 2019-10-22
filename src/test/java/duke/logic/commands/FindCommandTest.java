@@ -14,5 +14,7 @@ class FindCommandTest {
         Command c = new FindCommand("meow");
         ModelStub modelStub = new ModelStub();
         assertTrue(c.execute(modelStub) instanceof CommandResultText);
+        Command b = new FindCommand("moo");
+        assertTrue(b.execute(modelStub) instanceof CommandResultText);
     }
 }

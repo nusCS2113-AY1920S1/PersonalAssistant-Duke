@@ -47,8 +47,6 @@ public class Parser {
             return new FindCommand(getWord(input));
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(input));
-        case "fetch":
-            return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(input)));
         case "search":
             return new LocationSearchCommand(getWord(input));
         case "busStop":
@@ -86,6 +84,8 @@ public class Parser {
             return new ListCommand();
         case "help":
             return new HelpCommand();
+        case "fetch":
+            return new ViewScheduleCommand();
         default:
             return parseComplexCommand(userInput);
         }

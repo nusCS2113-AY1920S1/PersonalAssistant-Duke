@@ -61,7 +61,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.getScene().getStylesheets().addAll(
                 this.getClass().getResource("/css/mainStyle.css").toExternalForm());
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        logger.log(Level.INFO, "Starting SGTravel up...");
+        logger.log(Level.INFO, "Starting user interface up...");
     }
 
     /**

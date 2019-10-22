@@ -3,7 +3,7 @@ package duke.storage;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.ParserStorageUtil;
-import duke.model.TaskList;
+import duke.model.lists.TaskList;
 import duke.model.events.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;

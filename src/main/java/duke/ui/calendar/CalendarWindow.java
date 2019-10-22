@@ -1,10 +1,8 @@
 package duke.ui.calendar;
 
 import duke.logic.commands.results.CommandResultCalender;
-import duke.commons.exceptions.DukeException;
-import duke.model.TaskList;
-import duke.model.events.Task;
-import duke.model.events.TaskWithDates;
+import duke.model.lists.EventList;
+import duke.model.events.Event;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
@@ -24,8 +22,8 @@ public class CalendarWindow extends UiPart<Stage> {
     private int numOfDays;
     private int dayOfTheFirstDay;
     private String currentMonth;
-    private List<TaskList> filteredTasks;
-    private static TaskList tasks;
+    private List<EventList> filteredEvents;
+    private static EventList events;
     private static final int MAX_ROW = 6;
     private static final int MAX_COL = 7;
 
@@ -78,7 +76,7 @@ public class CalendarWindow extends UiPart<Stage> {
                     flag = true;
                 }
                 if (flag) {
-                    gridCalendar.add(CalendarCard.getCalendarCard(day, filteredTasks.get(day)), j, i);
+                    gridCalendar.add(CalendarCard.getCalendarCard(day, filteredEvents.get(day)), j, i);
                     ++day;
                 }
             }
@@ -100,18 +98,13 @@ public class CalendarWindow extends UiPart<Stage> {
      * Finds the tasks that needs to be displayed.
      */
     private void findRelevantTasks() {
-        filteredTasks = new ArrayList<>();
-        List<Task> sortedTask = tasks.getChronoList();
+        filteredEvents = new ArrayList<>();
         for (int i = 0; i <= numOfDays; ++i) {
-            filteredTasks.add(new TaskList());
+            filteredEvents.add(new EventList());
         }
-        for (Task t : sortedTask) {
-            try {
-                tryAddingTask(t);
-            } catch (DukeException e) {
-                //remove this later
-                System.out.println(e.getMessage());
-            }
+        events.sort();
+        for (Event event : events) {
+            tryAddingTask(event);
         }
     }
 
@@ -119,12 +112,15 @@ public class CalendarWindow extends UiPart<Stage> {
      * Tries to add a task to the current calendar.
      *
      * @param t A task from the Duke's task list.
-     * @throws DukeException If the task cannot be added.
      */
-    private void tryAddingTask(Task t) throws DukeException {
-        LocalDate startDate = ((TaskWithDates) t).getStartDate().toLocalDate();
-        if (isSameYearMonth(startDate)) {
-            filteredTasks.get(startDate.getDayOfMonth()).add(t);
+    private void tryAddingTask(Event t) {
+        LocalDate startDate = t.getStartDate().toLocalDate();
+        LocalDate endDate = t.getEndDate().toLocalDate();
+        while (!startDate.isAfter(endDate)) {
+            if (isSameYearMonth(startDate)) {
+                filteredEvents.get(startDate.getDayOfMonth()).add(t);
+            }
+            startDate = startDate.plusDays(1);
         }
     }
 
@@ -136,20 +132,20 @@ public class CalendarWindow extends UiPart<Stage> {
     /**
      * Sets the calendar layout.
      *
-     * @param tasks The task list from Duke containing all the tasks.
+     * @param events The EventList from SGTravel containing all the events.
      */
-    private void setCalendarLayout(TaskList tasks) {
-        setCalendarBasics(tasks);
+    private void setCalendarLayout(EventList events) {
+        setCalendarBasics(events);
         refreshCalendar();
     }
 
     /**
      * Sets the basic information of the calendar; current month, year and tasks.
      */
-    private void setCalendarBasics(TaskList tasks) {
+    private void setCalendarBasics(EventList events) {
         ZoneId zoneId = ZoneId.systemDefault(); //GMT +8
         currentYearMonth = YearMonth.now(zoneId).minusMonths(0);
-        CalendarWindow.tasks = tasks;
+        CalendarWindow.events = events;
     }
 
     /**
@@ -157,17 +153,17 @@ public class CalendarWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    private CalendarWindow(Stage root, TaskList tasks) {
+    private CalendarWindow(Stage root, EventList events) {
         super(FXML, root);
         root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/calendarStyle.css").toExternalForm());
-        setCalendarLayout(tasks);
+        setCalendarLayout(events);
     }
 
     /**
      * Creates a new CalendarWindow.
      */
     public CalendarWindow(CommandResultCalender commandResult) {
-        this(new Stage(), commandResult.getTasks());
+        this(new Stage(), commandResult.getEvents());
     }
 
     /**

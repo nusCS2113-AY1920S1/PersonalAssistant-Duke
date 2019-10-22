@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.lists;
 
 import duke.model.events.Event;
 import duke.model.events.Task;

@@ -2,7 +2,7 @@ package duke.logic;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.model.VenueList;
+import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
