@@ -3,6 +3,8 @@ import duke.exception.DukeException;
 import duke.extensions.Priority;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
@@ -21,6 +23,7 @@ public class Task {
     protected Priority priority;
     protected Optional<String> filter;
     protected int duration;
+    protected Optional<LocalDateTime> dateTime;
 
     /**
      * Constructor function for duke.task.Task
@@ -30,7 +33,8 @@ public class Task {
      *
      * @param description the description of the task
      */
-    public Task(String description, Optional<String> filter, String recurrencePeriod, int duration) {
+    public Task(String description, Optional<String> filter, String recurrencePeriod,
+                int duration, Optional<LocalDateTime> dateTime) {
         this.description = description;
         this.isDone = false;
         this.key = "";
@@ -49,6 +53,7 @@ public class Task {
         }
         this.filter = filter;
         this.duration = duration;
+        this.dateTime = dateTime;
     }
 
     /**
@@ -155,7 +160,18 @@ public class Task {
      * @return the description of the task
      */
     public String getDescription() {
-        return this.description;
+        return dateTime.map(localDateTime ->
+            this.description + " " +
+            localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")))
+            .orElseGet(() -> this.description);
+    }
+
+    public boolean hasDateTime() {
+        return dateTime.isPresent();
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime.get();
     }
 
     @Override
@@ -169,6 +185,9 @@ public class Task {
             recurringDescription = "every week";
             recurringIcon = "[R]";
         }
-        return recurringIcon + key + "[" + this.getStatusIcon() + "] " + description + recurringDescription;
+        return recurringIcon + key + "[" + this.getStatusIcon() + "] " + description + recurringDescription
+                + (dateTime.isPresent()
+                ? " (" + dateTime.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")"
+                : "");
     }
 }

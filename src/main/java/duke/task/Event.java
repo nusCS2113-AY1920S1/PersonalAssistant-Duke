@@ -10,7 +10,6 @@ import java.util.Optional;
  * Describes specific type of task which can be classified as an event
  */
 public class Event extends Task {
-	private LocalDateTime datetime;
 
 	/**
 	 * Constructor for duke.task.Event
@@ -20,24 +19,8 @@ public class Event extends Task {
 	 * @param description the description of the event
 	 * @param at the date and time at which the event will be held
 	 */
-	public Event(String description, Optional<String> filter, String recurrencePeriod, int duration, LocalDateTime at) {
-		super(description, filter, recurrencePeriod, duration);
-		this.datetime = at;
+	public Event(String description, Optional<String> filter, String recurrencePeriod, int duration, Optional<LocalDateTime> dateTime) {
+		super(description, filter, recurrencePeriod, duration, dateTime);
 		this.key = "[E]";
-	}
-
-	public LocalDateTime getDateTime() {
-		return this.datetime;
-	}
-
-	@Override
-	public String getDescription() {
-		return super.getDescription() + " (at: " +
-				datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
-	}
-
-	@Override
-	public String toString() {
-		return super.toString() + " (at: " + datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
 	}
 }
