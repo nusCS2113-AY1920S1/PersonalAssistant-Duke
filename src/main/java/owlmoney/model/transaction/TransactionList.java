@@ -107,7 +107,7 @@ public class TransactionList {
      */
     public void addExpenditureToList(Transaction exp, Ui ui, String type) {
         expLists.add(exp);
-        if (!"bond".equals(type)) {
+        if (!"bonds".equals(type)) {
             ui.printMessage("Added expenditure with the following details:");
             printOneTransaction(ONE_INDEX, exp, ISSINGLE, ui);
         }
