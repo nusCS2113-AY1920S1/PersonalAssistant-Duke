@@ -31,6 +31,7 @@ and completed.
 [width="100%",cols="25%, <75%", options="header"]
 |=======================================================================
 | Revision Date | Summary of Changes
+| 23 October 2019   | Version 1.0: Added implementation design for
 | 22 October 2019   | Version 0.9: Updated Architecture Design
 | 15 October 2019   | Version 0.8: Updated the name of project from Duke to ArchDuke
 | 2 October 2019    | Version 0.7: Updated Prerequisites and removed unwanted lines
@@ -110,7 +111,7 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 == 2. Design
 
-=== 2.1. Architecture
+=== 2.1. Architecture Design
 
 .Architecture Diagram
 image::images/ArchDuke_Architecture.png[]
@@ -141,6 +142,7 @@ cleaning, or object creation.
 * `Repository` layer: Responsible for holding data in-memory
 * `Data` layer: Responsible for saving and loading persistent data from hard disk.
 
+Each layer will be discussed in detail below.
 // Each of the four components
 
 // * Defines its _API_ in an `interface` with the same name as the Component.
@@ -161,35 +163,47 @@ cleaning, or object creation.
 
 // The sections below give more details of each component.
 
-// [[Design-Ui]]
-// === 2.2. UI component
+=== 2.2. View Layer
+Our main UI Component is a class called CLIView. It is mainly responsible for reading the user input and displaying
+formatted messages to the user.
+
+When ArchDuke is running, CLIView repeatedly reads the user input line by line, and sends it to the parsing components
+(Controllers) to make sense of the input. Eventually, the controllers will retrieve the relevant messages and
+information for CLIView to display. Currently, the main CLIView is being called directly by the controllers to execute
+the commands by coordinating all other components.
 
 // .Structure of the UI Component
 // image::UiClassDiagram.png[]
 
-// *API* : link:{repoURL}/src/main/java/seedu/address/views.ui/Ui.java[`Ui.java`]
-
-// The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
-// The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/views.ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
-
-// The `UI` component,
-
-// * Executes user commands using the `Logic` component.
-// * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
-// [[Design-Logic]]
-// === 2.3. Logic component
+=== 2.3. Controller Layer
 
 // [[fig-LogicClassDiagram]]
 // .Structure of the Logic Component
 // image::LogicClassDiagram.png[]
-
 // *API* :
 // link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-// [[Design-Model]]
-// === 2.4. Model component
+==== 2.3.1 ConsoleInputController
+
+==== 2.3.2 ProjectInputController
+
+==== 2.3.3 AssignmentController
+AssignmentController is a class which acts as a parser for commands regarding the assignment of tasks to group members.
+
+*Rationale for implementation*
+
+Before the implementation of AssignmentController, the parsing of assign commands was planned to be done within the
+ProjectInputController class. However, we realised that parsing for assignment commands would be extremely complex due
+to the potentially high number of arguments.
+
+* Example command: `assign task -i 1 2 -to 1 2 3 -rm 4 5`
+
+The task index numbers (1, 2) , assignee indexes (1, 2, 3) and unassigned indexes (4, 5) must be parsed. They should also be validated to ensure that the index numbers exist, and do not cause errors/exceptions such as IndexOutOfBoundException. From the parsed input, task assignments can then be managed. Therefore, the AssignmentController was created for the following reasons:
+
+1. To ensure that these 3 parts of the input can be easily managed
+2. To isolate the assignment commands to avoid making the code in projectInputController too long
+
+=== 2.4. Repository layer
 
 // .Structure of the Model Component
 // image::ModelClassDiagram.png[]
@@ -208,8 +222,7 @@ cleaning, or object creation.
 //  +
 // image:BetterModelClassDiagram.png[]
 
-// [[Design-Storage]]
-// === 2.5. Storage component
+=== 2.5. Data Layer
 
 // .Structure of the Storage Component
 // image::StorageClassDiagram.png[]
