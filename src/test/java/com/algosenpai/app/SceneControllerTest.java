@@ -1,10 +1,8 @@
 package com.algosenpai.app;
 
-import com.algosenpai.app.constant.JavaFxConstant;
-import com.algosenpai.app.controller.SceneController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,18 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.matcher.control.TextMatchers;
 
 public class SceneControllerTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Pane mainNode = FXMLLoader.load(SceneController.class.getResource("/view/home.fxml"));
-        SceneController.setRoot(mainNode);
-        stage.setScene(new Scene(mainNode, JavaFxConstant.windowWidth, JavaFxConstant.windowHeight));
+        Parent fxmlSplashScreen = FXMLLoader.load(getClass().getResource("/view/SplashScreen.fxml"));
+        Scene splashScreen = new Scene(fxmlSplashScreen, 600, 400);
+        stage.setScene(splashScreen);
         stage.show();
-        stage.toFront();
     }
 
     @BeforeAll
@@ -37,8 +33,8 @@ public class SceneControllerTest extends ApplicationTest {
 
     @Test
     void testInterfaceRendering() {
-        clickOn("#sceneTitle");
-        FxAssert.verifyThat("#sceneTitle", TextMatchers.hasText("Welcome to AlgoSenpai Adventures!"));
+        clickOn("#appTitle");
+        FxAssert.verifyThat("#appTitle", TextMatchers.hasText("Welcome to AlgoSenpai Adventures!"));
     }
 
 }

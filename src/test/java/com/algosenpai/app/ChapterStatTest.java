@@ -2,6 +2,7 @@ package com.algosenpai.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.algosenpai.app.stats.ChapterStat;
 import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 

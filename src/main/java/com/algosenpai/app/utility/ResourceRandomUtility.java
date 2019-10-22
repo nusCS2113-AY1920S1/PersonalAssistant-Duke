@@ -1,7 +1,5 @@
 package com.algosenpai.app.utility;
 
-import com.algosenpai.app.constant.ImagesEnum;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
