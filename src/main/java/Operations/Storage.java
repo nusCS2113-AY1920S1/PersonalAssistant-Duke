@@ -120,7 +120,7 @@ public class Storage {
                     }
                 }
             }
-        } catch (IOException | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | IndexOutOfBoundsException e) {
             throw new RoomShareException(ExceptionType.wrongFormat);
         }
         return (taskArrayList);
