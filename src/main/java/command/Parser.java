@@ -48,7 +48,16 @@ public class Parser {
                 } else {
                     process.addProject(input, ui, projectmap);
                 }
-            } else if (currentProject == null) {
+            } else if (instr.isDeleteProject(input)) {
+                Project deletedProject = process.deleteProject(input, ui, projectmap);
+                if (currentProject == deletedProject) {
+                    currentProject = null;
+                }
+            } else if (instr.isGoToProject(input)) {
+                currentProject = process.goToProject(input, ui, projectmap);
+            }
+
+            else if (currentProject == null) {
                 process.noProject(ui);
             } else if (instr.isList(input)) {
                 //print out current list

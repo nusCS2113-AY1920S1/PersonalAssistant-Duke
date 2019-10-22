@@ -60,12 +60,23 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void printAddProject(Project newProject) {
+    public void printAddProject(Project newProject, int projectsize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this project:");
         System.out.println("\t" + "Name: " + newProject.projectname);
         System.out.println("\t" + "Budget: " + newProject.budget);
         System.out.println("\t" + "Spending: " + newProject.spending);
+        System.out.println("\t" + "There are " + projectsize + " projects in the record.");
+        System.out.print(line);
+    }
+
+    public void printDeleteProject(Project deletedProject, int projectsize) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've deleted this project:");
+        System.out.println("\t" + "Name: " + deletedProject.projectname);
+        System.out.println("\t" + "Budget: " + deletedProject.budget);
+        System.out.println("\t" + "Spending: " + deletedProject.spending);
+        System.out.println("\t" + "There are " + projectsize + " projects in the record.");
         System.out.print(line);
     }
 
@@ -77,6 +88,12 @@ public class Ui {
             System.out.println("\t" + "Current Project: " + currentprojectname);
             System.out.println("\t" + "There are " + projectsize + " projects in the record.");
         }
+        System.out.print(line);
+    }
+
+    public void printGoToProject(String projectname) {
+        System.out.print(line);
+        System.out.println("\t" + "Going to Project: " + projectname);
         System.out.print(line);
     }
 
