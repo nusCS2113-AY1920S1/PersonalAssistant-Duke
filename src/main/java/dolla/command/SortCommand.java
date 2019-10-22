@@ -21,16 +21,15 @@ public class SortCommand extends Command {
     @Override
     public void execute(DollaData dollaData) throws Exception {
         LogList logList = new LogList(new ArrayList<>());
-
-        switch (mode) {
-            case "entry":
-                logList = dollaData.getLogList(mode);
-                break;
-            case "debt":
-                logList = dollaData.getLogList(mode);
-                break;
-            default:
-                break; // TODO: What to do here?
+        switch (mode){
+        case "entry":
+            logList = dollaData.getLogList(mode);
+            break;
+        case "debt":
+            logList = dollaData.getLogList(mode);
+            break;
+        default:
+            break; // TODO: What to do here?
         }
 
         boolean isListEmpty = (logList.size() == 0);
@@ -39,25 +38,24 @@ public class SortCommand extends Command {
             Ui.printEmptyListError(mode);
             return;
         } else {
-            if(mode.equals("entry")) {
-                if(type.equals("date")) {
+            if (mode.equals("entry")) {
+                if (type.equals("date")) {
                     new SortDate(logList.get());
-                } else if(type.equals("description")){
+                } else if (type.equals("description")) {
                     new SortDescription(logList.get());
                 } else {
                     Ui.printInvalidCommandError();
                 }
                 return;
-            } else if(mode.equals("debt")) {
-                if(type.equals("description")) {
+            } else if (mode.equals("debt")) {
+                if (type.equals("description")) {
                     new SortDescription(logList.get());
-                } else if(type.equals("name")) {
+                } else if (type.equals("name")) {
                     new SortName(logList.get());
                 } else {
                     Ui.printInvalidCommandError();
                 }
             }
         }
-
     }
 }

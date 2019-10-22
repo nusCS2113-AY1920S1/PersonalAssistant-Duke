@@ -32,14 +32,14 @@ public class AddActionCommand extends Command{
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        if(command.equals("undo")) {
+        if (command.equals("undo")) {
             undoCommand();
         } else if (command.equals("redo")) {
             //Redo
         }
-        if(mode.equals("debt")) {
+        if (mode.equals("debt")) {
             DebtsParser.setPrePosition(prevPosition);
-        } else if(mode.equals("entry")) {
+        } else if (mode.equals("entry")) {
             EntryParser.setPrePosition(prevPosition);
         }
         Command c = MainParser.handleInput(mode, UserInput);
