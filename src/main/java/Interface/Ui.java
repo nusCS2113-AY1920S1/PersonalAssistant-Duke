@@ -143,7 +143,41 @@ public class Ui {
         }
     }
 
+    /**
+     * Display recurring tasks that are added
+     * @param description desccription of recurring task
+     * @param startDate  start of recurrence
+     * @param endDate   end of recurrence
+     *
+     */
     public String showRecurring(String description, String startDate, String endDate) {
         return "Recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+    }
+
+    /**
+     * Display task with instance of keyword
+     * @param list List of task with keyword
+     * @param keyword keyword entered by user
+     *
+     */
+    public String showFilter(TaskList list,String keyword){
+
+        if(list.taskListSize() == 0) {
+                return "There are no task(s) matching your keyword.\n";
+            } else {
+                String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
+
+                for (int i = 1; i <= list.taskListSize(); i++) {
+                    message = message + i + "." + list.taskToString(i - 1) + "\n";
+                }
+                return message;
+            }
+        }
+
+    /**
+     *Display a guide to commands
+     */
+    public String showHelp(String help){
+        return help;
     }
 }
