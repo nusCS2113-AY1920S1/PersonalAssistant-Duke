@@ -27,8 +27,8 @@ Only JDK 11 is officially supported
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+IntelliJ by default has Gradle plugins installed. +
+Do not disable it. If you have disabled Gradle, go to `File` > `Settings` > `Plugins` to re-enable it.
 
 === Setting up the project in your computer
 . Fork this repo, and clone the fork to your computer
@@ -46,6 +46,9 @@ It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
 === Verifying the setup
+
+. Run `owlmoney.Main` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
 
@@ -94,6 +97,8 @@ When you are ready to start coding,
 
 
 == Design
+
+[[Design-Architecture]]
 === Architecture
 image::Architecture.png[width="600"]
 
