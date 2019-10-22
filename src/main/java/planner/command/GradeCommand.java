@@ -16,14 +16,14 @@ import java.util.HashMap;
 public class GradeCommand extends ModuleCommand {
 
     /**
-     * Constructor for GradeCommand
+     * Constructor for GradeCommand.
      */
     public GradeCommand(Arguments args) {
         super(args);
     }
 
     /**
-     * Allows users to grade modules in their task list, or add modules with a grade attached if it is not in their list
+     * Allows users to grade modules in task list, or add modules with a grade attached if it is not in their list.
      */
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,

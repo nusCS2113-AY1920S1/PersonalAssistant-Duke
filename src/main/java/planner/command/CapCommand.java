@@ -175,6 +175,9 @@ public class CapCommand extends ModuleCommand {
         plannerUi.capMsg(averageCap);
     }
 
+    /**
+     * Calculates a predicted CAP for a module based on the grades attained for it's prerequisites.
+     */
     public void calculateModuleCap(ModuleTasksList moduleTasksList,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
@@ -218,6 +221,9 @@ public class CapCommand extends ModuleCommand {
         // check if isempty, if it is then print cap score according to the cloned list of lists
         //}
 
+    /**
+     * Calculates CAP according to the modules with grades in the ModuleTaskList.
+     */
     public void calculateListCap(ModuleTasksList moduleTasksList,
                                  HashMap<String, ModuleInfoDetailed> detailedMap,
                                  PlannerUi plannerUi,
@@ -239,11 +245,13 @@ public class CapCommand extends ModuleCommand {
     }
 
     /**
-     * Method to parse prerequisites from ModuleInfoDetailed and splice it into a List of Lists of String
+     * Method to parse prerequisites from ModuleInfoDetailed and splice it into a List of Lists of String.
      * Overall is List of Lists, for each internal List it contains modules that are 'or'ed with each other
-     * i.e taking one of the modules in the internal list is enough to fulfill one prerequisite
+     * i.e taking one of the modules in the internal list is enough to fulfill one list of prerequisites
      * Across the whole list is modules that are 'and'ed with each other
-     * The whole List of Lists must be complete and graded in order for
+     * The whole List of Lists must be complete and graded in order for prerequisites to be fulfilled
+     *
+     * @return A List of
      */
     public List<List<String>> parsePrerequisiteTree(String prerequisites, HashMap<String, ModuleInfoDetailed> detailedMap) {
         //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
