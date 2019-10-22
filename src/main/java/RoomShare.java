@@ -79,7 +79,6 @@ public class RoomShare {
                 pg.showBar();
                 break;
 
-
             case bye:
                 isExit = true;
                 try {
@@ -87,6 +86,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showWriteError();
                 }
+                parser.close();
                 ui.showBye();
                 break;
 
@@ -198,5 +198,6 @@ public class RoomShare {
      */
     public static void main(String[] args) throws RoomShareException {
         new RoomShare().run();
+        System.exit(0);
     }
 }

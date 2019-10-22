@@ -127,4 +127,8 @@ public class Parser {
         return scanner.nextLine().trim().split(" ", 2);
     }
 
+    public void close() {
+        scanner.close();
+    }
+
 }
