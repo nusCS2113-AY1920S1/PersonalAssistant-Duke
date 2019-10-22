@@ -28,7 +28,7 @@ public class AddRatingCommand extends CommandRating {
                 ratingList.addRating(rating);
                 System.out.println("added rating");
                 ratingStorage.saveFile(ratingList);
-                arrayList.add(MESSAGE_ADDED + "       " + ratingList.getRatingList().get(ratingList.getSize() - 1) + "\n" + "You have added the rating.");
+                arrayList.add(MESSAGE_ADDED + "       " + ratingList.getRating2List().get(ratingList.getSize() - 1) + "\n" + "You have added the rating.");
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
             }

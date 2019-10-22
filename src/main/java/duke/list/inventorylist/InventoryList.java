@@ -1,26 +1,24 @@
-package duke.list.ingredientlist;
+package duke.list.inventorylist;
 
 import duke.task.ingredienttasks.Ingredient;
 
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import static duke.common.IngredientMessages.MESSAGE_INGREDIENT_ADDED;
-import static duke.common.Messages.*;
-
-public class IngredientList {
+public class InventoryList {
 
     private static String msg = "";
-    private ArrayList<Ingredient> ingredientList;
+    private HashMap<String, Ingredient> inventoryHM;
 
-    public IngredientList() {
-        this.ingredientList = new ArrayList<Ingredient>();
+    public InventoryList() {
+        this.inventoryHM = new HashMap<String, Ingredient>();
     }
 
-    public IngredientList(ArrayList<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
+    public InventoryList(HashMap<String, Ingredient> inventoryListFromStorage) {
+        this.inventoryHM = inventoryListFromStorage;
     }
 
+    /*
     public ArrayList<String> listOfIngredients() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
@@ -29,6 +27,17 @@ public class IngredientList {
         }
         return arrList;
     }
+
+     */
+
+    public boolean containsIngredient(String ingredientName) {
+        if (this.inventoryHM.containsKey(ingredientName)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /*
     // find ingredient to check the quantity
@@ -46,20 +55,18 @@ public class IngredientList {
     }
     */
 
-    public void addIngredient(String ingredientName, int Quantity) throws ParseException {
-        ingredientList.add(new Ingredient(ingredientName, Quantity));
-        int index = ingredientList.size();
-        if (index == 1) {
-            msg = " ingredient in the list.";
-        } else {
-            msg = MESSAGE_ITEMS2;
-        }
-        System.out.println(MESSAGE_INGREDIENT_ADDED + "       " + ingredientList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+    public void addIngredient(String ingredientName, String quantity, String unit, String additionalInfo) throws ParseException {
+        inventoryHM.put(ingredientName, new Ingredient(ingredientName, quantity, unit, additionalInfo));
     }
 
+    public Ingredient deleteIngredient(String ingredientName) {
+        return this.inventoryHM.remove(ingredientName);
+    }
+
+    /*
     // delete ingredient by index on list
     public void deleteIngredient(int i) {
-        /*
+
         if (ingredientList.size() - 1 <= 1) {
             msg = " ingredient in the list.";
         } else {
@@ -67,10 +74,12 @@ public class IngredientList {
         }
         System.out.println(MESSAGE_INGREDIENT_DELETED + "       " + ingredientList.get(i)
                 + "\n" + MESSAGE_ITEMS1 + (ingredientList.size() - 1) + msg);
-         */
+
         ingredientList.remove(ingredientList.get(i));
     }
+    */
 
+    /*
     public String get(int i) {
         return ingredientList.get(i).toString();
     }
@@ -94,10 +103,10 @@ public class IngredientList {
     */
 
     public int getSize() {
-        return ingredientList.size();
+        return inventoryHM.size();
     }
 
-    public ArrayList<Ingredient> getIngredientList() {
-        return ingredientList;
+    public HashMap<String, Ingredient> getInventoryList() {
+        return inventoryHM;
     }
 }
