@@ -21,6 +21,13 @@ shadowJar {
     archiveAppendix = null
     archiveAppendix = null
 }
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/java/']
+        }
+    }
+}
 repositories {
     mavenCentral()
 }
