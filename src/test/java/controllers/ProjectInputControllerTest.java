@@ -117,18 +117,18 @@ class ProjectInputControllerTest {
             Project project = new Project("Infinity_Gauntlet");
             DateTimeHelper dateTimeHelper = new DateTimeHelper();
             dueDate = dateTimeHelper.formatDate("21/09/2019");
-            simulatedUserInput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
-                    + "r/do something r/do another thing";
+            simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+                    + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task t/Documentation for product p/2 c/40 "
-                    + "s/done r/do something r/do another thing";
+            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40 "
+                    + "-s done -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task t/Documentation for product p/2 c/40 r/do something r/do another thing";
+            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40 -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task t/Documentation for product p/2 c/40";
+            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             actualOutput = "";
@@ -154,12 +154,12 @@ class ProjectInputControllerTest {
             Project project = new Project("Infinity_Gauntlet");
             DateTimeHelper dateTimeHelper = new DateTimeHelper();
             dueDate = dateTimeHelper.formatDate("22/09/2019");
-            simulatedUserInput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
-                    + "r/do something r/do another thing";
+            simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+                    + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "edit task 1 t/No documentation p/5 d/22/09/2019 c/50 s/done "
-                        + "r/do nothing r/do another thing";
+            simulatedUserInput = "edit task 1 -t No documentation -p 5 -d 22/09/2019 -c 50 -s done "
+                        + "-r do nothing -r do another thing";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
@@ -170,7 +170,7 @@ class ProjectInputControllerTest {
                     + " | Credit: 50 | State: DONE";
             assertEquals(expectedOutput,actualOutput);
 
-            simulatedUserInput = "edit task 1 t/Infinity War p/5 d/22/09/2019 c/40 s/todo";
+            simulatedUserInput = "edit task 1 -t Infinity War -p 5 -d 22/09/2019 -c 40 -s todo";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
@@ -182,7 +182,7 @@ class ProjectInputControllerTest {
                     + " | Credit: 40 | State: TODO";
             assertEquals(expectedOutput,actualOutput);
 
-            simulatedUserInput = "edit task 1 t/Infinity War p/1 c/30";
+            simulatedUserInput = "edit task 1 -t Infinity War -p 1 -c 30";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
@@ -200,8 +200,8 @@ class ProjectInputControllerTest {
     @Test
     void testProjectDeleteTask() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
-                + "r/do something r/do another thing";
+        simulatedUserInput = "add task -t Documentation for product -p 2 d/21/09/2019 -c 40 s/todo "
+                + "r/do something -r do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
         simulatedUserInput = "delete task 1";
         projectInputController.projectDeleteTask(project, simulatedUserInput);
@@ -219,8 +219,8 @@ class ProjectInputControllerTest {
             Project project = new Project("Infinity_Gauntlet");
             DateTimeHelper dateTimeHelper = new DateTimeHelper();
             dueDate = dateTimeHelper.formatDate("21/09/2019");
-            simulatedUserInput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
-                    + "r/do something r/do another thing";
+            simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+                    + "-r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             simulatedUserInput = "edit task requirements i/1 r/do nothing";
@@ -254,8 +254,8 @@ class ProjectInputControllerTest {
     @Test
     void testProjectAssignTask() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add task t/Documentation for product p/2 d/21/09/2019 c/40 s/todo "
-                + "r/do something r/do another thing";
+        simulatedUserInput = "add task -t Documentation for product -p 2 -d 21/09/2019 -c 40 -s todo "
+                + "-r do something -r do another thing";
         projectInputController.projectAddTask(project, simulatedUserInput);
         simulatedUserInput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
