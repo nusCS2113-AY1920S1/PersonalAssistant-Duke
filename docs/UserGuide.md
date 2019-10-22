@@ -23,7 +23,7 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
     - [4.1.5. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#415-viewing-tasks--view)
     - [4.1.6. View Reminder: `view-reminder`](/docs/UserGuide.md#416-view-reminder-view-reminder)
     - [4.1.7. Set Reminder: `set-reminder`](/docs/UserGuide.md#417-set-reminder-set-reminder)
-    - [4.1.8. Set Reminder: `edit`](/docs/UserGuide.md#418-editing-tasks-edit)
+    - [4.1.8. Editing Tasks: `edit`](/docs/UserGuide.md#418-editing-tasks-edit)
     - [4.1.9. Exiting **COMPal**: `bye`](/docs/UserGuide.md#419-exiting-compal-bye)
 + [4.2. Detailed Task Management Commands](/docs/UserGuide.md#42-detailed-task-management-commands)
     - [4.2.1. Adding **Deadline**: `deadline`](/docs/UserGuide.md#421-adding-deadline-deadline)
