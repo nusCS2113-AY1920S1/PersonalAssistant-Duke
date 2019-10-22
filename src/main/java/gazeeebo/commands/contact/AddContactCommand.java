@@ -19,7 +19,7 @@ public class AddContactCommand {
         String name = splitCommand[0];
         String number = splitCommand[1];
         contact.put(name, number);
-        System.out.print("Okay we have successfully added a new contact - "
+        System.out.print("Successfully added: "
                 + ui.fullCommand + "\n");
     }
 }

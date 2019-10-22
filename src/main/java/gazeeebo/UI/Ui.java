@@ -22,7 +22,7 @@ public class Ui {
 
     public void readCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        fullCommand = reader.readLine();
+        fullCommand = reader.readLine().trim();
     }
 
     /**
@@ -32,22 +32,22 @@ public class Ui {
      * @throws IOException if tDate doesn't get updated.
      */
     public String showWelcome() throws IOException {
-        System.out.println("Input password to enter Gazeebo:");
+        System.out.println("Input password to enter Gazeeebo:");
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
                 + "|     |   |   / |    |    |    |   \\ |   |\n"
                 + "|  __ |__ |  /  |___ |___ |___ |___| |   |\n"
                 + "|___| |   | /__ |___ |___ |___ |___/ |___|";
-        String welcomemessage = "\nWelcome to Gazeebo"
+        String welcomemessage = "\nWelcome to Gazeeebo"
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n";
 
         while (true) {
             readCommand();
-            ArrayList<String> password_list;
+            ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.Password();
-            if (fullCommand.equals(password_list.get(0))) {
+            if (fullCommand.equals(password_list.get(0).toString())) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -62,11 +62,13 @@ public class Ui {
     public void MajorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
-        majorCategories.add("contact");
+        majorCategories.add("contacts");
         majorCategories.add("expenses");
         majorCategories.add("places");
         majorCategories.add("tasks");
         majorCategories.add("gpa");
+        majorCategories.add("moduleplanner");
+        majorCategories.add("notes");
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");
@@ -145,6 +147,10 @@ public class Ui {
 
     public void showErrorMessage(Exception e) {
         System.out.println(e.getMessage());
+    }
+
+    public void showDontKnowErrorMessage() {
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
 }
