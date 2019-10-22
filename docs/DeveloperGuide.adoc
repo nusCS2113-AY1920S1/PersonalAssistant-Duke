@@ -187,7 +187,7 @@ The following step describes the flow of the initialisation:
 Problem 1: *How to store weight data to be displayed over time*
 
 *Solution 1 (current implementation): HashMap
-** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap. 
+** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap.
 
 === Add command
 
@@ -266,6 +266,66 @@ Problem 2: *Where to instantiate the data structure used to store the data for t
 ** However, this violates the separation of concerns architecture principle
 * Solution 2 (planned implementation by v1.3): In a separate class
 ** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
+
+
+
+
+=== Suggest  command
+
+The Suggest command provides the user the ability to get personalized meal recommendations from our application based on the current database of food available in our application as well as the food habits of the user, all while ensuring the user has a healthy meal that matches his/her lifestyle and calorie limit.
+
+The following section describes the implementation and design considerations involved in the Suggest feature, and how the Suggest feature facilitates meal recommendations.
+
+==== Current implementation
+The Suggest command assumes that there is a pre-existing list of food items from which it can suggest food from and that this list contains food parameters such as cost, calories, nutrients, etc. This is a sample of how this feature will work in principle:
+
+. When the application is being initialized, the `Storage#load()` function will be utilized to load all the meal parameters to memory in the `MealList` object.
+
+. The `MealSuggestion` class will be created and hold a reference of the `MealList` object to perform data analysis for meal suggestion when requested by user.
+
+. After the application initializes, every time the user keys in a meal entry, the `MealSuggestion` class will update its mealFrequency parameter of the meal for the respective week.
+
+. Once the user enters the suggest command
+    * Parser checks if date is provided, else defaults to current date (based on system clock)
+    * Parser checks if meal parameters are provided, else defaults to all parameters.
+    * Autocorrect will work on all the input provided by the user to prevent repeated entering of command due to typo from user.
+
+. `MealSuggestion#getMealPreferenceScore(...)` function computes the meal preference score of each meal based on the date provided and the meal parameters the user wants.
+
+. `MealSuggestion#getMealSuggestion(...)` function sorts the meals based on the preference score calculated and returns most suitable meal to the user.
+
+
+==== Design considerations
+
+Problem 1: *How to determine most suitable meal for user*
+
+* Solution 1: Assign total meal preference score of each meal in a list and provide meal suggestion based on the overall lowest cost of meal preferance score.
+
+** Pros: Provides a way to compare various meal parameters together in which a total preference cost can be computed by by summing all the normalized parameter values.
+
+** Cons: Requires a non-trivial way to normalize all the different parameter values. Example: Is a $1 cheaper meal worth 100 more calories to the user?
+
+* Solution 2: Calculate the ranking of each parameter of each meal with the rest of the meals and provide meal suggestion based on the meal with the lowest ranking in as many of the parameters specified by the user.
+
+** Pros: Simple to implement as it performs a static ranking of all the parameters of each meal.
+
+** Cons: Has no way to objectify the difference across different parameter categories. Example: A very healthy meal that is very nutritious but costs $30 will likely be suggested to the user as it performs the best in all categories except price, giving it the lowest overall ranking although it costs 3 times as much as any other meal.
+
+Problem 2: *How to prevent excessive repeated meal suggestions*
+
+* Solution 1: Add another parameter to each meal that tracks the number of times the user has eaten that meal over a week and ensure the number does not cross a threshold maximum.
+
+** Pros: New parameter created is easy to implement and is objectively able to limit the meal suggestions based on a threshold amount of times the food has been eaten.
+
+** Cons: Arbitary threshold number may not work well for different users who have different preferences of how often they mind eating the same meal over a week.
+
+* Solution 2: Provide a random meal suggestion based on the top few meals ranked by the preference score (within some tolerance to prevent low scoring meals from being accidentally suggested).
+
+** Pros: Very easy to implement and allows for a (somewhat) guaranteed way to mix up the meal suggestions such that the meal is not consumed too often.
+
+** Cons: Undeterministic meal suggestion that provides different meal suggestion given the same input parameters. There is still a small chance that the same meals can be suggested repeatedly.
+
+
 
 
 == Documentation
