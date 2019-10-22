@@ -51,7 +51,7 @@ public class CapCommand extends ModuleCommand {
      * Such as overall CAP and what-if reports about predicted CAP.
      * Input format can be in three forms
      * `cap` overall cap
-     * `cap semester [x]` where x is some integer or some form of 1-1 or 1-2 to indicate year
+     * `cap list` to calculate cap from grades in module list
      * `cap module to check predicted cap for a specific module from prerequisites
      */
     public CapCommand(Arguments args) {
@@ -110,7 +110,7 @@ public class CapCommand extends ModuleCommand {
     }
 
     /**
-     * Execute of 3 different forms of user input according to the enum state of this CapCommand class.
+     * Execute of 3 different forms of user input according to the arguments of the user input.
      */
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
@@ -130,6 +130,7 @@ public class CapCommand extends ModuleCommand {
                 plannerUi.capModStartMsg();
                 calculateModuleCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
                 //calculate the module's predicted cap from its prerequisites
+                //TODO in progress
             case "list":
                 List<ModuleTask> hold = moduleTasksList.getTasks();
                 plannerUi.capListStartMsg(hold);
@@ -237,6 +238,13 @@ public class CapCommand extends ModuleCommand {
         }
     }
 
+    /**
+     * Method to parse prerequisites from ModuleInfoDetailed and splice it into a List of Lists of String
+     * Overall is List of Lists, for each internal List it contains modules that are 'or'ed with each other
+     * i.e taking one of the modules in the internal list is enough to fulfill one prerequisite
+     * Across the whole list is modules that are 'and'ed with each other
+     * The whole List of Lists must be complete and graded in order for
+     */
     public List<List<String>> parsePrerequisiteTree(String prerequisites, HashMap<String, ModuleInfoDetailed> detailedMap) {
         //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
         // (check for and after because some have AY19/20 and after, then need to reject those 'ands')

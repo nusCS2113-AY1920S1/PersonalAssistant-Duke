@@ -39,12 +39,14 @@ public class GradeCommand extends ModuleCommand {
         if (!tasks.getTasks().contains(temp)) { // if list does not have module requested, add it with a grade
             mod.setGrade(letterGrade);
             ModuleTask temp2 = new ModuleTask(moduleCode, mod);
+            temp2.setTaskDone();
             tasks.getTasks().add(temp2);
             plannerUi.addedMsg(temp2);
             jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
         } else if (tasks.getTasks().contains(temp)) { // otherwise set grade
             int location = tasks.getTasks().indexOf(temp);
             tasks.getTasks().get(location).setGrade(letterGrade);
+            tasks.getTasks().get(location).setTaskDone();
             plannerUi.gradedMsg(temp.getModuleCode(), letterGrade);
         } else {
             throw new ModNotFoundException();
