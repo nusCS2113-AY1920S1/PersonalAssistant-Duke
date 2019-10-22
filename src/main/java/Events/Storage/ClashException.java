@@ -5,7 +5,7 @@ import Events.EventTypes.Event;
 public class ClashException extends Exception {
     private Event clashEvent;
 
-    public ClashException(Event clashEvent) {
+    ClashException(Event clashEvent) {
         this.clashEvent = clashEvent;
     }
 
