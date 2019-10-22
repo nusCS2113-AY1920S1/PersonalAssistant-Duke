@@ -413,10 +413,13 @@ Format: `result -sum[mary] "<result summary>"`
 The result summary will be appended to the Investigation summary.
 
 == Command Summary
+=== Command Summary
 Summary of all the commands available in each context, for a more detailed description and associated switches, refer to section 1. 
 
 .Commands
 image::Commands.png[]
+
+=== Switch Summary
 
 
 == FAQ
