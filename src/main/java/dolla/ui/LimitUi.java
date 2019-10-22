@@ -42,9 +42,11 @@ public class LimitUi extends Ui {
         System.out.println(line);
     }
 
-//    public static void invalidRemoveCommandPrinter() {
-//        System.out.println(line);
-//        System.out.println("\tOOPS! Please follow the format remove budget /every [DURATION]");
-//        System.out.println(line);
-//    }
+    /*
+    public static void invalidRemoveCommandPrinter() {
+        System.out.println(line);
+        System.out.println("\tOOPS! Please follow the format remove budget /every [DURATION]");
+        System.out.println(line);
+    }
+    */
 }

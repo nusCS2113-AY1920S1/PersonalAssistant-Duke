@@ -3,7 +3,7 @@ package dolla.task;
 import dolla.Ui;
 
 /**
- * Limit is a class that stores all limit related methods (savings and budgets)
+ * Limit is a class that stores all limit related methods (savings and budgets).
  */
 public class Limit extends Log {
 
@@ -12,8 +12,7 @@ public class Limit extends Log {
     protected String duration;
     protected String saveType;
 
-    String[] LimitType = {"saving", "budget"};
-    String[] Duration = {"day", "week", "month"};
+    String[] limitType = {"saving", "budget"};
 
     /**
      * Creates an instance of Limit.
@@ -50,8 +49,8 @@ public class Limit extends Log {
      * @param limitList list in which limit is to be added to.
      */
 
-    public void AddLimit(Limit limit, LimitList limitList) {
-        if (limit.type.equals(LimitType[0]) || limit.type.equals(LimitType[1])) {
+    public void addLimit(Limit limit, LimitList limitList) {
+        if (limit.type.equals(this.limitType[0]) || limit.type.equals(this.limitType[1])) {
             //dosmth
             //check if limit exists in limitlist
         } else {
@@ -60,7 +59,7 @@ public class Limit extends Log {
     }
 
 
-    public void EditCurrLimit() {
+    public void editCurrLimit() {
         //edit budget after adding in expenses or income
     }
 

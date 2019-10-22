@@ -12,16 +12,16 @@ public class LimitParser extends Parser {
         super(inputLine);
     }
 
-    protected final static String LIMIT_COMMAND_LIST = "limits";
-    protected final static String LIMIT_COMMAND_SET = "set";
-    protected final static String LIMIT_COMMAND_REMOVE = "remove";
+    protected static final String LIMIT_COMMAND_LIST = "limits";
+    protected static final String LIMIT_COMMAND_SET = "set";
+    protected static final String LIMIT_COMMAND_REMOVE = "remove";
 
-    protected final static String LIMIT_TYPE_S = "saving";
-    protected final static String LIMIT_TYPE_B = "budget";
+    protected static final String LIMIT_TYPE_S = "saving";
+    protected static final String LIMIT_TYPE_B = "budget";
 
-    protected final static String LIMIT_DURATION_D = "day";
-    protected final static String LIMIT_DURATION_W = "week";
-    protected final static String LIMIT_DURATION_M = "month";
+    protected static final String LIMIT_DURATION_D = "day";
+    protected static final String LIMIT_DURATION_W = "week";
+    protected static final String LIMIT_DURATION_M = "month";
 
     String[] CommandType = {"limits", "set", "remove"};
     String[] LimitType = {"saving", "budget"};
