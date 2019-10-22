@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import rims.reserve.Reservation;
+import rims.resource.Reservation;
+import rims.resource.ReservationList;
 import rims.resource.Resource;
 
 public class Ui {
@@ -17,7 +18,7 @@ public class Ui {
 
     public Ui() {
         inputScanner = new Scanner(System.in);
-        welcomeWithLogo();
+        Home();
     }
 
     public String getInput() {
@@ -51,16 +52,137 @@ public class Ui {
         }
     }
 
-    public void printResourceArray(ArrayList<Resource> resources){
-        for (int i = 0; i < resources.size(); i ++ ){
-            System.out.println("\t" + resources.get(i).toString());
+    public void printResourceArray(ResourceList resources) {
+
+        for (int i = 0; i < resources.size(); i++) {
+            System.out.println("\t" + resources.getResourceList().get(i).toString());
         }
     }
 
-    public void printReservationArray(ArrayList<Reservation>  reservations) {
-        for (int i = 0; i < reservations.size(); i++) {
-            System.out.println("\t" + reservations.get(i).toString());
+    /**
+     * This method loops through all the resources first, print out the resource.
+     * Then, it goes into each resource and print out all the reservation under this
+     * resource.
+     * 
+     * @param resources
+     */
+    public void printResourceArrayWithReservations(ArrayList<Resource> resources) {
+        printLine();
+        for (int i = 0; i < resources.size(); i++) {
+            print(resources.get(i).toString());
+            printReservationArray(resources.get(i).getReservations());
         }
+        printLine();
+    }
+
+    public void printReservationArray(ReservationList reservations) {
+        for (int i = 0; i < reservations.size(); i++) {
+            System.out.println("\t" + reservations.getReservationByIndex(i).toString());
+        }
+    }
+
+    /**
+     * This method takes in an arraylist<resource> because the java remove method
+     * re-allocates an memory address, so passing ResourceList results in a null
+     * pointer exception
+     */
+    public void printRooms(ArrayList<Resource> resources) {
+        printLine();
+        print("List of all rooms:\n");
+        for (int i = 0; i < resources.size(); i++) {
+            if (resources.get(i).getType().equals("R")) {
+                System.out.println("\t" + resources.get(i).toString());
+            }
+        }
+        printLine();
+    }
+
+    /**
+     * This method takes in an arraylist<resource> because the java remove method
+     * re-allocates an memory address, so passing ResourceList results in a null
+     * pointer exception
+     */
+    public void printItem(ArrayList<Resource> resources) {
+        printLine();
+        print("List of all items:\n");
+        for (int i = 0; i < resources.size(); i++) {
+            if (resources.get(i).getType().equals("I")) {
+                System.out.println("\t" + resources.get(i).toString());
+            }
+        }
+        printLine();
+    }
+
+    public void printReservations(int resource_id, ResourceList resources) {
+        printLine();
+
+        Resource thisResource = resources.getResourceByResourceId(resource_id);
+        ReservationList reservations = thisResource.getReservations();
+
+        if (reservations.size() > 0) {
+            print("List of all reservations under this resource:\n");
+            printReservationArray(reservations);
+        } else {
+            print("There is currently no reservations under this resource");
+        }
+        printLine();
+    }
+
+    /**
+     * asks the user to enter an resource id, and returns it as an integer
+     * 
+     * @return input i
+     */
+    public int getResourceId() {
+        int i;
+        printLine();
+        print("Enter the resource ID");
+        printLine();
+        i = Integer.parseInt(getInput());
+        return i;
+    }
+
+    /**
+     * asks the user to enter his user id, and returns it as an integer
+     * 
+     * @return input i
+     */
+    public int getUserId() {
+        int i;
+        printLine();
+        print("Enter your user ID");
+        printLine();
+        i = Integer.parseInt(getInput());
+        return i;
+    }
+
+    /**
+     * This method asks user for a pair of dates. The dates are stored in a string
+     * array. The first element is the start date and the second element is the end
+     * date.
+     * 
+     * @return ArrayList<String>
+     */
+    public ArrayList<String> getPairOfDates() {
+        ArrayList<String> newpair = new ArrayList<String>();
+        printLine();
+        print("Enter Start date & time (DD/MM/YYYY HHMM)");
+        printLine();
+        String startdate = getInput();
+        printLine();
+        print("Enter End date & time (DD/MM/YYYY HHMM)");
+        printLine();
+        String endDate = getInput();
+        newpair.add(startdate);
+        newpair.add(endDate);
+        return newpair;
+    }
+
+    public void printSuccessReservation(Reservation reservation) {
+        printLine();
+        print("The following reservation has been made\n");
+        print(reservation.toString());
+        printLine();
     }
 
     public void printEmptyLine() {
@@ -97,18 +219,19 @@ public class Ui {
                 "The facilities and logistics management system.", "What can I do for you?")));
     }
 
-    public void Home(){
+    public void Home() {
         ArrayList<String> list = new ArrayList<String>();
         list.add("add - add new resource to inventory");
         list.add("delete - delete existing resource from inventory");
         list.add("reserve - add new reservation request");
         list.add("return - return/cancel reservation");
         list.add("list - see all resources and current reservations");
-        
+
         printLine();
         formattedPrintArray(list);
         printLine();
     }
+
     public void printLogo() {
         String logo = "\n" + "          _____                    _____                    _____          \n"
                 + "         /\\    \\                  /\\    \\                  /\\    \\         \n"
@@ -134,4 +257,6 @@ public class Ui {
                 + "                                                      ";
         System.out.println(logo);
     }
+
+
 }

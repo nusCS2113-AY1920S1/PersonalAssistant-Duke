@@ -2,6 +2,8 @@ package rims.core;
 
 import java.util.ArrayList;
 
+import rims.resource.Reservation;
+import rims.resource.ReservationList;
 import rims.resource.Resource;
 
 public class ResourceList {
@@ -22,12 +24,44 @@ public class ResourceList {
     public ArrayList<Resource> getResourceList() {
         return resources;
     }
-
+    
+    /**
+     * 
+     * @return
+     */
+    public ArrayList<String> getResourceArrayWithReservations() {
+        ArrayList<String> list = new ArrayList<String>();
+        return list;
+    }
+    
     public int size() {
         return resources.size();
     }
 
-    public Resource getResourceViaIndex(int id) {
+    /**
+     * This method returns all reservations under a specified user id 
+     * (Some work needs to be done to tidy up temp variables and constructors)
+     * @param user_id
+     * @return List of reservation under the given user id (as reservationList)
+     */
+    public ReservationList getReservationsByUserId (int user_id ){
+        ReservationList list = new ReservationList();
+        for(int i=0; i < resources.size(); i++ ){
+            Resource thisResource = resources.get(i);
+            ReservationList thisList = thisResource.getReservations();
+            for(int j=0; j < thisList.size(); j ++){
+                Reservation thisReservation = new Reservation();
+                thisReservation = thisList.getReservationByIndex(j);
+
+                if (thisReservation.getUid()==user_id){
+                    list.addNewReservation(thisReservation);
+                }
+            }
+        }
+        return list;
+    }
+
+    public Resource getResourceByIndex(int id) {
         Resource resource = null;
         for (int i = 0; i < resources.size(); i++) {
             if (resources.get(i).getResourceId() == id) {
@@ -49,8 +83,12 @@ public class ResourceList {
         return resource;
     }
 
+    /**
+     * This method return a resource that matches the given resource Id
+     */
     public Resource getResourceByResourceId(int resource_id) {
-        Resource resource = null;
+        Resource resource = new Resource(){};
+
         for (int i = 0; i < resources.size(); i++) {
             if (resources.get(i).getResourceId() == resource_id) {
                 resource = resources.get(i);
@@ -62,7 +100,7 @@ public class ResourceList {
 
     // update
     // delete
-    public void cascadeDeleteResourceById(int resource_id) {
+    public void deleteResourceByResourceId(int resource_id) {
         int index_to_remove = -1;
 
         for (int i = 0; i < resources.size(); i++) {
@@ -73,11 +111,22 @@ public class ResourceList {
         }
 
         if (index_to_remove != -1) {
-            ui.ErrorPrint("The following resource is removed:\n");
-            ui.print(resources.get(index_to_remove).toString());
+            ui.formattedPrint("The following resource and its reservations are removed:\n" + "\t"+ resources.get(index_to_remove).toString());
             resources.remove(index_to_remove);
         }
     }
+
+    /**
+     * Delete a single reservation, a single reservation can only be uniquely identified through a pair of resource id and reservation id
+     * First query for the resource, then remove the reservation via id
+     * @param resource_id
+     * @param reservation_id
+     */
+    public void deleteSingleReservation(int resource_id, int reservation_id){
+        Resource thisResource = getResourceByResourceId(resource_id);
+        thisResource.removeReservationByReservationId(reservation_id);
+    }
+
 
     // protected HashMap<String, ArrayList<Resource>> resources;
 

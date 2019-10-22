@@ -1,35 +1,35 @@
 package rims.command;
 
-import java.util.ArrayList;
-
-import rims.core.ReservationList;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
-import rims.reserve.Reservation;
-import rims.util.DateRange;
+import rims.resource.Reservation;
+import rims.resource.ReservationList;
+import rims.resource.Resource;
 
 public class ReserveCommand extends Command {
-    protected int reservationID;
+    protected int reservation_id;
     protected String resourceName;
     protected int qty;
-    protected int userid;
+    protected int user_id;
     protected String startDate;
     protected String endDate;
-    protected int resourceId;
+    protected int resource_id;
 
-    public ReserveCommand(String itemName, int qty, int userid, String startDate, String endDate) {
-        resourceName = itemName;
-        this.qty = qty;
-        this.userid = userid;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public ReserveCommand(){
+        ;
     }
 
-    public ReserveCommand(String roomName, int userid, String startDate, String endDate) {
-        resourceName = roomName;
-        this.qty = 1;
-        this.userid = userid;
+    /**
+     * This command supports the reservation for a single resource.
+     * @param resource_id
+     * @param user_id
+     * @param startDate
+     * @param endDate
+     */
+    public ReserveCommand(int resource_id, int user_id, String startDate, String endDate) {
+        this.resource_id = resource_id;
+        this.user_id = user_id;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -41,17 +41,13 @@ public class ReserveCommand extends Command {
      * @exception quantityvalid
      */
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reservations) throws Exception {
-        //calculate a unique reservationID, same formula as resource id
-        this.reservationID = 0;
-        if(reservations.size()>0){
-        this.reservationID = reservations.getReservationByIndex(reservations.size()-1).getReservationId() + 1;
-        }
-        Reservation newReservation = new Reservation(reservationID, resourceId, userid, qty, startDate, endDate);
-        ui.printLine();
-        ui.print("The following reservation has been registerd:");
-        ui.print(newReservation.toString());
-        ui.printLine();
-        reservations.addNewReservation(newReservation);
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
+        Resource thisResource = resources.getResourceByResourceId(resource_id);
+        ReservationList currentReservations = thisResource.getReservations();
+        reservation_id = currentReservations.generateReservationId();
+        
+        Reservation newReservation = new Reservation(reservation_id, resource_id, user_id, startDate, endDate);
+        ui.printSuccessReservation(newReservation);
+        currentReservations.addNewReservation(newReservation);
     }
 }

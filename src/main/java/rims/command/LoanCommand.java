@@ -1,6 +1,5 @@
 package rims.command;
 
-import rims.core.ReservationList;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
@@ -40,8 +39,9 @@ public class LoanCommand extends Command {
     //     }
     // }
 
+
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reserves) throws Exception {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
         // TODO Auto-generated method stub
 
     }

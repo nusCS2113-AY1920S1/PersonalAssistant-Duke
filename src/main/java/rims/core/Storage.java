@@ -9,10 +9,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import rims.reserve.Reservation;
 import rims.resource.Item;
+import rims.resource.Reservation;
+import rims.resource.ReservationList;
 import rims.resource.Resource;
-import rims.resource.Room;
 
 /**
  * Current format for text file: For every line: 0) ITEM/ROOM 1) ID (of unique
@@ -22,19 +22,22 @@ import rims.resource.Room;
 public class Storage {
     // protected HashMap<String, ArrayList<Resource>> resources = new
     // HashMap<String, ArrayList<Resource>>();
-    protected ArrayList<Resource> resources = new ArrayList<Resource>();
-    protected ArrayList<Reservation> Reservations = new ArrayList<Reservation>();
+    protected ArrayList<Resource> resources;
+    protected ArrayList<Reservation> Reservations;
+    protected ReservationList TempReservations;
     protected File resourceFile;
-    protected File reserveFile;
+    protected File reservationFile;
     private Ui ui;
 
     public Storage(String ResourceFileName, String ReserveFileName, Ui ui)
             throws FileNotFoundException, ParseException {
         resourceFile = new File(ResourceFileName);
-        reserveFile = new File(ReserveFileName);
+        reservationFile = new File(ReserveFileName);
+        resources = new ArrayList<Resource>();
+        Reservations = new ArrayList<Reservation>();
+        TempReservations = new ReservationList();
         this.ui = ui;
         readFromResourceFile();
-        readFromReserveFile();
     }
 
     /**
@@ -48,18 +51,14 @@ public class Storage {
      */
     public void readFromResourceFile() throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(resourceFile);
-
+        
         while (fileScanner.hasNextLine()) {
             Resource input = null;
             String[] line = fileScanner.nextLine().split(",");
-            if (line[1].equals("R")) {
-                input = new Item(line[0], line[1], line[2], line[3]);
-            } else if (line[1].equals("I")) {
-                input = new Room(line[0], line[1], line[2], line[3]);
-            } else {
-                ;
-            }
-            resources.add(input);
+            String resource_id = line[0];
+            ReservationList reservations = readReservationsFromReserveFile(resource_id);
+            input = new Item(line[0], line[1], line[2], reservations);
+            this.resources.add(input);
         }
     }
 
@@ -72,13 +71,18 @@ public class Storage {
      * @throws ParseException        when unable to parse an integer for ID or
      *                               checking if a resource is booked.
      */
-    public void readFromReserveFile() throws FileNotFoundException, ParseException {
-        Scanner fileScanner = new Scanner(reserveFile);
+    public ReservationList readReservationsFromReserveFile(String resource_id)
+            throws FileNotFoundException, ParseException {
+        Scanner fileScanner = new Scanner(reservationFile);
+        ReservationList reservations = new ReservationList();
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
-            Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4],line[5]);
-            Reservations.add(newReservation);
+            if (line[0].equals(resource_id)) {
+                Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4]);
+                reservations.addNewReservation(newReservation);
+            }
         }
+        return reservations;
     }
 
     /**
@@ -88,28 +92,45 @@ public class Storage {
      * @throws IOException when file given is directory, or file does not exist and
      *                     cannot be created.
      */
-    public void saveToResourceFile(ArrayList<Resource> resources) throws IOException {
+    public void saveToFiles(ArrayList<Resource> resources) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
+        
         String line;
+
         for (int i = 0; i < resources.size(); i++) {
-            line = resources.get(i).toDataString();
+            Resource thisResource = resources.get(i);
+            line = thisResource.toDataString();
+
             fileWriter.write(line);
             ui.ErrorPrint("Saved:" + line);
             fileWriter.newLine();
-        }
+
+            if (thisResource.getReservations().size() > 0) {
+                ReservationList thisReservationList = thisResource.getReservations();
+                saveToTempReservationList(thisReservationList);
+                }
+            }
+
+        saveToReservationFile(this.TempReservations);
         fileWriter.close();
     }
 
-    public void saveToReserveFile(ArrayList<Reservation> reserves) throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(reserveFile, false));
-        String line;
-        for (int i = 0; i < reserves.size(); i++) {
-            line = reserves.get(i).toDataString();
-            fileWriter.write(line);
-            ui.ErrorPrint("Saved:" + line);
-            fileWriter.newLine();
+    public void saveToTempReservationList (ReservationList reservations ) {
+        for(int i=0; i<reservations.size(); i ++){
+            this.TempReservations.addNewReservation(reservations.getReservationByIndex(i));
         }
-        fileWriter.close();
+    }
+
+    public void saveToReservationFile(ReservationList reservations) throws IOException {
+        BufferedWriter ReservationfileWriter = new BufferedWriter(new FileWriter(reservationFile, false));
+        String ReservationLine;
+        for (int i = 0; i < reservations.size(); i++) {
+            ReservationLine = reservations.getReservationByIndex(i).toDataString();
+            ReservationfileWriter.write(ReservationLine);
+            ui.ErrorPrint("Saved:" + ReservationLine);
+            ReservationfileWriter.newLine();
+        }
+        ReservationfileWriter.close();
     }
 
     public ArrayList<Resource> getResources() {

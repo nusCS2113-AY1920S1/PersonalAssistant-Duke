@@ -2,7 +2,6 @@ package rims.command;
 
 import java.text.ParseException;
 
-import rims.core.ReservationList;
 import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
@@ -23,18 +22,12 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage, ResourceList resources, ReservationList reservations) throws ParseException {
+    public void execute(Ui ui, Storage storage, ResourceList resources) throws ParseException {
         if (listType == null) {
             ui.ErrorPrint("Resources");
             ui.printEmptyLine();
-            ui.printResourceArray(resources.getResourceList());
-            ui.printEmptyLine();
-
-            ui.ErrorPrint("Reservations");
-            ui.printEmptyLine();
-            ui.printReservationArray(reservations.getReservationList());
-            ui.printEmptyLine();
-            
+            ui.printResourceArrayWithReservations(resources.getResourceList());
+            ui.printEmptyLine();            
         }
 //         else if (listType.equals("date")) {
 //             ui.printLine();

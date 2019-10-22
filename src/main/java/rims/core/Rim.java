@@ -9,7 +9,6 @@ import rims.command.Command;
 public class Rim {
     private Storage storage;
     private ResourceList resources;
-    private ReservationList reservations;
     private Ui ui;
     private Parser parser;
 
@@ -17,15 +16,15 @@ public class Rim {
         ui = new Ui();
         storage = new Storage(filePath,rfilepath,ui);
         resources = new ResourceList(storage.getResources(), ui);
-        reservations = new ReservationList(storage.getReservations(), ui);
-        parser = new Parser(resources, reservations, ui);
+        
+        parser = new Parser(resources, ui);
     }
 
     public void run() throws Exception, IOException {
         Boolean toExit = false;
         while (!toExit) {
             Command c = parser.parseInput(ui.getInput());
-            c.execute(ui, storage, resources, reservations);
+            c.execute(ui, storage, resources);
             toExit = c.getExitCode();
         }
     }

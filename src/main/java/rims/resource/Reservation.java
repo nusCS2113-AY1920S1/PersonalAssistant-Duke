@@ -1,4 +1,4 @@
-package rims.reserve;
+package rims.resource;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,57 +7,80 @@ import java.util.Date;
 
 public class Reservation {
     private int reservation_id;
-    private int resource_id;
     private int user_id;
-    private int qty;
+    private int resource_id;
     private Date date_from;
     private Date date_until;
 
-    // For internal use
-    public Reservation(int reservation_id, int resource_id, int uid, int qty, String from, String until)
+    /**
+     * 
+     * @param reservation_id
+     * @param resource_id
+     * @param user_id
+     * @param from
+     * @param until
+     * @throws ParseException
+     */
+    public Reservation(int reservation_id, int resource_id, int user_id, String from, String until)
             throws ParseException {
         this.reservation_id = reservation_id;
         this.resource_id = resource_id;
-        this.user_id = uid;
-        this.qty = qty;
-        this.date_from = stringToDate(from);
-        this.date_until = stringToDate(until);
-    }
-
-    // For storage purposes
-    public Reservation(String reservation_id, String resource_id, String uid, String qty, String from, String until)
-            throws ParseException {
-        this.reservation_id = Integer.parseInt(reservation_id);
-        this.resource_id = Integer.parseInt(resource_id);
-        this.user_id = Integer.parseInt(uid);
-        this.qty = Integer.parseInt(qty);
+        this.user_id = user_id;
         this.date_from = stringToDate(from);
         this.date_until = stringToDate(until);
     }
 
     /**
-     * This section contains all methods containing READ operations
+     * This overloaded constructor is built for data retrieval, where all data are
+     * in the form of strings. The string parameters are later type castedd into
+     * suitable data types like integer.
+     */
+    public Reservation(String reservation_id, String resource_id, String user_id, String from, String until)
+            throws ParseException {
+        this.reservation_id = Integer.parseInt(reservation_id);
+        this.resource_id = Integer.parseInt(resource_id);
+        this.user_id = Integer.parseInt(user_id);
+        this.date_from = stringToDate(from);
+        this.date_until = stringToDate(until);
+    }
+
+    public Reservation() {
+        ;
+	}
+
+	/**
+     * get method to return the user id who made this reservation
+     * 
+     * @return this.user_id
      */
     public int getUid() {
         return this.user_id;
     }
 
-    public int getResourceId() {
-        return this.resource_id;
-    }
 
+    /**
+     * get method to return the user id who made this reservation
+     * 
+     * @return this.user_id
+     */
     public int getReservationId() {
         return this.reservation_id;
     }
 
-    public int getQty() {
-        return this.qty;
-    }
-
+    /**
+     * get method to return the user id who made this reservation
+     * 
+     * @return this.user_id
+     */
     public Date getStartDate() {
         return this.date_from;
     }
 
+    /**
+     * get method to return the user id who made this reservation
+     * 
+     * @return this.user_id
+     */
     public Date getEndDate() {
         return this.date_until;
     }
@@ -70,8 +93,8 @@ public class Reservation {
      */
     public String toString() {
         String s;
-        s = "Reservation ID[" + reservation_id + "]\n" + " \tResource id: " + resource_id + " (Quantity: " + qty + ") "
-                + " User: " + user_id + "\n\tFrom " + date_from + " to " + date_until + '\n';
+        s = "Reservation ID[" + reservation_id + "]" + " Borrowed By User: " + user_id + "\n" +
+                 "\n\tFrom " + date_from + " to " + date_until + '\n';
         return s;
     }
 
@@ -83,7 +106,7 @@ public class Reservation {
      */
     public String toDataString() {
         String s;
-        s = reservation_id + "," + resource_id + "," + user_id + "," + qty + "," + dateToString(date_from) + ","
+        s = reservation_id + "," + resource_id + "," + user_id + "," + dateToString(date_from) + ","
                 + dateToString(date_until);
         return s;
     }
