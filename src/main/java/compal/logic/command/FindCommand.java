@@ -24,7 +24,7 @@ public class FindCommand extends Command {
         for (Task task : taskList.getArrList()) {
             if (task.getDescription().toUpperCase().contains(keyWord.toUpperCase())) {
                 if (isEmpty) {
-                    sb.append("Your search result for the keyword ").append(keyWord).append(": \\n");
+                    sb.append("Your search result for the keyword ").append(keyWord).append(": \n");
                     isEmpty = false;
                 }
                 sb.append(task.toString()).append("\n");

@@ -20,9 +20,9 @@ public class SetReminderCommand extends Command {
     public CommandResult commandExecute(TaskList taskList) throws CommandException {
         Task task = taskList.getTaskById(taskID);
         boolean state;
-        if ("Y".equals(status)) {
+        if (status.equalsIgnoreCase("y")) {
             state = true;
-        } else if ("N".equals(status)) {
+        } else if (status.equalsIgnoreCase("n")) {
             state = false;
         } else {
             throw new CommandException(MESSAGE_INVALID_INPUT);
