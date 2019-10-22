@@ -8,8 +8,10 @@ import duke.command.inventorycommands.AddToInventoryCommand;
 import duke.command.inventorycommands.DeleteFromInventoryCommand;
 import duke.command.inventorycommands.ListInventoryCommand;
 import duke.command.recipecommands.*;
+import duke.list.recipelist.RecipeIngredientList;
 import duke.list.recipelist.RecipeList;
 import duke.list.recipelist.RecipeTitleList;
+import duke.storage.RecipeIngredientStorage;
 import duke.storage.RecipeStorage;
 import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
@@ -33,6 +35,10 @@ public class Parser {
         } else {
             return new ListInventoryCommand(input);
         }
+    }
+
+    public static Command<RecipeIngredientList, Ui, RecipeIngredientStorage> parseRecipeIngredient(String input) {
+        return new AddRecipeIngredientCommand(input);
     }
 
     public static Command<RecipeTitleList, Ui, RecipeTitleStorage> parseRecipeTitle(String input) {

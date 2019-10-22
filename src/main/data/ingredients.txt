@@ -1,1 +1,4 @@
-prawn | 5.0 | G | No additional information.
+garlic | 10.0 | G |  chopped
+prawn | 5.0 | G |   No additional information.
+rice | 10.0 | G |  No additional information.
+sotong | 2.0 | KG | No additional information.

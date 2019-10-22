@@ -3,7 +3,7 @@ package duke.common;
 public class RecipeMessages {
     public static final String COMMAND_ADD_RECIPE = "addrecipe";
     public static final String COMMAND_ADD_RECIPE_TITLE = "addrecipetitle";
-    public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addrecipeingredient";
+    public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addtorecipeingredient";
     public static final String COMMAND_LIST_RECIPES = "listallrecipes";
     public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
     public static final String COMMAND_DELETE_RECIPE = "deleterecipe";

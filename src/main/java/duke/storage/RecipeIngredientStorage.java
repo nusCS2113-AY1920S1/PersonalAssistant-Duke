@@ -60,12 +60,27 @@ public class RecipeIngredientStorage {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
-                String[] split = content.split(" \\| ", 4);
-                if (split.length == 4) {
-                    int index = Integer.parseInt(split[0]);
-                    double quantity = Double.parseDouble(split[2]);
-                    RecipeIngredient recipeIngredient = new RecipeIngredient(index, split[1], quantity, split[3]);
-                    arrRecipeIngredientList.add(recipeIngredient);
+                String recipeIndex, recipeIngredientName, quantity, unit, additionalInfo, remaining, remaining1, remaining2;
+                String[] split = content.split(" \\| ", 2);
+                if (split.length == 2) {
+                    recipeIndex = split[0].trim();
+                    remaining = split[1].trim();
+                    String[] split1 = remaining.split("\\|", 2);
+                    if (split1.length == 2) {
+                        recipeIngredientName = split1[0].trim();
+                        String[] split2 = remaining.split("\\|", 2);
+                        if (split2.length == 2) {
+                            quantity = split2[0].trim();
+                            remaining2 = split2[1].trim();
+                            String[] split3 = remaining2.split("\\|", 2);
+                            if (split3.length == 2) {
+                                unit = split3[0].trim();
+                                additionalInfo = split3[1].trim();
+                                RecipeIngredient ingredient = new RecipeIngredient(recipeIndex, recipeIngredientName, quantity, unit, additionalInfo);
+                                arrRecipeIngredientList.add(ingredient);
+                            }
+                        }
+                    }
                 }
             }
             fileReader.close();

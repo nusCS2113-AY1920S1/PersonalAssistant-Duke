@@ -1,6 +1,1 @@
-1 | jasmine rice | 2.5 | cup
-1 | garlic cloves | 2.0 | chopped
-1 | light soya sauce | 1.0 | tablespoon
-12 | olive oil | 1.0 | tablespoon
-12 | plum tomatoes | 800.0 | g
-5 | flour | 100.0 | grams
+1 | jasmine rice | 2.0 | CUP | No additional information.

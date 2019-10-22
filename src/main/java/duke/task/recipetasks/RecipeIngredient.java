@@ -1,24 +1,40 @@
 package duke.task.recipetasks;
 
+import duke.task.ingredienttasks.UnitOfMeasurement;
+
 public class RecipeIngredient {
 
     private int recipeIndex;
     private String recipeIngredientName;
     private double recipeIngredientQuantity;
-    private String recipeIngredientWeight;
+    private UnitOfMeasurement unit;
+    private String additionalInfo;
 
-    public RecipeIngredient(String recipeIngredientName, String recipeIngredientQuantity, String recipeIngredientWeight) {
+    public RecipeIngredient(String recipeIngredientName, String recipeIngredientQuantity, String unit) {
         // this.recipeIndex = recipeIndex;
         this.recipeIngredientName = recipeIngredientName;
         this.recipeIngredientQuantity = Double.parseDouble(recipeIngredientQuantity);
-        this.recipeIngredientWeight = recipeIngredientWeight;
+        this.unit = assignUnit(unit);
     }
 
-    public RecipeIngredient(int recipeIndex, String recipeIngredientName, double recipeIngredientQuantity, String recipeIngredientWeight) {
-        this.recipeIndex = recipeIndex;
+    public RecipeIngredient(String recipeIndex, String recipeIngredientName, String recipeIngredientQuantity, String unit, String additionalInfo) {
+        this.recipeIndex = Integer.parseInt(recipeIndex);
         this.recipeIngredientName = recipeIngredientName;
-        this.recipeIngredientQuantity = recipeIngredientQuantity;
-        this.recipeIngredientWeight = recipeIngredientWeight;
+        this.recipeIngredientQuantity = Double.parseDouble(recipeIngredientQuantity);
+        this.unit = assignUnit(unit);
+        this.additionalInfo = additionalInfo;
+    }
+
+    private UnitOfMeasurement assignUnit(String unit) {
+        switch (unit) {
+            case "kg": return UnitOfMeasurement.KG;
+            case "ml": return UnitOfMeasurement.ML;
+            case "l": return UnitOfMeasurement.L;
+            case "cup": return UnitOfMeasurement.CUP;
+            case "teaspoon": return UnitOfMeasurement.TEASPOON;
+            case "tablespoon": return UnitOfMeasurement.TABLESPOON;
+            default: return UnitOfMeasurement.G;
+        }
     }
 
     public int getRecipeIngredientIndex() {
@@ -33,15 +49,19 @@ public class RecipeIngredient {
         return recipeIngredientName;
     }
 
-    public String getRecipeIngredientWeight() {
-        return recipeIngredientWeight;
+    public UnitOfMeasurement getUnit() {
+        return this.unit;
+    }
+
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
     public String toSaveString() {
-        return recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight;
+        return recipeIndex + " | " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + unit + " | " + additionalInfo;
     }
 
     public String toString() {
-        return " [ " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight + "] ";
+        return " [ " + recipeIngredientName + " | " + recipeIngredientQuantity + " | " + unit + " | " + additionalInfo + "] ";
     }
 }

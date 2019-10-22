@@ -101,6 +101,17 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
+        } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
+            System.out.println("stuck here add recipe ingredient");
+            if (userInput.trim().substring(0, 21).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
+                System.out.println("stuck here add recipe ingredient 1");
+                Command<RecipeIngredientList, Ui, RecipeIngredientStorage> command = Parser.parseRecipeIngredient(userInput);
+                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+            } else {
+                System.out.println("stuck here7");
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         } else if (userInput.contains(COMMAND_DELETE_RECIPE)) {
             if (userInput.trim().substring(0, 12).equals(COMMAND_DELETE_RECIPE)) {
                 System.out.println("stuck here6");
@@ -133,17 +144,6 @@ public class Duke {
 //                System.out.println("stuck here10");
 //                return arrayList;
 //            }
-        } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
-            System.out.println("stuck here11");
-            if (userInput.trim().substring(0, 19).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
-                System.out.println("stuck here12");
-                Command<RecipeList, Ui, RecipeStorage> command = Parser.parseRecipe(userInput);
-                return command.execute(recipeList, ui, recipeStorage);
-            } else {
-                System.out.println("stuck here13");
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
 //        } else if (userInput.contains(COMMAND_DELETE_RECIPE_INGREDIENT)) {
 //            System.out.println("stuck here14");
 //            if (userInput.trim().substring(0, 5).equals(COMMAND_DELETE_RECIPE_INGREDIENT)) {
