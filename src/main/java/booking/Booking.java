@@ -13,25 +13,28 @@ public class Booking {
     protected LocalDateTime dateTimeStart;
     protected LocalDateTime dateTimeEnd;
     protected String venue;
-    protected String username;
+    protected String name;
     private String description;
+    private String status;
 
     /**
-     * Facility.booking.Booking constructor to make booking, and also to read from file
+     * Facility.booking.Booking constructor to make booking
      *
+     * @param username      the requestor
      * @param roomcode      the specific room code
      * @param description   what you are going to use the room for
      * @param dateTimeStart when you are booking the facility
      * @param dateTimeEnd   when your booked period ends
      */
-    public Booking(String roomcode, String description, String dateTimeStart, String dateTimeEnd, User user) {
+    public Booking(String username, String roomcode, String description, String dateTimeStart, String dateTimeEnd) {
         this.venue = roomcode;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         this.dateTimeStart = LocalDateTime.parse(dateTimeStart, formatterStart);
         this.dateTimeEnd = LocalDateTime.parse(dateTimeEnd, formatterEnd);
         this.description = description;
-        this.username = user.getUsername();
+        this.name = username;
+        this.status = "P";
 
     }
 
@@ -46,14 +49,24 @@ public class Booking {
 
     }*/
 
-    public Booking(String roomcode, String username, String description, String atStart, String atEnd) {
+    /**
+     * Facility.booking.Booking constructor to generate booking entry from file
+     * @param username the requestor
+     * @param roomcode the venue
+     * @param description for what use
+     * @param atStart start date and time
+     * @param atEnd end date and time
+     * @param status request status
+     */
+    public Booking(String username, String roomcode, String description, String atStart, String atEnd, String status) {
         this.venue = roomcode;
         this.description = description;
         Instant instantStart = Instant.ofEpochMilli(Long.parseLong(atStart));
         Instant instantEnd = Instant.ofEpochMilli(Long.parseLong(atEnd));
         this.dateTimeStart = instantStart.atZone(ZoneId.systemDefault()).toLocalDateTime();
         this.dateTimeEnd = instantEnd.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        this.username = username;
+        this.name = username;
+        this.status = status;
     }
 
     /**
@@ -63,13 +76,13 @@ public class Booking {
     public String toString() {
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-        return venue + " " + dateTimeStart.format(formatterStart) + " to " + dateTimeEnd.format(formatterEnd);
+        return name + " " + venue + " " + dateTimeStart.format(formatterStart) + " to " + dateTimeEnd.format(formatterEnd)+ " " +  status;
     }
 
     public String toWriteFile() {
-        return this.username + " | " + this.venue + " | " + this.description + " | " +
+        return this.name + " | " + this.venue + " | " + this.description + " | " +
                 this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
-                + this.dateTimeEnd.getLong(ChronoField.EPOCH_DAY) + "\n";
+                + this.dateTimeEnd.getLong(ChronoField.EPOCH_DAY) + " | " + this.status + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {
@@ -88,4 +101,11 @@ public class Booking {
         this.description = newDescription;
     }
 
+    public void setStatus(String newstatus) {
+        this.status = newstatus;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

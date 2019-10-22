@@ -52,12 +52,13 @@ public class AddRoomCommand extends Command {
 
 
     @Override
-    public void execute(RoomList rooms,  Ui ui, Storage roomStorage)
+    public void execute(RoomList roomList, BookingList bookingList, Ui ui, Storage bookingstorage,
+                        Storage roomstorage, User user)
             throws DukeException, IOException, ParseException {
-        AddRoom addroom = new AddRoom(date[0], timeslot[0], timeslot[1]);
-        rooms.add(addroom);
-        roomStorage.saveToFile(rooms);
+        AddRoom addroom = new AddRoom(roomcode, date, timeslot);
+        roomList.add(addroom);
+        roomstorage.saveToFile(roomList);
         ui.addToOutput("Got it, I've added this room.\n"
-            + addroom.toString() + "\n" + "Now you have " + rooms.size() + " room(s) in the list.");
+            + addroom.toString() + "\n" + "Now you have " + roomList.size() + " room(s) in the list.");
     }
 }
