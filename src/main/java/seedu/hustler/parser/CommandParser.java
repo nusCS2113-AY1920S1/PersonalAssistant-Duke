@@ -6,6 +6,7 @@ import seedu.hustler.command.avatar.SetNameCommand;
 import seedu.hustler.command.shop.BuyCommand;
 import seedu.hustler.command.shop.ShopListCommand;
 import seedu.hustler.command.task.*;
+import seedu.hustler.command.timer.*;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;
@@ -59,14 +60,10 @@ public class CommandParser extends Parser {
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("/snooze")) {
             return new SnoozeCommand(rawInput);
-        } else if (userInput[0].equals("/avatar")) {
-            if (userInput[1].equals("stats")) {
-                return new CheckAvatarCommand();
-            } else if (userInput[1].contains("setname")) {
-                return new SetNameCommand(userInput);
-            } else {
-                return new InvalidCommand();
-            }
+        } else if (userInput[0].equals("/avatar") && userInput[1].equals("stats")) {
+            return new CheckAvatarCommand();
+        } else if (userInput[0].equals("/avatar") && userInput[1].contains("setname")) {
+            return new SetNameCommand(userInput);
         } else if (userInput[0].equals("/achievement")) {
             return new AchievementCommand();
         } else if (userInput[0].equals("/add")) {
@@ -94,9 +91,8 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
-        } else if (userInput[0].equals("/prioritize") || userInput[0].equals("/chronological")
-                || userInput[0].equals("/normal")) {
-            return new SortCommand(rawInput);
+        } else if (userInput[0].equals("/sort")) {
+            return new SortCommand(userInput[1]);
         } else if (userInput[0].equals("/bye")) {
             return new ByeCommand();
         } else {

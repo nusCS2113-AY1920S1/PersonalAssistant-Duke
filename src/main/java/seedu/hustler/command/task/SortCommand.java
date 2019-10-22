@@ -15,10 +15,10 @@ public class SortCommand extends Command {
     /**
      * Initializes the sortType.
      *
-     * @param rawInput raw user's input.
+     * @param sortType type of sort.
      */
-    public SortCommand(String rawInput) {
-        this.sortType = rawInput.substring(1);
+    public SortCommand(String sortType) {
+        this.sortType = sortType;
     }
 
     /**

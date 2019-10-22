@@ -1,4 +1,4 @@
-package seedu.hustler.command.task;
+package seedu.hustler.command.timer;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
