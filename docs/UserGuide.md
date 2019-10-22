@@ -1,3 +1,5 @@
+
+
 # User Guide
 By: `AY1920S1-CS2113T-W17-1` Last Updated: `26/09/2019` License: `MIT`
 
@@ -14,14 +16,13 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
 [**4. Features**](/docs/UserGuide.md#4-features)
 + [4.1. General Commands](/docs/UserGuide.md#41-general-commands)
     - [4.1.1. Viewing help: `help`](/docs/UserGuide.md#411-viewing-help-help)
-    - [4.1.2. Listing all Tasks: `list`](/docs/UserGuide.md#412-listing-all-tasks-list)
-    - [4.1.3. Deleting a Task: `delete`](/docs/UserGuide.md#413-deleting-a-task-delete)
-    - [4.1.4. Completing a Task: `done`](/docs/UserGuide.md#414-completing-a-task-done)
-    - [4.1.5. Finding a Task: `find`](/docs/UserGuide.md#415-finding-a-task-find)
-    - [4.1.6. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#416-viewing-tasks-on-a-specified-date-view)
-    - [4.1.7. View Reminder: `view-reminder`](/docs/UserGuide.md#417-view-reminder-view-reminder)
-    - [4.1.8. Set Reminder: `set-reminder`](/docs/UserGuide.md#418-set-reminder-set-reminder)
-    - [4.1.9. Exiting **COMPal**: `bye`](/docs/UserGuide.md#419-exiting-compal-bye)
+    - [4.1.2. Deleting a Task: `delete`](/docs/UserGuide.md#412-deleting-a-task-delete)
+    - [4.1.3. Completing a Task: `done`](/docs/UserGuide.md#413-completing-a-task-done)
+    - [4.1.4. Finding a Task: `find`](/docs/UserGuide.md#414-finding-a-task-find)
+    - [4.1.5. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#415-viewing-tasks-on-a-specified-date-view)
+    - [4.1.6. View Reminder: `view-reminder`](/docs/UserGuide.md#416-view-reminder-view-reminder)
+    - [4.1.7. Set Reminder: `set-reminder`](/docs/UserGuide.md#417-set-reminder-set-reminder)
+    - [4.1.8. Exiting **COMPal**: `bye`](/docs/UserGuide.md#418-exiting-compal-bye)
 + [4.2. Detailed Task Management Commands](/docs/UserGuide.md#42-detailed-task-management-commands)
     - [4.2.1. Adding **Deadline**: `deadline`](/docs/UserGuide.md#421-adding-deadline-deadline)
     - [4.2.2. Adding **Event**: `event`](/docs/UserGuide.md#422-adding-event-event)
@@ -98,49 +99,103 @@ This is the end of the **Quick Start** guide. Please refer to [4. Features](/doc
 
 #### 4.1.1. Viewing help: `help`
 Can't remember so many tedious commands? Enter `help` in the **command box**, you can see a list of all commands available.
-#### 4.1.2. Listing all Tasks: `list`
-To see all the tasks stored in **COMPal**, simply enter `list` . All tasks stored will be displayed.  
 
-<img src="images/list.png" alt="list command" width="800"/>
-
-:information_source: | The `TASK_INDEX` of a task could be found by `list`.          
----------------------|-----------------
-#### 4.1.3. Deleting a Task: `delete`
+#### 4.1.2. Deleting a Task: `delete`
 Don't like any task? Enter `delete TASK_INDEX` in the **command box** will delete the task you want to delete.
 * `TASK_INDEX` is the index shown when you do `list`.
 
 <img src="images/delete.png" alt="delete command" width="800"/>
 
-#### 4.1.4. Completing a Task: `done`
+#### 4.1.3. Completing a Task: `done`
 After Finishing a task, you may want to mark it as done. Enter `done TASK_INDEX` in the **command box** will mark the task as done.
 * `TASK_INDEX` is the index shown when you do `list`.
 
 <img src="images/done.png" alt="done command" width="800"/>
 
-#### 4.1.5. Finding a Task: `find`
+#### 4.1.4. Finding a Task: `find`
 Want to search for the task by it's key word? Enter `find KEY_WORD` in the **command box** will give you all the tasks including the key word.
 * `KEY_WORD` is the key word string you want to search for, the string should not contain any space.
 
 <img src="images/find.png" alt="find command" width="800"/>
 
-#### 4.1.6. Viewing Tasks on a Specified Date: `view`
-Want to check if you are going to have a busy day? Enter `view /date DATE` in the **command box** will give you all the tasks on that day.
-* `DATE` is the date you want to search for and should be **dd/mm/yy** format. E.g. 02/10/2019.
+#### 4.1.5. Viewing Tasks : `view`
+View the tasks stored in COMPal in a day/week/month view.
+
+1. View the daily task of a particular day.
+
+	Format: `view day /date DATE`  
+	
+|| Description
+---------------------|-----------------
+:information_source: |  `DATE` is the date you want to search for and should be **dd/mm/yy** format. E.g. 02/10/2019.
+
+
+2. View the weekly task of the given date.  
+Format: `view week /date DATE`
+
+|| Description
+---------------------|-----------------
+:bulb: |  You may add in the parameter  `/type`  after  `DATE`  to view only the details of all `type` input. E.g.  `view week/day DATE /type deadline`  will allow you to view only deadline of the given week.  
+
+
+3. View the monthly calendar tasks of the given date.  
+Format: `view month`
+
+|| Description
+---------------------|-----------------
+:bulb:| You may omit `DATE` to view the calendar with respect to the current date!  E.g. `view week` will allow you to view the current week and `view day` will allow you to view the current day!  
 
 <img src="images/ViewDate.png" alt="view date command" width="800"/>
 
-#### 4.1.7. View Reminder: `view-reminder`
+<img src="images/ViewDate2.png" alt="view date command" width="800"/>
+
+The following are some examples of the `view` command which you can try to run.
+
+Day view examples:
+
+-   `view day`  
+    View all tasks for the current date.
+    
+-   `view day /date 01/02/2020`  
+    View all tasks for the date of `01/02/2020`.
+    
+-   `view day /date 01/02/2020 /type events`  
+    View task for the date of `01/02/2020` and view only `type` events.​
+    
+Week view examples:
+
+-   `view week`  
+    View all tasks for current week.
+    
+-   `view week /date 01/02/2020`  
+    View all tasks of the week starting from `01/02/2020`.
+    
+-   `view week /date 01/02/2020 /type events`  
+    View tasks for the week starting of `01/02/2020` and view only `type` events.​
+    
+Month view example:
+
+-   `view month`  
+    View all tasks for the current month.
+
+-   `view month /date 01/02/2020`  
+    View all tasks for the month of February.
+    
+-   `view month /date 01/02/2020 /type deadline`  
+    View tasks for the month of February and view only `type` deadline.​
+
+#### 4.1.6. View Reminder: `view-reminder`
 Don't know what is inside this week's reminder list? Enter `View-reminder` in the **command box** to see all reminders in this week.
 
 <img src="images/View-Reminder.png" alt="view-reminder command" width="800"/>
 
-#### 4.1.8. Set Reminder: `set-reminder`
+#### 4.1.7. Set Reminder: `set-reminder`
 Need a reminder for a task? Enter `set-reminder TASK_INDEX` in the **command box** will set a reminder for that task.
 * `TASK_INDEX` is the index shown when you do `list`.
 
 <img src="images/set-reminder.png" alt="set-reminder command" width="800"/>
 
-#### 4.1.9. Exiting **COMPal**: `bye`
+#### 4.1.8. Exiting **COMPal**: `bye`
 Bye-Bye! Enter `bye` in the **command box** will quit **COMPal**. Have a nice day! :blush:
 
 ### 4.2. Detailed Task Management Commands
