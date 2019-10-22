@@ -154,7 +154,7 @@ public class Card {
     }
 
     /**
-     * Edits the expenditure details from the current bank account.
+     * Edits the expenditure details from the current card account.
      *
      * @param expNum   Transaction number.
      * @param desc     New description.
@@ -184,7 +184,7 @@ public class Card {
             throw new CardException("Edited expenditure cannot exceed remaining limit of $"
                     + remainingLimit);
         }
-        unpaid.editEx(expNum, desc, amount, date, category, ui);
+        unpaid.editExpenditure(expNum, desc, amount, date, category, ui);
     }
 
     /** Returns remaining limit of this current month.

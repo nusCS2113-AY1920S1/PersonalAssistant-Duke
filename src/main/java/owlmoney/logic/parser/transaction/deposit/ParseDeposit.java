@@ -35,7 +35,7 @@ public abstract class ParseDeposit {
     /**
      * Constructor which creates an instance of any ParseSaving type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseDeposit(String data) {
         this.rawData = data;

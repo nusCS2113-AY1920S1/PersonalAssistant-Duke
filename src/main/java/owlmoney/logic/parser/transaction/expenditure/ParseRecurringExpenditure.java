@@ -1,10 +1,6 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,16 +10,16 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseExpenditure class which is abstract where various expenditure parser objects inherit from
+ * ParseExpenditure class which is abstract where various recurring expenditure parser objects inherit from.
  * given that it is abstract.
  */
-public abstract class ParseExpenditure {
+public abstract class ParseRecurringExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     String type;
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
-        "/amount", "/date", "/desc", "/category", "/from", "/transno", "/num"
+        "/amount", "/desc", "/category", "/from", "/transno"
     };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(EXPENDITURE_KEYWORD);
     static final String AMOUNT = "/amount";
@@ -32,15 +28,14 @@ public abstract class ParseExpenditure {
     static final String CATEGORY = "/category";
     static final String FROM = "/from";
     static final String TRANSNO = "/transno";
-    static final String NUM = "/num";
 
     /**
-     * Constructor which creates an instance of any ParseExpenditure type object.
+     * Constructor which creates an instance of any ParseRecurringExpenditure type object.
      *
      * @param data Raw user input data.
-     * @param type Represents type of expenditure to be added.
+     * @param type Represents type of recurring expenditure to be added.
      */
-    ParseExpenditure(String data, String type) {
+    ParseRecurringExpenditure(String data, String type) {
         this.rawData = data;
         this.type = type;
     }
@@ -78,8 +73,6 @@ public abstract class ParseExpenditure {
     public void fillHashTable() throws ParserException {
         expendituresParameters.put(AMOUNT,
                 parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(DATE,
-                parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD));
         expendituresParameters.put(DESCRIPTION,
                 parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD));
         expendituresParameters.put(CATEGORY,
@@ -88,8 +81,6 @@ public abstract class ParseExpenditure {
                 parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD));
         expendituresParameters.put(TRANSNO,
                 parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(NUM,
-                parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD));
     }
 
     /**
@@ -139,32 +130,6 @@ public abstract class ParseExpenditure {
         if (!RegexUtil.regexCheckName(nameString)) {
             throw new ParserException("/from can only contain letters and at most 30 characters");
         }
-    }
-
-    /**
-     * Checks if the deposit date is of valid format and not after now.
-     *
-     * @param dateString Date to be checked.
-     * @return Date if checks pass.
-     * @throws ParserException If date format is invalid.
-     */
-    Date checkDate(String dateString) throws ParserException {
-        if (RegexUtil.regexCheckDateFormat(dateString)) {
-            DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-            temp.setLenient(false);
-            Date date;
-            try {
-                date = temp.parse(dateString);
-                if (date.compareTo(new Date()) > 0) {
-                    throw new ParserException("/date cannot be after today");
-                }
-                return date;
-            } catch (ParseException e) {
-                throw new ParserException("Incorrect date format."
-                        + " Date format is dd/mm/yyyy in year range of 1900-2099");
-            }
-        }
-        throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
     /**
