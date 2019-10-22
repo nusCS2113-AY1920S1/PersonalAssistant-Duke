@@ -20,7 +20,7 @@ public class EntryParser extends Parser {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
-                if(undoFlag == 1) {//undo input
+                if(undoFlag == 1) {//Undo input
                     undoFlag = 0;
                     return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
                 } else {//normal input, prePosition is -1
@@ -43,7 +43,7 @@ public class EntryParser extends Parser {
             return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
+        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
             return new AddActionCommand(mode, commandToRun);
         } else {
                 return invalidCommand();

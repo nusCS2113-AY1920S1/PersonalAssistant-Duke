@@ -1,4 +1,4 @@
 package dolla.action;
 
-public class repeat {
+public class Repeat {
 }

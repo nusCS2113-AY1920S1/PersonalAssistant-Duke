@@ -41,7 +41,7 @@ public class DebtsParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            if(undoFlag == 1) {//undo input
+            if(undoFlag == 1) {//Undo input
                 undoFlag = 0;
                 return new AddDebtsCommand(type, name, amount, description, date, prevPosition);
             } else {//normal input, prePosition is -1
@@ -55,7 +55,7 @@ public class DebtsParser extends Parser {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("remove")) {
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
+        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
             return new AddActionCommand(mode, commandToRun);
         } else {
             return invalidCommand();

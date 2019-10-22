@@ -2,11 +2,10 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.action.undo;
+import dolla.action.Undo;
 import dolla.task.Debt;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class AddDebtsCommand extends Command {
 
@@ -29,13 +28,13 @@ public class AddDebtsCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount, description, date);
-        if(prevPosition != -1) { //an undo input
+        if(prevPosition != -1) { //an Undo input
             dollaData.addToPrevPosition("debt", newDebt, prevPosition);
             prevPosition = -1;
         } else { //normal input
             dollaData.addToLogList("debt", newDebt);
             index = dollaData.getLogList("debt").size();
-            undo.removeCommand("debt",index);
+            Undo.removeCommand("debt",index);
         }
         Ui.echoAddDebt(newDebt);
     }

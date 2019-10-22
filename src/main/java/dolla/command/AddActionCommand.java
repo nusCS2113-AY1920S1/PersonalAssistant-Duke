@@ -1,11 +1,10 @@
 package dolla.command;
 
 import dolla.DollaData;
-import dolla.action.undo;
+import dolla.action.Undo;
 import dolla.parser.DebtsParser;
 import dolla.parser.EntryParser;
 import dolla.parser.MainParser;
-import dolla.parser.Parser;
 
 public class AddActionCommand extends Command{
     private String mode;
@@ -19,7 +18,7 @@ public class AddActionCommand extends Command{
     }
 
     public void undoCommand() {
-        UserInput = undo.processCommand(mode);
+        UserInput = Undo.processCommand(mode);
         String[] parser = UserInput.split(" ",2);
         if(parser[0].equals("remove")) {
             UserInput = parser[0] + " " + parser[1];
@@ -29,14 +28,14 @@ public class AddActionCommand extends Command{
         }
     }
 
-    //process redo
+    //process Redo
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
         if(command.equals("undo")) {
             undoCommand();
         } else if (command.equals("redo")) {
-            //redo
+            //Redo
         }
         if(mode.equals("debt")) {
             DebtsParser.setPrePosition(prevPosition);
