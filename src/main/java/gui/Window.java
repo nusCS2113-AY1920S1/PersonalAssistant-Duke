@@ -68,16 +68,16 @@ public class Window {
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setBounds(10, 10, 343, 244);
         panel.add(scrollPane);
-        
-                JTextArea outputArea_1 = new JTextArea();
-                scrollPane.setViewportView(outputArea_1);
-                outputArea_1.setText("Welcome to Duke Pro!");
-                outputArea_1.setEditable(false);
-                outputArea_1.setFont(new Font("Sans Serif", Font.PLAIN, 15));
-                outputArea_1.setWrapStyleWord(true);
-                outputArea_1.setLineWrap(true);
-                DefaultCaret caret = (DefaultCaret) outputArea_1.getCaret();
-                this.outputArea = outputArea_1;
+
+        JTextArea outputArea = new JTextArea();
+        scrollPane.setViewportView(outputArea);
+        outputArea.setText("Welcome to Duke Pro!");
+        outputArea.setEditable(false);
+        outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
+        outputArea.setWrapStyleWord(true);
+        outputArea.setLineWrap(true);
+        DefaultCaret caret = (DefaultCaret) outputArea.getCaret();
+        this.outputArea = outputArea;
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         JPanel panel1 = new JPanel();
