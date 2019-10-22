@@ -5,6 +5,7 @@ import duke.task.PriorityList;
 import duke.ui.Ui;
 import duke.task.TaskList;
 
+//@@author Dou-Maokang
 /**
  * Representing a command that lists all tasks stored in task list.
  */
@@ -57,3 +58,4 @@ public class ListPriorityCommand extends Command {
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
     }
 }
+//@@author
