@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
+import duke.ui.TaskListPrinter;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -42,24 +43,43 @@ public class ListCommand extends Command {
             case "DEFAULT":
                 if (tasks.size() > 0) {
                     ui.showLine("Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        ui.showEntry(i + 1, tasks.get(i));
-                    }
+                    TaskListPrinter.print(ui, tasks);
                 } else {
                     ui.showLine("There are no tasks in your list.");
                 }
                 break;
             case "priority":
-                tasks.priorityPrint(ui);
+                tasks = tasks.priorityView();
+                if (tasks.size() > 0) {
+                    TaskListPrinter.print(ui, tasks);
+                } else {
+                    ui.showLine("There are no tasks in your list.");
+                }
                 break;
-            case "day":
-                tasks.dayViewPrint(ui);
+            case "day": {
+                tasks = tasks.dayView();
+                if (tasks.size() == 0) {
+                    ui.showLine("Congratulations, you have no tasks for the day! Take a break, have a kit kat");
+                } else {
+                    TaskListPrinter.print(ui, tasks);
+                }
                 break;
+            }
             case "week":
-                tasks.weekViewPrint(ui);
+                tasks = tasks.weekView();
+                if (tasks.size() == 0) {
+                    ui.showLine("Congratulations, you have no tasks for the week! Take a break, have a kit kat");
+                } else {
+                    TaskListPrinter.print(ui, tasks);
+                }
                 break;
             case "undone":
-                tasks.undonePrint(ui);
+                tasks = tasks.undoneView();
+                if (tasks.size() == 0) {
+                    ui.showLine("Congratulations, you have no undone tasks! Take a break, have a kit kat");
+                } else {
+                    TaskListPrinter.print(ui, tasks);
+                }
                 break;
             default:
                 throw new DukeException("The description of list is invalid");

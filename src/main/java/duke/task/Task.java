@@ -76,6 +76,17 @@ public class Task {
         isDone = false;
     }
 
+    public String getRecurring() {
+        switch (recurrencePeriod) {
+            case DAILY:
+                return "D";
+            case WEEKLY:
+                return "W";
+            default:
+                return "N";
+        }
+    }
+
     public Optional<String> getFilter() {
         return this.filter;
     }

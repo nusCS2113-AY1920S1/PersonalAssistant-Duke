@@ -139,18 +139,16 @@ public class TaskList {
         taskList.remove(i);
     }
 
-    public void priorityPrint(Ui ui) {
+    public TaskList priorityView() {
         ArrayList<Task> temp = new ArrayList<>();
         for (Task t : taskList) {
             temp.add(t);
         }
         Collections.sort(temp, (a, b) -> a.getPriorityLevel() < b.getPriorityLevel() ? 1 : -1);
-        for (Task t : temp) {
-            ui.showLine("*" + t.getPriority() + "* " + t);
-        }
+        return new TaskList(temp);
     }
 
-    public void dayViewPrint(Ui ui) {
+    public TaskList dayView() {
         LocalDate currDate = LocalDate.now();
         ArrayList<Task> temp = new ArrayList<>();
 
@@ -167,17 +165,10 @@ public class TaskList {
                 }
             }
         }
-        if (temp.size() == 0) {
-            ui.showLine("Congratulations, you have no task for today! Take a break, have a kit kat");
-        } else {
-            ui.showLine("You have " + temp.size() + ((temp.size() == 1) ? " task today!" : " tasks today!"));
-            for (Task t : temp) {
-                ui.showLine("  " + t.toString());
-            }
-        }
+        return new TaskList(temp);
     }
 
-    public void weekViewPrint(Ui ui) {
+    public TaskList weekView() {
         LocalDate currDate = LocalDate.now();
         ArrayList<Task> temp = new ArrayList<>();
 
@@ -194,31 +185,16 @@ public class TaskList {
                 }
             }
         }
-        if (temp.size() == 0) {
-            ui.showLine("Congratulations, you have no task for this week! Take a break, have a kit kat");
-        } else {
-            ui.showLine("You have " + temp.size() + ((temp.size() == 1) ? " task this week!" : " tasks week!"));
-            for (Task t : temp) {
-                ui.showLine("  " + t.toString());
-            }
-        }
+        return new TaskList(temp);
     }
 
-    public void undonePrint(Ui ui) {
+    public TaskList undoneView() {
         ArrayList<Task> list = new ArrayList<>();
         for (Task t : taskList) {
             if (t.getStatusIcon().equals("N")) {
                 list.add(t);
             }
         }
-        int tasks = list.size();
-        if (tasks == 0) {
-            ui.showLine("Congratulations, you have no undone tasks. Take a break, have a kit kat");
-        } else {
-            ui.showLine("You have " + list.size() + ((list.size() == 1) ? " undone task" : " undone tasks"));
-            for (Task t : list) {
-                ui.showLine(t.toString());
-            }
-        }
+        return new TaskList(list);
     }
 }
