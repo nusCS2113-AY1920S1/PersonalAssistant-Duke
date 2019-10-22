@@ -100,6 +100,7 @@ When you are ready to start coding,
 
 [[Design-Architecture]]
 === Architecture
+.Architecture Diagram
 image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App.
@@ -128,12 +129,15 @@ The rest of the App consists of four components.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 === UI Component
+.Ui Component Diagram
 image::UiComponent.png[width="800"]
 
 === Logic Component
-
+.High Level Logic Diagram
+image::HighLevelLogic.png[width="800"]
 
 === Model Component
+.Model Component Diagram
 image::ModelComponent.png[width="800"]
 
 === Storage Component
