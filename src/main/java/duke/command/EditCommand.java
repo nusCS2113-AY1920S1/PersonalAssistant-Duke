@@ -44,15 +44,15 @@ public class EditCommand extends Command {
         if (filteredListIndex > tempTaskList.size()) {
             isIndexFound = false;
         } else if (filter.isPresent()) {
-            int filteredListCounter = 0;
+            int filteredListCounter = -1;
             for (int i = 0; i < tempTaskList.size(); i++) {
+                if (filter.equals(tempTaskList.get(i).getFilter())) {
+                    filteredListCounter++;
+                }
                 if (filteredListCounter == filteredListIndex) {
                     isIndexFound = true;
                     actualIndex = i;
                 }
-				if (filter == tempTaskList.get(i).getFilter()) {
-					filteredListCounter++;
-				}
             }
         } else {
         	isIndexFound = true;
