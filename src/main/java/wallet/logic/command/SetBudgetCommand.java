@@ -1,3 +1,5 @@
+//@@author matthewng1996
+
 package wallet.logic.command;
 
 import wallet.model.Wallet;
@@ -93,7 +95,7 @@ public class SetBudgetCommand extends Command {
                             updateSaveFile(wallet);
                             System.out.println(MESSAGE_REMOVE_BUDGET
                                     + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
-                                    + budget.getYear());
+                                    + " " + budget.getYear());
                         } else {
                             System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
                         }
