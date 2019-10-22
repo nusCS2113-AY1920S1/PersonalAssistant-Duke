@@ -78,8 +78,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Day> getRecommendations() throws DukeException {
-        return storage.readVenues();
+    public List<Day> getRecommendations(int numDays) throws DukeException {
+        List<Day> recommendations = storage.readVenues(numDays);
+        storage.writeRecommendations(recommendations);
+        return recommendations;
     }
 
     @Override

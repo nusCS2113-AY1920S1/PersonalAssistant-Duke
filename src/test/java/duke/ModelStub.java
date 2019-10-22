@@ -73,7 +73,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Day> getRecommendations() throws DukeException {
+    public List<Day> getRecommendations(int numberOfDays) throws DukeException {
         return storage.readVenues();
     }
 

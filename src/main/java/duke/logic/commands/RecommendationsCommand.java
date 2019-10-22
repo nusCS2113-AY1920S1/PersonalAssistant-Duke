@@ -26,7 +26,7 @@ public class RecommendationsCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
 
-        List<Day> list = model.getRecommendations();
+        List<Day> list = model.getRecommendations(itinerary.getNumberOfDays());
 
         assert (!list.isEmpty()) : "list should not be null";
 

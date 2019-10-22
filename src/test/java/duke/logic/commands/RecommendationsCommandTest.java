@@ -19,7 +19,7 @@ class RecommendationsCommandTest {
         CommandResultText commandResult = recommendationsCommand.execute(model);
         String result1 = commandResult.getMessage();
 
-        List<Venue> list = model.getRecommendations();
+        List<Venue> list = model.getRecommendations(itinerary.getNumberOfDays());
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in 5 days:\n");
         for (int i = 0; i < 10; i++) {
             if (i % 2 == 0) {

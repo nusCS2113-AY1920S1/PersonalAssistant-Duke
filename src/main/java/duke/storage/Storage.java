@@ -33,6 +33,7 @@ public class Storage {
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
+    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
     //private static final String ROUTES_FILE_PATH = "/data/routes.txt";
@@ -127,12 +128,12 @@ public class Storage {
      * @return The List of all Venues in Recommendations list.
      */
 
-    public List<Day> readVenues() {
+    public List<Day> readVenues(int numDays) {
         List<Day> recommendations = new ArrayList<>();
 
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
-        while (s.hasNext()) {
+        while (s.hasNext() && i<=numDays) {
             List<Venue> venueList = new ArrayList<>();
             venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
             List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
@@ -163,6 +164,47 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException(Messages.FILE_NOT_SAVE);
         }
+    }
+
+    /**
+     * Writes recommendations to filepath.
+     */
+    public void writeRecommendations(List<Day> list) throws DukeException {
+        try {
+            FileWriter writer = new FileWriter(SAMPLE_RECOMMENDATIONS_FILE_PATH);
+            for (Day day : list) {
+                writer.write(ParserStorageUtil.toDayString(day) + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException(Messages.FILE_NOT_SAVE);
+        }
+    }
+
+    /**
+     * Reads recommendations from filepath.
+     */
+    private List<Day> readRecommendations() throws DukeException {
+        List<Day> days = new ArrayList<>();
+        try {
+            File f = new File(SAMPLE_RECOMMENDATIONS_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                List<Venue> venueList = new ArrayList<>();
+                List<Todo> todoList;
+                int number = ParserStorageUtil.getNumberFromStorage(s.nextLine());
+                venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+                venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+                todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
+                Day day = new Day(todoList, venueList, number);
+                days.add(day);
+
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException(Messages.FILE_NOT_FOUND);
+        }
+        return days;
     }
 
     public TaskList getTasks() {

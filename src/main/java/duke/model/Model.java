@@ -57,8 +57,9 @@ public interface Model {
     /**
      * Returns the list of all attractions.
      * @return
+     * @param numberOfDays
      */
-    List<Day> getRecommendations() throws DukeException;
+    List<Day> getRecommendations(int numberOfDays) throws DukeException;
 
     /**
      * Saves the Model data in storage.

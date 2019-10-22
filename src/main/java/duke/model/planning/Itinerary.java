@@ -44,17 +44,17 @@ public class Itinerary extends DayList {
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
                 +  days + " days around " + this.getHotelLocation().getAddress() + ": \n");
 
-        for (int i = 0; i<days; i++){
+        for (int i = 0; i<days; i++) {
             Day list1 = this.getList().get(i);
             result.append("\n");
             result.append("Day ").append(list1.getNumber()).append(":").append("\n \n");
             result.append("Venues: ").append("\n");
-            for(Venue venue : list1.getVenueList()){
+            for(Venue venue : list1.getVenueList()) {
                 result.append(venue.getAddress()).append("\n");
             }
             result.append("\n");
             result.append("Todo List: ").append("\n");
-            for(Todo todo : list1.getTodoList()){
+            for(Todo todo : list1.getTodoList()) {
                 result.append(" - ").append(todo.getDescription()).append("\n");
             }
         }
