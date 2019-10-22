@@ -4,11 +4,7 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.PatientTaskList;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
+import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
 /**
@@ -23,19 +19,15 @@ public abstract class Command {
     /**
      * .
      *
-     * @param patientTask        .
-     * @param tasks              .
-     * @param patientList        .
-     * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param patientTask    .
+     * @param tasks          .
+     * @param patientList    .
+     * @param ui             .
+     * @param storageManager .
      * @throws DukeException .
      */
     public abstract void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui,
-                                 PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                                 PatientStorage patientStorage) throws DukeException;
-
+                                 StorageManager storageManager) throws DukeException;
 
 
     /**
