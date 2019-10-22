@@ -1,6 +1,5 @@
 package compal.logic.parser;
 
-import compal.commons.CompalUtils;
 import compal.logic.command.Command;
 import compal.logic.command.EditCommand;
 import compal.logic.parser.exceptions.ParserException;
@@ -13,23 +12,17 @@ import java.util.Scanner;
 
 //@@author jaedonkey
 public class EditCommandParser implements CommandParser {
-    private String description;
-    private Date date;
-    private String startTime;
-    private String endTime;
-    private int taskId;
-    private Task.Priority priority;
 
     @Override
     public Command parseCommand(String restOfInput) throws ParserException, ParseException {
-        taskId = getTokenTaskID(restOfInput);
-        description = getTokenDescription(restOfInput);
-        date = getDate(restOfInput);
-        priority = getTokenPriority(restOfInput);
-        startTime = getTokenStartTime(restOfInput);
-        endTime = getTokenEndTime(restOfInput);
+        int taskId = getTokenTaskID(restOfInput);
+        String description = getTokenDescription(restOfInput);
+        Date date = getDate(restOfInput);
+        Task.Priority priority = getTokenPriority(restOfInput);
+        String startTime = getTokenStartTime(restOfInput);
+        String endTime = getTokenEndTime(restOfInput);
 
-        return new EditCommand(taskId,description,date,startTime,endTime,priority);
+        return new EditCommand(taskId, description, date, startTime, endTime, priority);
 
 
     }
