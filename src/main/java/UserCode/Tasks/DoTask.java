@@ -9,7 +9,7 @@ import UserCode.Conditions.Condition;
 public class DoTask extends Task {
 
     public DoTask(Condition condition, Action action) {
-        super(condition, action);
+        super(condition, action, "do");
     }
 
     @Override

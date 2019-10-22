@@ -6,10 +6,15 @@ import Exceptions.FarmioException;
 import FrontEnd.Simulation;
 import FrontEnd.Ui;
 import Farmio.Farmer;
+import org.json.simple.JSONObject;
 
 public abstract class Action {
 
     ActionType type;
+
+    public Action(ActionType type){
+        this.type = type;
+    }
 
     /**
      * public Action(JSONObject obj) {
@@ -59,13 +64,4 @@ public abstract class Action {
         return type.name();
     }
 
-    /*
-    public JSONObject toJSON() {
-        JSONObject obj = new JSONObject();
-        obj.put("farm_wheat", wheatFarm.toJSON());
-        obj.put("farm_chicken", chickenFarm.toJSON());
-        obj.put("farm_cow", cowFarm.toJSON());
-        obj.put("money", market.toJSON());
-        return obj;
-    }*/
 }

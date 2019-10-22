@@ -9,7 +9,7 @@ import UserCode.Conditions.Condition;
 public class ForTask extends Task { //JX PLEASE FILL THIS SHIT UP
 
     public ForTask(Condition condition, Action action) {
-        super(condition, action);
+        super(condition, action, "for");
     }
 
     @Override

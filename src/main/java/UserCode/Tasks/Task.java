@@ -5,14 +5,17 @@ import Farmio.Farmio;
 import UserCode.Actions.Action;
 import Exceptions.FarmioException;
 import UserCode.Conditions.Condition;
+import org.json.simple.JSONObject;
 
 public abstract class Task {
     protected Condition condition;
     protected Action action;
+    private String type;
 
-    public Task(Condition condition, Action action) {
+    public Task(Condition condition, Action action, String type) {
         this.condition = condition;
         this.action = action;
+        this.type = type;
     }
     /**
     public Task(JSONObject obj) throws FarmioException {
@@ -30,6 +33,14 @@ public abstract class Task {
 
 
     public abstract void execute(Farmio farmio) throws FarmioException, FarmioFatalException;
+
+    public JSONObject toJSON(){
+        JSONObject object = new JSONObject();
+        object.put("condition", condition.toJSON());
+        object.put("action", action.toString());
+        object.put("type", type);
+        return object;
+    }
 
 //    private Action parseJsonAction(JSONObject obj) throws FarmioException {
 //        Action action;
