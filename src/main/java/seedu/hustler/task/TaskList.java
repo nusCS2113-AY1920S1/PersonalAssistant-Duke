@@ -395,6 +395,7 @@ public class TaskList {
 
     /**
      * Converts the frequency into number of minutes.
+     *
      * @param frequency string that denotes the frequency.
      * @return number of minutes.
      */
@@ -424,6 +425,14 @@ public class TaskList {
             break;
         }
         return minutes;
+    }
+
+    /**
+     * Obtains the last task in the task list.
+     * @return last task in the task list.
+     */
+    public Task getLastTask() {
+        return this.list.get(list.size() - 1);
     }
 
     private String getDescription(List<String> splitInput) {
