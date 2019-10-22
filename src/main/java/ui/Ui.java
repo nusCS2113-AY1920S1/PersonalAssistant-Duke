@@ -116,6 +116,13 @@ public class Ui {
         return s;
     }
 
+    /**
+     *
+     * @param question The word.
+     * @param options The 4 meanings as answer options. Only one of them is the corresponding meaning.
+     * @param optionSequence = {1, 2, 3, 4}. The integer number is the correct meaning option.
+     * @return
+     */
     public String quizDisplay(String question, String[] options, int optionSequence){
         String s = ("What is the meaning of " + question +"?\n");
         int index=1;
@@ -126,6 +133,7 @@ public class Ui {
         s += "\n";
         return s;
     }
+
     public String quizResponse(Boolean isCorrect, String answer){
         if(isCorrect){
             return ("Yes!! The correct answer is \""+ answer + "\".");
