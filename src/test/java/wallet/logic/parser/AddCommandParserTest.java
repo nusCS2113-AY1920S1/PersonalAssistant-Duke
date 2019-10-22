@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddCommandParserTest {
+    //@@author kyang96
     @Test
     public void parseExpense_validInput_success() {
         AddCommandParser parser = new AddCommandParser();

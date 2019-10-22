@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EditCommandTest {
+    //@@author kyang96
     private static Wallet testWallet = new Wallet();
 
     @BeforeAll

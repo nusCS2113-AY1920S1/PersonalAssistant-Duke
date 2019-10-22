@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EditCommandParserTest {
+    //@@author kyang96
     @Test
     public void parseExpense_validInput_success() {
         EditCommandParser parser = new EditCommandParser();

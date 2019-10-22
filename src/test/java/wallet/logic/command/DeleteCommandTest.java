@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteCommandTest {
+    //@@author kyang96
     private static Wallet testWallet = new Wallet();
 
     @BeforeAll
