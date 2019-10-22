@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import oof.Storage;
+import oof.exception.OofException;
 import oof.model.module.SemesterList;
 import oof.model.task.TaskList;
 import oof.Ui;
@@ -44,11 +45,9 @@ public class CalendarCommand extends Command {
             this.month = Integer.parseInt(argumentArray[INDEX_MONTH]);
             this.year = Integer.parseInt(argumentArray[INDEX_YEAR]);
             if (month < MONTH_JANUARY || month > MONTH_DECEMBER) {
-                // 0-based indexing to 1-based indexing
-                this.month = calendar.get(Calendar.MONTH) + 1;
-                this.year = calendar.get(Calendar.YEAR);
+                throw new OofException("Invalid month");
             }
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | OofException e) {
             // 0-based indexing to 1-based indexing
             this.month = calendar.get(Calendar.MONTH) + 1;
             this.year = calendar.get(Calendar.YEAR);
