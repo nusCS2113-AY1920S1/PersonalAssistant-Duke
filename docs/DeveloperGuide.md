@@ -18,6 +18,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 + [3.4 Configurations to do before Writing Code](/docs/DeveloperGuide.md#34-configurations-to-do-before-writing-code)
 
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
+
  + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
  + [4.2 UI Component](/docs/DeveloperGuide.md#42-ui-component)
  + [4.3 Logic Component](/docs/DeveloperGuide.md#43-logic-component)
@@ -27,6 +28,9 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
+ + [5.1 Architecture](/docs/DeveloperGuide.md#51-view-feature)
+ + [5.5 Architecture](/docs/DeveloperGuide.md#55-find-feature)
+
 
 [**6. Documentation**](/docs/DeveloperGuide.md#6-documentation)
 
