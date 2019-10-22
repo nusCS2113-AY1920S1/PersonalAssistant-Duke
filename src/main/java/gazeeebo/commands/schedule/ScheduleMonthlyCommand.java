@@ -33,7 +33,7 @@ public class ScheduleMonthlyCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String[] command = ui.fullCommand.trim().split(" ");
+        String[] command = ui.fullCommand.split(" ");
         if (command.length > 2) {
             System.out.println("The command should be in the format \"scheduleMonthly yyyy-MM\".");
             return;
@@ -53,13 +53,13 @@ public class ScheduleMonthlyCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             switch (t.getClass().getName()) {
-            case "gazeeebo.Tasks.Event":
+            case "gazeeebo.tasks.Event":
                 tDate = ((Event) t).date;
                 break;
-            case "gazeeebo.Tasks.Deadline":
+            case "gazeeebo.tasks.Deadline":
                 tDate = ((Deadline) t).by.toLocalDate();
                 break;
-            case "gazeeebo.Tasks.Timebound":
+            case "gazeeebo.tasks.Timebound":
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {
