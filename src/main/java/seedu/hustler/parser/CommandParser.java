@@ -86,7 +86,7 @@ public class CommandParser extends Parser {
             return new ShowTimerCommand();
         } else if (userInput[0].equals("/shop")) {
             return new ShopListCommand();
-        } else if (userInput[0].equals("buy")) {
+        } else if (userInput[0].equals("/buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
                 return new BuyCommand(index);
