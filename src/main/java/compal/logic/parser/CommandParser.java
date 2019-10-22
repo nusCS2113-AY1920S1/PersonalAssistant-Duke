@@ -176,7 +176,11 @@ public interface CommandParser {
             if (!scanner.hasNext()) {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
-            int intInput = Integer.parseInt(scanner.next());
+            String input = scanner.next();
+            if (input.equals(EMPTY_INPUT_STRING) || input.contains(TOKEN_SLASH)) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            int intInput = Integer.parseInt(input);
             return intInput;
         } else {
             throw new ParserException(MESSAGE_MISSING_TOKEN);
@@ -201,6 +205,9 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String dateField = scanner.next();
+            if (dateField.equals(EMPTY_INPUT_STRING) || dateField.charAt(0) == TOKEN_SLASH_CHAR) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
             if (!isDateValid(dateField)) {
                 throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
             }
