@@ -314,21 +314,32 @@ public class Parser {
 
         } else if (arr.length > ZERO && arr[ZERO].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
-            String description = "";
-            String durDesc;
+            String afterTaskDesc = "";
+            boolean detectBackSlash = false;
             int duration;
-            String unit;
             for (int i = ONE; i < arr.length; i++) {
-                description += arr[i] + " ";
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !detectBackSlash) {
+                    taskDesc += arr[i] + " ";
+                } else {
+                    if (!detectBackSlash) {
+                        detectBackSlash = true;
+                    } else {
+                        afterTaskDesc += arr[i] + " ";
+                    }
+                }
             }
-            if (description.isEmpty()) {
+            taskDesc = taskDesc.trim();
+            afterTaskDesc = afterTaskDesc.trim();
+            if (taskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
+            } else if (afterTaskDesc.isEmpty()) {
+                throw new DukeException("     (>_<) OOPS!!! The description for "
+                        + arr[ZERO] + " cannot be empty.");
+            } else{
+                duration = Integer.parseInt(taskDesc.split("/in", TWO)[ZERO].trim()) - ONE;
+                int howManyDays = Integer.parseInt(afterTaskDesc);
+                return new RemindCommand(duration, howManyDays);
             }
-
-            duration = Integer.parseInt(description.split("/in", TWO)[ZERO].trim()) - ONE;
-            String in = description.split(" /in ", TWO)[ONE].trim();
-            int howManyDays = Integer.parseInt(in.split(" ", TWO)[ZERO].trim());
-            return new RemindCommand(duration, howManyDays);
         } else if (arr.length > ZERO && (arr[ZERO].equals("update"))) {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");

@@ -86,6 +86,20 @@ public class Ui {
     }
 
     /**
+     * Outputs task that is successfully sets a reminder to the user (GUI).
+     *
+     * @param num indicated number of days to set the reminder
+     * @param items The task list that contains a list of tasks.
+     * @return String of the task that is completed.
+     */
+    public static String showReminderGui(Task num, TaskList items) {
+        String str = ("     You will get a reminder for this task in "
+                + num.getReminder()
+                + " days\n" + items.toString());
+        return str;
+    }
+
+    /**
      * Outputs all the tasks of the task list to the user.
      *
      * @param items The task list that contains a list of tasks.
