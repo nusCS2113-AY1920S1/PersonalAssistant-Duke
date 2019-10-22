@@ -14,6 +14,7 @@ import owlmoney.ui.Ui;
 
 class BondListTest {
     private static final String NEWLINE = System.lineSeparator();
+
     @Test
     void bondListStubListBond_noBond_throwsBondException() {
         BondListStub bondListTest = new BondListStub();
