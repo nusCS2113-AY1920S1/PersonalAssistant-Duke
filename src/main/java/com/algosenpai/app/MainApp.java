@@ -39,12 +39,12 @@ public class MainApp extends Application {
         startSplashScreen(stage);
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event -> {
-                try {
-                    startMain(stage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                startMain(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
         );
         pause.play();
     }
