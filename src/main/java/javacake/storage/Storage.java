@@ -34,8 +34,10 @@ public class Storage {
         //Initialise new deadline file
         try {
             File tasksFile = new File("data/tasks/deadline.txt");
+            File notesFile = new File("data/notes/");
             filepath = tasksFile.getPath();
             Duke.logger.log(Level.INFO,"Filepath: " + filepath);
+            generateFolder(notesFile);
 
             if (!tasksFile.getParentFile().getParentFile().exists()) {
                 tasksFile.getParentFile().getParentFile().mkdir();
@@ -99,6 +101,18 @@ public class Storage {
 
         //Initialise new notes directory
 
+    }
+
+    /**
+     * Generates starting folder when program starts.
+     * @param sampleFile File that is auto-generated when program starts.
+     * @throws DukeException If file does not exist.
+     */
+    private static void generateFolder(File sampleFile) {
+        if (!sampleFile.getParentFile().exists()) {
+            sampleFile.getParentFile().mkdirs();
+            sampleFile.mkdirs();
+        }
     }
 
     /**

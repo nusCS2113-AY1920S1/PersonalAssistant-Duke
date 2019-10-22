@@ -115,7 +115,8 @@ public class QuizCommand extends Command {
      * @return
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
+            throws DukeException, IOException {
         progressStack.insertQueries();
         assert !progressStack.containsDirectory();
         this.filePath = progressStack.getFullFilePath();

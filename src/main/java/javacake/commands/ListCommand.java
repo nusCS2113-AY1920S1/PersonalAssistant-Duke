@@ -13,7 +13,7 @@ public class ListCommand extends Command {
 
     /**
      * Execute the listing of current tasks on the Ui.
-     * @param progressStack TaskList containing current tasks
+     * @param progressStack tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user

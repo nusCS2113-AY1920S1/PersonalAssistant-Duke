@@ -1,15 +1,18 @@
 package javacake;
 
+
 import javacake.commands.AddCommand;
-import javacake.commands.Command;
-import javacake.commands.ExitCommand;
-import javacake.commands.ListCommand;
 import javacake.commands.BackCommand;
+import javacake.commands.Command;
+import javacake.commands.CreateNoteCommand;
+import javacake.commands.EditNoteCommand;
+import javacake.commands.ExitCommand;
+import javacake.commands.GoToCommand;
 import javacake.commands.HelpCommand;
+import javacake.commands.ListCommand;
+import javacake.commands.MegaListCommand;
 import javacake.commands.ResetCommand;
 import javacake.commands.ScoreCommand;
-import javacake.commands.GoToCommand;
-import javacake.commands.MegaListCommand;
 import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
@@ -24,7 +27,7 @@ import java.util.List;
 
 public class Parser {
 
-    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "tree", "deadline"};
+    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "overview", "deadline", "editnote", "createnote"};
 
     /**
      * Allows the user input to be parsed before running 'execute'.
@@ -37,7 +40,7 @@ public class Parser {
     public static Command parse(String inputCommand) throws DukeException {
         String[] buffer = inputCommand.split("\\s+");
         String input = buffer[0];
-        helper(input);
+        //helper(input);
         if (input.equals("exit")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -57,6 +60,10 @@ public class Parser {
             return new GoToCommand(inputCommand.substring(5));
         } else if (input.equals("overview")) {
             return new MegaListCommand();
+        } else if (input.equals("createnote")) {
+            return new CreateNoteCommand(inputCommand);
+        } else if (input.equals("editnote")) {
+            return new EditNoteCommand(inputCommand);
         } else if (input.equals("deadline")) {
             return new AddCommand(inputCommand);
         } else {
