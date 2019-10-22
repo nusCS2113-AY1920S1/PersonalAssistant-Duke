@@ -87,6 +87,10 @@ public class Optix {
         return model.getShows();
     }
 
+    public ShowMap getShowHistory() {
+        return model.getShowsHistory();
+    }
+
     public String getResponse() {
         return ui.getMessage();
     }

@@ -1,5 +1,6 @@
 package optix.ui.windows;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -20,6 +21,15 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class MainWindow extends AnchorPane {
+    @FXML
+    private JFXButton showButton;
+    @FXML
+    private JFXButton financeButton;
+    @FXML
+    private JFXButton archiveButton;
+    @FXML
+    private JFXButton versionButton;
+
     //// All the elements on the left side of the window.
     @FXML
     private VBox display;
@@ -92,10 +102,20 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
+    @FXML
     private void displayShows() {
         clearDisplay();
 
         for (Map.Entry<LocalDate, Theatre> entry : optix.getShows().entrySet()) {
+            display.getChildren().add(ShowController.displayShow(entry.getValue(), entry.getKey()));
+        }
+    }
+
+    @FXML
+    private void displayArchive() {
+        clearDisplay();
+
+        for (Map.Entry<LocalDate, Theatre> entry : optix.getShowHistory().entrySet()) {
             display.getChildren().add(ShowController.displayShow(entry.getValue(), entry.getKey()));
         }
     }

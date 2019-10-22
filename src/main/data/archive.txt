@@ -1,1 +1,5 @@
+2015-10-13 | Harry Potter | 2000.0
+2018-10-13 | Harry Potter | 2000.0
+2018-11-13 | Lion King | 2000.0
+2018-12-13 | Harry Potter | 2000.0
 2019-10-13 | Lion King | 200.0

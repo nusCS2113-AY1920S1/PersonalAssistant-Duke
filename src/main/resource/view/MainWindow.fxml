@@ -15,22 +15,22 @@
    <children>
       <AnchorPane maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="1200.0" style="-fx-background-color: #C0392B;">
          <children>
-            <JFXButton depthTest="ENABLE" layoutX="113.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Shows" textFill="#1f1b24">
+            <JFXButton fx:id="showButton" depthTest="ENABLE" layoutX="113.0" onAction="#displayShows" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Shows" textFill="#1f1b24">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="263.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Finance" textFill="#1f1b24">
+            <JFXButton fx:id="financeButton" layoutX="263.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Finance" textFill="#1f1b24">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="413.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Archive" textFill="#1f1b24">
+            <JFXButton fx:id="archiveButton" layoutX="413.0" onAction="#displayArchive" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Archive" textFill="#1f1b24">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="563.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Version" textFill="#1f1b24">
+            <JFXButton fx:id="versionButton" layoutX="563.0" prefHeight="80.0" prefWidth="150.0" ripplerFill="#909497" style="-fx-background-color: #CACFD2;" text="Version" textFill="#1f1b24">
                <font>
                   <Font name="Roboto" size="16.0" />
                </font>
