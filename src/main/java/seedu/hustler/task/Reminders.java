@@ -11,23 +11,26 @@ import java.util.ArrayList;
  * and user can type command "remind" to bring up reminders after that.
  */
 public class Reminders {
-
     /**
      * Reminder list that contains tasks that are overdue.
      */
     private static ArrayList<Task> overDueList = new ArrayList<>();
+
     /**
      * Reminder list that contain tasks with less than 30 minutes or less till deadline.
      */
     private static ArrayList<Task> lastDayList = new ArrayList<>();
+
     /**
      * Reminder list htat contain tasks with less than 24 hours or less till deadline.
      */
     private static ArrayList<Task> lastThirtyMinutesList = new ArrayList<>();
+
     /**
      * 24 hours converted to seconds.
      */
     private static final int TWENTY_FOUR_HOURS = 86400;
+
     /**
      * 30 minutes converted to seconds.
      */

@@ -7,7 +7,6 @@ import seedu.hustler.ui.Ui;
  * Represents invalid command.
  */
 public class InvalidCommand extends Command {
-
     /**
      * Print error for InvalidCommand.
      */

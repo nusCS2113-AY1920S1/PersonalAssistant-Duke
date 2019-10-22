@@ -23,9 +23,7 @@ public class SortCommand extends Command {
 
     /**
      * Sorts the task list.
-     *
      */
-    @Override
     public void execute() {
         Hustler.list.sortTask(sortType);
     }

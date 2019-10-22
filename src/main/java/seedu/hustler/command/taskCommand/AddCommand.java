@@ -8,7 +8,6 @@ import seedu.hustler.ui.Ui;
  * Command that adds task to list.
  */
 public class AddCommand extends Command {
-    
     /**
      * Contains task type and description.
      */
@@ -25,7 +24,6 @@ public class AddCommand extends Command {
     
     /**
      * Adds task of type and description inside taskInfo.
-     *
      */
     public void execute() {
         Ui ui = new Ui();
@@ -35,14 +33,12 @@ public class AddCommand extends Command {
         }
 
         String[] taskDescription = this.taskInfo[1].split("/");
-
         if (taskDescription.length == 1) {
             Hustler.list.add("todo", taskDescription[0]);
             return;
         }
 
         String taskType = "";
-        
         String timeCommand = taskDescription[1].split(" ")[0];
         switch (timeCommand) {
         case "by":

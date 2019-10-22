@@ -1,6 +1,10 @@
 package seedu.hustler.data;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -39,7 +43,7 @@ public class Settings {
      * Hustler app.
      * @return the Avatar that is currently loaded.
      * @throws FileNotFoundException when file is not found, will create a
-     * new txtfile to start data storage.
+     *     new txtfile to start data storage.
      */
     public Settings load() throws FileNotFoundException {
         System.out.println("hello");

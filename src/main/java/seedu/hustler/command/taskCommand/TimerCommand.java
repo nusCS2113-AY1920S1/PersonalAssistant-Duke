@@ -1,10 +1,12 @@
 package seedu.hustler.command.taskCommand;
 
-import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.ui.timer.*;
 
+/**
+ * Command that starts the timer.
+ */
 public class TimerCommand extends Command {
     /**
      * Contains task type and description.
@@ -20,6 +22,9 @@ public class TimerCommand extends Command {
         this.taskInfo = taskInfo;
     }
 
+    /**
+     * Starts the timer.
+     */
     public void execute() {
         if (this.taskInfo.length == 1) {
             Ui ui = new Ui();

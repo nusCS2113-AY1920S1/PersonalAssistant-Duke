@@ -43,10 +43,8 @@ public class CommandLogic {
 
     /**
      * Validates event to check for format.
-     *
      * @param rawInput raw user input
      * @param userInput split user input
-     *
      * @return true if event is validated
      * @throws CommandLineException Exception for format
      */
@@ -61,10 +59,8 @@ public class CommandLogic {
 
     /**
      * Validates todo to check for format.
-     *
      * @param rawInput raw user input
      * @param userInput split user input
-     *
      * @return true if validated
      * @throws CommandLineException Exception for format
      */

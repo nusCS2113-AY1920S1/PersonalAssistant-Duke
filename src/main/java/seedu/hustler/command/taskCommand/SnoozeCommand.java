@@ -9,7 +9,6 @@ import seedu.hustler.parser.ParserForCommand;
  * Command that snoozes tasks.
  */
 public class SnoozeCommand extends Command {
-
     /**
      * User input that contains index of task to snooze.
      */
@@ -26,7 +25,6 @@ public class SnoozeCommand extends Command {
 
     /**
      * Deletes task at index inside userInput.
-     *
      */
     public void execute() {
         if (this.userInput.length == 1) {

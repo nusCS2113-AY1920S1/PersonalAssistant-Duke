@@ -8,7 +8,6 @@ import seedu.hustler.ui.Ui;
  * Command that lists tasks in TaskList instance.
  */
 public class FindCommand extends Command {
-    
     /**
      * User input that contains keyword to search for in list.
      */
@@ -25,7 +24,6 @@ public class FindCommand extends Command {
     
     /**
      * Lists commands which contain keyword.
-     *
      */
     public void execute() {
         if (this.userInput.length == 1) {

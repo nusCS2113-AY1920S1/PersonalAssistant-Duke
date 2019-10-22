@@ -37,7 +37,6 @@ public class Stats implements Convertible {
     /**
      * Construct Stats with the given damage, defence, stamina
      * and speed.
-     *
      * @param damage the damage of the avatar.
      * @param defence the defence of the avatar.
      * @param stamina the stamina of the avatar.
@@ -52,7 +51,6 @@ public class Stats implements Convertible {
 
     /**
      * Increases the stats based on the current level.
-     *
      * @param level the current level of the avatar.
      * @return the updated stats after increment.
      */

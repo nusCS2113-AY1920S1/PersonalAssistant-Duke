@@ -2,10 +2,8 @@ package seedu.hustler.game.achievement;
 
 /**
  * Achievement which can be attained after user first logs in.
- *
  */
-public class FirstLogin extends Achievements{
-
+public class FirstLogin extends Achievements {
     /**
      * Description of achievement.
      */

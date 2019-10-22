@@ -9,7 +9,6 @@ import seedu.hustler.ui.Ui;
  * Command to do task in list.
  */
 public class DoneCommand extends Command {
-
     /**
      * User input that contains index of task to do.
      */
@@ -26,7 +25,6 @@ public class DoneCommand extends Command {
 
     /**
      * Does task at index taskIndex inside.
-     *
      */
     public void execute() {
         if (this.userInput.length == 1) {

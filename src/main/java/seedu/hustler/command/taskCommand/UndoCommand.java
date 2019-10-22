@@ -2,10 +2,11 @@ package seedu.hustler.command.taskCommand;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.data.MemoryManager;
-import seedu.hustler.ui.Ui;
 
+/**
+ * Command that undoes the previous command.
+ */
 public class UndoCommand extends Command {
-
     /**
      * Contains task type and description.
      */

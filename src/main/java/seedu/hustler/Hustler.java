@@ -108,11 +108,6 @@ public class Hustler extends Application {
      * @param rawInput full user's input inside text area of GUI.
      */
     public static void run(String rawInput) {
-        if (rawInput.equals("bye")) {
-            ui.show_bye_message();
-            Platform.exit();
-        }
-
         try {
             Command command = parser.parse(rawInput);
             command.execute();
