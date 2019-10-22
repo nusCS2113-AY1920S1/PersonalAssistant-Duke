@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import owlmoney.model.bank.exception.BankException;
@@ -193,5 +194,23 @@ class SavingTest {
             System.out.println("Expects success but error was thrown");
         }
         assertEquals(9.00, testSaving.getCurrentAmount());
+    }
+
+    @Test
+    void updateRecurringTransactions_expenditureUpdated_bankAmountChanged() {
+        Ui testUi = new Ui();
+        Saving savingTest = new Saving("test", 100, 100);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MONTH, -1);
+        try {
+            savingTest.savingAddRecurringExpenditure(
+                    new Expenditure("testExpenditure", 10, calendar.getTime(), "testExpenditure"), testUi);
+        } catch (TransactionException errorMessage) {
+            System.out.println("Expects success but error was thrown");
+        }
+        savingTest.updateRecurringTransactions(testUi);
+        assertEquals(80, savingTest.getCurrentAmount());
     }
 }

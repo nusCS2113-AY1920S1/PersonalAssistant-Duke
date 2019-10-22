@@ -7,15 +7,15 @@ import owlmoney.logic.command.transaction.EditExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for editing a expenditure.
+ * Represents the parsing of inputs for editing an expenditure.
  */
 public class ParseEditExpenditure extends ParseExpenditure {
     private static final String EDIT = "/edit";
 
     /**
-     * Constructor which creates an instance of ParseEditExpenditure.
+     * Creates an instance of ParseEditExpenditure.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
     public ParseEditExpenditure(String data, String type) throws ParserException {
@@ -53,7 +53,7 @@ public class ParseEditExpenditure extends ParseExpenditure {
                 changeCounter++;
             }
             if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
-                checkDescription(value);
+                checkDescription(value, key);
                 changeCounter++;
             }
             if (DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
@@ -67,7 +67,7 @@ public class ParseEditExpenditure extends ParseExpenditure {
     }
 
     /**
-     * Returns the command to execute the editing of a expenditure.
+     * Returns the command to execute the editing of an expenditure.
      *
      * @return EditExpenditureCommand to be executed.
      */

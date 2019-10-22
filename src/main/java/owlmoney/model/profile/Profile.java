@@ -1,5 +1,7 @@
 package owlmoney.model.profile;
 
+import java.util.Date;
+
 import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
@@ -11,6 +13,8 @@ import owlmoney.model.card.CardList;
 import owlmoney.model.goals.Goals;
 import owlmoney.model.goals.GoalsList;
 import owlmoney.model.goals.exception.GoalsException;
+import owlmoney.model.transaction.Deposit;
+import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -20,12 +24,15 @@ import java.util.Date;
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
  */
-
 public class Profile {
     private String username;
     private BankList bankList;
     private CardList cardList;
     private GoalsList goalsList;
+
+    private static final String SAVING = "saving";
+    private static final String ISBANK = "savings transfer";
+    private static final String ISINVESTMENT = "investment transfer";
 
     /**
      * Creates a new instance of the user profile.
@@ -93,7 +100,7 @@ public class Profile {
             throws BankException, CardException {
         if ("card".equals(type)) {
             cardList.cardListAddExpenditure(accName, exp, ui, type);
-        } else if ("bank".equals(type) || "bond".equals(type)) {
+        } else if ("bank".equals(type) || "bonds".equals(type)) {
             bankList.bankListAddExpenditure(accName, exp, ui, type);
         }
     }
@@ -265,7 +272,7 @@ public class Profile {
      * @param newName new name of the credit card if any.
      * @param limit   new limit of the credit card if any.
      * @param rebate  new rebate of the credit card if any.
-     * @param ui      required for printing.
+     * @param ui      The ui object required for printing.
      * @throws CardException If card cannot be found.
      */
     public void profileEditCardDetails(String name, String newName, String limit, String rebate, Ui ui)
@@ -276,8 +283,8 @@ public class Profile {
     /**
      * Deletes a card from the CardList.
      *
-     * @param name name of the credit card.
-     * @param ui   required for printing.
+     * @param name The name of the credit card.
+     * @param ui   The ui object required for printing.
      * @throws CardException If card does not exist.
      */
     public void profileDeleteCard(String name, Ui ui) throws CardException {
@@ -287,7 +294,7 @@ public class Profile {
     /**
      * Lists all the cards in the CardList.
      *
-     * @param ui required for printing.
+     * @param ui The ui object required for printing.
      * @throws CardException If CardList is empty.
      */
     public void profileListCards(Ui ui) throws CardException {
@@ -431,5 +438,135 @@ public class Profile {
         return bankList.bankListGetSavingAccount(savingBankName);
     }
 
+    /**
+     * Adds a recurring expenditure to the specified account.
+     *
+     * @param accountName Bank account name to add the recurring expenditure to.
+     * @param newRecurringExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @param type Type of account to add to.
+     * @throws BankException If bank account is not found or if bank account is an investment account.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    public void profileAddRecurringExpenditure(
+            String accountName, Transaction newRecurringExpenditure, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+            System.out.println("Do card recurring transaction here");
+        } else if ("bank".equals(type)) {
+            bankList.bankListAddRecurringExpenditure(accountName, newRecurringExpenditure, ui);
+        }
+    }
 
+    /**
+     * Deletes a recurring expenditure from the specified account.
+     *
+     * @param accountName Account name.
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @param type Type of account to delete from.
+     * @throws BankException If bank account does not exist or is an investment account.
+     * @throws TransactionException If there are 0 recurring expenditure in the list or if index is out of range.
+     */
+    public void profileDeleteRecurringExpenditure(String accountName, int index, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+            System.out.println("Do card recurring transaction here");
+        } else if ("bank".equals(type)) {
+            bankList.bankListDeleteRecurringExpenditure(accountName, index, ui);
+        }
+    }
+
+    /**
+     * Lists all recurring expenditure from the specified account.
+     *
+     * @param accountName Name of account.
+     * @param ui Used for printing.
+     * @param type Account type.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures in the account.
+     */
+    public void profileListRecurringExpenditure(String accountName, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+            System.out.println("Do card recurring transaction here");
+        } else if ("bank".equals(type)) {
+            bankList.bankListListRecurringExpenditure(accountName, ui);
+        }
+    }
+
+    /**
+     * Edits a recurring expenditure from the specified account.
+     *
+     * @param accountName Name of the account.
+     * @param index Index of the recurring expenditure.
+     * @param description New description of the recurring expenditure.
+     * @param amount New amount of the recurring expenditure.
+     * @param category New category of the recurring expenditure.
+     * @param ui Used for printing.
+     * @param type The account type.
+     * @throws BankException If the bank is not found or is an investment account.
+     * @throws TransactionException If there are 0 recurring expenditure in the account or index is out of range.
+     */
+    public void profileEditRecurringExpenditure(
+            String accountName, int index, String description, String amount, String category, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+            System.out.println("Do card recurring transaction here");
+        } else if ("bank".equals(type)) {
+            bankList.bankListEditRecurringExpenditure(accountName, index, description, amount, category, ui);
+        }
+    }
+
+    /**
+     * Updates all outdated objects in the profile.
+     *
+     * @param ui Used for printing.
+     */
+    public void profileUpdate(Ui ui) {
+        bankList.bankListUpdateRecurringTransactions(ui);
+        //card update recurring
+        ui.printMessage("Profile has been updated");
+    }
+
+    /**
+     * Transfers fund from one bank account to another bank account.
+     *
+     * @param from   The account name for transferring the fund.
+     * @param to     The account name to receive the fund.
+     * @param amount The amount to be transferred.
+     * @param date   The date that the fund was transferred.
+     * @param ui     The ui object required for printing.
+     * @throws BankException If bank does not exist.
+     */
+    public void transferFund(String from, String to, double amount, Date date,
+            Ui ui) throws BankException {
+        String fromType = bankList.bankListIsAccountExistToTransfer(from, amount);
+        String toType = bankList.bankListIsAccountExistToReceive(to);
+        String descriptionTo = "Fund Transfer to " + to;
+        String category = "Transfer Fund";
+        Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, category);
+        bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
+        String descriptionFrom = " Fund Received from " + from;
+        Transaction newDeposit = new Deposit(descriptionFrom, amount, date, "deposit");
+        bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
+    }
+
+    /**
+     * Checks whether the bank account is a savings or investment account.
+     *
+     * @param type The type of bank account.
+     * @return The result whether it is to be transfer or deposit to a savings or investment account.
+     */
+    private String checkBankType(String type) {
+        if (SAVING.equals(type)) {
+            return ISBANK;
+        } else {
+            return ISINVESTMENT;
+        }
+    }
 }

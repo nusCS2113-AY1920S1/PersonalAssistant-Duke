@@ -7,7 +7,7 @@ import owlmoney.logic.command.bond.ListBondCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for listing of bonds.
+ * Parses input by user for listing bonds.
  */
 public class ParseListBond extends ParseBond {
     private static final String LIST = "/list";

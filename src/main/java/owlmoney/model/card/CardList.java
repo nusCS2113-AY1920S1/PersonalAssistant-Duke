@@ -11,12 +11,12 @@ import owlmoney.ui.Ui;
 /**
  * CardList class that provides a layer of abstraction for the ArrayList that stores credit cards.
  */
-
 public class CardList {
     private ArrayList<Card> cardLists;
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
+    private static final int ISZERO = 0;
 
     /**
      * Creates an arrayList of Cards.
@@ -52,7 +52,7 @@ public class CardList {
     public void cardListDeleteCard(String name, Ui ui) throws CardException {
         cardListCheckListEmpty();
         boolean isDeleted = false;
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
                 Card temp = cardLists.get(i);
                 cardLists.remove(i);
@@ -73,7 +73,7 @@ public class CardList {
      * @throws CardException If CardList is empty.
      */
     public void cardListCheckListEmpty() throws CardException {
-        if (cardLists.size() <= 0) {
+        if (cardLists.size() <= ISZERO) {
             throw new CardException("There are 0 cards in your profile");
         }
     }
@@ -94,7 +94,7 @@ public class CardList {
      * @return the result specifying whether the credit card name already exists.
      */
     private boolean cardExists(String cardName) {
-        for (int i = 0; i < getCardListSize(); i++) {
+        for (int i = ISZERO; i < getCardListSize(); i++) {
             if (cardName.equals(cardLists.get(i).getName())) {
                 return true;
             }
@@ -110,7 +110,7 @@ public class CardList {
      * @throws CardException If new card name is not unique.
      */
     private void compareCard(Card currentCard, String newCardName) throws CardException {
-        for (int i = 0; i < getCardListSize(); i++) {
+        for (int i = ISZERO; i < getCardListSize(); i++) {
             if (cardLists.get(i).getName().equals(newCardName) && !cardLists.get(i).equals(currentCard)) {
                 throw new CardException("There is already a credit card with the name " + newCardName);
             }
@@ -141,7 +141,7 @@ public class CardList {
      */
     public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
                     compareCard(cardLists.get(i), newName);
@@ -171,7 +171,7 @@ public class CardList {
     public void cardListListCards(Ui ui) throws CardException {
         cardListCheckListEmpty();
         ui.printCardHeader();
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             printOneCard((i + ONE_INDEX), cardLists.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
@@ -189,7 +189,7 @@ public class CardList {
      */
     public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui, String type)
             throws CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).addInExpenditure(exp, ui, type);
                 return;
@@ -209,7 +209,7 @@ public class CardList {
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardToList.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
@@ -224,12 +224,12 @@ public class CardList {
      * @param expNum                The transaction number.
      * @param deleteFromAccountCard The name of the card.
      * @param ui                    Required for printing.
-     * @throws TransactionException If invalid transaction.
      * @throws CardException        If card does not exist.
+     * @throws TransactionException If invalid transaction.
      */
     public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (deleteFromAccountCard.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).deleteExpenditure(expNum, ui);
                 return;
@@ -253,7 +253,7 @@ public class CardList {
      */
     public void cardListEditExpenditure(int expNum, String editFromCard, String desc, String amount,
             String date, String category, Ui ui) throws CardException, TransactionException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(editFromCard)) {
                 cardLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
                 return;

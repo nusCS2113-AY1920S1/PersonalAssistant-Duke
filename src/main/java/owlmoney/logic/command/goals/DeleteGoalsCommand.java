@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteGoalsCommand class which contains the execution function to delete goal object.
+ * Executes DeleteGoalsCommand to delete goal object.
  */
 public class DeleteGoalsCommand extends Command {
 

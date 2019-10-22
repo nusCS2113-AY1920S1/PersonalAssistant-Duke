@@ -37,16 +37,21 @@ import owlmoney.logic.parser.transaction.deposit.ParseDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseEditDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseListDeposit;
 import owlmoney.logic.parser.transaction.expenditure.ParseAddExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseAddRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseDeleteRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseEditRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseListRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseRecurringExpenditure;
+import owlmoney.logic.parser.transfer.ParseTransfer;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
  * This determines what type of command the user desires after specifying the command.
  */
-
 class ParseType extends Parser {
 
     /**
@@ -54,12 +59,12 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurexpenditure", "/bonds", "/profile", "/deposit"
+        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
     private static final String CARD = "card";
-    private static final String BOND = "bond";
+    private static final String BOND = "bonds";
     private static final String GOALS = "goals";
 
     /**
@@ -284,6 +289,38 @@ class ParseType extends Parser {
                 return new ListGoalsCommand();
             }
             throw new ParserException("You entered an invalid type for goals");
+        case "/recurbankexp":
+            if ("/add".equals(command)) {
+                ParseRecurringExpenditure addRecurringExpenditure = new ParseAddRecurringExpenditure(rawData, BANK);
+                addRecurringExpenditure.fillHashTable();
+                addRecurringExpenditure.checkParameter();
+                return addRecurringExpenditure.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseDeleteRecurringExpenditure
+                        deleteRecurringExpenditure = new ParseDeleteRecurringExpenditure(rawData, BANK);
+                deleteRecurringExpenditure.fillHashTable();
+                deleteRecurringExpenditure.checkParameter();
+                return deleteRecurringExpenditure.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseRecurringExpenditure editRecurringExpenditure = new ParseEditRecurringExpenditure(rawData, BANK);
+                editRecurringExpenditure.fillHashTable();
+                editRecurringExpenditure.checkParameter();
+                return editRecurringExpenditure.getCommand();
+            } else if ("/list".equals(command)) {
+                ParseRecurringExpenditure listRecurringExpenditure = new ParseListRecurringExpenditure(rawData, BANK);
+                listRecurringExpenditure.fillHashTable();
+                listRecurringExpenditure.checkParameter();
+                return listRecurringExpenditure.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for recurbankexpenditure");
+        case "/fund":
+            if ("/transfer".equals(command)) {
+                ParseTransfer parseTransfer = new ParseTransfer(rawData);
+                parseTransfer.fillHashTable();
+                parseTransfer.checkParameter();
+                return parseTransfer.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for transfer");
         default:
             throw new ParserException("You entered an invalid type");
         }

@@ -5,7 +5,6 @@ package owlmoney.ui;
  * It does not need to be instantiated with any tasks; these are passed
  * as arguments to its methods.
  */
-
 public class Ui {
 
     private static final String ITEMNO = "Item No.";
@@ -69,7 +68,7 @@ public class Ui {
      */
     public void printTransaction(int num, String description, String amount, String date,
             String category) {
-        System.out.printf("%-20s %-50s %-15s %-20s %-20s %n", num, description, amount, date, category);
+        System.out.printf("%-20s %-55s %-15s %-20s %-20s %n", num, description, amount, date, category);
     }
 
     /**
@@ -96,7 +95,7 @@ public class Ui {
     }
 
     /**
-     * Prints bank header.
+     * Prints the bank header.
      */
     public void printBankHeader() {
         System.out.printf("%-20s %-35s %-15s %-15s %-15s %n", ITEMNO, ACCNAME, ACCTYPE, CURRAMOUNT, INCOME);
@@ -131,7 +130,7 @@ public class Ui {
     }
 
     /**
-     * Prints goal header.
+     * Prints the goal header.
      */
     public void printGoalHeader() {
         System.out.printf("%-10s %-15s %-20s %-20s %-20s %-20s %-10s %n", ITEMNO, GOALNAME, GOALAMOUNT, GOALBANKNAME, GOALPROGRESS, GOALDATE, GOALACHIEVED);
@@ -153,7 +152,7 @@ public class Ui {
     }
 
     /**
-     * Prints bond header.
+     * Prints the bond header.
      */
     public void printBondHeader() {
         System.out.printf("%-20s %-30s %-15s %-20s %-20s %-20s %n", ITEMNO, BONDNAME, AMOUNT, BONDRATE, BONDDATE,

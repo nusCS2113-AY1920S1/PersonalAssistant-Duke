@@ -9,7 +9,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Command class which is abstract where various command types inherit from given that it is abstract.
+ * Abstracts common command methods where individual commands inherit from.
  */
 public abstract class Command {
     protected boolean isExit = false;

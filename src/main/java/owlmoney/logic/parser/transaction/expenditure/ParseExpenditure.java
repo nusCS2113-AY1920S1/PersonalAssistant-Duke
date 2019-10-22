@@ -14,8 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseExpenditure class which is abstract where various expenditure parser objects inherit from
- * given that it is abstract.
+ * Abstracts common Expenditure methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
@@ -35,9 +34,9 @@ public abstract class ParseExpenditure {
     static final String NUM = "/num";
 
     /**
-     * Constructor which creates an instance of any ParseExpenditure type object.
+     * Creates an instance of any ParseExpenditure type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @param type Represents type of expenditure to be added.
      */
     ParseExpenditure(String data, String type) {
@@ -123,9 +122,9 @@ public abstract class ParseExpenditure {
      * @param descString Deposit description.
      * @throws ParserException If the string has special characters or is too long.
      */
-    void checkDescription(String descString) throws ParserException {
+    void checkDescription(String descString, String keyword) throws ParserException {
         if (!RegexUtil.regexCheckDescription(descString)) {
-            throw new ParserException("/desc can only contain numbers and letters and at most 50 characters");
+            throw new ParserException(keyword + " can only contain numbers and letters and at most 50 characters");
         }
     }
 

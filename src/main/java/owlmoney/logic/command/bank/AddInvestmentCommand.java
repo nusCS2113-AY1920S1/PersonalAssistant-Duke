@@ -8,7 +8,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * AddInvestmentCommand contains the execution function to add a new investment object.
+ * Executes AddInvestmentCommand to add a new investment object.
  */
 public class AddInvestmentCommand extends Command {
     private final String name;

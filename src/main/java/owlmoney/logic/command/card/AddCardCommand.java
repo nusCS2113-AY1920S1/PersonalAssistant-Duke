@@ -7,7 +7,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * AddCardCommand class which contains the functions to add a new card object.
+ * Executes AddCardCommand to add a new card object.
  */
 public class AddCardCommand extends Command {
     private final String name;
@@ -15,7 +15,7 @@ public class AddCardCommand extends Command {
     private final double rebate;
 
     /**
-     * Constructor that creates an instance of AddCardCommand.
+     * Creates an instance of AddCardCommand.
      *
      * @param name   Credit card name of the new card object.
      * @param limit  Credit card monthly limit of the new card object.

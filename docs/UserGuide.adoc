@@ -583,7 +583,7 @@ Signed up for a bond? Finding it difficult to keep up with the interest?
 No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
 
 *Command Syntax*
-`/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /years YEARS`
+`/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /year YEARS`
 
 [WARNING]
 ====
@@ -594,7 +594,7 @@ Bonds can only be added to investment accounts.
 
 *Example*
 
-* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
+* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92 /year 1`
 
 Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`% bought on
 `1/1/2019` for a period of `1` year(s).
@@ -603,14 +603,26 @@ Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with in
 Change in your investment details? Edit them here!
 
 *Command Syntax*
-`/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate BOND_RATE]`
+`/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/rate BOND_RATE] [/year YEARS]`
+
+[WARNING]
+====
+At least one of `/rate` or `/year` must be present when editing.
+
+Only `/rate` and `/year` can be edited.
+
+Editing `/rate` will only result in future bond coupon interest crediting to be modified, all past interest
+credited will not be edited.
+
+`/year` can only be edited to a year higher than the original year.
+
+====
 
 *Example*
 
-* `/edit /bonds /from DBB Vickers Account /name June SSB /amount 5000 /rate 1.98`
+* `/edit /bonds /from DBB Vickers Account /name June SSB /rate 1.98`
 
-Changes the bond named `June SSB` charged to `DBB Vickers Account` to a new amount of $`5000` with new interest rate
-of `1.98`%.
+Changes the bond named `June SSB` charged to `DBB Vickers Account` with a new interest rate of `1.98`%.
 
 ===== Deleting bonds `/delete /bonds`
 Sold your bonds? Delete it from *OwlMoney*!

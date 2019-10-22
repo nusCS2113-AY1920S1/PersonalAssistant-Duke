@@ -134,7 +134,7 @@ public class TransactionListStub extends TransactionList {
      * @throws TransactionException If incorrect date format.
      */
     @Override
-    public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui)
+    public double editExpenditure(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException {
         if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setDescription(desc);
@@ -169,7 +169,7 @@ public class TransactionListStub extends TransactionList {
      * @throws TransactionException If incorrect date format.
      */
     @Override
-    public double editDep(int expNum, String desc, String amount, String date, Ui ui) throws TransactionException {
+    public double editDeposit(int expNum, String desc, String amount, String date, Ui ui) throws TransactionException {
         if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setDescription(desc);
             System.out.print("New description: " + expLists.get(expNum - ONE_INDEX).getDescription());

@@ -6,13 +6,13 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteCardCommand class which contains the execution function to delete a card object.
+ * Executes DeleteCardCommand to delete a card object.
  */
 public class DeleteCardCommand extends Command {
     private final String name;
 
     /**
-     * Constructor that creates an instance the DeleteCardCommand.
+     * Creates an instance the DeleteCardCommand.
      *
      * @param name Card name to be deleted.
      */

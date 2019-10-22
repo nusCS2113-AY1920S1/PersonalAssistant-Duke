@@ -14,7 +14,7 @@ public class ParseEditSaving extends ParseSaving {
     /**
      * Creates an instance of ParseEditSaving.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @throws ParserException If the first parameter is invalid.
      */
     public ParseEditSaving(String data) throws ParserException {

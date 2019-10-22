@@ -8,7 +8,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * AddSavingsCommand contains the execution function to add a new saving object.
+ * Executes AddSavingsCommand to add a new saving object.
  */
 public class AddSavingsCommand extends Command {
     private final String name;

@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * ListInvestmentCommand contains the execution function to list investment objects.
+ * Executes ListInvestmentCommand to list investment objects.
  */
 public class ListInvestmentCommand extends Command {
     private static final String INVESTMENT = "investment";

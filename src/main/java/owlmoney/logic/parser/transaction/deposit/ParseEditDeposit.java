@@ -13,9 +13,9 @@ public class ParseEditDeposit extends ParseDeposit {
     private static final String EDIT = "/edit";
 
     /**
-     * Constructor which creates an instance of ParseEditDeposit.
+     * Creates an instance of ParseEditDeposit.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
     public ParseEditDeposit(String data) throws ParserException {

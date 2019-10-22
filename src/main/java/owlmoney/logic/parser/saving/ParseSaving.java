@@ -10,8 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseSaving class which is abstract where various savings parser objects
- * inherit from given that it is abstract.
+ * Abstracts common Savings methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseSaving {
     HashMap<String, String> savingsParameters = new HashMap<String, String>();
@@ -27,7 +26,7 @@ public abstract class ParseSaving {
     /**
      * Creates an instance of any ParseSaving type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseSaving(String data) {
         this.rawData = data;

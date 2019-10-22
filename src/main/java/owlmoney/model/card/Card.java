@@ -19,7 +19,7 @@ public class Card {
     private TransactionList unpaid;
 
     /**
-     * Constructor that allows the child class to create an instance with credit card name.
+     * Creates a Card with details of name, limit and rebate.
      *
      * @param name   A name for the credit card.
      * @param limit  Credit card monthly spending limit.
@@ -43,7 +43,7 @@ public class Card {
     }
 
     /**
-     * Set the card name for the credit card.
+     * Sets the card name for the credit card.
      *
      * @param name A name for the credit card.
      */
@@ -62,7 +62,7 @@ public class Card {
 
 
     /**
-     * Set the card limit for the credit card.
+     * Sets the card limit for the credit card.
      *
      * @param limit A name for the credit card.
      */
@@ -80,7 +80,7 @@ public class Card {
     }
 
     /**
-     * Set the rebate for the credit card.
+     * Sets the rebate for the credit card.
      *
      * @param rebate Rebate for the credit card.
      */
@@ -154,7 +154,7 @@ public class Card {
     }
 
     /**
-     * Edits the expenditure details from the current bank account.
+     * Edits the expenditure details from the current card account.
      *
      * @param expNum   Transaction number.
      * @param desc     New description.
@@ -184,7 +184,7 @@ public class Card {
             throw new CardException("Edited expenditure cannot exceed remaining limit of $"
                     + remainingLimit);
         }
-        unpaid.editEx(expNum, desc, amount, date, category, ui);
+        unpaid.editExpenditure(expNum, desc, amount, date, category, ui);
     }
 
     /** Returns remaining limit of this current month.

@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * ListCardCommand class which contains the execution function to list card objects.
+ * Executes ListCardCommand to list card objects.
  */
 public class ListCardCommand extends Command {
 
