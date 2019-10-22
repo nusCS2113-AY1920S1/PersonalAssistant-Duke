@@ -147,7 +147,6 @@ public class PlannerUi {
                 "Thanks for using ModPlanner!\n"
                  + "Your data will be stored in file shortly!"
         );
-        showLine();
         closeScanner();
     }
 
@@ -177,12 +176,17 @@ public class PlannerUi {
         }
     }
 
+    public void capListErrorMsg() {
+        showLine();
+        System.out.println("Please input grades into your listed modules using the grade command");
+    }
+
     /**
      * Message to print average CAP to 2 decimal places.
      */
     public void capMsg(double averageCap) {
         showLine();
-        System.out.println("Here is your current cumulative/predicted CAP");
+        System.out.println("Here is your current cumulative/predicted CAP!");
         System.out.printf("%.2f\n", averageCap);
     }
 
@@ -190,6 +194,21 @@ public class PlannerUi {
         showLine();
         System.out.println("Here is your predicted CAP for " + moduleCode);
         System.out.printf("%.2f\n", predictedCap);
+    }
+
+    public void capModuleIncompleteMsg(List<List<String>> toCalculate) {
+        int i = 0;
+        showLine();
+        System.out.println("Please complete the following prerequisite modules: ");
+        while (i < toCalculate.size()) {
+            if (!toCalculate.get(i).isEmpty()) {
+                for (String x : toCalculate.get(i)) {
+                    System.out.print(x + " or ");
+                }
+                System.out.print("\n");
+            }
+            i++;
+        }
     }
 
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import planner.exceptions.original.ModEmptyListException;
 import planner.exceptions.original.ModException;
 import planner.exceptions.original.ModMissingArgumentException;
 import planner.exceptions.planner.ModNotFoundException;
@@ -14,7 +15,6 @@ import planner.util.commons.PlannerUi;
 import planner.util.commons.Storage;
 import planner.util.commons.ModuleTasksList;
 import planner.modules.data.ModuleTask;
-import net.sourceforge.argparse4j.inf.Argument;
 
 public class CapCommand extends ModuleCommand {
 
@@ -179,22 +179,43 @@ public class CapCommand extends ModuleCommand {
                                     PlannerUi plannerUi,
                                     Storage store,
                                     Scanner scanner)
-        throws ModMissingArgumentException, ModNotFoundException {
-        boolean isPrerequisiteCompleted = true;
+        throws ModMissingArgumentException,
+        ModNotFoundException,
+        ModEmptyListException {
         String moduleCode = scanner.nextLine().toUpperCase();
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();
         }
+        System.out.println(detailedMap.get(moduleCode).getPrerequisites());
         List<List<String>> prunedModules = parsePrerequisiteTree(moduleCode, detailedMap);
         List<List<String>> toCalculate = prunedModules;
-        for (int i = 0; i < toCalculate.size(); i++) {
-
+        if (moduleTasksList.getTasks().isEmpty()) {
+            throw new ModEmptyListException();
         }
+        for (ModuleTask x : moduleTasksList.getTasks()) {
+            for (int i = 0; i < toCalculate.size(); i++) {
+                if (prunedModules.get(i).contains(x.getModuleCode())) {
+                    if (!x.getModuleInfoDetailed().getAttributes().isSu() || letterGradeToCap(x.getGrade()) != 0.00) {
+                        mcCount += x.getModuleCredit();
+                    }
+                    projectedModuleCap += letterGradeToCap(x.getGrade());
+                    toCalculate.remove(i);
+                    break;
+                }
+            }
+        }
+        if (toCalculate.isEmpty()) {
+            double averageCap = projectedModuleCap / mcCount;
+            plannerUi.capModMsg(averageCap, moduleCode);
+        } else {
+            plannerUi.capModuleIncompleteMsg(toCalculate);
+        }
+    }
+
 
         // make 2 more identical list of lists, remove from one if found in moduletask list / equivalent,
         // check if isempty, if it is then print cap score according to the cloned list of lists
         //}
-    }
 
     public void calculateListCap(ModuleTasksList moduleTasksList,
                                  HashMap<String, ModuleInfoDetailed> detailedMap,
@@ -206,17 +227,21 @@ public class CapCommand extends ModuleCommand {
             if (!module.getModuleInfoDetailed().getAttributes().isSu() || letterGradeToCap(module.getGrade()) != 0.00) {
                 mcCount += module.getModuleCredit();
             }
-            projectedModuleCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
+            projectedCap += (letterGradeToCap(module.getGrade()) * module.getModuleCredit());
         }
-        double averageCap = projectedModuleCap / mcCount;
-        plannerUi.capMsg(averageCap);
+        double averageCap = projectedCap / mcCount;
+        if (projectedCap == 0 && mcCount == 0) {
+            plannerUi.capListErrorMsg();
+        } else {
+            plannerUi.capMsg(averageCap);
+        }
     }
 
     public List<List<String>> parsePrerequisiteTree(String prerequisites, HashMap<String, ModuleInfoDetailed> detailedMap) {
         //regex([a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9]|and|or) to get only module codes, and and ors into string array
         // (check for and after because some have AY19/20 and after, then need to reject those 'ands')
         // need to logic and/or from array to cut down size of array
-        String[] initialParsedModules = prerequisites.split("[a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9][a-zA-Z]?|and|or|equivalent");
+        String[] initialParsedModules = prerequisites.split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?|and|or|equivalent");
         List<List<String>> prunedModules = null;
         int j = 0;
         /* EXAMPLES
@@ -233,15 +258,19 @@ public class CapCommand extends ModuleCommand {
         // if and, add to list i, move i
         for (int i = 0; i < initialParsedModules.length; i++) {
             if (initialParsedModules[i].equals("equivalent")) {
-                String[] preclusions = detailedMap.get(initialParsedModules[i-1]).getPreclusion().split("[a-zA-Z][a-zA-Z][0-9][0-9][0-9][0-9][a-zA-Z]?");
+                String[] preclusions = detailedMap.get(initialParsedModules[i-1]).getPreclusion().split("[a-zA-Z][a-zA-Z][a-zA-Z]?[0-9][0-9][0-9][0-9][a-zA-Z]?");
                 //preclusion should be all ors, just split and add to pruned without incrementing j
                 for (String x : preclusions) {
                     prunedModules.get(j).add(x);
                 }
-
+            } else if (initialParsedModules[i].equals("and")) {
+                j++;
+                prunedModules.get(j).add(initialParsedModules[i+1]);
+                i++;
+            } else if (!initialParsedModules[i].equals("or")) {
+                prunedModules.get(j).add(initialParsedModules[i]);
             }
         }
-
         return prunedModules;
     }
 }

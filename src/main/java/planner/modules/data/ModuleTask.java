@@ -25,6 +25,10 @@ public class ModuleTask extends Task {
 
     public String getGrade() {return moduleInfoDetailed.getGrade();}
 
+    public void setGrade(String letterGrade) {
+        moduleInfoDetailed.setGrade(letterGrade);
+    }
+
     @Override
     public String toString() {
         return super.toString() + " | " + moduleInfoDetailed.toString();

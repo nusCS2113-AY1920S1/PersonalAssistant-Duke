@@ -54,7 +54,7 @@ public class CoreModuleReportCommand extends ModuleCommand {
 
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
-            if (coreModList.contains(moduleCode)) {
+            if (coreModList.contains(moduleCode.toUpperCase())) {
                 ModuleTask temp = tasks.getTasks().get(i);
                 System.out.println(count + ". " + temp);
                 count++;
