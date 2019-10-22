@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.command.Command;
 import duke.command.FindCommand;
+import duke.command.FilterCommand;
 import duke.command.ListCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.DoneCommand;
@@ -99,6 +100,16 @@ public class Parser {
                     throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
                 } else {
                     return new FindCommand(arr[ONE]);
+                }
+            }
+        } else if (arr.length > ZERO && arr[ZERO].equals("filter")) {
+            if (arr.length == ONE) {
+                throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+            } else {
+                if (arr[ONE].trim().isEmpty()) {
+                    throw new DukeException("     (>_<) OOPS!!! The task's type cannot be empty.");
+                } else {
+                    return new FilterCommand(arr[ONE]);
                 }
             }
         } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
