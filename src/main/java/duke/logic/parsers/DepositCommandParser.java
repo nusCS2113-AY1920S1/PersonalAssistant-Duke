@@ -5,20 +5,32 @@ import duke.logic.commands.AddTransactionCommand;
 import duke.logic.commands.DepositCommand;
 import duke.model.Deposit;
 
-public class DepositCommandParser implements ParserInterface <DepositCommand> {
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.Date;
+
+public class DepositCommandParser implements ParserInterface <AddTransactionCommand> {
 
     @Override
-    public DepositCommand parse(String userInput) throws DukeException {
+    public AddTransactionCommand parse(String userInput) throws DukeException {
         if (userInput.trim().length() == 0) {
             throw new DukeException("Please enter the amount to deposit for today's date or date and amount to be deposited");
         }
         if (userInput.contains("/date")) {
-            String depositAmount = userInput.split("/date", 2)[0].trim();
+            String depositAmountString = userInput.split("/date", 2)[0].trim();
+            BigDecimal depositAmount = new BigDecimal(depositAmountString);
             String dateString = userInput.split("/date", 2)[1].trim();
-            return new AddTransactionCommand(new Deposit())
-//            return new DepositCommand(depositAmount, dateString);
+            Date parsedDate;
+            try {
+               parsedDate = dateFormat.parse(dateString);
+            } catch (ParseException e) {
+                throw new DukeException("Unable to parse input" + dateString + "as a date.");
+            }
+            dateString = dateFormat.format(parsedDate);
+            return new AddTransactionCommand(new Deposit(depositAmount, dateString));
         } else {
-            return new DepositCommand(userInput);
+            BigDecimal depositAmount = new BigDecimal(userInput);
+            return new AddTransactionCommand(new Deposit(depositAmount));
         }
     }
 }

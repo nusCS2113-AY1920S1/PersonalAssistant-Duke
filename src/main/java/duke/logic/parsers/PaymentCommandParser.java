@@ -1,22 +1,37 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.AddTransactionCommand;
 import duke.logic.commands.PaymentCommand;
+import duke.model.Payment;
 
-public class PaymentCommandParser implements ParserInterface <PaymentCommand> {
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.Date;
+
+public class PaymentCommandParser implements ParserInterface <AddTransactionCommand> {
 
     @Override
-    public PaymentCommand parse(String userInput) throws DukeException {
+    public AddTransactionCommand parse(String userInput) throws DukeException {
         if (userInput.trim().length() == 0) {
             throw new DukeException("Please enter the amount to be paid for today's date or" +
                     "the date and the amount to be deposited");
         }
         if (userInput.contains("/date")) {
-            String paymentAmount = userInput.split("/date", 2)[0].trim();
+            String paymentAmountString = userInput.split("/date", 2)[0].trim();
+            BigDecimal paymentAmount = new BigDecimal(paymentAmountString);
             String dateString = userInput.split("/date", 2)[1].trim();
-            return new PaymentCommand(paymentAmount, dateString);
+            Date parsedDate;
+            try {
+                parsedDate = dateFormat.parse(dateString);
+            } catch (ParseException e) {
+                throw new DukeException("Unable to parse input" + dateString + "as a date.");
+            }
+            dateString = dateFormat.format(parsedDate);
+            return new AddTransactionCommand(new Payment(paymentAmount, dateString));
         } else {
-            return new PaymentCommand(userInput);
+            BigDecimal paymentAmount = new BigDecimal(userInput);
+            return new AddTransactionCommand(new Payment(paymentAmount));
         }
     }
 }
