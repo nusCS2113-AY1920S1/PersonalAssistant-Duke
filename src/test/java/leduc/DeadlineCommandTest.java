@@ -1,10 +1,8 @@
 package leduc;
 
 import leduc.command.DeadlineCommand;
-import leduc.command.DeleteCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.task.Task;
 import leduc.task.TaskList;
 import org.junit.jupiter.api.Test;
 
@@ -22,23 +20,17 @@ public class DeadlineCommandTest {
      * Test the command depending on the input String (user).
      */
     @Test
-    public void deadlineCommandExecuteTest() {
+    public void deadlineCommandExecuteTest()  {
         Ui ui = new Ui();
         Storage storage = null;
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
-        TaskList tasks = new TaskList(new ArrayList<Task>());
-        try{
-            tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
-        }
-        catch (DukeException e){
-            e.print();
-        }
+        TaskList tasks = new TaskList(new ArrayList<>());
         assertTrue(tasks.size()==0);
 
 
@@ -113,18 +105,11 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        DeleteCommand delete = new DeleteCommand("delete 1");
-        try{
-            delete.execute(tasks,ui,storage);
+        tasks.getList().removeAll(tasks.getList());
+        try {
+            storage.save(tasks.getList());
         }
-        catch( DukeException e){ //should not happen
-            assertTrue(false);
-        }
-        assertTrue(tasks.size()==1);
-        try{
-            delete.execute(tasks,ui,storage);
-        }
-        catch( DukeException e){ //should not happen
+        catch(FileException f){
             assertTrue(false);
         }
         assertTrue(tasks.size()==0);
