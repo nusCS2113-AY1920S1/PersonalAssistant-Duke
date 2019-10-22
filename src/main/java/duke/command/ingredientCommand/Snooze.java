@@ -1,8 +1,8 @@
-package duke.command;
+package duke.command.ingredientCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
 import duke.parser.Convert;
-import duke.Dishes.DishList;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -13,7 +13,7 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author saradj
  */
-public class Snooze extends Command {
+public class Snooze extends Cmd<TaskList> {
 
     private int taskNb;
     private String until;
@@ -32,7 +32,7 @@ public class Snooze extends Command {
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
             if (taskList.getTask(taskNb).isDone()) {
                 throw new DukeException("Seems like you've already finished that task, no need to snooze it now");

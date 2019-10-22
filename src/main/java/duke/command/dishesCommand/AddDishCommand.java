@@ -1,13 +1,13 @@
-package duke.dishesCommand;
+package duke.command.dishesCommand;
 
-import duke.exception.DukeException;
-import duke.Dishes.Dishes;
 import duke.Dishes.DishList;
+import duke.Dishes.Dishes;
+import duke.command.Cmd;
+import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class AddDishCommand extends RecipeCommand {
+public class AddDishCommand extends Cmd<DishList> {
 
     private Dishes dish;
     private int amount;
@@ -19,17 +19,17 @@ public class AddDishCommand extends RecipeCommand {
     }
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(DishList dish1, Ui ui, Storage storage) throws DukeException {
         boolean flag = true;
         try {
             if(dish1.getSize() == 0) {
                 dish1.addDish(dish);
                 dish1.getDish(0).setNumberOfOrders(amount);
-                ui.showAddedDishes(dish.toString(), amount);
+                ui.showAddedDishes(dish.getDishname(), amount);
             }
             else {
                 for( int i = 0; i < dish1.getSize(); i++) {
-                    if(dish1.getDish(i).getDishname().equals(dish.toString())){
+                    if(dish1.getDish(i).getDishname().equals(dish.getDishname())){
                         Nb = i;
                         flag = false; //dish already exist in list
                         break;
@@ -38,12 +38,12 @@ public class AddDishCommand extends RecipeCommand {
                 if(flag) {
                     dish1.addDish(dish); // add dish into list found in dishes class
                     dish1.getDish(dish1.getSize() - 1).setNumberOfOrders(amount);
-                    ui.showAddedDishes(dish.toString(), dish1.getDish(dish1.getSize() - 1).getTotalNumberOfOrders());
+                    ui.showAddedDishes(dish.getDishname(), dish1.getDish(dish1.getSize() - 1).getTotalNumberOfOrders());
                 }
                 else {
                     dish1.getDish(Nb).setNumberOfOrders(amount);
                     System.out.println("\t your updated orders:\n\t "
-                            + dish.toString() + "\t amount: " +
+                            + dish.getDishname() + "\t amount: " +
                             String.valueOf(dish1.getDish(Nb).getTotalNumberOfOrders()));
                 }
             }
