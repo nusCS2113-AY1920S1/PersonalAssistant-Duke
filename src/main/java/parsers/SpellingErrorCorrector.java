@@ -1,6 +1,7 @@
 package parsers;
 
 public class SpellingErrorCorrector {
+    //@@author chenyuheng
     /**
      * This method automatically correct typos of command, only support the command words
      * in the dict String Array: <br />

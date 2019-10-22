@@ -1,8 +1,9 @@
-package utils;
+package parser;
 
 import org.junit.jupiter.api.Test;
 import parsers.DukeParser;
 import parsers.SpellingErrorCorrector;
+import utils.DukeException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
