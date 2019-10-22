@@ -14,6 +14,7 @@ import java.time.Period;
 public class AutoUpdateInstalmentCommand extends MoneyCommand{
     private LocalDate currDate = LocalDate.now();
 
+    //@@ ChenChao19
     public AutoUpdateInstalmentCommand() {}
 
     @Override
@@ -34,7 +35,9 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand{
                 account.getExpListCurrMonth().add(e);
                 account.getExpListTotal().add(e);
                 ins.isPayTheMonth();
-            }
+                ui.appendToOutput("You have paid " + ins.EqualMonthlyInstalment() + " for " +
+                        ins.getDescription() + ". It is currently " + ins.getPercentage() + "% paid.");
+            };
         }
     }
 

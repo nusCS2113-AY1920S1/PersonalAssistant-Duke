@@ -11,6 +11,7 @@ public class DeleteInstalmentCommand extends MoneyCommand{
     private String inputString;
     private int serialNo;
 
+    //@@ ChenChao19
     public DeleteInstalmentCommand(String command) {
         inputString = command;
         String temp = inputString.replaceAll("[^0-9]", "");
@@ -25,7 +26,6 @@ public class DeleteInstalmentCommand extends MoneyCommand{
         if (serialNo > account.getInstalments().size()) {
             throw new DukeException("The serial number of the Instalments is Out Of Bounds!");
         }
-
         ui.appendToOutput(" Noted. I've removed this Instalment:\n");
         ui.appendToOutput("  " + account.getInstalments().get(serialNo - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getInstalments().size() - 1) + " instalments in the list.\n");

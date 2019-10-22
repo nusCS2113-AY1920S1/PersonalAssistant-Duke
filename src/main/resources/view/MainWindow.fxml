@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author therealnickcheong -->
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
         <TextField fx:id="searchBar" layoutY="500.0" onKeyReleased="#handleSearchInput" promptText="Search" prefHeight="30" prefWidth="348.0" AnchorPane.bottomAnchor="149.60000000000002" />

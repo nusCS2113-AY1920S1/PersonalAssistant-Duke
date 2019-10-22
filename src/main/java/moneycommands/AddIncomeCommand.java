@@ -25,6 +25,7 @@ public class AddIncomeCommand extends MoneyCommand {
      * with the income source data within the user input.
      * @param command add command inputted from user
      */
+    //@@ chengweixuan
     public AddIncomeCommand(String command) {
         inputString = command.replaceFirst("add income ", "");
     }

@@ -1,10 +1,7 @@
-import com.sun.source.tree.Tree;
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import help.MemorisePreviousFunctions;
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
-import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -51,6 +48,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
+    //@@ therealnickcheong
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -78,6 +76,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
+    //@@ cctt1014
     @FXML
     private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
@@ -127,6 +126,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
         userInput.clear();
     }
 
+    //@@ therealnickcheong
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
@@ -144,6 +144,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     }
 
+    //@@ ChenChao19
     @FXML
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();
@@ -151,7 +152,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             TreeSet<String> suggestedCommands = new TreeSet<>();
             for (String i: autoComplete.getCommandList()) {
                 if (!sc.getUserText().isEmpty() && !i.equals(sc.getUserText())
-                        && i.startsWith(sc.getUserText().trim().toLowerCase())) {
+                        && i.startsWith(sc.getUserText())) {
                     suggestedCommands.add(i);
                 }
             }
@@ -164,6 +165,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private void help() {
         autoCompleteFunction();
+        userInput.setPromptText("Commands");
         userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {

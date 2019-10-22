@@ -18,6 +18,7 @@ public class DeleteGoalCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param index delete command inputted from user
      */
+    //@@ therealnickcheong
     public DeleteGoalCommand(int index){
         serialNo = index;
     }

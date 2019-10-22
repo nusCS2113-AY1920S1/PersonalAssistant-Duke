@@ -26,6 +26,7 @@ public class SettleLoanCommand extends MoneyCommand {
      * Determines the type of of loan to settle specified in the user input.
      * @param command Settle command inputted by user
      */
+    //@@ chengweixuan
     public SettleLoanCommand(String command) {
         if (command.startsWith("paid")) {
             inputString = command.replaceFirst("paid ", "");

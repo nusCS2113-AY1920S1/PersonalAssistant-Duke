@@ -25,6 +25,7 @@ public class AddLoanCommand extends MoneyCommand {
      * data in user input.
      * @param command add command inputted from user
      */
+    //@@ chengweixuan
     public AddLoanCommand(String command) {
         if (command.startsWith("lent")) {
             inputString = command.replaceFirst("lent ", "");

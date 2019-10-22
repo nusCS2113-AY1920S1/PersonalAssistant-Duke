@@ -8,34 +8,11 @@ public class Ui {
     private static String outputString = "";
     private static String graphContainerString = "";
 
+    //@@ cctt1014
     public Ui() {
         scanner = new Scanner(System. in);
         outputString = "";
         graphContainerString = "";
-    }
-
-    /**
-     * The method to initialize and show welcome to the user.
-     */
-    public String showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        String greeting = "____________________________________________________________\n"
-                + "     Hello! I'm Duke\n"
-                + "     What can I do for you?\n"
-                + "____________________________________________________________\n";
-        return ("Hello from\n" + logo + greeting);
-    }
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    public boolean inputStatus() {
-        return scanner.hasNextLine();
     }
 
     public String showLine() {
@@ -62,6 +39,7 @@ public class Ui {
         outputString = "";
     }
 
+    //@@ chengweixuan
     public String getGraphContainerString() {
         return graphContainerString;
     }

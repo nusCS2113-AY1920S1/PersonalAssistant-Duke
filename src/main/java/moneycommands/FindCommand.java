@@ -11,6 +11,7 @@ public class FindCommand extends MoneyCommand{
 
     private String inputString;
 
+    //@@ therealnickcheong
     public FindCommand(String cmd) {
         inputString = cmd;
     }

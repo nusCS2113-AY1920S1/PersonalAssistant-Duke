@@ -4,6 +4,7 @@ public class Item {
     private float price;
     private String description;
 
+    //@@ chengweixuan
     public Item(float price, String description) {
         this.price = price;
         this.description = description;

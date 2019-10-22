@@ -10,6 +10,7 @@ public class MemorisePreviousFunctions {
     private boolean flag;
     private boolean flagForFirstPress;
 
+    //@@ ChenChao19
     public MemorisePreviousFunctions() {
         CommandsEntered = new ArrayList<>();
         this.flagForFirstPress = true;

@@ -24,6 +24,7 @@ public class CommitGoalCommand extends MoneyCommand {
     private ArrayList<Goal> goalsAfterCommit;
     private float goalSavingsAfterCommit;
 
+    //@@ therealnickcheong
     public CommitGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");

@@ -23,6 +23,7 @@ public class AddExpenditureCommand extends MoneyCommand {
      * with the expenditure data within the user input.
      * @param command add command inputted from user
      */
+    //@@ chengweixuan
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
     }

@@ -26,6 +26,7 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
      * @param inputString The command typed in by the user
      * @throws ParseException The exception for parsing the date
      */
+    //@@ cctt1014
     public CheckFutureBalanceCommand(String inputString) throws ParseException {
         description = inputString.split(" /at ")[0];
         description = description.replaceFirst("check-balance ", "");

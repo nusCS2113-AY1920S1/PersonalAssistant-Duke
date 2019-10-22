@@ -20,6 +20,7 @@ public class DeleteBankAccountCommand extends MoneyCommand {
 
     private int index;
 
+    //@@ cctt1014
     public DeleteBankAccountCommand(String inputString) {
         inputString = inputString.replaceFirst("delete bank-account ", "");
         index = Integer.parseInt(inputString)-1;

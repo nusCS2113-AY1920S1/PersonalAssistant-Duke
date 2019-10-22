@@ -5,8 +5,8 @@ import money.Account;
 
 public class ExitMoneyCommand extends MoneyCommand {
 
+    //@@ cctt1014
     public ExitMoneyCommand(){
-
     }
 
     @Override

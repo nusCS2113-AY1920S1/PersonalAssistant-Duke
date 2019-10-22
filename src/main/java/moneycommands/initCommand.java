@@ -7,7 +7,7 @@ public class initCommand extends MoneyCommand{
 
     private String inputString;
 
-
+    //@@ therealnickcheong
     public initCommand(String cmd, boolean isNewUser) throws DukeException {
         inputString = cmd;
         if(!isNewUser){

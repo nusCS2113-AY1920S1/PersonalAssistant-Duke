@@ -16,6 +16,7 @@ public class DukeException extends Exception {
      *
      * @param errorMsg The error message sent from the faulty object.
      */
+    //@@ cctt1014
     public DukeException(String errorMsg) {
         super(errorMsg);
     }

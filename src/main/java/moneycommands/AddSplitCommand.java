@@ -29,6 +29,7 @@ public class AddSplitCommand extends MoneyCommand {
      * with the split expenditure data within the user input.
      * @param command add command inputted from user
      */
+    //@@ chengweixuan
     public AddSplitCommand(String command) {
         inputString = command.replaceFirst("split ", "");
     }
