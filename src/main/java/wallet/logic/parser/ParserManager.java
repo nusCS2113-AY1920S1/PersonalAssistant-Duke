@@ -12,6 +12,8 @@ import wallet.logic.command.ListCommand;
 import wallet.logic.command.ReminderCommand;
 import wallet.logic.command.SetBudgetCommand;
 import wallet.logic.command.ViewCommand;
+import wallet.logic.command.ExportCommand;
+import wallet.logic.command.ImportCommand;
 
 import java.text.ParseException;
 
@@ -56,6 +58,12 @@ public class ParserManager {
 
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments[1]);
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments[1]);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments[1]);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
