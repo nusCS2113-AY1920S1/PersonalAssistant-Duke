@@ -24,7 +24,7 @@ public class Parser {
     //There is no constructor method for all others are static.
 
     /**
-     * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
+     * Returns a {@link Cmd} that can be understood by {@link Duke} and executed after.
      * We first split the fullCommand into 2, the keyword, followed by everything else.
      * Then we perform switching based on the keyword.
      *
