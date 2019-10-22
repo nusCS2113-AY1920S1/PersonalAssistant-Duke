@@ -82,20 +82,20 @@ class ProjectInputControllerTest {
         expectedOutput = "1. Jerry (Phone: 911 | Email: dillen@gmail.com)";
         assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "edit member 1 -e jerry@gmail.com";
+        simulatedUserInput = "edit member 1 -e jerry@gmail.com -n Thanos Endgame";
         projectInputController.projectEditMember(project, simulatedUserInput);
         actualOutput = "";
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Jerry (Phone: 911 | Email: jerry@gmail.com)";
+        expectedOutput = "1. Thanos Endgame (Phone: 911 | Email: jerry@gmail.com)";
         assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
     void testProjectDeleteMember() {
         Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add member n/Jerry Zhang i/9123456 e/jerryzhang@gmail.com";
+        simulatedUserInput = "add member -n Jerry Zhang -i 9123456 -e jerryzhang@gmail.com";
         projectInputController.projectAddMember(project, simulatedUserInput);
 
         simulatedUserInput = "delete member 1";
@@ -126,7 +126,7 @@ class ProjectInputControllerTest {
                     + "-s done -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
-            simulatedUserInput = "add task -t Documentation for product -p 2 -c 40 -r do something -r do another thing";
+            simulatedUserInput = "add task  -p 2 -t Documentation for product -c 40 -r do something -r do another thing";
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             simulatedUserInput = "add task -t Documentation for product -p 2 -c 40";
@@ -176,7 +176,7 @@ class ProjectInputControllerTest {
                     + " | Credit: 50 | State: DONE";
             assertEquals(expectedOutput,actualOutput);
 
-            simulatedUserInput = "edit task 1 -t Infinity War -p 5 -d 22/09/2019 -c 40 -s todo";
+            simulatedUserInput = "edit task 1 -p 5 -t Infinity War -d 22/09/2019 -c 40 -s todo";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
             for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
