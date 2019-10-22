@@ -45,8 +45,8 @@ public class ConsoleInputController implements IController {
             consoleView.end();
             break;
         case "list":
-            ArrayList<Project> allProjects = projectRepository.getAll();
-            consoleView.viewAllProjects(allProjects);
+            ArrayList<ArrayList<String>> allProjectsDetails = projectRepository.getAllProjectsDetailsForTable();
+            consoleView.viewAllProjects(allProjectsDetails);
             break;
         case "create":
             // Creation of a new project with a given name and a number of numbers

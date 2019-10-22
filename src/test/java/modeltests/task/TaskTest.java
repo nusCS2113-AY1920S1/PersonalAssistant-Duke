@@ -35,7 +35,8 @@ class TaskTest {
         try {
             Date date = dateTimeHelper.formatDate("20/1/2019");
             Task task2 = new Task("task2", 5, date, 100, TaskState.OPEN, taskRequirements);
-            assertEquals("task2 | Priority: 5 | Due: 20 Jan 2019 | Credit: 100 | State: OPEN", task2.getDetails());
+            assertEquals("task2 | Priority: 5 | Due: 20 Jan 2019" + dateTimeHelper.getDifferenceDays(date)
+                    + " | Credit: 100 | State: OPEN", task2.getDetails());
         } catch (ParseException e) {
             System.out.println("Parsing error");
         }
@@ -48,7 +49,7 @@ class TaskTest {
             ArrayList<String> taskRequirements = new ArrayList<>();
             taskRequirements.add("requirement1");
             Task dummyTask = new Task("task1",1,dueDate,10, TaskState.TODO, taskRequirements);
-            ITask task = consoleInputFactory.createTask("t/task1 p/1 d/19/10/2019 c/10 s/todo r/requirement1");
+            ITask task = consoleInputFactory.createTask("-t task1 -p 1 -d 19/10/2019 -c 10 -s todo -r requirement1");
             assertEquals(dummyTask.getDetails(),task.getDetails());
             assertEquals(dummyTask.getTaskRequirements(), task.getTaskRequirements());
 
@@ -56,7 +57,7 @@ class TaskTest {
             taskRequirements2.add("requirement1");
             taskRequirements2.add("requirement2");
             Task dummyTask2 = new Task("task2",2,null,10, TaskState.OPEN, taskRequirements2);
-            ITask task2 = consoleInputFactory.createTask("t/task2 p/2 c/10 r/requirement1 r/requirement2");
+            ITask task2 = consoleInputFactory.createTask("-t task2 -p 2 -c 10 -r requirement1 -r requirement2");
             assertEquals(dummyTask2.getDetails(),task2.getDetails());
             assertEquals(dummyTask2.getTaskRequirements(), task2.getTaskRequirements());
         } catch (ParseException e) {

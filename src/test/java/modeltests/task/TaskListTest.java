@@ -100,42 +100,60 @@ class TaskListTest {
 
             String testPriorityTaskListString = "["
                     + "1. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN, "
-                    + "2. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE, "
-                    + "3. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
-                    + "4. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
-                    + "5. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN"
+                    + "2. taskSix | Priority: 4 | Due: 21 Dec 1920" + dateTimeHelper.getDifferenceDays(dueDate4)
+                    + " | Credit: 70 | State: DONE, "
+                    + "3. taskEight | Priority: 3 | Due: 21 Jan 2020" + dateTimeHelper.getDifferenceDays(dueDate3)
+                    + " | Credit: 80 | State: OPEN, "
+                    + "4. taskTwo | Priority: 2 | Due: 21 Sep 2019" + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 90 | State: DONE, "
+                    + "5. taskOne | Priority: 1 | Due: 31 Oct 2019" + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 100 | State: OPEN"
                     + "]";
             assertEquals(testPriorityTaskListString,taskList.getAllSortedTaskDetails("/PRIORITY").toString());
 
             String testNameTaskListString = "["
-                    + "1. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
+                    + "1. taskEight | Priority: 3 | Due: 21 Jan 2020" + dateTimeHelper.getDifferenceDays(dueDate3)
+                    + " | Credit: 80 | State: OPEN, "
                     + "2. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN, "
-                    + "3. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN, "
-                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE, "
-                    + "5. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE"
+                    + "3. taskOne | Priority: 1 | Due: 31 Oct 2019" + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 100 | State: OPEN, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920" + dateTimeHelper.getDifferenceDays(dueDate4)
+                    + " | Credit: 70 | State: DONE, "
+                    + "5. taskTwo | Priority: 2 | Due: 21 Sep 2019" + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 90 | State: DONE"
                     + "]";
             assertEquals(testNameTaskListString,taskList.getAllSortedTaskDetails("/NAME").toString());
 
             String testDueDateTaskListString = "["
-                    + "1. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
-                    + "2. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN, "
-                    + "3. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
-                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE"
+                    + "1. taskSix | Priority: 4 | Due: 21 Dec 1920" + dateTimeHelper.getDifferenceDays(dueDate4)
+                    + " | Credit: 70 | State: DONE, "
+                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019" + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 90 | State: DONE, "
+                    + "3. taskOne | Priority: 1 | Due: 31 Oct 2019" + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 100 | State: OPEN, "
+                    + "4. taskEight | Priority: 3 | Due: 21 Jan 2020" + dateTimeHelper.getDifferenceDays(dueDate3)
+                    + " | Credit: 80 | State: OPEN"
                     + "]";
             assertEquals(testDueDateTaskListString,taskList.getAllSortedTaskDetails("/DATE").toString());
 
             String testCreditTaskListString = "["
-                    + "1. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN, "
-                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
-                    + "3. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
-                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE, "
+                    + "1. taskOne | Priority: 1 | Due: 31 Oct 2019" + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 100 | State: OPEN, "
+                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019" + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 90 | State: DONE, "
+                    + "3. taskEight | Priority: 3 | Due: 21 Jan 2020" + dateTimeHelper.getDifferenceDays(dueDate3)
+                    + " | Credit: 80 | State: OPEN, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920" + dateTimeHelper.getDifferenceDays(dueDate4)
+                    + " | Credit: 70 | State: DONE, "
                     + "5. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN"
                     + "]";
             assertEquals(testCreditTaskListString,taskList.getAllSortedTaskDetails("/CREDIT").toString());
 
             String testKanbanTaskListString = "["
-                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
-                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE"
+                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019" + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 90 | State: DONE, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920" + dateTimeHelper.getDifferenceDays(dueDate4)
+                    + " | Credit: 70 | State: DONE"
                     + "]";
             assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails("/KANBAN-DONE").toString());
 

@@ -1,10 +1,11 @@
 package repositories;
 
+import models.data.IProject;
 import models.data.Project;
 import util.factories.ProjectFactory;
-import java.util.ArrayList;
-import models.data.IProject;
 import util.log.DukeLogger;
+
+import java.util.ArrayList;
 
 public class ProjectRepository implements IRepository<Project> {
     private ArrayList<Project> allProjects;
@@ -54,5 +55,42 @@ public class ProjectRepository implements IRepository<Project> {
         } catch (IndexOutOfBoundsException err) {
             return false;
         }
+    }
+
+    /**
+     * Method to get all project details in a suitable form for CLIView to print in a table form.
+     * @return ArrayList of details to be presented in each table, with each element as an ArrayList
+     *         containing each row in the table.
+     */
+    public ArrayList<ArrayList<String>> getAllProjectsDetailsForTable() {
+        ArrayList<ArrayList<String>> toPrintAll = new ArrayList<>();
+        for (int projNum = 0; projNum < allProjects.size(); projNum++) {
+            ArrayList<String> toPrint = new ArrayList<>();
+            toPrint.add("Project " + (projNum + 1) + ": " + allProjects.get(projNum).getDescription());
+            toPrint.add("Members: ");
+            if (allProjects.get(projNum).getNumOfMembers() == 0) {
+                toPrint.add(" --");
+            } else {
+                for (int memberIndex = 1; memberIndex <= allProjects.get(projNum).getNumOfMembers();memberIndex++) {
+                    toPrint.add(" " + allProjects.get(projNum).getMembers().getMember(memberIndex).getDetails());
+                }
+                toPrint.add("");
+            }
+            toPrint.add("Next Deadline: ");
+            if (allProjects.get(projNum).getNumOfTasks() == 0) {
+                toPrint.add(" --");
+            } else {
+                String[] detailsClosestDeadlineTask = allProjects.get(projNum).getTasks().getClosestDeadlineTask();
+                toPrint.add(" " + detailsClosestDeadlineTask[0]);
+                for (int i = 1; i < detailsClosestDeadlineTask.length; i++) {
+                    toPrint.add(" - " + detailsClosestDeadlineTask[i]);
+                }
+                toPrint.add("");
+            }
+            toPrint.add("Overall Progress: ");
+            toPrint.add(" Feature not yet done");
+            toPrintAll.add(toPrint);
+        }
+        return toPrintAll;
     }
 }
