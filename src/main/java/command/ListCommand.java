@@ -7,6 +7,7 @@ import storage.Storage;
 import ui.Ui;
 import user.User;
 
+//@@author amoschan97
 public class ListCommand extends Command {
     /**
      * Prints to the UI a list containing all bookings made.

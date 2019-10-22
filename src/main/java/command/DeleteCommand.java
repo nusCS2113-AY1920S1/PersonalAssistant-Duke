@@ -10,6 +10,7 @@ import user.User;
 
 import java.io.IOException;
 
+//@@author amoschan97
 public class DeleteCommand extends Command {
     private int index;
     private Booking deletedBooking;
