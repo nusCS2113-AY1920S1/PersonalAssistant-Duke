@@ -6,11 +6,7 @@ import duke.patient.Patient;
 import duke.patient.PatientManager;
 import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
+import duke.storage.StorageManager;
 import duke.task.Task;
 import duke.task.TaskManager;
 
@@ -18,26 +14,16 @@ import java.util.ArrayList;
 
 public class FindPatientTaskCommand extends Command {
 
-    private String patientTaskInfo;
-    private int id;
+    private String command;
 
     /**
      * .
      *
-     * @param patientTaskInfo .
+     * @param cmd .
      */
-    public FindPatientTaskCommand(String patientTaskInfo) throws DukeException {
+    public FindPatientTaskCommand(String cmd) {
         super();
-        this.patientTaskInfo = patientTaskInfo;
-
-        if (patientTaskInfo.charAt(0) == '#') {
-            try {
-                this.id = Integer.parseInt(patientTaskInfo.substring(1));
-
-            } catch (Exception e) {
-                throw new DukeException("Failed to find ID.");
-            }
-        }
+        this.command = cmd;
     }
 
     /**
@@ -47,29 +33,29 @@ public class FindPatientTaskCommand extends Command {
      * @param tasksManager       .
      * @param patientManager     .
      * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksManager, PatientManager patientManager,
-                        Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        if (id != 0) {
+                        Ui ui, StorageManager storageManager) throws DukeException {
+        char firstChar = command.charAt(0);
+        if (firstChar == '#') {
+            int id;
             try {
+                id = Integer.parseInt(command.substring(1, command.length()));
                 Patient patient = patientManager.getPatient(id);
                 ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(id);
                 ArrayList<Task> tempTask = new ArrayList<>();
-                for (PatientTask tempPatientTask : patientTask) {
-                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
+                for (PatientTask temppatientTask : patientTask) {
+                    tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patient, patientTask, tempTask);
             } catch (Exception e) {
-                throw new DukeException("Please follow the format 'find patient task #<id>' or 'find patient <name>'.");
+                throw new DukeException(e.getMessage());
             }
         } else {
-            String name = patientTaskInfo.toLowerCase();
+            String name = command.toLowerCase();
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(name);
             ArrayList<PatientTask> patientWithTask = new ArrayList<>();
             ArrayList<Task> tempTask = new ArrayList<>();
@@ -80,13 +66,13 @@ public class FindPatientTaskCommand extends Command {
                         patientWithTask = patientTaskList.getPatientTask(patient.getID());
                     }
                 }
-                for (PatientTask tempPatientTask : patientWithTask) {
-                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
+                for (PatientTask temppatientTask : patientWithTask) {
+                    tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
+
             } catch (Exception e) {
-                throw new DukeException(e.getMessage()
-                        + "Please follow the format 'find patient task #<id>' or 'find patient <name>'.");
+                throw new DukeException("Please follow the format 'find patienttask #<id>' or 'find patient <name>'.");
             }
         }
     }
@@ -96,5 +82,4 @@ public class FindPatientTaskCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }
