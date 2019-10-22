@@ -145,7 +145,7 @@ public class PlannerUi {
         showLine();
         System.out.println(
                 "Thanks for using ModPlanner!\n"
-                 + "Your data will be stored in file shortly!\n"
+                 + "Your data will be stored in file shortly!"
         );
         showLine();
         closeScanner();

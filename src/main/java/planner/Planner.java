@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
+import planner.command.EndCommand;
 import planner.command.ModuleCommand;
 import planner.exceptions.original.ModException;
 import planner.exceptions.planner.ModBadRequestStatus;
@@ -78,23 +79,27 @@ public class Planner {
     private void modRunArgparse4j() {
         modUi.helloMsg();
         modSetup();
-        while (true) {
-            this.handleInput(modUi.readCommand());
+        boolean isExit = true;
+        while (isExit) {
+            isExit = this.handleInput(modUi.readCommand());
         }
     }
 
-    private void handleInput(String input) {
+    private boolean handleInput(String input) {
         try {
-            modUi.showLine();
             ModuleCommand c = argparser.parseCommand(input);
             if (c != null) {
                 c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+                if (c instanceof EndCommand) {
+                    return false;
+                }
             }
         } catch (ModException e) {
             System.out.println(e.getMessage());
         } finally {
             modUi.showLine();
         }
+        return true;
     }
 
     /**
