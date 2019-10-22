@@ -12,7 +12,7 @@ import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DukeTest {
+public class GazeeeboTest {
 
     @Test
     public void test() {

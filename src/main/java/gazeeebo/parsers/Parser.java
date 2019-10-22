@@ -1,9 +1,7 @@
 package gazeeebo.parsers;
-
-import gazeeebo.commands.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
-
 import gazeeebo.commands.gpacalculator.GPACommand;
+import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.commands.tasks.taskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;

@@ -1,8 +1,9 @@
-<<<<<<< HEAD
 D|D|return book|by: 2008-07-07 03:03:03
 E|ND|123|at: 2019-03-04 12:12:12-13:13:13
 T|ND| 123
-D|ND|weekly assignment |by: 2019-10-17 10:10:10
-=======
-D|ND|return book |by: 2008-07-07 03:03:03
->>>>>>> 2c657b6e383b84ddc91d29e64100a22bdd18d9d5
+D|ND|weekly assignment|by: 2019-10-17 10:10:10
+D|ND|return book|by: 2008-07-07 03:03:03
+E|ND|camp|at: 2019-10-12 12:12:12-13:12:12
+T|ND| SHOPPING
+P|ND|asdasd|2019-10-13 and 2019-10-30
+P|ND|asad |2019-09-15 and 2019-10-05

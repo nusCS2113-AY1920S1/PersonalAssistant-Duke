@@ -53,13 +53,13 @@ public class ScheduleMonthlyCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             switch (t.getClass().getName()) {
-            case "gazeeebo.Tasks.Event":
+            case "gazeeebo.tasks.Event":
                 tDate = ((Event) t).date;
                 break;
-            case "gazeeebo.Tasks.Deadline":
+            case "gazeeebo.tasks.Deadline":
                 tDate = ((Deadline) t).by.toLocalDate();
                 break;
-            case "gazeeebo.Tasks.Timebound":
+            case "gazeeebo.tasks.Timebound":
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {
