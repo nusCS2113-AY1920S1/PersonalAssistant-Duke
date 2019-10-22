@@ -213,7 +213,7 @@ class DailyCalUi {
             String tick = "\u2713";
             blockTitle += "[" + tick + "]\n";
         } else {
-            String wrong = "\u2713";
+            String wrong = "\u2718";
             blockTitle += "[" + wrong + "]\n";
         }
 
