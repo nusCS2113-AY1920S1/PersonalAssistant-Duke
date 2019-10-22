@@ -42,7 +42,6 @@ public class ListCommand extends Command {
         switch (mode) {
             case "DEFAULT":
                 if (tasks.size() > 0) {
-                    ui.showLine("Here are the tasks in your list:");
                     TaskListPrinter.print(ui, tasks);
                 } else {
                     ui.showLine("There are no tasks in your list.");

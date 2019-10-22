@@ -35,6 +35,12 @@ public class Event extends Task {
 	}
 
 	@Override
+	public String getDescription() {
+		return super.getDescription() + " (at: " +
+				datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
+	}
+
+	@Override
 	public String toString() {
 		return super.toString() + " (at: " + datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
 	}
