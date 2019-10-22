@@ -6,10 +6,10 @@ import dolla.parser.DebtsParser;
 import dolla.parser.EntryParser;
 import dolla.parser.MainParser;
 
-public class AddActionCommand extends Command{
+public class AddActionCommand extends Command {
     private String mode;
     private String command;
-    private String UserInput;
+    private String userInput;
     private int prevPosition;
 
     public AddActionCommand(String mode, String command) {
@@ -17,14 +17,17 @@ public class AddActionCommand extends Command{
         this.command = command;
     }
 
+    /**
+     * //TODO: add javadoc.
+     */
     public void undoCommand() {
-        UserInput = Undo.processCommand(mode);
-        String[] parser = UserInput.split(" ",2);
-        if(parser[0].equals("remove")) {
-            UserInput = parser[0] + " " + parser[1];
+        userInput = Undo.processCommand(mode);
+        String[] parser = userInput.split(" ",2);
+        if (parser[0].equals("remove")) {
+            userInput = parser[0] + " " + parser[1];
         } else {
             prevPosition = Integer.parseInt(parser[0]);
-            UserInput = parser[1];
+            userInput = parser[1];
         }
     }
 
@@ -42,7 +45,7 @@ public class AddActionCommand extends Command{
         } else if (mode.equals("entry")) {
             EntryParser.setPrePosition(prevPosition);
         }
-        Command c = MainParser.handleInput(mode, UserInput);
+        Command c = MainParser.handleInput(mode, userInput);
         c.execute(dollaData);
     }
 }

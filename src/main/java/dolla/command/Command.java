@@ -7,8 +7,9 @@ import dolla.Ui;
  * Command is an abstract class which all types of command will inherit from.
  */
 public abstract class Command {
-    private String userInput;//////
+    private String userInput;
     protected int index;
+
     /**
      * This method is called execute the titular command after every user input.
      * @throws Exception handle exception

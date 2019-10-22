@@ -13,7 +13,7 @@ public class SortCommand extends Command {
     private String mode;
     private String type;
 
-    public SortCommand (String mode, String type) {
+    public SortCommand(String mode, String type) {
         this.mode = mode;
         this.type = type;
     }
@@ -21,7 +21,7 @@ public class SortCommand extends Command {
     @Override
     public void execute(DollaData dollaData) throws Exception {
         LogList logList = new LogList(new ArrayList<>());
-        switch (mode){
+        switch (mode) {
         case "entry":
             logList = dollaData.getLogList(mode);
             break;

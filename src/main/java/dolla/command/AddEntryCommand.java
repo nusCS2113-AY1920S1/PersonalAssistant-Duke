@@ -37,7 +37,7 @@ public class AddEntryCommand extends Command {
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
 
-        if(prevPosition != -1) { //an Undo input
+        if (prevPosition != -1) { //an Undo input
             dollaData.addToPrevPosition("entry", newEntry, prevPosition);
             prevPosition = -1; //reset to -1
         } else { //normal input

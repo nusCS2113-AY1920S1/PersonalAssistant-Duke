@@ -33,7 +33,7 @@ public class RemoveCommand extends Command {
      *     If taskNumInt does not correspond to any task in the specified TaskList, an
      *     alert is printed to the user, and the method will return.
      * </p>
-     * @param dollaData
+     * @param dollaData dollaData
      */
     //@Override
     public void execute(DollaData dollaData) {
@@ -53,7 +53,7 @@ public class RemoveCommand extends Command {
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);
-/*
+        /*
         ArrayList<String> msg = new ArrayList<String>();
         try {
             tasks.getFromList(taskNumInt - 1); // Check if the task exists first
@@ -66,6 +66,6 @@ public class RemoveCommand extends Command {
             return;
         }
         Ui.printMsg(msg);
- */
+        */
     }
 }

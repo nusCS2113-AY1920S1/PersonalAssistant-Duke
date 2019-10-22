@@ -7,6 +7,7 @@ import dolla.task.Debt;
 
 import java.time.LocalDate;
 
+//todo: edit javadoc
 public class AddDebtsCommand extends Command {
 
     private String type;
@@ -15,6 +16,16 @@ public class AddDebtsCommand extends Command {
     private String description;
     private LocalDate date;
     private int prevPosition;
+
+    /**
+     * Instantiates AddDebtsCommand.
+     * @param type type of debt
+     * @param name name of debtor
+     * @param amount amount of debt
+     * @param description description of debt
+     * @param date date of debt
+     * @param prePosition -1 by default
+     */
     public AddDebtsCommand(String type, String name, double amount,
                            String description, LocalDate date, int prePosition) { //prePosition is -1 by default
         this.type = type;
@@ -28,7 +39,7 @@ public class AddDebtsCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount, description, date);
-        if(prevPosition != -1) { //an Undo input
+        if (prevPosition != -1) { //an Undo input
             dollaData.addToPrevPosition("debt", newDebt, prevPosition);
             prevPosition = -1;
         } else { //normal input

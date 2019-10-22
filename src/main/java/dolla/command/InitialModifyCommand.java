@@ -9,7 +9,7 @@ public class InitialModifyCommand extends Command {
     private int index;
 
     public InitialModifyCommand(String indexStr) {
-        this.index = Integer.parseInt(indexStr)-1;
+        this.index = Integer.parseInt(indexStr) - 1;
     }
 
     @Override
