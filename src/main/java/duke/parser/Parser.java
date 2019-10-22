@@ -1,18 +1,12 @@
 package duke.parser;
 
+import duke.command.Cmd;
 import duke.Duke;
-import duke.command.*;
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindIngredientCommand;
-import duke.command.RemindCommand;
-import duke.command.ViewCommand;
+import duke.command.ingredientCommand.*;
 import duke.exception.DukeException;
-import duke.orderCommand.*;
-import duke.dishesCommand.*;
-import duke.dishesCommand.InitCommand;
+import duke.command.orderCommand.*;
+import duke.command.dishesCommand.*;
+import duke.command.dishesCommand.InitCommand;
 import duke.Dishes.Dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
@@ -30,7 +24,7 @@ public class Parser {
     //There is no constructor method for all others are static.
 
     /**
-     * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
+     * Returns a {@link Cmd} that can be understood by {@link Duke} and executed after.
      * We first split the fullCommand into 2, the keyword, followed by everything else.
      * Then we perform switching based on the keyword.
      *
@@ -39,7 +33,7 @@ public class Parser {
      * @return Command The Command to be executed
      * @throws DukeException for any invalid input
      */
-    public static Command parse(String fullCommand, int size) throws DukeException {
+    public static Cmd parse(String fullCommand, int size) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)
         String[] splitted = fullCommand.split(" ", 2);
         //switching on the keyword
@@ -90,9 +84,12 @@ public class Parser {
         }
     }
 
-    public static RecipeCommand Parse(String fullCommaand) throws DukeException {
-        String[] splitted = fullCommaand.split(" ", 2);
+    public static Cmd Parse(String fullCommand) throws DukeException {
+        //splitted contains the keyword and the rest (description or task number)
+        String[] splitted = fullCommand.split(" ", 2);
+        //switching on the keyword
         switch (splitted[0]) {
+            //RecipeCommand
             case "dishadd":
                 String[] getnum = splitAndCheck(splitted[1], " /num ");
                 int amount = Integer.parseInt(getnum[1]);
@@ -108,31 +105,25 @@ public class Parser {
                 return new AddIngredient(getIng[0], listNum);
             case "dishinit" :
                 return new InitCommand();
-            default:
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
-        }
-    }
-
-    public static OrderCommand parse(String fullCommand) throws DukeException {
-        //splitted contains the keyword and the rest (description or task number)
-        String[] splitted = fullCommand.split(" ", 2);
-        //switching on the keyword
-        switch (splitted[0]) {
-            case "add":
+            // OrderCommand
+            case "orderAdd":
                 return new AddOrder();
-            case "list":
-                if (splitted[1].startsWith("undone")) { return new ListUndoneOrders(); }
-                else return new ListAllOrders();
-            case "done":
+            case "orderList":
+                // splitted[1] can be orderList all, orderList undone,
+                //                    orderList today, orderList undoneToday
                 checkLength(splitted);
-                return new DoneOrder(splitted[1]);
-            case "cancel":
-                return new CancelOrder(splitted[1]);
-            case "postpone":
+                return new ListOrderCmd(splitted[1]);
+            case "orderDone":
                 checkLength(splitted);
-                String[] getUntil = splitAndCheck(splitted[1], " /by ");
-                return new PostponeOrder(Integer.parseInt(getUntil[0]), getUntil[1]);
-            case "find":
+                return new DoneOrderCmd(splitted[1]);
+            case "orderCancel":
+                return new CancelOrderCmd(splitted[1]);
+            case "orderAlterDate":
+                checkLength(splitted);
+                String[] getDate = splitAndCheck(splitted[1], " /to ");
+                // getDate[0] is the order index, getDate[1] is the newly set date
+                return new AlterServingDateCmd(Integer.parseInt(getDate[0]), getDate[1]);
+            case "orderFindDate":
                 return new FindOrderByDate(splitted[1]);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");

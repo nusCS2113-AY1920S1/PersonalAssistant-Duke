@@ -1,18 +1,19 @@
-package duke.command;
+package duke.command.ingredientCommand;
 
+import duke.command.Cmd;
 import duke.exception.DukeException;
-import duke.Dishes.DishList;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Command} used to list all the {@link Task}s in the {@link TaskList}.
+ * Represents a specific {@link Cmd} used to list all the {@link Task}s in the {@link TaskList}.
  */
-public class ListCommand extends Command {
+public class ListCommand extends Cmd<TaskList> {
 
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         if (taskList.size() == 0) {
             throw new DukeException("No tasks yet!");
         } else {
