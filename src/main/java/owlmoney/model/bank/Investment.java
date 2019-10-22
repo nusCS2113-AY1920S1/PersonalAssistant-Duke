@@ -41,7 +41,7 @@ public class Investment extends Bank {
      */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
-        if (!"bond".equals(bankType) && !"investment transfer".equals(bankType)) {
+        if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
             throw new BankException("This account does not support savings expenditures");
         }
         if (exp.getAmount() > this.getCurrentAmount()) {

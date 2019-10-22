@@ -99,7 +99,7 @@ public class Profile {
             throws BankException, CardException {
         if ("card".equals(type)) {
             cardList.cardListAddExpenditure(accName, exp, ui, type);
-        } else if ("bank".equals(type) || "bond".equals(type)) {
+        } else if ("bank".equals(type) || "bonds".equals(type)) {
             bankList.bankListAddExpenditure(accName, exp, ui, type);
         }
     }

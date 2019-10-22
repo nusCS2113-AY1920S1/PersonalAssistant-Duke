@@ -10,4 +10,9 @@ class InvestmentTest {
         Ui uiTest = new Ui();
         Bank testInvestment = new Investment("DBB VICKERS", 10000);
     }
+
+    @Test
+    void addInExpenditure_normalExpenditureBankNotInvestment_success() {
+
+    }
 }
