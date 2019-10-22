@@ -23,7 +23,7 @@ public class Duke {
     /**
      * Main function of the GUI program.
      */
-    public Duke() {
+    public void run() {
         initModel();
         Http.startAuthProcess();
     }

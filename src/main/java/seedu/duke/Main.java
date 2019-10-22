@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.show();
 
             Duke duke = new Duke();
+            duke.run();
         } catch (IOException e) {
             e.printStackTrace();
         }

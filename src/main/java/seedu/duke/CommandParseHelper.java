@@ -117,11 +117,11 @@ public class CommandParseHelper {
             return new InvalidCommand();
         }
         ArrayList<Option> optionList = parseOptions(commandString);
-        commandString = stripOptions(commandString);
+        String strippedCommandString = stripOptions(commandString);
         if (inputType == InputType.TASK) {
-            return TaskCommandParseHelper.parseTaskCommand(commandString, optionList);
+            return TaskCommandParseHelper.parseTaskCommand(strippedCommandString, optionList);
         } else if (inputType == InputType.EMAIL) {
-            return parseEmailCommand(commandString, optionList);
+            return parseEmailCommand(strippedCommandString, optionList);
         } else {
             return new InvalidCommand();
         }
