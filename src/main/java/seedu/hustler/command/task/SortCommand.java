@@ -1,4 +1,4 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
@@ -15,17 +15,15 @@ public class SortCommand extends Command {
     /**
      * Initializes the sortType.
      *
-     * @param rawInput raw user's input.
+     * @param sortType type of sort.
      */
-    public SortCommand(String rawInput) {
-        this.sortType = rawInput.substring(1);
+    public SortCommand(String sortType) {
+        this.sortType = sortType;
     }
 
     /**
      * Sorts the task list.
-     *
      */
-    @Override
     public void execute() {
         Hustler.list.sortTask(sortType);
     }

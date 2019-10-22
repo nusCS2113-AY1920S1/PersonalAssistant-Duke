@@ -23,7 +23,7 @@ public class UIMessages {
          * along with the timer's duration.
          */
         public static String TimerStart(int[] timeArray) {
-            String output = "Timer has commenced! Time set: " + UILogic.padOutput(timeArray);
+            String output = "Timer has commenced! Time set: " + UiLogic.padOutput(timeArray);
             return output;
         }
 

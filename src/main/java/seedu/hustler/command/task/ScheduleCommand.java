@@ -1,4 +1,4 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
@@ -9,7 +9,6 @@ import java.util.Date;
  * Command that lists tasks in TaskList instance.
  */
 public class ScheduleCommand extends Command {
-
     /**
      * A schedule instance that shows schedules.
      */
@@ -30,9 +29,7 @@ public class ScheduleCommand extends Command {
     }
     
     /**
-     * Lists commands which have the date specified in
-     * userInput.
-     *
+     * Lists commands which have the date specified in userInput.
      */
     public void execute() {
         if (this.userInput.length == 1) {

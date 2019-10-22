@@ -1,15 +1,13 @@
-package seedu.hustler.command.shopCommand;
+package seedu.hustler.command.shop;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.data.ShopStorage;
-import java.io.IOException;
 
 /**
  * Command to purchase an item in the shop with the given index.
  */
-public class buyCommand extends Command {
-
+public class BuyCommand extends Command {
     /**
      * The index of the item desired.
      */
@@ -17,14 +15,15 @@ public class buyCommand extends Command {
 
     /**
      * Constructs a buyCommand with the index of the item.
+     *
      * @param index the index of the item to purchase.
      */
-    public buyCommand(int index) {
+    public BuyCommand(int index) {
         this.index = index;
     }
 
     @Override
-    public void execute() throws IOException {
+    public void execute() {
         Hustler.shopList.buy(this.index - 1);
         ShopStorage.update();
     }

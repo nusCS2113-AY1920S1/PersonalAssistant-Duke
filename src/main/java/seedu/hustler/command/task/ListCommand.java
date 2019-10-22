@@ -1,4 +1,4 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
@@ -7,13 +7,8 @@ import seedu.hustler.command.Command;
  * Command that lists tasks in TaskList instance.
  */
 public class ListCommand extends Command {
-    public ListCommand() {
-
-    }
-    
     /**
      * Lists commands in TaskList instance.
-     *
      */
     public void execute() {
         Hustler.list.displayList();

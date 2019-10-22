@@ -12,7 +12,6 @@ public class Folder {
     /**
      * Checks directory to see if file exists. If it
      * doesn't exist, creates one.
-     *
      * @return directory
      */
     public static File checkDirectory() {

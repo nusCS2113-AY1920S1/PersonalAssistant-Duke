@@ -8,7 +8,6 @@ public class ParserForCommand {
 
     /**
      * Initializes command variable.
-     *
      * @param command name of command
      */
     public ParserForCommand(String command) {
@@ -18,7 +17,6 @@ public class ParserForCommand {
     /**
      * A method that parses a user input string of index
      * to integer index.
-     *
      * @param description description that contains string integer
      * @return Integer object that is the parsed integer index
      */
@@ -27,7 +25,7 @@ public class ParserForCommand {
         case "done":
         case "delete":
         case "snooze":
-            return Integer.valueOf(Integer.parseInt(description) - 1);
+            return Integer.parseInt(description) - 1;
         default:
             return -1;
         }

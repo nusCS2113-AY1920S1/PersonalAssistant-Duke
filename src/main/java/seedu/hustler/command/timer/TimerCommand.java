@@ -1,10 +1,12 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.timer;
 
-import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.ui.timer.*;
+import seedu.hustler.ui.timer.TimerManager;
 
+/**
+ * Command that starts the timer.
+ */
 public class TimerCommand extends Command {
     /**
      * Contains task type and description.
@@ -13,13 +15,15 @@ public class TimerCommand extends Command {
 
     /**
      * Initializes taskInfo.
-     *
      * @param taskInfo the info of the task to add.
      */
     public TimerCommand(String[] taskInfo) {
         this.taskInfo = taskInfo;
     }
 
+    /**
+     * Starts the timer.
+     */
     public void execute() {
         if (this.taskInfo.length == 1) {
             Ui ui = new Ui();
@@ -27,7 +31,7 @@ public class TimerCommand extends Command {
             return;
         }
 
-        timerManager timermanager = new timerManager();
+        TimerManager timermanager = new TimerManager();
         timermanager.setTimer(taskInfo[1]);
         timermanager.startTimer();
     }

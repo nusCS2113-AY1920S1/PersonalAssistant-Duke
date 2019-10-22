@@ -1,4 +1,4 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
@@ -10,7 +10,6 @@ import seedu.hustler.parser.ParserForCommand;
  * Command that deletes task in list.
  */
 public class DeleteCommand extends Command {
-
     /**
      * User input that contains index of task to delete.
      */
@@ -27,7 +26,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes task at index taskIndex inside.
-     *
      */
     public void execute() {
         if (this.userInput.length == 1) {

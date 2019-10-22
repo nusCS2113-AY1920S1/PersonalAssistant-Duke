@@ -5,7 +5,6 @@ package seedu.hustler.game.achievement;
  * There is 3 achievement level which depends on the number of tasks completed.
  */
 public class DoneTask extends Achievements {
-
     /**
      * Number of tasks done.
      */
@@ -79,7 +78,7 @@ public class DoneTask extends Achievements {
      * @return number of tasks done.
      */
     public static int increment() {
-        numberOfDone ++;
+        numberOfDone++;
         return numberOfDone;
     }
 
@@ -108,10 +107,10 @@ public class DoneTask extends Achievements {
      * @return points attained from number of tasks done.
      */
     public static int updatePoints() {
-        if(numberOfDone == 5) {
+        if (numberOfDone == 5) {
             donePoints = BRONZE_POINT;
             totalPoints += donePoints;
-        } else if(numberOfDone == 10) {
+        } else if (numberOfDone == 10) {
             donePoints = SILVER_POINT;
             totalPoints += donePoints;
         } else if (numberOfDone == 15) {
@@ -137,21 +136,27 @@ public class DoneTask extends Achievements {
      * @return description.
      */
     @Override
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Retrieve information regarding the achievement.
      * @return information.
      */
     @Override
-    public String getInformation() { return this.information; }
+    public String getInformation() {
+        return this.information;
+    }
 
     /**
      * Retrieve current points from achievement.
      * @return points.
      */
     @Override
-    public int getPoints() { return points; }
+    public int getPoints() {
+        return points;
+    }
 
     /**
      * Update points gained from unlocking achievement.
@@ -169,7 +174,9 @@ public class DoneTask extends Achievements {
      * @return true or false.
      */
     @Override
-    public Boolean checkLock() { return this.locked; }
+    public Boolean checkLock() {
+        return this.locked;
+    }
 
     /**
      * Unlocks achievement.
@@ -196,6 +203,7 @@ public class DoneTask extends Achievements {
      * @return string format of achievement.
      */
     @Override
-    public String toTxt() { return locked + "|" + points + "|" + achievementLevel + "|" + description + "|" + information; }
-
+    public String toTxt() {
+        return locked + "|" + points + "|" + achievementLevel + "|" + description + "|" + information;
+    }
 }

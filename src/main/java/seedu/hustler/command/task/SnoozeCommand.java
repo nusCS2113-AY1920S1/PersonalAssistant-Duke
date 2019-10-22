@@ -1,33 +1,31 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.parser.ParserForCommand;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.parser.ParserForCommand;
 
 /**
- * Command to do task in list.
+ * Command that snoozes tasks.
  */
-public class DoneCommand extends Command {
-
+public class SnoozeCommand extends Command {
     /**
-     * User input that contains index of task to do.
+     * User input that contains index of task to snooze.
      */
     private String[] userInput;
    
     /**
     * Initializes userInput.
     *
-    * @param userInput input that contains task id to do.
+    * @param rawInput array that contains task id to delete.
     */
-    public DoneCommand(String[] userInput) {
-        this.userInput = userInput;
+    public SnoozeCommand(String rawInput) {
+        this.userInput = rawInput.split(" ");
     }
 
     /**
-     * Does task at index taskIndex inside.
-     *
+     * Deletes task at index inside userInput.
      */
     public void execute() {
         if (this.userInput.length == 1) {
@@ -36,8 +34,8 @@ public class DoneCommand extends Command {
             CommandLog.deleteLatestLoggedCommand();
             return;
         }
-        ParserForCommand doneParser = new ParserForCommand("done");
+        ParserForCommand doneParser = new ParserForCommand("snooze");
         int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
-        Hustler.list.doTask(taskIndex);
+        Hustler.list.snoozeTask(taskIndex, userInput);
     }
 }

@@ -1,13 +1,13 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.data.MemoryManager;
-import seedu.hustler.ui.Ui;
-
 import java.io.IOException;
 
+/**
+ * Command that undoes the previous command.
+ */
 public class UndoCommand extends Command {
-
     /**
      * Contains task type and description.
      */

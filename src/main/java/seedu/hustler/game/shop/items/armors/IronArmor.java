@@ -4,15 +4,16 @@ package seedu.hustler.game.shop.items.armors;
  * The second tiered armor in the shop.
  */
 public class IronArmor extends Armor {
-
     /**
      * The defence increment of the iron armor.
      */
     private static final int DEF_INCR = 3;
+
     /**
      * The stamina increment of the iron armor.
      */
     private static final int STA_INCR = 3;
+
     /**
      * The cost of the iron armor.
      */

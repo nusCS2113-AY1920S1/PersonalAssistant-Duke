@@ -1,4 +1,4 @@
-package seedu.hustler.command.taskCommand;
+package seedu.hustler.command.task;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
@@ -7,7 +7,6 @@ import seedu.hustler.ui.Ui;
  * Represents invalid command.
  */
 public class InvalidCommand extends Command {
-
     /**
      * Print error for InvalidCommand.
      */
