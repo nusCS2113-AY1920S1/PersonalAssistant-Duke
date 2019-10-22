@@ -310,7 +310,7 @@ Example:
 
 * `set budget $50 /every week`
 
-==== Add tag-based expense budget: `set budget` [coming in v2.0]
+==== Add tag-based expense budget: `set budget /tag` [coming in v2.0]
 
 Set expense budget on particular types of spending. +
 Format: +
