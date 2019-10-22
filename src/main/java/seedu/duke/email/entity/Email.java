@@ -125,8 +125,8 @@ public class Email {
     }
 
     /**
-     * Highlights the email body with all the tags. Also, longer expression will have a higher
-     * priority to be colored currently.
+     * Highlights the email body with all the tags. Also, longer expression will have a higher priority to be
+     * colored currently.
      *
      * @return email body after the coloring
      */
@@ -165,8 +165,8 @@ public class Email {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(output);
-            output =
-                    colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">" + expression + "</mark>");
+            output = colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">"
+                    + expression + "</mark>");
         }
         return output;
     }

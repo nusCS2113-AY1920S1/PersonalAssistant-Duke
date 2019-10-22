@@ -1,7 +1,7 @@
 package seedu.duke.task;
 
-import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.entity.Task;
@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import java.util.Scanner;
 
 /**

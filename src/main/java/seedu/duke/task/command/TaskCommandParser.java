@@ -21,7 +21,7 @@ public class TaskCommandParser {
     /**
      * Parses a task command based on user input.
      *
-     * @param rawInput the raw user input without the options
+     * @param rawInput   the raw user input without the options
      * @param optionList the options that are extracted from the raw input
      * @return the command parsed
      */

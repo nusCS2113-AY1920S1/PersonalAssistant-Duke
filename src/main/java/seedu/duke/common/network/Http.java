@@ -4,8 +4,9 @@ import javafx.application.Platform;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
-import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailFormatParser;
+import seedu.duke.email.EmailList;
+
 import seedu.duke.email.EmailStorage;
 
 import java.awt.Desktop;

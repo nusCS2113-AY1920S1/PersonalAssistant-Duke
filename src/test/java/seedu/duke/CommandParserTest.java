@@ -285,7 +285,7 @@ public class CommandParserTest {
                     String.class, ArrayList.class, String.class);
             method.setAccessible(true);
 
-            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234")); 
+            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
             LocalDateTime time = Task.parseDate("11/12/2019 1220");
             String doafter = "345";
 

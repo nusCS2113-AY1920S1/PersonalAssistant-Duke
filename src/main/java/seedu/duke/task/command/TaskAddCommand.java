@@ -2,10 +2,10 @@ package seedu.duke.task.command;
 
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.TaskList;
 import seedu.duke.task.entity.ToDo;
 
 import java.time.LocalDateTime;

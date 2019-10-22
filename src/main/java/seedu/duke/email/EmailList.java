@@ -9,11 +9,6 @@ import java.util.Comparator;
 
 public class EmailList extends ArrayList<Email> {
 
-    public enum SortOrder {
-        TIME,
-        RELEVANCE
-    }
-
     private SortOrder order = SortOrder.TIME;
 
     public void setOrder(SortOrder order) {
@@ -88,10 +83,17 @@ public class EmailList extends ArrayList<Email> {
      * Sort the email list by the order given earlier.
      */
     public void sortByGivenOrder() {
-        switch (order){
+        switch (order) {
         case TIME:
             sort(Comparator.comparing(Email::getReceivedDateTime).reversed());
             break;
+        default:
+            return;
         }
+    }
+
+    public enum SortOrder {
+        TIME,
+        RELEVANCE
     }
 }

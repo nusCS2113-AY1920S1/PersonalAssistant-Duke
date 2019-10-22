@@ -1,8 +1,8 @@
 package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 
 /**
  * ListCommand is a specific kind of command used to display all task in a task list.

@@ -1,9 +1,9 @@
 package seedu.duke.task.command;
 
-import seedu.duke.Duke;
 import seedu.duke.CommandParser;
-import seedu.duke.task.TaskList;
+import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 
 public class TaskSnoozeCommand extends Command {
     private int index;

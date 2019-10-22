@@ -1,8 +1,8 @@
 package seedu.duke.email.command;
 
 import seedu.duke.Duke;
-import seedu.duke.email.EmailList;
 import seedu.duke.common.command.Command;
+import seedu.duke.email.EmailList;
 
 public class EmailListCommand extends Command {
 

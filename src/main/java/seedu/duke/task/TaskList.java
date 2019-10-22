@@ -1,7 +1,7 @@
 package seedu.duke.task;
 
-import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.Duke;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;

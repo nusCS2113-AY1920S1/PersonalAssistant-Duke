@@ -1,7 +1,7 @@
 package seedu.duke.common.command;
 
-import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.Duke;
 
 public class FlipCommand extends Command {
 

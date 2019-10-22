@@ -19,7 +19,7 @@ public class TaskUpdateCommand extends Command {
     /**
      * Instantiates a find command with all variables necessary. ==== BASE ====
      *
-     * @param index       position of task as specified by input
+     * @param index        position of task as specified by input
      * @param descriptions what to modify to
      * @param attributes   what attribute to modify ==== BASE ====
      */

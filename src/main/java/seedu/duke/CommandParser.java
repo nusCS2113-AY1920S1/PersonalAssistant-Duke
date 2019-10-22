@@ -1,9 +1,9 @@
 package seedu.duke;
 
-import seedu.duke.email.command.EmailCommandParser;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.email.command.EmailCommandParser;
 import seedu.duke.task.command.TaskCommandParser;
 import seedu.duke.ui.UI;
 
@@ -152,6 +152,7 @@ public class CommandParser {
 
     /**
      * Extracts time string from the option list.
+     *
      * @param optionList the list of options where the time string is extracted
      * @return the time string
      * @throws UserInputException if time option appears more than once
