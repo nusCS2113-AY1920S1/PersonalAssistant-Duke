@@ -1,7 +1,7 @@
 package planner.modules.data;
 
-import duke.exceptions.ModBadGradeException;
-import duke.exceptions.ModException;
+import planner.exceptions.original.ModBadGradeException;
+import planner.exceptions.original.ModException;
 
 public class ModuleInfoDetailed {
 

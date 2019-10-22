@@ -1,4 +1,4 @@
-package duke.exceptions;
+package planner.exceptions.original;
 
 public class ModBadGradeException extends ModException {
 

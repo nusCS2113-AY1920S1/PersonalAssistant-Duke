@@ -54,8 +54,8 @@ public class CapCommand extends ModuleCommand {
      * `cap semester [x]` where x is some integer or some form of 1-1 or 1-2 to indicate year
      * `cap module to check predicted cap for a specific module from prerequisites
      */
-    public CapCommand(Argument args) {
-        super((Arguments) args);
+    public CapCommand(Arguments args) {
+        super(args);
         mcCount = 0;
         currentCap = 0;
         projectedModuleCap = 0;
@@ -160,10 +160,13 @@ public class CapCommand extends ModuleCommand {
                 throw new ModNotFoundException();
             }
             int mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
-            mcCount += mcTemp;
+            if (!detailedMap.get(userInfo[0].toUpperCase()).getAttributes().isSu() || letterGradeToCap(userInfo[1].toUpperCase()) != 0.00) {
+                mcCount += mcTemp;
+            }
             if (userInfo[1].isEmpty()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
+
             currentCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
