@@ -22,7 +22,6 @@ import owlmoney.ui.Ui;
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
  */
-
 public class Profile {
     private String username;
     private BankList bankList;
@@ -99,7 +98,7 @@ public class Profile {
             throws BankException, CardException {
         if ("card".equals(type)) {
             cardList.cardListAddExpenditure(accName, exp, ui, type);
-        } else if ("bank".equals(type) || "bond".equals(type)) {
+        } else if ("bank".equals(type) || "bonds".equals(type)) {
             bankList.bankListAddExpenditure(accName, exp, ui, type);
         }
     }

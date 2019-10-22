@@ -13,7 +13,6 @@ import owlmoney.ui.Ui;
 /**
  * Bank class which is abstract where various bank types will inherit from given that it is abstract.
  */
-
 public abstract class Bank {
     String type;
     private String accountName;

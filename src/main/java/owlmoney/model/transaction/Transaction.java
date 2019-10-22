@@ -11,7 +11,6 @@ import java.util.Date;
  * Transaction class abstracts various transaction types which the child will inherit from given that
  * it is abstract.
  */
-
 public abstract class Transaction {
 
     private String description;

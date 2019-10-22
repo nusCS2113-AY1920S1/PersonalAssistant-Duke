@@ -6,13 +6,11 @@ import owlmoney.model.bond.BondList;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
-import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
  * Investment account class that extends a normal bank account.
  */
-
 public class Investment extends Bank {
 
     private static final String INVESTMENT = "investment";
@@ -41,7 +39,7 @@ public class Investment extends Bank {
      */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
-        if (!"bond".equals(bankType) && !"investment transfer".equals(bankType)) {
+        if (!"bonds".equals(bankType) && !"investment transfer".equals(bankType)) {
             throw new BankException("This account does not support savings expenditures");
         }
         if (exp.getAmount() > this.getCurrentAmount()) {

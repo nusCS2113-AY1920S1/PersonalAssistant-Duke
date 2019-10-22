@@ -14,7 +14,6 @@ import owlmoney.ui.Ui;
  * TransactionList  provides a layer of abstraction for the ArrayList.
  * The ArrayList will store both expenditures and deposits.
  */
-
 public class TransactionList {
 
     private ArrayList<Transaction> transactionLists;
@@ -110,7 +109,7 @@ public class TransactionList {
             transactionLists.remove(0);
         }
         transactionLists.add(exp);
-        if (!"bond".equals(type)) {
+        if (!"bonds".equals(type)) {
             ui.printMessage("Added expenditure with the following details:");
             printOneTransaction(ONE_INDEX, exp, ISSINGLE, ui);
         }

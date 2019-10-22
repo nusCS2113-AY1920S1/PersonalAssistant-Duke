@@ -11,7 +11,6 @@ import owlmoney.ui.Ui;
 /**
  * CardList class that provides a layer of abstraction for the ArrayList that stores credit cards.
  */
-
 public class CardList {
     private ArrayList<Card> cardLists;
     private static final int ONE_INDEX = 1;

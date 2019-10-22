@@ -6,7 +6,6 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the third layer of parsing for raw data after removing command and type.
  * This forms the baseline raw data parsing that specific data level parsers can extend from.
  */
-
 public class ParseRawData {
     private static final int NEXT_INDEX = 1;
 

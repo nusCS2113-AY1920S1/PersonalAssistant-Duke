@@ -13,7 +13,6 @@ import owlmoney.logic.parser.exception.ParserException;
  * Represents the first instance of parsing user input.
  * This determines what type of command the user has entered.
  */
-
 public class ParseCommand extends Parser {
     private ParseType parseType = new ParseType();
     private final Scanner scanner = new Scanner(System.in);

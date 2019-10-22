@@ -14,8 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseInvestment class which is abstract where the child bond objects will
- * inherit from given that it is abstract.
+ * Abstracts common bond methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseBond {
     HashMap<String, String> bondParameters = new HashMap<String, String>();

@@ -16,7 +16,6 @@ import owlmoney.ui.Ui;
 /**
  * The main class.
  */
-
 class Main {
 
     private Ui ui;
@@ -58,7 +57,6 @@ class Main {
                 if (hasExited) {
                     break;
                 }
-
             } catch (ParserException | BankException | TransactionException | BondException | CardException
                      | GoalsException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());

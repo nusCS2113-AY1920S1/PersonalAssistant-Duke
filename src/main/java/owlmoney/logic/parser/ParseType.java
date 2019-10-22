@@ -52,7 +52,6 @@ import owlmoney.logic.parser.transfer.ParseTransfer;
  * Represents the second layer of parsing for secondary category of command.
  * This determines what type of command the user desires after specifying the command.
  */
-
 class ParseType extends Parser {
 
     /**
@@ -65,7 +64,7 @@ class ParseType extends Parser {
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
     private static final String CARD = "card";
-    private static final String BOND = "bond";
+    private static final String BOND = "bonds";
     private static final String GOALS = "goals";
 
     /**

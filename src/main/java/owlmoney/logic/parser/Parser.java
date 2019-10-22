@@ -5,7 +5,6 @@ import owlmoney.logic.parser.exception.ParserException;
 /**
  * Parser class which provides methods that more specific parser classes will require.
  */
-
 abstract class Parser {
 
     private static final int SPACE_LENGTH = 1;
