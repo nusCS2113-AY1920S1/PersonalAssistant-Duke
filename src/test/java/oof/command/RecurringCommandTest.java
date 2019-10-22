@@ -1,9 +1,9 @@
 package oof.command;
 
 import oof.Oof;
-import oof.TaskList;
+import oof.model.task.TaskList;
 import oof.exception.OofException;
-import oof.task.Task;
+import oof.model.task.Task;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -21,7 +21,7 @@ public class RecurringCommandTest {
         try {
             ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
             System.setIn(in);
-            new Oof().runTest("recurring -1 1");
+            new Oof().executeCommand("recurring -1 1");
             fail();
         } catch (OofException e) {
             assertEquals("OOPS!!! Please select a valid task!", e.getMessage());
@@ -36,7 +36,7 @@ public class RecurringCommandTest {
         try {
             ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
             System.setIn(in);
-            new Oof().runTest("recurring 1 11");
+            new Oof().executeCommand("recurring 1 11");
             fail();
         } catch (OofException e) {
             assertEquals("OOPS!!! The valid number of recurrences is from 1-10!", e.getMessage());
@@ -51,7 +51,7 @@ public class RecurringCommandTest {
         try {
             ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
             System.setIn(in);
-            new Oof().runTest("recurring 1 1");
+            new Oof().executeCommand("recurring 1 1");
             fail();
         } catch (OofException e) {
             assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
@@ -66,7 +66,7 @@ public class RecurringCommandTest {
         try {
             ByteArrayInputStream in = new ByteArrayInputStream("a".getBytes());
             System.setIn(in);
-            new Oof().runTest("recurring 1 1");
+            new Oof().executeCommand("recurring 1 1");
             fail();
         } catch (OofException e) {
             assertEquals("OOPS!!! Please enter a valid number!", e.getMessage());
@@ -81,7 +81,7 @@ public class RecurringCommandTest {
     public void execute_CorrectCommandEntered_AddTodo() throws OofException {
         ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
         System.setIn(in);
-        new Oof().runTest("recurring 1 1");
+        new Oof().executeCommand("recurring 1 1");
         TaskList taskList = new Oof().getArr();
         Task task = taskList.getTask(taskList.getSize() - 1);
         assertEquals("[T][N] borrow another book (on: 14-10-2019)", task.toString());
@@ -95,7 +95,7 @@ public class RecurringCommandTest {
     public void execute_CorrectCommandEntered_AddDeadline() throws OofException {
         ByteArrayInputStream in = new ByteArrayInputStream("2".getBytes());
         System.setIn(in);
-        new Oof().runTest("recurring 2 1");
+        new Oof().executeCommand("recurring 2 1");
         TaskList taskList = new Oof().getArr();
         Task task = taskList.getTask(taskList.getSize() - 1);
         assertEquals("[D][N] homework (by: 20-10-2019 23:59)", task.toString());
@@ -109,7 +109,7 @@ public class RecurringCommandTest {
     public void execute_CorrectCommandEntered_AddEvent() throws OofException {
         ByteArrayInputStream in = new ByteArrayInputStream("3".getBytes());
         System.setIn(in);
-        new Oof().runTest("recurring 3 1");
+        new Oof().executeCommand("recurring 3 1");
         TaskList taskList = new Oof().getArr();
         Task task = taskList.getTask(taskList.getSize() - 1);
         assertEquals("[E][N] lecture (from: 08-11-2019 10:00 to: 08-11-2019 12:00)", task.toString());

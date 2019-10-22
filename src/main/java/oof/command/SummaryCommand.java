@@ -1,13 +1,14 @@
 package oof.command;
 
 import oof.Storage;
-import oof.TaskList;
+import oof.model.module.SemesterList;
+import oof.model.task.TaskList;
 import oof.Ui;
 import oof.exception.OofException;
-import oof.task.Deadline;
-import oof.task.Event;
-import oof.task.Task;
-import oof.task.Todo;
+import oof.model.task.Deadline;
+import oof.model.task.Event;
+import oof.model.task.Task;
+import oof.model.task.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -54,22 +55,6 @@ public class SummaryCommand extends Command {
     }
 
     /**
-     * Get Date from Task object.
-     * @param task      Task object.
-     * @return          String containing date from Task object.
-     */
-    private String getDate(Task task) {
-        if (task instanceof Todo) {
-            return ((Todo) task).getOn().substring(0, 10);
-        } else if (task instanceof Deadline) {
-            return ((Deadline) task).getBy().substring(0, 10);
-        } else if (task instanceof Event) {
-            return ((Event) task).getStartTiming().substring(0, 10);
-        }
-        return null;
-    }
-
-    /**
      * Get the date of tomorrow in format DD-MM-YYYY.
      * @return date     String containing formatted date of tomorrow.
      */
@@ -80,7 +65,7 @@ public class SummaryCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OofException {
+    public void execute(SemesterList semesterList, TaskList tasks, Ui ui, Storage storage) throws OofException {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, tasks);
         if (summary.getSize() == EMPTY) {

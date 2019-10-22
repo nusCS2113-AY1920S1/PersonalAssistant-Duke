@@ -1,12 +1,13 @@
 package oof;
 
+import java.util.InputMismatchException;
+
 import oof.command.AddDeadlineCommand;
 import oof.command.AddEventCommand;
 import oof.command.AddToDoCommand;
 import oof.command.CalendarCommand;
 import oof.command.Command;
 import oof.command.CompleteCommand;
-import oof.command.Command;
 import oof.command.DeleteCommand;
 import oof.command.ExitCommand;
 import oof.command.FindCommand;
@@ -15,16 +16,15 @@ import oof.command.HelpCommand;
 import oof.command.ListCommand;
 import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
+import oof.command.SemesterCommand;
 import oof.command.SnoozeCommand;
 import oof.command.StartTrackerCommand;
 import oof.command.StopTrackerCommand;
 import oof.command.SummaryCommand;
-import oof.command.ViewWeekCommand;
 import oof.command.ThresholdCommand;
 import oof.command.PauseTrackerCommand;
-
+import oof.command.ViewWeekCommand;
 import oof.exception.OofException;
-import java.util.InputMismatchException;
 
 /**
  * Represents a parser to process the commands inputted by the user.
@@ -144,6 +144,8 @@ public class CommandParser {
         case "pause":
             line = line.replaceFirst("pause", "").trim();
             return new PauseTrackerCommand(line);
+        case "semester":
+            return new SemesterCommand();
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
