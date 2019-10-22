@@ -53,7 +53,7 @@ ModPlan's User Guide can be found here:
 *   [User Guide](./docs/UserGuide.adoc)
 
 For developers, our Developer Guide can be found here:
-*   [Developer Guide](./docs/DeveloperGuide.adoc
+*   [Developer Guide](./docs/DeveloperGuide.adoc)
 
 ## External References
 
