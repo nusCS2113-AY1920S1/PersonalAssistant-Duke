@@ -7,6 +7,10 @@ import compal.model.tasks.Task;
 
 import java.util.ArrayList;
 
+//@@author yueyeah
+/**
+ * Command parser that parses arguments given by the user when adding event or recurring events.
+ */
 public class EventCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {

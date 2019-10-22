@@ -7,10 +7,6 @@ import java.util.Date;
 
 
 public abstract class Command {
-    /**
-     * CONSTANTS.
-     */
-    private static final int DEFAULT_WEEK_INTERVAL = 7;
 
     /**
      * Executes the command and returns the result message.
@@ -21,19 +17,18 @@ public abstract class Command {
     public abstract CommandResult commandExecute(TaskList task) throws CommandException;
 
 
+    //@@author yueyeah
     /**
      * Increases date by week, to assign event slots for each week.
      *
      * @param initialDate The date to increment
      * @return Final date one week later than initialDate
-     * @author Yue Jun Yi, yueyeah
      */
-    public Date incrementDateByWeek(Date initialDate) {
+    public Date incrementDateByDays(Date initialDate, int numOfDays) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(initialDate);
-        calendar.add(Calendar.DATE, DEFAULT_WEEK_INTERVAL);
+        calendar.add(Calendar.DATE, numOfDays);
         Date finalDate = calendar.getTime();
         return finalDate;
     }
-
 }
