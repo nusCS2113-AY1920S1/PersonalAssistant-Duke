@@ -91,11 +91,12 @@ public class ViewCommand extends Command {
      * @param moduleContainer the modules stored.
      * @param pageTrace the current pageTrace.
      * @param ui the Ui instance.
+     * @param guiMode boolean to check if in gui mode.
      * @return the display once been changed..
      * @throws SpinBoxException if page, module, or tab does not exist.
      */
     @Override
-    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui)
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode)
             throws SpinBoxException {
         ArrayDeque<String> tempPageTrace = pageTrace.clone();
         StringBuilder oldTrace = new StringBuilder();
@@ -167,8 +168,13 @@ public class ViewCommand extends Command {
             tempPageTrace.removeLast();
         }
 
-        outputList.set(0, "Changed from page "
-                + oldTrace.toString() + " to " + newTrace.toString());
+        if (guiMode) {
+            outputList.set(0, newTrace.toString());
+        } else {
+            outputList.set(0, "Changed from page "
+                    + oldTrace.toString() + " to " + newTrace.toString());
+        }
+
 
         return ui.showFormatted(outputList);
     }

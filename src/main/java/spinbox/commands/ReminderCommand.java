@@ -17,7 +17,7 @@ import java.util.Map;
 public class ReminderCommand extends Command {
 
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean gui) {
         List<Task> tasks = taskList.getList();
         TreeMap<String, List<Task>> byDate = new TreeMap<>();
 

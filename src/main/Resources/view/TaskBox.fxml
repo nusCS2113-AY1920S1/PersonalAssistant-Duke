@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="module" layoutY="70.0" prefHeight="34.0" prefWidth="73.0" text="module" textAlignment="CENTER" wrapText="true" />
+        <Label fx:id="dates" layoutX="78.0" layoutY="70.0" prefHeight="34.0" prefWidth="325.0" text="dates" textAlignment="RIGHT" wrapText="true" />
+        <Label fx:id="description" prefHeight="76.0" prefWidth="400.0" text="description" textAlignment="CENTER" wrapText="true" />
+    </children>
+</fx:root>

@@ -31,9 +31,10 @@ public class FindFreeCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
+     * @param guiMode boolean to check if in gui mode.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean guiMode) {
         List<Task> tasks = taskList.getList();
         freeTime = new ArrayList<>();
         freeTime.add(new Pair<>(startDate, endDate));

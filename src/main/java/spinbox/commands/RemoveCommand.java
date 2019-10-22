@@ -11,7 +11,6 @@ import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Ui;
 
-import javax.print.DocFlavor;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
@@ -41,7 +40,7 @@ public class RemoveCommand extends Command {
     }
 
     @Override
-    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
         switch (type) {
         case "file":

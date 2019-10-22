@@ -22,10 +22,11 @@ public class DoneCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
+     * @param guiMode boolean to check if in gui mode.
      * @throws SpinBoxException invalid index or storage error.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean guiMode) throws SpinBoxException {
         try {
             List<String> formattedOutput = new ArrayList<>();
             Task completed = taskList.mark(index);

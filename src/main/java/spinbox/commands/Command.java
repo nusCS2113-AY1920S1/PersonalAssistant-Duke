@@ -1,14 +1,12 @@
 package spinbox.commands;
 
 import spinbox.containers.ModuleContainer;
-import spinbox.entities.Module;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.Storage;
 import spinbox.Ui;
 import spinbox.containers.lists.TaskList;
 
-import java.util.HashMap;
 import java.util.ArrayDeque;
 
 public abstract class Command {
@@ -16,13 +14,13 @@ public abstract class Command {
     private boolean isFileCommand;
 
     // New execute needs to be made abstract
-    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui)
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode)
             throws SpinBoxException {
         return "Blank";
     }
 
     // Old execute
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean guiMode) throws SpinBoxException {
         return null;
     }
 

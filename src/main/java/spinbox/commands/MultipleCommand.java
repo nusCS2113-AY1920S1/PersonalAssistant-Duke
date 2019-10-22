@@ -9,7 +9,6 @@ import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
-import spinbox.Storage;
 import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;
 import spinbox.containers.lists.TaskList;
@@ -75,7 +74,7 @@ public class MultipleCommand extends Command {
     }
 
     @Override
-    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
         int inputSize = content.split(" ").length;
         if (inputSize > 2) {

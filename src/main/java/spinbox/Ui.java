@@ -6,7 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private Scanner scanner = new Scanner(System.in);
+    boolean gui;
+
+    public Ui(boolean gui) {
+        this.gui = gui;
+    }
 
     /**
      * This is to show a welcome message on startup.
@@ -32,8 +38,12 @@ public class Ui {
      * @return the formatted output.
      */
     public String showFormatted(String output) {
-        String horizontalLine = "____________________________________________________________";
-        String formattedOutput = horizontalLine + "\n" + output + "\n" + horizontalLine;
+        String formattedOutput;
+        if (!gui) {
+            formattedOutput = output;
+        } else {
+            formattedOutput = HORIZONTAL_LINE + "\n" + output + "\n" + HORIZONTAL_LINE;
+        }
         return formattedOutput;
     }
 

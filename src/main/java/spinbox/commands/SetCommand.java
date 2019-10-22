@@ -43,11 +43,12 @@ public class SetCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
+     * @param guiMode boolean to check if in gui mode.
      * @return Output for this command.
      * @throws SpinBoxException if task at index is not tentative task.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean guiMode) throws SpinBoxException {
         Task tentativeTask;
 
         try {

@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
         String outputMessage = "";
         switch (type) {

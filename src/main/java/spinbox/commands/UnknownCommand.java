@@ -9,7 +9,7 @@ import spinbox.Ui;
 public class UnknownCommand extends Command {
 
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean gui) throws SpinBoxException {
         throw new InputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }
