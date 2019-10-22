@@ -20,13 +20,13 @@ public class TypoCorrector {
 
     //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
     private static final ArrayList<String> oneKeywordCommand = new ArrayList<String>(
-            Arrays.asList("bye"));
+        Arrays.asList("bye", "duke", "help"));
     private static final ArrayList<String> twoKeywordsCommands = new ArrayList<String>(
-            Arrays.asList("list patients", "list tasks"));
+        Arrays.asList("list patients", "list tasks"));
     private static final ArrayList<String> otherCommands = new ArrayList<String>(
-            Arrays.asList("update patient", "update task",
-                    "delete patient", "delete task", "add task", "add patient",
-                    "assign by", "find patient", "find task"));
+        Arrays.asList("update patient", "update task",
+            "delete patient", "delete task", "delete patienttask", "add task", "add patient",
+            "find patient", "find task", "assign standardtask", "assign eventtask"));
 
     /**
      * This method take in an user input command with typo and return a possible matches
