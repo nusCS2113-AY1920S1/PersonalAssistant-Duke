@@ -52,7 +52,7 @@ public class DeleteLoanCommand extends MoneyCommand {
         ui.appendToOutput("  " + account.getLoans().get(serialNo - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getLoans().size() - 1) + " total loans.\n");
 
-        storage.markDeletedEntry("LOA", "@", "#", serialNo);
+        storage.markDeletedEntry("LOA", serialNo);
         account.getLoans().remove(serialNo - 1);
     }
 
