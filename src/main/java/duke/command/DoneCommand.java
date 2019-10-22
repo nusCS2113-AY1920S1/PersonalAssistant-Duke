@@ -25,6 +25,8 @@ public class DoneCommand extends Command {
 		Task t = tasks.get(index);
 		t.markAsDone();
 		tasks.set(index, t);
+		ui.showLine("Congratulations on completing the following task:");
+		ui.showLine(t.getDescription());
 	}
 
 	@Override

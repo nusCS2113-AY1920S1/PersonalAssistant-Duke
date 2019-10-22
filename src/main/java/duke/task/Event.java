@@ -20,18 +20,20 @@ public class Event extends Task {
 	 * @param description the description of the event
 	 * @param at the date and time at which the event will be held
 	 */
-	public Event(String description, Optional<String> filter, LocalDateTime at, String recurrencePeriod) {
-		super(description, filter, recurrencePeriod);
+	public Event(String description, Optional<String> filter, String recurrencePeriod, int duration, LocalDateTime at) {
+		super(description, filter, recurrencePeriod, duration);
 		this.datetime = at;
 		this.key = "[E]";
 	}
 
-	public Event(String description, Optional<String> filter, LocalDateTime at) {
-		this(description, filter, at, "none");
-	}
-
 	public LocalDateTime getDateTime() {
 		return this.datetime;
+	}
+
+	@Override
+	public String getDescription() {
+		return super.getDescription() + " (at: " +
+				datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
 	}
 
 	@Override

@@ -23,9 +23,9 @@ public class DeleteCommand extends Command {
 		if (index > tasks.size()) {
 			throw new DukeException("There is no such task.");
 		}
-		ui.showLine("Noted. I've removed this task:");
+		ui.showLine("You have removed this task:");
 		Task t = tasks.get(index - 1);
-		ui.showLine("  " + t);
+		ui.showLine(t.getDescription());
 		tasks.remove(index - 1);
 		if (tasks.size() == 1) {
 			ui.showLine("Now you have 1 task in the list.");

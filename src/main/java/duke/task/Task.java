@@ -20,6 +20,7 @@ public class Task {
     protected RecurrencePeriod recurrencePeriod;
     protected Priority priority;
     protected Optional<String> filter;
+    protected int duration;
 
     /**
      * Constructor function for duke.task.Task
@@ -29,7 +30,7 @@ public class Task {
      *
      * @param description the description of the task
      */
-    public Task(String description, Optional<String> filter, String recurrencePeriod) {
+    public Task(String description, Optional<String> filter, String recurrencePeriod, int duration) {
         this.description = description;
         this.isDone = false;
         this.key = "";
@@ -47,11 +48,8 @@ public class Task {
                 break;
         }
         this.filter = filter;
+        this.duration = duration;
     }
-
-    public Task(String description, Optional<String> filter) {
-    	this(description, filter,"none");
-	}
 
     /**
      * Returns a String object to show if a duke.task.Task has been marked done or not
@@ -59,7 +57,7 @@ public class Task {
      * @return tick if done or X symbol if not done
      */
     public String getStatusIcon() {
-        return (isDone ? "✓" : "✗");
+        return (isDone ? "Y" : "N");
     }
 
     /**
@@ -68,12 +66,21 @@ public class Task {
      */
     public void markAsDone() {
         isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this);
     }
 
     public void markAsUndone() {
         isDone = false;
+    }
+
+    public String getRecurring() {
+        switch (recurrencePeriod) {
+            case DAILY:
+                return "D";
+            case WEEKLY:
+                return "W";
+            default:
+                return "N";
+        }
     }
 
     public Optional<String> getFilter() {
@@ -127,6 +134,12 @@ public class Task {
         }
     }
 
+    public String getDuration() {
+        if (duration == 0) {
+            return "N";
+        }
+        return Integer.toString(duration);
+    }
 
     public int getPriorityLevel() {
         return priority.priorityLevel();

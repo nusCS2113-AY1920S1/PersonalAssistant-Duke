@@ -23,6 +23,9 @@ public class Parser {
         Optional<String> filter = Optional.empty();
         fullCommand = fullCommand.trim();
         if (fullCommand.charAt(0) == '-') {
+            if (fullCommand.length() == 1 || !fullCommand.contains(" ")) {
+                throw new DukeException("Sorry I don't understand what you mean.");
+            }
             filter = Optional.of(fullCommand.substring(1, fullCommand.indexOf(' ')));
             fullCommand = fullCommand.substring(fullCommand.indexOf(' ') + 1);
         }
