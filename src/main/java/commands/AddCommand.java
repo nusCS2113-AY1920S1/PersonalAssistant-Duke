@@ -2,9 +2,10 @@ package commands;
 
 import members.Member;
 import core.Ui;
+import parsers.AddCommandParser;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
-import utils.Parser;
 import utils.Storage;
 
 import java.util.ArrayList;
@@ -25,9 +26,10 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         try {
-            Task temp = Parser.addCommand(content);
+            Task temp = AddCommandParser.pparse(content);
             if (content.contains("/after")) {
                 String preconditionString = content.split("/after", 2)[1].trim();
                 temp.setDescription(content.split("/after", 2)[0].trim().split(" ")[1]);
@@ -35,15 +37,10 @@ public class AddCommand extends Command {
             }
             tasks.add(temp);
             storage.storeTaskList(tasks);
-            Ui.print("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1)
+            return new CommandResult("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1)
                     + "\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (DukeException e) {
             throw e;
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

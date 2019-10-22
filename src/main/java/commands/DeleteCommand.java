@@ -2,6 +2,7 @@ package commands;
 
 import members.Member;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 import core.Ui;
@@ -13,29 +14,32 @@ import java.util.ArrayList;
  */
 public class DeleteCommand extends Command {
 
-    private String line;
+    private int[] indexes;
 
     /**
      * This is a class for command DELETE, which remove one task from the task list.
-     * @param line the serial number in the command line after DELETE
+     * @param indexes the serial numbers in the command line after DELETE,
+     *                which represents the indexes of tasks to be deleted
      */
-    public DeleteCommand(String line) {
-        this.line = line;
+    public DeleteCommand(int[] indexes) {
+        this.indexes = indexes;
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         try {
-            int order = Integer.parseInt(line);
-            Ui.print("Noted. I've removed this task: \n" + tasks.remove(order - 1));
+            Task[] toDelete = new Task[indexes.length];
+            for (int i = 0; i < indexes.length; i++) {
+                toDelete[i] = tasks.get(indexes[i]);
+            }
+            for (int i = 0; i < toDelete.length; i++) {
+                tasks.remove(toDelete[i]);
+            }
             storage.storeTaskList(tasks);
+            return new CommandResult("Noted. I've removed the task(s) you input. \n");
         } catch (Exception e) {
             throw new DukeException("Not a valid task number");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

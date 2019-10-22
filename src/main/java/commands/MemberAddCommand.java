@@ -3,6 +3,7 @@ package commands;
 import members.Member;
 import core.Ui;
 import tasks.Task;
+import utils.CommandResult;
 import utils.Storage;
 
 import java.util.ArrayList;
@@ -23,17 +24,12 @@ public class MemberAddCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)  {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)  {
         Member newMember = new Member(this.name);
         members.add(newMember);
         storage.storeMemberList(members);
-        Ui.print("Nice, I've added " + name + " to your team.\n"
+        return new CommandResult("Nice, I've added " + name + " to your team.\n"
                 + "Now you have " + members.size() + " members.");
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
 

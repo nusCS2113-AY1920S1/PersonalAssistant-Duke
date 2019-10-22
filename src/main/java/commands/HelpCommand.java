@@ -3,6 +3,7 @@ package commands;
 import members.Member;
 import core.Ui;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 
@@ -21,8 +22,9 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
-        Ui.print("Available Commands\n"
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
+        return new CommandResult("Available Commands\n"
                 + "1. add\n"
                 + "2. list\n"
                 + "3. done\n"
@@ -36,10 +38,5 @@ public class HelpCommand extends Command {
                 + "11. link\n"
                 + "12. unlink\n"
                 + "13. remove");
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

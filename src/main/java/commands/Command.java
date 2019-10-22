@@ -2,6 +2,7 @@ package commands;
 
 import members.Member;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 
@@ -17,12 +18,6 @@ public abstract class Command {
      * @param storage the object to manage storage issues
      * @throws DukeException if anything wrong happend
      */
-    public abstract void execute(ArrayList<Task> tasks,
-                                 ArrayList<Member> members, Storage storage) throws DukeException;
-
-    /**
-     * simple return if the command is bye.
-     * @return if the command is bye
-     */
-    public abstract boolean isExit();
+    public abstract CommandResult execute(ArrayList<Task> tasks,
+                                          ArrayList<Member> members, Storage storage) throws DukeException;
 }

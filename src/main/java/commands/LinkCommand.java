@@ -2,6 +2,7 @@ package commands;
 
 import members.Member;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 import core.Ui;
@@ -19,26 +20,19 @@ public class LinkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
-        try {
-            String[]arrOfStr = line.split(" /to ",2);
-            int indexInList = Integer.parseInt(arrOfStr[0]);
-            String memberName = arrOfStr[1];
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
+        String[]arrOfStr = line.split(" /to ",2);
+        int indexInList = Integer.parseInt(arrOfStr[0]);
+        String memberName = arrOfStr[1];
 
-            for (int i = 0; i < members.size(); i++) {
-                if (members.get(i).getName().equals(memberName)) {
-                    members.get(i).setTask(indexInList);
-                    storage.storeMemberList(members);
-                    Ui.print("Task " + indexInList + " is successfully added to " + memberName);
-                }
+        for (int i = 0; i < members.size(); i++) {
+            if (members.get(i).getName().equals(memberName)) {
+                members.get(i).setTask(indexInList);
+                storage.storeMemberList(members);
+                return new CommandResult("Task " + indexInList + " is successfully added to " + memberName);
             }
-        } catch (Exception e) {
-            throw new DukeException("Member not found");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
+        throw new DukeException("Member not found");
     }
 }

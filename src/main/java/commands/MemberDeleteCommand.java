@@ -2,6 +2,7 @@ package commands;
 
 import members.Member;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 import core.Ui;
@@ -19,24 +20,21 @@ public class MemberDeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         try {
             String memberName = line;
-
             for (int i = 0; i < members.size(); i++) {
                 if (members.get(i).getName().equals(memberName)) {
                     members.remove(i);
                     storage.storeMemberList(members);
-                    Ui.print("Member: " + memberName + " has been successfully removed from the list of members");
+                    return new CommandResult("Member: " + memberName
+                            + " has been successfully removed from the list of members");
                 }
             }
+            throw new DukeException("Member not found");
         } catch (Exception e) {
             throw new DukeException("Member not found");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

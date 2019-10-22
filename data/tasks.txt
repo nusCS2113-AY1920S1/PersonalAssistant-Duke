@@ -5,3 +5,4 @@ E | 1 | jumphigher | 0 | 03/10/2019 1120
 D | 1 | testing | 0 | 11/11/2019 1010
 T | 1 | Push this to github | 0
 T | 0 | tutorial | 0
+T | 1 | hello | 0

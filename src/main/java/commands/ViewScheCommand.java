@@ -8,8 +8,9 @@ import tasks.Last;
 import tasks.Period;
 import tasks.ToDo;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
-import utils.Parser;
+import parsers.DukeParser;
 import utils.Storage;
 
 import java.util.ArrayList;
@@ -30,11 +31,12 @@ public class ViewScheCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         ArrayList<Task> scheTasks = new ArrayList<Task>();
         String output = "Here is your schedule in order";
         if (line.length() > 0) {
-            Date date = Parser.parseDate(line);
+            Date date = DukeParser.parseDate(line);
             output += " on " + line;
             ArrayList<Task> temp = (ArrayList<Task>) tasks.clone();
             temp = removeNoTimeTask(temp);
@@ -48,7 +50,7 @@ public class ViewScheCommand extends Command {
         for (int i = 0; i < scheTasks.size(); i++) {
             output += "\n" + scheTasks.get(i);
         }
-        Ui.print(output);
+        return new CommandResult(output);
     }
 
 
@@ -156,10 +158,5 @@ public class ViewScheCommand extends Command {
             toSort.remove(earliestIndex);
         }
         return sorted;
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

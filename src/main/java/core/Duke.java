@@ -4,11 +4,11 @@ import members.Member;
 import gui.Window;
 import commands.Command;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
-import utils.Parser;
+import parsers.DukeParser;
 import utils.Storage;
 import utils.TasksCounter;
-import utils.Reminder;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -61,9 +61,9 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = Ui.readLine(in);
-                Command c = Parser.commandLine(fullCommand);
-                c.execute(tasks, members, storage);
-                isExit = c.isExit();
+                Command c = DukeParser.commandLine(fullCommand);
+                CommandResult cr = c.execute(tasks, members, storage);
+                isExit = cr.isExit();
             } catch (DukeException e) {
                 Ui.print(e.getMessage());
             }
@@ -78,9 +78,10 @@ public class Duke {
     public void doCommand(String command) {
         Command c;
         try {
-            c = Parser.commandLine(command);
-            c.execute(tasks, members, storage);
-            if (c.isExit()) {
+            c = DukeParser.commandLine(command);
+            CommandResult commandResult = c.execute(tasks, members, storage);
+            Ui.print(commandResult.getMessage());
+            if (commandResult.isExit()) {
                 System.exit(0);
             }
         } catch (DukeException e) {

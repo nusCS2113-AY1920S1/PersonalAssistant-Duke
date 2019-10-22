@@ -2,6 +2,7 @@ package commands;
 
 import members.Member;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 import core.Ui;
@@ -19,7 +20,9 @@ public class UnlinkCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
+        // TODO
         try {
             String[]arrOfStr = line.split(" /from ",2);
             int indexInList = Integer.parseInt(arrOfStr[0]);
@@ -29,16 +32,12 @@ public class UnlinkCommand extends Command {
                 if (members.get(i).getName().equals(memberName)) {
                     members.get(i).removeTask(indexInList);
                     storage.storeMemberList(members);
-                    Ui.print("Task " + indexInList + " is successfully removed from " + memberName);
+                    return new CommandResult("Task " + indexInList + " is successfully removed from " + memberName);
                 }
             }
-        } catch (Exception e) {
             throw new DukeException("Member not found");
+        } catch (Exception e) {
+            throw new DukeException("parse error");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

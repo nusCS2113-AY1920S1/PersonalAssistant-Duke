@@ -1,6 +1,8 @@
 package utils;
 
 import org.junit.jupiter.api.Test;
+import parsers.DukeParser;
+import parsers.SpellingErrorCorrector;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,14 +11,14 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParserTest {
+public class SpellingErrorCorrectionTest {
     @Test
     public void dateTest() throws DukeException {
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
         String testDate = "25/10/2019 1030";
         try {
             Date tempz = ft.parse(testDate);
-            assertEquals(tempz, Parser.parseDate(testDate));
+            assertEquals(tempz, DukeParser.parseDate(testDate));
         } catch (ParseException e) {
             throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy");
         }
@@ -36,7 +38,7 @@ public class ParserTest {
                 }
             }
             System.out.println("randomString is: " + randomString);
-            assertEquals(1, Parser.getSimilarity(randomString, randomString));
+            assertEquals(1, SpellingErrorCorrector.getSimilarity(randomString, randomString));
         }
 
         // mismatch test under same length
@@ -58,7 +60,7 @@ public class ParserTest {
                     break;
                 }
             }
-            double similarity = Parser.getSimilarity(randomString1, randomString2);
+            double similarity = SpellingErrorCorrector.getSimilarity(randomString1, randomString2);
             System.out.println("randomStrings are: " + randomString1 + ", " + randomString2);
             System.out.println("The similarity is: " + similarity);
             assertTrue(similarity < 1 && similarity >= 0);

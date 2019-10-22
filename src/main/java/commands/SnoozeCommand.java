@@ -2,6 +2,7 @@ package commands;
 
 import members.Member;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 import core.Ui;
@@ -22,7 +23,8 @@ public class SnoozeCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         try {
             String[]arrOfStr = line.split(" to ",2);
             String name = arrOfStr[0];
@@ -36,14 +38,9 @@ public class SnoozeCommand extends Command {
                 }
             }
             storage.storeTaskList(tasks);
-            Ui.print("Nice! I've changed the time of this task to " + date);
+            return new CommandResult("Nice! I've changed the time of this task to " + date);
         } catch (Exception e) {
             throw new DukeException("Task not found");
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

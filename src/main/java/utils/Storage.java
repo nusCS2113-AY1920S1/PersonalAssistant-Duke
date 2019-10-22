@@ -1,6 +1,7 @@
 package utils;
 
 import members.Member;
+import parsers.DataParser;
 import tasks.Task;
 
 import java.io.BufferedReader;
@@ -12,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 /**
  * deals with loading tasks from the file and saving tasks in the file
@@ -64,7 +66,7 @@ public class Storage {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = br.readLine()) != null) {
-                tasks.add(Parser.taskDataLine(line));
+                tasks.add(DataParser.taskDataLine(line));
             }
             br.close();
             is.close();
@@ -108,7 +110,7 @@ public class Storage {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = br.readLine()) != null) {
-                members.add(Parser.memberDataLine(line));
+                members.add(DataParser.memberDataLine(line));
             }
             br.close();
             is.close();

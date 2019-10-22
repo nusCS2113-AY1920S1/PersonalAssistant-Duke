@@ -8,6 +8,7 @@ import tasks.Last;
 import tasks.Period;
 import tasks.ToDo;
 import tasks.Task;
+import utils.CommandResult;
 import utils.DukeException;
 import utils.Storage;
 
@@ -22,7 +23,8 @@ public class CheckAnomaliesCommand extends Command {
     /**
      * Checks for scheduling clashes.
      */
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
 
         ArrayList<Task> scheTasks = new ArrayList<Task>();
         String msg = "Here is your time crash\n";
@@ -62,16 +64,9 @@ public class CheckAnomaliesCommand extends Command {
             }
         }
         if (!output.equals("")) {
-            Ui.print(msg + output);
-        } else {
-            Ui.print("no time crash");
+            return new CommandResult(msg + output);
         }
-
-
-    }
-
-    public boolean isExit() {
-        return false;
+        return new CommandResult("no time crash");
     }
 
     private ArrayList<Task> removeNoTimeTask(ArrayList<Task> toFilter) {
