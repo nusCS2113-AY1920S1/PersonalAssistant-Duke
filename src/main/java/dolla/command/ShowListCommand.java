@@ -51,12 +51,9 @@ public class ShowListCommand extends Command {
             break; // TODO: What to do here?
         }
 
-        
-//        boolean isListEmpty = (logList.size() == 0);
+        boolean listIsEmpty = (logList.size() == 0);
 
-        boolean isListEmpty = (logList.size() == 0);
-
-        if (isListEmpty) { // TODO: Place this in proper place
+        if (listIsEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
             return;
 //        } else if (mode.equals("entries")) {
