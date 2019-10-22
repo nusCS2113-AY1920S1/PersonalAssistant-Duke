@@ -4,7 +4,6 @@ import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
 import Farmio.Storage;
 import Exceptions.FarmioException;
-import FrontEnd.Simulation;
 import FrontEnd.Ui;
 
 public class CommandDayEnd extends Command {
@@ -14,7 +13,7 @@ public class CommandDayEnd extends Command {
         Storage storage = farmio.getStorage();
         farmio.getSimulation().animate("DayEnd", 0, true);
         farmio.getUi().show("Press ENTER to start your next day!");
-        //farmer.nextLevel();
-        farmio.setStage(Farmio.Stage.START_OF_DAY);
+        //TODO implement farmer.nextDay
+        farmio.setStage(Farmio.Stage.DAY_START);
     }
 }

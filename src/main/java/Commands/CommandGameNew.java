@@ -25,6 +25,6 @@ public class CommandGameNew extends Command {
             farmio.getSimulation().animate(level.getPath(), frameId++);
             ui.typeWriter(narrative);
         }
-        farmio.setStage(Farmio.Stage.TASK_ADD);
+        farmio.setStage(Farmio.Stage.LEVEL_START);
     }
 }
