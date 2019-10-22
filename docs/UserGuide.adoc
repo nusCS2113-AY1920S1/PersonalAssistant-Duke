@@ -1013,7 +1013,7 @@ Take note that there is a maximum of *30* character limit.
 Take note that there is a maximum of *50* character limit.
 
 | `DATE`
-| Indicates the date the expenditure was made.
+| Indicates the date the transaction was made.
 
 (e.g. 2/2/2019)
 
@@ -1041,7 +1041,7 @@ your bank account as long as your remember part of your account name.
 
 *Example*
 
-`/find /savings /name Jun`
+* `/find /savings /name Jun`
 
 Finds and lists all savings accounts that has the phrase `Jun` in the account name.
 
@@ -1061,7 +1061,7 @@ your bank account as long as your remember part of your account name.
 
 *Example*
 
-`/find /investment /name Vickers`
+* `/find /investment /name Vickers`
 
 Finds and lists all investment accounts that has the phrase `Vickers` in the account name.
 
@@ -1080,7 +1080,7 @@ Searching for a Credit Card? *OwlMoney* helps you by providing you various ways 
 
 *Example*
 
-`/find /card /name POBB`
+* `/find /card /name POBB`
 
 Finds and lists all card with the name that contains the phrase `POBB`.
 
@@ -1102,7 +1102,7 @@ you various ways to do it!
 
 *Example*
 
-`/find /bonds /name SSB /from DBB Vickers Account`
+* `/find /bonds /name SSB /from DBB Vickers Account`
 
 Finds and lists all bonds with bond name that contains the phrase `SSB` from the investment account called `DBB Vickers`
 Account.
@@ -1123,7 +1123,7 @@ Transactions includes both expenditures and deposits.
 
 *Example*
 
-`/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+* `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019` and
 `7/1/2019`.
@@ -1139,7 +1139,7 @@ do it!
 
 *Example*
 
-`/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions with the description `bubble tea` charged to `POBB Tomorrow Card` between `1/1/2019` and
  `7/1/2019`.
@@ -1269,6 +1269,11 @@ shopping.
 === Support for Stocks `/stocks`
 Plans for stocks and options investment type will be supported in future releases. This will provide support for
 users who are more financially savvy in terms of growing their money with higher risk instruments.
+
+=== Insurance tracking `/insurance`
+Insurance is an important part of financial literacy. Ensuring that you are properly covered is important as medical
+bills are not cheap. Therefore, this feature will enable you to know what illnesses are covered and how much you are
+paying for the coverage.
 
 == FAQ
 *Q*: How do I save my data in the application? +
@@ -1488,18 +1493,18 @@ AMOUNT] [/date DATE]`
 |*Task*| *Purpose* | *Command Format* | *Example*
 | *List details*
 | List the details of the specified input.
-| `/list ...........`
-| `/list ...........`
+| `/list .........`
+| `/list .........`
 
 | *Find*
 | List the details of the specified input.
-| `/find ...........`
-| `/find ...........`
+| `/find .........`
+| `/find .........`
 
 | *Transferring Money*
 | List the details of the specified input.
-| `/transfer ...........`
-| `/transfer ...........`
+| `/transfer .........`
+| `/transfer .........`
 
 |======
 
