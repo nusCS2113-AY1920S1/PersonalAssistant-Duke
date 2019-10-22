@@ -369,7 +369,6 @@ class BondListTest {
     @Test
     void editBond_noBondAndBondListEmpty_throwsBondException() {
         BondList bondListTest = new BondList();
-        Ui uiTest = new Ui();
         assertEquals(0, bondListTest.getSize());
         BondException thrown = assertThrows(BondException.class, () ->
                         bondListTest.getBond("TEST BOND 0"),

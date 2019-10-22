@@ -129,7 +129,6 @@ class InvestmentTest {
         Deposit testDeposit = new Deposit("test deposit 1",150,
                 new Date("1/3/2019"),"bonds");
         testInvestment.addDepositTransaction(testDeposit,uiTest,"bonds");
-        String expectedMessage = "This account does not support this feature";
         double expectedAmountInInvestmentAccount = 300;
         double actualAmountInInvestmentAccount = testInvestment.getCurrentAmount();
         assertEquals(expectedAmountInInvestmentAccount,actualAmountInInvestmentAccount);
@@ -150,19 +149,6 @@ class InvestmentTest {
         String expectedMessage = "Bond with the name: TEST BOND 0 already exists";
         String actualMessage = thrown.getMessage();
         assertEquals(expectedMessage,actualMessage);
-    }
-
-    @Test
-    void investmentCheckBondExist_bondDoesNotExist_success() throws BankException, BondException {
-        Ui uiTest = new Ui();
-        Bank testInvestment = new Investment("DBB VICKERS", 100);
-        Bond testBond = new Bond("TEST BOND 0", 1000, 1.8,
-                new Date("1/3/2019"), 3);
-        Bond testBondTwo = new Bond("TEST BOND 1", 500, 2.0,
-                new Date("1/1/2019"), 3);
-        testInvestment.addBondToInvestmentAccount(testBond,uiTest);
-        testInvestment.investmentCheckBondExist(testBondTwo);
-        //no return value since it should just pass and not throw anything.
     }
 
     @Test
