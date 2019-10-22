@@ -98,6 +98,8 @@ public class taskCommand extends Command {
                 new ListNoteCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (command.equals("change password")) {
                 new ChangePasswordCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+            } else if(splitCommand[0].equals("priority")) {
+                new ChangePriority().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (command.contains("#")) {
                 new TagCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             }
