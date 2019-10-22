@@ -65,6 +65,19 @@ public class ConsoleInputController implements IController {
                 consoleView.consolePrint("Please enter a project number!");
             }
             break;
+        case "delete":
+            if (inputReader.hasNext()) {
+                int projectIndex = Integer.parseInt(inputReader.next());
+                boolean isProjectDeleted = this.projectRepository.deleteItem(projectIndex);
+                if (isProjectDeleted) {
+                    consoleView.consolePrint("Project " + projectIndex + " has been deleted");
+                } else {
+                    consoleView.consolePrint("Index out of bounds! Please check project index!");
+                }
+            } else {
+                consoleView.consolePrint("Please enter a project number to delete");
+            }
+            break;
         case "help":
             // TODO help page displaying all commands available
             // Not implemented

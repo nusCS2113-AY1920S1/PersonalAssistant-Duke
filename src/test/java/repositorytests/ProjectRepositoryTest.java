@@ -1,14 +1,12 @@
 package repositorytests;
 
-import controllers.ConsoleInputController;
-import controllers.ProjectInputController;
 import models.data.Project;
 import org.junit.jupiter.api.Test;
 import repositories.ProjectRepository;
-import views.CLIView;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectRepositoryTest {
     private ProjectRepository projectRepository;
@@ -31,7 +29,7 @@ class ProjectRepositoryTest {
 
     @Test
     void addToRepo_correctInputs_projectReturned() {
-        simulatedUserinput = "create n/Thor Fanclub";
+        simulatedUserinput = "create -n Thor Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         Project simulatedProject = projectRepository.getItem(1);
         Project expectedProject = new Project("Thor Fanclub");
@@ -50,16 +48,16 @@ class ProjectRepositoryTest {
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
         simulatedUserinput = "create ";
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
-        simulatedUserinput = "create n/";
+        simulatedUserinput = "create -n";
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
         simulatedUserinput = "create n";
         assertFalse(projectRepository.addToRepo(simulatedUserinput));
     }
 
     @Test
-    void getItem_ProjectExists_projectReturned() {
+    void getItem_projectExists_projectReturned() {
         assertEquals(projectRepository.getAll().size(), 0);
-        simulatedUserinput = "create n/Ironman Fanclub";
+        simulatedUserinput = "create -n Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         Project expectedProject = new Project("Ironman Fanclub");
         Project simulatedProject = projectRepository.getItem(1);
@@ -73,12 +71,19 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void deleteItem_ProjectExists_successfulDeletion() {
+    void deleteItem_projectExists_successfulDeletion() {
         assertEquals(projectRepository.getAll().size(), 0);
-        simulatedUserinput = "create n/Ironman Fanclub";
+        simulatedUserinput = "create -n Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         assertEquals(projectRepository.getAll().size(), 1);
-        projectRepository.deleteItem(1);
+        assertTrue(projectRepository.deleteItem(1));
         assertEquals(projectRepository.getAll().size(), 0);
+    }
+
+    @Test
+    void deleteItem_projectDontExist_errorPrinted() {
+        assertEquals(projectRepository.getAll().size(), 0);
+        boolean isProjectDeleted = projectRepository.deleteItem(1);
+        assertFalse(isProjectDeleted);
     }
 }

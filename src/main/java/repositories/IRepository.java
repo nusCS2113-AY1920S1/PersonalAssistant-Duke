@@ -7,7 +7,7 @@ public interface IRepository<T> {
 
     boolean addToRepo(String input);
 
-    void deleteItem(int projectNumber);
+    boolean deleteItem(int projectNumber);
 
     T getItem(int projectNumber);
 }
