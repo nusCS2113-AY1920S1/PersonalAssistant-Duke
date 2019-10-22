@@ -1,5 +1,8 @@
 package controllers;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -10,10 +13,6 @@ import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
 import views.CLIView;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
@@ -77,8 +76,11 @@ public class ProjectInputController implements IController {
                 projectAddTask(projectToManage, projectCommand);
             } else if (projectCommand.length() >= 10 && ("view tasks").equals(projectCommand.substring(0,10))) {
                 projectViewTasks(projectToManage, projectCommand);
-            } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
-                projectViewAssignedTasks(projectToManage.getAssignedTaskList());
+            } else if (projectCommand.length() > 19 && ("view assignments -m").equals(projectCommand.substring(0, 19))) {
+//                projectViewAssignedTasks(projectToManage.getAssignedTaskList());
+                System.out.println(projectCommand.substring(20));
+                System.out.println(projectToManage);
+                projectViewMembersAssignments(projectToManage, projectCommand.substring(20));
             } else if (projectCommand.length() > 25
                     && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                 projectViewTaskRequirements(projectToManage, projectCommand);
@@ -293,6 +295,16 @@ public class ProjectInputController implements IController {
             consoleView.viewSortedTasks(projectToManage, sortCriteria);
         }
     }
+
+    public void projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
+        ArrayList<Integer> validMembers = assignmentViewHelper.parseMembers(projectCommand, projectToManage);
+        if (!assignmentViewHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(assignmentViewHelper.getErrorMessages().toArray(new String[0]));
+        }
+        consoleView.consolePrint(assignmentViewHelper.getOutput(validMembers, projectToManage).toArray(new String[0]));
+    }
+
 
     /**
      * Exits the current project.

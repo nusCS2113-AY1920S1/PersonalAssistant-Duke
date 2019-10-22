@@ -143,4 +143,12 @@ public class Project implements IProject {
     public boolean containsAssignment(Task task, Member member) {
         return memberAndIndividualListOfTasks.get(member).contains(task);
     }
+
+    public HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList() {
+        return this.memberAndIndividualListOfTasks;
+    }
+
+    public boolean hasMemberIndex(Integer index) {
+        return index > 0 && index <= this.getNumOfMembers();
+    }
 }
