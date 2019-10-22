@@ -43,7 +43,7 @@ public class Event extends Task {
     }
 
     /**
-     * Extracting a task content into readable string.
+     * Extracts a task content into readable string.
      *
      * @return String to be displayed.
      */
@@ -77,7 +77,7 @@ public class Event extends Task {
     }
 
     /**
-     * Extracting a task content into readable string (GUI).
+     * Extracts a task content into readable string (GUI).
      *
      * @return String to be displayed.
      */
@@ -111,7 +111,7 @@ public class Event extends Task {
     }
 
     /**
-     * Extracting a task content into string that is suitable for text file.
+     * Extracts a task content into string that is suitable for text file.
      *
      * @return String to be written into text file.
      */

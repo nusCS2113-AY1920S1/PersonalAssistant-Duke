@@ -1,10 +1,9 @@
 package duke.task;
 
 import duke.command.AddCommand;
-import duke.task.TaskList;
-import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.util.Pair;
+
+import java.util.ArrayList;
 
 /**
  * Represents a priority list that stores a list of priorities associated with each task.
@@ -35,7 +34,7 @@ public class PriorityList {
 
 
     /**
-     * Add a priority associated with a task into the list.
+     * Adds a priority associated with a task into the list.
      *
      * @param taskNum The number of the task in the task list.
      * @param priority The priority we want to set.
@@ -49,7 +48,7 @@ public class PriorityList {
     }
 
     /**
-     * Add a default priority associated with a task into the list when the task is generated.
+     * Adds a default priority associated with a task into the list when the task is generated.
      *
      * @param cmd The command used to generate a new task;
      * @return The updated Priority List.
@@ -62,7 +61,7 @@ public class PriorityList {
     }
 
     /**
-     * Add multiple default priority associated with a task into the list when these tasks are generated.
+     * Adds multiple default priority associated with a task into the list when these tasks are generated.
      *
      * @param numOfTimes The number of times that one task is repeated.
      * @return The updated Priority List.
@@ -77,7 +76,7 @@ public class PriorityList {
     }
 
     /**
-     * Remove a priority when the associated task is removed.
+     * Removes a priority when the associated task is removed.
      *
      * @param index The index of the priority to be removed.
      */
@@ -87,7 +86,7 @@ public class PriorityList {
 
 
     /**
-     * Get user input for the priority of a task.
+     * Gets user input for the priority of a task.
      *
      * @param num The index number of the target priority.
      * @return The priority for a task.
@@ -99,7 +98,7 @@ public class PriorityList {
 
 
     /**
-     * Get the length/size of the priority list.
+     * Gets the length/size of the priority list.
      *
      * @return The size of the priority list.
      */
@@ -108,7 +107,7 @@ public class PriorityList {
     }
 
     /**
-     * Get the list of priorities.
+     * Gets the list of priorities.
      *
      * @return The list of priorities.
      */
@@ -117,7 +116,7 @@ public class PriorityList {
     }
 
     /**
-     * Make the priority list empty.
+     * Makes the priority list empty.
      *
      * @return The empty priority list.
      */
@@ -127,7 +126,8 @@ public class PriorityList {
 
 
     /**
-     * Sort tasks based on their priority.
+     * Sorts tasks based on their priority.
+     *
      * @param taskList The list of tasks.
      * @param priorities The list of priorities.
      * @return The sorted list.
@@ -154,6 +154,11 @@ public class PriorityList {
 
     }
 
+    /**
+     * Extracts a priority list into readable string.
+     *
+     * @return String to be displayed.
+     */
     @Override
     public String toString() {
         String output = "";
