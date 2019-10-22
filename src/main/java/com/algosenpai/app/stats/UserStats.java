@@ -1,9 +1,14 @@
 package com.algosenpai.app.stats;
 
+
+
+import com.algosenpai.app.stats.ChapterStat;
 import com.algosenpai.app.storage.UserStorageParser;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -213,7 +218,7 @@ public class UserStats {
         String userName = tokens[2];
         String characterImagePath = tokens[3];
 
-        // If there are 0 chapters, exit early, otherwise there will be parsing error.
+        // No chapters in the list, so exit early, otherwise will cause parsing error.
         if (tokens.length < 6) {
             return new UserStats(userName,characterImagePath,new ArrayList<>());
         }
@@ -224,6 +229,15 @@ public class UserStats {
             chapterStats.add(ChapterStat.parseString(chapterString));
         }
         return new UserStats(userName, characterImagePath, chapterStats);
+    }
+
+    /**
+     * Get the default UserStats (if the user launches the game for the first time).
+     * @return The UserStats object.
+     */
+    public static UserStats getDefaultUserStats() {
+        // TODO Currently it returns an empty object, but it should ideally be a list of all chapters, with 0 attempts.
+        return new UserStats("Name", "miku.png", new ArrayList<>());
     }
 
     /**

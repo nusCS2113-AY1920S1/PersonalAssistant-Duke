@@ -122,14 +122,14 @@ public class ChapterStat {
             ChapterStat other = (ChapterStat) obj;
             return (
                     chapterName.equals(other.chapterName)
-                    && chapterNumber == other.chapterNumber
-                    && attempts == other.attempts
-                    && totalAnswered == other.totalAnswered
-                    && correctAnswers == other.correctAnswers
-                    && wrongAnswers == other.wrongAnswers
-                    && percentage == other.percentage
-                    && comments.equals(other.comments)
-                    );
+                            && chapterNumber == other.chapterNumber
+                            && attempts == other.attempts
+                            && totalAnswered == other.totalAnswered
+                            && correctAnswers == other.correctAnswers
+                            && wrongAnswers == other.wrongAnswers
+                            && percentage == other.percentage
+                            && comments.equals(other.comments)
+            );
         } else {
             return false;
         }
