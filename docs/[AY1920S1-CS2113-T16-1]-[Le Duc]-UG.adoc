@@ -58,7 +58,7 @@ Example:
 * `help`
 
 
-=== Adding a todo task:
+=== Adding a todo task: `todo`
 
 To add a todo task : `todo DESCRIPTION`
 An option could be added to give a priority to the task : `todo DESCRIPTION prio INDEX`
@@ -74,7 +74,7 @@ Examples:
 * `todo buy book`
 * `todo sell book prio 3`
 
-=== Adding a deadline task:
+=== Adding a deadline task: `deadline`
 
 To add a deadline task : `deadline DESCRIPTION /by DATE`
 An option could be added to give a priority to the task : `deadline DESCRIPTION /by DATE prio INDEX`
@@ -89,7 +89,7 @@ Example:
 * `deadline CS4239: lab3 /by 21/09/2019 23:59`
 * `deadline CS4239: lab4 /by 25/09/2019 23:59 prio 7`
 
-=== Adding a event task:
+=== Adding a event task: `event`
 
 To add an event task : `event DESCRIPTION /at DATE - DATE`
 An option could be add to give a priority to the task : `event DESCRIPTION /at DATE - DATE prio INDEX`
@@ -229,7 +229,7 @@ Example :
 
 * `bye`
 
-=== Get some statistics
+=== Get some statistics: `stats`
 
 Display statistics : `stats`
 
@@ -256,7 +256,7 @@ Number of Completed Tasks: 0.0
 Percent Complete: 0.0%
 
 
-=== Sort by
+=== Sort by: `sort`
 
 Sort all task by date/description: `sort SORTTYPE`
 
@@ -274,7 +274,7 @@ Examples:
 * `sort priority`
 * `sort description`
 
-=== Prioritize
+=== Prioritize:  `prioritize`
 
 Giving priority to task: `prioritize INDEX prio INDEX`
 
@@ -293,7 +293,7 @@ Example:
 * `prioritize 4 prio 2`
 * `prioritize 5 prio 8`
 
-=== Display by day/week/month
+=== Display by day/week/month: `display`
 
 Display all the task for one particular day/week/month: `display date DATETYPE DATE`
 
@@ -310,7 +310,7 @@ Be careful:
 * DATE must be in dd/MM/yyyy format for the DATETYPE day and week
 * DATE must be in MM/yyyy format for the DATETYPE month
 
-=== Shortcut
+=== Shortcut : `shortcut`
 
 Give shortcut to command : `shortcut`
 
@@ -320,11 +320,14 @@ The user (you) have to input the shortcut you want.
 
 If the shortcut already exists, the console will tell you to assign another shortcut
 
-=== View Unfinished tasks
+=== View Unfinished tasks : `unfinished`
 
-Find and display all unfinished tasks
+Find and display all unfinished tasks : `unfinished`
 
-Output:
+Example:
+
+ * `unfinished`
+ * Output:
 
  Here are the unfinished tasks in your list:
          1. [T][✗] td1 [Priority: 5]
@@ -332,7 +335,6 @@ Output:
          3. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
          4. [T][✗] td4 [Priority: 5]
          5. [T][✗] td5 [Priority: 5]
-
         ---------------------------------------------------------------------------------
 
 
@@ -404,6 +406,7 @@ A) Yes, if we have enough imagination and time and energy.
 * *prioritize* : `prioritize INDEX prio INDEX`
 * *display* : `display date DATETYPE DATE`
 * *shortcut* : `shortcut`
+* *unfinished* : `unfinished`
 
 
 ====
