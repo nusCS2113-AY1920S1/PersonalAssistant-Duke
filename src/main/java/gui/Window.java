@@ -35,6 +35,7 @@ public class Window {
     public JTextArea outputArea;
 
     private JTextField completedPercField;
+    private PieChart pieChart;
 
     /**
      * Create the Window
@@ -124,7 +125,7 @@ public class Window {
         piePanel.setSize(250, 250);
         
         frame.getContentPane().add(piePanel);
-        PieChart pieChart = new PieChart(tasksCounter.getPercCompleted());
+        pieChart = new PieChart(tasksCounter.getPercCompleted());
         pieChart.setBounds(0, 0, 250, 250);
         piePanel.add(pieChart);
 
@@ -143,5 +144,6 @@ public class Window {
      */
     public void updatePercentage() {
         completedPercField.setText("" + (int)tasksCounter.getPercCompleted() + "% of tasks complete");
+        pieChart.setPercentage(tasksCounter.getPercCompleted());
     }
 }
