@@ -1,5 +1,6 @@
 package compal.storage;
 
+//@@author jaedonkey
 /**
  * API of the Storage component.
  */

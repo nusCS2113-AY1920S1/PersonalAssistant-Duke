@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+//@@author jaedonkey
 public class EditCommandParser implements CommandParser {
     private String description;
     private Date date;

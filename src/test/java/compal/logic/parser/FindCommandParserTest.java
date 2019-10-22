@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static compal.logic.parser.CommandParser.*;
 import static compal.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static compal.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static compal.logic.parser.ViewCommandParser.MESSAGE_INVALID_PARAM;

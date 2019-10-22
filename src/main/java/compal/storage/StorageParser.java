@@ -1,5 +1,6 @@
 package compal.storage;
 
+//@@author jaedonkey
 /**
  * Interface for parsing storage data.
  *

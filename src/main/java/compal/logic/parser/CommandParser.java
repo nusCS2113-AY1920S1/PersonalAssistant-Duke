@@ -32,7 +32,7 @@ public interface CommandParser {
     String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
-    String TOKEN_DESCRIPTION= "/description";
+    String TOKEN_DESCRIPTION = "/description";
     String TOKEN_START_TIME = "/start";
     String TOKEN_FINAL_DATE = "/final-date";
     char TOKEN_SLASH_CHAR = '/';

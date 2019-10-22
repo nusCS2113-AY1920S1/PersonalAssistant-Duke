@@ -309,11 +309,11 @@ public abstract class Task implements Serializable {
 
     }
 
+    //@@author jaedonkey
     /**
      * Gets all the details of the task as a string, for saving into the text file.
      *
      * @return saveString
-     * @author jaedonkey
      */
     public String getAllDetailsAsString() {
         StringBuilder list = new StringBuilder();
@@ -337,11 +337,11 @@ public abstract class Task implements Serializable {
         return list.toString();
     }
 
+    //@@author jaedonkey
     /**
      * Calculates the priority of the task based on the user defined priority (high/med/low) as well as
      * the time remaining until the date set for the task.
      *
-     * @author jaedonkey
      * @deprecated not in use for now
      */
     @Deprecated

@@ -7,6 +7,7 @@ import compal.model.tasks.TaskList;
 
 import java.util.Date;
 
+//@@author jaedonkey
 public class EditCommand extends Command {
     private String description;
     private Date date;
@@ -15,7 +16,16 @@ public class EditCommand extends Command {
     private int taskId;
     private Task.Priority priority;
 
-
+    //@@author jaedonkey
+    /**
+     * Constructs an edit command object.
+     * @param taskId id of task to edit
+     * @param description new description
+     * @param date new date
+     * @param startTime new start time
+     * @param endTime new end time
+     * @param priority new priority level
+     */
     public EditCommand(int taskId, String description, Date date, String startTime, String endTime,
                        Task.Priority priority) {
         this.taskId = taskId;
