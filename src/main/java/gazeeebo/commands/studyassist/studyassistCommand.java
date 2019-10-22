@@ -16,7 +16,14 @@ import java.util.Stack;
 public class studyassistCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
-        System.out.println("Welcome to Study Assist!");
+        System.out.println("Welcome to Module Planner!");
+        System.out.println("__________________________________________________________");
+        System.out.println("1. Add module to your plan: add CSXXXX to n(Semester number)");
+        System.out.println("2. Delete module from your plan: Delete CSXXXX from n(Semester number)");
+        System.out.println("3. Shift module to other semester: shift CSXXXX to n(Semester number)");
+        System.out.println("4. See your Study Plan: plan");
+        System.out.println("5. Exit Module Planner page: esc");
+        System.out.println("__________________________________________________________");
         StudyPlannerCommand StudyPlan =  new StudyPlannerCommand(storage);
         while(!ui.fullCommand.equals("esc")) {
             String command = ui.fullCommand;

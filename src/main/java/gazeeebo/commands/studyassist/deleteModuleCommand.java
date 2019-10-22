@@ -16,7 +16,7 @@ public class deleteModuleCommand {
             toStore += "\n";
         }
         storage.Storage_StudyPlan(toStore);
-        System.out.println("This module "+ModuleCode+" has been successfully deleted from Sem"+Semester+".");
+        System.out.println("This module "+ModuleCode+" has been successfully deleted from Sem"+(Semester+1)+".");
     }
 }
 

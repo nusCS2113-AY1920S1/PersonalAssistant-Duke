@@ -29,7 +29,7 @@ public class shiftModuleCommand {
             toStore += "\n";
         }
         storage.Storage_StudyPlan(toStore);
-        System.out.println("This module "+ModuleCode+" has been successfully shifted to Sem"+Semester+".");
+        System.out.println("This module "+ModuleCode+" has been successfully shifted to Sem"+(Semester+1)+".");
     }
 }
 

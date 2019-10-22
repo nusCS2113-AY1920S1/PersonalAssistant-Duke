@@ -67,7 +67,7 @@ public class Ui {
         majorCategories.add("places");
         majorCategories.add("tasks");
         majorCategories.add("gpa");
-        majorCategories.add("studyassist");
+        majorCategories.add("moduleplanner");
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");

@@ -27,7 +27,7 @@ public class Parser {
             return new ByeCommand();
         } else if (splitCommand[0].equals("tasks")) {
             return new taskCommand();
-        } else if (splitCommand[0].equals("studyassist")){
+        } else if (splitCommand[0].equals("moduleplanner")){
             return new studyassistCommand();
         } else if(splitCommand[0].equals("gpa")) {
             String moduleCode = "";

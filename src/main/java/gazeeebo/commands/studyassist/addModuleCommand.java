@@ -17,6 +17,6 @@ public class addModuleCommand {
             toStore += "\n";
         }
         storage.Storage_StudyPlan(toStore);
-        System.out.println("This module "+ModuleCode+" has been successfully added to Sem"+Semester+1+".");
+        System.out.println("This module "+ModuleCode+" has been successfully added to Sem"+(Semester+1)+".");
     }
 }
