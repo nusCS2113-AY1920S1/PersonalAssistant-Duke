@@ -35,7 +35,8 @@ class TaskTest {
         try {
             Date date = dateTimeHelper.formatDate("20/1/2019");
             Task task2 = new Task("task2", 5, date, 100, TaskState.OPEN, taskRequirements);
-            assertEquals("task2 | Priority: 5 | Due: 20 Jan 2019 | Credit: 100 | State: OPEN", task2.getDetails());
+            assertEquals("task2 | Priority: 5 | Due: 20 Jan 2019" + dateTimeHelper.getDifferenceDays(date)
+                    + " | Credit: 100 | State: OPEN", task2.getDetails());
         } catch (ParseException e) {
             System.out.println("Parsing error");
         }
