@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * EditCardCommand class which contains the execution function to edit a credit card object.
+ * Executes EditCardCommand to edit a credit card object.
  */
 public class EditCardCommand extends Command {
 

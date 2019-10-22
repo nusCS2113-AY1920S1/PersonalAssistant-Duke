@@ -224,8 +224,8 @@ public class CardList {
      * @param expNum                The transaction number.
      * @param deleteFromAccountCard The name of the card.
      * @param ui                    Required for printing.
-     * @throws TransactionException If invalid transaction.
      * @throws CardException        If card does not exist.
+     * @throws TransactionException If invalid transaction.
      */
     public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {

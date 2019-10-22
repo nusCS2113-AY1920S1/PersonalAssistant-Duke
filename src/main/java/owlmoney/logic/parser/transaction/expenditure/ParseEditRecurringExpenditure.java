@@ -12,7 +12,7 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseEditRecurringExpenditure extends ParseRecurringExpenditure {
 
     /**
-     * Constructor which creates an instance of ParseEditRecurringExpenditure.
+     * Creates an instance of ParseEditRecurringExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.

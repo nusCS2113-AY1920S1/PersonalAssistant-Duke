@@ -10,7 +10,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseCard abstract class where card objects inherit from.
+ * Abstracts common Card methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseCard {
     HashMap<String, String> cardParameters = new HashMap<String, String>();
@@ -26,9 +26,9 @@ public abstract class ParseCard {
     static final String NEW_NAME = "/newname";
 
     /**
-     * Constructor which creates an instance of Card object.
+     * Creates an instance of Card object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     ParseCard(String data) {
         this.rawData = data;
@@ -68,13 +68,19 @@ public abstract class ParseCard {
      * @param valueString String to be checked and converted to double.
      * @throws ParserException If the string is not a double value.
      */
-    void checkLimist(String valueString) throws ParserException {
+    void checkLimit(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
             throw new ParserException("Limit can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
         }
     }
 
+    /**
+     * Checks if the parameter entered by the user is a double and only contains numbers.
+     *
+     * @param valueString String to be checked and converted to double.
+     * @throws ParserException If the string is not a double value.
+     */
     void checkCashBack(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
             throw new ParserException("Cash back can only be positive numbers"

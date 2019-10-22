@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * EditInvestmentCommand contains the execution function to edit an investment object.
+ * Executes EditInvestmentCommand to edit an investment object.
  */
 public class EditInvestmentCommand extends Command {
     private final String name;

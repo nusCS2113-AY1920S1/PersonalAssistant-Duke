@@ -11,7 +11,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * AddExpenditureCommand class which contains the execution function to add an expenditure transaction.
+ * Executes AddExpenditureCommand to add an expenditure transaction.
  */
 public class AddExpenditureCommand extends Command {
 
@@ -23,7 +23,7 @@ public class AddExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Constructor to create an instance of AddExpenditureCommand.
+     * Creates an instance of AddExpenditureCommand.
      *
      * @param name        Bank account name.
      * @param amount      Amount of the expenditure.

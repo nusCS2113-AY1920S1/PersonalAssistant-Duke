@@ -11,8 +11,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * AddRecurringExpenditureCommand class
- * which contains the execution function to add a recurring expenditure transaction.
+ * Executes AddRecurringExpenditureCommand to add a recurring expenditure transaction.
  */
 public class AddRecurringExpenditureCommand extends Command {
     private final String accName;
@@ -23,7 +22,7 @@ public class AddRecurringExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Constructor to create an instance of AddRecurringExpenditureCommand.
+     * Creates an instance of AddRecurringExpenditureCommand.
      *
      * @param name        Bank account name.
      * @param amount      Amount of the recurring expenditure.

@@ -13,7 +13,7 @@ public class ParseListExpenditure extends ParseExpenditure {
     private static final String LIST = "/list";
 
     /**
-     * Constructor which creates an instance of ParseListExpenditure.
+     * Creates an instance of ParseListExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters.

@@ -7,6 +7,9 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes TransferCommand to transfer fund.
+ */
 public class TransferCommand extends Command {
     private final String from;
     private final String to;
