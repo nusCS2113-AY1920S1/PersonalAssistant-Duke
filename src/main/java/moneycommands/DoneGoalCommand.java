@@ -54,7 +54,7 @@ public class DoneGoalCommand extends MoneyCommand {
 
         Expenditure e = new Expenditure(price, desc, category, doneDate);
         account.getExpListTotal().add(e);
-        storage.markDeletedEntry("G", "@", "#", indexNo);
+        storage.markDeletedEntry("G", indexNo);
         account.getShortTermGoals().remove(indexNo-1);
         //account.sortShortTermGoals(account.getShortTermGoals());
 

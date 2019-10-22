@@ -50,7 +50,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
         ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) +
                 " expenses in the list.\n");
 
-        storage.markDeletedEntry("EXP", "@", "#", serialNo);
+        storage.markDeletedEntry("EXP", serialNo);
         account.getExpListTotal().remove(serialNo - 1);
     }
 
