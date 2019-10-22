@@ -1,6 +1,7 @@
 package duke.Parser;
 import duke.Ui;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ParserCommand implements IParser {
@@ -8,33 +9,35 @@ public class ParserCommand implements IParser {
      * Declaring type ManageStudentsParser.
      */
     private ParserManageStudents parserManageStudents = new ParserManageStudents();
+    private ParserTrainingPlan parserTrainingPlan = new ParserTrainingPlan();
 
     /**
-     * To parse the respective command.
+     * Parse the respective command.
      * @param input command.
+     * @throws FileNotFoundException throws exception.
      */
-    public void parseCommand(final String input) {
+    public void parseCommand(final String input) throws FileNotFoundException {
         Ui ui = new Ui();
+        Scanner sc = new Scanner(System.in);
         switch (input) {
             case "1":
                 // Schedule
                 ui.trainingScheduleHeading();
                 break;
             case "2":
-                //ManageStudents.ManageStudents
                 ui.manageStudentsHeading();
-                Scanner sc = new Scanner(System.in);
-                String nextInput = sc.nextLine();
-                parserManageStudents.parseCommand(nextInput);
+                String studentsInput = sc.nextLine();
+                parserManageStudents.parseCommand(studentsInput);
                 break;
             case "3":
                 ui.trainingProgramHeading();
-                //Training Plan
+                String trainingInput = sc.nextLine();
+                parserTrainingPlan.parseCommand(trainingInput);
                 break;
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry,"
-                    + "but I don't know what that means :-(");
+                        + "but I don't know what that means :-(");
                 break;
         }
     }
