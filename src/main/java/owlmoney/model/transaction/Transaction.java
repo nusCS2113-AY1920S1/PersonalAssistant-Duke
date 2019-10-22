@@ -3,6 +3,8 @@ package owlmoney.model.transaction;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -70,13 +72,23 @@ public abstract class Transaction {
     }
 
     /**
-     * Gets the date that this expenditure was made.
+     * Gets the date that this expenditure was made in String format.
      *
-     * @return The date that the expenditure was made.
+     * @return The date that the expenditure was made in String format.
      */
     public String getDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
+    }
+
+    /**
+     * Gets the date that this expenditure was made in LocalDate format.
+     *
+     * @return The date that the expenditure was made in LocalDate format.
+     */
+    public LocalDate getLocalDate() {
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localDate;
     }
 
     /**

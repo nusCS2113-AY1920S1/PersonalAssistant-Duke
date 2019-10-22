@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import owlmoney.model.transaction.exception.TransactionException;
@@ -23,6 +24,7 @@ public class TransactionList {
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
     private static final int MAX_LIST_SIZE = 2000;
+    private static final int ISZERO = 0;
 
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
@@ -39,22 +41,22 @@ public class TransactionList {
      * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
-        if (transactionLists.size() <= 0) {
+        if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         } else {
             int counter = displayNum;
             boolean expenditureExist = false;
-            for (int i = transactionLists.size() - ONE_INDEX; i >= 0; i--) {
+            for (int i = transactionLists.size() - ONE_INDEX; i >= ISZERO; i--) {
                 if (transactionLists.get(i).getSpent()) {
                     printOneHeader(counter, displayNum, ui);
                     printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                     counter--;
                     expenditureExist = true;
                 }
-                if (counter <= 0 || i == 0) {
+                if (counter <= ISZERO || i == ISZERO) {
                     ui.printDivider();
                 }
-                if (counter <= 0) {
+                if (counter <= ISZERO) {
                     break;
                 }
             }
@@ -72,22 +74,22 @@ public class TransactionList {
      * @throws TransactionException If no deposit is found.
      */
     public void listDeposit(Ui ui, int displayNum) throws TransactionException {
-        if (transactionLists.size() <= 0) {
+        if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         } else {
             int counter = displayNum;
             boolean depositExist = false;
-            for (int i = transactionLists.size() - ONE_INDEX; i >= 0; i--) {
+            for (int i = transactionLists.size() - ONE_INDEX; i >= ISZERO; i--) {
                 if (!transactionLists.get(i).getSpent()) {
                     printOneHeader(counter, displayNum, ui);
                     printOneTransaction((i + ONE_INDEX), transactionLists.get(i), ISMULTIPLE, ui);
                     counter--;
                     depositExist = true;
                 }
-                if (counter <= 0 || i == 0) {
+                if (counter <= ISZERO || i == ISZERO) {
                     ui.printDivider();
                 }
-                if (counter <= 0) {
+                if (counter <= ISZERO) {
                     break;
                 }
             }
@@ -124,8 +126,9 @@ public class TransactionList {
         if (transactionLists.size() >= MAX_LIST_SIZE) {
             transactionLists.remove(0);
         }
-        transactionLists.add(dep);
-        if ("bank".equals(bankType)) {
+            transactionLists.add(dep);
+        if ("bank".equals(bankType) || "savings transfer".equals(bankType)
+                || "investment transfer".equals(bankType)) {
             ui.printMessage("Added deposit with the following details:");
             printOneTransaction(ONE_INDEX, dep, ISSINGLE, ui);
         }
@@ -139,10 +142,10 @@ public class TransactionList {
      * @throws TransactionException If invalid transaction.
      */
     public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
-        if (transactionLists.size() <= 0) {
+        if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         }
-        if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < transactionLists.size()) {
+        if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - 1).getSpent()) {
                 throw new TransactionException("The transaction is a deposit");
             } else {
@@ -235,10 +238,11 @@ public class TransactionList {
      * @throws TransactionException If transaction is not an expenditure.
      */
     public double getExpenditureAmount(int index) throws TransactionException {
-        if (transactionLists.size() <= 0) {
+
+        if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         }
-        if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < transactionLists.size()) {
+        if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (!transactionLists.get(index - ONE_INDEX).getSpent()) {
                 throw new TransactionException("The transaction is a deposit");
             } else {
@@ -272,10 +276,10 @@ public class TransactionList {
      * @throws TransactionException If transaction is not a deposit.
      */
     public double getDepositValue(int index) throws TransactionException {
-        if (transactionLists.size() <= 0) {
+        if (transactionLists.size() <= ISZERO) {
             throw new TransactionException("There are no transactions in this bank account");
         }
-        if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < transactionLists.size()) {
+        if ((index - ONE_INDEX) >= ISZERO && (index - ONE_INDEX) < transactionLists.size()) {
             if (transactionLists.get(index - ONE_INDEX).getSpent()) {
                 throw new TransactionException("The transaction is not a deposit");
             } else {
@@ -318,5 +322,54 @@ public class TransactionList {
         if (counter == displayNum) {
             ui.printTransactionHeader(TRANSTYPE);
         }
+    }
+
+    /**
+     * Returns total amount spent in a particular month of the year.
+     *
+     * @param month Month to check total amount spent.
+     * @param year  Year to check total amount spent.
+     * @return Total amount spent in the particular month of the year.
+     */
+    public double getMonthAmountSpent(int month, int year) {
+        double totalAmount = 0;
+        for (int i = 0; i < transactionLists.size(); i++) {
+            LocalDate date = transactionLists.get(i).getLocalDate();
+            int expMonth = date.getMonthValue();
+            int expYear = date.getYear();
+            if (expMonth == month && expYear == year) {
+                totalAmount += transactionLists.get(i).getAmount();
+            }
+        }
+        return totalAmount;
+    }
+
+    /**
+     * Returns the particular transaction month based on transaction number.
+     *
+     * @param expNum Transaction number to get the month of.
+     * @return Transaction month.
+     */
+    public int getTransactionMonthByIndex(int expNum) {
+        return transactionLists.get(expNum - 1).getLocalDate().getMonthValue();
+    }
+
+    /**
+     * Returns the particular transaction year based on transaction number.
+     *
+     * @param expNum Transaction number to get the year of.
+     * @return Transaction year.
+     */
+    public int getTransactionYearByIndex(int expNum) {
+        return transactionLists.get(expNum - 1).getLocalDate().getYear();
+    }
+
+    /**
+     * Returns true if expenditure list is empty.
+     *
+     * @return True if expenditure list is empty.
+     */
+    public boolean expListIsEmpty() {
+        return transactionLists.isEmpty();
     }
 }

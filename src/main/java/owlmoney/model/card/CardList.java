@@ -17,6 +17,7 @@ public class CardList {
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
+    private static final int ISZERO = 0;
 
     /**
      * Creates an arrayList of Cards.
@@ -52,7 +53,7 @@ public class CardList {
     public void cardListDeleteCard(String name, Ui ui) throws CardException {
         cardListCheckListEmpty();
         boolean isDeleted = false;
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
                 Card temp = cardLists.get(i);
                 cardLists.remove(i);
@@ -73,7 +74,7 @@ public class CardList {
      * @throws CardException If CardList is empty.
      */
     public void cardListCheckListEmpty() throws CardException {
-        if (cardLists.size() <= 0) {
+        if (cardLists.size() <= ISZERO) {
             throw new CardException("There are 0 cards in your profile");
         }
     }
@@ -94,7 +95,7 @@ public class CardList {
      * @return the result specifying whether the credit card name already exists.
      */
     private boolean cardExists(String cardName) {
-        for (int i = 0; i < getCardListSize(); i++) {
+        for (int i = ISZERO; i < getCardListSize(); i++) {
             if (cardName.equals(cardLists.get(i).getName())) {
                 return true;
             }
@@ -110,7 +111,7 @@ public class CardList {
      * @throws CardException If new card name is not unique.
      */
     private void compareCard(Card currentCard, String newCardName) throws CardException {
-        for (int i = 0; i < getCardListSize(); i++) {
+        for (int i = ISZERO; i < getCardListSize(); i++) {
             if (cardLists.get(i).getName().equals(newCardName) && !cardLists.get(i).equals(currentCard)) {
                 throw new CardException("There is already a credit card with the name " + newCardName);
             }
@@ -118,28 +119,15 @@ public class CardList {
     }
 
     /**
-     * Checks if new limit exceeds total expenditure spent of card.
+     * Checks if all credit card expenditures have been paid else cannot edit card limit.
      *
      * @param card     The card object.
-     * @param newLimit The new limit to be changed.
-     * @throws CardException If total expenditure spent of card exceeds new limit.
+     * @throws CardException If credit card contains unpaid expenditures.
      */
-    private void checkLimitNotExceedTotalSpent(Card card, String newLimit) throws CardException {
-        double currentCardSpent = card.getLimit() - card.getRemainingLimit();
-        if (Double.parseDouble(newLimit) < currentCardSpent) {
-            throw new CardException("New limit cannot exceed current card spent of $" + currentCardSpent);
+    private void checkUnpaidCannotEditLimit(Card card) throws CardException {
+        if (!card.isEmpty()) {
+            throw new CardException("Card limit cannot be edited if there are unpaid expenditures");
         }
-    }
-
-    /**
-     * Updates the remaining limit of card.
-     *
-     * @param card     The card object.
-     * @param newLimit The new limit to be changed.
-     */
-    private void updateNewRemainingLimit(Card card, String newLimit) {
-        double currentCardSpent = card.getLimit() - card.getRemainingLimit();
-        card.setRemainingLimit(Double.parseDouble(newLimit) - currentCardSpent);
     }
 
     /**
@@ -154,15 +142,14 @@ public class CardList {
      */
     public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
                     compareCard(cardLists.get(i), newName);
                     cardLists.get(i).setName(newName);
                 }
                 if (!(limit.isEmpty() || limit.isBlank())) {
-                    this.checkLimitNotExceedTotalSpent(cardLists.get(i), limit);
-                    this.updateNewRemainingLimit(cardLists.get(i), limit);
+                    this.checkUnpaidCannotEditLimit(cardLists.get(i));
                     cardLists.get(i).setLimit(Double.parseDouble(limit));
                 }
                 if (!(rebate.isEmpty() || rebate.isBlank())) {
@@ -185,7 +172,7 @@ public class CardList {
     public void cardListListCards(Ui ui) throws CardException {
         cardListCheckListEmpty();
         ui.printCardHeader();
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             printOneCard((i + ONE_INDEX), cardLists.get(i), ISMULTIPLE, ui);
         }
         ui.printDivider();
@@ -203,7 +190,7 @@ public class CardList {
      */
     public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui, String type)
             throws CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).addInExpenditure(exp, ui, type);
                 return;
@@ -223,7 +210,7 @@ public class CardList {
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardToList.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
@@ -243,7 +230,7 @@ public class CardList {
      */
     public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (deleteFromAccountCard.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).deleteExpenditure(expNum, ui);
                 return;
@@ -267,7 +254,7 @@ public class CardList {
      */
     public void cardListEditExpenditure(int expNum, String editFromCard, String desc, String amount,
             String date, String category, Ui ui) throws CardException, TransactionException {
-        for (int i = 0; i < cardLists.size(); i++) {
+        for (int i = ISZERO; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(editFromCard)) {
                 cardLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
                 return;
@@ -291,7 +278,7 @@ public class CardList {
         }
         ui.printCard(num, card.getName(),
                 "$" + new DecimalFormat("0.00").format(card.getLimit()),
-                "$" + new DecimalFormat("0.00").format(card.getRemainingLimit()),
+                "$" + new DecimalFormat("0.00").format(card.getRemainingLimitNow()),
                 new DecimalFormat("0.00").format(card.getRebate()) + "%");
         if (!isMultiplePrinting) {
             ui.printDivider();

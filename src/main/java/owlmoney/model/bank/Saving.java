@@ -96,7 +96,7 @@ public class Saving extends Bank {
      */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
-        if (!"bank".equals(bankType)) {
+        if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
             throw new BankException("Bonds cannot be added to this account");
         }
         if (exp.getAmount() > this.getCurrentAmount()) {
@@ -211,7 +211,7 @@ public class Saving extends Bank {
      */
     @Override
     void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
-        if (!"bank".equals(bankType)) {
+        if (!"bank".equals(bankType) && !"savings transfer".equals(bankType)) {
             throw new BankException("This account does not support investment account deposits");
         }
         transactions.addDepositToList(dep, ui, bankType);

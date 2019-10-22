@@ -17,6 +17,8 @@ public class GoalsList {
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
+    private static final int ISZERO = 0;
+
 
     /**
      * Creates a instance of GoalsList that contains an arrayList of Goals.
@@ -31,11 +33,11 @@ public class GoalsList {
      * @param ui required for printing.
      */
     public void listGoals(Ui ui) {
-        if (goalList.size() <= 0) {
+        if (goalList.size() <= ISZERO) {
             ui.printError("There are no goals set");
         } else {
             ui.printGoalHeader();
-            for (int i = 0; i < goalList.size(); i++) {
+            for (int i = ISZERO; i < goalList.size(); i++) {
                 printOneGoal((i + ONE_INDEX), goalList.get(i), ISMULTIPLE, ui);
             }
             ui.printDivider();
@@ -66,10 +68,10 @@ public class GoalsList {
      * @throws GoalsException If trying to delete from empty GoalsList
      */
     public void deleteFromGoalList(String goalName, Ui ui) throws GoalsException {
-        if (goalList.size() <= 0) {
+        if (goalList.size() <= ISZERO) {
             throw new GoalsException("There are no goals set!");
         } else {
-            for (int i = 0; i < goalList.size(); i++) {
+            for (int i = ISZERO; i < goalList.size(); i++) {
                 if (goalList.get(i).getGoalsName().equals(goalName)) {
                     Goals temp = goalList.get(i);
                     goalList.remove(i);
@@ -89,7 +91,7 @@ public class GoalsList {
      * @throws GoalsException If there's a goal of the same name.
      */
     public void compareGoals(Goals currentGoals, String newGoalName) throws GoalsException {
-        for (int i = 0; i < goalList.size(); i++) {
+        for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalList.get(i).getGoalsName().equals(newGoalName) && !goalList.get(i).equals(currentGoals)) {
                 throw new GoalsException("There is already a goal with the same name " + newGoalName);
             }
@@ -103,7 +105,7 @@ public class GoalsList {
      * @return True if it exists and False if it doesn't.
      */
     private boolean goalExists(String goalName) {
-        for (int i = 0; i < goalList.size(); i++) {
+        for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalName.equals(goalList.get(i).getGoalsName())) {
                 return true;
             }
@@ -123,7 +125,7 @@ public class GoalsList {
      *                        or no goal with the goalName.
      */
     public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
-        for (int i = 0; i < goalList.size(); i++) {
+        for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalList.get(i).getGoalsName().equals(goalName)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
                     compareGoals(goalList.get(i), newName);

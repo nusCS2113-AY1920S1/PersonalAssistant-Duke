@@ -21,6 +21,8 @@ public class BankList {
     private static final int ONE_INDEX = 1;
     private static final boolean ISMULTIPLE = true;
     private static final boolean ISSINGLE = false;
+    private static final int ISZERO = 0;
+
 
     /**
      * Creates a instance of BankList that contains an arrayList of Banks.
@@ -80,8 +82,8 @@ public class BankList {
      * @return the number of accounts of the specified type.
      */
     private int getNumberOfAccountType(String accountType) {
-        int counter = 0;
-        for (int i = 0; i < getBankListSize(); i++) {
+        int counter = ISZERO;
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (accountType.equals(bankLists.get(i).getType())) {
                 counter++;
             }
@@ -97,7 +99,7 @@ public class BankList {
      * @return the result bankName is of bankType.
      */
     private boolean hasCorrectBankNameAndType(String bankName, String bankType) {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if ((bankName.equals(bankLists.get(i).getAccountName()))
                     && (bankType.equals(bankLists.get(i).getType()))) {
                 return true;
@@ -113,7 +115,7 @@ public class BankList {
      * @return the result bankName exists.
      */
     private boolean bankAccountExists(String bankName) {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 return true;
             }
@@ -156,7 +158,7 @@ public class BankList {
      */
     public void bankListDeleteBank(String bankName, String bankType, Ui ui) throws BankException {
         if (canPassDeleteBankRequirements(bankName, bankType)) {
-            for (int i = 0; i < getBankListSize(); i++) {
+            for (int i = ISZERO; i < getBankListSize(); i++) {
                 if (bankName.equals(bankLists.get(i).getAccountName())) {
                     Bank temp = bankLists.get(i);
                     bankLists.remove(i);
@@ -180,7 +182,7 @@ public class BankList {
      */
     public void bankListEditSavings(String bankName, String newName, String amount, String income, Ui ui)
             throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "saving".equals(bankLists.get(i).getType())) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -209,7 +211,7 @@ public class BankList {
      * @throws BankException If new name is not unique.
      */
     private void compareBank(Bank currentBank, String newBankName) throws BankException {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(newBankName) && !bankLists.get(i).equals(currentBank)) {
                 throw new BankException("There is already a bank account with the name " + newBankName);
             }
@@ -227,7 +229,7 @@ public class BankList {
      */
     public void bankListEditInvestment(String bankName, String newName, String amount, Ui ui)
             throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "investment".equals(bankLists.get(i).getType())) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -251,18 +253,18 @@ public class BankList {
      * @throws BankException If there are no specified bank accounts.
      */
     public void bankListListBankAccount(String bankType, Ui ui) throws BankException {
-        if (getBankListSize() <= 0) {
+        if (getBankListSize() <= ISZERO) {
             throw new BankException("There are 0 bank accounts");
         }
-        int numberOfBanks = 0;
-        for (int i = 0; i < getBankListSize(); i++) {
+        int numberOfBanks = ISZERO;
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankType.equals(bankLists.get(i).getType())) {
                 printOneHeader(numberOfBanks, ui);
                 printOneBank(numberOfBanks + ONE_INDEX, bankLists.get(i), ISMULTIPLE, ui);
                 numberOfBanks++;
             }
         }
-        if (numberOfBanks == 0) {
+        if (numberOfBanks == ISZERO) {
             throw new BankException("There are 0 " + bankType + " accounts");
         } else {
             ui.printDivider();
@@ -280,7 +282,7 @@ public class BankList {
      */
     public void bankListListBankExpenditure(String bankToList, Ui ui, int displayNum)
             throws TransactionException, BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
@@ -300,7 +302,7 @@ public class BankList {
      */
     public void bankListListBankDeposit(String bankToList, Ui ui, int displayNum)
             throws TransactionException, BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllDeposit(ui, displayNum);
                 return;
@@ -321,7 +323,7 @@ public class BankList {
      */
     public void bankListAddExpenditure(String accName, Transaction exp, Ui ui, String type)
             throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addInExpenditure(exp, ui, type);
                 return;
@@ -345,7 +347,7 @@ public class BankList {
      */
     public void bankListEditExpenditure(int expNum, String editFromBank, String desc,
             String amount, String date, String category, Ui ui) throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
                 return;
@@ -365,7 +367,7 @@ public class BankList {
      */
     public void bankListDeleteExpenditure(int expNum, String deleteFromBank, Ui ui)
             throws TransactionException, BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (deleteFromBank.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).deleteExpenditure(expNum, ui);
                 return;
@@ -385,7 +387,7 @@ public class BankList {
      * @throws BankException If bank name does not exist.
      */
     public void bankListAddDeposit(String accName, Transaction dep, Ui ui, String bankType) throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addDepositTransaction(dep, ui, bankType);
                 return;
@@ -409,7 +411,7 @@ public class BankList {
      */
     public void bankListEditDeposit(int expNum, String editFromBank, String desc,
             String amount, String date, Ui ui) throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editDepositDetails(expNum, desc, amount, date, ui);
                 return;
@@ -428,7 +430,7 @@ public class BankList {
      * @throws TransactionException If transaction is not a deposit.
      */
     public void bankListDeleteDeposit(String accName, int index, Ui ui) throws BankException, TransactionException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).deleteDepositTransaction(index, ui);
                 return;
@@ -446,7 +448,7 @@ public class BankList {
      * @throws BondException If duplicate bond name found.
      */
     public void bankListIsBondExist(String accName, Bond bond) throws BankException, BondException {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).investmentCheckBondExist(bond);
                 return;
@@ -464,7 +466,7 @@ public class BankList {
      * @throws BankException If bank account does not exist.
      */
     public void bankListAddBond(String accName, Bond bond, Ui ui) throws BankException {
-        for (int i = 0; i < bankLists.size(); i++) {
+        for (int i = ISZERO; i < bankLists.size(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).addBondToInvestmentAccount(bond, ui);
                 return;
@@ -485,7 +487,7 @@ public class BankList {
      */
     public void bankListEditBond(String bankName, String bondName, String year, String rate, Ui ui)
             throws BankException, BondException {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).investmentEditBond(bondName, year, rate, ui);
                 return;
@@ -503,7 +505,7 @@ public class BankList {
      * @throws BankException if the bank is not found.
      */
     public void bankListDeleteBond(String bankName, String bondName, Ui ui) throws BankException, BondException {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).investmentDeleteBond(bondName, ui);
                 return;
@@ -522,7 +524,7 @@ public class BankList {
      * @throws BondException if the bond does not exist.
      */
     public Bond bankListGetBond(String bankName, String bondName) throws BankException, BondException {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 return bankLists.get(i).investmentGetBond(bondName);
             }
@@ -540,7 +542,7 @@ public class BankList {
      * @throws BondException If there are no bonds.
      */
     public void bankListListBond(String bankName, Ui ui, int displayNum) throws BankException, BondException {
-        for (int i = 0; i < getBankListSize(); i++) {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
             if (bankName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).investmentListBond(displayNum, ui);
                 return;
@@ -582,12 +584,13 @@ public class BankList {
      * @param ui  The object use for printing.
      */
     private void printOneHeader(int num, Ui ui) {
-        if (num == 0) {
+        if (num == ISZERO) {
             ui.printBankHeader();
         }
     }
 
     /**
+<<<<<<< HEAD
      * Adds a new recurring expenditure to the specified bank account.
      *
      * @param bankName Name of bank account.
@@ -676,5 +679,50 @@ public class BankList {
         for (int i = 0; i < bankLists.size(); i++) {
             bankLists.get(i).updateRecurringTransactions(ui);
         }
+    }
+
+     /** Checks whether the bank object to transfer the fund actually exist in the list.
+     *
+     * @param accName the bank account name.
+     * @param amount  the amount to transfer.
+     * @throws BankException If bank does not exist.
+     */
+    public String bankListIsAccountExistToTransfer(String accName, double amount) throws BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (accName.equals(bankLists.get(i).getAccountName())) {
+                bankListIsSufficientForTransfer(bankLists.get(i), amount);
+                return bankLists.get(i).getType();
+            }
+        }
+        throw new BankException("Unable to transfer fund as bank Account does not exist: " + accName);
+    }
+
+    /**
+     * Checks whether the bank object to receive the fund actually exist in the list.
+     *
+     * @param accName the bank account name.
+     * @throws BankException If bank does not exist.
+     */
+    public String bankListIsAccountExistToReceive(String accName) throws BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (accName.equals(bankLists.get(i).getAccountName())) {
+                return bankLists.get(i).getType();
+            }
+        }
+        throw new BankException("Unable to transfer fund as bank account does not exist: " + accName);
+    }
+
+    /**
+     * Checks whether the bank object has sufficient amount to transfer.
+     *
+     * @param bank   the bank object.
+     * @param amount the amount to be transferred.
+     * @throws BankException If bank does not have sufficient fund.
+     */
+    public void bankListIsSufficientForTransfer(Bank bank, double amount) throws BankException {
+        if (bank.getCurrentAmount() >= amount) {
+            return;
+        }
+        throw new BankException("Insufficient amount for transfer in this bank: " + bank.getAccountName());
     }
 }
