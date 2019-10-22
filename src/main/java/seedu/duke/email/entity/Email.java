@@ -160,7 +160,8 @@ public class Email {
         return expressions;
     }
 
-    private String addHighlightToExpressions(String content, ArrayList<String> expressions) {
+    private String addHighlightToExpressions(String emailContent, ArrayList<String> expressions) {
+        String content = emailContent;
         for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
