@@ -30,7 +30,7 @@ public class LimitList extends LogList {
     }
 
     //ADD TO LIST
-    public void addToBudget(ArrayList<Limit> list, Limit.Duration duration, double amount) {
+    public void addToBudget() {
 
     }
 
