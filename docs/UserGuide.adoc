@@ -135,9 +135,8 @@ which can be used as:
 .. `/add /savings /name Standard Bank Investment Account /amount 123.45 /income 5678`
 * Items in square brackets are optional parameters
 ** e.g. `/category [/category TAG]` can be used as:
-.. `/add /bankexpenditure /savings /amount 13.50 /from JunBank Savings Account [/category entertainment]` (with optional
-`category`
-parameter)
+.. `/add /bankexpenditure /amount 13.50 /from JunBank Savings Account /date 1/1/2019 /desc bubble tea [/category
+entertainment]` (with optional `category` parameter)
 .. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0` (without optional `category` parameter)
 
 [WARNING]
@@ -1145,7 +1144,7 @@ do it!
 Finds all transactions with the description `bubble tea` charged to `POBB Tomorrow Card` between `1/1/2019` and
  `7/1/2019`.
 
-==== /list `/list`
+==== Listing multiple details `/list`
 
 Curious to find out your transactions for your accounts? Let us show you how it can be done!
 
@@ -1157,9 +1156,9 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 `/list /goals`
 
-`/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
-
 `/list /bonds /from ACCOUNT_NAME [/num NUMBER]`
+
+`/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
 
 `/list /cardexpenditure /from CARD_NAME [/num NUMBER]`
 
@@ -1186,7 +1185,7 @@ Lists the most recent 60 transactions linked to JunBank Savings Account.
 
 Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
-==== /transfer `/transfer`
+==== Transferring money between accounts `/transfer`
 
 Thinking of transferring money between different accounts? We can do that too.
 
