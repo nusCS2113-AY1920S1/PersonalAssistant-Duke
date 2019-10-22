@@ -230,6 +230,7 @@ public interface CommandParser {
         return desc;
     }
 
+    //@@author yueyeah
     /**
      * Returns a date string if specified in the task.
      *
@@ -295,13 +296,13 @@ public interface CommandParser {
         return priorityField;
     }
 
+    //@@author yueyeah
     /**
      * Parses through user input for /start token and return the start time.
      *
      * @param restOfInput String input of user after command word
      * @return Start time in the form of a String
      * @throws ParserException if start time is not entered after the /start token, or /start token is missing
-     * @author: Yue Jun Yi, yueyeah
      */
     default String getTokenStartTime(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_START_TIME)) {
@@ -342,6 +343,7 @@ public interface CommandParser {
         }
     }
 
+    //@@author yueyeah
     /**
      * Parses through the user input for /final-date token and return the final date of iteration of events/deadline.
      * The presence of the /final-date token must be checked first in the specialised
@@ -350,7 +352,6 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Final date of iteration in the form of a String
      * @throws ParserException if final date is not entered after the /final-date token
-     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenFinalDate(String restOfInput) throws ParserException {
         int startPoint = restOfInput.indexOf(TOKEN_FINAL_DATE);
@@ -413,8 +414,9 @@ public interface CommandParser {
         }
     }
 
+    //@@author yueyeah
     /**
-     * Check if the user input contains the token.
+     * Check if the user input contains the token. Used to check for optional arguments like /final-date.
      *
      * @param restOfInput String input of user after command word
      * @param token       The token to be checked

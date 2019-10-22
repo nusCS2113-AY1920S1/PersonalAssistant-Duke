@@ -5,12 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CompalUtils {
+    //@@author yueyeah
     /**
      * Converts a date string to a Date object.
      *
      * @param dateStr The date string to be converted.
      * @return The date string in the form of a Date object.
-     * @author Yue Jun Yi, yueyeah
      */
     public static Date stringToDate(String dateStr) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -23,6 +23,7 @@ public class CompalUtils {
         return date;
     }
 
+    //@@author yueyeah
     /**
      * Converts a Date object to a date string. Correct type for creating a Task object.
      *

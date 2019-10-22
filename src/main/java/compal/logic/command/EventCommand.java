@@ -9,6 +9,11 @@ import compal.model.tasks.TaskList;
 import java.util.ArrayList;
 import java.util.Date;
 
+//@@author yueyeah
+/**
+ * A command object handles the creation of events, and adds them to the tasklist.
+ * Contains functionality to add multiple recurring events.
+ */
 public class EventCommand extends Command {
 
 
