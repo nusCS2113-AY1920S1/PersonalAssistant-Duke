@@ -92,7 +92,7 @@ public class Task {
     }
 
     /**
-     * Sets the remaining days of reminder.
+     * Set the remaining days of reminder.
      *
      * @param remainingDays The number of days left of the reminded task.
      */
@@ -101,7 +101,7 @@ public class Task {
     }
 
     /**
-     * Sets the remaining days of reminder.
+     * Set the remaining days of reminder.
      *
      * @return boolean that triggers the reminder.
      */
@@ -121,7 +121,7 @@ public class Task {
     }
 
     /**
-     * Sets the priority of one task.
+     * Set the priority of one task.
      *
      * @param  priorityLevel The priority level of the task, 1 to 5, high to low.
      */
@@ -130,7 +130,7 @@ public class Task {
     }
 
     /**
-     * Sets the priority of one task.
+     * Set the priority of one task.
      *
      * @return the priority of the task.
      */
@@ -140,7 +140,7 @@ public class Task {
 
 
     /**
-     * Extracts a task content into readable string.
+     * Extracting a task content into readable string.
      *
      * @return String that contains the status and the description of the task.
      */
@@ -150,7 +150,7 @@ public class Task {
     }
 
     /**
-     * Extracts a task content into readable string (GUI).
+     * Extracting a task content into readable string (GUI).
      *
      * @return String that contains the status and the description of the task.
      */
@@ -159,7 +159,7 @@ public class Task {
     }
 
     /**
-     * Extracts a task content into string that is suitable for text file.
+     * Extracting a task content into string that is suitable for text file.
      *
      * @return String that contains the status and the description of the task.
      */
@@ -183,7 +183,7 @@ public class Task {
     }
 
     /**
-     * Sets the date of the task.
+     * Set the date of the task.
      *
      * @param dateTime String of the date/time.
      * @throws Exception  If there is an error interpreting the user input

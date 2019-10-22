@@ -2,7 +2,6 @@ package duke;
 
 import duke.command.Command;
 import duke.command.ExitCommand;
-import duke.command.BackupCommand;
 import duke.dukeexception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -120,12 +119,6 @@ public class MainWindow extends AnchorPane {
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
                 timer.schedule(exitDuke, new Date(System.currentTimeMillis() + TIMER_DELAY));
-            } else if (cmd instanceof BackupCommand) {
-                duke.saveState(cmd);
-                response = Ui.showBackupMessageGui();
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
             } else {
                 response = duke.executeCommand(cmd);
                 dialogContainer.getChildren().add(

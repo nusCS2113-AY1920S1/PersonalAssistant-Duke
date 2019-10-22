@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     /**
-     * Adds a task into the task list.
+     * To add a task into the task list.
      *
      * @param taskObj a task to be added.
      */
@@ -37,7 +37,7 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the task list.
+     * To remove a task from the task list.
      *
      * @param index The index of task to be removed.
      */
@@ -46,7 +46,7 @@ public class TaskList {
     }
 
     /**
-     * Updates a task with different type.
+     * To update a task with different type.
      *
      * @param index The index of task to be removed.
      * @param taskObj The index of task to be removed.
@@ -56,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     * Gets remaining tasks in the ArrayList.
+     * Get remaining tasks in the ArrayList.
      *
      * @return tasks that represents the items.
      */
@@ -65,7 +65,7 @@ public class TaskList {
     }
 
     /**
-     * Gets the size of the task list.
+     * The size of the task list.
      *
      * @return int that represents the task list size.
      */
