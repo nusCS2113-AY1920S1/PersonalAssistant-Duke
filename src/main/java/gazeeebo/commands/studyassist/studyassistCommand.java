@@ -17,13 +17,20 @@ public class studyassistCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException, DukeException, ParseException {
         System.out.println("Welcome to Study Assist!");
+        StudyPlannerCommand StudyPlan =  new StudyPlannerCommand(storage);
         while(!ui.fullCommand.equals("esc")) {
             String command = ui.fullCommand;
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
                 new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
-            } else if (splitCommand[0].equals("list")) {
-                new studyPlannerCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
+            } else if (splitCommand[0].equals("plan")) {
+                StudyPlan.showPlan();
+            } else if (splitCommand[0].equals("add")) {
+                new addModuleCommand().execute(StudyPlan,storage,ui);
+            } else if (splitCommand[0].equals("delete")) {
+                new deleteModuleCommand().execute(StudyPlan,storage,ui);
+            } else if (splitCommand[0].equals("shift")) {
+                new shiftModuleCommand().execute(StudyPlan,storage,ui);
             }
             ui.readCommand();
         }

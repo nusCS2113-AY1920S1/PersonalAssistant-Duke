@@ -306,11 +306,13 @@ public class Storage {
         if (new File(absolutePath_StudyPlanner).exists()) {
             File file = new File(absolutePath_StudyPlanner);
             Scanner sc = new Scanner(file);
-            for(int i =0;i<5;i++) {
+            for(int i =0;i<8;i++) {
                 if(sc.hasNext()) {
                     String[] split = sc.nextLine().split(" ");
+                    ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                    studyplan.add(temp);
+                } else{
                     ArrayList<String> temp = new ArrayList<String>();
-                    temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
                     studyplan.add(temp);
                 }
             }
@@ -319,8 +321,7 @@ public class Storage {
     }
 
     public void Storage_StudyPlan(String fileContent) throws IOException{
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia,true));
-        fileWriter.newLine();
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_StudyPlanner));
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
