@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.
@@ -107,7 +108,29 @@ public class Ui {
         System.out.println(s);
         System.out.println("\t---------------------------------------------------------------------------------");
     }
-
+    /**
+     * Display the unfinished tasks to the terminal
+     * @param unfinishedTasks the arraylist of unfinished tasks.
+     */
+    public void showUnFinishedTasks(ArrayList<Task> unfinishedTasks){//print the task so they have the same index
+        String result = "";
+        TaskList unfinishedTaskList = new TaskList(unfinishedTasks);
+        for(int i = 0; i < unfinishedTaskList.size(); i++){
+            Task task = unfinishedTaskList.get(i);
+            result += unfinishedTaskList.displayOneElementList(i);
+        }
+        if(result.equals("")){
+            System.out.println("\t---------------------------------------------------------------------------------");
+            System.out.println("\t There are no unfinished tasks in your list");
+            System.out.println("\t---------------------------------------------------------------------------------");
+        }
+        else {
+            System.out.println("\t---------------------------------------------------------------------------------");
+            System.out.println("\t Here are the unfinished tasks in your list:");
+            System.out.println(result);
+            System.out.println("\t---------------------------------------------------------------------------------");
+        }
+    }
     /**
      * Display the list of tasks.
      * @param tasks tasks list.

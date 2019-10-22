@@ -154,7 +154,7 @@
 
 == Glossary
 
-* *Fuzzy matching*: When finding a description with a keyword, if the keyword doesn’t fit any description, the fuzzy matching will try to find descriptions that are close to the keyword.
+* *Fuzzy matching*: When searching for task descriptions via keyword, the "Sorensen-Dice" Fuzzy Matching algorithm is used to return top matches. This ensures that typos in the user query does not affect search performance
 * *Recurrent task*: A task that repeat every day/week/month…
 
 ---

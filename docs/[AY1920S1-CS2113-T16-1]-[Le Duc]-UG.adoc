@@ -18,7 +18,7 @@ By: `[AY1920S1-CS2113-T16-1] Le Duc`
 
 == Introduction
 
-Le Duc ("The Duke" in French) is for students who have both academic and extracurricular lives and have to manage them both. Outside, they have to go to school, work part-time, attend club and have fun at some party. At home, they have to do homework, undertake a project, do some chore, cook some nice food. Pretty busy, right ? With this new tool, a student can manage and organise his time more efficiently.
+Le Duc ("The Duke" in French) is for students who have both academic and extracurricular lives and have to manage them both. Outside, they have to go to school, work part-time, attend club and have fun at some party. At home, they have to do homework, undertake a project, do some chores, cook some nice food. Pretty busy, right? With this new tool, a student can manage and organise his time more efficiently.
 
 == Quick Start
 
@@ -39,7 +39,7 @@ image::Ui.png[width="790"]
 ====
 *Command Format*
 
-* All the blank space must be respected.
+* All whitespaces must be respected.
 * Words in UPPER_CASE are parameters the users have to write:
 - DATE : The date format must be dd/MM/yyyy hh:mm where dd is the days, MM is the months, yyyy is the years, hh is the hours and mm is the minutes.
 - DESCRIPTION: The description of the task
@@ -61,11 +61,11 @@ Example:
 === Adding a todo task:
 
 To add a todo task : `todo DESCRIPTION`
-An option could be add to give a priority to the task : `todo DESCRIPTION prio INDEX`
+An option could be added to give a priority to the task : `todo DESCRIPTION prio INDEX`
 
 Be careful:
 
-* The second INDEX can’t be less than 0 and more than 9.
+* The second INDEX cannot be less than 0 or greater than 9.
 * 0 is the less urgent, 9 is the most urgent
 
 Examples:
@@ -77,11 +77,11 @@ Examples:
 === Adding a deadline task:
 
 To add a deadline task : `deadline DESCRIPTION /by DATE`
-An option could be add to give a priority to the task : `deadline DESCRIPTION /by DATE prio INDEX`
+An option could be added to give a priority to the task : `deadline DESCRIPTION /by DATE prio INDEX`
 
 Be careful:
 
-* The second INDEX can’t be less than 0 and more than 9.
+* The second INDEX can’t be less than 0 or greater than 9.
 * 0 is the less urgent, 9 is the most urgent
 
 Example:
@@ -96,7 +96,7 @@ An option could be add to give a priority to the task : `event DESCRIPTION /at D
 
 Be careful:
 
-* The second INDEX can’t be less than 0 and more than 9.
+* The second INDEX can’t be less than 0 or greater than 9.
 * 0 is the less urgent, 9 is the most urgent
 
 
@@ -112,8 +112,9 @@ Be careful : when creating an event, two dates can’t clash
 
 To find a task by keyword : `find KEYWORD`
 
-The find command will output a list of tasks whose description match with the keyword.
-The list of matched tasks is ordered by a fuzzy matching feature.
+The find command allows the user to search for tasks by keyword.
+The command will return a list of tasks, ordered by ascending relevancy.
+Typos in the user query will not affect performance.
 
 Examples:
 
@@ -175,9 +176,9 @@ Example:
 
 * `reschedule 3 /at 12/12/2020 10:00 - 12/12/2020 12:00`
 
-=== Remind the first three task : `remind`
+=== Reminder for upcoming tasks : `remind`
 
-To remind the first three tasks chronologically : `remind`
+Reminds the user of the 3 most upcoming tasks : `remind`
 
 Example:
 
@@ -187,12 +188,12 @@ Example:
 
 To edit a task: `edit`
 
-Then, you have to follow the instructions:
+To edit a task, follow these instructions:
 
-1. all the tasks will be showed, you have to choose a task INDEX
-2. Depend on the type of task:
-* if it is a todo task, you can enter the new DESCRIPTION of the task
-* if it is not a todo task, you have to choose 1 if you want to edit the description and 2 if you want to edit the date
+1. All of the tasks will be displayed, you have to choose a task INDEX
+2. Depending on the type of task:
+* If it is a todo task, you can enter the new DESCRIPTION of the task
+* If it is not a todo task, you have to choose 1) if you want to edit the description or 2) if you want to edit the date
 - Then, enter the new DESCRIPTION or the new DATE of the task
 
 Examples:
@@ -218,7 +219,7 @@ Example:
 
 Be careful:
 
-*Reverting to the revious welome message is not possible once a new message is set.
+*Reverting to the previous welcome message is not possible once a new message is set.
 *Ensure the directory data is in the correct location
 === Exit the program : `bye`
 
@@ -230,7 +231,7 @@ Example :
 
 === Get some statistics
 
-To get some statistics : `stats`
+Display statistics : `stats`
 
 Example:
 
@@ -263,9 +264,9 @@ SORTTYPE is either date, description, priority
 
 Be careful:
 
-* Sorting by date is from the sooner to the later
-* Sorting by description is sorting the description by alphabetical order
-* Sorting by priority is from the most urgent one to the less urgent one
+* Sorting "by date" will sort tasks in chronological order
+* Sorting "by description" will sort the descriptions in alphabetical order
+* Sorting "by priority" will sort tasks in ascending urgency
 
 Examples:
 
@@ -283,9 +284,9 @@ The second INDEX is the priority (goes from 0 to 9)
 
 Be careful:
 
-* The second INDEX can’t be less than 0 and more than 9.
+* The second INDEX can’t be less than 0 nor greater than 9.
 * 0 is the less urgent, 9 is the most urgent
-* When creating a task, you can either specify the priority or not. When the priority is not specified, the task will have a priority of 5.
+* When creating a task, specifying the priority is optional. When the priority is not specified, the task will automatically have a priority of 5.
 
 Example:
 
@@ -317,7 +318,23 @@ For each command, the console will output the command name.
 
 The user (you) have to input the shortcut you want.
 
-If the shortcut already exist, the console will tell you to assign another shortcut
+If the shortcut already exists, the console will tell you to assign another shortcut
+
+=== View Unfinished tasks
+
+Find and display all unfinished tasks
+
+Output:
+
+ Here are the unfinished tasks in your list:
+         1. [T][✗] td1 [Priority: 5]
+         2. [D][✗] d1 by: 14/09/2019 22:33 [Priority: 5]
+         3. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+         4. [T][✗] td4 [Priority: 5]
+         5. [T][✗] td5 [Priority: 5]
+
+        ---------------------------------------------------------------------------------
+
 
 
 === Create task list (not implemented yet)
