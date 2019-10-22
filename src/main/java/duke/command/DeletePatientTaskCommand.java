@@ -1,22 +1,14 @@
 package duke.command;
 
-import duke.core.DateTimeParser;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.relation.EventPatientTask;
 import duke.relation.PatientTask;
-import duke.relation.StandardPatientTask;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
-import duke.task.Task;
+import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DeletePatientTaskCommand extends Command {
@@ -36,15 +28,15 @@ public class DeletePatientTaskCommand extends Command {
         char firstChar = deleteInfo.charAt(0);
         try {
             if (firstChar == '#') {
-                this.patientId = Integer.parseInt(deleteInfo.replace("#","").trim());
+                this.patientId = Integer.parseInt(deleteInfo.substring(1));
             } else if (firstChar == '%') {
-                this.taskId = Integer.parseInt(deleteInfo.replace("%","").trim());
+                this.taskId = Integer.parseInt(deleteInfo.substring(1));
             } else {
                 this.deletedPatientInfo = deleteInfo;
             }
         } catch (Exception e) {
-            throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>"
-                    + "/<patientName>. ");
+            throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>/"
+                    + "<patientName>");
         }
 
     }
@@ -55,30 +47,30 @@ public class DeletePatientTaskCommand extends Command {
      * @param tasks .
      * @param patientManager .
      * @param ui .
-     * @param patientTaskStorage .
-     * @param taskStorage .
-     * @param patientStorage .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasks, PatientManager patientManager, Ui ui,
-                        PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage)
+                        StorageManager storageManager)
             throws DukeException {
         if (patientId != 0) {
             try {
                 Patient toBeDeletedPatient = patientManager.getPatient(patientId);
-                if (patientTaskList.isPatientIdExist(patientId)) {
-                    patientTaskList.deleteEntirePatientTask(patientId);
-                    patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                if (patientTaskList.doesPatientIdExist(patientId)) {
+                    patientTaskList.deleteAllTasksBelongToThePatient(patientId);
+                    storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
                     ui.patientTaskAllDeleted(patientManager.getPatient(patientId));
+                } else {
+                    throw new DukeException("This Patient does not have any tasks.");
                 }
             } catch (DukeException e) {
-                throw new DukeException("Patient is not found!");
+                throw new DukeException(e.getMessage());
             }
         } else if (taskId != 0) {
             try {
                 patientTaskList.deletePatientTaskByUniqueId(taskId);
-                patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
                 ui.patientTaskDeleted(taskId);
             } catch (DukeException e) {
                 throw new DukeException("Task is not found!");
@@ -87,13 +79,16 @@ public class DeletePatientTaskCommand extends Command {
             try {
                 String patientName = this.deletedPatientInfo;
                 ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(patientName);
-                if (patientTaskList.isPatientIdExist(patientsWithSameName.get(0).getID())) {
-                    patientTaskList.deleteEntirePatientTask(patientsWithSameName.get(0).getID());
-                    patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-                    ui.patientTaskAllDeleted(patientManager.getPatient(patientsWithSameName.get(0).getID()));
+                int tempPatientId = patientsWithSameName.get(0).getID();
+                if (patientTaskList.doesPatientIdExist(tempPatientId)) {
+                    patientTaskList.deleteAllTasksBelongToThePatient(tempPatientId);
+                    storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
+                    ui.patientTaskAllDeleted(patientManager.getPatient(tempPatientId));
+                } else {
+                    throw new DukeException("This Patient does not have any tasks.");
                 }
             } catch (Exception e) {
-                throw new DukeException("Patient is not found!");
+                throw new DukeException(e.getMessage());
             }
         }
     }

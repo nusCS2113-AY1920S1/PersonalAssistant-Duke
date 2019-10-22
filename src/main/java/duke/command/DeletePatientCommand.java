@@ -4,14 +4,9 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
+import duke.storage.StorageManager;
 import duke.task.TaskManager;
-
 
 import java.util.ArrayList;
 
@@ -41,19 +36,16 @@ public class DeletePatientCommand extends Command {
     /**
      * .
      *
-     * @param patientTask        .
-     * @param tasks              .
-     * @param patientManager     .
-     * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param patientTask    .
+     * @param tasks          .
+     * @param patientManager .
+     * @param ui             .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
-                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage) throws DukeException {
+                        Ui ui, StorageManager storageManager) throws DukeException {
 
         if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
@@ -61,7 +53,7 @@ public class DeletePatientCommand extends Command {
             if (toDelete) {
                 patientManager.deletePatient(id);
                 ui.patientDeleted();
-                patientStorage.save(patientManager.getPatientList());
+                storageManager.savePatients(patientManager.getPatientList());
             }
         } else {
             ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
@@ -73,7 +65,7 @@ public class DeletePatientCommand extends Command {
                     if (toDelete) {
                         patientManager.deletePatient(patientsWithSameName.get(numberChosen - 1).getID());
                         ui.patientDeleted();
-                        patientStorage.save(patientManager.getPatientList());
+                        storageManager.savePatients(patientManager.getPatientList());
                     }
                 }
             }

@@ -23,7 +23,7 @@ public class EventPatientTask extends PatientTask {
      * @param etime .
      * @param type  .
      */
-    public EventPatientTask(int pid, int tid, String stime, String etime, String type) {
+    public EventPatientTask(int pid, int tid, String stime, String etime, String type) throws DukeException {
         super(pid, tid, type);
         this.startTimeRaw = stime;
         this.endTimeRaw = etime;
@@ -31,7 +31,7 @@ public class EventPatientTask extends PatientTask {
             this.startTime = DateTimeParser.convertToLocalDateTime(stime);
             this.endTime = DateTimeParser.convertToLocalDateTime(etime);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException("The date time format is wrong!");
         }
 
         duration = Duration.between(startTime, endTime).toMillis();
@@ -49,7 +49,7 @@ public class EventPatientTask extends PatientTask {
      * @param type         .
      */
     public EventPatientTask(int pid, int tid, boolean isDone,
-                            boolean isRecurrsive, String stime, String etime, String type) {
+                            boolean isRecurrsive, String stime, String etime, String type) throws DukeException {
         super(pid, tid, isDone, isRecurrsive, type);
         this.startTimeRaw = stime;
         this.endTimeRaw = etime;
@@ -57,7 +57,7 @@ public class EventPatientTask extends PatientTask {
             this.startTime = DateTimeParser.convertToLocalDateTime(stime);
             this.endTime = DateTimeParser.convertToLocalDateTime(etime);
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            throw new DukeException("The date time format is wrong!");
         }
 
         duration = Duration.between(startTime, endTime).toMillis();
@@ -142,7 +142,7 @@ public class EventPatientTask extends PatientTask {
     public String toString() {
         return super.printStatus() + " From " + DateTimeParser
                 .convertToEnglishDateTimeBeforeParse(startTime)
-                + "To"
+                + " To "
                 + DateTimeParser.convertToEnglishDateTimeBeforeParse(endTime);
     }
 

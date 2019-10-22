@@ -6,11 +6,7 @@ import duke.patient.Patient;
 import duke.patient.PatientManager;
 import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
+import duke.storage.StorageManager;
 import duke.task.Task;
 import duke.task.TaskManager;
 
@@ -37,29 +33,26 @@ public class FindPatientTaskCommand extends Command {
      * @param tasksManager       .
      * @param patientManager     .
      * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksManager, PatientManager patientManager,
-                        Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+                        Ui ui, StorageManager storageManager) throws DukeException {
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
-            try {
-                id = Integer.parseInt(command.substring(1, command.length()));
-                Patient patient = patientManager.getPatient(id);
+            id = Integer.parseInt(command.substring(1, command.length()));
+            Patient patient = patientManager.getPatient(id);
+            if (patientTaskList.doesPatientIdExist(id)) {
                 ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(id);
                 ArrayList<Task> tempTask = new ArrayList<>();
-                for (PatientTask temppatientTask : patientTask) {
-                    tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
+                for (PatientTask tempPatientTask : patientTask) {
+                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patient, patientTask, tempTask);
-            } catch (Exception e) {
-                throw new DukeException(e.getMessage());
+            } else {
+                throw new DukeException("This patient does not have any tasks.");
             }
         } else {
             String name = command.toLowerCase();
@@ -73,13 +66,13 @@ public class FindPatientTaskCommand extends Command {
                         patientWithTask = patientTaskList.getPatientTask(patient.getID());
                     }
                 }
-                for (PatientTask temppatientTask : patientWithTask) {
-                    tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
+                for (PatientTask tempPatientTask : patientWithTask) {
+                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
 
             } catch (Exception e) {
-                throw new DukeException("You may entered the wrong format or the patient does not have any tasks");
+                throw new DukeException("The patient does not have any tasks");
             }
         }
     }

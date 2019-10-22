@@ -97,7 +97,7 @@ public class PatientTaskList {
      *
      * @return .
      */
-    public boolean isIdExist(int id) {
+    public boolean doesUidExist(int id) {
         for (PatientTask patientTask: patientTaskIdMap.values()) {
             if (patientTask.getUid() == id) {
                 return true;
@@ -111,7 +111,7 @@ public class PatientTaskList {
      *
      * @return .
      */
-    public boolean isPatientIdExist(int id) {
+    public boolean doesPatientIdExist(int id) {
         if (patientTaskIdMap.containsKey(id)) {
             return true;
         }
@@ -138,7 +138,7 @@ public class PatientTaskList {
      * @param pid .
      * @throws DukeException .
      */
-    public void deleteEntirePatientTask(Integer pid) throws DukeException {
+    public void deleteAllTasksBelongToThePatient(Integer pid) throws DukeException {
         if (patientTaskIdMap.containsKey(pid)) {
             patientTaskIdMap.removeAll(pid);
         } else {
