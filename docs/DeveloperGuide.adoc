@@ -112,6 +112,36 @@ The `statusArr` stores the textual description of each numerical value for the `
 
 [[Design-Storage]]
 === Storage System 
+image::ClassDiagramData.png[]
+
+This class diagram describes the relationship between the Storage class, `GsonStorage`, the patient class, `Patient`, and the other classes used to describe and handle patient data. 
+ 
+The storage/load mechanism is facilitated by `GsonStorage`. `GsonStorage` uses the Google-developed Java Library `Gson 2.8.6`. `Gson` is a library that can be used to convert Java Objects into their `JSON` representation. It can also be used to convert `JSON` representations back to the equivalent Java` Object. For more information about `Gson` refer to the `Gson` User Guide at https://github.com/google/gson/blob/master/UserGuide.md. 
+ 
+The `JSON` representations of the patients are stored in a `JSON` file called `patients.json`. 
+ 
+ 
+`GsonStorage` implements the following operations: 
+
+* `HashMap<String, Patient> loadPatientHashMap()`- Loads all the patients in `patients.json` to the hashmap `patientObservableMap`
+
+* `void writeJsonFile(HashMap<String, Patient> patientMap)`- Creates an array containing the patients in `patientObservableMap` and writes the arrays `JSON` representation to `patients.json`
+
+* `String getFilePath()`- returns the filepath to `patients.json`
+
+* `PatientMap resetAllData()`- Clears `patients.json` and returns an empty hash map
+
+ 
+When the user boots `Dr.Duke` a `GsonStorage` and a `PatientMap` object is created. The method `loadPatientHashmap` in `GsonStorage` is then executed which extracts all the `JSON` representations of the patients in `patients.json` as a string. The `GSON` method `fromJson()` is then executed on the `JSON` representation of the patients which creates the equivalent java array contaning `Patient` objects. The array is iterated through and every patient is loaded into the `patientObservableMap` attribute of the `PatientMap` object. 
+ 
+During runtime, every new patient that is created is stored in the `patientObservableMap`. 
+ 
+When the user shuts down `Dr.Duke` the `patientObservableMap` is sent back to the `GsonStorage` object by calling the `writeJsonFile` method on the `GsonSotrage` object. The `writeJsonFile` method iterates through the `patientObservableMap` and places every `Patient` object in a java array. When all the patients are in the array the arrays `JSON` representation is created using the `Gson` method `toJson()`. The context of the `patient.son` file is then cleared and the new `JSON` representation of the array containing all the patients is written to the `patient.json` file which concludes the storage circle. 
+ 
+As can be seen in the class diagram, every individual's patient's data in nested from the `Patient` object representing that patient. The diagram also displays that there are no circle references. For these two reasons, using `Gson` to store all the data about the different patients is very convenient and effective as everything can be stored by simply creating the `JSON` representations of each `Patient` object and the rest of the nesting will be parsed automatically by the `Gson` source code. 
+ 
+If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s. 
+
 
 [appendix]
 == Product Scope
