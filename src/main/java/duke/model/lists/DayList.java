@@ -19,6 +19,10 @@ public class DayList implements Iterable<Day> {
         return list.size();
     }
 
+    public List<Day> getList(){
+        return list;
+    }
+
 
     /**
      * Adds a Day to the list.

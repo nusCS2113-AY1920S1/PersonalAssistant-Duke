@@ -6,6 +6,7 @@ import duke.model.events.Task;
 import duke.model.lists.EventList;
 import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
+import duke.model.planning.Day;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
@@ -55,8 +56,9 @@ public interface Model {
 
     /**
      * Returns the list of all attractions.
+     * @return
      */
-    List<Venue> getRecommendations() throws DukeException;
+    List<Day> getRecommendations() throws DukeException;
 
     /**
      * Saves the Model data in storage.

@@ -1,9 +1,10 @@
 package duke.logic.commands;
 
-import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.locations.Venue;
+import duke.model.planning.Day;
+import duke.model.planning.Itinerary;
 
 import java.util.List;
 
@@ -11,10 +12,10 @@ import java.util.List;
  * Class representing a command to list items in a task list.
  */
 public class RecommendationsCommand extends Command {
-    private int days;
+    private Itinerary itinerary;
 
-    public RecommendationsCommand(int days) {
-        this.days = days;
+    public RecommendationsCommand(Itinerary itinerary) {
+        this.itinerary = itinerary;
     }
 
     /**
@@ -24,25 +25,21 @@ public class RecommendationsCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        List<Venue> list = model.getRecommendations();
 
-        StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
-                + days + " days:\n");
+        List<Day> list = model.getRecommendations();
 
         assert (!list.isEmpty()) : "list should not be null";
 
-        for (int i = 0; i < 2 * days; i++) {
-            if (i % 2 == 0) {
-                result.append("Day ").append((i / 2) + 1).append(":").append("\n");
-            }
-            result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
-        }
+        itinerary.setTasks(list);
+
+        StringBuilder result = itinerary.printItinerary();
 
         // Until more locations are added
 
-        if (days > 7) {
+        if (itinerary.getNumberOfDays() > 7) {
             throw new DukeException("Too many days, enter less than 8 ");
         }
+
         return new CommandResultText(result.toString());
     }
 }

@@ -8,6 +8,8 @@ import duke.model.events.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
+import duke.model.planning.Day;
+import duke.model.planning.Todo;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
@@ -125,13 +127,22 @@ public class Storage {
      * @return The List of all Venues in Recommendations list.
      */
 
-    public List<Venue> readVenues() {
-        List<Venue> recommendations = new ArrayList<>();
+    public List<Day> readVenues() {
+        List<Day> recommendations = new ArrayList<>();
+
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
+        int i = 1;
         while (s.hasNext()) {
-            recommendations.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            List<Venue> venueList = new ArrayList<>();
+            venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
+            venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            todoList.addAll(ParserStorageUtil.getTodoListFromStorage(s.nextLine()));
+            Day day = new Day(todoList, venueList, i++);
+            recommendations.add(day);
         }
         s.close();
+
         return recommendations;
     }
 

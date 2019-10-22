@@ -59,7 +59,7 @@ public class Parser {
             return new FindPathCommand(input.strip().split(" ")[1], getEventIndexInList(1, input),
                     getEventIndexInList(2, input));
         case "recommend":
-            return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);
+            return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
