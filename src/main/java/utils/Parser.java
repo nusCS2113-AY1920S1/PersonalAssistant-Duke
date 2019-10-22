@@ -295,7 +295,8 @@ public class Parser {
      * if the method cannot recognize the word, return the original word.
      */
     public static String commandCorrector(String command) {
-        String[] dict = {"HELP", "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE"};
+        String[] dict = {"HELP", "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING",
+                "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
