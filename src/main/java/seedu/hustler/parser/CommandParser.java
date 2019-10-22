@@ -1,11 +1,11 @@
 package seedu.hustler.parser;
 
 import seedu.hustler.command.Command;
-import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
-import seedu.hustler.command.avatarCommand.SetNameCommand;
-import seedu.hustler.command.shopCommand.BuyCommand;
-import seedu.hustler.command.shopCommand.ShopListCommand;
-import seedu.hustler.command.taskCommand.*;
+import seedu.hustler.command.avatar.CheckAvatarCommand;
+import seedu.hustler.command.avatar.SetNameCommand;
+import seedu.hustler.command.shop.BuyCommand;
+import seedu.hustler.command.shop.ShopListCommand;
+import seedu.hustler.command.task.*;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;

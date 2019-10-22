@@ -1,4 +1,4 @@
-package seedu.hustler.command.avatarCommand;
+package seedu.hustler.command.avatar;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;

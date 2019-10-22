@@ -1,4 +1,4 @@
-package seedu.hustler.command.shopCommand;
+package seedu.hustler.command.shop;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
