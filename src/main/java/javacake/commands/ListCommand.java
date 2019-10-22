@@ -1,11 +1,10 @@
 package javacake.commands;
 
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
-import javacake.topics.MainList;
+import javacake.storage.Profile;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
 
 public class ListCommand extends Command {
     public ListCommand() {
@@ -20,11 +19,8 @@ public class ListCommand extends Command {
      * @param profile Profile of the user
      */
     @Override
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
-        String output = "";
-        MainList ml = new MainList();
-        output = ml.printList();
-        progressStack.forceToMainList();
-        return output;
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+        progressStack.setDefaultFilePath();
+        return (progressStack.processQueries());
     }
 }

@@ -1,1 +1,0 @@
-An interface implements methods that can be inherited by its subclasses. T/F? | F

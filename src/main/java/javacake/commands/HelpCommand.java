@@ -1,10 +1,10 @@
 package javacake.commands;
 
-import javacake.DukeException;
-import javacake.Profile;
+import javacake.exceptions.DukeException;
+import javacake.storage.Profile;
 import javacake.ProgressStack;
-import javacake.Storage;
-import javacake.Ui;
+import javacake.storage.Storage;
+import javacake.ui.Ui;
 
 public class HelpCommand extends Command {
     public HelpCommand(String str) {
@@ -19,6 +19,7 @@ public class HelpCommand extends Command {
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {

@@ -1,10 +1,9 @@
 package javacake.commands;
 
-import javacake.DukeException;
-import javacake.Profile;
+import javacake.storage.Profile;
 import javacake.ProgressStack;
-import javacake.Storage;
-import javacake.Ui;
+import javacake.storage.Storage;
+import javacake.ui.Ui;
 
 public class ScoreCommand extends Command {
 
@@ -18,6 +17,7 @@ public class ScoreCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {

@@ -1,12 +1,10 @@
 package javacake.commands;
 
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
-
-import java.io.IOException;
+import javacake.storage.Profile;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
 
 public class BackCommand extends Command {
 
@@ -23,34 +21,14 @@ public class BackCommand extends Command {
      * @throws DukeException Error thrown when unable to close file reader
      */
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
-        if (progressStack.checkProgress() == 2) {
-            progressStack.listIndexToMainList();
-            ListCommand listCommand = new ListCommand();
-            return listCommand.execute(progressStack, ui, storage, profile);
 
-        } else if (progressStack.checkProgress() == 1) {
-            ListCommand listCommand = new ListCommand();
-            return listCommand.execute(progressStack, ui, storage, profile);
-
-        } else if (progressStack.checkProgress() == 3) {
-            int previousState = progressStack.checkPreviousState();
-
-            if (previousState == 3) {
-                progressStack.clearCurrentState();
-                GoToCommand goToCommand = new GoToCommand("goto 3");
-                return goToCommand.execute(progressStack, ui, storage, profile);
-
-            } else if (previousState == 2) {
-                progressStack.clearCurrentState();
-                GoToCommand goToCommand = new GoToCommand("goto 2");
-                return goToCommand.execute(progressStack, ui, storage, profile);
-
-            } else if (previousState == 1) {
-                progressStack.clearCurrentState();
-                GoToCommand goToCommand = new GoToCommand("goto 1");
-                return goToCommand.execute(progressStack, ui, storage, profile);
-            }
+        progressStack.backToPreviousPath();
+        progressStack.insertQueries();
+        if (progressStack.containsDirectory()) {
+            return (progressStack.displayDirectories());
+        } else {
+            progressStack.updateFilePath(progressStack.gotoFilePath(0));
+            return (progressStack.readQuery());
         }
-        return "ErrorAtBackCommand\n";
     }
 }

@@ -1,117 +1,241 @@
 package javacake;
 
-import java.util.Stack;
+import javacake.exceptions.DukeException;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.security.CodeSource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 
 public class ProgressStack {
-    private Stack<Integer> currentProgress = new Stack<Integer>();
+    private String defaultFilePath = "content/MainList";
+    private static String currentFilePath = "content/MainList";
+
+    private List<String> listOfFiles = new ArrayList<>();
+    private static boolean isDirectory = true;
 
     public ProgressStack() {
 
     }
 
     /**
-     * Forces the progress to MainList.
+     * Returns the starting file path to application content.
+     * @return starting file path to application content.
      */
-    public void forceToMainList() {
-        if (checkProgress() == 0) {
-            currentProgress.push(1);
+    public String getDefaultFilePath() {
+        return defaultFilePath;
+    }
+
+    /**
+     * Stores all files in the currentFilePath into listOfFiles.
+     */
+    public void loadFiles() throws DukeException {
+        String[] tempListFiles = currentFilePath.split("/");
+        int currFileSlashCounter = tempListFiles.length;
+        listOfFiles.clear();
+        try {
+            CodeSource src = ProgressStack.class.getProtectionDomain().getCodeSource();
+            boolean isJarMode = true;
+            if (src != null) { //jar
+                URL jar = src.getLocation();
+                ZipInputStream zip = new ZipInputStream(jar.openStream());
+                while (true) {
+                    ZipEntry e = zip.getNextEntry();
+                    if (e == null) {
+                        isJarMode = false;
+                        break;
+                    }
+                    String name = e.getName();
+                    //System.out.println(name);
+                    if (name.startsWith(currentFilePath)) {
+                        String[] listingFiles = name.split("/");
+                        if (listingFiles.length == currFileSlashCounter + 1) {
+                            System.out.println(name + " == " + currFileSlashCounter);
+                            listOfFiles.add(listingFiles[currFileSlashCounter]);
+                        }
+                    }
+                }
+            }
+
+            if (!isJarMode) { //non-jar
+                InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                String currentLine;
+                while ((currentLine = br.readLine()) != null) {
+                    //System.out.println(currentLine);
+                    listOfFiles.add(currentLine);
+                }
+                br.close();
+            }
+        } catch (NullPointerException | IOException e) {
+            throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+        }
+    }
+
+    /**
+     * Method is only invoked when List command is called.
+     */
+    public void setDefaultFilePath() {
+        currentFilePath = defaultFilePath;
+    }
+
+    public String getFullFilePath() {
+        return currentFilePath;
+    }
+
+    /**
+     * Method is invoked when GoTo command is called.
+     * Based on the index, return the particular filePath.
+     *
+     * @param index Index of the new path found in filePathQueries.
+     * @return the particular filePath based on the input index.
+     */
+    public String gotoFilePath(int index) throws DukeException {
+
+        try {
+            return listOfFiles.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(e.getMessage() + "\n Pls key 'back' or 'list' to view previous content");
+        }
+    }
+
+    /**
+     * Update the currentFilePath by concatenating the updatedPath.
+     * updatedPath is given by gotoFilePath method.
+     *
+     * @param updatedPath particular path to be updated into currentFilePath.
+     */
+    public void updateFilePath(String updatedPath) {
+        currentFilePath += ("/" + updatedPath);
+    }
+
+    /**
+     * Checks if file in currentFilePath is a directory or file.
+     * Returns once if it is a directory.
+     * Returns twice if it is a file.
+     * Used for BackCommand.
+     */
+    public void backToPreviousPath() {
+        if (!currentFilePath.equals(defaultFilePath)) {
+            if (!currentFilePath.contains(".txt")) {
+                currentFilePath = gotoParentFilePath(currentFilePath);
+            } else {
+                currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
+            }
+        }
+    }
+
+    /**
+     * Creates a file path to parent directory by
+     * removing child file or directory name from filePath.
+     * @param filePath input file path to be reduced.
+     * @return file path to parent directory relative to initial file path.
+     */
+    public String gotoParentFilePath(String filePath) {
+        String[] filesCapture = filePath.split("/");
+        StringBuilder reducedFilePath = new StringBuilder();
+        for (int i = 0; i < filesCapture.length - 1; i++) {
+            reducedFilePath.append(filesCapture[i]).append("/");
+        }
+        String finalTrim = reducedFilePath.toString();
+        finalTrim = finalTrim.substring(0, finalTrim.length() - 1);
+        return finalTrim;
+    }
+
+
+    /**
+     * Displays the all directories found in currentFilePath.
+     */
+    public String displayDirectories() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the ").append(listOfFiles.size()).append(" subtopics available!\n");
+        for (String queries : listOfFiles) {
+            sb.append(queries).append("\n");
+        }
+        sb.append("Key in the index to learn more about the topic!").append("\n");
+        return sb.toString();
+    }
+
+    /**
+     * Reads the content in content text file.
+     *
+     * @throws DukeException When the text file in currentFilePath is not found.
+     */
+    public String readQuery() throws DukeException {
+        try {
+            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(currentFilePath);
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder sb = new StringBuilder();
+            String sentenceRead;
+            while ((sentenceRead = br.readLine()) != null) {
+                sb.append(sentenceRead).append("\n");
+            }
+            br.close();
+            return sb.toString();
+        } catch (IOException e) {
+            throw new DukeException("FILE DED BRO");
+        }
+    }
+
+    /**
+     * Checks current directory contains directory or text files.
+     *
+     * @return true if current directory contains directory.
+     */
+    public boolean containsDirectory() {
+        if (isDirectory) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Calls insertQueries method to instantiate new file paths.
+     * Checks if new file path accesses a directory or file.
+     * If directory, display all the file names within the directory.
+     * Else read the content of the text file.
+     * @return String of formatted file names or text file content.
+     * @throws DukeException when file or directory is not found.
+     */
+    public String processQueries() throws DukeException {
+        insertQueries();
+        if (isDirectory) {
+            return displayDirectories();
         } else {
-            // only push progress when current screen is at main screen.
-            while (checkProgress() > 1) {
-                forceClearProgress();
-                // when list command is entered, progress is automatically cleared to main list.
-                // checkProgress stack size is forced to 1.
+            return readQuery();
+        }
+    }
+
+    /**
+     * Clears all file paths in filePathQueries.
+     * Load all files in currentFilePath.
+     * Update isDirectory if current directory contains directories.
+     * Adds new list of file names in filePathQueries to be processed.
+     */
+    public void insertQueries() throws DukeException {
+        clearQueries();
+        loadFiles();
+        for (String listOfFile : listOfFiles) {
+            if (listOfFile.contains(".txt")) {
+                isDirectory = false;
+            } else {
+                isDirectory = true;
             }
         }
 
     }
 
-    /**
-     * Goes to List Index 1.
-     */
-    public void mainListToListIndex1() {
-        if (checkProgress() == 1) {
-            currentProgress.push(1);
-        }
-    }
-
-    /**
-     * Goes to List Index 2.
-     */
-    public void mainListToListIndex2() {
-        if (checkProgress() == 1) {
-            currentProgress.push(2);
-        }
-    }
-
-    /**
-     * Goes to List Index 3.
-     */
-    public void mainListToListIndex3() {
-        if (checkProgress() == 1) {
-            currentProgress.push(3);
-        }
-    }
-
-    /**
-     * Goes to Main List.
-     */
-    public void listIndexToMainList() {
-        if (checkProgress() == 2) {
-            currentProgress.pop();
-        }
-    }
-
-    /**
-     * Goes to Sub List Index 1.
-     */
-    public void listIndexToSubList() {
-        if (checkProgress() == 2) {
-            currentProgress.push(1);
-        }
-    }
-
-    /**
-     * Clears progress from the stack.
-     */
-    public void forceClearProgress() {
-        currentProgress.pop();
-    }
-
-    /**
-     * Checks the current location in the programme stack.
-     * @return the size of the stack which indicates the location.
-     */
-    public int checkProgress() {
-        return currentProgress.size();
-    }
-
-    /**
-     * Checks for the specific branch in the programme stack.
-     * Each number indicates a branch based on the index of the list.
-     * @return the number of the branch or the index of a particular list.
-     */
-    public int checkProgressState() {
-        return currentProgress.peek();
-    }
-
-    /**
-     * Used only for BACK command.
-     * To check for the previous state stored in the stack.
-     * @return the number of the branch or the index of a particular list
-     *         in the previous state.
-     */
-    public int checkPreviousState() {
-        clearCurrentState();
-        return checkProgressState();
-    }
-
-    /**
-     * Used only for BACK command.
-     * To clear the current state of the stack.
-     */
-    public void clearCurrentState() {
-        currentProgress.pop();
+    public void clearQueries() {
+        listOfFiles.clear();
     }
 
 }

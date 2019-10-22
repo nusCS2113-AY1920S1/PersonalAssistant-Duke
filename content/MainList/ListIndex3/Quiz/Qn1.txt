@@ -1,4 +1,0 @@
-What should you NOT do to handle an exception in main?
-    a. Rethrow the exception
-    b. Print error message
-    c. Call backup method | a

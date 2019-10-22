@@ -1,14 +1,18 @@
 package javacake.commands;
 
-import javacake.DukeException;
-import javacake.Profile;
+import javacake.Duke;
+import javacake.exceptions.DukeException;
+import javacake.storage.Profile;
 import javacake.ProgressStack;
-import javacake.Storage;
-import javacake.Ui;
+import javacake.storage.Storage;
+import javacake.ui.TopBar;
+import javacake.ui.Ui;
 import javacake.quiz.Question;
 import javacake.quiz.QuestionList;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QuizCommand extends Command {
     private QuestionList questionList;
@@ -17,6 +21,11 @@ public class QuizCommand extends Command {
     private Question prevQuestion;
     private int currScore = 0;
     private static Profile profile;
+    public ScoreGrade scoreGrade;
+
+    public enum ScoreGrade {
+        BAD, OKAY, GOOD
+    }
 
     /**
      * QuizCommand constructor for overall quiz.
@@ -54,9 +63,12 @@ public class QuizCommand extends Command {
      * @param storage Storage to write updated data.
      * @param profile Profile of the user.
      * @throws DukeException Error thrown when there is a problem with score calculation.
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+        progressStack.insertQueries();
+        assert !progressStack.containsDirectory();
         for (int i = 0; i < QuestionList.MAX_QUESTIONS; i++) {
             Question question = chosenQuestions.get(i);
             ui.displayQuiz(question.getQuestion(), i + 1, QuestionList.MAX_QUESTIONS);
@@ -87,10 +99,10 @@ public class QuizCommand extends Command {
     public void overwriteOldScore(int score, Profile profile) throws DukeException {
         int topicIdx;
         switch (qnType) {
-        case OOP:
+        case BASIC:
             topicIdx = 0;
             break;
-        case BASIC:
+        case OOP:
             topicIdx = 1;
             break;
         case EXTENSIONS:
@@ -103,12 +115,26 @@ public class QuizCommand extends Command {
             throw new DukeException("Topic Idx out of bounds!");
         }
         if (score > profile.getContentMarks(topicIdx)) {
-            if (score < 0.5 * QuestionList.MAX_QUESTIONS) {
-                profile.setMarks(topicIdx, 1);
-            } else if (score >= 0.5 && score < QuestionList.MAX_QUESTIONS) {
-                profile.setMarks(topicIdx, 2);
-            } else {
-                profile.setMarks(topicIdx, 3);
+            profile.setMarks(topicIdx, score);
+            if (!Duke.isCliMode()) {
+                switch (topicIdx) {
+                case 0:
+                    Duke.logger.log(Level.INFO, score + " YEET");
+                    TopBar.progValueA = (double) score / QuestionList.MAX_QUESTIONS;
+                    break;
+                case 1:
+                    TopBar.progValueB = (double) score / QuestionList.MAX_QUESTIONS;
+                    break;
+                case 2:
+                    TopBar.progValueC = (double) score / QuestionList.MAX_QUESTIONS;
+                    break;
+                case 3:
+                    TopBar.progValueD = (double) score / QuestionList.MAX_QUESTIONS;
+                    break;
+
+                default:
+                }
+                TopBar.progValueT = (double) profile.getTotalProgress() / (QuestionList.MAX_QUESTIONS * 4);
             }
         }
     }
@@ -146,12 +172,15 @@ public class QuizCommand extends Command {
 
         if ((double)currScore / QuestionList.MAX_QUESTIONS <= 0.5) {
             stringBuilder.append("Aw, that's too bad! Try revising the topics and try again. Don't give up!");
+            scoreGrade = ScoreGrade.BAD;
         } else if ((double)currScore / QuestionList.MAX_QUESTIONS != 1.0) {
             stringBuilder.append("Almost there! Clarify some of your doubts and try again.");
+            scoreGrade = ScoreGrade.OKAY;
         } else {
             stringBuilder.append("Congrats! Full marks, you're amazing!");
+            scoreGrade = ScoreGrade.GOOD;
         }
-        stringBuilder.append("Type \"back\" to go back to the table of contents.");
+        stringBuilder.append("\nType \"back\" to go back to the table of contents.");
 
         overwriteOldScore(currScore, profile);
 
