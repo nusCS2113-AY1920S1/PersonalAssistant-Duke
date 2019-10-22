@@ -13,13 +13,9 @@ public class ToDo extends Task {
 	 * Constructs a task which has no fixed duration to complete
 	 * @param description the description of the duke.task.ToDo
 	 */
-	public ToDo(String description, Optional<String> filter, String recurrencePeriod) {
-		super(description, filter, recurrencePeriod);
+	public ToDo(String description, Optional<String> filter, String recurrencePeriod, int duration) {
+		super(description, filter, recurrencePeriod, duration);
 		this.key = "[T]";
-	}
-
-	public ToDo(String description, Optional<String> filter) {
-		this(description, filter, "none");
 	}
 
 	@Override

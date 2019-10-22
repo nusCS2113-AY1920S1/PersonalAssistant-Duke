@@ -21,14 +21,10 @@ public class Deadline extends Task {
      * @param description the description of the deadline
      * @param by          the date and time which the deadline should be done by
      */
-    public Deadline(String description, Optional<String> filter, LocalDateTime by, String recurrencePeriod) {
-        super(description, filter, recurrencePeriod);
+    public Deadline(String description, Optional<String> filter, String recurrencePeriod, int duration, LocalDateTime by) {
+        super(description, filter, recurrencePeriod, duration);
         this.datetime = by;
         this.key = "[D]";
-    }
-
-    public Deadline(String description, Optional<String> filter, LocalDateTime by) {
-        this(description, filter, by, "none");
     }
 
     public LocalDateTime getDateTime() {
