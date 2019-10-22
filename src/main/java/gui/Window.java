@@ -29,13 +29,16 @@ public class Window {
     private JTextField inputField;
     private TasksCounter tasksCounter;
 
-    public static JTextArea outputArea;
+    public static Window instance;
+    public JTextArea outputArea;
+    
     private JTextField completedPercField;
 
     /**
      * Create the application.
      */
     public Window(TasksCounter tc) {
+    	Window.instance = this;
     	this.tasksCounter = tc;
         initialize();
         this.frame.setVisible(true);
@@ -93,7 +96,7 @@ public class Window {
                 inputField.requestFocus();
             }
         });
-        Window.outputArea = outputArea;
+        this.outputArea = outputArea;
         
         JPanel panel2 = new JPanel();
         panel2.setLayout(null);
@@ -119,5 +122,9 @@ public class Window {
             }
         };
         inputField.addActionListener(enterPressed);
+    }
+    
+    public void updatePercentage()	{
+        completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
     }
 }
