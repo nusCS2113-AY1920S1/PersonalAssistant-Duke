@@ -22,7 +22,7 @@ public class Ui {
 
     public void readCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        fullCommand = reader.readLine();
+        fullCommand = reader.readLine().trim();
     }
 
     /**
@@ -32,12 +32,12 @@ public class Ui {
      * @throws IOException if tDate doesn't get updated.
      */
     public String showWelcome() throws IOException {
-        System.out.println("Input password to enter Gazeebo:");
+        System.out.println("Input password to enter Gazeeebo:");
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
                 + "|     |   |   / |    |    |    |   \\ |   |\n"
                 + "|  __ |__ |  /  |___ |___ |___ |___| |   |\n"
                 + "|___| |   | /__ |___ |___ |___ |___/ |___|";
-        String welcomemessage = "\nWelcome to Gazeebo"
+        String welcomemessage = "\nWelcome to Gazeeebo"
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n";
@@ -67,6 +67,7 @@ public class Ui {
         majorCategories.add("places");
         majorCategories.add("tasks");
         majorCategories.add("gpa");
+        majorCategories.add("notes");
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");
@@ -145,6 +146,10 @@ public class Ui {
 
     public void showErrorMessage(Exception e) {
         System.out.println(e.getMessage());
+    }
+
+    public void showDontKnowErrorMessage() {
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
 }
