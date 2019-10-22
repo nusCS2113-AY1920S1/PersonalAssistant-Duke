@@ -26,13 +26,7 @@ public class ParserHelper {
 
         String[] newMemberDetails = input.split("-");
         ArrayList<String> newMemberDetailsA = new ArrayList<>(Arrays.asList(newMemberDetails));
-        for (String f: newMemberDetailsA) {
-            System.out.println(f);
-        }
         newMemberDetailsA.remove(0);
-        for (String f: newMemberDetailsA) {
-            System.out.println(f);
-        }
         for (String s : newMemberDetailsA) {
             switch (s.charAt(0)) {
             case 'n':
