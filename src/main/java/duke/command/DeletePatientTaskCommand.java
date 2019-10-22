@@ -15,6 +15,7 @@ public class DeletePatientTaskCommand extends Command {
     private int patientId;
     private int taskId;
     private String deletedPatientInfo;
+    private String[] command;
 
 
     /**
@@ -27,7 +28,7 @@ public class DeletePatientTaskCommand extends Command {
         char firstChar = deleteInfo[0].charAt(0);
         try {
             if (firstChar == '#') {
-                Integer.parseInt(deleteInfo[0].replace("#","").trim());
+                this.patientId = Integer.parseInt(deleteInfo[0].replace("#","").trim());
                 this.taskId = Integer.parseInt(deleteInfo[1]);
             } else {
                 this.deletedPatientInfo = deleteInfo[0];

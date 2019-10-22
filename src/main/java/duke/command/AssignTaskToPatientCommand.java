@@ -60,14 +60,14 @@ public class AssignTaskToPatientCommand extends Command {
                 if (firstChar == '#') {
                     int tempPid = Integer.parseInt(taskAssignmentInfo[1].replace("#","").trim());
                     int tempTid = Integer.parseInt(taskAssignmentInfo[2]);
-                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];	                    String stime = taskAssignmentInfo[3];
+                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];
                     String etime = taskAssignmentInfo[3].split(" to ", 2)[1];
                     newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
                             taskAssignmentInfo[0]);
                 } else {
                     int tempPid = patientList.getPatientByName(taskAssignmentInfo[1]).get(0).getID();
                     int tempTid = tasksList.getTaskByDescription(taskAssignmentInfo[2]).get(0).getID();
-                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];	                    String stime = taskAssignmentInfo[3];
+                    String stime = taskAssignmentInfo[3].split(" to ", 2)[0];
                     String etime = taskAssignmentInfo[3].split(" to ", 2)[1];
                     newPatientTask = new EventPatientTask(tempPid, tempTid, stime, etime,
                             taskAssignmentInfo[0]);
