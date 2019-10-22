@@ -412,6 +412,9 @@ Format: `result -sum[mary] "<result summary>"`
 
 The result summary will be appended to the Investigation summary.
 
+== Command Sumamry
+
+
 == FAQ
 
 *Q*: How can I continue working with the same data on a different computer? +
