@@ -12,6 +12,11 @@ public class Box extends HBox {
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Creates a dialogue box.
+     * @param l text represents command from user and reply from bot
+     * @param iv image user and bot
+     */
     public Box(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
@@ -23,6 +28,10 @@ public class Box extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }
+
+    /**
+     * Changes the position of dialogue box to the other side.
+     */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -34,6 +43,12 @@ public class Box extends HBox {
         return new Box(l, iv);
     }
 
+    /**
+     * Returns the dialogue box of bot.
+     * @param l box to show reply from bot
+     * @param iv avatar of bot
+     * @return a dialogue box
+     */
     public static Box getDukeDialog(Label l, ImageView iv) {
         var db = new Box(l, iv);
         db.flip();

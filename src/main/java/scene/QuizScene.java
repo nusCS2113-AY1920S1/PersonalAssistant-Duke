@@ -1,6 +1,6 @@
 package scene;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import command.QuizCommand;
 import exception.*;
 import javafx.scene.Scene;
@@ -65,6 +65,7 @@ public class QuizScene extends NewScene {
                     this.generateQuiz();
                     return s + "\n" + ui.quizDisplay(quizCommand.question, quizCommand.options, quizCommand.optionSequence);
                 } catch (NumberFormatException e) {
+
                     throw new InvalidAnswerException();
                 }
             }

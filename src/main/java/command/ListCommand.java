@@ -1,6 +1,6 @@
 package command;
 
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import exception.WordBankEmptyException;
 import storage.Storage;
 import ui.Ui;
@@ -19,9 +19,6 @@ public class ListCommand extends Command {
 
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
-        //ask ui to print something
-        //ask tasks to store the thing in arraylist
-        //ask storage to write to file
         try {
             if (wordBank.getWordBank().isEmpty()) {
                 throw new WordBankEmptyException();

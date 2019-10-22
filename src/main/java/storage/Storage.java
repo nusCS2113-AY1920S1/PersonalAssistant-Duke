@@ -1,6 +1,6 @@
 package storage;
 
-import Dictionary.Word;
+import dictionary.Word;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,8 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeMap;
 
@@ -28,8 +26,8 @@ public class Storage {
     }
 
     /**
-     * Convert all data from text file in storage to list of words
-     * @return an arraylist containing all words in dictionary
+     * Converts all data from text file in storage to list of words.
+     * @return an arraylist containing all words in dictionary ordered by ALPHABET
      */
     public TreeMap<String, Word> loadFile() {
         File file = new File(FILE_PATH);
@@ -44,7 +42,8 @@ public class Storage {
                 // get data from storage
                 // parse the line first
                 if (line.equals("")) {
-                    line = br.readLine(); continue;
+                    line = br.readLine();
+                    continue;
                 }
                 String[] parsedWordAndMeaning = line.split(":");
                 Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
@@ -65,6 +64,12 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Converts all data from the text file in the order it is written in.
+     * Stack structure used because the first words to be extracted are the last ones added to stack.
+     * @return a stack containing all input words ordered by SEQUENCE OF ENTRY
+     */
     public Stack<Word> loadHistoryFromFile() {
         File file = new File(FILE_PATH);
         FileReader fr = null;
@@ -78,7 +83,8 @@ public class Storage {
                 // get data from storage
                 // parse the line first
                 if (line.equals("")) {
-                    line = br.readLine(); continue;
+                    line = br.readLine();
+                    continue;
                 }
                 String[] parsedWordAndMeaning = line.split(":");
                 Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
@@ -98,6 +104,13 @@ public class Storage {
             }
         }
     }
+
+
+    /**
+     * Writes data to an extracted file.
+     * @param s new word to be added
+     * @param append return true if the file can be appended
+     */
     public void writeFile(String s, boolean append) {
         File file = new File(FILE_PATH);
         FileWriter fw = null;
@@ -119,6 +132,11 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Deletes an item from file.
+     * @param oldString a string to be deleted
+     */
     public void deleteFromFile(String oldString) {
         File file = new File(FILE_PATH);
         FileReader fr = null;
@@ -129,12 +147,47 @@ public class Storage {
             String oldContent = "";
             String line = br.readLine();
 
-            while ((line != null) && (!line.equals("\n"))){
+            while ((line != null) && (!line.equals("\n"))) {
                 oldContent = oldContent + line + System.lineSeparator();
                 line = br.readLine();
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
             String newContent = oldContent.replace(oldString, "").trim();
+            Storage writer = new Storage();
+            writer.writeFile(newContent,false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Updates a word in extracted file.
+     * @param oldString value of old word
+     * @param newString value of word after updated
+     */
+    public void editFromFile(String oldString,String newString) {
+        File file = new File(FILE_PATH);
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String oldContent = "";
+            String line = br.readLine();
+
+            while ((line != null) && (!line.equals("\n"))) {
+                oldContent = oldContent + line + System.lineSeparator();
+                line = br.readLine();
+            }
+            oldContent = oldContent.substring(0, oldContent.length() - 1);
+            String newContent = oldContent.replace(oldString, newString).trim();
             Storage writer = new Storage();
             writer.writeFile(newContent,false);
         } catch (IOException e) {

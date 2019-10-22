@@ -1,4 +1,4 @@
-import Dictionary.WordBank;
+import dictionary.WordBank;
 import scene.MainScene;
 import storage.Storage;
 import ui.Ui;
@@ -6,19 +6,23 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 
-public class WordUp extends Application{
+public class WordUp extends Application {
 
     public Ui ui;
     public Storage storage;
     public WordBank wordBank;
     private Stage window;
+
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Constructor of the word up containing UI, storage, and word bank.
+     */
     public WordUp() {
         ui = new Ui();
-        storage = new Storage("C:\\Users\\user\\gitclones\\main\\src\\data\\wordup.txt");
+        storage = new Storage("data/wordup.txt");
         wordBank = new WordBank(storage);
     }
 

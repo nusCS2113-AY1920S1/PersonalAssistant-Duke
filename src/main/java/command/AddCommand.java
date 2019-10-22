@@ -1,7 +1,7 @@
 package command;
 
-import Dictionary.Word;
-import Dictionary.WordBank;
+import dictionary.Word;
+import dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
@@ -16,9 +16,6 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
-        //ask ui to print something
-        //add task to tasks
-        //ask storage to write to file
         wordBank.addWord(word);
         storage.writeFile(word.toString(), true);
         return ui.showAdded(word);
