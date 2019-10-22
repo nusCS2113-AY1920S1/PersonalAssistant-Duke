@@ -5,9 +5,6 @@ import duke.storage.Storage;
 import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -44,7 +41,6 @@ public class EditCommand extends Command {
         int actualIndex = 0;
         boolean isIndexFound = false;
         ArrayList<Task> tempTaskList = tasks.getList(); //different kind of search? & convoluted way of search?
-
         if (filteredListIndex > tempTaskList.size()) {
             isIndexFound = false;
         } else if (filter.isPresent()) {
@@ -54,7 +50,6 @@ public class EditCommand extends Command {
                     isIndexFound = true;
                     actualIndex = i;
                 }
-
 				if (filter == tempTaskList.get(i).getFilter()) {
 					filteredListCounter++;
 				}

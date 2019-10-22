@@ -36,13 +36,7 @@ public class ListCommand extends Command {
         if (filter.isEmpty()) {
             tasks = list;
         } else {
-            tasks = new TaskList();
-            for (int i = 0; i < list.size(); i++) {
-                Task t = list.get(i);
-                if (t.getFilter().equals(filter)) {
-                    tasks.add(t);
-                }
-            }
+            tasks = new TaskList(list, filter);
         }
         switch (mode) {
             case "DEFAULT":
