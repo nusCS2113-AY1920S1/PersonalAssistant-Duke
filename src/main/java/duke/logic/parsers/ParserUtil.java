@@ -4,7 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.model.events.Event;
-import duke.model.events.Todo;
+import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
 

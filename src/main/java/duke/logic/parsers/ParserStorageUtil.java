@@ -5,7 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.events.Event;
 import duke.model.events.Task;
-import duke.model.events.Todo;
+import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;

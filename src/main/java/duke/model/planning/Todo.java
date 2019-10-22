@@ -1,4 +1,6 @@
-package duke.model.events;
+package duke.model.planning;
+
+import duke.model.events.Task;
 
 /**
  * Class representing a to-do.
