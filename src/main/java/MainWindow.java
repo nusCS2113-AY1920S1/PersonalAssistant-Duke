@@ -2,6 +2,7 @@ import command.Command;
 import exception.DukeException;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ObservableDoubleValue;
 import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,10 +23,16 @@ import task.TaskList;
 import task.Todo;
 import ui.Ui;
 
+import javax.xml.stream.Location;
 import java.io.File;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -42,30 +49,52 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox todayTaskContainer;
     @FXML
+    private ScrollPane mondayScrollPane;
+    @FXML
+    private ScrollPane tuesdayScrollPane;
+    @FXML
+    private ScrollPane wednesdayScrollPane;
+    @FXML
+    private ScrollPane thursdayScrollPane;
+    @FXML
+    private ScrollPane fridayScrollPane;
+    @FXML
+    private ScrollPane saturdayScrollPane;
+    @FXML
+    private ScrollPane sundayScrollPane;
+    @FXML
     private TextField userInput;
     @FXML
     private Button sendButton;
     @FXML
-    private Label todayTaskLabel;
+    private Label priorityTaskLabel;
     @FXML
     private ListView<Task> tasksForTheDay;
     @FXML
-    private VBox timelineContainer;
+    private ListView<String> mondayTask;
     @FXML
-    private ListView<Task> mondayTask;
+    private ListView<String> tuesdayTask;
     @FXML
-    private ListView<Task> tuesdayTask;
+    private ListView<String> wednesdayTask;
     @FXML
-    private ListView<Task> wednesdayTask;
+    private ListView<String> thursdayTask;
     @FXML
-    private ListView<Task> thursdayTask;
+    private ListView<String> fridayTask;
     @FXML
-    private ListView<Task> fridayTask;
+    private ListView<String> saturdayTask;
     @FXML
-    private ListView<Task> saturdayTask;
+    private ListView<String> sundayTask;
     @FXML
-    private ListView<Task> sundayTask;
+    private Label todayLabel;
 
+    private static final Double mondayX = 1.0;
+    private static final Double tuesdayX = 136.0;
+    private static final Double wednesdayX = 269.0;
+    private static final Double thursdayX = 403.0;
+    private static final Double fridayX = 538.0;
+    private static final Double saturdayX = 671.0;
+    private static final Double sundayX = 806.0;
+    private static Double moveXOfDays = 0.0;
     /**
      * Allocation of the images for the chat bot.
      */
@@ -77,13 +106,13 @@ public class MainWindow extends AnchorPane {
     private static TaskList tasks;
     private static File file = new File(filePath);
     private static ObservableList<Task> holdTodayTasks;
-    private static ObservableList<Task> mondayTasks;
-    private static ObservableList<Task> tuesdayTasks;
-    private static ObservableList<Task> wednesdayTasks;
-    private static ObservableList<Task> thursdayTasks;
-    private static ObservableList<Task> fridayTasks;
-    private static ObservableList<Task> saturdayTasks;
-    private static ObservableList<Task> sundayTasks;
+    private static ObservableList<String> mondayTasks;
+    private static ObservableList<String> tuesdayTasks;
+    private static ObservableList<String> wednesdayTasks;
+    private static ObservableList<String> thursdayTasks;
+    private static ObservableList<String> fridayTasks;
+    private static ObservableList<String> saturdayTasks;
+    private static ObservableList<String> sundayTasks;
 
     /**
      * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
@@ -97,8 +126,6 @@ public class MainWindow extends AnchorPane {
             tasks = new TaskList(new ArrayList<>());
             Ui.printMessage(e.getMessage());
         }
-        populateTodayTasks();
-        populateEveryDay();
     }
 
     /**
@@ -107,8 +134,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        tasksForTheDay.setItems(holdTodayTasks);
-        todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
+        refreshAllLists();
+        todayLabel.setLayoutX(moveXOfDays);
     }
 
     /**
@@ -122,30 +149,114 @@ public class MainWindow extends AnchorPane {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
             tasks = new TaskList(storage.loadFile(file));
-            populateTodayTasks();
-            tasksForTheDay.setItems(holdTodayTasks);
-            todayTaskLabel.setText("You have " + holdTodayTasks.size() + " task(s) today!");
+            refreshAllLists();
         } catch (DukeException e) {
             errorMessageContainer.getChildren().addAll(
                 ErrorMessageBar.getErrorMessage(e.getMessage())
             );
         }
+        DialogBox toChangeDimension = DialogBox.getDukeDialog(input, userImage, true);
+        toChangeDimension.setPrefHeight(80.0);
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getUserDialog(Ui.userOutputForUI, dukeImage)
+            toChangeDimension,
+            DialogBox.getUserDialog(Ui.userOutputForUI, dukeImage, false)
         );
         userInput.clear();
     }
 
-    private static void populateTodayTasks() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        holdTodayTasks = FXCollections.observableArrayList(tasks.schedule(dtf.format(now)));
+    /**
+     * This method is utilised to refresh the ListViews every time there is a user input and for the
+     * initialisation.
+     */
+    private void refreshAllLists() {
+        prioritizedTodayTasks();
+        populateEveryDay();
+        tasksForTheDay.setItems(holdTodayTasks);
+        priorityTaskLabel.setText("You have " + holdTodayTasks.size() + " High-Medium Priority task(s) today!");
+        mondayTask.setItems(mondayTasks);
+        tuesdayTask.setItems(tuesdayTasks);
+        wednesdayTask.setItems(wednesdayTasks);
+        thursdayTask.setItems(thursdayTasks);
+        fridayTask.setItems(fridayTasks);
+        saturdayTask.setItems(saturdayTasks);
+        sundayTask.setItems(sundayTasks);
     }
 
-    private static void populateEveryDay() {
+    /**
+     * This method populates the ListView with prioritized tasks for the day.
+     */
+    private void prioritizedTodayTasks() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
-        now.getDayOfWeek();
+        holdTodayTasks = FXCollections.observableArrayList(tasks.obtainPriorityList(dtf.format(now)));
     }
+
+    /**
+     * This method will populate the ListViews of the timeline.
+     */
+    private void populateEveryDay() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+
+        final DayOfWeek Monday = DayOfWeek.MONDAY;
+        final DayOfWeek Tuesday = DayOfWeek.TUESDAY;
+        final DayOfWeek Wednesday = DayOfWeek.WEDNESDAY;
+        final DayOfWeek Thursday = DayOfWeek.THURSDAY;
+        final DayOfWeek Friday = DayOfWeek.FRIDAY;
+        final DayOfWeek Saturday = DayOfWeek.SATURDAY;
+        final DayOfWeek Sunday = DayOfWeek.SUNDAY;
+
+        String sunday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Sunday)));
+        Integer sundayDate = Integer.parseInt(sunday.split("/", 2)[0].trim());
+
+        String monday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Monday)));
+        if (Integer.parseInt(monday.split("/", 2)[0].trim()) > sundayDate) {
+            monday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Monday)));
+        }
+        String tuesday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Tuesday)));
+        if (Integer.parseInt(tuesday.split("/", 2)[0].trim()) > sundayDate) {
+            tuesday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Tuesday)));
+        }
+        String wednesday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Wednesday)));
+        if (Integer.parseInt(wednesday.split("/", 2)[0].trim()) > sundayDate) {
+            wednesday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Wednesday)));
+        }
+        String thursday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Thursday)));
+        if (Integer.parseInt(thursday.split("/", 2)[0].trim()) > sundayDate) {
+            thursday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Thursday)));
+        }
+        String friday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Friday)));
+        if (Integer.parseInt(friday.split("/", 2)[0].trim()) > sundayDate) {
+            friday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Friday)));
+        }
+        String saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.nextOrSame(Saturday)));
+        if (Integer.parseInt(saturday.split("/", 2)[0].trim()) > sundayDate) {
+            saturday = dtf.format(LocalDate.now().with(TemporalAdjusters.previousOrSame(Saturday)));
+        }
+        String shiftLocationOfHighlight = dtf.format(now);
+        if (shiftLocationOfHighlight.equals(monday)) {
+            moveXOfDays = mondayX;
+        }  else if (shiftLocationOfHighlight.equals(tuesday)) {
+            moveXOfDays = tuesdayX;
+        }  else if (shiftLocationOfHighlight.equals(wednesday)) {
+            moveXOfDays = wednesdayX;
+        }  else if (shiftLocationOfHighlight.equals(thursday)) {
+            moveXOfDays = thursdayX;
+        }  else if (shiftLocationOfHighlight.equals(friday)) {
+            moveXOfDays = fridayX;
+        }  else if (shiftLocationOfHighlight.equals(saturday)) {
+            moveXOfDays = saturdayX;
+        }  else if (shiftLocationOfHighlight.equals(sunday)) {
+            moveXOfDays = sundayX;
+        }
+
+        mondayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(monday));
+        tuesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(tuesday));
+        wednesdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(wednesday));
+        thursdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(thursday));
+        fridayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(friday));
+        saturdayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(saturday));
+        sundayTasks = FXCollections.observableArrayList(tasks.scheduleForDay(sunday));
+    }
+
 }
