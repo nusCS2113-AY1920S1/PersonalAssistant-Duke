@@ -23,6 +23,31 @@ import java.util.Date;
 public class Parser {
 
     /**
+     * Constants to represent the index 3.
+     */
+    public static final int INDEX_THREE = 3;
+    /**
+     * Constants to represent the index 4.
+     */
+    public static final int INDEX_FOUR = 4;
+    /**
+     * Constants to represent the index 5.
+     */
+    public static final int INDEX_FIVE = 5;
+    /**
+     * Constants to represent the index 6.
+     */
+    public static final int INDEX_SIX = 6;
+    /**
+     * Constants to represent the index 7.
+     */
+    public static final int INDEX_SEVEN = 7;
+    /**
+     * Constants to represent the index 10.
+     */
+    public static final int INDEX_TEN = 10;
+
+    /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
      * @param io The input from command line
@@ -48,16 +73,11 @@ public class Parser {
 
         switch (cmd) {
 
-
-        /**
-         * Command should be in the form:
-         * reminder deadlines before 18/09/2019 1900
-         * Push date before date into
-         */
         case "reminder":
             try {
                 index = input.indexOf("before");
-                Date date = tasks.dateConvert(input.substring(index + 7));
+                Date date = tasks.dateConvert(
+                        input.substring(index + INDEX_SEVEN));
                 Reminder reminder = new Reminder(date);
                 reminder.getReminders(tasks);
             } catch (StringIndexOutOfBoundsException e) {
@@ -65,26 +85,20 @@ public class Parser {
             }
             break;
 
-        /**
-         * Command should be in the form: aftertask return book /after exam
-         * It will be stored as type [A].
-         */
-
         case "delete":
-            index = Integer.parseInt(input.substring(7)) - 1;
+            index = Integer.parseInt(input.substring(INDEX_SEVEN)) - 1;
             tasks.deleteTask(index);
             storage.updateFile(tasks.getList());
             break;
 
-
         case "find":
-            String searchWord = input.substring(5);
+            String searchWord = input.substring(INDEX_FIVE);
             tasks.findTask(searchWord);
             break;
 
         case "date":
-            String searchDate = input.substring(5);
-            if (searchDate.length() < 10) {
+            String searchDate = input.substring(INDEX_FIVE);
+            if (searchDate.length() < INDEX_TEN) {
                 System.out.println("Please enter input in the form: "
                     + "date dd/MM/YYYY");
             } else {
@@ -92,16 +106,11 @@ public class Parser {
             }
             break;
 
-
-        /**
-         * Command should be in the form: class swimming /every monday
-         * It will be stored as type [C].
-         */
         case "class":
             try {
                 index = input.indexOf("/every");
-                String info = input.substring(6, index - 1);
-                String day = input.substring(index + 7);
+                String info = input.substring(INDEX_SIX, index - 1);
+                String day = input.substring(index + INDEX_SEVEN);
                 MyClass myclass = new MyClass(info, false, day);
                 tasks.addTask(myclass, "C");
                 storage.saveFile("C", myclass, myclass.getDay());
@@ -113,13 +122,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * View: schedule view-month|schedule view-week|
-         * schedule view-day 5/10/2019
-         * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
-         * Delete: schedule delete 5/10/2019 1500 Swimming|
-         * schedule delete-all 5/10/2019
-         */
         case "schedule":
             Storage scheduleStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\timeslots.txt");
@@ -137,10 +139,10 @@ public class Parser {
                         System.err.println("Enter a date please.");
                     }
                 } else if (word[1].equals("add")) {
-                    String startTime = word[2] + " " + word[3];
-                    String endTime = word[4] + " " + word[5];
-                    String location = word[6];
-                    String className = word[7];
+                    String startTime = word[2] + " " + word[INDEX_THREE];
+                    String endTime = word[INDEX_FOUR] + " " + word[INDEX_FIVE];
+                    String location = word[INDEX_SIX];
+                    String className = word[INDEX_SEVEN];
                     System.out.println(schedule.addClass(
                         startTime,
                         endTime,
@@ -149,8 +151,8 @@ public class Parser {
                         tasks,
                         scheduleStorage));
                 } else if (word[1].equals("delete")) {
-                    String startTime = word[2] + " " + word[3];
-                    String className = word[4];
+                    String startTime = word[2] + " " + word[INDEX_THREE];
+                    String className = word[INDEX_FOUR];
                     System.out.println(
                         schedule.delClass(
                             startTime, className, scheduleStorage));
@@ -164,9 +166,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * Simply type "goal" to start it off.
-         */
         case "goal":
             Storage goalStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\goals.txt");
@@ -191,19 +190,19 @@ public class Parser {
                     myGoalScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     switch (executeType) {
-                    case 1: {
+                    case 1:
                         System.out.print(goal.viewGoal(goalDate));
                         break;
-                    }
-                    case 2: {
+
+                    case 2:
                         System.out.println("To add a goal to "
                             + goalDate + ", enter the goal.");
                         String myGoal = myGoalScan.nextLine();
                         System.out.println(
                             goal.addGoal(goalDate, myGoal, goalStorage));
                         break;
-                    }
-                    case 3: {
+
+                    case INDEX_THREE:
                         System.out.println("To delete a goal from "
                             + goalDate + ", enter the goal.");
                         String message = myGoalScan.nextLine();
@@ -211,17 +210,17 @@ public class Parser {
                             goal.removeGoal(
                                 goalDate, message, goalStorage));
                         break;
-                    }
-                    case 4: {
+
+                    case INDEX_FOUR:
                         System.out.println(
                             goal.removeAllGoal(goalDate, goalStorage));
                         break;
-                    }
-                    case 5: {
-                        isQuittingGoal = true;
-                        System.out.println(
-                            "You have quit the lesson of the day.");
-                    }
+
+                    case INDEX_FIVE:
+                    isQuittingGoal = true;
+                    System.out.println(
+                        "You have quit the lesson of the day.");
+
                     default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -233,9 +232,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * Simply type "lesson" to start it off.
-         */
         case "lesson":
             Storage lessonStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\lessons.txt");
@@ -260,19 +256,20 @@ public class Parser {
                     myLessonScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
                     switch (executeType) {
-                    case 1: {
+                    case 1:
                         System.out.print(lesson.viewLesson(lessonDate));
                         break;
-                    }
-                    case 2: {
+
+                    case 2:
                         System.out.println("To add a lesson to "
                             + lessonDate + ", enter the lesson.");
                         String myLesson = myLessonScan.nextLine();
                         System.out.println(
-                            lesson.addLesson(lessonDate, myLesson, lessonStorage));
+                            lesson.addLesson(
+                                    lessonDate, myLesson, lessonStorage));
                         break;
-                    }
-                    case 3: {
+
+                    case INDEX_THREE:
                         System.out.println("To delete a lesson from "
                             + lessonDate + ", enter the lesson.");
                         String message = myLessonScan.nextLine();
@@ -280,17 +277,17 @@ public class Parser {
                             lesson.removeLesson(
                                 lessonDate, message, lessonStorage));
                         break;
-                    }
-                    case 4: {
+
+                    case INDEX_FOUR:
                         System.out.println(lesson.removeAllLesson(
                             lessonDate, lessonStorage));
                         break;
-                    }
-                    case 5: {
+
+                    case INDEX_FIVE:
                         isQuittingLesson = true;
                         System.out.println(
                             "You have quit the lesson of the day.");
-                    }
+
                     default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -302,12 +299,6 @@ public class Parser {
             }
             break;
 
-        /**
-         * View: training view [plan number]
-         * Add: training add-activity [name] [sets] [reps] [activity number]|
-         * training add-plan [plan number]
-         * Delete: training delete-all|training delete [plan number]
-         */
         case "training":
             switch (word[1]) {
             case "view":
@@ -334,119 +325,11 @@ public class Parser {
             }
             break;
 
-        /**
-         *  Cmd "home" will list the menu items;
-         *  1. View Schedule
-         *  2. Manage Students
-         *  3. Training Circuits
-         */
         case "home":
             Ui viewMenu = new Ui();
             viewMenu.mainMenu();
             break;
-
-        /**
-         // Choosing Option 1 wil direct to "Training Schedule"
-         */
-        case "1":
-            System.out.flush();
-            // Write go to direct to View Schedule (Scott)
-            Ui trainingSchedule = new Ui();
-            trainingSchedule.trainingScheduleHeading();
-            break;
-
-        /**
-         * Choosing option 2 will direct to "Manage Students"
-         */
-        case "2":
-            System.out.flush();
-            Ui manageStudents = new Ui();
-            manageStudents.manageStudentsHeading();
-            ManageStudents viewCategory = new ManageStudents();
-//                viewCategory.manageStudentsCategory();
-            // Write Code to direct to manage Students (Danish)
-            break;
-
-        /**
-         * Choosing 3 will direct to "Training Program"
-         */
-        case "3":
-            System.out.flush();
-            Ui trainingProgram = new Ui();
-            trainingProgram.trainingProgramHeading();
-            //Write Code to direct to Training Circuits (Jing Sen)
-            break;
-
-        /**
-         * When cmd student is called
-         * Format for adding student is: student add/ Name/ age/ address.
-         */
-        case "student":
-            switch (word[1]) {
-            case "add":
-                System.out.println("Insert Name, Age, Address:\n");
-                Scanner sc = new Scanner(System.in);
-                String newStudent = sc.nextLine();
-                String[] splitByComma = newStudent.split(",");
-                String name = splitByComma[0];
-                String age = splitByComma[1];
-                String address = splitByComma[2];
-                MyStudent myNewStudent = new MyStudent(
-                    name, age, address);
-                students.addStudent(myNewStudent);
-                break;
-
-            // Format: student delete [index]
-            case "delete":
-                index = Integer.parseInt(word[2]);
-                students.deleteStudent(index);
-                break;
-
-            case "details":
-                System.out.println("Details for: ");
-                Scanner scan = new Scanner(System.in);
-                if (scan.equals("add details")) {
-                    System.out.println("Details for: ");
-
-                }
-                String studentName = scan.nextLine();
-                students.findName(studentName);
-                //add student details
-                break;
-
-            case "edit":
-                index = Integer.parseInt(word[2]);
-                System.out.print("What do you want to edit for ");
-                students.getStudentName(index);
-                System.out.println("?");
-
-                // editStudentDetails(detail)
-                break;
-
-            case "list":
-                students.listAllStudents();
-                break;
-
-            case "search":
-                final int limit = 15;
-                String searchName = input.substring(limit);
-                students.findName(searchName);
-                break;
-
-            case "select":
-                index = Integer.parseInt(word[2]);
-                System.out.print("You have selected: ");
-                students.getStudentName(index);
-                break;
-
-            default:
-                System.out.println("(Add statement here?)");
-
-            }
-
-            storage.updateStudentList(students.getStudentList());
-            break;
-
+            
         case "plan":
             if (word[1].equals("view")) {
                 //int num = 2;
