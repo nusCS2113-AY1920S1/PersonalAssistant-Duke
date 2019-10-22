@@ -81,12 +81,12 @@ public class LimitParser extends Parser {
      */
     private String typeFinder() {
         String limitType = "";
-        String inputStr = "";
+        String inputType;
         try {
-            inputStr = inputArray[1];
-            if (inputStr.equalsIgnoreCase(LIMIT_TYPE_S)) {
+            inputType = inputArray[1];
+            if (inputType.equalsIgnoreCase(LIMIT_TYPE_S)) {
                 limitType = LIMIT_TYPE_S;
-            } else if (inputStr.equalsIgnoreCase(LIMIT_TYPE_B)) {
+            } else if (inputType.equalsIgnoreCase(LIMIT_TYPE_B)) {
                 limitType = LIMIT_TYPE_B;
             }
         } catch (IndexOutOfBoundsException e) {
@@ -104,15 +104,22 @@ public class LimitParser extends Parser {
     }
 
     private String durationFinder() {
-        String duration = null;
-        String durationStr = inputArray[4];
-        if (durationStr.equals(Duration[0])) {
-            duration = Duration[0];
-        } else if (durationStr.equals(Duration[1])) {
-            duration = Duration[0];
-        } else if (durationStr.equals(Duration[2])) {
-            duration = Duration[2];
+        String limitDuration = "";
+        String inputDuration;
+        try {
+            inputDuration = inputArray[4];
+            if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_D))) {
+                limitDuration = LIMIT_DURATION_D;
+            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_W))) {
+                limitDuration = LIMIT_DURATION_W;
+            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_M))) {
+                limitDuration = LIMIT_DURATION_M;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //todo: handle exception
+        } catch (Exception e) {
+            //todo: handle exception
         }
-        return duration;
+        return limitDuration;
     }
 }
