@@ -26,10 +26,10 @@ class ListOfMembersInProjectTest {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1);
         MemberList listOfMembersInProject = new MemberList();
         listOfMembersInProject.addMember(member);
-        listOfMembersInProject.editMember(1,"n/John i/91177777 e/john@gmail.com");
+        listOfMembersInProject.editMember(1,"-n John -i 91177777 -e john@gmail.com");
         assertEquals("1. John (Phone: 91177777 | Email: john@gmail.com)",
                 listOfMembersInProject.getMember(1).getDetails());
-        listOfMembersInProject.editMember(1,"n/Matthew e/matthew@gmail.com");
+        listOfMembersInProject.editMember(1,"-n Matthew -e matthew@gmail.com");
         assertEquals("1. Matthew (Phone: 91177777 | Email: matthew@gmail.com)",
                 listOfMembersInProject.getMember(1).getDetails());
     }
