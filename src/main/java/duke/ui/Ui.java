@@ -359,11 +359,8 @@ public class Ui {
      * Outputs a message to the user to let it know that it is updating.
      */
     public void showBackupMessage() {
-        out.println("     Duke Manager has been backed up!");
-    }
-
-    public void showBackupFolderMessage() {
-        out.println("     Duke has opened the backup file location in file explorer!");
+        out.println("     Duke Manager has been backed up!\n"
+                    + "     Duke has opened the backup file location in file explorer!");
     }
 
     public static String showBackupMessageGui() {

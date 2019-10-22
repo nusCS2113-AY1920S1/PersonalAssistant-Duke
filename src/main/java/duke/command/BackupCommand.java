@@ -42,8 +42,6 @@ public class BackupCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-        ui.showBackupMessage();
-        ui.showBackupFolderMessage();
     }
 
     /**
@@ -56,7 +54,7 @@ public class BackupCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return ui.showBackupMessageGui();
+        return null;
     }
 
     /**
@@ -69,7 +67,6 @@ public class BackupCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
-        openBackupFolder();
     }
 
     /**
@@ -95,6 +92,7 @@ public class BackupCommand extends Command {
         contactStorage.write(contactList);
         storage.write(items);
         openBackupFolder();
+        ui.showBackupMessage();
     }
 }
 //@@author
