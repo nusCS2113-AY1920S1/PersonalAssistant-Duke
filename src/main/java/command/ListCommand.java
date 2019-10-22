@@ -1,6 +1,5 @@
 package command;
 
-import booking.Booking;
 import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
