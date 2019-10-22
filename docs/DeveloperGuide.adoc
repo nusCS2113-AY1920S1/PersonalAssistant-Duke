@@ -31,6 +31,9 @@ and completed.
 [width="100%",cols="25%, <75%", options="header"]
 |=======================================================================
 | Revision Date | Summary of Changes
+| 22 October 2019   | Version 0.9: Updated Architecture Design
+| 15 October 2019   | Version 0.8: Updated the name of project from Duke to ArchDuke
+| 2 October 2019    | Version 0.7: Updated Prerequisites and removed unwanted lines
 | 30 September 2019 | Version 0.6: Added table of contents, preface and document history
 | 26 September 2019 | Version 0.5: Updated use cases for a cleaner look
 | 24 September 2019 | Version 0.4: Added Non-functional Requirements to DeveloperGuide
