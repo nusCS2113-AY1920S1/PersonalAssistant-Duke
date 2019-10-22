@@ -5,6 +5,7 @@ import duke.storage.Storage;
 import duke.task.ContactList;
 import duke.task.PriorityList;
 import duke.task.TaskList;
+import duke.task.FilterList;
 import duke.ui.Ui;
 
 import java.io.IOException;
@@ -39,6 +40,16 @@ public abstract class Command {
      * @param ui To tell the user that it is executed successfully.
      */
     public void execute(TaskList items, ContactList contactList, Ui ui) {
+    }
+
+    /**
+     * Executes a command with Filter list and ui.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param filterList The list of filtered tasks.
+     */
+    public void execute(TaskList items, FilterList filterList) {
+
     }
 
     /**

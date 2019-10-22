@@ -25,7 +25,8 @@ import java.util.ArrayList;
 public class Storage {
     //protected String filePath = "./";
     protected String filePath = "";   //27-28, 40-47
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    String storageClassPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
@@ -37,11 +38,12 @@ public class Storage {
      * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
+        storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
+            if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";
-            } else if (directory.equals("build")) {
+            } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
         }
@@ -55,6 +57,7 @@ public class Storage {
      * @throws IOException  If there is an error reading the text file.
      */
     public ArrayList<Task> read() throws IOException {
+
         ArrayList<Task> items = new ArrayList<>();
         Ui ui = new Ui();
         File file = new File(filePath);
@@ -69,7 +72,6 @@ public class Storage {
         while ((st = br.readLine()) != null) {
             String[] commandList = st.split("\\|");
             try {
-                //clear previous dates/desc
                 taskDesc = "";
                 dateDesc = "";
                 afterDesc = "";
@@ -137,7 +139,6 @@ public class Storage {
                         items.add(t);
                     }
                 } else if (commandList[ZERO].equals("F")) {
-                    System.out.println(taskDesc + dateDesc);
                     if (taskDesc.isEmpty() || durDesc.isEmpty()) {
                         throw new DukeException("Error reading description or do after description,"
                                 + " skipping to next line");
