@@ -96,6 +96,7 @@ public class Ui {
     }
 
 
+    //@@author Dou-Maokang
     /**
      * Outputs all the tasks of the task list to the user.
      *
@@ -110,6 +111,8 @@ public class Ui {
             out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
+    //@@author
+
 
     /**
      * Outputs all the contacts of the contact list to user through CLI.
@@ -369,6 +372,8 @@ public class Ui {
     }
     //@@author
 
+
+    //@@author Dou-Maokang
     /**
      * Outputs a message to the user to let it know that it has changed the priority of a task.
      *
@@ -380,6 +385,7 @@ public class Ui {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - ONE));
         out.println("     Current priority: " + priority);
     }
+    //@@author
 
     /**
      * Outputs the contact details that are most recently added.

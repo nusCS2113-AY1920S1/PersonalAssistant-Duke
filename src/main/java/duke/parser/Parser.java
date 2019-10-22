@@ -268,9 +268,14 @@ public class Parser {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 }
                 unit = durDesc.split(" ")[ONE].trim();
-                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("hour"))) {
+                if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("h"))) {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 } else {
+                    if (unit.contains("min")) {
+                        unit = (duration > 1) ? "minutes" : "minute";
+                    } else if (unit.contains("h")) {
+                        unit = (duration > 1) ? "hours" : "hour";
+                    }
                     FixedDuration fixedDuration = new FixedDuration(taskDesc, duration, unit);
                     return new AddCommand(fixedDuration);
                 }

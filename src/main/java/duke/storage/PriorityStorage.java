@@ -10,6 +10,10 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+//@@author Dou-Maokang
+/**
+ * Representing a class to store the list of priorities.
+ */
 public class PriorityStorage {
     //protected String filePath = "./";
     protected String filePath = "";
@@ -71,3 +75,4 @@ public class PriorityStorage {
     }
 
 }
+//@@author

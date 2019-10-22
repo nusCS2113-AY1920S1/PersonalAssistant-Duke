@@ -5,6 +5,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 
+//@@author Dou-Maokang
 /**
  * Represents a priority list that stores a list of priorities associated with each task.
  */
@@ -92,7 +93,7 @@ public class PriorityList {
      * @return The priority for a task.
      */
     public int getPriority(int num) {
-        int priority = priorityList.get(num);
+        int priority = priorityList.get(num - 1);
         return priority;
     }
 
@@ -151,7 +152,6 @@ public class PriorityList {
             }
         }
         return pairList;
-
     }
 
     /**
@@ -170,3 +170,4 @@ public class PriorityList {
     }
 
 }
+//@@author
