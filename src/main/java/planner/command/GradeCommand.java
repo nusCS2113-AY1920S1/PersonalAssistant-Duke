@@ -45,6 +45,7 @@ public class GradeCommand extends ModuleCommand {
         } else if (tasks.getTasks().contains(temp)) { // otherwise set grade
             int location = tasks.getTasks().indexOf(temp);
             tasks.getTasks().get(location).setGrade(letterGrade);
+            plannerUi.gradedMsg(temp.getModuleCode(), letterGrade);
         } else {
             throw new ModNotFoundException();
         }
