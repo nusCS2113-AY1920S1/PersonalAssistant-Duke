@@ -44,7 +44,7 @@ public class Storage {
             for (String list : tempList) {
                 String[] temp = list.split("#", 0);
 
-                // Identify type of tassk
+                // Identify type of task
                 String scanType = temp[0].trim();
                 SaveType type;
                 try {
