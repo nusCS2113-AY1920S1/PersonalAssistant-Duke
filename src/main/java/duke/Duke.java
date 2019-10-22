@@ -117,17 +117,14 @@ public class Duke {
     }
 
     /**
-     * Executes a command to overwrite exiting storage with an updated task list (GUI).
+     * Executes a command to overwrite exiting storage with the current updated lists(GUI).
      *
      * @param cmd Command to be executed.
      * @throws IOException  If there is an error writing the text file.
      */
     public void saveState(Command cmd) throws IOException {
-        priorityStorage.write(priorityList);
-        budgetStorage.write(budgetList);
-        contactStorage.write(contactList);
-        storage.write(items);
-        cmd.executeStorage(items,ui,storage);
+        cmd.executeStorage(items, ui, storage, budgetStorage, budgetList,
+                contactStorage, contactList, priorityStorage, priorityList);
     }
 
     /**
@@ -189,7 +186,6 @@ public class Duke {
                 } else if (cmd instanceof BackupCommand) {
                     saveState(cmd);
                     cmd.execute(items, ui);
-                    cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
                     cmd.executeStorage(items, ui, contactStorage,contactList);
