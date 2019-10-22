@@ -16,12 +16,14 @@ import javax.swing.text.DefaultCaret;
 
 import core.Duke;
 import utils.TasksCounter;
+import gui.PieChart;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 
 public class Window {
 
@@ -66,6 +68,7 @@ public class Window {
         panel.add(scrollPane);
 
         JTextArea outputArea = new JTextArea();
+        outputArea.setText("Welcome to Duke Pro!");
         outputArea.setEditable(false);
         scrollPane.setViewportView(outputArea);
         outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
@@ -106,13 +109,24 @@ public class Window {
         frame.getContentPane().add(panel2);
 
         completedPercField = new JTextField();
-        completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
+        completedPercField.setText("" + (int)tasksCounter.getPercCompleted() + "% of tasks complete");
         completedPercField.setHorizontalAlignment(SwingConstants.CENTER);
         completedPercField.setFont(new Font("Constantia", Font.PLAIN, 15));
         completedPercField.setColumns(10);
         completedPercField.setBorder(BorderFactory.createEmptyBorder());
         completedPercField.setBounds(10, 10, 177, 19);
         panel2.add(completedPercField);
+        
+        JPanel piePanel = new JPanel();
+        piePanel.setLocation(76, 35);
+        piePanel.setBackground(new Color(120, 168, 219));
+        piePanel.setLayout(null);
+        piePanel.setSize(250, 250);
+        
+        frame.getContentPane().add(piePanel);
+        PieChart pieChart = new PieChart(tasksCounter.getPercCompleted());
+        pieChart.setBounds(0, 0, 250, 250);
+        piePanel.add(pieChart);
 
         Action enterPressed = new AbstractAction() {
             @Override
@@ -128,6 +142,6 @@ public class Window {
      * Updates the percentage displayed on the window
      */
     public void updatePercentage() {
-        completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
+        completedPercField.setText("" + (int)tasksCounter.getPercCompleted() + "% of tasks complete");
     }
 }

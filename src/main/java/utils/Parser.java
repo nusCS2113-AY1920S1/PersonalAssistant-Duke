@@ -7,6 +7,7 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.DoneCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.LinkCommand;
 import commands.ListCommand;
 import commands.MemberAddCommand;
@@ -127,7 +128,10 @@ public class Parser {
         splites[0] = commandCorrector(splites[0]);
         Command temp = null;
         int length = splites.length;
-        if (splites[0].equals("ADD")) {
+        if (splites[0].equals("HELP"))	{
+        	temp = new HelpCommand();
+        }
+        else if (splites[0].equals("ADD")) {
             if (length < 2) {
                 throw new DukeException("usage: add [type of tasks] ...");
             }
@@ -292,7 +296,7 @@ public class Parser {
      * if the method cannot recognize the word, return the original word.
      */
     public static String commandCorrector(String command) {
-        String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
+        String[] dict = {"HELP", "ADD", "LIST", "DONE", "BYE", "DELETE",
             "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
