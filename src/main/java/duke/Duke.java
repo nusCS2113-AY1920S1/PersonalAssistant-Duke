@@ -12,8 +12,6 @@ import duke.command.DeleteContactCommand;
 import duke.command.ListContactsCommand;
 import duke.command.AddContactsCommand;
 import duke.dukeexception.DukeException;
-
-
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;
@@ -22,10 +20,8 @@ import duke.storage.BudgetStorage;
 import duke.task.BudgetList;
 import duke.task.PriorityList;
 import duke.task.ContactList;
-
 import duke.task.TaskList;
 import duke.ui.Ui;
-
 import java.io.IOException;
 
 /**

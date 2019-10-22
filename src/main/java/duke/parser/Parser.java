@@ -1,4 +1,5 @@
 package duke.parser;
+
 import duke.command.ListCommand;
 import duke.command.FindTasksByPriorityCommand;
 import duke.command.DuplicateFoundCommand;
@@ -21,7 +22,6 @@ import duke.command.AddContactsCommand;
 import duke.command.ResetBudgetCommand;
 import duke.command.ViewBudgetCommand;
 import duke.dukeexception.DukeException;
-
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -33,7 +33,6 @@ import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
 import duke.task.Contacts;
 import duke.task.BudgetList;
-
 import java.util.ArrayList;
 
 /**
