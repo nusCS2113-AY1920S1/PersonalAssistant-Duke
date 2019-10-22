@@ -2,6 +2,7 @@ import command.Parser;
 import command.Storage;
 import common.TaskList;
 import payment.Payee;
+import project.Project;
 import ui.Ui;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class AlphaNUS {
     private static TaskList tasklist;
     private static Storage storage;
     private static HashMap<String, Payee> managermap;
+    private static HashMap<String, Project> projectmap;
 
     /**
      * Creates a AlphaNUS instance and initialises the required attributes.
@@ -29,6 +31,7 @@ public class AlphaNUS {
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
         managermap = new HashMap<String, Payee>();
+        projectmap = new HashMap<String, Project>();//To replace managermap in main class
     }
 
     /**
@@ -40,7 +43,7 @@ public class AlphaNUS {
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, storage, managermap);
+            isExit = Parser.parse(input, tasklist, ui, storage, managermap, projectmap);
         }
     }
 

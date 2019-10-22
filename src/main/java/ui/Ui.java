@@ -3,6 +3,7 @@ package ui;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
+import project.Project;
 import task.Task;
 
 import java.util.ArrayList;
@@ -46,8 +47,37 @@ public class Ui {
      * Prints ending message for the AlphaNUS program.
      */
     public void byeMessage() {
-        String output = line + "     Bye. Hope to see you again soon!\n" + line;
-        System.out.println(output);
+        System.out.print(line);
+        System.out.println("\t" + "Bye. Hope to see you again soon!");
+        System.out.print(line);
+    }
+
+    public void printNoProjectMessage(){
+        System.out.print(line);
+        System.out.println("\t" + "There are no projects in the record.");
+        System.out.println("\t" + "Please add a new project.");
+        System.out.println("\t" + "Format: add project pr/PROJECTNAME");
+        System.out.print(line);
+    }
+
+    public void printAddProject(Project newProject) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added this project:");
+        System.out.println("\t" + "Name: " + newProject.projectname);
+        System.out.println("\t" + "Budget: " + newProject.budget);
+        System.out.println("\t" + "Spending: " + newProject.spending);
+        System.out.print(line);
+    }
+
+    public void printProjectStatus(String currentprojectname, int projectsize) {
+        System.out.print(line);
+        if (currentprojectname == null) {
+            System.out.println("\t" + "There are no projects in the record.");
+        } else {
+            System.out.println("\t" + "Current Project: " + currentprojectname);
+            System.out.println("\t" + "There are " + projectsize + " projects in the record.");
+        }
+        System.out.print(line);
     }
 
     /**

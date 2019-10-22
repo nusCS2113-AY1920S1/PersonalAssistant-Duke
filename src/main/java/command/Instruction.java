@@ -79,4 +79,8 @@ public class Instruction {
     public boolean isInvoice(String input) {
         return input.startsWith("invoice");
     }
+
+    public boolean isAddProject(String input) {
+        return input.startsWith("add project");
+    }
 }

@@ -4,6 +4,8 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import project.Project;
+import project.ProjectManager;
 import task.Deadline;
 import task.DoAfterTasks;
 import task.Task;
@@ -33,6 +35,22 @@ public class Process {
             cleanArr[i] = arr[i].trim();
         }
         return cleanArr;
+    }
+
+    public void homePageMessage(String currentprojectname, int projectsize, Ui ui) {
+        ui.printProjectStatus(currentprojectname, projectsize);
+    }
+
+    public void noProject(Ui ui){
+        ui.printNoProjectMessage();
+    }
+
+    public Project addProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String projectname = split[1];
+        Project newProject = ProjectManager.addProject(projectname, projectmap);
+        ui.printAddProject(newProject);
+        return newProject;
     }
 
     /**
