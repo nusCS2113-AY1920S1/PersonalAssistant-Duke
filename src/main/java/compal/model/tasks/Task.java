@@ -39,8 +39,6 @@ public abstract class Task implements Serializable {
     }
 
 
-
-
     /**
      * Gets priority status (HIGH, MEDIUM, LOW) of task.
      *
@@ -199,18 +197,14 @@ public abstract class Task implements Serializable {
      * @return Time of task.
      */
     public Date getStartTime() {
-        int hour;
-        int min;
+        if (getStringStartTime().equals("-")) {
+            return null;
+        }
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         String startTime = getStringStartTime();
-        try {
-            hour = Integer.parseInt(startTime.substring(0, 2));
-            min = Integer.parseInt(startTime.substring(2, 4));
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-
+        int hour = Integer.parseInt(startTime.substring(0, 2));
+        int min = Integer.parseInt(startTime.substring(2, 4));
         calendar.set(Calendar.HOUR, hour);
         calendar.set(Calendar.MINUTE, min);
         return calendar.getTime();
@@ -294,7 +288,7 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         int strCase = 0;
-        if (getStartTime() == null && getEndTime() != null) {
+        if (getStringStartTime().equals("-")) {
             strCase = 1;
         }
 

@@ -1,5 +1,6 @@
 package compal.logic.command;
 
+import compal.commons.CompalUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
@@ -33,13 +34,13 @@ public class EditCommand extends Command {
             toEdit.setDescription(description);
         }
         if (date != null) {
-            toEdit.setDate(date.toString());
+            toEdit.setDate(CompalUtils.dateToString(date));
         }
         if (startTime != null) {
-            toEdit.setStartTime(startTime.toString());
+            toEdit.setStartTime(CompalUtils.dateToString(startTime));
         }
         if (endTime != null) {
-            toEdit.setEndTime(endTime.toString());
+            toEdit.setEndTime(CompalUtils.dateToString(endTime));
         }
         if (priority != null) {
             toEdit.setPriority(priority);
@@ -47,4 +48,7 @@ public class EditCommand extends Command {
 
         return new CommandResult("Your task has been edited:\n" + toEdit.toString(), true);
     }
+
+
+
 }

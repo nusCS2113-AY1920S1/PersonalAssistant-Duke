@@ -81,7 +81,7 @@ class DailyCalUi {
      * Only display non-deadline events.
      */
     private void createDailyArrayList() {
-        Comparator<Task> compareByStartTime = Comparator.comparingLong(Task::getPriorityScore).reversed();
+        Comparator<Task> compareByStartTime = Comparator.comparing(Task::getPriority);
         for (Task t : tempOriginalList) {
             if (t.getStringDate().equals(dateToDisplay)) {
                 if (t.getSymbol().equals("D")) {
@@ -197,17 +197,7 @@ class DailyCalUi {
     private String createTitle(Task task) {
         String blockTitle = "";
 
-        if (task.getSymbol().equals("LECT")) {
-            blockTitle = "[Lecture]\n";
-        } else if (task.getSymbol().equals("TUT")) {
-            blockTitle = "[Tutorial]\n";
-        } else if (task.getSymbol().equals("SECT")) {
-            blockTitle = "[Sectional]\n";
-        } else if (task.getSymbol().equals("LAB")) {
-            blockTitle = "[Lab]\n";
-        } else if (task.getSymbol().equals("RT")) {
-            blockTitle = "[Event]\n";
-        } else if (task.getSymbol().equals("E")) {
+        if (task.getSymbol().equals("E")) {
             blockTitle = "[Event]\n";
         }
 
@@ -217,6 +207,14 @@ class DailyCalUi {
             blockTitle += "[Priority: Medium]\n";
         } else {
             blockTitle += "[Priority: Low]\n";
+        }
+
+        if (task.getisDone().equals(true)) {
+            String tick = "\u2713";
+            blockTitle += "[" + tick + "]\n";
+        } else {
+            String wrong = "\u2718";
+            blockTitle += "[" + wrong + "]\n";
         }
 
         blockTitle += task.getDescription();
@@ -283,20 +281,14 @@ class DailyCalUi {
      * Set color of rectangle to depending on the scenario below.
      */
     private Color colorFill(Task t) {
-        if (t.getisDone().equals("true")) {
+        if (t.getisDone().equals(true)) {
             return Color.DARKSEAGREEN;
-        } else if (t.getSymbol().equals("LECT")) {
+        } else if (t.getPriority().equals(Task.Priority.medium)) {
             return Color.GOLDENROD;
-        } else if (t.getSymbol().equals("TUT")) {
-            return Color.DEEPPINK;
-        } else if (t.getSymbol().equals("SECT")) {
+        } else if (t.getPriority().equals(Task.Priority.high)) {
             return Color.VIOLET;
-        } else if (t.getSymbol().equals("LAB")) {
-            return Color.INDIANRED;
-        } else if (t.getSymbol().equals("RT")) {
-            return Color.LEMONCHIFFON;
-        } else if (t.getSymbol().equals("E")) {
-            return Color.CADETBLUE;
+        } else if (t.getSymbol().equals(Task.Priority.medium)) {
+            return Color.BLUE;
         }
         return Color.BLUE;
     }

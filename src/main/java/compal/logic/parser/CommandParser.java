@@ -32,6 +32,7 @@ public interface CommandParser {
     String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
+    String TOKEN_DESCRIPTION= "/description";
     String TOKEN_START_TIME = "/start";
     String TOKEN_FINAL_DATE = "/final-date";
     char TOKEN_SLASH_CHAR = '/';
@@ -262,7 +263,6 @@ public interface CommandParser {
             int dateCount = 0;
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
-                System.out.println(eachDateString);
                 if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
                     break;
                 }
@@ -306,6 +306,8 @@ public interface CommandParser {
         }
         return priorityField;
     }
+
+
 
     /**
      * Parses through user input for /start token and return the start time.
