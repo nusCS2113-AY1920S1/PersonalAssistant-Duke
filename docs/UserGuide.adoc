@@ -412,7 +412,7 @@ Format: `result -sum[mary] "<result summary>"`
 
 The result summary will be appended to the Investigation summary.
 
-== Command Sumamry
+== Command Summary
 
 
 == FAQ
