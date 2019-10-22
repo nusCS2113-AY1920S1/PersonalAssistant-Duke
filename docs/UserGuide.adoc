@@ -185,12 +185,15 @@ Allows you to input your letter grade received for the modules you have taken. +
 Format: `grade MODULECODE LETTERGRADE`
 
 ****
-* Type `grade MODULECODE LETTERGRADE` into the command line, replacing MODULECODE with an actual module code, and LETTERGRADE with the grade you received for that module.
+* Type `grade MODULECODE LETTERGRADE` into the command line, replacing `MODULECODE` with an actual module code, and `LETTERGRADE` with the grade you received for that module.
 * ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
+* ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
+** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
 ****
 
 Example: +
-`grade CS1010 A-`
+`grade CS1010 A-` +
+`grade CS1231 S`
 
 === Sorting and printing the modules or ccas : `sort`
 
