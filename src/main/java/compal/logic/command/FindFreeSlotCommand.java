@@ -107,7 +107,7 @@ public class FindFreeSlotCommand extends Command {
                 String end = simpleDateFormat.format(endPointer);
                 stringArrayList.add(start + " to " + end + "\n");
             }
-            if(startPointer.getTime() < arrayList.get(i).getEndTime().getTime()) {
+            if (startPointer.getTime() < arrayList.get(i).getEndTime().getTime()) {
                 startPointer = arrayList.get(i).getEndTime();
             }
         }

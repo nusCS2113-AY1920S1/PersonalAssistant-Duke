@@ -205,7 +205,7 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             String dateField = scanner.next();
-            if (dateField.equals(EMPTY_INPUT_STRING) || dateField.charAt(0)==TOKEN_SLASH_CHAR) {
+            if (dateField.equals(EMPTY_INPUT_STRING) || dateField.charAt(0) == TOKEN_SLASH_CHAR) {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             if (!isDateValid(dateField)) {
