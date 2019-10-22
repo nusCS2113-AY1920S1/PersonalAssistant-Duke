@@ -416,11 +416,14 @@ The result summary will be appended to the Investigation summary.
 === Command Summary
 Summary of all the commands available in each context, for a more detailed description and associated switches, refer to section 1. 
 
-.Commands
-image::Commands.png[]
+.Command summary
+image::CommandSummary.png[]
 
 === Switch Summary
+Summary of all the switches available for the diffrent commands. For a more detailed description on how to use the switches with the diffrent commands, refer to section 1. 
 
+.Switch summary
+image::SwitchSummary.png[]
 
 == FAQ
 
