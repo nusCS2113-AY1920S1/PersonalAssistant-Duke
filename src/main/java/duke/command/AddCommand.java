@@ -137,7 +137,7 @@ public class AddCommand extends Command {
     }
 
     public LocalDateTime convertToLocalDateTime(String rawDate) {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyy HHmm");
         LocalDateTime date = LocalDateTime.parse(rawDate, fmt);
         return date;
     }
