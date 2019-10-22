@@ -1,9 +1,12 @@
 package duke.Parser;
 
+import java.io.FileNotFoundException;
+
 public interface IParser {
     /**
-     * A method to parse commands.
+     * Method.
      * @param input command.
+     * @throws FileNotFoundException Exception.
      */
-    void parseCommand(String input);
+    void parseCommand(String input) throws FileNotFoundException;
 }
