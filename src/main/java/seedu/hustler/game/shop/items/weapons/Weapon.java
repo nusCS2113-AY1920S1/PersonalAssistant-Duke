@@ -6,7 +6,6 @@ import seedu.hustler.game.shop.items.ShopItem;
  * Abstract class of weapon that all weapons the avatar yields inherits from.
  */
 public abstract class Weapon extends ShopItem {
-
     /**
      * The damage increment of the weapon.
      */

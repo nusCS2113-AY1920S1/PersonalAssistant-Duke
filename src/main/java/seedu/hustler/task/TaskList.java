@@ -3,7 +3,12 @@ package seedu.hustler.task;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.Hustler;
@@ -364,7 +369,7 @@ public class TaskList {
                 list.add(entry.getValue());
             }
             break;
-        case "chronological":
+        case "datetime":
             TreeMap<LocalDateTime,Task> toDoList = new TreeMap<>();
             TreeMap<LocalDateTime,Task> otherTasksList = new TreeMap<>();
 
@@ -384,7 +389,7 @@ public class TaskList {
                 list.add(entry.getValue());
             }
             break;
-        case "prioritize":
+        case "priority":
             Collections.sort(list, (t1, t2) -> {
                 if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
                     return 0;

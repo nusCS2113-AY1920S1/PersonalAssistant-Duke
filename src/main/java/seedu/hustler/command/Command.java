@@ -6,9 +6,8 @@ import java.io.IOException;
  * Template for duke commands.
  */
 public abstract class Command {
-    
     /**
-     * Execute the command.
+     * Executes the command.
      */
     public abstract void execute() throws IOException;
 }

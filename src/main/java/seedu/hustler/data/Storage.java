@@ -28,8 +28,8 @@ import static seedu.hustler.parser.DateTimeParser.getDateTime;
  */
 public class Storage {
     /**
-     * Path to the file where tasks are stored and retrieved.
-     * from.
+     * Path to the file where tasks are stored and
+     * retrieved from.
      */
     private static String filePath;
     private static String filePathBackup;
@@ -54,7 +54,6 @@ public class Storage {
 
     /**
      * Loads list of tasks from disc from a csv style file.
-     *
      * @return an array list loaded from the disc.
      */
     public ArrayList<Task> load() {
@@ -133,7 +132,6 @@ public class Storage {
 
     /**
      * Reloads list of tasks from a backup of the original hustler.txt file.
-     *
      * @return an array list loaded from the backup disc.
      */
     public ArrayList<Task> reloadBackup() {
@@ -206,7 +204,6 @@ public class Storage {
 
     /**
      * Saves the input task list to disc.
-     *
      * @param inputList the list of tasks to saveAchievements to disc.
      * @throws IOException if file could not be saved
      */
@@ -294,7 +291,6 @@ public class Storage {
 
     /**
      * Creates a backup copy of hustler.txt each time the user uses this app; used for UndoCommand.
-     *
      * @param inputList the list of tasks to save to disc.
      * @throws IOException if file could not be saved
      */
