@@ -290,7 +290,7 @@ public class TaskList {
                     list.get(i).setDateTime(ldt.plusMonths(num));
                     break;
                 default:
-                    System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
+                    ui.show_message("You have typed in the wrong format. Please re-enter the snooze command.");
                     return;
                 }
             }
@@ -356,7 +356,7 @@ public class TaskList {
             });
             break;
         default:
-            System.out.println("Task list has remained the same. Please check your sort command.");
+            ui.show_message("Task list has remained the same. Please check your sort command.");
             return;
         }
         ui.show_list_sorted(list);
