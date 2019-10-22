@@ -1,6 +1,7 @@
 package models.task;
 
 import util.ParserHelper;
+import util.SortHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Arrays;
 public class TaskList {
     private ArrayList<Task> taskList;
     private ParserHelper parserHelper;
+    private SortHelper sortHelper;
 
     /**
      * Class representing a list with all task sort in the project.
@@ -15,6 +17,7 @@ public class TaskList {
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.parserHelper = new ParserHelper();
+        this.sortHelper = new SortHelper();
     }
 
     /**
@@ -141,5 +144,14 @@ public class TaskList {
 
     public boolean contains(Task task) {
         return (taskList.contains(task));
+    }
+
+    /**
+     * Get details of task with closest deadline and return in String array form
+     * @return String array of details of task which has the closest deadline
+     */
+    public String[] getClosestDeadlineTask() {
+        ArrayList<String> sortedTaskList = sortHelper.sortTaskDueDate(this.taskList);
+        return sortedTaskList.get(0).substring(3).split(" [|] ");
     }
 }
