@@ -76,19 +76,26 @@ public class ProjectRepository implements IRepository<Project> {
                 }
                 toPrint.add("");
             }
-            toPrint.add("Next Deadline: ");
             if (allProjects.get(projNum).getNumOfTasks() == 0) {
+                toPrint.add("Next Deadline: ");
                 toPrint.add(" --");
             } else {
                 String[] detailsClosestDeadlineTask = allProjects.get(projNum).getTasks().getClosestDeadlineTask();
-                toPrint.add(" " + detailsClosestDeadlineTask[0]);
+                toPrint.add("Next Deadline: " + detailsClosestDeadlineTask[0]);
                 for (int i = 1; i < detailsClosestDeadlineTask.length; i++) {
                     toPrint.add(" - " + detailsClosestDeadlineTask[i]);
                 }
                 toPrint.add("");
             }
             toPrint.add("Overall Progress: ");
-            toPrint.add(" Feature not yet done");
+            if (allProjects.get(projNum).getNumOfTasks() == 0) {
+                toPrint.add(" --");
+            } else {
+                String[] detailsOverallProgress = allProjects.get(projNum).getTasks().getOverallProgress();
+                for (String detail : detailsOverallProgress) {
+                    toPrint.add(" - " + detail);
+                }
+            }
             toPrintAll.add(toPrint);
         }
         return toPrintAll;
