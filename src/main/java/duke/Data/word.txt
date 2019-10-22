@@ -13,3 +13,4 @@ update
 clear
 edit
 history
+suggest
