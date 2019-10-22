@@ -14,18 +14,18 @@ public class Menu {
         Ui ui = farmio.getUi();
         Simulation simulation =farmio.getSimulation();
         if(resume && storage.getSaveExist()) { //resume, save and load
-            simulation.animate("menu", 2, true);
+            simulation.animate("Menu", 2, true);
             return;
         }
         if(resume){ //resume and save
-            simulation.animate("menu", 4, true);
+            simulation.animate("Menu", 4, true);
             return;
         }
         if(storage.getSaveExist()){ //load
-            simulation.animate("menu", 3, true);
+            simulation.animate("Menu", 3, true);
             return;
         }
-        simulation.animate("menu", 0, true); //only new and quit
+        simulation.animate("Menu", 0, true); //only new and quit
     }
 
     public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){
