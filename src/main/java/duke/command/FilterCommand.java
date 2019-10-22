@@ -47,7 +47,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Executes a command that filters tasks in task list and updates the updated list
+     * Executes a command that filters tasks in task list and updates the updated list.
      *
      * @param items The task list that contains a list of tasks.
      * @param filterList  The task list that contains a list of filtered tasks.
@@ -61,20 +61,20 @@ public class FilterCommand extends Command {
                 filterList.add(items.get(i));
                 filterList.setFilterIndex(ONE);
             } else if (taskType.equals("deadline") && items.get(i) instanceof Deadline) {
-               filterList.add(items.get(i));
-               filterList.setFilterIndex(TWO);
+                filterList.add(items.get(i));
+                filterList.setFilterIndex(TWO);
             } else if (taskType.equals("event") && items.get(i) instanceof Event) {
-               filterList.add(items.get(i));
-               filterList.setFilterIndex(THREE);
+                filterList.add(items.get(i));
+                filterList.setFilterIndex(THREE);
             } else if (taskType.equals("repeat") && items.get(i) instanceof Repeat) {
-               filterList.add(items.get(i));
-               filterList.setFilterIndex(FOUR);
+                filterList.add(items.get(i));
+                filterList.setFilterIndex(FOUR);
             } else if (taskType.equals("doafter") && items.get(i) instanceof DoAfter) {
-               filterList.add(items.get(i));
-               filterList.setFilterIndex(FIVE);
+                filterList.add(items.get(i));
+                filterList.setFilterIndex(FIVE);
             } else if (taskType.equals("fixedduration") && items.get(i) instanceof FixedDuration) {
-               filterList.add(items.get(i));
-               filterList.setFilterIndex(SIX);
+                filterList.add(items.get(i));
+                filterList.setFilterIndex(SIX);
             }
         }
     }

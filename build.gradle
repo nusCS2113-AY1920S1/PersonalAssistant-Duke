@@ -21,7 +21,7 @@ javafx {
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "0.1.5b"
+    archiveVersion = "0.1.6"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -35,8 +35,8 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "duke.Duke"
-    //mainClassName = "duke.Launcher"
+    //mainClassName = "duke.Duke"
+    mainClassName = "duke.Launcher"
 }
 
 run {

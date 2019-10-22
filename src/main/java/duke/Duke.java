@@ -1,6 +1,16 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.FilterCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.DeleteCommand;
+import duke.command.DeleteContactCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.AddContactsCommand;
+import duke.command.ListContactsCommand;
+import duke.command.BackupCommand;
+import duke.command.ExitCommand;
 
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
@@ -126,6 +136,7 @@ public class Duke {
      *
      * @param cmd Command to be executed.
      * @return String to be outputted.
+     * @throws IOException  If there is an error writing the text file
      */
     public String executeCommand(Command cmd) throws IOException {
         if (cmd instanceof AddContactsCommand) {

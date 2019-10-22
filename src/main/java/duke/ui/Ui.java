@@ -132,6 +132,7 @@ public class Ui {
      * Outputs all the contacts of the contact list to user through GUI.
      *
      * @param contactList The list of contacts.
+     * @return String of all contacts from contact list.
      */
     public static String showContactListGui(ContactList contactList) {
         String str = "";
@@ -510,6 +511,7 @@ public class Ui {
      *
      * @param contactList The contact list that contains a list of contacts.
      * @param deletedContact The contact that is deleted.
+     * @return String of deleted contact to user.
      */
     public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
         String str = "     Noted. I've removed this contact:\n";

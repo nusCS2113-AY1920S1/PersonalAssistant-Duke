@@ -59,9 +59,11 @@ public class FilterList {
     public int getFilterIndex() {
         return filterIndex;
     }
+
     /**
      * Set the filter index based on the type of task.
      *
+     *  @param filterIndex The index of filtered task.
      */
     public void setFilterIndex(int filterIndex) {
         this.filterIndex = filterIndex;

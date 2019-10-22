@@ -33,36 +33,41 @@ class UpdateCommTest {
         Command cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         Ui ui = new Ui();
 
+        Task taskdummy = new Todo("dummy");
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       1.[T][X] run", cmd.executeGui(items,ui));
+                + "       1.[T]" + taskdummy.getStatusIconGui()
+                + " run", cmd.executeGui(items,ui));
 
         dateDesc = "08/08/2018 1708";
         typeOfUpdate = 2;
         tasknum = 1;
         cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       2.[D][X] homework (by: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
+                + "       2.[D]" + taskdummy.getStatusIconGui()
+                + " homework (by: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
 
         taskDesc = "trampoline";
         typeOfUpdate = 1;
         tasknum = 2;
         cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       3.[E][X] trampoline (at: 5th of May 2015, 3PM)", cmd.executeGui(items,ui));
+                + "       3.[E]" + taskdummy.getStatusIconGui()
+                + " trampoline (at: 5th of May 2015, 3PM)", cmd.executeGui(items,ui));
 
         typeDesc = "event";
         typeOfUpdate = 3;
         tasknum = 1;
         cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       2.[E][X] homework (at: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
+                + "       2.[E]" + taskdummy.getStatusIconGui()
+                + " homework (at: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
 
         typeDesc = "todo";
         typeOfUpdate = 3;
         tasknum = 2;
         cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       3.[T][X] trampoline", cmd.executeGui(items,ui));
+                + "       3.[T]" + taskdummy.getStatusIconGui() + " trampoline", cmd.executeGui(items,ui));
     }
 
     @Test
