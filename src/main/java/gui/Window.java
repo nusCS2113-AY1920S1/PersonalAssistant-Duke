@@ -35,7 +35,7 @@ public class Window {
     private JTextField completedPercField;
 
     /**
-     * Create the application.
+     * Create the Window
      */
     public Window(TasksCounter tc) {
     	Window.instance = this;
@@ -123,7 +123,10 @@ public class Window {
         };
         inputField.addActionListener(enterPressed);
     }
-    
+
+    /**
+     * Updates the percentage displayed on the window
+     */
     public void updatePercentage()	{
         completedPercField.setText("" + tasksCounter.getPercCompleted() + "% of tasks complete");
     }
