@@ -57,9 +57,9 @@ public interface Model {
 
     /**
      * Returns the list of all attractions.
-     * @return
-     * @param numberOfDays
-     * @param itinerary
+     * @param numberOfDays number of days
+     * @param itinerary the itinerary to store in persistent storage
+     * @return List of Days
      */
     List<Day> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException;
 

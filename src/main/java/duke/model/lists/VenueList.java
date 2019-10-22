@@ -31,11 +31,11 @@ public class VenueList implements Iterable<Venue> {
         list.add(venue);
     }
 
-    public List<Venue> getVenueList(){
+    public List<Venue> getVenueList() {
         return this.list;
     }
 
-    public void setVenueList(Venue venue, int index){
+    public void setVenueList(Venue venue, int index) {
         list.set(index,venue);
     }
 

@@ -37,7 +37,7 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws DukeException If userInput is undefined.
      */
-    public static Command parseComplexCommand(String input) throws DukeException{
+    public static Command parseComplexCommand(String input) throws DukeException {
         String commandWord = getCommandWord(input);
         switch (commandWord) {
         case "todo":

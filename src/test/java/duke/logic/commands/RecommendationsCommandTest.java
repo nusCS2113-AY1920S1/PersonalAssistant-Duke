@@ -4,8 +4,10 @@ import duke.ModelStub;
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.locations.Venue;
+import duke.model.planning.Itinerary;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,20 +16,18 @@ class RecommendationsCommandTest {
 
     @Test
     void execute() throws DukeException {
-//        ModelStub model = new ModelStub();
-//        RecommendationsCommand recommendationsCommand = new RecommendationsCommand(5);
-//        CommandResultText commandResult = recommendationsCommand.execute(model);
-//        String result1 = commandResult.getMessage();
-//
-//        List<Venue> list = model.getRecommendations(itinerary.getNumberOfDays(), itinerary);
-//        StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in 5 days:\n");
-//        for (int i = 0; i < 10; i++) {
-//            if (i % 2 == 0) {
-//                result.append("Day ").append((i / 2) + 1).append(":").append("\n");
-//            }
-//            result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
-//        }
-//        assertEquals(result1, result.toString());
+        ModelStub model = new ModelStub();
+        LocalDateTime startDate = LocalDateTime.of(2019, 9, 9, 9, 9);
+        LocalDateTime endDate = LocalDateTime.of(2019, 9, 13, 9, 9);
+        Venue Hotel = new Venue("YEW TEE INDUSTRIAL ESTATE", 1.3973210291170202,
+                103.753758637401, 0, 0);
+
+        Itinerary itinerary = new Itinerary(startDate,endDate,Hotel);
+        RecommendationsCommand recommendationsCommand = new RecommendationsCommand(itinerary);
+        CommandResultText commandResult = recommendationsCommand.execute(model);
+        String result1 = commandResult.getMessage();
+
+        assertEquals(result1, itinerary.printItinerary().toString());
     }
 
 }

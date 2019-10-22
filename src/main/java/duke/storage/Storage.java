@@ -135,7 +135,7 @@ public class Storage {
         List<Day> recommendations = new ArrayList<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
-        while (s.hasNext() && i<=numDays) {
+        while (s.hasNext() && i <= numDays) {
             List<Venue> venueList = new ArrayList<>();
             venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
             List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
@@ -174,7 +174,7 @@ public class Storage {
     public void writeRecommendations(Itinerary itinerary) throws DukeException {
         try {
             FileWriter writer = new FileWriter(SAMPLE_RECOMMENDATIONS_FILE_PATH);
-            writer.write(itinerary.getStartDate().toString()+ "\n" + itinerary.getEndDate().toString() + "\n"
+            writer.write(itinerary.getStartDate().toString() + "\n" + itinerary.getEndDate().toString() + "\n"
                     + itinerary.getHotelLocation().toString() + "\n");
             for (Day day : itinerary.getList()) {
                 writer.write(ParserStorageUtil.toDayString(day) + "\n");
@@ -201,7 +201,7 @@ public class Storage {
             while (s.hasNext()) {
                 List<Venue> venueList = new ArrayList<>();
                 List<Todo> todoList;
-                int number = ParserStorageUtil.getNumberFromStorage(s.nextLine());
+                final int number = ParserStorageUtil.getNumberFromStorage(s.nextLine());
                 venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
                 venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
                 todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
@@ -214,7 +214,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new DukeException(Messages.FILE_NOT_FOUND);
         }
-       return itinerary;
+        return itinerary;
     }
 
     public TaskList getTasks() {

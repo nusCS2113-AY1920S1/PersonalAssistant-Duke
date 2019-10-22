@@ -10,6 +10,6 @@ class TodoTest {
     @Test
     void testToString() {
         Todo todo = new Todo("Homework");
-        assertEquals(todo.toString(), "[T][✘] Homework");
+        assertEquals(todo.toString(), "Homework");
     }
 }

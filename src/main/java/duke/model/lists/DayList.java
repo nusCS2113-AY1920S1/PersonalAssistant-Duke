@@ -19,7 +19,7 @@ public class DayList implements Iterable<Day> {
         return list.size();
     }
 
-    public List<Day> getList(){
+    public List<Day> getList() {
         return list;
     }
 
@@ -29,11 +29,11 @@ public class DayList implements Iterable<Day> {
      * The Task must not already exist in the list.
      */
     public void add(Day toAdd) throws DukeException {
-//        if (contains(toAdd)) {
-//            throw new DukeDuplicateTaskException();
-//        } else if (hasAnomaly(toAdd)) {
-//            throw new DukeException(Messages.ANOMALY_FOUND);
-//        }
+        //        if (contains(toAdd)) {
+        //            throw new DukeDuplicateTaskException();
+        //        } else if (hasAnomaly(toAdd)) {
+        //            throw new DukeException(Messages.ANOMALY_FOUND);
+        //        }
         list.add(toAdd);
     }
 
@@ -43,13 +43,13 @@ public class DayList implements Iterable<Day> {
      */
     public void setTask(Day target, Day editedDay) throws DukeException {
         int index = list.indexOf(target);
-//        if (index == -1) {
-//            throw new DukeTaskNotFoundException();
-//        }
-//
-//        if (!target.isSameTask(editedTask) && contains(editedTask)) {
-//            throw new DukeDuplicateTaskException();
-//        }
+        //        if (index == -1) {
+        //            throw new DukeTaskNotFoundException();
+        //        }
+        //
+        //        if (!target.isSameTask(editedTask) && contains(editedTask)) {
+        //            throw new DukeDuplicateTaskException();
+        //        }
         list.set(index, editedDay);
     }
 

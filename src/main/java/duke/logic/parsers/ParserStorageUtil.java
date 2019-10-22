@@ -148,6 +148,11 @@ public class ParserStorageUtil {
         return new TrainStation(trainCode, address, latitude, longitude);
     }
 
+    /**
+     * Returns a list of todo's from a text file.
+     *
+     * @return The List of todo's
+     */
     public static List<Todo> getTodoListFromStorage(String line) {
         List<Todo> todoList = new ArrayList<>();
         String[] todoParts = line.split("\\|");
@@ -158,14 +163,19 @@ public class ParserStorageUtil {
         return todoList;
     }
 
+    /**
+     * Returns the Day object in a string format.
+     *
+     * @return The Information for one day in a string format
+     */
     public static String toDayString(Day day) {
         StringBuilder result = new StringBuilder();
         result.append("Day |").append(day.getNumber()).append("\n");
-        for(Venue venue : day.getVenueList()){
+        for (Venue venue : day.getVenueList()) {
             result.append(venue.toString());
             result.append("\n");
         }
-        for(Todo todo : day.getTodoList()){
+        for (Todo todo : day.getTodoList()) {
             result.append(todo.toString());
             result.append(" | ");
         }

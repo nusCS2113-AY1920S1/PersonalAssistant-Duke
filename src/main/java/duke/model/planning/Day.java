@@ -5,22 +5,25 @@ import duke.model.locations.Venue;
 
 import java.util.List;
 
-public class Day extends VenueList{
+public class Day extends VenueList {
     private List<Todo> todoList;
     private int number;
 
-    public Day (List<Todo> todoList, List<Venue> venueList, int number) {
+    /**
+     * Constructor to initialise new Day object.
+     */
+    public Day(List<Todo> todoList, List<Venue> venueList, int number) {
         super();
         addList(venueList);
         this.number = number;
         this.todoList = todoList;
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return number;
     }
 
-    public List<Todo> getTodoList(){
+    public List<Todo> getTodoList() {
         return this.todoList;
     }
 
@@ -29,7 +32,7 @@ public class Day extends VenueList{
         return super.getVenueList();
     }
 
-    public void setTodo(int index, Todo todo){
+    public void setTodo(int index, Todo todo) {
         todoList.set(index,todo);
     }
 
@@ -38,7 +41,7 @@ public class Day extends VenueList{
         super.setVenueList(venue, index);
     }
 
-    public void setNumber(int newNum){
+    public void setNumber(int newNum) {
         this.number = newNum;
     }
 }
