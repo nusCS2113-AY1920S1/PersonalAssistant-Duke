@@ -5,16 +5,25 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Transaction {
-    protected BigDecimal amount;
+    protected BigDecimal transactionAmount;
     protected String type = "";
-    protected SimpleDateFormat dateparser = new SimpleDateFormat("dd/MM/yyyy");
-    protected String date = dateparser.format(Calendar.getInstance().getTime());
+    protected SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
+    protected String date = dateParser.format(Calendar.getInstance().getTime());
 
-    public Transaction(BigDecimal amount, String type) {
-        this.amount = amount;
+    public Transaction(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
 
     public String getType() {
         return this.type;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    @Override
+    public String toString() {
+        return " SGD" + this.transactionAmount + "| " + getDate();
     }
 }

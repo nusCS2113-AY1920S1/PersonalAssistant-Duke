@@ -1,7 +1,9 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.AddTransactionCommand;
 import duke.logic.commands.DepositCommand;
+import duke.model.Deposit;
 
 public class DepositCommandParser implements ParserInterface <DepositCommand> {
 
@@ -13,7 +15,8 @@ public class DepositCommandParser implements ParserInterface <DepositCommand> {
         if (userInput.contains("/date")) {
             String depositAmount = userInput.split("/date", 2)[0].trim();
             String dateString = userInput.split("/date", 2)[1].trim();
-            return new DepositCommand(depositAmount, dateString);
+            return new AddTransactionCommand(new Deposit())
+//            return new DepositCommand(depositAmount, dateString);
         } else {
             return new DepositCommand(userInput);
         }

@@ -32,7 +32,5 @@ public class DepositCommand extends Command{
 
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
-        user.depositToAccount(depositAmount);
-        ui.showDeposit(depositAmount, user.accountBalance(), user.getCurrency());
     }
 }
