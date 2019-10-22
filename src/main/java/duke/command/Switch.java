@@ -17,7 +17,7 @@ public class Switch {
     /**
      * Construct a new Switch object, describing the properties of the switch.
      *
-     * @param name       The full name of the switch.
+     * @param name       The full name of the switch, which will be internally lowercased.
      * @param type       The expected type of the switch. If there is more than one possible type, specify "String" and
      *                   parse and differentiate within the command itself.
      * @param isOptional Whether or not the switch is optional.
@@ -26,7 +26,7 @@ public class Switch {
      * @param aliases    Any other names for this switch that do not constitute a prefix for it.
      */
     public Switch(String name, Class type, boolean isOptional, ArgLevel argLevel, String root, String... aliases) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.type = type;
         this.isOptional = isOptional;
         this.argLevel = argLevel;

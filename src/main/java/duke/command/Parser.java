@@ -250,7 +250,7 @@ public class Parser {
     }
 
     private void addSwitch() throws DukeHelpException {
-        String newSwitchName = elementBuilder.toString();
+        String newSwitchName = elementBuilder.toString().toLowerCase();
 
         // previous switch was not given an argument
         if (currSwitchName != null) {
