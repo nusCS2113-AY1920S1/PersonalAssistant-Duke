@@ -80,4 +80,8 @@ public class Storage {
     public void saveUser(User user) throws DukeException {
         writer.writeUser(user);
     }
+
+    public void saveTransaction(Transaction transaction) throws DukeException {
+
+    }
 }

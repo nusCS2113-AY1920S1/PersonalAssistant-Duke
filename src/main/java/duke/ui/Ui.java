@@ -4,6 +4,7 @@ import duke.model.Goal;
 import duke.model.Meal;
 import duke.model.user.User;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -164,4 +165,10 @@ public class Ui {
             }
         }
     }
+
+    public void showDeposit(BigDecimal depositAmount, BigDecimal accountBalance, String currencyCode) {
+        System.out.println(padding + "Got it. I've deposited" + depositAmount + " " + currencyCode + " to your account.");
+        System.out.println(padding + "Your account balance: " + accountBalance);
+    }
+
 }

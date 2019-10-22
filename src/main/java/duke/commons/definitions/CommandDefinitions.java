@@ -21,4 +21,6 @@ public class CommandDefinitions {
     public static final String UPDATE_WEIGHT_COMMAND = "update";
     public static final String SET_GOAL_COMMAND = "setgoal";
     public static final String HISTORY_COMMAND = "history";
+    public static final String DEPOSIT_COMMAND = "deposit";
+    public static final String PAYMENT_COMMAND = "pay";
 }

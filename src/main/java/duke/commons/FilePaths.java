@@ -18,4 +18,6 @@ public class FilePaths {
             + sep + "Data" + sep + "user.txt");
     public static final File AUTOCORRECT_FILE = new File("src" + sep + "main" + sep + "java" + sep + "duke"
             + sep + "Data" + sep + "word.txt");
+    public static final File TRANSACTION_FILE = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+            + sep + "Data" + sep + "transaction.txt");
 }

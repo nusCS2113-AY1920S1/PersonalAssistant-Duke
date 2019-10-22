@@ -2,6 +2,7 @@ package duke.model.user;
 
 import duke.commons.exceptions.DukeException;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -115,6 +116,10 @@ public class User {
         } else {
             this.loseWeight = false;
         }
+
+        System.out.println("      What is your initial account balance? (in SGD)");
+        BigDecimal accountBalance = new BigDecimal(in.nextLine());
+        this.account = new Account(accountBalance);
         this.name = name;
         setWeight(weight);
         this.height = height;
@@ -150,6 +155,20 @@ public class User {
         }
         String currentDate = dateFormat.format(temp.getTime());
         this.weight.add(new Tuple(currentDate, weight));
+    }
+
+    //TODO: might want to refactor this to make it more cohesive (1 degree of separation only)
+    public void depositToAccount(BigDecimal depositAmount) {
+        this.account.deposit(depositAmount);
+    }
+
+    public BigDecimal accountBalance() {
+        return this.account.getAmount();
+    }
+
+    //TODO: might want to refactor (1 DoS)
+    public String getCurrency() {
+        return account.getCurrency();
     }
 
     public void setHeight(int height) {

@@ -19,13 +19,12 @@ public class Account {
         this.amount = amount;
     }
 
-    public void accountStatus() {
-        System.out.println(amount + " " + currency.getCurrencyCode() + "left in the account");
+    public String getCurrency () {
+        return currency.getCurrencyCode();
     }
 
     public void deposit(BigDecimal deposit) {
         this.amount = amount.add(deposit);
-        System.out.println(deposit + " " + currency.getCurrencyCode() + " deposited to your account");
     }
 
     public void withdraw(BigDecimal withdrawal) {

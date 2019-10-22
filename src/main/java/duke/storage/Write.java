@@ -150,4 +150,29 @@ public class Write {
             e.printStackTrace();
         }
     }
+
+    public void writeTransaction(User user) throws DukeException {
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(TRANSACTION_FILE));
+        } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+        try {
+            Goal goal = mealData.getGoal();
+            String toWrite = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
+            HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
+            if (nutritionData.size() != 0) {
+                for (String k : nutritionData.keySet()) {
+                    toWrite += k + "|" + nutritionData.get(k) + "|";
+                }
+                toWrite = toWrite.substring(0, toWrite.length() - 1) + "\n";
+            }
+            bufferedWriter.write(toWrite);
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+    }
 }
