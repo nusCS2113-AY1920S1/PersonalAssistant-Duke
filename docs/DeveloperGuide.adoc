@@ -128,13 +128,22 @@ The rest of the App consists of four components.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 === UI Component
+image::UiComponent.png[width="800"]
+
 === Logic Component
+
+
 === Model Component
+image::ModelComponent.png[width="800"]
+
 === Storage Component
+
+
 === Common Classes
 
 == Implementation
-=== Undo/Redo feature
+
+
 
 == Documentation
 === Editing Documentation
