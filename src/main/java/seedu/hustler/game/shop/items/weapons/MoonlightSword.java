@@ -4,11 +4,11 @@ package seedu.hustler.game.shop.items.weapons;
  * The highest tiered Weapon in the shop.
  */
 public class MoonlightSword extends Weapon {
-
     /**
      * The damage increment of the Moonlight Sword.
      */
     private static final int DMG_INCR = 10;
+
     /**
      * The cost of the Moonlight Sword.
      */
@@ -23,7 +23,7 @@ public class MoonlightSword extends Weapon {
 
     /**
      * Constructs a new Moonlight Sword with the given hasPurchased.
-     * @param hasPurchased
+     * @param hasPurchased boolean if the Moonlight Sword has been purchased.
      */
     public MoonlightSword(boolean hasPurchased) {
         super(COST, hasPurchased, DMG_INCR);
