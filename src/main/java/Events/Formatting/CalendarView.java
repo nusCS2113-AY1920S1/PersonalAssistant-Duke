@@ -1,22 +1,22 @@
-package Events.Storage;
+package Events.Formatting;
 
 import Events.EventTypes.Event;
-import Events.Formatting.EventDate;
+import Events.Storage.EventList;
 
 import java.util.*;
 
 public class CalendarView {
-    private List<Queue<Event>> eventsOfTheWeek = new ArrayList<Queue<Event>>(7);
+    private List<Queue<Event>> eventsOfTheWeek = new ArrayList<>(7);
 
-    private ArrayList<String> daysToDisplay = new ArrayList<String>();
-    private ArrayList<String> datesToDisplay = new ArrayList<String>();
+    private ArrayList<String> daysToDisplay = new ArrayList<>();
+    private ArrayList<String> datesToDisplay = new ArrayList<>();
     private String stringForOutput;
     static final int MONDAY = 0, TUESDAY = 1, WEDNESDAY = 2, THURSDAY = 3, FRIDAY = 4, SATURDAY = 6, SUNDAY = 7;
 
     public CalendarView(EventList eventList) {
         ArrayList<Event> eventArrayList = eventList.getEventArrayList();
         for (int i = 0; i < 7; i++) {
-            eventsOfTheWeek.add(new LinkedList<Event>());
+            eventsOfTheWeek.add(new LinkedList<>());
         }
         EventDate today = new EventDate(new Date());
         setDaysAndDatesList(today);
@@ -49,7 +49,9 @@ public class CalendarView {
                     thisDayNum++;
                     thisDay.addDaysAndSetMidnight(thisDayNum);
                 }
-                if (thisDayNum < 7) eventsOfTheWeek.get(thisDayNum).offer(thisEvent);
+                if (thisDayNum < 7) {
+                    eventsOfTheWeek.get(thisDayNum).offer(thisEvent);
+                }
             } else {
                 break;
             }
@@ -63,40 +65,38 @@ public class CalendarView {
      */
     private void setDaysAndDatesList(EventDate today) {
         String currDay = today.getEventJavaDate().toString().split(" ")[0];
-        String[] weekdays = new String[]{"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>   ",
+        String[] weekdays = new String[] {"    <Monday>    ", "   <Tuesday>    ", "   <Wednesday>  ",
                 "   <Thursday>   ", "    <Friday>    ", "   <Saturday>   ", "    <Sunday>    "};
 
         int startDay = 0;
         switch (currDay) {
-            case "Mon": {
+            case "Mon":
                 startDay = MONDAY;
                 break;
-            }
-            case "Tue": {
+
+            case "Tue":
                 startDay = TUESDAY;
                 break;
-            }
-            case "Wed": {
+
+            case "Wed":
                 startDay = WEDNESDAY;
                 break;
-            }
-            case "Thu": {
+
+            case "Thu":
                 startDay = THURSDAY;
                 break;
-            }
-            case "Fri": {
+
+            case "Fri":
                 startDay = FRIDAY;
                 break;
-            }
-            case "Sat": {
+
+            case "Sat":
                 startDay = SATURDAY;
                 break;
-            }
-            case "Sun": {
+
+            case "Sun":
                 startDay = SUNDAY;
                 break;
-            }
-
         }
 
         for (int i = 0; i < 7; i++) {
@@ -137,11 +137,10 @@ public class CalendarView {
         }
         calendarInfo += "|\n" +
                 "________________________________________________________________________________________________________________________\n";
-        ;
 
         // rows of events
         for (int idxOfEventRow = 0; idxOfEventRow < maxNumOfEvent; idxOfEventRow++) {
-            String[][] eventsLine = null;
+            String[][] eventsLine;
             eventsLine = getEventsOfOneRow(idxOfEventRow);
 
             for (int row = 0; row < 3; row++) {
@@ -175,7 +174,7 @@ public class CalendarView {
                 Event tempEvent = eventsOfTheWeek.get(day).poll();
 
                 //time
-                String thisStartTime = null, thisEndTime = null;
+                String thisStartTime, thisEndTime;
                 assert tempEvent != null;
                 if (!(tempEvent.getStartDate() == null) &&
                         (tempEvent.getStartDate().getFormattedDateString().split(", ").length > 2)) {

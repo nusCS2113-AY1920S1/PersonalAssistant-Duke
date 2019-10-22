@@ -53,7 +53,6 @@ public class UI {
         System.out.println("Enter a command:");
     }
 
-
     /**
      * Obtains the current date and prints the events to be completed within the next
      * three days as a reminder.
@@ -181,6 +180,14 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void rescheduleFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter command in the following format:\n" +
+            "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
+                "Please ensure that the taskIndex is a valid integer as well!");
+        System.out.print(lineSeparation);
+    }
+
     /**
      * prints message if no event description is found when adding a new event to the list
      */
@@ -190,12 +197,17 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void eventEndsBeforeStart() {
+        System.out.print(lineSeparation);
+        System.out.println("The event you added ends before it starts! Please try again.");
+        System.out.print(lineSeparation);
+    }
     /**
      * prints message when event index from input is not an integer
      */
     public void notAnInteger() {
         System.out.print(lineSeparation);
-        System.out.println("That is not an integer! Please enter the index of the event you intend to alter.");
+        System.out.println("That is not a valid integer! Please enter the index of the event you intend to alter.");
         System.out.print(lineSeparation);
     }
 
@@ -204,7 +216,8 @@ public class UI {
      */
     public void eventFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm' or 'dd-MM-yyyy'.");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'.\n" +
+                "First time entered is start time, second time entered is end time.");
         System.out.print(lineSeparation);
     }
 
@@ -225,15 +238,6 @@ public class UI {
                 eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
                 " END: " + eventAdded.getEndDate().getFormattedDateString() + " (every " + period + " days)");
         System.out.println("Now you have " + numEvents + " events in the list.");
-        System.out.print(lineSeparation);
-    }
-
-    /**
-     * prints message when format of input is wrong for adding new recurring events
-     */
-    public void recursionFormatWrong() {
-        System.out.print(lineSeparation);
-        System.out.println("Please enter the period of the recurring event (in days) after /every.");
         System.out.print(lineSeparation);
     }
 

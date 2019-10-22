@@ -12,12 +12,8 @@ public class Parser {
     /**
      * Creates new Model_Class.Parser object.
      */
-    public Parser() {
-    }
+    public Parser() {}
 
-    /**
-     *
-     */
     public String readUserInput() {
         return inputScanner.nextLine();
     }

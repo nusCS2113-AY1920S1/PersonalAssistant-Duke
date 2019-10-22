@@ -37,6 +37,6 @@ public class Duke {
         parser = new Parser();
         ui = new UI();
         storage = new Storage(new File("data/Duke.txt"));
-        tasks = new EventList(storage.readFromFile(ui), parser);
+        tasks = new EventList(storage.readFromFile(ui));
     }
 }
