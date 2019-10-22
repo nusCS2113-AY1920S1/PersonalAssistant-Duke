@@ -296,7 +296,7 @@ public class Parser {
      */
     public static String commandCorrector(String command) {
         String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
-                "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"};
+            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
