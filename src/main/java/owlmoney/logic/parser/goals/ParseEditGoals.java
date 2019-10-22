@@ -4,6 +4,7 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.goals.EditGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -11,6 +12,14 @@ import java.util.Iterator;
  */
 public class ParseEditGoals extends ParseGoals {
 
+    private Date by;
+
+    /**
+     * Creates an instance of ParseEditGoals class.
+     *
+     * @param data raw data of the input.
+     * @throws ParserException If valid parameters.
+     */
     public ParseEditGoals(String data) throws ParserException {
         super(data);
         checkFirstParameter();
@@ -42,7 +51,16 @@ public class ParseEditGoals extends ParseGoals {
                 changeCounter++;
             }
             if (BY.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkDate(value);
+                by = checkDate(value);
+                changeCounter++;
+            }
+            if (FROM.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkName(FROM, value);
+                changeCounter++;
+            }
+            if (IN.equals(key) && !(value.isEmpty() || value.isBlank())) {
+                checkInt(IN, value);
+                by = convertDaysToDate(Integer.parseInt(value));
                 changeCounter++;
             }
         }
@@ -60,7 +78,7 @@ public class ParseEditGoals extends ParseGoals {
     public Command getCommand() {
         EditGoalsCommand newEditGoalsCommand = new EditGoalsCommand(goalsParameters.get(NAME),
                 goalsParameters.get(AMOUNT),
-                goalsParameters.get(BY), goalsParameters.get(NEW_NAME));
+                by, goalsParameters.get(NEW_NAME), goalsParameters.get(FROM));
         return newEditGoalsCommand;
     }
 }

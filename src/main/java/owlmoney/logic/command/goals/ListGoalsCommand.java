@@ -18,7 +18,7 @@ public class ListGoalsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) {
-        profile.listGoals(ui);
+        profile.profileListGoals(ui);
         return this.isExit;
     }
 }

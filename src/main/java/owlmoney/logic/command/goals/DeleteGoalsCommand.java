@@ -31,7 +31,7 @@ public class DeleteGoalsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException {
-        profile.deleteGoals(name, ui);
+        profile.profileDeleteGoals(name, ui);
         return this.isExit;
     }
 }
