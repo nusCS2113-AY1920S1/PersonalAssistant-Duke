@@ -3,9 +3,12 @@ package duke.logic;
 import duke.exception.DukeException;
 import duke.logic.command.Command;
 import duke.model.Expense;
+import duke.model.ExpenseList;
 import duke.model.Model;
 import duke.storage.Storage;
 import javafx.collections.ObservableList;
+
+import java.math.BigDecimal;
 
 public class LogicManager implements Logic {
 
@@ -30,6 +33,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Expense> getExternalExpenseList() {
         return model.getExpenseExternalList();
+    }
+
+    @Override
+    public BigDecimal getTagAmount(String tag) {
+        return model.getExpenseList().getTagAmount(tag);
     }
 
 }
