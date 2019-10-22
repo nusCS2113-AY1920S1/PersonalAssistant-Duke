@@ -36,7 +36,7 @@ public class RecurringCommand extends Command {
 
     @Override
     public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
         String startDateString = dateFormat.format(startDate);
         String endDateString = dateFormat.format(endDate);
         Date oldStartDate = startDate;
