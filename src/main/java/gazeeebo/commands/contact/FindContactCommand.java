@@ -25,7 +25,7 @@ public class FindContactCommand {
             }
         }
         if (a <= 9) {
-            System.out.println("Name not found.");
+            System.out.println(nameToFind + " is not found in the list.");
         } else {
             System.out.print("Name:                         | Number:\n" + lineBreak);
             for (String keys : contact.keySet()) {

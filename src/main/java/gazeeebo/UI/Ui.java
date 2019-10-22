@@ -44,10 +44,10 @@ public class Ui {
 
         while (true) {
             readCommand();
-            ArrayList<String> password_list;
+            ArrayList<StringBuilder> password_list;
             Storage store = new Storage();
             password_list = store.Password();
-            if (fullCommand.equals(password_list.get(0))) {
+            if (fullCommand.equals(password_list.get(0).toString())) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -62,7 +62,7 @@ public class Ui {
     public void MajorCategories() {
         ArrayList<String> majorCategories = new ArrayList<>();
         majorCategories.add("help");
-        majorCategories.add("contact");
+        majorCategories.add("contacts");
         majorCategories.add("expenses");
         majorCategories.add("places");
         majorCategories.add("tasks");

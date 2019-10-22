@@ -27,7 +27,7 @@ public class FindPlacesCommand {
             }
         }
         if(!isFound) {
-           System.out.println("This place cannot be found.");
+           System.out.println(placeSearchingFor + " is not found in the list.");
         }
     }
 }
