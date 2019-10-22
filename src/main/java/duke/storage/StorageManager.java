@@ -24,8 +24,8 @@ public class StorageManager {
     private static final String STANDARD_TASK_FILENAME = "standardTasks.csv";
 
     private static final String[] COMMAND_COUNTER_HEADERS = {"Command Name", "Frequency"};
-    private static final String[] ASSIGNED_TASK_HEADERS = {"PID", "TID", "DONE", "RECURRENCE",
-            "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"};
+    private static final String[] ASSIGNED_TASK_HEADERS = {"PID", "TID", "DONE",
+        "RECURRENCE", "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"};
     private static final String[] PATIENT_HEADERS = {"Id", "Name", "NRIC", "Room", "Remark"};
     private static final String[] STANDARD_TASK_HEADERS = {"Id", "Description"};
 
@@ -119,7 +119,7 @@ public class StorageManager {
                     endTime = ((EventPatientTask) assignedTask).getEndTimeRaw();
                 }
                 ArrayList<String> row = new ArrayList<String>(Arrays.asList(pid, tid, isDone, isRecurr,
-                        deadline, startTime, endTime, type, uniqueId));
+                    deadline, startTime, endTime, type, uniqueId));
                 infoList.add(row);
             }
             assignedTaskStorage.write(infoList, ASSIGNED_TASK_HEADERS);
@@ -221,7 +221,7 @@ public class StorageManager {
                     assignedTaskList.add(new StandardPatientTask(pid, tid, isDone, isRecursive, deadline, taskType));
                 } else if (taskType.equals("E")) {
                     assignedTaskList.add(new EventPatientTask(pid, tid, isDone, isRecursive,
-                            startTime, endTime, taskType));
+                        startTime, endTime, taskType));
                 }
             }
         } catch (Exception e) {

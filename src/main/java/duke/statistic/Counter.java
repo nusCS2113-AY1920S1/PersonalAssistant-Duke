@@ -28,7 +28,6 @@ public class Counter {
      * This function is used to run the command counter.
      *
      * @param command        the command type that is being processed
-     * @param counterStorage get the counterStorage object
      * @param counter get the Counter object
      * @author QIAN JIE
      * @version 1.3
