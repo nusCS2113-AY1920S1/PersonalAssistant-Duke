@@ -147,7 +147,7 @@ public class RoomShare {
                         throw new RoomShareException(ExceptionType.timeClash);
                     }
                 } catch (RoomShareException e) {
-                    ui.showWriteError();
+//                    ui.showWriteError();
                 }
                 break;
                 
