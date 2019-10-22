@@ -76,7 +76,6 @@ public class MegaListCommand extends Command {
             if (!isJarMode) {
 
             }
-
             return sb.toString();
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
