@@ -53,7 +53,7 @@ public class AddExpensesCommand {
             itemAndPriceList.add(itemAndPrice);
             expenses.put(dateOfPurchase, itemAndPriceList);
         }
-        System.out.println("Okay we have successfully added your new expense: " + "\n" + itemAndPrice + ", bought on " + dateOfPurchase);
+        System.out.println("Successfully added: " + "\n" + itemAndPrice + ", bought on " + dateOfPurchase);
 
         /*Stores the updated expenses map after deletion of expenses*/
         String toStore = "";

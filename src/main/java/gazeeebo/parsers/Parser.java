@@ -24,7 +24,7 @@ public class Parser {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("help")) {
             return new HelpCommand();
-        } else if (command.equals("contact")) {
+        } else if (command.equals("contacts")) {
             return new ContactsCommand();
         } else if (command.equals("expenses")) {
             return new ExpenseCommand();

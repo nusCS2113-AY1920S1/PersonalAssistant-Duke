@@ -29,7 +29,7 @@ public class DeleteContactCommand {
             contact.remove(nameToDelete);
             System.out.print("Successfully deleted: "+ nameToDelete + "\n");
         } else {
-            System.out.print(nameToDelete + " is not in the list.\n");
+            System.out.print(nameToDelete + " is not found in the list.\n");
         }
     }
 }
