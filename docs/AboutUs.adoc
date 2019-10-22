@@ -34,7 +34,7 @@ image::tessa-z.png[width="150", align="left"]
 {empty}[https://github.com/tessa-z[github]] 
 
 Role: Developer +
-Responsibilities: Scheduling and tracking
+Responsibilities: Scheduling and tracking, Documentation
 
 '''
 
