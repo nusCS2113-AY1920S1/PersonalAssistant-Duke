@@ -496,3 +496,71 @@ Oct 22, 2019 2:30:36 PM duke.model.ExpenseList add
 INFO: externalList lengths 15
 Oct 22, 2019 2:30:36 PM duke.model.DukePP addExpense
 INFO: Model's externalList length now is 15
+Oct 22, 2019 2:50:13 PM duke.Main init
+INFO: The size of external list from storage is 15
+Oct 22, 2019 2:50:13 PM duke.Main init
+INFO: Initialized the app
+Oct 22, 2019 2:50:15 PM duke.model.DukePP getExpenseExternalList
+INFO: Model sends external List length 15
+Oct 22, 2019 2:50:15 PM duke.ui.ExpensePane <init>
+INFO: expenseList has length 15
+Oct 22, 2019 2:50:15 PM duke.ui.ExpensePane <init>
+INFO: Items are set.
+Oct 22, 2019 2:50:15 PM duke.ui.ExpensePane <init>
+INFO: cell factory is set.
+Oct 22, 2019 2:50:15 PM duke.model.DukePP getExpenseExternalList
+INFO: Model sends external List length 15
+Oct 22, 2019 2:50:15 PM duke.ui.ExpensePane <init>
+INFO: Pie chart is set.
+Oct 22, 2019 2:50:15 PM duke.model.DukePP getExpenseExternalList
+INFO: Model sends external List length 15
+Oct 22, 2019 2:50:15 PM duke.ui.MainWindow fillInnerPart
+INFO: The filled externalList length 15
+Oct 22, 2019 2:50:15 PM duke.ui.MainWindow fillInnerPart
+INFO: trendingPane is constructed.
+Oct 22, 2019 2:50:15 PM duke.ui.UiManager start
+INFO: MainWindow are showed and filled in.
+Oct 22, 2019 2:50:27 PM duke.model.ExpenseList add
+INFO: externalList lengths 16
+Oct 22, 2019 2:50:27 PM duke.model.DukePP addExpense
+INFO: Model's externalList length now is 16
+Oct 22, 2019 2:50:43 PM duke.model.ExpenseList add
+INFO: externalList lengths 17
+Oct 22, 2019 2:50:43 PM duke.model.DukePP addExpense
+INFO: Model's externalList length now is 17
+Oct 22, 2019 2:51:02 PM duke.model.ExpenseList add
+INFO: externalList lengths 18
+Oct 22, 2019 2:51:02 PM duke.model.DukePP addExpense
+INFO: Model's externalList length now is 18
+Oct 22, 2019 2:53:06 PM duke.Main init
+INFO: The size of external list from storage is 18
+Oct 22, 2019 2:53:06 PM duke.Main init
+INFO: Initialized the app
+Oct 22, 2019 2:53:08 PM duke.model.DukePP getExpenseExternalList
+INFO: Model sends external List length 18
+Oct 22, 2019 2:53:08 PM duke.ui.ExpensePane <init>
+INFO: expenseList has length 18
+Oct 22, 2019 2:53:08 PM duke.ui.ExpensePane <init>
+INFO: Items are set.
+Oct 22, 2019 2:53:08 PM duke.ui.ExpensePane <init>
+INFO: cell factory is set.
+Oct 22, 2019 2:53:08 PM duke.model.DukePP getExpenseExternalList
+INFO: Model sends external List length 18
+Oct 22, 2019 2:53:08 PM duke.ui.ExpensePane <init>
+INFO: Pie chart is set.
+Oct 22, 2019 2:53:08 PM duke.model.DukePP getExpenseExternalList
+INFO: Model sends external List length 18
+Oct 22, 2019 2:53:08 PM duke.ui.MainWindow fillInnerPart
+INFO: The filled externalList length 18
+Oct 22, 2019 2:53:08 PM duke.ui.MainWindow fillInnerPart
+INFO: trendingPane is constructed.
+Oct 22, 2019 2:53:08 PM duke.ui.UiManager start
+INFO: MainWindow are showed and filled in.
+Oct 22, 2019 2:53:37 PM duke.model.ExpenseList add
+INFO: externalList lengths 19
+Oct 22, 2019 2:53:37 PM duke.model.DukePP addExpense
+INFO: Model's externalList length now is 19
+Oct 22, 2019 3:14:46 PM duke.model.ExpenseList add
+INFO: externalList lengths 1
+Oct 22, 2019 3:14:46 PM duke.model.DukePP addExpense
+INFO: Model's externalList length now is 1

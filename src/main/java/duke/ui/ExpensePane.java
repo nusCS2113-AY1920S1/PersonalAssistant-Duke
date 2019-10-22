@@ -3,6 +3,8 @@ package duke.ui;
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
 import duke.model.Expense;
+import duke.model.Model;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +19,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class ExpensePane extends UiPart<AnchorPane> {
+public class ExpensePane extends UiPart<AnchorPane>  {
 
     private static final Logger logger = LogsCenter.getLogger(ExpensePane.class);
 
-    private static final String FXML_FILE_NAME = "ExpensePane1.fxml";
+    private static final String FXML_FILE_NAME = "ExpensePane.fxml";
 
     @FXML
     private Pane paneView;
@@ -61,13 +63,18 @@ public class ExpensePane extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                // setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                //setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
                 String tmp = expense.getAmount() + expense.getDescription() + expense.getTimeString();
                 setText(tmp);
             }
         }
     }
 
+    /**
+     * Retrieves the amounts for each specific tag.
+     *
+     * @return ObservableList of type PieChart.data to be passed into the pie chart
+     */
     private ObservableList<PieChart.Data> getData() {
         getTags();
 
@@ -82,6 +89,9 @@ public class ExpensePane extends UiPart<AnchorPane> {
         return dataList;
     }
 
+    /**
+     * Retrieves all tags as shown in external list and stores in a set {@code tags}.
+     */
     private void getTags() {
         tags = new HashSet<>();
         for (Expense expense : logic.getExternalExpenseList()) {
