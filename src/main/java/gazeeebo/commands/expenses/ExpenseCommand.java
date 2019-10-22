@@ -34,8 +34,8 @@ public class ExpenseCommand extends Command {
         System.out.print("Welcome to your expenses record! What would you like to do?\n\n");
         System.out.println("__________________________________________________________");
         System.out.println("1. Add expenses command: add");
-        System.out.println("2. Find expenses on a certain date: find");
-        System.out.println("3. Delete a certain expense: delete");
+        System.out.println("2. Find expenses on a certain date: find date");
+        System.out.println("3. Delete a certain expense: delete expense");
         System.out.println("4. See your expense list: expense list");
         System.out.println("5. Exit Expense page: esc");
         System.out.println("__________________________________________________________");
@@ -44,11 +44,11 @@ public class ExpenseCommand extends Command {
         while(!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.contains("add")) {
                 new AddExpensesCommand(ui, storage, expenses);
-            } else if(ui.fullCommand.equals("find")) {
+            } else if(ui.fullCommand.contains("find")) {
                 new FindExpenseCommand(ui, expenses);
-            } else if(ui.fullCommand.equals("delete")) {
+            } else if(ui.fullCommand.contains("delete")) {
                 new DeleteExpenseCommand(ui, storage, expenses);
-            } else if(ui.fullCommand.equals("expense list")) {
+            } else if(ui.fullCommand.equals("list")) {
                 new ExpenseListCommand(ui, expenses);
             }
             ui.readCommand();

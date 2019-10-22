@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class ContactsCommand extends Command {
+    private static final String LINEBREAK = "------------------------------------------\n";
     /**
      * This method is the list of all the contact numbers and you got add/find/delete contacts.
      *
@@ -32,16 +33,15 @@ public class ContactsCommand extends Command {
         System.out.println("5. Exit contact page: esc");
         System.out.println("__________________________________________________________");
 
-        String LINE_BREAK = "------------------------------------------\n";
 
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("add")) {
                 new AddContactCommand(ui, contact);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {
-                new FindContactCommand(ui, contact, LINE_BREAK);
+                new FindContactCommand(ui, contact, LINEBREAK);
             } else if (ui.fullCommand.equals("list")) {
-                new ListContactCommand(contact, LINE_BREAK);
+                new ListContactCommand(contact, LINEBREAK);
             } else if (ui.fullCommand.contains("delete")) {
                 new DeleteContactCommand(ui, contact);
             }
