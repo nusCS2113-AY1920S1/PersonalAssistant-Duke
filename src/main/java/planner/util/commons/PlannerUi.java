@@ -151,6 +151,9 @@ public class PlannerUi {
         closeScanner();
     }
 
+    /**
+     * Message shown when clearing list.
+     */
     public void clearMsg(String toClear) {
         System.out.println("Are you sure you want to clear your " + toClear + "?");
     }
@@ -161,13 +164,19 @@ public class PlannerUi {
     public void capStartMsg() {
         System.out.println(
             "Start typing the module you have taken, along with it's letter grade\n"
-            +"Type 'done' when you are ready to calculate your CAP");
+            + "Type 'done' when you are ready to calculate your CAP");
     }
 
+    /**
+     * Requests input from user for which module to calculate CAP for.
+     */
     public void capModStartMsg() {
         System.out.println("Type the module code that you want to predict your CAP for: ");
     }
 
+    /**
+     * Prints the module task list with which to calculate CAP from.
+     */
     public void capListStartMsg(List<ModuleTask> moduleTasksList) {
         System.out.println("Here is your list of modules to calculate CAP from.");
         int counter = 1;
@@ -177,6 +186,9 @@ public class PlannerUi {
         }
     }
 
+    /**
+     * When none of the modules in the ModuleTaskList are graded.
+     */
     public void capListErrorMsg() {
         showLine();
         System.out.println("Please input grades into your listed modules using the grade command");
@@ -191,12 +203,18 @@ public class PlannerUi {
         System.out.printf("%.2f\n", averageCap);
     }
 
+    /**
+     * Prints predicted CAP for a module based on its prerequisites.
+     */
     public void capModMsg(double predictedCap, String moduleCode) {
         showLine();
         System.out.println("Here is your predicted CAP for " + moduleCode);
         System.out.printf("%.2f\n", predictedCap);
     }
 
+    /**
+     * Prints the list of modules that have not been graded/taken for prerequisite of another module.
+     */
     public void capModuleIncompleteMsg(List<List<String>> toCalculate) {
         int i = 0;
         showLine();
@@ -212,6 +230,9 @@ public class PlannerUi {
         }
     }
 
+    /**
+     * Message to feedback to user that their grading has been added.
+     */
     public void gradedMsg(String moduleCode, String letterGrade) {
         showLine();
         System.out.println("Got it, graded " + moduleCode + " with grade: " + letterGrade);

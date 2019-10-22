@@ -23,7 +23,9 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed;
     }
 
-    public String getGrade() {return moduleInfoDetailed.getGrade();}
+    public String getGrade() {
+        return moduleInfoDetailed.getGrade();
+    }
 
     public void setGrade(String letterGrade) {
         moduleInfoDetailed.setGrade(letterGrade);
