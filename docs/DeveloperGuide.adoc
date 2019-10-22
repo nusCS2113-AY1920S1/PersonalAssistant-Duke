@@ -149,6 +149,37 @@ As of now, all commands entered by the user go through the following validation 
 * If no typos are present, or there exists a word that cannot be autocorrected, the command is returned as is to the parser.
 . This autocorrected command is then subjected to additional checks in the `*CommandParser` class (e.g AddCommandParser, EditCommandParser, etc.), which ensures that the command structure is correct.
 
+=== User initialization
+
+User initialization personalises the program for each user to cater to their needs
+
+This section describes the implmentation and design considerations.
+
+==== Current implementation
+
+On start up, `Main` will load `user.txt` file. If no data is found, `Main` class will instead ask for user information before starting the program.
+
+The following step describes the flow of the initialisation:
+
+. The `Main` class will load `user.txt` via `Storage` class and check if there is user data already stored.
+.. If no data is found, `Main` will request for user to input personal data in this order:
+... `Name`
+... `Age`
+... `Weight`
+... `Height`
+... `Activity Level`
+... If they would like to maintain or lose weight
+.. If data is found, `Main` will load the data from `user.txt` via `Storage`
+. The `Main` will continue on with the function.
+. On exit, `Main` will save the `User` data to `user.txt`
+
+==== Design considerations
+
+Problem 1: *How to store weight data to be displayed over time*
+
+*Solution 1 (current implementation): HashMap
+** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap. 
+
 === Add command
 
 The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
@@ -170,6 +201,7 @@ The steps carried out by the program as described above are captured in figure 5
 
 .Add command sequence diagram
 image::addcommand.png[width="800"]
+
 
 ==== Design considerations
 
