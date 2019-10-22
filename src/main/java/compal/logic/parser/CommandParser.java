@@ -17,6 +17,8 @@ import java.util.Scanner;
 import java.util.HashSet;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public interface CommandParser {
@@ -74,6 +76,7 @@ public interface CommandParser {
      * @return type
      * @throws ParserException if the token (/task) is missing or task type
      *                         does not exist.
+     * @author Sholihin
      */
     default String getType(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_TYPE)) {
@@ -163,7 +166,7 @@ public interface CommandParser {
      * Returns the integer input based on token input.
      *
      * @param restOfInput String input of user after command word
-     * @param token token to extract result from
+     * @param token       token to extract result from
      * @return result extracted based on token
      * @throws ParserException if token or input is missing
      */
@@ -255,9 +258,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             ArrayList<String> startDateList = new ArrayList<>();
+
             int dateCount = 0;
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
+                System.out.println(eachDateString);
                 if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
                     break;
                 }
@@ -407,9 +412,19 @@ public interface CommandParser {
      *
      * @param date the string of the date input
      * @return true or false.
+     * @author Sholihin
      */
     default boolean isDateValid(String date) throws ParserException {
+        String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(date);
+
+        if (!matcher.matches()) {
+            throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+
         final String DATE_FORMAT = "dd/MM/yyyy";
+
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
