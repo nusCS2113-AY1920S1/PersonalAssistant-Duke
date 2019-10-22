@@ -1,7 +1,7 @@
 package dolla;
 
 /**
- * Package for
+ *
  */
 public class Tag {
 
@@ -29,7 +29,7 @@ public class Tag {
     private Boolean hasTag() {
         Boolean hasTag = false;
         int arraySize = inputArray.length;
-        if (inputArray[arraySize - 2].equalsIgnoreCase((PREFIX_TAG))) {
+        if (arraySize > 1 && inputArray[arraySize - 2].equalsIgnoreCase((PREFIX_TAG))) {
             tagIndex = arraySize - 1;
             hasTag = true;
         }

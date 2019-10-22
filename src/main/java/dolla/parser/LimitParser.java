@@ -12,6 +12,17 @@ public class LimitParser extends Parser {
         super(inputLine);
     }
 
+    protected final static String LIMIT_COMMAND_LIST = "limits";
+    protected final static String LIMIT_COMMAND_SET = "set";
+    protected final static String LIMIT_COMMAND_REMOVE = "remove";
+
+    protected final static String LIMIT_TYPE_S = "saving";
+    protected final static String LIMIT_TYPE_B = "budget";
+
+    protected final static String LIMIT_DURATION_D = "day";
+    protected final static String LIMIT_DURATION_W = "week";
+    protected final static String LIMIT_DURATION_M = "month";
+
     String[] CommandType = {"limits", "set", "remove"};
     String[] LimitType = {"saving", "budget"};
     String[] Duration = {"day", "week", "month"};
@@ -19,9 +30,9 @@ public class LimitParser extends Parser {
 
     @Override
     public Command handleInput(String mode, String inputLine) {
-        if (commandToRun.equals(CommandType[0])) { //show limit list
+        if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
             return new ShowListCommand(mode);
-        } else if (commandToRun.equals(CommandType[1])) { //add limit
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit
             String limitType = null;
             double amount = 0.0;
             String duration = null;
@@ -37,8 +48,7 @@ public class LimitParser extends Parser {
                 return new ErrorCommand();
             }
             return new AddLimitCommand(limitType, amount, duration);
-
-        } else if (commandToRun.equals(CommandType[2])) { //REMOVE DAILY BUDGET etc
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_REMOVE)) { //REMOVE DAILY BUDGET etc
             //remove limit command
             String limitType = null;
             String duration = null;
@@ -70,12 +80,19 @@ public class LimitParser extends Parser {
      * @return SAVING or BUDGET
      */
     private String typeFinder() {
-        String limitType = null;
-        String limitTypeStr = inputArray[1];
-        if (limitTypeStr.equals(LimitType[0])) {
-            limitType = LimitType[0];
-        } else if (limitTypeStr.equals(LimitType[1])) {
-            limitType = LimitType[1];
+        String limitType = "";
+        String inputStr = "";
+        try {
+            inputStr = inputArray[1];
+            if (inputStr.equalsIgnoreCase(LIMIT_TYPE_S)) {
+                limitType = LIMIT_TYPE_S;
+            } else if (inputStr.equalsIgnoreCase(LIMIT_TYPE_B)) {
+                limitType = LIMIT_TYPE_B;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //todo: handle exception
+        } catch (Exception e) {
+            //todo: handle exception
         }
         return limitType;
     }
@@ -88,7 +105,7 @@ public class LimitParser extends Parser {
 
     private String durationFinder() {
         String duration = null;
-        String durationStr = inputArray[3];
+        String durationStr = inputArray[4];
         if (durationStr.equals(Duration[0])) {
             duration = Duration[0];
         } else if (durationStr.equals(Duration[1])) {
