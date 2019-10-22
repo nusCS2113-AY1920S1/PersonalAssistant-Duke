@@ -60,6 +60,8 @@ public class Parser {
                 command = parseTag(taskInfo);
             } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
+            } else if (userCommand.equals("addsyn")) {
+                command = parseAddSyn(taskInfo);
             } else {
                 try {
                     throw new CommandInvalidException(input);
@@ -103,7 +105,7 @@ public class Parser {
             for (int j = 1; j < meaningAndTag.length; ++j) {
                 tags.add(meaningAndTag[j]);
             }
-            word = new Word(wordDescription, meaning, tags);
+            word = new Word(wordDescription, meaning, tags,0);
         } else {
             word = new Word(wordDescription, meaning);
         }
@@ -257,15 +259,15 @@ public class Parser {
      * @throws WrongAddSynonymException when the format of the add tag command does not match required format
      */
 
-    protected static Command parseSyn(String[] taskInfo) throws WrongAddSynonymException{
-            if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+    protected static Command parseAddSyn(String[] taskInfo) throws WrongAddSynonymException{
+            if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) { //format  w/beverage s/drink alcohol
                 throw new WrongAddSynonymException();
             }
             String[] wordDetail = taskInfo[1].split(" ",2);// should get w/beverage and s/drink
             if (wordDetail.length != 2) {
                 throw new WrongAddSynonymException();
             }
-            String mainWord = wordDetail[0].substring(2).trim();
+            String mainWord = wordDetail[0].substring(2).trim(); //beverage
             System.out.println("Main word is "+mainWord);
             if (mainWord.length() == 0) {
                 throw new WrongAddSynonymException();
@@ -274,10 +276,11 @@ public class Parser {
             if(synonymWords.length()==0){
                 throw new WrongAddSynonymException();
             }
-            String [] synonyms1 = synonymWords.split(" "); //drink , alcohol , spirits
+            String [] synonyms1 = synonymWords.split(" "); //drink alcohol spirits
             ArrayList<String> synonyms = new ArrayList<>();
-            for (int i = 0; i < synonyms1.length; ++i) {
-                synonyms.add(synonyms1[i].trim());
+            for (String temp : synonyms1) {
+                synonyms.add(temp);
+                System.out.println("adding "+temp + " to Arraylist synonyms in parser");
             }
             return new AddSynonymCommand(mainWord,synonyms);
         }

@@ -32,6 +32,7 @@ public class Word {
         this.word = word;
         this.meaning = meaning;
         this.tags = new HashSet<>();
+        this.synonyms = new HashSet<>();
         this.numberOfSearches = 0;
     }
 
@@ -41,18 +42,24 @@ public class Word {
      * @param meaning meaning of the word
      * @param tags hash set containing tags that are added to word
      */
-    public Word(String word, String meaning, HashSet<String> tags) {
+    public Word(String word, String meaning, HashSet<String> tagsORsynonyms, int differentiator) {
         this.word = word;
         this.meaning = meaning;
-        this.tags = tags;
+        if(differentiator == 0) {
+            this.tags = tagsORsynonyms;
+        }
+        else{
+            this.synonyms=tagsORsynonyms;
+        }
         this.numberOfSearches = 0;
     }
 
     /**Tag synonyms to Word*/
-    public Word(String word, HashSet<String> synonyms){
+    /* //blanked out for now to test tagsORsynonyms
+    public Word(String word, String meaning, HashSet<String> synonyms){
         this.word = word;
         this.synonyms = synonyms;
-    }
+    }*/
 
     public void setClosetSearch(String closetSearch) {
         this.closetSearch = closetSearch;
@@ -92,7 +99,7 @@ public class Word {
 
     public HashSet<String> getSynonyms() { return synonyms;}
 
-    public void addSyn(String synoWords){this.synonyms.add(synoWords);}
+    public void addSyn(String synonym){ this.synonyms.add(synonym); }
 
     @Override
     public String toString() {

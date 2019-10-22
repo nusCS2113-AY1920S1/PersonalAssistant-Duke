@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Stack;
 import java.util.TreeMap;
 
@@ -33,6 +34,8 @@ public class Storage {
         File file = new File(FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
+        int differentiator=-1; //let 0 belong to existence of tags, 1 belong to existence of synonyms
+        HashSet<String> temp=new HashSet<>();
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);
@@ -45,9 +48,30 @@ public class Storage {
                     line = br.readLine();
                     continue;
                 }
-                String[] parsedWordAndMeaning = line.split(":");
-                Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
-                wordBank.put(word.getWord(), word);
+                String[] parsedWordAndMeaning = line.split(":"); //split into mainWord and meaning+tags+synonyms
+                /**Note that not all words will have tags, but most words will have synonyms
+                 * so we check for synonym first
+                 */
+                String[] parsedWord_Meaning_Synonym = parsedWordAndMeaning[1].split("<s>",2);
+                if(parsedWord_Meaning_Synonym.length==2){ //synonyms exist in the textfile
+                    differentiator=1; //flag for parsing through Storage
+                    String[] separateSynonyms = parsedWord_Meaning_Synonym[1].split(" ");
+                    for(int i=0;i<separateSynonyms.length-1;i++){
+                        temp.add(separateSynonyms[i].trim());
+                    }
+                }
+                if(differentiator==1){ //existence of Synonyms after Word:meaning
+                    Word word = new Word(parsedWordAndMeaning[0].trim(),parsedWordAndMeaning[1].trim(),temp,1);
+                    wordBank.put(word.getWord(), word);
+                }
+                else if(differentiator == 0){ //existence of Synonyms after Word:meaning -- no synonyms
+                    //do something here
+                }
+                else { //just word and meaning
+                    Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
+                    wordBank.put(word.getWord(), word);
+                }
+                //wordBank.put(word.getWord(), word);
                 line = br.readLine();
             }
             return wordBank;
