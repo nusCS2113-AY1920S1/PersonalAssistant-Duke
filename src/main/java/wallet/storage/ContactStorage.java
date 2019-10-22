@@ -28,12 +28,14 @@ public class ContactStorage extends Storage<Contact> {
                 Contact contact = null;
 
                 if (data.length == 4) {
+                    //@@author Xdecosee
                     if (data[2].equals("")) {
                         data[2] = null;
                     }
                     if (data[3].equals("")) {
                         data[3] = null;
                     }
+                    //@@author
                     contact = new Contact(data[1], data[2], data[3]);
                 }
 

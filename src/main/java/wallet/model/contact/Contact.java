@@ -103,6 +103,7 @@ public class Contact {
     @Override
     public String toString() {
 
+        //@@author Xdecosee
         if (this.detail == null) {
             this.detail = "";
         }
@@ -110,6 +111,7 @@ public class Contact {
         if (this.phoneNum == null) {
             this.phoneNum = "";
         }
+        //@@author
         return "[ID: " + this.id + "]" + this.name + " " + this.detail + " " + this.phoneNum;
     }
 
@@ -119,7 +121,7 @@ public class Contact {
      * @return The String to be written in contact.txt.
      */
     public String writeToFile() {
-
+        //@@author Xdecosee
         if (this.detail == null) {
             this.detail = "";
         }
@@ -127,7 +129,7 @@ public class Contact {
         if (this.phoneNum == null) {
             this.phoneNum = "";
         }
-
+        //@@author
         return getId() + "," + this.name + "," + this.detail + "," + this.phoneNum;
     }
 

@@ -135,11 +135,23 @@ public class Loan extends Record {
         return null;
     }
 
+
+    /**
+     * Sets the contact for loan entry.
+     *
+     * @param person contact for loan
+     */
+    public void setPerson(Contact person) {
+        this.person = person;
+    }
+
+    /**
+     * Gets the contact for loan entry.
+     *
+     */
     public Contact getPerson() {
         return person;
     }
 
-    public void setPerson(Contact person) {
-        this.person = person;
-    }
 }
+
