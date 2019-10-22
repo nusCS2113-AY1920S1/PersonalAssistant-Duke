@@ -47,7 +47,7 @@ public class Parser {
      * @return index Index the user wishes to perform operations on.
      */
     public Integer getIndex() {
-        String temp = scanner.nextLine().trim();
+        String temp = scanner.next().trim();
         int index = Integer.parseInt(temp) - 1;
         return index;
     }
@@ -115,7 +115,7 @@ public class Parser {
      * @return the unit of time the customer request to snooze
      */
     public TimeUnit getTimeUnit(){
-        String temp = scanner.next();
+        String temp = scanner.next().trim();
         return TimeUnit.valueOf(temp);
     }
 
