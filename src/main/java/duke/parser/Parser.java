@@ -21,6 +21,7 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws DukeException {
         Optional<String> filter = Optional.empty();
+        fullCommand = fullCommand.trim();
         if (fullCommand.charAt(0) == '-') {
             filter = Optional.of(fullCommand.substring(1, fullCommand.indexOf(' ')));
             fullCommand = fullCommand.substring(fullCommand.indexOf(' ') + 1);

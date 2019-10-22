@@ -1,6 +1,8 @@
 package duke.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Optional;
  * Describes specific type of task which can be classified as an event
  */
 public class Event extends Task {
-	private LocalDate datetime;
+	private LocalDateTime datetime;
 
 	/**
 	 * Constructor for duke.task.Event
@@ -18,22 +20,22 @@ public class Event extends Task {
 	 * @param description the description of the event
 	 * @param at the date and time at which the event will be held
 	 */
-	public Event(String description, Optional<String> filter, LocalDate at, String recurrencePeriod) {
+	public Event(String description, Optional<String> filter, LocalDateTime at, String recurrencePeriod) {
 		super(description, filter, recurrencePeriod);
 		this.datetime = at;
 		this.key = "[E]";
 	}
 
-	public Event(String description, Optional<String> filter, LocalDate at) {
+	public Event(String description, Optional<String> filter, LocalDateTime at) {
 		this(description, filter, at, "none");
 	}
 
-	public LocalDate getDatetime() {
+	public LocalDateTime getDateTime() {
 		return this.datetime;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " (at: " + datetime + ")";
+		return super.toString() + " (at: " + datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + ")";
 	}
 }

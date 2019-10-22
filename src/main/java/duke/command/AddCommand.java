@@ -9,6 +9,8 @@ import duke.ui.Ui;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -63,17 +65,60 @@ public class AddCommand extends Command {
                 break;
             case "deadline":
                 String[] dInfo = description.split(" /by ");
-                LocalDate by = convertToLocalDate(dInfo[1]);
+                LocalDateTime by;
+                switch (dInfo[1]) {
+                    case "today":
+                        by = LocalDateTime.now();
+                        break;
+                    case "tomorrow":
+                        by = LocalDateTime.now().plusDays(1);
+                        break;
+                    default:
+                        String[] details = dInfo[1].split(" ", 2);
+                        switch (details[0]) {
+                            case "today":
+                                by = LocalDateTime.of(LocalDate.now(),
+                                        LocalTime.parse(details[1], DateTimeFormatter.ofPattern("HHmm")));
+                                break;
+                            case "tomorrow":
+                                by = LocalDateTime.of(LocalDate.now().plusDays(1),
+                                        LocalTime.parse(details[1], DateTimeFormatter.ofPattern("HHmm")));
+                                break;
+                            default:
+                                by = convertToLocalDateTime(dInfo[1]);
+                        }
+                }
                 if (isRecurring) {
                     tasks.add(new Deadline(dInfo[0], filter, by, recurrencePeriod));
                 } else {
                     tasks.add(new Deadline(dInfo[0], filter, by));
                 }
-
                 break;
             case "event":
                 String[] eInfo = description.split(" /at ");
-                LocalDate at = convertToLocalDate(eInfo[1]);
+                LocalDateTime at;
+                switch (eInfo[1]) {
+                    case "today":
+                        at = LocalDateTime.now();
+                        break;
+                    case "tomorrow":
+                        at = LocalDateTime.now().plusDays(1);
+                        break;
+                    default:
+                        String[] details = eInfo[1].split(" ", 2);
+                        switch (details[0]) {
+                            case "today":
+                                at = LocalDateTime.of(LocalDate.now(),
+                                        LocalTime.parse(details[1], DateTimeFormatter.ofPattern("HHmm")));
+                                break;
+                            case "tomorrow":
+                                at = LocalDateTime.of(LocalDate.now().plusDays(1),
+                                        LocalTime.parse(details[1], DateTimeFormatter.ofPattern("HHmm")));
+                                break;
+                            default:
+                                at = convertToLocalDateTime(eInfo[1]);
+                        }
+                }
                 Event newEvent;
                 if (isRecurring) {
                     newEvent = new Event(eInfo[0], filter, at, recurrencePeriod);
@@ -91,9 +136,9 @@ public class AddCommand extends Command {
         storage.save(tasks);
     }
 
-    public LocalDate convertToLocalDate(String rawDate) {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
-        LocalDate date = LocalDate.parse(rawDate, fmt);
+    public LocalDateTime convertToLocalDateTime(String rawDate) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyy HHmm");
+        LocalDateTime date = LocalDateTime.parse(rawDate, fmt);
         return date;
     }
 
