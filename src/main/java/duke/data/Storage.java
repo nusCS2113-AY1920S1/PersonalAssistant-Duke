@@ -29,6 +29,7 @@ public class Storage {
     /**
      * File path of designated file.
      */
+//    private String filePath = System.getProperty("user.dir");
     private String filePath;
     /**
      * The file of the saved data.
@@ -44,7 +45,7 @@ public class Storage {
      *                               file designated cannot be found.
      */
     public Storage(final String path) throws FileNotFoundException {
-        this.filePath = path;
+        filePath = path;
         File f = new File(filePath);
         fileInput = new Scanner(f);
     }
@@ -180,13 +181,14 @@ public class Storage {
     public ArrayList<TimeSlot> loadSchedule() throws ParseException {
         try {
             ArrayList<TimeSlot> temp = new ArrayList<>();
+            final int indexStartDate = 1;
+            final int indexEndDate = 2;
+            final int indexLocation = 3;
+            final int indexName = 4;
+
             while (fileInput.hasNextLine()) {
                 String s1 = fileInput.nextLine();
                 String[] data = s1.split("-");
-                final int indexStartDate = 1;
-                final int indexEndDate = 2;
-                final int indexLocation = 3;
-                final int indexName = 4;
                 String startDate = data[indexStartDate];
                 String endDate = data[indexEndDate];
                 String location = data[indexLocation];
@@ -436,65 +438,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e);
         }
-//
-//        int listSize = loadStudent.size();
-//        for (int i = 0; i < listSize; i++) {
-//            System.out.println(student.get(i).toString());
-//        }
-
     }
 
-/*
-    public ArrayList<String> loadPlans(final Map<String,
-            ArrayList<MyTraining>> map) throws FileNotFoundException {
-        MyPlan plan = new MyPlan();
-        ArrayList<MyTraining> list = new ArrayList<>();
-        ArrayList<String> toc = new ArrayList<>();
-
-        int intensity = 0;
-        int planNum = 0;
-
-        while (fileInput.hasNextLine()) {
-            String in = fileInput.nextLine();
-            if (in.contains("Intensity") || in.contains("Plan")) {
-                String[] line = in.split(": ");
-                if (line[1].equals("high")) {
-                    MyPlan.Intensity x = MyPlan.Intensity.high;
-                    intensity = x.getVal();
-                } else if (line[1].equals("moderate")) {
-                    MyPlan.Intensity x = MyPlan.Intensity.moderate;
-                    intensity = x.getVal();
-                } else if (line[1].equals("relaxed")) {
-                    MyPlan.Intensity x = MyPlan.Intensity.relaxed;
-                    intensity = x.getVal();
-                } else {
-                    MyPlan.Intensity y = MyPlan.Intensity.valueOf(intensity);
-                    planNum = Integer.parseInt(line[1]);
-                    String key = plan.createKey(y.name(), planNum);
-                    map.put(key, list);
-                    list.clear();
-                }
-            } else {
-                if (!in.equals("")) {
-                    String[] line = in.split(" \\| ");
-                    MyTraining ac = new MyTraining(line[0],
-                            Integer.parseInt(line[1]),
-                            Integer.parseInt(line[2]));
-                    list.add(ac);
-                }
-            }
-            if (!fileInput.hasNextLine()) {
-                MyPlan.Intensity y = MyPlan.Intensity.valueOf(intensity);
-                String key = plan.createKey(y.name(), planNum);
-                map.put(key, list);
-            }
-        }
-        return toc;
-    }
-
-    public void savePlans(final Map<Integer, ArrayList<MyTraining>> map)
-            throws FileNotFoundException {
-        MyPlan plan = new MyPlan();
-        ArrayList<String> keys = plan.keyList();
-    }*/
 }

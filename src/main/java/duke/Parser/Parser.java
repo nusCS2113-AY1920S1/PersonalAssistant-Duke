@@ -10,7 +10,6 @@ import duke.Ui;
 import duke.sports.ManageStudents;
 import duke.sports.MyClass;
 import duke.sports.MyPlan;
-import duke.sports.MyStudent;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -51,14 +50,15 @@ public class Parser {
     /**
      * This function takes the standard input defined by the user and
      * parses it into instructions for the Storage to read.
-     * @param io The input from command line
-     * @param tasks The TaskList object that manages tasks
-     * @param storage The main class that writes to or from files
+     *
+     * @param io       The input from command line
+     * @param tasks    The TaskList object that manages tasks
+     * @param storage  The main class that writes to or from files
      * @param students The student object that manages students in classes
      * @param schedule Manages all the task in the day/week/month
-     * @param plan The training circuit plans
+     * @param plan     The training circuit plans
      * @throws FileNotFoundException File not found
-     * @throws ParseException Parse
+     * @throws ParseException        Parse
      */
     public void parseInput(final String io,
                            final TaskList tasks,
@@ -78,7 +78,7 @@ public class Parser {
             try {
                 index = input.indexOf("before");
                 Date date = tasks.dateConvert(
-                        input.substring(index + INDEX_SEVEN));
+                    input.substring(index + INDEX_SEVEN));
                 Reminder reminder = new Reminder(date);
                 reminder.getReminders(tasks);
             } catch (StringIndexOutOfBoundsException e) {
@@ -218,74 +218,7 @@ public class Parser {
                         break;
 
                     case INDEX_FIVE:
-                    isQuittingGoal = true;
-                    System.out.println(
-                        "You have quit the lesson of the day.");
-
-                    default:
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please enter the full command.");
-                } catch (ParseException e) {
-                    System.out.println(
-                        "Please enter the details in the correct format.");
-                }
-            }
-            break;
-
-        case "lesson":
-            Storage lessonStorage = new Storage(
-                ".\\src\\main\\java\\duke\\data\\lessons.txt");
-            Lesson lesson = new Lesson(lessonStorage.loadLesson());
-            Scanner myLessonScan = new Scanner(System.in);
-
-            System.out.println("Please enter the date of the day "
-                    + "in this format: dd/MM/yyyy");
-            String lessonDate = myLessonScan.next();
-
-            boolean isQuittingLesson = false;
-            while (!isQuittingLesson) {
-                try {
-                    System.out.println(
-                        "\nWhat would you like to do on " + lessonDate + "?\n"
-                            + "1. View lessons of the day\n"
-                            + "2. Add a lesson of the day\n"
-                            + "3. Delete a lesson of the day\n"
-                            + "4. Clear all lessons of the day\n"
-                            + "5. Quit lesson of the day");
-                    int executeType = myLessonScan.nextInt();
-                    myLessonScan.nextLine();  // This line you have
-                    // to add (It consumes the \n character)
-                    switch (executeType) {
-                    case 1:
-                        System.out.print(lesson.viewLesson(lessonDate));
-                        break;
-
-                    case 2:
-                        System.out.println("To add a lesson to "
-                            + lessonDate + ", enter the lesson.");
-                        String myLesson = myLessonScan.nextLine();
-                        System.out.println(
-                            lesson.addLesson(
-                                    lessonDate, myLesson, lessonStorage));
-                        break;
-
-                    case INDEX_THREE:
-                        System.out.println("To delete a lesson from "
-                            + lessonDate + ", enter the lesson.");
-                        String message = myLessonScan.nextLine();
-                        System.out.println(
-                            lesson.removeLesson(
-                                lessonDate, message, lessonStorage));
-                        break;
-
-                    case INDEX_FOUR:
-                        System.out.println(lesson.removeAllLesson(
-                            lessonDate, lessonStorage));
-                        break;
-
-                    case INDEX_FIVE:
-                        isQuittingLesson = true;
+                        isQuittingGoal = true;
                         System.out.println(
                             "You have quit the lesson of the day.");
 
@@ -299,6 +232,8 @@ public class Parser {
                 }
             }
             break;
+
+
 
         case "training":
             switch (word[1]) {
@@ -330,7 +265,7 @@ public class Parser {
             Ui viewMenu = new Ui();
             viewMenu.mainMenu();
             break;
-            
+
         case "plan":
             if (word[1].equals("view")) {
                 //int num = 2;
