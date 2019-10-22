@@ -1,11 +1,11 @@
 package compal.logic.command;
 
+import compal.commons.CompalUtils;
 import compal.logic.command.exceptions.CommandException;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import compal.ui.CalenderUtil;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,7 +17,6 @@ import java.util.Date;
  */
 public class ViewCommand extends Command {
     private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
-    private String[] viewargs;
     private CalenderUtil calenderUtil;
     private String viewType;
     private String dateInput;
@@ -112,6 +111,7 @@ public class ViewCommand extends Command {
                 monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList));
             }
 
+
         }
         return monthlyTask.toString();
     }
@@ -126,17 +126,9 @@ public class ViewCommand extends Command {
     private String displayWeekView(String dateInput, ArrayList<Task> currList) throws CommandException {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date week;
-
-        try {
-            week = dateFormat.parse(dateInput);
-        } catch (ParseException e) {
-            throw new CommandException(MESSAGE_UNABLE_TO_EXECUTE);
-        }
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(week);
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        cal.setTime(CompalUtils.stringToDate(dateInput));
 
         int daysInWeek = 7;
         String[] dates = new String[daysInWeek];
@@ -144,11 +136,10 @@ public class ViewCommand extends Command {
 
         for (int i = 0; i < daysInWeek; i++) {
             dates[i] = dateFormat.format(cal.getTime());//Date of Monday of current week
+            //calenderUtil.dateViewRefresh(dates[i]);
             dailyTask[i] = new StringBuilder();
             cal.add(Calendar.DATE, 1);
         }
-
-        cal.setTime(week);
 
         StringBuilder weeklyTask = new StringBuilder("Your weekly schedule from "
             + dates[0] + " to " + dates[6] + " :\n");
@@ -156,6 +147,7 @@ public class ViewCommand extends Command {
         for (int i = 0; i < daysInWeek; i++) {
             dailyTask[i].append(displayDayView(dates[i], currList));
             weeklyTask.append(dailyTask[i]);
+
         }
         return weeklyTask.toString();
     }
@@ -185,8 +177,12 @@ public class ViewCommand extends Command {
             allTask.append("\n\n");
         }
 
+        Date givenDate = CompalUtils.stringToDate(dateInput);
+        String dayOfWeek = new SimpleDateFormat("EE").format(givenDate);
+
+
         String header = "\n" + "_".repeat(65) + "\n"
-            + " ".repeat((100)) + dateInput + "\n";
+            + " ".repeat((92)) + dayOfWeek + "," + dateInput + "\n";
         return header + allTask.toString();
 
     }

@@ -28,6 +28,7 @@ public class TaskList {
 
     /**
      * Sets the arrlist to arrlist. Called after loading data from file.
+     *
      * @param arrlist arraylist to set the arrlist
      */
     public void setArrList(ArrayList<Task> arrlist) {
@@ -111,6 +112,7 @@ public class TaskList {
      * Sorts all the tasks in arrlist by date.
      *
      * @param arrlist sorted
+     * @author Sholihin
      */
     public void sortTask(ArrayList<Task> arrlist) {
         boolean sorted = false;
@@ -120,6 +122,9 @@ public class TaskList {
             for (int i = 0; i < arraySize - 1; i++) {
                 Date task1Date = arrlist.get(i).getDate();
                 Date task2Date = arrlist.get(i + 1).getDate();
+                Task.Priority priority1 = arrlist.get(i).getPriority();
+                Task.Priority priority2 = arrlist.get(i + 1).getPriority();
+
                 if (task1Date.after(task2Date)) {
                     Task temp = arrlist.get(i);
                     arrlist.set(i, arrlist.get(i + 1));
@@ -129,46 +134,74 @@ public class TaskList {
 
                 if (task1Date.equals(task2Date)) {
                     Date task1StartTime = arrlist.get(i).getStartTime();
-                    Date taskStart2Time = arrlist.get(i + 1).getStartTime();
+                    Date task2StartTime = arrlist.get(i + 1).getStartTime();
 
                     Date task1EndTime = arrlist.get(i).getEndTime();
                     Date task2EndTime = arrlist.get(i + 1).getEndTime();
 
-                    /*if (task1StartTime == null) {
-                        task1StartTime = arrlist.get(i).getEndTime();
-                    }
-                    if (taskStart2Time == null) {
-                        taskStart2Time = arrlist.get(i + 1).getEndTime();
-                    }*/
+                    boolean prio1IsLow = priority1.equals(Task.Priority.low)
+                        && (priority2.equals(Task.Priority.high)
+                        || priority2.equals(Task.Priority.medium));
 
-                    if ((task1StartTime == null && taskStart2Time == null)
-                        || (task1StartTime == null && taskStart2Time != null)
-                        || (task1StartTime != null && taskStart2Time == null)) {
+
+                    boolean prio1isMed = priority1.equals(Task.Priority.medium)
+                        && priority2.equals(Task.Priority.high);
+
+
+                    if ((task1StartTime == null && task2StartTime == null)
+                        || (task1StartTime == null && task2StartTime != null)
+                        || (task1StartTime != null && task2StartTime == null)) {
                         if (task1EndTime.after(task2EndTime)) {
                             Task temp = arrlist.get(i);
                             arrlist.set(i, arrlist.get(i + 1));
                             arrlist.set(i + 1, temp);
                             sorted = false;
                         }
-                    } else if (task1StartTime != null && task1StartTime != null) {
-                        if (task1StartTime.after(taskStart2Time)) {
-                            Task temp = arrlist.get(i);
-                            arrlist.set(i, arrlist.get(i + 1));
-                            arrlist.set(i + 1, temp);
-                            sorted = false;
-                        } else if (task1StartTime.equals(taskStart2Time) && task1EndTime.after(task1EndTime)) {
-                            Task temp = arrlist.get(i);
-                            arrlist.set(i, arrlist.get(i + 1));
-                            arrlist.set(i + 1, temp);
-                            sorted = false;
 
+                        if (task1EndTime.equals(task2EndTime)) {
+                            if (prio1IsLow) {
+                                Task temp = arrlist.get(i);
+                                arrlist.set(i, arrlist.get(i + 1));
+                                arrlist.set(i + 1, temp);
+                                sorted = false;
+                            } else if (prio1isMed) {
+                                Task temp = arrlist.get(i);
+                                arrlist.set(i, arrlist.get(i + 1));
+                                arrlist.set(i + 1, temp);
+                                sorted = false;
+                            }
+                        }
+                    } else if (task1StartTime != null && task2StartTime != null) {
+                        if (task1StartTime.after(task2StartTime)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+                        } else if (task1StartTime.equals(task2StartTime) && task1EndTime.after(task1EndTime)) {
+                            Task temp = arrlist.get(i);
+                            arrlist.set(i, arrlist.get(i + 1));
+                            arrlist.set(i + 1, temp);
+                            sorted = false;
+                        }
+
+                        if (task1StartTime.equals(task2StartTime) && task1EndTime.equals(task2EndTime)) {
+                            if (prio1IsLow) {
+                                Task temp = arrlist.get(i);
+                                arrlist.set(i, arrlist.get(i + 1));
+                                arrlist.set(i + 1, temp);
+                                sorted = false;
+                            } else if (prio1isMed) {
+                                Task temp = arrlist.get(i);
+                                arrlist.set(i, arrlist.get(i + 1));
+                                arrlist.set(i + 1, temp);
+                                sorted = false;
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 
 
 }
