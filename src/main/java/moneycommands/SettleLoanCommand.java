@@ -20,7 +20,7 @@ public class SettleLoanCommand extends MoneyCommand {
     private String inputString;
     private static int serialNo;
     private static Loan.Type type;
-    static final int SETTLE_ALL_FLAG = -2;
+    private static final int SETTLE_ALL_FLAG = -2;
 
     /**
      * Constructor of the command which initialises the settle loan command.
