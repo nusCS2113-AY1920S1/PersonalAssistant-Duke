@@ -7,6 +7,7 @@ import compal.model.tasks.TaskList;
 import compal.ui.CalenderUtil;
 
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -99,19 +100,18 @@ public class ViewCommand extends Command {
         String[] months = {"", "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"};
 
-        int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        YearMonth yearMonthObject = YearMonth.of(givenYear, givenMonth);
+        int days = yearMonthObject.lengthOfMonth(); //28
 
         StringBuilder monthlyTask = new StringBuilder("Your monthly schedule for "
             + months[givenMonth] + " " + givenYear + " :\n");
 
-        for (int i = 1; i <= days[givenMonth]; i++) {
+        for (int i = 1; i <= days; i++) {
             if (i < 9) {
                 monthlyTask.append(displayDayView("0" + i + "/" + givenMonth + "/" + givenYear, currList));
             } else {
                 monthlyTask.append(displayDayView(i + "/" + givenMonth + "/" + givenYear, currList));
             }
-
-
         }
         return monthlyTask.toString();
     }

@@ -1,6 +1,7 @@
 package compal.ui;
 
 import compal.logic.LogicManager;
+import compal.logic.command.CommandResult;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ public class MainWindow extends AnchorPane {
     //Class Properties/Variables
     public static final String MESSAGE_EMPTY_INPUT = "Empty Input: Empty input detected!";
     private LogicManager logicManager;
-
+    private final UiUtil uiUtil;
 
     @FXML
     private TextField userInput;
@@ -27,7 +28,7 @@ public class MainWindow extends AnchorPane {
      */
     public MainWindow() {
         this.logicManager = new LogicManager();
-
+        this.uiUtil = new UiUtil();
     }
 
     /**
@@ -37,10 +38,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws ParserException, CommandException, ParseException {
         String cmd = userInput.getText();
+        uiUtil.clearPrimary();
         if (cmd.isEmpty()) {
             throw new ParserException(MESSAGE_EMPTY_INPUT);
         }
-        logicManager.logicExecute(cmd);
+        CommandResult cmdResult =  logicManager.logicExecute(cmd);
+
+        uiUtil.printg(cmdResult.feedbackToUser);
         userInput.clear();
     }
 
