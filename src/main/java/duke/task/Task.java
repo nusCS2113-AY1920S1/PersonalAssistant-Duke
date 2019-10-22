@@ -92,10 +92,21 @@ public class Task {
     }
 
     /**
+     * Returns the remaining days of reminder.
+     *
+     * @return integer of the number of days left of the reminded task.
+     */
+    public int getReminder() {
+        return numberOfDays;
+    }
+
+
+    /**
      * Set the remaining days of reminder.
      *
      * @param remainingDays The number of days left of the reminded task.
      */
+
     public void setReminder(int remainingDays) {
         this.numberOfDays = remainingDays;
     }
