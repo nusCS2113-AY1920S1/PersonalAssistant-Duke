@@ -1,6 +1,7 @@
 package duke.logic.parsers;
 
 import duke.logic.commands.AddCommand;
+import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.DeleteCommand;
 import duke.logic.commands.ExitCommand;
@@ -21,6 +22,8 @@ import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
 
+import java.io.IOException;
+
 
 /**
  * Parser for commands entered by the user. It reads from standard input and
@@ -34,7 +37,7 @@ public class Parser {
      * @return The corresponding Command object.
      * @throws DukeException If userInput is undefined.
      */
-    public static Command parseComplexCommand(String input) throws DukeException {
+    public static Command parseComplexCommand(String input) throws DukeException{
         String commandWord = getCommandWord(input);
         switch (commandWord) {
         case "todo":
@@ -64,6 +67,8 @@ public class Parser {
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
             return new StaticMapCommand(getWord(input));
+        case "addThisList":
+            return new AddSampleItineraryCommand();
         default:
             throw new DukeUnknownCommandException();
         }

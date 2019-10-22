@@ -10,6 +10,7 @@ import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.planning.Day;
+import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
 
@@ -78,9 +79,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Day> getRecommendations(int numDays) throws DukeException {
+    public List<Day> getRecommendations(int numDays, Itinerary itinerary) throws DukeException {
         List<Day> recommendations = storage.readVenues(numDays);
-        storage.writeRecommendations(recommendations);
+        itinerary.setTasks(recommendations);
+        storage.writeRecommendations(itinerary);
         return recommendations;
     }
 

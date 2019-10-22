@@ -160,7 +160,7 @@ public class ParserStorageUtil {
 
     public static String toDayString(Day day) {
         StringBuilder result = new StringBuilder();
-        result.append("Day | ").append(day.getNumber()).append("\n");
+        result.append("Day |").append(day.getNumber()).append("\n");
         for(Venue venue : day.getVenueList()){
             result.append(venue.toString());
             result.append("\n");

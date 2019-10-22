@@ -11,10 +11,10 @@ import java.util.List;
 /**
  * Class representing a command to list items in a task list.
  */
-public class RecommendationsCommand extends Command {
+public class NewItineraryCommand extends Command {
     private Itinerary itinerary;
 
-    public RecommendationsCommand(Itinerary itinerary) {
+    public NewItineraryCommand(Itinerary itinerary) {
         this.itinerary = itinerary;
     }
 
