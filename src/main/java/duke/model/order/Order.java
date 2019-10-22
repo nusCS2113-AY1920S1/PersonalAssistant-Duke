@@ -86,6 +86,9 @@ public class Order {
         inventory.addListener((ListChangeListener<Item<Ingredient>>) c -> updateIsIngredientEnough(inventory));
     }
 
+    /**
+     * Status of an order.
+     */
     public enum Status {
         ACTIVE,
         COMPLETED,
@@ -132,11 +135,9 @@ public class Order {
         return isIngredientEnough;
     }
 
-
     private long generateId() {
         return System.currentTimeMillis();
     }
-
 
     private Date generateCreationDate() {
         return Calendar.getInstance().getTime();

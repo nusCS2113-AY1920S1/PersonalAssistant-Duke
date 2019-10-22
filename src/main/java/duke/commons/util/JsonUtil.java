@@ -23,7 +23,8 @@ import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Converts a Java object instance to JSON and vice versa
+ * Converts a Java object instance to JSON and vice versa.
+ * Adapted from AddressBook 4.
  */
 public class JsonUtil {
 

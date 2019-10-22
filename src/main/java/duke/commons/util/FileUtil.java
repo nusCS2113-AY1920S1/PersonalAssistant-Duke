@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Writes and reads files.
+ * Writes and reads files. Adapted from AddressBook 4.
  */
 public class FileUtil {
 
