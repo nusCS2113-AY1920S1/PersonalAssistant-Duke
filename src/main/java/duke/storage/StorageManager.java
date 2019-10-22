@@ -25,7 +25,7 @@ public class StorageManager {
 
     private static final String[] COMMAND_COUNTER_HEADERS = {"Command Name", "Frequency"};
     private static final String[] ASSIGNED_TASK_HEADERS = {"PID", "TID", "DONE", "RECURRENCE",
-        "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"};
+            "DEADLINE", "STARTTIME", "ENDTIME", "TASKTYPE", "uuid"};
     private static final String[] PATIENT_HEADERS = {"Id", "Name", "NRIC", "Room", "Remark"};
     private static final String[] STANDARD_TASK_HEADERS = {"Id", "Description"};
 
@@ -92,10 +92,10 @@ public class StorageManager {
     }
 
     /**
-     * .
+     * Save patientTask data in the format of ("Id", "Description") to local csv files.
      *
-     * @param assignedTasks .
-     * @throws DukeException .
+     * @param assignedTasks a list of patientTask
+     * @throws DukeException show saving error message
      */
     public void saveAssignedTasks(ArrayList<PatientTask> assignedTasks) throws DukeException {
         // Initialize capacity of 200 rows of patient-specified task's info
@@ -119,7 +119,7 @@ public class StorageManager {
                     endTime = ((EventPatientTask) assignedTask).getEndTimeRaw();
                 }
                 ArrayList<String> row = new ArrayList<String>(Arrays.asList(pid, tid, isDone, isRecurr,
-                    deadline, startTime, endTime, type, uniqueId));
+                        deadline, startTime, endTime, type, uniqueId));
                 infoList.add(row);
             }
             assignedTaskStorage.write(infoList, ASSIGNED_TASK_HEADERS);
@@ -150,10 +150,10 @@ public class StorageManager {
     }
 
     /**
-     * .
+     * Load a list of patients.
      *
-     * @return .
-     * @throws DukeException .
+     * @return a list of patients containing patient's info
+     * @throws DukeException show loading warning message
      */
     public ArrayList<Patient> loadPatients() throws DukeException {
         // Load a list of Map<header, values> from local data file
@@ -175,10 +175,10 @@ public class StorageManager {
     }
 
     /**
-     * .
+     * Load task info from local csv data files.
      *
-     * @return .
-     * @throws DukeException .
+     * @return a list of tasks
+     * @throws DukeException return load error exception
      */
     public ArrayList<Task> loadTasks() throws DukeException {
         // Load a list of Map<header, values> from local data file
@@ -197,10 +197,10 @@ public class StorageManager {
     }
 
     /**
-     * .
+     * Load patient assigned task.
      *
-     * @return .
-     * @throws DukeException .
+     * @return list of patient task relation
+     * @throws DukeException return load error exception
      */
     public ArrayList<PatientTask> loadAssignedTasks() throws DukeException {
         // Load a list of Map<header, values> from local data file
@@ -221,7 +221,7 @@ public class StorageManager {
                     assignedTaskList.add(new StandardPatientTask(pid, tid, isDone, isRecursive, deadline, taskType));
                 } else if (taskType.equals("E")) {
                     assignedTaskList.add(new EventPatientTask(pid, tid, isDone, isRecursive,
-                        startTime, endTime, taskType));
+                            startTime, endTime, taskType));
                 }
             }
         } catch (Exception e) {
@@ -231,10 +231,10 @@ public class StorageManager {
     }
 
     /**
-     * .
+     * To load command counter frequency.
      *
-     * @return .
-     * @throws DukeException .
+     * @return return the command with frequency counts
+     * @throws DukeException return load error exception
      */
     public Map<String, Integer> loadCommandFrequency() throws DukeException {
         // Load a list of Map<header, values> from local data file
