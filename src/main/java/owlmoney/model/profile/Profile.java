@@ -11,6 +11,7 @@ import owlmoney.model.card.CardList;
 import owlmoney.model.goals.Goals;
 import owlmoney.model.goals.GoalsList;
 import owlmoney.model.goals.exception.GoalsException;
+import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -415,5 +416,96 @@ public class Profile {
      */
     public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
         goalsList.editGoals(goalName, amount, date, newName, ui);
+    }
+
+    /**
+     * Adds a recurring expenditure to the specified account.
+     *
+     * @param accountName Bank account name to add the recurring expenditure to.
+     * @param newRecurringExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @param type Type of account to add to.
+     * @throws BankException If bank account is not found or if bank account is an investment account.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    public void profileAddRecurringExpenditure(
+            String accountName, Transaction newRecurringExpenditure, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+        } else if ("bank".equals(type)) {
+            bankList.bankListAddRecurringExpenditure(accountName, newRecurringExpenditure, ui);
+        }
+    }
+
+    /**
+     * Deletes a recurring expenditure from the specified account.
+     *
+     * @param accountName Account name.
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @param type Type of account to delete from.
+     * @throws BankException If bank account does not exist or is an investment account.
+     * @throws TransactionException If there are 0 recurring expenditure in the list or if index is out of range.
+     */
+    public void profileDeleteRecurringExpenditure(String accountName, int index, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+        } else if ("bank".equals(type)) {
+            bankList.bankListDeleteRecurringExpenditure(accountName, index, ui);
+        }
+    }
+
+    /**
+     * Lists all recurring expenditure from the specified account.
+     *
+     * @param accountName Name of account.
+     * @param ui Used for printing.
+     * @param type Account type.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures in the account.
+     */
+    public void profileListRecurringExpenditure(String accountName, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+        } else if ("bank".equals(type)) {
+            bankList.bankListListRecurringExpenditure(accountName, ui);
+        }
+    }
+
+    /**
+     * Edits a recurring expenditure from the specified account.
+     *
+     * @param accountName Name of the account.
+     * @param index Index of the recurring expenditure.
+     * @param description New description of the recurring expenditure.
+     * @param amount New amount of the recurring expenditure.
+     * @param category New category of the recurring expenditure.
+     * @param ui Used for printing.
+     * @param type The account type.
+     * @throws BankException If the bank is not found or is an investment account.
+     * @throws TransactionException If there are 0 recurring expenditure in the account or index is out of range.
+     */
+    public void profileEditRecurringExpenditure(
+            String accountName, int index, String description, String amount, String category, Ui ui, String type)
+            throws BankException, TransactionException {
+        if ("card".equals(type)) {
+            //card recurring transaction
+        } else if ("bank".equals(type)) {
+            bankList.bankListEditRecurringExpenditure(accountName, index, description, amount, category, ui);
+        }
+    }
+
+    /**
+     * Updates all outdated objects in the profile.
+     *
+     * @param ui Used for printing.
+     */
+    public void profileUpdate(Ui ui) {
+        bankList.bankListUpdateRecurringTransactions(ui);
+        //card update recurring
+        ui.printMessage("Profile has been updated");
     }
 }

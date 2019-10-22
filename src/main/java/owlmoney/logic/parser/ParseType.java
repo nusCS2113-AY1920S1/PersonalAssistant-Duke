@@ -37,10 +37,15 @@ import owlmoney.logic.parser.transaction.deposit.ParseDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseEditDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseListDeposit;
 import owlmoney.logic.parser.transaction.expenditure.ParseAddExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseAddRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseDeleteRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseEditRecurringExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseListRecurringExpenditure;
+import owlmoney.logic.parser.transaction.expenditure.ParseRecurringExpenditure;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -54,7 +59,7 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurexpenditure", "/bonds", "/profile", "/deposit"
+        "/recurexpenditure", "/bonds", "/profile", "/deposit", "/recurbankexp"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
@@ -284,6 +289,30 @@ class ParseType extends Parser {
                 return new ListGoalsCommand();
             }
             throw new ParserException("You entered an invalid type for goals");
+        case "/recurbankexp":
+            if ("/add".equals(command)) {
+                ParseRecurringExpenditure addRecurringExpenditure = new ParseAddRecurringExpenditure(rawData, BANK);
+                addRecurringExpenditure.fillHashTable();
+                addRecurringExpenditure.checkParameter();
+                return addRecurringExpenditure.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseDeleteRecurringExpenditure
+                        deleteRecurringExpenditure = new ParseDeleteRecurringExpenditure(rawData, BANK);
+                deleteRecurringExpenditure.fillHashTable();
+                deleteRecurringExpenditure.checkParameter();
+                return deleteRecurringExpenditure.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseRecurringExpenditure editRecurringExpenditure = new ParseEditRecurringExpenditure(rawData, BANK);
+                editRecurringExpenditure.fillHashTable();
+                editRecurringExpenditure.checkParameter();
+                return editRecurringExpenditure.getCommand();
+            } else if ("/list".equals(command)) {
+                ParseRecurringExpenditure listRecurringExpenditure = new ParseListRecurringExpenditure(rawData, BANK);
+                listRecurringExpenditure.fillHashTable();
+                listRecurringExpenditure.checkParameter();
+                return listRecurringExpenditure.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for recurbankexpenditure");
         default:
             throw new ParserException("You entered an invalid type");
         }

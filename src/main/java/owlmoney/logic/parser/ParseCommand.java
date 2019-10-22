@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.ExitCommand;
+import owlmoney.logic.command.UpdateCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
@@ -17,7 +18,7 @@ public class ParseCommand extends Parser {
     private ParseType parseType = new ParseType();
     private final Scanner scanner = new Scanner(System.in);
     private static final String[] COMMAND_KEYWORDS = new String[] {
-        "/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit"
+        "/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit", "/update"
     };
     private static final List<String> COMMAND_KEYWORD_LISTS = Arrays.asList(COMMAND_KEYWORDS);
 
@@ -80,7 +81,15 @@ public class ParseCommand extends Parser {
         case "/list":
             return parseType.parseData(command, data);
         case "/exit":
+            if (!data.isBlank()) {
+                throw new ParserException("/exit cannot have trailing arguments");
+            }
             return new ExitCommand();
+        case "/update":
+            if (!data.isBlank()) {
+                throw new ParserException("/update cannot have trailing arguments");
+            }
+            return new UpdateCommand();
         default:
             throw new ParserException("You entered an invalid command");
         }

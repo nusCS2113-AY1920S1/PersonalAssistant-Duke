@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
+import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
@@ -292,6 +293,61 @@ public abstract class Bank {
      * @throws BankException If used on investment account.
      */
     public double getIncome() throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Updates recurring transactions to transaction list if any.
+     *
+     * @param ui Used for printing.
+     */
+    abstract void updateRecurringTransactions(Ui ui);
+
+    /**
+     * Adds a new recurring expenditure to a savings account.
+     *
+     * @param newExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    void savingAddRecurringExpenditure(Transaction newExpenditure, Ui ui) throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Deletes a recurring expenditure from the bank.
+     *
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures or the index is out of range.
+     */
+    void savingDeleteRecurringExpenditure(int index, Ui ui) throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Edits a recurring expenditure from the bank.
+     *
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures or the index is out of range.
+     */
+    void savingEditRecurringExpenditure(int index, String description, String amount, String category, Ui ui)
+            throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Lists all recurring expenditures from the bank.
+     *
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures.
+     */
+    void savingListRecurringExpenditure(Ui ui) throws BankException, TransactionException {
         throw new BankException("This account does not support this feature");
     }
 }

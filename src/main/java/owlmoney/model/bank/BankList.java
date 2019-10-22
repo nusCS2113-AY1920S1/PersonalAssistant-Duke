@@ -586,4 +586,95 @@ public class BankList {
             ui.printBankHeader();
         }
     }
+
+    /**
+     * Adds a new recurring expenditure to the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param newRecurringExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    public void bankListAddRecurringExpenditure(String bankName, Transaction newRecurringExpenditure, Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingAddRecurringExpenditure(newRecurringExpenditure, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Deletes the recurring expenditure of the specified index from the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param index Index of recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException There are 0 recurring expenditures or index is out of range.
+     */
+    public void bankListDeleteRecurringExpenditure(String bankName, int index, Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingDeleteRecurringExpenditure(index, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Lists all recurring expenditures from the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException There are 0 recurring expenditures.
+     */
+    public void bankListListRecurringExpenditure(String bankName,  Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingListRecurringExpenditure(ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Updates the recurring expenditure of the specified index from the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param index Index of recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException There are 0 recurring expenditures or index is out of range.
+     */
+    public void bankListEditRecurringExpenditure(
+            String bankName, int index, String description, String amount, String category, Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingEditRecurringExpenditure(index, description, amount, category, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Updates all recurring transactions from all banks.
+     *
+     * @param ui Used for printing,
+     */
+    public void bankListUpdateRecurringTransactions(Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            bankLists.get(i).updateRecurringTransactions(ui);
+        }
+    }
 }

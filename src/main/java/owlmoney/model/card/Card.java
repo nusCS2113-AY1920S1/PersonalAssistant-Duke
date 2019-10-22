@@ -207,7 +207,7 @@ public class Card {
                     + this.getRemainingLimit());
         }
         double oldAmount = unpaid.getExpenditureAmount(expNum);
-        double newAmount = unpaid.editEx(expNum, desc, amount, date, category, ui);
+        double newAmount = unpaid.editExpenditure(expNum, desc, amount, date, category, ui);
         this.addRemainingLimit(oldAmount);
         this.subtractRemainingLimit(newAmount);
     }

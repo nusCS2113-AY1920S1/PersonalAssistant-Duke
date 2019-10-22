@@ -3,29 +3,24 @@ package owlmoney.logic.parser.transaction.expenditure;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.transaction.DeleteExpenditureCommand;
+import owlmoney.logic.command.transaction.DeleteRecurringExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
-/**
- * Represents the parsing of inputs for deleting an expenditure.
- */
-public class ParseDeleteExpenditure extends ParseExpenditure {
-
+public class ParseDeleteRecurringExpenditure extends ParseRecurringExpenditure {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteExpenditure.
+     * Constructor which creates an instance of ParseDeleteRecurringExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if first parameter is invalid.
      */
-    public ParseDeleteExpenditure(String data, String type) throws ParserException {
+    public ParseDeleteRecurringExpenditure(String data, String type) throws ParserException {
         super(data, type);
         checkRedundantParameter(AMOUNT, DELETE);
         checkRedundantParameter(CATEGORY, DELETE);
         checkRedundantParameter(DESCRIPTION, DELETE);
         checkRedundantParameter(DATE, DELETE);
-        checkRedundantParameter(NUM, DELETE);
         checkFirstParameter();
     }
 
@@ -53,14 +48,14 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
     }
 
     /**
-     * Returns the command to execute the deletion of an expenditure.
+     * Returns the command to execute the deletion of a recurring expenditure.
      *
-     * @return Returns DeletionExpenditureCommand to be executed.
+     * @return Returns DeletionRecurringExpenditureCommand to be executed.
      */
     public Command getCommand() {
-        DeleteExpenditureCommand newDeleteExpenditureCommand =
-                new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSNO)),
+        DeleteRecurringExpenditureCommand newDeleteERecurringxpenditureCommand =
+                new DeleteRecurringExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSNO)),
                         expendituresParameters.get(FROM), this.type);
-        return newDeleteExpenditureCommand;
+        return newDeleteERecurringxpenditureCommand;
     }
 }
