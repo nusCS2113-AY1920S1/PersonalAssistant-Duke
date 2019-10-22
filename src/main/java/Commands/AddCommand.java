@@ -4,8 +4,6 @@ import Tasks.*;
 import Interface.*;
 import javafx.scene.control.Alert;
 
-import java.io.FileNotFoundException;
-
 /**
  * Represents the command to add a Task object to a TaskList object.
  */
@@ -32,7 +30,7 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws FileNotFoundException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         String out = "";
         int con = 0;
         boolean isOK = true;
