@@ -21,9 +21,9 @@ public class FixedDuration extends Task {
         super(description);
         this.duration = duration;
         if (unit.contains("m")) {
-            this.unit = (duration > 1)? "minutes":"minute";
+            this.unit = (duration > 1) ? "minutes" : "minute";
         } else if (unit.contains("h")) {
-            this.unit = (duration > 1)? "hours":"hour";
+            this.unit = (duration > 1) ? "hours" : "hour";
         }
 
     }
