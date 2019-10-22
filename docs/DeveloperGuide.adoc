@@ -110,29 +110,36 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 == 2. Design
 
-// === 2.1. Architecture
+=== 2.1. Architecture
 
-// .Architecture Diagram
-// // image::ArchitectureDiagram.png[]
+.Architecture Diagram
+image::images/ArchDuke_Architecture.png[]
 
-// The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The Architecture Diagram given above explains the high-level design of ArchDuke. ArchDuke is based on the n-tier
+architecture design. Below is a quick overview of each component based on our Architecture.
 
-// `Main` talk about our main method here. (For reference only)
+Not included in the diagram is the `Main` program in the folder *_launcher_*. The Main program is responsible for
+initializing the `View` layer.
 
-// * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-// * At shut down: Shuts down the components and invokes cleanup method where necessary.
+* In our case, as ArchDuke is a command line program, `Main` will initialize `CLIView`.
 
-// *`Commons`* represents a collection of classes used by multiple other components.
-// The following class plays an important role at the architecture level:
+`Utility` represents a collection of classes used by multiple other components and can be accessed by all layers.
 
-// * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `Factory` classes : Used mainly by `Repositories` and `Controllers` to create objects based on user input.
+* `Logger` classes: Used by all classes to write log messages to ArchDuke's log file.
+* `ParserHelper` class: Used by all classes for user user input parsing
+* `SortHelper` class: Used primarily by `Repositories` and `Controllers` for sorting objects based on description
+before a Response model is generated for the `View` layer.
+* `DateTimeHelper` class: Used for handling anything that is related to Date objects or parsing inputs for Date objects
 
-// The rest of the App consists of four main components.
+The rest of the App consists of four main layers.
 
-// * *`UI`*: The UI of the App.
-// * *`Logic`*: The command executor.
-// * *`Model`*: Holds the data of the App in-memory.
-// * *`Storage`*: Reads data from, and writes data to, the hard disk.
+* `View` layer: The UI of ArchDuke. Responsible for printing everything that the user will see and reading inputs
+from the user.
+* `Controller` layer: Responsible for handling user inputs and sending them to the respective classes for parsing,
+cleaning, or object creation.
+* `Repository` layer: Responsible for holding data in-memory
+* `Data` layer: Responsible for saving and loading persistent data from hard disk.
 
 // Each of the four components
 
