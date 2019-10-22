@@ -6,11 +6,19 @@ import dolla.task.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class SortDate extends Sort{
+/**
+ * The type Sort date.
+ */
+public class SortDate extends Sort {
 
+    /**
+     * Instantiates a new Sort date.
+     *
+     * @param list the list
+     */
     public SortDate(ArrayList<Log> list) {
         super(list);
-        Collections.sort(list, ListComparator.DateComparator());
+        Collections.sort(list, ListComparator.dateComparator());
         Ui.printSortedList(list,"date");
     }
 }
