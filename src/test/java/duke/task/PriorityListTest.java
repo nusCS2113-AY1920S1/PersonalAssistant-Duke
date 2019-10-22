@@ -6,8 +6,12 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PriorityListTest {
 
+//@@author Dou-Maokang
+/**
+ * A test class to test the correctness of PriorityList class.
+ */
+public class PriorityListTest {
 
     @Test
     void setPriorityTest() {
@@ -38,3 +42,4 @@ public class PriorityListTest {
 
     }
 }
+//@@author
