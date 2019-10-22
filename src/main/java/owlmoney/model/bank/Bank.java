@@ -11,7 +11,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Bank class which is abstract where various bank types will inherit from given that it is abstract.
+ * Contains the details of a bank object.
  */
 public abstract class Bank {
     String type;
@@ -62,7 +62,7 @@ public abstract class Bank {
      *
      * @return The accountName of the bank account.
      */
-    String getAccountName() {
+    public String getAccountName() {
         return this.accountName;
     }
 
@@ -71,7 +71,7 @@ public abstract class Bank {
      *
      * @return The currentAmount of money in the bank account.
      */
-    double getCurrentAmount() {
+    public double getCurrentAmount() {
         return this.currentAmount;
     }
 
@@ -104,7 +104,7 @@ public abstract class Bank {
     }
 
     /**
-     * Abstract method which adds a new expenditure to the current bank account.
+     * Adds a new expenditure to the current bank account.
      *
      * @param exp      Expenditure to be added.
      * @param ui       Ui of OwlMoney.
@@ -114,7 +114,7 @@ public abstract class Bank {
     public abstract void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException;
 
     /**
-     * Abstract method which deletes an expenditure from the current bank account.
+     * Deletes an expenditure from the current bank account.
      *
      * @param exNum Transaction number.
      * @param ui    Ui of OwlMoney.

@@ -19,6 +19,8 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
+import java.util.Date;
+
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
  */
@@ -270,7 +272,7 @@ public class Profile {
      * @param newName new name of the credit card if any.
      * @param limit   new limit of the credit card if any.
      * @param rebate  new rebate of the credit card if any.
-     * @param ui      required for printing.
+     * @param ui      The ui object required for printing.
      * @throws CardException If card cannot be found.
      */
     public void profileEditCardDetails(String name, String newName, String limit, String rebate, Ui ui)
@@ -281,8 +283,8 @@ public class Profile {
     /**
      * Deletes a card from the CardList.
      *
-     * @param name name of the credit card.
-     * @param ui   required for printing.
+     * @param name The name of the credit card.
+     * @param ui   The ui object required for printing.
      * @throws CardException If card does not exist.
      */
     public void profileDeleteCard(String name, Ui ui) throws CardException {
@@ -292,7 +294,7 @@ public class Profile {
     /**
      * Lists all the cards in the CardList.
      *
-     * @param ui required for printing.
+     * @param ui The ui object required for printing.
      * @throws CardException If CardList is empty.
      */
     public void profileListCards(Ui ui) throws CardException {
@@ -384,7 +386,7 @@ public class Profile {
      *
      * @param ui required for printing.
      */
-    public void listGoals(Ui ui) {
+    public void profileListGoals(Ui ui) {
         goalsList.listGoals(ui);
     }
 
@@ -395,7 +397,7 @@ public class Profile {
      * @param ui    required for printing.
      * @throws GoalsException If invalid parameters / attempt to add the same goal name.
      */
-    public void addGoals(Goals goals, Ui ui) throws GoalsException {
+    public void profileAddGoals(Goals goals, Ui ui) throws GoalsException {
         goalsList.addToGoals(goals, ui);
     }
 
@@ -406,22 +408,35 @@ public class Profile {
      * @param ui   required for printing.
      * @throws GoalsException If goal does not exists.
      */
-    public void deleteGoals(String name, Ui ui) throws GoalsException {
+    public void profileDeleteGoals(String name, Ui ui) throws GoalsException {
         goalsList.deleteFromGoalList(name, ui);
     }
 
     /**
-     * Edit goals from GoalsList.
+     * Edits goals from GoalsList.
      *
      * @param goalName name of goal.
      * @param amount   new target amount to reach for the goal.
      * @param date     new targeted date to meet goal.
      * @param newName  new name for the goal.
+     * @param savingName new saving name for goal.
      * @param ui       required for printing.
      * @throws GoalsException If goal does not exists.
      */
-    public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
-        goalsList.editGoals(goalName, amount, date, newName, ui);
+    public void profileEditGoals(String goalName, String amount, Date date, String newName, Bank savingName, Ui ui)
+            throws GoalsException {
+        goalsList.editGoals(goalName, amount, date, newName, savingName, ui);
+    }
+
+    /**
+     * Retrieves a Saving object.
+     *
+     * @param savingBankName Account name of Saving.
+     * @return Total amount in Saving Account.
+     * @throws BankException If no savingBankName is found.
+     */
+    public Bank profileGetSavingAccount(String savingBankName) throws BankException {
+        return bankList.bankListGetSavingAccount(savingBankName);
     }
 
     /**
@@ -520,13 +535,14 @@ public class Profile {
     }
 
     /**
-     * Transfers fund from one bank account to another bank account from GoalsList.
+     * Transfers fund from one bank account to another bank account.
      *
      * @param from   The account name for transferring the fund.
      * @param to     The account name to receive the fund.
      * @param amount The amount to be transferred.
      * @param date   The date that the fund was transferred.
-     * @param ui     Required for printing.
+     * @param ui     The ui object required for printing.
+     * @throws BankException If bank does not exist.
      */
     public void transferFund(String from, String to, double amount, Date date,
             Ui ui) throws BankException {
@@ -544,8 +560,8 @@ public class Profile {
     /**
      * Checks whether the bank account is a savings or investment account.
      *
-     * @param type type of bank account.
-     * @return the result whether it is to be transfer or deposit to a savings or investment account.
+     * @param type The type of bank account.
+     * @return The result whether it is to be transfer or deposit to a savings or investment account.
      */
     private String checkBankType(String type) {
         if (SAVING.equals(type)) {

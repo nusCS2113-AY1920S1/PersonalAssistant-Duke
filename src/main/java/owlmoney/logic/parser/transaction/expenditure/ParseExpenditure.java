@@ -14,8 +14,7 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseExpenditure class which is abstract where various expenditure parser objects inherit from
- * given that it is abstract.
+ * Abstracts common Expenditure methods and functions where the child parsers will inherit from.
  */
 public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
@@ -35,7 +34,7 @@ public abstract class ParseExpenditure {
     static final String NUM = "/num";
 
     /**
-     * Constructor which creates an instance of any ParseExpenditure type object.
+     * Creates an instance of any ParseExpenditure type object.
      *
      * @param data Raw user input data.
      * @param type Represents type of expenditure to be added.
@@ -168,14 +167,14 @@ public abstract class ParseExpenditure {
     }
 
     /**
-     * Abstract method where each saving parser performs different checks on the parameters.
+     * Checks the parameters given by the user.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each saving parser creates different commands.
+     * Gets the command to be executed.
      *
      * @return Command to be executed.
      */

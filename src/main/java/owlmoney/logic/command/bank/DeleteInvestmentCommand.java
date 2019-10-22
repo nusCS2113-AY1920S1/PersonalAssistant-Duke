@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteInvestmentCommand contains the execution function to delete an investment object.
+ * Executes DeleteInvestmentCommand to delete an investment object.
  */
 public class DeleteInvestmentCommand extends Command {
     private final String bankName;

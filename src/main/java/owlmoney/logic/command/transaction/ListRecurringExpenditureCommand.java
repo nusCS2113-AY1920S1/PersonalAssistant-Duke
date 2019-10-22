@@ -7,14 +7,14 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * ListRecurringExpenditureCommand class which contains the execution function to list expenditures.
+ * Executes ListRecurringExpenditureCommand to list expenditures.
  */
 public class ListRecurringExpenditureCommand extends Command {
     private final String accName;
     private final String type;
 
     /**
-     * Constructor to create an instance of ListRecurringExpenditureCommand.
+     * Creates an instance of ListRecurringExpenditureCommand.
      *
      * @param name       Bank account name.
      * @param type       Represents type of expenditure to be listed.
@@ -25,7 +25,7 @@ public class ListRecurringExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a recurring expenditure.
+     * Executes the function to list all recurring expenditure.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

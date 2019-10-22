@@ -11,8 +11,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * TransactionList  provides a layer of abstraction for the ArrayList.
- * The ArrayList will store both expenditures and deposits.
+ * Contains a list of all transactions in the bank account.
  */
 public class TransactionList {
 

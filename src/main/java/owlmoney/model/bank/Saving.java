@@ -16,7 +16,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Savings account class that extends a normal bank account.
+ * Contains the details in a savings account in addition to a normal bank account.
  */
 public class Saving extends Bank {
 

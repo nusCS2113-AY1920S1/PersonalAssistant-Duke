@@ -8,7 +8,7 @@ import owlmoney.logic.command.bank.AddSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for adding a new saving.
+ * Parses the inputs for adding a saving.
  */
 public class ParseAddSaving extends ParseSaving {
 

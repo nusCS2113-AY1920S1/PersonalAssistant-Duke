@@ -12,7 +12,7 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseAddCard extends ParseCard {
 
     /**
-     * Constructor which creates an instance of ParseAddCard.
+     * Creates an instance of ParseAddCard.
      *
      * @param data Raw data of user input to be parsed.
      * @throws ParserException If there is a redundant parameter or first parameter is not a valid type.
@@ -37,7 +37,7 @@ public class ParseAddCard extends ParseCard {
                 throw new ParserException(key + " cannot be empty when adding a new card");
             }
             if (LIMIT.equals(key)) {
-                checkLimist(value);
+                checkLimit(value);
             }
             if (REBATE.equals(key)) {
                 checkCashBack(value);

@@ -3,7 +3,7 @@ package owlmoney.model.transaction;
 import java.util.Date;
 
 /**
- * Deposit class which represents one expenditure.
+ * Contains the details of a deposit.
  */
 public class Deposit extends Transaction {
     /**

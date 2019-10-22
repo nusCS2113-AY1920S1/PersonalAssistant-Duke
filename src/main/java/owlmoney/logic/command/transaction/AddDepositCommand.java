@@ -10,7 +10,7 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
 /**
- * AddDepositCommand class which contains the execution function to add a new deposit transaction.
+ * Executes AddDepositCommand to add a new deposit transaction.
  */
 public class AddDepositCommand extends Command {
 
@@ -22,7 +22,7 @@ public class AddDepositCommand extends Command {
     private final String category = "deposit";
 
     /**
-     * Constructor that creates an instance of AddDepositCommand.
+     * Creates an instance of AddDepositCommand.
      *
      * @param name        Bank account name.
      * @param amount      Amount deposited.

@@ -7,7 +7,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * EditDepositCommand class which contains the execution function to edit a deposit transaction.
+ * Executes EditDepositCommand to edit a deposit transaction.
  */
 public class EditDepositCommand extends Command {
     private final String accName;
@@ -17,7 +17,7 @@ public class EditDepositCommand extends Command {
     private final int index;
 
     /**
-     * Constructor to create an instance of EditDepositCommand.
+     * Creates an instance of EditDepositCommand.
      *
      * @param name        Bank account name.
      * @param amount      New deposit amount if any.
@@ -34,7 +34,7 @@ public class EditDepositCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to edit a deposit transaction.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

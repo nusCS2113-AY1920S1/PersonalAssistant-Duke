@@ -7,13 +7,13 @@ import owlmoney.logic.command.transaction.ListExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for listing expenditures.
+ * Parses the inputs for listing expenditures.
  */
 public class ParseListExpenditure extends ParseExpenditure {
     private static final String LIST = "/list";
 
     /**
-     * Constructor which creates an instance of ParseListExpenditure.
+     * Creates an instance of ParseListExpenditure.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters.

@@ -1,13 +1,12 @@
 package owlmoney.model.goals;
 
+import owlmoney.model.bank.Bank;
 import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.ui.Ui;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The GoalsList class that provides a layer of abstraction for the ArrayList that stores goals.
@@ -124,7 +123,8 @@ public class GoalsList {
      * @throws GoalsException If date is not in correct format, or changing to a name that already exists,
      *                        or no goal with the goalName.
      */
-    public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
+    public void editGoals(String goalName, String amount, Date date, String newName, Bank savingAcc, Ui ui)
+            throws GoalsException {
         for (int i = ISZERO; i < goalList.size(); i++) {
             if (goalList.get(i).getGoalsName().equals(goalName)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -134,14 +134,11 @@ public class GoalsList {
                 if (!(amount.isBlank() || amount.isEmpty())) {
                     goalList.get(i).setGoalsAmount(Double.parseDouble(amount));
                 }
-                if (!(date == null || date.isBlank() || date.isEmpty())) {
-                    DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
-                    try {
-                        goalList.get(i).setGoalsDate(temp.parse(date));
-                    } catch (ParseException e) {
-                        //check handled in ParseEditGoals
-                        throw new GoalsException(e.toString());
-                    }
+                if (date != null) {
+                    goalList.get(i).setGoalsDate(date);
+                }
+                if (savingAcc != null) {
+                    goalList.get(i).setSavingAcc(savingAcc);
                 }
                 ui.printMessage("New details of goals changed: ");
                 printOneGoal(ONE_INDEX, goalList.get(i), ISSINGLE, ui);
@@ -164,9 +161,12 @@ public class GoalsList {
         if (!isMultiplePrinting) {
             ui.printGoalHeader();
         }
+        if (!goal.getSavingAcc().isBlank()) {
+            goal.isDone(Double.parseDouble(goal.getRemainingAmount()));
+        }
         ui.printGoal(num, goal.getGoalsName(), "$"
                         + new DecimalFormat("0.00").format(goal.getGoalsAmount()),
-                goal.getGoalsDate().toString());
+                goal.getSavingAcc(),"$" + goal.getRemainingAmount(), goal.getGoalsDate(), goal.getStatus());
         if (!isMultiplePrinting) {
             ui.printDivider();
         }
