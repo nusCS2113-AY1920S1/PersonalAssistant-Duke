@@ -17,6 +17,8 @@ import java.util.Scanner;
 import java.util.HashSet;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public interface CommandParser {
@@ -25,7 +27,7 @@ public interface CommandParser {
      * TOKENS FOR PARSING BELOW.
      */
     String TOKEN_TASK_ID = "/id";
-    String TOKEN_STATUS = "/s";
+    String TOKEN_STATUS = "/status";
     String TOKEN_SLASH = "/";
     String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
@@ -34,6 +36,8 @@ public interface CommandParser {
     String TOKEN_FINAL_DATE = "/final-date";
     char TOKEN_SLASH_CHAR = '/';
     String TOKEN_TYPE = "/type";
+    String TOKEN_HOUR = "/hour";
+    String TOKEN_MIN = "/min";
 
 
     String EMPTY_INPUT_STRING = "";
@@ -59,7 +63,7 @@ public interface CommandParser {
      * @return a suitable Command object that will carry out the user's intention.
      * @throws ParserException Invalid input, varies for each command parser.
      */
-    Command parseCommand(String restOfInput) throws ParserException;
+    Command parseCommand(String restOfInput) throws ParserException, ParseException;
 
     /**
      * GETTERS FOR TOKENS BELOW
@@ -72,6 +76,7 @@ public interface CommandParser {
      * @return type
      * @throws ParserException if the token (/task) is missing or task type
      *                         does not exist.
+     * @author Sholihin
      */
     default String getType(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_TYPE)) {
@@ -100,36 +105,13 @@ public interface CommandParser {
         }
     }
 
-
-    /**
-     * Returns the task ID in the String input.
-     *
-     * @param restOfInput String input of user after command word
-     * @return taskID
-     * @throws ParserException if the token (/id) or id number is missing
-     */
-    default int getTokenTaskID(String restOfInput) throws ParserException {
-        if (restOfInput.contains(TOKEN_TASK_ID)) {
-            int startPoint = restOfInput.indexOf(TOKEN_TASK_ID);
-            String taskIdStartInput = restOfInput.substring(startPoint);
-            Scanner scanner = new Scanner(taskIdStartInput);
-            scanner.next();
-            if (!scanner.hasNext()) {
-                throw new ParserException(MESSAGE_MISSING_INPUT);
-            }
-            int taskId = Integer.parseInt(scanner.next());
-            return taskId;
-        } else {
-            throw new ParserException(MESSAGE_MISSING_TOKEN);
-        }
-    }
-
     /**
      * Returns the reminder status in the String input.
      *
      * @param restOfInput String input of user after command word
      * @return reminder status
-     * @throws ParserException if the token (/s) or reminder status is missing
+     * @throws ParserException if the token (/status) or reminder status is missing
+     * @author Tan Kai Li Catherine
      */
     default String getTokenStatus(String restOfInput) throws ParserException {
         if (restOfInput.contains(TOKEN_STATUS)) {
@@ -144,6 +126,98 @@ public interface CommandParser {
             return statusField;
         } else {
             throw new ParserException(MESSAGE_MISSING_TOKEN);
+        }
+    }
+
+    /**
+     * Returns the hour in the String input.
+     *
+     * @param restOfInput String input of user after command word
+     * @return hour
+     * @throws ParserException if the token (/hour) or hour input is missing
+     */
+    default int getHour(String restOfInput) throws ParserException {
+        return getIntInput(restOfInput, TOKEN_HOUR);
+    }
+
+    /**
+     * Returns the min in the String input.
+     *
+     * @param restOfInput String input of user after command word
+     * @return min
+     * @throws ParserException if the token (/min) or min input is missing
+     */
+    default int getMin(String restOfInput) throws ParserException {
+        return getIntInput(restOfInput, TOKEN_MIN);
+    }
+
+    /**
+     * Returns the task ID in the String input.
+     *
+     * @param restOfInput String input of user after command word
+     * @return taskID
+     * @throws ParserException if the token (/id) or id number is missing
+     */
+    default int getTokenTaskID(String restOfInput) throws ParserException {
+        return getIntInput(restOfInput, TOKEN_TASK_ID);
+    }
+
+    /**
+     * Returns the integer input based on token input.
+     *
+     * @param restOfInput String input of user after command word
+     * @param token       token to extract result from
+     * @return result extracted based on token
+     * @throws ParserException if token or input is missing
+     */
+    private int getIntInput(String restOfInput, String token) throws ParserException {
+        if (restOfInput.contains(token)) {
+            int startPoint = restOfInput.indexOf(token);
+            String startInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(startInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String input = scanner.next();
+            if (input.equals(EMPTY_INPUT_STRING) || input.contains(TOKEN_SLASH)) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            int intInput = Integer.parseInt(input);
+            return intInput;
+        } else {
+            throw new ParserException(MESSAGE_MISSING_TOKEN);
+        }
+    }
+
+    /**
+     * Returns a date in the String input.
+     *
+     * @param restOfInput String input of user after command word
+     * @return date
+     * @throws ParserException If date field is empty, date or date format is invalid,
+     *                         date token (/date) is missing.
+     */
+    default Date getDate(String restOfInput) throws ParserException, ParseException {
+        if (restOfInput.contains(TOKEN_DATE)) {
+            int startPoint = restOfInput.indexOf(TOKEN_DATE);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            String dateField = scanner.next();
+            if (dateField.equals(EMPTY_INPUT_STRING) || dateField.charAt(0) == TOKEN_SLASH_CHAR) {
+                throw new ParserException(MESSAGE_MISSING_INPUT);
+            }
+            if (!isDateValid(dateField)) {
+                throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
+            }
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateField);
+            return date;
+        } else {
+            throw new ParserException(MESSAGE_MISSING_DATE_ARG);
         }
     }
 
@@ -184,9 +258,11 @@ public interface CommandParser {
                 throw new ParserException(MESSAGE_MISSING_INPUT);
             }
             ArrayList<String> startDateList = new ArrayList<>();
+
             int dateCount = 0;
             while (scanner.hasNext()) {
                 String eachDateString = scanner.next();
+                System.out.println(eachDateString);
                 if (eachDateString.charAt(0) == TOKEN_SLASH_CHAR) {
                     break;
                 }
@@ -336,9 +412,19 @@ public interface CommandParser {
      *
      * @param date the string of the date input
      * @return true or false.
+     * @author Sholihin
      */
     default boolean isDateValid(String date) throws ParserException {
+        String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(date);
+
+        if (!matcher.matches()) {
+            throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+
         final String DATE_FORMAT = "dd/MM/yyyy";
+
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);

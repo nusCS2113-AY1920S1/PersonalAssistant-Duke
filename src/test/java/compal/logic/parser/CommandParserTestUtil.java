@@ -20,7 +20,7 @@ class CommandParserTestUtil {
         try {
             CommandResult command = commandParser.parseCommand(userInput).commandExecute(taskList);
             assertEquals(expectedCommand.feedbackToUser, command.feedbackToUser);
-        } catch (ParserException | CommandException e) {
+        } catch (ParserException | CommandException | ParseException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -33,7 +33,7 @@ class CommandParserTestUtil {
         try {
             parserManager.parseCommand(userInput);
             throw new AssertionError("The expected ParseException was not thrown.");
-        } catch (ParserException e) {
+        } catch (ParserException | ParseException e) {
             assertEquals(expectedMessage, e.getMessage());
         }
     }
