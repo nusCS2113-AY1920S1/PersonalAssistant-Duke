@@ -47,7 +47,7 @@ public class EditCommand extends Command {
 	public int getIndexFromTaskList(String filter, int filteredListIndex, TaskList tasks) {
 		int actualIndex = -1;
 		int filteredListCounter = 0;
-		ArrayList<Task> tempTaskList = new ArrayList<Task>(); //To search and put the task list here, need to record their index though
+		ArrayList<Task> tempTaskList = new ArrayList<>(); //To search and put the task list here, need to record their index though
 		//Implement filter here to search. Search filter then add the task list?
 
 		if (filter == "") {
