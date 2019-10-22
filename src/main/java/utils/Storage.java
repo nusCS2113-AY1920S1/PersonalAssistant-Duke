@@ -37,10 +37,18 @@ public class Storage {
      * @param memberFilePath path of the file that store the member list
      */
     public Storage(String taskFilePath, String memberFilePath) {
-
         taskDataFile = new File(taskFilePath);
-
         memberDataFile = new File(memberFilePath);
+
+        //Generate folders and files if does not exist
+        taskDataFile.getParentFile().mkdirs();
+        memberDataFile.getParentFile().mkdirs();
+        try {
+            taskDataFile.createNewFile();
+            memberDataFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
