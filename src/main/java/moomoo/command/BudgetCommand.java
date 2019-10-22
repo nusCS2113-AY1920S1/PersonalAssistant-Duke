@@ -84,7 +84,7 @@ public class BudgetCommand extends Command {
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
-                        category = splitInput[i].substring(2);
+                        category = splitInput[i].substring(2).toLowerCase();
                         if (splitInput[i + 1].startsWith("b/") && !inCategoryList(category, catList)) {
                             throw new MooMooException(category + " does not exist. Please create it first.");
 
@@ -119,7 +119,6 @@ public class BudgetCommand extends Command {
                 throw new MooMooException("You have not typed in a valid format. "
                         + " Please use budget set c/CATEGORY b/BUDGET.");
             }
-            //ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
             ui.setOutput(outputValue);
             storage.saveBudgetToFile(budget);
         } else if (input.startsWith("edit ")) {
@@ -130,7 +129,7 @@ public class BudgetCommand extends Command {
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
-                        category = splitInput[i].substring(2);
+                        category = splitInput[i].substring(2).toLowerCase();
                         if (splitInput[i + 1].startsWith("b/") && !inCategoryList(category, catList)) {
                             throw new MooMooException("The " + category
                                     + " does not exist. Please create it first.");
@@ -249,12 +248,6 @@ public class BudgetCommand extends Command {
             } else {
                 outputValue += viewSavings(budget, catList, startMonth, endMonth, "", null);
             }
-
-//            if (outputValue.endsWith("\n")) {
-//                ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
-//            } else {
-//                ui.setOutput(outputValue);
-//            }
             ui.setOutput(outputValue);
         } else {
             throw new MooMooException("There is only edit/set/list/savings sub command under budget.");
@@ -440,7 +433,8 @@ public class BudgetCommand extends Command {
         return false;
     }
 
-    private String addBudget(Budget budget, CategoryList catList, String inputBudget, String category) throws MooMooException {
+    private String addBudget(Budget budget, CategoryList catList, String inputBudget, String category)
+            throws MooMooException {
         double addedBudget = 0;
         String outputValue;
         try {
@@ -460,7 +454,7 @@ public class BudgetCommand extends Command {
             throw new MooMooException("The " + category  + " does not exist. Please create it first.");
         }
 
-            if (budget.getBudgetFromCategory(category) != 0) {
+        if (budget.getBudgetFromCategory(category) != 0) {
             outputValue = "The budget for " + category + " has already been set. "
                     + "Please edit it using budget edit.";
             return outputValue;
@@ -546,14 +540,29 @@ public class BudgetCommand extends Command {
         return outputValue;
     }
 
-    private String viewTotalSavings(CategoryList catList, Budget budget, LocalDate start, LocalDate end, String endMonth) {
+    private String viewTotalSavings(CategoryList catList, Budget budget, LocalDate start,
+                                    LocalDate end, String endMonth) {
         String outputValue = "";
         if ("".equals(endMonth)) {
-            outputValue = "Your total savings for " + start.getMonth()
-                    + " " + start.getYear() + " is: " + df.format(budget.getTotalBudget()
-                    - catList.getMonthlyGrandTotal(start.getMonthValue()));
+            double totalExpenditure = 0;
+            for (int i = 0; i < catList.getCategoryList().size(); ++i) {
+                if (budget.getBudgetFromCategory(catList.getCategoryList().get(i).toString()) != 0) {
+                    totalExpenditure += catList.getCategoryList().get(i).getCategoryTotalPerMonthYear(
+                            start.getMonthValue(), start.getYear());
+                }
+            }
+
+            double savings = budget.getTotalBudget()
+                    - totalExpenditure;
+            if (savings >= 0) {
+                outputValue = "Your total savings for " + start.getMonth()
+                        + " " + start.getYear() + " is: $" + df.format(savings) + "\n";
+            } else {
+                outputValue = "You have overspent your budget for " + start.getMonth()
+                        + " " + start.getYear() + " by $" + df.format(Math.abs(savings)) + "\n";
+            }
         } else {
-            int numberOfMonths = end.getMonthValue() - start.getMonthValue();
+            int numberOfMonths = end.getMonthValue() - start.getMonthValue() + 1;
             int numberOfYears = end.getYear() - start.getYear();
             double totalExpenditure = 0;
 
@@ -562,9 +571,12 @@ public class BudgetCommand extends Command {
                 int endMonthValue = 12;
                 int yearValue = start.getYear();
                 for (int i = 0; i < numberOfYears; ++i) {
-                    for (int x = startMonthValue; i < endMonthValue; ++x) {
+                    for (int x = startMonthValue; x < endMonthValue; ++x) {
                         for (int a = 0; a < catList.getCategoryList().size(); ++a) {
-                            totalExpenditure += catList.getCategoryList().get(a).getCategoryTotalPerMonthYear(x, yearValue);
+                            if (budget.getBudgetFromCategory(catList.getCategoryList().get(a).toString()) != 0) {
+                                totalExpenditure += catList.getCategoryList().get(a).getCategoryTotalPerMonthYear(
+                                        x, yearValue);
+                            }
                         }
                     }
                     startMonthValue = 1;
@@ -574,16 +586,27 @@ public class BudgetCommand extends Command {
                     yearValue += 1;
                 }
             } else {
-                for (int i = start.getMonthValue(); i < end.getMonthValue(); ++i) {
+                for (int i = start.getMonthValue(); i < end.getMonthValue() + 1; ++i) {
                     for (int a = 0; a < catList.getCategoryList().size(); ++a) {
-                        totalExpenditure += catList.getCategoryList().get(a).getCategoryTotalPerMonthYear(i, start.getYear());
+                        if (budget.getBudgetFromCategory(catList.getCategoryList().get(a).toString()) != 0) {
+                            totalExpenditure += catList.getCategoryList().get(a).getCategoryTotalPerMonthYear(
+                                    i, start.getYear());
+                        }
                     }
                 }
             }
 
-            outputValue = "Your total savings from " + start.getMonth()
-                    + " " + start.getYear() + " to "
-                    + end.getMonth() + " " + end.getYear() + " is: " + df.format((numberOfMonths * budget.getTotalBudget()) - totalExpenditure);
+            double savings = (numberOfMonths * budget.getTotalBudget()) - totalExpenditure;
+
+            if (savings >= 0) {
+                outputValue = "Your total savings from " + start.getMonth()
+                        + " " + start.getYear() + " to "
+                        + end.getMonth() + " " + end.getYear() + " is: $" + df.format(savings) + "\n";
+            } else {
+                outputValue = "You have overspent your budget from " + start.getMonth()
+                        + " " + start.getYear() + " to  "
+                        + end.getMonth() + " " + end.getYear() + " by $" + df.format(Math.abs(savings)) + "\n";
+            }
         }
         return outputValue;
     }
@@ -592,9 +615,11 @@ public class BudgetCommand extends Command {
                                        LocalDate start, LocalDate end, String endMonth) throws MooMooException {
         String outputValue = "";
         for (String iteratorCategory : categoryList) {
+            iteratorCategory = iteratorCategory.toLowerCase();
+
             Category currentCategory = null;
             for (Category iterCategory : catList.getCategoryList()) {
-                if (iterCategory.toString() == iteratorCategory) {
+                if (iterCategory.toString().toLowerCase().equals(iteratorCategory)) {
                     currentCategory = iterCategory;
                     break;
                 }
@@ -608,21 +633,21 @@ public class BudgetCommand extends Command {
                 throw new MooMooException("The budget for " + iteratorCategory + " does not exist."
                         + "Please set it using budget set.");
             }
-            Category currentCat = null;
-            for (Category innerCat : catList.getCategoryList()) {
-                if (innerCat.toString().toLowerCase().equals(iteratorCategory.toLowerCase())) {
-                    currentCat = innerCat;
-                    break;
-                }
-            }
-            
+
             if ("".equals(endMonth)) {
-                outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
-                        + " " + start.getYear() + " is: $"
-                        + df.format(budget.getBudgetFromCategory(iteratorCategory)
-                        - currentCategory.getCategoryTotalPerMonthYear(start.getMonthValue(), start.getYear()))  + "\n";
+                double savings = budget.getBudgetFromCategory(iteratorCategory)
+                        - currentCategory.getCategoryTotalPerMonthYear(start.getMonthValue(), start.getYear());
+
+                if (savings >= 0) {
+                    outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
+                            + " " + start.getYear() + " is: $"
+                            + df.format(savings)  + "\n";
+                } else {
+                    outputValue = "You have overspent your budget for " + iteratorCategory + " for " + start.getMonth()
+                            + " " + start.getYear() + " by $" + df.format(Math.abs(savings)) + "\n";
+                }
             } else {
-                int numberOfMonths = end.getMonthValue() - start.getMonthValue();
+                int numberOfMonths = end.getMonthValue() - start.getMonthValue() + 1;
                 int numberOfYears = end.getYear() - start.getYear();
                 double totalExpenditure = 0;
 
@@ -632,7 +657,9 @@ public class BudgetCommand extends Command {
                     int yearValue = start.getYear();
                     for (int i = 0; i < numberOfYears; ++i) {
                         for (int x = startMonthValue; x < endMonthValue; ++x) {
-                            totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(x, yearValue);
+                            if (budget.getBudgetFromCategory(currentCategory.toString()) != 0) {
+                                totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(x, yearValue);
+                            }
                         }
                         startMonthValue = 1;
                         if (numberOfYears - i == 1) {
@@ -641,16 +668,26 @@ public class BudgetCommand extends Command {
                         yearValue += 1;
                     }
                 } else {
-                    for (int i = start.getMonthValue(); i < end.getMonthValue(); ++i) {
-                        totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(i, start.getYear());
+                    for (int i = start.getMonthValue(); i < end.getMonthValue() + 1; ++i) {
+                        if (budget.getBudgetFromCategory(currentCategory.toString()) != 0) {
+                            totalExpenditure += currentCategory.getCategoryTotalPerMonthYear(i, start.getYear());
+                        }
                     }
                 }
 
-                outputValue += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
-                        + start.getYear() + " to "
-                        + end.getMonth() + " " + end.getYear() + " is: $"
-                        + df.format(((numberOfMonths * budget.getBudgetFromCategory(iteratorCategory))
-                        - totalExpenditure)) + "\n";
+                double savings = (numberOfMonths * budget.getBudgetFromCategory(iteratorCategory))
+                        - totalExpenditure;
+
+                if (savings >= 0) {
+                    outputValue += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
+                            + start.getYear() + " to "
+                            + end.getMonth() + " " + end.getYear() + " is: $"
+                            + df.format(savings)  + "\n";
+                } else {
+                    outputValue = "You have overspent for your budget for " + iteratorCategory + " from "
+                            + start.getMonth() + " " + start.getYear() + " to "
+                            + end.getMonth() + " " + end.getYear() + " by: $" + df.format(Math.abs(savings)) + "\n";
+                }
             }
         }
         return outputValue;

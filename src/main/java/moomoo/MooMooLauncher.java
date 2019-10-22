@@ -3,7 +3,12 @@ package moomoo;
 import javafx.application.Application;
 import moomoo.gui.Main;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 /**
  * Launches the application.
@@ -25,17 +30,16 @@ public class MooMooLauncher {
                 MooMoo.main(args);
             }
         } else {
-            String OS = System.getProperty("os.name").toLowerCase();
+            String operatingSystem = System.getProperty("os.name").toLowerCase();
             String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
-            if (OS.contains("win")) {
+            if (operatingSystem.contains("win")) {
                 runWindowsCommand(path);
-            } else if (OS.contains("mac")) {
+            } else if (operatingSystem.contains("mac")) {
                 //command = "bash -c " + "java -jar " + path + " CLI";
-            } else if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
+            } else if (operatingSystem.contains("nix") || operatingSystem.contains("nux")
+                    || operatingSystem.contains("aix")) {
                 runLinuxCommand(path);
-            } else if (OS.contains("sunos")) {
-                // command = "bash -c " + "java -jar " + path + " CLI";
             }
         }
     }
@@ -59,10 +63,10 @@ public class MooMooLauncher {
     }
 
     private static void runLinuxCommand(String path) throws IOException {
-        File hackScript = File.createTempFile("script", ".sh");
+        File tempScript = File.createTempFile("script", ".sh");
 
         Writer streamWriter = new OutputStreamWriter(new FileOutputStream(
-                hackScript));
+                tempScript));
         PrintWriter printWriter = new PrintWriter(streamWriter);
 
         printWriter.println("#!/bin/sh");
@@ -70,8 +74,9 @@ public class MooMooLauncher {
         printWriter.println("exec \"$SHELL\"");
         printWriter.close();
 
-        Process pr = Runtime.getRuntime().exec("chmod +x " + hackScript.getAbsolutePath());
+        Process pr = Runtime.getRuntime().exec("chmod +x " + tempScript.getAbsolutePath());
 
-        pr = Runtime.getRuntime().exec("x-terminal-emulator -e " + hackScript.getAbsolutePath() + " java -jar " + path + " CLI " + hackScript.getAbsolutePath());
+        pr = Runtime.getRuntime().exec("x-terminal-emulator -e " + tempScript.getAbsolutePath()
+                + " java -jar " + path + " CLI " + tempScript.getAbsolutePath());
     }
 }

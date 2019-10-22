@@ -28,6 +28,8 @@ public class StorageTest {
         UiStub newUi = new UiStub();
         Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
 
+        newCatList.add(null);
+
         Budget newBudget = new Budget();
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/sweets b/500 c/laptop b/1500");
 

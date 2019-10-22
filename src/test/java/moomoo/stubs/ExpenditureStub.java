@@ -14,4 +14,13 @@ public class ExpenditureStub extends Expenditure {
         this.dateTime = dateTime;
     }
 
+    @Override
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    @Override
+    public double getCost() {
+        return cost;
+    }
 }

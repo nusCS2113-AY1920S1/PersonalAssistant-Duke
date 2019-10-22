@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class GraphCommand extends Command {
     private ArrayList<String> verticalAxis;
-    private final String fullBlock = "\u2588";
-    private final String halfBlock = "\u258c";
-    private final String topBorder = "\u252c";
-    private final String bottomBorder = "\u2534";
+    private final String fullBlock = "@";
+    private final String halfBlock = "#";
+    private final String topBorder = "$";
+    private final String bottomBorder = "%";
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";

@@ -37,7 +37,7 @@ public class BudgetCommandTest {
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
         assertEquals("Your budget for shoes is: $1000.79\nYour budget for food is: $500.00\n", newBudget.toString());
-        assertEquals("You have set $1000.79 as the budget for Shoes\n"
+        assertEquals("You have set $1000.79 as the budget for shoes\n"
                 + "You have set $500.00 as the budget for food\n", newUi.printResponse());
 
         budgetCommand = new BudgetCommand(false, "budget set c/places to go b/460");
@@ -79,24 +79,40 @@ public class BudgetCommandTest {
 
         assertEquals("Your budget for places to go is: $460.00\n", newUi.printResponse());
 
-        for (int i = 0; i < newCatList.size(); i++) {
+        for (int i = 0; i < newCatList.getCategoryList().size(); i++) {
             newCatList.get(i).add(null);
         }
 
         budgetCommand = new BudgetCommand(false, "budget savings s/10/2019 e/12/2019");
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        assertEquals("Your total savings from OCTOBER 2019 to DECEMBER 2019 is: ", newUi.printResponse());
+        assertEquals("Your total savings from OCTOBER 2019 to DECEMBER 2019 is: $4635.00\n", newUi.printResponse());
 
         budgetCommand = new BudgetCommand(false, "budget savings s/01/2018");
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        assertEquals("Your total savings for JANUARY 2018 is: ", newUi.printResponse());
+        assertEquals("Your total savings for JANUARY 2018 is: $1360.00\n", newUi.printResponse());
 
-        budgetCommand = new BudgetCommand(false, "budget savings c/shoes c/food s/07/2019 e/09/2019");
+        budgetCommand = new BudgetCommand(false, "budget savings c/Shoes c/food s/07/2019 e/09/2019");
         budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        assertEquals("Your savings for shoes from JULY 2019 to SEPTEMBER 2019 is: $800.00\n"
-                + "Your savings for food from JULY 2019 to SEPTEMBER 2019 is: $400.00", newUi.printResponse());
+        assertEquals("Your savings for shoes from JULY 2019 to SEPTEMBER 2019 is: $2050.00\n"
+                + "Your savings for food from JULY 2019 to SEPTEMBER 2019 is: $850.00\n", newUi.printResponse());
+
+        budgetCommand = new BudgetCommand(false, "budget edit c/Shoes b/50");
+        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("You have changed the budget for shoes from $800.00 to $50.00\n", newUi.printResponse());
+
+        budgetCommand = new BudgetCommand(false, "budget list c/shoes");
+        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("Your budget for shoes is: $50.00\n", newUi.printResponse());
+
+        budgetCommand = new BudgetCommand(false, "budget savings c/shoes s/09/2019");
+        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("You have overspent your budget for shoes for SEPTEMBER 2019 by $100.00\n", newUi.printResponse());
+
     }
 }

@@ -16,6 +16,7 @@ public class CategoryStub extends Category {
     }
 
     public CategoryStub(String name) {
+        this.category = new ArrayList<>();
         this.name = name;
     }
 
@@ -31,18 +32,18 @@ public class CategoryStub extends Category {
             Expenditure currExpenditure = category.get(i);
             if (currExpenditure.getDateTime().getMonthValue() == month
                     && currExpenditure.getDateTime().getYear() == year) {
-                totalCost += currExpenditure.amount();
+                totalCost += currExpenditure.getCost();
             }
         }
         return totalCost;
     }
+
     @Override
     public void add(Expenditure newExpenditure) {
-        category.add(new ExpenditureStub(50, LocalDateTime.of(2019, Month.JULY, 25, 19, 30, 50)));
-        category.add(new ExpenditureStub(65, LocalDateTime.of(2019, Month.AUGUST, 21, 19, 30, 50)));
-        category.add(new ExpenditureStub(100, LocalDateTime.of(2019, Month.SEPTEMBER, 20, 19, 30, 50)));
-        category.add(new ExpenditureStub(40, LocalDateTime.of(2019, Month.JANUARY, 4, 19, 30, 50)));
-        category.add(new ExpenditureStub(20, LocalDateTime.of(2020, Month.FEBRUARY, 5, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(50, LocalDateTime.of(2019, Month.OCTOBER, 25, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(65, LocalDateTime.of(2019, Month.NOVEMBER, 21, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(100, LocalDateTime.of(2018, Month.JANUARY, 20, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(150, LocalDateTime.of(2019, Month.SEPTEMBER, 20, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(200, LocalDateTime.of(2019, Month.AUGUST, 20, 19, 30, 50)));
     }
-
 }
