@@ -1,8 +1,8 @@
 package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 
 /**
  * FindCommand is a specific kind of command used to find a task from task list with a keyword.

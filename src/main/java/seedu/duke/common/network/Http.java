@@ -4,8 +4,9 @@ import javafx.application.Platform;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
+import seedu.duke.email.EmailFormatParseHelper;
 import seedu.duke.email.EmailList;
-import seedu.duke.email.EmailFormatParser;
+
 import seedu.duke.email.EmailStorage;
 
 import java.awt.Desktop;
@@ -40,7 +41,7 @@ public class Http {
      */
     public static void startAuthProcess() {
         refreshToken = EmailStorage.readRefreshToken();
-        if (refreshToken.equals("")) {
+        if ("".equals(refreshToken)) {
             getAuth();
         } else {
             refreshAccess();
@@ -52,7 +53,7 @@ public class Http {
      *
      * @param code teh new authentication code
      */
-    static void setAuthCode(String code) {
+    public static void setAuthCode(String code) {
         //Duke.getUI().showDebug("Auth Code Set: " + code);
         authCode = code;
         getAccess();
@@ -95,9 +96,9 @@ public class Http {
     private static EmailList callFetchEmailWithParams(JSONObject apiParams) {
         try {
             String httpResponse = callEmailApi(apiParams);
-            EmailList emailList = EmailFormatParser.parseFetchResponse(httpResponse);
+            EmailList emailList = EmailFormatParseHelper.parseFetchResponse(httpResponse);
             return emailList;
-        } catch (EmailFormatParser.EmailParsingException e) {
+        } catch (EmailFormatParseHelper.EmailParsingException e) {
             Duke.getUI().showError(e.toString());
         }
         return new EmailList();

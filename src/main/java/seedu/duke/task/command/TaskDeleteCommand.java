@@ -1,9 +1,9 @@
 package seedu.duke.task.command;
 
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
-import seedu.duke.CommandParser;
-import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 
 /**
  * DeleteCommand that is used delete a task from the task list with its index.
@@ -36,7 +36,7 @@ public class TaskDeleteCommand extends Command {
                 Duke.getUI().showResponse(msg);
             }
             return true;
-        } catch (CommandParser.UserInputException e) {
+        } catch (CommandParseHelper.UserInputException e) {
             if (!silent) {
                 Duke.getUI().showError(e.getMessage());
             }

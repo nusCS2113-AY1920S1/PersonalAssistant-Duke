@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /**
  * A parser to process the content of emails to support automatic management of email.
  */
-public class EmailContentParser {
+public class EmailContentParseHelper {
     private static int KEYWORD_SUBJECT_WEIGHTAGE = 5;
     private static int KEYWORD_SENDER_WEIGHTAGE = 3;
     private static int KEYWORD_BODY_WEIGHTAGE = 1;
@@ -110,23 +110,23 @@ public class EmailContentParser {
         keywordList.add(new KeywordPair("Spam", new ArrayList<String>(List.of(
                 "UHC Wellness", "luminus-do-not-reply", "NUS Libraries"))));
 
-        EmailContentParser.keywordList = keywordList;
+        EmailContentParseHelper.keywordList = keywordList;
     }
 
     /**
      * Computes the edit distance between first and second, which is the number of steps required to transform
      * first to second if only addition, deletion, update of a single character is allowed for each step.
      *
-     * @param first  first string
-     * @param second second string
+     * @param w1  first word
+     * @param w2 second word
      * @return edit distance between first and second
      */
-    public static int editDistance(String first, String second) {
-        if (first.length() == 0 || second.length() == 0) {
-            return first.length() + second.length();
+    public static int editDistance(String w1, String w2) {
+        if (w1.length() == 0 || w2.length() == 0) {
+            return w1.length() + w2.length();
         }
-        first = first.toLowerCase();
-        second = second.toLowerCase();
+        String first = w1.toLowerCase();
+        String second = w2.toLowerCase();
         //Prepare a distance array for DP
         int[][] dist = new int[first.length() + 1][second.length() + 1];
         //Initialize distance array with all zeros

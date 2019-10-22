@@ -21,7 +21,7 @@ class UserInputHandler {
      *
      * @param text to set in userInput.
      */
-    void setUserInputText(String text) {
+    public void setUserInputText(String text) {
         removeFilter(text);
         applyFilter();
 
@@ -59,7 +59,7 @@ class UserInputHandler {
     /**
      * Update text in userInput when DELETE is pressed.
      */
-    void setTextDelete() {
+    public void setTextDelete() {
         int pos = userInput.getCaretPosition();
         String text = userInput.getText();
         if (pos >= text.length()) {
@@ -74,7 +74,7 @@ class UserInputHandler {
     /**
      * Update text in userInput when BACKSPACE is pressed.
      */
-    void setTextBackSpace() {
+    public void setTextBackSpace() {
         int pos = userInput.getCaretPosition();
         if (pos <= Duke.getUI().getPrefix().length()) {
             return;
@@ -85,12 +85,18 @@ class UserInputHandler {
         userInput.positionCaret(pos - 1);
     }
 
-    void moveCaretRight() {
+    /**
+     * Moves the position of caret to the right by 1.
+     */
+    public void moveCaretRight() {
         int pos = userInput.getCaretPosition();
         userInput.positionCaret(pos + 1);
     }
 
-    void moveCaretLeft() {
+    /**
+     * Moves the position of caret to the left by 1.
+     */
+    public void moveCaretLeft() {
         int pos = userInput.getCaretPosition();
         userInput.positionCaret(pos - 1);
     }

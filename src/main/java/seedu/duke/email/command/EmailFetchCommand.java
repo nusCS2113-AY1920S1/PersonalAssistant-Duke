@@ -1,8 +1,8 @@
 package seedu.duke.email.command;
 
 import seedu.duke.Duke;
-import seedu.duke.email.EmailStorage;
 import seedu.duke.common.command.Command;
+import seedu.duke.email.EmailStorage;
 
 public class EmailFetchCommand extends Command {
 

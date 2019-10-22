@@ -4,8 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
-import seedu.duke.email.EmailContentParser;
-import seedu.duke.email.EmailFormatParser;
+import seedu.duke.email.EmailContentParseHelper;
+import seedu.duke.email.EmailFormatParseHelper;
 import seedu.duke.email.EmailStorage;
 
 import java.io.File;
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class Email {
     protected ArrayList<Tag> tags = new ArrayList<>();
     private String subject;
-    private EmailFormatParser.Sender sender;
+    private EmailFormatParseHelper.Sender sender;
     private LocalDateTime receivedDateTime;
     private String body;
     private String rawJson;
@@ -39,7 +39,7 @@ public class Email {
      * @param body             the body of the email
      * @param rawJson          the raw json of the email when retrieved from the Outlook server
      */
-    public Email(String subject, EmailFormatParser.Sender sender, LocalDateTime receivedDateTime, String body,
+    public Email(String subject, EmailFormatParseHelper.Sender sender, LocalDateTime receivedDateTime, String body,
                  String rawJson) {
         this.subject = subject;
         this.sender = sender;
@@ -56,7 +56,7 @@ public class Email {
      * @param receivedDateTime the date and time when the email is received
      * @param tags             list of tags of the email
      */
-    public Email(String subject, EmailFormatParser.Sender sender, LocalDateTime receivedDateTime,
+    public Email(String subject, EmailFormatParseHelper.Sender sender, LocalDateTime receivedDateTime,
                  ArrayList<Tag> tags) {
         this.subject = subject;
         this.sender = sender;
@@ -101,7 +101,7 @@ public class Email {
      * @param keywordPair keywordPair of the tag
      * @param relevance   relevance of the tag
      */
-    public void addTag(EmailContentParser.KeywordPair keywordPair, int relevance) {
+    public void addTag(EmailContentParseHelper.KeywordPair keywordPair, int relevance) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keywordPair.getKeyword())) {
                 return;
@@ -125,42 +125,51 @@ public class Email {
     }
 
     /**
-     * Colors the email body with the tag of highest relevance. Also, longer expression will have a higher
-     * priority to be colored currently.
+     * Highlights the email body with all the tags. Also, longer expression will have a higher priority to be
+     * colored currently.
      *
      * @return email body after the coloring
      */
-    public String colorBodyOnTag() {
-        Tag highestTag = findHighestTag();
-        if (highestTag == null) {
-            return body;
-        }
-        String output = this.body;
-        ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
+    public String highlightBodyOnTag() {
+        ArrayList<String> expressions = getAllExpressions();
+        String output = toWebViewString();
         expressions.sort((ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
-        output = addColorToExpressions(output, expressions);
+        output = addHighlightToExpressions(output, expressions);
         return output;
     }
 
-    private String addColorToExpressions(String output, ArrayList<String> expressions) {
+    private String toWebViewString() {
+        String output = "";
+        output += "<h3>" + this.subject + "</h3>";
+        output += "<h5 style=\"color:gray\">" + this.sender.toWebViewString() + "</h5>";
+        output += "<h5 style=\"color:gray\">" + this.getReceivedDateTime() + "</h5>";
+        output += this.body;
+        return output;
+    }
+
+    private ArrayList<String> getAllExpressions() {
+        ArrayList<String> expressions = new ArrayList<>();
+        for (Tag tag : this.tags) {
+            if (tag.getKeywordPair().getKeyword().equals("Spam")) {
+                continue;
+            }
+            for (String expression : tag.getKeywordPair().getExpressions()) {
+                expressions.add(expression);
+            }
+        }
+        return expressions;
+    }
+
+    private String addHighlightToExpressions(String emailContent, ArrayList<String> expressions) {
+        String content = emailContent;
         for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
-            Matcher colorMatcher = colorPattern.matcher(output);
-            output = colorMatcher.replaceAll("<font style=\"color:red\">" + expression + "</font>");
+            Matcher colorMatcher = colorPattern.matcher(content);
+            content = colorMatcher.replaceAll("<mark style=\"color:black;background-color:yellow\">"
+                    + expression + "</mark>");
         }
-        return output;
-    }
-
-    private Tag findHighestTag() {
-        Tag highestTag = null;
-        for (Tag tag : tags) {
-            if (!tag.getKeywordPair().getKeyword().equals("Spam")
-                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
-                highestTag = tag;
-            }
-        }
-        return highestTag;
+        return content;
     }
 
     public String getRawJson() {
@@ -209,11 +218,11 @@ public class Email {
     }
 
     private String getDateTimeString() {
-        return EmailFormatParser.formatEmailDateTime(receivedDateTime);
+        return EmailFormatParseHelper.formatEmailDateTime(receivedDateTime);
     }
 
     private String getDateTimePlainString() {
-        return EmailFormatParser.formatEmailDateTimePlain(receivedDateTime);
+        return EmailFormatParseHelper.formatEmailDateTimePlain(receivedDateTime);
     }
 
     /**
@@ -269,16 +278,16 @@ public class Email {
      */
     public static class Tag {
         private static final int INFINITY = 0x3f3f3f;
-        private EmailContentParser.KeywordPair keywordPair;
+        private EmailContentParseHelper.KeywordPair keywordPair;
         private int relevance = INFINITY;
 
-        public Tag(EmailContentParser.KeywordPair keywordPair, int relevance) {
+        public Tag(EmailContentParseHelper.KeywordPair keywordPair, int relevance) {
             this.keywordPair = keywordPair;
             this.relevance = relevance;
         }
 
         public Tag(String keyword) {
-            this.keywordPair = new EmailContentParser.KeywordPair(keyword);
+            this.keywordPair = new EmailContentParseHelper.KeywordPair(keyword);
         }
 
         /**
@@ -297,11 +306,11 @@ public class Email {
             int relevance = json.getInt("relevance");
 
 
-            this.keywordPair = new EmailContentParser.KeywordPair(keyword, expressionList);
+            this.keywordPair = new EmailContentParseHelper.KeywordPair(keyword, expressionList);
             this.relevance = relevance;
         }
 
-        public EmailContentParser.KeywordPair getKeywordPair() {
+        public EmailContentParseHelper.KeywordPair getKeywordPair() {
             return this.keywordPair;
         }
 

@@ -13,10 +13,9 @@ class KeyBinding {
      *
      * @param scene      whole scene of application.
      * @param userInput  textfield for user input.
-     * @param sendButton send button.
      * @param mainWindow fxml controller.
      */
-    KeyBinding(Scene scene, TextField userInput, Button sendButton, MainWindow mainWindow) {
+    KeyBinding(Scene scene, TextField userInput, MainWindow mainWindow) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e) -> {
             //String type = e.getEventType().getName();
             KeyCode keyCode = e.getCode();

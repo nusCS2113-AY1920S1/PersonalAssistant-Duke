@@ -24,7 +24,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 
 import java.util.ArrayList;
@@ -111,18 +111,18 @@ public class MainWindow extends AnchorPane {
      * @param input   the user input triggered this display
      * @param command the command executed to produce this message
      */
-    void showGuiMessage(String msg, String input, String command) {
+    public void showGuiMessage(String msg, String input, String command) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
         );
     }
 
-    void setKeyBinding(Scene scene) {
-        new KeyBinding(scene, userInput, sendButton, this);
+    public void setKeyBinding(Scene scene) {
+        new KeyBinding(scene, userInput, this);
     }
 
-    void setMainStage(Stage stage) {
+    public void setMainStage(Stage stage) {
         mainStage = stage;
     }
 
@@ -131,7 +131,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param keyCode key code of the key pressed when focus is in the userInput.
      */
-    void handleUserInputKeyEvent(KeyCode keyCode) {
+    public void handleUserInputKeyEvent(KeyCode keyCode) {
         switch (keyCode) {
         case ENTER:
             sendButton.fire();
@@ -166,7 +166,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param keyCode key code of the key pressed when focus is in any nodes in the scene.
      */
-    void handleSceneKeyEvent(KeyCode keyCode) {
+    public void handleSceneKeyEvent(KeyCode keyCode) {
         if (keyCode == KeyCode.ESCAPE) {
             toggleEmailDisplay();
         }
@@ -210,11 +210,11 @@ public class MainWindow extends AnchorPane {
      * Gets the input without prefixes.
      */
     private void updateInputList(String input) {
-        input = input.split(" ", 2)[1];
-        if (inputList.contains(input)) {
-            inputListIndex = inputList.indexOf(input);
+        String stripedInput = input.split(" ", 2)[1];
+        if (inputList.contains(stripedInput)) {
+            inputListIndex = inputList.indexOf(stripedInput);
         } else {
-            inputList.add(input);
+            inputList.add(stripedInput);
             inputListIndex = inputList.size();
         }
     }
@@ -224,7 +224,7 @@ public class MainWindow extends AnchorPane {
      * can be edited.
      */
     private void getPrevInput() {
-        String prefix = CommandParser.getInputPrefix();
+        String prefix = CommandParseHelper.getInputPrefix();
         String prevInput = navigateInputList();
         userInputHandler.setUserInputText(prefix + prevInput);
     }
@@ -281,7 +281,12 @@ public class MainWindow extends AnchorPane {
         userInputHandler.setUserInputText(prefix);
     }
 
-    void updateTasksList(ArrayList<String> taskStringList) {
+    /**
+     * Updates the gui for task list display.
+     *
+     * @param taskStringList the task list to be displayed.
+     */
+    public void updateTasksList(ArrayList<String> taskStringList) {
         ObservableList<String> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < taskStringList.size(); i++) {
             String taskString = taskStringList.get(i);
@@ -291,7 +296,12 @@ public class MainWindow extends AnchorPane {
         tasksListView.setItems(observableList);
     }
 
-    void updateEmailsList(ArrayList<String> emailStringList) {
+    /**
+     * Updates the gui for email list display.
+     *
+     * @param emailStringList the email list to be displayed.
+     */
+    public void updateEmailsList(ArrayList<String> emailStringList) {
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < emailStringList.size(); i++) {
             list.add(new EmailHBoxCell(emailStringList.get(i), i));
@@ -305,7 +315,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param text the text that is to be displayed in the popup
      */
-    void showTextPopup(String text) {
+    public void showTextPopup(String text) {
         final Popup popup = new Popup();
         AnchorPane outerPane = prepareAnchorPanForPopup();
         ScrollPane scroll = prepareScrollPaneForPopup();

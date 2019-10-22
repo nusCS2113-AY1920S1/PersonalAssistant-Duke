@@ -1,8 +1,8 @@
 package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
+import seedu.duke.task.TaskList;
 
 public class TaskReminderCommand extends Command {
     private int dayLimit = 3; //default limit is 3 days

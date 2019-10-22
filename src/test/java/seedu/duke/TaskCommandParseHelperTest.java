@@ -3,13 +3,13 @@ package seedu.duke;
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
-import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskAddCommand;
+import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.entity.Task;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,64 +23,64 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class CommandParserTest {
+public class TaskCommandParseHelperTest {
     @Test
     public void isCommandFormatTest() {
-        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas"));
-        assertFalse(CommandParser.isCommandFormat("deadline 123abc -by asdas"));
-        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas -asd nisnds"));
-        assertTrue(CommandParser.isCommandFormat("task deadline 123abc 123abc -by asdas -asd nisnds"));
-        assertTrue(CommandParser.isCommandFormat("task deadline -by asdas -asd nisnds"));
-        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas -asd nis nds"));
-        assertTrue(CommandParser.isCommandFormat("email 123abc -by asdas"));
-        assertFalse(CommandParser.isCommandFormat("task deadline 123abc -by "));
-        assertTrue(CommandParser.isCommandFormat("task deadline 123abc"));
-        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas"));
-        assertTrue(CommandParser.isCommandFormat("task ads deadline 123abc -by asdas"));
-        assertTrue(CommandParser.isCommandFormat("task done 1"));
-        assertTrue(CommandParser.isCommandFormat("task deadline 123 -time 11/11/1111 1111"));
-        assertTrue(CommandParser.isCommandFormat("task bye"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas"));
+        assertFalse(CommandParseHelper.isCommandFormat("deadline 123abc -by asdas"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas -asd nisnds"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc 123abc -by asdas -asd nisnds"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline -by asdas -asd nisnds"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas -asd nis nds"));
+        assertTrue(CommandParseHelper.isCommandFormat("email 123abc -by asdas"));
+        assertFalse(CommandParseHelper.isCommandFormat("task deadline 123abc -by "));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123abc -by asdas"));
+        assertTrue(CommandParseHelper.isCommandFormat("task ads deadline 123abc -by asdas"));
+        assertTrue(CommandParseHelper.isCommandFormat("task done 1"));
+        assertTrue(CommandParseHelper.isCommandFormat("task deadline 123 -time 11/11/1111 1111"));
+        assertTrue(CommandParseHelper.isCommandFormat("task bye"));
     }
 
     @Test
     public void parseOptionsTest() {
-        assertEquals(2, CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").size());
-        assertEquals("remarks", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(0).getKey());
-        assertEquals("pick", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(0).getValue());
-        assertEquals("tag", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(1).getKey());
-        assertEquals("sad", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(1).getValue());
+        assertEquals(2, CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick").size());
+        assertEquals("remarks", CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick").get(0).getKey());
+        assertEquals("pick", CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick").get(0).getValue());
+        assertEquals("tag", CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick").get(1).getKey());
+        assertEquals("sad", CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick").get(1).getValue());
         assertEquals("remarks",
-                CommandParser.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getKey());
+                CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getKey());
         assertEquals("pick one side",
-                CommandParser.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getValue());
-        assertEquals("11/11/1111 1111", CommandParser.parseOptions("task deadline 123 -time 11/11/1111 "
+                CommandParseHelper.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getValue());
+        assertEquals("11/11/1111 1111", CommandParseHelper.parseOptions("task deadline 123 -time 11/11/1111 "
                 + "1111").get(0).getValue());
-        assertEquals(0, CommandParser.parseOptions("todo 123abc").size());
+        assertEquals(0, CommandParseHelper.parseOptions("todo 123abc").size());
     }
 
     @Test
     public void stripOptionsTest() {
-        assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc -tag sad -remarks pick"));
-        assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc -tag sad -remarks pick one"));
-        assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc -tag sad"));
-        assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc"));
-        assertEquals("task deadline 123", CommandParser.stripOptions("task deadline 123 -time 11/11/1111 "
+        assertEquals("todo 123abc", CommandParseHelper.stripOptions("todo 123abc -tag sad -remarks pick"));
+        assertEquals("todo 123abc", CommandParseHelper.stripOptions("todo 123abc -tag sad -remarks pick one"));
+        assertEquals("todo 123abc", CommandParseHelper.stripOptions("todo 123abc -tag sad"));
+        assertEquals("todo 123abc", CommandParseHelper.stripOptions("todo 123abc"));
+        assertEquals("task deadline 123", CommandParseHelper.stripOptions("task deadline 123 -time 11/11/1111 "
                 + "1111"));
     }
 
     @Test
     public void parseDoneCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
             Method method =
-                    parser.getDeclaredMethod("parseDoneCommand", String.class, ArrayList.class);
+                    parser.getDeclaredMethod("parseDoneCommand", String.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "done 1", null) instanceof TaskDoneCommand);
-            assertTrue(method.invoke(null, "done 1", null) instanceof TaskDoneCommand);
-            assertTrue(method.invoke(null, "done 1  ", null) instanceof TaskDoneCommand);
-            assertTrue(method.invoke(null, "done ", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "done 1  a", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "done 1a", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "done 1") instanceof TaskDoneCommand);
+            assertTrue(method.invoke(null, "done 1") instanceof TaskDoneCommand);
+            assertTrue(method.invoke(null, "done 1  ") instanceof TaskDoneCommand);
+            assertTrue(method.invoke(null, "done ") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "done 1  a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "done 1a") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -95,14 +95,14 @@ public class CommandParserTest {
     @Test
     public void parseDeleteCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
-            Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class, ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "delete 1", null) instanceof TaskDeleteCommand);
-            assertTrue(method.invoke(null, "delete 1  ", null) instanceof TaskDeleteCommand);
-            assertTrue(method.invoke(null, "delete ", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "delete 1  a", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "delete 1a", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 1") instanceof TaskDeleteCommand);
+            assertTrue(method.invoke(null, "delete 1  ") instanceof TaskDeleteCommand);
+            assertTrue(method.invoke(null, "delete ") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 1  a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "delete 1a") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -117,12 +117,12 @@ public class CommandParserTest {
     @Test
     public void parseFindCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
-            Method method = parser.getDeclaredMethod("parseFindCommand", String.class, ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseFindCommand", String.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "find 1", null) instanceof TaskFindCommand);
-            assertTrue(method.invoke(null, "find 1 a", null) instanceof TaskFindCommand);
-            assertTrue(method.invoke(null, "find   ", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "find 1") instanceof TaskFindCommand);
+            assertTrue(method.invoke(null, "find 1 a") instanceof TaskFindCommand);
+            assertTrue(method.invoke(null, "find   ") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -137,16 +137,16 @@ public class CommandParserTest {
     @Test
     public void parseReminderCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
-            Method method = parser.getDeclaredMethod("parseReminderCommand", String.class, ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseReminderCommand", String.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "reminder 1", null) instanceof TaskReminderCommand);
-            assertTrue(method.invoke(null, "reminder 1000000000000000", null) instanceof TaskReminderCommand);
-            assertTrue(method.invoke(null, "reminder 1 a", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "reminder -1", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "reminder 00 ", null) instanceof TaskReminderCommand);
-            assertTrue(method.invoke(null, "reminder abc ", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "reminder 123 abc ", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder 1") instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder 1000000000000000") instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder 1 a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder -1") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder 00 ") instanceof TaskReminderCommand);
+            assertTrue(method.invoke(null, "reminder abc ") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "reminder 123 abc ") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -161,7 +161,7 @@ public class CommandParserTest {
     @Test
     public void parseDoAfterCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseDoAfterCommand", String.class, ArrayList.class);
             method.setAccessible(true);
 
@@ -196,15 +196,15 @@ public class CommandParserTest {
     @Test
     public void parseSnoozeCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
-            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, ArrayList.class);
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
+            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class);
             method.setAccessible(true);
-            assertTrue(method.invoke(null, "snooze 1", null) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1", null) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze 1  ", null) instanceof TaskSnoozeCommand);
-            assertTrue(method.invoke(null, "snooze ", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1  a", null) instanceof InvalidCommand);
-            assertTrue(method.invoke(null, "snooze 1a", null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1") instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1") instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1  ") instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze ") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1  a") instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1a") instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -219,7 +219,7 @@ public class CommandParserTest {
     @Test
     public void parseAddToDoCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseAddToDoCommand", String.class,
                     String.class, ArrayList.class, String.class);
             method.setAccessible(true);
@@ -248,7 +248,7 @@ public class CommandParserTest {
     @Test
     public void parseAddDeadlineCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", String.class,
                     LocalDateTime.class, String.class, ArrayList.class, String.class);
             method.setAccessible(true);
@@ -269,10 +269,12 @@ public class CommandParserTest {
             fail("No such class");
         } catch (NoSuchMethodException e) {
             fail("No such method");
-        } catch (InvocationTargetException | CommandParser.UserInputException e) {
+        } catch (InvocationTargetException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
             fail("No Access");
+        } catch (CommandParseHelper.UserInputException e) {
+            e.printStackTrace();
         }
     }
 
@@ -280,12 +282,12 @@ public class CommandParserTest {
     @Test
     public void parseAddEventCommandTest() {
         try {
-            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParser");
+            Class<?> parser = Class.forName("seedu.duke.task.command.TaskCommandParseHelper");
             Method method = parser.getDeclaredMethod("parseEventCommand", String.class, LocalDateTime.class,
                     String.class, ArrayList.class, String.class);
             method.setAccessible(true);
 
-            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234")); 
+            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
             LocalDateTime time = Task.parseDate("11/12/2019 1220");
             String doafter = "345";
 
@@ -301,7 +303,7 @@ public class CommandParserTest {
             fail("No such class");
         } catch (NoSuchMethodException e) {
             fail("No such method");
-        } catch (InvocationTargetException | CommandParser.UserInputException e) {
+        } catch (InvocationTargetException | CommandParseHelper.UserInputException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
             fail("No Access");

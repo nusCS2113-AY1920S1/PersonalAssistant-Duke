@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static seedu.duke.email.EmailContentParser.allKeywordInEmail;
+import static seedu.duke.email.EmailContentParseHelper.allKeywordInEmail;
 
 /**
  * Handles loading and saving of emails from local storage.
@@ -188,30 +188,30 @@ public class EmailStorage {
             return emailList;
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
-        } catch (EmailFormatParser.EmailParsingException e) {
+        } catch (EmailFormatParseHelper.EmailParsingException e) {
             Duke.getUI().showError("Email save file is in wrong format");
         }
         return emailList;
     }
 
     private static void readEmailWithIndexString(EmailList emailList, String input)
-            throws EmailFormatParser.EmailParsingException, FileNotFoundException {
-        Email indexEmail = EmailFormatParser.parseIndexJson(input);
+            throws EmailFormatParseHelper.EmailParsingException, FileNotFoundException {
+        Email indexEmail = EmailFormatParseHelper.parseIndexJson(input);
         String filename = indexEmail.toFilename();
         Email fileEmail = readEmailFromFolder(indexEmail, filename);
         emailList.add(fileEmail);
     }
 
     private static Email readEmailFromFolder(Email indexEmail, String filename)
-            throws FileNotFoundException, EmailFormatParser.EmailParsingException {
+            throws FileNotFoundException, EmailFormatParseHelper.EmailParsingException {
         String emailContent = readEmailContentFromFolder(filename);
         Email fileEmail = parseEmailFromFolder(indexEmail, emailContent);
         return fileEmail;
     }
 
     private static Email parseEmailFromFolder(Email indexEmail, String emailContent)
-            throws EmailFormatParser.EmailParsingException {
-        Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
+            throws EmailFormatParseHelper.EmailParsingException {
+        Email fileEmail = EmailFormatParseHelper.parseRawJson(emailContent);
         for (Email.Tag tag : indexEmail.getTags()) {
             fileEmail.addTag(tag);
         }
@@ -253,19 +253,20 @@ public class EmailStorage {
      * @return refresh token
      */
     public static String readRefreshToken() {
-        String token = "";
         try {
             prepareFolder();
-            token = readRefreshTokenContent(token);
+            return readRefreshTokenContent();
         } catch (FileNotFoundException e) {
             Duke.getUI().showError("User info file not found");
+            return "";
         } catch (IOException e) {
             Duke.getUI().showError("Read user info file IO Exception");
+            return "";
         }
-        return token;
     }
 
-    private static String readRefreshTokenContent(String token) throws IOException {
+    private static String readRefreshTokenContent() throws IOException {
+        String token = "";
         File userInfoFile = new File(getUserInfoDir());
         userInfoFile.createNewFile();
         FileInputStream in = new FileInputStream(userInfoFile);

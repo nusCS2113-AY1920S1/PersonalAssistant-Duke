@@ -1,6 +1,6 @@
 package seedu.duke.task.command;
 
-import seedu.duke.CommandParser;
+import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.task.TaskList;
@@ -19,7 +19,7 @@ public class TaskUpdateCommand extends Command {
     /**
      * Instantiates a find command with all variables necessary. ==== BASE ====
      *
-     * @param index       position of task as specified by input
+     * @param index        position of task as specified by input
      * @param descriptions what to modify to
      * @param attributes   what attribute to modify ==== BASE ====
      */
@@ -58,7 +58,7 @@ public class TaskUpdateCommand extends Command {
                 }
             }
             responseMsg += msg + "\n";
-        } catch (CommandParser.UserInputException e) {
+        } catch (CommandParseHelper.UserInputException e) {
             if (!silent) {
                 Duke.getUI().showError(e.getMessage());
             }
@@ -70,22 +70,22 @@ public class TaskUpdateCommand extends Command {
         return true;
     }
 
-    private String updatePriority(TaskList taskList, int i) throws CommandParser.UserInputException {
+    private String updatePriority(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
         String msg;
         msg = taskList.setPriority(index, descriptions.get(i));
         return msg;
     }
 
-    private String updateDoAfter(TaskList taskList, int i) throws CommandParser.UserInputException {
+    private String updateDoAfter(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
         String msg;
         msg = taskList.setDoAfter(index, descriptions.get(i));
         return msg;
     }
 
-    private String updateTime(TaskList taskList, int i) throws CommandParser.UserInputException {
+    private String updateTime(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
         String msg;
         if (taskList.get(index).getTaskType() == Task.TaskType.ToDo) {
-            throw new CommandParser.UserInputException("Time cannot be added to Todo task.");
+            throw new CommandParseHelper.UserInputException("Time cannot be added to Todo task.");
         }
         msg = taskList.setTime(index, descriptions.get(i));
         return msg;
