@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import wrapper.MovieModel;
 
 import java.io.*;
 import java.lang.reflect.Type;

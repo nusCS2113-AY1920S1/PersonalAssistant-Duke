@@ -208,6 +208,8 @@ public class MovieHandler extends Controller implements RequestListener {
         BlacklistStorage bp = new BlacklistStorage();
         bp.load();
 
+        HelpStorage.initialiseAllHelp();
+
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
@@ -215,7 +217,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
-            } else if (event.getCode().equals(KeyCode.SHIFT)) {
+            } else if (event.getCode().equals(KeyCode.BACK_SLASH)) {
                 System.out.println("I pressed bit");
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();

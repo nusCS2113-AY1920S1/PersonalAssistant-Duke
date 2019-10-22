@@ -1,6 +1,7 @@
 package EPstorage;
 
 import object.MovieInfoObject;
+import wrapper.MovieModel;
 
 import java.util.ArrayList;
 
