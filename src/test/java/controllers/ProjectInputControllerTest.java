@@ -123,6 +123,9 @@ class ProjectInputControllerTest {
         simulatedUserInput = "add task t/Documentation for product p/2 c/40";
         projectInputController.projectAddTask(project, simulatedUserInput);
 
+        simulatedUserInput = "add task s/doing t/Documentation for CS2113 c/40 d/1/1/2011 p/2";
+        projectInputController.projectAddTask(project, simulatedUserInput);
+
         actualOutput = "";
         for (String message : project.getTasks().getAllTaskDetails().toArray(new String[0])) {
             actualOutput += message;
@@ -130,7 +133,8 @@ class ProjectInputControllerTest {
         expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019 | Credit: 40 | State: TODO"
                 + "2. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: DONE"
                 + "3. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
-                + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN";
+                + "4. Documentation for product | Priority: 2 | Due: -- | Credit: 40 | State: OPEN"
+                + "5. Documentation for CS2113 | Priority: 2 | Due: 01 Jan 2011 | Credit: 40 | State: DOING";
 
         assertEquals(expectedOutput,actualOutput);
     }

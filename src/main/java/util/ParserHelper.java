@@ -100,11 +100,10 @@ public class ParserHelper {
 
         int indexOfNameFlag = input.indexOf("t/");
         if (indexOfNameFlag != -1) {
-            int indexOfAnotherFlag = input.substring(indexOfNameFlag+2).indexOf("/");
-            if (indexOfAnotherFlag != -1) {
-                newTaskName = input.substring(indexOfNameFlag+2, indexOfAnotherFlag);
-            } else {
-                newTaskName = input.substring(indexOfNameFlag+2);
+            newTaskName = input.substring(indexOfNameFlag+2);
+            int indexOfAnotherFlag = newTaskName.indexOf("/")-1;
+            if (indexOfAnotherFlag > 0) {
+                newTaskName = newTaskName.substring(0, indexOfAnotherFlag).trim();
             }
         }
 
