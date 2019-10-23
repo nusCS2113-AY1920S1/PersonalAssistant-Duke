@@ -33,7 +33,7 @@ public class UserIcon {
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Select a picture:");
-        File defaultDirectory = new File("../");
+        File defaultDirectory = new File("./src/main/resources/images");
         chooser.setInitialDirectory(defaultDirectory);
         File selectedFile = chooser.showOpenDialog(null);
         if (selectedFile == null) {
