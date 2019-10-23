@@ -26,7 +26,7 @@ public class SettleSplitCommand extends MoneyCommand {
      * and the person who has settled the debt
      * @param command Settle split expenditure command inputted from user
      */
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     public SettleSplitCommand(String command) {
         inputString = command.replaceFirst("settle ", "");
     }
@@ -115,7 +115,7 @@ public class SettleSplitCommand extends MoneyCommand {
 
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

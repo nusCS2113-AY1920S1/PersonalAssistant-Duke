@@ -10,7 +10,7 @@ public class History {
     private boolean flag;
     private boolean flagForFirstPress;
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public History() {
         commandsEntered = new ArrayList<>();
         this.flagForFirstPress = true;

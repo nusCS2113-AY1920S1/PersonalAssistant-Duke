@@ -13,7 +13,7 @@ public class Income extends Item {
      * @param description info of the income source
      * @param payday Date which the income is received
      */
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     public Income(float price, String description, LocalDate payday) {
         super(price, description);
         this.payday = payday;

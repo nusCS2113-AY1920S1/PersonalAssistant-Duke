@@ -21,7 +21,7 @@ public class DoneGoalCommand extends MoneyCommand {
      * with the goal data within the user input.
      * @param cmd add command inputted from user.
      */
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     public DoneGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -70,7 +70,7 @@ public class DoneGoalCommand extends MoneyCommand {
 
     //remove from getExpListTotal, add back to getShortTermGoals()
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         account.getExpListTotal().remove(account.getExpListTotal().size() - 1);
         String temp = inputString.replaceAll("[^0-9]", "");

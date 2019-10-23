@@ -21,7 +21,7 @@ public class ListLoansCommand extends MoneyCommand {
      * of loans to list.
      * @param command List command inputted from user
      */
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     public ListLoansCommand(String command) {
         command = command.replaceFirst("list ", "");
         command = command.replace( "loans", "");
@@ -121,7 +121,7 @@ public class ListLoansCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
     }
 }

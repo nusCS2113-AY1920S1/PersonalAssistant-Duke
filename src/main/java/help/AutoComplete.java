@@ -46,7 +46,7 @@ public class AutoComplete {
     };
     private List<String> commandList = Arrays.asList(list);
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public AutoComplete() {
         Collections.sort(commandList);
     }
