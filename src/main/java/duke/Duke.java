@@ -3,6 +3,7 @@ package duke;
 import duke.command.Command;
 import duke.core.CommandManager;
 import duke.core.DukeException;
+import duke.core.ShortCutter;
 import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.PatientTaskList;

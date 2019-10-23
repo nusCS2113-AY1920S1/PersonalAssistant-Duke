@@ -9,6 +9,7 @@ import duke.command.Command;
 import duke.command.DeletePatientCommand;
 import duke.command.DeletePatientTaskCommand;
 import duke.command.DeleteTaskCommand;
+import duke.command.DukeCommand;
 import duke.command.ExitCommand;
 import duke.command.FindPatientCommand;
 import duke.command.FindPatientTaskCommand;
@@ -41,7 +42,6 @@ public class CommandManager {
         String keyWord = command[0].trim();
 
         Parser parser = new Parser(userInput);
-
         switch (keyWord) {
         case "add patient":
             return new AddPatientCommand(parser.parseAddPatient());
@@ -69,6 +69,8 @@ public class CommandManager {
             return new UpdatePatientCommand(parser.parseUpdatePatient());
         case "update task":
             return new UpdateTaskCommand(parser.parseUpdateTask());
+        case "duke":
+            return new DukeCommand();
         case "bye":
             ExitCommand exitCommand = new ExitCommand();
             return exitCommand;

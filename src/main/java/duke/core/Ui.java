@@ -5,6 +5,8 @@ import duke.relation.PatientTask;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -235,15 +237,20 @@ public class Ui {
 
     /**
      * It confirms with user on the deletion of a patient.
+     * It reminds user that the tasks assigned to this user will be delete
      * If user confirms, key in 'Y'. Otherwise key in 'N'.
      *
      * @param patient it contains patient's info
+     * @param withTasksAssigned it indicates whether the patient is assigned to any tasks
      * @return true if user confirmed the deletion. False otherwise.
      */
-    public boolean confirmPatientToBeDeleted(Patient patient) {
-        showPatientInfo(patient);
+    public boolean confirmPatientToBeDeleted(Patient patient, boolean withTasksAssigned) {
         while (true) {
-            System.out.println("The patient is to be deleted. Are you sure (Y/N)? ");
+            if (withTasksAssigned) {
+                System.out.println("The patient with above tasks assigned is to be deleted. Are you sure (Y/N)?");
+            } else {
+                System.out.println("The patient is to be deleted. Are you sure (Y/N)? ");
+            }
             String command = readCommand();
             if (command.toLowerCase().equals("y")) {
                 return true;
@@ -430,4 +437,83 @@ public class Ui {
             showLine();
         }
     }
+    //@@author qjie7
+    /**
+     * Provide the necessary task details from the user for short cut feature.
+     *
+     * @param info The type of task information that want to be retrieved.
+     * @return Either the task name or task id depend on the parameter info.
+     * @throws DukeException throw a dukeException with error message for debugging.
+     * @author QIAN JIE
+     * @version 1.3
+     */
+
+    public String getTaskInfo(String info) throws DukeException {
+
+        if (info.equals("name")) {
+            System.out.println("Task Name ?");
+            String taskName = ui.readCommand();
+            return taskName;
+        } else if (info.equals("id")) {
+            System.out.println("Task ID?");
+            String taskId = "#" + ui.readCommand();
+            return taskId;
+        } else if (info.equals("change")) {
+            System.out.println("What would you like to change??");
+            String change = ui.readCommand();
+            return change;
+        } else if (info.equals("changeValue")) {
+            System.out.println("Change to ?");
+            String changeValue = ui.readCommand();
+            return changeValue;
+        } else {
+            throw new DukeException("Please provide a proper parameter into getPatient function!");
+        }
+    }
+
+    /**
+     * Provide the necessary patient details from the user for short cut feature.
+     *
+     * @param info The type of task information that want to be retrieved.
+     * @return Either the task name or task id depend on the parameter info.
+     * @throws DukeException throw a dukeException with error message for debugging.
+     * @author QIAN JIE
+     * @version 1.3
+     */
+
+    public String getPatientInfo(String info) throws DukeException {
+        if (info.equals("name")) {
+            System.out.println("Patient Name ?");
+            String patientName = ui.readCommand();
+            return patientName;
+        } else if (info.equals("id")) {
+            System.out.println("Patient ID Number ?");
+            String patientId = "#" + ui.readCommand();
+            return patientId;
+        } else if (info.equals("nric")) {
+            System.out.println("NRIC?");
+            String nric = ui.readCommand();
+            return nric;
+        } else if (info.equals("room")) {
+            System.out.println("Room??");
+            String room = ui.readCommand();
+            return room;
+        } else if (info.equals("remark")) {
+            System.out.println("Remarks?");
+            String remark = ui.readCommand();
+            return remark;
+        } else if (info.equals("change")) {
+            System.out.println("what would you like to change?");
+            String change = ui.readCommand();
+            return change;
+        } else if (info.equals("changeValue")) {
+            System.out.println("Change to ?");
+            String changeValue = ui.readCommand();
+            return changeValue;
+        } else {
+            throw new DukeException("Please provide a proper parameter into getPatient function!");
+        }
+    }
+    //@@author
+
 }
