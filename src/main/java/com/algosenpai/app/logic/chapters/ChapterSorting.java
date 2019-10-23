@@ -14,6 +14,7 @@ public class ChapterSorting {
 
     private static Random random = new Random();
     private static Scanner s = new Scanner(System.in);
+
     /**
      * Generates the question by using a random number to determine which of the
      * sub-questions to ask.
