@@ -23,8 +23,9 @@ public class Observation extends Evidence {
 
     @Override
     public String toString() {
-        // todo
-        return null;
+        String informationString;
+        informationString = "Objective: " + Boolean.toString(this.isObjective) + "\n";
+        return super.toString() + informationString;
     }
 
     @Override
@@ -47,11 +48,4 @@ public class Observation extends Evidence {
         isObjective = objective;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 }

@@ -50,11 +50,4 @@ public class Result extends Evidence {
         return null;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 }

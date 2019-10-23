@@ -37,4 +37,18 @@ public abstract class Evidence extends DukeData {
         }
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    @Override
+    public String toString() {
+        String informationString;
+        informationString = "Summary: " + this.summary + "\n";
+        return super.toString() + informationString;
+    }
 }

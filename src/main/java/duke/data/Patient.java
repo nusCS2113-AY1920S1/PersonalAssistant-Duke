@@ -172,8 +172,24 @@ public class Patient extends DukeObject {
 
     @Override
     public String toString() {
-        // Todo
-        return getName() + " " +  getClass(); // change back to null later
+        String informationString;
+        informationString = "Personal details\n";
+        informationString += "Height: " + Integer.toString(this.height) + "\n";
+        informationString += "Weight: " + Integer.toString(this.weight) + "\n";
+        informationString += "Age: " + Integer.toString(this.age) + "\n";
+        informationString += "Number: " + Integer.toString(this.number) + "\n";
+        informationString += "Address: " + this.address + "\n";
+        informationString += "History: " + this.history + "\n";
+        informationString += "Registration details\n";
+        informationString += "Bed Number: " + this.bedNo + "\n";
+        informationString += "Allergies: " + this.allergies + "\n";
+        informationString += "Primary Diagnosis: " + this.priDiagnosis.toString() + "\n";
+        for (Map.Entry mapElement: this.impressions.entrySet()) {
+            Impression imp = (Impression)mapElement.getValue();
+            informationString += imp.toString();
+        }
+
+        return super.toString() + informationString + "\n"; // change back to null later
     }
 
     @Override

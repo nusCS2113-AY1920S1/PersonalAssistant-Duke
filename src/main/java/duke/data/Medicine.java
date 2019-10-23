@@ -32,8 +32,11 @@ public class Medicine extends Treatment {
 
     @Override
     public String toString() {
-        // todo
-        return null;
+        String informationString;
+        informationString = "Dose: " + this.dose + "\n";
+        informationString += "Start Date: " + this.startDate + "\n";
+        informationString += "Duration: " + this.duration + "\n";
+        return super.toString() + informationString;
     }
 
     @Override

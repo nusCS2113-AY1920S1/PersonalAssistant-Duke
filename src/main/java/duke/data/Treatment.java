@@ -44,8 +44,13 @@ public abstract class Treatment extends DukeData {
         setStatusArr(statusArr);
     }
 
-    public int getStatus() {
-        return status;
+    @Override
+    public String toString() {
+        String informationString;
+        informationString = "Status: " + Integer.toString(this.status) + "\n";
+        String joinedStatus = String.join(" ", this.statusArr);
+        informationString += "Status Description: " + joinedStatus + "\n";
+        return super.toString() + informationString;
     }
 
     public void setStatus(Integer status) {

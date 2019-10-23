@@ -72,4 +72,12 @@ public abstract class DukeData extends DukeObject {
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
+
+    @Override
+    public String toString() {
+        String informationString;
+        informationString = "Impression: " + this.impression + "\n";
+        informationString += "Priority: " + Integer.toString(this.priority) + "\n";
+        return super.toString() + informationString;
+    }
 }

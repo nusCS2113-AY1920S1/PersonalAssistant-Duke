@@ -19,11 +19,10 @@ public class Impression extends DukeObject {
      * that led to the impression as well as a Treatment list with the treatments determined by a Doctor.
      * It also has a handler to the Patient it is observed about.
      * Attributes:
-     * @param name the name of the impression
-     * @param description the description of the impression
      * - evidence the list of evidences contributing to the impression
      * - treatments: the list of treatments determined by a doctor to deal with the impression
-     * - patient: the Patient it is tagged to
+     * - patient: the Patient it is tagged to     * @param name the name of the impression
+     * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
         super(patient.getBedNo() + "\t" + name);
@@ -144,8 +143,18 @@ public class Impression extends DukeObject {
 
     @Override
     public String toString() {
-        // Todo
-        return null;
+        String informationString;
+        informationString = "Description: " + this.description + "\n";
+        informationString += "Patient Bed: " + this.patientbedNo + "\n";
+        for (Map.Entry mapElement: this.evidences.entrySet()) {
+            Evidence valueE = (Evidence)mapElement.getValue();
+            informationString += valueE.toString();
+        }
+        for (Map.Entry mapElement: this.treatments.entrySet()) {
+            Treatment valueT = (Treatment)mapElement.getValue();
+            informationString += valueT.toString();
+        }
+        return super.toString() + informationString;
     }
 
     @Override
