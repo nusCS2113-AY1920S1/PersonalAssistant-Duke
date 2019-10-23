@@ -147,7 +147,7 @@ When every character in the input has been consumed, cleanup will be performed b
 * `EMPTY`: nothing is done
 * `ARG`: call `writeElement()` to write a command or switch argument
 * `SWITCH`: call `addSwitch()` to process the switch name
-* `STRING`: throw a `DukeException` for the incomplete string
+* `STRING`: call `writeElement()`, assuming the user simply forgot to close the string
 
 [[Design-Model]]
 === Data Model [KWOK KUIN EK JEREMY]

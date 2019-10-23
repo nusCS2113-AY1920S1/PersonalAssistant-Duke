@@ -129,13 +129,10 @@ public class Parser {
         switch (state) {
         case EMPTY:
             break;
+        case STRING: //fallthrough; assume the user forgot to close the string
         case ARG:
             writeElement();
             break;
-        case STRING:
-            // TODO: disambiguate/autocorrect?
-            throw new DukeHelpException("String in argument was not closed: " + elementBuilder.toString(),
-                    currCommand);
         case SWITCH:
             addSwitch();
             break;
