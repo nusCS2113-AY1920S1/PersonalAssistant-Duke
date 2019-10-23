@@ -1,17 +1,19 @@
 package com.algosenpai.app.logic;
 
+import com.algosenpai.app.logic.chapters.QuizGenerator;
+import com.algosenpai.app.logic.command.BackCommand;
 import com.algosenpai.app.logic.command.ByeCommand;
+import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.HelpCommand;
+import com.algosenpai.app.logic.command.HistoryCommand;
+import com.algosenpai.app.logic.command.InvalidCommand;
 import com.algosenpai.app.logic.command.MenuCommand;
 import com.algosenpai.app.logic.command.PrintCommand;
-import com.algosenpai.app.logic.command.ResultCommand;
-import com.algosenpai.app.logic.command.HistoryCommand;
 import com.algosenpai.app.logic.command.QuizCommand;
-import com.algosenpai.app.logic.command.InvalidCommand;
+import com.algosenpai.app.logic.command.ResultCommand;
+import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
-import com.algosenpai.app.logic.command.BackCommand;
-import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
@@ -26,10 +28,9 @@ public class Logic {
     private QuizGenerator quizMaker;
 
     //All variables for the settings of the program
-    private boolean isNew = true;
-    private boolean isSettingUp = false;
-    private int level = 0;
-    private String name;
+    private int setupStage = 0;
+    private AtomicBoolean isSettingUp = new AtomicBoolean(false);
+    private double playerExp = 0.0;
 
     //All variables for the quiz function
     private int selectedChapters = 0;
@@ -60,7 +61,7 @@ public class Logic {
     /**
      * Executes the command.
      * @param input user input.
-     * @return the program String response to be displayed.
+     * @return the command object to be executed.
      */
     public Command executeCommand(String input) {
         ArrayList<String> inputs = Parser.parseInput(input);
@@ -74,12 +75,24 @@ public class Logic {
             return new QuizCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
         }
 
+        if (isSettingUp.get()) {
+            setupStage++;
+            if (setupStage == 3) {
+                isSettingUp.set(false);
+            }
+            return new SetupCommand(inputs, setupStage, isSettingUp);
+        }
+
         switch (inputs.get(0)) {
-        case "setup":
-            // TODO
-            return null;
+        case "hello":
+            if (!isSettingUp.get()) {
+                isSettingUp.set(true);
+                setupStage++;
+                return new SetupCommand(inputs, setupStage, isSettingUp);
+            }
+            return new SetupCommand(inputs, setupStage, isSettingUp);
         case "help":
-            // TODO
+            return new HelpCommand(inputs);
         case "menu":
             return new MenuCommand(inputs);
         case "select":
