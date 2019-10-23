@@ -189,7 +189,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testExceedAmount() throws ParseException, DukeException {
+    public void testExceedAmount() throws ParseException {
         account.getLoans().clear();
         Loan settleLoan = new Loan(500, "my grandfather", testDate, Loan.Type.INCOMING);
         account.getLoans().add(settleLoan);
