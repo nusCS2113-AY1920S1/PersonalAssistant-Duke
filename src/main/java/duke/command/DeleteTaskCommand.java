@@ -3,12 +3,8 @@ package duke.command;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
+import duke.storage.StorageManager;
 import duke.task.Task;
 import duke.task.TaskManager;
 
@@ -44,22 +40,19 @@ public class DeleteTaskCommand extends Command {
      * @param taskManager        .
      * @param patientManager     .
      * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager,
-                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage) throws DukeException {
+                        Ui ui, StorageManager storageManager) throws DukeException {
         if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);
             if (toDelete) {
                 taskManager.deleteTask(id);
                 ui.taskDeleted();
-                taskStorage.save(taskManager.getTaskList());
+                storageManager.saveTasks(taskManager.getTaskList());
             }
         } else {
             ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(deletedTaskInfo);
@@ -71,7 +64,7 @@ public class DeleteTaskCommand extends Command {
                     if (toDelete) {
                         taskManager.deleteTask(tasksWithSameDescription.get(numberChosen - 1).getID());
                         ui.taskDeleted();
-                        taskStorage.save(taskManager.getTaskList());
+                        storageManager.saveTasks(taskManager.getTaskList());
                     }
                 }
             }

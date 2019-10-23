@@ -4,24 +4,20 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
+import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
 public class UpdatePatientCommand extends Command {
 
-    private String command;
+    private String[] command;
 
     /**
      * .
      *
      * @param command .
      */
-    public UpdatePatientCommand(String command) {
+    public UpdatePatientCommand(String[] command) {
         this.command = command;
     }
 
@@ -32,16 +28,13 @@ public class UpdatePatientCommand extends Command {
      * @param tasks              .
      * @param patientManager     .
      * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
-                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage) throws DukeException {
-        String[] tempCommand = command.split(" ", 3);
+                        Ui ui, StorageManager storageManager) throws DukeException {
+        String[] tempCommand = command[0].split(" ", 3); //changed temporarily to allow build success
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {
             int id;
@@ -58,7 +51,7 @@ public class UpdatePatientCommand extends Command {
                     throw new DukeException("You can only update 'Name', 'NRIC', or 'Room' of the patient");
                 }
 
-                patientStorage.save(patientManager.getPatientList());
+                storageManager.savePatients(patientManager.getPatientList());
                 ui.showUpdatedSuccessfully();
                 ui.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {
