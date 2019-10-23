@@ -2,6 +2,7 @@ package duke.command.orderCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.Storage;
@@ -13,7 +14,7 @@ import java.util.List;
  * Represents a specific {@link Cmd} used to list all the {@link Order}s in the {@link OrderList}.
  *
  */
-public class ListOrderCmd extends Cmd<OrderList> {
+public class ListOrderCmd extends Cmd<Order> {
 
     private String listType;
 
@@ -27,15 +28,15 @@ public class ListOrderCmd extends Cmd<OrderList> {
     }
 
     @Override
-    public void execute(OrderList orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
         List<Order> tmp = null;
         if (listType == "undone") {
-            tmp = orderList.getAllUndoneOrders();
+            tmp = ((OrderList)orderList).getAllUndoneOrders();
         } else if (listType == "today") {
-            tmp = orderList.getTodayOrders();
+            tmp = ((OrderList)orderList).getTodayOrders();
         } else if (listType == "undoneToday") {
-            tmp = orderList.getTodayUndoneOrders();
-        } else { tmp = orderList.getAllOrders(); }
+            tmp = ((OrderList)orderList).getTodayUndoneOrders();
+        } else { tmp = orderList.getAllEntries(); }
         if (orderList.size() == 0 || tmp == null) { throw new DukeException("No orders found!");}
         System.out.println("\t Here are the orders in the order list:");
         int cnt = 1;

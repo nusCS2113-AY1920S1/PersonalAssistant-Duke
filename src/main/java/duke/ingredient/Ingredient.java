@@ -1,14 +1,18 @@
 package duke.ingredient;
 
 import duke.exception.DukeException;
+import duke.parser.Convert;
+import duke.storage.Printable;
 
 import java.util.Date;
 
-public class Ingredient {
+public class Ingredient implements Printable {
     private Integer Nb;
     private String name;
     private int amount;
-    private Date expiryDate = new Date();
+    private Date expiryDate;
+    private String dateAsString;
+
 
     public Ingredient(String name, Integer amount, Date expiryDate) throws DukeException       //beef 200 19/07/2019
     {
@@ -17,6 +21,10 @@ public class Ingredient {
             throw new DukeException("The ingredient amount can not be negative, use a valid amount");
         this.amount = amount;
         this.expiryDate = expiryDate;
+    }
+    public Ingredient(String name, Integer amount, String expiryDate) throws DukeException {
+        this(name, amount, Convert.stringToDate(expiryDate));
+        dateAsString=expiryDate;
     }
 
     public int getAmount() {
@@ -49,6 +57,10 @@ public class Ingredient {
     @Override
     public boolean equals(Object other) {
         return other instanceof Ingredient && ((Ingredient) other).getName().equals(this.name);
+    }
+
+    public String printInFile() {
+        return this.getName()+"|"+this.getAmount()+"|"+ dateAsString;
     }
     //private String pattern = "dd/MM/yyyy";
     //private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
