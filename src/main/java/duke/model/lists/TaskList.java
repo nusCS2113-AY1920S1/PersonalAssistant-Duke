@@ -15,24 +15,30 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task>, Listable<Task> {
     private List<Task> list;
 
     public TaskList() {
         list = new ArrayList<>();
     }
 
+    @Override
     public Task get(int index) throws IndexOutOfBoundsException {
         return list.get(index);
     }
 
+    @Override
     public int size() {
         return list.size();
     }
 
+    @Override
+    public boolean isEmpty() { return list.isEmpty(); }
+
     /**
      * Returns true if the list contains an equivalent Task as the given argument.
      */
+    @Override
     public boolean contains(Task toCheck) {
         return list.stream().anyMatch(toCheck::isSameTask);
     }
@@ -41,6 +47,7 @@ public class TaskList implements Iterable<Task> {
      * Adds a Task to the list.
      * The Task must not already exist in the list.
      */
+    @Override
     public void add(Task toAdd) throws DukeException {
         if (contains(toAdd)) {
             throw new DukeDuplicateTaskException();

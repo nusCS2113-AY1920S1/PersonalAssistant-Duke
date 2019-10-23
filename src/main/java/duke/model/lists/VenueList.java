@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class VenueList implements Iterable<Venue> {
+public class VenueList implements Iterable<Venue>, Listable<Venue> {
     private List<Venue> list;
 
     public VenueList() {
@@ -27,10 +27,12 @@ public class VenueList implements Iterable<Venue> {
         }
     }
 
+    @Override
     public void add(Venue venue) {
         list.add(venue);
     }
 
+    @Override
     public Venue get(int index) {
         return list.get(index);
     }
@@ -39,14 +41,17 @@ public class VenueList implements Iterable<Venue> {
         list.remove(index);
     }
 
+    @Override
     public boolean isEmpty() {
         return list.isEmpty();
     }
 
+    @Override
     public int size() {
         return list.size();
     }
 
+    @Override
     public boolean contains(Venue venue) {
         return list.contains(venue);
     }

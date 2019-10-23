@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class EventList implements Iterable<Event> {
+public class EventList implements Iterable<Event>, Listable<Event> {
     private List<Event> events;
 
     public EventList() {
@@ -29,18 +29,27 @@ public class EventList implements Iterable<Event> {
         }
     }
 
+    @Override
     public void add(Event e) {
         events.add(e);
     }
 
+    @Override
     public boolean isEmpty() {
         return events.isEmpty();
     }
 
+    @Override
+    public boolean contains(Event toCheck) {
+        return events.stream().anyMatch(toCheck::isSameTask);
+    }
+
+    @Override
     public int size() {
         return events.size();
     }
 
+    @Override
     public Event get(int index) {
         return events.get(index);
     }

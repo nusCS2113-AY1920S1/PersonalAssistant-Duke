@@ -9,17 +9,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class RouteList implements Iterable<Route> {
+public class RouteList implements Iterable<Route>, Listable<Route> {
     private List<Route> list;
 
     public RouteList() {
         list = new ArrayList<>();
     }
 
+    @Override
     public Route get(int index) throws IndexOutOfBoundsException {
         return list.get(index);
     }
 
+    @Override
     public int size() {
         return list.size();
     }
@@ -27,6 +29,7 @@ public class RouteList implements Iterable<Route> {
     /**
      * Returns true if the list contains an equivalent Route as the given argument.
      */
+    @Override
     public boolean contains(Route toCheck) {
         return list.stream().anyMatch(toCheck::isSameRoute);
     }
@@ -35,6 +38,7 @@ public class RouteList implements Iterable<Route> {
      * Adds a Route to the list.
      * The Task must not already exist in the list.
      */
+    @Override
     public void add(Route toAdd) throws DukeException {
         if (contains(toAdd)) {
             throw new DukeDuplicateRouteException();
@@ -74,6 +78,7 @@ public class RouteList implements Iterable<Route> {
         return list.remove(index);
     }
 
+    @Override
     public boolean isEmpty() {
         return list.isEmpty();
     }
