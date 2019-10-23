@@ -64,7 +64,6 @@ public class ProjectInputController implements IController {
             String[] projectCommand = projectFullCommand.split("-",1);
             switch (projectCommand[0].trim()) {
             case "exit":
-                System.out.println("i came here");
                 isManagingAProject = projectExit(projectToManage);
                 break;
             case "add member":
