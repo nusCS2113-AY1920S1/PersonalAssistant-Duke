@@ -17,6 +17,7 @@
    11. OrderCommand Component
    12. Fridge Component
    13. GenericList
+   14. Ingredient
 
 3. Implementation
 
@@ -326,6 +327,57 @@ API: `GenericList.java`
 This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
 
 ![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
+
+#### 2.14 Ingredient Component
+
+The Recipebook contains 2 classes, Ingredient and IngredientsList. 
+
+//!add diagram of the Ingredient component.
+
+**<u>Ingredient Class</u>**
+
+| Attributes           | Description                            |
+| -------------------- | -------------------------------------- |
+| name: String         | Name of the ingredient                 |
+| amount: int          | Total amount of the ingredient         |
+| expiryDate: Date     | Expiry date of the given ingredient    |
+| dateAsString: String | A string to store the date as a string |
+
+
+
+| Constructor                       | Description                                               |
+| --------------------------------- | --------------------------------------------------------- |
+| Ingredient(String, Integer, Date) | Gives the name , amount and expiry date of the ingredient |
+
+
+
+| Methods                             | Description                               |
+| ----------------------------------- | ----------------------------------------- |
+| Ingredient(String, Integer, String) | Converts the Date into String             |
+| getAmount(): int                    | Returns amount of ingredient              |
+| getName(): String                   | Returns name of the Ingredient            |
+| changeDate(Date): void              | Changes the expiry date of the ingredient |
+| setName(String): void               | Sets the name of the ingredient           |
+| changeAmount(Integer):              | Changes the amount of the ingredient      |
+| getExpiryDate(): Date               | Returns the expiry date of the ingredient |
+
+**<u>IngredientsList Class</u>**
+
+| Constructor                                       | Description                                                |
+| ------------------------------------------------- | ---------------------------------------------------------- |
+| IngredientsList(List<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List<Ingredients> |
+
+
+
+| Methods                          | Description                                                |
+| -------------------------------- | ---------------------------------------------------------- |
+| changeIngredientsDate(int, Date) | Changes the date of the Ingredient using an Index number   |
+| changeName(int, String)          | Changes the name of the ingredient using an Index number   |
+| changeAmount(int, String)        | Changes the amount of the ingredient using an index number |
+
+//!add commands such as FindIngredient()
+
+#### 
 
 ### 3. Implementation
 
