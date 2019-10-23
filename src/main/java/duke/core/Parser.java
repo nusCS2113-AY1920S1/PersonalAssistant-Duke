@@ -143,11 +143,11 @@ public class Parser {
     }
 
     /**
-     * Takes user input and formats it so it is compatible with 'delete patient task' command.
-     * `delete patient task` output: patient_name or #patient_id, task_name or #task_id
-     * `delete patient task` output: assigned_task_unique_id
+     * Takes user input and formats it so it is compatible with 'delete assigned task' command.
+     * `delete assigned task` output: patient_name or #patient_id, task_name or #task_id
+     * `delete assigned task` output: assigned_task_unique_id
      *
-     * @return Array of strings to be used by 'delete patient task' command.
+     * @return Array of strings to be used by 'delete assigned task' command.
      * @throws DukeException when user input cannot be parsed properly.
      */
     public String[] parseDeleteAssignedTask() throws DukeException {
@@ -164,7 +164,7 @@ public class Parser {
                 return formattedInput;
             }
         } catch (Exception e) {
-            throw new DukeException("Please follow the `delete patient task :<patient name> or #<patient id>"
+            throw new DukeException("Please follow the `delete assigned task :<patient name> or #<patient id>"
                     + " :<task name> or #<task id>` or "
                     + " `delete patient task :%<unique assigned task id>` format.");
         }
@@ -187,7 +187,7 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please use the `update patient :<patient name> or #<patient id>"
-                    + "/<edited info type> :<updated info>` format.");
+                    + ":<edited info type> :<updated info>` format.");
         }
     }
 
@@ -206,7 +206,7 @@ public class Parser {
             }
             return formattedInput;
         } catch (Exception e) {
-            throw new DukeException("Please use the `update patient :<task name> or #<task id>"
+            throw new DukeException("Please use the `update task :<task name> or #<task id>"
                     + " :<updated description>` format.");
         }
     }
@@ -228,18 +228,18 @@ public class Parser {
     }
 
     /**
-     * Takes the user input and formats it so it is compatible with 'find patient task' command.
-     * `find patient tasks` output: patient_name or #patient_id
+     * Takes the user input and formats it so it is compatible with 'find assigned tasks' command.
+     * `find assigned tasks` output: patient_name or #patient_id
      *
-     * @return A string of formatted output to be used by 'find patient task' command.
+     * @return A string of formatted output to be used by 'find assigned tasks' command.
      * @throws DukeException Thrown when the user input cannot be parsed in the desired manner.
      */
-    public String parseFindAssignedTask() throws DukeException {
+    public String parseFindAssignedTasks() throws DukeException {
         try {
             String formattedInput = parsedInput[1].trim();
             return formattedInput;
         } catch (Exception e) {
-            throw new DukeException("Please use the `find assigned task :<patient name> or #<patient id>` format.");
+            throw new DukeException("Please use the `find assigned tasks :<patient name> or #<patient id>` format.");
         }
     }
 }
