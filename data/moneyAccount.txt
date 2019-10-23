@@ -9,6 +9,9 @@ INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
+INC @ 20.0 @ From my friends @ 23/10/2019
+INC @ 20.0 @ From my friends @ 23/10/2019
+INC @ 300.0 @ dsd  @ 23/10/2019
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
 EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
@@ -28,4 +31,4 @@ G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
-LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @  @ 0 @ 500.0
+LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @  @ 0 @ 460.0

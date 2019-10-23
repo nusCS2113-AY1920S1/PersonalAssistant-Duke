@@ -75,7 +75,7 @@ public class InstalmentTest {
         assertEquals(" Got it. I've added this to your instalments: \n"
                 + account.getInstalments().get(last).toString() + "\n"
                 + " Now you have " + account.getInstalments().size() + " instalments listed\n"
-                + " You are paying $" + df.format(account.getInstalments().get(last).EqualMonthlyInstalment())
+                + " You are paying $" + df.format(account.getInstalments().get(last).equalMonthlyInstalment())
                 + " per month\n" + " For " + account.getInstalments().get(last).getNumOfPayments() + " months\n"
                 + " Until " + account.getInstalments().get(last).getDateEndDate() + "\n"
                 + " The total amount you will pay is $" + account.getInstalments().get(last).totalAmount() + "\n"
@@ -125,9 +125,9 @@ public class InstalmentTest {
         listInstalmentCommand.execute(account, ui, moneyStorage);
         assertEquals("Got it, list will be printed in the other pane!\n", ui.getOutputString());
         assertEquals(" 1.[" + df.format(instalment.getPercentage()) + "%] " + instalment.getDescription() + " ($"
-                        + df.format(instalment.EqualMonthlyInstalment()) + " per month until " + instalment.getDateEndDate() + ")\n"
+                        + df.format(instalment.equalMonthlyInstalment()) + " per month until " + instalment.getDateEndDate() + ")\n"
                         + " 2.[" + df.format(instalment1.getPercentage()) + "%] " + instalment1.getDescription() + " ($"
-                        + df.format(instalment1.EqualMonthlyInstalment()) + " per month until " + instalment1.getDateEndDate() + ")\n",
+                        + df.format(instalment1.equalMonthlyInstalment()) + " per month until " + instalment1.getDateEndDate() + ")\n",
                 ui.getGraphContainerString());
     }
 }

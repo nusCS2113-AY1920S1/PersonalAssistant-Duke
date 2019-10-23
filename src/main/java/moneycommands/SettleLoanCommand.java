@@ -129,7 +129,7 @@ public class SettleLoanCommand extends MoneyCommand {
         float amountToPrint;
 
         if (type == Loan.Type.INCOMING && serialNo > account.getIncomingLoans().size() ||
-        type == Loan.Type.OUTGOING && serialNo > account.getOutgoingLoans().size()) {
+        type == Loan.Type.OUTGOING && serialNo > account.getOutgoingLoans().size() || serialNo < 0) {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
 

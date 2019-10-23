@@ -1,5 +1,4 @@
 import controlpanel.MoneyStorage;
-import controlpanel.Parser;
 import money.Loan;
 import moneycommands.*;
 import controlpanel.DukeException;
@@ -203,5 +202,53 @@ public class LoansTest {
             assertThat(e.getMessage(), is("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt"));
         }
 
+    }
+
+    @Test
+    public void testExceedSerialNumber() throws ParseException {
+        account.getLoans().clear();
+        Loan outgoingLoan = new Loan(500, "OutgoingLoan 1", testDate, Loan.Type.OUTGOING);
+        Loan incomingLoan = new Loan(1000, "IncomingLoan 1", testDate, Loan.Type.INCOMING);
+        account.getLoans().add(outgoingLoan);
+        account.getLoans().add(incomingLoan);
+        String settleOutgoingLoanInput = "received 20 /from -1";
+        MoneyCommand exceedOutgoingCommand = new SettleLoanCommand(settleOutgoingLoanInput);
+        ui.clearOutputString();
+        try {
+            exceedOutgoingCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
+        }
+        String settleIncomingLoanInput = "paid 2 /to 100";
+        MoneyCommand exceedIncomingCommand = new SettleLoanCommand(settleIncomingLoanInput);
+        ui.clearOutputString();
+        try {
+            exceedIncomingCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
+        }
+    }
+
+    @Test
+    public void testLoanDoesNotExist() {
+        String notExistInput = "received 100 /from Brandon Frasier";
+        MoneyCommand notExistOutgoingCommand = new SettleLoanCommand(notExistInput);
+        ui.clearOutputString();
+        try {
+            notExistOutgoingCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("Brandon Frasier does not have a/an outgoing loan"));
+        }
+        String notExistSecondInput = "paid 400 /to Vivian Hsu";
+        MoneyCommand notExistIncomingCommand = new SettleLoanCommand(notExistSecondInput);
+        ui.clearOutputString();
+        try {
+            notExistIncomingCommand.execute(account, ui, storage);
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("Vivian Hsu does not have a/an incoming loan"));
+        }
     }
 }
