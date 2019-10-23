@@ -149,7 +149,67 @@ When the user shuts down `Dr.Duke` the `patientObservableMap` is sent back to th
  
 As can be seen in the class diagram, every individual's patient's data in nested from the `Patient` object representing that patient. The diagram also displays that there are no circle references. For these two reasons, using `Gson` to store all the data about the different patients is very convenient and effective as everything can be stored by simply creating the `JSON` representations of each `Patient` object and the rest of the nesting will be parsed automatically by the `Gson` source code. 
  
-If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s. 
+If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s.
+
+
+== Implementation
+
+This section describes some noteworthy details on how certain features in Dr. Duke are implemented.
+
+=== Autocomplete [PANG JIA JUN VERNON]
+image:crop_ss.png[]
+
+==== Rationale
+
+Dr. Duke aims to assist House Officers in quick, accurate, and efficient recording and retrieval of patient data required
+to provide efficient care. Therefore, one of its main goals is to speed up the process at which users enter their intended
+commands so users can get more things done faster. There are several benefits in implementing the autocomplete feature.
+
+* Reduce the time taken for the user to enter a complete and valid command.
+* Reduce the frequency at which the user refers to the User Guide or help section to view the syntax of a particular command.
+
+==== Proposed Implementation
+The autocomplete mechanism is facilitated by two main classes, namely `AutoCompleteTextField` and `AutoCompleteModel`.
+
+`AutoCompleteTextField` is an element of the UI component. It extends from JavaFX `TextField`, and it displays a contextual
+menu whenever the user enters a key character/word in the text field. In our case, a key character/word is defined as such:
+a command keyword or switch ("-"). It implements the following operations.
+
+* `AutoCompleteTextField#updateMenu()` - Populates/updates the contextual menu.
+* `AutoCompleteTextField#displayMenu()` - Shows the contextual menu.
+* `AutoCompleteTextField#hideMenu()` - Hides the contextual menu.
+
+`AutoCompleteModel` is an element of the Model component. It updates the content of the contextual menu as the user
+types in the `AutoCompleteTextField`. The content of the contextual menu is also determined by the current context of the application.
+ +
+ +
+
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
+
+Step 1: The user launches the application. The `AutoCompleteTextField` in the `CommandWindow` is blank, and the context is `Home`.
+The user wishes to add a patient (a sample valid command syntax is `new -name "John Doe" -bed 01 -allergies "paracetamol"`).
+
+Step 2: The user keys in "n" in the text field. At this point, the contextual menu appears and shows the user a list of
+available commands in the `Home` context that matches with "n", i.e. `new`.
+
+Step 3: The user then use the arrow keys (up and down) to navigate through the contextual menu and the enter key to
+select the appropriate item presented in the menu. The text field is then updated accordingly, and the contextual menu is subsequently hidden.
+
+Step 4: The user proceeds to key in the switches for the `new` command. As the user keys in "-", the contextual menu appears once again
+to show the user a list of switches associated with the `new` command, i.e. "-name", "-bed", "-allergies", etc.
+
+Step 5: The user will repeat Steps 3 and 4 until a valid command syntax has been fully entered. The user will then press
+the enter key to execute said command.
+
+The following activity diagram summarizes what happens when a user types in the `AutoCompleteTextField`.
+
+image::AutoCompleteActivityDiagram.png[]
+
+==== Alternatives
+
+* Typeahead
+** Pros: More intuitive to the end-users.
+** Cons: Significantly more complex to implement.
 
 == Features
 
