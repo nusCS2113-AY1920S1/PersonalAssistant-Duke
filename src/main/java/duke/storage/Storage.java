@@ -1,6 +1,7 @@
 package duke.storage;
 
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -21,7 +22,7 @@ public abstract class Storage<T> {
     protected String filePath;
     protected Path path;
     protected List<String> contentSoFar;
-    protected List<T> entries;
+    protected GenericList<T> entries;
 
     /**
      * The constructor method for Storage.
@@ -30,14 +31,13 @@ public abstract class Storage<T> {
     public Storage(String fp) {
         filePath = fp;
         path = Paths.get(fp);
-        entries = new ArrayList<>();
     }
 
     /**
      * Load tasks from file.
      * @return an {@link ArrayList} of {@link Task}s read from the text file indicated by the {@link Path}.
      */
-    public  List<T> load() throws DukeException {
+    public  GenericList<T> load() throws DukeException {
         try {
             //to get the data from the hard disk until now
             contentSoFar = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
@@ -57,7 +57,7 @@ public abstract class Storage<T> {
      * Part of the load method, taken out.
      * Generates tasks based on contentSoFar.
      */
-     abstract List<T> generate() throws DukeException;
+     abstract GenericList<T> generate() throws DukeException;
 
     /**
      * Returns the {@link Path} that holds the directory used for I/O.
@@ -82,7 +82,7 @@ public abstract class Storage<T> {
             }
             try {
                 contentSoFar = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-                contentSoFar.set(taskNb, ((Printable)entries.get(taskNb)).printInFile()); // changing the file content
+                contentSoFar.set(taskNb, ((Printable)entries.getEntry(taskNb)).printInFile()); // changing the file content
                 Files.write(path, contentSoFar, StandardCharsets.UTF_8);
             } catch (IOException e) {
                 throw new DukeException("Error while updating the file");

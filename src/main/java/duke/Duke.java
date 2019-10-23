@@ -4,6 +4,7 @@ import duke.command.Cmd;
 import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.fridge.Fridge;
+import duke.ingredient.IngredientsList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.parser.Parser;
@@ -41,8 +42,8 @@ public class Duke {
         taskStorage = new TaskStorage(filePath);
         fridgeStorage = new FridgeStorage(fridgeFilePath);
         try {
-            tasks = new TaskList(taskStorage.load());
-            fridge = new Fridge (fridgeStorage.load());
+            tasks = new TaskList(taskStorage.load().getAllEntries());
+            fridge = new Fridge (new IngredientsList(fridgeStorage.load().getAllEntries()));
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();

@@ -25,6 +25,9 @@ public class IngredientsList extends GenericList<Ingredient>
         genList.get(Nb).changeDate(date);
 
     }
+    public boolean has(Ingredient ingredient){
+        return getAllEntries().contains(ingredient);
+    }
     public void changeName(int Nb, String name)
     {
         genList.get(Nb).setName(name);

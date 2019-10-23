@@ -4,6 +4,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public abstract class GenericList<T> {
@@ -65,6 +66,24 @@ public abstract class GenericList<T> {
      */
     public T removeEntry(int taskNb) {
         return genList.remove(taskNb);
+    }
+    public boolean removeEntry(T entry) {
+        return genList.remove(entry);
+    }
+
+    public boolean isEmpty(){
+        return genList.isEmpty();
+    }
+
+    public T getEntry(T entry){
+        for(T e: genList)
+            if(e.equals(entry))
+                return e;
+        return null;
+    }
+
+    public void sort(Comparator comparator){
+        genList.sort(comparator);
     }
 
     public void clearList() {

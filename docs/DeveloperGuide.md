@@ -225,7 +225,7 @@ The RecipeCommand class is used as an abstract class for other classes, its meth
 #### 2.10 Fridge Component
 API: `Fridge.java`
 
-The Fridge class allows access and 
+The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
 
 ### 3. Implementation
 
