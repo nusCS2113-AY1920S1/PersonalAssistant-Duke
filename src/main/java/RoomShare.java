@@ -85,6 +85,7 @@ public class RoomShare {
                 } catch (RoomShareException e) {
                     ui.showError(e);
                 }
+                parser.close();
                 ui.showBye();
                 break;
 
