@@ -52,7 +52,7 @@ public class TaskCommandParseHelper {
         } else if (input.startsWith("doafter")) {
             return parseDoAfterCommand(input, optionList);
         } else if (input.startsWith("snooze")) {
-            return parseSnoozeCommand(input);
+            return parseSnoozeCommand(input, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(input, optionList);
         } else if (input.startsWith("update")) {
@@ -187,7 +187,8 @@ public class TaskCommandParseHelper {
     private static Command parsePriorityCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher priorityCommandMatcher = prepareCommandMatcher(input, "^set\\s+(?<index>[\\d]+)\\s*$");
         if (!priorityCommandMatcher.matches()) {
-            showError("Please enter index after 'set' command and priority level after '-priority' option");
+            showError("Please enter task index after 'set' and priority level after '-priority' "
+                    + "option");
             return new InvalidCommand();
         }
         try {
@@ -207,17 +208,22 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static Command parseSnoozeCommand(String input) {
-        Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*");
+    private static Command parseSnoozeCommand(String input, ArrayList<Command.Option> optionList) {
+        Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*$");
         if (!snoozeCommandMatcher.matches()) {
-            showError("Please enter snooze command with an index");
+            showError("Please enter task index after 'snooze' and duration to snooze after '-by' ");
             return new InvalidCommand();
         }
         try {
+            String snooze = extractSnooze(optionList);
+            if (snooze.equals("")) {
+                snooze = "3";
+            }
             int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
-            return new TaskSnoozeCommand(index);
+            int duration = Integer.parseInt(snooze);
+            return new TaskSnoozeCommand(index, duration);
         } catch (NumberFormatException e) {
-            showError("Please enter a valid task index");
+            showError("Please enter a valid task index after \'snooze\'");
             return new InvalidCommand();
         }
     }
@@ -318,6 +324,18 @@ public class TaskCommandParseHelper {
             }
         }
         return priority;
+    }
+
+    private static String extractSnooze(ArrayList<Command.Option> optionList) {
+        String snooze = "";
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("by")) {
+                if (snooze.equals("")) {
+                    snooze = option.getValue();
+                }
+            }
+        }
+        return snooze;
     }
 
     /**

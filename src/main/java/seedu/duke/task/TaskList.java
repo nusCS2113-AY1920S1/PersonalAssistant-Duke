@@ -133,18 +133,16 @@ public class TaskList extends ArrayList<Task> {
      * @param index of the task in taskList.
      * @return string msg.
      */
-    public String snoozed(int index) throws CommandParseHelper.UserInputException {
+    public String snoozed(int index, int duration) throws CommandParseHelper.UserInputException {
         validateIndex(index);
         Task task = this.get(index);
-        return constructSnoozeMessage(task);
+        return constructSnoozeMessage(task, duration, index);
     }
 
-    private String constructSnoozeMessage(Task task) {
+    private String constructSnoozeMessage(Task task, int duration, int index) {
         if (task.getTaskType() != Task.TaskType.ToDo) {
-            task.snooze();
-            String msg = "Noted. I've snoozed this task: \n";
-            msg += task.getName();
-            return msg;
+            task.snooze(duration);
+            return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
             Duke.getUI().showError("This task cannot be snoozed");
             return "This task cannot be snoozed";
