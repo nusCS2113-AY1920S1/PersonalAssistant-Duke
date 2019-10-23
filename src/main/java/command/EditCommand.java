@@ -13,21 +13,21 @@ import ui.Ui;
  */
 public class EditCommand extends Command {
 
-    protected String editedWord;
+    protected String wordToBeEdited;
     protected String newMeaning;
 
-    public EditCommand(String editedWord, String newMeaning) {
-        this.editedWord = editedWord;
+    public EditCommand(String wordToBeEdited, String newMeaning) {
+        this.wordToBeEdited = wordToBeEdited;
         this.newMeaning = newMeaning;
     }
 
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         try {
-            // edit word
-            String oldWordToString = wordBank.getWordBank().get(editedWord).toString();
-            Word newWord = wordBank.getAndEditMeaning(editedWord,newMeaning);
-            storage.editFromFile(oldWordToString,newWord.toString());
+            Word oldWord = wordBank.getWord(wordToBeEdited); //get the original word
+            wordBank.editWordMeaning(wordToBeEdited, newMeaning); //edit the word in the wordBank
+            Word newWord = wordBank.getWord(wordToBeEdited); //get the new edited word
+            storage.updateFile(oldWord.toString(), newWord.toString());
             String returned = ui.showEdited(newWord);
             return returned;
 

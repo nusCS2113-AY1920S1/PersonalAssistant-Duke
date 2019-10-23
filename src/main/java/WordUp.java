@@ -1,3 +1,4 @@
+import dictionary.Bank;
 import dictionary.WordBank;
 import dictionary.WordCount;
 import scene.MainScene;
@@ -13,6 +14,7 @@ public class WordUp extends Application {
     public Storage storage;
     public WordBank wordBank;
     public WordCount wordCount;
+    public Bank bank;
     private Stage window;
 
     public static void main(String[] args) {

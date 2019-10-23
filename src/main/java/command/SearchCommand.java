@@ -21,7 +21,7 @@ public class SearchCommand extends Command {
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         try {
-            String meaning = wordBank.searchForMeaning(this.searchTerm);
+            String meaning = wordBank.searchWordMeaning(this.searchTerm);
             wordCount.increaseSearchCount(searchTerm, wordBank);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {

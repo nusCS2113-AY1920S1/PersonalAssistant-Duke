@@ -30,14 +30,14 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         try {
+            word = wordBank.getWord(this.deletedWord);
             if (tags.size() == 0) {                     //delete word
-                word = wordBank.getAndDelete(this.deletedWord);
-                wordCount.deleteWordFromSearchCount(word);
-                storage.editFromFile(word.toString() + "\r","");
+                wordBank.deleteWord(word);
+                wordCount.deleteWord(word);
+                storage.updateFile(word.toString() + "\r","");
                 return ui.showDeleted(word);
             } else {                                    //delete tags
-                word = wordBank.getWordBank().get(deletedWord);
-                wordCount.deleteWordFromSearchCount(word);
+                wordCount.deleteWord(word);
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
                 wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);

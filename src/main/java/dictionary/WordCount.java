@@ -8,12 +8,12 @@ import java.util.TreeMap;
 /**
  * Represents an object that keeps track of operations related to the number of searches on the words in the wordBank.
  */
-public class WordCount {
+public class WordCount extends Bank {
 
     /**
      * Maps the search count (KEY) to an ordered list of words (VALUE) with that search count.
      */
-    protected TreeMap<Integer, TreeMap<String, Word>> wordCount = new TreeMap<Integer, TreeMap<String, Word>>();
+    protected TreeMap<Integer, TreeMap<String, Word>> wordCount = new TreeMap<>();
 
     public WordCount(WordBank wordBank) {
         makeWordCount(wordBank);
@@ -31,7 +31,7 @@ public class WordCount {
         for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
             //find key. if exists append to treemap, else create new hashmap entry
             int numberOfSearches = entry.getValue().getNumberOfSearches();
-            String wordText = entry.getValue().getWord();
+            String wordText = entry.getValue().getWordString();
             Word wordWord = entry.getValue();
             if (!wordCount.isEmpty()) {
                 if (wordCount.containsKey(numberOfSearches)) {
@@ -52,9 +52,9 @@ public class WordCount {
     public void increaseSearchCount(String searchTerm, WordBank wordBank) throws NoWordFoundException {
         if (wordBank.getWordBank().containsKey(searchTerm)) {
             Word searchedWord = wordBank.getWordBank().get(searchTerm);
-            deleteWordFromSearchCount(searchedWord); //delete the word from original search count treemap
+            deleteWord(searchedWord); //delete the word from original search count treemap
             searchedWord.incrementNumberOfSearches(); //increase the search count for the word
-            addWordToSearchCount(searchedWord); //add the word to the treemap with key to be the new search count
+            addWord(searchedWord); //add the word to the treemap with key to be the new search count
         } else {
             throw new NoWordFoundException(searchTerm);
         }
@@ -64,9 +64,10 @@ public class WordCount {
      * Deletes a word from wordCount.
      * @param word the word to be deleted
      */
-    public void deleteWordFromSearchCount(Word word) {
+    @Override
+    public void deleteWord(Word word) {
         int wordSearchCount = word.getNumberOfSearches();
-        wordCount.get(wordSearchCount).remove(word.getWord());
+        wordCount.get(wordSearchCount).remove(word.getWordString());
         if (wordCount.get(wordSearchCount).isEmpty()) { //treemap is empty, delete key
             wordCount.remove(wordSearchCount);
         }
@@ -76,13 +77,14 @@ public class WordCount {
      * Adds a word from wordCount.
      * @param word the word to be added
      */
-    public void addWordToSearchCount(Word word) {
+    @Override
+    public void addWord(Word word) {
         int wordSearchCount = word.getNumberOfSearches();
         if (wordCount.containsKey(wordSearchCount)) {
-            wordCount.get(wordSearchCount).put(word.getWord(), word); //add directly to existing treemap
+            wordCount.get(wordSearchCount).put(word.getWordString(), word); //add directly to existing treemap
         } else {
             wordCount.put(wordSearchCount, new TreeMap<>());
-            wordCount.get(wordSearchCount).put(word.getWord(), word); //create new entry and add word to treemap
+            wordCount.get(wordSearchCount).put(word.getWordString(), word); //create new entry and add word to treemap
         }
     }
 

@@ -1,16 +1,15 @@
 package dictionary;
 
-import java.util.ArrayList;
-
 import exception.NoWordFoundException;
 import command.OxfordCall;
 import storage.Storage;
 
 import java.util.HashSet;
 import java.util.TreeMap;
+import java.util.ArrayList;
 
 
-public class WordBank {
+public class WordBank extends Bank {
     private TreeMap<String, Word> wordBank;
 
     public WordBank(Storage storage) {
@@ -25,8 +24,32 @@ public class WordBank {
         return wordBank;
     }
 
+    public Word getWord(String word) throws NoWordFoundException {
+        if (wordBank.containsKey(word)) {
+            return wordBank.get(word);
+        } else {
+            throw new NoWordFoundException(word);
+        }
+    }
+
+    @Override
     public void addWord(Word word) {
-        this.wordBank.put(word.getWord(), word);
+        this.wordBank.put(word.getWordString(), word);
+    }
+
+    /**
+     * Deletes a word with a specific description.
+     * @param word string represents a word to be deleted
+     * @return the word itself
+     * @throws NoWordFoundException if the word doesn't exist in the word bank
+     */
+    @Override
+    public void deleteWord(Word word) throws NoWordFoundException {
+        if (wordBank.containsKey(word)) {
+            wordBank.remove(word);
+        } else {
+            throw new NoWordFoundException(word.getWordString());
+        }
     }
 
     /**
@@ -35,7 +58,7 @@ public class WordBank {
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
-    public String searchForMeaning(String word)throws NoWordFoundException {
+    public String searchWordMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
         if (!(wordBank.containsKey(word))) {
@@ -52,26 +75,11 @@ public class WordBank {
      * @param wordToBeEdited word whose meaning is updated
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public Word getAndEditMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
+    public void editWordMeaning(String wordToBeEdited, String newMeaning) throws NoWordFoundException {
         if (wordBank.containsKey(wordToBeEdited)) {
             wordBank.get(wordToBeEdited).editMeaning(newMeaning);
-            return wordBank.get(wordToBeEdited);
         } else {
             throw new NoWordFoundException(wordToBeEdited);
-        }
-    }
-
-    /**
-     * Deletes a word with a specific description and return it.
-     * @param word string represents a word to be deleted
-     * @return the word itself
-     * @throws NoWordFoundException if the word doesn't exist in the word bank
-     */
-    public Word getAndDelete(String word) throws NoWordFoundException {
-        if (wordBank.containsKey(word)) {
-            return wordBank.remove(word);
-        } else {
-            throw new NoWordFoundException(word);
         }
     }
 
