@@ -1,12 +1,9 @@
 package commands;
 
-import Contexts.SearchResultContext;
-import EPstorage.Blacklist;
-import EPstorage.BlacklistStorage;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import task.Deadline;
-import task.Period;
+import duke.task.Deadline;
+import duke.task.Period;
 import ListCommands.WatchlistHandler;
 
 
@@ -56,7 +53,7 @@ public class AddCommand extends CommandSuper {
             WatchlistHandler.print_list((MovieHandler) (this.getUIController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             ((MovieHandler) (this.getUIController())).setFeedbackText("Please enter a valid command in the form of: \n" +
-                    "add watchlist <name of movie> -d <type of task> -s <start date only for task> -e <end date for task>");
+                    "add watchlist <name of movie> -d <type of duke.task> -s <start date only for duke.task> -e <end date for duke.task>");
         }
     }
 }

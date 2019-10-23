@@ -2,24 +2,22 @@ package parser;
 
 import exceptions.DukeException;
 import storage.Storage;
-import task.DoAfter;
-import task.TaskList;
-import task.Deadline;
-import task.Tasks;
-import task.Event;
-import task.ToDo;
-import task.Recurring;
-import task.FixedDuration;
-import task.Period;
-import ui.Ui;
+import duke.task.DoAfter;
+import duke.task.TaskList;
+import duke.task.Deadline;
+import duke.task.Tasks;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.task.Recurring;
+import duke.task.FixedDuration;
+import duke.task.Period;
+import duke.ui.Ui;
 import wrapper.TimeInterval;
 
 import java.util.Scanner;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 /**
@@ -113,9 +111,9 @@ public class Parser {
     }
 
     /**
-     * This function deals when user wants to fix a tentative task.
+     * This function deals when user wants to fix a tentative duke.task.
      * @param s the whole user command.
-     * @throws DukeException when user did not enter task number or select wrong task.
+     * @throws DukeException when user did not enter duke.task number or select wrong duke.task.
      * */
     private static void fixCommand(String s) throws DukeException {
         try {
@@ -232,7 +230,7 @@ public class Parser {
                 Ui.updateTime(temp);
 
             } else {
-                Ui.showError("You cannot change the date of the task!");
+                Ui.showError("You cannot change the date of the duke.task!");
             }
 
             Storage.saveTask(TaskList.getList());
@@ -246,9 +244,9 @@ public class Parser {
     }
 
     /**
-     * Creates a new doAfter task with users' input.
+     * Creates a new doAfter duke.task with users' input.
      * Then, prints a confirmation message by calling showdoAfterMessage function under Ui class.
-     * Finally, adds the task into database.
+     * Finally, adds the duke.task into database.
      */
     private static void doAfterCommand(String s) throws DukeException {
         try {
@@ -311,7 +309,7 @@ public class Parser {
     }
 
     /**
-     * Mark a particular task as done.
+     * Mark a particular duke.task as done.
      * Then, prints the confirmation message by calling showMarkAsDone function under Ui class.
      * Finally, updates the database.
      */
@@ -335,9 +333,9 @@ public class Parser {
     }
 
     /**
-     * Creates a new To-Do task with users' input.
+     * Creates a new To-Do duke.task with users' input.
      * Then, prints a confirmation message by calling showToDoSuccess function under Ui class.
-     * Finally, adds the task into database.
+     * Finally, adds the duke.task into database.
      */
     private static void todoCommand(String s) throws DukeException {
         int todolistNumber = TaskList.getTotalTasksNumber() + 1;
@@ -464,7 +462,7 @@ public class Parser {
     }
 
     /**
-     * Deletes a particular task as entered by user.
+     * Deletes a particular duke.task as entered by user.
      * Then, prints the confirmation message by calling showDeleteMessage function under Ui class.
      * Finally, updates the database.
      */
@@ -489,9 +487,9 @@ public class Parser {
 
 
     /**
-     * Creates a new event task with users' input.
+     * Creates a new event duke.task with users' input.
      * Then, prints a confirmation message by calling showEventMessage function under Ui class.
-     * Finally, adds the task into database.
+     * Finally, adds the duke.task into database.
      */
     private static void eventCommand(String s) throws DukeException {
         try {
@@ -532,9 +530,9 @@ public class Parser {
     }
 
     /**
-     * Creates a new deadline task with users' input.
+     * Creates a new deadline duke.task with users' input.
      * Then, prints a confirmation message by calling showDeadlineMessage function under Ui class.
-     * Finally, adds the task into database.
+     * Finally, adds the duke.task into database.
      */
     private static void deadlineCommand(String s) throws DukeException {
         int todolistNumber = TaskList.getTotalTasksNumber();
@@ -570,8 +568,8 @@ public class Parser {
 
     /**
      * This function deals when user wants to store tentative tasks.
-     * @param todoTask1 description of the task.
-     * @throws DukeException when user did not/wrongly input description of task and/or date.
+     * @param todoTask1 description of the duke.task.
+     * @throws DukeException when user did not/wrongly input description of duke.task and/or date.
      */
     private static void eventTentativeCommand(String todoTask1) throws DukeException {
         Ui.queryForDates();

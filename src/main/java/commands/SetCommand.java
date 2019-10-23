@@ -116,7 +116,7 @@ public class SetCommand extends CommandSuper {
     }
 
     /**
-     * set the task on the watchlist as done
+     * set the duke.task on the watchlist as done
      * root: set
      * sub: watchlist
      * payload: none
@@ -130,7 +130,7 @@ public class SetCommand extends CommandSuper {
             System.out.println(i);
             WatchlistHandler.markAsDone(i, (MovieHandler)(this.getUIController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUIController())).setFeedbackText("please enter a valid task number");
+            ((MovieHandler)(this.getUIController())).setFeedbackText("please enter a valid duke.task number");
         }
     }
 }

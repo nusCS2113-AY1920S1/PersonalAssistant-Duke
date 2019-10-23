@@ -1,8 +1,8 @@
 package ListCommands;
 
-import task.Deadline;
-import task.Tasks;
-import task.Period;
+import duke.task.Deadline;
+import duke.task.Tasks;
+import duke.task.Period;
 import java.util.ArrayList;
 import MovieUI.MovieHandler;
 
@@ -15,8 +15,8 @@ public class WatchlistHandler {
     }
 
     /**
-     * adds a task to the watchlist
-     * @param t: the task list to store the movies
+     * adds a duke.task to the watchlist
+     * @param t: the duke.task list to store the movies
      */
     public static void add(Tasks t) {
         watch.add(t);
@@ -24,7 +24,7 @@ public class WatchlistHandler {
 
     /**
      * prints the entire watchlist of the user
-     * @param handle: class to retrieve the ui controller to display the list on the users view
+     * @param handle: class to retrieve the duke.ui controller to display the list on the users view
      */
     public static void print_list(MovieHandler handle) {
         String result = "";
@@ -50,13 +50,13 @@ public class WatchlistHandler {
     }
 
     /**
-     * marks the required task as done and feedbacks it to the user
+     * marks the required duke.task as done and feedbacks it to the user
      * @param index: index of the movie to mark as done
-     * @param handle: moviehandler class to print out the completed task on the users view
+     * @param handle: moviehandler class to print out the completed duke.task on the users view
      */
     public static void markAsDone(int index, MovieHandler handle) {
         try {
-            String result = "I've marked this task as Done: \n";
+            String result = "I've marked this duke.task as Done: \n";
             index--;
             Tasks t = watch.get(index);
             watch.get(index).setDone(true);
@@ -74,9 +74,9 @@ public class WatchlistHandler {
     }
 
     /**
-     * removes a particular task from the watchlist by its name
+     * removes a particular duke.task from the watchlist by its name
      * @param movie: name of the movie to be removed
-     * @param handle: moviehandler class to print out the completed task on the users view
+     * @param handle: moviehandler class to print out the completed duke.task on the users view
      * @return
      */
     public static boolean removeFromWatchlist(String movie, MovieHandler handle) {

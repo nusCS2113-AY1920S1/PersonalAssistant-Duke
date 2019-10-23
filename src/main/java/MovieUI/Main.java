@@ -8,13 +8,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import object.MovieInfoObject;
-import ui.Ui;
+import duke.ui.Ui;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class Main extends Application {
     private Stage mainWindow;
@@ -39,7 +36,7 @@ public class Main extends Application {
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("MainPage.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/MainPage.fxml"));
             mainLayout = loader.load();
 
             // setup the controller's window and reference to this main application class

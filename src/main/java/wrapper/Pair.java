@@ -1,7 +1,7 @@
 package wrapper;
 
 
-import task.Tasks;
+import duke.task.Tasks;
 
 public class Pair {
     private Tasks task1;

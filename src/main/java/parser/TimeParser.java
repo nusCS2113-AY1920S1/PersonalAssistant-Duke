@@ -1,8 +1,7 @@
 package parser;
 
-import exceptions.DukeException;
-import task.Event;
-import task.Tasks;
+import duke.task.Event;
+import duke.task.Tasks;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

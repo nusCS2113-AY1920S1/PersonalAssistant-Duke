@@ -992,4 +992,228 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
 
         return genre;
     }
+
+
+    public void getAllTheMovie() throws org.json.simple.parser.ParseException {
+        String jsonResult = "";
+        int j = 401;
+        int b = 0;
+        String filename = "";
+        for (int i = 200000; i < 250000; i += 2) {
+            int de = i / 500;
+            de += 1;
+            if (de > j) {
+                j += 1;
+                filename = "data/movieDatabase/" + j + ".json";
+                File oldfile = new File(filename);
+                b = 1;
+            } else {
+                filename = "data/movieDatabase/" + j + ".json";
+                b = 0;
+            }
+            System.out.println(filename);
+            try {
+                jsonResult = URLRetriever.readURLAsString(new URL("https://api.themoviedb.org/3/movie/" +
+                        i + "?api_key=" + RetrieveRequest.API_KEY + "&language=en-US"));
+                // jsonResult = URLRetriever.readURLAsString(new URL("https://api.themoviedb.org/3/discover/movie?api_key=" +
+                //       RetrieveRequest.API_KEY + "&sort_by=popularity.desc" + "&with_genres=35&page=" + i));
+
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+
+            }
+
+            JSONParser parser1 = new JSONParser();
+            JSONArray jsonObject1 = new JSONArray();
+            if (b == 0) {
+                try {
+                    jsonObject1 = (JSONArray) parser1.parse(new FileReader(filename));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //=================
+            try {
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject2 = (JSONObject) parser.parse(jsonResult);
+                JSONArray jsonArray2 = new JSONArray();
+
+                //for (int a = 0; a < jsonObject2.size(); a += 1) {
+                //  if ()
+
+                //}
+                jsonObject2.remove("backdrop_path");
+                jsonObject2.remove("belongs_to_collection");
+                jsonObject2.remove("budget");
+                jsonObject2.remove("homepage");
+                //jsonObject2.remove("id");
+                jsonObject2.remove("imdb_id");
+                jsonObject2.remove("original_language");
+                jsonObject2.remove("original_title");
+                jsonObject2.remove("popularity");
+                jsonObject2.remove("poster_path");
+                jsonObject2.remove("production_companies");
+                jsonObject2.remove("production_countries");
+                jsonObject2.remove("revenue");
+                jsonObject2.remove("spoken_languages");
+                jsonObject2.remove("tagline");
+                jsonObject2.remove("video");
+                jsonObject2.remove("vote_count");
+                jsonObject2.remove("status");
+
+                JSONArray xtra = new JSONArray();
+                JSONArray get = (JSONArray) jsonObject2.get("genres");
+                for (int d = 0; d < get.size(); d += 1) {
+                    JSONObject jsonObject = (JSONObject) get.get(d);
+                    long num = (long) jsonObject.get("id");
+                    xtra.add(num);
+                }
+                jsonObject2.remove("genres");
+                jsonObject2.put("genres", xtra);
+
+
+                /**JSONObject temp = (JSONObject)jsonObject2.get("adult");
+                 JSONObject temp2 = (JSONObject)jsonObject2.get("genres");
+                 JSONObject temp3 = (JSONObject)jsonObject2.get("overview");
+                 JSONObject temp4 = (JSONObject)jsonObject2.get("release_date");
+                 JSONObject temp5 = (JSONObject)jsonObject2.get("runtime");
+                 JSONObject temp6 = (JSONObject)jsonObject2.get("title");
+                 JSONObject temp7 = (JSONObject)jsonObject2.get("vote_average");
+                 //JSONArray jsonArray2 = (JSONArray)jsonObject2.get("results");
+
+
+                 jsonArray2.add(temp);
+                 jsonArray2.add(temp2);
+                 jsonArray2.add(temp3);
+                 jsonArray2.add(temp4);
+                 jsonArray2.add(temp5);
+                 jsonArray2.add(temp6);
+                 jsonArray2.add(temp7);
+                 **/
+                //JSONArray addEverything = new JSONArray();
+                //ad.add(jsonObject1);
+                try {
+                    jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + i + "/credits?api_key=" +
+                            RetrieveRequest.API_KEY));
+                } catch (SocketTimeoutException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                JSONParser newParser = new JSONParser();
+                JSONObject jsonData = (JSONObject) newParser.parse(jsonResult);
+                JSONArray casts = (JSONArray) jsonData.get("cast");
+                JSONArray firstFiveStudentArray = new JSONArray();
+                int num = casts.size();
+                int index = 5;
+                if (num < 5) {
+                    index = num;
+                }
+                for (int c = 0; c < index; c++) {
+                    JSONObject studentObj = (JSONObject) casts.get(c);
+                    String name = studentObj.get("name").toString();
+
+                    /**studentObj.remove("cast_id");
+                     studentObj.remove("character");
+                     studentObj.remove("gender");
+                     studentObj.remove("credit_id");
+                     studentObj.remove("profile_path");
+                     studentObj.remove("id");
+                     studentObj.remove("order");
+                     **/
+                    if (studentObj != null) {
+                        firstFiveStudentArray.add(name);
+                    }
+                }
+                //===========
+                String ret = "N/A";
+                try {
+                    String jsonResult1 = "";
+                    jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + i + "/release_dates?api_key=" +
+                            RetrieveRequest.API_KEY));
+                    JSONParser parser11 = new JSONParser();
+                    JSONObject jsonData1 = (JSONObject) parser11.parse(jsonResult);
+                    JSONArray casts1 = (JSONArray) jsonData1.get("results");
+                    //System.out.println("yes1");
+                    String certStrings = "";
+                    //String ret = "N/A";
+                    for (int e = 0; e < casts1.size(); e += 1) {
+                        JSONObject castPair = (JSONObject) casts1.get(e);
+                        if (castPair.get("iso_3166_1").equals("GB")) {
+                            JSONArray jsonObjectify = (JSONArray) castPair.get("release_dates");
+                            JSONObject tem = (JSONObject) jsonObjectify.get(0);
+                            ret = tem.get("certification").toString();
+                        }
+                    }
+                } catch (MalformedURLException ex) {
+                    ex.printStackTrace();
+                } catch (org.json.simple.parser.ParseException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
+
+
+                //============
+                jsonObject2.put("cert", ret);
+                jsonObject2.put("cast", firstFiveStudentArray);
+                jsonObject1.add(jsonObject2);
+
+                File fileToSaveJson = new File(filename);
+                //====================
+
+                //jsonArray2.addAll(casts)
+
+                //================
+                byte[] jsonArray = jsonObject1.toString().getBytes();
+                BufferedOutputStream bos;
+                try {
+                    bos = new BufferedOutputStream(new FileOutputStream(fileToSaveJson));
+                    bos.write(jsonArray);
+                    bos.flush();
+                    bos.close();
+
+                } catch (FileNotFoundException e4) {
+                    // TODO Auto-generated catch block
+                    e4.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } finally {
+                    jsonArray = null;
+                    parser = null;
+                    System.gc();
+                }
+                System.out.println(i);
+            } catch (NullPointerException e) {
+                i += 1;
+            }
+        }
+
+    }
+
+
+
+
+
+
+    public void create() {
+        for (int i = 200; i <= 1000; i += 1) {
+            File newFile = new File("data/movieDatabase/" + i + ".json");
+            try {
+                newFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

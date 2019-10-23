@@ -8,7 +8,7 @@
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-    Hello I am Duke.
+    Hello I am duke.Duke.
     What can I do for you?
    ____________________________________________________________
    ____________________________________________________________
@@ -18,13 +18,13 @@
     ☹ OOPS!!! Please provide a keyword, e.g. find eat
    ____________________________________________________________
    ____________________________________________________________
-    ☹ OOPS!!! Please provide a task number, e.g. done 1
+    ☹ OOPS!!! Please provide a duke.task number, e.g. done 1
    ____________________________________________________________
    ____________________________________________________________
     ☹ OOPS!!! Task does not exist.
    ____________________________________________________________
    ____________________________________________________________
-    ☹ OOPS!!! Invalid format. Please key in the task in the correct structure, e.g. event project meeting /at Mon 2-4pm
+    ☹ OOPS!!! Invalid format. Please key in the duke.task in the correct structure, e.g. event project meeting /at Mon 2-4pm
    ____________________________________________________________
    ____________________________________________________________
     Bye. Hope to see you again soon!

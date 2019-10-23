@@ -50,7 +50,9 @@ public class SearchCommand extends CommandSuper {
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         MovieHandler movieHandler = ((MovieHandler) this.getUIController());
-            if (!this.getFlagMap().containsKey("-g")) {
+        if (this.getFlagMap().containsKey("-q")) {
+            movieHandler.getAllTheMovie();
+        } else if (!this.getFlagMap().containsKey("-g")) {
                 if (movieHandler.getUserProfile().isAdult()) {
                     ((MovieHandler) this.getUIController()).getAPIRequester()
                             .beginMovieSearchRequest(getPayload() ,  true);

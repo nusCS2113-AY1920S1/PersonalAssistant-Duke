@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -28,18 +27,12 @@ import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
 import EPparser.CommandParser;
 import object.PastCommandStructure;
-import org.apache.commons.lang3.ObjectUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import retractCommands.PastUserCommands;
 import sort.EditSortProfileJson;
 import sort.SortProfile;
-import ui.Ui;
+import duke.ui.Ui;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -438,7 +431,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             //posterView.setOnScroll();
             posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
@@ -529,7 +522,7 @@ public class MovieHandler extends Controller implements RequestListener {
             mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
             mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("view/MoreInfo.fxml"));
             AnchorPane posterView = loader.load();
             InfoController controller = loader.getController();
 
@@ -788,5 +781,19 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest.getOfflineSearch(payload, trial, userProfile.isAdult());
 
     }
+
+    public static void getAllTheMovie() {
+        try {
+            mMovieRequest.getAllTheMovie();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createFiles() {
+        mMovieRequest.create();
+    }
+
+
 
 }

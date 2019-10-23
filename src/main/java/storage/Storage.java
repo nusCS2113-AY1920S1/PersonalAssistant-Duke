@@ -9,15 +9,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import exceptions.DukeException;
-import task.DoAfter;
-import task.TaskList;
-import task.Recurring;
-import task.Deadline;
-import task.Tasks;
-import task.Event;
-import task.ToDo;
-import task.FixedDuration;
-import task.Period;
+import duke.task.DoAfter;
+import duke.task.Recurring;
+import duke.task.Deadline;
+import duke.task.Tasks;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.task.FixedDuration;
+import duke.task.Period;
 /**
  * This class deals with loading tasks from the file and saving tasks in the file.
  */
@@ -79,7 +78,7 @@ public class Storage {
                 } else {
                     tasks.setDone(false);
                 }
-                userToDoListTask.add(tasks); //convert the line to a task and add to the list
+                userToDoListTask.add(tasks); //convert the line to a duke.task and add to the list
             }
         }
 
