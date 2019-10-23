@@ -34,7 +34,6 @@ public class AssignmentViewHelper {
         String[] inputParts = input.split(" ");
         for (String index : inputParts) {
             try {
-                index.trim();
                 Integer indexNumber = Integer.parseInt(index);
                 if (project.hasMemberIndex(indexNumber)) {
                     membersToView.add(indexNumber);
@@ -93,7 +92,6 @@ public class AssignmentViewHelper {
 
         for (String index : inputParts) {
             try {
-                index.trim();
                 Integer indexNumber = Integer.parseInt(index);
                 if (project.hasTaskIndex(indexNumber)) {
                     tasksToView.add(indexNumber);
