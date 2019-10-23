@@ -19,7 +19,7 @@ public class CommandAddIncomeReceipt extends CommandAddReceipt {
         this.cash = extractIncome(this.commandType, this.userInput);
         this.date = extractDate(this.userInput);
         this.tags = extractTags(this.userInput);
-        this.description = "You can add a new income receipt in format of 'In $5.00 /tags tag'.";
+        this.description = "You can add a new income receipt in format of 'In $5.00 /date 2019-01-01 /tags tag'.";
     }
 
     @Override
@@ -29,5 +29,6 @@ public class CommandAddIncomeReceipt extends CommandAddReceipt {
     @Override
     public void execute(Wallet wallet) {
         IncomeReceipt r = new IncomeReceipt(this.cash, this.date, this.tags);
+        wallet.addReceipt(r);
     }
 }
