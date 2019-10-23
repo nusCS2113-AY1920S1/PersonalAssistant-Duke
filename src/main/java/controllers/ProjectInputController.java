@@ -1,11 +1,13 @@
 package controllers;
 
+import models.data.IProject;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
+import util.ParserHelper;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
@@ -74,13 +76,13 @@ public class ProjectInputController implements IController {
             } else if (projectFullCommand.matches("role")) {
                 projectRoleMembers(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view credits.*")) {
-                projectViewCredits();
+                projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
                 projectAddTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view tasks.*")) {
                 projectViewTasks(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view assigned tasks.*")) {
-                projectViewAssignedTasks(projectToManage.getAssignedTaskList());
+            } else if (projectFullCommand.matches("view assignments.*")) {
+                projectViewAssignments(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view task requirements i/.*")) { // need to refactor this
                 projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
@@ -178,9 +180,11 @@ public class ProjectInputController implements IController {
 
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
+     * @param projectToManage The project specified by the user.
      */
-    public void projectViewCredits() {
+    public void projectViewCredits(IProject projectToManage) {
         // TODO view all credits.
+        consoleView.viewCredits(projectToManage);
         consoleView.consolePrint("Not implemented yet");
     }
 
@@ -210,13 +214,17 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTask(Project projectToManage, String projectCommand) {
-        int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
-        String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
+        try {
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
+            String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
-        if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-            consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
-        } else {
-            consoleView.consolePrint("The task index entered is invalid.");
+            if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
+            } else {
+                consoleView.consolePrint("The task index entered is invalid.");
+            }
+        } catch (NumberFormatException e) {
+            consoleView.consolePrint("Please enter your task format correctly.");
         }
     }
 
@@ -285,6 +293,20 @@ public class ProjectInputController implements IController {
     }
 
     /**
+     * Displays list of assignments according to specifications of user.
+     * @param projectToManage The project to manage.
+     * @param projectFullCommand The full command by the user.
+     */
+    private void projectViewAssignments(Project projectToManage, String projectFullCommand) {
+        String input = projectFullCommand.substring(18);
+        if (input.charAt(0) == 'm') {
+            projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
+        } else if (input.charAt(0) == 't') {
+            projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
+        }
+    }
+
+    /**
      * Displays the assigned tasks in the current project.
      * @param assignedTaskList The list containing the assignment of the tasks.
      */
@@ -305,6 +327,39 @@ public class ProjectInputController implements IController {
             consoleView.viewSortedTasks(projectToManage, sortCriteria);
         }
     }
+
+    /**
+     * Prints a list of members' individual list of tasks.
+     * @param projectToManage the project being managed.
+     * @param projectCommand The command by the user containing index numbers of the members to view.
+     */
+    public void projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
+            projectToManage.getNumOfMembers());
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
+        }
+        consoleView.consolePrint(AssignmentViewHelper.getMemberOutput(validMembers,
+            projectToManage).toArray(new String[0]));
+    }
+
+    /**
+     * Prints a list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
+    private void projectViewTasksAssignments(Project projectToManage, String projectCommand) {
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
+            projectToManage.getNumOfTasks());
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
+        }
+        consoleView.consolePrint(AssignmentViewHelper.getTaskOutput(validTasks,
+            projectToManage).toArray(new String[0]));
+    }
+
 
     /**
      * Exits the current project.

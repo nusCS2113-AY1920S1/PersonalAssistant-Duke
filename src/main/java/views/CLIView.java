@@ -262,22 +262,8 @@ public class CLIView {
     }
 
     /**
-     * Shows all the task that is assigned in the project.
-     * @param projectToManage The project specified by the user.
-     */
-    public void viewAssignedTask(IProject projectToManage) {
-        for (Task task: projectToManage.getTasks().getTaskList()) {
-            ArrayList<String> allAssignedTasks = new ArrayList<>();
-            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
-            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
-            DukeLogger.logDebug(CLIView.class,allAssignedTasks.toString());
-            consolePrint(allAssignedTasks.toArray(new String[0]));
-        }
-    }
-
-    /**
      * Shows specific requirements of a task.
-     * @param projectToManage The project in which the aforementioned task belongs to.
+     * @param projectToManage The project specified by the user.
      * @param taskIndex Index of task to be viewed.
      */
     public void viewTaskRequirements(IProject projectToManage, int taskIndex) {
@@ -286,11 +272,34 @@ public class CLIView {
         consolePrint(taskRequirements.toArray(new String[0]));
     }
 
+    /**
+     * Shows all members’ credits, their index number, name, and name of tasks completed.
+     * @param projectToManage The project specified by the user.
+     */
+    public void viewCredits(IProject projectToManage) {
+        ArrayList<String> allCredits = projectToManage.getCredits();
+        DukeLogger.logDebug(CLIView.class, allCredits.toString());
+        consolePrint(allCredits.toArray(new String[0]));
+    }
+
+    /**
+     * Updates task details based on index number when tasks are sorted by priority.
+     * @param projectToManage The project specified by the user.
+     * @param updatedTaskDetails The updated task details.
+     * @param taskIndexNumber The index number of the task to be updated.
+     */
     public void editTask(IProject projectToManage, String updatedTaskDetails, int taskIndexNumber) {
         projectToManage.editTask(taskIndexNumber, updatedTaskDetails);
         consolePrint("The task has been updated!");
     }
 
+    /**
+     * Updates task requirements based on index number when tasks are sorted by priority.
+     * @param projectToManage The project specified by the user.
+     * @param taskIndexNumber The index number of the task to be updated.
+     * @param updatedTaskRequirements The updated task requirements.
+     * @param haveRemove Boolean status specifying there is a need to remove certain task requirements.
+     */
     public void editTaskRequirements(IProject projectToManage, int taskIndexNumber, String[] updatedTaskRequirements,
                                      boolean haveRemove) {
         projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
