@@ -1,8 +1,6 @@
 package controllers;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import models.data.IProject;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -14,6 +12,10 @@ import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
 import views.CLIView;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
@@ -72,7 +74,7 @@ public class ProjectInputController implements IController {
             } else if (projectFullCommand.matches("view members.*")) {
                 projectViewMembers(projectToManage);
             } else if (projectFullCommand.matches("view credits.*")) {
-                projectViewCredits();
+                projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
                 projectAddTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view tasks.*")) {
@@ -166,9 +168,11 @@ public class ProjectInputController implements IController {
 
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
+     * @param projectToManage The project specified by the user.
      */
-    public void projectViewCredits() {
+    public void projectViewCredits(IProject projectToManage) {
         // TODO view all credits.
+        consoleView.viewCredits(projectToManage);
         consoleView.consolePrint("Not implemented yet");
     }
 
@@ -198,13 +202,17 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTask(Project projectToManage, String projectCommand) {
-        int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
-        String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
+        try {
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
+            String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
-        if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-            consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
-        } else {
-            consoleView.consolePrint("The task index entered is invalid.");
+            if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
+            } else {
+                consoleView.consolePrint("The task index entered is invalid.");
+            }
+        } catch (NumberFormatException e) {
+            consoleView.consolePrint("Please enter your task format correctly.");
         }
     }
 

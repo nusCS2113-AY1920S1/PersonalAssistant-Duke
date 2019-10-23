@@ -112,6 +112,17 @@ public class Project implements IProject {
         return assignedTaskListString;
     }
 
+    @Override
+    public ArrayList<String> getCredits() {
+        ArrayList<String> allCredits = new ArrayList<>();
+        /*
+            Empty Method
+            bugs need to be fixed for getAllAssignedTasks
+            for (Member currentMember : memberList.getMemberList())
+        */
+        return allCredits;
+    }
+
     /**
      * This method assigns a task to a member by adding the task to a member's individual
      * task list - tasksAssignedToMembers.

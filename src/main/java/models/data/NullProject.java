@@ -99,6 +99,11 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public ArrayList<String> getCredits() {
+        return null;
+    }
+
+    @Override
     public void createAssignment(Task task, Member member) {
         /*
         Empty method
