@@ -104,7 +104,7 @@ public class Ui {
      * @param list the task list
      * @return the formatted String to be displayed
      */
-    public String formatList(ArrayList<Task> list) {
+    public String formatList(ArrayList<Song> list) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1)

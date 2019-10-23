@@ -1,9 +1,7 @@
 package duke.components;
-
 import java.io.Serializable;
-
+import duke.DukeException;
 public class Note implements Serializable {
-
     private Pitch pitch;
     private String duration; // 1, 2*, 2, 4*, 4, 8
     private boolean isStart;
@@ -15,7 +13,7 @@ public class Note implements Serializable {
      * @param description A String representation of the Note object to be created of the form [DURATION]_[PITCH]
      *                    E.g. 4_UA represents an A note from the upper octave with the duration of a 1/4 note.
      */
-    public Note(String description) {
+    public Note(String description) throws DukeException {
         String[] characteristics = description.split("_", 2);
         this.duration = characteristics[0];
         this.isStart = true;
@@ -65,8 +63,11 @@ public class Note implements Serializable {
         case "UC":
             this.pitch = Pitch.UPPER_C;
             break;
-        default:
+        case "RT":
             this.pitch = Pitch.REST;
+            break;
+        default:
+            throw new DukeException("create","");
         }
     }
 
@@ -78,10 +79,10 @@ public class Note implements Serializable {
      * @param pitch A Pitch enum representation of the pitch of the Note object
      *              E.g. UA represents an A note from the upper octave.
      */
-    public Note(String duration, Pitch pitch) {
+    public Note(String duration, Pitch pitch, boolean isStart) {
         this.duration = duration;
         this.pitch = pitch;
-        this.isStart = true;
+        this.isStart = isStart;
     }
 
     public void setStart(boolean val) {
@@ -101,7 +102,7 @@ public class Note implements Serializable {
     }
 
     public Note getUnitNote() {
-        return new Note("8", this.pitch);
+        return new Note("8", this.pitch, true);
     }
 
     /**

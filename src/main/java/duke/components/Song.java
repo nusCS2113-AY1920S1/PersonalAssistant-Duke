@@ -157,7 +157,12 @@ public class Song implements Serializable {
      */
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(name).append(" ");
+        result.append(name)
+                .append(" ")
+                .append(key)
+                .append(" ")
+                .append(tempo)
+                .append(" ");
         for (Bar bar: bars) {
             result.append(bar.toString()).append(" ");
         }

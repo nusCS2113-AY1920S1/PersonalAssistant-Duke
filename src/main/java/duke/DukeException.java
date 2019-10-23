@@ -130,6 +130,14 @@ public class DukeException extends Exception {
                 message = "OOPS!!! Invalid input for copy command.";
                 break;
             }
+            case "create": {
+                message = "OOPS!!! Invalid syntax.";
+                break;
+            }
+            case "data": {
+                message = "OOPS!!! The data is corrupted.";
+                break;
+            }
             default: {
                 message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
             }

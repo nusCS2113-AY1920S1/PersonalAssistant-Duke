@@ -118,14 +118,14 @@ public class AddOverlayCommand extends Command<SongList> {
                     //Iterator<Chord> iterator1 = tempChordList.iterator();
                     combineBar(overlayingBar,temp);
                 }
+                //add the bar to the song in the songlist
+                storage.updateFile(songList);
                 return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
             } else {
                 System.out.println("no such index");
                 //System.out.println(songList.getSize());
                 throw new DukeException(message, "no_index");
             }
-            //add the bar to the song in the songlist
-            //storage.updateFile(taskList);
 
         } catch (Exception e) {
             System.out.println(e);
