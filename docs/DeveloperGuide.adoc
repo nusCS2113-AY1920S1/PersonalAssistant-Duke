@@ -180,15 +180,25 @@ and returns `???! Did you mean menu?`
 3.3.2.1 Design Considerations
 Aspect: How the improvised parser works
 
-- Alternative 1 (current choice): Did you mean feature implemented under the InvalidCommand
-
-    Pros: More straight forward to implement
-
-- Alternative 2: Implement under exceptions
+- It is to be implemented under the invalid command,
 
 
-// end ::improvisedparser[]
+// end::improvisedparser[]
 
+
+// tag::livebot[]
+=== [Proposed] Live Bot Feature
+
+==== Proposed Implementation
+
+The live bot feature will likely be extended in version 2.0.
+The general idea of having a live bot is to help facilitate the learning of algorithms and data structures.
+Indeed, the report and result features are sufficient to let the user know where they have gone wrong,
+but weaker users may require further help.
+
+==== Design Considerations
+
+// end::livebot[]
 
 [[Implementation-Configuration]]
 === Configuration
