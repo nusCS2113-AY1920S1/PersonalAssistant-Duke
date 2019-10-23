@@ -14,7 +14,7 @@ public interface Storage {
 
     ExpenseList loadExpenseList() throws DukeException;
 
-    void savePlanAttributes(Map<String,String> attributes) throws DukeException;
+    void savePlanAttributes(Map<String, String> attributes) throws DukeException;
 
     Map<String, String> loadPlanAttributes();
 

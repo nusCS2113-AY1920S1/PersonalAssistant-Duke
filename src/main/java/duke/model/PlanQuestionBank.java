@@ -2,9 +2,7 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
-import duke.ui.ExpensePane;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -21,7 +19,10 @@ public class PlanQuestionBank {
     private static final String[] BOOL_ANSWERS = {"YES", "Y", "NO", "N"};
     private static final String[] BOOL_ATTRIBUTE_VALUES = {"TRUE", "TRUE", "FALSE", "FALSE"};
 
-
+    /**
+     * Constructor of the question bank, developers should add new questions inside here.
+     * @throws DukeException on Error constructing the QuestionBank
+     */
     public PlanQuestionBank() throws DukeException {
         this.questionList = new HashMap<>();
         PlanQuestion question1 = new PlanQuestion(1,
@@ -50,8 +51,8 @@ public class PlanQuestionBank {
 
         questionList.put(4, new PlanQuestion(4,
                 "How do you go to school? <bus, mrt, both>",
-                new String[]{"BUS", "MRT" , "BOTH"},
-                new String[]{"BUS", "MRT" , "BOTH"},
+                new String[]{"BUS", "MRT", "BOTH"},
+                new String[]{"BUS", "MRT", "BOTH"},
                 "TRANSPORT_METHOD"));
 
         questionList.put(5, new PlanQuestion(5,
@@ -63,7 +64,11 @@ public class PlanQuestionBank {
 
     }
 
-
+    /**
+     * Gets a Queue of questions to ask a user in PlanBot.
+     * @param knownAttributes Map of String to String of what we already know about the users
+     * @return a Queue of questions to ask the user
+     */
     public Queue<PlanQuestion> getQuestions(Map<String, String> knownAttributes) {
         Map<String, PlanQuestion> attributeQuestion = new HashMap<>();
         Queue<Integer> questionsToAdd = new LinkedList<>();

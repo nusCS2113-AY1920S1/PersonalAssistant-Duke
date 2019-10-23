@@ -32,7 +32,8 @@ public class PlanAttributesStorageManager implements PlanAttributesStorage {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_SAVE_FILE_FAILED, PLAN_ATTRIBUTES_FILE.getPath()));
+            throw new DukeException(String.format(DukeException
+                    .MESSAGE_SAVE_FILE_FAILED, PLAN_ATTRIBUTES_FILE.getPath()));
         }
 
     }
@@ -45,10 +46,10 @@ public class PlanAttributesStorageManager implements PlanAttributesStorage {
             try (Scanner scanner = new Scanner(PLAN_ATTRIBUTES_FILE).useDelimiter(STORAGE_DELIMITER)) {
                 while (scanner.hasNext()) {
                     String keyValue = scanner.next();
-                        String keyValueArr[] = keyValue.split(" ");
-                        if(keyValueArr.length == 2){
-                            attributes.put(keyValueArr[0], keyValueArr[1]);
-                        }
+                    String[] keyValueArr = keyValue.split(" ");
+                    if (keyValueArr.length == 2) {
+                        attributes.put(keyValueArr[0], keyValueArr[1]);
+                    }
                 }
             }
 

@@ -4,8 +4,8 @@ import duke.exception.DukeException;
 import duke.logic.Parser.Parser;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -16,11 +16,24 @@ public class PlanQuestion {
     private Integer questionNumber;
     private String question;
     private Map<String, String> answersAttributesValue;
-    private Map<String,Set<Integer>> neighbouringQuestions;
+    private Map<String, Set<Integer>> neighbouringQuestions;
     private String attribute;
 
-
-    public PlanQuestion(int index, String question, String[] answers, String[] attributeValue, String attribute) throws DukeException {
+    /**
+     * Constructor for PlanQuestion.
+     * @param index int Index of the question
+     * @param question String the question we are asking the user
+     * @param answers an Array of strings of the possible answers
+     * @param attributeValue an Array of Attributes the attribute could take,
+     *                       its size should be the same as the answer array
+     * @param attribute the attribute of the user we want to determine from the question
+     * @throws DukeException when there are errors in the construction of the question
+     */
+    public PlanQuestion(int index,
+                        String question,
+                        String[] answers,
+                        String[] attributeValue,
+                        String attribute) throws DukeException {
         this.questionNumber = index;
         this.question = question;
         this.answersAttributesValue = new HashMap<>();
@@ -36,33 +49,34 @@ public class PlanQuestion {
         this.neighbouringQuestions = new HashMap<>();
     }
 
-    public String getQuestion() {
+
+    String getQuestion() {
         return question;
     }
 
-    public String getAttribute() {
+    String getAttribute() {
         return attribute;
     }
 
-    public Set<Integer> getNeighbouringQuestions(String attribute) {
-        if(neighbouringQuestions.containsKey(attribute)){
+    Set<Integer> getNeighbouringQuestions(String attribute) {
+        if (neighbouringQuestions.containsKey(attribute)) {
             return neighbouringQuestions.get(attribute);
         }
         return new HashSet<>();
     }
 
-    public Reply getReply(String input, Map<String, String> attributes) throws DukeException {
+    Reply getReply(String input, Map<String, String> attributes) throws DukeException {
         try {
 
-            if(answersAttributesValue.size() == 1) {
-                if(answersAttributesValue.containsKey("DOUBLE")) {
-                    BigDecimal scaledAmount = Parser.parseMoney(input) ;
+            if (answersAttributesValue.size() == 1) {
+                if (answersAttributesValue.containsKey("DOUBLE")) {
+                    BigDecimal scaledAmount = Parser.parseMoney(input);
                     String attributeVal = scaledAmount.toString();
                     attributes.put(attribute, attributeVal);
                     return new Reply("Ok noted!", attributes);
                 }
 
-            }else {
+            } else {
                 if (!answersAttributesValue.containsKey(input.toUpperCase())) {
                     throw new NoSuchElementException();
                 }
@@ -77,28 +91,28 @@ public class PlanQuestion {
         return new Reply("Something strange happened", attributes);
     }
 
-    public void addNeighbouring(String attribute, Integer neighbouring) {
-        if(neighbouringQuestions.keySet().contains(attribute)) {
+    void addNeighbouring(String attribute, Integer neighbouring) {
+        if (neighbouringQuestions.containsKey(attribute)) {
             neighbouringQuestions.get(attribute).add(neighbouring);
         } else {
-            neighbouringQuestions.put(attribute, new HashSet<>(Arrays.asList(neighbouring)));
+            neighbouringQuestions.put(attribute, new HashSet<>(Collections.singletonList(neighbouring)));
         }
     }
 
-    public class Reply {
+    static class Reply {
         private String text;
         private Map<String, String> attributes;
 
-        public Reply(String text, Map<String, String> attributes) {
+        Reply(String text, Map<String, String> attributes) {
             this.text = text;
             this.attributes = attributes;
         }
 
-        public String getText() {
+        String getText() {
             return text;
         }
 
-        public Map<String, String> getAttributes() {
+        Map<String, String> getAttributes() {
             return attributes;
         }
     }

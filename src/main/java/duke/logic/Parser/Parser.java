@@ -41,11 +41,22 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a formatted BigDecimal representing Money.
+     * @param string String we want to format
+     * @return a formatted BigDecimal representing Money.
+     * @throws DukeException
+     */
     public static BigDecimal parseMoney(String string) throws DukeException {
-        double amountDouble = Double.parseDouble(string);
-        BigDecimal amount = BigDecimal.valueOf(amountDouble);
-        BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_EVEN);
-        return scaledAmount;
+        try {
+            double amountDouble = Double.parseDouble(string);
+            BigDecimal amount = BigDecimal.valueOf(amountDouble);
+            BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_EVEN);
+            return scaledAmount;
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, string));
+        }
+
     }
 }
 
