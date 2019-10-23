@@ -1,5 +1,4 @@
 annie | 3
-lala | 1
+lala | 1 | 2 | 3
 justin
-test
 test

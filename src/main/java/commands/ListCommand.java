@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class ListCommand extends Command {
     private String line;
 
+    private String option;
+
+    private String memberIndex;
+
     /**
      * This is a class for command LIST, which list all the tasks in the task list.
      */

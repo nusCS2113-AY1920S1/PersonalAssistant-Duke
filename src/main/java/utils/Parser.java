@@ -167,9 +167,13 @@ public class Parser {
         } else if (splites[0].equals("REMOVE")) {
             temp = new MemberDeleteCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
-            temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
+            temp = new ViewScheCommand(splites[1]);
         } else if (splites[0].equals("CHECK")) {
-            temp = new CheckAnomaliesCommand();
+            if (length < 2) {
+                temp = new CheckAnomaliesCommand();
+            } else {
+                temp = new CheckAnomaliesCommand(splites[1]);
+            }
         } else if (splites[0].equals("MEMBER")) {
             if (length < 2) {
                 throw new DukeException("usage: member [name]");
