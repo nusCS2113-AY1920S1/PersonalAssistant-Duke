@@ -23,6 +23,8 @@ public class Commands {
             return new PatientFindCommand();
         case "new":
             return new NewPatientCommand();
+        case "discharge":
+            return new ReportCommand();
         default:
             return null;
         }
