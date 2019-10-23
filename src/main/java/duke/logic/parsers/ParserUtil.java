@@ -54,43 +54,40 @@ public class ParserUtil {
     }
 
     protected static RouteNode createRouteNode(String userInput) throws DukeException {
-        try {
-            String[] withinDetails = userInput.strip().split("at |with ", 2);
-            assert (withinDetails.length == 2);
-
-            String[] indexes = withinDetails[0].split(" ");
-
-            String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
-            assert (type.substring(0, 2) == "at" || type == "with");
-
-
-            String[] details;
-            Constraint constraint;
-
-            if (type.substring(0, 2).equals("at")) {
-                details = withinDetails[1].strip().split("by ");
-                switch (details[1].toUpperCase()) {
-                case "BUS":
-                    BusStop result = new BusStop(details[0].strip(), null, null, 0, 0);
-                    return result;
-                default:
-                    throw new DukeException(Messages.UNKNOWN_COMMAND);
-                }
-            } else {
-                details = withinDetails[1].split("by ");
-                String[] coordinateStrings = details[0].strip().split(" ");
-                assert (coordinateStrings.length == 2);
-
-                double[] coordinates = new double[2];
-                for (int i = 0; i < coordinates.length; i++) {
-                    coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
-                }
-            }
-
-            return null;
-        } catch (Throwable e) {
+        String[] withinDetails = userInput.strip().split("at |with ", 2);
+        if (withinDetails.length != 2) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
+
+        String[] indexes = withinDetails[0].split(" ");
+
+        String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
+        if (!(type.substring(0, 2).equals("at") || type.equals("with"))) {
+            throw new DukeException(Messages.INVALID_FORMAT);
+        }
+
+        String[] details;
+        if (type.substring(0, 2).equals("at")) {
+            details = withinDetails[1].strip().split("by ");
+            switch (details[1].toUpperCase()) {
+            case "BUS":
+                BusStop result = new BusStop(details[0].strip(), null, null, 0, 0);
+                return result;
+            default:
+                throw new DukeException(Messages.UNKNOWN_COMMAND);
+            }
+        } else {
+            details = withinDetails[1].split("by ");
+            String[] coordinateStrings = details[0].strip().split(" ");
+            assert (coordinateStrings.length == 2);
+
+            double[] coordinates = new double[2];
+            for (int i = 0; i < coordinates.length; i++) {
+                coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -136,7 +133,7 @@ public class ParserUtil {
             String[] indexStrings = userInput.split(" ", 2);
             if (indexStrings[0].strip().matches("-?(0|[1-9]\\d*)")) {
                 int index = Integer.parseInt(indexStrings[0].strip());
-                return index;
+                return index - 1;
             } else {
                 throw new DukeException(Messages.INVALID_FORMAT);
             }
@@ -156,7 +153,7 @@ public class ParserUtil {
             String[] indexStrings = userInput.split(" ", 3);
             if (indexStrings[1].strip().matches("-?(0|[1-9]\\d*)")) {
                 int index = Integer.parseInt(indexStrings[1].strip());
-                return index;
+                return index - 1;
             } else if (indexStrings[1].strip().equals("at")) {
                 throw new DukeEmptyFieldException("SECOND_INPUT");
             } else {

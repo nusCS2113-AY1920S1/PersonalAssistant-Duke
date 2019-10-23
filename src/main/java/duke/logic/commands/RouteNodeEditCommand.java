@@ -24,8 +24,8 @@ public class RouteNodeEditCommand extends Command {
      * @param val The value to assign
      */
     public RouteNodeEditCommand(int indexRoute, int indexNode, String var, String val) {
-        this.indexRoute = indexRoute - 1;
-        this.indexNode = indexNode - 1;
+        this.indexRoute = indexRoute;
+        this.indexNode = indexNode;
         this.var = var;
         this.val = val;
     }

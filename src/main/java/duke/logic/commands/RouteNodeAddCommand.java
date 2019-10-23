@@ -21,8 +21,8 @@ public class RouteNodeAddCommand extends Command {
      */
     public RouteNodeAddCommand(RouteNode node, int indexRoute, int indexNode, boolean isEmptyIndexNode) {
         this.node = node;
-        this.indexRoute = indexRoute - 1;
-        this.indexNode = indexNode - 1;
+        this.indexRoute = indexRoute;
+        this.indexNode = indexNode;
         this.isEmptyIndexNode = isEmptyIndexNode;
     }
 

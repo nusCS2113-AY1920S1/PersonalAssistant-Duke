@@ -1,7 +1,5 @@
 package duke.logic.parsers;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.logic.commands.AddCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.DeleteCommand;
@@ -21,7 +19,6 @@ import duke.logic.commands.RouteAddCommand;
 import duke.logic.commands.RouteDeleteCommand;
 import duke.logic.commands.RouteEditCommand;
 import duke.logic.commands.RouteListCommand;
-import duke.logic.commands.RouteNodeAddCommand;
 import duke.logic.commands.RouteNodeDeleteCommand;
 import duke.logic.commands.RouteNodeEditCommand;
 import duke.logic.commands.RouteNodeListCommand;
@@ -30,8 +27,6 @@ import duke.logic.commands.ViewScheduleCommand;
 import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
-import duke.model.locations.RouteNode;
-
 
 /**
  * Parser for commands entered by the user. It reads from standard input and
@@ -80,7 +75,7 @@ public class Parser {
         case "routeNodeAdd":
             return ParserUtil.createRouteNodeAddCommand(getWord(input));
         case "routeEdit":
-            return new RouteEditCommand(ParserUtil.getIndex(input), getEventIndexInList(1, input),
+            return new RouteEditCommand(ParserUtil.getFirstIndex(getWord(input)), getEventIndexInList(1, input),
                     getEventIndexInList(0, input));
         case "routeNodeEdit":
             return new RouteNodeEditCommand(ParserUtil.getFirstIndex(getWord(input)),
@@ -143,7 +138,7 @@ public class Parser {
      * @param userInput The userInput read by the user interface.
      * @return The word.
      */
-    static String getWord(String userInput) throws DukeException {
+    private static String getWord(String userInput) throws DukeException {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {

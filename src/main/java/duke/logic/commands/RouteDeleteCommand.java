@@ -8,7 +8,6 @@ import duke.model.lists.RouteList;
 
 public class RouteDeleteCommand extends Command {
     private int index;
-    private String name;
     private static final String MESSAGE_DELETION = "Got it. I've deleted this Route:\n  ";
 
     /**
@@ -29,10 +28,10 @@ public class RouteDeleteCommand extends Command {
     public CommandResultText execute(Model model) throws DukeException {
         try {
             RouteList routes = model.getRoutes();
-            name = routes.get(index).getName();
+            String routeName = routes.get(index).getName();
             routes.remove(index);
             model.save();
-            return new CommandResultText(MESSAGE_DELETION + name);
+            return new CommandResultText(MESSAGE_DELETION + routeName);
         } catch (IllegalArgumentException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         }

@@ -1,7 +1,6 @@
 package duke.model.transports;
 
 import duke.commons.Messages;
-import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
@@ -20,7 +19,7 @@ public class Route {
      * @param description The description of the route.
      */
     public Route(String name, String description) {
-        this.nodes = new ArrayList<RouteNode>();
+        this.nodes = new ArrayList<>();
         this.name = name;
         this.description = description;
     }
@@ -43,11 +42,6 @@ public class Route {
      * @param index The index of the node to add to.
      */
     public void addNode(RouteNode newNode, int index) throws DukeException {
-        System.out.println(nodes.size());
-        System.out.println(index);
-        System.out.println(index >= 0);
-        System.out.println(index < nodes.size());
-
         if (index >= 0 && index < nodes.size()) {
             for (RouteNode node : nodes) {
                 if (node instanceof BusStop && newNode instanceof BusStop

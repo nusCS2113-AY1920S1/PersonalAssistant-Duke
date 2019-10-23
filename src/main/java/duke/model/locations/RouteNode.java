@@ -53,11 +53,11 @@ public abstract class RouteNode extends Venue {
     }
 
     public void setLatitude(int latitude) {
-        this.setLatitude(latitude);
+        super.setLatitude(latitude);
     }
 
-    public void setLongitude(int latitude) {
-        this.setLatitude(latitude);
+    public void setLongitude(int longitude) {
+        super.setLongitude(longitude);
     }
 
     public void setAddress(String address) {

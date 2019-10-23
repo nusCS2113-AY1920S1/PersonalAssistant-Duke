@@ -23,8 +23,4 @@ public class TrainStation extends RouteNode {
     public ArrayList<String> getTrainCode() {
         return trainCode;
     }
-
-    public void fetchCoordinates() {
-
-    }
 }

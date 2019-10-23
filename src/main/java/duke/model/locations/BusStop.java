@@ -1,9 +1,7 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
-import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
