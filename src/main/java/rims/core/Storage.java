@@ -74,14 +74,15 @@ public class Storage {
     public ReservationList readReservationsFromReserveFile(String resource_id)
             throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(reservationFile);
-        ReservationList reservations = new ReservationList();
+        ReservationList tempreservations = new ReservationList();
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
             if (line[1].equals(resource_id)) {
                 Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4]);
-                reservations.addNewReservation(newReservation);
+                tempreservations.addNewReservation(newReservation);
             }
         }
+        ReservationList reservations = new ReservationList(tempreservations.getReservationList(), ui);
         return reservations;
     }
 

@@ -13,10 +13,6 @@ public class ReservationList {
         this.reservations = new ArrayList<Reservation>();
     }
 
-    public ReservationList(ArrayList<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-
     public ReservationList(ArrayList<Reservation> reservations, Ui ui) {
         this.reservations = reservations;
         this.ui = ui;
@@ -96,8 +92,10 @@ public class ReservationList {
         int index_to_remove = -1;
         for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).getReservationId() == reservationid) {
-                ui.ErrorPrint("The following reservation is removed\n");
+                ui.print("The following reservation is removed: ");
+                ui.printDashLine();
                 ui.print(reservations.get(i).toString());
+                ui.printDashLine();
                 index_to_remove = i;
                 break;
             }
