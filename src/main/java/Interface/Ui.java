@@ -71,6 +71,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the free time found with the template to be shown.
+     * @param message The free times found
+     * @return The output to be shown to the user
+     */
     public String showFreeTimes(String message){
         return ("You are available at: \n" + message);
     }

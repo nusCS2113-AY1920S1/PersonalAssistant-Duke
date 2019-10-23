@@ -44,7 +44,7 @@ import java.util.logging.Logger;
 public class MainWindow extends BorderPane implements Initializable {
     private static final String NO_FIELD = "void";
     @FXML
-    private Label currentTime;
+    private Text currentTime;
     @FXML
     private Label currentWeek;
     @FXML
@@ -106,7 +106,7 @@ public class MainWindow extends BorderPane implements Initializable {
             events = new ArrayList<>();
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
-            setClock();
+           // setClock();
             setWeek(true, NO_FIELD);
             displayQuoteOfTheDay();
 
@@ -120,7 +120,7 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
-
+            //seeList();
             setProgressContainer();
             setListView();
         } catch (NullPointerException e) {
@@ -149,6 +149,7 @@ public class MainWindow extends BorderPane implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     /**
      * This method creates the progress indicator for the different modules.
@@ -202,12 +203,12 @@ public class MainWindow extends BorderPane implements Initializable {
      * Animates the clock timer in MainWindow GUI.
      */
     private void setClock() {
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
-            currentTime.setText(LocalDateTime.now().format(formatter));
-        }), new KeyFrame(Duration.seconds(1)));
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
+//        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
+//            currentTime.setText(LocalDateTime.now().format(formatter));
+//        }), new KeyFrame(Duration.seconds(1)));
+//        clock.setCycleCount(Animation.INDEFINITE);
+//        clock.play();
     }
 
     /**
