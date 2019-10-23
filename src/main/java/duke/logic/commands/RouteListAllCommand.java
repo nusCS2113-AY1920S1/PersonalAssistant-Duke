@@ -3,6 +3,9 @@ package duke.logic.commands;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
+/**
+ * Class representing a command to list all Routes in RouteList.
+ */
 public class RouteListAllCommand extends Command {
     /**
      * Executes this command on the given Route List and user interface.

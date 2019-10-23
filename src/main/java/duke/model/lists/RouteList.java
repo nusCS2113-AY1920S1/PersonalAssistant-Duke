@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Class to manage and handle Route manipulation.
+ */
 public class RouteList implements Iterable<Route>, Listable<Route> {
     private List<Route> list;
 
@@ -35,8 +38,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     }
 
     /**
-     * Adds a Route to the list.
-     * The Task must not already exist in the list.
+     * Adds a unique Route to the list.
      */
     @Override
     public void add(Route toAdd) throws DukeException {
@@ -47,9 +49,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     }
 
     /**
-     * Replaces the Task {@code target} in the list with {@code editedTask}.
-     * {@code target} must exist in the list.
-     * The Task identity of {@code editedTask} must not be the same as another existing Task in the list.
+     * Replaces an existing Route with a new different Route.
      */
     public void setRoute(Route target, Route editedRoute) throws DukeException {
         int index = list.indexOf(target);
@@ -65,8 +65,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     }
 
     /**
-     * Removes the equivalent Task from the list.
-     * The Task must exist in the list.
+     * Removes an existing Route from the list.
      */
     public void remove(Route toRemove) throws DukeException {
         if (!list.remove(toRemove)) {
@@ -74,6 +73,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
         }
     }
 
+    /**
+     * Removes an existing Route from the list and returns it.
+     * @param index The index of the Route.
+     * @return route The queried Route.
+     */
     public Route remove(int index) throws IndexOutOfBoundsException {
         return list.remove(index);
     }
@@ -84,8 +88,8 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     }
 
     /**
-     * Replaces the contents of this list with {@code Tasks}.
-     * {@code Tasks} must not contain duplicate Tasks.
+     * Replaces the contents of this list with a list of Routes.
+     * @param routes The list of Routes to replace.
      */
     public void setRoutes(List<Route> routes) throws DukeException {
         if (!routesAreUnique(routes)) {
@@ -113,7 +117,7 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
     }
 
     /**
-     * Returns true if {@code Tasks} contains only unique Tasks.
+     * Returns true if all Routes in list are unique.
      */
     private boolean routesAreUnique(List<Route> routes) {
         for (int i = 0; i < routes.size() - 1; i++) {

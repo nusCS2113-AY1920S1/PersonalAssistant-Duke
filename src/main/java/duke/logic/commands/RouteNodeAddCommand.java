@@ -7,6 +7,10 @@ import duke.model.Model;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 
+
+/**
+ * Class representing a command to add a RouteNode to RouteList.
+ */
 public class RouteNodeAddCommand extends Command {
     private RouteNode node;
     private int indexRoute;

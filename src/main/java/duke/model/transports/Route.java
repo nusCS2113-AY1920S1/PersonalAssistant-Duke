@@ -46,11 +46,11 @@ public class Route {
             for (RouteNode node : nodes) {
                 if (node instanceof BusStop && newNode instanceof BusStop
                         && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
-                    throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+                    throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
                 }
                 if (node instanceof TrainStation && newNode instanceof TrainStation
                         && ((TrainStation) node).getTrainCode().equals(((TrainStation) newNode).getTrainCode())) {
-                    throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+                    throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
                 }
             }
             nodes.add(index, newNode);
@@ -68,11 +68,11 @@ public class Route {
         for (RouteNode node: nodes) {
             if (node instanceof BusStop && newNode instanceof BusStop
                     && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
-                throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+                throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
             }
             if (node instanceof TrainStation && newNode instanceof TrainStation
                     && ((TrainStation) node).getTrainCode().equals(((TrainStation) newNode).getTrainCode())) {
-                throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+                throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
             }
         }
 

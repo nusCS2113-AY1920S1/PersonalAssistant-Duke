@@ -6,6 +6,9 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.lists.RouteList;
 
+/**
+ * Class representing a command to delete a Route from RouteList.
+ */
 public class RouteDeleteCommand extends Command {
     private int index;
     private static final String MESSAGE_DELETION = "Got it. I've deleted this Route:\n  ";
@@ -32,7 +35,7 @@ public class RouteDeleteCommand extends Command {
             routes.remove(index);
             model.save();
             return new CommandResultText(MESSAGE_DELETION + routeName);
-        } catch (IllegalArgumentException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         }
     }

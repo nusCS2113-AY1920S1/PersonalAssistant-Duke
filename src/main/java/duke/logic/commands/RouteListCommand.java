@@ -5,6 +5,9 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
+/**
+ * Class representing a command to list a given Route in RouteList.
+ */
 public class RouteListCommand extends Command {
     private int index;
 

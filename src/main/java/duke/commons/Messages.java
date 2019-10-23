@@ -17,7 +17,7 @@ public class Messages {
     public static final String CORRUPTED_ROUTE_NODE = "✇ Route Node cannot be converted to String! :-(";
     public static final String DUPLICATED_TASK = "✇ Task already exists! :-(";
     public static final String DUPLICATED_ROUTE = "✇ Route already exists! :-(";
-    public static final String DUPLICATED_ROUTENODE = "✇ Node already exists! :-(";
+    public static final String DUPLICATED_ROUTE_NODE = "✇ Node already exists! :-(";
     public static final String TASK_NOT_FOUND = "☢ Task not found! :-(";
     public static final String ROUTE_NOT_FOUND = "☢ Route not found! :-(";
     public static final String ANOMALY_FOUND = "⚡ Anomaly detected! Please check your tasks. :-(";

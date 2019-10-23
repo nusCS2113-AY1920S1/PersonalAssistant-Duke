@@ -6,6 +6,9 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.transports.Route;
 
+/**
+ * Class representing a command to delete a RouteNode from RouteList.
+ */
 public class RouteNodeDeleteCommand extends Command {
     private int indexRoute;
     private int indexNode;

@@ -6,23 +6,26 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 import duke.model.transports.Route;
 
+/**
+ * Class representing a command to edit a Route in RouteList.
+ */
 public class RouteEditCommand extends Command {
     private int index;
-    private String var;
-    private String val;
-    private static final String MESSAGE_SUCCESS = "Edited the Route!\n  ";
+    private String field;
+    private String newValue;
+    private static final String MESSAGE_SUCCESS = "Edited the Route!\n";
 
     /**
      * Creates a new RouteEditCommand with the given parameters.
      *
      * @param index The index of Route in RouteList.
-     * @param var The variable of Route to edit.
-     * @param val The value to assign
+     * @param field The variable of Route to edit.
+     * @param newValue The value to assign
      */
-    public RouteEditCommand(int index, String var, String val) {
+    public RouteEditCommand(int index, String field, String newValue) {
         this.index = index;
-        this.var = var;
-        this.val = val;
+        this.field = field;
+        this.newValue = newValue;
     }
 
     /**
@@ -34,12 +37,12 @@ public class RouteEditCommand extends Command {
     public CommandResultText execute(Model model) throws DukeException {
         try {
             Route route = model.getRoutes().get(index);
-            switch (var.toLowerCase()) {
+            switch (field.toLowerCase()) {
             case "name":
-                route.setName(val);
+                route.setName(newValue);
                 break;
             case "description":
-                route.setDescription(val);
+                route.setDescription(newValue);
                 break;
             default:
                 throw new DukeException(Messages.UNKNOWN_VAR);
