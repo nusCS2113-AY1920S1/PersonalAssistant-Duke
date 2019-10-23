@@ -1,9 +1,7 @@
 T | 1 | this stupid assignment | 0
 D | 1 | this project | 0 | 18/09/2019 1159
-E | 0 | fly | 0 | 29/10/2019 1100
-D | 0 | homework | 0 | 25/09/2019 1100
-E | 0 | homework | 0 | 25/09/2019 1100
-D | 0 | homework5 | 0 | 25/09/2019 1100
-T | 0 | jump | 0
-E | 0 | jumphigher | 0 | 03/10/2019 1120
-D | 0 | testing | 0 | 11/11/2019 1010
+D | 1 | homework | 0 | 25/09/2019 1100
+E | 1 | jumphigher | 0 | 03/10/2019 1120
+D | 1 | testing | 0 | 11/11/2019 1010
+T | 1 | Push this to github | 0
+T | 0 | tutorial | 0

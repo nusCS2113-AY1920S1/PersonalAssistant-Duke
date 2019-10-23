@@ -1,6 +1,5 @@
 lala | 1 | 3
 yy
 hh
-haha
 testname | 7
 annie | 3
