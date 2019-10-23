@@ -58,7 +58,6 @@ public class Storage {
      */
     public ArrayList<Task> loadTaskList() {
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Task.tasks = tasks;
         try {
             is = new FileInputStream(taskDataFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -66,6 +65,7 @@ public class Storage {
             while ((line = br.readLine()) != null) {
                 tasks.add(Parser.taskDataLine(line));
             }
+            Task.tasks = tasks;
             br.close();
             is.close();
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class Storage {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = br.readLine()) != null) {
-                members.add(Parser.memberDataLine(line, tasks));
+                members.add(Parser.memberDataLine(line));
             }
             br.close();
             is.close();

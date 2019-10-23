@@ -27,6 +27,11 @@ public class UnlinkCommand extends Command {
 
             for (int i = 0; i < members.size(); i++) {
                 if (members.get(i).getName().equals(memberName)) {
+
+                    ArrayList<Member> pics = tasks.get(indexInList - 1).getPics();
+                    pics.remove(members.get(i));
+                    tasks.get(indexInList - 1).setPics(pics);
+
                     members.get(i).removeTask(indexInList);
                     storage.storeMemberList(members);
                     Ui.print("Task " + indexInList + " is successfully removed from " + memberName);

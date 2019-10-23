@@ -103,7 +103,7 @@ public class Parser {
      * @param line a line of String to be parsed, without \n last
      * @return a Member. Member object produced by the input line
      */
-    public static Member memberDataLine(String line, ArrayList<Task> tasks) {
+    public static Member memberDataLine(String line) {
         String[] splites = line.split(" \\| ");
         String name = splites[0].trim();
         int numOfTaskInCharge = splites.length - 1;
@@ -111,7 +111,7 @@ public class Parser {
         for (int i = 0; i < numOfTaskInCharge; i++) {
             tasksInChargeIndex.add(Integer.parseInt(splites[1 + i].trim()));
         }
-        return new Member(name, tasksInChargeIndex, tasks);
+        return new Member(name, tasksInChargeIndex);
     }
 
     /**

@@ -18,7 +18,6 @@ public class Member {
 
     public ArrayList<Task> tasksInCharge;
 
-    public ArrayList<Task> tasks;
 
     /**
      * constructor
@@ -35,14 +34,17 @@ public class Member {
      * @param name name of the member
      * @param tasksInChargeIndex the array list stores the index(s) of in charge task(s)
      */
-    public Member(String name, ArrayList<Integer> tasksInChargeIndex, ArrayList<Task> tasks) {
+    public Member(String name, ArrayList<Integer> tasksInChargeIndex) {
         this.name = name;
         this.tasksInChargeIndex = tasksInChargeIndex;
         this.tasksInCharge = new ArrayList<Task>();
-        this.tasks = tasks;
+        ArrayList<Member> pics = new ArrayList<Member>();
         for (int i = 0; i < tasksInChargeIndex.size(); i++) {
             int index = tasksInChargeIndex.get(i);
-            tasksInCharge.add(tasks.get(index - 1));
+            tasksInCharge.add(Task.tasks.get(index - 1));
+            pics = Task.tasks.get(index - 1).getPics();
+            pics.add(this);
+            Task.tasks.get(index - 1).setPics(pics);
         }
     }
 
@@ -72,7 +74,7 @@ public class Member {
 
     public void setTask(int indexInList) {
         tasksInChargeIndex.add(indexInList);
-        tasksInCharge.add(tasks.get(indexInList - 1));
+        tasksInCharge.add(Task.tasks.get(indexInList - 1));
     }
 
     /**
@@ -83,7 +85,7 @@ public class Member {
         for (int i = 0; i < tasksInChargeIndex.size(); i++) {
             if (tasksInChargeIndex.get(i) == indexInList) {
                 tasksInChargeIndex.remove(i);
-                tasksInCharge.remove(tasks.get(indexInList - 1));
+                tasksInCharge.remove(Task.tasks.get(indexInList - 1));
             }
         }
     }
@@ -113,7 +115,7 @@ public class Member {
     public void updateIndex() {
         tasksInChargeIndex.clear();
         for (int i = 0; i < tasksInCharge.size(); i++) {
-            tasksInChargeIndex.add(tasks.indexOf(tasksInCharge.get(i)) + 1);
+            tasksInChargeIndex.add(Task.tasks.indexOf(tasksInCharge.get(i)) + 1);
         }
     }
 }
