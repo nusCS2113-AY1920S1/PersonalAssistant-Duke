@@ -1,11 +1,11 @@
 package commands;
 
-import EPstorage.ProfileCommands;
+
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 import object.MovieInfoObject;
 
-import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class GetCommand extends CommandSuper {
     }
 
     /**
-     * prints out a list of recommendations based on the users preferences
+     * prints out a list of recommendations based on the users set preferences
      * @throws IOException: file was not able to be found
      */
     public void ExecuteRecommendationCommand() {

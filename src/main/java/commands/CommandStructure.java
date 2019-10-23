@@ -71,6 +71,10 @@ public class CommandStructure {
         put(COMMANDKEYS.get , new COMMANDKEYS[]{
                 COMMANDKEYS.recommendation
         });
+
+        put(COMMANDKEYS.watchlist , new COMMANDKEYS[]{
+                COMMANDKEYS.add,  COMMANDKEYS.set,  COMMANDKEYS.delete
+        });
     }};
 
 
