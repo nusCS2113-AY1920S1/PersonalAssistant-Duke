@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class ReportCommand extends ArgCommand {
     // TODO: save the reports as pdf's instead
-    // TODO: crete better looking and more detailed reports
 
     @Override
     protected ArgSpec getSpec() {
@@ -22,11 +21,11 @@ public class ReportCommand extends ArgCommand {
         if(core.patientMap.patientExist(getArg())){
             String patientsName = core.patientMap.getPatient(getArg()).getName();
             String patientsBenNo = core.patientMap.getPatient(getArg()).getBedNo();
-            File reportFile = new File("reports" + File.separator + patientsName + "-" + patientsBenNo + ".txt");
             try {
                 FileWriter fileWriter = new FileWriter("reports" + File.separator + patientsName + "-" + patientsBenNo + ".txt");
-                System.out.println("NU SKA EN RAPPORT SKAPAS");
-                fileWriter.write("hej");
+                fileWriter.write("\tDischarged Patient Report for " + patientsName + ".\n\n");
+                if(getSwitchVal("summary") != null){ fileWriter.write("Report Summary/Note: " + getSwitchVal("summary") + ".\n\n"); }
+                fileWriter.write(core.patientMap.getPatient(getArg()).toReportString());
                 fileWriter.close();
             }
             catch(IOException e){
