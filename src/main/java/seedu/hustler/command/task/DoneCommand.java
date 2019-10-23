@@ -5,6 +5,7 @@ import seedu.hustler.command.Command;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.parser.ParserForCommand;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.schedule.Scheduler;
 
 /**
  * Command to do task in list.
@@ -37,5 +38,6 @@ public class DoneCommand extends Command {
         ParserForCommand doneParser = new ParserForCommand("done");
         int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
         Hustler.list.doTask(taskIndex);
+        Scheduler.remove(Hustler.list.get(taskIndex));
     }
 }

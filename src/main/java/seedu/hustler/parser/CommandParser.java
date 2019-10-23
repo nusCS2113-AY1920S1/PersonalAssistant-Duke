@@ -1,14 +1,19 @@
 package seedu.hustler.parser;
 
 import seedu.hustler.command.Command;
+import seedu.hustler.command.achievementCommand.AchievementCommand;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
+import seedu.hustler.command.avatar.EquipCommand;
 import seedu.hustler.command.avatar.SetNameCommand;
+import seedu.hustler.command.schedulecommands.AddEntry;
+import seedu.hustler.command.schedulecommands.RemoveEntry;
+import seedu.hustler.command.schedulecommands.UpdateEntry;
 import seedu.hustler.command.shop.BuyCommand;
+import seedu.hustler.command.shop.InventoryCommand;
 import seedu.hustler.command.shop.ShopListCommand;
 import seedu.hustler.command.task.*;
 import seedu.hustler.command.timer.*;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;
 
 /**
@@ -65,7 +70,7 @@ public class CommandParser extends Parser {
             return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar") && userInput[1].equals("stats")) {
             return new CheckAvatarCommand();
-        } else if (userInput[0].equals("/avatar") && userInput[1].contains("setname")) {
+        } else if (userInput[0].equals("/avatar") && userInput[1].equals("setname")) {
             CommandLog.recordCommand(rawInput);
             return new SetNameCommand(userInput);
         } else if (userInput[0].equals("/achievement")) {
@@ -87,6 +92,10 @@ public class CommandParser extends Parser {
             return new ShowTimerCommand();
         } else if (userInput[0].equals("/shop")) {
             return new ShopListCommand();
+        } else if (userInput[0].equals("/inventory")) {
+            return new InventoryCommand();
+        } else if (userInput[0].equals("/equip")) {
+            return new EquipCommand(Integer.parseInt(userInput[1]));
         } else if (userInput[0].equals("/buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
@@ -95,6 +104,12 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
+        } else if (userInput[0].equals("/remove"))  {
+            return new RemoveEntry(userInput);
+        } else if (userInput[0].equals("/update")) {
+            return new UpdateEntry(userInput);
+        } else if (userInput[0].equals("/addFromList")) {
+            return new AddEntry(userInput);
         } else if (userInput[0].equals("/sort")) {
             return new SortCommand(userInput[1]);
         } else if (userInput[0].equals("/bye")) {

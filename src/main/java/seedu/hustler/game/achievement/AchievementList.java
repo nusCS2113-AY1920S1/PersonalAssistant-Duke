@@ -13,10 +13,14 @@ import static seedu.hustler.game.achievement.DoneTask.*;
  * Also prints out achievement list.
  */
 public class AchievementList {
+
     /**
      * List of all unlocked and locked achievements.
      */
     public static ArrayList<Achievements> achievementList = new ArrayList<>();
+
+
+    private ArrayList<Achievements> listAchievement = new ArrayList<>();
 
     /**
      * When user first starts Hustler, Hustler will create a list of locked achievements.
@@ -43,6 +47,18 @@ public class AchievementList {
         return achievementList;
     }
 
+    private ArrayList<Achievements> populate() {
+
+
+
+        return listAchievement;
+    }
+
+    public ArrayList<Achievements> update() {
+
+        return listAchievement;
+    }
+
     /**
      * Checks if user meets any condition of achievement for Busybee.
      * Unlocks Busybee achievements accordingly.
@@ -57,6 +73,7 @@ public class AchievementList {
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
             }
         }
+
         return achievementList;
     }
 
@@ -99,26 +116,27 @@ public class AchievementList {
      */
     public static void showList() {
         System.out.println("\uD83D\uDD13 ACHIEVEMENTS UNLOCKED \uD83D\uDD13");
-        if (!achievementList.isEmpty()) {
+        if(!achievementList.isEmpty()) {
             int l = 0;
-            for (int i = 0; i < achievementList.size(); i++) {
-                if (!achievementList.get(i).checkLock()) {
-                    l++;
+            for(int i = 0; i < achievementList.size(); i ++) {
+                if(!achievementList.get(i).checkLock()) {
+                    l ++;
                     System.out.print(l + ". ");
                     System.out.println(achievementList.get(i));
                 }
             }
             System.out.println("\uD83D\uDD12 LOCKED ACHIEVEMENTS \uD83D\uDD12");
             int j = 0;
-            for (int i = 0; i < achievementList.size(); i++) {
-                if (achievementList.get(i).checkLock()) {
-                    j++;
+            for(int i = 0; i < achievementList.size(); i ++) {
+                if(achievementList.get(i).checkLock()) {
+                    j ++;
                     System.out.print(j + ". ");
                     System.out.println(achievementList.get(i));
                 }
             }
             System.out.println("Total Points = " + totalPoints + " \uD83D\uDCB0");
         }
+
     }
 
     public static ArrayList<Achievements> createCopy() {

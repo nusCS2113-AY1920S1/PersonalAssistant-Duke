@@ -65,7 +65,7 @@ public class Level implements Convertible {
      * @return the current level.
      */
     public Level levelUp() {
-        return new Level(this.level++, this.xp);
+        return new Level(this.level + 1, this.xp);
     }
 
     /**

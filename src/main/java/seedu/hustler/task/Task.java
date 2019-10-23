@@ -149,6 +149,15 @@ public abstract class Task {
         return this.description.equals(temp.description);
     }
 
+    /**
+     * Checks whether the task has been completed.
+     *
+     * @return task completed or not
+     */
+    public boolean isCompleted() {
+        return this.isDone;
+    }
+
     public abstract LocalDateTime getDateTime();
 
     public abstract void setDateTime(LocalDateTime localDateTime);

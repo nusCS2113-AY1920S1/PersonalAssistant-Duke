@@ -181,6 +181,7 @@ public class AddTask extends Achievements {
      * @param lock Lock condition.
      * @return true or false.
      */
+    @Override
     public Boolean setLock(Boolean lock) {
         locked = lock;
         return locked;

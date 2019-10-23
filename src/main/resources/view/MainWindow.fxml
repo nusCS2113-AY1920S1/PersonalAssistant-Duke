@@ -69,7 +69,7 @@
       </GridPane>
       <AnchorPane fx:id="stack" minWidth="100.0" prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;">
          <children>
-            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" TASK" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e; -fx-background-image: ../../../../images/notDone.png;" text=" TASK" textFill="#95a5a6" wrapText="true">
                <font>
                   <Font name="Helvetica Neue" size="13.0" />
                </font>
@@ -199,6 +199,6 @@
             <FlowPane fx:id="flowPane" prefHeight="466.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" />
          </content>
       </ScrollPane>
-      <FlowPane fx:id="welcomeScreen" layoutX="176.0" layoutY="91.0" prefHeight="45.0" prefWidth="414.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0" />
+      <FlowPane fx:id="welcomeScreen" layoutX="176.0" layoutY="91.0" prefHeight="45.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0" />
     </children>
 </AnchorPane>
