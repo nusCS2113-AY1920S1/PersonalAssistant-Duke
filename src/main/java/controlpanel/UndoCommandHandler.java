@@ -1,8 +1,7 @@
 package controlpanel;
 
 import moneycommands.MoneyCommand;
-
-import java.util.ArrayDeque;
+import moneycommands.UndoCommand;
 
 public class UndoCommandHandler {
     private static MoneyCommand lastIssuedCommand;
@@ -11,6 +10,9 @@ public class UndoCommandHandler {
     }
     public void updateLastIssuedCommands(MoneyCommand c) {
         lastIssuedCommand = c;
+        if (c.getClass().equals(UndoCommand.class)) {
+            lastIssuedCommand = null;
+        }
     }
     public MoneyCommand getLastIssuedCommand() throws DukeException {
         if (lastIssuedCommand == null) {
