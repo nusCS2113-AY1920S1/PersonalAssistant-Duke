@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: screenshots
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -66,18 +66,30 @@ Our integration approach would be bottom-up, since we are morphing the original 
 
 The high-level UML Diagram of ModPlan can be seen below:
 
+image::Architecture.png[]
 
+In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
 
 
 === JsonWrapper
 
 The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing and Natty for relative date processing. Dependant on Storage class for writing data files obtained.
 
+image::JsonWrapper.png[width="350"]
+
+This class is also dependant on a RequestsData class which serves as the main API caller for ModPlanner, but it is not used anywhere else in the code base.
+
 === Storage
 
 Main class which handles file writing during runtime and for maintaining user data in memory.
 
+image::Storage.png[width="350"]
+
+This class was adapted from the existing Duke storage to suit the needs of ModPlanner.
+
 === Parser
+
+
 
 === PlannerUi
 
