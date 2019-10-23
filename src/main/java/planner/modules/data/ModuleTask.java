@@ -1,7 +1,7 @@
 package planner.modules.data;
 
 import planner.exceptions.original.ModBadGradeException;
-import planner.exceptions.original.ModBadSUException;
+import planner.exceptions.original.ModBadSuException;
 import planner.modules.inherited.Task;
 
 public class ModuleTask extends Task {
@@ -29,7 +29,7 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed.getGrade();
     }
 
-    public void setGrade(String letterGrade) throws ModBadSUException, ModBadGradeException {
+    public void setGrade(String letterGrade) throws ModBadSuException, ModBadGradeException {
         moduleInfoDetailed.setGrade(letterGrade);
     }
 

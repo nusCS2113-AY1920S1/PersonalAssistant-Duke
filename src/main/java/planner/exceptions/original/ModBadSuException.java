@@ -1,6 +1,6 @@
 package planner.exceptions.original;
 
-public class ModBadSUException extends ModException {
+public class ModBadSuException extends ModException {
 
     @Override
     public String getMessage() {

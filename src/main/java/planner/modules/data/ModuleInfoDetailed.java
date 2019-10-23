@@ -1,11 +1,10 @@
 package planner.modules.data;
 
 import planner.exceptions.original.ModBadGradeException;
-import planner.exceptions.original.ModBadSUException;
+import planner.exceptions.original.ModBadSuException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ModuleInfoDetailed {
 
@@ -20,7 +19,8 @@ public class ModuleInfoDetailed {
     private Attributes attributes = new Attributes();
     private String grade = "";
     private ExamInfo[] semesterData;
-    private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D+", "D", "F", "S", "U"));
+    private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
+        "B-", "C+", "C", "D+", "D", "F", "S", "U"));
 
 
     public String getModuleCode() {
@@ -70,7 +70,7 @@ public class ModuleInfoDetailed {
     /**
      * Checks if module is S/U-able, and assigns grade based on String score.
      */
-    public void setGrade(String score) throws ModBadGradeException, ModBadSUException {
+    public void setGrade(String score) throws ModBadGradeException, ModBadSuException {
         if (!validGrades.contains(score)) {
             throw new ModBadGradeException();
         }
@@ -78,7 +78,7 @@ public class ModuleInfoDetailed {
             if (this.attributes.isSu()) {
                 this.grade = score;
             } else {
-                throw new ModBadSUException();
+                throw new ModBadSuException();
             }
         }
         this.grade = score;
