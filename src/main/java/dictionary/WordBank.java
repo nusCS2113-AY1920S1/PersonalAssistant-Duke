@@ -50,7 +50,6 @@ public class WordBank extends Bank {
     /**
      * Deletes a word with a specific description.
      * @param word string represents a word to be deleted
-     * @return the word itself
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
     @Override
