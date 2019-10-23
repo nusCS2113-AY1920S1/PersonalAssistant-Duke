@@ -19,7 +19,7 @@ public class TypoCorrector {
     private static final String[] simpleCommands = {"bye", "duke", "help", "list patients", "list tasks"};
     private static final String[] otherCommands = {"update patient", "update task", "delete patient",
         "delete task", "delete assigned task", "add task", "add patient", "find patient", "find task",
-        "find patient tasks", "assign deadline task", "assign event task"};
+        "find assigned task", "assign deadline task", "assign event task"};
 
     /**
      * This method take in an user input command with typo and return a possible matches
