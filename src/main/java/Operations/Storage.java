@@ -150,7 +150,7 @@ public class Storage {
                 String date = convertForStorage(s);
                 String recurrence = s.getRecurrenceSchedule().toString();
                 String user = s.getUser();
-                if (type.contains("A")) {
+                if (s instanceof Assignment) {
                         out =   type + "#" +
                                 isDone + "#" +
                                 priority + "#" +
@@ -169,7 +169,7 @@ public class Storage {
                             }
                         }
                         out += "#";
-                } else if (type.contains("M")){
+                } else if (s instanceof Meeting){
                     if (((Meeting) s).isFixedDuration()) {
                         String duration = ((Meeting) s).getDuration();
                         String unit = ((Meeting) s).getTimeUnit().toString();
@@ -203,7 +203,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            throw new RoomShareException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.writeError);
         }
     }
 

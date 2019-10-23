@@ -122,20 +122,6 @@ public class Ui {
     }
 
     /**
-     * tells the user that there is an error in writing the data.txt file.
-     */
-    public void showWriteError() {
-        System.out.println("Error in writing file, cancelling write process...");
-    }
-
-    /**
-     * tells the user that the index specified doesn't exist
-     */
-    public void showIndexError() {
-        System.out.println("Index you've entered doesn't exist, try with another index!");
-    }
-
-    /**
      * Tells the user that an invalid command has been input into RoomShare.
      */
     public void showCommandError() {
@@ -159,16 +145,9 @@ public class Ui {
     }
 
     /**
-     * Tells the user to input valid amount of time
-     */
-    public void showTimeError() {
-        System.out.println("Please indicate a valid amount of time");
-    }
-
-    /**
      * Provides user with instructions to prioritise task
      */
-    public void priority() {
+    public void priorityInstruction() {
         System.out.println("Enter task index followed by priority (high, medium, low)");
         System.out.println("\te.g. 1 high");
     }
@@ -191,5 +170,9 @@ public class Ui {
     public void helpList() {
         System.out.println("Here are a list of commands you can input: \n add \n list \n find \n delete \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
+    }
+
+    public void showError(Exception e){
+        System.out.println(e);
     }
 }
