@@ -306,20 +306,21 @@ Step 5)
 
 // end::dataencryption[]
 
-// === 3.3. Logging
+=== 3.2. Logging
 
-// We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `org.apache.logging.log4j` package for logging. The `DukeLogger` class under `Utility` layer is used for
+logging every step that ArchDuke takes so that debugging will be easier.
 
-// * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-// * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-// * Currently log messages are output through: `Console` and to a `.log` file.
-
-// *Logging Levels*
-
-// * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-// * `WARNING` : Can continue, but with caution
-// * `INFO` : Information showing the noteworthy actions by the App
-// * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+//* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+//* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+//* Currently log messages are output through: `Console` and to a `.log` file.
+//
+//*Logging Levels*
+//
+//* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+//* `WARNING` : Can continue, but with caution
+//* `INFO` : Information showing the noteworthy actions by the App
+//* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 // [[Implementation-Configuration]]
 // === 3.4. Configuration
