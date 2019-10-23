@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 
 public class Duke  {
     private static Ui ui;
-    private static Storage storage;
     private static ProgressStack progressStack;
     private static boolean isCliMode = true;
 
+    public static Storage storage;
     public static Profile profile;
     public static boolean isFirstTimeUser;
     public static String userName;

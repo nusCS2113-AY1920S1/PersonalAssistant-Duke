@@ -274,8 +274,8 @@ public class MainWindow extends AnchorPane {
     private void handleResetConfirmation() throws DukeException {
         if (input.equals("yes")) {
             //resets
-            Profile.resetProfile();
-            Storage.resetStorage();
+            duke.profile.resetProfile();
+            duke.storage.resetStorage();
             duke.profile = new Profile();
             duke.userProgress = duke.profile.getTotalProgress();
             duke.userName = duke.profile.getUsername();
