@@ -32,7 +32,7 @@ class CommandWindow extends UiElement<Region> {
     @FXML
     private VBox messageContainer;
     @FXML
-    private TextField inputTextField;
+    private AutoCompleteTextField inputTextField;
     @FXML
     private Button sendButton;
 
