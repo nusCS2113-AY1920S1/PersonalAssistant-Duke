@@ -34,22 +34,18 @@ public class Lesson {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         String message = "";
-        boolean hasLesson = false;
         for (Date d : lessons.keySet()) {
             if (d.equals(today)) {
-                if (!lessons.get(d).isEmpty()) {
-                    hasLesson = true;
+                if (lessons.get(d).isEmpty()) {
+                    return "There is no lesson learnt for the day";
+                } else {
                     for (String str : lessons.get(d)) {
                         message += str + "\n";
                     }
                 }
             }
         }
-        if (!hasLesson) {
-            return "There is no lesson learnt for the day";
-        } else {
-            return message;
-        }
+        return message;
     }
 
     /**

@@ -2,6 +2,8 @@ package duke.Parser;
 import duke.Ui;
 
 import java.io.FileNotFoundException;
+
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class ParserCommand implements IParser {
@@ -38,7 +40,6 @@ public class ParserCommand implements IParser {
                     String trainingInput = sc.nextLine();
                     parserTrainingPlan.parseCommand(trainingInput);
                     break;
-
                 default:
                     System.out.println("\u2639 OOPS!!! I'm sorry,"
                             + "but I don't know what that means :-(");
