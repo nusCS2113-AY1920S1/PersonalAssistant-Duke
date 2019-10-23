@@ -74,11 +74,11 @@ public class Executor {
             break;
 
         case IN:
-            c = new CommandIncome(userInput);
+            c = new CommandAddIncomeReceipt(userInput);
             break;
 
         case OUT:
-            c = new CommandSpending(userInput);
+            c = new CommandAddSpendingReceipt(userInput);
             break;
             
         case HELP:
@@ -97,8 +97,17 @@ public class Executor {
             c = new CommandDisplayExpenditure();
             break;
 
+            //Create Tasks
+        case DEADLINE:
+        case TODO:
+        case EVENT:
+        case RECUR:
+        case FDURATION:
+            c = new CommandNewTask(userInput, commandType);
+            break;
+
         default:
-            c = new CommandNewTask(userInput);
+            c = new CommandError();
             break;
         }
         return c;

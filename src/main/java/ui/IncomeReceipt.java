@@ -1,16 +1,16 @@
 package ui;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class IncomeReceipt extends Receipt {
 
     // Constructors
-    public IncomeReceipt(Double cashGained, Date date, ArrayList<String> tags) {
+    public IncomeReceipt(Double cashGained, LocalDate date, ArrayList<String> tags) {
         super(-cashGained, date, tags);
     }
 
-    public IncomeReceipt(Double cashGained, Date date) {
+    public IncomeReceipt(Double cashGained, LocalDate date) {
         super(-cashGained, date);
     }
 
