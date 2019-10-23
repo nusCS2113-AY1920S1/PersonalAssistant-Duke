@@ -134,6 +134,11 @@ public class Farmer {
         }
     }
 
+    public void nextDay(Farmio farmio) throws FarmioException, FarmioFatalException {
+
+    }
+
+
     public JSONObject toJSON(){
         JSONObject obj = new JSONObject();
         obj.put("level", level);
