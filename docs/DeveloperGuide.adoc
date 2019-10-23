@@ -126,19 +126,48 @@ to string and vice-versa has to be handled within that class. This pattern reduc
 - The one situation which breaks this rule is when `loadData` is done on a file that doesn't exist yet.
 In the current version, a default `UserStats` object is returned. Ideally this will be changed for the final version.
 
-[[Design-Statistics]]
-=== Statistics component
+[[Design-UserData]]
+=== Stats component
 
-.Structure of the Statistics Component
-image::StorageClassDiagram.png[]
+.Structure of the Stats Component
+image::StatsClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `UserStats` component,
+The Stats component defines what data is stored permanently. It includes information about the user, and the
+statistics for each chapter (such as correct answer %, number of attempts).
 
-* can save `UserPref` objects in text format and read it back.
-* can save the quiz data in text format and read it back.
-* can save all the previous user attempts of the quiz and read it back.
+[discrete]
+==== Relationship between Stats and `Storage`
+The `Storage` component is used to store
+this data permanently and retrieve it from storage later. An instance of `UserStats` is used to hold
+and modify the data during runtime.
+
+[discrete]
+==== Description of the classes
+* `ChapterStat` holds the statistics about the quiz attempts for that chapter, such as answer %, and number of attempts.
+* `UserStats` holds an ArrayList of `ChapterStat` s, one for each chapter. It also holds some additional information
+about the user, such as name, gender.
+
+[discrete]
+==== How to handle storage
+Each class has a `toString` method that converts the data in that object to a string representation that can be
+stored in the text file. If the name of your `UserStats` instance is `userStats`, pass
+ `userStats.toString()` as the parameter to `Storage.saveData()`.
+
+Similarly, each class has a static `parseString()` to convert a string to the object. Pass the result of
+`Storage.loadData()` to `UserStats.parseString()` to get the `UserStats` object.
+
+Note that `ChapterStat` has its own `parseString` and `toString` methods which are used by the corresponding `UserStats`
+methods. This is done so increase modularity.
+
+IMPORTANT: When editing the `toString` method, make sure to edit the corresponding `parseString` method (and vice-versa)
+
+[discrete]
+==== How to use `UserStats`
+* Use the `currentChapter` object to hold stats for the current chapter while it is being played. Afterwards,
+use `saveCurrentChapterToChapterData` to transfer the relevant data from `currentChapter` to the appropriate
+element in the `chapterData` ArrayList.
 
 == Implementation
 
