@@ -46,6 +46,9 @@ public class Parser {
             c=reader.ReadReserveCommand(ui);
 
         }
+        else if (words[0].equals("cal") && words.length == 1) {
+            CalendarCommand.printCal();
+        }
         else if (words[0].equals("return")) {
             if (words[1].equals("/item")) {
                 int itemIndex = input.indexOf("/item") + 6;
