@@ -1,12 +1,14 @@
 package duke.task;
 
 import duke.Duke;
+import duke.storage.Printable;
+
 import java.util.Date;
 
 /**
  * Represents a general Task to be added by {@link Duke}.
  */
-public abstract class Task {
+public abstract class Task implements Printable {
 
     private String description;
     private boolean isDone;
@@ -24,7 +26,6 @@ public abstract class Task {
 
     public abstract Date getCurrentDate();
 
-    public abstract String printInFile();
 
     /**
      * Returns a String representation of the status icon, indicating whether the {@link Task} was done.

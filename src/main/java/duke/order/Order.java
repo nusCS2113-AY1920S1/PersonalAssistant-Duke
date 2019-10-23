@@ -1,20 +1,22 @@
 package duke.order;
 
+import duke.dish.Dish;
 import duke.Duke;
 import duke.exception.DukeException;
 import duke.parser.Convert;
-import duke.task.Dish;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
  * Represents a general Order to be added by {@link Duke}.
  */
 public class Order {
-    private Map<Integer, Integer> content;  //first int is dishNb, second is dishAmount
+    private Map<Dish, Integer> content;
     private boolean isDone;
     private Date date;
-    private String name;
 
     /**
      * The constructor method for {@link Order}.
@@ -23,18 +25,16 @@ public class Order {
         this.isDone = false;
         this.date = new Date();
         this.content = new HashMap<>();
-        this.name = "";
     }
 
     /**
      * The constructor method for the {@link Order} in reservation case.
      * @param date date of serving the {@link Order}.
      */
-    public Order(String date, String name) {
+    public Order(String date) {
         this.date = (date=="")? new Date():Convert.stringToDate(date);
         this.isDone = false;
         this.content = new HashMap<>();
-        this.name = name;
     }
 
     /**
@@ -43,24 +43,34 @@ public class Order {
     public Date getDate() { return this.date;}
 
     /**
-     * Used to get the customer name of the {@link Order}.
-     */
-    public String getCustomerName() { return this.name;}
-
-    /**
      * Used to alter the serving date of the {@link Order}.
      * @param date reset date of the {@link Order}.
      */
-    public void setDate(String date) {
-        this.date = Convert.stringToDate(date);
+    public void setDate(String date) throws DukeException {
+        try {
+            Date setDate = Convert.stringToDate(date);
+            Date todayDate = new Date();
+            if (setDate.before(todayDate)) {
+                throw new DukeException("Date invalid!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
-     * Used to alter the serving date of the {@link Order}.
-     * @param name reset customer name of the reservation {@link Order}.
+     * Returns a boolean indicating whether the serving date of the {@link Order}
+     * is today or not.
+     * @return boolean true if it is today's order, false otherwise (i.e., pre-order)
      */
-    public void setCustomerName(String name) {
-        this.name = name;
+    public boolean isToday() {
+        LocalDate todayDate = LocalDate.now();
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDate orderDate = instant.atZone(zoneId).toLocalDate();
+        if (todayDate==orderDate) return true;
+        return false;
     }
 
     /**
@@ -68,6 +78,13 @@ public class Order {
      * @return boolean true if the order was marked as done, false otherwise
      */
     public boolean isDone() { return isDone; }
+
+    /**
+     * Used to mark the {@link Order} as finished.
+     */
+    public void markAsDone() {
+        this.isDone = true;
+    }
 
     /**
      * Returns a String representation of the status icon, indicating whether the {@link Order} was done.
@@ -79,90 +96,98 @@ public class Order {
 
     /**
      * Returns the content of the {@link Order}.
-     * Write the content into file.
      * @return content of the Order
      */
-    public Map<Integer, Integer> getOrder() { return this.content; }
-
-    public String printInFile() {
-        String desc;
-        if (this.isDone()) { desc = "O|1|" + this.date + "|" + this.name; }
-        else { desc = "O|0|" + this.date + "|" + this.name; }
-        for (Map.Entry<Integer, Integer> entry : content.entrySet()) {
-            int DishNb = entry.getKey();
-            int DishAmount = entry.getValue();
-            desc += "\nD|" + DishAmount + "|" + DishNb;
-        }
-        return desc;
-    }
+    public Map<Dish, Integer> getOrderContent() { return this.content; }
 
     /**
-     * Returns the content of the {@link Order}.
-     * Show the content to the user/customer.
-     * @return content of the Order
+     * Returns the content of the {@link Order}
+     * that will be print out as a msg.
+     * @return content of the Order as a string
      */
     public String toString() {
-        String description = "[" + getStatusIcon() + "] ";
-        if (this.date!=new Date()) {
-            description += "Preorder under "+ this.name + " on " + this.date;
-        }else {
-            description += "Order Today";
-        }
-        for (Map.Entry<Integer, Integer> entry : content.entrySet()) {
-            try {
-                int DishNb = entry.getKey();
-                String DishName = getDishName(DishNb);
-                int DishAmount = entry.getValue();
-                description += "\n" + DishAmount + DishName;
-            } catch (DukeException e) {
-                e.printStackTrace();
-            }
+        String description;
+//        description = "["+this.getStatusIcon()+"] Order at " + this.date + ": ";
+        description = "["+this.getStatusIcon()+"] ";
+        if (this.isToday()) description += "Order today: ";
+        else description += "Order at " + this.date + ": ";
+        for (Map.Entry<Dish, Integer> entry : content.entrySet()) {
+            Dish dish = entry.getKey();
+            int amount = entry.getValue();
+            description += "\n"+"    - " + amount + " \u2718 " + dish.getDishname();
         }
         return description;
     }
 
-    public double getTotalPrice() {
-        //To do
-        //link the price with DishNb s.t. can calculate total price
-        int unitPrice = 1;
-
-        double total = 0;
-        for (Map.Entry<Integer, Integer> entry : content.entrySet()) {
-            int DishNb = entry.getKey();
-            int DishAmount = entry.getValue();
-            total += DishAmount*unitPrice;
+    /**
+     * Returns the content of the {@link Order}
+     * that will be write into a txt file.
+     * @return content of the Order as a string
+     */
+    public String printInFile() {
+        String description;
+        if (this.isDone()) { description = "O|1|" + this.date; }
+        else { description = "O|0|" + this.date; }
+        for (Map.Entry<Dish, Integer> entry : content.entrySet()) {
+            Dish dish = entry.getKey();
+            int amount = entry.getValue();
+            description += "\nD|" +dish.getDishname() + "|" + amount;
         }
-        return total;
-    }
-
-    public void addDish(int dishNb, int amount) {
-        this.content.put(dishNb, amount);
+        return description;
     }
 
     /**
-     * Used to mark the {@link Order} as finished.
+     * Returns a boolean indicating whether the {@link Order} has that dishes.
+     * @return boolean true if the order has that dishes, false otherwise.
      */
-    public void markAsDone() {
-        this.isDone = true;
+    public boolean hasDishes(Dish dishes) { return content.containsKey(dishes); }
+
+    /**
+     * Returns the amount of the dishes ordered in the {@link Order}
+     * @param dishes dishes
+     * @return dishes amount
+     */
+    public int getDishesAmount(Dish dishes) {
+        if (this.hasDishes(dishes)) {
+            return content.get(dishes);
+        } else {return 0; }
     }
 
-    public String getDishName(int dishNb) throws DukeException {
-        try {
-            switch (dishNb) {
-                case 1: return "Beef Noodle";
-                case 2: return "Pork Dumplings";
-                case 3: return "Chili Crab";
-                case 4: return "Cereal Prawn";
-                case 5: return "Laksa";
-                case 6: return "Chicken Rice";
-                case 7: return "Seasonal Vegetables";
-                default:
-                    throw new DukeException("No corresponding dishes in today's menu!");
+    /**
+     * Add dishes to the undone {@link Order}. By default,
+     * add one more if not specifying the amount.
+     * If the dishes is not found in the {@link Order},
+     * simply add a new element in the content map.
+     * If the order is done, do nothing.
+     */
+    public void addDish(Dish dishes){
+        if (!this.isDone())
+            if (!this.hasDishes(dishes)) {
+                content.put(dishes, 1);
+            } else {
+                int oldAmount = this.getDishesAmount(dishes);
+                content.put(dishes, oldAmount+1);
             }
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return "";
+    }
+
+    /**
+     * Add dishes to the undone {@link Order}
+     * If the dishes is not found in the {@link Order},
+     * simply add a new element in the content map.
+     * If the order is done, do nothing.
+     */
+    public void addDish(Dish dishes, int addAmount){
+        if (!this.isDone())
+            if (!content.containsKey(dishes)) {
+                content.put(dishes, addAmount);
+            } else {
+                int oldAmount = content.get(dishes);
+                content.put(dishes, oldAmount+addAmount);
+            }
     }
 
 }
+
+
+
+

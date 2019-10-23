@@ -2,8 +2,14 @@ package duke.order;
 
 import duke.Duke;
 import duke.exception.DukeException;
+
+import duke.list.GenericList;
+import duke.dish.Dish;
 import duke.parser.Convert;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,63 +17,31 @@ import java.util.List;
 /**
  * Represents a list of {@link Order}s added by {@link Duke}.
  */
-public class OrderList {
-    private List<Order> orderList;
+public class OrderList extends GenericList<Order> {
 
     /**
      * The constructor method(1) for OrderList.
      */
-    public OrderList(List<Order> orderList) {
-        this.orderList = orderList;
+    public OrderList() {
+        super();
     }
 
     /**
      * The constructor method(2) for OrderList.
      */
-    public OrderList() {
-        this.orderList = new ArrayList<>();
+    public OrderList(List<Order> orderList) {
+        super(orderList);
     }
 
-    /**
-     * Adds a order to the {@link OrderList}.
-     * @param order {@link Order} to be added to the list
-     */
-    public void addOrder(Order order) {
-        orderList.add(order);
-    }
-
-    /**
-     * Returns the number of {@link Order}s in the {@link OrderList} so far.
-     * @return an integer indicating the size of the list of {@link Order}s stored
-     */
-    public int size() {
-        return orderList.size();
-    }
 
     /**
      * Marks a order as completed if the user finished it.
      * @param orderNb the number of the {@link Order} in the {@link OrderList} that was completed
      */
     public void markOrderDone(int orderNb) {
-        orderList.get(orderNb).markAsDone();
+        genList.get(orderNb).markAsDone();
     }
 
-    /**
-     * Returns the {@link Order} at the position indicated by the orderNb.
-     * @param orderNb the position of the {@link Order} requested in the {@link OrderList}
-     * @return the requested {@link Order}
-     */
-    public Order getOrder(int orderNb) {
-        return orderList.get(orderNb);
-    }
-
-    /**
-     * Returns a list of all the {@link Order}s in the {@link OrderList}.
-     * @return  {@link ArrayList} of {@link Order}
-     */
-    public List<Order> getAllOrders() {
-        return orderList;
-    }
 
     /**
      * Returns a list of all the undone {@link Order}s in the {@link OrderList}.
@@ -75,35 +49,111 @@ public class OrderList {
      * @return  {@link ArrayList} of {@link Order}
      */
     public List<Order> getAllUndoneOrders() {
-        List<Order> udOrderList = null;
-        for (Order order : orderList) {
-            if (!order.isDone()) { udOrderList.add(order); }
+        List<Order> undoneOrderList = null;
+        for (Order order : genList) {
+            if (!order.isDone()) {
+                undoneOrderList.add(order);
+            }
         }
-        return udOrderList;
+        return undoneOrderList;
     }
+
     /**
-     * Returns the removed {@link Order} from position orderNb in the {@link OrderList}.
-     * @param orderNb the position of the {@link Order} to be removed from the {@link OrderList}
-     * @return Order the order list with the order removed
+     * Returns a list of all the {@link Order}s today in the {@link OrderList}.
+     * @return  {@link ArrayList} of {@link Order}
      */
-    public Order removeOrder(int orderNb) {
-        return orderList.remove(orderNb);
+    public List<Order> getTodayOrders() {
+        List<Order> todayOrderList = null;
+        for (Order order : genList) {
+            if (order.isToday()) { todayOrderList.add(order); }
+        }
+        return todayOrderList;
     }
 
-    public void changeOrderDate(int orderNb, String date) throws DukeException {
-        Date newDate = Convert.stringToDate(date);
-        //If set date is before today
-        if (newDate.before(new Date())) {
-            throw new DukeException("Invalid Date!");
-        }else { orderList.get(orderNb).setDate(date); }
+    /**
+     * Returns a list of all the {@link Order}s on some date in the {@link OrderList}.
+     * @return  {@link ArrayList} of {@link Order}
+     */
+    public List<Order> findOrderByDate(String s) {
+        List<Order> theOrderList = null;
+
+        Date queryDate = Convert.stringToDate(s);
+        LocalDate qDate = queryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate orderDate;
+
+        for (Order order : genList) {
+            orderDate = order.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (orderDate.isEqual(qDate)) { theOrderList.add(order); }
+        }
+
+        return theOrderList;
     }
 
-    public void changeOrderName(int orderNb, String name) {
-        orderList.get(orderNb).setCustomerName(name);
+    /**
+     * Returns a list of all the {@link Order}s containing some dishes in the {@link OrderList}.
+     * @return  {@link ArrayList} of {@link Order}
+     */
+    public List<Order> findOrderByDishes(Dish dish) {
+        List<Order> theOrderList = null;
+        for (Order order : genList) {
+            if (order.hasDishes(dish)) { theOrderList.add(order); }
+        }
+        return theOrderList;
     }
 
-    public void addOrderDish(int orderNb, int dishNb, int amount) {
-        orderList.get(orderNb).addDish(dishNb, amount);
+    /**
+     * Returns a list of all the undone {@link Order}s today
+     * in the {@link OrderList}.
+     * @return  {@link ArrayList} of {@link Order}
+     */
+    public List<Order> getTodayUndoneOrders() {
+        List<Order> todayOrderList = null;
+        for (Order order : genList) {
+            if (order.isToday()&&(!order.isDone())) {
+                todayOrderList.add(order);
+            }
+        }
+        return todayOrderList;
+    }
+
+    /**
+     * Used to alter the serving date of the {@link Order}.
+     * @param orderNb order index
+     * @param newDate reset date of the {@link Order}.
+     * @throws DukeException if the date is before the date today.
+     */
+    public void changeOrderDate(int orderNb, String newDate) throws DukeException {
+        genList.get(orderNb).setDate(newDate);
+    }
+
+    /**
+     * Add dishes to the {@link Order}.
+     * Add one more if not specifying the amount.
+     * @param orderNb order index
+     * @param dish dishes
+     */
+    public void addOrderDish(int orderNb, Dish dish) {
+        genList.get(orderNb).addDish(dish);
+    }
+
+    /**
+     * Add dishes to the {@link Order}.
+     * @param orderNb order index
+     * @param dish dishes
+     * @param amount add amount of that dishes
+     */
+    public void addOrderDish(int orderNb, Dish dish, int amount) {
+        genList.get(orderNb).addDish(dish, amount);
+    }
+
+    /**
+     * Find dishes amount in the {@link Order}.
+     * @param orderNb order index
+     * @param dishes dishes
+     * @return the amount of that dishes
+     */
+    public int findDishesAmount(int orderNb, Dish dishes) {
+        return genList.get(orderNb).getDishesAmount(dishes);
     }
 
 

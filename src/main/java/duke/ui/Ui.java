@@ -86,6 +86,16 @@ public class Ui {
     }
 
     /**
+     * Show the order that has been changed serving date.
+     * @param date the newly set date for serving the order
+     * @param changedOrder the order that has been changed
+     */
+    public void showOrderChangedDate(String date, String changedOrder) {
+        System.out.println("\t Nice! I've changed the order at " + date + ":");
+        System.out.println("\t " + changedOrder);
+    }
+
+    /**
      * Show the size of the list.
      * @param size the size
      */
@@ -108,9 +118,9 @@ public class Ui {
         if (size == 1) {
             System.out.print(" order");
         } else {
-            System.out.print(" orderss");
+            System.out.print(" orders");
         }
-        System.out.println(" in the list.");
+        System.out.println(" in the order list.");
     }
     /**
      * Shows that a task has been added.
@@ -153,5 +163,17 @@ public class Ui {
         System.out.println("\t Noted. I've removed this order:");
         System.out.println("\t " + removed);
         showOrderListSize(size);
+    }
+
+    public void showAddedDishes(String dish, int Nb) {
+        System.out.println("\t you have added the following dish: ");
+        System.out.println("\t " + dish + " \tamount: " + Nb);
+    }
+    public void showDishes(String Dish, int Nb) {
+        System.out.println(Dish + "\t orders: " + Nb);
+    }
+    public void showDeletedDIsh(String dish) {
+        System.out.println("\t The following dish have been removed:");
+        System.out.println("\t " + dish);
     }
 }
