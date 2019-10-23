@@ -62,7 +62,7 @@ Format: `add module MOD_CODE`
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
-* Example: `add CG2028`
+* Example: `add module CG2028`
 ****
 
 ==== Adding CCA : `add cca`
@@ -176,9 +176,9 @@ Format: `clear modules`
 Clears and empties the list of modules being added. +
 Format: `clear ccas`
 
-=== Rescheduling CCA : `scheduleCca`
+=== Adding schedule to a CCA : `scheduleCca`
 
-Reschedules a CCA which is added. +
+Add additional schedule to a CCA which was added. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 
 === Exiting the program : `bye`
