@@ -69,8 +69,45 @@ public class Executor {
             c = new CommandSchedule(userInput);
             break;
 
+        case SORT:
+            c = new CommandSort(userInput);
+            break;
+
+        case IN:
+            c = new CommandAddIncomeReceipt(userInput);
+            break;
+
+        case OUT:
+            c = new CommandAddSpendingReceipt(userInput);
+            break;
+            
+        case HELP:
+            c = new CommandHelp();
+            break;
+            
+        case SETBALANCE:
+            c = new CommandUpdateBalance(userInput);
+            break;
+
+        case BALANCE:
+            c = new CommandDisplayBalance();
+            break;
+
+        case EXPENSES:
+            c = new CommandDisplayExpenditure();
+            break;
+
+            //Create Tasks
+        case DEADLINE:
+        case TODO:
+        case EVENT:
+        case RECUR:
+        case FDURATION:
+            c = new CommandNewTask(userInput, commandType);
+            break;
+
         default:
-            c = new CommandNewTask(userInput);
+            c = new CommandError();
             break;
         }
         return c;

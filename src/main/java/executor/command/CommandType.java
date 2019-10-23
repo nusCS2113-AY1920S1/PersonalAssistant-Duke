@@ -1,7 +1,8 @@
 package executor.command;
 
 public enum CommandType {
-    TASK, BYE, LIST, BLANK, FIND, DELETE, DONE, QUEUE, VIEWSCHEDULE, REMINDER, BALANCE;
+    TASK, BYE, LIST, BLANK, FIND, DELETE, DONE, QUEUE, VIEWSCHEDULE, REMINDER, BALANCE, SORT, IN, OUT, SETBALANCE,
+    EXPENSES, HELP, DEADLINE, EVENT, TODO, RECUR, FDURATION;
 
     /**
      * Constructor for 'CommandType' enum.

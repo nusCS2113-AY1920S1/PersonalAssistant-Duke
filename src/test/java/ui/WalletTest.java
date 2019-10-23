@@ -3,6 +3,7 @@ package ui;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class WalletTest {
@@ -15,13 +16,15 @@ public class WalletTest {
         Receipt receiptA = new Receipt(5.00);
         wallet.addReceipt(receiptA);
         assertEquals(false, wallet.isReceiptsEmpty());
-        assertEquals(wallet.getReceipts().get(0), receiptA);
+        assertEquals(receiptA, wallet.getReceipts().get(0));
+        assertEquals(5.00, wallet.getTotalExpenses());
 
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         Receipt receiptB = new Receipt(12.00, date);
         wallet.addReceipt(receiptB);
-        assertEquals(wallet.getReceipts().get(0), receiptA);
-        assertEquals(wallet.getReceipts().get(1), receiptB);
+        assertEquals(receiptA, wallet.getReceipts().get(0));
+        assertEquals(receiptB, wallet.getReceipts().get(1));
+        assertEquals(17.00, wallet.getTotalExpenses());
 
     }
 }

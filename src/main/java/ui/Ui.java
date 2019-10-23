@@ -107,10 +107,26 @@ public class Ui {
     /**
      * Prints Welcome Message.
      */
-    private static void printWelcomeMsg() {
+    private void printWelcomeMsg() {
         printSeparator();
         System.out.println(LOGO); // Logo
         dukeSays("Hello! I'm Duke.\nDuke: What can I do for you?");
+        printUserBalance();
+        printUserExpenses();
         printSeparator();
+    }
+
+    /**
+     * Prints the User's Current Balance.
+     */
+    private void printUserBalance() {
+        Interpreter.interpret(this.taskList, this.wallet, "balance");
+    }
+
+    /**
+     * Prints the User's Current Expenses.
+     */
+    private void printUserExpenses() {
+        Interpreter.interpret(this.taskList, this.wallet, "expenses");
     }
 }
