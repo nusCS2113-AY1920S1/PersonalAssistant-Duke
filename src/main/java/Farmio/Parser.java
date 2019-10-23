@@ -5,8 +5,6 @@ import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
-import javax.swing.plaf.multi.MultiSeparatorUI;
-
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         System.out.println(stage.name());
@@ -91,8 +89,9 @@ class Parser {
             return parseDoTask(userInput);
         } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
             return parseConditionalTask(userInput);
-        }
-        throw new FarmioException("Invalid command!");
+        } else if (userInput.equals(""))
+            return new CommandTasksNull();
+        return new CommandTasksNull("Invalid command!");
     }
 
     private static Command parseTaskDelete(String userInput) throws FarmioException {

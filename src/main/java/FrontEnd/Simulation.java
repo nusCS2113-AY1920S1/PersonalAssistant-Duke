@@ -5,10 +5,11 @@ import Farmio.Farmio;
 import Farmio.Farmer;
 import Farmio.Storage;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Simulation {
-    private static final int FRAME_PER_SECOND = 2;
+    private static final int SLEEP_TIME = 400;
     private Farmio farmio;
     private Storage storage;
     private Ui ui;
@@ -22,13 +23,16 @@ public class Simulation {
     public void animate(String framePath, int frameId, boolean isFullscreen) throws FarmioFatalException {
         refresh();
         if (isFullscreen) {
-            ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, 103, 22)));
+            ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, GameConsole.FULL_CONSOLE_WIDTH,
+                    GameConsole.FULL_CONSOLE_HEIGHT)));
         } else {
-            ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer, farmio.getLevel().getGoals()));
+            ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, GameConsole.FRAME_SECTION_WIDTH,
+                    GameConsole.FRAME_SECTION_HEIGHT), farmer, farmio.getLevel().getGoals()));
         }
     }
 
-    public void animate(String framePath, int startFrame, int endFrame, boolean isFullscreen) throws FarmioFatalException {
+    public void animate(String framePath, int startFrame, int endFrame, boolean isFullscreen)
+            throws FarmioFatalException {
         for(int i =  startFrame; i <= endFrame; i ++) {
             animate(framePath, i, isFullscreen);
         }
@@ -36,7 +40,8 @@ public class Simulation {
 
     public void animate(String framePath, int frameId) throws FarmioFatalException {
         refresh();
-        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer, farmio.getLevel().getGoals()));
+        ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, GameConsole.FRAME_SECTION_WIDTH,
+                GameConsole.FRAME_SECTION_HEIGHT), farmer, farmio.getLevel().getGoals()));
     }
 
     public void animate(String framePath, int startFrame, int endFrame) throws FarmioFatalException {
@@ -59,7 +64,7 @@ public class Simulation {
         ui = farmio.getUi();
         farmer = farmio.getFarmer();
         try {
-            TimeUnit.MILLISECONDS.sleep((int) (1000 / FRAME_PER_SECOND) );
+            TimeUnit.MILLISECONDS.sleep(SLEEP_TIME);
             ui.clearScreen();
         } catch (InterruptedException e) {
             ui.clearScreen();

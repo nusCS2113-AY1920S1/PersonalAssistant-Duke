@@ -1,0 +1,7 @@
+         VALUE                  BOOLEAN
+______________________________________________________
+ greaterThanOrEquals | hasSeeds, hasWheat, hasGrain
+ greaterThan         |          
+ lessThan            |          
+ lessThanOrEquals    |
+ 
