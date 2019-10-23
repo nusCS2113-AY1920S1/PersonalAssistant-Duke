@@ -4,11 +4,12 @@ import duke.command.Command;
 import duke.command.DukeCommand;
 import duke.command.ExitCommand;
 import duke.core.DukeException;
-import duke.storage.CounterStorage;
+import duke.storage.StorageManager;
 
 import java.util.Map;
 
 //@@author qjie7
+
 /**
  * This is a Counter class that mainly used for counting purpose
  * which can then to be used for relevant application.
@@ -30,22 +31,22 @@ public class Counter {
     /**
      * This function is used to run the command counter.
      *
-     * @param command        the command type that is being processed
-     * @param counterStorage get the counterStorage object
+     * @param command the command type that is being processed
      * @param counter get the Counter object
      * @author QIAN JIE
      * @version 1.3
      */
 
-    public void runCommandCounter(Command command, CounterStorage counterStorage,
+    public void runCommandCounter(Command command, StorageManager storageManager,
                                   Counter counter) throws DukeException {
         if (!(command instanceof ExitCommand || command instanceof DukeCommand)) {
             String commandName = command.getClass().getSimpleName();
 
             int count = commandTable.containsKey(commandName)
                     ? commandTable.get(commandName) : 0;
+
             commandTable.put(commandName, count + 1);
-            counterStorage.save(counter.getCommandTable());
+            storageManager.saveCounters(counter.getCommandTable());
         }
 
     }

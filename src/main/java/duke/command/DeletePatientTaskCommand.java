@@ -1,22 +1,14 @@
 package duke.command;
 
-import duke.core.DateTimeParser;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
-import duke.relation.EventPatientTask;
 import duke.relation.PatientTask;
-import duke.relation.StandardPatientTask;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
-import duke.task.Task;
+import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DeletePatientTaskCommand extends Command {
@@ -54,14 +46,12 @@ public class DeletePatientTaskCommand extends Command {
      * @param tasks .
      * @param patientManager .
      * @param ui .
-     * @param patientTaskStorage .
-     * @param taskStorage .
-     * @param patientStorage .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasks, PatientManager patientManager, Ui ui,
-                        PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage)
+                        StorageManager storageManager)
             throws DukeException {
         if (patientId != 0) {
             try {
@@ -69,7 +59,7 @@ public class DeletePatientTaskCommand extends Command {
                 for (PatientTask patientTask: patientTaskList.getPatientTask(patientId)) {
                     if (patientTask.getUid() == taskId) {
                         patientTaskList.deletePatientTaskByUniqueId(taskId);
-                        patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                        storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
                         ui.patientTaskDeleted(patientTask, toBeDeletedPatient);
                     }
                 }
@@ -85,7 +75,7 @@ public class DeletePatientTaskCommand extends Command {
                 for (PatientTask patientTask: toBeDeleted) {
                     if (patientTask.getUid() == taskId) {
                         patientTaskList.deletePatientTaskByUniqueId(taskId);
-                        patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                        storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
                         ui.patientTaskDeleted(patientTask, patientsWithSameName.get(0));
                     }
                 }

@@ -1,15 +1,11 @@
 package duke.command;
 
 import duke.core.DukeException;
-import duke.patient.PatientManager;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.relation.PatientTaskList;
-import duke.storage.TaskStorage;
-import duke.task.TaskManager;
 import duke.core.Ui;
+import duke.patient.PatientManager;
+import duke.relation.PatientTaskList;
+import duke.storage.StorageManager;
+import duke.task.TaskManager;
 
 /**
  * Represents a command to exit Duke. The command.ExitCommand class
@@ -43,8 +39,7 @@ public class ExitCommand extends Command {
      * @param patientList object that handles local text file update
      */
     public void execute(PatientTaskList patientTask, TaskManager tasks,
-                        PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage,
-                        TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+                        PatientManager patientList, Ui ui, StorageManager storageManager) throws DukeException {
         ui.exitInformation();
     }
 }

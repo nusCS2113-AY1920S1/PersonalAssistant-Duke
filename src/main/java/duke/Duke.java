@@ -1,19 +1,15 @@
 package duke;
 
 import duke.command.Command;
-import duke.command.DukeCommand;
-import duke.core.DukeException;
 import duke.core.CommandManager;
+import duke.core.DukeException;
 import duke.core.ShortCutter;
-import duke.patient.PatientManager;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
-import duke.relation.PatientTaskList;
-import duke.task.TaskManager;
 import duke.core.Ui;
+import duke.patient.PatientManager;
+import duke.relation.PatientTaskList;
+import duke.statistic.Counter;
+import duke.storage.StorageManager;
+import duke.task.TaskManager;
 
 
 /**
@@ -25,10 +21,7 @@ public class Duke {
      * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
      */
-    private TaskStorage taskStorage;
-    private PatientStorage patientStorage;
-    private PatientTaskStorage patientTaskStorage;
-    private CounterStorage counterStorage;
+    private StorageManager storageManager;
     /**
      * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
@@ -37,7 +30,6 @@ public class Duke {
     private TaskManager taskManager;
     private PatientManager patientManager;
     private Counter counter;
-    private ShortCutter shortCutter;
 
     /**
      * A Ui object that deals with interactions with the user.
@@ -52,17 +44,13 @@ public class Duke {
      *                 used for storing tasks.
      */
     public Duke(String filePath) {
-        taskStorage = new TaskStorage(filePath + "/standardTasks.csv");
-        patientStorage = new PatientStorage(filePath + "/patients.csv");
-        patientTaskStorage = new PatientTaskStorage(filePath + "/patientsTasks.csv");
-        counterStorage = new CounterStorage(filePath + "/counter.csv");
+        storageManager = new StorageManager(filePath);
 
         try {
-            patientTaskList = new PatientTaskList(patientTaskStorage.load());
-            taskManager = new TaskManager(taskStorage.load());
-            patientManager = new PatientManager(patientStorage.load());
-            counter = new Counter(counterStorage.load());
-            shortCutter = new ShortCutter(counter, ui);
+            patientTaskList = new PatientTaskList(storageManager.loadAssignedTasks());
+            taskManager = new TaskManager(storageManager.loadTasks());
+            patientManager = new PatientManager(storageManager.loadPatients());
+            counter = new Counter(storageManager.loadCommandFrequency());
 
         } catch (DukeException e) {
             ui.showLoadingError();
@@ -83,17 +71,10 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
-                if (c instanceof DukeCommand) {
-                    Command command = shortCutter.runShortCut();
-                    command.execute(patientTaskList, taskManager, patientManager,
-                            ui, patientTaskStorage, taskStorage, patientStorage);
-                } else {
-                    c.execute(patientTaskList, taskManager, patientManager,
-                            ui, patientTaskStorage, taskStorage, patientStorage);
-                    counter.runCommandCounter(c, counterStorage, counter);
-                    isExit = c.isExit();
-                }
-
+                c.execute(patientTaskList, taskManager, patientManager,
+                    ui, storageManager);
+                counter.runCommandCounter(c, storageManager, counter);
+                isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {

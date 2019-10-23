@@ -4,14 +4,10 @@ import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.PatientManager;
 import duke.relation.EventPatientTask;
-import duke.relation.StandardPatientTask;
-import duke.statistic.Counter;
-import duke.storage.CounterStorage;
-import duke.storage.PatientStorage;
-import duke.storage.PatientTaskStorage;
-import duke.storage.TaskStorage;
 import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
+import duke.relation.StandardPatientTask;
+import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
 public class AssignTaskToPatientCommand extends Command {
@@ -38,15 +34,12 @@ public class AssignTaskToPatientCommand extends Command {
      * @param tasksList          .
      * @param patientList        .
      * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
+     * @param storageManager .
      * @throws DukeException .
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList,
-                        Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
-                        PatientStorage patientStorage) throws DukeException {
+                        Ui ui, StorageManager storageManager) throws DukeException {
 
         char firstChar = taskAssignmentInfo[1].charAt(0);
 
@@ -93,7 +86,7 @@ public class AssignTaskToPatientCommand extends Command {
                 throw new DukeException("Either the unique task id is repeated or the same task exists");
             } else {
                 patientTaskList.addPatientTask(newPatientTask);
-                patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
                 ui.patientTaskAssigned(newPatientTask, patientList.getPatient(newPatientTask.getPatientId()).getName(),
                         tasksList.getTask(newPatientTask.getTaskID()).getDescription());
             }
