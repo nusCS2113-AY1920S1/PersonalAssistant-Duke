@@ -239,7 +239,7 @@ public class Parser {
             String formattedInput = parsedInput[1].trim();
             return formattedInput;
         } catch (Exception e) {
-            throw new DukeException("Please use the `find assigned tasks :<patient name> or #<patient id>` format.");
+            throw new DukeException("Please use the `find assigned task :<patient name> or #<patient id>` format.");
         }
     }
 }
