@@ -1,6 +1,7 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
+import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -13,7 +14,7 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author x3chillax
  */
-public class ViewCommand extends Cmd<TaskList> {
+public class ViewCommand extends Cmd<Task> {
 
     private Date toView;
 
@@ -22,11 +23,11 @@ public class ViewCommand extends Cmd<TaskList> {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(GenericList<Task> taskList, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         try {
-            for (Task task : taskList.getAllTasks()) {
+            for (Task task : taskList.getAllEntries()) {
                 if ((task.getCurrentDate()).equals(toView)) {
                     //TODO: needs work on this part. comparing of time use Date always takes into account time 0000
                     sb.append("\t ").append(i++).append(".").append(task.toString());

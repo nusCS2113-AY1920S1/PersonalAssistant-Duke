@@ -1,21 +1,24 @@
-package duke.Dishes;
+package duke.dish;
+
+import duke.ingredient.Ingredient;
+import duke.ingredient.IngredientsList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dishes {
+public class Dish {
 
     private String dishname;
     private int total = 0;
     private float rating = 0;
-    private List<String> ingredientsList;
+    private IngredientsList ingredientsList;
 
-    public Dishes(String name) {
+    public Dish(String name) {
         this.dishname = name;
-        this.ingredientsList = new ArrayList<>();
+        this.ingredientsList = new IngredientsList();
     }
 
-    public Dishes() {
+    public Dish() {
         //
     }
 
@@ -43,8 +46,8 @@ public class Dishes {
         return rating;
     }
 
-    public void addIngredients(String ingredients) {
-        ingredientsList.add(ingredients);
+    public void addIngredients(Ingredient ingredients) {
+        ingredientsList.addEntry(ingredients);
     }
 
     public String toString() {

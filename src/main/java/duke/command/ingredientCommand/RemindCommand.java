@@ -2,7 +2,9 @@ package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -14,14 +16,14 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author 9hafidz6
  */
-public class RemindCommand extends Cmd<TaskList> {
+public class RemindCommand extends Cmd<Task> {
 
     public RemindCommand() {
         //An empty constructor method
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Task> taskList, Ui ui, Storage storage) throws DukeException {
         int num = 1;
         LocalDate date = LocalDate.now();
         LocalDate date1 = date.plusDays(5);
@@ -34,10 +36,10 @@ public class RemindCommand extends Cmd<TaskList> {
         } else {
             System.out.println("These are your Tasks in the next 5 days");
             for (int a = 0; a < taskList.size(); a++) {
-                Date taskDate = taskList.getTask(a).getCurrentDate();
+                Date taskDate = ((Task)taskList.getEntry(a)).getCurrentDate();
 
                 if ((isWithinRange(taskDate, endDate, startDate))) {
-                    System.out.println(num + ": " + taskList.getTask(a).toString());
+                    System.out.println(num + ": " + taskList.getEntry(a).toString());
                     num++;
                 }
             }

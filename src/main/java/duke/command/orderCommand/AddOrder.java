@@ -2,6 +2,7 @@ package duke.command.orderCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.order.Order;
 import duke.order.OrderList;
 import duke.storage.Storage;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
-public class AddOrder extends Cmd<OrderList> {
+public class AddOrder extends Cmd<Order> {
 
     private Order order;
 
@@ -38,7 +39,7 @@ public class AddOrder extends Cmd<OrderList> {
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(OrderList orderList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Order> orderList, Ui ui, Storage storage) throws DukeException {
 
         printStartMsg(ui);
         String orderDate = getOrderDate(ui);
@@ -73,10 +74,10 @@ public class AddOrder extends Cmd<OrderList> {
             //order.addDish(Integer.parseInt(Dish[0]), Integer.parseInt(Dish[1]));
         }
 
-        orderList.addOrder(order);
+        orderList.addEntry(order);
         ui.showAddOrder(order.toString(), orderList.size());
         try {
-            storage.addCommandInFile(order.printInFile());
+            storage.addInFile(order.printInFile());
 
             //To do
             //how to read from order.txt

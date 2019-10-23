@@ -1,18 +1,16 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.Dishes.DishList;
+import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ingredient.*;
-import duke.ingredient.IngredientsList;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}.
+ * Represents a specific {@link Cmd} used to find a String occurring in the {@link TaskList}.
  */
-public class FindIngredientCommand extends Command {
+public class FindIngredientCommand extends Cmd<Ingredient> {
 
     private String toFind;
 
@@ -21,8 +19,9 @@ public class FindIngredientCommand extends Command {
     }
 
 
+
     @Override
-    public void execute(DishList dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Ingredient> tasklist, Ui ui, Storage storage) throws DukeException {
 
     }
 }

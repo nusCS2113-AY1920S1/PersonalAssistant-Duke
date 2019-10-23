@@ -73,6 +73,7 @@ public class Fridge {
 
     public List<Ingredient> getExpiredIngredients(Date expireBefore) {
         List<Ingredient> expired = new ArrayList<>();
+        if(currentIngredients!=null)
         for (Ingredient ingredient : currentIngredients) {
             if (!ingredient.getExpiryDate().after(expireBefore)) {
                 expired.add(ingredient);

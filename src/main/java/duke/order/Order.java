@@ -1,6 +1,6 @@
 package duke.order;
 
-import duke.Dishes.Dishes;
+import duke.dish.Dish;
 import duke.Duke;
 import duke.exception.DukeException;
 import duke.parser.Convert;
@@ -14,7 +14,7 @@ import java.util.*;
  * Represents a general Order to be added by {@link Duke}.
  */
 public class Order {
-    private Map<Dishes, Integer> content;
+    private Map<Dish, Integer> content;
     private boolean isDone;
     private Date date;
 
@@ -98,7 +98,7 @@ public class Order {
      * Returns the content of the {@link Order}.
      * @return content of the Order
      */
-    public Map<Dishes, Integer> getOrderContent() { return this.content; }
+    public Map<Dish, Integer> getOrderContent() { return this.content; }
 
     /**
      * Returns the content of the {@link Order}
@@ -111,8 +111,8 @@ public class Order {
         description = "["+this.getStatusIcon()+"] ";
         if (this.isToday()) description += "Order today: ";
         else description += "Order at " + this.date + ": ";
-        for (Map.Entry<Dishes, Integer> entry : content.entrySet()) {
-            Dishes dish = entry.getKey();
+        for (Map.Entry<Dish, Integer> entry : content.entrySet()) {
+            Dish dish = entry.getKey();
             int amount = entry.getValue();
             description += "\n"+"    - " + amount + " \u2718 " + dish.getDishname();
         }
@@ -128,8 +128,8 @@ public class Order {
         String description;
         if (this.isDone()) { description = "O|1|" + this.date; }
         else { description = "O|0|" + this.date; }
-        for (Map.Entry<Dishes, Integer> entry : content.entrySet()) {
-            Dishes dish = entry.getKey();
+        for (Map.Entry<Dish, Integer> entry : content.entrySet()) {
+            Dish dish = entry.getKey();
             int amount = entry.getValue();
             description += "\nD|" +dish.getDishname() + "|" + amount;
         }
@@ -140,14 +140,14 @@ public class Order {
      * Returns a boolean indicating whether the {@link Order} has that dishes.
      * @return boolean true if the order has that dishes, false otherwise.
      */
-    public boolean hasDishes(Dishes dishes) { return content.containsKey(dishes); }
+    public boolean hasDishes(Dish dishes) { return content.containsKey(dishes); }
 
     /**
      * Returns the amount of the dishes ordered in the {@link Order}
      * @param dishes dishes
      * @return dishes amount
      */
-    public int getDishesAmount(Dishes dishes) {
+    public int getDishesAmount(Dish dishes) {
         if (this.hasDishes(dishes)) {
             return content.get(dishes);
         } else {return 0; }
@@ -160,7 +160,7 @@ public class Order {
      * simply add a new element in the content map.
      * If the order is done, do nothing.
      */
-    public void addDish(Dishes dishes){
+    public void addDish(Dish dishes){
         if (!this.isDone())
             if (!this.hasDishes(dishes)) {
                 content.put(dishes, 1);
@@ -176,7 +176,7 @@ public class Order {
      * simply add a new element in the content map.
      * If the order is done, do nothing.
      */
-    public void addDish(Dishes dishes, int addAmount){
+    public void addDish(Dish dishes, int addAmount){
         if (!this.isDone())
             if (!content.containsKey(dishes)) {
                 content.put(dishes, addAmount);

@@ -1,6 +1,7 @@
 package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
+import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class FindToday extends Cmd<TaskList> {
+public class FindToday extends Cmd<Task> {
     private Date today = new Date();
     private String pattern = "dd/MM/yyyy";
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -20,11 +21,11 @@ public class FindToday extends Cmd<TaskList> {
         return false;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(GenericList<Task> taskList, Ui ui, Storage storage) {
         int i = 1;
         StringBuilder sb = new StringBuilder();
 
-        for (Task task : taskList.getAllTasks()) {
+        for (Task task : taskList.getAllEntries()) {
             if (task.getDescription().contains(TodayDate)) {
                 sb.append("\t ").append(i++).append(".").append(task.toString());
                 sb.append(System.lineSeparator());

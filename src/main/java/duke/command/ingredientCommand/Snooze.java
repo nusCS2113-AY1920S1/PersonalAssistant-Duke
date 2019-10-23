@@ -2,8 +2,10 @@ package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.parser.Convert;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -13,7 +15,7 @@ import java.util.Date;
  * One of the B-Extensions.
  * @author saradj
  */
-public class Snooze extends Cmd<TaskList> {
+public class Snooze extends Cmd<Task> {
 
     private int taskNb;
     private String until;
@@ -32,13 +34,13 @@ public class Snooze extends Cmd<TaskList> {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<Task> taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
-            if (taskList.getTask(taskNb).isDone()) {
+            if (taskList.getEntry(taskNb).isDone()) {
                 throw new DukeException("Seems like you've already finished that task, no need to snooze it now");
             }
-            taskList.changeTaskDate(taskNb, until);
-            ui.showChangedDate(Convert.getDateString(date, until),taskList.getTask(taskNb).toString());
+            ((TaskList)taskList).changeTaskDate(taskNb, until);
+            ui.showChangedDate(Convert.getDateString(date, until),taskList.getEntry(taskNb).toString());
             storage.changeContent(taskNb);
         } else {
             throw new DukeException("Enter a valid task number after snooze, between 1 and " + taskList.size());

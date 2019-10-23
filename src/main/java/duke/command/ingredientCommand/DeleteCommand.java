@@ -2,6 +2,7 @@ package duke.command.ingredientCommand;
 
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Represents a specific {@link Cmd} used to delete a {@link Task} from the {@link TaskList}.
  */
-public class DeleteCommand extends Cmd<TaskList> {
+public class DeleteCommand<T> extends Cmd<T> {
     private int taskNb;
 
     public DeleteCommand(int taskNb) {
@@ -24,9 +25,9 @@ public class DeleteCommand extends Cmd<TaskList> {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(GenericList<T> taskList, Ui ui, Storage storage) throws DukeException {
         if (taskNb < taskList.size() && taskNb >= 0) {
-            Task removed = taskList.removeTask(taskNb);
+            T removed = taskList.removeEntry(taskNb);
             List<String> fileContent = null;
             try {
                 fileContent = new ArrayList<>(Files.readAllLines(storage.getPath(), StandardCharsets.UTF_8));
