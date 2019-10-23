@@ -1,10 +1,12 @@
 package dolla.parser;
 
+import dolla.action.repeat;
 import dolla.command.*;
 
 public class EntryParser extends Parser {
     private static int prevPosition;
     private static int undoFlag = 0;
+    private static int redoFlag = 0;
 
     public EntryParser(String inputLine) {
         super(inputLine);
@@ -20,9 +22,11 @@ public class EntryParser extends Parser {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
+                repeat.setUserInput("entry", inputLine);
                 if(undoFlag == 1) {//undo input
-                    undoFlag = 0;
                     return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
+                } else if(redoFlag == 1) {
+                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -2);
                 } else {//normal input, prePosition is -1
                     return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
                 }
@@ -52,6 +56,19 @@ public class EntryParser extends Parser {
     public static void setPrePosition(int prevPosition) {
         EntryParser.prevPosition = prevPosition;
         undoFlag = 1;
+    }
+
+    public static void resetPrePosition() {
+        EntryParser.prevPosition = -1;
+        undoFlag = 0;
+    }
+
+    public static void setRedoFlag() {
+        redoFlag = 1;
+    }
+
+    public static void resetRedoFlag() {
+        redoFlag = 0;
     }
 }
 

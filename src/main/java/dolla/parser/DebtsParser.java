@@ -1,6 +1,7 @@
 package dolla.parser;
 
 import dolla.Ui;
+import dolla.action.repeat;
 import dolla.command.*;
 import dolla.task.LogList;
 
@@ -8,6 +9,7 @@ import dolla.task.LogList;
 public class DebtsParser extends Parser {
     private static int prevPosition;
     private static int undoFlag = 0;
+    private static int redoFlag = 0;
 
     public DebtsParser(String inputLine) {
         super(inputLine);
@@ -35,9 +37,11 @@ public class DebtsParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
+            repeat.setUserInput("debt", inputLine); //setup repeat
             if(undoFlag == 1) {//undo input
-                undoFlag = 0;
                 return new AddDebtsCommand(type, name, amount, description, prevPosition);
+            } else if(redoFlag == 1) {
+                return new AddDebtsCommand(type, name, amount, description, -2);
             } else {//normal input, prePosition is -1
                 return new AddDebtsCommand(type, name, amount, description, -1);
             }
@@ -55,8 +59,21 @@ public class DebtsParser extends Parser {
         }
     }
 
-    public static void setPrePosition(int prevPosition) {
+    public static void setPrevPosition(int prevPosition) {
         DebtsParser.prevPosition = prevPosition;
         undoFlag = 1;
+    }
+
+    public static void resetPrevPosition() {
+        DebtsParser.prevPosition = -1;
+        undoFlag = 0;
+    }
+
+    public static void setRedoFlag() {
+        redoFlag = 1;
+    }
+
+    public static void resetRedoFlag() {
+        redoFlag = 0;
     }
 }

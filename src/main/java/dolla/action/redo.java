@@ -28,7 +28,7 @@ public class redo {
 
     private static void add() {
         if(mode.equals("entry")) {
-            redoEntryCommand.push(userInput);
+            redoEntryCommand.push("add " + userInput);
         } else if(mode.equals("debt")) {
             redoDebtCommand.push(userInput);
         } else {
@@ -37,7 +37,7 @@ public class redo {
     }
 
     private static void remove() {
-        redoInput = "remove " + index;
+        redoInput = "remove " + index + "|redo";
         if(mode.equals("entry")) {
             redoEntryCommand.push(redoInput);
         } else if(mode.equals("debt")) {
@@ -58,7 +58,6 @@ public class redo {
     }
 
     public static String processRedo() {
-        System.out.println(redoInput);
             return redoInput;
     }
 

@@ -28,15 +28,18 @@ public class AddDebtsCommand extends Command {
         String mode = "debt";
         Debt newDebt = new Debt(type, name, amount, description);
         index = dollaData.getLogList(mode).size();
-        if(prevPosition != -1) { //an undo input
-            dollaData.addToPrevPosition(mode, newDebt, prevPosition);
-            redo.removeCommand(mode, prevPosition);
-            System.out.println(prevPosition);
-            prevPosition = -1;
-        } else { //normal input
+        if(prevPosition == -1) {
             dollaData.addToLogList(mode, newDebt);
             undo.removeCommand(mode,index);
             redo.clearRedo(mode);
+        } else if(prevPosition == -2) {
+            dollaData.addToLogList(mode, newDebt);
+            undo.removeCommand(mode,index);
+            prevPosition = -1;
+        } else {
+            dollaData.addToPrevPosition(mode, newDebt, prevPosition);
+            redo.removeCommand(mode, prevPosition);
+            prevPosition = -1;
         }
         Ui.echoAddDebt(newDebt);
     }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * RemoveCommand is a Command used to remove a Task from the TaskList.
  */
 public class RemoveCommand extends Command {
-    protected String logNumStr;
+    private String logNumStr;
     protected String mode;
 
     public RemoveCommand(String mode, String logNumStr) {
@@ -42,7 +42,6 @@ public class RemoveCommand extends Command {
     //@Override
     public void execute(DollaData dollaData) {
         int logNumInt;
-//        logList = dollaData.getLogList(mode);
         LogList logList = dollaData.getLogList(mode);
         boolean isListEmpty = (logList.size() == 0);
 
@@ -53,28 +52,18 @@ public class RemoveCommand extends Command {
         if(logNumStr.contains("/")) { //input from undo
             String[] parser = logNumStr.split("/", 2);
             logNumInt = stringToInt(parser[0]) - 1;
-            redo.addCommand(mode,logList.get().get(logNumInt).getUserInput()); //add undo input to redo
+            redo.addCommand(mode, logList.get().get(logNumInt).getUserInput()); //add undo input to redo
+        } else if(logNumStr.contains("|")) { //input form redo
+            String[] parser = logNumStr.split("|", 2);
+            logNumInt = stringToInt(parser[0]) - 1;
+            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
         } else { //normal user input
             logNumInt  = stringToInt(logNumStr) - 1;
-            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
-            redo.clearRedo(mode); //clear the list in redo
+            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
+            redo.clearRedo(mode);
         }
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());
         dollaData.removeFromLogList(mode,logNumInt);
-/*
-        ArrayList<String> msg = new ArrayList<String>();
-        try {
-            tasks.getFromList(taskNumInt - 1); // Check if the task exists first
-            msg.add("Noted. I've removed this task: ");
-            msg.add("  " + tasks.getFromList(taskNumInt - 1).getTask());
-            tasks.removeFromList(taskNumInt - 1);
-            msg.add("Now you have " + tasks.size() + " tasks in the list.");
-        } catch (IndexOutOfBoundsException e) {
-            //Ui.printNoTaskAssocError(taskNumInt);
-            return;
-        }
-        Ui.printMsg(msg);
- */
     }
 }

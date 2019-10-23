@@ -39,15 +39,20 @@ public class AddEntryCommand extends Command {
         String mode = "entry";
         Entry newEntry = new Entry(type, amount, description, date);
 
-        if(prevPosition != -1) { //an undo input
-            dollaData.addToPrevPosition(mode, newEntry, prevPosition);
-            redo.removeCommand(mode,prevPosition);
-            prevPosition = -1; //reset to -1
-        } else { //normal input
+        if(prevPosition == -1) {
             dollaData.addToLogList(mode, newEntry);
             index = dollaData.getLogList(mode).size();
             undo.removeCommand(mode, index);
             redo.clearRedo(mode);
+        } else if(prevPosition == -2) {
+            dollaData.addToLogList(mode, newEntry);
+            index = dollaData.getLogList(mode).size();
+            undo.removeCommand(mode, index);
+            prevPosition = -1; //reset to -1
+        } else {
+            dollaData.addToPrevPosition(mode, newEntry, prevPosition);
+            redo.removeCommand(mode,prevPosition);
+            prevPosition = -1; //reset to -1
         }
         Ui.echoAddEntry(newEntry);
     }

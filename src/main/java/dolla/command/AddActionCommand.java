@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.action.redo;
+import dolla.action.repeat;
 import dolla.action.undo;
 import dolla.parser.DebtsParser;
 import dolla.parser.EntryParser;
@@ -10,7 +11,7 @@ import dolla.parser.MainParser;
 public class AddActionCommand extends Command{
     private String mode;
     private String command;
-    private String UserInput;
+    private String userInput;
     private int prevPosition;
 
     public AddActionCommand(String mode, String command) {
@@ -18,35 +19,72 @@ public class AddActionCommand extends Command{
         this.command = command;
     }
 
-    public void undoCommand() {
-        UserInput = undo.processCommand(mode);
-        String[] parser = UserInput.split(" ",2);
+    private void undoCommand() {
+        userInput = undo.processCommand(mode);
+        String[] parser = userInput.split(" ",2);
         if(parser[0].equals("remove")) {
-            UserInput = parser[0] + " " + parser[1];
+            userInput = parser[0] + " " + parser[1];
         } else {
             prevPosition = Integer.parseInt(parser[0]);
-            UserInput = parser[1];
+            userInput = parser[1];
         }
     }
 
-    public void redoCommand() {
-        UserInput = redo.processRedo();
+    private void redoCommand() {
+        userInput = redo.processRedo();
     }
 
     @Override
     public void execute(DollaData dollaData) throws Exception {
-        if(command.equals("undo")) {
+        switch (command) {
+        case "undo":
             undoCommand();
-        } else if (command.equals("redo")) {
+            setUndoPrevPosition();
+            break;
+        case "redo":
+            setRedo();
             redo.redoReady(mode);
             redoCommand();
+            break;
+        case "repeat":
+            userInput = repeat.getUserInput(mode);
+            break;
         }
+        Command c = MainParser.handleInput(mode, userInput);
+        c.execute(dollaData);
+        resetPrevPosition();
+        resetRedo();
+    }
+
+    private void setUndoPrevPosition() {
         if(mode.equals("debt")) {
-            DebtsParser.setPrePosition(prevPosition);
+            DebtsParser.setPrevPosition(prevPosition);
         } else if(mode.equals("entry")) {
             EntryParser.setPrePosition(prevPosition);
         }
-        Command c = MainParser.handleInput(mode, UserInput);
-        c.execute(dollaData);
+    }
+
+    private void resetPrevPosition() {
+        if(mode.equals("debt")) {
+            DebtsParser.resetPrevPosition();
+        } else if(mode.equals("entry")) {
+            EntryParser.resetPrePosition();
+        }
+    }
+
+    private void setRedo() {
+        if(mode.equals("debt")) {
+            DebtsParser.setRedoFlag();
+        } else if(mode.equals("entry")) {
+            EntryParser.setRedoFlag();
+        }
+    }
+
+    private void resetRedo() {
+        if(mode.equals("debt")) {
+            DebtsParser.resetRedoFlag();
+        } else if(mode.equals("entry")) {
+            EntryParser.resetRedoFlag();
+        }
     }
 }

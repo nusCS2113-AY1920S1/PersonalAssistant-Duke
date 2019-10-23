@@ -2,7 +2,6 @@ package dolla.parser;
 
 import dolla.Ui;
 
-import dolla.action.undo;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
@@ -15,7 +14,6 @@ import java.util.Arrays;
  * to create the relevant command.
  */
 public class MainParser {
-    private static String[] prevCommand = {"dolla","1"};
 
     /**
      * Returns a command corresponding to the user input by directing

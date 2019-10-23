@@ -1,5 +1,6 @@
 package dolla;
 
+import dolla.action.redo;
 import dolla.command.Command;
 import dolla.task.EntryList;
 import dolla.task.LogList;

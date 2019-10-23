@@ -50,7 +50,7 @@ public class undo {
     }
 
     private static void remove() {
-        undoInput = "remove " + index + "/-1";//1 to check if the remove is from undo command.
+        undoInput = "remove " + index + "/undo";//1 to check if the remove is from undo command.
         if(mode.equals("entry")) {
             undoEntryCommand.push(undoInput);
         } else if(mode.equals("debt")) {
