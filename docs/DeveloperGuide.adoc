@@ -202,7 +202,8 @@ Actor: NUS Student
 *MSS*
 
 1. User inputs the command to view past modules
-2. ModPlan shows the user a list of all modules taken, and those they are currently taking.
+2. ModPlan shows the user a list of all modules taken, and those they are currently taking. +
+Use case ends.
 
 === Use Case C05: Generation of current CAP based on past modules
 Actor: NUS Student
@@ -212,7 +213,8 @@ Actor: NUS Student
 1. User inputs the command to generate CAP report
 2. ModPlan shows the user modules they had taken, and requests user to input their grades obtained
 3. User inputs the modules they have taken, as well as the respective grades obtained
-4. After inputting the grades, ModPlan calculates and shows the user their current MCs accumulated and CAP
+4. After inputting the grades, ModPlan calculates and shows the user their current MCs accumulated and CAP. +
+Use case ends.
 
 *Extensions*
 
@@ -225,7 +227,8 @@ Actor: NUS Student
 *MSS*
 
 1. User inputs the command to search module information
-2. ModPlan shows the user key information regarding the module, if it is SU-able or if it has any prequisites.
+2. ModPlan shows the user key information regarding the module, if it is SU-able or if it has any prequisites. +
+Use case ends.
 
 === Use Case C07: Creating a personalised Module (eg. for CCAs)
 Actor: NUS Student
@@ -237,7 +240,8 @@ Actor: NUS Student
 3. User inputs the description and date/times
 4. ModPlan prompts user to confirm addition of custom module to timetable
 5. User confirms addition
-6. ModPlan adds custom module to timetable, and shows user updated timetable
+6. ModPlan adds custom module to timetable, and shows user updated timetable. +
+Use case ends.
 
 *Extensions*
 
@@ -250,7 +254,8 @@ Actor: NUS Student
 *MSS*
 
 1. User inputs the command to check MC
-2. ModPlan will show the total MCs taken up to this point
+2. ModPlan will show the total MCs taken up to this point. +
+Use case ends.
 
 *Extensions*
 
