@@ -25,6 +25,6 @@ public class AddSampleItineraryCommand extends Command {
     public CommandResultText execute(Model model) throws DukeException {
         // Add to the list of Itineraries
         return new CommandResultText("Successfully added this itinerary: " + "\n"
-                + itinerary.printItinerary().toString());
+                + itinerary.printItinerary());
     }
 }

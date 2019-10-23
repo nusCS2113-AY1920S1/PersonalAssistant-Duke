@@ -3,7 +3,7 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.planning.Day;
+import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 
 import java.util.List;
@@ -26,13 +26,13 @@ public class RecommendationsCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
 
-        List<Day> list = model.getRecommendations(itinerary.getNumberOfDays(), itinerary);
+        List<Agenda> list = model.getRecommendations(itinerary.getNumberOfDays(), itinerary);
 
         assert (!list.isEmpty()) : "list should not be null";
 
         itinerary.setTasks(list);
 
-        StringBuilder result = itinerary.printItinerary();
+        String result = itinerary.printItinerary();
 
         // Until more locations are added
 
@@ -40,6 +40,6 @@ public class RecommendationsCommand extends Command {
             throw new DukeException("Too many days, enter less than 8 ");
         }
 
-        return new CommandResultText(result.toString());
+        return new CommandResultText(result);
     }
 }

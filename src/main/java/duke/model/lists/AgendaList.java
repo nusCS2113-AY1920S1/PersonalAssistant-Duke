@@ -1,17 +1,17 @@
 package duke.model.lists;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.planning.Day;
+import duke.model.planning.Agenda;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DayList implements Iterable<Day> {
+public class AgendaList implements Iterable<Agenda> {
 
-    private List<Day> list;
+    private List<Agenda> list;
 
-    public DayList() {
+    public AgendaList() {
         list = new ArrayList<>();
     }
 
@@ -19,7 +19,7 @@ public class DayList implements Iterable<Day> {
         return list.size();
     }
 
-    public List<Day> getList() {
+    public List<Agenda> getList() {
         return list;
     }
 
@@ -28,7 +28,7 @@ public class DayList implements Iterable<Day> {
      * Adds a Day to the list.
      * The Task must not already exist in the list.
      */
-    public void add(Day toAdd) throws DukeException {
+    public void add(Agenda toAdd) throws DukeException {
         //        if (contains(toAdd)) {
         //            throw new DukeDuplicateTaskException();
         //        } else if (hasAnomaly(toAdd)) {
@@ -41,7 +41,7 @@ public class DayList implements Iterable<Day> {
      * Replaces the Day {@code target} in the list with {@code editedDay}.
      * {@code target} must exist in the list.
      */
-    public void setTask(Day target, Day editedDay) throws DukeException {
+    public void setTask(Agenda target, Agenda editedAgenda) throws DukeException {
         int index = list.indexOf(target);
         //        if (index == -1) {
         //            throw new DukeTaskNotFoundException();
@@ -50,19 +50,19 @@ public class DayList implements Iterable<Day> {
         //        if (!target.isSameTask(editedTask) && contains(editedTask)) {
         //            throw new DukeDuplicateTaskException();
         //        }
-        list.set(index, editedDay);
+        list.set(index, editedAgenda);
     }
 
     /**
      * Removes the equivalent Task from the list.
      * The Day must exist in the list.
      */
-    public void remove(Day toRemove) {
+    public void remove(Agenda toRemove) {
         list.remove(toRemove);
 
     }
 
-    public void setTasks(DayList replacement) {
+    public void setTasks(AgendaList replacement) {
         list = replacement.list;
     }
 
@@ -70,12 +70,12 @@ public class DayList implements Iterable<Day> {
      * Replaces the contents of this list with {@code Days}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Day> days) throws DukeException {
-        list = days;
+    public void setTasks(List<Agenda> agenda) throws DukeException {
+        list = agenda;
     }
 
     @Override
-    public Iterator<Day> iterator() {
+    public Iterator<Agenda> iterator() {
         return list.listIterator();
     }
 }

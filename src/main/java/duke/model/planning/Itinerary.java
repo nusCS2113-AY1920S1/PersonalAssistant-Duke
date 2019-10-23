@@ -1,12 +1,12 @@
 package duke.model.planning;
 
-import duke.model.lists.DayList;
+import duke.model.lists.AgendaList;
 import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-public class Itinerary extends DayList {
+public class Itinerary extends AgendaList {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -51,7 +51,7 @@ public class Itinerary extends DayList {
      *
      * @return The String which lists the itinerary in full
      */
-    public StringBuilder printItinerary() {
+    public String printItinerary() {
 
         int days = this.getNumberOfDays();
 
@@ -59,7 +59,7 @@ public class Itinerary extends DayList {
                 +  days + " days around " + this.getHotelLocation().getAddress() + ": \n");
 
         for (int i = 0; i < days; i++) {
-            Day list1 = this.getList().get(i);
+            Agenda list1 = this.getList().get(i);
             result.append("\n");
             result.append("Day ").append(list1.getNumber()).append(":").append("\n \n");
             result.append("Venues: ").append("\n");
@@ -72,6 +72,6 @@ public class Itinerary extends DayList {
                 result.append(" - ").append(todo.getDescription()).append("\n");
             }
         }
-        return result;
+        return result.toString();
     }
 }

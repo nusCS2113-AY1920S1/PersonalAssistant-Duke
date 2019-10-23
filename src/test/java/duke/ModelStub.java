@@ -10,7 +10,7 @@ import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
-import duke.model.planning.Day;
+import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
@@ -74,7 +74,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Day> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException {
+    public List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException {
         return storage.readVenues(numberOfDays);
     }
 

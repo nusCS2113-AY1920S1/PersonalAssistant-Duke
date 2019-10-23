@@ -9,7 +9,7 @@ import duke.model.events.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
-import duke.model.planning.Day;
+import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;
 import duke.model.transports.BusService;
@@ -131,8 +131,8 @@ public class Storage {
      * @return The List of all Venues in Recommendations list.
      */
 
-    public List<Day> readVenues(int numDays) {
-        List<Day> recommendations = new ArrayList<>();
+    public List<Agenda> readVenues(int numDays) {
+        List<Agenda> recommendations = new ArrayList<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
         int i = 1;
         while (s.hasNext() && i <= numDays) {
@@ -141,8 +141,8 @@ public class Storage {
             List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
             venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
             todoList.addAll(ParserStorageUtil.getTodoListFromStorage(s.nextLine()));
-            Day day = new Day(todoList, venueList, i++);
-            recommendations.add(day);
+            Agenda agenda = new Agenda(todoList, venueList, i++);
+            recommendations.add(agenda);
         }
         s.close();
 
@@ -176,8 +176,8 @@ public class Storage {
             FileWriter writer = new FileWriter(SAMPLE_RECOMMENDATIONS_FILE_PATH);
             writer.write(itinerary.getStartDate().toString() + "\n" + itinerary.getEndDate().toString() + "\n"
                     + itinerary.getHotelLocation().toString() + "\n");
-            for (Day day : itinerary.getList()) {
-                writer.write(ParserStorageUtil.toDayString(day) + "\n");
+            for (Agenda agenda : itinerary.getList()) {
+                writer.write(agenda.toString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
@@ -189,7 +189,7 @@ public class Storage {
      * Reads recommendations from filepath.
      */
     public static Itinerary readRecommendations() throws DukeException {
-        List<Day> days = new ArrayList<>();
+        List<Agenda> agendaList = new ArrayList<>();
         Itinerary itinerary;
         try {
             File f = new File(SAMPLE_RECOMMENDATIONS_FILE_PATH);
@@ -205,12 +205,11 @@ public class Storage {
                 venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
                 venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
                 todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
-                Day day = new Day(todoList, venueList, number);
-                days.add(day);
-
+                Agenda agenda = new Agenda(todoList, venueList, number);
+                agendaList.add(agenda);
             }
             s.close();
-            itinerary.setTasks(days);
+            itinerary.setTasks(agendaList);
         } catch (FileNotFoundException e) {
             throw new DukeException(Messages.FILE_NOT_FOUND);
         }

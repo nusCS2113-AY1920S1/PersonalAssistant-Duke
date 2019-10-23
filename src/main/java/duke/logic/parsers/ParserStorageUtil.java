@@ -5,7 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.events.Event;
 import duke.model.events.Task;
-import duke.model.planning.Day;
+import duke.model.planning.Agenda;
 import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
@@ -161,26 +161,6 @@ public class ParserStorageUtil {
             todoList.add(todo);
         }
         return todoList;
-    }
-
-    /**
-     * Returns the Day object in a string format.
-     *
-     * @return The Information for one day in a string format
-     */
-    public static String toDayString(Day day) {
-        StringBuilder result = new StringBuilder();
-        result.append("Day |").append(day.getNumber()).append("\n");
-        for (Venue venue : day.getVenueList()) {
-            result.append(venue.toString());
-            result.append("\n");
-        }
-        for (Todo todo : day.getTodoList()) {
-            result.append(todo.toString());
-            result.append(" | ");
-        }
-        result.append("\n");
-        return result.toString();
     }
 
     public static int getNumberFromStorage(String line) {
