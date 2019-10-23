@@ -18,6 +18,12 @@ public class Bar extends CopyObject<Bar> implements Serializable {
     private int id;
     private ArrayList<String> barChart;
 
+    /**
+     * the method that allows this item to be copied.
+     *
+     * @param object the object to be copied, which in this case is bar.
+     */
+
     public Bar copy(Bar object) throws DukeException, IOException,ClassNotFoundException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);

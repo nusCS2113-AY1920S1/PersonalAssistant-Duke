@@ -1,6 +1,8 @@
 package duke.components;
+
 import java.io.Serializable;
 import duke.DukeException;
+
 public class Note implements Serializable {
     private Pitch pitch;
     private String duration; // 1, 2*, 2, 4*, 4, 8
