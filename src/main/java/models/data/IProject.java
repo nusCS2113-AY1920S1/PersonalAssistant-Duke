@@ -1,11 +1,11 @@
 package models.data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import models.member.Member;
 import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
-
-import java.util.ArrayList;
 
 public interface IProject {
     // TODO Add attributes such as Members, Tasks, Name
@@ -40,5 +40,14 @@ public interface IProject {
     ArrayList<String> getAssignedTaskList();
 
     void createAssignment(Task task, Member member);
+
+    void removeAssignment(Member member, Task task);
+
+    boolean containsAssignment(Task task, Member member);
+
+    HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList();
+
+    HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers();
+
 
 }

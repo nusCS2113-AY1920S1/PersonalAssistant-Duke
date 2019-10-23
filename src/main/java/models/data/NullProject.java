@@ -1,5 +1,6 @@
 package models.data;
 
+import java.util.HashMap;
 import models.member.Member;
 import models.member.MemberList;
 import models.task.Task;
@@ -102,6 +103,28 @@ public class NullProject implements IProject {
         /*
         Empty method
          */
+    }
+
+    @Override
+    public void removeAssignment(Member member, Task task) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public boolean containsAssignment(Task task, Member member) {
+        return false;
+    }
+
+    @Override
+    public HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList() {
+        return null;
+    }
+
+    @Override
+    public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
+        return null;
     }
 
 }

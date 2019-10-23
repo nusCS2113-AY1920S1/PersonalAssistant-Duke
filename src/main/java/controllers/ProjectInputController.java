@@ -1,19 +1,19 @@
 package controllers;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
+import util.ParserHelper;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
 import views.CLIView;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
@@ -77,8 +77,8 @@ public class ProjectInputController implements IController {
                 projectAddTask(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view tasks.*")) {
                 projectViewTasks(projectToManage, projectFullCommand);
-            } else if (projectFullCommand.matches("view assigned tasks.*")) {
-                projectViewAssignedTasks(projectToManage.getAssignedTaskList());
+            } else if (projectFullCommand.matches("view assignments.*")) {
+                projectViewAssignments(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view task requirements i/.*")) { // need to refactor this
                 projectViewTaskRequirements(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("edit task requirements.*")) {
@@ -99,6 +99,8 @@ public class ProjectInputController implements IController {
         }
         return isManagingAProject;
     }
+
+
 
     /**
      * Adds a member to the current project.
@@ -271,6 +273,20 @@ public class ProjectInputController implements IController {
     }
 
     /**
+     * Displays list of assignments according to specifications of user.
+     * @param projectToManage The project to manage.
+     * @param projectFullCommand The full command by the user.
+     */
+    private void projectViewAssignments(Project projectToManage, String projectFullCommand) {
+        String input = projectFullCommand.substring(18);
+        if (input.charAt(0) == 'm') {
+            projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
+        } else if (input.charAt(0) == 't') {
+            projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
+        }
+    }
+
+    /**
      * Displays the assigned tasks in the current project.
      * @param assignedTaskList The list containing the assignment of the tasks.
      */
@@ -291,6 +307,39 @@ public class ProjectInputController implements IController {
             consoleView.viewSortedTasks(projectToManage, sortCriteria);
         }
     }
+
+    /**
+     * Prints a list of members' individual list of tasks.
+     * @param projectToManage the project being managed.
+     * @param projectCommand The command by the user containing index numbers of the members to view.
+     */
+    public void projectViewMembersAssignments(Project projectToManage, String projectCommand) {
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
+            projectToManage.getNumOfMembers());
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
+        }
+        consoleView.consolePrint(AssignmentViewHelper.getMemberOutput(validMembers,
+            projectToManage).toArray(new String[0]));
+    }
+
+    /**
+     * Prints a list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
+    private void projectViewTasksAssignments(Project projectToManage, String projectCommand) {
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
+            projectToManage.getNumOfTasks());
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
+        }
+        consoleView.consolePrint(AssignmentViewHelper.getTaskOutput(validTasks,
+            projectToManage).toArray(new String[0]));
+    }
+
 
     /**
      * Exits the current project.

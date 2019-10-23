@@ -82,7 +82,7 @@ public class Project implements IProject {
 
     @Override
     public boolean memberIndexExists(int indexNumber) {
-        return (indexNumber > 0 && indexNumber <= this.getNumOfMembers());
+        return (indexNumber > 0 && indexNumber <= getNumOfMembers());
     }
 
     @Override
@@ -129,6 +129,7 @@ public class Project implements IProject {
      * @param member the member to unassign the task from.
      * @param task the task to be unassigned.
      */
+    @Override
     public void removeAssignment(Member member, Task task) {
         taskAndListOfMembersAssigned.get(task).remove(member);
         memberAndIndividualListOfTasks.get(member).remove(task);
@@ -140,7 +141,47 @@ public class Project implements IProject {
      * @param member The member in question.
      * @return true task has already been assigned to a member.
      */
+    @Override
     public boolean containsAssignment(Task task, Member member) {
-        return memberAndIndividualListOfTasks.get(member).contains(task);
+        return memberAndIndividualListOfTasks.get(member).contains(task)
+            && taskAndListOfMembersAssigned.get(task).contains(member);
     }
+
+    /**
+     * Returns a hashmap with information about each member's task assignment.
+     * @return hashmap with member as key and accompanying task list.
+     */
+    @Override
+    public HashMap<Member, ArrayList<Task>> getMembersIndividualTaskList() {
+        return this.memberAndIndividualListOfTasks;
+    }
+
+    /**
+     * Returns a hashmap with information about each task's assignment to members.
+     * @return hashmap with task as key and accompanying list of assigned members.
+     */
+    @Override
+    public HashMap<Task, ArrayList<Member>> getTasksAndAssignedMembers() {
+        return this.taskAndListOfMembersAssigned;
+    }
+
+    /**
+     * Verifies that a member with a given index number exists.
+     * @param index The given member index number.
+     * @return true if the project has a member with the given index number.
+     */
+    public boolean hasMemberIndex(Integer index) {
+        return index > 0 && index <= getNumOfMembers();
+    }
+
+    /**
+     * Verifies that a task with a given index number exists.
+     * @param indexNumber The given task index number.
+     * @return true if the project has a task with the given index number.
+     */
+    public boolean hasTaskIndex(Integer indexNumber) {
+        return indexNumber > 0 && indexNumber <= getNumOfTasks();
+    }
+
+
 }
