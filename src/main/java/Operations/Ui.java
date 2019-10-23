@@ -18,20 +18,13 @@ public class Ui {
      * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = " __________         _\n"
-                + "|          \\       / \\\n"
-                + "|    ___    \\     /   \\\n"
-                + "|   |___|    |   |  |  | \n"
-                + "|          _/    |  |  | \n"
-                + "|    ___    \\    \\  \\  /\n"
-                + "|   |   \\    \\    \\  \\/\n"
-                + "|   |    \\    \\   /\\  \\\n"
-                + "|___|     \\____\\ /  \\  \\\n"
-                + "                 |  |  |\n"
-                + "                 |  |  |\n"
-                + "                 \\     /\n"
-                + "                  \\   /\n"
-                + "                   \\_/";
+        String logo = "******   ******\n"
+                    + "**  **   **\n"
+                    + "**  **   **\n"
+                    + "******   ******\n"
+                    + "******       **\n"
+                    + "**   **      **\n"
+                    + "**    ** ******";
         System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
