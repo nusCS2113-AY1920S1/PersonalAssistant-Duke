@@ -46,12 +46,4 @@ public class Dishes {
     public void addIngredients(String ingredients) {
         ingredientsList.add(ingredients);
     }
-
-//    public String toString() {
-//        return dishname;
-//    }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 7a8257b6995584c461da76d397bd91d8497d6357
