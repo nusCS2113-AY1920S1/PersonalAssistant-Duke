@@ -63,6 +63,11 @@ public class Level {
         return objectiveResult.DONE;
     }
 
+
+
+
+
+
     public Map<String, Integer> getGoals() {
         Map<String, Integer> goals = new HashMap< String,Integer>();
         goals.put("Gold", endMoney);
