@@ -88,6 +88,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    //@@author talesrune-reused
     /**
      * Setting up Duke GUI.
      * @param d The object of Duke.
@@ -157,6 +158,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    //@@author talesrune
     @FXML
     protected void handleUserEvent(String input) {
         String response;

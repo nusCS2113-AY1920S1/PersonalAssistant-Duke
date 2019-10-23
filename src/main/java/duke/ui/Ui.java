@@ -106,17 +106,6 @@ public class Ui {
         return str;
     }
 
-    /**
-     * Outputs all the tasks of the task list to the user.
-     *
-     * @param items The task list that contains a list of tasks.
-     */
-    public void showTaskList(TaskList items) {
-        out.println("     Here are the tasks in your list:");
-        out.print(items.getList());
-    }
-
-
     //@@author Dou-Maokang
     /**
      * Outputs all the tasks of the task list to the user.
@@ -156,6 +145,17 @@ public class Ui {
         str += "Here are all your contacts:\n";
         str += contactList.getContactList();
         return str;
+    }
+
+    //@@author talesrune
+    /**
+     * Outputs all the tasks of the task list to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     */
+    public void showTaskList(TaskList items) {
+        out.println("     Here are the tasks in your list:");
+        out.print(items.getList());
     }
 
     /**
@@ -306,7 +306,7 @@ public class Ui {
      * Outputs the tasks that are matched from the keyword to the user.
      *
      * @param items The task list that contains a list of tasks.
-     * @param keyword The task that is deleted.
+     * @param keyword The keyword to match the tasks.
      */
     public void showFind(TaskList items, String keyword) {
         out.println("     Here are the matching tasks in your list:");
@@ -344,14 +344,13 @@ public class Ui {
             out.println("     No matching tasks found.");
         }
     }
-    //@@author
 
-
+    //@@author talesrune
     /**
      * Outputs the tasks that are matched from the keyword to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
-     * @param keyword The task that is deleted.
+     * @param keyword The keyword to match the tasks.
      * @return String of the matching tasks of the task list.
      */
     public static String showFindGui(TaskList items, String keyword) {
@@ -373,7 +372,7 @@ public class Ui {
      * Outputs the tasks that are filtered to the user.
      *
      * @param items The task list that contains a list of tasks.
-     * @param taskType The task that is deleted.
+     * @param taskType The type of task.
      */
     public void showFilter(TaskList items, String taskType) {
         out.println("     Here are the filtered tasks in your list:");
@@ -408,7 +407,7 @@ public class Ui {
      * Outputs the tasks that are filtered to the user. (GUI)
      *
      * @param items The task list that contains a list of tasks.
-     * @param taskType The task that is deleted.
+     * @param taskType The type of task.
      * @return String of the matching tasks of the task list.
      */
     public static String showFilterGui(TaskList items, String taskType) {
@@ -474,7 +473,7 @@ public class Ui {
     public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
     }
-    //@@author
+
 
     //@@author maxxyx96
     /**
@@ -491,7 +490,7 @@ public class Ui {
     public String showBackupMessageGui() {
         return "     Duke Manager has been backed up!";
     }
-    //@@author
+
 
 
     //@@author Dou-Maokang
@@ -566,7 +565,6 @@ public class Ui {
         str += "\n     Now you have " + contactList.size() + " contact(s) in the list.";
         return str;
     }
-    //@@author
 
     //@@author maxxyx96
     /**
@@ -635,5 +633,4 @@ public class Ui {
     public String showResetBudgetGui(float budget) {
         return "     Your previous budget of " + budget + " has been reset.";
     }
-    //@@author
 }
