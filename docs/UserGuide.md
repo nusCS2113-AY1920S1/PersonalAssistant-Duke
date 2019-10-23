@@ -1,5 +1,8 @@
 
 
+
+
+
 # User Guide
 By: `AY1920S1-CS2113T-W17-1` Last Updated: `26/09/2019` License: `MIT`
 
@@ -19,7 +22,7 @@ We are still working on the User Guide. Stay tuned as we roll out more new featu
     - [4.1.2. Deleting a Task: `delete`](/docs/UserGuide.md#412-deleting-a-task-delete)
     - [4.1.3. Completing a Task: `done`](/docs/UserGuide.md#413-completing-a-task-done)
     - [4.1.4. Finding a Task: `find`](/docs/UserGuide.md#414-finding-a-task-find)
-    - [4.1.5. Viewing Tasks on a Specified Date: `view(/docs/UserGuide.md#415-viewing-tasks--view)
+    - [4.1.5. Viewing Tasks on a Specified Date: `view`](/docs/UserGuide.md#415-viewing-tasks--view)
     - [4.1.6. View Reminder: `view-reminder`](/docs/UserGuide.md#416-view-reminder-view-reminder)
     - [4.1.7. Set Reminder: `set-reminder`](/docs/UserGuide.md#417-set-reminder-set-reminder)
     - [4.1.8. Exiting **COMPal**: `bye`](/docs/UserGuide.md#418-exiting-compal-bye)
@@ -121,6 +124,8 @@ Want to search for the task by it's key word? Enter `find KEY_WORD` in the **com
 #### 4.1.5. Viewing Tasks : `view`
 View the tasks stored in COMPal in a day/week/month view.
 
+
+
 1. View the daily task of a particular day.
 
 	Format: `view day /date DATE`  
@@ -145,9 +150,17 @@ Format: `view month`
 ---------------------|-----------------
 :bulb:| You may omit `DATE` to view the calendar with respect to the current date!  E.g. `view week` will allow you to view the current week and `view day` will allow you to view the current day!  
 
-<img src="images/ViewDate.png" alt="view date command" width="800"/>
+<img src="images/ViewDate.png" alt="view date command" width="650"/>
 
-<img src="images/ViewDate2.png" alt="view date command" width="800"/>
+Figure x. Output of _tasks_ and _deadline_ on `main window` in text format sorted by priority level in chronological timeline .
+
+<img src="images/ViewDateGUI.PNG" alt="view date command" width="650"/>
+
+Figure x. Output of daily _tasks_ and _deadline_ on `view task: <DATE>` in daily calendar format sorted by priority level for each hour.
+
+|| Description
+---------------------|-----------------
+:information_source: |  `DATE` is the date you want to search for and should be **dd/mm/yy** format. E.g. 02/10/2019.
 
 The following are some examples of the `view` command which you can try to run.
 
@@ -276,5 +289,10 @@ Adds a **Lab Session** with `CS2106` as **description**, `27/08/2019` as the **s
 ### **5. Future Enhancements**
 
 ### **6. Frequently-Asked Questions**
+
+
+**Q**: How do I transfer my data to another Computer?  
+**A**: Copy the _tasks.txt_ and _serial_ file over from your old computer to your new computer COMPal folder! (Remember to download COMPal on the other computer though!)
+    
 
 ### **7. Command Summary**
