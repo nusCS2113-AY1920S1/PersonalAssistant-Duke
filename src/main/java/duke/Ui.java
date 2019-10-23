@@ -35,7 +35,6 @@ public class Ui {
                 } else if (command.equals("home")) {
                     mainMenu();
                 } else {
-
                     parser.parseCommand(command);
                 }
             }
