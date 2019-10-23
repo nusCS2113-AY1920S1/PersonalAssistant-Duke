@@ -11,8 +11,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LoansTest {
     private Ui ui;
@@ -194,9 +196,12 @@ public class LoansTest {
         String exceedInput = "paid 600 /to 1";
         MoneyCommand exceedSettleCommand = new SettleLoanCommand(exceedInput);
         ui.clearOutputString();
-        exceedSettleCommand.execute(account, ui, storage);
-        assertEquals("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt",
-                ui.getOutputString());
+        try {
+            exceedSettleCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt"));
+        }
 
     }
 }
