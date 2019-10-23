@@ -17,4 +17,5 @@ bin/
 
 *.log
 
-testFile.txt
+./*.pdf
+./*.txt
