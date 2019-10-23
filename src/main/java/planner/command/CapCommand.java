@@ -229,7 +229,7 @@ public class CapCommand extends ModuleCommand {
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
-            int mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
+            double mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
             mcCount += mcTemp;
             if (userInfo[1].isEmpty()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
