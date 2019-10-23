@@ -163,8 +163,8 @@ public class Write {
                 ArrayList<Transaction> transactionInADay = transactions.get(i);
                 for (int j = 0; j < transactions.get(i).size(); j++) {
                     Transaction currentTransaction = transactionInADay.get(j);
-                    String toWrite = currentTransaction.getType() + "|" + currentTransaction.getTransactionAmount() +
-                            "|" + currentTransaction.getDate();
+                    String toWrite = currentTransaction.getType() + "|" + currentTransaction.getTransactionAmount()
+                            + "|" + currentTransaction.getDate() + "\n";
                     bufferedWriter.write(toWrite);
                 }
             }

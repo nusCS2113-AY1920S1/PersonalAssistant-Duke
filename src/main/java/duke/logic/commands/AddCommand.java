@@ -36,7 +36,8 @@ public class AddCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         meals.addMeals(this.meal);
         ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
         ui.showAdded(this.meal, mealData, user, this.meal.getDate());

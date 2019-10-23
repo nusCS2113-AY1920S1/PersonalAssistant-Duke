@@ -29,13 +29,12 @@ public class TransactionList {
         }
     }
 
-    public void addTransaction(Transaction transaction, User user) {
+    public void addTransaction(Transaction transaction) {
         String dateStr = transaction.getDate();
         if (!transactionTracker.containsKey(dateStr)) {
             transactionTracker.put(dateStr, new ArrayList<Transaction>());
         }
         transactionTracker.get(dateStr).add(transaction);
-        user.updateAccountBalance(transaction);
     }
 
     public ArrayList<Transaction> getTransactionList(String dateStr) {

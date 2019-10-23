@@ -8,13 +8,13 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
 
-public class PaymentCommandParser implements ParserInterface <AddTransactionCommand> {
+public class PaymentCommandParser implements ParserInterface<AddTransactionCommand> {
 
     @Override
     public AddTransactionCommand parse(String userInput) throws DukeException {
         if (userInput.trim().length() == 0) {
-            throw new DukeException("Please enter the amount to be paid for today's date or" +
-                    "the date and the amount to be deposited");
+            throw new DukeException("Please enter the amount to be paid for today's date or"
+                    + "the date and the amount to be deposited");
         }
         if (userInput.contains("/date")) {
             String paymentAmountString = userInput.split("/date", 2)[0].trim();

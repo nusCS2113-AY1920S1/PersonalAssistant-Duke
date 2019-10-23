@@ -47,17 +47,19 @@ public class LoadLineParser {
         }
     }
 
-    public static void parseTransactions(TransactionList transactionList, String line) {
+    public static void parseTransactions(TransactionList transactionList, String line, User user) {
         String[] splitLine = line.split("\\|", 3);
         String transactionType = splitLine[0];
         BigDecimal transactionAmount = new BigDecimal(splitLine[1]);
-        String transactionDate = splitLine[1];
+        String transactionDate = splitLine[2];
         Transaction newTransaction;
         if (transactionType.equals("PAY")) {
             newTransaction = new Payment(transactionAmount, transactionDate);
+            user.updateAccountBalance(newTransaction);
             LoadTransactionUtil.load(transactionList, newTransaction);
         } else if (transactionType.equals("DEP")) {
             newTransaction = new Deposit(transactionAmount, transactionDate);
+            user.updateAccountBalance(newTransaction);
             LoadTransactionUtil.load(transactionList, newTransaction);
         }
 
@@ -73,13 +75,9 @@ public class LoadLineParser {
         String sex = splitLine[5];
         BigDecimal accountBalance = new BigDecimal(splitLine[6]);
         if (sex.equals("M")) {
-            User newUser = new User(name, age, height, Gender.MALE, activityLevel, loseWeight);
-            newUser.setAccountBalance(accountBalance);
-            return newUser;
+            return new User(name, age, height, Gender.MALE, activityLevel, loseWeight, accountBalance);
         } else {
-            User newUser = new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight);
-            newUser.setAccountBalance(accountBalance);
-            return newUser;
+            return new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight, accountBalance);
         }
     }
 

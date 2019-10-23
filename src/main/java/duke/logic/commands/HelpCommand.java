@@ -21,7 +21,8 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         ArrayList<String> helpLines = new ArrayList<>();
         storage.loadHelp(helpLines, specifiedHelp);
         ui.showHelp(helpLines);

@@ -61,7 +61,8 @@ public class MarkDoneCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList mealList, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }

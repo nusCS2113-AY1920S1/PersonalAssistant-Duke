@@ -51,7 +51,7 @@ public class Load {
         }
     }
 
-    public void loadTransactions(TransactionList transactions) throws DukeException {
+    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
         try {
             bufferedReader = new BufferedReader(new FileReader(TRANSACTION_FILE));
         } catch (FileNotFoundException e) {
@@ -63,8 +63,9 @@ public class Load {
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
-
+                LoadLineParser.parseTransactions(transactions, line, user);
             }
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

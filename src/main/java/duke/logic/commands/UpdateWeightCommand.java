@@ -17,7 +17,8 @@ public class UpdateWeightCommand extends Command {
     }
 
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         String[] temp = description.split("/date");
         if (temp.length > 1) {
             try {

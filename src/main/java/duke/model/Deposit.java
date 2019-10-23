@@ -2,7 +2,7 @@ package duke.model;
 
 import java.math.BigDecimal;
 
-public class Deposit extends Transaction{
+public class Deposit extends Transaction {
     public Deposit(BigDecimal transactionAmount, String dateString) {
         super(transactionAmount, dateString);
         super.type = "DEP";

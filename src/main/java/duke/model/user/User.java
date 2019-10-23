@@ -48,7 +48,8 @@ public class User {
      * @param loseWeight if they would like to lose weight or maintain
      */
 
-    public User(String name, int age, int height, Gender sex, int activityLevel, boolean loseWeight) {
+    public User(String name, int age, int height, Gender sex, int activityLevel, boolean loseWeight,
+                BigDecimal accountBalance) {
         this.name = name;
         this.height = height;
         this.age = age;
@@ -56,6 +57,7 @@ public class User {
         this.isSetup = true;
         this.activityLevel = activityLevel;
         this.loseWeight = loseWeight;
+        this.account = new Account(accountBalance);
     }
 
     /**
@@ -170,6 +172,7 @@ public class User {
     public void setAccountBalance(BigDecimal accountBalance) {
         this.account.setAmount(accountBalance);
     }
+
     public void updateAccountBalance(Transaction transaction) {
         BigDecimal transactionAmount = transaction.getTransactionAmount();
         if (transaction.getType().equals("PAY")) {
@@ -178,6 +181,7 @@ public class User {
             this.account.deposit(transactionAmount);
         }
     }
+
     //TODO: might want to refactor (1 DoS)
     public String getCurrency() {
         return account.getCurrency();

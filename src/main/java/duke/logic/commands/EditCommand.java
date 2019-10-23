@@ -18,7 +18,8 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         updatedMeal = meals.updateMeal(updatedMeal);
         String dateStr = updatedMeal.getDate();
         ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, dateStr);

@@ -29,7 +29,8 @@ public abstract class Command {
      * @param storage the storage object that stores the list of tasks
      * @param in the scanner object to handle secondary command IO
      */
-    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException;
+    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user,
+                                 Scanner in, TransactionList transactions) throws DukeException;
 
     public boolean isExit() {
         return false;

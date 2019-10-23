@@ -42,7 +42,8 @@ public class ListCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         if (!tasks.checkDate(currentDate)) {

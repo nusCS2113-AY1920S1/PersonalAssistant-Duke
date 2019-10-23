@@ -47,8 +47,8 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
-    public void loadTransactions(TransactionList transactions) throws DukeException {
-        loader.loadTransactions(transactions);
+    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
+        loader.loadTransactions(transactions, user);
     }
 
     /**

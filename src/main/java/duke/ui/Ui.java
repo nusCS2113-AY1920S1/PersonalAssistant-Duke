@@ -109,6 +109,7 @@ public class Ui {
     public void showLoadinngTransactionError() {
         System.out.println(padding + "Failed to load transaction file.");
     }
+
     public void showUserLoadingError() {
         System.out.println(padding + "Unable to load user file.");
     }

@@ -19,11 +19,12 @@ public class AddTransactionCommand extends Command {
     }
 
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user,  Scanner in, TransactionList transactions) throws DukeException {
-        transactions.addTransaction(this.transaction, user);
+    public void execute(MealList tasks, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
+        transactions.addTransaction(this.transaction);
         user.updateAccountBalance(transaction);
         storage.updateTransaction(transactions);
-//        ArrayList<Transaction> transactionData = transactions.getTransactionTracker().get(this.transaction.getDate());
+        storage.saveUser(user);
         ui.showTransactionAdded(this.transaction, user.getAccountBalance());
     }
 }
