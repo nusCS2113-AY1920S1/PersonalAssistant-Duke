@@ -154,10 +154,6 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    private void handleSubsequentInput() {
-        String input = userInput.getText();
-    }
-
     /**
      * This method is utilised to refresh the ListViews every time there is a user input and for the
      * initialisation.
