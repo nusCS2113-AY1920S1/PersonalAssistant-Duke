@@ -2,6 +2,7 @@ package duke.command.orderCommand;
 
 import duke.command.Cmd;
 import duke.command.ingredientCommand.DeleteCommand;
+import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a specific {@link Cmd} used to cancel/delete a {@link Order} from the {@link OrderList}.
@@ -37,7 +39,22 @@ public class DeleteOrderCommand extends DeleteCommand<Order> {
             throw new DukeException("No order in the list! No order can be cancelled!");
         }
         if (orderNb < orderList.size() && orderNb >= 0) {
-            Order removed = orderList.removeEntry(orderNb);
+            Order removed = orderList.getEntry(orderNb-1);
+
+            // Need to update after menu is created
+            Dish dish;
+            int amount;
+            for (Map.Entry<Dish, Integer> entry : removed.getOrderContent().entrySet()) {
+                dish = entry.getKey();
+                amount = entry.getValue();
+                int dishIndex;
+                for (int i=0; i<amount ;i++) {
+                    //decrement dish amount from the menu
+                    //new DeleteDishCommand(dishIndex)
+                }
+            }
+
+            orderList.removeEntry(orderNb);
             List<String> fileContent = null;
             try {
                 fileContent = new ArrayList<>(Files.readAllLines(storage.getPath(), StandardCharsets.UTF_8));

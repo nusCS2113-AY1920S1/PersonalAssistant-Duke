@@ -91,6 +91,7 @@ public class Parser {
     public static Cmd Parse(String fullCommand) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)
         String[] splitted = fullCommand.split(" ", 2);
+        int orderNb;
         //switching on the keyword
         switch (splitted[0]) {
             //RecipeCommand
@@ -101,8 +102,8 @@ public class Parser {
             case "dishlist":
                 return new ListDishCommand();
             case "dishdelete" :
-                int Nb = Integer.parseInt(splitted[1]);
-                return new DeleteDishCommand(Nb);
+                orderNb = Integer.parseInt(splitted[1]);
+                return new DeleteDishCommand(orderNb);
             case "addingredient" :
                 String[] getIng = splitAndCheck(splitted[1], " /add ");
                 int listNum = Integer.parseInt(getIng[1]);
@@ -114,22 +115,23 @@ public class Parser {
                 return new AddOrder();
             case "orderList":
                 // splitted[1] can be orderList all, orderList undone,
-                //                    orderList today, orderList undoneToday
+                //                    orderList today, orderList undoneToday,
+                //                    orderList date xxxx/xx/xx,
+                //                    orderList dish dishname
                 checkLength(splitted);
-                return new ListOrderCmd(splitted[1]);
+                return new ListOrderCommand(splitted[1]);
             case "orderDone":
                 checkLength(splitted);
-                return new DoneOrderCommand(splitted[1]);
-            case "orderCancel":
-                int index = Integer.parseInt(splitted[1]);
-                return new DeleteOrderCommand(index);
+                orderNb = Integer.parseInt(splitted[1]);
+                return new DoneOrderCommand(orderNb);
+            case "orderDelete":
+                orderNb = Integer.parseInt(splitted[1]);
+                return new DeleteOrderCommand(orderNb);
             case "orderAlterDate":
                 checkLength(splitted);
                 String[] getDate = splitAndCheck(splitted[1], " /to ");
                 // getDate[0] is the order index, getDate[1] is the newly set date
                 return new AlterServingDateCmd(Integer.parseInt(getDate[0]), getDate[1]);
-            case "orderFindDate":
-                return new FindOrderByDate(splitted[1]);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
