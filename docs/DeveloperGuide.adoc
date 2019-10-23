@@ -255,7 +255,7 @@ commands from the `View` layer and call the relevant methods in `ProjectReposito
 
 It implements the following commands:
 
-* `create -n PROJECT_NAME` -- Creation of a new Project
+* `create PROJECT_NAME` -- Creation of a new Project
 * `list` --  Viewing all Projects that have been created
 * `delete -i PROJECT_INDEX` -- Delete a Project that has been created previously
 
@@ -268,15 +268,24 @@ However, in order to create a object, inputs sent to the `Repository` layer must
 The example usage scenario below will explain in detail the data flow and how the program behaves at each step of
 CRUD functions with regards to a Project object.
 
-Step 1)
+Step 1) ArchDuke is launched for the first time by the user. A new `CLIView()` and `ConsoleInputController` is
+created upon initialization. Immediately after initialization, `CLIView.start()` will be called which prints a welcome
+message to the user and awaits for user input.
 
-Step 2)
+Step 2) The user executes the command `create Avengers Assemble!` to create a new Project with the description
+"Avengers Assemble!". User input is fed from `CLIView` to `ConsoleInputController`, where simple parsing will be done
+to determine the type of command that the user has executed.
 
-Step 3)
+Step 3) User input will be understood as a command to create a new project and thus sent to `ProjectRepository` where
+it will call on `ProjectFactory` for the creation of a new Project object.
 
-Step 4)
+Step 4) `ProjectRepository` will check if `ProjectFactory` managed to create an object successfully. Any unsuccessful
+creation will be due to wrong user commands or a bug during data validation in `ProjectFactory`.
 
-Step 5)
+Step 5) Assuming Project creation was a success, `ProjectRepository` will store it in an ArrayList and return `True`
+back to `ConsoleInputController` to signify the successful creation of a new Project object. `ConsoleInputController`
+will call `CLIView` to print appropriate messages to the user based on whether a new Project object was created
+successfully or not.
 
 // ==== Design Considerations
 
