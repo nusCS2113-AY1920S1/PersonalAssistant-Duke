@@ -14,7 +14,7 @@ public class Rim {
 
     public Rim(String filePath, String rfilepath) throws FileNotFoundException, ParseException {
         ui = new Ui();
-        storage = new Storage(filePath,rfilepath,ui);
+        storage = new Storage(filePath, rfilepath);
         resources = new ResourceList(storage.getResources(), ui);
         
         parser = new Parser(resources, ui);
