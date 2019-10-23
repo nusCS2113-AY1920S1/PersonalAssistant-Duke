@@ -38,7 +38,7 @@ public class AssignmentViewHelper {
                 if (project.hasMemberIndex(indexNumber)) {
                     membersToView.add(indexNumber);
                 } else {
-                    errorMessages.add("Member with index " + index + "does not exist.");
+                    errorMessages.add("Member with index " + index + " does not exist.");
                 }
             } catch (NumberFormatException e) {
                 errorMessages.add("Could not recognise member " + index
@@ -96,7 +96,7 @@ public class AssignmentViewHelper {
                 if (project.hasTaskIndex(indexNumber)) {
                     tasksToView.add(indexNumber);
                 } else {
-                    errorMessages.add("Task with index " + index + "does not exist.");
+                    errorMessages.add("Task with index " + index + " does not exist.");
                 }
             } catch (NumberFormatException e) {
                 errorMessages.add("Could not recognise task " + index
