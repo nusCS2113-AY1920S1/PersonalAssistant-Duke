@@ -15,6 +15,8 @@ import ui.Ui;
  */
 public class PriorityCommand extends Command {
 
+    private static final String NO_PRIORITY = "Ignorable tasks do not have a priority level";
+
     private int indexOfTask;
     private String priorityString;
 
@@ -43,7 +45,7 @@ public class PriorityCommand extends Command {
 
         Task task = tasks.getTasks().get(indexOfTask);
         if (!task.isPrioritizable) {
-            Ui.printOutput("Ignorable tasks do not have a priority level");
+            Ui.printOutput(NO_PRIORITY);
         } else {
             task.setPriority(newPriority);
             storage.saveFile(tasks.getTasks());

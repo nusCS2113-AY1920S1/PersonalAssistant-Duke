@@ -7,6 +7,12 @@ import exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
+/**
+ * Extract the components required to add a TodoWithinPeriod task.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class TodoWithinPeriodParser extends TodoParser {
 
     public TodoWithinPeriodParser(String userInput, String command) {

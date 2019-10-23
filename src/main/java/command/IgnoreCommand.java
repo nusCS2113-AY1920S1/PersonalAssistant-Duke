@@ -17,6 +17,9 @@ public class IgnoreCommand extends Command {
     private int indexOfTask;
     private boolean isIgnore;
 
+    private static final String IGNORED = "Noted. This task has been marked as ignored:\n";
+    private static final String UNIGNORED = "Noted. This task is no longer ignored:\n";
+
     /**
      * Initializes the different parameters when adding the location of a task.
      *
@@ -41,11 +44,11 @@ public class IgnoreCommand extends Command {
             if (isIgnore) {
                 Task task = tasks.markAsIgnorable(indexOfTask);
                 storage.saveFile(tasks.getTasks());
-                Ui.printOutput("Noted. This task has been marked as ignored:\n" + task.toString());
+                Ui.printOutput(IGNORED + task.toString());
             } else {
                 Task task = tasks.markAsUnignorable(indexOfTask);
                 storage.saveFile(tasks.getTasks());
-                Ui.printOutput("Noted. This task is no longer ignored:\n" + task.toString());
+                Ui.printOutput(UNIGNORED + task.toString());
             }
         }
     }

@@ -4,6 +4,12 @@ import command.Command;
 import command.IgnoreCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the ignore command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class IgnoreParser extends IndexParser {
 
     private Boolean isIgnore;

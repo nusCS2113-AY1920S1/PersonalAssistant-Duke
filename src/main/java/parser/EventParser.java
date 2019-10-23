@@ -7,6 +7,12 @@ import exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
+/**
+ * Extract the components required to create an event class.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class EventParser extends DescriptionParser {
 
     public EventParser(String userInput, String command) {

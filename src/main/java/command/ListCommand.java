@@ -14,6 +14,10 @@ import java.util.ArrayList;
  * @version v1.0
  */
 public class ListCommand extends Command {
+
+    private static final String EMPTY_LIST = "You have currently no tasks in your list.";
+    private static final String PRESENT_LIST = "Here are the task(s) in your list:";
+
     /**
      * Outputs the entire list of tasks to the UI which will print it.
      *
@@ -25,10 +29,10 @@ public class ListCommand extends Command {
     public void execute(TaskList tasks, Storage storage) {
         ArrayList<Task> currentList = tasks.getTasks();
         if (tasks.getSize() == 0) {
-            Ui.printOutput("You have currently no tasks in your list.");
+            Ui.printOutput(EMPTY_LIST);
         } else {
             Ui.printDash();
-            Ui.printOutput("Here are the task(s) in your list:");
+            Ui.printOutput(PRESENT_LIST);
             outputRequiredList(currentList);
         }
     }

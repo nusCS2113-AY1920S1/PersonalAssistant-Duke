@@ -4,6 +4,12 @@ import command.Command;
 import command.ViewCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the view command.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class ViewParser extends DescriptionParser {
 
     public ViewParser(String userInput, String command) {

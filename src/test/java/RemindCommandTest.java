@@ -42,7 +42,7 @@ public class RemindCommandTest {
         tasks.add(testTask);
         reminder.execute(tasks, storage);
         Assertions.assertNotNull(testTask.reminder);
-        Assertions.assertTrue(testTask.checkReminderTrigger());
+        Assertions.assertTrue(testTask.isReminderTrigger());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class RemindCommandTest {
         TaskList tasks = new TaskList(list);
         reminder.execute(tasks, storage);
         Assertions.assertNotNull(testTask.reminder);
-        Assertions.assertFalse(testTask.checkReminderTrigger());
+        Assertions.assertFalse(testTask.isReminderTrigger());
     }
 
     @Test
