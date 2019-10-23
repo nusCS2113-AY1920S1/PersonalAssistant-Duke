@@ -46,7 +46,7 @@ There are three main components in the overall architecture of the application.
 
 === Clash handling
 ==== Activity diagram
-
+====
                     +-----------+
                     |  addEvent |
                     |   called  |
@@ -84,6 +84,7 @@ There are three main components in the overall architecture of the application.
                             | Await new |
                             |  Command  |
                             +-----------+
+====
 
 ==== How is it implemented
 The program is able to detect clashes when creating new events. When the user enters the command
