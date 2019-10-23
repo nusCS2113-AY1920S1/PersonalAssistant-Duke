@@ -13,7 +13,6 @@ import views.CLIView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ProjectInputController implements IController {
