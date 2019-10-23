@@ -6,6 +6,7 @@ public class Note {
     private String duration; // 1, 2*, 2, 4*, 4, 8
     private boolean isStart;
 
+    //@@author rohan-av
     /**
      * Constructor for the Note object, taking in a String representation of the note.
      *

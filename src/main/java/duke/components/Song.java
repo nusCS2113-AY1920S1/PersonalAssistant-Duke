@@ -18,6 +18,7 @@ public class Song {
     private ArrayList<Group> groups;
     private ArrayList<String> songChart;
 
+    //@@author rohan-av
     /**
      * Constructor for Song object, taking in a name, key and tempo.
      *
@@ -54,6 +55,7 @@ public class Song {
         return groups;
     }
 
+    //@@author
     /**
      * Creates a grouping of Bar objects to be easily copied and inserted for repetitions
      * in music.
@@ -146,6 +148,7 @@ public class Song {
 
     }
 
+    //@@author rohan-av
     /**
      * Returns a String representation of the Song to be used for persistent storage.
      *

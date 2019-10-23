@@ -47,7 +47,7 @@ public class NewCommand extends Command<SongList> {
             tempo = Integer.parseInt(sections[3]);
             song = new Song(songName, key, tempo);
             songList.add(song);
-            //storage.updateFile(songList);
+            storage.updateFile(songList);
             return ui.formatNewSong(songList.getSongList(), song);
         } catch (Exception e) {
             throw new DukeException(message, "new");
