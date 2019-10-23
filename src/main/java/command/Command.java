@@ -34,19 +34,20 @@ public abstract class Command {
      * @param indexOfTask Holds the index of the task to be commented on.
      * @param currentSizeOfTasks  Holds the integer value of the current list size.
      */
-    public boolean isIndexValid (Integer indexOfTask, Integer currentSizeOfTasks) throws DukeException{
+    public boolean isIndexValid(Integer indexOfTask, Integer currentSizeOfTasks) throws DukeException {
         if (indexOfTask < 0 || indexOfTask > (currentSizeOfTasks - 1)) {
             Ui.printOutput(DukeException.invalidIndex());
-           throw new DukeException(DukeException.invalidIndex());
+            throw new DukeException(DukeException.invalidIndex());
         }
         return true;
     }
+
     /**
      * Checks if the index of a Task provided by the user is within the TaskList.
      *
      * @param tasks  Holds the list that need to be formatted for UI.
      */
-    public void outputRequiredList (ArrayList<Task> tasks) {
+    public void outputRequiredList(ArrayList<Task> tasks) {
         Integer i = 1;
         Integer j = 1;
         for (Task task : tasks) {
