@@ -73,7 +73,7 @@ public class EntryParser extends Parser {
         undoFlag = 1;
     }
 
-    public static void resetPrePosition() {
+    public static void resetUndoFlag() {
         EntryParser.prevPosition = -1;
         undoFlag = 0;
     }

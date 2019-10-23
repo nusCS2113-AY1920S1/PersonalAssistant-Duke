@@ -12,8 +12,6 @@ import dolla.command.SortCommand;
 import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
-import java.time.LocalDate;
-
 public class DebtsParser extends Parser {
     private static int prevPosition;
     private static int undoFlag = 0;
@@ -78,7 +76,7 @@ public class DebtsParser extends Parser {
         undoFlag = 1;
     }
 
-    public static void resetPrevPosition() {
+    public static void resetUndoFlag() {
         DebtsParser.prevPosition = -1;
         undoFlag = 0;
     }
