@@ -35,7 +35,7 @@ Responsibilities:
 '''
 
 === KYAWT KYAWT SAN
-image::kyawtkyawtsan.jpg[width="150", align="left"]
+image::kyawtsan99.png[width="150", align="left"]
 {empty}[http://github.com/kyawtsan99[github]] 
 
 Role: Developer +
