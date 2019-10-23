@@ -108,7 +108,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
