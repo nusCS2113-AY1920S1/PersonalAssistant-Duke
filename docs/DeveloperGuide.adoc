@@ -54,9 +54,9 @@ This Developer Guide is meant for any software developer who wishes to contribut
 * If you wish to run the .jar file in a mainstream OS, simply double click the .jar file, and a command line interface should run in a few seconds. +
 This is assuming you have a JDK version of `11` and above.
 
-* If you are not using `gradle`, simply locate the `Duke.java` file under `PROJECT_DIRECTORY/src/main/java/Duke.java`, and run it in your IDE.
+* If you are not using `gradle`, simply locate the `Planner.java` file under `PROJECT_DIRECTORY/src/main/java/planner/Planner.java`, and run it in your IDE.
 
-* If you are using `gradle`, import the project as a gradle project using the `Import Gradle Project` function in IntelliJ, and run `Duke.java` from the Gradle toolbar.
+* If you are using `gradle`, import the project as a gradle project using the `Import Gradle Project` function in IntelliJ, and run `gradlew run` from the command line.
 
 == Overall Design
 
@@ -64,7 +64,11 @@ This is assuming you have a JDK version of `11` and above.
 
 === JsonWrapper
 
+The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing and Natty for relative date processing. Dependant on Storage class for writing data files obtained.
+
 === Storage
+
+Main class which handles file writing during runtime and for maintaining user data in memory.
 
 === Parser
 
@@ -319,4 +323,7 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 
 [appendix]
 == Glossary
-*CEG* : Computer Engineering
+* *API* : Application Programming Interface
+* *CEG* : Computer Engineering
+* *NUSMODS* : NUSMODS is an external library where consolidated module data from NUS is collected
+* *JSON* : JavaScript Object Notation
