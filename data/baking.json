@@ -1,0 +1,27 @@
+{
+  "orders" : [ ],
+  "products" : [ ],
+  "inventory" : [ {
+    "ingredient" : {
+      "name" : "cheese",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "hello",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "chicken",
+      "unitPrice" : 0.0,
+      "remarks" : "-"
+    },
+    "amount" : 0.0
+  } ],
+  "shoppingList" : [ ]
+}
