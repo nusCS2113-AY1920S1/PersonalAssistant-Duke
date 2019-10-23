@@ -227,7 +227,7 @@ eg. `check MC 1-1` will check for MCs taken in Year 1 Semester 1
 
 [appendix]
 == Glossary
-*API* : Application Programming Interface
-*CEG* : Computer Engineering
-*NUSMODS* : NUSMODS is an external library where consolidated module data from NUS is collected
-*JSON* : JavaScript Object Notation
+* *API* : Application Programming Interface
+* *CEG* : Computer Engineering
+* *NUSMODS* : NUSMODS is an external library where consolidated module data from NUS is collected
+* *JSON* : JavaScript Object Notation
