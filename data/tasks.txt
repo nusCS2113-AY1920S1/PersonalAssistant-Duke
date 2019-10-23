@@ -1,5 +1,1 @@
-T | 0 | e | 0
-T | 0 | d | 0
-T | 0 | a | 0
-T | 0 | b | 0
-T | 0 | c | 0
+T | 0 | This is a task for checkLink | 0
