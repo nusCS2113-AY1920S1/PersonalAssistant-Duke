@@ -48,9 +48,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `select CHAPTER`, `CHAPTER` is a parameter which can be used as `select 3`.
 ====
 
-=== View the main menu : `menu`
+=== View all the commands available : `menu`
 
-Summons the main menu whenever the program is running. Pauses the game while giving multiple options. +
+Lists all the commands that are available in the program. +
 Format: `menu`
 
 === Start the game : `start`
@@ -111,10 +111,13 @@ Format : `reset`
 Provides a way for users to save the game manually +
 Format : `save`
 
-=== Lists all console commands : `help`
+=== Provides suggestions to users to improve : `help`
 
-Provides a comprehensive list of console commands. +
-Format : `help` +
+Provides a suggestion of problems to solve for the user to improve at a certain chapter. +
+Format : `help CHAPTER` +
+Example : +
+`help 1` will list a a few problems from Kattis that the user can attempt to increase their
+understanding of the chapter selected.
 
 === Exits the game : `exit`
 
@@ -181,7 +184,8 @@ e.g. `history 5`
 e.g.`clear 2`
 * *Reset* : `reset`
 * *Save* : `save`
-* *Help* : `help`
+* *Help* : `help` +
+e.g. `help 1`
 * *Exit* : `exit`
 * *Print* : `print`
 * *Archive* : `archive`
