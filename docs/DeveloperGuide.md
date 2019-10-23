@@ -184,17 +184,17 @@ The  `UI`  component,
 - Display ​daily calendar of the user via `DailyCalender`. 
 
 ### 4.3. Logic component
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="700"/>
+<img src="/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="700"/>
 Figure 6. Structure of the Logic component
 
-**API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/logic/parser/CommandParser.java)
+The  `Logic`  component handles the parsing of user input and interacts with the Task objects.
 
-The  `Logic`  component,
+1. Uses the `CommandParser` class to parse user input. 
+    - This results in a `Command` object which is executed.
+2. The execution of `Command` can affect a `Task` object (e.g. adding a `Task` to the `TaskList`)
+3. The result of the `Command` execution is encapsulated as a `CommandResult` object which is passed to the `UI` to be rendered as output for the user. 
 
-- Set up `ParserManager` to parse the user command.
-- `ParserManager` creates respective `xCommand` class.
-- `xCommand` class can execute the command and can affect the `model`.
-- `xCommand` class can instruct the `ui` to print information.
+A Sequence Diagram for interactions within the `Logic` component will be uploaded soon.
 
 ### 4.4. Commons Component
 Classes used by multiple components are in the [`commons`](/src/main/java/compal/commons) package. It contains 2 important classes: [`Compal`](/src/main/java/compal/commons/Compal.java) and [`Messages`](/src/main/java/compal/commons/Messages.java).
