@@ -1,17 +1,19 @@
 package executor.command;
 
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
 import ui.Wallet;
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.math.BigDecimal;
+
 
 public class CommandCurrency extends Command {
     private String from = " ";
     private String to = " ";
-    private int amount = 0;
+    private Double amount = 0.00;
 
     public CommandCurrency(String userInput) {
         this.userInput = userInput;
@@ -27,10 +29,10 @@ public class CommandCurrency extends Command {
         return input.trim().replace("$", "");
     }
 
-    private Integer extractAmount(CommandType commandType, String userInput) {
+    private Double extractAmount(CommandType commandType, String userInput) {
         String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
         amountStr = removeDollarSign(amountStr);
-        return Integer.parseInt(amountStr);
+        return Double.parseDouble(amountStr);
     }
 
     private String getFromUserInput(String userInput) {
@@ -44,19 +46,24 @@ public class CommandCurrency extends Command {
     }
 
     //Converting
-    private Double findExchangeRateAndConvert(String from, String to, int amount) {
+    private Double convertCurrency(String from, String to, Double amount ){
+
         try {
-            //Yahoo Finance API
-            URL url = new URL("https://api.ratesapi.io/api/latest?base="+from+"&symbols="+to +" HTTP/2");
-            System.out.println(url.toString());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line = reader.readLine();
-            if (line.length() > 0) {
-                return Double.parseDouble(line) * amount;
+            String json = "https://api.ratesapi.io/api/latest?base=" + from + "&symbols=" + to;
+            System.out.println(json.toString());
+            JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+            System.out.println(jsonObject.toString());
+            String Rate = jsonObject.getAsJsonObject("rates").get(to).getAsString();
+            BigDecimal exchangeRate = new BigDecimal(Rate);
+            double exRate = exchangeRate.doubleValue();
+            double convertedAmount = exRate * amount;
+            if(convertedAmount > 0.0){
+                return convertedAmount;
             }
-            reader.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch(Exception e){
+            Ui.dukeSays(e.getMessage());
+            Ui.dukeSays(Ui.LINE);
+            Ui.dukeSays("Please enter in the following format Currency /from");
         }
         return null;
     }
@@ -70,7 +77,7 @@ public class CommandCurrency extends Command {
         return to;
     }
 
-    private int getAmount() {
+    private Double getAmount() {
         return amount;
     }
 
@@ -89,7 +96,7 @@ public class CommandCurrency extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-        Double convertedAmount = this.findExchangeRateAndConvert(this.getFrom(), this.getTo(), this.getAmount());
+        Double convertedAmount = this.convertCurrency(this.getFrom(), this.getTo(), this.getAmount());
         Ui.dukeSays(this.result(convertedAmount));
         Ui.printSeparator();
     }
