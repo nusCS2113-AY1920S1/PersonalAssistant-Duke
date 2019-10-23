@@ -21,9 +21,9 @@ public class AssignmentViewHelperTest {
      */
     public AssignmentViewHelperTest() {
         this.project = new Project("Test Project");
-        this.member1 = new Member("Tom", "--", "--", 1);
-        this.member2 = new Member("Dick", "--", "--", 2);
-        this.member3 = new Member("Harry", "--", "--", 3);
+        this.member1 = new Member("Tom", "--", "--", 1, "member");
+        this.member2 = new Member("Dick", "--", "--", 2, "member");
+        this.member3 = new Member("Harry", "--", "--", 3, "member");
 
         Task task = new Task("Documentation", 0,null, 0, TaskState.OPEN, new ArrayList<>());
         Task task2 = new Task("JUnit tests", 0,null, 0, TaskState.OPEN, new ArrayList<>());
@@ -47,11 +47,11 @@ public class AssignmentViewHelperTest {
     @Test
     void testSetupOfProjectAndMembers() {
         assertEquals("Test Project", project.getDescription());
-        assertEquals("1. Tom (Phone: -- | Email: --)",
+        assertEquals("1. Tom (Phone: -- | Email: -- | Role: member)",
             member1.getDetails());
-        assertEquals("2. Dick (Phone: -- | Email: --)",
+        assertEquals("2. Dick (Phone: -- | Email: -- | Role: member)",
             member2.getDetails());
-        assertEquals("3. Harry (Phone: -- | Email: --)",
+        assertEquals("3. Harry (Phone: -- | Email: -- | Role: member)",
             member3.getDetails());
         assertEquals(3, project.getNumOfMembers());
         assertEquals("Tom", project.getMembers().getMember(1).getName());
@@ -66,7 +66,7 @@ public class AssignmentViewHelperTest {
     public void testGetMemberOutput() {
         ArrayList<Integer> validMembersIndexes = new ArrayList<Integer>(Arrays.asList(1, 2, 3));
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
-        ArrayList<String> memberOutput = assignmentViewHelper.getMemberOutput(validMembersIndexes,
+        ArrayList<String> memberOutput = AssignmentViewHelper.getMemberOutput(validMembersIndexes,
             project);
         assertEquals("Here are each member's tasks:", memberOutput.get(0));
         assertEquals("Tasks assigned to Tom", memberOutput.get(1));
@@ -86,7 +86,7 @@ public class AssignmentViewHelperTest {
     public void testGetTaskOutput() {
         ArrayList<Integer> validTasksIndexes = new ArrayList<Integer>(Arrays.asList(1, 2));
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
-        ArrayList<String> taskOutput = assignmentViewHelper.getTaskOutput(validTasksIndexes,
+        ArrayList<String> taskOutput = AssignmentViewHelper.getTaskOutput(validTasksIndexes,
             project);
         assertEquals("Here are the members assigned to each task:", taskOutput.get(0));
         assertEquals("Documentation | Priority: 0 | Due: -- | Credit: 0 | State: OPEN", taskOutput.get(1));

@@ -45,7 +45,7 @@ class ProjectInputControllerTest {
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Jerry Zhang (Phone: 9123456 | Email: jerryzhang@gmail.com)";
+        expectedOutput = "1. Jerry Zhang (Phone: 9123456 | Email: jerryzhang@gmail.com | Role: member)";
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -61,7 +61,7 @@ class ProjectInputControllerTest {
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Dillen (Phone: 9123456 | Email: dillen@gmail.com)";
+        expectedOutput = "1. Dillen (Phone: 9123456 | Email: dillen@gmail.com | Role: member)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "edit member 1 -n Jerry";
@@ -70,7 +70,7 @@ class ProjectInputControllerTest {
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Jerry (Phone: 9123456 | Email: dillen@gmail.com)";
+        expectedOutput = "1. Jerry (Phone: 9123456 | Email: dillen@gmail.com | Role: member)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "edit member 1 -i 911";
@@ -79,7 +79,7 @@ class ProjectInputControllerTest {
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Jerry (Phone: 911 | Email: dillen@gmail.com)";
+        expectedOutput = "1. Jerry (Phone: 911 | Email: dillen@gmail.com | Role: member)";
         assertEquals(expectedOutput, actualOutput);
 
         simulatedUserInput = "edit member 1 -e jerry@gmail.com -n Thanos Endgame";
@@ -88,7 +88,7 @@ class ProjectInputControllerTest {
         for (String message : project.getMembers().getAllMemberDetails().toArray(new String[0])) {
             actualOutput += message;
         }
-        expectedOutput = "1. Thanos Endgame (Phone: 911 | Email: jerry@gmail.com)";
+        expectedOutput = "1. Thanos Endgame (Phone: 911 | Email: jerry@gmail.com | Role: member)";
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -299,6 +299,24 @@ class ProjectInputControllerTest {
             actualOutput += message;
         }
         expectedOutput = "Documentation for product is assigned to: Jerry ZhangDillen";
-        assertEquals(expectedOutput,actualOutput);
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void assignRole_correctInputs() {
+        Project project = new Project("Infinity_Gauntlet");
+        simulatedUserInput = "add member -n Tony Stark -e richguy@gmail.com -r RichGuy";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Doctor Strange -i 9123456 -e strange@gmail.com -r SmartGuy";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "add member -n Hulk -i 911 -r StrongGuy";
+        projectInputController.projectAddMember(project, simulatedUserInput);
+        simulatedUserInput = "role 1 -n IronMan";
+        projectInputController.projectRoleMembers(project, simulatedUserInput);
+        actualOutput = project.getMembers().getMember(1).getRole();
+        expectedOutput = "IronMan";
+        assertEquals(expectedOutput, actualOutput);
+        assertEquals("SmartGuy", project.getMembers().getMember(2).getRole());
+        assertEquals("StrongGuy", project.getMembers().getMember(3).getRole());
     }
 }

@@ -16,11 +16,12 @@ public class Member implements IMember {
      * @param email The email address of the member.
      * @param indexNumber The index number assigned to the member, unique to the project.
      */
-    public Member(String name, String phone, String email, int indexNumber) {
+    public Member(String name, String phone, String email, int indexNumber, String role) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.indexNumber = indexNumber;
+        this.role = role;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Member implements IMember {
     @Override
     public String getDetails() {
         return this.indexNumber + ". " + this.name + " (Phone: " + this.phone + " | Email: "
-            + this.email + ")";
+            + this.email + " | Role: " + this.role + ")";
     }
 
     @Override
@@ -89,5 +90,4 @@ public class Member implements IMember {
         this.phone = phone;
         this.email = email;
     }
-
 }

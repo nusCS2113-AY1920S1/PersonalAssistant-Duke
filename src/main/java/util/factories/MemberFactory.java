@@ -27,8 +27,9 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
         String phone = memberDetails[1];
         String email = memberDetails[2];
         int index = Integer.parseInt(memberDetails[3]);
+        String role = memberDetails[4];
         if (isNameCreated) {
-            return new Member(name, phone, email, index);
+            return new Member(name, phone, email, index, role);
         } else {
             return new NullMember();
         }
