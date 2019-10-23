@@ -158,3 +158,54 @@
 * *Recurrent task*: A task that repeat every day/week/month…
 
 ---
+
+== Implementation
+
+=== Shortcut
+
+
+The shortcut mechanism is done by the ShortcutCommand. As every other command, it extends Command with a HashSet containing all the command’s shortcut name and another HashSet containing all the default command’s shortcut name. Others commands include now a static attribute named shortcut that correspond to the command’s shortcut. It implements these following methods:
+
+* `ShortcutCommand#setOneShortcut` — set the shortcut of one command
+* `ShortcutCommand#initializedSetShortcut` — initialized the HashSet contains all the default command’s shortcut name
+
+There are three cases:
+
+* one shot one command: The user write the command for the shortcut in one line
+* multi step one command: The user write which command he wants to add a shortcut to, then the console ask what is the shortcut, and the user write the name of the shortcut
+* multi step every command: The user asks the console that he wants to modify all the command, and the console will show one by one every command, and the user will modify one by one each command.
+
+When the user launches the application, the program will read the config file, then set all shortcuts to previous shortcuts that the user has decided. If the user has not decided to customized shortcuts, it will be the default shortcut.
+
+These following diagram show how the 3 cases were implemented:
+
+==== One shot one command
+
+The user type the "entry" (not shown in the sequence diagram) as `shortcut CommandName ShortcutName`.
+
++
+image::SDShortcutOneShot.png[width="790"]
++
+
+The method setShortcut is static, thus an object Command won’t be created
+
+==== Multi-step one command
+
+The user type the "entry" (not shown in the sequence diagram) as `shortcut CommandName`. Then the console will ask what will be the new name for the shortcut.
+
++
+image::SGShortcutMultiOneCmd.png[width="790"]
++
+
+==== Multi-step every command
+
+The user type the "entry" (not shown in the sequence diagram) as `shortcut`. The console will display one command's name, then the console will ask what will be the new name for the shortcut. The console will repeat until every command have a shortcut.
+
++
+image::SGShortcutMultiEveryCmd.png[width="790"]
++
+
+==== Consideration
+
+* The config file that contains all the name for the shortcut can be edit by hand, because it is faster to edit the config file than doing it via the application.
+* When a command's shortcut is set, the default shortcut can still be used
