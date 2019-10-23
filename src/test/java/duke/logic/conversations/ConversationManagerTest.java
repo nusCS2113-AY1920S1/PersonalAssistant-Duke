@@ -23,15 +23,11 @@ class ConversationManagerTest {
     @Test
     void getResult() throws DukeException {
         ConversationManager conversationManager = new ConversationManager();
-        conversationManager.converse("deadline");
+        conversationManager.converse("todo");
         assertFalse(conversationManager.isFinished());
-        conversationManager.converse("Go Sentosa");
-        assertFalse(conversationManager.isFinished());
-        conversationManager.converse("ooh ahh ooh iee");
-        assertFalse(conversationManager.isFinished());
-        conversationManager.converse("19/10/19");
+        conversationManager.converse("Travel the Seven seas");
         assertTrue(conversationManager.isFinished());
-        assertEquals(conversationManager.getResult(), "deadline Go Sentosa by 19/10/19");
+        assertEquals(conversationManager.getResult(), "todo Travel the Seven seas");
     }
 
     @Test

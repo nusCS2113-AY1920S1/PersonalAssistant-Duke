@@ -25,7 +25,7 @@ public class RouteListCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
         try {
-            return new CommandResultText(model.getRoutes().get(index - 1));
+            return new CommandResultText(model.getRoutes().get(index));
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         }

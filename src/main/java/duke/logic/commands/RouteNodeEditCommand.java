@@ -6,7 +6,6 @@ import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.locations.Route;
 import duke.model.locations.RouteNode;
 
 public class RouteNodeEditCommand extends Command {
@@ -25,8 +24,8 @@ public class RouteNodeEditCommand extends Command {
      * @param val The value to assign
      */
     public RouteNodeEditCommand(int indexRoute, int indexNode, String var, String val) {
-        this.indexRoute = indexRoute;
-        this.indexNode = indexNode;
+        this.indexRoute = indexRoute - 1;
+        this.indexNode = indexNode - 1;
         this.var = var;
         this.val = val;
     }
@@ -44,7 +43,6 @@ public class RouteNodeEditCommand extends Command {
             case "address":
                 node.setAddress(val);
                 break;
-            case "desc":
             case "description":
                 node.setDescription(val);
                 break;

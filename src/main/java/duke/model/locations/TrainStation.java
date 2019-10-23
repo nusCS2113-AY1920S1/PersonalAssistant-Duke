@@ -14,8 +14,8 @@ public class TrainStation extends RouteNode {
      * @param latitude latitude of train station
      * @param longitude longitude of train station
      */
-    public TrainStation(ArrayList<String> trainCode, String address, double latitude, double longitude) {
-        super(Constraint.valueOf("MRT"), address, null, latitude, longitude);
+    public TrainStation(ArrayList<String> trainCode, String description, String address, double latitude, double longitude) {
+        super(Constraint.valueOf("MRT"), address, description, latitude, longitude);
         this.trainCode = trainCode;
     }
 
@@ -23,5 +23,9 @@ public class TrainStation extends RouteNode {
 
     public ArrayList<String> getTrainCode() {
         return trainCode;
+    }
+
+    public void fetchCoordinates() {
+
     }
 }

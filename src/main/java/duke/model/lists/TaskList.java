@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.lists;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeDuplicateTaskException;
@@ -7,36 +7,34 @@ import duke.commons.exceptions.DukeTaskNotFoundException;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.events.TaskWithDates;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList implements Iterable<Task> {
-    private ObservableList<Task> internalList;
+    private List<Task> list;
 
     public TaskList() {
-        internalList = FXCollections.observableArrayList();
+        list = new ArrayList<>();
     }
 
     public Task get(int index) throws IndexOutOfBoundsException {
-        return internalList.get(index);
+        return list.get(index);
     }
 
     public int size() {
-        return internalList.size();
+        return list.size();
     }
 
     /**
      * Returns true if the list contains an equivalent Task as the given argument.
      */
     public boolean contains(Task toCheck) {
-        return internalList.stream().anyMatch(toCheck::isSameTask);
+        return list.stream().anyMatch(toCheck::isSameTask);
     }
 
     /**
@@ -49,7 +47,7 @@ public class TaskList implements Iterable<Task> {
         } else if (hasAnomaly(toAdd)) {
             throw new DukeException(Messages.ANOMALY_FOUND);
         }
-        internalList.add(toAdd);
+        list.add(toAdd);
     }
 
     /**
@@ -75,7 +73,7 @@ public class TaskList implements Iterable<Task> {
      * The Task identity of {@code editedTask} must not be the same as another existing Task in the list.
      */
     public void setTask(Task target, Task editedTask) throws DukeException {
-        int index = internalList.indexOf(target);
+        int index = list.indexOf(target);
         if (index == -1) {
             throw new DukeTaskNotFoundException();
         }
@@ -84,7 +82,7 @@ public class TaskList implements Iterable<Task> {
             throw new DukeDuplicateTaskException();
         }
 
-        internalList.set(index, editedTask);
+        list.set(index, editedTask);
     }
 
     /**
@@ -92,17 +90,17 @@ public class TaskList implements Iterable<Task> {
      * The Task must exist in the list.
      */
     public void remove(Task toRemove) throws DukeException {
-        if (!internalList.remove(toRemove)) {
+        if (!list.remove(toRemove)) {
             throw new DukeTaskNotFoundException();
         }
     }
 
     public Task remove(int index) throws IndexOutOfBoundsException {
-        return internalList.remove(index);
+        return list.remove(index);
     }
 
     public void setTasks(TaskList replacement) {
-        internalList.setAll(replacement.internalList);
+        list = replacement.list;
     }
 
     /**
@@ -113,25 +111,24 @@ public class TaskList implements Iterable<Task> {
         if (!tasksAreUnique(tasks)) {
             throw new DukeDuplicateTaskException();
         }
-
-        internalList.setAll(tasks);
+        list = tasks;
     }
 
     @Override
     public Iterator<Task> iterator() {
-        return internalList.iterator();
+        return list.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskList // instanceof handles nulls
-                && internalList.equals(((TaskList) other).internalList));
+                && list.equals(((TaskList) other).list));
     }
 
     @Override
     public int hashCode() {
-        return internalList.hashCode();
+        return list.hashCode();
     }
 
     /**
@@ -148,18 +145,22 @@ public class TaskList implements Iterable<Task> {
         return true;
     }
 
-    public FilteredList<Task> getFilteredList() {
-        return new FilteredList<>(internalList, (Task t) -> (t instanceof TaskWithDates)
-                && (((TaskWithDates) t).getStartDate() != null));
+    public List<Task> getFilteredList() {
+        return list.stream().filter((Task t) -> (t instanceof TaskWithDates)
+                && (((TaskWithDates) t).getStartDate() != null)).collect(Collectors.toList());
     }
 
-    public FilteredList<Task> getEventList() {
-        return new FilteredList<>(internalList, (Task t) -> (t instanceof Event));
+    public List<Task> getEventList() {
+        return list.stream().filter((Task t) -> (t instanceof Event)).collect(Collectors.toList());
     }
 
-    public SortedList<Task> getChronoList() {
-        return new SortedList<Task>(getFilteredList(),
-                Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));
+    /**
+     * Returns a copy of task with dates sorted in chronological order.
+     */
+    public List<Task> getChronoList() {
+        List<Task> result = new ArrayList<>(getFilteredList());
+        result.sort(Comparator.comparing((Task t) -> ((TaskWithDates) t).getStartDate()));
+        return result;
     }
 }
 

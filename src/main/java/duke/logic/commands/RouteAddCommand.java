@@ -3,8 +3,8 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.RouteList;
-import duke.model.locations.Route;
+import duke.model.lists.RouteList;
+import duke.model.transports.Route;
 
 public class RouteAddCommand extends Command {
     private String name;

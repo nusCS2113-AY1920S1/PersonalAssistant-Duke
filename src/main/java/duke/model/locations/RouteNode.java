@@ -24,20 +24,18 @@ public abstract class RouteNode extends Venue {
     }
 
     @Override
-    public String toString() {
-        return address + " (" + getLatitude() + ", " + getLongitude() + ")";
-    }
+    public String toString() { return address + " (" + getLatitude() + ", " + getLongitude() + ")"; }
 
     public Constraint getType() {
         return type;
     }
 
     public double getLatitude() {
-        return getLatitude();
+        return super.getLatitude();
     }
 
     public double getLongitude() {
-        return getLongitude();
+        return super.getLongitude();
     }
 
     public String getCoordinate() {

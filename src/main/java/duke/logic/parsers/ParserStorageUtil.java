@@ -3,12 +3,12 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.model.events.Deadline;
-import duke.model.events.DoWithin;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.events.Todo;
 import duke.model.locations.BusStop;
+import duke.model.transports.Route;
+import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
@@ -32,17 +32,7 @@ public class ParserStorageUtil {
         String status = taskParts[1].strip();
         String description = taskParts[2].strip();
         Task task;
-        if ("D".equals(type)) {
-            try {
-                task = new Deadline(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
-            } catch (DukeDateTimeParseException e) {
-                task = new Deadline(description, taskParts[3].strip());
-            }
-        } else if ("W".equals(type)) {
-            LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
-            LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
-            task = new DoWithin(description, start, end);
-        } else if ("E".equals(type)) {
+        if ("E".equals(type)) {
             LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
             LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
             Venue location = getLocationFromStorage(taskParts);
@@ -73,16 +63,36 @@ public class ParserStorageUtil {
      * @return The corresponding String format of the task object.
      */
     public static String toStorageString(Task task) throws DukeException {
-        if (task instanceof Deadline) {
-            return "D | " + task.isDone() + " | " + task.getDescription() + " | " + ((Deadline) task).getDeadline();
-        } else if (task instanceof Todo) {
+        if (task instanceof Todo) {
             return "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
-            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getHoliday();
-        } else if (task instanceof DoWithin) {
-            return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
+            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getStartDate()
+                    + " | " + ((Event) task).getEndDate() + " | " + ((Event) task).getLocation();
         }
         throw new DukeException(Messages.CORRUPTED_TASK);
+    }
+
+    /**
+     * Parses a route with its nodes from routes to String format.
+     * @param route The route.
+     * @return routeString The corresponding String format of the route object.
+     */
+    public static String toRouteStorageString(Route route) {
+        String routeString = "";
+        routeString += "route | " + route.getName() + " | " + route.getDescription() + "\n";
+
+        for (RouteNode node: route.getNodes()) {
+            if (node instanceof BusStop) {
+                routeString += "node | BUS | " + ((BusStop) node).getBusCode() + " | " + node.getAddress() + " | "
+                        + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude() + "\n";
+            } else if (node instanceof TrainStation) {
+                routeString += "node | MRT | " + ((TrainStation) node).getTrainCode() + " | " + node.getAddress()
+                        + " | " + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude()
+                        + "\n";
+            }
+        }
+
+        return routeString;
     }
 
 
@@ -99,45 +109,11 @@ public class ParserStorageUtil {
         String address = busStopData[2].strip();
         double latitude = Double.parseDouble(busStopData[3].strip());
         double longitude = Double.parseDouble(busStopData[4].strip());
-        BusStop busStop = new BusStop(busCode,description, address, latitude, longitude);
+        BusStop busStop = new BusStop(busCode, address, description, latitude, longitude);
         for (int i = 5; i < busStopData.length; i++) {
             busStop.addBuses(busStopData[i].strip());
         }
         return busStop;
-    }
-
-    /**
-     * Parses a bus stop from BusStop to String format.
-     *
-     * @param busStop The bus stop.
-     * @return The corresponding String format of the BusStop object.
-     */
-    public static String busStopToStorageString(BusStop busStop) {
-        String buses = "";
-        for (String bus : busStop.getBuses()) {
-            buses += " | " + bus;
-        }
-        return busStop.getBusCode() + " | " + busStop.getDescription() + " | " + busStop.getAddress()
-                + " | " + busStop.getLatitude() + " | " + busStop.getLongitude() + buses;
-    }
-
-    /**
-     * Parses a bus service from BusService to String format.
-     *
-     * @param busService The bus.
-     * @return The corresponding String format of the BusService object.
-     */
-    public static String busToStorageString(BusService busService) {
-        String busRoute1 = "";
-        String busRoute2 = "";
-        for (String busCode : busService.getDirection(1)) {
-            busRoute1 += busCode + " | ";
-        }
-        for (String busCode : busService.getDirection(2)) {
-            busRoute2 += " | " + busCode;
-        }
-
-        return  busService.getBus() + " | " + busRoute1 + "change" + busRoute2;
     }
 
     /**
@@ -192,6 +168,36 @@ public class ParserStorageUtil {
         for (int i = 3; i < trainParts.length; i++) {
             trainCode.add(trainParts[i].strip());
         }
-        return new TrainStation(trainCode, address, latitude, longitude);
+        return new TrainStation(trainCode, null, address, latitude, longitude);
+    }
+
+    /**
+     * Parses a route from String format back to route.
+     * @param line The String description of a route.
+     * @return The corresponding Route object.
+     */
+    public static Route createRouteFromStorage(String line) {
+        String[] details = line.split("\\|", 3);
+
+        return new Route(new ArrayList<>(), details[1].strip(), details[2].strip());
+    }
+
+    /**
+     * Parses a route node from String format back to a route node.
+     * @param line The String description of a route node.
+     * @return The corresponding RouteNode object.
+     */
+    public static RouteNode createNodeFromStorage(String line) throws DukeException {
+        String[] details = line.split("\\|", 7);
+        switch (details[1].strip()) {
+            case "BUS":
+                return new BusStop(details[2].strip(), details[3].strip(), details[4].strip(),
+                        Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
+            case "MRT":
+                return new TrainStation(new ArrayList<String>(), details[3].strip(), details[4].strip(),
+                        Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
+            default:
+                throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
+        }
     }
 }

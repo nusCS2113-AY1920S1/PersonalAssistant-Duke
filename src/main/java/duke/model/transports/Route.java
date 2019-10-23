@@ -1,8 +1,11 @@
-package duke.model.locations;
+package duke.model.transports;
 
 import duke.commons.Messages;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
+import duke.model.locations.BusStop;
+import duke.model.locations.RouteNode;
+import duke.model.locations.TrainStation;
 
 import java.util.ArrayList;
 
@@ -40,17 +43,27 @@ public class Route {
      * @param index The index of the node to add to.
      */
     public void addNode(RouteNode newNode, int index) throws DukeException {
-        for (RouteNode node: nodes) {
-            if (node.getAddress().equals(newNode.getAddress())) {
-                throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+        System.out.println(nodes.size());
+        System.out.println(index);
+        System.out.println(index >= 0);
+        System.out.println(index < nodes.size());
+
+        if (index >= 0 && index < nodes.size()) {
+            for (RouteNode node : nodes) {
+                if (node instanceof BusStop && newNode instanceof BusStop
+                        && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
+                    throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+                }
+                if (node instanceof TrainStation && newNode instanceof TrainStation
+                        && ((TrainStation) node).getTrainCode().equals(((TrainStation) newNode).getTrainCode())) {
+                    throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+                }
             }
+            nodes.add(index, newNode);
+            return;
         }
 
-        if (index == 0) {
-            nodes.add(newNode);
-        } else {
-            nodes.add(index - 1, newNode);
-        }
+        throw new DukeException(Messages.OUT_OF_BOUNDS);
     }
 
     /**
@@ -59,7 +72,12 @@ public class Route {
      */
     public void addNode(RouteNode newNode) throws DukeException {
         for (RouteNode node: nodes) {
-            if (node.getAddress().equals(newNode.getAddress())) {
+            if (node instanceof BusStop && newNode instanceof BusStop
+                    && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
+                throw new DukeException(Messages.DUPLICATED_ROUTENODE);
+            }
+            if (node instanceof TrainStation && newNode instanceof TrainStation
+                    && ((TrainStation) node).getTrainCode().equals(((TrainStation) newNode).getTrainCode())) {
                 throw new DukeException(Messages.DUPLICATED_ROUTENODE);
             }
         }
@@ -68,14 +86,14 @@ public class Route {
     }
 
     /**
-     * Gets the node at index - 1.
+     * Gets the node at index.
      * @param index The index of node.
-     * @return node The node at index - 1.
+     * @return node The node at index.
      * @throws DukeException The exception when index is out of bounds.
      */
     public RouteNode getNode(int index) throws DukeException {
         try {
-            return nodes.get(index - 1);
+            return nodes.get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         }
@@ -161,6 +179,6 @@ public class Route {
             return true;
         }
 
-        return otherRoute != null && otherRoute.getDescription().equals(getDescription());
+        return otherRoute != null && otherRoute.getName().equals(getName());
     }
 }

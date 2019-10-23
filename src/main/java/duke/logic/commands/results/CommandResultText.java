@@ -1,9 +1,11 @@
 package duke.logic.commands.results;
 
-import duke.model.RouteList;
-import duke.model.TaskList;
+import duke.model.lists.RouteList;
+import duke.model.lists.TaskList;
 import duke.model.events.Task;
-import duke.model.locations.Route;
+import duke.model.locations.BusStop;
+import duke.model.locations.TrainStation;
+import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 
 public class CommandResultText extends CommandResult {
@@ -44,7 +46,12 @@ public class CommandResultText extends CommandResult {
     public CommandResultText(Route route) {
         message = "Here is the information of the Route:\n" + route.getName() + "\n";
         for (RouteNode node: route.getNodes()) {
-            message += node.getAddress() + " " + node.getCoordinate() + "\n";
+            if (node instanceof BusStop) {
+                message += ((BusStop) node).getBusCode() + " ";
+            } else if (node instanceof TrainStation) {
+                message += ((TrainStation) node).getTrainCode() + " ";
+            }
+            message += node.getAddress() + "\n";
         }
     }
 
@@ -52,7 +59,14 @@ public class CommandResultText extends CommandResult {
      * Alternative constructor that helps to create text for a Route Node.
      */
     public CommandResultText(RouteNode node) {
-        message = "Here is the information of the Route node:\n" + node.getAddress() + node.getCoordinate()
-                + "\n" + node.getDescription() + "\n(" + node.getType().toString() + ")\n";
+        message = "Here is the information of the ";
+        if (node instanceof BusStop) {
+            message += "Bus Stop:\n" + ((BusStop) node).getBusCode() + "\n";
+        } else if (node instanceof TrainStation) {
+            message += "Train Station:\n" +((TrainStation) node).getTrainCode() + "\n";
+        }
+
+        message +=  node.getAddress() + "\n" + node.getDescription() + "\n"
+                + "(" + node.getType().toString() + ", " + node.getCoordinate() + ")";
     }
 }

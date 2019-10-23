@@ -3,16 +3,16 @@ package duke;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.Model;
-import duke.model.RouteList;
-import duke.model.TaskList;
+import duke.model.lists.EventList;
+import duke.model.lists.RouteList;
+import duke.model.lists.TaskList;
+import duke.model.lists.VenueList;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,7 @@ public class ModelStub implements Model {
     public ModelStub() {
         storage = new Storage();
         tasks = new TaskList();
+        routes = new RouteList();
     }
 
     @Override
@@ -39,12 +40,15 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public FilteredList<Task> getFilteredList() {
+    public RouteList getRoutes() { return routes; }
+
+    @Override
+    public List<Task> getFilteredList() {
         return tasks.getFilteredList();
     }
 
     @Override
-    public SortedList<Task> getChronoSortedList() {
+    public List<Task> getChronoSortedList() {
         return tasks.getChronoList();
     }
 
@@ -59,8 +63,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public FilteredList<Task> getEventList() {
-        return tasks.getEventList();
+    public EventList getEventList() {
+        return new EventList(tasks);
     }
 
     @Override
@@ -79,9 +83,11 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public RouteList getRoutes() { return routes; }
+    public void save() throws DukeException {
+    }
 
     @Override
-    public void save() throws DukeException {
+    public VenueList getEventVenues() {
+        return new VenueList();
     }
 }

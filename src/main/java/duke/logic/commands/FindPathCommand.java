@@ -6,7 +6,7 @@ import duke.logic.PathFinder;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
-import duke.model.TaskList;
+import duke.model.lists.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.locations.Venue;

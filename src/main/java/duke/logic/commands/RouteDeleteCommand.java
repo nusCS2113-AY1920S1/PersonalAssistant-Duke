@@ -4,7 +4,7 @@ import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.RouteList;
+import duke.model.lists.RouteList;
 
 public class RouteDeleteCommand extends Command {
     private int index;
@@ -29,8 +29,8 @@ public class RouteDeleteCommand extends Command {
     public CommandResultText execute(Model model) throws DukeException {
         try {
             RouteList routes = model.getRoutes();
-            name = routes.get(index - 1).getName();
-            routes.remove(index - 1);
+            name = routes.get(index).getName();
+            routes.remove(index);
             model.save();
             return new CommandResultText(MESSAGE_DELETION + name);
         } catch (IllegalArgumentException e) {

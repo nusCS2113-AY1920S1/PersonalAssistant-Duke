@@ -1,5 +1,7 @@
 package duke.logic.parsers;
 
+import duke.commons.Messages;
+import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.logic.commands.AddCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.DeleteCommand;
@@ -15,13 +17,20 @@ import duke.logic.commands.LocationSearchCommand;
 import duke.logic.commands.MarkDoneCommand;
 import duke.logic.commands.PromptCommand;
 import duke.logic.commands.RecommendationsCommand;
-import duke.logic.commands.ReminderCommand;
-import duke.logic.commands.RescheduleCommand;
+import duke.logic.commands.RouteAddCommand;
+import duke.logic.commands.RouteDeleteCommand;
+import duke.logic.commands.RouteEditCommand;
+import duke.logic.commands.RouteListCommand;
+import duke.logic.commands.RouteNodeAddCommand;
+import duke.logic.commands.RouteNodeDeleteCommand;
+import duke.logic.commands.RouteNodeEditCommand;
+import duke.logic.commands.RouteNodeListCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
+import duke.model.locations.RouteNode;
 
 
 /**
@@ -41,8 +50,6 @@ public class Parser {
         switch (commandWord) {
         case "todo":
             return new AddCommand(ParserUtil.createTodo(input));
-        case "deadline":
-            return new AddCommand(ParserUtil.createDeadline(input));
         case "done":
             return new MarkDoneCommand(ParserUtil.getIndex(input));
         case "delete":
@@ -51,12 +58,6 @@ public class Parser {
             return new FindCommand(getWord(input));
         case "findtime":
             return new FreeTimeCommand(ParserUtil.getIndex(input));
-        case "fetch":
-            return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(input)));
-        case "within":
-            return new AddCommand(ParserUtil.createWithin(input));
-        case "reschedule":
-            return new RescheduleCommand(ParserUtil.getSafeIndex(input), ParserUtil.getScheduleDate(input));
         case "search":
             return new LocationSearchCommand(getWord(input));
         case "busStop":
@@ -66,14 +67,35 @@ public class Parser {
         case "event":
             return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
-            return new FindPathCommand(input.strip().split(" ")[1], getHolidayIndexInList(1, input),
-                    getHolidayIndexInList(2, input));
+            return new FindPathCommand(input.strip().split(" ")[1], getEventIndexInList(1, input),
+                    getEventIndexInList(2, input));
         case "recommend":
             return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);
         case "cancel":
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
             return new StaticMapCommand(getWord(input));
+        case "routeAdd":
+            return new RouteAddCommand(getWord(input));
+        case "routeNodeAdd":
+            return ParserUtil.createRouteNodeAddCommand(getWord(input));
+        case "routeEdit":
+            return new RouteEditCommand(ParserUtil.getIndex(input), getEventIndexInList(1, input),
+                    getEventIndexInList(0, input));
+        case "routeNodeEdit":
+            return new RouteNodeEditCommand(ParserUtil.getFirstIndex(getWord(input)),
+                    ParserUtil.getSecondIndex(getWord(input)), ParserUtil.getFieldInList(3, 4, getWord(input)),
+                    ParserUtil.getFieldInList(4, 4, getWord(input)));
+        case "routeDelete":
+            return new RouteDeleteCommand(ParserUtil.getIndex(input));
+        case "routeNodeDelete":
+                return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
+                        ParserUtil.getSecondIndex(getWord(input)));
+        case "routeShow":
+            return new RouteListCommand(ParserUtil.getIndex(getWord(input)));
+        case "routeNodeShow":
+            return new RouteNodeListCommand(ParserUtil.getFirstIndex(getWord(input)),
+                    ParserUtil.getSecondIndex(getWord(input)));
         default:
             throw new DukeUnknownCommandException();
         }
@@ -92,10 +114,10 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
-        case "reminder":
-            return new ReminderCommand();
         case "help":
             return new HelpCommand();
+        case "fetch":
+            return new ViewScheduleCommand();
         default:
             return parseComplexCommand(userInput);
         }
@@ -121,7 +143,7 @@ public class Parser {
      * @param userInput The userInput read by the user interface.
      * @return The word.
      */
-    private static String getWord(String userInput) throws DukeException {
+    static String getWord(String userInput) throws DukeException {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -129,7 +151,7 @@ public class Parser {
         }
     }
 
-    private static String getHolidayIndexInList(int index, String userInput) {
+    private static String getEventIndexInList(int index, String userInput) {
         if (index == 1) {
             return userInput.strip().split(" ", 4)[2];
         } else {

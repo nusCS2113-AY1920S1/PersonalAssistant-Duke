@@ -232,6 +232,4 @@ public class PathFinder {
         }
         return false;
     }
-
-
 }

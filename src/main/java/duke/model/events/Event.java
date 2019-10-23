@@ -6,7 +6,7 @@ import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 
-public class Event extends DoWithin {
+public class Event extends TaskWithDates {
     private Venue venue;
 
     /**
@@ -18,7 +18,6 @@ public class Event extends DoWithin {
      */
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
         super(locationDescription, startDate, endDate);
-        // This can be removed once we implement the map ?
         this.venue = ApiParser.getLocationSearch(locationDescription);
     }
 
@@ -37,7 +36,7 @@ public class Event extends DoWithin {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString();
+        return "[E]" + super.toString() + " between " + super.getStartDate() + " and " + super.getEndDate();
     }
 
     /**
@@ -52,10 +51,17 @@ public class Event extends DoWithin {
         this.venue = venue;
     }
 
-    /**
-     * Returns the string to store the Event object in persistent storage.
-     */
-    public String getHoliday() {
-        return super.getWithin() + " | " + venue.toString();
+    @Override
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
+            return true;
+        }
+
+        return otherTask != null
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask instanceof Event
+                && ((TaskWithDates) otherTask).getStartDate().isEqual(getStartDate())
+                && ((TaskWithDates) otherTask).getEndDate().isEqual(getEndDate())
+                && ((Event) otherTask).getLocation().equals(getLocation());
     }
 }

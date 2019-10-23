@@ -1,36 +1,34 @@
-package duke.model;
+package duke.model.lists;
 
 import duke.commons.exceptions.DukeDuplicateRouteException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeRouteNotFoundException;
-import duke.model.locations.Route;
-import duke.model.locations.RouteNode;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import duke.model.transports.Route;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class RouteList implements Iterable<Route> {
-    private ObservableList<Route> internalList;
+    private List<Route> list;
 
     public RouteList() {
-        internalList = FXCollections.observableArrayList();
+        list = new ArrayList<>();
     }
 
     public Route get(int index) throws IndexOutOfBoundsException {
-        return internalList.get(index);
+        return list.get(index);
     }
 
     public int size() {
-        return internalList.size();
+        return list.size();
     }
 
     /**
-     * Returns true if the list contains an equivalent Task as the given argument.
+     * Returns true if the list contains an equivalent Route as the given argument.
      */
     public boolean contains(Route toCheck) {
-        return internalList.stream().anyMatch(toCheck::isSameRoute);
+        return list.stream().anyMatch(toCheck::isSameRoute);
     }
 
     /**
@@ -41,7 +39,7 @@ public class RouteList implements Iterable<Route> {
         if (contains(toAdd)) {
             throw new DukeDuplicateRouteException();
         }
-        internalList.add(toAdd);
+        list.add(toAdd);
     }
 
     /**
@@ -49,8 +47,8 @@ public class RouteList implements Iterable<Route> {
      * {@code target} must exist in the list.
      * The Task identity of {@code editedTask} must not be the same as another existing Task in the list.
      */
-    public void setTask(Route target, Route editedRoute) throws DukeException {
-        int index = internalList.indexOf(target);
+    public void setRoute(Route target, Route editedRoute) throws DukeException {
+        int index = list.indexOf(target);
         if (index == -1) {
             throw new DukeRouteNotFoundException();
         }
@@ -59,7 +57,7 @@ public class RouteList implements Iterable<Route> {
             throw new DukeDuplicateRouteException();
         }
 
-        internalList.set(index, editedRoute);
+        list.set(index, editedRoute);
     }
 
     /**
@@ -67,46 +65,46 @@ public class RouteList implements Iterable<Route> {
      * The Task must exist in the list.
      */
     public void remove(Route toRemove) throws DukeException {
-        if (!internalList.remove(toRemove)) {
+        if (!list.remove(toRemove)) {
             throw new DukeRouteNotFoundException();
         }
     }
 
     public Route remove(int index) throws IndexOutOfBoundsException {
-        return internalList.remove(index);
+        return list.remove(index);
     }
 
-    public void setTasks(RouteList replacement) {
-        internalList.setAll(replacement.internalList);
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 
     /**
      * Replaces the contents of this list with {@code Tasks}.
      * {@code Tasks} must not contain duplicate Tasks.
      */
-    public void setTasks(List<Route> routes) throws DukeException {
+    public void setRoutes(List<Route> routes) throws DukeException {
         if (!routesAreUnique(routes)) {
             throw new DukeDuplicateRouteException();
         }
 
-        internalList.setAll(routes);
+        list = routes;
     }
 
     @Override
     public Iterator<Route> iterator() {
-        return internalList.iterator();
+        return list.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RouteList // instanceof handles nulls
-                && internalList.equals(((RouteList) other).internalList));
+                && list.equals(((RouteList) other).list));
     }
 
     @Override
     public int hashCode() {
-        return internalList.hashCode();
+        return list.hashCode();
     }
 
     /**
@@ -123,8 +121,8 @@ public class RouteList implements Iterable<Route> {
         return true;
     }
 
-    public ObservableList<Route> getRoutes() {
-        return internalList;
+    public List<Route> getRoutes() {
+        return list;
     }
 }
 

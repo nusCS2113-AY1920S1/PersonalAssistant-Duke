@@ -4,8 +4,8 @@ import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.RouteList;
-import duke.model.locations.Route;
+import duke.model.locations.RouteNode;
+import duke.model.transports.Route;
 
 public class RouteNodeDeleteCommand extends Command {
     private int indexRoute;
@@ -20,8 +20,8 @@ public class RouteNodeDeleteCommand extends Command {
      * @param indexNode The index of the Route Node.
      */
     public RouteNodeDeleteCommand(int indexRoute, int indexNode) {
-        this.indexRoute = indexRoute;
-        this.indexNode = indexNode;
+        this.indexRoute = indexRoute - 1;
+        this.indexNode = indexNode - 1;
     }
 
     /**
@@ -32,9 +32,10 @@ public class RouteNodeDeleteCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
         try {
-            Route route = model.getRoutes().get(indexRoute - 1);
-            address = route.getNode(indexNode - 1).getAddress();
-            route.remove(indexNode - 1);
+            Route route = model.getRoutes().get(indexRoute);
+            RouteNode node = route.getNode(indexNode);
+            address = route.getNode(indexNode).getAddress();
+            route.remove(indexNode);
             model.save();
             return new CommandResultText(MESSAGE_DELETION + address);
         } catch (IndexOutOfBoundsException e) {

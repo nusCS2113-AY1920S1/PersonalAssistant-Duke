@@ -1,0 +1,6 @@
+route | NUS | 
+node | BUS | 1123 | NUS | start here | 0.0 | 0.0
+node | BUS | 18331 | null | null | 0.0 | 0.0
+node | BUS | 18334 | null | null | 0.0 | 0.0
+node | BUS | 18333 | null | null | 0.0 | 0.0
+node | BUS | 18332 | null | null | 0.0 | 0.0

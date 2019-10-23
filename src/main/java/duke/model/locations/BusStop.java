@@ -1,28 +1,25 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
+import duke.logic.commands.results.CommandResultText;
+import duke.model.Model;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class BusStop extends RouteNode {
     private String busCode;
-    private String description;
     private Set<String> buses;
 
     /**
      * Creates a BusStop object.
      *
      */
-    public BusStop(String busCode, String description, String address, double latitude, double longitude) {
-        super(Constraint.valueOf("BUS"), address, busCode, latitude, longitude);
+    public BusStop(String busCode, String address, String description, double latitude, double longitude) {
+        super(Constraint.valueOf("BUS"), address, description, latitude, longitude);
         this.busCode = busCode;
-        this.description = description;
         this.buses = new HashSet<>();
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void addBuses(String bus) {
@@ -35,6 +32,19 @@ public class BusStop extends RouteNode {
 
     public String getBusCode() {
         return busCode;
+    }
+
+    /**
+     * Fetch data from model.
+     * @param model The model.
+     */
+    public void fetchData(Model model) {
+        HashMap<String, BusStop> allBus = model.getMap().getBusStopMap();
+        if (allBus.containsKey(this.busCode)) {
+            this.setAddress(allBus.get(this.busCode).getAddress());
+            this.setLatitude(allBus.get(this.busCode).getLatitude());
+            this.setLongitude(allBus.get(this.busCode).getLongitude());
+        }
     }
 }
 

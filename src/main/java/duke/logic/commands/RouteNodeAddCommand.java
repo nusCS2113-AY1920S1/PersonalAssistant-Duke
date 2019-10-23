@@ -1,17 +1,17 @@
 package duke.logic.commands;
 
-import duke.commons.enumerations.Constraint;
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
-import duke.model.RouteList;
-import duke.model.locations.Route;
+import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 
 public class RouteNodeAddCommand extends Command {
     private RouteNode node;
     private int indexRoute;
     private int indexNode;
+    private boolean isEmptyIndexNode;
     private static final String MESSAGE_ADDITION = "Got it. I've added this route node:\n  ";
 
     /**
@@ -19,10 +19,11 @@ public class RouteNodeAddCommand extends Command {
      *
      * @param node The node to add.
      */
-    public RouteNodeAddCommand(RouteNode node, int indexRoute, int indexNode) {
+    public RouteNodeAddCommand(RouteNode node, int indexRoute, int indexNode, boolean isEmptyIndexNode) {
         this.node = node;
-        this.indexRoute = indexRoute;
-        this.indexNode = indexNode;
+        this.indexRoute = indexRoute - 1;
+        this.indexNode = indexNode - 1;
+        this.isEmptyIndexNode = isEmptyIndexNode;
     }
 
     /**
@@ -32,12 +33,16 @@ public class RouteNodeAddCommand extends Command {
      */
     @Override
     public CommandResultText execute(Model model) throws DukeException {
-        Route route = model.getRoutes().get(indexRoute - 1);
-        if (indexNode != 0) {
-            route.addNode(node, indexNode - 1);
-        } else {
+        Route route = model.getRoutes().get(indexRoute);
+
+        if (isEmptyIndexNode) {
             route.addNode(node);
+        } else if (indexNode >= 0) {
+            route.addNode(node, indexNode);
+        } else {
+            throw new DukeException(Messages.OUT_OF_BOUNDS);
         }
+
         model.save();
         return new CommandResultText(MESSAGE_ADDITION + node.toString());
     }
