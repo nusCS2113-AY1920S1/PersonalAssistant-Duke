@@ -1,7 +1,9 @@
 package Interface;
 import Tasks.*;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Represents the user interface which displays the messages to
@@ -150,7 +152,7 @@ public class Ui {
 
     /**
      * Display recurring tasks that are added
-     * @param description desccription of recurring task
+     * @param description description of recurring task
      * @param startDate  start of recurrence
      * @param endDate   end of recurrence
      *
@@ -184,5 +186,31 @@ public class Ui {
      */
     public String showHelp(String help){
         return help;
+    }
+
+    /**
+     * Display recommended weekly workload
+     * @param workloadMap map of weekly workload
+     * @return This returns the string of workload
+     * @throws ParseException
+     */
+    public String showWorkload(TreeMap<String, ArrayList<Task>> workloadMap) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter1 = new SimpleDateFormat("E");
+        String workloadSchedule = "Here is your recommended schedule for next week:\n";
+        if (workloadMap.isEmpty()) {
+            return "You have no tasks scheduled for next week! \n";
+        } else {
+            for (Map.Entry<String, ArrayList<Task>> workload: workloadMap.entrySet()) {
+                Date tempDay = formatter.parse(workload.getKey());
+                String day = formatter1.format(tempDay);
+                workloadSchedule = workloadSchedule + day + ": \n";
+                for (Task task: workload.getValue()) {
+                    workloadSchedule = workloadSchedule + task.getType() + " " + task.getModCode() + " "
+                            + task.getDescription() + "\n";
+                }
+            }
+        }
+        return workloadSchedule;
     }
 }
