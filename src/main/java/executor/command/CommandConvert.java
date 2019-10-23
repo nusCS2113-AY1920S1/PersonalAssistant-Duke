@@ -11,13 +11,20 @@ import ui.Ui;
 import ui.Wallet;
 import java.math.BigDecimal;
 
-
-public class CommandCurrency extends Command {
+/**
+ * This command helps to convert user entered currency amount into another country's currency amount using api call
+ */
+public class CommandConvert extends Command {
     private String from = " ";
     private String to = " ";
     private Double amount = 0.00;
+    private Double exchangeRate = 0.00;
 
-    public CommandCurrency(String userInput) {
+    /**
+     * Constructor for the CommandConvert class
+     * @param userInput this is the userInput from the CLI
+     */
+    public CommandConvert(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.CURRENCY;
         this.amount = extractAmount(this.commandType, userInput);
@@ -25,22 +32,42 @@ public class CommandCurrency extends Command {
         this.to = getToUserInput(userInput);
     }
 
-    //Parsing
+    /**
+     * removeDollarSign is a function to remove the dollar sign entered by the user. Parsing step 1
+     * @param input this is the user entered input from the CLI
+     * @return this will return a string without the dollar sign
+     */
     private String removeDollarSign(String input) {
         return input.trim().replace("$", "");
     }
 
+    /**
+     * extractAmount parses the user input from CLI to get the amount which the user wishes to convert
+     * @param commandType this is the type of command
+     * @param userInput takes the user entered input from CLI
+     * @return the amount which user wishes to convert is returned
+     */
     private Double extractAmount(CommandType commandType, String userInput) {
         String amountStr = Parser.parseForPrimaryInput(commandType, userInput);
         amountStr = removeDollarSign(amountStr);
         return Double.parseDouble(amountStr);
     }
 
+    /**
+     * getFromUserInput parses user input for the flag "from"
+     * @param userInput this is the user entered input from CLI
+     * @return this function returns the 3 character unique string for the country from which the user wishes to convert his currency
+     */
     private String getFromUserInput(String userInput) {
         String fromStr = Parser.parseForFlag("from", userInput);
        return fromStr;
     }
 
+    /**
+     * getToUserInput parses the user input for the flag "to"
+     * @param userInput this is the user entered input from CLI
+     * @return this function return the 3 character unique string for the country to which the user wishes to convert his currency
+     */
     private String getToUserInput(String userInput) {
         String toStr = Parser.parseForFlag("to", userInput);
         return toStr;
@@ -80,6 +107,7 @@ public class CommandCurrency extends Command {
             String Rate = jsonObject.getAsJsonObject("rates").get(to).getAsString();
             BigDecimal exchangeRate = new BigDecimal(Rate);
             double exRate = exchangeRate.doubleValue();
+            setExchangeRate(exRate);
             double convertedAmount = exRate * amount;
             return convertedAmount;
         } catch(Exception e){
@@ -115,11 +143,23 @@ public class CommandCurrency extends Command {
                 this.to + " " + "$" + convertedAmount + "\n";
     }
 
+    public Double getExchangeRate() {
+        return exchangeRate;
+    }
+
+    private void setExchangeRate(Double exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    private String rateUsed (){
+        return "Exchange rate used = " + this.getExchangeRate().toString() + "\n";
+    }
+
 
     @Override
     public void execute(Wallet wallet) {
         Double convertedAmount = this.convertCurrency(this.getFrom(), this.getTo(), this.getAmount());
-        Ui.dukeSays(this.result(convertedAmount));
+        Ui.dukeSays(this.result(convertedAmount) + rateUsed() );
         Ui.printSeparator();
     }
 

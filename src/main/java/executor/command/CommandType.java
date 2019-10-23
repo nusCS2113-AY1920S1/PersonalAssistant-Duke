@@ -23,7 +23,7 @@ public enum CommandType {
     TODO(CommandNewTask.class),
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
-    CURRENCY(CommandCurrency.class);
+    CURRENCY(CommandConvert.class);
 
     private final Class commandClass;
 
