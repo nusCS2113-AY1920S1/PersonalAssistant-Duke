@@ -23,16 +23,16 @@ public class DeletePatientTaskCommand extends Command {
      * @param deleteInfo .
      * @throws DukeException .
      */
-    public DeletePatientTaskCommand(String deleteInfo) throws DukeException {
+    public DeletePatientTaskCommand(String[] deleteInfo) throws DukeException {
 
-        char firstChar = deleteInfo.charAt(0);
+        char firstChar = deleteInfo[0].charAt(0);
         try {
             if (firstChar == '#') {
-                this.patientId = Integer.parseInt(deleteInfo.substring(1));
+                this.patientId = Integer.parseInt(deleteInfo[0].substring(1));
             } else if (firstChar == '%') {
-                this.taskId = Integer.parseInt(deleteInfo.substring(1));
+                this.taskId = Integer.parseInt(deleteInfo[0].substring(1));
             } else {
-                this.deletedPatientInfo = deleteInfo;
+                this.deletedPatientInfo = deleteInfo[0];
             }
         } catch (Exception e) {
             throw new DukeException("Try to follow the format: delete patienttask %<taskUniqueID>/#<patientID>/"
