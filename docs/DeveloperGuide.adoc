@@ -277,7 +277,7 @@ Secondly, `printViewWeekBody()` method is called to print the dates of the curre
 *Step 8.* +
 Lastly, `printViewWeekDetails()` method is called to print relevant empty lines, tasks and the bottom border of the final output.
 
-The following object diagram summarises what happens when a user executes a new command:
+The following sequence diagram summarises what happens when a user executes a new command:
 
 image::ViewWeekSequenceDiagram.png[]
 
@@ -296,6 +296,60 @@ Truncating the description of tasks so that no resizing nor wrapping is needed. 
 It clearly demarcates the header and borders of the output and highlights the dates shown in the `ViewWeekCommand` output. Without the coloured scheme, users still need to scan through the headers to realise the useful task information is located below it.
 ** Alternatives considered: +
 The tasks in each day can be classified into visual blocks to aid the users into visualising the timeline in each day. In addition to that, the tasks in each day has already been chronologically sorted in the `ViewWeekCommand` class. This alternative can be an extension to be used in conjunction with `Find free time slots` in future milestones.
+
+=== View calendar for a month feature
+
+image::calendar.png[]
+
+==== Implementation
+The `CalendarCommand` class extends `Command` by providing methods to display tasks for a particular month.
+
+[NOTE]
+The command can be executed without the `month` and `year` argument e.g. `calendar` instead of `calendar 10 2019`. In this case, the `calendar` command prints the calendar and task for the current month and year. The same applies if the month and year entered by the user is invalid.
+
+The following is an example execution scenario and demonstrate how the `CalendarCommand` class behaves and interact with other relevant classes.
+
+*Step 1* +
+The user enters the command `calendar 10 2019`. The `parse` method in the `CommandParser` class is called to parse the command to obtain an array containing `10` and `2019` as it elements as arguments for the `CalendarCommand` class returned by the `CommandParser` class.
+
+*Step 2* +
+The constructor for the `CalendarCommand` class will parse and validate the arguments, `10` and `2019`, in the argument array.
+[NOTE]
+An `IndexOutOfBoundsException` will be thrown if less than 2 arguments are provided, a `NumberFormatException` will be thrown if argument provided is not an integer while an `OofException` will be thrown if `month` argument is not within `1` and `12`. In these cases, the program will retrieve the current `month` and `year` from the system.
+
+*Step 3* +
+The `execute` method in the `CalendarCommand` class is then called by the `executeCommand()` method in the `Oof` class. This method does the following:
+
+* Iterates through the `ArrayList` of `Task` from the `TaskList` class and checks if the `Task` belongs to the queried `month` and `year` using the `verifyTask` method.
+* `Task` belonging to the queried `month` and `year` are added to the `ArrayList` corresponding to its `day`.
+* Each `ArrayList` is then sorted in ascending order of `time` using the `SortByDate` comparator.
+[NOTE]
+Since `Todo` objects do not have a `time` attribute, they are always sorted to the front of the `ArrayList`.
+* `execute` then calls the `printCalendar` method in the `Ui` class.
+
+*Step 4* +
+`printCalendar` calls `printCalendarLabel`, `printCalendarHeader` and `printCalendarBody` to print the calendar:
+
+* `printCalendarLabel` prints the `month` and `year` being queried.
+* `printCalendarHeader` prints the header of the calendar which consists of the top border and the days of a week.
+* `printCalendarBody` prints the each day of the week and corresponding tasks belonging to each day.
+
+The following sequence diagram summarises what happens when a user executes a `CalendarCommand`:
+
+image::CalendarSequenceDiagram.png[]
+
+==== Design Considerations
+
+* Extending row size instead of limiting number of tasks displayed
+** Rationale: +
+Limiting number of tasks displayed might misrepresent the number of `Task` a person have for that day.
+** Alternatives considered: +
+Implementing a GUI which includes a scroll pane for each day such that calendar size can be fixed.
+* Truncation of task name instead of extending column size
+** Rationale: +
+Since row size is extendable, extending column size would severely affect readability when column and row sizes increase independently of each other. Also, `ScheduleCommand` class can be used in conjunction with `CalendarCommand` to allows the user to view the list of tasks for any date.
+** Alternatives considered: +
+Wrapping of task name which will allow the display of the full task name. Not feasible as it will increase the number of rows further.
 
 === Find free time slots feature
 
@@ -320,10 +374,11 @@ The user enters `free 30-10-2019`. The `parse` method in the `CommandParser` cla
 The `execute` method in `FreeCommand` class is then called by the `Oof.run()` method in the main class `Oof`.
 
 *Step 3.* +
-The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does four main things:
+The `findFreeTime` method in `FreeCommand` class is then called by the `execute` method. This method does the following:
 
-* Finds all `Event` previously stored by the user and checks if it lies within the date given.
-* Calls `sortByTime` method in `FreeCommand` class to sort all `Event` start and end times in ascending order.
+* Iterates through the the current list of `Task` from the `TaskList` class and checks if an `Event` lies within the date given.
+* All 'Event' corresponding to the date given will be addded to an `ArrayList` corresponding to `eventsOnSameDay`, `eventStartTimes` and `eventEndTimes`.
+* Calls `sort` method in `Collections` class to sort all `Event` start and end times in ascending order.
 * Checks if an `Event` coincides with a time slot.
 * Prints the time slots with the relevant details by:
 ** Calling `printEventDescription` method in `Ui` class if `Event` coincides with the time slot
