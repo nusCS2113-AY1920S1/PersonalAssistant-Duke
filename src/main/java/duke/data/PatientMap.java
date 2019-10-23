@@ -87,7 +87,7 @@ public class PatientMap {
         PatientMap filteredList = new PatientMap();
         for (Map.Entry mapElement : patientObservableMap.entrySet()) {
             Patient value = (Patient) mapElement.getValue();
-            if (value.getName().contains(searchTerm)) {
+            if (value.toString().contains(searchTerm)) {
                 filteredList.addPatient(value);
                 ++i;
             }
@@ -95,6 +95,30 @@ public class PatientMap {
 
         if (i == 1) {
             throw new DukeException("Can't find any matching Patients!");
+        } else {
+            return filteredList;
+        }
+    }
+
+    /**
+     * PatientMap of all patients whose allergies contain the searchTerm.
+     *
+     * @param searchTerm String to search if any patients are allergic.
+     * @return PatientMap of matching patients.
+     */
+    public PatientMap findAllergies(String searchTerm) throws DukeException {
+        int i = 1;
+        PatientMap filteredList = new PatientMap();
+        for (Map.Entry mapElement : patientObservableMap.entrySet()) {
+            Patient value = (Patient) mapElement.getValue();
+            if (value.isAllergic(searchTerm)) {
+                filteredList.addPatient(value);
+                ++i;
+            }
+        }
+
+        if (i == 1) {
+            throw new DukeException("No Patients are allergic!");
         } else {
             return filteredList;
         }

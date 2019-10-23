@@ -2,8 +2,6 @@ package duke.data;
 
 public class Result extends Evidence {
 
-    private String summary;
-
     /**
      * Represents results of an investigation based on the treatment prescribed for a patient.
      * A Result object corresponds to the result of an investigation into the symptoms of a Patient,
@@ -16,8 +14,7 @@ public class Result extends Evidence {
      * @param priority the priority level of the evidence
     */
     public Result(String name, Impression impression, int priority, String summary) {
-        super(name, impression, priority);
-        this.summary = summary;
+        super(name, impression, priority, summary);
     }
 
     /**
@@ -32,8 +29,7 @@ public class Result extends Evidence {
      * @param priority the priority level of the evidence
      */
     protected Result(String name, String impression, int priority, String summary) {
-        super(name, impression, priority);
-        this.summary = summary;
+        super(name, impression, priority, summary);
     }
 
     @Override
@@ -54,11 +50,4 @@ public class Result extends Evidence {
         return null;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 }

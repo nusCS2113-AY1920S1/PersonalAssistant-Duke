@@ -2,8 +2,8 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXScrollPane;
-import duke.DukeCore;
 import duke.data.Patient;
+import duke.data.PatientMap;
 import javafx.collections.MapChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -22,15 +22,20 @@ class HomeWindow extends UiElement<Region> {
     @FXML
     private ScrollPane scrollPane;
 
-    private final DukeCore core;
+    private PatientMap patientMap;
+    private CommandWindow commandWindow;
 
     /**
      * Constructs the Home UI window.
+     *
+     * @param patientMap    PatientMap object.
+     * @param commandWindow CommandWindow object.
      */
-    HomeWindow(DukeCore core) {
+    HomeWindow(PatientMap patientMap, CommandWindow commandWindow) {
         super(FXML, null);
 
-        this.core = core;
+        this.patientMap = patientMap;
+        this.commandWindow = commandWindow;
 
         initialisePatientList();
         attachPatientListListener();
@@ -42,7 +47,7 @@ class HomeWindow extends UiElement<Region> {
      * Initialises {@code patientListPanel}.
      */
     private void initialisePatientList() {
-        for (Map.Entry<String, Patient> pair : core.patientMap.getPatientObservableMap().entrySet()) {
+        for (Map.Entry<String, Patient> pair : patientMap.getPatientObservableMap().entrySet()) {
             patientListPanel.getChildren().add(new PatientCard(pair.getValue()));
         }
     }
@@ -52,12 +57,12 @@ class HomeWindow extends UiElement<Region> {
      * This listener updates the {@code patientListPanel} whenever the patient map is updated.
      */
     private void attachPatientListListener() {
-        core.patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
+        patientMap.getPatientObservableMap().addListener((MapChangeListener<String, Patient>) change -> {
             if (change.wasAdded()) {
-                core.ui.print("Patient added.");
+                commandWindow.print("Patient added.");
                 patientListPanel.getChildren().add(new PatientCard(change.getValueAdded()));
             } else if (change.wasRemoved()) {
-                core.ui.print("Patient discharged.");
+                commandWindow.print("Patient discharged.");
                 // TODO: Verify correctness
                 patientListPanel.getChildren().remove(new PatientCard(change.getValueRemoved()));
 

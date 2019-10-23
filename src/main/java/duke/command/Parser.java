@@ -2,11 +2,11 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
+import duke.ui.UiContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static duke.command.Parser.ParseState.EMPTY;
 import static java.lang.Math.min;
 
 /**
@@ -24,6 +24,7 @@ public class Parser {
     }
 
     private final Commands commands;
+    private final UiContext.Context context;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -35,15 +36,16 @@ public class Parser {
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
      */
-    public Parser(Commands commands) {
+    public Parser(UiContext.Context context, Commands commands) {
         this.commands = commands;
+        this.context = context;
     }
 
     /**
      * Constructs a new Parser, using the Cmd enum to supply the command names.
      */
-    public Parser() {
-        this(new Commands());
+    public Parser(UiContext.Context context) {
+        this(context, new Commands());
     }
 
     /**
@@ -68,7 +70,7 @@ public class Parser {
                 cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
-        Command command = commands.getCommand(cmdStr);
+        Command command = commands.getCommand(cmdStr, context);
         if (command == null) {
             throw new DukeException("I'm sorry, but I don't recognise this command: " + cmdStr);
         }
@@ -81,10 +83,6 @@ public class Parser {
         }
         return command;
     }
-
-    /*public Command parse(String inputStr, DukeContext context) {
-
-    }*/
 
     /**
      * Parses the user's input after the Command name and loads the parameters for the Command from it.
@@ -99,7 +97,7 @@ public class Parser {
             throw new DukeException(currCommand.getEmptyArgMsg());
         }
 
-        state = EMPTY;
+        state = ParseState.EMPTY;
         currSwitchName = null;
         switchMap = currCommand.getSwitchMap();
         switchVals = new HashMap<String, String>();
@@ -131,13 +129,10 @@ public class Parser {
         switch (state) {
         case EMPTY:
             break;
+        case STRING: //fallthrough; assume the user forgot to close the string
         case ARG:
             writeElement();
             break;
-        case STRING:
-            // TODO: disambiguate/autocorrect?
-            throw new DukeHelpException("String in argument was not closed: " + elementBuilder.toString(),
-                    currCommand);
         case SWITCH:
             addSwitch();
             break;
@@ -152,6 +147,7 @@ public class Parser {
     private void handleEmpty(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
+            //TODO: check if switch is allowed rather than letting addSwitch handle it
             state = ParseState.SWITCH;
             break;
         case '"':
@@ -224,7 +220,7 @@ public class Parser {
             break;
         case '\n': //fallthrough
         case ' ':
-            state = EMPTY;
+            state = ParseState.EMPTY;
             addSwitch();
             break;
         case '-':
@@ -246,7 +242,7 @@ public class Parser {
             currCommand.setArg(elementBuilder.toString());
         }
         elementBuilder.setLength(0); //clear elementBuilder
-        state = EMPTY;
+        state = ParseState.EMPTY;
     }
 
     private void addSwitch() throws DukeHelpException {

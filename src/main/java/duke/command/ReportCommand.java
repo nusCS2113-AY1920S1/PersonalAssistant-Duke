@@ -28,7 +28,7 @@ public class ReportCommand extends ArgCommand {
                     fileWriter.write("Report Summary/Note: "
                             + getSwitchVal("summary") + ".\n\n");
                 }
-                fileWriter.write(core.patientMap.getPatient(getArg()).toReportString());
+                fileWriter.write(core.patientMap.getPatient(getArg()).toString());
                 fileWriter.close();
             } catch (IOException e) {
                 throw new DukeFatalException("Unable to create report! Some data may have been lost,");

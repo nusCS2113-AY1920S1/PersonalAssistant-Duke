@@ -2,13 +2,14 @@ package duke.data;
 
 import duke.exception.DukeException;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Impression extends DukeObject {
 
     private String description;
-    private ArrayList<Evidence> evidences;
-    private ArrayList<Treatment> treatments;
+    private HashMap<String, Evidence> evidences;
+    private HashMap<String, Treatment> treatments;
     private String patientbedNo;
 
     /**
@@ -18,18 +19,18 @@ public class Impression extends DukeObject {
      * that led to the impression as well as a Treatment list with the treatments determined by a Doctor.
      * It also has a handler to the Patient it is observed about.
      * Attributes:
-     * - name: the name of the impression
-     * - description: the description of the patient
-     * - evidence: the list of evidences contributing to the impression
+     * - evidence the list of evidences contributing to the impression
      * - treatments: the list of treatments determined by a doctor to deal with the impression
-     * - patient: the Patient it is tagged to
+     * - patient: the Patient it is tagged to     * @param name the name of the impression
+     *
+     * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
         super(patient.getBedNo() + "\t" + name);
         this.description = description;
         this.patientbedNo = patient.getBedNo();
-        this.evidences = new ArrayList<Evidence>();
-        this.treatments = new ArrayList<Treatment>();
+        this.evidences = new HashMap<String, Evidence>();
+        this.treatments = new HashMap<String, Treatment>();
     }
 
     /**
@@ -38,25 +39,27 @@ public class Impression extends DukeObject {
      * @param searchTerm String to be used to filter the DukeObj
      * @return the list of DukeObjs
      */
-    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+    public HashMap<String, DukeData> find(String searchTerm) throws DukeException {
         int i = 1;
-        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
-        for (Evidence evidence : this.evidences) {
-            if (evidence.getName().contains(searchTerm)) {
-                searchResult.add(evidence);
+        HashMap<String, DukeData> searchResult = new HashMap<String, DukeData>();
+        for (Map.Entry mapElement : this.evidences.entrySet()) {
+            Evidence valueE = (Evidence) mapElement.getValue();
+            if (valueE.toString().contains(searchTerm)) {
+                searchResult.put(valueE.getName(), valueE);
                 ++i;
             }
         }
 
-        for (Treatment treatment : this.treatments) {
-            if (treatment.getName().contains(searchTerm)) {
-                searchResult.add(treatment);
+        for (Map.Entry mapElement : this.treatments.entrySet()) {
+            Treatment valueT = (Treatment) mapElement.getValue();
+            if (valueT.toString().contains(searchTerm)) {
+                searchResult.put(valueT.getName(), valueT);
                 ++i;
             }
         }
 
         if (i == 1) {
-            throw new DukeException("Can't find any matching tasks!");
+            return null;
         } else {
             return searchResult;
         }
@@ -69,20 +72,20 @@ public class Impression extends DukeObject {
      * @return the Evidence added
      */
     public Evidence addNewEvidence(Evidence newEvidence) {
-        this.evidences.add(newEvidence);
+        this.evidences.put(newEvidence.getName(), newEvidence);
         return newEvidence;
     }
 
     /**
      * This deleteEvidence function deletes an evidence at the specified index from the evidence list.
      *
-     * @param idx index of the evidence
+     * @param keyIdentifier name of the evidence
      * @return the deleted Evidence
      */
-    public Evidence deleteEvidence(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.evidences.size()) {
-            Evidence evidence = this.evidences.get(idx);
-            this.evidences.remove(idx);
+    public Evidence deleteEvidence(String keyIdentifier) throws DukeException {
+        if (this.evidences.containsKey(keyIdentifier)) {
+            Evidence evidence = this.evidences.get(keyIdentifier);
+            this.evidences.remove(keyIdentifier);
             return evidence;
         } else {
             throw new DukeException("I don't have that entry in the list!");
@@ -92,12 +95,13 @@ public class Impression extends DukeObject {
     /**
      * This getEvidence function returns the evidence from the evidence list at the specified index.
      *
-     * @param idx index of the evidence
+     * @param keyIdentifier name of the evidence
      * @return the evidence specified by the index
      */
-    public Evidence getEvidence(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.evidences.size()) {
-            return this.evidences.get(idx);
+    public Evidence getEvidence(String keyIdentifier) throws DukeException {
+        if (this.evidences.containsKey(keyIdentifier)) {
+            Evidence evidence = this.evidences.get(keyIdentifier);
+            return evidence;
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
@@ -110,20 +114,20 @@ public class Impression extends DukeObject {
      * @return the treatment added
      */
     public Treatment addNewTreatment(Treatment newTreatment) {
-        this.treatments.add(newTreatment);
+        this.treatments.put(newTreatment.getName(), newTreatment);
         return newTreatment;
     }
 
     /**
      * This deleteTreatment function deletes a treatment at the specified index from the treatment list.
      *
-     * @param idx index of the treatment
+     * @param keyIdentifier name of the treatment
      * @return the deleted treatment
      */
-    public Treatment deleteTreatment(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.treatments.size()) {
-            Treatment treatment = this.treatments.get(idx);
-            this.treatments.remove(idx);
+    public Treatment deleteTreatment(String keyIdentifier) throws DukeException {
+        if (this.treatments.containsKey(keyIdentifier)) {
+            Treatment treatment = this.treatments.get(keyIdentifier);
+            this.treatments.remove(keyIdentifier);
             return treatment;
         } else {
             throw new DukeException("I don't have that entry in the list!");
@@ -133,12 +137,13 @@ public class Impression extends DukeObject {
     /**
      * This getTreatment function returns the treatment from the treatment list at the specified index.
      *
-     * @param idx index of the treatment
+     * @param keyIdentifier index of the treatment
      * @return the treatment specified by the index
      */
-    public Treatment getTreatment(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.treatments.size()) {
-            return this.treatments.get(idx);
+    public Treatment getTreatment(String keyIdentifier) throws DukeException {
+        if (this.treatments.containsKey(keyIdentifier)) {
+            Treatment treatment = this.treatments.get(keyIdentifier);
+            return treatment;
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
@@ -146,22 +151,28 @@ public class Impression extends DukeObject {
 
     @Override
     public String toString() {
+        String informationString;
+        informationString = "Description: " + this.description + "\n";
+        informationString += "Patient Bed: " + this.patientbedNo + "\n";
+        for (Map.Entry mapElement : this.evidences.entrySet()) {
+            Evidence valueE = (Evidence) mapElement.getValue();
+            informationString += valueE.toString();
+        }
+        for (Map.Entry mapElement : this.treatments.entrySet()) {
+            Treatment valueT = (Treatment) mapElement.getValue();
+            informationString += valueT.toString();
+        }
+        return super.toString() + informationString;
+    }
+
+    @Override
+    public String toDisplayString() {
         // Todo
         return null;
     }
 
     @Override
     public String toReportString() {
-        // TODO make this look better
-        String toOutput = "\nDescription: " + description.toString() + "\nTreatment:\t\t";
-        for (Treatment treatment : treatments) {
-            toOutput += treatment.toReportString() + "\n\t\t";
-        }
-        return toOutput;
-    }
-
-    @Override
-    public String toDisplayString() {
         // Todo
         return null;
     }
@@ -178,11 +189,11 @@ public class Impression extends DukeObject {
         return patientbedNo;
     }
 
-    public ArrayList<Evidence> getEvidences() {
+    public HashMap<String, Evidence> getEvidences() {
         return evidences;
     }
 
-    public ArrayList<Treatment> getTreatments() {
+    public HashMap<String, Treatment> getTreatments() {
         return treatments;
     }
 }

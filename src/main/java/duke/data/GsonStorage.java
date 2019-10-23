@@ -12,17 +12,25 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+ * Handles storage of patients.
+ */
 
 public class GsonStorage {
 
+    /*
+     * the file that the patients will be stored in.
+     */
     private final File jsonFile;
+
+    /*
+     * the filepath to the file that the patients will be stored in.
+     */
     private final String filePath;
 
-    //deprecated, preserved for test compatibility
-    private HashMap<String, Patient> testPatientMap = new HashMap<String, Patient>();
-
     /**
-     * Looks if a Json file exists at the specified filepath and creates one if it does not exist.
+     * Constructor for GsonStorage.
+     * Checks if a Json file exists at the specified filepath and creates one if it does not exist.
      *
      * @throws DukeFatalException If data file cannot be setup.
      */
@@ -43,15 +51,16 @@ public class GsonStorage {
                 if (!jsonFile.createNewFile()) {
                     throw new IOException();
                 }
-            } catch (IOException excp) {
+            } catch (IOException e) {
                 throw new DukeFatalException("Unable to setup data file, try checking your permissions?");
             }
         }
     }
 
     /**
-     * Loads all the patients in the JSON file to the patient hashmap for quick patient lookup (Deserialization).
+     * Loads all the patients in the JSON file to a hash map.
      *
+     * @return the hash map containing the patients
      * @throws DukeFatalException If data file cannot be setup.
      */
     public HashMap<String, Patient> loadPatientHashMap() throws DukeFatalException {
@@ -65,16 +74,17 @@ public class GsonStorage {
             for (Patient patient : patientList) {
                 patientMap.put(patient.getBedNo(), patient);
             }
-        } catch (IOException excp) {
+        } catch (IOException e) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
         return patientMap;
     }
 
     /**
-     * Creates a list with the patients in the patient hash map and add the lists json representation
-     * to the json file (Serialization).
+     * Creates a list with the patients in the hash map and writes the lists json representation
+     * to the json file.
      *
+     * @param patientMap the hash map containng all the patients
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     public void writeJsonFile(HashMap<String, Patient> patientMap) throws DukeFatalException {
@@ -89,14 +99,18 @@ public class GsonStorage {
     }
 
     /**
-     * Adds a patient object to the hash map with all the patients - used when testing.
+     * Returns the filepath to the json file containing the Json representation of all the patients.
+     *
+     * @return the filepath
      */
     public String getFilePath() {
         return filePath;
     }
 
     /**
-     * Clears the json file and the paitent hash map - used when testing.
+     * Clears the json file and the paitent hash map. Used to reset the storage data.
+     *
+     * @return an empty PatientMap object
      */
     public PatientMap resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
