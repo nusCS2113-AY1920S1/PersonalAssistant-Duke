@@ -1,4 +1,4 @@
-= ModPlan v1.1 - User Guide
+= ModPlan v1.3 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -62,7 +62,7 @@ Format: `add module MOD_CODE`
 
 ****
 * The `MOD_CODE` must be in the format of the NUS module code name.
-* Example: `add CG2028`
+* Example: `add module CG2028`
 ****
 
 ==== Adding CCA : `add cca`
@@ -131,11 +131,13 @@ Format: `show cca`
 
 === Calculating the CAP : `cap`
 
-Calculates the overall CAP or predicted CAP. +
-Format: `cap`
+Calculates your overall CAP or predicted CAP in different ways.
+
+==== Calculating CAP from user input. +
+Format: `cap overall`
 
 ****
-* Typing `cap` into the command line shows a CAP calculation message.
+* Typing `cap overall` into the command line shows a CAP calculation message.
 * Type the module taken, along with it's letter grade. Keep typing all the module names in the module list and their respective grades. 
 * Format: `MOD_CODE GRADE_LETTER`
 * Type `done` when you are ready to calculate the CAP.
@@ -143,10 +145,55 @@ Format: `cap`
 ****
 
 Example: +
-`cap` + 
+`cap overall` + 
 `CG2028 A` +
 `CS2027 B-` + 
 `done`
+
+==== Calculating CAP from the module list. +
+Format: `cap list`
+
+****
+* Type `cap list` into the command line.
+* ModPlan will show you your list of modules and grades to calculate CAP from.
+* ModPlan will then calculate your CAP based on the completed modules in your module list.
+** Note that S/U'ed modules or modules without a grade will not be used in the calculation.
+****
+
+Example: +
+`cap list`
+
+==== Calculating predicted CAP of a module from it's prerequesites. +
+Format: `cap module`
+
+****
+* Type `cap module` into the command line.
+* ModPlan will then prompt you for the module to calculate CAP for.
+* Type the module code of the module you wish to predict your CAP for.
+* ModPlan will automatically sort the prerequisites of that module and check for your grades in them.
+** Note that these prerequisites have to be added and graded in your module list.
+** If any prerequisites are not completed, ModPlan will print a list of the prerequisites you have yet to complete/give a grade for.
+****
+
+Example: +
+`cap module` +
+`CS2040C`
+
+=== Grading your modules: `grade`
+
+Allows you to input your letter grade received for the modules you have taken. +
+Format: `grade MODULECODE LETTERGRADE`
+
+****
+* Type `grade MODULECODE LETTERGRADE` into the command line, replacing `MODULECODE` with an actual module code, and `LETTERGRADE` with the grade you received for that module.
+* ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
+* ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
+** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
+****
+
+Example: +
+`grade CS1010 A-` +
+`grade CS1231 S`
 
 === Sorting and printing the modules or ccas : `sort`
 
@@ -176,9 +223,9 @@ Format: `clear modules`
 Clears and empties the list of modules being added. +
 Format: `clear ccas`
 
-=== Rescheduling CCA : `scheduleCca`
+=== Adding schedule to a CCA : `scheduleCca`
 
-Reschedules a CCA which is added. +
+Add additional schedule to a CCA which was added. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 
 === Exiting the program : `bye`
