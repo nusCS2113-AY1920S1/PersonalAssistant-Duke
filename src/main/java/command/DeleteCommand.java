@@ -32,10 +32,12 @@ public class DeleteCommand extends Command {
         try {
             if (tags.size() == 0) {                     //delete word
                 word = wordBank.getAndDelete(this.deletedWord);
+                wordCount.deleteWordFromSearchCount(word);
                 storage.editFromFile(word.toString() + "\r","");
                 return ui.showDeleted(word);
             } else {                                    //delete tags
                 word = wordBank.getWordBank().get(deletedWord);
+                wordCount.deleteWordFromSearchCount(word);
                 ArrayList<String> nullTags = new ArrayList<>();
                 ArrayList<String> deletedTags = new ArrayList<>();
                 wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);

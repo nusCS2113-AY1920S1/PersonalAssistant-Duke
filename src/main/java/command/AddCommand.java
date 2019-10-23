@@ -18,6 +18,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         wordBank.addWord(word);
+        wordCount.addWordToSearchCount(word);
         storage.writeFile(word.toString(), true);
         return ui.showAdded(word);
     }

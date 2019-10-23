@@ -52,21 +52,34 @@ public class WordCount {
     public void increaseSearchCount(String searchTerm, WordBank wordBank) throws NoWordFoundException {
         if (wordBank.getWordBank().containsKey(searchTerm)) {
             Word searchedWord = wordBank.getWordBank().get(searchTerm);
-            int searchCount = searchedWord.getNumberOfSearches();
-            searchedWord.incrementNumberOfSearches();
-            wordCount.get(searchCount).remove(searchTerm);
-            if (wordCount.get(searchCount).isEmpty()) { //treemap is empty, delete key
-                wordCount.remove(searchCount);
-            }
-            int newSearchCount = searchCount + 1;
-            if (wordCount.containsKey(newSearchCount)) {
-                wordCount.get(newSearchCount).put(searchTerm, searchedWord); //add directly to existing treemap
-            } else {
-                wordCount.put(newSearchCount, new TreeMap<String, Word>());
-                wordCount.get(newSearchCount).put(searchTerm, searchedWord); //create new entry and add word to treemap
-            }
+            deleteWordFromSearchCount(searchedWord); //delete the word from original search count treemap
+            searchedWord.incrementNumberOfSearches(); //increase the search count for the word
+            addWordToSearchCount(searchedWord); //add the word to the treemap with key to be the new search count
         } else {
             throw new NoWordFoundException(searchTerm);
         }
     }
+
+    /**
+     * Deletes a word from wordCount.
+     * @param word the word to be deleted
+     */
+    public void deleteWordFromSearchCount(Word word) {
+        int wordSearchCount = word.getNumberOfSearches();
+        wordCount.get(wordSearchCount).remove(word.getWord());
+        if (wordCount.get(wordSearchCount).isEmpty()) { //treemap is empty, delete key
+            wordCount.remove(wordSearchCount);
+        }
+    }
+
+    public void addWordToSearchCount(Word word) {
+        int wordSearchCount = word.getNumberOfSearches();
+        if (wordCount.containsKey(wordSearchCount)) {
+            wordCount.get(wordSearchCount).put(word.getWord(), word); //add directly to existing treemap
+        } else {
+            wordCount.put(wordSearchCount, new TreeMap<>());
+            wordCount.get(wordSearchCount).put(word.getWord(), word); //create new entry and add word to treemap
+        }
+    }
+
 }
