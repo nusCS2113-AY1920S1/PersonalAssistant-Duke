@@ -1,6 +1,8 @@
 package executor.command;
 
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import executor.task.TaskList;
@@ -24,7 +26,6 @@ public class CommandCurrency extends Command {
     }
 
     //Parsing
-
     private String removeDollarSign(String input) {
         return input.trim().replace("$", "");
     }
@@ -46,20 +47,41 @@ public class CommandCurrency extends Command {
     }
 
     //Converting
+
+
+    private String getTheJson (String from , String to){
+
+        try {
+            URL url = new URL("https://api.ratesapi.io/api/latest?base=" + from + "&symbols=" + to);
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            String str = "";
+            String completeJson = "";
+            while (null != (str = br.readLine())) {
+                System.out.println(str);
+                completeJson += str;
+            }
+
+            return completeJson;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+
     private Double convertCurrency(String from, String to, Double amount ){
 
         try {
-            String json = "https://api.ratesapi.io/api/latest?base=" + from + "&symbols=" + to;
-            System.out.println(json.toString());
+            String json = getTheJson(from,to);
+            System.out.println(json);
             JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
             System.out.println(jsonObject.toString());
             String Rate = jsonObject.getAsJsonObject("rates").get(to).getAsString();
             BigDecimal exchangeRate = new BigDecimal(Rate);
             double exRate = exchangeRate.doubleValue();
             double convertedAmount = exRate * amount;
-            if(convertedAmount > 0.0){
-                return convertedAmount;
-            }
+            return convertedAmount;
         } catch(Exception e){
             Ui.dukeSays(e.getMessage());
             Ui.dukeSays(Ui.LINE);
