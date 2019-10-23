@@ -144,13 +144,17 @@ public class Impression extends DukeObject {
     }
 
     @Override
-    public String toDisplayString() {
-        // Todo
-        return null;
+    public String toReportString() {
+        // TODO make this look better
+        String toOutput = "\nDescription: " + description.toString() + "\nTreatment:\t\t";
+        for (Treatment treatment:treatments){
+            toOutput +=  treatment.toReportString()+ "\n\t\t";
+        }
+        return toOutput;
     }
 
     @Override
-    public String toReportString() {
+    public String toDisplayString() {
         // Todo
         return null;
     }

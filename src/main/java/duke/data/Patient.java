@@ -58,11 +58,18 @@ public class Patient extends DukeObject {
         // Todo
     }
 
-    /**
-     * This addNewImpression function adds a new impression to the impressions list.
-     * @param newImpression the impression to be added
-     * @return the Impression newly added
-     */
+    @Override
+    public String toString() {
+        // Todo
+        return null;
+    }
+
+        /**
+         * This addNewImpression function adds a new impression to the impressions list.
+         * @param newImpression the impression to be added
+         * @return the Impression newly added
+         */
+
     public Impression addNewImpression(Impression newImpression) {
         this.impressions.add(newImpression);
         return newImpression;
@@ -133,19 +140,19 @@ public class Patient extends DukeObject {
     }
 
     @Override
-    public String toString() {
-        // Todo
-        return getName() + " " +  getClass(); // change back to null later
+    public String toReportString() {
+        // TODO make this look better
+        String toOutput = "Name: " + getName() + "\nBed number: " + bedNo + "\nAllergies: "
+                + allergies + "\nPrimary Diagnosis: " + priDiagnosis + "\nHeight: " + height + "\nWeight: " + weight + "\nAge: " + age + "\nContact Number: "
+                + number + "\nAddress: " + address + "\nHistory " + history + "\nImpressions:\n\t";
+        for(Impression imp: impressions){
+            toOutput += imp.toReportString() + "\n\t";
+        }
+        return toOutput;
     }
 
     @Override
     public String toDisplayString() {
-        // Todo
-        return null;
-    }
-
-    @Override
-    public String toReportString() {
         // Todo
         return null;
     }
