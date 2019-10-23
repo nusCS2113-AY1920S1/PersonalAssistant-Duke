@@ -92,7 +92,7 @@ public class CommandParser extends Parser {
             return new InventoryCommand();
         } else if (userInput[0].equals("/equip")) {
             return new EquipCommand(Integer.parseInt(userInput[1]));
-        } else if (userInput[0].equals("buy")) {
+        } else if (userInput[0].equals("/buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
                 return new BuyCommand(index);
