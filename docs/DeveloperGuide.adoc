@@ -62,6 +62,13 @@ This is assuming you have a JDK version of `11` and above.
 
 === Architecture
 
+Our integration approach would be bottom-up, since we are morphing the original Duke Assistant into our ModPlanner application, some of the components can be adapted and reused of other purposes. +
+
+The high-level UML Diagram of ModPlan can be seen below:
+
+
+
+
 === JsonWrapper
 
 The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing and Natty for relative date processing. Dependant on Storage class for writing data files obtained.
