@@ -12,6 +12,7 @@ public class Bar {
         return super.clone();
     }
 
+    //@@author rohan-av
     /**
      * Constructor takes in a String representing a list of notes.
      *
@@ -67,6 +68,7 @@ public class Bar {
         return chords;
     }
 
+    //@@author
     public void setId(int id) {
         this.id = id;
     }
@@ -96,6 +98,7 @@ public class Bar {
         for (Chord chord: chords) {
             result.append(chord.toString()).append(",");
         }
+        result.setLength(result.length() - 1); // removes the last comma
         result.append("]");
         return result.toString();
     }
