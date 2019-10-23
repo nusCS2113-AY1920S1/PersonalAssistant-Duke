@@ -8,7 +8,7 @@ public class CloseCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
-        storage.saveToFiles(resources.getResourceList());
+        storage.saveToFile(resources.getResourceList());
         ui.farewell();
         setExitCode();
     }
