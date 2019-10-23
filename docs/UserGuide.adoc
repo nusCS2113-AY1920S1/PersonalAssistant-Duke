@@ -174,7 +174,7 @@ Examples:
 
 === Delete a payee: `delete payee`
 
-Delete a payee and their details+
+Delete a payee and their details +
 Format: `delete payee p/payee`
 
 Examples:
@@ -183,7 +183,7 @@ Examples:
 
 === Approve a payment form: `approve`
 
-Approve a payment form with a message+
+Approve a payment form with a message +
 Format: `approve ID [m/MESSAGE]`
 
 [TIP]
