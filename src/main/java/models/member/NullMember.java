@@ -40,4 +40,15 @@ public class NullMember implements IMember {
     public String getEmail() {
         return null;
     }
+
+    @Override
+    public String getRole() {
+        return null;
+    }
+
+    @Override
+    public String setRole(String input) {
+        return null;
+    }
+
 }

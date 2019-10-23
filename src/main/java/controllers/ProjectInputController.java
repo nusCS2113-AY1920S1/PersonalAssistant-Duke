@@ -71,6 +71,8 @@ public class ProjectInputController implements IController {
                 projectDeleteMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view members.*")) {
                 projectViewMembers(projectToManage);
+            } else if (projectFullCommand.matches("role")) {
+                projectRoleMembers(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view credits.*")) {
                 projectViewCredits();
             } else if (projectFullCommand.matches("add task.*")) {
@@ -98,6 +100,18 @@ public class ProjectInputController implements IController {
             consoleView.consolePrint("Please enter a command.");
         }
         return isManagingAProject;
+    }
+
+    private void projectRoleMembers(Project projectToManage, String projectFullCommand) {
+        String parsedCommands = projectFullCommand.substring(5);
+        String[] commandOptions = parsedCommands.split(" -n ");
+        if (commandOptions.length != 2) {
+            consoleView.consolePrint("Wrong command format! Please enter role INDEX -n ROLE_NAME");
+            return;
+        }
+        int memberIndex = Integer.parseInt(commandOptions[0]);
+        IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
+        selectedMember.setRole(commandOptions[1]);
     }
 
     /**

@@ -7,6 +7,7 @@ public class Member implements IMember {
     private String phone;
     private String email;
     private int indexNumber;
+    private String role;
 
     /**
      * Class representing a member in a project team.
@@ -70,6 +71,16 @@ public class Member implements IMember {
     @Override
     public String getEmail() {
         return this.email;
+    }
+
+    @Override
+    public String getRole() {
+        return this.role;
+    }
+
+    @Override
+    public String setRole(String input) {
+        return this.role = input;
     }
 
     @Override
