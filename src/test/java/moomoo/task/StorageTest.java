@@ -1,6 +1,7 @@
 package moomoo.task;
 
-import moomoo.command.BudgetCommand;
+import moomoo.command.EditBudgetCommand;
+import moomoo.command.SetBudgetCommand;
 import moomoo.stubs.CategoryListStub;
 import moomoo.stubs.CategoryStub;
 import moomoo.stubs.ScheduleListStub;
@@ -9,13 +10,14 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     @Test
-    public void testFileLoad() throws MooMooException, IOException {
+    public void testBudgetFileLoad() throws MooMooException, IOException {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
@@ -23,27 +25,43 @@ public class StorageTest {
         scheduleFile.deleteOnExit();
 
         CategoryListStub newCatList = new CategoryListStub();
+        newCatList.add(null);
+
+        ArrayList<String> categories = new ArrayList<>();
+
+        categories.add("window");
+        categories.add("sweets");
+        categories.add("laptop");
+
+        ArrayList<Double> budgets = new ArrayList<>();
+
+        budgets.add(60.0);
+        budgets.add(153.34);
+        budgets.add(13840.45);
+
         CategoryStub newCategory = new CategoryStub();
         ScheduleListStub newCalendar = new ScheduleListStub();
         UiStub newUi = new UiStub();
         Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
-
-        newCatList.add(null);
-
         Budget newBudget = new Budget();
-        BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/sweets b/500 c/laptop b/1500");
 
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
+        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
-        assertEquals(500, newHashMap.get("sweets"));
-        assertEquals(1500, newHashMap.get("laptop"));
+        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList.getCategoryList(), newUi);
+        assertEquals(60.0, newHashMap.get("window"));
+        assertEquals(153.34, newHashMap.get("sweets"));
+        assertEquals(13840.45, newHashMap.get("laptop"));
 
-        budgetCommand = new BudgetCommand(false, "budget edit c/sweets b/700 c/laptop b/1500");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        budgets.set(0, 500.23);
+        budgets.set(2, 123.45);
 
-        newHashMap = newStorage.loadBudget(newCatList.getCategoryList());
-        assertEquals(700, newHashMap.get("sweets"));
-        assertEquals(1500, newHashMap.get("laptop"));
+        EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
+        editBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        newHashMap = newStorage.loadBudget(newCatList.getCategoryList(), newUi);
+        assertEquals(500.23, newHashMap.get("window"));
+        assertEquals(153.34, newHashMap.get("sweets"));
+        assertEquals(123.45, newHashMap.get("laptop"));
     }
 }

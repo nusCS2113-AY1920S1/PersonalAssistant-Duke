@@ -10,7 +10,7 @@ public class UiStub extends Ui {
     }
 
     @Override
-    public String printResponse() {
+    public String returnResponse() {
         return this.response;
     }
 

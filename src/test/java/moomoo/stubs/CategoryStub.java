@@ -40,10 +40,10 @@ public class CategoryStub extends Category {
 
     @Override
     public void add(Expenditure newExpenditure) {
+        this.category.add(new ExpenditureStub(100, LocalDateTime.of(2018, Month.JANUARY, 20, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(200, LocalDateTime.of(2019, Month.AUGUST, 20, 19, 30, 50)));
+        this.category.add(new ExpenditureStub(150, LocalDateTime.of(2019, Month.SEPTEMBER, 20, 19, 30, 50)));
         this.category.add(new ExpenditureStub(50, LocalDateTime.of(2019, Month.OCTOBER, 25, 19, 30, 50)));
         this.category.add(new ExpenditureStub(65, LocalDateTime.of(2019, Month.NOVEMBER, 21, 19, 30, 50)));
-        this.category.add(new ExpenditureStub(100, LocalDateTime.of(2018, Month.JANUARY, 20, 19, 30, 50)));
-        this.category.add(new ExpenditureStub(150, LocalDateTime.of(2019, Month.SEPTEMBER, 20, 19, 30, 50)));
-        this.category.add(new ExpenditureStub(200, LocalDateTime.of(2019, Month.AUGUST, 20, 19, 30, 50)));
     }
 }

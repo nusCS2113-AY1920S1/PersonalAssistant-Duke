@@ -14,7 +14,7 @@ public class Ui {
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public String printResponse() {
+    public String returnResponse() {
         return this.output;
     }
 
