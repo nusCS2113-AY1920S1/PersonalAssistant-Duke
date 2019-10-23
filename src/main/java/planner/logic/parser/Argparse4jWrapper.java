@@ -10,8 +10,10 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 import net.sourceforge.argparse4j.inf.Subparser;
 import net.sourceforge.argparse4j.inf.Subparsers;
+import planner.logic.command.GradeCommand;
 import planner.logic.command.AddCcaScheduleCommand;
 import planner.logic.command.Arguments;
+import planner.logic.command.CapCommand;
 import planner.logic.command.ClearCommand;
 import planner.logic.command.EndCommand;
 import planner.logic.command.ModuleCommand;
@@ -54,6 +56,8 @@ public class Argparse4jWrapper {
         this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
         this.mapCommand("clear", ClearCommand.class);
         this.mapCommand("sort", SortCommand.class);
+        this.mapCommand("cap", CapCommand.class);
+        this.mapCommand("grade", GradeCommand.class);
     }
 
     /**
@@ -140,6 +144,19 @@ public class Argparse4jWrapper {
                 .addArgument("toSort")
                 .choices("modules", "ccas")
                 .help("What to sort");
+
+        Subparser capParser = getSubParser("cap");
+        capParser.addArgument("toCap")
+            .choices("overall", "list", "module")
+            .help("What type of CAP to calculate");
+
+        Subparser gradeParser = getSubParser("grade");
+        gradeParser.addArgument("moduleCode")
+            .required(true)
+            .help("Codename of module to grade");
+        gradeParser.addArgument("letterGrade")
+            .required(true)
+            .help("Grade you achieved for this module");
     }
 
     private void initBuiltinActions() {
