@@ -5,6 +5,8 @@ import duke.model.Expense;
 import duke.model.PlanBot;
 import javafx.collections.ObservableList;
 
+import java.math.BigDecimal;
+
 /**
  * API of the Logic component.
  */
@@ -17,6 +19,6 @@ public interface Logic {
 
     ObservableList<PlanBot.PlanDialog> getDialogObservableList();
 
-
+    BigDecimal getTagAmount(String tag);
 
 }

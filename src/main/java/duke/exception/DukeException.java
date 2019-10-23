@@ -22,6 +22,8 @@ public class DukeException extends Exception {
     public static final String MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID = "%s is not a valid view scope name!";
     public static final String MESSAGE_EXPENSE_VIEW_SCOPE_NUMBER_INVALID = "%s is not a valid view scope number!";
     public static final String MESSAGE_DESIRED_PANE_NAME_INVALID = "%s is not an available pane!";
+    public static final String MESSAGE_INCOME_AMOUNT_INVALID = "%s is not a valid amount!";
+    public static final String MESSAGE_INCOME_TIME_INVALID = "%s is not a valid time!";
 
     public DukeException(String message) {
         super(message);

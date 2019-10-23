@@ -7,6 +7,7 @@ import duke.logic.CommandResult;
 import duke.logic.Logic;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -76,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void fillInnerPart() {
-        expensePane = new ExpensePane(logic.getExternalExpenseList());
+        expensePane = new ExpensePane(logic.getExternalExpenseList(), logic);
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
@@ -135,6 +136,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showExpensePane() {
         commonBoard.getChildren().clear();
         commonBoard.getChildren().add(expensePane.getRoot());
+        //commonBoard.getChildren().add(pieChartSample.getRoot());
 
         expenseButton.setButtonType(JFXButton.ButtonType.RAISED);
         incomeButton.setButtonType(JFXButton.ButtonType.FLAT);
