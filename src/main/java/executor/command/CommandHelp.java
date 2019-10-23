@@ -8,7 +8,8 @@ public class CommandHelp extends Command {
     /**
      * Constructor to provide the user with the details about the commands available.
      */
-    public CommandHelp() {
+    public CommandHelp(String userInput) {
+        this.userInput = userInput;
         this.description = "Provides the user with all the available commands and descriptions.";
         this.commandType = CommandType.HELP;
     }

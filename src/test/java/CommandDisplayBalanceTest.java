@@ -37,7 +37,7 @@ public class CommandDisplayBalanceTest {
 
         resetTextTracker();
         Wallet wallet = new Wallet();
-        Command c = new CommandDisplayBalance();
+        Command c = new CommandDisplayBalance("");
         c.execute(wallet);
         assertEquals("Your Balance: $0.00", outContent.toString().trim());
 

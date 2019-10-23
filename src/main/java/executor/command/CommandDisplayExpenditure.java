@@ -8,7 +8,8 @@ import java.text.DecimalFormat;
 
 public class CommandDisplayExpenditure extends Command {
 
-    public CommandDisplayExpenditure() {
+    public CommandDisplayExpenditure(String userInput) {
+        this.userInput = userInput;
     }
 
     @Override

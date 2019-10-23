@@ -1,7 +1,9 @@
+import executor.command.CommandType;
 import interpreter.Parser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ParserTest {
 
@@ -24,5 +26,29 @@ class ParserTest {
                 "Second Object");
         assertEquals(expectedResult[2], Parser.parseStoredTaskDetails("TODO yoda things/ tmrw at last####false\n")[2],
                 "Third Object");
+    }
+
+    @Test
+    void parseForPrimaryInputTest() {
+        assertEquals("5", Parser.parseForPrimaryInput(CommandType.TODO,
+                "todo5"));
+        assertEquals("holiday", Parser.parseForPrimaryInput(CommandType.RECUR,
+                "Recur holiday /repeat always"));
+        assertEquals("Death as a respite from CS2113T", Parser.parseForPrimaryInput(CommandType.EVENT,
+                "EventDeath as a respite from CS2113T /when anytime /where anywhere"));
+    }
+
+    @Test
+    void parseForFlagsTest() {
+        assertNull(Parser.parseForFlag("when",
+                "Delete2"));
+        assertEquals("23", Parser.parseForFlag("times",
+                "Recur this /times 23"));
+        assertEquals("somewhere somewhen", Parser.parseForFlag("details",
+                "Event there /details somewhere somewhen"));
+        assertEquals("Over the moon", Parser.parseForFlag("feeling",
+                "Deadline cry /feeling Over the moon /due 2359, tonight"));
+        assertEquals("bring presents", Parser.parseForFlag("todo",
+                "Event Birthday Party /when 23-09-2019 /at Mark Zuckerberg's /todo bring presents /dress-code blue"));
     }
 }
