@@ -24,7 +24,7 @@ public class EditCommand extends Command {
     public String execute(Ui ui, Bank bank, Storage storage) {
         try {
             // edit word
-            String oldWordToString = bank.getWordBank().get(editedWord).toString();
+            String oldWordToString = bank.getWordBank().getWordBank().get(editedWord).toString();
             Word newWord = bank.getAndEditMeaning(editedWord, newMeaning);
             storage.editFromFile(oldWordToString,newWord.toString());
             String returned = ui.showEdited(newWord);

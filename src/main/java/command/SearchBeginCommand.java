@@ -1,6 +1,6 @@
 package command;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -15,9 +15,9 @@ public class SearchBeginCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            ArrayList<String> wordWithBegins = wordBank.searchWordWithBegin(this.begin);
+            ArrayList<String> wordWithBegins = bank.searchWordWithBegin(this.begin);
             return ui.showSearchBegin(this.begin, wordWithBegins);
         } catch (NoWordFoundException e) {
             return e.showError();

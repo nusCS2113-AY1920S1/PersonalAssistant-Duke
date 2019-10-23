@@ -1,6 +1,7 @@
 package dictionary;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -13,7 +14,12 @@ public class TagBank {
 
     public void addTag(String wordDescription, ArrayList<String> tags) {
         for (String tag : tags) {
-            tagBank.get(tag).add(wordDescription);
+            if (tagBank.containsKey(tag)) {
+                tagBank.get(tag).add(wordDescription);
+            }
+            else {
+                tagBank.put(tag, new HashSet<>(Collections.singletonList(wordDescription)));
+            }
         }
     }
 
@@ -26,6 +32,17 @@ public class TagBank {
     public void deleteWordSomeTags(ArrayList<String> deletedTags, String deletedWord) {
         for (String tag : deletedTags) {
             tagBank.get(tag).remove(deletedWord);
+        }
+    }
+
+    public void addWordAllTags(Word word) {
+        for (String tag : word.getTags()) {
+            if (tagBank.containsKey(tag)) {
+                tagBank.get(tag).add(word.getWord());
+            }
+            else {
+                tagBank.put(tag, new HashSet<>(Collections.singletonList(word.getWord())));
+            }
         }
     }
 }

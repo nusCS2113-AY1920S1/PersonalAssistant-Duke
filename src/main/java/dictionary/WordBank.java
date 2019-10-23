@@ -35,6 +35,10 @@ public class WordBank {
         return wordBank;
     }
 
+    public boolean isEmpty() {
+        return wordBank.isEmpty();
+    }
+
     public TreeMap<Integer, TreeMap<String, Word>> getWordCount() {
         return wordCount;
     }

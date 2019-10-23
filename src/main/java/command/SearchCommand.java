@@ -1,6 +1,6 @@
 package command;
 
-import dictionary.WordBank;
+import dictionary.Bank;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -20,13 +20,13 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, Bank bank, Storage storage) {
         try {
-            String meaning = wordBank.searchForMeaning(this.searchTerm);
-            wordBank.increaseSearchCount(searchTerm);
+            String meaning = bank.searchForMeaning(this.searchTerm);
+            bank.increaseSearchCount(searchTerm);
             return ui.showSearch(this.searchTerm, meaning);
         } catch (NoWordFoundException e) {
-            ArrayList<String> arrayList = wordBank.getClosedWords(this.searchTerm);
+            ArrayList<String> arrayList = bank.getClosedWords(this.searchTerm);
             StringBuilder stringBuilder = new StringBuilder();
             if (arrayList.size() > 0) {
                 stringBuilder.append("Are you looking for these words instead?\n");

@@ -6,8 +6,6 @@ import storage.Storage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.TreeMap;
 
 public class Bank {
     WordBank wordBank;
@@ -18,8 +16,17 @@ public class Bank {
         tagBank = new TagBank();
     }
 
+    public WordBank getWordBank() {
+        return wordBank;
+    }
+
+    public TagBank getTagBank() {
+        return tagBank;
+    }
+
     public void addWord(Word word) throws WordAlreadyExistException {
         wordBank.addWord(word);
+        tagBank.addWordAllTags(word);
     }
 
     public HashSet<String> addTag(String wordDescription, ArrayList<String> tags) throws NoWordFoundException {
@@ -40,11 +47,23 @@ public class Bank {
         tagBank.deleteWordSomeTags(deletedTags, deletedWord);
     }
 
-    public TreeMap<String, Word> getWordBank() {
-        return wordBank.getWordBank();
-    }
-
     public Word getAndEditMeaning(String editedWord, String newMeaning) throws NoWordFoundException {
         return wordBank.getAndEditMeaning(editedWord, newMeaning);
+    }
+
+    public ArrayList<String> searchWordWithBegin(String begin) throws NoWordFoundException {
+        return wordBank.searchWordWithBegin(begin);
+    }
+
+    public String searchForMeaning(String searchTerm) throws NoWordFoundException {
+        return wordBank.searchForMeaning(searchTerm);
+    }
+
+    public void increaseSearchCount(String searchTerm) throws NoWordFoundException {
+        wordBank.increaseSearchCount(searchTerm);
+    }
+
+    public ArrayList<String> getClosedWords(String searchTerm) {
+        return wordBank.getClosedWords(searchTerm);
     }
 }
