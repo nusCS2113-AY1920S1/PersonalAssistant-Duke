@@ -16,6 +16,7 @@ public class CommandUpdateBalance extends Command {
         this.userInput = userInput;
         this.commandType = Parser.parseForCommandType(this.userInput);
         this.newBalance = Double.parseDouble(Parser.parseForPrimaryInput(this.commandType, this.userInput));
+        this.description = "Updates current balance to new balance in the wallet";
     }
 
     @Override
