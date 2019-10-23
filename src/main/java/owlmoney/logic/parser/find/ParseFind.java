@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.print.attribute.standard.MediaSize;
+
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
@@ -79,6 +81,8 @@ public abstract class ParseFind {
                 parseRawData.extractParameter(rawData, FROM, FIND_KEYWORD));
         findParameters.put(TO,
                 parseRawData.extractParameter(rawData, TO, FIND_KEYWORD));
+        findParameters.put(NAME,
+                parseRawData.extractParameter(rawData, NAME, FIND_KEYWORD));
     }
 
     /**
@@ -101,7 +105,7 @@ public abstract class ParseFind {
      */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
-            throw new ParserException("/from can only contain letters and at most 30 characters");
+            throw new ParserException("/name can only contain letters and at most 30 characters");
         }
     }
 

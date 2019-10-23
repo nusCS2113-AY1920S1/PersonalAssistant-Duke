@@ -21,6 +21,7 @@ import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
 import owlmoney.logic.parser.find.ParseFind;
 import owlmoney.logic.parser.find.ParseFindBankOrCard;
+import owlmoney.logic.parser.find.ParseFindBond;
 import owlmoney.logic.parser.goals.ParseAddGoals;
 import owlmoney.logic.parser.goals.ParseDeleteGoals;
 import owlmoney.logic.parser.goals.ParseEditGoals;
@@ -187,6 +188,11 @@ class ParseType extends Parser {
                 parseListBond.fillHashTable();
                 parseListBond.checkParameter();
                 return parseListBond.getCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBond parseFindBond = new ParseFindBond(rawData, BOND);
+                parseFindBond.fillHashTable();
+                parseFindBond.checkParameter();
+                return parseFindBond.getCommand();
             }
             throw new ParserException("You entered an invalid type for bond");
         case "/bankexpenditure":
@@ -278,6 +284,11 @@ class ParseType extends Parser {
                 editCard.fillHashTable();
                 editCard.checkParameter();
                 return editCard.getCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBankOrCard parseFindCard = new ParseFindBankOrCard(rawData, CARD);
+                parseFindCard.fillHashTable();
+                parseFindCard.checkParameter();
+                return parseFindCard.getCommand();
             }
             throw new ParserException("You entered an invalid type for card");
         case "/goals":

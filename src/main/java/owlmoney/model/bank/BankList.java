@@ -746,6 +746,22 @@ public class BankList {
     }
 
     /**
+     * Checks whether the bank object to receive the fund actually exist in the list.
+     *
+     * @param investmentName the bank account name.
+     * @throws BankException If bank does not exist.
+     */
+    public Bank bankListIsInvestmentAccountExist(String investmentName) throws BankException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (investmentName.equals(bankLists.get(i).getAccountName())
+                    && INVESTMENT.equals(bankLists.get(i).getType())) {
+                return bankLists.get(i);
+            }
+        }
+        throw new BankException("Investment account does not exist for search: " + investmentName);
+    }
+
+    /**
      * Checks whether the bank object has sufficient amount to transfer.
      *
      * @param accName   the bank object.
@@ -753,11 +769,11 @@ public class BankList {
      */
     public void findBankAccount(String accName, String type, Ui ui) throws BankException {
         ArrayList<Bank> tempBankList = new ArrayList<Bank>();
+        String matchingWord = accName.toUpperCase();
+
         for (int i = ISZERO; i < getBankListSize(); i++) {
-            if (bankLists.get(i).getAccountName().contains(accName) && SAVING.equals(bankLists.get(i).getType())) {
-                tempBankList.add(bankLists.get(i));
-            } else if (bankLists.get(i).getAccountName().contains(accName)
-                    && INVESTMENT.equals(bankLists.get(i).getType())) {
+            if (bankLists.get(i).getAccountName().toUpperCase().contains(matchingWord)
+                    && type.equals(bankLists.get(i).getType())) {
                 tempBankList.add(bankLists.get(i));
             }
         }

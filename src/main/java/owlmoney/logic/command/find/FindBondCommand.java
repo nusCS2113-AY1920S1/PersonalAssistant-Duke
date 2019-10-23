@@ -2,24 +2,23 @@ package owlmoney.logic.command.find;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
-import owlmoney.model.card.exception.CardException;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class FindBankOrCardCommand extends Command {
-
+public class FindBondCommand extends Command {
     private final String name;
-    private final String type;
+    private final String from;
 
     /**
      * Constructor to create an instance of AddExpenditureCommand.
      *
      * @param name        Bank account name.
-     * @param type        Represents type of expenditure to be added.
+     * @param from        Represents type of expenditure to be added.
      */
-    public FindBankOrCardCommand(String name, String type) {
+    public FindBondCommand(String name, String from) {
         this.name = name;
-        this.type = type;
+        this.from = from;
     }
 
     /**
@@ -29,10 +28,9 @@ public class FindBankOrCardCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      * @throws BankException If bank amount becomes negative after adding expenditure.
-     * @throws CardException If the credit card name cannot be found.
      */
-    public boolean execute(Profile profile, Ui ui) throws BankException, CardException {
-        profile.findBankOrCard(this.name, this.type, ui);
+    public boolean execute(Profile profile, Ui ui) throws BankException, BondException {
+        profile.findBond(this.name, this.from, ui);
         return this.isExit;
     }
 }

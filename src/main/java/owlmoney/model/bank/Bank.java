@@ -348,4 +348,15 @@ public abstract class Bank {
     void savingListRecurringExpenditure(Ui ui) throws BankException, TransactionException {
         throw new BankException("This account does not support this feature");
     }
+
+    /**
+     * Adds a bond to the current bank account.
+     *
+     * @param bondName the bond object.
+     * @param ui      required for printing.
+     * @throws BankException If used on savings account.
+     */
+    public void findBondInInvestment(String bondName, Ui ui) throws BankException, BondException {
+        throw new BankException("This account does not support this feature");
+    }
 }

@@ -33,7 +33,6 @@ public class Profile {
     private static final String SAVING = "saving";
     private static final String INVESTMENT = "investment";
     private static final String CARD = "card";
-
     private static final String ISBANK = "savings transfer";
     private static final String ISINVESTMENT = "investment transfer";
 
@@ -577,18 +576,30 @@ public class Profile {
     /**
      * Transfers fund from one bank account to another bank account from GoalsList.
      *
-     * @param accName   The account name to be searched for.
+     * @param name   The account name to be searched for.
      * @param ui     Required for printing.
      * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
      */
-    public void findBankOrCard(String accName, String type, Ui ui) throws BankException, CardException {
+    public void findBankOrCard(String name, String type, Ui ui) throws BankException, CardException {
         if (SAVING.equals(type)) {
-            bankList.findBankAccount(accName, type, ui);
+            bankList.findBankAccount(name, type, ui);
         } else if (INVESTMENT.equals(type)) {
-            bankList.findBankAccount(accName, type, ui);
+            bankList.findBankAccount(name, type, ui);
         } else if (CARD.equals(type)) {
+            cardList.findCard(name, ui);
 
         }
+    }
 
+    /**
+     * Transfers fund from one bank account to another bank account from GoalsList.
+     *
+     * @param name   The account name to be searched for.
+     * @param ui     Required for printing.
+     * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
+     */
+    public void findBond(String name, String from, Ui ui) throws BankException, BondException {
+        Bank investmentAccount = bankList.bankListIsInvestmentAccountExist(from);
+        investmentAccount.findBondInInvestment(name, ui);
     }
 }

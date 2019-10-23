@@ -143,4 +143,15 @@ public class Investment extends Bank {
     public void updateRecurringTransactions(Ui ui) {
         //add your code here
     }
+
+    /**
+     * Adds a bond to this investment account.
+     *
+     * @param bond the bond object.
+     * @param ui   required for printing.
+     */
+    @Override
+    public void findBondInInvestment(String bondName, Ui ui) throws BondException {
+        bonds.findBond(bondName, ui);
+    }
 }

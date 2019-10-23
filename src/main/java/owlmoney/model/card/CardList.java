@@ -283,4 +283,42 @@ public class CardList {
             ui.printDivider();
         }
     }
+
+    /**
+     * Prints the bank header details once only when listing of multiple bank.
+     *
+     * @param num Represents the current number of bank being listed.
+     * @param ui  The object use for printing.
+     */
+    private void printOneCardHeader(int num, Ui ui) {
+        if (num == ISZERO) {
+            ui.printBankHeader();
+        }
+    }
+
+    /**
+     * Checks whether the bank object has sufficient amount to transfer.
+     *
+     * @param cardName   the bank object.
+     * @throws CardException If card does not have sufficient fund.
+     */
+    public void findCard(String cardName, Ui ui) throws CardException {
+        ArrayList<Card> tempCardList = new ArrayList<Card>();
+        String matchingWord = cardName.toUpperCase();
+
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            if (cardLists.get(i).getName().toUpperCase().contains(matchingWord)) {
+                tempCardList.add(cardLists.get(i));
+            }
+        }
+        if (tempCardList.isEmpty()) {
+            throw new CardException("Card with the following keyword could not be found: " + cardName);
+        }
+
+        for (int i = ISZERO; i < tempCardList.size(); i++) {
+            printOneCardHeader(i, ui);
+            printOneCard((i+ONE_INDEX), tempCardList.get(i), ISMULTIPLE, ui);
+        }
+        ui.printDivider();
+    }
 }
