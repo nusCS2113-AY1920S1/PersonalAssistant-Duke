@@ -49,7 +49,8 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         String output = "Here are the ";
 
         if (option.equals("tasks") && showNopicTask == false) {

@@ -20,7 +20,8 @@ public class UnlinkCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         try {
             String[]arrOfStr = line.split(" /from ",2);
             int indexInList = Integer.parseInt(arrOfStr[0]);

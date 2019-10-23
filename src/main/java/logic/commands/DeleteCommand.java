@@ -27,7 +27,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         try {
             int order = Integer.parseInt(line);
             for (int i = 0; i < members.size(); i++) {

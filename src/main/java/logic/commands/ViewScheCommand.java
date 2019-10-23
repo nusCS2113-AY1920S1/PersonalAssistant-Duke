@@ -53,7 +53,8 @@ public class ViewScheCommand extends Command {
 
     @Override
     //@@author auggust yuyanglin28
-    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
+            throws DukeException {
         ArrayList<Task> scheTasks = new ArrayList<Task>();
         ArrayList<Task> temp = new ArrayList<>();
         String output = "";
