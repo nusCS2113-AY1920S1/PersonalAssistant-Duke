@@ -27,8 +27,6 @@ import java.util.List;
 
 public class Parser {
 
-    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "overview", "deadline", "editnote", "createnote"};
-
     /**
      * Allows the user input to be parsed before running 'execute'.
      * @param inputCommand String inputted by user, which needs to be parsed
@@ -40,7 +38,7 @@ public class Parser {
     public static Command parse(String inputCommand) throws DukeException {
         String[] buffer = inputCommand.split("\\s+");
         String input = buffer[0];
-        //helper(input);
+        helper(input);
         if (input.equals("exit")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -73,26 +71,37 @@ public class Parser {
 
     /**
      * Method to help handle small typo made by user.
+     * Types of typo handled are:
+     * 1) if user types one alphabet wrongly, eg. trre instead of tree.
+     * 2) if user accidentally types extra or less letter, eg. treee or tre instead of tree.
      */
     private static void helper(String input) throws DukeException {
+        String[] commands = {"exit", "list", "back", "help", "score", "reset",
+                             "goto", "overview", "deadline", "editnote", "createnote"};
         for (int i = 0; i < commands.length; i++) {
             boolean isTypo = false;
             String command = commands[i];
             int length = command.length();
-            if (length > input.length()) {
-                length = input.length();
-            }
-            int similarity = 0;
-            for (int j = 0; j < length; j++) {
-                if (input.charAt(j) == command.charAt(j)) {
-                    similarity++;
+
+            if (length == input.length()) {
+                int similarity = 0;
+                for (int j = 0; j < length; j++) {
+                    if (input.charAt(j) == command.charAt(j)) {
+                        similarity++;
+                    }
+                }
+                if (similarity + 1 == length) {
+                    isTypo = true;
                 }
             }
-            if (similarity + 1 == length) {
-                isTypo = true;
+
+            boolean isOneLetterApart = false;
+
+            if (command.length() == input.length() + 1 || command.length() == input.length() - 1) {
+                isOneLetterApart = true;
             }
 
-            if (!command.equals(input)) {
+            if (!command.equals(input) && isOneLetterApart) {
                 if (command.contains(input) || input.contains(command)) {
                     isTypo = true;
                 }
