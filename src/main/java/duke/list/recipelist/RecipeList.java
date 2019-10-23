@@ -32,9 +32,9 @@ public class RecipeList {
 
     public void addRecipeIngredient(String recipeIndex, String recipeIngredientName, String quantity, String unit, String additionalInfo) {
         Recipe value = this.recipeLHM.get(Integer.parseInt(recipeIndex));
-        System.out.println("this is the value: " + value);
-        System.out.println("this is the value recipe title: " + value.getRecipeTitle());
-        System.out.println("this is the value required ingredients: " + value.getRequiredIngredients());
+        System.out.println("this is the value recipelist: " + value);
+        System.out.println("this is the value recipe title recipelist: " + value.getRecipeTitle());
+        System.out.println("this is the value required ingredients recipelist: " + value.getRequiredIngredients().toSaveString());
         this.recipeLHM.put(Integer.parseInt(recipeIndex), new Recipe(value.getRecipeTitle(), new RequiredIngredients(recipeIngredientName, quantity, unit, additionalInfo)));
     }
 

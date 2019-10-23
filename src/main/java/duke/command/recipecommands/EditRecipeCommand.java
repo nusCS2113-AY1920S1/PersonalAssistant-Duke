@@ -12,14 +12,14 @@ import java.util.*;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
-public class EditRecipeCommand extends Command<RecipeList, Ui, Ui, RecipeStorage> {
+public class EditRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> {
 
     public EditRecipeCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, Ui ui1, RecipeStorage recipeStorage) throws ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_EDIT_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

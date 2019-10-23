@@ -13,14 +13,14 @@ import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
 import static duke.common.RecipeMessages.MESSAGE_RECIPE_ADDED;
 import static duke.common.RecipeMessages.ERROR_MESSAGE_RECIPE_ALREADY_EXISTS;
 
-public class AddRecipeCommand extends Command<RecipeList, Ui, Ui, RecipeStorage> { // need to settle the problem of duplicate recipes.
+public class AddRecipeCommand extends Command<RecipeList, Ui, RecipeStorage> { // need to settle the problem of duplicate recipes.
 
     public AddRecipeCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
-    public ArrayList<String> execute(RecipeList recipeList, Ui ui, Ui ui1, RecipeStorage recipeStorage) throws ParseException {
+    public ArrayList<String> execute(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

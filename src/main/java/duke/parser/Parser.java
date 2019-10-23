@@ -10,10 +10,8 @@ import duke.command.inventorycommands.ListInventoryCommand;
 import duke.command.recipecommands.*;
 import duke.list.recipelist.RecipeIngredientList;
 import duke.list.recipelist.RecipeList;
-import duke.list.recipelist.RecipeTitleList;
 import duke.storage.RecipeIngredientStorage;
 import duke.storage.RecipeStorage;
-import duke.storage.RecipeTitleStorage;
 import duke.ui.Ui;
 
 import static duke.common.BookingMessages.*;
@@ -37,15 +35,11 @@ public class Parser {
         }
     }
 
-    public static Command<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> parseRecipeIngredient(String input) {
+    public static CommandRecipe<RecipeIngredientList, RecipeList, RecipeIngredientStorage, RecipeStorage> parseRecipeIngredient(String input) {
         return new AddRecipeIngredientCommand(input);
     }
 
-    public static Command<RecipeTitleList, Ui, Ui, RecipeTitleStorage> parseRecipeTitle(String input) {
-        return new DeleteRecipeTitleCommand(input);
-    }
-
-    public static Command<RecipeList, Ui, Ui, RecipeStorage> parseRecipe(String input) {
+    public static Command<RecipeList, Ui, RecipeStorage> parseRecipe(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             return new AddRecipeCommand(input);
 //        } else if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {

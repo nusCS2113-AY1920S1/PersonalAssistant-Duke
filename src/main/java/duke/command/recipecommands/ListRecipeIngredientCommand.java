@@ -15,7 +15,7 @@ import static duke.common.RecipeMessages.ERROR_MESSAGE_INVALID_RECIPE_INDEX;
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, Ui, RecipeIngredientStorage> {
+public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, RecipeIngredientStorage> {
 
     /**
      * Constructor for class ListCommand.
@@ -25,7 +25,7 @@ public class ListRecipeIngredientCommand extends Command<RecipeIngredientList, U
         this.userInput = userInput;
     }
 
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, Ui ui1, RecipeIngredientStorage recipeIngredientStorage) {
+    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_LIST_RECIPE_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

@@ -21,7 +21,7 @@ import static duke.common.RecipeMessages.MESSAGE_RECIPE_DELETED;
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
-public class DeleteRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, Ui, RecipeIngredientStorage> {
+public class DeleteRecipeIngredientCommand extends Command<RecipeIngredientList, Ui, RecipeIngredientStorage> {
 
     /**
      * Constructor for class DeleteCommand.
@@ -32,7 +32,7 @@ public class DeleteRecipeIngredientCommand extends Command<RecipeIngredientList,
     }
 
     @Override
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, Ui ui1, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
+    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_RECIPE_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);

@@ -78,11 +78,12 @@ public class RecipeStorage {
                             if (split3.length == 2) {
                                 prepStep = remaining2.split("\\|", 2)[0].trim();
                                 remaining3 = remaining2.split("\\|", 2)[1].trim();
-                                String[] split4 = remaining3.split("\\|", 2);
+                                String[] split4 = remaining3.split("> \\|", 2);
                                 if (split4.length == 2) {
-                                    requiredIngredients = remaining3.split("\\|", 2)[0].trim();
+                                    requiredIngredients = remaining3.split("> \\|", 2)[0].trim();
                                     feedback = remaining3.split("\\|", 2)[1].trim();
                                     Recipe recipe = new Recipe(recipeTitle, rating, prepStep, requiredIngredients, feedback);
+                                    System.out.println("this is the value for required ingredient from the recipe storage: " + requiredIngredients);
                                     LHMRecipeList.put(Integer.parseInt(recipeIndex), recipe);
                                 }
                             }
