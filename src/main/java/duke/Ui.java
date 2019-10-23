@@ -35,12 +35,8 @@ public class Ui {
                 } else if (command.equals("home")) {
                     mainMenu();
                 } else {
-                    try {
 
-                        parser.parseCommand(command);
-                    } catch (FileNotFoundException | ParseException io) {
-                        System.err.println("file not found");
-                    }
+                    parser.parseCommand(command);
                 }
             }
         }
