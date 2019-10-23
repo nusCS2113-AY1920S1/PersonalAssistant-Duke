@@ -333,7 +333,7 @@ public class TaskCommandParseHelper {
         try {
             String doAfter = extractDoAfter(optionList);
             LocalDateTime time = parseTaskTime(optionList);
-            ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
+            ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
             return constructAddCommandByType(input, doAfter, time, tags, priority);
         } catch (CommandParseHelper.UserInputException e) {

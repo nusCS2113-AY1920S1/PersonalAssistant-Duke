@@ -100,7 +100,7 @@ public class TaskUpdateCommand extends Command {
     private String updateTags(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
         String msg;
         ArrayList<String> tags = new ArrayList<>();
-        for (int j = i; j < taskList.size(); j++) {
+        for (int j = i; j < descriptions.size(); j++) {
             if (attributes.get(j).equals(Attributes.TAG)) {
                 tags.add(descriptions.get(j));
             }
