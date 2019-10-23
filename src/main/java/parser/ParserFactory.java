@@ -1,28 +1,10 @@
 package parser;
 
-import command.AddCommand;
 import command.Command;
-import command.CommentCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
 import command.ExitCommand;
-import command.FindCommand;
 import command.ListCommand;
-import command.LocationCommand;
-import command.PostponeCommand;
-import command.PriorityCommand;
-import command.RemindCommand;
-import command.SearchCommand;
-import command.ViewCommand;
-import command.EditCommand;
-import command.IgnoreCommand;
 import exception.DukeException;
-import task.Deadline;
 import ui.Ui;
-
-import java.time.LocalDateTime;
-import java.text.ParseException;
-import java.util.Date;
 
 /**
  * The parser class is used to parse and make sense of the different queries the

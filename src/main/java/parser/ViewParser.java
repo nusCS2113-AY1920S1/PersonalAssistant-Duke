@@ -4,8 +4,6 @@ import command.Command;
 import command.ViewCommand;
 import exception.DukeException;
 
-import java.time.LocalDateTime;
-
 public class ViewParser extends DescriptionParser {
 
     public ViewParser(String userInput, String command) {
