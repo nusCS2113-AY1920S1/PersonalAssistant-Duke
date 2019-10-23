@@ -39,7 +39,7 @@ public class TypoCorrector {
             if (isSimilar(fullCommand, closestMatch)) {
                 return closestMatch;
             }
-        } else if (commandSize == 2){
+        } else if (commandSize == 2) {
             // Type B command with command keywords and other info/data
             String keyword = splitCommand[0].trim().toLowerCase(); //Ignore spaces(back and fore)and upper/lower cases
             closestMatch = matchStringFromDict(keyword, otherCommands); //get closest match
