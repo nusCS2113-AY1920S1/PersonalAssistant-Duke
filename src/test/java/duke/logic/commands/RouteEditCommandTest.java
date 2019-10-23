@@ -15,8 +15,6 @@ class RouteEditCommandTest {
     void execute() throws DukeException {
         Model model = new ModelStub();
 
-        Route route = new Route("2113", null);
-
         RouteAddCommand routeAddCommand =
                 (RouteAddCommand) Parser.parseComplexCommand("routeAdd 2113");
         routeAddCommand.execute(model);

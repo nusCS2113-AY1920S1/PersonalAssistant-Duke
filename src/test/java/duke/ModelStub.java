@@ -23,6 +23,9 @@ public class ModelStub implements Model {
     private RouteList routes;
     private CreateMap map;
 
+    /**
+     * Construct the ModelStub for testing.
+     */
     public ModelStub() {
         storage = new Storage();
         tasks = new TaskList();
@@ -40,7 +43,9 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public RouteList getRoutes() { return routes; }
+    public RouteList getRoutes() {
+        return routes;
+    }
 
     @Override
     public List<Task> getFilteredList() {

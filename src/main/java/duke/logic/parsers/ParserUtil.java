@@ -1,6 +1,5 @@
 package duke.logic.parsers;
 
-import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeEmptyFieldException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
@@ -62,7 +61,7 @@ public class ParserUtil {
         String[] indexes = withinDetails[0].split(" ");
 
         String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
-        if (!(type.substring(0, 2).equals("at") || type.equals("with"))) {
+        if (!("with".equals(type) || "at".equals(type.substring(0, 2)))) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
 
