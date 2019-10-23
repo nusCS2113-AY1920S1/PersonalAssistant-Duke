@@ -49,10 +49,10 @@ class CommandWindow extends UiElement<Region> {
      *
      * @param executor Executor object responsible for executing user commands.
      */
-    CommandWindow(Executor executor) {
+    CommandWindow(Executor executor, Parser parser) {
         super(FXML, null);
 
-        this.parser = new Parser();
+        this.parser = parser;
         this.executor = executor;
 
         inputHistory = new ArrayList<>();
@@ -179,7 +179,7 @@ class CommandWindow extends UiElement<Region> {
      * Prints welcome message.
      */
     private void printWelcome() {
-        String welcome = MESSAGE_WELCOME_GREET + "\n" + MESSAGE_WELCOME_QUESTION;
+        String welcome = MESSAGE_WELCOME_GREET + System.lineSeparator() + MESSAGE_WELCOME_QUESTION;
         print(welcome);
     }
 
