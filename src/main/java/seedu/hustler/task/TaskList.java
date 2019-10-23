@@ -228,7 +228,6 @@ public class TaskList {
                     ui.show_task_done(list.get(i).toString());
                 }
                 Hustler.avatar.gainXp();
-                AvatarStorage.save(Hustler.avatar);
             }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
