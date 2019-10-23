@@ -183,9 +183,7 @@ These following diagram show how the 3 cases were implemented:
 
 The user type the "entry" (not shown in the sequence diagram) as `shortcut CommandName ShortcutName`.
 
-+
 image::SDShortcutOneShot.png[width="790"]
-+
 
 The method setShortcut is static, thus an object Command won’t be created
 
@@ -193,17 +191,13 @@ The method setShortcut is static, thus an object Command won’t be created
 
 The user type the "entry" (not shown in the sequence diagram) as `shortcut CommandName`. Then the console will ask what will be the new name for the shortcut.
 
-+
 image::SGShortcutMultiOneCmd.png[width="790"]
-+
 
 ==== Multi-step every command
 
 The user type the "entry" (not shown in the sequence diagram) as `shortcut`. The console will display one command's name, then the console will ask what will be the new name for the shortcut. The console will repeat until every command have a shortcut.
 
-+
 image::SGShortcutMultiEveryCmd.png[width="790"]
-+
 
 ==== Consideration
 
