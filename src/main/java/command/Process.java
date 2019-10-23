@@ -51,7 +51,7 @@ public class Process {
      * Processes the message when there is no project in the record.
      * @param ui Ui that interacts with the user.
      */
-    public void noProject(Ui ui){
+    public void noProject(Ui ui) {
         ui.printNoProjectMessage();
     }
 
@@ -71,6 +71,13 @@ public class Process {
         return newProject;
     }
 
+    /**
+     * Processes the delete project command to delete a project from the projectmap.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param projectmap Hashmap containing projects.
+     * @return Returns the Project object of the deleted project.
+     */
     public Project deleteProject(String input, Ui ui, HashMap<String, Project> projectmap) {
         String[] split = input.split("pr/", 2); //TODO check for valid input
         String projectname = split[1];
@@ -80,6 +87,14 @@ public class Process {
         return deletedProject;
     }
 
+    /**
+     * Processes the goto project command to set a project in the projectmap
+     * as the current project that the user is working on.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param projectmap Hashmap containing projects.
+     * @return Returns the Project object of the project that was gone to.
+     */
     public Project goToProject(String input, Ui ui, HashMap<String, Project> projectmap) {
         String[] split = input.split("pr/", 2); //TODO check for valid input
         String projectname = split[1];

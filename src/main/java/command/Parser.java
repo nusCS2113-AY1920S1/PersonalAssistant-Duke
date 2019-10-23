@@ -35,7 +35,8 @@ public class Parser {
      * @throws AlphaNUSException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui,
-                                Storage storage, HashMap<String, Payee> managermap, HashMap<String, Project> projectmap) {
+                                Storage storage, HashMap<String, Payee> managermap,
+                                HashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
@@ -43,7 +44,7 @@ public class Parser {
                 ui.getIn().close();
                 return true;
             } else if (instr.isAddProject(input)) {
-                if (currentProject == null){
+                if (currentProject == null) {
                     currentProject = process.addProject(input, ui, projectmap);
                 } else {
                     process.addProject(input, ui, projectmap);
@@ -55,9 +56,7 @@ public class Parser {
                 }
             } else if (instr.isGoToProject(input)) {
                 currentProject = process.goToProject(input, ui, projectmap);
-            }
-
-            else if (currentProject == null) {
+            } else if (currentProject == null) {
                 process.noProject(ui);
             } else if (instr.isList(input)) {
                 //print out current list

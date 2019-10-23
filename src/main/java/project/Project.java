@@ -18,7 +18,7 @@ public class Project {
     /**
      * Instantiates Project object without a budget allocated.
      */
-    public Project(String projectname){
+    public Project(String projectname) {
         this.managermap = new HashMap<>();
         this.budget = NOBUDGET;
         this.spending = NOSPENDING;
@@ -29,7 +29,7 @@ public class Project {
      * Overload function to Instantiate Project object with budget allocated.
      * @param budget Budget allocated to project.
      */
-    public Project(String projectname, double budget){
+    public Project(String projectname, double budget) {
         this.managermap = new HashMap<>();
         this.budget = budget;
         this.spending = NOSPENDING;

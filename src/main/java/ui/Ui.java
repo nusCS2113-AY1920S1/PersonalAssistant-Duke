@@ -52,7 +52,10 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void printNoProjectMessage(){
+    /**
+     * Prints a message to indicate that there are no projects in the record.
+     */
+    public void printNoProjectMessage() {
         System.out.print(line);
         System.out.println("\t" + "There are no projects in the record.");
         System.out.println("\t" + "Please add a new project.");
@@ -60,6 +63,11 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints a message to indicate that a project has been added.
+     * @param newProject The project that was added.
+     * @param projectsize The current number of projects in the projectmap.
+     */
     public void printAddProject(Project newProject, int projectsize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this project:");
@@ -70,6 +78,11 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints a message to indicate that a project has been deleted.
+     * @param deletedProject The project that was deleted.
+     * @param projectsize The current number of projects in the projectmap.
+     */
     public void printDeleteProject(Project deletedProject, int projectsize) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've deleted this project:");
@@ -80,6 +93,12 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints the number of projects in the projectmap and the current project
+     * that is being worked on.
+     * @param currentprojectname Name of the current project.
+     * @param projectsize The current number of projects in the projectmap.
+     */
     public void printProjectStatus(String currentprojectname, int projectsize) {
         System.out.print(line);
         if (currentprojectname == null) {
@@ -91,6 +110,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints message to indicate the project that is gone to.
+     * @param projectname Name of project that is gone to.
+     */
     public void printGoToProject(String projectname) {
         System.out.print(line);
         System.out.println("\t" + "Going to Project: " + projectname);
