@@ -17,8 +17,8 @@ public class CoreModuleReportCommand extends ModuleCommand {
     private Set<String> coreModList = new HashSet<>();
 
     private Set<String> getCoreModList() {
-        coreModList.add("CG111");
-        coreModList.add("CG112");
+        coreModList.add("CG1111");
+        coreModList.add("CG1112");
         coreModList.add("CS1010");
         coreModList.add("CS1231");
         coreModList.add("MA1511");
@@ -53,7 +53,7 @@ public class CoreModuleReportCommand extends ModuleCommand {
         coreModList = getCoreModList();
 
         for (int i = 0; i < tasks.getTasks().size(); i++) {
-            String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
+            String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode().toUpperCase();
             if (coreModList.contains(moduleCode)) {
                 ModuleTask temp = tasks.getTasks().get(i);
                 System.out.println(count + ". " + temp);

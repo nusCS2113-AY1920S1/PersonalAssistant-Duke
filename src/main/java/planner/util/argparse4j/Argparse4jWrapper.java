@@ -14,11 +14,13 @@ import planner.command.AddCcaScheduleCommand;
 import planner.command.Arguments;
 import planner.command.ClearCommand;
 import planner.command.EndCommand;
+import planner.command.GradeCommand;
 import planner.command.ModuleCommand;
 import planner.command.RemoveCommand;
 import planner.command.SearchThenAddCommand;
 import planner.command.ShowCommand;
 import planner.command.SortCommand;
+import planner.command.CapCommand;
 import planner.exceptions.original.ModException;
 import planner.util.argparse4j.action.Join;
 
@@ -54,6 +56,8 @@ public class Argparse4jWrapper {
         this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
         this.mapCommand("clear", ClearCommand.class);
         this.mapCommand("sort", SortCommand.class);
+        this.mapCommand("cap", CapCommand.class);
+        this.mapCommand("grade", GradeCommand.class);
     }
 
     /**
@@ -132,6 +136,19 @@ public class Argparse4jWrapper {
                 .addArgument("toSort")
                 .choices("modules", "ccas")
                 .help("What to sort");
+
+        Subparser capParser = getSubParser("cap");
+        capParser.addArgument("toCap")
+            .choices("overall", "list", "module")
+            .help("What type of CAP to calculate");
+
+        Subparser gradeParser = getSubParser("grade");
+        gradeParser.addArgument("moduleCode")
+            .required(true)
+            .help("Codename of module to grade");
+        gradeParser.addArgument("letterGrade")
+            .required(true)
+            .help("Grade you achieved for this module");
     }
 
     private void initBuiltinActions() {

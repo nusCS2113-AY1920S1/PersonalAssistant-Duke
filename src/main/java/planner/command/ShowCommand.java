@@ -24,8 +24,8 @@ public class ShowCommand extends ModuleCommand {
 
     private Set<String> getCoreModList() {
         if (coreModList == null) {
-            coreModList.add("CG111");
-            coreModList.add("CG112");
+            coreModList.add("CG1111");
+            coreModList.add("CG1112");
             coreModList.add("CS1010");
             coreModList.add("CS1231");
             coreModList.add("MA1511");
@@ -74,7 +74,7 @@ public class ShowCommand extends ModuleCommand {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if (coreModList.contains(moduleCode)) {
                         ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count + ". " + temp);
+                        System.out.println(count + ". " + temp.toString());
                         count++;
                     }
                 }
