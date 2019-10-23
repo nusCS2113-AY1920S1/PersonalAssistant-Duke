@@ -147,6 +147,35 @@ _{Explain here how the loading of custom questions is to be implemented}_
 
 // end::customquestions[]
 
+// tag::improvisedparser[]
+=== [Proposed] Improvising on current parser
+
+3.3.1 The Current Parser
+
+Currently, the parser simply parses through the input entered by the user and splits it into an array of strings by removing the spaces in between.
+For example, should the user enter `select 3` the parser will then return an input arraylist of {select, 3}.
+By reading input.get(0),the parser then decides which command to call for.
+In the event where the command is not recognised by the parser, an invalid command will be called for in which it returns `???!` to the user.
+
+3.3.2 The Proposed Implementation
+
+While the current parser serves its purpose, we seek to implement a `Did you mean...` feature, where rather than just returning `???!` to the user,
+it also returns the command that is most similar to what the user has inputted.
+For example, unnecessary spaces in between such as `me n u` or with an accidental typo such as `seect`, then the parser will be able to find the closest word to it
+and returns `???! Did you mean menu?`
+
+3.3.2.1 Design Considerations
+Aspect: How the improvised parser works
+
+- Alternative 1 (current choice): Did you mean feature implemented under the InvalidCommand
+
+    Pros: More straight forward to implement
+
+- Alternative 2: Implement under exceptions
+
+
+// end ::improvisedparser[]
+
 
 [[Implementation-Configuration]]
 === Configuration
