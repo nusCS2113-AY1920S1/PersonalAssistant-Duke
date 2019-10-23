@@ -1,6 +1,7 @@
 package duke.logic.command.order;
 
 import duke.logic.command.exceptions.CommandException;
+import duke.model.Model;
 import duke.model.commons.Item;
 import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
@@ -77,4 +78,25 @@ class OrderCommandUtil {
         return order;
     }
 
+    /**
+     * Deducts the amount of ingredients used in this {@code order} from inventory in {@code model}.
+     * If ingredients in inventory are not enough, deducts to zero.
+     *
+     * @return true if ingredients in inventory are enough.
+     */
+    static boolean deductInventory(Order order, Model model) {
+        boolean isInventoryEnough = true;
+        for (Item<Product> productItem : order.getItems()) {
+            for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
+                if (model.hasIngredient(ingredientItem.getItem())) {
+                    if (model.deductIngredient(ingredientItem.getItem(),
+                        productItem.getQuantity().getNumber() * ingredientItem.getQuantity().getNumber()
+                    )) {
+                        isInventoryEnough = false;
+                    }
+                }
+            }
+        }
+        return isInventoryEnough;
+    }
 }

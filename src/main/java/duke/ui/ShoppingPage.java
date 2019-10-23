@@ -1,12 +1,14 @@
 package duke.ui;
 
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 public class ShoppingPage extends UiPart<AnchorPane> {

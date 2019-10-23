@@ -12,8 +12,8 @@ import duke.model.inventory.Ingredient;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 public class EditShoppingCommand extends ShoppingCommand {
 

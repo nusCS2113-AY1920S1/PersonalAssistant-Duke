@@ -12,7 +12,6 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
-
 import static duke.logic.parser.sale.SaleParserUtil.createDescriptor;
 
 public class AddSaleCommandParser implements Parser<AddSaleCommand> {
