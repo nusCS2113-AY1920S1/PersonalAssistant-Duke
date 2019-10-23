@@ -132,6 +132,15 @@ public class Patient extends DukeObject {
         }
     }
 
+    /**
+     * This function find returns if a patient is allergic to an allergy.
+     * @param allergy String the possible allergy striped of spaces
+     * @return boolean
+     */
+    public boolean isAllergic(String allergy) {
+        return this.allergies.contains(allergy);
+    }
+
     @Override
     public String toString() {
         // Todo
