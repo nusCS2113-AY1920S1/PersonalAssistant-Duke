@@ -103,15 +103,15 @@ public class Parser {
      * @param line a line of String to be parsed, without \n last
      * @return a Member. Member object produced by the input line
      */
-    public static Member memberDataLine(String line) {
+    public static Member memberDataLine(String line, ArrayList<Task> tasks) {
         String[] splites = line.split(" \\| ");
         String name = splites[0].trim();
         int numOfTaskInCharge = splites.length - 1;
-        ArrayList<Integer> taskInCharge = new ArrayList<>();
+        ArrayList<Integer> tasksInChargeIndex = new ArrayList<>();
         for (int i = 0; i < numOfTaskInCharge; i++) {
-            taskInCharge.add(Integer.parseInt(splites[1 + i].trim()));
+            tasksInChargeIndex.add(Integer.parseInt(splites[1 + i].trim()));
         }
-        return new Member(name, taskInCharge);
+        return new Member(name, tasksInChargeIndex, tasks);
     }
 
     /**
@@ -136,7 +136,7 @@ public class Parser {
             temp = new AddCommand(splites[1]);
         } else if (splites[0].equals("LIST")) {
             if (length < 2) {
-                throw new DukeException("usage: list [tasks/members]");
+                throw new DukeException("usage: list [tasks/members/member [index]]");
             }
             temp = new ListCommand(splites[1].trim());
         } else if (splites[0].equals("DONE")) {

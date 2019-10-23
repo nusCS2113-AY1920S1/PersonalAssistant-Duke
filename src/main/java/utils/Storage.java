@@ -101,14 +101,14 @@ public class Storage {
      *
      * @return an ArrayList of Member, which is the member list
      */
-    public ArrayList<Member> loadMemberList() {
+    public ArrayList<Member> loadMemberList(ArrayList<Task> tasks) {
         ArrayList<Member> members = new ArrayList<Member>();
         try {
             is = new FileInputStream(memberDataFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = br.readLine()) != null) {
-                members.add(Parser.memberDataLine(line));
+                members.add(Parser.memberDataLine(line, tasks));
             }
             br.close();
             is.close();

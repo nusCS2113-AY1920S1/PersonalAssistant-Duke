@@ -27,13 +27,13 @@ public class UnlinkCommand extends Command {
 
             for (int i = 0; i < members.size(); i++) {
                 if (members.get(i).getName().equals(memberName)) {
-                    members.get(i).removeTask(indexInList);
-                    storage.storeMemberList(members);
-                    Ui.print("Task " + indexInList + " is successfully removed from " + memberName);
+                        storage.storeMemberList(members);
+                        Ui.print("Task " + indexInList + " is successfully removed from " + memberName);
                 }
             }
+
         } catch (Exception e) {
-            throw new DukeException("Member not found");
+            throw new DukeException("Member not found or invalid task index");
         }
     }
 

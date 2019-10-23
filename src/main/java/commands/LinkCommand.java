@@ -21,9 +21,10 @@ public class LinkCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         try {
-            String[] arrOfStr = line.split(" to ",2);
+            String[] arrOfStr = line.split(" /to ",2);
 
             int indexInList = Integer.parseInt(arrOfStr[0]);
+
             String memberName = arrOfStr[1];
 
             for (int i = 0; i < members.size(); i++) {
@@ -34,7 +35,7 @@ public class LinkCommand extends Command {
                 }
             }
         } catch (Exception e) {
-            throw new DukeException("Member not found");
+            throw new DukeException("Member not found or invalid task index");
         }
     }
 
