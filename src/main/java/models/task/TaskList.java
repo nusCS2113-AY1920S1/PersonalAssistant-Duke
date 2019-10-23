@@ -1,6 +1,7 @@
 package models.task;
 
 import util.ParserHelper;
+import util.SortHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Arrays;
 public class TaskList {
     private ArrayList<Task> taskList;
     private ParserHelper parserHelper;
+    private SortHelper sortHelper;
 
     /**
      * Class representing a list with all task sort in the project.
@@ -15,6 +17,7 @@ public class TaskList {
     public TaskList() {
         this.taskList = new ArrayList<>();
         this.parserHelper = new ParserHelper();
+        this.sortHelper = new SortHelper();
     }
 
     /**
@@ -141,5 +144,54 @@ public class TaskList {
 
     public boolean contains(Task task) {
         return (taskList.contains(task));
+    }
+
+    /**
+     * Get details of task with closest deadline and return in String array form.
+     * @return String array of details of task which has the closest deadline.
+     */
+    public String[] getClosestDeadlineTask() {
+        ArrayList<String> sortedTaskList = sortHelper.sortTaskDueDate(this.taskList);
+        for (String task : sortedTaskList) {
+            if (!task.contains("State: DONE")) {
+                return task.substring(3).split(" [|] ");
+            }
+        }
+        String[] message = new String[2];
+        message[0] = "";
+        message[1] = "No deadlines left -";
+        return message;
+    }
+
+    /**
+     * Method to calculate progress and store in presentable String format.
+     * @return String array containing output for overall progress to be printed in table.
+     */
+    public String[] getOverallProgress() {
+        int totalCredits = 0;
+        double creditsOpen = 0;
+        double creditsTodo = 0;
+        double creditsDoing = 0;
+        double creditsDone = 0;
+        for (Task task : this.taskList) {
+            totalCredits += task.getTaskCredit();
+            if (task.getTaskState() == TaskState.DONE) {
+                creditsDone += task.getTaskCredit();
+            } else if (task.getTaskState() == TaskState.DOING) {
+                creditsDoing += task.getTaskCredit();
+            } else if (task.getTaskState() == TaskState.TODO) {
+                creditsTodo += task.getTaskCredit();
+            } else {
+                creditsOpen += task.getTaskCredit();
+            }
+        }
+        ArrayList<String> progressDetails = new ArrayList<>();
+        String percentageDone = Integer.toString((int)(creditsDone / totalCredits * 100));
+        progressDetails.add("Completed: " + percentageDone + "%");
+        String percentageInProgress = Integer.toString((int)(creditsDoing / totalCredits * 100));
+        progressDetails.add("In Progress: " + percentageInProgress + "%");
+        String percentageNotDone = Integer.toString((int)((creditsTodo + creditsOpen) / totalCredits * 100));
+        progressDetails.add("Not Done: " + percentageNotDone + "%");
+        return progressDetails.toArray(new String[0]);
     }
 }

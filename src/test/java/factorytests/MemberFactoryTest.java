@@ -30,7 +30,7 @@ public class MemberFactoryTest {
      */
     @Test
     void memberCreation_fullCorrectInputs_creationSuccess() {
-        simulatedFactoryInput = "n/Thor i/91234567 e/thor@marvel.com x/1";
+        simulatedFactoryInput = "-n Thor -i 91234567 -e thor@marvel.com -x 1";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
         Member expectedMember = new Member("Thor", "91234567",
                 "thor@marvel.com", 1);
@@ -41,14 +41,14 @@ public class MemberFactoryTest {
 
     @Test
     void memberCreation_correctPartialInputs_creationSuccess() {
-        simulatedFactoryInput = "n/Iron man i/12345678 x/2";
+        simulatedFactoryInput = "-n Iron man -i 12345678 -x 2";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
         Member expectedMember = new Member("Iron man", "12345678", "--", 2);
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
 
-        simulatedFactoryInput = "n/Dr Strange x/3";
+        simulatedFactoryInput = "-n Dr Strange -x 3";
         simulatedMember = memberFactory.create(simulatedFactoryInput);
         expectedMember = new Member("Dr Strange", "--", "--", 3);
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
@@ -58,7 +58,7 @@ public class MemberFactoryTest {
 
     @Test
     void memberCreation_wrongInputs_creationFailed() {
-        simulatedFactoryInput = "i/12341234 x/1";
+        simulatedFactoryInput = "-i 12341234 -x 1";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
         NullMember expectedMember = new NullMember();
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());

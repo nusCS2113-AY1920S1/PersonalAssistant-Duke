@@ -3,6 +3,7 @@ package util;
 import models.task.Task;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class SortHelper {
@@ -49,6 +50,7 @@ public class SortHelper {
             }
         }
         sortedTaskList.sort((task1, task2) -> task2.getDueDate().compareTo(task1.getDueDate()));
+        Collections.reverse(sortedTaskList);
         int taskIndex = 1;
         for (Task task : sortedTaskList) {
             taskDetails.add(taskIndex + ". " + task.getDetails());

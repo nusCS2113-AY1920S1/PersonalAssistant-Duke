@@ -115,7 +115,7 @@ public class ProjectInputController implements IController {
     public void projectAddMember(Project projectToManage, String projectCommand) {
         String memberDetails = projectCommand.substring(11);
         int numberOfCurrentMembers = projectToManage.getNumOfMembers();
-        memberDetails = memberDetails + " x/" + numberOfCurrentMembers;
+        memberDetails = memberDetails + " -x " + numberOfCurrentMembers;
         IMember newMember = memberFactory.create(memberDetails);
         if (newMember.getName() != null) {
             projectToManage.addMember((Member) newMember);
@@ -135,7 +135,7 @@ public class ProjectInputController implements IController {
         try {
             int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
             if (projectToManage.getNumOfMembers() >= memberIndexNumber && memberIndexNumber > 0) {
-                String updatedMemberDetails = projectCommand.substring(14);
+                String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("-"));
                 consoleView.editMember(projectToManage, memberIndexNumber, updatedMemberDetails);
             } else {
                 consoleView.consolePrint("The member index entered is invalid.");
@@ -189,7 +189,7 @@ public class ProjectInputController implements IController {
             if (newTask.getDetails() != null) {
                 consoleView.addTask(projectToManage, (Task) newTask);
             } else {
-                consoleView.consolePrint("Failed to create new task. Please ensure all"
+                consoleView.consolePrint("Failed to create new task. Please ensure all "
                         + "necessary parameters are given");
             }
         } catch (NumberFormatException | ParseException e) {
@@ -204,7 +204,7 @@ public class ProjectInputController implements IController {
      */
     public void projectEditTask(Project projectToManage, String projectCommand) {
         int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
-        String updatedTaskDetails = projectCommand.substring(12);
+        String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
         if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
             consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);

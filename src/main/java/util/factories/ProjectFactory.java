@@ -13,17 +13,11 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
      */
     @Override
     public IProject create(String input) {
-        if (input.length() < 9) {
-            System.out.println("Please specify the command correctly in the format create -n PROJECT_NAME");
-            return new NullProject();
-        } else if (!input.contains("-n")) {
-            System.out.println("Please specify the -n flag before your PROJECT_NAME using -n PROJECT_NAME");
-            return new NullProject();
-        } else if (input.length() < 10) {
-            System.out.println("Please remember to specify the project name after the -n flag!");
+        if (input.length() < 8) {
+            System.out.println("Please specify the command correctly in the format create PROJECT_NAME");
             return new NullProject();
         }
-        String projectName = input.substring(10);
+        String projectName = input.substring(7);
         return new Project(projectName);
     }
 }
