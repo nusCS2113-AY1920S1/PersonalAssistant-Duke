@@ -89,13 +89,30 @@ This class was adapted from the existing Duke storage to suit the needs of ModPl
 
 === Parser
 
+Our parser is based on an external library, Argsparsej. It is comprehensive in its coverage as a command line parsers, hence it become our choice for implementing the main parser for user commands.
 
+image::Parser.png[]
 
 === PlannerUi
 
+The main class which handles user display, which includes reading user input and printing module, CAP and CCA information back to the user on command-line.
+
+image::PlannerUi.png[]
+
 === Command
 
+Using Java's built in OOP, this abstract class is implemented in each of the specific commands seen by our parser. For developers, this is the main class of interest to build additional functionality to ModPlanner.
+
+image::Command.png[]
+
+The arguments to implemented command classes are handled by the Arguments class which is returned from our Parser.
+
 === CCA
+
+Building on additional functionality, our implementation of CCA would inherit from legacy Tasks class from Duke, allowing both modules and CCAs to be stored in the same TaskList collection.
+
+image::CCA.png[]
+
 
 == Implementation
 
