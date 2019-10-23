@@ -152,6 +152,7 @@ public class Duke {
         }
     }
 
+    //@@author talesrune
     /**
      * Retrieves the current task list (GUI).
      *
@@ -170,6 +171,7 @@ public class Duke {
         return filterList;
     }
 
+    //@@author
     /**
      * Runs the duke program until exit command is executed.
      */

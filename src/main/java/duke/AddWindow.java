@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
-
+//@@author talesrune
 /**
  * Controller for AddWindow. Provides the layout for the other controls.
  */

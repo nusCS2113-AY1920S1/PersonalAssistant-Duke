@@ -4,6 +4,7 @@ import duke.dukeexception.DukeException;
 
 import java.time.LocalDateTime;
 
+//@@author talesrune
 /**
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
@@ -91,6 +92,7 @@ public class Task {
         return (isDone ? "[\u2713]" : "[\u2718]"); //return [✓]" : "[✗] symbols
     }
 
+    //@@author
     /**
      * Returns the remaining days of reminder.
      *
@@ -149,7 +151,7 @@ public class Task {
         return this.priority;
     }
 
-
+    //@@author talesrune
     /**
      * Extracting a task content into readable string.
      *
@@ -203,6 +205,7 @@ public class Task {
         throw new DukeException("     Error! This task does not have date/time.");
     }
 
+    //@@author
     /**
      * Checks if the input and description matches.
      *
