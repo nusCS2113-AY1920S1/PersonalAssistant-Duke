@@ -9,7 +9,7 @@ import UserCode.Conditions.Condition;
 public class WhileTask extends Task {
 
     public WhileTask(Condition condition, Action action) {
-        super(condition, action, "while");
+        super(Type.WHILE, condition, action);
     }
 
     @Override

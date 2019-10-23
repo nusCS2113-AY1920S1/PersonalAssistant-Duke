@@ -23,9 +23,9 @@ public class WheatFarm extends Farm {
     }
 
     public WheatFarm(JSONObject obj){
-        this.seeds = (Integer) obj.get("seeds");
-        this.greenWheat = (Integer) obj.get("wheat_green");
-        this.ripeWheat = (Integer) obj.get("wheat_ripe");
+        this.seeds = (int) (long) obj.get("seeds");
+        this.greenWheat = (int) (long) obj.get("wheat_green");
+        this.ripeWheat = (int) (long) obj.get("wheat_ripe");
     }
 
     public int getSeeds() {

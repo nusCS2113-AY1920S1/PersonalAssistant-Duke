@@ -16,12 +16,13 @@ public class CommandGameLoad extends Command {
         Storage storage = farmio.getStorage();
         try {
             farmio.setFarmer(new Farmer(storage.loadFarmer()));
-        } catch (ParseException e) {
+        } catch (ParseException | FarmioException e) {
             ui.showWarning("Game save is corrupted!");
             ui.showInfo("Starting a new game.");
         } catch (IOException e) {
             ui.showWarning("No game save detected!");
             ui.showInfo("Starting a new game.");
         }
+        ui.show("Load Game Success!");
     }
 }
