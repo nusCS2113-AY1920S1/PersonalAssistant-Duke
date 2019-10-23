@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.CommandParser.extractTags;
+
 public class TaskCommandParser {
     private static UI ui = Duke.getUI();
 
@@ -233,6 +235,7 @@ public class TaskCommandParser {
             addTimeToUpdateCommand(optionList, attributes, descriptions);
             addDoAfterToUpdateCommand(optionList, attributes, descriptions);
             addPriorityToUpdateCommand(optionList, attributes, descriptions);
+            addTagsToUpdateCommand(optionList, attributes, descriptions);
             return new TaskUpdateCommand(index, descriptions, attributes);
         } catch (NumberFormatException e) {
             showError("Please enter correct task index: " + editMatcher.group(
@@ -249,7 +252,7 @@ public class TaskCommandParser {
             throws CommandParser.UserInputException {
         if (!CommandParser.extractTime(optionList).equals("")) {
             descriptions.add(CommandParser.extractTime(optionList));
-            attributes.add(TaskUpdateCommand.Attributes.time);
+            attributes.add(TaskUpdateCommand.Attributes.TIME);
         }
     }
 
@@ -259,7 +262,7 @@ public class TaskCommandParser {
             throws CommandParser.UserInputException {
         if (!extractDoAfter(optionList).equals("")) {
             descriptions.add(extractDoAfter(optionList));
-            attributes.add(TaskUpdateCommand.Attributes.doAfter);
+            attributes.add(TaskUpdateCommand.Attributes.DO_AFTER);
         }
     }
 
@@ -269,7 +272,21 @@ public class TaskCommandParser {
             throws CommandParser.UserInputException {
         if (!extractPriority(optionList).equals("")) {
             descriptions.add(extractPriority(optionList));
-            attributes.add(TaskUpdateCommand.Attributes.priority);
+            attributes.add(TaskUpdateCommand.Attributes.PRIORITY);
+        }
+    }
+
+    private static void addTagsToUpdateCommand(ArrayList<Command.Option> optionList,
+                                                   ArrayList<TaskUpdateCommand.Attributes> attributes,
+                                                   ArrayList<String> descriptions)
+            throws CommandParser.UserInputException {
+        ArrayList<String> tags = extractTags(optionList);
+        if (!tags.isEmpty()) {
+            for (String tag : tags) {
+                descriptions.add(tag);
+                attributes.add(TaskUpdateCommand.Attributes.TAG);
+            }
+
         }
     }
 
@@ -316,7 +333,7 @@ public class TaskCommandParser {
         try {
             String doAfter = extractDoAfter(optionList);
             LocalDateTime time = parseTaskTime(optionList);
-            ArrayList<String> tags = CommandParser.extractTags(optionList);
+            ArrayList<String> tags = extractTags(optionList);
             String priority = extractPriority(optionList);
             return constructAddCommandByType(input, doAfter, time, tags, priority);
         } catch (CommandParser.UserInputException e) {

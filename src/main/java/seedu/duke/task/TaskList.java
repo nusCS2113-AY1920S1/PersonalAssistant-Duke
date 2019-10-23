@@ -235,6 +235,25 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
+     * Adds or modifies tags of a task.
+     *
+     * @param index Position of task in list
+     * @param tags  Priority level of task
+     * @return Confirmation message that tags have been added
+     * @throws CommandParser.UserInputException when input is in wrong format
+     */
+    public String setTags(int index, ArrayList<String> tags) throws CommandParser.UserInputException {
+        validateIndex(index);
+        Task task = this.get(index);
+        task.setTags(tags);
+        return constructSetTagsMessage(index + 1);
+    }
+
+    private String constructSetTagsMessage(int size) {
+        return "Tags of task " + size + " has been updated";
+    }
+
+    /**
      * Detect if a task being added clashes with another task in the list.
      *
      * @param task task to be added.
