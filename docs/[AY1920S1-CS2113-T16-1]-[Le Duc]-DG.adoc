@@ -148,8 +148,26 @@
 
 ---
 
+== Features
+
+=== Modify a Task
+
+* *Reschedule an event task*
+
+image::SequenceDiagramReschedule.png[width="1000", align="left"]
+
+* *Snooze an deadline task*
+
+image::SequenceDiagramSnooze.png[width="1000", align="left"]
+
+* *Postpone an deadline task*
+
+image::SequenceDiagramPostpone.png[width="1000", align="left"]
+
+* *Edit a task* ( Only in multi-set commands yet)
 
 
+---
 == Non-functional requirements
 
 * *Task list size requirement*: The user is a super busy students, so he will have a lot of task. Size of task list possibly infinite (use of Arraylist, depends on the computer and the storage doesn’t use much as it is a written file).
@@ -267,21 +285,4 @@ remind
 * Sorting the TaskList in place was considered, but it reduced cohesion of the design.
 * It was considered to only remind the user of tasks that are coming up in the next week,
 but that would limit its potential utility
-
-=== Modify a Task
-
-* *Reschedule an event task*
-
-image::SequenceDiagramReschedule.png[width="1000", align="left"]
-
-* *Snooze an deadline task*
-
-image::SequenceDiagramSnooze.png[width="1000", align="left"]
-
-* *Postpone an deadline task*
-
-image::SequenceDiagramPostpone.png[width="1000", align="left"]
-
-* *Edit a task* ( Only in multi-step commands yet)
-
 
