@@ -1,9 +1,9 @@
 package duke.components;
 
+import java.io.Serializable;
 import duke.DukeException;
 
-public class Note {
-
+public class Note implements Serializable {
     private Pitch pitch;
     private String duration; // 1, 2*, 2, 4*, 4, 8
     private boolean isStart;
@@ -146,12 +146,16 @@ public class Note {
     public String toString() {
         String pitchString = pitch.name();
         String result = pitchString.substring(0,1);
+        //System.out.print(pitchString.length());
         if (!pitchString.substring(pitchString.length() - 1).equals("T")) {
             result += pitchString.substring(pitchString.length() - 1);
         }
+
         if (isStart()) {
             result += "s";
         }
+
+
         return result;
     }
 }
