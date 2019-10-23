@@ -1,3 +1,5 @@
+//@@kkeejjuunn
+
 package duke.command;
 
 import duke.core.DukeException;
@@ -34,19 +36,18 @@ public class UpdatePatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
-        String[] tempCommand = command[0].split(" ", 3); //changed temporarily to allow build success
-        char firstChar = tempCommand[0].charAt(0);
+        char firstChar = command[0].charAt(0);
         if (firstChar == '#') {
             int id;
             try {
-                id = Integer.parseInt(tempCommand[0].substring(1, tempCommand[0].length()));
+                id = Integer.parseInt(command[0].substring(1));
                 Patient patientToBeUpdated = patientManager.getPatient(id);
-                if (tempCommand[1].toLowerCase().equals("name")) {
-                    patientToBeUpdated.setName(tempCommand[2]);
-                } else if (tempCommand[1].toLowerCase().equals("nric")) {
-                    patientToBeUpdated.setNric(tempCommand[2]);
-                } else if (tempCommand[1].toLowerCase().equals("room")) {
-                    patientToBeUpdated.setRoom(tempCommand[2]);
+                if (command[1].toLowerCase().equals("name")) {
+                    patientToBeUpdated.setName(command[2]);
+                } else if (command[1].toLowerCase().equals("nric")) {
+                    patientToBeUpdated.setNric(command[2]);
+                } else if (command[1].toLowerCase().equals("room")) {
+                    patientToBeUpdated.setRoom(command[2]);
                 } else {
                     throw new DukeException("You can only update 'Name', 'NRIC', or 'Room' of the patient");
                 }
@@ -56,11 +57,11 @@ public class UpdatePatientCommand extends Command {
                 ui.showPatientInfo(patientToBeUpdated);
             } catch (Exception e) {
                 throw new DukeException(
-                        "Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+                        "Please follow the format 'update patient :#<id> :<Name/NRIC/Room> :<new information>'.");
             }
         } else {
             throw new DukeException(
-                    "Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+                    "Please follow the format 'update patient :#<id> :<Name/NRIC/Room> :<new information>'.");
         }
     }
 
