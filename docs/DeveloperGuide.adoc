@@ -141,20 +141,50 @@ and
 
 Upon construction of the `CapCommand` class, a few variables involved in calculating the CAP of the user are initialized, notably the users `mcCount`, `currentCap`, `projectedModuleCap` and `projectedCap`. These variables will be used in the three different ways CapCommand can currently execute in.
 
+The user's CAP is calculated according to NUS guidelines, following the below specifications: +
+
+image::CAPchart.png[align="center"]
+
+image::CAPformula.png[align="center"]
+
 As stated above, there are three methods that can be executed depending upon the `TYPE` the user inputs.
 
 ****
 * Case 1: `cap overall` +
 If the argument read for `toCap` is "overall", the `calculateOverallCap` method will be executed under the `execute` method. +
 Firstly, a new `Scanner` will be created to continue reading in the modules and grades that the user wishes to calculate their CAP for. +
-The user will be prompted to input a module and its respective letter grade. The system will automaticall convert the letter grade to NUS specifications according to the below chart +
-
-image::CAPchart.png[align="center"]
+The user will be prompted to input a module and its respective letter grade.
 
 The user inputs are read in until the user inputs `done`, proceeding which the scanner will close and the calculation is done +
-Finally the user's CAP is calculated and printed according to NUS guidelines using the below formula: +
+Finally the user's CAP is calculated and printed.
 
-image::CAPformula.png[align="center"]
+* Case 2: `cap list` +
+If the argument read for `toCap` is "list", the `calculateListCap` method will be executed under the `execute` method. +
+This method calculates the CAP of modules from the user's `ModuleTaskList`.
+** Note it will only take into account modules that have a letter grade attached to its details, and calculate the CAP accordingly. +
+
+* Case 3: `cap module` +
+If the argument read for `toCap` is "module", the `calculateModuleCap` method will be executed under the `execute` method. +
+This method calculates the CAP of modules from the user's completed prerequisites in their `ModuleTaskList`. +
+Firstly, a new `Scanner` will be created to continue reading in the module that the user wishes to calculate a predicted CAP for. +
+After taking in the user input, ModPlan will check if the module is a legitimate module in the `detailedMap` pulled from NUSMODS API. +
+If it is invalid, a new `ModNotFoundException` will be thrown. Otherwise the prerequisite tree (if any) will be scanned for that particular module using the `parsePrerequisiteTree` method. +
+
+This method uses the string split method to parse the string of prerequisites into individual module codes, and sorts them into a List of Lists of Strings (LLS). 
+
+Each List of Strings (LS) contains prerequesite modules as part of an 'or' tree, while the modules across the LLS are part of an 'and' tree. Once the methods finds one of the prerequisite modules in a LS that corresponds to a graded module taken in the user's module task list, it removes that LS entirely from the LLS, and moves on to check the next LS for any prerequisite modules taken. 
+
+If the entire LLS is empty at the end of the execution, it means that the user has fulfilled enough of the prerequisite modules required for that module, and the user's CAP is calculated according to the graded prerequisite modules identified in the user's module task list. +
+
+The diagram below shows the example more clearly, where only one of the prerequisites within a LS need to be taken, while all of prerequisites across the LLS need to be taken. +
+
+image::CapCommandLLS.png[align="center"] 
+
+In this case, the modules the user needs to take are: +
+
+* One of moduleCode1, moduleCode2, moduleCode3 +
+* moduleCode4 +
+* moduleCode5 +
 
 * Case 2: `cap list` +
 If the argument read for `toCap` is "list", the `calculateListCap` method will be executed under the `execute` method. +
