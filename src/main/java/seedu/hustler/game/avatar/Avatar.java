@@ -70,8 +70,9 @@ public class Avatar implements Convertible {
      * @param preferredName the new name to update to the avatar.
      * @return the avatar with the updated name.
      */
-    public Avatar setName(String preferredName) {
+    public Avatar setName(String preferredName) throws IOException {
         this.name = preferredName;
+        AvatarStorage.save(this);
         return this;
     }
 
@@ -99,12 +100,13 @@ public class Avatar implements Convertible {
         return this.level;
     }
 
-    public void equip(ShopItem equipment) {
+    public void equip(ShopItem equipment) throws IOException {
         if(equipment.getType().equals("Weapon")) {
             this.weapon = Optional.of(equipment);
         } else if (equipment.getType().equals("Armor")) {
             this.armor = Optional.of(equipment);
         }
+        AvatarStorage.save(this);
     }
 
     /**
