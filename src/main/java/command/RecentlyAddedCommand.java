@@ -24,6 +24,6 @@ public class RecentlyAddedCommand extends Command {
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage, WordCount wordCount) {
         wordHistory = storage.loadHistoryFromFile();
-        return ui.showHistory(wordHistory, numberOfWordsToDisplay);
+        return ui.showRecentlyAdded(wordHistory, numberOfWordsToDisplay);
     }
 }

@@ -5,6 +5,9 @@ import exception.NoWordFoundException;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Represents an object that keeps track of operations related to the number of searches on the words in the wordBank.
+ */
 public class WordCount {
 
     /**
@@ -20,6 +23,10 @@ public class WordCount {
         return wordCount;
     }
 
+    /**
+     * Instantiates the wordCount with words from the wordBank.
+     * @param wordBank contains the list of words to add to wordCount
+     */
     protected void makeWordCount(WordBank wordBank) {
         for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
             //find key. if exists append to treemap, else create new hashmap entry
@@ -31,7 +38,7 @@ public class WordCount {
                     wordCount.get(numberOfSearches).put(wordText, wordWord);
                 }
             } else {
-                wordCount.put(numberOfSearches, new TreeMap<String, Word>());
+                wordCount.put(numberOfSearches, new TreeMap<>());
                 wordCount.get(numberOfSearches).put(wordText, wordWord);
             }
         }

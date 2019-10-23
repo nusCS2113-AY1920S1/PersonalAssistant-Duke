@@ -167,7 +167,7 @@ public class Ui {
      * @param numberOfWordsToDisplay number of closest searched words to display
      * @return a string shown when command is completed
      */
-    public String showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
+    public String showRecentlyAdded(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
         int numberOfWords;
         String s = "";
         if (numberOfWordsToDisplay > wordHistory.size()) {
