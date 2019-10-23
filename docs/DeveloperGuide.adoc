@@ -173,27 +173,48 @@ element in the `chapterData` ArrayList.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Tutor information feature
+// tag::print[]
+=== [Proposed] Printing Archived/Quiz/UserStats features
 ==== Proposed Implementation
+This feature allows the user print the attempted quiz, the archived questions and his/her profile to PDF. The user has
+to input `print archive` into the text field to print the archived questions, `print quiz` to print the quiz questions,
+and `print report` to print the user profile. `PrintArchiveCommand` is used to print to archive questions to PDF, and
+`PrintReportCommand` for the user stats, and `PrintQuizCommand` for the quiz. The `PrintArchiveCommand`,
+`PrintQuizCommand`, and `PrintReportCommand` is a children class of `PrintCommand`.
 
 ==== Design Considerations
+===== Aspect: Modularizing program to write to PDF
+* **Alternative 1 (current choice):** Use inheritance.
+** Pros: Allow future expansion for specific commands, share the inherited method `saveToPdf` from the `PrintCommand` to write the data into PDF.
+** Cons: Increase storage size and memory usage from multiple files and instances.
+* **Alternative 2:** Use overloading.
+** Pros: Convenient to parse the data to write to PDF.
+** Cons: Difficult to develop other features to print to PDF in future.
 
-===== Aspect:
+// tag::audio[]
+=== [Proposed] Playing Audio features
+==== Proposed Implementation
+This feature allows the user play in-built music while he/she uses the application. The music will be randomly chosen
+and played. Once the music ends, another music start playing. The user can input `sound <sound level>` to adjust the
+sound level. For example, `sound 0` means the music is off, while `sound 10` means the music is played at maximum
+intensity. This feature is separated into `MusicController` and instantiated in the `MainApp`.
 
+==== Design Considerations
+===== Aspect: Tracking when to play the next music
+* **Alternative 1 (current choice):** Use multi-threading to playing the music.
+** Pros: Reduce timing overhead due to asynchronous execution.
+** Cons: Code is not able to reuse.
+* **Alternative 2:** Use the `AnimationTimer` in `JavaFx` to poll and check the music status.
+** Pros: Easy to implement and reuse `AnimationTimer`.
+** Cons: Additional overhead for the `AnimationTimer` due to synchronous execution.
 
-// tag::customquestions[]
-=== [Proposed] Loading of custom questions
-
-_{Explain here how the loading of custom questions is to be implemented}_
-
-// end::customquestions[]
-
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, user settings) through the configuration file (default: `settings.txt`).
+===== Aspect: Data structure to contain the music
+* **Alternative 1 (current choice):** Use a `HashMap` to store the list of music.
+** Pros: Easy to store and track the music name in a `HashMap` using `SoundEnum`
+** Cons: Need to convert to a list of string to display music name on the user interface.
+* **Alternative 2:** Use `List` to store the music
+** Pros: Easy to random a music, display music on the user interface, and search for the music name in a list.
+** Cons: More prone to mistakes when handling the music names in `String`.
 
 == Documentation
 
