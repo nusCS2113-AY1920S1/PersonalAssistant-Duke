@@ -124,16 +124,21 @@ API: `Parser.java`
 
 #### 2.5 Storage Component
 
-only stores tasks in a certain format, eg,
+API: `Storage.java` 
+This component  stores entries in a certain format, tasks, ingredients that are already in the Fridge, and anything else that needs to be saved on the hard disk.
+
+It is modeled as an abstract class,  with `TaskStorage.java` and `FridgeStorage.java` both inheriting from it. It allows data (tasks in the list, ingredients in the fridge, recipies in the recipeBook...) to be saved and remembered by our program.  
+
+An example for the format of saving for tasks is :
 
 - T|1|read book
 - D|0|return book|Monday
 - E|0|meeting|U-Town
 - P|0|lecture|1600|1800
 
-first column is denotes the type of task, T for todo, D for deadline, etc. 
+where the first column is denotes the type of task, T for todo, D for deadline, etc. 
 
-the program can `load` or `generate` task from the storage and also `changeContent` and `addCommandInFile`
+The program can `load` or `generate` an entry from the storage and also `changeContent` and `addInFile`
 
 
 
@@ -216,6 +221,11 @@ The RecipeCommand class is used as an abstract class for other classes, its meth
 - ListDishCommand
 
 ![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand%20diagram.png)
+
+#### 2.10 Fridge Component
+API: `Fridge.java`
+
+The Fridge class allows access and 
 
 ### 3. Implementation
 
