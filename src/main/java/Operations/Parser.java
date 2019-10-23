@@ -49,35 +49,46 @@ public class Parser {
      * Returns the index number requested by the user for commands like 'snooze'
      * @return index Index the user wishes to perform operations on.
      */
-    public Integer getIndex() {
-        String temp = scanner.next().trim();
-        int index = Integer.parseInt(temp) - 1;
-        return index;
+    public Integer getIndex() throws RoomShareException {
+        try {
+            String temp = scanner.next().trim();
+            int index = Integer.parseInt(temp) - 1;
+            return index;
+        } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongIndexFormat);
+        }
     }
 
     /**
      * Returns the index number requested by the user for subTask.
      * @return index Index the user wishes to assign subtasks to.
      */
-    public Integer getIndexSubtask() {
-        String temp = scanner.next().trim();
-        int index = Integer.parseInt(temp) - 1;
-        return index;
+    public Integer getIndexSubtask() throws RoomShareException{
+        try {
+            String temp = scanner.next().trim();
+            int index = Integer.parseInt(temp) - 1;
+            return index;
+        } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongIndexFormat);
+        }
     }
 
     /**
      * Return a single index number or a range of index number requested by users for command 'done' and 'delete'
      * @return a single index or a range of index
      */
-    public int[] getIndexRange() {
+    public int[] getIndexRange() throws RoomShareException {
         String[] temp = scanner.nextLine().trim().split("-",2);
-        int[] index;
-        if (temp.length == 1) {
-            index = new int[]{Integer.parseInt(temp[0].trim()) - 1};
+        try {
+            int[] index;
+            if (temp.length == 1) {
+                index = new int[]{Integer.parseInt(temp[0].trim()) - 1};
+            } else
+                index = new int[]{Integer.parseInt(temp[0].trim()) - 1, Integer.parseInt(temp[1].trim()) - 1};
+            return index;
+        } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongIndexFormat);
         }
-        else
-            index = new int[]{Integer.parseInt(temp[0].trim()) - 1, Integer.parseInt(temp[1].trim()) - 1};
-        return index;
     }
 
     /**
@@ -202,18 +213,27 @@ public class Parser {
      * Returns the amount of time the customer request to snooze
      * @return the amount of time the customer request to snooze
      */
-    public int getAmount(){
-        String temp = scanner.next().trim();
-        return Integer.parseInt(temp);
+    public int getAmount() throws RoomShareException{
+        try {
+            String temp = scanner.next().trim();
+            return Integer.parseInt(temp);
+        } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongTimeFormat);
+        }
     }
 
     /**
      * Returns the unit of time the customer request to snooze
      * @return the unit of time the customer request to snooze
      */
-    public TimeUnit getTimeUnit(){
-        String temp = scanner.next().trim();
-        return TimeUnit.valueOf(temp);
+    public TimeUnit getTimeUnit() throws RoomShareException{
+        try {
+            String temp = scanner.next().trim();
+            return TimeUnit.valueOf(temp);
+        } catch (IllegalArgumentException e) {
+            throw new RoomShareException(ExceptionType.wrongTimeFormat);
+        }
+
     }
 
     /**
