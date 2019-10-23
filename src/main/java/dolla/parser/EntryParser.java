@@ -25,9 +25,6 @@ public class EntryParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("add")) {
             if (verifyAddCommand() == true) {
-                String[] data = inputLine.split(" /on ");
-                String[] desc = data[0].split(inputArray[2] + " ");
-                description = desc[1];
                 if (undoFlag == 1) { //Undo input
                     undoFlag = 0;
                     return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]),

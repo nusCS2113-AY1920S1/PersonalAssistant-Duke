@@ -37,9 +37,11 @@ public abstract class Parser {
      * Splits the input from the user and assigns the relevant data into description and date variables.
      * If the incorrect format is given in the input, the corresponding alert will be printed.
      */
-    public void splitDescTime() throws Exception {
-        String[] data = inputLine.split(" /on "); // data[0] os description, data[1] is the time
-        String dateString = (data[1].split("/tag"))[0];
+    public void extractDescTime() throws Exception {
+        // dataArray[0] is command, amount and description, dataArray[1] is time and tag
+        String[] dataArray = inputLine.split(" /on ");
+        String dateString = (dataArray[1].split("/tag"))[0];
+        description = dataArray[0].split(inputArray[2] + " ")[1];
         try {
             date = Time.readDate(dateString);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -47,7 +49,7 @@ public abstract class Parser {
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");
         }  catch (DateTimeParseException e) {
-            Ui.printDateTimeFormatError();
+            Ui.printDateFormatError();
             throw new Exception("invalid date");
         }
     }
@@ -104,7 +106,7 @@ public abstract class Parser {
         try {
             verifyAddType(inputArray[1]);
             stringToDouble(inputArray[2]);
-            splitDescTime();
+            extractDescTime();
         } catch (IndexOutOfBoundsException e) {
             Ui.printInvalidEntryFormatError();
             return false;
