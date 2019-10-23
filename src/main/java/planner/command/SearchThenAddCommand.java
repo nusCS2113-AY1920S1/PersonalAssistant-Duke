@@ -1,9 +1,11 @@
 package planner.command;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import planner.exceptions.original.ModCcaScheduleException;
 import planner.exceptions.original.ModException;
+import planner.exceptions.planner.ModClashesException;
 import planner.exceptions.planner.ModNotFoundException;
 import planner.modules.inherited.Cca;
 import planner.modules.data.ModuleInfoDetailed;
@@ -44,6 +46,10 @@ public class SearchThenAddCommand extends ModuleCommand {
                 if (detailedMap.containsKey(moduleCode)) {
                     ModuleInfoDetailed mod = detailedMap.get(moduleCode);
                     ModuleTask temp = new ModuleTask(moduleCode, mod);
+                    HashSet<ModuleTask> checkSet = tasks.getSetModuleTask();
+                    if (checkSet.contains(temp)) {
+                        throw new ModClashesException();
+                    }
                     tasks.getTasks().add(temp);
                     plannerUi.addedMsg(temp);
                     jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
