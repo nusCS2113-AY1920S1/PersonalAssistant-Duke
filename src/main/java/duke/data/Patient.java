@@ -179,6 +179,12 @@ public class Patient extends DukeObject {
         return this.allergies.contains(allergy);
     }
 
+    /**
+     * Returns a string representation of a patient displaying all the values of the patient's attributes
+     * in a reader-friendly format.      *
+     *
+     * @return string representation of patient
+     */
     public String toString() {
         String informationString;
         informationString = "Personal details\n";
@@ -221,7 +227,7 @@ public class Patient extends DukeObject {
         if (this.priDiagnosis != null) {
             informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
         }
-        informationString += "\nData about doctors impression about the patient and associated treatments and evidences;";
+        informationString += "\nData about doctors impression of the patient and associated treatments and evidences;";
         for (Map.Entry mapElement : this.impressions.entrySet()) {
             Impression imp = (Impression) mapElement.getValue();
             informationString += imp.toReportString();

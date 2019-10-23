@@ -19,24 +19,24 @@ public class Commands {
      */
     public Command getCommand(String cmdStr, UiContext.Context context) {
         switch (cmdStr) {
-            case "bye":
-                return new ByeCommand();
-            case "find":
-                if (context == UiContext.Context.PATIENT) {
-                    return new PatientFindCommand();
-                } else {
-                    return null; // TODO: fill in the other contexts
-                }
-            case "new":
-                if (context == UiContext.Context.HOME) {
-                    return new NewPatientCommand();
-                } else {
-                    return null; // TODO: fill in the other contexts
-                }
-            case "discharge":
-                return new ReportCommand();
-            default:
-                return null;
+        case "bye":
+            return new ByeCommand();
+        case "find":
+            if (context == UiContext.Context.PATIENT) {
+                return new PatientFindCommand();
+            } else {
+                return null; // TODO: fill in the other contexts
+            }
+        case "new":
+            if (context == UiContext.Context.HOME) {
+                return new NewPatientCommand();
+            } else {
+                return null; // TODO: fill in the other contexts
+            }
+        case "discharge":
+            return new ReportCommand();
+        default:
+            return null;
         }
     }
 }
