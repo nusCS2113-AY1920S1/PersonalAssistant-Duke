@@ -307,7 +307,8 @@ public class ProjectInputController implements IController {
      */
     public void projectViewMembersAssignments(Project projectToManage, String projectCommand) {
         ParserHelper parserHelper = new ParserHelper();
-        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand, projectToManage);
+        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand,
+            projectToManage.getNumOfMembers());
         if (!parserHelper.getErrorMessages().isEmpty()) {
             consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
         }
@@ -322,7 +323,8 @@ public class ProjectInputController implements IController {
      */
     private void projectViewTasksAssignments(Project projectToManage, String projectCommand) {
         ParserHelper parserHelper = new ParserHelper();
-        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand, projectToManage);
+        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand,
+            projectToManage.getNumOfTasks());
         if (!parserHelper.getErrorMessages().isEmpty()) {
             consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
         }

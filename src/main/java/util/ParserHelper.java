@@ -1,10 +1,8 @@
 package util;
 
-import models.data.Project;
-import models.task.Task;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import models.task.Task;
 
 public class ParserHelper {
     private SortHelper sortHelper;
@@ -182,14 +180,14 @@ public class ParserHelper {
     /**
      * Parses a string containing member index numbers and returns only valid ones.
      * @param input a string containing member index numbers.
-     * @param project the project being managed.
+     * @param numberOfMembersInProject the total number of members in project.
      * @return An ArrayList containing only valid member index numbers
      */
-    public ArrayList<Integer> parseMembersIndexes(String input, Project project) {
+    public ArrayList<Integer> parseMembersIndexes(String input, int numberOfMembersInProject) {
         this.errorMessages.clear();
         ArrayList<Integer> membersToView = new ArrayList<>();
         if ("all".equals(input)) {
-            for (int i = 1; i <= project.getNumOfMembers(); i++) {
+            for (int i = 1; i <= numberOfMembersInProject; i++) {
                 membersToView.add(i);
             }
             return membersToView;
@@ -198,7 +196,7 @@ public class ParserHelper {
         for (String index : inputParts) {
             try {
                 Integer indexNumber = Integer.parseInt(index);
-                if (project.hasMemberIndex(indexNumber)) {
+                if (indexNumber > 0 && indexNumber <= numberOfMembersInProject) {
                     membersToView.add(indexNumber);
                 } else {
                     errorMessages.add("Member with index " + index + " does not exist.");
@@ -214,13 +212,13 @@ public class ParserHelper {
     /**
      * Returns a list of valid task numbers.
      * @param input List of task index numbers input by user.
-     * @param project Project to be managed.
+     * @param numberOfTasksInProject the total number of tasks in project.
      * @return An ArrayList containing valid task index numbers to show assigned members.
      */
-    public ArrayList<Integer> parseTasksIndexes(String input, Project project) {
+    public ArrayList<Integer> parseTasksIndexes(String input, int numberOfTasksInProject) {
         ArrayList<Integer> tasksToView = new ArrayList<>();
         if ("all".equals(input)) {
-            for (int i = 1; i <= project.getNumOfTasks(); i++) {
+            for (int i = 1; i <= numberOfTasksInProject; i++) {
                 tasksToView.add(i);
             }
             return tasksToView;
@@ -229,7 +227,7 @@ public class ParserHelper {
         for (String index : inputParts) {
             try {
                 Integer indexNumber = Integer.parseInt(index);
-                if (project.hasTaskIndex(indexNumber)) {
+                if (indexNumber > 0 && indexNumber <= numberOfTasksInProject) {
                     tasksToView.add(indexNumber);
                 } else {
                     errorMessages.add("Task with index " + index + " does not exist.");
