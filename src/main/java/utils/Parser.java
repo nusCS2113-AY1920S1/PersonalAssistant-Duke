@@ -7,11 +7,14 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.DoneCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.LinkCommand;
 import commands.ListCommand;
 import commands.MemberAddCommand;
+import commands.MemberDeleteCommand;
 import commands.RecurringCommand;
 import commands.SnoozeCommand;
+import commands.UnlinkCommand;
 import commands.ViewScheCommand;
 import members.Member;
 import core.Ui;
@@ -35,7 +38,6 @@ public class Parser {
      * <p>parse a line in the data text to an object.</p>
      *
      * @param line a line of String to be parsed, without \n last
-     * @return a Task.Task object produced by the input line
      * @throws ParseException if the line cannot be parsed properly
      */
     public static Task taskDataLine(String line) throws ParseException {
@@ -125,7 +127,9 @@ public class Parser {
         splites[0] = commandCorrector(splites[0]);
         Command temp = null;
         int length = splites.length;
-        if (splites[0].equals("ADD")) {
+        if (splites[0].equals("HELP")) {
+            temp = new HelpCommand();
+        } else if (splites[0].equals("ADD")) {
             if (length < 2) {
                 throw new DukeException("usage: add [type of tasks] ...");
             }
@@ -158,6 +162,10 @@ public class Parser {
             temp = new SnoozeCommand(splites[1]);
         } else if (splites[0].equals("LINK")) {
             temp = new LinkCommand(splites[1]);
+        } else if (splites[0].equals("UNLINK")) {
+            temp = new UnlinkCommand(splites[1]);
+        } else if (splites[0].equals("REMOVE")) {
+            temp = new MemberDeleteCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
             temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
         } else if (splites[0].equals("CHECK")) {
@@ -278,15 +286,17 @@ public class Parser {
     /**
      * This method automatically correct typos of command, only support the command words
      * in the dict String Array: <br />
-     * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK"};
+     * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK",
+     * "LINK", "UNLINK", "REMOVE"};
      * </code>
+     *
      * @param command the original command word
      * @return If the method can recognize the word, return the correct(ed) command word;
      * if the method cannot recognize the word, return the original word.
      */
     public static String commandCorrector(String command) {
         String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
-            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK"};
+            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
@@ -309,6 +319,7 @@ public class Parser {
      * <li>If similarity < 1, the two Strings have certain difference.</li>
      * <li>If similarity < 0, the two Strings have different lengths.</li>
      * </ul>
+     *
      * @param string1 the first String
      * @param string2 the second String
      * @return the defined similarity

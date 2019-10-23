@@ -8,7 +8,7 @@ public class LastTest {
     public void checkToString() {
         String description = "This is a test Last";
         String duration = "1 hr";
-        String expectedResult = "[L][\u2718] This is a test Last (last: 1 hr)";
+        String expectedResult = "[L][\u2715] This is a test Last (last: 1 hr)";
 
         Last temp = new Last(description, duration);
         assertEquals(expectedResult, temp.toString());
