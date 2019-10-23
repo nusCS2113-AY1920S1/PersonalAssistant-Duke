@@ -141,7 +141,7 @@ public class Note {
         String pitchString = pitch.name();
         String result = pitchString.substring(0,1);
         if (!pitchString.substring(pitchString.length() - 1).equals("T")) {
-            result += result.substring(pitchString.length() - 1);
+            result += pitchString.substring(pitchString.length() - 1);
         }
         if (isStart()) {
             result += "s";
