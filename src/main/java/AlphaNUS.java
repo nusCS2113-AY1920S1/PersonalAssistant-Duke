@@ -25,19 +25,20 @@ public class AlphaNUS {
      * Creates a AlphaNUS instance and initialises the required attributes.
      * @param filepath Filepath to the storage.
      */
-    private AlphaNUS(String filepath) {
+    public AlphaNUS(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
         managermap = new HashMap<String, Payee>();
         projectmap = new HashMap<String, Project>();//To replace managermap in main class
+        run();
     }
 
     /**
      * Method to run the AlphaNUS instance and take in the inputs of the user.
      */
-    private void run() {
+    public void run() {
         ui.startMessage();
 
         boolean isExit = false;
@@ -54,4 +55,5 @@ public class AlphaNUS {
     public static void main(String[] args) {
         new AlphaNUS("data/AlphaNUS.txt").run();
     }
+
 }
