@@ -5,8 +5,13 @@ import duke.exception.DukeException;
 
 import duke.list.GenericList;
 import duke.dish.Dish;
+import duke.parser.Convert;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +43,6 @@ public class OrderList extends GenericList<Order> {
     }
 
 
-
     /**
      * Returns a list of all the undone {@link Order}s in the {@link OrderList}.
      * Not including orders that has been done.
@@ -64,6 +68,37 @@ public class OrderList extends GenericList<Order> {
             if (order.isToday()) { todayOrderList.add(order); }
         }
         return todayOrderList;
+    }
+
+    /**
+     * Returns a list of all the {@link Order}s on some date in the {@link OrderList}.
+     * @return  {@link ArrayList} of {@link Order}
+     */
+    public List<Order> findOrderByDate(String s) {
+        List<Order> theOrderList = null;
+
+        Date queryDate = Convert.stringToDate(s);
+        LocalDate qDate = queryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate orderDate;
+
+        for (Order order : genList) {
+            orderDate = order.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (orderDate.isEqual(qDate)) { theOrderList.add(order); }
+        }
+
+        return theOrderList;
+    }
+
+    /**
+     * Returns a list of all the {@link Order}s containing some dishes in the {@link OrderList}.
+     * @return  {@link ArrayList} of {@link Order}
+     */
+    public List<Order> findOrderByDishes(Dish dish) {
+        List<Order> theOrderList = null;
+        for (Order order : genList) {
+            if (order.hasDishes(dish)) { theOrderList.add(order); }
+        }
+        return theOrderList;
     }
 
     /**

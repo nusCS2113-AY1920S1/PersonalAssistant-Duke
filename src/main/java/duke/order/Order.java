@@ -186,22 +186,6 @@ public class Order {
             }
     }
 
-//    useless feature (keep it now, will delete if still unnecessary in later phase)
-//    public double getTotalPrice() {
-//        //To do
-//        //link the price with DishNb s.t. can calculate total price
-//        int unitPrice = 1;
-//
-//        double total = 0;
-//        for (Map.Entry<Dishes, Integer> entry : content.entrySet()) {
-//            Dishes dish = entry.getKey();
-//            int amount = entry.getValue();
-//            total += amount*unitPrice;
-//        }
-//        return total;
-//    }
-
-
 }
 
 
