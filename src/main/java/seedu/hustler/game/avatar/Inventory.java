@@ -4,6 +4,7 @@ import seedu.hustler.Hustler;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.game.shop.items.ShopItem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Inventory {
@@ -19,7 +20,7 @@ public class Inventory {
         return this;
     }
 
-    public void getToEquip(int index) {
+    public void getToEquip(int index) throws IOException {
         Hustler.avatar.equip(items.get(index));
     }
 

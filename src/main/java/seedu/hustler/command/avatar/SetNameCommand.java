@@ -21,14 +21,13 @@ public class SetNameCommand extends Command {
      * @param userInput the String array of the user input.
      */
     public SetNameCommand(String[] userInput) {
-        this.name = userInput[1].split(" ", 2)[1];
+        this.name = userInput[1];
     }
 
     @Override
     public void execute() throws IOException {
         Ui ui = new Ui();
         Hustler.avatar.setName(name);
-        AvatarStorage.save(Hustler.avatar);
         ui.showNameChangeSuccess();
     }
 }

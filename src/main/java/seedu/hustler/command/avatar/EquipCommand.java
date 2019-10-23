@@ -17,6 +17,5 @@ public class EquipCommand extends Command {
     @Override
     public void execute() throws IOException {
         Hustler.inventory.getToEquip(index - 1);
-        AvatarStorage.save(Hustler.avatar);
     }
 }

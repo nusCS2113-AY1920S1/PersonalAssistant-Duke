@@ -70,7 +70,7 @@ public class CommandParser extends Parser {
             return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar") && userInput[1].equals("stats")) {
             return new CheckAvatarCommand();
-        } else if (userInput[0].equals("/avatar") && userInput[1].equals("setname")) {
+        } else if (userInput[0].equals("/setname")) {
             CommandLog.recordCommand(rawInput);
             return new SetNameCommand(userInput);
         } else if (userInput[0].equals("/achievement")) {
