@@ -5,6 +5,8 @@ import duke.relation.PatientTask;
 import duke.task.Task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -430,4 +432,83 @@ public class Ui {
             showLine();
         }
     }
+    //@@author qjie7
+    /**
+     * Provide the necessary task details from the user for short cut feature.
+     *
+     * @param info The type of task information that want to be retrieved.
+     * @return Either the task name or task id depend on the parameter info.
+     * @throws DukeException throw a dukeException with error message for debugging.
+     * @author QIAN JIE
+     * @version 1.3
+     */
+
+    public String getTaskInfo(String info) throws DukeException {
+
+        if (info.equals("name")) {
+            System.out.println("Task Name ?");
+            String taskName = ui.readCommand();
+            return taskName;
+        } else if (info.equals("id")) {
+            System.out.println("Task ID?");
+            String taskId = "#" + ui.readCommand();
+            return taskId;
+        } else if (info.equals("change")) {
+            System.out.println("What would you like to change??");
+            String change = ui.readCommand();
+            return change;
+        } else if (info.equals("changeValue")) {
+            System.out.println("Change to ?");
+            String changeValue = ui.readCommand();
+            return changeValue;
+        } else {
+            throw new DukeException("Please provide a proper parameter into getPatient function!");
+        }
+    }
+
+    /**
+     * Provide the necessary patient details from the user for short cut feature.
+     *
+     * @param info The type of task information that want to be retrieved.
+     * @return Either the task name or task id depend on the parameter info.
+     * @throws DukeException throw a dukeException with error message for debugging.
+     * @author QIAN JIE
+     * @version 1.3
+     */
+
+    public String getPatientInfo(String info) throws DukeException {
+        if (info.equals("name")) {
+            System.out.println("Patient Name ?");
+            String patientName = ui.readCommand();
+            return patientName;
+        } else if (info.equals("id")) {
+            System.out.println("Patient ID Number ?");
+            String patientId = "#" + ui.readCommand();
+            return patientId;
+        } else if (info.equals("nric")) {
+            System.out.println("NRIC?");
+            String nric = ui.readCommand();
+            return nric;
+        } else if (info.equals("room")) {
+            System.out.println("Room??");
+            String room = ui.readCommand();
+            return room;
+        } else if (info.equals("remark")) {
+            System.out.println("Remarks?");
+            String remark = ui.readCommand();
+            return remark;
+        } else if (info.equals("change")) {
+            System.out.println("what would you like to change?");
+            String change = ui.readCommand();
+            return change;
+        } else if (info.equals("changeValue")) {
+            System.out.println("Change to ?");
+            String changeValue = ui.readCommand();
+            return changeValue;
+        } else {
+            throw new DukeException("Please provide a proper parameter into getPatient function!");
+        }
+    }
+    //@@author
+
 }
