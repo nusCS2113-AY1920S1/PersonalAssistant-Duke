@@ -23,7 +23,7 @@ public class AddCommand extends CommandSuper {
                 addToWatchList();
                 break;
             case blacklist:
-                addToBlackList();
+//                addToBlackList();
                 break;
             default:
                 break;
@@ -32,11 +32,10 @@ public class AddCommand extends CommandSuper {
 
     /**
      * Add items to the watchlist.
-     *
      */
     public void addToWatchList() {
         try {
-            String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
+            String movie = ((MovieHandler) this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
             movie = movie.toLowerCase();
             String type = this.getFlagMap().get("-d").get(0);
             switch (type) {
@@ -54,68 +53,10 @@ public class AddCommand extends CommandSuper {
                 default:
                     break;
             }
-            WatchlistHandler.print_list((MovieHandler)(this.getUIController()));
-        } catch(NullPointerException | IndexOutOfBoundsException e) {
-            ((MovieHandler)(this.getUIController())).setFeedbackText("Please enter a valid command in the form of: \n" +
+            WatchlistHandler.print_list((MovieHandler) (this.getUIController()));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            ((MovieHandler) (this.getUIController())).setFeedbackText("Please enter a valid command in the form of: \n" +
                     "add watchlist <name of movie> -d <type of task> -s <start date only for task> -e <end date for task>");
         }
     }
-
-    /**
-     * Check if payload is an integer.
-     *
-     * @param radix the chosen radix.
-     * @param s string payload.
-     */
-    public static boolean isInteger(String s, int radix) {
-        if (s.isEmpty()) {
-            return false;
-        }
-        for (int i = 0; i < s.length(); i++) {
-            if (i == 0 && s.charAt(i) == '-') {
-                if (s.length() == 1) {
-                    return false;
-                } else {
-                    continue;
-                }
-            }
-            if (Character.digit(s.charAt(i) , radix) < 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Add items to the blacklist.
-     *
-     */
-    public void addToBlackList() {
-        System.out.print("HERE!!");
-        String movie = getPayload().trim();
-
-        if (getFlagMap().get("-k") != null) {
-            System.out.print("ADDing keyword");
-            if (isInteger(movie, 10)) {
-                Blacklist.addToBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
-            } else {
-                Blacklist.addToBlacklistKeyWord(movie);
-            }
-        } else {
-            System.out.print("ADDing movie");
-            if (isInteger(movie, 10)) {
-                Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie)));
-            } else {
-                Blacklist.addToBlacklistMovie(movie);
-            }
-
-        }
-
-
-
-        ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
-
-    }
-
-
 }

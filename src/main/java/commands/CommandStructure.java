@@ -22,28 +22,38 @@ public class CommandStructure {
 
         });
 
-        put(COMMANDKEYS.add , new COMMANDKEYS[]{
-                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
+        put(COMMANDKEYS.blacklist , new COMMANDKEYS[]{
+                COMMANDKEYS.add, COMMANDKEYS.remove
         });
 
-        put(COMMANDKEYS.remove , new COMMANDKEYS[]{
-                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
+
+        put(COMMANDKEYS.watchlist , new COMMANDKEYS[]{
+                COMMANDKEYS.add, COMMANDKEYS.remove , COMMANDKEYS.done
         });
+
+//
+//        put(COMMANDKEYS.add , new COMMANDKEYS[]{
+//                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
+//        });
+//
+//        put(COMMANDKEYS.remove , new COMMANDKEYS[]{
+//                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
+//        });
 
         put(COMMANDKEYS.help , new COMMANDKEYS[]{
                 COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.yes
         });
 
-        put(COMMANDKEYS.more , new COMMANDKEYS[]{
-                //EMPTY
-        });
+//        put(COMMANDKEYS.more , new COMMANDKEYS[]{
+//                //EMPTY
+//        });
 
         put(COMMANDKEYS.yes , new COMMANDKEYS[]{
                 //EMPTY
         });
 
         put(COMMANDKEYS.set , new COMMANDKEYS[]{
-                COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference, COMMANDKEYS.watchlist, COMMANDKEYS.sort
+                COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference, COMMANDKEYS.sort
         });
 
         put(COMMANDKEYS.preference , new COMMANDKEYS[]{
@@ -67,27 +77,6 @@ public class CommandStructure {
         });
     }};
 
-
-    public static TreeMap<COMMANDKEYS , String> cmdHelp = new TreeMap<>() {
-        {
-            put(COMMANDKEYS.search ,
-                    "Search for movies,tvshows, cast etc.\nusage: search []");
-            put(COMMANDKEYS.view ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-            put(COMMANDKEYS.add ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-            put(COMMANDKEYS.help ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-            put(COMMANDKEYS.more ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-            put(COMMANDKEYS.set ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-            put(COMMANDKEYS.preference ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-            put(COMMANDKEYS.playlist ,
-                    "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
-        }
-    };
 
 
 
