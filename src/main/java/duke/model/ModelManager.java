@@ -31,7 +31,6 @@ public class ModelManager implements Model {
         tasks = storage.getTasks();
         map = storage.getMap();
         routes = storage.getRoutes();
-        //routes = storage.getRoutes();
         //userRoutes = storage.getRoutes();
     }
 
