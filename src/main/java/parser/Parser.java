@@ -13,6 +13,7 @@ import command.SearchCommand;
 import command.RecentlyAddedCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
+import command.SearchBeginCommand;
 
 import exception.CommandInvalidException;
 import exception.EmptyWordException;
@@ -27,6 +28,7 @@ import exception.WrongSearchFrequencyFormatException;
 import exception.WrongEditFormatException;
 import exception.WrongAddTagFormatException;
 import exception.WrongQuizFormatException;
+import exception.WrongSearchBeginFormatException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,6 +60,8 @@ public class Parser {
                 command = parseDelete(taskInfo);
             } else if (userCommand.equals("search")) {
                 command = parseSearch(taskInfo);
+            } else if (userCommand.equals("search_begin")) {
+                command = parseSearchBegin(taskInfo);
             } else if (userCommand.equals("list")) {
                 command = parseList(taskInfo);
             } else if (userCommand.equals("history")) {
@@ -95,14 +99,18 @@ public class Parser {
             throw new WrongAddFormatException();
         }
         String[] wordDetail = taskInfo[1].split("w/");
-        if (wordDetail.length != 3) {
+        if (wordDetail.length != 2) {
             throw new WrongAddFormatException();
         }
-        String wordDescription = wordDetail[1].trim();
+        wordDetail = wordDetail[1].split("m/");
+        if (wordDetail.length != 2) {
+            throw new WrongAddFormatException();
+        }
+        String wordDescription = wordDetail[0].trim();
         if (wordDescription.length() == 0) {
             throw new EmptyWordException();
         }
-        String[] meaningAndTag = wordDetail[2].split("t/");
+        String[] meaningAndTag = wordDetail[1].split("t/");
         String meaning = meaningAndTag[0].trim();
         if (meaning.length() == 0) {
             throw new EmptyWordException();
@@ -154,6 +162,13 @@ public class Parser {
             throw new WrongSearchFormatException();
         }
         return new SearchCommand(taskInfo[1].substring(2).trim());
+    }
+
+    protected static Command parseSearchBegin(String[] taskInfo) throws WrongSearchBeginFormatException {
+        if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+            throw new WrongSearchBeginFormatException();
+        }
+        return new SearchBeginCommand(taskInfo[1].substring(2).trim());
     }
 
     /**

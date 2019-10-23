@@ -213,5 +213,15 @@ public class Ui {
             return ("Sorry, The answer is \"" + answer + "\".");
         }
     }
+
+    public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have");
+        stringBuilder.append("the same meaning as " + begin + "\n");
+        for (String s : wordWithBegins) {
+            stringBuilder.append(s + "\n");
+        }
+        return stringBuilder.toString();
+    }
 }
 

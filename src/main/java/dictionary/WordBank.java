@@ -2,9 +2,11 @@ package dictionary;
 
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.SortedMap;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
+import exception.WordAlreadyExistException;
 import storage.Storage;
 
 import java.util.HashSet;
@@ -80,7 +82,10 @@ public class WordBank {
         }
     }
 
-    public void addWord(Word word) {
+    public void addWord(Word word) throws WordAlreadyExistException {
+        if (wordBank.containsKey(word.getWord())) {
+            throw new WordAlreadyExistException(word.getWord());
+        }
         this.wordBank.put(word.getWord(), word);
     }
 
@@ -90,15 +95,14 @@ public class WordBank {
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
-    public String searchForMeaning(String word)throws NoWordFoundException {
+    public String searchForMeaning(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         String s = "";
         if (!(wordBank.containsKey(word))) {
-//            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
-//            String result = OxfordCall.onlineSearch(word);
-//            Word temp = new Word(word, result);
-//            wordBank.put(word, temp);
-            throw new NoWordFoundException(word);
+            s = "Unable to locate \"" + word + "\" in local dictionary. Looking up Oxford dictionary\n";
+            String result = OxfordCall.onlineSearch(word);
+            Word temp = new Word(word, result);
+            wordBank.put(word, temp);
         }
         return s + wordBank.get(word).getMeaning();
     }
@@ -110,7 +114,7 @@ public class WordBank {
         if (!upperBoundWord.startsWith(word)) {
             throw new NoWordFoundException(word);
         }
-        TreeMap<String, Word> subMap = (TreeMap<String, Word>) wordBank.subMap(upperBoundWord, wordBank.lastKey());
+        SortedMap<String, Word> subMap = wordBank.subMap(upperBoundWord, wordBank.lastKey());
         for (String s : subMap.keySet()) {
             if (s.startsWith(word)) {
                 arrayList.add(s);
@@ -186,5 +190,15 @@ public class WordBank {
                 nonExistTags.add(tag);
             }
         }
+    }
+
+    public ArrayList<String> getClosedWords(String word) {
+        ArrayList<String> closedWords = new ArrayList<>();
+        for (Word w : wordBank.values()) {
+            if (w.isClosed(word)) {
+                closedWords.add(w.getWord());
+            }
+        }
+        return closedWords;
     }
 }
