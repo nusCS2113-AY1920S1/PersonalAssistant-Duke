@@ -154,7 +154,7 @@ public class Parser {
         try {
             String[] formattedInput = new String[2];
 
-            if (parsedInput[1].trim().charAt(0) == '%') {
+            if (parsedInput.length <= 2) {
                 formattedInput[0] = parsedInput[1];
                 return formattedInput;
             } else {
