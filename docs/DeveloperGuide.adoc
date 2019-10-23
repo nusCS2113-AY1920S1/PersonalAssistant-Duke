@@ -71,6 +71,7 @@ The main wrapper over requesting data from NUSMODS API, Gson library for JSON pa
 Main class which handles file writing during runtime and for maintaining user data in memory.
 
 === Parser
+Main class which handles user input and manages internal command mapping.
 
 === PlannerUi
 
