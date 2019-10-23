@@ -7,16 +7,6 @@ import models.member.Member;
 import models.task.Task;
 
 public class AssignmentViewHelper {
-    private ArrayList<String> errorMessages;
-
-    /**
-     * Class that helps to parse user commands for viewing task assignments,
-     * and retrieve the relevant information to show viewers.
-     */
-    AssignmentViewHelper() {
-        errorMessages = new ArrayList<>();
-    }
-
     /**
      * Returns output to show viewer the task assignments of members.
      * @param membersToView List of valid member index numbers.
@@ -69,13 +59,5 @@ public class AssignmentViewHelper {
             }
         }
         return outputToPrint;
-    }
-
-    /**
-     * Returns error messages from unsuccessful commands.
-     * @return An ArrayList containing strings informing users of unsuccessful commands.
-     */
-    public ArrayList<String> getErrorMessages() {
-        return errorMessages;
     }
 }

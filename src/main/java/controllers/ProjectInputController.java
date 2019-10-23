@@ -272,6 +272,11 @@ public class ProjectInputController implements IController {
         consoleView.consolePrint(assignmentController.getSuccessMessages().toArray(new String[0]));
     }
 
+    /**
+     * Displays list of assignments according to specifications of user.
+     * @param projectToManage The project to manage.
+     * @param projectFullCommand The full command by the user.
+     */
     private void projectViewAssignments(Project projectToManage, String projectFullCommand) {
         String input = projectFullCommand.substring(18);
         if (input.charAt(0) == 'm') {
