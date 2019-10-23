@@ -156,6 +156,11 @@ Finally the user's CAP is calculated and printed according to NUS guidelines usi
 
 image::CAPformula.png[align="center"]
 
+* Case 2: `cap list` +
+If the argument read for `toCap` is "list", the `calculateListCap` method will be executed under the `execute` method. +
+This method calculates the CAP of modules from the user's `ModuleTaskList`.
+** Note it will only take into account modules that have a letter grade attached to its details, and calculate the CAP accordingly. +
+
 ****
 
 [appendix]
