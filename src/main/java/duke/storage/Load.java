@@ -98,4 +98,5 @@ public class Load {
             throw new DukeException("Error reading help file");
         }
     }
+
 }
