@@ -8,10 +8,14 @@ import com.algosenpai.app.logic.command.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.HelpCommand;
 import com.algosenpai.app.logic.command.HistoryCommand;
+import com.algosenpai.app.logic.command.StatsCommand;
 import com.algosenpai.app.logic.command.InvalidCommand;
 import com.algosenpai.app.logic.command.MenuCommand;
+import com.algosenpai.app.logic.command.SelectCommand;
 import com.algosenpai.app.logic.command.PrintCommand;
 import com.algosenpai.app.logic.command.QuizCommand;
+import com.algosenpai.app.logic.command.ArchiveCommand;
+import com.algosenpai.app.logic.command.SaveCommand;
 import com.algosenpai.app.logic.command.ResultCommand;
 import com.algosenpai.app.logic.command.SetupCommand;
 import com.algosenpai.app.logic.command.UndoCommand;
@@ -34,7 +38,7 @@ public class Logic {
     private double playerExp = 0.0;
 
     //All variables for the quiz function
-    private int selectedChapters = 0;
+    private AtomicInteger chapterNumber = new AtomicInteger(0);
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     private ArrayList<QuestionModel> quizList;
@@ -42,7 +46,7 @@ public class Logic {
     private int prevResult = 0;
 
     // Review features;
-    private ArrayList<QuestionModel> reviewList;
+    private ArrayList<QuestionModel> archiveList;
 
     // History features;
     private ArrayList<String> historyList;
@@ -57,6 +61,7 @@ public class Logic {
         this.userStats = userStats;
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
+        archiveList = new ArrayList<>();
     }
 
     /**
@@ -66,6 +71,7 @@ public class Logic {
      */
     public Command executeCommand(String input) {
         ArrayList<String> inputs = Parser.parseInput(input);
+        historyList.add(input);
 
         if (isQuizMode.get()) {
             if (inputs.get(0).equals("back")) {
@@ -97,8 +103,7 @@ public class Logic {
         case "menu":
             return new MenuCommand(inputs);
         case "select":
-            // TODO
-            return null;
+            return new SelectCommand(inputs, chapterNumber, userStats);
         case "result":
             return new ResultCommand(inputs, prevResult);
         case "report":
@@ -113,18 +118,18 @@ public class Logic {
             // TODO
             return null;
         case "save":
-            // TODO
-            return null;
+            return new SaveCommand(inputs, userStats);
         case "exit":
             return new ByeCommand(inputs);
         case "print":
             return new PrintCommand(inputs, quizList);
+        case "stats":
+            return new StatsCommand(inputs, userStats);
         case "archive":
-            // TODO
-            return null;
+            return new ArchiveCommand(inputs, quizList, archiveList);
         case "quiz":
             if (isNewQuiz.get()) {
-                quizList = quizMaker.generateQuiz(selectedChapters, quizList);
+                quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
                 isNewQuiz.set(false);
                 isQuizMode.set(true);
             }

@@ -46,4 +46,8 @@ public class QuestionModel {
         return rtlm;
     }
 
+    public QuestionModel copy() {
+        return new QuestionModel(question, correctAnswer, rtlm);
+    }
+
 }
