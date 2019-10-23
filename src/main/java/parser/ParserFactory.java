@@ -94,6 +94,8 @@ public class ParserFactory {
             return new CommentParser(userInput, command).parse();
         case "location":
             return new LocationParser(userInput, command).parse();
+        case "schedule":
+            return new ScheduleParser(userInput, command).parse();
 
         default:
             // Empty string or unknown command.
