@@ -90,7 +90,9 @@ public class GsonStorage {
     }
 
     /**
-     * @return the filepath to the json file containing the Json representation of all the patients
+     * Returns the filepath to the json file containing the Json representation of all the patients.
+     *
+     * @return the filepath
      */
     public String getFilePath() {
         return filePath;
