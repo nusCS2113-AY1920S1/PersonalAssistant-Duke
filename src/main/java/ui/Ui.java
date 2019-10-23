@@ -1,10 +1,14 @@
 package ui;
 
+import command.Storage;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
 import task.Task;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -71,6 +75,20 @@ public class Ui {
             System.out.print("     " + listnum + "." + list.get(i).giveTask() + "\n");
         }
         System.out.print(line);
+    }
+
+    public void printArrayList(ArrayList<String> list1) {
+        for (int i = 0; i < list1.size(); i = i + 1) {
+            System.out.println(list1.get(i));
+        }
+    }
+
+    public void printTxtfile(String storage) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(storage));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
     }
 
     /**

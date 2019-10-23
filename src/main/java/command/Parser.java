@@ -11,7 +11,9 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -28,11 +30,12 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      * @param storage Storage for the Tasklist.
+     * @param commandList
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui,
-                                Storage storage, HashMap<String, Payee> managermap) {
+                                Storage storage, HashMap<String, Payee> managermap, ArrayList<String> commandList) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
@@ -42,10 +45,10 @@ public class Parser {
 
             } else if (instr.isList(input)) {
                 //print out current list
+                process.commandHistory(input, ui, commandList,storage);
                 ui.printList(tasklist, "list");
             } else if (instr.isDone(input)) {
                 process.done(input, tasklist, ui);
-
             } else if (instr.isDeadline(input)) {
                 process.deadline(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
@@ -88,12 +91,15 @@ public class Parser {
                 process.addPayee(input, managermap, ui);
             } else if (instr.isDeletePayee(input)) {
                 process.deletePayee(input, managermap, ui);
+                process.commandHistory(input, ui, commandList, storage);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
+            } else if (instr.isHistory(input)) {
+                process.commandHistory(input, ui,commandList, storage);
             } else {
                 throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (AlphaNUSException e) {
+        } catch (AlphaNUSException | IOException e) {
             ui.exceptionMessage(e.getMessage());
         }
         return false;
