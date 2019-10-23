@@ -12,16 +12,18 @@ import java.util.Set;
  load new frame and new Farmio with delay
  */
 public class GameConsole {
+    static final int FULL_CONSOLE_HEIGHT = 22;
+    static final int FULL_CONSOLE_WIDTH = 103;
+    static final int FRAME_SECTION_HEIGHT = 18;
+    static final int FRAME_SECTION_WIDTH = 55;
+
     private static final int LEVEL_SECTION_WIDTH = 10;
     private static final int DAY_SECTION_WIDTH = 8;
     private static final int LOCATION_SECTION_WIDTH = 20;
-    private static final int FRAME_SECTION_HEIGHT = 18;
-    private static final int FRAME_SECTION_WIDTH = 55;
     private static final int ASSET_SECTION_Y_POSITION_WRT_FRAME = 7;
     private static final int USER_CODE_SECTION_WIDTH = 31;
-    private static final int FULL_CONSOLE_HEIGHT = 22;
-    private static final int FULL_CONSOLE_WIDTH = 103;
     private static final int LEFT_COLUMN_SECTION_WIDTH = 15;
+
     private static String MARKED_GOAL_SYMBOL = "[X]";
     private static String UNMARKED_GOAL_SYMBOL = "[ ]";
 
