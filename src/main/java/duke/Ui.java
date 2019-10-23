@@ -265,6 +265,8 @@ public class Ui {
      */
     public String formatAddBar(ArrayList<Song> list, Bar bar, Song song) {
         String word = (list.size() == 1) ? "bar" : "bars";
+        return bar.toString();
+        /*
         String result = "Got it. I've added this bar:\n  "
                 + bar.toString()
                 + "\nto "
@@ -274,7 +276,11 @@ public class Ui {
                 + " "
                 + word
                 + " in the song.";
+        System.out.print("adding the bar here");
         return wrap(result);
+
+         */
+
     }
     /**
      * Returns a String formatted for display that indicates that
