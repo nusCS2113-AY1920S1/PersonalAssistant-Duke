@@ -23,6 +23,11 @@ public class ListCommand extends Command {
 
     private boolean showFreeMember = false;
 
+    //@@author yuyanglin28
+    /**
+     * constructor
+     * @param line this is the input of user
+     */
 
     public ListCommand(String line) {
         String[] arrOfStr = line.split("\\s+");
@@ -40,12 +45,10 @@ public class ListCommand extends Command {
         } else if (option.equals("member")) {
             memberName = arrOfStr[1].trim();
         }
-
-
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException{
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         String output = "Here are the ";
 
         if (option.equals("tasks") && showNopicTask == false) {
@@ -63,10 +66,10 @@ public class ListCommand extends Command {
         if (showFreeMember) {
             output += "free member(s): \n";
             int count = 0;
-            for (int i= 0; i < members.size(); i++) {
+            for (int i = 0; i < members.size(); i++) {
                 if (members.get(i).getTasksInCharge().size() == 0) {
                     output += (i + 1) + "." + members.get(i).getName() + " is free.\n";
-                    count ++;
+                    count++;
                 }
             }
             if (count > 0) {
@@ -77,10 +80,10 @@ public class ListCommand extends Command {
         } else if (showNopicTask) {
             output += "task(s) haven't been assigned: \n";
             int count = 0;
-            for (int i=0; i<tasks.size(); i++) {
+            for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i).getPics().size() == 0) {
                     output += (i + 1) + "." + tasks.get(i) + "\n";
-                    count ++;
+                    count++;
                 }
             }
             if (count > 0) {
@@ -92,7 +95,7 @@ public class ListCommand extends Command {
         }
 
         if (option.equals("member")) {
-            try{
+            try {
                 int memberIndex = 0;
                 for (int i = 0; i < members.size(); i++) {
                     if (members.get(i).getName().equals(memberName)) {
@@ -118,7 +121,7 @@ public class ListCommand extends Command {
         } else if (option.equals("task")) {
             output += "persons in charge of task " + taskIndex + "." + tasks.get(taskIndex - 1);
             if (tasks.get(taskIndex - 1).getPics().size() > 0) {
-                for (int i=0; i<tasks.get(taskIndex - 1).getPics().size(); i++) {
+                for (int i = 0; i < tasks.get(taskIndex - 1).getPics().size(); i++) {
                     int memberIndex = members.indexOf(tasks.get(taskIndex - 1).getPics().get(i)) + 1;
                     output += "\n" + memberIndex + "." + members.get(memberIndex - 1).getName();
                 }
