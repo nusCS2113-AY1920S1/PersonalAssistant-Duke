@@ -49,7 +49,7 @@ public class Storage {
     //
     // TODO: implement convertFromString
 
-
+    // @@author rohan-av
     private ArrayList<String> formatListToString(ArrayList<Song> list) {
         ArrayList<String> result = new ArrayList<>();
         for (Song song: list) {
@@ -95,7 +95,7 @@ public class Storage {
 
 
     public void updateFile(SongList songList) throws DukeException {
-        System.out.println(songList.getSongList().get(0).toString());
+        // System.out.println(songList.getSongList().get(0).toString());
         writeStringsToFile(formatListToString(songList.getSongList()));
     }
 

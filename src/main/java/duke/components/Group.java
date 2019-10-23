@@ -1,11 +1,14 @@
 package duke.components;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Group {
+public class Group implements Serializable {
 
     private String name;
     private ArrayList<Bar> bars;
+
+    //@@author rohan-av
 
     public Group(String name, ArrayList<Bar> bars) {
         this.name = name;

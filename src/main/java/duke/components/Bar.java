@@ -1,17 +1,29 @@
 package duke.components;
 
+import duke.DukeException;
+import duke.commands.CopyObject;
+
+import java.io.*;
 import java.util.ArrayList;
 
-public class Bar {
+public class Bar extends CopyObject<Bar> implements Serializable {
 
     private ArrayList<Chord> chords;
     private int id;
     private ArrayList<String> barChart;
 
-    public Object clone()throws CloneNotSupportedException {
-        return super.clone();
+    public Bar copy(Bar object) throws DukeException, IOException,ClassNotFoundException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+        out.writeObject(object);
+        // And then deserializing it from memory using ByteArrayOutputStream instead of FileInputStream,
+        // Deserialization process will create a new object with the same state as in the serialized object.
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream in = new ObjectInputStream(bis);
+        return (Bar) in.readObject();
     }
 
+    //@@author rohan-av
     /**
      * Constructor takes in a String representing a list of notes.
      *
@@ -67,6 +79,7 @@ public class Bar {
         return chords;
     }
 
+    //@@author
     public void setId(int id) {
         this.id = id;
     }
@@ -98,8 +111,7 @@ public class Bar {
         for (Chord chord: chords) {
             result.append(chord.toString()).append(",");
         }
-
-
+        result.setLength(result.length() - 1); // removes the last comma
         result.append("]");
         return result.toString();
     }

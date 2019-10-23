@@ -5,10 +5,11 @@ import duke.components.Note;
 import duke.components.Song;
 import duke.components.Chord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Song {
+public class Song implements Serializable {
 
     private String name;
     private String key; // default key: C Major (implemented in NewCommand)
@@ -18,6 +19,7 @@ public class Song {
     private ArrayList<Group> groups;
     private ArrayList<String> songChart;
 
+    //@@author rohan-av
     /**
      * Constructor for Song object, taking in a name, key and tempo.
      *
@@ -54,6 +56,7 @@ public class Song {
         return groups;
     }
 
+    //@@author
     /**
      * Creates a grouping of Bar objects to be easily copied and inserted for repetitions
      * in music.
@@ -131,7 +134,6 @@ public class Song {
                 Iterator<Note> iterator2 = notesAnalyse.iterator();
                 while (iterator2.hasNext()) {
                     Note tempNote = iterator2.next();
-                    //System.out.println("hello");
                     formattedChart.append(tempNote.getPitch());
                     formattedChart.append(" ");
                 }
@@ -147,6 +149,7 @@ public class Song {
 
     }
 
+    //@@author rohan-av
     /**
      * Returns a String representation of the Song to be used for persistent storage.
      *

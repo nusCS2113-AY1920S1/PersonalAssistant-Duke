@@ -1,11 +1,14 @@
 package duke.components;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
 
     private Pitch pitch;
     private String duration; // 1, 2*, 2, 4*, 4, 8
     private boolean isStart;
 
+    //@@author rohan-av
     /**
      * Constructor for the Note object, taking in a String representation of the note.
      *
@@ -142,7 +145,6 @@ public class Note {
         String result = pitchString.substring(0,1);
         //System.out.print(pitchString.length());
         if (!pitchString.substring(pitchString.length() - 1).equals("T")) {
-            //System.out.print(pitchString);
             result += pitchString.substring(pitchString.length() - 1);
         }
 
