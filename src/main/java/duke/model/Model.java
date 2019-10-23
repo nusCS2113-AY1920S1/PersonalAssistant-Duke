@@ -4,6 +4,8 @@ import duke.exception.DukeException;
 import javafx.beans.value.ObservableStringValue;
 import javafx.collections.ObservableList;
 
+import java.util.Map;
+
 /**
  * The API of the Model component.
  */
@@ -34,6 +36,7 @@ public interface Model {
     //PlanBot
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList();
     public void processPlanInput(String input);
+    public Map<String, String> getKnownPlanAttributes();
 
 
 }

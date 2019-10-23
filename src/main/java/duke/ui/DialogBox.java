@@ -21,6 +21,8 @@ public class DialogBox extends UiPart<Region> {
         text.setText(dialog.text);
         if(dialog.agent == PlanBot.Agent.BOT) {
             text.setAlignment(Pos.BOTTOM_RIGHT);
+        }else {
+            text.setAlignment(Pos.BOTTOM_LEFT);
         }
     }
 

@@ -8,6 +8,8 @@ import duke.model.Model;
 import duke.model.PlanBot;
 import duke.storage.ExpenseListStorage;
 import duke.storage.ExpenseListStorageManager;
+import duke.storage.PlanAttributesStorage;
+import duke.storage.PlanAttributesStorageManager;
 import duke.storage.Storage;
 import duke.storage.StorageManager;
 import duke.ui.Ui;
@@ -34,10 +36,11 @@ public class Main extends Application {
         super.init();
 
         ExpenseListStorage expenseListStorage = new ExpenseListStorageManager();
-        storage = new StorageManager(expenseListStorage);
+        PlanAttributesStorage planAttributesStorage = new PlanAttributesStorageManager();
+        storage = new StorageManager(expenseListStorage, planAttributesStorage);
 
 
-        model = new DukePP(storage.loadExpenseList(), new PlanBot());
+        model = new DukePP(storage.loadExpenseList(), storage.loadPlanAttributes());
 
         int size = storage.loadExpenseList().getExternalList().size();
         logger.info("The size of external list from storage is " + size);
