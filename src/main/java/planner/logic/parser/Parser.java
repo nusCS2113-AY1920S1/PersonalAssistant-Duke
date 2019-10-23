@@ -24,7 +24,7 @@ import planner.logic.command.CapCommand;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.parser.action.Join;
 
-public class Argparse4jWrapper {
+public class Parser {
 
     private ArgumentParser parser;
     private Subparsers subParserManager;
@@ -35,7 +35,7 @@ public class Argparse4jWrapper {
     /**
      * Constructor for parser.
      */
-    public Argparse4jWrapper() {
+    public Parser() {
         this.parser = ArgumentParsers.newFor("ModPlanner")
                 .build()
                 .defaultHelp(true)
