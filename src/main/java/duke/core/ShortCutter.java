@@ -197,14 +197,14 @@ public class ShortCutter {
             String patientId = ui.getPatientInfo("id");
             String infoType = ui.getPatientInfo("change");
             String changeValue = ui.getPatientInfo(("changeValue"));
-            String userInput = patientId + infoType + changeValue;
-            return new UpdatePatientCommand(userInput);
+            String[] patientInfo = new String[]{patientId, infoType, changeValue};
+            return new UpdatePatientCommand(patientInfo);
         } else if (commandName.equals("UpdateTaskCommand")) {
             String taskId = ui.getTaskInfo("id");
             String change = ui.getTaskInfo("change");
             String changeValue = ui.getTaskInfo("changeValue");
-            String userInput = taskId + change + changeValue;
-            return new UpdateTaskCommand(userInput);
+            String[] patientInfo = new String[]{taskId, change, changeValue};
+            return new UpdateTaskCommand(patientInfo);
         } else {
             //Assign patient task will be add...
             throw new DukeException("No matching command!");
