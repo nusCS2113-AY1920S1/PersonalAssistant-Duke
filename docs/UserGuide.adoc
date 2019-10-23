@@ -37,7 +37,7 @@ E.g. typing `help` and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-=== Help list : `[coming v1.4]`
+=== Help list :
 
 Brings up a list of available commands that the user can input.
 It also displays a brief version of this user guide. +
@@ -81,9 +81,11 @@ Format: `concert <name of concert> /dd-MM-yyyy HHmm HHmm`
 === Recurring events :
 
 MisterMusik allows the user to add recurring events (e.g. weekly lessons).
-The input format is as per normal with an extra recurring period input. +
+The input format is as per normal with an extra recurring period input.
+This only works with lesson and practice type events. Concerts, exams and
+recitals cannot be entered as recurring events.
 
-Format: `<type of event> <name of event> /dd-MM-yyyy HHmm HHmm /period(days)` +
+Format: `<type of event> <name of event> /dd-MM-yyyy HHmm HHmm /period(days)`
 
 E.g. “lesson Theory class /18-09-2019 0900 1030 /7”
 adds a weekly recurring event from 9:00am to 10:30am, starting on 18 September 2019.
@@ -100,14 +102,17 @@ displays all events/todos on/by the date 18 September 2019.
 
 === Checking for free days : `check`
 
-The user can check for the nearest days that are free. +
+The user can check for the nearest days that are free.
+This will list the next 3 free days on the users' schedule. A
+day is considered free if there are no events scheduled. ToDos are not counted
+as events.
 
 Format: `check`
 
 
 === Marking a task as done: `done`
 
-Marks a task in the list as completed, denoted by a tick when displaying the task. +
+Marks a ToDo in the list as completed, denoted by a tick when displaying the task. +
 
 Format: `done <task index>` +
 E.g. “done 5” marks task number 5 as done.
@@ -131,11 +136,11 @@ it can be used to take feedback from instructors and lesson notes respectively. 
 Format: `details <task index>` or `notes <task index>`
 
 
-=== Rescheduling events : `[coming v1.4]`
+=== Rescheduling events :
 
 The user will be able to reschedule an existing event. +
 
-Format: `reschedule <task index>`
+Format: `reschedule <task index> dd-MM-yyyy HHmm HHmm
 
 
 === Searching for a free slot : `[coming v1.4]`
@@ -148,6 +153,16 @@ at least 4 hours of free time in the schedule. +
 
 Format: `searchfree 4h`
 
+=== Search
+
+The user will be able to search for a specific task using keywords.
+
+Format: `find <keyword>`
+
+=== Edit an event/ToDo
+The user is able to edit the name of the event/ToDo he entered in case he entered it wrongly.
+
+Format: `edit <index for edition>/<new description>`
 
 === Exiting the program : `bye`
 
@@ -162,16 +177,15 @@ Format: `bye`
 
 When the user inputs a new event, MisterMusik will check
 if it has any clashing date and time with existing events
-and warns the user of the clash.
+and warns the user of the clash. This also detects clashes
+when recurring events are entered, so there is no need
+to manually check for schedule clashes.
 
 === Sorting By Date : `[coming v1.4]`
 
 MisterMusik will automatically sort the list by the date and time of each task
-so the user will not have to manually prioritise each event and todo task.
-
-=== Search and edit : `[coming v2.0]`
-
-The user will be able to search for a specific task and edit its corresponding details.
+so the user will not have to manually prioritise each event and todo task. ToDos
+are listed at the front of each day as they do not have an included time.
 
 === Reminder for specific task types : `[coming v2.0]`
 
@@ -189,6 +203,7 @@ it creates with the file that contains the data of your previous MisterMusik fol
 
 == Glossary
 
-. Event: an event refers to any activity with a start time.
+. Event: an event refers to any activity with a start and end time, includes
+concerts, practices, exams, and recitals.
 +
-. To-do: a to-do refers to any activity with a deadline.
+. Todo: a todo refers to a task with a deadline specified by the user.
