@@ -1,5 +1,6 @@
 package controllers;
 
+import models.data.IProject;
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -57,41 +58,39 @@ public class ProjectInputController implements IController {
     public boolean manageProject(Project projectToManage) {
         boolean isManagingAProject = true;
         if (manageProjectInput.hasNextLine()) {
-            String projectCommand = manageProjectInput.nextLine();
+            String projectFullCommand = manageProjectInput.nextLine();
             DukeLogger.logInfo(ProjectInputController.class, "Managing:"
                     + projectToManage.getDescription() + ",input:'"
-                    + projectCommand + "'");
-            if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
+                    + projectFullCommand + "'");
+            if (projectFullCommand.matches("exit")) {
                 isManagingAProject = projectExit(projectToManage);
-            } else if (projectCommand.length() >= 11 && ("add member ").equals(projectCommand.substring(0, 11))) {
-                projectAddMember(projectToManage, projectCommand);
-            } else if (projectCommand.length() >= 12 && ("edit member ").equals(projectCommand.substring(0, 12))) {
-                projectEditMember(projectToManage, projectCommand);
-            } else if (projectCommand.length() >= 14 && ("delete member ").equals(projectCommand.substring(0,14))) {
-                projectDeleteMember(projectToManage, projectCommand);
-            } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
+            } else if (projectFullCommand.matches("add member.*")) {
+                projectAddMember(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("edit member.*")) {
+                projectEditMember(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("delete member.*")) {
+                projectDeleteMember(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("view members.*")) {
                 projectViewMembers(projectToManage);
-            } else if (projectCommand.length() == 12 && ("view credits").equals(projectCommand)) {
-                projectViewCredits();
-            } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
-                projectAddTask(projectToManage, projectCommand);
-            } else if (projectCommand.length() >= 10 && ("view tasks").equals(projectCommand.substring(0,10))) {
-                projectViewTasks(projectToManage, projectCommand);
-            } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
+            } else if (projectFullCommand.matches("view credits.*")) {
+                projectViewCredits(projectToManage);
+            } else if (projectFullCommand.matches("add task.*")) {
+                projectAddTask(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("view tasks.*")) {
+                projectViewTasks(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("view assigned tasks.*")) {
                 projectViewAssignedTasks(projectToManage.getAssignedTaskList());
-            } else if (projectCommand.length() > 25
-                    && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
-                projectViewTaskRequirements(projectToManage, projectCommand);
-            } else if (projectCommand.length() > 23
-                    && ("edit task requirements ").equals(projectCommand.substring(0, 23))) {
-                projectEditTaskRequirements(projectToManage, projectCommand);
-            } else if (projectCommand.length() >= 10 && ("edit task ").equals(projectCommand.substring(0, 10))) {
-                projectEditTask(projectToManage, projectCommand);
-            } else if (projectCommand.length() >= 12 && ("delete task ").equals(projectCommand.substring(0,12))) {
-                projectDeleteTask(projectToManage, projectCommand);
-            } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                projectAssignTask(projectToManage, projectCommand);
-            } else if ("bye".equals(projectCommand)) {
+            } else if (projectFullCommand.matches("view task requirements i/.*")) { // need to refactor this
+                projectViewTaskRequirements(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("edit task requirements.*")) {
+                projectEditTaskRequirements(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("edit task.*")) {
+                projectEditTask(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("delete task.*")) {
+                projectDeleteTask(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("assign task.*")) {
+                projectAssignTask(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("bye")) {
                 consoleView.end();
             } else {
                 consoleView.consolePrint("Invalid command. Try again!");
@@ -166,9 +165,11 @@ public class ProjectInputController implements IController {
 
     /**
      * Displays the members’ credits, their index number, name, and name of tasks completed.
+     * @param projectToManage The project specified by the user.
      */
-    public void projectViewCredits() {
+    public void projectViewCredits(IProject projectToManage) {
         // TODO view all credits.
+        consoleView.viewCredits(projectToManage);
         consoleView.consolePrint("Not implemented yet");
     }
 
