@@ -24,7 +24,7 @@ public class CheckAnomaliesCommand extends Command {
         this.memberName = null;
     }
 
-    public CheckAnomaliesCommand (String memberName) {
+    public CheckAnomaliesCommand(String memberName) {
         this.memberName = memberName.trim();
     }
 

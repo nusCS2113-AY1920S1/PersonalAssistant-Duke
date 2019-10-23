@@ -35,7 +35,7 @@ public class ViewScheCommand extends Command {
         String[] arrOfStr = line.split("\\s+");
 
         this.option = arrOfStr[0].trim();
-        if (option.equals("/all")){
+        if (option.equals("/all")) {
             if (arrOfStr.length > 1) {
                 this.date = Parser.parseDate(arrOfStr[1].trim());
                 sortByDate = true;
