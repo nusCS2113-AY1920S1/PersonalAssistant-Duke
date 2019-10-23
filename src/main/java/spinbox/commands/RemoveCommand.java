@@ -1,5 +1,6 @@
 package spinbox.commands;
 
+import javafx.geometry.HorizontalDirection;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.TaskList;
@@ -15,6 +16,7 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class RemoveCommand extends Command {
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String NOTE_REMOVED = "A note has been successfully removed from ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
@@ -53,9 +55,10 @@ public class RemoveCommand extends Command {
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     File fileRemoved = files.get(index);
                     files.remove(index);
-                    return "Removed file: " + fileRemoved.toString() + "\n"
+                    return HORIZONTAL_LINE + "\nRemoved file: " + fileRemoved.toString() + "\n"
                             + "You currently have " + files.getList().size()
-                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.");
+                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
                 } catch (IndexOutOfBoundsException e) {
@@ -74,7 +77,7 @@ public class RemoveCommand extends Command {
                     Notepad notepad = module.getNotepad();
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     notepad.removeLine(index);
-                    return NOTE_REMOVED + moduleCode;
+                    return HORIZONTAL_LINE + "\n" + NOTE_REMOVED + moduleCode + "\n" + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
                 } catch (IndexOutOfBoundsException e) {
@@ -94,9 +97,10 @@ public class RemoveCommand extends Command {
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     Task taskRemoved = tasks.get(index);
                     tasks.remove(index);
-                    return "Removed task: " + taskRemoved.toString() + "\n"
+                    return HORIZONTAL_LINE + "\nRemoved task: " + taskRemoved.toString() + "\n"
                             + "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
                 } catch (IndexOutOfBoundsException e) {

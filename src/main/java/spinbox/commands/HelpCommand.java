@@ -41,7 +41,7 @@ public class HelpCommand extends Command {
             case "update":
                 helpOutput = helpText.update;
                 break;
-            case "mark-multiple":
+            case "update-multiple":
                 helpOutput = helpText.updateMultiple;
                 break;
             default:

@@ -11,6 +11,10 @@ import spinbox.exceptions.InputException;
 import spinbox.Ui;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Exam;
+import spinbox.entities.items.tasks.Lab;
+import spinbox.entities.items.tasks.Lecture;
+import spinbox.entities.items.tasks.Tutorial;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.Todo;
 import spinbox.entities.items.tasks.Schedulable;
@@ -21,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCommand extends Command {
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
@@ -35,7 +40,7 @@ public class AddCommand extends Command {
     private static final String DEADLINE_ERROR_MESSAGE = "Please ensure that you enter "
             + "the full command for adding deadlines:\n";
     private static final String EVENT_ERROR_MESSAGE = "Please ensure that you enter "
-            + "the full command for adding events:\n";
+            + "the full command for adding this event type task:\n";
     private static final String MODULE_ERROR_MESSAGE = "Please ensure that you enter "
             + "the full command for adding modules:\n";
     private static final String FILE_FORMAT = "add <moduleCode> / file <fileName>";
@@ -45,9 +50,16 @@ public class AddCommand extends Command {
     private static final String EVENT_FORMAT = "add <moduleCode> / <eventType> <taskName> at: "
         + "<start as MM/DD/YYYY HH:MM> to <end as MM/DD/YYYY HH:MM>";
     private static final String MODULE_FORMAT = "add / module <moduleCode> <moduleName>";
+    private static final String EMPTY_TODO_DESCRIPTION = "☹ OOPS!!! The description of a task cannot be empty.";
+    private static final String EMPTY_DEADLINE_DESCRIPTION = "☹ OOPS!!! The description of a deadline cannot be empty.";
+    private static final String EMPTY_EVENT_DESCRIPTION = "☹ OOPS!!! The description of an event cannot be empty.";
+    private static final String EMPTY_EXAM_DESCRIPTION = "☹ OOPS!!! The description of an exam cannot be empty.";
+    private static final String EMPTY_LAB_DESCRIPTION = "☹ OOPS!!! The description of a lab session cannot be empty.";
+    private static final String EMPTY_LECTURE_DESCRIPTION = "☹ OOPS!!! The description of a lecture cannot be empty.";
+    private static final String EMPTY_TUTORIAL_DESCRIPTION = "☹ OOPS!!! The description of a tutorial "
+            + "session cannot be empty.";
 
     private String type;
-
     private String moduleCode;
     private String content;
 
@@ -81,9 +93,10 @@ public class AddCommand extends Command {
                     FileList files = module.getFiles();
                     String fileName = content.replace(type, "").trim();
                     fileAdded = files.add(new File(0, fileName));
-                    return "Added into " + module.toString() + " file: " + fileAdded.toString() + "\n"
-                            + "You currently have " + files.getList().size()
-                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.");
+                    return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " file: " + fileAdded.toString()
+                            + "\nYou currently have " + files.getList().size()
+                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
@@ -100,7 +113,7 @@ public class AddCommand extends Command {
                     Notepad notepad = module.getNotepad();
                     String noteContent = content.replace(type, "").trim();
                     notepad.addLine(noteContent);
-                    return NOTE_ADDED + moduleCode;
+                    return HORIZONTAL_LINE + "\n" + NOTE_ADDED + moduleCode + "\n" + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
@@ -116,13 +129,14 @@ public class AddCommand extends Command {
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
                     String taskDescription = content.replace(type, "").trim();
-                    if (taskDescription.equals("todo")) {
-                        throw new InputException("☹ OOPS!!! The description of a task cannot be empty.");
+                    if (taskDescription.equals("")) {
+                        throw new InputException(EMPTY_TODO_DESCRIPTION);
                     }
                     taskAdded = tasks.add(new Todo(taskDescription));
-                    return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
-                            + "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
+                    return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
+                            + "\nYou currently have " + tasks.getList().size()
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
@@ -139,14 +153,15 @@ public class AddCommand extends Command {
                     TaskList tasks = module.getTasks();
                     String taskDescription = content.replace(type, "").trim();
                     if (taskDescription.split(" ")[0].equals("by:")) {
-                        throw new InputException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        throw new InputException(EMPTY_DEADLINE_DESCRIPTION);
                     }
                     start = new DateTime(taskDescription.split("by: ")[1]);
                     taskAdded = tasks.add(new Deadline(taskDescription.substring(0,
                             taskDescription.lastIndexOf(" by:")), start));
-                    return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
-                            + "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
+                    return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
+                            + "\nYou currently have " + tasks.getList().size()
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
@@ -154,6 +169,7 @@ public class AddCommand extends Command {
                 throw new InputException(DEADLINE_ERROR_MESSAGE + DEADLINE_FORMAT);
             }
 
+        case "event":
         case "exam":
         case "lab":
         case "lecture":
@@ -165,14 +181,16 @@ public class AddCommand extends Command {
                     Module module = modules.get(moduleCode);
                     String taskDescription = content.replace(type, "").trim();
                     if (taskDescription.split(" ")[0].equals("at:")) {
-                        if (this.type.equals("exam")) {
-                            throw new InputException("☹ OOPS!!! The description of an exam cannot be empty.");
+                        if (this.type.equals("event")) {
+                            throw new InputException(EMPTY_EVENT_DESCRIPTION);
+                        } else if (this.type.equals("exam")) {
+                            throw new InputException(EMPTY_EXAM_DESCRIPTION);
                         } else if (this.type.equals("tutorial")) {
-                            throw new InputException("☹ OOPS!!! The description of a tutorial cannot be empty.");
+                            throw new InputException(EMPTY_TUTORIAL_DESCRIPTION);
                         } else if (this.type.equals("lab")) {
-                            throw new InputException("☹ OOPS!!! The description of a lab cannot be empty.");
+                            throw new InputException(EMPTY_LAB_DESCRIPTION);
                         } else if (this.type.equals("lecture")) {
-                            throw new InputException("☹ OOPS!!! The description of a lecture cannot be empty.");
+                            throw new InputException(EMPTY_LECTURE_DESCRIPTION);
                         }
                     }
                     TaskList tasks = module.getTasks();
@@ -189,11 +207,26 @@ public class AddCommand extends Command {
                             }
                         }
                     }
-                    taskAdded = tasks.add(new Event(taskDescription.substring(0, taskDescription.lastIndexOf(" /at")),
-                            start, end));
-                    return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
-                            + "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
+                    if (this.type.equals("exam")) {
+                        taskAdded = tasks.add(new Exam(taskDescription.substring(0,
+                                taskDescription.lastIndexOf(" at:")), start, end));
+                    } else if (this.type.equals("lab")) {
+                        taskAdded = tasks.add(new Lab(taskDescription.substring(0,
+                                taskDescription.lastIndexOf(" at:")), start, end));
+                    } else if (this.type.equals("lecture")) {
+                        taskAdded = tasks.add(new Lecture(taskDescription.substring(0,
+                                taskDescription.lastIndexOf(" at:")), start, end));
+                    } else if (this.type.equals("tutorial")) {
+                        taskAdded = tasks.add(new Tutorial(taskDescription.substring(0,
+                                taskDescription.lastIndexOf(" at:")), start, end));
+                    } else {
+                        taskAdded = tasks.add(new Event(taskDescription.substring(0,
+                                taskDescription.lastIndexOf(" at:")), start, end));
+                    }
+                    return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
+                            + "\nYou currently have " + tasks.getList().size()
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                            + HORIZONTAL_LINE;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
@@ -209,7 +242,7 @@ public class AddCommand extends Command {
                 if (!moduleContainer.checkModuleExists(moduleCode)) {
                     Module module = new Module(this.moduleCode, moduleName);
                     moduleContainer.addModule(module);
-                    return MODULE_ADDED + module.toString();
+                    return HORIZONTAL_LINE + "\n" + MODULE_ADDED + module.toString() + "\n" + HORIZONTAL_LINE;
                 } else {
                     return MODULE_NOT_ADDED;
                 }

@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MultipleCommand extends Command {
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String NOTES_REMOVED = "The specified notes have been successfully removed from ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
@@ -54,7 +55,7 @@ public class MultipleCommand extends Command {
         for (int i = 0; i < finalIndexes.size(); i++) {
             File fileRemoved = files.remove(finalIndexes.get(i));
             if (i == 0) {
-                outputMessage = outputMessage.concat("Noted. I've removed these files:\n");
+                outputMessage = outputMessage.concat(HORIZONTAL_LINE + "\nNoted. I've removed these files:\n");
             }
             outputMessage = outputMessage.concat(fileRemoved.toString() + "\n");
         }
@@ -66,7 +67,7 @@ public class MultipleCommand extends Command {
         for (int i = 0; i < finalIndexes.size(); i++) {
             Task taskRemoved = tasks.remove(finalIndexes.get(i));
             if (i == 0) {
-                outputMessage = outputMessage.concat("Noted. I've removed these tasks:\n");
+                outputMessage = outputMessage.concat(HORIZONTAL_LINE + "\nNoted. I've removed these tasks:\n");
             }
             outputMessage = outputMessage.concat(taskRemoved.toString() + "\n");
         }
@@ -108,7 +109,8 @@ public class MultipleCommand extends Command {
                     }
                     outputMessage = removeMultipleFile(finalIndexes, files, outputMessage).concat(
                             "You currently have " + files.getList().size()
-                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list."));
+                            + ((files.getList().size() == 1) ? " file in the list." : " files in the list.") + "\n"
+                                    + HORIZONTAL_LINE);
                     return outputMessage;
                 } else {
                     return NON_EXISTENT_MODULE;
@@ -142,7 +144,8 @@ public class MultipleCommand extends Command {
                     }
                     outputMessage = removeMultipleTask(finalIndexes, tasks, outputMessage).concat(
                             "You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list."));
+                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
+                                    + HORIZONTAL_LINE);
                     return outputMessage;
                 } else {
                     return NON_EXISTENT_MODULE;

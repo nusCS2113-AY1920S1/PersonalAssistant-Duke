@@ -5,10 +5,14 @@ import spinbox.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.entities.items.tasks.Deadline;
-import spinbox.entities.items.tasks.Task;
-import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Exam;
+import spinbox.entities.items.tasks.Lab;
+import spinbox.entities.items.tasks.Lecture;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.Todo;
+import spinbox.entities.items.tasks.Tutorial;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,10 +79,30 @@ public class TaskList extends SpinBoxList<Task> {
                 start = new DateTime(arguments[3]);
                 this.addFromStorage(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
                 break;
-            default:
+            case "E":
                 start = new DateTime(arguments[3]);
                 end = new DateTime(arguments[4]);
                 this.addFromStorage(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            case "EXAM":
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Exam(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            case "LAB":
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Lab(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            case "LEC":
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Lecture(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            default:
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Tutorial(Integer.parseInt(arguments[1]), arguments[2], start, end));
             }
         }
     }

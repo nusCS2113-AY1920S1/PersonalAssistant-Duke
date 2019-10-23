@@ -14,6 +14,7 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class UpdateCommand extends Command {
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String FILE_MARKED = "Updated file: ";
     private static final String TASK_MARKED = "Updated task: ";
@@ -62,7 +63,7 @@ public class UpdateCommand extends Command {
                     } else {
                         throw new InputException(INVALID_VALUE);
                     }
-                    return FILE_MARKED + fileMarked.toString();
+                    return HORIZONTAL_LINE + "\n" + FILE_MARKED + fileMarked.toString() + "\n" + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
                 } catch (IndexOutOfBoundsException e) {
@@ -89,7 +90,8 @@ public class UpdateCommand extends Command {
                     } else {
                         throw new InputException(INVALID_VALUE);
                     }
-                    outputMessage = outputMessage.concat(TASK_MARKED + taskMarked.toString() + "\n");
+                    outputMessage = outputMessage.concat(HORIZONTAL_LINE + "\n" + TASK_MARKED + taskMarked.toString()
+                            + HORIZONTAL_LINE + "\n");
                     return outputMessage;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);

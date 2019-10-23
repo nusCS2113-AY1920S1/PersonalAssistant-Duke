@@ -17,7 +17,7 @@ public class Event extends Schedulable {
     }
 
     /**
-     * This constructor is used for recreation of SpinBox.Tasks.Deadline from storage.
+     * This constructor is used for recreation of SpinBox.Tasks.Event from storage.
      * @param done  1 if task has been marked complete, 0 otherwise.
      * @param description the name or description of the event.
      * @param startDate Date object for start DateTime.
