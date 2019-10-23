@@ -1,5 +1,7 @@
 package duke.components;
 
+import duke.DukeException;
+
 import java.util.ArrayList;
 
 public class Bar {
@@ -19,9 +21,22 @@ public class Bar {
      * @param id the ID of the Bar in the Song
      * @param notes the String representing the list of notes that compose a bar
      */
-    public Bar(int id, String notes) {
+    public Bar(int id, String notes) throws DukeException {
         this.id = id;
         this.chords = compileNotesToChords(convertStringToNotes(notes));
+        this.barChart = new ArrayList<>();
+        updateBarChart();
+    }
+
+    /**
+     * Alternate constructor for the Bar instance in the case that the Chord data is present.
+     *
+     * @param id the ID of the Bar in the Song
+     * @param chords an ArrayList of Chord objects that compose the Bar
+     */
+    public Bar(int id, ArrayList<Chord> chords) {
+        this.id = id;
+        this.chords = chords;
         this.barChart = new ArrayList<>();
         updateBarChart();
     }
@@ -32,7 +47,7 @@ public class Bar {
      * @param notes the input String representing the list of notes that compose a bar
      * @return an ArrayList of Note objects corresponding to the above notes
      */
-    private ArrayList<Note> convertStringToNotes(String notes) {
+    private ArrayList<Note> convertStringToNotes(String notes) throws DukeException {
         ArrayList<Note> result = new ArrayList<>();
         String[] notesArray = notes.split(" ");
         for (String note: notesArray) {
@@ -94,7 +109,7 @@ public class Bar {
      */
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("[").toString();
+        result.append("[");
         for (Chord chord: chords) {
             result.append(chord.toString()).append(",");
         }
