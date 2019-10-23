@@ -14,14 +14,18 @@ import java.util.HashMap;
 
 /*
  * Handles storage of patients.
- * Attributes:
- * - jsonFile: the file that the patients will be stored in
- * - filePath: the filepath to the file that the patients will be stored in
  */
 
 public class GsonStorage {
 
+    /*
+     * the file that the patients will be stored in.
+     */
     private final File jsonFile;
+
+    /*
+     * the filepath to the file that the patients will be stored in.
+     */
     private final String filePath;
 
     /**

@@ -17,21 +17,38 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit class testing the class GsonStorage.
- * Attributes:
- * - patientMap: a PatientMap object
- * - storage: a GsonStorage object
- * - dummy1: a dummy patient used for testing
- * - dummy2: a dummy patient used for testing
- * - dummy3: a dummy patient used for testing
- * - expected: a String containing the correct JSON representation of dummy1, dummy2 and dummy 3
  */
 
 public class GsonStorageTest {
+
+    /**
+     * A PatientMap object.
+     */
     public PatientMap patientMap;
+
+    /**
+     * A GsonStorage object.
+     */
     public GsonStorage storage;
+
+    /**
+     * a dummy patient used for testing.
+     */
     private Patient dummy1 = new Patient("dummy1", "A100", "nuts");
+
+    /**
+     * a dummy patient used for testing.
+     */
     private Patient dummy2 = new Patient("dummy2", "A200", null);
+
+    /**
+     * a dummy patient used for testing.
+     */
     private Patient dummy3 = new Patient("dummy3", "A300", "cats");
+
+    /**
+     * a String containing the correct JSON representation of dummy1, dummy2 and dummy 3.
+     */
     private String expected = "["
             + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],"
             //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
@@ -54,6 +71,7 @@ public class GsonStorageTest {
 
     /**
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
+     *
      * @return the created patient object.
      */
     private Patient createComplexPatient() throws DukeException {
@@ -73,6 +91,7 @@ public class GsonStorageTest {
     /**
      * Compares all the attributes of two patients and returns true if they all are the same, otherwise it returns
      * false.
+     *
      * @return A boolean stating if the storage function is working properly or not.
      */
     private boolean identical(Patient patient1, Patient patient2) {
