@@ -118,6 +118,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        userInput.clear();
         try {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
@@ -134,7 +135,10 @@ public class MainWindow extends AnchorPane {
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getUserDialog(Ui.userOutputForUI, dukeImage)
         );
-        userInput.clear();
+    }
+
+    private void handleSubsequentInput() {
+        String input = userInput.getText();
     }
 
     private static void populateTodayTasks() {
