@@ -3,6 +3,7 @@ package MovieUI;
 import Contexts.CommandContext;
 import Contexts.ContextHelper;
 import Contexts.SearchResultContext;
+import EPparser.CommandParser;
 import EPstorage.*;
 import Execution.CommandStack;
 import javafx.application.Platform;
@@ -15,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -26,20 +26,13 @@ import javafx.scene.text.TextFlow;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
-import EPparser.CommandParser;
 import object.PastCommandStructure;
-import org.apache.commons.lang3.ObjectUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import retractCommands.PastUserCommands;
 import sort.EditSortProfileJson;
 import sort.SortProfile;
 import ui.Ui;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -88,6 +81,9 @@ public class MovieHandler extends Controller implements RequestListener {
 
     @FXML
     private AnchorPane movieAnchorPane;
+
+    @FXML
+    private Label userPlaylistsLabel;
 
 
     private boolean isViewBack = false;
@@ -205,6 +201,7 @@ public class MovieHandler extends Controller implements RequestListener {
         sortAlphaOrderLabel.setText(sortProfile.getAlphaOrder());
         sortLatestDateLabel.setText(sortProfile.getLatestDatesOrder());
         sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
+        userPlaylistsLabel.setText(Integer.toString(playlists.size()));
     }
 
 
