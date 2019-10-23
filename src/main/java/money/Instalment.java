@@ -1,5 +1,7 @@
 package money;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.lang.Math;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +19,8 @@ public class Instalment extends Expenditure {
     //@@author {ChenChao19}
     public Instalment(float price, String description, String category, LocalDate boughtDate, int numOfPaymentsReq, float AnnualIR) {
         super(price, description, category, boughtDate);
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         this.numOfPaymentsReq = numOfPaymentsReq;
         this.AIR = AnnualIR / 100;
         this.MIR = AIR / 12;
@@ -33,6 +37,10 @@ public class Instalment extends Expenditure {
 
     public float EqualMonthlyInstalment() {
         return (float) ((getPrice() * MIR * Math.pow(1 + MIR, numOfPaymentsReq)) / (Math.pow(1 + MIR, numOfPaymentsReq) - 1));
+    }
+
+    public float getMIR() {
+        return MIR;
     }
 
     public void percentPay(int payments) {
