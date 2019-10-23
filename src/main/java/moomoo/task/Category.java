@@ -53,15 +53,15 @@ public class Category {
         return monthTotal;
     }
 
-    void addExpenditure() {
+    public void addExpenditure() {
 
     }
 
-    void editExpenditure() {
+    public void editExpenditure() {
 
     }
 
-    void deleteExpenditure() {
+    public void deleteExpenditure() {
 
     }
     

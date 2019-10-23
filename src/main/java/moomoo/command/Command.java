@@ -7,7 +7,6 @@ import moomoo.task.CategoryList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
 import moomoo.task.MooMooException;
-import moomoo.task.Expenditure;
 import moomoo.task.Category;
 
 

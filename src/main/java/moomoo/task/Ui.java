@@ -133,7 +133,7 @@ public class Ui {
      * Prints the list of categories.
      * @param categories list of current categories
      */
-    void showCategoryList(String categories) {
+    public void showCategoryList(String categories) {
         print("These are your current categories:"
                 + "\n_______________________________________________"
                 + categories
@@ -176,7 +176,7 @@ public class Ui {
     /**
      * Prompts the user to enter a expenditure name.
      */
-    void showAddExpenditureMessage() {
+    public void showAddExpenditureMessage() {
         print("Please enter a name for which category's expenditure and amount with a '-' in between");
     }
 
@@ -195,7 +195,7 @@ public class Ui {
     /**
      * Prompts the user to enter what to add.
      */
-    void showAddMessage(String text) {
+    public void showAddMessage(String text) {
         print("What do you wish to " + text + "?"
                 + "\ncategory"
                 + "\nexpenditure");
