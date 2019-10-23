@@ -35,7 +35,13 @@ public class Parser {
         case "listroom":
             return new ListRoomCommand();
         case "edit":
-                return new EditBookingCommand(input, splitStr);
+            return new EditBookingCommand(input, splitStr);
+        case "inventory":
+            return new ;
+        case "addinventory":
+            return new AddInventoryCommand(input, splitStr);
+        case "edit inventory":
+            return new;
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

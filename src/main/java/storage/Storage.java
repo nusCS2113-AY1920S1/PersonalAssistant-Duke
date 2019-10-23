@@ -6,6 +6,8 @@ import task.Task;
 import task.TaskList;
 import booking.Booking;
 import booking.BookingList;
+import inventory.Inventory;
+import inventory.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -74,6 +76,16 @@ public class Storage {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
         for (Room i : roomList) {
+            toWrite += i.toWriteFile();
+        }
+        fileOutputStream.write(toWrite.getBytes());
+        fileOutputStream.close();
+    }
+
+    public void saveToFile(Inventory inventory) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
+        String toWrite = "";
+        for (Room i : inventory) {
             toWrite += i.toWriteFile();
         }
         fileOutputStream.write(toWrite.getBytes());
