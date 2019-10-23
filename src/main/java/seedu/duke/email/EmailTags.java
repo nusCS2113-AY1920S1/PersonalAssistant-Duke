@@ -96,7 +96,7 @@ public class EmailTags {
                 return responseMsg;
             }
             responseMsg = "Here is the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo +
-                    ": \n";
+                    ": \n\n";
             EmailList emailList = tagMap.get(tagNameOne).get(tagNameTwo);
             responseMsg += emailList.toString();
         }
