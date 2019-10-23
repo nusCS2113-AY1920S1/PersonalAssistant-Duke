@@ -25,22 +25,14 @@ import rims.resource.Resource;
  * 
  */
 public class Storage {
-    protected ArrayList<Resource> resources;
-    protected ArrayList<Reservation> Reservations;
-    protected ReservationList TempReservations;
+    protected ArrayList<Resource> resources = new ArrayList<Resource>();
     protected File resourceFile;
     protected File reservationFile;
-    private Ui ui;
 
-    public Storage(String ResourceFileName, String ReserveFileName, Ui ui)
-            throws FileNotFoundException, ParseException {
-        resourceFile = new File(ResourceFileName);
-        reservationFile = new File(ReserveFileName);
-        resources = new ArrayList<Resource>();
-        Reservations = new ArrayList<Reservation>();
-        TempReservations = new ReservationList();
-        this.ui = ui;
-        readFromResourceFile();
+    public Storage(String resourceFile, String reserveFile) throws FileNotFoundException, ParseException {
+        this.resourceFile = new File(resourceFile);
+        this.reservationFile = new File(reserveFile);
+        readResourceFile();
     }
 
     /**
@@ -61,18 +53,17 @@ public class Storage {
      * @throws ParseException        when unable to parse an integer for ID or
      *                               checking if a resource is booked.
      */
-    public void readFromResourceFile() throws FileNotFoundException, ParseException {
+    public void readResourceFile() throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(resourceFile);
-
         while (fileScanner.hasNextLine()) {
-            Resource input = null;
-            String[] line = fileScanner.nextLine().split(",");
-            String resource_id = line[0];
-            ReservationList reservations = readReservationsFromReserveFile(resource_id);
-            input = new Item(line[0], line[1], line[2], reservations);
-            this.resources.add(input);
+            String[] input = fileScanner.nextLine().split(",");
+            String resourceId = input[0];
+            ReservationList reservations = readReserveFile(resourceId);
+            Resource newResource = new Item(input[0], input[1], input[2], reservations);
+            this.resources.add(newResource);
         }
     }
+    // reservationId, resourceId, userId, fromDate, tillDate
 
     /**
      * Obtains the contents of a ResourceList line by line from a text file in a
@@ -83,19 +74,17 @@ public class Storage {
      * @throws ParseException        when unable to parse an integer for ID or
      *                               checking if a resource is booked.
      */
-    public ReservationList readReservationsFromReserveFile(String resource_id)
-            throws FileNotFoundException, ParseException {
+    public ReservationList readReserveFile(String resourceId) throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(reservationFile);
-        ReservationList tempreservations = new ReservationList();
+        ReservationList resourceReservations = new ReservationList();
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
-            if (line[1].equals(resource_id)) {
+            if (line[1].equals(resourceId)) {
                 Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4]);
-                tempreservations.addNewReservation(newReservation);
+                resourceReservations.addNewReservation(newReservation);
             }
         }
-        ReservationList reservations = new ReservationList(tempreservations.getReservationList(), ui);
-        return reservations;
+        return resourceReservations;
     }
 
     /**
@@ -105,52 +94,30 @@ public class Storage {
      * @throws IOException when file given is directory, or file does not exist and
      *                     cannot be created.
      */
-    public void saveToFiles(ArrayList<Resource> resources) throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
-
-        String line;
-
+    public void saveToFile(ArrayList<Resource> resources) throws IOException {
+        ReservationList totalReservations = new ReservationList();
+        BufferedWriter resourceFileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
+        BufferedWriter reservationFileWriter = new BufferedWriter(new FileWriter(reservationFile, false));
+        String resourceLine;
+        String reservationLine;
         for (int i = 0; i < resources.size(); i++) {
             Resource thisResource = resources.get(i);
-            line = thisResource.toDataString();
-
-            fileWriter.write(line);
-            ui.ErrorPrint("Saved:" + line);
-            fileWriter.newLine();
-
-            if (thisResource.getReservations().size() > 0) {
-                ReservationList thisReservationList = thisResource.getReservations();
-                saveToTempReservationList(thisReservationList);
+            ReservationList thisReservationList = thisResource.getReservations();
+            resourceLine = thisResource.toDataString();
+            resourceFileWriter.write(resourceLine);
+            resourceFileWriter.newLine();
+            for (int j = 0; j < thisReservationList.size(); j++) {
+                reservationLine = thisReservationList.getReservationByIndex(j).toDataString();
+                reservationFileWriter.write(reservationLine);
+                reservationFileWriter.newLine();
+                // hmm
             }
         }
-
-        saveToReservationFile(this.TempReservations);
-        fileWriter.close();
-    }
-
-    public void saveToTempReservationList(ReservationList reservations) {
-        for (int i = 0; i < reservations.size(); i++) {
-            this.TempReservations.addNewReservation(reservations.getReservationByIndex(i));
-        }
-    }
-
-    public void saveToReservationFile(ReservationList reservations) throws IOException {
-        BufferedWriter ReservationfileWriter = new BufferedWriter(new FileWriter(reservationFile, false));
-        String ReservationLine;
-        for (int i = 0; i < reservations.size(); i++) {
-            ReservationLine = reservations.getReservationByIndex(i).toDataString();
-            ReservationfileWriter.write(ReservationLine);
-            ui.ErrorPrint("Saved:" + ReservationLine);
-            ReservationfileWriter.newLine();
-        }
-        ReservationfileWriter.close();
+        resourceFileWriter.close();
+        reservationFileWriter.close();
     }
 
     public ArrayList<Resource> getResources() {
         return resources;
-    }
-
-    public ArrayList<Reservation> getReservations() {
-        return Reservations;
     }
 }
