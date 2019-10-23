@@ -29,10 +29,8 @@ private String tag;
 
     @Override
     public void execute(Wallet wallet) {
-       wallet.getReceipts().findReceiptsByTag(this.tag); //this returns a receipttracker object
-       ReceiptTracker a =  new ReceiptTracker();
+       ReceiptTracker a = wallet.getReceipts().findReceiptsByTag(this.tag);
        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-       a.printReceipts();
        Ui.dukeSays("You spent a total of $"
                 +
                 decimalFormat.format(a.getTotalCashSpent())
@@ -41,5 +39,8 @@ private String tag;
                 + " "
                 + tag
        );
+       Ui.printSeparator();
+       a.printReceipts();
+       Ui.printSeparator();
     }
 }
