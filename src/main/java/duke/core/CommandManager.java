@@ -2,7 +2,21 @@
 
 package duke.core;
 
-import duke.command.*;
+import duke.command.AddPatientCommand;
+import duke.command.AddStandardTaskCommand;
+import duke.command.AssignTaskToPatientCommand;
+import duke.command.Command;
+import duke.command.DeletePatientCommand;
+import duke.command.DeletePatientTaskCommand;
+import duke.command.DeleteTaskCommand;
+import duke.command.DukeCommand;
+import duke.command.ExitCommand;
+import duke.command.FindPatientCommand;
+import duke.command.FindPatientTaskCommand;
+import duke.command.ListPatientsCommand;
+import duke.command.ListTasksCommand;
+import duke.command.UpdatePatientCommand;
+import duke.command.UpdateTaskCommand;
 
 /**
  * Represents a Parser that parses user input into a specific
