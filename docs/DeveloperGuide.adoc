@@ -269,6 +269,50 @@ Taxicab distance is used as opposed to Euclidean in order to avoid computing squ
 
 This function is called by the parser finite state machine whenever a complete switch that does not match any alias is processed, instead of presenting all combinations of possible corrections after the whole input is parsed. This allows mistyped switches to be individually and unambiguously corrected, instead of creating a confusing combinatorical explosion of possible switches if the user makes several mistakes in a complex query, some of which may have more than two close matches for a switch if the user had used their shortened forms.
 
+=== Search all records [KWOK KUIN EK JEREMY]
+image:placeholder.png[]
+
+==== Rationale
+
+Dr. Duke aims to assist House Officers in quick, accurate recording and retrieval of patient data required
+to provide efficient care. Therefore, it makes sense to be able to view past history of a Patient. If the patient was previously admitted,
+there would be numerous benefits in implementing the find feature.
+
+* Reduce the time taken for the user to enter details of the Patient.
+* Understand the past medical history of a Patient better.
+
+
+==== Proposed Implementation
+The search mechanism is facilitated by two main functions, namely `toString` and `find`.
+
+`toString` is a method every component of the data model has. It is overridden when there is more information to be added for a particular
+class. In our case, this facilitates searching for information by representing everything in String form.
+
+`find` method is included in every class that store HashMaps or Observable Maps. It searches all string representation of the elements in the
+HashMap by utilising the `toString` method.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+Step 1: The user launches the application and navigates to a particular patient context for example, `John`. The `TextField` in the
+`CommandWindow` is blank, and the context is `Patient:John`. The user wishes to search `John` for a particular piece of information
+e.g. Fever (a sample valid command syntax is `find Fever`).
+
+Step 2: The find method will be called and all data related to the Patient will be searched for `Fever`, It will display the results in a new
+Context containing all impressions where `John` had `Fever` in a seperate window
+
+Step 3: The user can then select a particular impression and review the information or change the information if desired,
+
+The following activity diagram summarizes what happens when a user types in the `AutoCompleteTextField`.
+
+image::SearchActivityDiagram.png[]
+
+==== Alternatives
+
+* ChainSearching
+** Pros: Java String have a character limit of 2147483647. By chain searching we avoid the problem of overflow
+** Cons: More complex to implement. Unlikely for any impression to exceed this limit.
+
+
 [appendix]
 == Product Scope
 
