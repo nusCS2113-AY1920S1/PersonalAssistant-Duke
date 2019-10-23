@@ -116,13 +116,10 @@ public class Project implements IProject {
     public ArrayList<String> getCredits() {
         ArrayList<String> allCredits = new ArrayList<>();
         /*
+            Empty Method
             bugs need to be fixed for getAllAssignedTasks
-         */
-        //for (Member currentMember : memberList.getMemberList()) {
-            /*
-            Empty method
-             */
-        //}
+            for (Member currentMember : memberList.getMemberList())
+        */
         return allCredits;
     }
 
