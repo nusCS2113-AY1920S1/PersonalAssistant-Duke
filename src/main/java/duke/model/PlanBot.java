@@ -1,42 +1,54 @@
 package duke.model;
 
-import duke.storage.PlanAttributesStorage;
+import duke.exception.DukeException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class PlanBot {
 
+    public enum Agent {
+        USER,
+        BOT
+    }
 
     private List<PlanDialog> dialogList;
     private ObservableList<PlanDialog> dialogObservableList;
     private PlanQuestionBank planQuestionBank;
-    private Map<String,String> planAttributes;
+    private Map<String, String> planAttributes;
+    private Queue<PlanQuestion> questionQueue;
+    private PlanQuestion currentQuestion;
 
-    public PlanBot(Map<String,String> planAttributes) {
+    public PlanBot(Map<String, String> planAttributes) throws DukeException {
         this.dialogList = new ArrayList<>();
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
-        if(!planAttributes.isEmpty()){
+        this.questionQueue = new LinkedList<>();
+        if (!planAttributes.isEmpty()) {
             StringBuilder knownAttributes = new StringBuilder("Here's what I know about you: \n");
-            for(String key : planAttributes.keySet()) {
+            for (String key : planAttributes.keySet()) {
                 knownAttributes.append(key + " : " + planAttributes.get(key) + "\n");
             }
             PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
             dialogObservableList.add(knownDialog);
         }
         planQuestionBank = new PlanQuestionBank();
-        PlanDialog initial = new PlanDialog(planQuestionBank.getCurrentQuestion(), Agent.BOT);
-        dialogObservableList.add(initial);
-    }
+        questionQueue.addAll(planQuestionBank.getInitialQuestions(planAttributes));
+        if (questionQueue.isEmpty()) {
+            currentQuestion = null;
+        } else {
+            PlanQuestion firstQuestion = questionQueue.peek();
+            currentQuestion = firstQuestion;
+            questionQueue.remove();
+            PlanDialog initial = new PlanDialog(firstQuestion.getQuestion(), Agent.BOT);
+            dialogObservableList.add(initial);
+        }
 
-    public enum Agent{
-        USER,
-        BOT
     }
 
 
@@ -46,10 +58,26 @@ public class PlanBot {
 
     public void processInput(String input) {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
-        PlanQuestionBank.Reply reply = planQuestionBank.getReply(input, planAttributes);
-        String replyString = reply.getText();
-        planAttributes = reply.getAttributes();
-        dialogObservableList.add(new PlanDialog(replyString, Agent.BOT));
+        if (currentQuestion == null) {
+            PlanDialog emptyQueueDialog = new PlanDialog("I know everything about you already!", Agent.BOT);
+            dialogObservableList.add(emptyQueueDialog);
+        } else {
+            try {
+                PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
+                dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
+                planAttributes = reply.getAttributes();
+                currentQuestion = null;
+                if (!questionQueue.isEmpty()) {
+                    currentQuestion = questionQueue.peek();
+                    questionQueue.remove();
+                }
+                dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
+            } catch (DukeException e) {
+                dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+            }
+        }
+
+
     }
 
     public class PlanDialog {
