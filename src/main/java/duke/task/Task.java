@@ -120,6 +120,16 @@ public class Task {
         System.out.println(this + " description has been successfully updated");
     }
 
+    public void setDateTime(Optional<LocalDateTime> dateTime) {
+        this.dateTime = dateTime;
+        System.out.println(this + " has a new deadline of " + dateTime.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+    }
+
+    public void setDuration (int duration) {
+        this.duration = duration;
+        System.out.println(this + " has a new duration of " + duration + ((duration == 1) ? "hour" : " hours"));
+    }
+
     public void setPriority(int i) throws DukeException {
         switch(i) {
             case 0:
