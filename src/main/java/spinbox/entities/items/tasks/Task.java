@@ -17,5 +17,9 @@ public abstract class Task extends Item {
         return super.storeString();
     }
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
     public abstract boolean isSchedulable();
 }

@@ -2,12 +2,13 @@ package spinbox.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class TaskBox extends HBox {
+public class TaskBox extends AnchorPane {
     @FXML
     private Label description;
     @FXML
@@ -28,9 +29,10 @@ public class TaskBox extends HBox {
         this.description.setText(description);
         this.module.setText(module);
         this.dates.setText(dates);
+        this.dates.setAlignment(Pos.BASELINE_RIGHT);
     }
 
-    public static TaskBox getTask(String description, String module, String dates) {
+    public static TaskBox getTaskBox(String description, String module, String dates) {
         return new TaskBox(description, module, dates);
     }
 }

@@ -87,7 +87,8 @@ public class SpinBox {
         return shutdown;
     }
 
-    public HashMap<String, Module> getModules() {
-        return modules.getModules();
+
+    public ModuleContainer getModuleContainer() {
+        return modules;
     }
 }

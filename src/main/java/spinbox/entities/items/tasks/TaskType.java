@@ -1,5 +1,7 @@
 package spinbox.entities.items.tasks;
 
+import java.util.EnumSet;
+
 public enum TaskType {
     DEADLINE,
     TODO,
@@ -7,5 +9,11 @@ public enum TaskType {
     TUTORIAL,
     LAB,
     EXAM,
-    LECTURE
+    LECTURE;
+
+    public static EnumSet<TaskType> taskWithBothDates() {
+        return EnumSet.of(EVENT, TUTORIAL, LAB, EXAM, LECTURE);
+    }
+
+
 }
