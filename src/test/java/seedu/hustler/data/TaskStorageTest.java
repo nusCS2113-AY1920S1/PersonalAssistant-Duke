@@ -13,7 +13,7 @@ import seedu.hustler.task.Task;
 /**
  * Test class for storage.
  */
-public class StorageTest {
+public class TaskStorageTest {
 
     @Test
 
@@ -25,9 +25,9 @@ public class StorageTest {
         File history = new File("data/test.txt");
         history.delete();
 
-        Storage storage = new Storage("data/test.txt");
+        TaskStorage taskStorage = new TaskStorage("data/test.txt");
 
-        TaskList list = new TaskList(storage.load());
+        TaskList list = new TaskList(taskStorage.load());
         assertArrayEquals(list.return_list().toArray(),
             (new ArrayList<Task>()).toArray());
         list.add("todo", "Work on CS2113T feature list");
@@ -35,7 +35,7 @@ public class StorageTest {
         list.add("event", "Student life fair /at 1/1/2019 2400");
 
         try {
-            storage.save(list.return_list());
+            taskStorage.save(list.return_list());
         } catch (IOException e) {
             fail("Couldn't be saved.");
         }

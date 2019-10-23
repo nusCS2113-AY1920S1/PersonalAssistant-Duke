@@ -2,6 +2,8 @@ package seedu.hustler.game.shop.items.weapons;
 
 import seedu.hustler.game.shop.items.ShopItem;
 
+import java.util.Optional;
+
 /**
  * Abstract class of weapon that all weapons the avatar yields inherits from.
  */
@@ -22,6 +24,17 @@ public abstract class Weapon extends ShopItem {
         this.DMG_INCR = dmgIncr;
     }
 
+    public static Optional<Weapon> getWeapon(String name) {
+        if (name.contains("Broadsword")) {
+            return Optional.of(new Broadsword());
+        } else if (name.contains("Mace")) {
+            return Optional.of(new Mace());
+        } else if (name.contains("Moonlight")) {
+            return Optional.of(new MoonlightSword());
+        }
+        return Optional.empty();
+    }
+
     /**
      * Gets the damage increment of the weapon.
      * @return the damage of the weapon.
@@ -32,6 +45,6 @@ public abstract class Weapon extends ShopItem {
 
     @Override
     public String toString() {
-        return "+" + this.DMG_INCR + " DMG " + super.toString();
+        return "+" + this.DMG_INCR + " DMG ";
     }
 }

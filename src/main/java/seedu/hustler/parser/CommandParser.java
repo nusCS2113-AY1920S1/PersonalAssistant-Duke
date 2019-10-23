@@ -3,11 +3,13 @@ package seedu.hustler.parser;
 import seedu.hustler.command.Command;
 import seedu.hustler.command.achievementCommand.AchievementCommand;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
+import seedu.hustler.command.avatar.EquipCommand;
 import seedu.hustler.command.avatar.SetNameCommand;
 import seedu.hustler.command.schedulecommands.AddEntry;
 import seedu.hustler.command.schedulecommands.RemoveEntry;
 import seedu.hustler.command.schedulecommands.UpdateEntry;
 import seedu.hustler.command.shop.BuyCommand;
+import seedu.hustler.command.shop.InventoryCommand;
 import seedu.hustler.command.shop.ShopListCommand;
 import seedu.hustler.command.task.*;
 import seedu.hustler.command.timer.*;
@@ -86,7 +88,11 @@ public class CommandParser extends Parser {
             return new ShowTimerCommand();
         } else if (userInput[0].equals("/shop")) {
             return new ShopListCommand();
-        } else if (userInput[0].equals("/buy")) {
+        } else if (userInput[0].equals("/inventory")) {
+            return new InventoryCommand();
+        } else if (userInput[0].equals("/equip")) {
+            return new EquipCommand(Integer.parseInt(userInput[1]));
+        } else if (userInput[0].equals("buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
                 return new BuyCommand(index);

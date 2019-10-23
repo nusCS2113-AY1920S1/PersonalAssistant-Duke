@@ -13,10 +13,10 @@ public class MemoryManager {
 
     public void createBackup() {
         Ui ui = new Ui();
-        Storage storage = new Storage();
+        TaskStorage taskStorage = new TaskStorage();
 
         try {
-            storage.createBackup(Hustler.list.return_list());
+            taskStorage.createBackup(Hustler.list.return_list());
             AvatarStorage.createBackup(Hustler.avatar);
         } catch (IOException e) {
 

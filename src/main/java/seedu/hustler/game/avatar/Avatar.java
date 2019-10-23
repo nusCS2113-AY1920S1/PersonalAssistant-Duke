@@ -1,8 +1,12 @@
 package seedu.hustler.game.avatar;
 
 import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.game.shop.items.ShopItem;
+import seedu.hustler.game.shop.items.armors.Armor;
+import seedu.hustler.game.shop.items.weapons.Weapon;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * A class for the avatar in Hustler.
@@ -25,12 +29,24 @@ public class Avatar implements Convertible {
     private Stats stats;
 
     /**
+     * The equipped weapon of the avatar.
+     */
+    private Optional<? extends ShopItem> weapon;
+
+    /**
+     * The equipped armor of the avatar.
+     */
+    private Optional<? extends ShopItem> armor;
+
+    /**
      * Default initialization of the level and stat.
      */
     public Avatar() {
         this.name = "Avatar";
         this.level = new Level();
         this.stats = new Stats();
+        this.weapon = Optional.empty();
+        this.armor = Optional.empty();
     }
 
     /**
@@ -40,10 +56,12 @@ public class Avatar implements Convertible {
      * @param level object to initialize level with
      * @param stats object to initialize stats with
      */
-    public Avatar(String name, Level level, Stats stats) {
+    public Avatar(String name, Level level, Stats stats, Optional<Weapon> weapon, Optional<Armor> armor) {
         this.name = name;
         this.level = level;
         this.stats = stats;
+        this.weapon = weapon;
+        this.armor = armor;
     }
 
     /**
@@ -79,6 +97,14 @@ public class Avatar implements Convertible {
         return this.level;
     }
 
+    public void equip(ShopItem equipment) {
+        if(equipment.getType().equals("Weapon")) {
+            this.weapon = Optional.of(equipment);
+        } else if (equipment.getType().equals("Armor")) {
+            this.armor = Optional.of(equipment);
+        }
+    }
+
     /**
      * Displays on the screen the congratulatory message to indicate that the User
      * has leveled up.
@@ -92,14 +118,19 @@ public class Avatar implements Convertible {
 
     @Override
     public String toString() {
+        String equipment = (weapon.isEmpty() && armor.isEmpty()) ? "" : ("[Equipped: "
+            + (weapon.map(weapon -> weapon.toString()).orElse(""))
+                + (armor.map(armor -> armor.toString()).orElse("")) + "]");
         return this.name + ", " + this.level.toString() + "\n"
-            + this.stats.toString();
+            + this.stats.toString() + "\n" + equipment;
     }
 
     @Override
     public String toTxt() {
         return "Name " + this.name + "\n"
             + "Level " + this.level.toTxt() + "\n"
-            + "Stats " + this.stats.toTxt();
+            + "Stats " + this.stats.toTxt() + "\n"
+            + "Weapon " + this.weapon.map(weapon -> weapon.toString()) + "\n"
+            + "Armor " + this.armor.map(armor -> armor.toString());
     }
 }
