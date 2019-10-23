@@ -81,8 +81,8 @@ public class Farmer {
 
         }
         if(level >= 1.3) {
-            assets.put("Wheat", wheatFarm.getGreenWheat());
-            assets.put("Grain", wheatFarm.getRipeWheat());
+            assets.put("Wheat", wheatFarm.getRipeWheat());
+            assets.put("Grain", wheatFarm.getGrain());
         }
         if (level >= 1.2) {
             assets.put("Seeds", wheatFarm.getSeeds());
@@ -147,7 +147,7 @@ public class Farmer {
     }
 
     public void nextDay(Farmio farmio) throws FarmioException, FarmioFatalException {
-
+        wheatFarm.growSeedlings();
     }
 
 

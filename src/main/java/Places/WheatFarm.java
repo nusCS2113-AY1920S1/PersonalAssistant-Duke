@@ -4,13 +4,14 @@ import org.json.simple.JSONObject;
 
 public class WheatFarm extends Farm {
     private int seeds;
-    private int greenWheat;
+    private int seedlings;
     private int ripeWheat;
+    private int grain;
     public boolean hasSeeds() {
         return seeds > 0;
     }
     public boolean hasWheat() {
-        return greenWheat > 0;
+        return grain > 0;
     }
     public boolean hasRipened() {
         return ripeWheat > 0;
@@ -18,14 +19,16 @@ public class WheatFarm extends Farm {
 
     public WheatFarm() {
         seeds = 0;
-        greenWheat = 0;
+        seedlings = 0;
         ripeWheat = 0;
+        grain = 0;
     }
 
     public WheatFarm(JSONObject obj){
         this.seeds = (Integer) obj.get("seeds");
-        this.greenWheat = (Integer) obj.get("wheat_green");
+        this.seedlings = (Integer) obj.get("wheat_green");
         this.ripeWheat = (Integer) obj.get("wheat_ripe");
+        this.grain = (Integer) obj.get("grain");
     }
 
     public int getSeeds() {
@@ -33,11 +36,15 @@ public class WheatFarm extends Farm {
     }
 
     public int getGreenWheat() {
-        return greenWheat;
+        return seedlings;
     }
 
     public int getRipeWheat() {
         return ripeWheat;
+    }
+
+    public int getGrain() {
+        return grain;
     }
 
     public void buySeeds() {
@@ -45,12 +52,17 @@ public class WheatFarm extends Farm {
     }
 
     public void plantSeeds() {
-        greenWheat += seeds;
+        seedlings += seeds;
         seeds = 0;
     }
+
+    public void growSeedlings() {
+        ripeWheat += seedlings;
+        seedlings = 0;
+    }
     public void harvestWheat() {
-        ripeWheat += greenWheat;
-        greenWheat = 0;
+        grain += ripeWheat;
+        seedlings = 0;
     }
     @Override
     public int sell() {
@@ -63,7 +75,7 @@ public class WheatFarm extends Farm {
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
         obj.put("seeds", seeds);
-        obj.put("wheat_green", greenWheat);
+        obj.put("wheat_green", seedlings);
         obj.put("wheat_ripe", ripeWheat);
         return obj;
     }
