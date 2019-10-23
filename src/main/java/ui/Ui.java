@@ -51,7 +51,7 @@ public class Ui {
         ArrayList<Task> taskList = tasks.getTasks();
         System.out.println("You have these upcoming tasks:\n");
         for (Task t : taskList) {
-            if (t.checkReminderTrigger()) {
+            if (t.isReminderTrigger()) {
                 System.out.println(t.toString());
             }
         }

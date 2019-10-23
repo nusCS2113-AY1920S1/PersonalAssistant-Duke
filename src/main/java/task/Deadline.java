@@ -37,7 +37,7 @@ public class Deadline extends Task implements Serializable {
     }
 
     @Override
-    public boolean checkForClash(Task taskToCheck) {
+    public boolean isClash(Task taskToCheck) {
         if (taskToCheck.endDate == null) {
             return (this.startDate.isEqual(taskToCheck.startDate));
         } else {

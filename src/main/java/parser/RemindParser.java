@@ -4,6 +4,12 @@ import command.Command;
 import command.RemindCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the remind command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class RemindParser extends IndexParser {
 
     public RemindParser(String userInput, String command) {

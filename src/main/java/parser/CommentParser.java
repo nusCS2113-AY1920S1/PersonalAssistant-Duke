@@ -5,7 +5,12 @@ import command.CommentCommand;
 import exception.DukeException;
 
 
-
+/**
+ * Extract the components required for the comment command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class CommentParser extends IndexParser {
 
     public CommentParser(String userInput, String command) {

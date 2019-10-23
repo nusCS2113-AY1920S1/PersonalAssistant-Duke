@@ -97,7 +97,7 @@ public class TaskList {
      */
     public boolean isClash(Task taskToCheck) {
         for (Task task : listOfTasks) {
-            if (task.checkForClash(taskToCheck)) {
+            if (task.isClash(taskToCheck)) {
                 return true;
             }
         }

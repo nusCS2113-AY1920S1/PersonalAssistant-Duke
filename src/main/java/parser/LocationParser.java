@@ -4,6 +4,12 @@ import command.Command;
 import command.LocationCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the location command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class LocationParser extends IndexParser {
 
     public LocationParser(String userInput, String command) {

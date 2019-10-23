@@ -7,6 +7,12 @@ import exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
+/**
+ * Extract the components required for the postpone command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class PostponeParser extends IndexParser {
 
     private LocalDateTime newFromDate = null;

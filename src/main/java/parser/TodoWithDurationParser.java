@@ -4,6 +4,12 @@ import command.AddCommand;
 import command.Command;
 import exception.DukeException;
 
+/**
+ * Extract the components required to add a TodoWithDuration task.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class TodoWithDurationParser extends TodoParser {
 
     public TodoWithDurationParser(String userInput, String command) {

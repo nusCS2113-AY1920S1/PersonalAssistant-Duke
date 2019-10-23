@@ -18,6 +18,8 @@ import java.util.Collections;
  * @version 1.3
  */
 public class SearchCommand extends Command {
+
+    private static final String NO_CLASH = "You have no events that will clash with a slot of this duration";
     private long durationToFind;
 
     public SearchCommand(Long duration) {
@@ -48,7 +50,7 @@ public class SearchCommand extends Command {
         Collections.sort(dateList);
 
         if (dateList.size() == 0) {
-            Ui.printOutput("You have no events that will clash with a slot of this duration");
+            Ui.printOutput(NO_CLASH);
             found = true;
         } else if (dateList.size() == 1) {
             Ui.printOutput("You can schedule something after " + dateList.get(0).toString());

@@ -30,6 +30,12 @@ public abstract class Task implements Serializable {
     public Location locationOfTask;
     public Period eventPeriod;
 
+    private static final String TICK = "\u2713"; //Tick symbol
+    private static final  String CROSS = "\u2718"; // Cross symbol
+    private static final String PRIORITY_LOW = "[\u2605]";// Low priority symbol
+    private static final String PRIORITY_MED = "[\u2605\u2605]";//Med priority symbol
+    private static final String PRIORITY_HIGH = "[\u2605\u2605\u2605]"; //High priority symbol
+    private static final String PRIORITY_NONE = "[\u26A0]"; //No priority symbol
 
     /**
      * Constructor for task.
@@ -50,12 +56,12 @@ public abstract class Task implements Serializable {
      *
      * @return if triggered
      */
-    public boolean checkReminderTrigger() {
+    public boolean isReminderTrigger() {
         if (isIgnored) {
             return false;
         }
         if (reminder != null) {
-            return reminder.checkReminderTrigger();
+            return reminder.isReminderTrigger();
         }
         return false;
     }
@@ -67,14 +73,14 @@ public abstract class Task implements Serializable {
      */
     public String getPriorityIcon() {
         if (!isPrioritizable) {
-            return "[\u26A0]"; // Return warning sign symbol
+            return PRIORITY_NONE; // Return warning sign symbol
         }
         if (priority == Priority.HIGH) {
-            return "[\u2605\u2605\u2605]"; // Return triple star symbols
+            return PRIORITY_HIGH; // Return triple star symbols
         } else if (priority == Priority.MEDIUM) {
-            return "[\u2605\u2605]";// Return double star symbol
+            return PRIORITY_MED;// Return double star symbol
         } else {
-            return "[\u2605]";// Return single star symbol
+            return PRIORITY_LOW;// Return single star symbol
         }
     }
 
@@ -85,7 +91,7 @@ public abstract class Task implements Serializable {
      * @return This function returns either a tick or a cross.
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); // Return tick or cross symbol
+        return (isDone ? TICK : CROSS); // Return tick or cross symbol
     }
 
     public String getDescription() {
@@ -126,12 +132,12 @@ public abstract class Task implements Serializable {
      * converts the task to a string.
      */
     public String toString() {
-        String message = "[" + getPriorityIcon() + "]" + "[" + getStatusIcon() + "] " + description;
+        String message = getPriorityIcon() + "[" + getStatusIcon() + "] " + description;
         if (!comment.isBlank()) {
             message = message + "  Note to self: " + comment;
         }
         return message;
     }
 
-    abstract boolean checkForClash(Task taskToCheck);
+    abstract boolean isClash(Task taskToCheck);
 }

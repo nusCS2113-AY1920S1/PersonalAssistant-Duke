@@ -13,6 +13,8 @@ import ui.Ui;
  */
 public class ExitCommand extends Command {
 
+    private static final String GOODBYE = "Goodbye";
+
     public ExitCommand() {
     }
 
@@ -22,7 +24,7 @@ public class ExitCommand extends Command {
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         super.commandOut();
         Ui.printGoodbye();
-        Ui.printOutput("goodbye");
+        Ui.printOutput(GOODBYE);
     }
 
 }

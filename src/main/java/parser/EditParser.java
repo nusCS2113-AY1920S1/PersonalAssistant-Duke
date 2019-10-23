@@ -4,6 +4,12 @@ import command.Command;
 import command.EditCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the edit command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class EditParser extends IndexParser {
 
     public EditParser(String userInput, String command) {

@@ -7,6 +7,12 @@ import exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
+/**
+ * Extract the components to add a deadline .
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class DeadlineParser extends DescriptionParser {
 
     public DeadlineParser(String userInput, String command) {

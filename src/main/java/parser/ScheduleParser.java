@@ -4,9 +4,15 @@ import command.Command;
 import command.TaskScheduleCommand;
 import exception.DukeException;
 
+/**
+ * Extract the components required for the schedule command from the user input.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.0
+ */
 public class ScheduleParser extends IndexParser {
 
-    int indexOfDeadline;
+    private int indexOfDeadline;
 
     public ScheduleParser(String userInput, String command) {
         super(userInput, command);

@@ -37,7 +37,7 @@ public class Todo extends Task implements Serializable {
     }
 
     @Override
-    boolean checkForClash(Task taskToCheck) {
+    boolean isClash(Task taskToCheck) {
         return false;
     }
 }
