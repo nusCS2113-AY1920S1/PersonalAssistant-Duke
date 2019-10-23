@@ -8,6 +8,7 @@ import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.command.orderCommand.*;
 import duke.ingredient.Ingredient;
+import duke.order.Order;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
@@ -16,11 +17,7 @@ import duke.task.Todo;
 import java.util.Date;
 
 /**
-<<<<<<< HEAD
- * Represents a parser used to parse the input String from the user into a Duke understandable {@link Cmd}.
-=======
  * Represents a parser used to parse the input String from the user into a Duke understandable Command.
->>>>>>> 7a8257b6995584c461da76d397bd91d8497d6357
  * It should deals with making sense of the user command.
  */
 public class Parser {
@@ -112,7 +109,7 @@ public class Parser {
                 return new InitCommand();
             // OrderCommand
             case "orderAdd":
-                return new AddOrder();
+                return new AddOrderCommand(new Order(), splitted[1]);
             case "orderList":
                 // splitted[1] can be orderList all, orderList undone,
                 //                    orderList today, orderList undoneToday,
@@ -131,7 +128,7 @@ public class Parser {
                 checkLength(splitted);
                 String[] getDate = splitAndCheck(splitted[1], " /to ");
                 // getDate[0] is the order index, getDate[1] is the newly set date
-                return new AlterServingDateCmd(Integer.parseInt(getDate[0]), getDate[1]);
+                return new AlterDateCommand(Integer.parseInt(getDate[0]), getDate[1]);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
