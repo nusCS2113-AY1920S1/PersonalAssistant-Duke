@@ -46,11 +46,11 @@ public class DateTimeHelper {
         long diff = currentDate.getTime() - taskDate.getTime();
         long totalDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         if (totalDays == 0) {
-            return " Due: Today";
+            return " (Due: Today)";
         } else if (totalDays < 0) {
-            return " Remaining: " + Math.abs(totalDays) + " Days";
+            return " (Remaining: " + Math.abs(totalDays) + " Days)";
         } else {
-            return " Overdue: " + totalDays + " Days";
+            return " (Overdue: " + totalDays + " Days)";
         }
     }
 }
