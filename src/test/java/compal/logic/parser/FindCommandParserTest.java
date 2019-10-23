@@ -19,14 +19,14 @@ public class FindCommandParserTest {
 
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         TaskStorageManager taskStorageManager = new TaskStorageManager();
         ArrayList<Task> taskArrList = new ArrayList<>(taskStorageManager.loadData());
         taskList.setArrList(taskArrList);
     }
 
     @Test
-    void parse_correct() throws CommandException {
+    public void parse_correct() throws CommandException {
         assertParseSuccess(parser,"", new FindCommand("").commandExecute(taskList),taskList);
     }
 

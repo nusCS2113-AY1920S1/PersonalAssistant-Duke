@@ -17,7 +17,7 @@ class DoneParserTest {
 
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         TaskStorageManager taskStorageManager = new TaskStorageManager();
         //ArrayList<Task> taskArrList = new ArrayList<>(taskStorageManager.loadData());
         //taskList.setArrList(taskArrList);
@@ -25,12 +25,12 @@ class DoneParserTest {
     }
 
     @Test
-    void parse_invalidToken_failure() {
+    public void parse_invalidToken_failure() {
         assertParseFailure(parser, "-1", MESSAGE_MISSING_TOKEN);
     }
 
     @Test
-    void parse_validToken_EmptyInput_failure() {
+    public void parse_validToken_EmptyInput_failure() {
         assertParseFailure(parser, "/id", MESSAGE_MISSING_INPUT);
     }
 
