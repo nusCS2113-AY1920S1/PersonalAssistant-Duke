@@ -1,3 +1,4 @@
+import controlpanel.DukeException;
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
@@ -22,7 +23,7 @@ import java.util.*;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane implements DataTransfer {
+public class MainWindow extends AnchorPane {
 
     @FXML
     private ScrollPane scrollPane;
@@ -78,37 +79,19 @@ public class MainWindow extends AnchorPane implements DataTransfer {
      */
     //@@author {cctt1014}
     @FXML
-    private void handleUserInput() throws IOException, ParseException {
+    private void handleUserInput() throws IOException, ParseException, DukeException {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
-        switch (input) {
-            case "change icon":
-                userIcon.changeIcon();
-                userImage = userIcon.getIcon();
-                break;
-            case "graph monthly report":
-                graphContainer.getChildren().addAll(
-                        DataTransfer.getMonthlyData(duke.getAccount())
-                );
-                break;
-            case "graph expenditure trend":
-                graphContainer.getChildren().addAll(
-                        DataTransfer.getExpenditureTrend(duke.getAccount())
-                );
-                break;
-            case "graph income trend":
-                graphContainer.getChildren().addAll(
-                        DataTransfer.getIncomeTrend(duke.getAccount())
-                );
-                break;
-            default:
-                if (input.startsWith("graph finance status /until ")) {
-                    String dateString = input.split(" /until ")[1];
-                    graphContainer.getChildren().addAll(
-                            DataTransfer.getCurrFinance(duke.getAccount(), Parser.shortcutTime(dateString))
-                    );
-                }
-                break;
+        if (input.equals("change icon")) {
+            userIcon.changeIcon();
+            userImage = userIcon.getIcon();
+        }
+
+        if (input.startsWith("graph")) {
+            GraphSelector graphSelector = new GraphSelector();
+            graphContainer.getChildren().addAll(
+                graphSelector.getTheGraph(input, duke.getAccount())
+            );
         }
 
         String[] response = duke.getResponse(input);

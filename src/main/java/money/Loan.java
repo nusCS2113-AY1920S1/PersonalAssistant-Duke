@@ -21,6 +21,7 @@ public class Loan extends Item {
     Type type;
 
     private DateTimeFormatter dateTimeFormatter;
+    private static final int SETTLE_ALL_FLAG = -2;
 
     /**
      * Constructor of the Loan Object to record outgoing and incoming loans.
@@ -101,7 +102,7 @@ public class Loan extends Item {
      * @throws ParseException If invalid date is parsed
      */
     public void settleLoanDebt(float amount) throws ParseException {
-        if (amount == -2) {
+        if (amount == SETTLE_ALL_FLAG) {
             outstandingLoan = 0;
             isSettled = true;
             setEndDate();
@@ -167,7 +168,4 @@ public class Loan extends Item {
         return type;
     }
 
-    public String getTypeString() {
-        return type.toString();
-    }
 }

@@ -12,6 +12,7 @@ check income 10 2019
 delete expenditure 1
 delete goal 2
 delete instalments 1
+delete loan 2
 delete bank-tracker 1
 deposit 200 OCBC /at 3/3/2018
 done goal 2
@@ -23,8 +24,9 @@ goal buy Boat /amt 100000 /by 11/12/2050 /priority MEDIUM
 goal buy chair /amt 200 /by 1/12/2019 /priority LOW
 graph curr finance /until 12/2/2019
 graph expenditure trend
+graph expenditure trend histogram
 graph income trend
-graph monthly report
+graph monthly report line_graph
 init 30000 200 (only works if is a new user)
 withdraw 232 OCBC /at 3/3/2050
 withdraw 10 DBS /at 5/5/2020
