@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92db3526-2a7c-4082-b93d-c4a4c7dbaed7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java/duke/command/AddIngredientCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java/duke/ingredients/Ingredients.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/java/duke/ingredients/IngredientsList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/command/FindCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/FindIngredientCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/parser/Parser.java" afterDir="false" />
-    </list>
+    <list default="true" id="92db3526-2a7c-4082-b93d-c4a4c7dbaed7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +76,7 @@
       <updated>1571229201024</updated>
       <workItem from="1571229204031" duration="2089000" />
       <workItem from="1571231702318" duration="1771000" />
-      <workItem from="1571297880311" duration="10987000" />
+      <workItem from="1571297880311" duration="11308000" />
     </task>
     <servers />
   </component>
