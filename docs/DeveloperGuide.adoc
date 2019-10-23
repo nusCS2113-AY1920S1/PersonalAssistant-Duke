@@ -99,6 +99,15 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `help` Command
 image::DeleteSequenceDiagram.png[]
 
+==== Parser Component
+
+When the user inputs a command, the command will be parsed through by the parser class, checking for the validity of the command by comparing it with the enum of commands.
+
+. If valid, the command will be split by the spaces in between them and stored into an arraylist. (e.g. `select 3` will be split into {select, 3})
+    - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
+. If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
+
+image::ParserandCommandClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -192,42 +201,57 @@ _{Explain here how the loading of custom questions is to be implemented}_
 // tag::improvisedparser[]
 === [Proposed] Improvising on current parser
 
-3.3.1 The Current Parser
-
-Currently, the parser simply parses through the input entered by the user and splits it into an array of strings by removing the spaces in between.
-For example, should the user enter `select 3` the parser will then return an input arraylist of {select, 3}.
-By reading input.get(0),the parser then decides which command to call for.
-In the event where the command is not recognised by the parser, an invalid command will be called for in which it returns `???!` to the user.
-
-3.3.2 The Proposed Implementation
+==== The Proposed Implementation
 
 While the current parser serves its purpose, we seek to implement a `Did you mean...` feature, where rather than just returning `???!` to the user,
 it also returns the command that is most similar to what the user has inputted.
-For example, unnecessary spaces in between such as `me n u` or with an accidental typo such as `seect`, then the parser will be able to find the closest word to it
-and returns `???! Did you mean menu?`
 
-3.3.2.1 Design Considerations
-Aspect: How the improvised parser works
+For example, unnecessary spaces in between such as `me n u` or with an accidental typo such as `seect` will be taken into consideration and the word that is most similar to it will be derived and return `Did you mean.. menu?` and `Did you mean.. select?`
 
-- It is to be implemented under the invalid command,
+==== Design Considerations
 
+===== Aspect: How the improvised parser works
+
+- It will be implemented under the invalid command, where the input string will be compared with the enum of commands, and returning the string that has the most number of similar characters to whatever the user has inputted.
+
+    Pros:
+    - It is easy to implement
+    - Will be more user friendly
+    - Saves time and allows user to have a better overall experience
+
+===== Aspect: Data structure to support the improvisation of parser
+
+- Function to compare the number of similar characters between two strings will be needed
+- Function to pick out the command that is most similar to the command entered by the user will be needed
 
 // end::improvisedparser[]
 
 
-// tag::livebot[]
-=== [Proposed] Live Bot Feature
+// tag::reset[]
+=== [Proposed] Reset Command
 
 ==== Proposed Implementation
 
-The live bot feature will likely be extended in version 2.0.
-The general idea of having a live bot is to help facilitate the learning of algorithms and data structures.
-Indeed, the report and result features are sufficient to let the user know where they have gone wrong,
-but weaker users may require further help.
+The reset command is to be implemented to remove all the existing data the system has about the user.
+That means that the storage is cleared, and there will be no history on the past quizzes attempted and the scores.
 
 ==== Design Considerations
 
-// end::livebot[]
+===== Aspect: How reset command works
+
+- User just has to enter `reset`
+- System will then notify the user that such an action cannot be undone and will seek the user's confirmation
+`Are you sure you want to reset? Data removed will not be retrievable. Y/N`
+
+===== Aspect: Data structure to support the reset command
+
+- A reset command extending the existing command class will be needed
+
+- Under the execute() block, the storage will then be called for it to be cleared.
+
+    Pros: Efficient memory allocation as user can decide when to reset
+
+// end::reset[]
 
 [[Implementation-Configuration]]
 === Configuration
