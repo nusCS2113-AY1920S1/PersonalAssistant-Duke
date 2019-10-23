@@ -1,3 +1,7 @@
-1,I,item 1
-2,I,item 2
-3,R,room 5
+0,I,pen
+1,R,seminar room 1
+2,I,frisbee
+3,R,mpsh
+4,I,frisbee
+5,R,seminar room 2
+6,I,pen
