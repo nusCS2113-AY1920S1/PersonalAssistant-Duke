@@ -10,16 +10,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
-import gui.*;
+import gui.DialogBox;
 import javafx.scene.control.Label;
 //import javafx.stage.Stage;
 
-public class main extends Application {
+public class Main extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+
     /**
      * The main method of the AlphaNUS program, which instantiates a AlphaNUS instance with the filepath to the storage.
      * @param args Unused.
@@ -75,7 +76,7 @@ public class main extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         // more code to be added here later

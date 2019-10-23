@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @author Leow Yong Heng
  */
 
-public class AlphaNUS{
+public class AlphaNUS {
     private static Ui ui;
     private static TaskList tasklist;
     private static Storage storage;
