@@ -104,7 +104,9 @@ The Ui class consists of methods that outputs messages to the user as a response
 
 API: `Command.java`
 
-The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes 
+In the project, it has three types of commands: Ingredient Command, Dishes Command, Order Command. The three types of commands are packaged separately.
+
+The Command class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method. that is used by the following classes 
 
 - DoneCommand
 - ExitCommand
@@ -217,9 +219,94 @@ The RecipeCommand class is used as an abstract class for other classes, its meth
 
 ![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand%20diagram.png)
 
+
+
+#### 2.10 Order Component
+
+The Order component contains 2 classes, Order Class and Order Class. The Order Class 
+
+// Todo: Add Order class diagram here
+
+**<u>Order Class</u>**
+
+| Attributes                    | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| content: Map<Dishes, Integer> | the content of the order, specifying ordered dishes and amount |
+| isDone: boolean               | the status of the order: *true* if done, *false* otherwise   |
+| date: Date                    | the serving date of the order (not the date when the order was created) |
+
+
+
+| Constructor   | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| Order()       | By default, the order is not done; the serving date is today. |
+| Order(String) | Assigns the serving date of the order with String. Call if it is a pre-order. |
+
+
+
+| Methods                                | Description                                                  |
+| -------------------------------------- | ------------------------------------------------------------ |
+| getDate(): Date                        | returns the serving  `date` of the order                     |
+| setDate(String): void                  | takes in a `String` and alter the serving `date`  of the order |
+| isToday(): boolean                     | returns a `boolean` indicating whether the serving date is today or not |
+| isDone(): boolean                      | returns a `boolean` indicating whether the order is finished or not |
+| markAsDone(): void                     | mark the order as finished                                   |
+| getStatusIcon(): String                | takes in an `int` and sets the new overall rating of the dish |
+| getOrderConten(): Map<Dishes, Integer> | returns the order content as `Map`                           |
+| toString(): String                     | returns description of the order as `String`                 |
+| printInFile(): String                  | returns description of the order that used to store in the txt file |
+| hasDishes(Dishes): boolean             | returns a `boolean` indicating whether the order has the dishes or not |
+| getDishesAmount(Dishes): int           | returns the amount of the query dishes in the order          |
+| addDish(Dishes): void                  | add one more the dishes to the undone order                  |
+| addDish(Dishes, int): void             | add the dishes to the undone order with adding amount        |
+
+**<u>OrderList Class</u>**
+
+| Atrributes             | Description |
+| ---------------------- | ----------- |
+| orderList: List<Order> |             |
+
+
+
+| Constructor            | Description                                        |
+| ---------------------- | -------------------------------------------------- |
+| OrderList()            | initalize the empty orderLIst as a new ArrayList<> |
+| OrderList(List<Order>) | Assign a list of orders to the orderList           |
+
+
+
+| Methods                              | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
+| addOrder(Order): void                | add the order to the order list                              |
+| removeOrder(int): Order              | remove the order in the orderList, return the removed order  |
+| size(): int                          | returns the number of orders in the orderList                |
+| markOrderDone(int): void             | mark a order as completed                                    |
+| getOrder(int): Order                 | return the order at the position indexed by number           |
+| getAllOrders(): List<Order>          | return all orders in the orderList                           |
+| getAllUndoneOrders(): List<Order>    | return all undone orders in the orderList                    |
+| getTodayOrders(): List<Order>        | return all today's orders in the orderList                   |
+| getTodayUndoneOrders(): List<Order>  | return all today's orders which is undone in the orderList   |
+| changeOrderDate(int, String): void   | alter the serving date of the order in the orderList         |
+| getDishesTodayAmount(Dishes): int    | return required amount of the dishes that needed to be done before the end of today |
+| addOrderDish(int, Dishes): void      | add dishes to the order in the orderList                     |
+| addOrderDish(int, Dishes, int): void | add dishes with amount to the order in the orderList         |
+| findDishesAmont(int, Dishes): int    | find dishes amount in the order among the orderList          |
+| clearList(): void                    | clear the whole order list                                   |
+
+#### 
+
+#### 2.11 Order Command Component
+
+The Order Command classes inherits from the `Command` class. They overwrite the abstract method `execute` of the `Command` class. The Order Command classes includes:
+
+- AddOrderCommand
+- AlterServingDateCommand
+- CancelOrderCommand
+- DoneOrderCommand
+- FindOrderByDateCommand
+- ListOrderCommand
+
 ### 3. Implementation
-
-
 
 ### 4. Documentation
 
