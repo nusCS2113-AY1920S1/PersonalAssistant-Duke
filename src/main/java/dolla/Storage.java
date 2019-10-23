@@ -1,7 +1,6 @@
 package dolla;
 
 
-
 import dolla.parser.MainParser;
 import dolla.task.Debt;
 import dolla.task.Entry;
@@ -21,7 +20,7 @@ import java.util.Arrays;
 
 /**
  * duke.Storage handles the saving and loading of data from ./data/duke.txt,
- * as well as creating a new save file if it does not exist
+ * as well as creating a new save file if it does not exist.
  */
 public class Storage {
 
@@ -54,10 +53,8 @@ public class Storage {
      * <p>
      *     If an error occurs while reading from ./data/duke.txt, exit duke.
      * </p>
-     * @return duke.task.TaskList containing data (if any) from ./data/duke.txt.
      */
     public static void load() {
-//        ArrayList<Task> list = new ArrayList<Task>();
 
         Ui.showWelcome();
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
@@ -76,67 +73,84 @@ public class Storage {
                 int numOfElements = inArray.length;
                 String type = inArray[0];
                 Log newLog = null;
-//                System.out.println(inArray[0] + " ===----"+inArray[1]);
-                switch(type) {
+                //System.out.println(inArray[0] + " ===----"+inArray[1]);
+                switch (type) {
                 case "I": //check if there is a tag
-                    if(numOfElements == 4) {
-                        newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                    if (numOfElements == 4) {
+                        newLog = new Entry("income", stringToDouble(inArray[1]), inArray[2],
+                                Time.readDate(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
-//                    else if (numOfElements == 5) {
-//                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
+                    /*
+                    else if (numOfElements == 5) {
+                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
+                        //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                     */
                     break;
                 case "E": //check if there is a tag
-                    if(numOfElements == 4) {
-                        newLog = new Entry("expense",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
+                    if (numOfElements == 4) {
+                        newLog = new Entry("expense", stringToDouble(inArray[1]), inArray[2],
+                                Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
-//                    else if (numOfElements == 5) {
-//                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
-//                    break;
-//                case "RI"://no start date, check if there is a tag
-//                    if(numOfElements == 4) {
-//                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
-//                    } else if(numOfElements == 5) {
-//                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
-//                    break;
-//                case "RE"://no start date, check if there is a tag
-//                    if(numOfElements == 4) {
-//                        newLog = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
-//                    } else if (numOfElements == 5) {
-//                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
-//                    }
-//                    break;
-                case "BU"://must include 3 additional word, every,for and tag
-//                    if(inArray[3].equals("every")) {
-                        newLog = new Limit(Limit.LimitType.BUDGET,stringToDouble(inArray[1]),Limit.Duration.valueOf(inArray[2]));
-//                    }
-//                    else if (inArray[3].equals("for")) {
-//                        newLog = new budgetFor(inArray[1],Time.readDate(inArray[2]));
-//                    } else if (inArray[3].equals("tag")) {
-//                        newLog = new budgetTag(inArray[1],inArray[2]);
-//                    }
+                    break;
+                    /*
+                    else if (numOfElements == 5) {
+                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
+                        //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                    break;
+                case "RI"://no start date, check if there is a tag
+                    if(numOfElements == 4) {
+                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]));
+                        //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
+                    } else if(numOfElements == 5) {
+                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
+                        //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                    break;
+                case "RE"://no start date, check if there is a tag
+                    if(numOfElements == 4) {
+                        newLog = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3]));
+                        //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
+                    } else if (numOfElements == 5) {
+                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]);
+                        //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+                    }
+                    break;
+                    */
+                case "BU": //must include 3 additional word, every,for and tag
+                    //if (inArray[3].equals("every")) {
+                    newLog = new Limit("budget",stringToDouble(inArray[1]), inArray[2]);
+                    /*
+                    }
+                    else if (inArray[3].equals("for")) {
+                        newLog = new budgetFor(inArray[1],Time.readDate(inArray[2]));
+                    } else if (inArray[3].equals("tag")) {
+                        newLog = new budgetTag(inArray[1],inArray[2]);
+                    }
+                     */
                     break;
                 case "S":
-                    newLog = new Limit(Limit.LimitType.SAVING,stringToDouble(inArray[1]), Limit.Duration.valueOf(inArray[2]));
+                    newLog = new Limit("saving", stringToDouble(inArray[1]), inArray[2]);
                     break;
                 case "O":
-                    newLog = new Debt("owe",inArray[1],stringToDouble(inArray[2]),inArray[3]);
+                    newLog = new Debt("owe", inArray[1], stringToDouble(inArray[2]), inArray[3],
+                            Time.readDate(inArray[4]));
                     break;
                 case"B":
-                    newLog = new Debt("borrow",inArray[1],stringToDouble(inArray[2]),inArray[3]);
+                    newLog = new Debt("borrow", inArray[1], stringToDouble(inArray[2]), inArray[3],
+                            Time.readDate(inArray[4]));
                     break;
-//                case"shortcut"://special case for shortcut,only one string
-//                    newLog = new shortcut(inArray[1]);
-//                    break;
+                //case"shortcut": //special case for shortcut,only one string
+                    //newLog = new shortcut(inArray[1]);
+                    //break;
                 default:
                     System.out.println("save file corrupted");
                 }
 
-                if(type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
+                if (type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
                     entries.add(newLog);
-                } else if(type.equals("BU") || type.equals("S")) {
+                } else if (type.equals("BU") || type.equals("S")) {
                     limits.add(newLog);
                 } else if (type.equals("O") || type.equals("B")) {
                     debts.add(newLog);
@@ -155,7 +169,7 @@ public class Storage {
         }
 
         Ui.printMsg(msg);
-//        return list;
+        //return list;
     }
 
     public static ArrayList<Log> getEntriesFromSave() {
@@ -194,17 +208,10 @@ public class Storage {
         save();
     }
 
-    //    /**
-//     * This method takes and writes the information of the tasks
-//     *  within the specified ArrayList and into a file ./data/duke.txt.
-//     *  <p>
-//     *      If an error occurs while writing to the file, the method stops running.
-//     *  </p>
-//     * @param entriesSave An Arraylist containing the entries to be saved.
-//     * @param limitsSave An Arraylist containing the limits to be saved.
-//     * @param debtsSave An Arraylist containing the debts to be saved.
-//     * @param shortcutsSave An Arraylist containing the shortcuts to be saved.
-//     */
+
+    /**
+     * //TODO: do javadoc.
+     */
     public static void save() {
         try (FileWriter file = new FileWriter("./data/duke.txt")) {
 
@@ -235,21 +242,20 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("***Error writing to duke.txt***");
         }
-
     }
 
-//    public static void save(Log saveList) {
-//        try (FileWriter file = new FileWriter("./data/duke.txt",true)) {
-//                String fileContent = saveList.formatSave();
-//                System.out.println(fileContent); ///////////////////////
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//
-//        } catch (IOException e) {
-//            System.out.println("***Error writing to duke.txt***");
-//        }
-//
-//    }
+    /*
+    public static void save(Log saveList) {
+        try (FileWriter file = new FileWriter("./data/duke.txt",true)) {
+            String fileContent = saveList.formatSave();
+            System.out.println(fileContent); ///////////////////////
+            file.write(fileContent);
+            file.write(System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println("***Error writing to duke.txt***");
+        }
+    }
+    */
 
     /**
      * Create save file called data in root folder.

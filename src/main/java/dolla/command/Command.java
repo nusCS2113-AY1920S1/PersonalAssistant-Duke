@@ -8,6 +8,7 @@ import dolla.Ui;
  */
 public abstract class Command {
     protected int index;
+
     /**
      * This method is called execute the titular command after every user input.
      * @throws Exception handle exception

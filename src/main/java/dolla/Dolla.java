@@ -23,9 +23,10 @@ import static dolla.Storage.load;
  */
 public class Dolla {
 
-    private TaskList tasks = new TaskList(new ArrayList<Task>());
+    //private TaskList tasks = new TaskList(new ArrayList<Task>());
     private DollaData dollaData = new DollaData();
-//    Storage storage = new Storage();
+    //Storage storage = new Storage();
+
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */
@@ -43,6 +44,8 @@ public class Dolla {
         //reminderObject.execute(tasks);
         boolean isExit = false;
         System.out.println("hi");
+        Reminder reminder = new Reminder("debt");
+        reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
         while (isExit == false) {
             if (input.hasNextLine()) {

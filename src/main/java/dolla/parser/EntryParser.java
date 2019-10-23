@@ -1,7 +1,15 @@
 package dolla.parser;
 
-import dolla.action.repeat;
-import dolla.command.*;
+import dolla.action.Repeat;
+import dolla.command.Command;
+import dolla.command.AddEntryCommand;
+import dolla.command.AddActionCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.InitialModifyCommand;
+import dolla.command.SortCommand;
+import dolla.command.SearchCommand;
+import dolla.command.RemoveCommand;
 
 public class EntryParser extends Parser {
     private static int prevPosition;
@@ -22,7 +30,7 @@ public class EntryParser extends Parser {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
-                repeat.setUserInput("entry", inputLine);
+                Repeat.setUserInput("entry", inputLine);
                 if(undoFlag == 1) {//undo input
                     return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
                 } else if(redoFlag == 1) {
@@ -42,14 +50,15 @@ public class EntryParser extends Parser {
         } else if (commandToRun.equals("sort")) {
             return new SortCommand(mode, inputArray[1]);
         } else if (commandToRun.equals("search")) {
-            String content = inputArray[1];
-            return new SearchCommand(mode, content);
+            String component = inputArray[1];
+            String content = inputArray[2];
+            return new SearchCommand(mode, component, content);
         } else if (commandToRun.equals("remove")) { //TODO: indexoutofbound exception
             return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("repeat")) {
+        } else if (commandToRun.equals("redo") || commandToRun.equals("undo") || commandToRun.equals("Repeat")) {
             return new AddActionCommand(mode, commandToRun);
         } else {
-                return invalidCommand();
+            return invalidCommand();
         }
     }
 

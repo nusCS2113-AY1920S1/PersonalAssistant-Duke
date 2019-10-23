@@ -1,10 +1,13 @@
 package dolla.parser;
 
+import dolla.Time;
 import dolla.Ui;
 import dolla.command.AddDebtsCommand;
 import dolla.command.AddEntryCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
+
+import java.time.LocalDate;
 
 public class DollaParser extends Parser {
 
@@ -53,12 +56,15 @@ public class DollaParser extends Parser {
             String type = commandToRun;
             String name = null;
             double amount = 0.0;
+            LocalDate date = null;
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
 
                 String[] desc = inputLine.split(inputArray[2] + " ");
-                description = desc[1];
+                String[] dateString = desc[1].split(" /due ");
+                description = dateString[0];
+                date = Time.readDate(dateString[1]);
 
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
@@ -66,7 +72,7 @@ public class DollaParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            return new AddDebtsCommand(type, name, amount, description, -1);
+            return new AddDebtsCommand(type, name, amount, description, date, -1);
         } else {
             return invalidCommand();
         }

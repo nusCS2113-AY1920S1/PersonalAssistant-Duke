@@ -2,14 +2,9 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.action.redo;
-import dolla.action.undo;
-import dolla.parser.Parser;
-import dolla.task.Log;
+import dolla.action.Redo;
+import dolla.action.Undo;
 import dolla.task.LogList;
-import dolla.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * RemoveCommand is a Command used to remove a Task from the TaskList.
@@ -37,7 +32,7 @@ public class RemoveCommand extends Command {
      *     If taskNumInt does not correspond to any task in the specified TaskList, an
      *     alert is printed to the user, and the method will return.
      * </p>
-     * @param dollaData
+     * @param dollaData dollaData
      */
     //@Override
     public void execute(DollaData dollaData) {
@@ -52,15 +47,15 @@ public class RemoveCommand extends Command {
         if(logNumStr.contains("/")) { //input from undo
             String[] parser = logNumStr.split("/", 2);
             logNumInt = stringToInt(parser[0]) - 1;
-            redo.addCommand(mode, logList.get().get(logNumInt).getUserInput()); //add undo input to redo
+            Redo.addCommand(mode, logList.get().get(logNumInt).getUserInput()); //add undo input to redo
         } else if(logNumStr.contains("|")) { //input form redo
-            String[] parser = logNumStr.split("|", 2);
+            String[] parser = logNumStr.split("//|", 2);
             logNumInt = stringToInt(parser[0]) - 1;
-            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
+            Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt); //add the user input to undo
         } else { //normal user input
             logNumInt  = stringToInt(logNumStr) - 1;
-            undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
-            redo.clearRedo(mode);
+            Undo.addCommand(mode, logList.get().get(logNumInt).getUserInput(), logNumInt);
+            Redo.clearRedo(mode);
         }
 
         Ui.echoRemove(logList.get().get(logNumInt).getLogText());

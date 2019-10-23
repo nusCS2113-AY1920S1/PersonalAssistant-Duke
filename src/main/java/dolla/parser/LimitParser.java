@@ -1,9 +1,11 @@
 package dolla.parser;
 
-import dolla.command.AddLimitCommand;
 import dolla.command.Command;
-import dolla.command.RemoveCommand;
+import dolla.command.AddLimitCommand;
 import dolla.command.ShowListCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.RemoveLimitCommand;
+import dolla.ui.LimitUi;
 
 /**
  * This class handles all limit related parsing.
@@ -14,17 +16,109 @@ public class LimitParser extends Parser {
         super(inputLine);
     }
 
+    protected static final String LIMIT_COMMAND_LIST = "limits";
+    protected static final String LIMIT_COMMAND_SET = "set";
+    protected static final String LIMIT_COMMAND_REMOVE = "remove";
+
+    protected static final String LIMIT_TYPE_S = "saving";
+    protected static final String LIMIT_TYPE_B = "budget";
+
+    protected static final String LIMIT_DURATION_D = "day";
+    protected static final String LIMIT_DURATION_W = "week";
+    protected static final String LIMIT_DURATION_M = "month";
+
     @Override
     public Command handleInput(String mode, String inputLine) {
-        if(commandToRun.equals("limits")) {
-          return new ShowListCommand(mode);
-        } else if (commandToRun.equals("set")) {
-            //add limit command
-        } else if (commandToRun.equals("remove")) {
-            return new RemoveCommand(mode, inputArray[1]);
-        } else if (commandToRun.equals("edit")) {
-            //edit limit command
+        if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_LIST)) { //show limit list todo:resolve bug
+            return new ShowListCommand(mode);
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_SET)) { //add limit
+            String limitType = null;
+            double amount = 0.0;
+            String duration = null;
+            try {
+                limitType = typeFinder();
+                amount = amountFinder();
+                duration = durationFinder();
+            } catch (IndexOutOfBoundsException e) {
+                LimitUi.invalidSetCommandPrinter();
+                return new ErrorCommand();
+            } catch (Exception e) {
+                LimitUi.printErrorMsg();
+                return new ErrorCommand();
+            }
+            return new AddLimitCommand(limitType, amount, duration);
+        } else if (commandToRun.equalsIgnoreCase(LIMIT_COMMAND_REMOVE)) { //REMOVE DAILY BUDGET etc
+            //remove limit command
+            String limitType = null;
+            String duration = null;
+            try {
+                limitType = typeFinder();
+                duration = durationFinder();
+            } catch (IndexOutOfBoundsException e) {
+                LimitUi.invalidSetCommandPrinter();
+                return new ErrorCommand(); //todo: change to "limit does not exist" etc
+            } catch (Exception e) {
+                LimitUi.printErrorMsg();
+                return new ErrorCommand();
+            }
+            return new RemoveLimitCommand(limitType, duration);
         }
         return null;
+    }
+
+    private void handleAdding() {
+
+    }
+
+    private void handleRemoving() {
+
+    }
+
+    /**
+     * Method finds the type of limit being mentioned.
+     * @return SAVING or BUDGET
+     */
+    private String typeFinder() {
+        String limitType = "";
+        String inputType;
+        try {
+            inputType = inputArray[1];
+            if (inputType.equalsIgnoreCase(LIMIT_TYPE_S)) {
+                limitType = LIMIT_TYPE_S;
+            } else if (inputType.equalsIgnoreCase(LIMIT_TYPE_B)) {
+                limitType = LIMIT_TYPE_B;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //todo: handle exception
+        } catch (Exception e) {
+            //todo: handle exception
+        }
+        return limitType;
+    }
+
+    private double amountFinder() {
+        double amount = 0.0;
+        amount = stringToDouble(inputArray[2]);
+        return amount;
+    }
+
+    private String durationFinder() {
+        String limitDuration = "";
+        String inputDuration;
+        try {
+            inputDuration = inputArray[4];
+            if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_D))) {
+                limitDuration = LIMIT_DURATION_D;
+            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_W))) {
+                limitDuration = LIMIT_DURATION_W;
+            } else if (inputDuration.equalsIgnoreCase((LIMIT_DURATION_M))) {
+                limitDuration = LIMIT_DURATION_M;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            //todo: handle exception
+        } catch (Exception e) {
+            //todo: handle exception
+        }
+        return limitDuration;
     }
 }

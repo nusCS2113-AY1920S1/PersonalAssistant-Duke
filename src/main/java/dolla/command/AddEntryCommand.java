@@ -2,11 +2,11 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
-import dolla.action.redo;
-import dolla.action.undo;
+import dolla.action.Redo;
+import dolla.action.Undo;
 import dolla.task.Entry;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * AddEntryCommand is used to create a new Entry entity.
@@ -16,7 +16,7 @@ public class AddEntryCommand extends Command {
     private String type;
     private double amount;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
     private int prevPosition;
 
     /**
@@ -26,7 +26,7 @@ public class AddEntryCommand extends Command {
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
      */
-    public AddEntryCommand(String type, double amount, String description, LocalDateTime date, int prevPosition) {
+    public AddEntryCommand(String type, double amount, String description, LocalDate date, int prevPosition) {
         this.type = type;
         this.amount = amount;
         this.description = description;
@@ -42,16 +42,16 @@ public class AddEntryCommand extends Command {
         if(prevPosition == -1) {
             dollaData.addToLogList(mode, newEntry);
             index = dollaData.getLogList(mode).size();
-            undo.removeCommand(mode, index);
-            redo.clearRedo(mode);
+            Undo.removeCommand(mode, index);
+            Redo.clearRedo(mode);
         } else if(prevPosition == -2) {
             dollaData.addToLogList(mode, newEntry);
             index = dollaData.getLogList(mode).size();
-            undo.removeCommand(mode, index);
+            Undo.removeCommand(mode, index);
             prevPosition = -1; //reset to -1
         } else {
             dollaData.addToPrevPosition(mode, newEntry, prevPosition);
-            redo.removeCommand(mode,prevPosition);
+            Redo.removeCommand(mode,prevPosition);
             prevPosition = -1; //reset to -1
         }
         Ui.echoAddEntry(newEntry);

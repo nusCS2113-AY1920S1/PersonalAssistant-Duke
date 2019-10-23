@@ -7,20 +7,27 @@ import dolla.command.AddEventCommand;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public abstract class Parser {
 
-    protected LocalDateTime date;
+    protected LocalDate date;
     protected String description;
     protected String inputLine;
     protected String[] inputArray;
     protected String commandToRun;
+    protected static final String SPACE = " ";
 
+
+    /**
+     * Instantiates a new parser.
+     * @param inputLine inputLine
+     */
     public Parser(String inputLine) {
         this.inputLine = inputLine;
-        this.inputArray = inputLine.split(" ");
+        this.inputArray = inputLine.split(SPACE);
         this.commandToRun = inputArray[0];
     }
 
@@ -42,7 +49,7 @@ public abstract class Parser {
         String[] data = inputLine.split(" /on "); // data[0] os description, data[1] is the time
         String dateString = (data[1].split("/tag"))[0];
         try {
-            date = Time.readDateTime(dateString);
+            date = Time.readDate(dateString);
         } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");
@@ -113,10 +120,14 @@ public abstract class Parser {
         return true;
     }
 
+    /**
+     * Verifies modify command. //todo: edit javadoc
+     * @return
+     */
     public boolean verifyModifyCommand() {
         try {
             Integer.parseInt(inputArray[1]);
-            // TODO: Add support for modifying specific catogories
+            // TODO: Add support for modifying specific categories
         } catch (Exception e) {
             Ui.printInvalidModifyFormatError();
             return false;

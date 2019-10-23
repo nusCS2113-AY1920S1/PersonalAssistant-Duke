@@ -4,6 +4,7 @@ import dolla.DollaData;
 import dolla.Ui;
 import dolla.task.Entry;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ModifyEntryCommand extends Command {
@@ -11,9 +12,16 @@ public class ModifyEntryCommand extends Command {
     private String type;
     private double amount;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
 
-    public ModifyEntryCommand(String type, double amount, String description, LocalDateTime date) {
+    /**
+     * Instantiates a new ModifyEntryCommand.
+     * @param type type of modification
+     * @param amount amount to modify
+     * @param description description
+     * @param date date
+     */
+    public ModifyEntryCommand(String type, double amount, String description, LocalDate date) {
         this.type = type;
         this.amount = amount;
         this.description = description;

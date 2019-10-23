@@ -1,41 +1,58 @@
 package dolla;
 
-import dolla.command.Command;
-import dolla.task.Task;
-import dolla.task.TaskList;
+import dolla.task.LogList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 
+/**
+ * Class handles Reminder-related methods.
+ */
+public class Reminder {
 
-public abstract class Reminder extends Command {
     protected LocalDate today;
-
-    //@Override
+    private String mode;
 
     /**
-     * TODO: [placeholder].
-     * @param tasks TODO: [placeholder]
+     * Instantiates a new Reminder.
+     *
+     * @param mode the mode
      */
-    public void execute(TaskList tasks) {
-        ArrayList<Task> tasksDueSoon = new ArrayList<>();
+    public Reminder(String mode) {
+        this.mode = "debt";
+    }
+
+    /**
+     * Show reminder.
+     *
+     * @param dollaData the dolla data
+     */
+    public void showReminder(DollaData dollaData) {
+        LogList logList = new LogList(new ArrayList<>());
+        logList = dollaData.getLogList(mode);
         today = LocalDate.now();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task currTask = tasks.getFromList(i); //get the task from the list
-            LocalDate get = currTask.getDate().toLocalDate(); //get the time of the task
-            LocalDate check = today.plusDays(2);//remind the user 2 days before
-            if (check.compareTo(get) >= 0) {
-                tasksDueSoon.add(currTask);
+        printReminder(today, logList);
+    }
+
+    /**
+     * Print reminder.
+     *
+     * @param today   the today
+     * @param logList the log list
+     */
+    public void printReminder(LocalDate today, LogList logList) {
+        System.out.println("\tREMINDER!!!");
+        int listNum = 0;
+        for (int i = 0; i < logList.size(); i++) {
+            LocalDate temp = logList.get().get(i).getDate(); //get the time for that log
+            LocalDate check = today.plusDays(2); //remind the user 2 days before
+            if (check.compareTo(temp) >= 0) {
+                listNum += 1;
+                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
             }
         }
-        tasksDueSoon.sort(Comparator.comparing(Task::getDate));
-
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("REMINDER!!! COMING SOON TASKS:");
-        for (int i = 0; i < tasksDueSoon.size(); i++) {
-            msg.add((i + 1) + "."  + tasksDueSoon.get(i).getTask());
+        if (listNum == 0) {
+            Ui.printNoReminderMsg();
         }
-        Ui.printMsg(msg);
     }
 }

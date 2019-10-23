@@ -26,14 +26,16 @@ public class ShowListCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
 
-////        LogList logList = new LogList(new ArrayList<Log>());
-//        LogList entryList = new EntryList(new ArrayList<Entry>());
-//
-//        switch (mode) {
-//        case "entries":
-////            logList = dollaData.entryList;
-////            entryList = dollaData.entryList;
-//            entryList = dollaData.getLogList(mode);
+        /*
+        LogList logList = new LogList(new ArrayList<Log>());
+        LogList entryList = new EntryList(new ArrayList<Entry>());
+
+        switch (mode) {
+        case "entries":
+            logList = dollaData.entryList;
+            entryList = dollaData.entryList;
+            entryList = dollaData.getLogList(mode);
+         */
 
         LogList logList = new LogList(new ArrayList<>());
 
@@ -51,22 +53,19 @@ public class ShowListCommand extends Command {
             break; // TODO: What to do here?
         }
 
-        
-//        boolean isListEmpty = (logList.size() == 0);
+        boolean listIsEmpty = (logList.size() == 0);
 
-        boolean isListEmpty = (logList.size() == 0);
-
-        if (isListEmpty) { // TODO: Place this in proper place
+        if (listIsEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
             return;
-//        } else if (mode.equals("entries")) {
-//            Ui.printList(mode, entryList);
+        //} else if (mode.equals("entries")) {
+            //Ui.printList(mode, entryList);
         } else if (mode.equals("entry")) {
             Ui.printList(mode, logList);
             return;
         } else if (mode.equals("debt")) {
             Ui.printList(mode, logList);
-//            System.out.println(logList.get().size());//test
+            //System.out.println(logList.get().size());//test
             return;
         } else if (mode.equals("limit")) {
             Ui.printList(mode,logList);

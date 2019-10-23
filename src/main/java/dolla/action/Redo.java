@@ -2,7 +2,10 @@ package dolla.action;
 
 import java.util.Stack;
 
-public class redo {
+/**
+ * The type Redo. //TODO: edit javadoc
+ */
+public class Redo {
     private static String redoInput;
     private static Stack<String> redoCommand = new Stack<>();
     private static String userInput;
@@ -15,14 +18,14 @@ public class redo {
 
 
     public static void addCommand(String mode, String userInput) {
-        redo.mode = mode;
-        redo.userInput = userInput;
+        Redo.mode = mode;
+        Redo.userInput = userInput;
         add();
     }
 
     public static void removeCommand(String mode, int index) {
-        redo.mode = mode;
-        redo.index = index + 1;
+        Redo.mode = mode;
+        Redo.index = index + 1;
         remove();
     }
 
