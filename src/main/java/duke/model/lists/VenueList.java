@@ -1,7 +1,7 @@
 package duke.model.lists;
 
-import duke.model.events.Event;
-import duke.model.events.Task;
+import duke.model.Event;
+import duke.model.Task;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;

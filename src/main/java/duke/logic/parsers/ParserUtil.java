@@ -4,7 +4,7 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.api.ApiParser;
-import duke.model.events.Event;
+import duke.model.Event;
 import duke.model.locations.Venue;
 import duke.model.planning.Itinerary;
 import duke.model.planning.Todo;

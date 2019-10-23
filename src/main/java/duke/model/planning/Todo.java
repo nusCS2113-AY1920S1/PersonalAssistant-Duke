@@ -1,6 +1,6 @@
 package duke.model.planning;
 
-import duke.model.events.Task;
+import duke.model.Task;
 
 /**
  * Class representing a to-do.

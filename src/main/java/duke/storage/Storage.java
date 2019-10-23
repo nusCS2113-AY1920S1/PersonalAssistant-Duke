@@ -5,7 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.lists.TaskList;
-import duke.model.events.Task;
+import duke.model.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;

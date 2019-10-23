@@ -1,7 +1,7 @@
 package duke.ui.calendar;
 
 import duke.model.lists.EventList;
-import duke.model.events.Event;
+import duke.model.Event;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

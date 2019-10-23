@@ -3,7 +3,7 @@ package duke.logic.commands;
 import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
-import duke.model.events.Task;
+import duke.model.Task;
 import duke.model.planning.Todo;
 import org.junit.jupiter.api.Test;
 

@@ -2,7 +2,6 @@ package duke.model;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
-import duke.model.events.Task;
 import duke.model.lists.EventList;
 import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;

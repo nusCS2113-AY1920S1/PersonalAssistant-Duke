@@ -1,4 +1,4 @@
-package duke.model.events;
+package duke.model.planning;
 
 import duke.model.planning.Todo;
 import org.junit.jupiter.api.Test;

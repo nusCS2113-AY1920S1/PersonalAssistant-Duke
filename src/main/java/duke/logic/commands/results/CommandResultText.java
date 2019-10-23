@@ -1,7 +1,7 @@
 package duke.logic.commands.results;
 
 import duke.model.lists.TaskList;
-import duke.model.events.Task;
+import duke.model.Task;
 
 public class CommandResultText extends CommandResult {
     /**
