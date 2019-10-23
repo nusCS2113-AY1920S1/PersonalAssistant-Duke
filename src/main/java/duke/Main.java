@@ -51,7 +51,9 @@ public class Main {
             ui.showMessage(e.getMessage());
         }
         try {
-            storage.load
+            storage.loadTransactions(transactions);
+        } catch (DukeException e) {
+           ui.showLoadinngTransactionError();
         }
     }
 
@@ -82,7 +84,7 @@ public class Main {
                 String fullCommand = ui.readCommand(in);
                 ui.showLine();
                 Command c = userParser.parse(fullCommand);
-                c.execute(tasks, ui, storage, user, in);
+                c.execute(tasks, ui, storage, user, in, transactions);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());

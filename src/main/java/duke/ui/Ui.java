@@ -106,6 +106,9 @@ public class Ui {
         System.out.println(padding + "Failed to load file.");
     }
 
+    public void showLoadinngTransactionError() {
+        System.out.println(padding + "Failed to load transaction file.");
+    }
     public void showUserLoadingError() {
         System.out.println(padding + "Unable to load user file.");
     }
@@ -165,11 +168,6 @@ public class Ui {
                 System.out.println(padding + padding + (idx + 1) + ". " + commandHistoryList.get(idx));
             }
         }
-    }
-
-    public void showDeposit(BigDecimal depositAmount, BigDecimal accountBalance, String currencyCode) {
-        System.out.println(padding + "Got it. I've deposited" + depositAmount + " " + currencyCode + " to your account.");
-        System.out.println(padding + "Your account balance: " + accountBalance);
     }
 
     public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {

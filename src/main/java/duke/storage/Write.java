@@ -132,6 +132,7 @@ public class Write {
         } else {
             toWrite += "F";
         }
+        toWrite += "|" + user.getAccountBalance();
         ArrayList<Tuple> allWeight = user.getAllWeight();
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
             toWrite += "\n";

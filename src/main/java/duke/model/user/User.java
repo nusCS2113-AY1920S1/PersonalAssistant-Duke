@@ -167,6 +167,9 @@ public class User {
         return this.account.getAmount();
     }
 
+    public void setAccountBalance(BigDecimal accountBalance) {
+        this.account.setAmount(accountBalance);
+    }
     public void updateAccountBalance(Transaction transaction) {
         BigDecimal transactionAmount = transaction.getTransactionAmount();
         if (transaction.getType().equals("PAY")) {
