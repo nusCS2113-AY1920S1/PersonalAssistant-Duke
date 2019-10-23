@@ -1,4 +1,5 @@
 //@@author carrieng0323852
+
 package com.algosenpai.app.logic.command;
 
 import com.algosenpai.app.logic.constant.Commands;
@@ -19,11 +20,16 @@ public class InvalidCommand extends Command {
     @Override
     public String execute() {
         String input = inputs.get(0);
-        return "!!!? Did you mean..." + Compare(input);
+        return "!!!? Did you mean..." + compare(input);
     }
 
+    /**
+     * Choose command that is closest to the input by user.
+     * @param input command entered by user.
+     * @return the closest command.
+     */
 
-    public static String Compare(String input) {
+    public static String compare(String input) {
         String str = "";
         double num = -1;
         String[] names = Commands.getNames();
@@ -36,6 +42,15 @@ public class InvalidCommand extends Command {
         }
         return str;
     }
+
+    /**
+     * To compare the number of characters that the invalid command entered by user has with each valid command.
+     * @param unknownCommand input by user
+     * @param l1 length of the command inputted by user
+     * @param knownCommand one of the valid command
+     * @param l2 length of valid command
+     * @return number of similar characters
+     */
 
     public static int countPairs(String unknownCommand, int l1, String knownCommand, int l2) {
 
