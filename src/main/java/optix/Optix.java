@@ -1,6 +1,9 @@
+package optix;
+
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.commons.model.ShowMap;
 import optix.exceptions.OptixException;
 import optix.ui.Ui;
 import optix.util.Parser;
@@ -50,7 +53,6 @@ public class Optix {
      * To boot up the software.
      */
     public void run() {
-
         boolean isExit = false;
         System.out.println(ui.showCommandLine());
 
@@ -66,7 +68,34 @@ public class Optix {
                 System.out.println(ui.showCommandLine());
             }
         }
+    }
 
+    /**
+     * Processes user input command.
+     * @param fullCommand User input command.
+     * @return String for the type of Model that command deals with. E.g Show, Seat and Alias.
+     */
+    public String runGui(String fullCommand) {
+        String taskType = "";
+        try {
+            Command c = Parser.parse(fullCommand);
+            taskType = c.execute(model, ui, storage);
+        } catch (OptixException e) {
+            ui.setMessage(e.getMessage());
+        }
+        return taskType;
+    }
+
+    public ShowMap getShows() {
+        return model.getShows();
+    }
+
+    public ShowMap getShowHistory() {
+        return model.getShowsHistory();
+    }
+
+    public String getResponse() {
+        return ui.getMessage();
     }
 }
 

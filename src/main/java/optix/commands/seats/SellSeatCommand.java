@@ -40,7 +40,7 @@ public class SellSeatCommand extends Command {
 
     //need to refactor
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder();
         try {
             if (!formatter.isValidDate(showDate)) {
@@ -60,6 +60,7 @@ public class SellSeatCommand extends Command {
         } finally {
             ui.setMessage(message.toString());
         }
+        return "seat";
     }
 
     @Override
@@ -67,9 +68,4 @@ public class SellSeatCommand extends Command {
         return details.trim().split("\\|");
     }
 
-    @Override
-    public boolean isExit() {
-        return super.isExit();
-    }
 }
-

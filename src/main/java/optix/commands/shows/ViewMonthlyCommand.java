@@ -127,7 +127,7 @@ public class ViewMonthlyCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         String message = "";
         int mth = parseInt(month);
         int yr = Integer.parseInt(year);
@@ -153,6 +153,7 @@ public class ViewMonthlyCommand extends Command {
         } finally {
             ui.setMessage(message);
         }
+        return "show";
     }
 
     @Override
@@ -160,8 +161,4 @@ public class ViewMonthlyCommand extends Command {
         return details.trim().split(" ");
     }
 
-    @Override
-    public boolean isExit() {
-        return super.isExit();
-    }
 }

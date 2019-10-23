@@ -16,11 +16,8 @@ public abstract class Command {
      * @param ui      The User Interface that reads user input and response to user.
      * @param storage The filepath of txt file which data are being stored.
      */
-    public abstract void execute(Model model, Ui ui, Storage storage) throws OptixException;
+    public abstract String execute(Model model, Ui ui, Storage storage);
 
     public abstract String[] parseDetails(String details);
 
-    public boolean isExit() {
-        return false;
-    }
 }

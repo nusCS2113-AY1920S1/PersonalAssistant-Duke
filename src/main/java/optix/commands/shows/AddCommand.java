@@ -43,7 +43,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         LocalDate today = storage.getToday();
         ArrayList<String> errorShows = new ArrayList<>();
 
@@ -83,6 +83,7 @@ public class AddCommand extends Command {
         }
 
         ui.setMessage(message.toString());
+        return "show";
     }
 
     @Override
@@ -92,10 +93,5 @@ public class AddCommand extends Command {
 
     private boolean hasValidDate(String date) {
         return formatter.isValidDate(date);
-    }
-    
-    @Override
-    public boolean isExit() {
-        return super.isExit();
     }
 }

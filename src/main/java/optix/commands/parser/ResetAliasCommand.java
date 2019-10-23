@@ -27,7 +27,7 @@ public class ResetAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         // open target file
         Parser dummyParser = new Parser(this.preferenceFilePath);
         // reset commandAliasMap in Parser class
@@ -42,6 +42,7 @@ public class ResetAliasCommand extends Command {
             systemMessage = e.getMessage();
         }
         ui.setMessage(systemMessage);
+        return "";
     }
 
     /**
