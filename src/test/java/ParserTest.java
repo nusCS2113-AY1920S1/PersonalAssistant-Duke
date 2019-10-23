@@ -3,6 +3,7 @@ import duke.command.Command;
 import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
+import duke.ui.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,11 @@ public class ParserTest {
     // TODO check whether every task can be detected
     // TODO check if exception are thrown for incorrect input formats
 
-    private Parser uut = new Parser(new TestCommands());
+    private Parser uut = new Parser(UiContext.Context.HOME, new TestCommands());
 
     @Test
-    public void parseCommands_validCommands_correctCommandsReturned() {
-        Parser actualParser = new Parser();
+    public void parseCommands_validHomeCommands_correctCommandsReturned() {
+        Parser actualParser = new Parser(UiContext.Context.HOME);
         try {
             assertEquals(actualParser.parse("bye").getClass(), ByeCommand.class);
             assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),

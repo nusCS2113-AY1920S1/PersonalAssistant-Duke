@@ -32,6 +32,10 @@ public class UiContext {
         this.context = newContext;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     /**
      * Enum defining the types of contexts that {@code context} can take on.
      */
