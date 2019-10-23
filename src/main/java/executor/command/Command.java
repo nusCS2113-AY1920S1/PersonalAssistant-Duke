@@ -5,7 +5,9 @@ import ui.Wallet;
 
 public abstract class Command {
     protected Boolean exitRequest = false;
+    protected String userInput = null;
     protected CommandType commandType;
+    protected String description = "NO DESCRIPTION";
 
     // Constructor
     public Command() {
@@ -26,4 +28,12 @@ public abstract class Command {
     public abstract void execute(TaskList taskList);
 
     public abstract void execute(Wallet wallet);
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
+    }
 }

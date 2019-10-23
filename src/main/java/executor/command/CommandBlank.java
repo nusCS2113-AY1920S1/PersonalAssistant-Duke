@@ -5,8 +5,10 @@ import ui.Ui;
 import ui.Wallet;
 
 public class CommandBlank extends Command {
+
     // Constructor
-    public CommandBlank() {
+    public CommandBlank(String userInput) {
+        this.userInput = userInput;
     }
 
     /**

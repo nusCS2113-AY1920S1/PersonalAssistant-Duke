@@ -2,7 +2,6 @@ package executor.command;
 
 import executor.task.Task;
 import executor.task.TaskList;
-import interpreter.Interpreter;
 import interpreter.Parser;
 import ui.Ui;
 import ui.Wallet;
@@ -21,7 +20,6 @@ public class CommandQueue extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-
     }
 
     @Override
@@ -32,7 +30,7 @@ public class CommandQueue extends Command {
         int mainTaskIndex = Integer.parseInt(parsedInput[0]) - 1;
         Task mainTask = taskList.getList().get(mainTaskIndex);
         String taskString = parsedInput[1].trim();
-        CommandType commandType = Parser.parseCommandType(taskString);
+        CommandType commandType = Parser.parseForCommandType(taskString);
         Command createNewTaskCommand = Executor.createCommand(commandType, taskString);
         if (createNewTaskCommand.commandType != CommandType.TASK) {
             Ui.dukeSays("No Task detected after 'Queue'.");

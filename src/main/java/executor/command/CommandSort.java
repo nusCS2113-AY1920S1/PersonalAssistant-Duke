@@ -1,22 +1,19 @@
 package executor.command;
 
 import executor.task.TaskList;
-import ui.Ui;
 import ui.Wallet;
 
-public class CommandError extends Command {
+public class CommandSort extends Command {
+
     // Constructor
-    public CommandError(String userInpt) {
+    public CommandSort(String userInput) {
         this.userInput = userInput;
+        this.commandType = CommandType.SORT;
     }
 
-    /**
-     * Executes a particular Command.
-     */
     @Override
     public void execute(TaskList taskList) {
-        Ui.dukeSays("Duke has encountered an error");
-        Ui.printSeparator();
+
     }
 
     @Override

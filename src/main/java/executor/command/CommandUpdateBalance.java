@@ -1,6 +1,7 @@
 package executor.command;
 
 import executor.task.TaskList;
+import interpreter.Parser;
 import ui.Wallet;
 
 public class CommandUpdateBalance extends Command {
@@ -12,8 +13,9 @@ public class CommandUpdateBalance extends Command {
      * @param userInput The user Input from the CLI
      */
     public CommandUpdateBalance(String userInput) {
-        Double amount = Double.parseDouble(userInput.replace("setbalance", "").trim());
-        this.newBalance = amount;
+        this.userInput = userInput;
+        this.commandType = Parser.parseForCommandType(this.userInput);
+        this.newBalance = Double.parseDouble(Parser.parseForPrimaryInput(this.commandType, this.userInput));
     }
 
     @Override
