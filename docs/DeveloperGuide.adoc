@@ -257,7 +257,7 @@ It implements the following commands:
 
 * `create PROJECT_NAME` -- Creation of a new Project
 * `list` --  Viewing all Projects that have been created
-* `delete -i PROJECT_INDEX` -- Delete a Project that has been created previously
+* `delete PROJECT_INDEX` -- Delete a Project that has been created previously
 
 These operations are exposed in the `IRepository` interface as `addToRepo()`, `getAll()` and `deleteItem()`.
 
@@ -286,6 +286,18 @@ Step 5) Assuming Project creation was a success, `ProjectRepository` will store 
 back to `ConsoleInputController` to signify the successful creation of a new Project object. `ConsoleInputController`
 will call `CLIView` to print appropriate messages to the user based on whether a new Project object was created
 successfully or not.
+
+The following sequence diagram shows how the `create PROJECT_NAME` operation works.
+
+image::images/ProjectCreation_Sequence.png[]
+
+The `delete PROJECT_INDEX` command works similarly to `create PROJECT_NAME`. Both commands will result in a
+`Boolean` of either `True` or `False` to indicate whether command was executed successfully. There are minor
+differences, listed below:
+
+* Instead of creating a new Project object, the `delete PROJECT_INDEX` command will call `deleteItem()` in
+`ProjectRepository` instead of `addToRepo()`.
+* Deletion of Project works by Project Index instead of Project Name.
 
 // ==== Design Considerations
 
