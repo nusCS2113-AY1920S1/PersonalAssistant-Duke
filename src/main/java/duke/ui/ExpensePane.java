@@ -26,6 +26,11 @@ public class ExpensePane extends UiPart<BorderPane> {
     private static final String FXML_FILE_NAME = "ExpensePane.fxml";
 
     @FXML
+    private Pane paneView;
+    private PieChart pieChartSample;
+
+
+    @FXML
     TableView expenseTableView;
 
     public ExpensePane(ObservableList<Expense> expenseList) {
@@ -68,7 +73,17 @@ public class ExpensePane extends UiPart<BorderPane> {
                         super.updateItem(expense, empty);
                         if (expense != null && expense.isTentative()) {
                             setStyle("-fx-text-background-color: grey;");
-
+                            // expenseListView.setItems(expenseList);
+                            logger.info("Items are set.");
+                            // expenseListView.setCellFactory(listview -> new ExpenseListViewCell());
+                            logger.info("cell factory is set.");
+                            // this.logic = logic;
+                            PieChart pieChartSample = new PieChart();
+                            pieChartSample.setData(getData());
+                            paneView.getChildren().clear();
+                            pieChartSample.setTitle("Expenditure");
+                            paneView.getChildren().add(pieChartSample);
+                            logger.info("Pie chart is set.");
                         } else {
                             setStyle("-fx-text-background-color: black;");
                         }

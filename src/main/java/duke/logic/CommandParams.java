@@ -71,7 +71,7 @@ public class CommandParams {
         secondaryParams = new HashMap<String, String>();
 
         // Split the input into an array of Strings, containing concatenated parameter names and values
-        String[] nameValueStrings = PARAM_INDICATOR_REGEX.split(fullCommand);
+        String[] nameValueStrings = PARAM_INDICATOR_REGEX.split(fullCommand.trim());
 
         // Get commandType and mainParam first
         command = parseCommand(nameValueStrings[0]);
