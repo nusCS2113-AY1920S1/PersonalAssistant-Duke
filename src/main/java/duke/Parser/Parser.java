@@ -234,48 +234,9 @@ public class Parser {
             break;
 
 
-
-        case "training":
-            switch (word[1]) {
-            case "view":
-                System.out.println("TBC");
-                System.out.println(plan.viewPlan());
-                break;
-            case "add-plan":
-                //pass
-                break;
-            case "add-activity":
-                int num = 2;
-                System.out.println(plan.addActivity(word[num],
-                    Integer.parseInt(word[++num]),
-                    Integer.parseInt(word[++num])));
-                break;
-            case "delete":
-                System.out.println("To be added.");
-                break;
-            case "delete-all":
-                System.out.println("To be added");
-                break;
-            default:
-                break;
-            }
-            break;
-
         case "home":
             Ui viewMenu = new Ui();
             viewMenu.mainMenu();
-            break;
-
-        case "plan":
-            if (word[1].equals("view")) {
-                //int num = 2;
-                //plan.loadPlan(word[num].toLowerCase(), word[++num]);
-                System.out.println(plan.viewPlan());
-            } else if (word[1].equals("new")) {
-                plan.createPlan(word[2].toLowerCase());
-            } else if (word[1].equals("edit")) {
-                System.out.println("To be created...");
-            }
             break;
 
         default:

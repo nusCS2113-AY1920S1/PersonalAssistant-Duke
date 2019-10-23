@@ -6,16 +6,21 @@ import duke.sports.MyStudent;
 import java.util.Scanner;
 
 public class ParserManageStudents implements IParser {
-    String io;
-    public ManageStudents students = new ManageStudents();
-    @Override
-    public void parseCommand(String input) {
 
-        this.io = input;
-        int index = 1;
-        String[] word = io.split(" ");
+    /**
+     * Declaring the type.
+     */
+    private ManageStudents students = new ManageStudents();
+
+    /**
+     * To parse ManageStudents commands.
+     * @param input command.
+     */
+    @Override
+    public void parseCommand(final String input) {
+        String[] word = input.split(" ");
         String cmd = word[0];
-        switch(cmd) {
+        switch (cmd) {
             case "add":
                 System.out.println("Insert Name, Age, Address:\n");
                 Scanner sc = new Scanner(System.in);
@@ -31,8 +36,7 @@ public class ParserManageStudents implements IParser {
 
             // Format: student delete [index]
             case "delete":
-                index = Integer.parseInt(word[2]);
-                students.deleteStudent(index);
+                students.deleteStudent(Integer.parseInt(word[1]));
                 break;
 
             case "details":
@@ -48,9 +52,8 @@ public class ParserManageStudents implements IParser {
                 break;
 
             case "edit":
-                index = Integer.parseInt(word[2]);
                 System.out.print("What do you want to edit for ");
-                students.getStudentName(index);
+                students.getStudentName(Integer.parseInt(word[1]));
                 System.out.println("?");
                 // editStudentDetails(detail)
                 break;
@@ -66,9 +69,8 @@ public class ParserManageStudents implements IParser {
                 break;
 
             case "select":
-                index = Integer.parseInt(word[2]);
                 System.out.print("You have selected: ");
-                students.getStudentName(index);
+                students.getStudentName(Integer.parseInt(word[1]));
                 break;
 
             case "particulars":
@@ -77,6 +79,11 @@ public class ParserManageStudents implements IParser {
 
             case "progress":
                 //Add student progress
+                break;
+
+            case "back":
+                ParserCommand parserCommand = new ParserCommand();
+                parserCommand.parseCommand(cmd);
                 break;
 
             default:
