@@ -18,7 +18,6 @@ import static duke.commons.FilePaths.*;
 
 /**
  * This object is in charge of all writing to save operations.
- * @author Chua Zong Wei
  */
 public class Write {
     private BufferedWriter bufferedWriter = null;
@@ -123,7 +122,6 @@ public class Write {
     /**
      * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
-     * @Author Foo Chi Hen
      */
 
     public void writeUser(User user) throws DukeException {

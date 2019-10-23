@@ -2,7 +2,6 @@ package duke.model.user;
 
 /**
  * This is a class that will store weight at a specific date.
- * @Author Foo Chi Hen
  */
 
 public class Tuple {

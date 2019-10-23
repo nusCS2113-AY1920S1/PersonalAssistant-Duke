@@ -4,7 +4,6 @@ import java.io.File;
 
 /**
  * This class file defines all the filepaths that will be used in the storage component.
- * @author Chua Zong Wei
  */
 public class FilePaths {
     public static final String sep = System.getProperty("file.separator");

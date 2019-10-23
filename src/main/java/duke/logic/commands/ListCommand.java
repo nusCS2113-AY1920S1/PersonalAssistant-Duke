@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
- * @author Ivan Andika Lie
  */
 public class ListCommand extends Command {
 

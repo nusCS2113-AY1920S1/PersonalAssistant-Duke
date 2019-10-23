@@ -11,7 +11,6 @@ import duke.model.user.User;
 /**
  * AddItemCommand is a public class that inherits from abstract class Command.
  * An AddItemCommand object encapsulates the current meal that is to be added.
- * @author Chua Zong Wei
  */
 public class AddItemCommand extends Command {
     private Meal meal;

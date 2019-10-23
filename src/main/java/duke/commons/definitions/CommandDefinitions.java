@@ -3,7 +3,6 @@ package duke.commons.definitions;
 
 /**
  * This class defines all the command keywords that will be used in the program.
- * @author Chua Zong Wei
  */
 public class CommandDefinitions {
     public static final String BREAKFAST_COMMAND = "breakfast";
