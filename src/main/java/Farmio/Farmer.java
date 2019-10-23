@@ -93,7 +93,6 @@ public class Farmer {
         return assets;
     }
 
-
     public WheatFarm getWheatFarm() { return  wheatFarm; }
 
     public ChickenFarm getChickenFarm() { return chickenFarm; }
