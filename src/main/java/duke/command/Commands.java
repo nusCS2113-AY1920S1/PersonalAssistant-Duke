@@ -2,6 +2,7 @@ package duke.command;
 
 // TODO: Write different commands for different contexts
 
+import duke.ui.Context;
 import duke.ui.UiContext;
 
 /**
@@ -17,18 +18,18 @@ public class Commands {
      * @param cmdStr The user-provided name.
      * @return The newly constructed command without any parameters loaded.
      */
-    public Command getCommand(String cmdStr, UiContext.Context context) {
+    public Command getCommand(String cmdStr, Context context) {
         switch (cmdStr) {
         case "bye":
             return new ByeCommand();
         case "find":
-            if (context == UiContext.Context.PATIENT) {
+            if (context == Context.PATIENT) {
                 return new PatientFindCommand();
             } else {
                 return null; // TODO: fill in the other contexts
             }
         case "new":
-            if (context == UiContext.Context.HOME) {
+            if (context == Context.HOME) {
                 return new NewPatientCommand();
             } else {
                 return null; // TODO: fill in the other contexts

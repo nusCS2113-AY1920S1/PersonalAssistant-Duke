@@ -3,6 +3,7 @@ import duke.command.Command;
 import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
+import duke.ui.Context;
 import duke.ui.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
@@ -16,11 +17,11 @@ public class ParserTest {
     // TODO move checks for individual commands to CommandTest
     // TODO check if exceptions are thrown for incorrect input formats
 
-    private Parser uut = new Parser(UiContext.Context.HOME, new TestCommands());
+    private Parser uut = new Parser(Context.HOME, new TestCommands());
 
     @Test
     public void parseCommands_validHomeCommands_correctCommandsReturned() {
-        Parser actualParser = new Parser(UiContext.Context.HOME);
+        Parser actualParser = new Parser(Context.HOME);
         try {
             assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
             assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),

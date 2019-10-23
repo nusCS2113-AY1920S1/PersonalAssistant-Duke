@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
+import duke.ui.Context;
 import duke.ui.UiContext;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class Parser {
     }
 
     private final Commands commands;
-    private final UiContext.Context context;
+    private final Context context;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -36,7 +37,7 @@ public class Parser {
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
      */
-    public Parser(UiContext.Context context, Commands commands) {
+    public Parser(Context context, Commands commands) {
         this.commands = commands;
         this.context = context;
     }
@@ -44,7 +45,7 @@ public class Parser {
     /**
      * Constructs a new Parser, using the Cmd enum to supply the command names.
      */
-    public Parser(UiContext.Context context) {
+    public Parser(Context context) {
         this(context, new Commands());
     }
 
