@@ -143,7 +143,7 @@ where the first column is denotes the type of task, T for todo, D for deadline, 
 
 The program can `load` or `generate` an entry from the storage and also `changeContent` and `addInFile`
 
-
+![Storage](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/StorageUML.png)
 
 #### 2.6 Task Component
 
