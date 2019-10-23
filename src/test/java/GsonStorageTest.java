@@ -43,10 +43,10 @@ public class GsonStorageTest {
             //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy2\"}]";
 
-/**
- * The constructor ig GsonStorateTest. Used to initialise the storage attribute.
- * Also resets all storage data.
- */
+    /**
+     * The constructor ig GsonStorateTest. Used to initialise the storage attribute.
+     * Also resets all storage data.
+     */
     GsonStorageTest() throws DukeFatalException, IOException {
         storage = new GsonStorage("data/patients.json");
         patientMap = storage.resetAllData();
@@ -111,7 +111,7 @@ public class GsonStorageTest {
     }
 
     /**
-     * Creates the Json representation of a dummy patient
+     * Creates the Json representation of a dummy patient.
      * Then recreates the patient objects based on what is in the json file.
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
