@@ -14,5 +14,3 @@
      |      |                  |                 |
      |      |                  |                 |
      |______|__________________|_________________|
-           Enter [Start] when you are ready 
-              to complete the objective!

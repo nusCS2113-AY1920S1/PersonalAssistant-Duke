@@ -24,9 +24,6 @@ public class GameConsole {
     private static final int USER_CODE_SECTION_WIDTH = 31;
     private static final int LEFT_COLUMN_SECTION_WIDTH = 15;
 
-    private static String MARKED_GOAL_SYMBOL = "[X]";
-    private static String UNMARKED_GOAL_SYMBOL = "[ ]";
-
     private static final String TOP_BORDER = "."+ "_".repeat(FULL_CONSOLE_WIDTH) +".\n";
     private static final String GOAL_AND_CODE_TITLE = "|"+"----" + AsciiColours.RED + "<GOALS>"
             + AsciiColours.SANE+ "----"+"|"+" ".repeat(FRAME_SECTION_WIDTH) +"|"+ "-".repeat(12)
@@ -118,6 +115,8 @@ public class GameConsole {
         return goals;
     }
     private static ArrayList<String> formatGoals(Map<String, Integer> goals, Map<String, Integer> assets) {
+        final String MARKED_GOAL_SYMBOL = "[X]";
+        final String UNMARKED_GOAL_SYMBOL = "[ ]";
         ArrayList<String> formattedGoals = new ArrayList<>();
         Set< Map.Entry< String,Integer> > goalSet = goals.entrySet();
         for (Map.Entry< String,Integer> goal:goalSet) {

@@ -16,8 +16,6 @@ public class CommandConditionShow extends Command {
         } else if ((int)farmio.getFarmer().getLevel() == 3) {
             farmio.getSimulation().animate("ConditionList", 3);
         }
-//        ui.show("Press [Enter] to go back");
-//        ui.getInput();
-//        farmio.getSimulation().animate(farmio.getLevel().getPath(), farmio.getLevel().getNarratives().size());
+        ui.show("Press [Enter] to go back");
     }
 }
