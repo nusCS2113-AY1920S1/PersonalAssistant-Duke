@@ -49,9 +49,9 @@ public class Account {
         baseSavings = account.getBaseSavings();
         updateSavings();
         populateCurrentMonthLists();
-//        if (account.isInitialised()) {
-//            toInitialize = false;
-//        } else { toInitialize = true; }
+        //if (account.isInitialised()) {
+        //    toInitialize = false;
+        //} else { toInitialize = true; }
     }
 
     //@@author {therealnickcheong}
@@ -131,13 +131,13 @@ public class Account {
     }
 
     //@@author {therealnickcheong}
-    public void sortShortTermGoals(ArrayList<Goal> shortTermGoals){
+    public void sortShortTermGoals(ArrayList<Goal> shortTermGoals) {
         Collections.sort(shortTermGoals, new Comparator<Goal>() {
             @Override
             public int compare(Goal g1, Goal g2) {
-                if(g1.getPriority() == g2.getPriority()){
+                if (g1.getPriority() == g2.getPriority()) {
                     return g1.getDescription().compareTo(g2.getDescription());
-                }else{
+                } else {
                     return g1.getPriority().compareTo(g2.getPriority());
                 }
             }
@@ -244,7 +244,7 @@ public class Account {
     }
 
     /**
-     * This method helps to find the corresponding bank account tracker by given description(name)
+     * This method helps to find the corresponding bank account tracker by given description(name).
      * @param name The given description
      * @return The corresponding tracker
      * @throws DukeException Handle the case when there is no such account

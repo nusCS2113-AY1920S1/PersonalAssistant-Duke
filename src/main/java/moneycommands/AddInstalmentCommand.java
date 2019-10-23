@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class AddInstalmentCommand extends MoneyCommand{
+public class AddInstalmentCommand extends MoneyCommand {
     private String inputString;
 
     //@@author {ChenChao19}
@@ -36,11 +36,11 @@ public class AddInstalmentCommand extends MoneyCommand{
         String[] evenMorSplit = morSplit[1].split(" @");
         LocalDate boughtDate = LocalDate.parse(evenMorSplit[0], dateTimeFormatter);
         String[] lastSplit = evenMorSplit[1].split("%");
-        float AIR = Float.parseFloat(lastSplit[0]);
+        float annualIR = Float.parseFloat(lastSplit[0]);
 
         String category = "instalments";
 
-        Instalment instalment = new Instalment(cost, description, category, boughtDate, numOfPaymentsReq, AIR);
+        Instalment instalment = new Instalment(cost, description, category, boughtDate, numOfPaymentsReq, annualIR);
         account.getInstalments().add(instalment);
         storage.writeToFile(account);
 
@@ -50,7 +50,7 @@ public class AddInstalmentCommand extends MoneyCommand{
         ui.appendToOutput(" Got it. I've added this to your instalments: \n");
         ui.appendToOutput(account.getInstalments().get(account.getInstalments().size() - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
-        ui.appendToOutput(" You are paying $" + df.format(instalment.EqualMonthlyInstalment()) + " per month\n");
+        ui.appendToOutput(" You are paying $" + df.format(instalment.equalMonthlyInstalment()) + " per month\n");
         ui.appendToOutput(" For " + instalment.getNumOfPayments() + " months\n");
         ui.appendToOutput(" Until " + instalment.getDateEndDate() + "\n");
         ui.appendToOutput(" The total amount you will pay is $" + instalment.totalAmount() + "\n");
