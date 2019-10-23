@@ -22,7 +22,7 @@ public class SpellingErrorCorrector {
             maxSimilarity = maxSimilarity > similarity[i] ? maxSimilarity : similarity[i];
             maxSimilarityCommandIndex = maxSimilarity > similarity[i] ? maxSimilarityCommandIndex : i;
         }
-        if (maxSimilarity > 0.4) {
+        if (maxSimilarity > 0.5) {
             return dict[maxSimilarityCommandIndex];
         }
         return command;
