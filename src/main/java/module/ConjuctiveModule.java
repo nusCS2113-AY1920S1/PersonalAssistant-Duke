@@ -1,5 +1,8 @@
 package module;
 
+import parser.Parser;
+
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -9,7 +12,7 @@ import java.util.TreeMap;
  * EG CEG Requirements: CG3207 OR CS3230
  * Explanation: Fulfilling either of these 2 counts towards "fulfilling both"
  */
-public class ConjuctiveModule extends Module {
+public class ConjunctiveModule extends Module {
     private Map<String, String> modules = new TreeMap<>();
 
     /**
@@ -19,7 +22,7 @@ public class ConjuctiveModule extends Module {
      * @param input String of modules separated by " OR "
      * @param mc is the credit amount of a module
      */
-    public ConjuctiveModule(String input, Integer mc)
+    public ConjunctiveModule(String input, Integer mc)
     {
         this.mc = mc;
         String[] split = input.split("\\sOR\\s");
@@ -46,7 +49,8 @@ public class ConjuctiveModule extends Module {
 
             list.append(key).append("|");
         }
-        return list.substring(0, list.length() - 1  );
+        list.setLength(Math.max(list.length() - 1, 0));
+        return list.toString();
     }
 
     /**
@@ -55,7 +59,7 @@ public class ConjuctiveModule extends Module {
      * @return String in the fashion described above
      */
     @Override
-    public String viewFriendly()
+    public String print()
     {
         StringBuilder list = new StringBuilder();
         for(Map.Entry<String,String> entry : modules.entrySet()) {
@@ -64,7 +68,13 @@ public class ConjuctiveModule extends Module {
 
             list.append(key).append(" ").append(value).append(" OR ");
         }
-        return list.substring(0, list.length() - 4);
+        list.setLength(Math.max(list.length() - 4, 0));
+        char[] pad = new char[Parser.windowWidth - list.length() - 4];
+        Arrays.fill(pad, ' ');
+        list.append(pad);
+        list.append(getMc());
+        System.out.println(list.toString());
+        return list.toString();
     }
 
 
