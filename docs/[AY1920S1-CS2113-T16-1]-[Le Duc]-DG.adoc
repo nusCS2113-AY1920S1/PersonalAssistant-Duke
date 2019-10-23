@@ -148,23 +148,7 @@
 
 ---
 
-== Features
 
-=== Modify a Task
-
-* *Reschedule an event task*
-
-image::SequenceDiagramReschedule.png[width="1000", align="left"]
-
-* *Snooze an deadline task*
-
-image::SequenceDiagramSnooze.png[width="1000", align="left"]
-
-* *Postpone an deadline task*
-
-image::SequenceDiagramPostpone.png[width="1000", align="left"]
-
-* *Edit a task* ( Only in multi-set commands yet)
 
 == Non-functional requirements
 
@@ -228,3 +212,20 @@ image::SGShortcutMultiEveryCmd.png[width="790"]
 
 * The config file that contains all the name for the shortcut can be edit by hand, because it is faster to edit the config file than doing it via the application.
 * When a command's shortcut is set, the default shortcut can still be used
+
+=== Modify a Task
+
+* *Reschedule an event task*
+
+image::SequenceDiagramReschedule.png[width="1000", align="left"]
+
+* *Snooze an deadline task*
+
+image::SequenceDiagramSnooze.png[width="1000", align="left"]
+
+* *Postpone an deadline task*
+
+image::SequenceDiagramPostpone.png[width="1000", align="left"]
+
+* *Edit a task* ( Only in multi-step commands yet)
+
