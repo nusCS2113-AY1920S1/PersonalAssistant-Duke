@@ -60,4 +60,9 @@ public class Cca extends TaskWithMultipleWeeklyPeriod {
         }
         return prefix.toString().substring(0, prefix.length() - 2);
     }
+
+    @Override
+    public String type() {
+        return "cca";
+    }
 }

@@ -41,7 +41,7 @@ public class CapCommand extends ModuleCommand {
     private double currentCap;
     private double projectedModuleCap;
     private double projectedCap;
-    private int mcCount;
+    private float mcCount;
 
     private enum CommandType {
         OVERALL,
@@ -229,7 +229,7 @@ public class CapCommand extends ModuleCommand {
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
-            int mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
+            float mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
             mcCount += mcTemp;
             if (userInfo[1].isEmpty()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");

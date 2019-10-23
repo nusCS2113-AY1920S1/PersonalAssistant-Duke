@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import planner.logic.modules.cca.Cca;
-import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.legacy.task.Task;
 
 /**
@@ -17,8 +15,10 @@ public class PlannerUi {
 
     private Scanner scan;
     private static final String LINE = "_______________________________";
-    private static Set<String> yes = new HashSet<>(Arrays.asList("y", "yes", "true", "1", "confirm", "t"));
-    private static Set<String> no = new HashSet<>(Arrays.asList("n", "no", "false", "0", "f"));
+    private static Set<String> yes = new HashSet<>(Arrays.asList("y","yes", "true", "1",
+                                                                 "confirm", "t", "yup", "yeah", "positive"));
+    private static Set<String> no = new HashSet<>(Arrays.asList("n", "no", "false", "0", "f",
+                                                                "nope", "nah", "negative"));
 
     /**
      * Default constructor for Ui.
@@ -75,47 +75,29 @@ public class PlannerUi {
     }
 
     /**
-     * Helper function to print any object.
-     * @param mod to be printed.
+     * Helper function to print any Task object.
+     * @param task to be printed.
      */
-    public void showObject(ModuleTask mod) {
-        System.out.println(mod);
+    public void showObject(Task task) {
+        println(task);
     }
 
     /**
-     * Added Message for new mods.
-     * @param mod Module Tasks to be added.
+     * Added Message for new task.
+     * @param task Task to be added.
      */
-    public void addedMsg(ModuleTask mod) {
-        System.out.println("Got it, added the follow module!");
-        showObject(mod);
+    public void addedMsg(Task task) {
+        System.out.println("Got it, added the follow " + task.type() + "!");
+        showObject(task);
     }
 
     /**
-     * Added Message for cca.
-     * @param cca Cca to be added.
+     * Delete Message for task.
+     * @param task Task to be deleted.
      */
-    public void addedMsg(Cca cca) {
-        System.out.println("Got it, added the follow cca!");
-        println(cca);
-    }
-
-    /**
-     * Delete Message for new mods.
-     * @param mod Module Tasks to be added.
-     */
-    public void deleteMsg(ModuleTask mod) {
-        System.out.println("Got it, module will be deleted");
-        showObject(mod);
-    }
-
-    /**
-     * Delete Message for cca.
-     * @param cca Cca to be deleted.
-     */
-    public void deleteMsg(Cca cca) {
-        System.out.println("Got it, module will be deleted");
-        println(cca);
+    public void deleteMsg(Task task) {
+        System.out.println("Got it, " + task.type() + " will be deleted");
+        showObject(task);
     }
 
     public void listMsg() {

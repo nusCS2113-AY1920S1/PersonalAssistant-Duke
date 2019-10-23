@@ -65,4 +65,8 @@ public class Task {
     public boolean isDone() {
         return this.done;
     }
+
+    public String type() {
+        return "task";
+    }
 }

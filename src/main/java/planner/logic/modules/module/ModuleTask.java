@@ -15,7 +15,7 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed.getModuleCode();
     }
 
-    public int getModuleCredit() {
+    public float getModuleCredit() {
         return moduleInfoDetailed.getModuleCredit();
     }
 
@@ -26,5 +26,10 @@ public class ModuleTask extends Task {
     @Override
     public String toString() {
         return super.toString() + " | " + moduleInfoDetailed.toString();
+    }
+
+    @Override
+    public String type() {
+        return "module";
     }
 }
