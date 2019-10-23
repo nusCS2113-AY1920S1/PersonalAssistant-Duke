@@ -18,10 +18,6 @@ public class Dish {
         this.ingredientsList = new IngredientsList();
     }
 
-    public Dish() {
-        //
-    }
-
     public int getTotalNumberOfOrders() {
         return total;
     }
@@ -51,6 +47,10 @@ public class Dish {
     }
 
     public String toString() {
-        return dishname;
+        String str = "Recipe for: " + dishname;
+        for (Ingredient i : ingredientsList.getAllEntries()) {
+            str += "\n" + i.getName();
+        }
+        return str;
     }
 }

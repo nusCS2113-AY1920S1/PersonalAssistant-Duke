@@ -1,8 +1,6 @@
 package duke.parser;
 
 import duke.command.Cmd;
-import duke.Duke;
-import duke.command.ingredientCommand.*;
 import duke.command.dishesCommand.*;
 import duke.dish.Dish;
 import duke.exception.DukeException;
@@ -18,6 +16,7 @@ import java.util.Date;
 
 /**
  * Represents a parser used to parse the input String from the user into a Duke understandable Command.
+
  * It should deals with making sense of the user command.
  */
 public class Parser {
