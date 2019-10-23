@@ -107,7 +107,7 @@ If this is an `ArgCommand`, in addition to doing the above for a subclass of `Ar
 
 The Parser class scans through a user supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses several nested finite state machines which switch on the characters in the input the scan the rest of the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
 
-If a user-supplied switch is _not_ an alias for any switch, this triggers the disambiguation functions in `CommandHelpers`. We use a modified Levnshtein-Damerau distance which takes into account distance on a standard QWERTY keyboard in weighting the cost of substitutions and transpositions (pseudocode from https://dl.acm.org/citation.cfm?doid=1963190.1963191[here] and pointers for keyboard distance from https://stackoverflow.com/questions/29233888/[here]). The distance of the ambiguous string to every alias is calculated. If there is a switch with a unique lowest distance from the input string, that switch is automatically selected. If not, the user is prompted to select the appropriate switch from a screen.
+The finite state machine for input parsing scans each character for 
 
 [[Design-Model]]
 === Data Model
@@ -150,6 +150,14 @@ When the user shuts down `Dr.Duke` the `patientObservableMap` is sent back to th
 As can be seen in the class diagram, every individual's patient's data in nested from the `Patient` object representing that patient. The diagram also displays that there are no circle references. For these two reasons, using `Gson` to store all the data about the different patients is very convenient and effective as everything can be stored by simply creating the `JSON` representations of each `Patient` object and the rest of the nesting will be parsed automatically by the `Gson` source code. 
  
 If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s. 
+
+== Features
+
+=== Switch Autocorrect
+
+If a user-supplied switch is _not_ an alias for any switch, this triggers the disambiguation functions in `CommandHelpers`. We use a modified Levnshtein-Damerau distance which takes into account distance on a standard QWERTY keyboard in weighting the cost of substitutions and transpositions (pseudocode from https://dl.acm.org/citation.cfm?doid=1963190.1963191[here] and ideas for implementation of keyboard distance analysis from https://stackoverflow.com/questions/29233888/[here]). The distance of the ambiguous string to every alias is calculated, with basic pruning implemented, terminating the distance estimation computation if it exceeds the minimum distance found so far.
+
+If there is a switch with a unique lowest distance from the input string, that switch is automatically selected. If not, the user is prompted with a screen listing the closest matches, as well as all valid switches for this command. The closest matches are numbered, and the user may select one by entering its corresponding number, or he may enter another valid switch in its full form.
 
 
 [appendix]
