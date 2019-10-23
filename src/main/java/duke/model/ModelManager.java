@@ -1,11 +1,11 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
-import duke.model.sale.Sale;
 import duke.model.product.Product;
+import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

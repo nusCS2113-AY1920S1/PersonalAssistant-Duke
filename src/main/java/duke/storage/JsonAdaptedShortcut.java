@@ -2,7 +2,6 @@ package duke.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import duke.model.inventory.Ingredient;
 import duke.model.shortcut.Shortcut;
 
 import java.util.List;

@@ -1,9 +1,9 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
-import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -47,7 +47,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         resetData(toBeCopied);
     }
 
-    /*
+    /**
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
      */
     public void resetData(ReadOnlyBakingHome newData) {

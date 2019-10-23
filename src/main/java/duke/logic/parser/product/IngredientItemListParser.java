@@ -1,10 +1,9 @@
 package duke.logic.parser.product;
 
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.Model;
 import duke.model.commons.Item;
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Quantity;
+import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
 
 import java.util.Hashtable;

@@ -4,11 +4,11 @@ import duke.logic.command.product.ProductDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.model.product.Product;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 
 public class ProductParserUtil {
 

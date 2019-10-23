@@ -1,8 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -224,7 +224,7 @@ public interface Model {
     void deleteInventory(Item<Ingredient> inventory);
 
     /**
-     * Edits the ingredient toEdit with the ingredient edited
+     * Edits the ingredient toEdit with the ingredient edited.
      * @param toEdit the ingredient to be edited
      * @param edited the edited ingredient with changes
      */

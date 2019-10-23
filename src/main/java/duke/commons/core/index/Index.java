@@ -1,7 +1,7 @@
 package duke.commons.core.index;
 
 /**
- * Represents a zero-based or one-based index.
+ * Represents a zero-based or one-based index. Adapted from AddressBook 4.
  *
  * {@code Index} should be used right from the start (when parsing in a new user input), so that if the current
  * component wants to communicate with another component, it can send an {@code Index} to avoid having to know what

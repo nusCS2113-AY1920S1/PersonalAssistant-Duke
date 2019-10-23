@@ -17,10 +17,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+/**
+ * Launcher class for the app.
+ */
 public class Launcher extends Application {
     public static void main(String[] args) {
         launch(Launcher.class, args);

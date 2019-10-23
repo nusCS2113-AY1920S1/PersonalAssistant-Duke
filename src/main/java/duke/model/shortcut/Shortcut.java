@@ -3,6 +3,9 @@ package duke.model.shortcut;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * TODO: add comments
+ */
 public class Shortcut {
 
     //Identity field
@@ -27,7 +30,7 @@ public class Shortcut {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (String userInput : userInputs) {
-            stringBuilder.append(userInput + "; ");
+            stringBuilder.append(userInput).append("; ");
         }
         return stringBuilder.toString();
     }

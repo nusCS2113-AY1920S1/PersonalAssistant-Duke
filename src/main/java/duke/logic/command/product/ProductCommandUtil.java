@@ -42,7 +42,7 @@ public class ProductCommandUtil {
                         Quantity.getDefaultQuantity());
                 model.addInventory(newIngredient);
                 nameOfIngredientsAdded += ingredient.getItem().getName() + " ";
-            };
+            }
         }
         return nameOfIngredientsAdded;
     }

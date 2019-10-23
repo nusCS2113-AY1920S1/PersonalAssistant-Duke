@@ -3,11 +3,8 @@ package duke.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.model.commons.Item;
-import duke.model.commons.Quantity;
-import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
-import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package duke.commons.util;
 
 /**
- * A container for app specific utility functions.
+ * A container for app specific utility functions. Adapted from AddressBook 4.
  */
 public class AppUtil {
     private static final String VALIDATION_NON_EMPTY_REGEX = "[^\\s].*";
