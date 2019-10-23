@@ -15,6 +15,10 @@ public class MemberList implements IMemberList {
         this.parserHelper = new ParserHelper();
     }
 
+    public ArrayList<Member> getMemberList() {
+        return this.memberList;
+    }
+
     /**
      * Adds a new member to the member list of this project.
      * @param newMember A new member to be added to the project.

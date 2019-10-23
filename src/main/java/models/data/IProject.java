@@ -39,6 +39,8 @@ public interface IProject {
 
     ArrayList<String> getAssignedTaskList();
 
+    ArrayList<String> getCredits();
+
     void createAssignment(Task task, Member member);
 
 }
