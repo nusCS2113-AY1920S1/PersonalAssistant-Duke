@@ -11,9 +11,7 @@ public class AutoCompleterTest {
 
     @Test
     public void addCommand_orderCommand_success() {
-        Assertions.assertAll(() -> {
-            completer.addCommand(OrderCommand.class);
-        });
+        Assertions.assertAll(() -> completer.addCommand(OrderCommand.class));
     }
 
     @Test
@@ -45,7 +43,7 @@ public class AutoCompleterTest {
     }
 
     @Test
-    public void complete_orderCommand_failure() {
+    public void complete_notCompletableCommand_failure() {
         AutoCompleter emptyCompleter = new AutoCompleter();
         Assertions.assertThrows(ParseException.class, emptyCompleter::complete);
     }

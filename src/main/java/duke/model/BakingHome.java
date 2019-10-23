@@ -47,7 +47,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         resetData(toBeCopied);
     }
 
-    /*
+    /**
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
      */
     public void resetData(ReadOnlyBakingHome newData) {

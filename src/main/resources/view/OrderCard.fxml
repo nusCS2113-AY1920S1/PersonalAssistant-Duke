@@ -26,7 +26,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="200.0" spacing="10.0"
                               style="-fx-background-color: #5086ec;">
                             <children>
-                                <Label fx:id="index" text="#14g4ar" textFill="WHITE">
+                                <Label fx:id="index" text="{index}" textFill="WHITE">
                                     <font>
                                         <Font name="Arial" size="18.0"/>
                                     </font>
@@ -34,7 +34,7 @@
                                         <Insets left="10.0"/>
                                     </HBox.margin>
                                 </Label>
-                                <Label fx:id="status" alignment="CENTER" text="active" textAlignment="CENTER"
+                                <Label fx:id="status" alignment="CENTER" text="{status}" textAlignment="CENTER"
                                        textFill="WHITE">
                                     <font>
                                         <Font name="Arial" size="18.0"/>
@@ -45,7 +45,7 @@
                                 </Label>
                                 <Label fx:id="deadline" alignment="CENTER"
                                        style="-fx-background-color: white; -fx-background-radius: 5; -fx-padding: 4;"
-                                       text="March 18" textAlignment="CENTER" textFill="#5086ec">
+                                       text="{deadline}" textAlignment="CENTER" textFill="#5086ec">
                                     <font>
                                         <Font name="Arial" size="18.0"/>
                                     </font>
@@ -60,6 +60,17 @@
                                             </image>
                                         </ImageView>
                                     </graphic>
+                                </Label>
+                                <Label fx:id="inventoryStatus" alignment="CENTER"
+                                       style="-fx-background-color: rgb(237,108,97); -fx-background-radius: 5; -fx-padding: 4;"
+                                       text="Insuffcient Ingredients" textAlignment="CENTER" textFill="WHITE"
+                                       visible="false">
+                                    <font>
+                                        <Font name="Arial" size="18.0"/>
+                                    </font>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
                                 </Label>
                             </children>
                         </HBox>
@@ -81,7 +92,7 @@
                                         <Insets left="5.0"/>
                                     </HBox.margin>
                                 </Label>
-                                <Label fx:id="total" alignment="CENTER" text="10.0">
+                                <Label fx:id="total" alignment="CENTER" text="{total}">
                                     <font>
                                         <Font name="Arial" size="14.0"/>
                                     </font>
@@ -110,7 +121,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Label>
-                                <Label fx:id="name" alignment="CENTER" text="Jiajun">
+                                <Label fx:id="name" alignment="CENTER" text="{name}">
                                     <font>
                                         <Font name="Arial" size="14.0"/>
                                     </font>
@@ -134,7 +145,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Label>
-                                <Label fx:id="contact" alignment="CENTER" text="83486144">
+                                <Label fx:id="contact" alignment="CENTER" text="{contact}">
                                     <font>
                                         <Font name="Arial" size="14.0"/>
                                     </font>
@@ -158,7 +169,7 @@
                                         </ImageView>
                                     </graphic>
                                 </Label>
-                                <Label fx:id="remarks" alignment="CENTER" text="No nuts">
+                                <Label fx:id="remarks" alignment="CENTER" text="{remarks}">
                                     <font>
                                         <Font name="Arial" size="14.0"/>
                                     </font>
@@ -196,7 +207,7 @@
                                         <Insets left="10.0"/>
                                     </HBox.margin>
                                 </Label>
-                                <Label fx:id="id" alignment="CENTER" text="Jiajun" textFill="#96663b">
+                                <Label fx:id="id" alignment="CENTER" text="{id}" textFill="#96663b">
                                     <font>
                                         <Font name="Arial" size="12.0"/>
                                     </font>
@@ -212,8 +223,7 @@
                                         <Insets left="20.0"/>
                                     </HBox.margin>
                                 </Label>
-                                <Label fx:id="creationDate" alignment="CENTER" text="01/01/1999 18:00"
-                                       textFill="#96663b">
+                                <Label fx:id="creationDate" alignment="CENTER" text="{creationDate}" textFill="#96663b">
                                     <font>
                                         <Font name="Arial" size="12.0"/>
                                     </font>

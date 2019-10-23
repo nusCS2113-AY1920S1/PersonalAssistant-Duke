@@ -224,7 +224,7 @@ public interface Model {
     void deleteInventory(Item<Ingredient> inventory);
 
     /**
-     * Edits the ingredient toEdit with the ingredient edited
+     * Edits the ingredient toEdit with the ingredient edited.
      * @param toEdit the ingredient to be edited
      * @param edited the edited ingredient with changes
      */
