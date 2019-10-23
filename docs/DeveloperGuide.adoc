@@ -191,6 +191,8 @@ and `print report` to print the user profile. `PrintArchiveCommand` is used to p
 `PrintReportCommand` for the user stats, and `PrintQuizCommand` for the quiz. The `PrintArchiveCommand`,
 `PrintQuizCommand`, and `PrintReportCommand` is a children class of `PrintCommand`.
 
+image::PrintCommandImplementation.png[]
+
 ==== Design Considerations
 ===== Aspect: Modularizing program to write to PDF
 * **Alternative 1 (current choice):** Use inheritance.
