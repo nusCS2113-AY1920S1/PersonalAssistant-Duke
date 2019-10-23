@@ -1,7 +1,7 @@
 = Le Duc - Developer Guide
 :site-section: DeveloperGuide
-:imagesDir: ../images
-:stylesDir: ../stylesheets
+:imagesDir: images
+:stylesDir: stylesheets
 
 
 ---
