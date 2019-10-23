@@ -77,8 +77,8 @@ public class DeletePatientTaskCommand extends Command {
             }
         } else {
             try {
-                String patientName = this.deletedPatientInfo;
-                ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(patientName);
+                String deletePatientName = this.deletedPatientInfo;
+                ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletePatientName);
                 int tempPatientId = patientsWithSameName.get(0).getID();
                 if (patientTaskList.doesPatientIdExist(tempPatientId)) {
                     patientTaskList.deleteAllTasksBelongToThePatient(tempPatientId);
