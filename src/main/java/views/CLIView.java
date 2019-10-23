@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CLIView {
-    private static final String horiLine = "\t____________________________________________________________";
-    private static final String indentation = "\t";
-    private static final String borderCorner = "+";
-    private static final char horiBorderUnit = '-';
-    private static final String vertiBorderUnit = "|";
-    private static final int defaultHoriBorderLength = 60;
+    private static final String HORILINE = "\t____________________________________________________________";
+    private static final String INDENTATION = "\t";
+    private static final String BORDER_CORNER = "+";
+    private static final char HORI_BORDER_UNIT = '-';
+    private static final String VERTI_BORDER_UNIT = "|";
+    private static final int DEFAULT_HORI_BORDER_LENGTH = 60;
 
 
     private ConsoleInputController consoleInputController;
@@ -29,11 +29,11 @@ public class CLIView {
      * @param lines The lines to be printed in between the border.
      */
     public void consolePrint(String... lines) {
-        System.out.println(horiLine);
+        System.out.println(HORILINE);
         for (String message : lines) {
-            System.out.println(indentation + message);
+            System.out.println(INDENTATION + message);
         }
-        System.out.println(horiLine);
+        System.out.println(HORILINE);
     }
 
     /**
@@ -43,25 +43,25 @@ public class CLIView {
      */
     public void consolePrintTable(ArrayList<ArrayList<String>> toPrintAll) {
         for (ArrayList<String> toPrint : toPrintAll) {
-            consolePrintTableHoriBorder(defaultHoriBorderLength);
+            consolePrintTableHoriBorder(DEFAULT_HORI_BORDER_LENGTH);
             boolean hasPrintedTableHeader = false;
             for (String s : toPrint) {
-                if (s.length() <= defaultHoriBorderLength) {
-                    System.out.println(indentation + vertiBorderUnit + s
-                            + getRemainingSpaces(defaultHoriBorderLength - s.length()) + vertiBorderUnit);
+                if (s.length() <= DEFAULT_HORI_BORDER_LENGTH) {
+                    System.out.println(INDENTATION + VERTI_BORDER_UNIT + s
+                            + getRemainingSpaces(DEFAULT_HORI_BORDER_LENGTH - s.length()) + VERTI_BORDER_UNIT);
                 } else {
                     String[] splitStrings = getArrayOfSplitStrings(s);
                     for (String s1 : splitStrings) {
-                        System.out.println(indentation + vertiBorderUnit + s1
-                                + getRemainingSpaces(defaultHoriBorderLength - s1.length()) + vertiBorderUnit);
+                        System.out.println(INDENTATION + VERTI_BORDER_UNIT + s1
+                                + getRemainingSpaces(DEFAULT_HORI_BORDER_LENGTH - s1.length()) + VERTI_BORDER_UNIT);
                     }
                 }
                 if (!hasPrintedTableHeader) {
-                    consolePrintTableHoriBorder(defaultHoriBorderLength);
+                    consolePrintTableHoriBorder(DEFAULT_HORI_BORDER_LENGTH);
                     hasPrintedTableHeader = true;
                 }
             }
-            consolePrintTableHoriBorder(defaultHoriBorderLength);
+            consolePrintTableHoriBorder(DEFAULT_HORI_BORDER_LENGTH);
         }
     }
 
@@ -75,7 +75,7 @@ public class CLIView {
     private String[] getArrayOfSplitStrings(String toPrint) {
         ArrayList<String> splitStrings = new ArrayList<>();
         int indexOfStringSplitStart = 0;
-        int indexOfStringSplitEnd = defaultHoriBorderLength;
+        int indexOfStringSplitEnd = DEFAULT_HORI_BORDER_LENGTH;
         boolean isLastLine = false;
         while (!isLastLine) {
             if (toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd).contains(" ")) {
@@ -84,7 +84,7 @@ public class CLIView {
                 }
                 splitStrings.add(toPrint.substring(indexOfStringSplitStart, indexOfStringSplitEnd));
                 indexOfStringSplitStart = indexOfStringSplitEnd;
-                indexOfStringSplitEnd += defaultHoriBorderLength;
+                indexOfStringSplitEnd += DEFAULT_HORI_BORDER_LENGTH;
 
             } else {
                 //if a single word without space is longer than defaultHoriBorderLength
@@ -94,14 +94,14 @@ public class CLIView {
                         break;
                     }
                 }
-                int numOfLines = (indexOfStringSplitEnd - indexOfStringSplitStart) / (defaultHoriBorderLength - 1);
+                int numOfLines = (indexOfStringSplitEnd - indexOfStringSplitStart) / (DEFAULT_HORI_BORDER_LENGTH - 1);
                 for (int i = 1; i <= numOfLines; i++) {
                     String wordSegment = toPrint.substring(indexOfStringSplitStart,
-                            indexOfStringSplitStart + defaultHoriBorderLength - 1) + "-";
+                            indexOfStringSplitStart + DEFAULT_HORI_BORDER_LENGTH - 1) + "-";
                     splitStrings.add(wordSegment);
-                    indexOfStringSplitStart += (defaultHoriBorderLength - 1);
+                    indexOfStringSplitStart += (DEFAULT_HORI_BORDER_LENGTH - 1);
                 }
-                indexOfStringSplitEnd = indexOfStringSplitStart + defaultHoriBorderLength;
+                indexOfStringSplitEnd = indexOfStringSplitStart + DEFAULT_HORI_BORDER_LENGTH;
             }
             if (indexOfStringSplitEnd >= toPrint.length()) {
                 splitStrings.add(toPrint.substring(indexOfStringSplitStart));
@@ -135,10 +135,10 @@ public class CLIView {
     private void consolePrintTableHoriBorder(int borderLength) {
         char[] border = new char[borderLength];
         for (int i = 0; i < borderLength; i++) {
-            border[i] = horiBorderUnit;
+            border[i] = HORI_BORDER_UNIT;
         }
         String borderString = new String(border);
-        System.out.println(indentation + borderCorner + borderString + borderCorner);
+        System.out.println(INDENTATION + BORDER_CORNER + borderString + BORDER_CORNER);
     }
 
     /**
