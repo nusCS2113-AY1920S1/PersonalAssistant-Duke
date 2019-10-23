@@ -1,143 +1,147 @@
 package rims.resource;
 
-import rims.command.*;
-import rims.exception.*;
-import rims.core.*;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.concurrent.TimeUnit;
+import rims.core.Ui;
 
 public abstract class Resource {
+    // resource specific attributes
     protected String name;
-    protected int id;
-    protected char type;
-    protected Date bookedFrom;
-    protected Date bookedTill;
-    protected int loanId;
+    protected int resource_id;
+    protected String type;
+    protected ReservationList reservations;
+    // utility classes
+    protected Ui ui;
 
-    // for creation of new resource
-    public Resource(String name) {
+    public Resource() {
+        ;
+    }
+
+    /**
+     * Takes in id, type and name to create new resource. No reservation is created
+     * for a newly added resource
+     * 
+     * @param id   integer
+     * @param type string
+     * @param name string
+     * 
+     */
+    public Resource(int resource_id, String type, String name) {
+        this.resource_id = resource_id;
+        this.type = type;
         this.name = name;
-        this.bookedFrom = null;
-        this.bookedTill = null;
-        this.loanId = -1; // magic number!
-        // find some way to auto generate id
     }
 
-    // for loading an unbooked resource from data list when RIMS is started up
-    public Resource(String name, int id) {
+    /**
+     * Takes in id, type and resource name as string tokens from the text file, and
+     * its reservation (if any) into the resourceList. The resource_id is casted to
+     * integer in this constructor
+     * 
+     * @param resource_id  string
+     * @param type         string
+     * @param name         string
+     * @param reservations string
+     */
+    public Resource(String resource_id, String type, String name, ReservationList reservations) {
+        this.resource_id = Integer.parseInt(resource_id);
+        this.type = type;
         this.name = name;
-        this.id = id;
-        this.bookedFrom = null;
-        this.bookedTill = null;
-        this.loanId = -1;
+        this.reservations = reservations;
     }
 
-    // for loading a booked resource from data list when RIMS is started up
-    public Resource(String name, int id, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
+    /**
+     * Takes in id, type and resource name as string tokens from the text file, and
+     * its reservation (if any) into the resourceList.
+     * 
+     * @param resource_id  integer
+     * @param type         string
+     * @param name         string
+     * @param reservations string
+     */
+    public Resource(int resource_id, String type, String name, ReservationList reservations) {
+        this.resource_id = resource_id;
+        this.type = type;
         this.name = name;
-        this.id = id;
-        setLoanId(loanId);
-        this.bookedFrom = stringToDate(stringDateFrom);
-        this.bookedTill = stringToDate(stringDateTill);
-        if (!(isBookedOrReserved())) {
-            markAsReturned();
-        }
+        this.reservations = reservations;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getLoanId() {
-        return loanId;
-    }
-
-    public char getType() {
-        return type;
-    }
-
-    public Date getDateBookedFrom() {
-        return bookedFrom;
-    }
-
-    public Date getDateBookedTill() {
-        return bookedTill;
-    }
-
-    public boolean isBookedNow() {
-        if (bookedFrom == null && bookedTill == null) {
-            return false;
-        }
-        Date currentDate = new Date(System.currentTimeMillis());
-        return (currentDate.after(bookedFrom) && currentDate.before(bookedTill));
-    }
-
-    public boolean isBookedOn(Date date) {
-        if (bookedFrom == null && bookedTill == null) {
-            return false;
-        }
-        return (date.after(bookedFrom) && date.before(bookedTill));
-    }
-
-    public boolean isBookedOrReserved() {
-        if (bookedFrom == null && bookedFrom == null) {
-            return false;
-        }
-        Date currentDate = new Date(System.currentTimeMillis());
-        return (isBookedNow() || currentDate.before(bookedFrom));
-    }
-
-
-    public void setLoanId(int loanId) {
-        this.loanId = loanId;
-    }
-
-    public Date stringToDate(String stringDate) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date dateValue = formatter.parse(stringDate);
-        return dateValue;
-    }
-
-    public String dateToString(Date thisDate) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        String stringDate = format.format(thisDate);
-        return stringDate;
-    }
-
-    // for loaning: from now till stringDateTill
-    public void markAsBooked(String stringDateTill, int loanId) throws ParseException {
-        bookedFrom = new Date(System.currentTimeMillis());
-        bookedTill = stringToDate(stringDateTill);
-        this.loanId = loanId;
-    }
-
-    // for reserving: from stringDateFrom till stringDateTill
-    public void markAsBooked(String stringDateFrom, String stringDateTill, int loanId) throws ParseException {
-        bookedFrom = stringToDate(stringDateFrom);
-        bookedTill = stringToDate(stringDateTill);
-        this.loanId = loanId;
-    }
-
-    public void markAsReturned() {
-        this.loanId = -1;
-        this.bookedFrom = null;
-        this.bookedTill = null;
-    }
-
-    @Override
+    /**
+     * This method formats the resource information into a easy-to-read string
+     * 
+     * @return string
+     */
     public String toString() {
-        return "[" + getType() + "] " + getName();
+        String s;
+        s = "ID: " + resource_id + " [" + type + "]" + name;
+        return s;
     }
 
-    public boolean isItem() { return (this instanceof Item); }
+    /**
+     * This method formats the resource information into a string suitable to store
+     * in text file Different attributes are separated by ',' The attributes being
+     * stored are: id, type, name
+     * 
+     * @return string
+     */
+    public String toDataString() {
+        String s;
+        s = resource_id + "," + type + "," + name;
+        return s;
+    }
 
+    /**
+     * Get method
+     * 
+     * @return resource_id
+     */
+    public int getResourceId() {
+        return this.resource_id;
+    }
+
+    /**
+     * Get method
+     * 
+     * @return resource name
+     */
+    public String getResourceName() {
+        return this.name;
+    }
+
+    /**
+     * Get method
+     * 
+     * @return type name
+     */
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Get method
+     * 
+     * @return Reservationlist that belongs the this object
+     */
+    public ReservationList getReservations() {
+        return this.reservations;
+    }
+
+    /**
+     * Remove the single reservation by a reservation id. The exception catching is
+     * not yet done.
+     * 
+     * @exception invalidReservationId A reservation cannot be found under using
+     *                                 this reservation id
+     * @param reservation_id
+     */
+    public void removeReservationByReservationId(int reservation_id) {
+        int index_to_remove = -1;
+        for (int i = 0; i < this.reservations.size(); i++) {
+            Reservation thisReservation = reservations.getReservationByIndex(i);
+            if (thisReservation.getReservationId() == reservation_id) {
+                index_to_remove = i;
+            }
+        }
+
+        if (index_to_remove != -1) {
+            reservations.deleteReservationByReservationID(index_to_remove);
+        }
+    }
 }

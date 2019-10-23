@@ -1,12 +1,8 @@
 package rims.command;
 
-import rims.core.*;
-import rims.exception.*;
-import rims.resource.*;
-
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import rims.core.ResourceList;
+import rims.core.Storage;
+import rims.core.Ui;
 
 /**
  * The parent of all possible commands understood by Duke. Sets the exit code
@@ -27,6 +23,5 @@ public abstract class Command {
     public void setExitCode() {
         exitCode = true;
     }
-
     abstract public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception;
 }
