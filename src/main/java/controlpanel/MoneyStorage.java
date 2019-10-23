@@ -24,7 +24,7 @@ public class MoneyStorage {
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public Account load() {
         Account account = new Account();
         try {
@@ -115,7 +115,7 @@ public class MoneyStorage {
         return account;
     }
 
-    //@@ therealnickcheong
+    //@@author {therealnickcheong}
     public void writeToFile(Account account) {
         try{
             FileWriter fileWriter = new FileWriter(fileName);
@@ -173,7 +173,7 @@ public class MoneyStorage {
         }
     }
 
-    //@@ Chianhaoplanks
+    //@@author {Chianhaoplanks}
     public void markDeletedEntry(String type, int index) throws DukeException {
         try {
             File tempFile = File.createTempFile("moneyAccountTemp", ".txt",

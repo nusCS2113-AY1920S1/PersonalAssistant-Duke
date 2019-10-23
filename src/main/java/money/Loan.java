@@ -29,7 +29,7 @@ public class Loan extends Item {
      * @param startDate Date which the loan was made
      * @param type Type determining the loan is incoming or outgoing
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public Loan(float amount, String description, LocalDate startDate, Type type) {
         super(amount, description);
         this.startDate = startDate;

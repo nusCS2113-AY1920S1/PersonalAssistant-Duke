@@ -29,7 +29,7 @@ public class AddSplitCommand extends MoneyCommand {
      * with the split expenditure data within the user input.
      * @param command add command inputted from user
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public AddSplitCommand(String command) {
         inputString = command.replaceFirst("split ", "");
     }
@@ -78,6 +78,7 @@ public class AddSplitCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) { // find out what this is for
         int lastIndex = account.getExpListTotal().size() - 1;
         Expenditure exp = account.getExpListTotal().get(lastIndex);

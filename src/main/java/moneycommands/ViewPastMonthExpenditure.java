@@ -21,7 +21,7 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public ViewPastMonthExpenditure(String command) {
         String inputString = command.replaceFirst("check expenditure ", "");
         String[] splitStr = inputString.split(" ");
@@ -115,6 +115,7 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

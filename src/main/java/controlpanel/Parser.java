@@ -132,7 +132,7 @@ public class Parser {
      * @return formatted Date based on user inputted date
      * @throws ParseException if invalid date is parsed
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public static LocalDate shortcutTime(String dateStr) throws ParseException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String time = dateStr.replaceAll(" ", "");

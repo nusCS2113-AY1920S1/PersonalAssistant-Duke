@@ -19,6 +19,7 @@ public class DeleteLoanCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
+    //@@author {chengweixuan}
     public DeleteLoanCommand(String command) {
         inputString = command;
         String temp = inputString.replaceAll("[^0-9]", "");
@@ -52,11 +53,12 @@ public class DeleteLoanCommand extends MoneyCommand {
         ui.appendToOutput("  " + account.getLoans().get(serialNo - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getLoans().size() - 1) + " total loans.\n");
 
-        storage.markDeletedEntry("LOA", "@", "#", serialNo);
+        storage.markDeletedEntry("LOA", serialNo);
         account.getLoans().remove(serialNo - 1);
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         storage.undoDeletedEntry(account, "EXP", serialNo);
         storage.writeToFile(account);

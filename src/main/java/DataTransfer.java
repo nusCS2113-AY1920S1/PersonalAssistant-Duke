@@ -14,7 +14,7 @@ public interface DataTransfer {
      * This function sends the data of histogram for the monthly report
      * @return histogram for the monthly report
      */
-    //@@ cctt1014
+    //@@author {cctt1014}
     static Histogram getMonthlyData(Account account) throws IOException {
         ArrayList<String> xData = new ArrayList<>();
         xData.add("Income");

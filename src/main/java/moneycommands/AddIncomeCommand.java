@@ -25,7 +25,7 @@ public class AddIncomeCommand extends MoneyCommand {
      * with the income source data within the user input.
      * @param command add command inputted from user
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public AddIncomeCommand(String command) {
         inputString = command.replaceFirst("add income ", "");
     }
@@ -70,6 +70,7 @@ public class AddIncomeCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) {
         int lastIndex = account.getIncomeListTotal().size() - 1;
         Income i = account.getIncomeListTotal().get(lastIndex);

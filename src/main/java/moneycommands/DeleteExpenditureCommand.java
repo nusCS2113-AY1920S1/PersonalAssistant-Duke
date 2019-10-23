@@ -19,7 +19,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public DeleteExpenditureCommand(String command) {
         inputString = command;
         String temp = inputString.replaceAll("[^0-9]", "");
@@ -56,6 +56,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         storage.undoDeletedEntry(account, "EXP", serialNo);
         storage.writeToFile(account);

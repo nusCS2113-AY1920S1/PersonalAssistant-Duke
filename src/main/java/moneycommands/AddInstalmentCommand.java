@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class AddInstalmentCommand extends MoneyCommand{
     private String inputString;
 
-    //@@ ChenChao19
+    //@@author {ChenChao19}
     public AddInstalmentCommand(String command) {
         inputString = command.replaceFirst("add instalment ", "");
     }
@@ -57,6 +57,7 @@ public class AddInstalmentCommand extends MoneyCommand{
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) {
         int lastIndex = account.getInstalments().size() - 1;
         Instalment ins = account.getInstalments().get(lastIndex);
