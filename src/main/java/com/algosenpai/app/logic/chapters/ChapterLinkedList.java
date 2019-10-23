@@ -1,25 +1,25 @@
 package com.algosenpai.app.logic.chapters;
 
+import com.algosenpai.app.logic.models.QuestionModel;
+import com.algosenpai.app.logic.models.ReviewTracingListModel;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 
-class ChapterLinkedList {
+public class ChapterLinkedList {
+
+
     private static Random random = new Random();
     private static Scanner s = new Scanner(System.in);
 
-    private int totalAnswers;
-    private int correctAnswers;
-
     /**
-     * Generates a random question according to a random value.
-     * 
-     * @return True if the question was answered correctly, or false if the question
-     *         was answered wrongly.
+     * Generates a random question related to linked lists.
+     * @return a question model according to the random number being generated.
      */
-    public Boolean generateQuestions() {
+    public static QuestionModel generateQuestions() {
         int questionType = random.nextInt(4);
         switch (questionType) {
         case 0:
@@ -31,42 +31,28 @@ class ChapterLinkedList {
         case 3:
             return pseudoCodeQuestion();
         default:
-            return true;
+            return null;
         }
     }
 
     /**
-     * Generates a pseudoCode question that tests the user on their understanding of
-     * Linked List through pseudocode calculation. An input is taken from the user
-     * as an answer.
-     * 
-     * @return True if the answer matches the input, or false if the answer is
-     *         wrong.
+     * Generates a question related to the topic on pseudocode understanding.
+     * @return a question to the generateQuestion function.
      */
-    private Boolean pseudoCodeQuestion() {
+    private static QuestionModel pseudoCodeQuestion() {
         int arraySize = random.nextInt(4) + 6;
         ArrayList<Integer> array = new ArrayList<>(createList(arraySize));
         for (int i = 0; i < array.size(); i++) {
             array.set(i, array.get(i) % 10);
         }
-        System.out.println("In the pseudocode program below, list is an initially empty Singly Linked List.\n"
+        String question = "In the pseudocode program below, list is an initially empty Singly Linked List.\n"
                 + "The function populateList() adds the integers " + array + " to the tail of the list sequentially.\n"
-                + "What is the output of the program?");
+                + "What is the output of the program?";
         ArrayList<String> pseudoCode = new ArrayList<>();
         generatePseudoCode(pseudoCode);
-        printPseudoCode(pseudoCode);
+        question += printPseudoCode(pseudoCode);
         int answer = calculateSum(array, pseudoCode);
-        int userInput = s.nextInt();
-        s.nextLine();
-        if (answer == userInput) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.print("This is the correct answer : " + answer);
-            System.out.println(". Try harder!\n");
-            return false;
-        }
-
+        return new QuestionModel(question, String.valueOf(answer), new ReviewTracingListModel());
     }
 
     /**
@@ -76,7 +62,7 @@ class ChapterLinkedList {
      * @param pseudoCode The list of instructions in the pseudo-code.
      * @return The value of the sum given in the pseudo-code.
      */
-    private int calculateSum(ArrayList<Integer> array, ArrayList<String> pseudoCode) {
+    private static int calculateSum(ArrayList<Integer> array, ArrayList<String> pseudoCode) {
         int sum = 0;
         int index = 0;
         for (String i : pseudoCode) {
@@ -112,7 +98,7 @@ class ChapterLinkedList {
      * 
      * @param pseudoCode The list which will contain the instructions.
      */
-    private void generatePseudoCode(ArrayList<String> pseudoCode) {
+    private static void generatePseudoCode(ArrayList<String> pseudoCode) {
         pseudoCode.add("populateList();");
         pseudoCode.add("int sum = 0;");
         pseudoCode.add("Node n = list.head; //list.head/list.tail points to the first/last integer in list");
@@ -150,10 +136,9 @@ class ChapterLinkedList {
      * The question can be either appending to the head or the tail of the linked
      * list. A sequence of integers are taken in from the user as an answer.
      * 
-     * @return True if the answer matches the input given by the user, else false if
-     *         the answer is wrong.
+     * @return a question which contains the question to the generateQuestions function.
      */
-    private Boolean singleInsertLinkedListQuestion() {
+    private static QuestionModel singleInsertLinkedListQuestion() {
         int listSize = random.nextInt(4) + 5;
         LinkedList<Integer> ll = createList(listSize);
         int valueToAdd = random.nextInt(100);
@@ -163,30 +148,17 @@ class ChapterLinkedList {
         } else {
             positionToAdd = "tail";
         }
-        System.out.println("Consider the Singly Linked List of size " + listSize + " below."
+        String question = "Consider the Singly Linked List of size " + listSize + " below."
                 + " It undergoes an insertion of value " + valueToAdd + " at the " + positionToAdd
-                + ".\nWhat would be the new sequence of integers?");
-        printList(ll);
+                + ".\nWhat would be the new sequence of integers?";
+        question += printList(ll);
         if (positionToAdd.equals("head")) {
             ll.addFirst(valueToAdd);
         } else {
             ll.addLast(valueToAdd);
         }
-        LinkedList<Integer> userInput = new LinkedList<>();
-        String input = s.nextLine();
-        String[] arr = input.split(" -> ");
-        for (String string : arr) {
-            userInput.add(Integer.parseInt(string));
-        }
-        if (userInput.equals(ll)) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : ");
-            printList(ll);
-            System.out.println("Try harder!\n");
-            return false;
-        }
+        String answer = printList(ll);
+        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     /**
@@ -195,30 +167,22 @@ class ChapterLinkedList {
      * The algorithm will do the popping and pushing accordingly. An input is taken
      * in from the user as an answer.
      * 
-     * @return True if the answer matches the input, or false if the question was
-     *         answered wrongly.
+     * @return the question to the generateQuestion function.
      */
-    private Boolean queuePopPushQuestion() {
+    private static QuestionModel queuePopPushQuestion() {
         int queueSize = random.nextInt(4) + 4;
         LinkedList<Integer> queue = createList(queueSize);
         ArrayList<String> instructions = new ArrayList<String>();
         int numberOfInstructions = random.nextInt(3) + 4;
         addInstructions(instructions, numberOfInstructions);
-        System.out.println("A Queue of size " + queueSize
+        String question = "A Queue of size " + queueSize
                 + " undergoes a series of operations as shown below.\n"
-                + "What would be the new value called upon queue.peek()?");
-        printQueue(queue);
-        printInstructions(instructions);
+                + "What would be the new value called upon queue.peek()?";
+        question += printQueue(queue);
+        question += printInstructions(instructions);
         changeQueue(instructions, queue);
-        int val = s.nextInt();
-        s.nextLine();
-        if (val == queue.getLast()) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : " + queue.getLast() + "\nTry harder!\n");
-            return false;
-        }
+        String answer = String.valueOf(queue.getLast());
+        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     /**
@@ -230,7 +194,7 @@ class ChapterLinkedList {
      * @param queue        The list which would be edited according to the
      *                     instructions given.
      */
-    private void changeQueue(ArrayList<String> instructions, LinkedList<Integer> queue) {
+    private static void changeQueue(ArrayList<String> instructions, LinkedList<Integer> queue) {
         for (String cmd : instructions) {
             if (cmd.contains("Pop")) {
                 queue.removeLast();
@@ -249,30 +213,22 @@ class ChapterLinkedList {
      * algorithm will do the popping and pushing accordingly. An input is taken in
      * from the user as an answer.
      * 
-     * @return True if the answer matches the input, or false if the answer is
-     *         wrong.
+     * @return the question being generated to generateQuestion.
      */
-    private Boolean stackPopPushQuestion() {
+    private static QuestionModel stackPopPushQuestion() {
         int stackSize = random.nextInt(4) + 4;
         LinkedList<Integer> stack = createList(stackSize);
         ArrayList<String> instructions = new ArrayList<String>();
         int numberOfInstructions = random.nextInt(3) + 4;
         addInstructions(instructions, numberOfInstructions);
-        System.out.println("A Stack of size " + stackSize
+        String question = "A Stack of size " + stackSize
                 + " undergoes a series of operations as shown below.\n"
-                + "What would be the new value called upon stack.peek()?");
-        printStack(stack);
-        printInstructions(instructions);
+                + "What would be the new value called upon stack.peek()?";
+        question += printStack(stack);
+        question += printInstructions(instructions);
         changeStack(instructions, stack);
-        int val = s.nextInt();
-        s.nextLine();
-        if (val == stack.getLast()) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : " + stack.getLast() + "\nTry harder!\n");
-            return false;
-        }
+        String answer = String.valueOf(stack.getLast());
+        return new QuestionModel(question, answer, new ReviewTracingListModel());
     }
 
     /**
@@ -282,7 +238,7 @@ class ChapterLinkedList {
      * @param instructions The list of instructions provided.
      * @param stack        The data structure to be changed.
      */
-    private void changeStack(ArrayList<String> instructions, LinkedList<Integer> stack) {
+    private static void changeStack(ArrayList<String> instructions, LinkedList<Integer> stack) {
         for (String cmd : instructions) {
             if (cmd.contains("Pop")) {
                 stack.removeLast();
@@ -303,7 +259,7 @@ class ChapterLinkedList {
      * @param numberOfInstructions The number of instructions to be added into the
      *                             list.
      */
-    private void addInstructions(ArrayList<String> instructions, int numberOfInstructions) {
+    private static void addInstructions(ArrayList<String> instructions, int numberOfInstructions) {
         for (int i = 0; i < numberOfInstructions; i++) {
             int val = random.nextInt(2);
             int toadd = random.nextInt(100);
@@ -327,7 +283,7 @@ class ChapterLinkedList {
      * @param size The number of elements to be in the Linked List.
      * @return The Linked List data structure to be used for the question.
      */
-    private LinkedList<Integer> createList(int size) {
+    private static LinkedList<Integer> createList(int size) {
         HashSet<Integer> set = new HashSet<>();
         while (set.size() != size) {
             int value = random.nextInt(100);
@@ -338,66 +294,81 @@ class ChapterLinkedList {
     }
 
     /**
-     * Prints the list of pseudo-code.
+     * Creates a String containing the list of instructions used in the pseudocode.
      * 
      * @param pseudoCode The list of instructions in the pseudo-code.
+     * @return The String containing the instructions.
      */
-    private void printPseudoCode(ArrayList<String> pseudoCode) {
+    private static String printPseudoCode(ArrayList<String> pseudoCode) {
+        String string = new String();
         for (String cmd : pseudoCode) {
-            System.out.println(cmd);
+            string += cmd + "\n";
         }
+        return string;
     }
 
     /**
-     * Prints the list given.
+     * Creates a formatted String from the linkedlist provided.
      * 
      * @param ll The linked list provided.
+     * @return The string representing the linkedlist.
      */
-    private void printList(LinkedList<Integer> ll) {
+    private static String printList(LinkedList<Integer> ll) {
+        String linkedListString = new String();
         for (int i : ll) {
-            System.out.printf("[%d]", i);
+            linkedListString += "[" + i + "]";
             if (i != ll.getLast()) {
-                System.out.print(" -> ");
+                linkedListString += " -> ";
             }
         }
-        System.out.println();
+        linkedListString += "\n";
+        return linkedListString;
     }
 
     /**
-     * Prints the stack created.
+     * Creates a formatted String which represents the stack given.
      * 
      * @param stack The stack containing the elements.
+     * @return The string which represents the stack.
      */
-    private void printStack(LinkedList<Integer> stack) {
+    private static String printStack(LinkedList<Integer> stack) {
+        String s = new String();
         for (int i : stack) {
-            System.out.printf("[%d] <- ", i);
+            s += "[" + i + "] <- ";
         }
-        System.out.println("Head");
+        s += "Head\n";
+        return s;
     }
 
     /**
-     * Prints the queue created.
+     * Creates a formatted String which contains the elements in the queue.
      * 
      * @param queue The queue containing the elements.
+     * @return The formatted String.
      */
-    private void printQueue(LinkedList<Integer> queue) {
+    private static String printQueue(LinkedList<Integer> queue) {
+        String q = new String();
         for (int i : queue) {
-            System.out.printf("[%d] -> ", i);
+            q += "[" + i + "] -> ";
         }
-        System.out.println("Front");
+        q += "Front";
+        return q;
     }
 
     /**
-     * Prints the instruction given by the list on separate new lines.
+     * Creates a String with the instruction given by the list on separate new lines.
      * 
      * @param instructions The list of instructions provided.
+     * @return The String containing the instructions given by the list.
      */
-    private void printInstructions(ArrayList<String> instructions) {
+    private static String printInstructions(ArrayList<String> instructions) {
+        String instructs = new String();
         int i = 1;
         for (String s : instructions) {
-            System.out.printf("%d. %s\n", i, s);
+            instructs += i + ". " + s + "\n";
             i++;
         }
+        return instructs;
     }
 
 }
