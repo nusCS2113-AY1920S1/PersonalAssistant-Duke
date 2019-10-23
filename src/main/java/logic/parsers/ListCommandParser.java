@@ -10,8 +10,8 @@ public class ListCommandParser {
      * @return the ListCommand
      */
     public static Command parse(String userInput) {
-        userInput = userInput.toUpperCase();
-        userInput = SpellingErrorCorrector.commandCorrector(new String[]{"TASKS", "MEMBERS"}, userInput);
+        //userInput = userInput.toUpperCase();
+        //userInput = SpellingErrorCorrector.commandCorrector(new String[]{"TASKS", "MEMBERS"}, userInput);
         return new ListCommand(userInput);
     }
 }

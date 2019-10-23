@@ -44,7 +44,7 @@ public class Duke {
     public Duke(String taskFilePath, String memberFilePath) {
         storage = new Storage(taskFilePath, memberFilePath);
         tasks = storage.loadTaskList();
-        members = storage.loadMemberList();
+        members = storage.loadMemberList(tasks);
         Duke.instance = this;
     }
 

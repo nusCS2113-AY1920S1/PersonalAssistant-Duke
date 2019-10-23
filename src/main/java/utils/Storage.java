@@ -60,7 +60,6 @@ public class Storage {
      */
     public ArrayList<Task> loadTaskList() {
         ArrayList<Task> tasks = new ArrayList<Task>();
-        Task.tasks = tasks;
         try {
             is = new FileInputStream(taskDataFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -68,6 +67,7 @@ public class Storage {
             while ((line = br.readLine()) != null) {
                 tasks.add(DataParser.taskDataLine(line));
             }
+            Task.tasks = tasks;
             br.close();
             is.close();
         } catch (Exception e) {
@@ -103,7 +103,7 @@ public class Storage {
      *
      * @return an ArrayList of Member, which is the member list
      */
-    public ArrayList<Member> loadMemberList() {
+    public ArrayList<Member> loadMemberList(ArrayList<Task> tasks) {
         ArrayList<Member> members = new ArrayList<Member>();
         try {
             is = new FileInputStream(memberDataFile);

@@ -25,17 +25,20 @@ public class HelpCommand extends Command {
             throws DukeException {
         return new CommandResult("Available Commands\n"
                 + "1. add\n"
-                + "2. list\n"
+                + "2. find\n"
                 + "3. done\n"
-                + "4. bye\n"
-                + "5. delete\n"
-                + "6. find\n"
-                + "7. recurring\n"
-                + "8. snooze\n"
-                + "9. schedule\n"
-                + "10. check\n"
-                + "11. link\n"
-                + "12. unlink\n"
-                + "13. remove");
+                + "4. delete\n"
+                + "5. snooze\n"
+                + "6. recurring\n"
+
+                + "7. remove\n"
+                + "8. member\n"
+                + "9. link\n"
+                + "10. unlink\n"
+
+                + "11. list\n"
+                + "12. schedule\n"
+                + "13. check\n"
+                + "14. bye\n");
     }
 }

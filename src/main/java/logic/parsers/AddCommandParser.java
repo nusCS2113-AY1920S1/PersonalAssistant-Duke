@@ -31,8 +31,11 @@ public class AddCommandParser {
         String[] splites = line.trim().split("\\s+", 2);
         splites[0] = splites[0].toUpperCase();
         Task temp = null;
+        if (splites.length < 1) {
+            throw new DukeException("usage: add [task type] [task description with corresponding arguments]");
+        }
         if (splites.length < 2) {
-            throw new DukeException("No descriptions");
+            throw new DukeException("please input the description of tasks");
         }
         if (splites[0].equals("TODO")) {
             temp = new ToDo(splites[1]);

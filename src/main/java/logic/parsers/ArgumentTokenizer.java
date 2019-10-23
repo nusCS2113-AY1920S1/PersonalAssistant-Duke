@@ -8,7 +8,7 @@ public class ArgumentTokenizer {
     //@@author chenyuheng
     /**
      *This method tokenize a string contained of key-value pairs.
-     * the format is： arg0 /key1 arg1 /key2 arg2 ...
+     * the format is: arg0 /key1 arg1 /key2 arg2 ...
      * arg0 can be accessed by a null String ("") as the key,
      * other arguments can be accessed by the corresponding keys.
      * @param userInput the String need to tokenize

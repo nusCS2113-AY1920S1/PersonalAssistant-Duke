@@ -1,5 +1,7 @@
 package model.members;
 
+import model.tasks.Task;
+
 import java.util.ArrayList;
 
 public class Member {
@@ -12,7 +14,10 @@ public class Member {
     /**
      * an int array list stores the index(s) of the in charge task(s)
      */
-    public ArrayList<Integer> tasksInCharge;
+    public ArrayList<Integer> tasksInChargeIndex;
+
+    public ArrayList<Task> tasksInCharge;
+
 
     /**
      * constructor
@@ -20,17 +25,27 @@ public class Member {
      */
     public Member(String name) {
         this.name = name;
-        this.tasksInCharge = new ArrayList<Integer>();
+        this.tasksInChargeIndex = new ArrayList<Integer>();
+        this.tasksInCharge = new ArrayList<Task>();
     }
 
     /**
      * another constructor
      * @param name name of the member
-     * @param tasksInCharge the array list stores the index(s) of in charge task(s)
+     * @param tasksInChargeIndex the array list stores the index(s) of in charge task(s)
      */
-    public Member(String name, ArrayList<Integer> tasksInCharge) {
+    public Member(String name, ArrayList<Integer> tasksInChargeIndex) {
         this.name = name;
-        this.tasksInCharge = tasksInCharge;
+        this.tasksInChargeIndex = tasksInChargeIndex;
+        this.tasksInCharge = new ArrayList<Task>();
+        ArrayList<Member> pics = new ArrayList<Member>();
+        for (int i = 0; i < tasksInChargeIndex.size(); i++) {
+            int index = tasksInChargeIndex.get(i);
+            tasksInCharge.add(Task.tasks.get(index - 1));
+            pics = Task.tasks.get(index - 1).getPics();
+            pics.add(this);
+            Task.tasks.get(index - 1).setPics(pics);
+        }
     }
 
     /**
@@ -39,8 +54,8 @@ public class Member {
      */
     public String dataString() {
         String data = name;
-        for (int i = 0; i < tasksInCharge.size(); i++) {
-            data += " | " + tasksInCharge.get(i);
+        for (int i = 0; i < tasksInChargeIndex.size(); i++) {
+            data += " | " + tasksInChargeIndex.get(i);
         }
         return data;
     }
@@ -49,8 +64,17 @@ public class Member {
         return name;
     }
 
+    public ArrayList<Task> getTasksInCharge() {
+        return this.tasksInCharge;
+    }
+
+    public ArrayList<Integer> getTasksInChargeIndex() {
+        return this.tasksInChargeIndex;
+    }
+
     public void setTask(int indexInList) {
-        tasksInCharge.add(indexInList);
+        tasksInChargeIndex.add(indexInList);
+        tasksInCharge.add(Task.tasks.get(indexInList - 1));
     }
 
     /**
@@ -58,9 +82,10 @@ public class Member {
      * @param indexInList the index in the list of members
      */
     public void removeTask(int indexInList) {
-        for (int i = 0; i < tasksInCharge.size(); i++) {
-            if (tasksInCharge.get(i) == indexInList) {
-                tasksInCharge.remove(i);
+        for (int i = 0; i < tasksInChargeIndex.size(); i++) {
+            if (tasksInChargeIndex.get(i) == indexInList) {
+                tasksInChargeIndex.remove(i);
+                tasksInCharge.remove(Task.tasks.get(indexInList - 1));
             }
         }
     }
@@ -68,16 +93,29 @@ public class Member {
 
     @Override
     public String toString() {
-        if (this.tasksInCharge.size() <= 0) {
+        if (this.tasksInChargeIndex.size() <= 0) {
             return this.name + " is free.";
         } else {
             String tasksInChargeString = "[";
             int i = 0;
-            for (i = 0; i < tasksInCharge.size() - 1; i++) {
-                tasksInChargeString += " " + tasksInCharge.get(i) + ",";
+            for (i = 0; i < tasksInChargeIndex.size() - 1; i++) {
+                tasksInChargeString += " " + tasksInChargeIndex.get(i) + ",";
             }
-            tasksInChargeString += " " + tasksInCharge.get(i) + " ]";
+            tasksInChargeString += " " + tasksInChargeIndex.get(i) + " ]";
             return this.name + " is in charge of task(s): " + tasksInChargeString + ".";
+        }
+    }
+
+
+    //@@author yuyanglin28
+    /**
+     * this is a method to update index in Member when deleting task
+     */
+
+    public void updateIndex() {
+        tasksInChargeIndex.clear();
+        for (int i = 0; i < tasksInCharge.size(); i++) {
+            tasksInChargeIndex.add(Task.tasks.indexOf(tasksInCharge.get(i)) + 1);
         }
     }
 }

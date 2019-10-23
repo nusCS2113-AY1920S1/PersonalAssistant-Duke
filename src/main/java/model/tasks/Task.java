@@ -1,5 +1,6 @@
 package model.tasks;
 
+import model.members.Member;
 import utils.DukeException;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public abstract class Task {
      */
     protected int recurringWeeks;
 
+    protected ArrayList<Member> pics;
+
 
     /**
      * default constructor of Task
@@ -45,6 +48,7 @@ public abstract class Task {
         this.isRecurring = false;
         this.recurringWeeks = 0;
         this.precondition = new ArrayList<Task>();
+        pics = new ArrayList<Member>();
     }
 
     /**
@@ -59,6 +63,7 @@ public abstract class Task {
         this.isRecurring = false;
         this.recurringWeeks = 0;
         this.precondition = new ArrayList<Task>();
+        pics = new ArrayList<Member>();
     }
 
     /**
@@ -77,6 +82,14 @@ public abstract class Task {
      */
     public boolean getIsDone() {
         return isDone;
+    }
+
+    public ArrayList<Member> getPics() {
+        return pics;
+    }
+
+    public void setPics(ArrayList<Member> pics) {
+        this.pics = pics;
     }
 
     /**
@@ -236,5 +249,4 @@ public abstract class Task {
         }
         return preconditionString;
     }
-
 }

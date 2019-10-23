@@ -26,6 +26,13 @@ public class MemberDeleteCommand extends Command {
             String memberName = line;
             for (int i = 0; i < members.size(); i++) {
                 if (members.get(i).getName().equals(memberName)) {
+
+                    for (int j = 0; j < tasks.size(); j++) {
+                        ArrayList<Member> pics = tasks.get(j).getPics();
+                        pics.remove(members.get(i));
+                        tasks.get(j).setPics(pics);
+                    }
+
                     members.remove(i);
                     storage.storeMemberList(members);
                     return new CommandResult("Member: " + memberName

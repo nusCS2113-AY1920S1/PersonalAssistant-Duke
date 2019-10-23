@@ -1,6 +1,7 @@
 package logic.parsers;
 
 import logic.commands.Command;
+import logic.commands.MemberAddCommand;
 import utils.DukeException;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,7 +34,7 @@ public class DukeParser {
         splites[0] = splites[0].trim().toUpperCase();
         String[] dict = {
             "ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE",
-            "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"
+            "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP", "MEMBER"
         };
         splites[0] = SpellingErrorCorrector.commandCorrector(dict, splites[0]);
         Command temp = null;
@@ -54,6 +55,7 @@ public class DukeParser {
             parse[11] = UnlinkCommandParser.class.getDeclaredMethod("parse", String.class);
             parse[12] = DeleteCommandParser.class.getDeclaredMethod("parse", String.class);
             parse[13] = SimpleCommandParser.class.getDeclaredMethod("help", String.class);
+            parse[14] = MemberAddParser.class.getDeclaredMethod("parse", String.class);
             for (int i = 0; i < dict.length; i++) {
                 if (splites[0].equals(dict[i])) {
                     temp = (Command) parse[i].invoke(null, splites[1]);

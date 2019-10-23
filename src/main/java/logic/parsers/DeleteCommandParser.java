@@ -19,7 +19,7 @@ public class DeleteCommandParser {
             for (int i = 0; i < splites.length; i++) {
                 indexes[i] = Integer.parseInt(splites[i]);
             }
-            return new DeleteCommand(indexes);
+            return new DeleteCommand(userInput);
         } catch (NumberFormatException e) {
             throw new DukeException("number format error, please input the right number format.");
         }

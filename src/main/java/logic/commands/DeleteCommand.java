@@ -1,10 +1,12 @@
 package logic.commands;
 
+import core.Duke;
+import logic.CommandResult;
 import model.members.Member;
 import model.tasks.Task;
-import logic.CommandResult;
 import utils.DukeException;
 import utils.Storage;
+import core.Ui;
 
 import java.util.ArrayList;
 
@@ -13,30 +15,30 @@ import java.util.ArrayList;
  */
 public class DeleteCommand extends Command {
 
-    private int[] indexes;
+    private String line;
 
+    //@@author yuyanglin28
     /**
      * This is a class for command DELETE, which remove one task from the task list.
-     * @param indexes the serial numbers in the command line after DELETE,
-     *                which represents the indexes of tasks to be deleted
+     * @param line the serial number in the command line after DELETE
      */
-    public DeleteCommand(int[] indexes) {
-        this.indexes = indexes;
+    public DeleteCommand(String line) {
+        this.line = line;
     }
 
     @Override
-    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage)
-            throws DukeException {
+    public CommandResult execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         try {
-            Task[] toDelete = new Task[indexes.length];
-            for (int i = 0; i < indexes.length; i++) {
-                toDelete[i] = tasks.get(indexes[i]);
+            int order = Integer.parseInt(line);
+            for (int i = 0; i < members.size(); i++) {
+                members.get(i).getTasksInCharge().remove(tasks.get(order - 1));
             }
-            for (int i = 0; i < toDelete.length; i++) {
-                tasks.remove(toDelete[i]);
+            for (int i = 0; i < members.size(); i++) {
+                members.get(i).updateIndex();
             }
             storage.storeTaskList(tasks);
-            return new CommandResult("Noted. I've removed the task(s) you input. \n");
+            storage.storeMemberList(members);
+            return new CommandResult("Noted. I've removed this task: \n" + tasks.remove(order - 1));
         } catch (Exception e) {
             throw new DukeException("Not a valid task number");
         }

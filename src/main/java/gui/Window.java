@@ -52,7 +52,7 @@ public class Window {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame("Duke Pro");
+        frame = new JFrame("Team Manager");
         frame.getContentPane().setBackground(new Color(120, 168, 219));
         frame.getContentPane().setLayout(null);
 
@@ -71,7 +71,7 @@ public class Window {
 
         JTextArea outputArea = new JTextArea();
         scrollPane.setViewportView(outputArea);
-        outputArea.setText("Welcome to Duke Pro!");
+        outputArea.setText("Welcome to Team Manager!");
         outputArea.setEditable(false);
         outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
         outputArea.setWrapStyleWord(true);
