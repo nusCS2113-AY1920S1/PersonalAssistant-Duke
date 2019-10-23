@@ -9,6 +9,7 @@ import models.member.Member;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
+import util.ParserHelper;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import util.log.DukeLogger;
@@ -305,12 +306,12 @@ public class ProjectInputController implements IController {
      * @param projectCommand The command by the user containing index numbers of the members to view.
      */
     public void projectViewMembersAssignments(Project projectToManage, String projectCommand) {
-        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
-        ArrayList<Integer> validMembers = assignmentViewHelper.parseMembers(projectCommand, projectToManage);
-        if (!assignmentViewHelper.getErrorMessages().isEmpty()) {
-            consoleView.consolePrint(assignmentViewHelper.getErrorMessages().toArray(new String[0]));
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validMembers = parserHelper.parseMembersIndexes(projectCommand, projectToManage);
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
         }
-        consoleView.consolePrint(assignmentViewHelper.getMemberOutput(validMembers,
+        consoleView.consolePrint(AssignmentViewHelper.getMemberOutput(validMembers,
             projectToManage).toArray(new String[0]));
     }
 
@@ -320,12 +321,12 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     private void projectViewTasksAssignments(Project projectToManage, String projectCommand) {
-        AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
-        ArrayList<Integer> validTasks = assignmentViewHelper.parseTasks(projectCommand, projectToManage);
-        if (!assignmentViewHelper.getErrorMessages().isEmpty()) {
-            consoleView.consolePrint(assignmentViewHelper.getErrorMessages().toArray(new String[0]));
+        ParserHelper parserHelper = new ParserHelper();
+        ArrayList<Integer> validTasks = parserHelper.parseTasksIndexes(projectCommand, projectToManage);
+        if (!parserHelper.getErrorMessages().isEmpty()) {
+            consoleView.consolePrint(parserHelper.getErrorMessages().toArray(new String[0]));
         }
-        consoleView.consolePrint(assignmentViewHelper.getTaskOutput(validTasks,
+        consoleView.consolePrint(AssignmentViewHelper.getTaskOutput(validTasks,
             projectToManage).toArray(new String[0]));
     }
 

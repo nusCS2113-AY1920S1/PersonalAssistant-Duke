@@ -1,5 +1,6 @@
 package util;
 
+import models.data.Project;
 import models.task.Task;
 
 import java.util.ArrayList;
@@ -7,9 +8,11 @@ import java.util.Arrays;
 
 public class ParserHelper {
     private SortHelper sortHelper;
+    private ArrayList<String> errorMessages;
 
     public ParserHelper() {
         this.sortHelper = new SortHelper();
+        this.errorMessages = new ArrayList<>();
     }
 
     /**
@@ -174,5 +177,72 @@ public class ParserHelper {
         assignmentOutput.add(allTasksIndexes);
 
         return assignmentOutput;
+    }
+
+    /**
+     * Parses a string containing member index numbers and returns only valid ones.
+     * @param input a string containing member index numbers.
+     * @param project the project being managed.
+     * @return An ArrayList containing only valid member index numbers
+     */
+    public ArrayList<Integer> parseMembersIndexes(String input, Project project) {
+        this.errorMessages.clear();
+        ArrayList<Integer> membersToView = new ArrayList<>();
+        if ("all".equals(input)) {
+            for (int i = 1; i <= project.getNumOfMembers(); i++) {
+                membersToView.add(i);
+            }
+            return membersToView;
+        }
+        String[] inputParts = input.split(" ");
+        for (String index : inputParts) {
+            try {
+                Integer indexNumber = Integer.parseInt(index);
+                if (project.hasMemberIndex(indexNumber)) {
+                    membersToView.add(indexNumber);
+                } else {
+                    errorMessages.add("Member with index " + index + " does not exist.");
+                }
+            } catch (NumberFormatException e) {
+                errorMessages.add("Could not recognise member " + index
+                    + ", please ensure it is an integer.");
+            }
+        }
+        return membersToView;
+    }
+
+    /**
+     * Returns a list of valid task numbers.
+     * @param input List of task index numbers input by user.
+     * @param project Project to be managed.
+     * @return An ArrayList containing valid task index numbers to show assigned members.
+     */
+    public ArrayList<Integer> parseTasksIndexes(String input, Project project) {
+        ArrayList<Integer> tasksToView = new ArrayList<>();
+        if ("all".equals(input)) {
+            for (int i = 1; i <= project.getNumOfTasks(); i++) {
+                tasksToView.add(i);
+            }
+            return tasksToView;
+        }
+        String[] inputParts = input.split(" ");
+        for (String index : inputParts) {
+            try {
+                Integer indexNumber = Integer.parseInt(index);
+                if (project.hasTaskIndex(indexNumber)) {
+                    tasksToView.add(indexNumber);
+                } else {
+                    errorMessages.add("Task with index " + index + " does not exist.");
+                }
+            } catch (NumberFormatException e) {
+                errorMessages.add("Could not recognise task " + index
+                    + ", please ensure it is an integer.");
+            }
+        }
+        return tasksToView;
+    }
+
+    public ArrayList<String> getErrorMessages() {
+        return this.errorMessages;
     }
 }
