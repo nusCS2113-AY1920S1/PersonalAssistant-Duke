@@ -18,13 +18,16 @@ import java.util.ArrayList;
 public class SettleLoanCommand extends MoneyCommand {
 
     private String inputString;
-    Loan.Type type;
+    private static int serialNo;
+    private static Loan.Type type;
+    private static final int SETTLE_ALL_FLAG = -2;
 
     /**
      * Constructor of the command which initialises the settle loan command.
      * Determines the type of of loan to settle specified in the user input.
      * @param command Settle command inputted by user
      */
+    //@@ chengweixuan
     public SettleLoanCommand(String command) {
         if (command.startsWith("paid")) {
             inputString = command.replaceFirst("paid ", "");
@@ -101,15 +104,15 @@ public class SettleLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        String[] splitStr = inputString.split(" /to ", 2);
+        String regex = type == Loan.Type.INCOMING ? " /to " : " /from ";
+        String[] splitStr = inputString.split(regex, 2);
         float amount;
         if (splitStr[0].equals("all")) {
-            amount = -2;
+            amount = SETTLE_ALL_FLAG;
         } else {
             amount = Float.parseFloat(splitStr[0]);
         }
 
-        int serialNo;
         if (isNumeric(splitStr[1])) {
             serialNo = Integer.parseInt(splitStr[1]) - 1;
         } else {
@@ -130,20 +133,23 @@ public class SettleLoanCommand extends MoneyCommand {
             throw new DukeException("The serial number of the loan is Out Of Bounds!");
         }
 
-        if (type == Loan.Type.OUTGOING && amount <= account.getOutgoingLoans().get(serialNo).getOutstandingLoan()) {
+        if (type == Loan.Type.OUTGOING &&
+                amount <= account.getOutgoingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getOutgoingLoans().get(serialNo);
-            amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
+            amountToPrint = (amount == SETTLE_ALL_FLAG) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
             account.getOutgoingLoans().set(serialNo, l);
             Income i = new Income(amount, "From " + l.getDescription(), Parser.shortcutTime("now"));
             account.getIncomeListTotal().add(i);
             account.getIncomeListCurrMonth().add(i);
-        } else if (type == Loan.Type.INCOMING && amount <= account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
+        } else if (type == Loan.Type.INCOMING && amount <=
+                account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getIncomingLoans().get(serialNo);
             amountToPrint = (amount == -2) ? l.getOutstandingLoan() : amount;
             l.settleLoanDebt(amount);
             account.getIncomingLoans().set(serialNo, l);
-            Expenditure e = new Expenditure(amount, l.getDescription(), "Loan Repayment", Parser.shortcutTime("now"));
+            Expenditure e = new Expenditure(amount, "To " + l.getDescription(), "Loan Repayment",
+                    Parser.shortcutTime("now"));
             account.getExpListTotal().add(e);
             account.getExpListCurrMonth().add(e);
         } else {
@@ -157,12 +163,30 @@ public class SettleLoanCommand extends MoneyCommand {
         ui.appendToOutput(l.getDescription() + " for the following loan: \n");
         ui.appendToOutput("     " + l.toString() + "\n");
         if (l.getStatus()) {
-            ui.appendToOutput("The " + type.toString().toLowerCase() + " loan has been settled");
+            ui.appendToOutput("The " + type.toString().toLowerCase() + " loan has been settled\n");
         }
     }
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-
+        /*
+        String[] splitStr = inputString.split(" /to ", 2);
+        //undo the expenditure income from total and current, flip settled to unsettled(def)
+        Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);
+        float amount = -exp.getPrice();
+        Loan l;
+        switch (type) {
+            case INCOMING:
+                l = account.getIncomingLoans().get(serialNo);
+                l.settleLoanDebt(amount);
+                account.getIncomingLoans().set(serialNo, l);
+                break;
+            case OUTGOING:
+                break;
+            default:
+                break;
+        }
+         */
+        return;
     }
 }

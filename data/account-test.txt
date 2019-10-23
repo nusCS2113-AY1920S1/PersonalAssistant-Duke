@@ -1,39 +1,5 @@
-INIT @ false
+INIT @ true
 BS @ 0.0
-INC @ 30000.0 @ InitialSavings @ 5/10/2019
-INC @ 5.0 @ cashback  @ 9/12/2020
-INC @ 560.0 @ TA  @ 12/10/2019
-INC @ 500.0 @ shit  @ 7/10/2019
-INC @ 560.0 @ TA  @ 10/12/2040
-INC @ 560.0 @ TA  @ 10/12/2040
-INC @ 12.0 @ Repayment for Mala  @ 13/10/2019
-INC @ 200.0 @ mah sluts @ 14/10/2019
-INC @ 300.0 @ From mah sluts @ 14/10/2019
-INC @ 200.0 @ From mah bitches @ 14/10/2019
-INC @ 12.0 @ Repayment for Mala  @ 14/10/2019
-INC @ 1200.0 @ Initial Savings @ 15/10/2019
-INC @ 560.0 @ TA  @ 10/12/2040
-INC @ 200.0 @ From somebody @ 16/10/2019
-INC @ -2.0 @ From somebody @ 16/10/2019
-EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
-EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
-EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
-EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2020
-EXP @ 3.0 @ ice-cream  @ food  @ 4/10/2019
-EXP @ 3.0 @ pencil  @ stationary  @ 6/10/2019
-EXP @ 20.0 @ godzilla  @ animal  @ 7/10/2020
-EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
-EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
-EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
-EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
-EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
-EXP @ 100.0 @ buy watch @ GS @ 16/10/2019
-EXP @ 500.0 @  utility  @ bills @ 10/10/2019 @ 4/11/2019
-EXP @ 2000.0 @ buy GFG  @ GS @ 18/10/2019
-G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
-G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
-G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
-G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
-G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
-G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
-G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
+INC @ 300.0 @ From my friends @ 23/10/2019
+INC @ -2.0 @ From my friends @ 23/10/2019
+LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @ 23/10/2019 @ 1 @ 0.0

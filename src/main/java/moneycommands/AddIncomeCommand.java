@@ -25,6 +25,7 @@ public class AddIncomeCommand extends MoneyCommand {
      * with the income source data within the user input.
      * @param command add command inputted from user
      */
+    //@@ chengweixuan
     public AddIncomeCommand(String command) {
         inputString = command.replaceFirst("add income ", "");
     }
@@ -77,6 +78,6 @@ public class AddIncomeCommand extends MoneyCommand {
 
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(i.toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income listed\n");
+        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
     }
 }

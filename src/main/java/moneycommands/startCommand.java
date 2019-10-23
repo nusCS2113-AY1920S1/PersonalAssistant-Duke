@@ -7,6 +7,7 @@ public class startCommand extends MoneyCommand{
 
     private String message;
 
+    //@@ therealnickcheong
     public startCommand(boolean isNewUser){
         if(isNewUser){
             message = "You are a new user please type: init [existing savings] [Avg Monthly Expenditure]\n";

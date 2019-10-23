@@ -53,6 +53,7 @@ public class Account {
 //        } else { toInitialize = true; }
     }
 
+    //@@author therealnickcheong
     public void initialize(float userSavings, float avgExp) {
         LocalDate nowDate = LocalDate.now();
         Income initialSavings;
@@ -70,6 +71,7 @@ public class Account {
         toInitialize = false;
     }
 
+    //@@ ChenChao19
     public ArrayList<Income> getIncomeListTotal() {
         return incomeListTotal;
     }
@@ -82,6 +84,10 @@ public class Account {
         return incomeListCurrMonth;
     }
 
+    public ArrayList<Instalment> getInstalments() {
+        return instalments;
+    }
+
     public ArrayList<Expenditure> getExpListCurrMonth() {
         return expListCurrMonth;
     }
@@ -90,8 +96,17 @@ public class Account {
         return shortTermGoals;
     }
 
+    //@@ chengweixuan
     public ArrayList<Loan> getLoans() {
         return loans;
+    }
+
+    public float getLoansTotal() {
+        float total = 0;
+        for (Loan l : loans) {
+            total += l.getPrice();
+        }
+        return total;
     }
 
     public ArrayList<Loan> getOutgoingLoans() {
@@ -114,6 +129,7 @@ public class Account {
         return incomingLoans;
     }
 
+    //@@ therealnickcheong
     public void sortShortTermGoals(ArrayList<Goal> shortTermGoals){
         Collections.sort(shortTermGoals, new Comparator<Goal>() {
             @Override
@@ -127,12 +143,14 @@ public class Account {
         });
     }
 
-    public ArrayList<Instalment> getInstalments() {
-        return instalments;
-    }
-
+    //@@ cctt1014
     public ArrayList<BankTracker> getBankTrackerList() {
         return bankTrackerList;
+    }
+
+    //@@ ChenChao19
+    public void setBaseSavings(float baseSavings) {
+        this.baseSavings = baseSavings;
     }
 
     public float getTotalIncome() {
@@ -147,14 +165,6 @@ public class Account {
         float total = 0;
         for (Expenditure i : expListTotal) {
             total += i.getPrice();
-        }
-        return total;
-    }
-
-    public float getLoansTotal() {
-        float total = 0;
-        for (Loan l : loans) {
-            total += l.getPrice();
         }
         return total;
     }
@@ -200,20 +210,20 @@ public class Account {
         goalSavings = getTotalSavings() - getBaseSavings();
     }
 
+    //@@ therealnickcheong
     public boolean isToInitialize() {
         return toInitialize;
     }
 
-    public boolean isInitialised() {
-        return getIncomeListTotal().isEmpty() || getExpListTotal().isEmpty() ||
-                getShortTermGoals().isEmpty() || getInstalments().isEmpty() ||
-                getBankTrackerList().isEmpty() || getLoans().isEmpty();
+    public void setToInitialize(boolean initStatus) {
+        this.toInitialize = initStatus;
     }
 
     /**
      * This method is run upon initialisation to fill the Month Income List and
      * Month Expenditure List.
      */
+    //@@ chengweixuan
     public void populateCurrentMonthLists() {
         getIncomeListCurrMonth().clear();
         getExpListCurrMonth().clear();
@@ -232,21 +242,13 @@ public class Account {
         }
     }
 
-
-    public void setToInitialize(boolean initStatus) {
-        this.toInitialize = initStatus;
-    }
-
-    public void setBaseSavings(float baseSavings) {
-        this.baseSavings = baseSavings;
-    }
-
     /**
      * This method helps to find the corresponding bank account tracker by given description(name)
      * @param name The given description
      * @return The corresponding tracker
      * @throws DukeException Handle the case when there is no such account
      */
+    //@@ cctt1014
     public BankTracker findTrackerByName(String name) throws DukeException {
         BankTracker bankTracker = null;
         for (BankTracker b : bankTrackerList) {

@@ -25,6 +25,7 @@ public class AddLoanCommand extends MoneyCommand {
      * data in user input.
      * @param command add command inputted from user
      */
+    //@@ chengweixuan
     public AddLoanCommand(String command) {
         if (command.startsWith("lent")) {
             inputString = command.replaceFirst("lent ", "");
@@ -72,13 +73,13 @@ public class AddLoanCommand extends MoneyCommand {
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) {
-//        int lastIndex = account.getIncomeListTotal().size() - 1;
-//        Income i = account.getIncomeListTotal().get(lastIndex);
-//        account.getIncomeListTotal().remove(i);
-//        storage.writeToFile(account);
-//
-//        ui.appendToOutput(" Last command undone: \n");
-//        ui.appendToOutput(i.toString() + "\n");
-//        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income listed\n");
+        int lastIndex = account.getLoans().size() - 1;
+        Loan l = account.getLoans().get(lastIndex);
+        account.getLoans().remove(l);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(l.toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getLoans().size() + " loans listed\n");
     }
 }

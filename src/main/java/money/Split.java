@@ -20,6 +20,7 @@ public class Split extends Expenditure {
      * @param boughtDate Date which the item is bought
      * @param parties ArrayList containing information on people the split expenditure is split with
      */
+    //@@ chengweixuan
     public Split(float price, String description, String category, LocalDate boughtDate, ArrayList<Pair<String, Boolean>> parties) {
         super(price, description, category, boughtDate);
         this.parties = parties;
@@ -95,7 +96,7 @@ public class Split extends Expenditure {
             if (p.getValue()) {
                 status = "1";
             }
-            String infoPerPerson = p.getKey() + "#" + status;
+            String infoPerPerson = p.getKey() + "&" + status;
             everyone.append(infoPerPerson).append(" ! ");
         }
         return everyone.toString().substring(0, everyone.toString().length() - 3);

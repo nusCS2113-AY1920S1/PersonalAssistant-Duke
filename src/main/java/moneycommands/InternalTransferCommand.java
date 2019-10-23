@@ -21,6 +21,7 @@ public class InternalTransferCommand extends MoneyCommand {
     private float amt;
     private LocalDate date;
 
+    //@@ cctt1014
     public InternalTransferCommand(String inputString) throws ParseException {
         String status = inputString.split(" ")[0];
         if (status.equals("deposit")) {

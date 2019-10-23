@@ -16,6 +16,7 @@ public class ListMonthIncomeCommand extends MoneyCommand {
     /**
      * Constructor of the list command.
      */
+    //@@ chengweixuan
     public ListMonthIncomeCommand(){
     }
 

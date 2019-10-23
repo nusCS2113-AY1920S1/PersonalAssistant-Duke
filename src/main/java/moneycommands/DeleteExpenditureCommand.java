@@ -19,6 +19,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
+    //@@ chengweixuan
     public DeleteExpenditureCommand(String command) {
         inputString = command;
         String temp = inputString.replaceAll("[^0-9]", "");
@@ -47,9 +48,10 @@ public class DeleteExpenditureCommand extends MoneyCommand {
 
         ui.appendToOutput(" Noted. I've removed this expenditure:\n");
         ui.appendToOutput("  " + account.getExpListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) + " expenditures in the list.\n");
+        ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) +
+                " expenses in the list.\n");
 
-        storage.markDeletedEntry("EXP", "@", "#", serialNo);
+        storage.markDeletedEntry("EXP", serialNo);
         account.getExpListTotal().remove(serialNo - 1);
     }
 

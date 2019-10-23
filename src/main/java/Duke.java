@@ -17,7 +17,7 @@ public class Duke{
     private Ui ui;
     private MoneyStorage moneyStorage;
     private Account account;
-    private UndoCommand undoCommand;
+    private UndoCommandHandler undoCommandHandler;
 
     /**
      * Duke class acts as a constructor to initialize and setup
@@ -28,7 +28,7 @@ public class Duke{
         String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();
         moneyStorage = new MoneyStorage(moneyFilePath);
-        undoCommand = new UndoCommand();
+        undoCommandHandler = new UndoCommandHandler();
         try {
             account = new Account(moneyStorage.load());//need to load from storage on program init
         } catch (Exception e) {
@@ -51,16 +51,16 @@ public class Duke{
             MoneyCommand updateCommand = new AutoUpdateInstalmentCommand();
             updateCommand.execute(account, ui, moneyStorage);
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
-
             if (c.isExit()) {
-                c.execute(account, ui, moneyStorage);
+                moneyStorage.writeToFile(account);
                 System.exit(0);
             } else if (!c.getClass().equals(UndoCommand.class)) {
                 c.execute(account, ui, moneyStorage);
+                undoCommandHandler.updateLastIssuedCommands(c);
             } else {
-                undoCommand.execute(account, ui, moneyStorage);
+                c = undoCommandHandler.getLastIssuedCommand();
+                c.undo(account, ui, moneyStorage);
             }
-            undoCommand.setLastIssuedCommand(c);
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));

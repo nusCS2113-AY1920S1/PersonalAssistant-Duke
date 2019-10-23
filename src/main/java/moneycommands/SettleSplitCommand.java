@@ -26,6 +26,7 @@ public class SettleSplitCommand extends MoneyCommand {
      * and the person who has settled the debt
      * @param command Settle split expenditure command inputted from user
      */
+    //@@ chengweixuan
     public SettleSplitCommand(String command) {
         inputString = command.replaceFirst("settle ", "");
     }

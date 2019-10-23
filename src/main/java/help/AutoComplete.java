@@ -20,7 +20,6 @@ public class AutoComplete {
             "deposit",
             "done goal",
             "goal",
-            "goal-short",
             "graph curr finance",
             "graph expenditure trend",
             "graph income trend",
@@ -47,11 +46,12 @@ public class AutoComplete {
     };
     private List<String> CommandList = Arrays.asList(List);
 
+    //@@ ChenChao19
     public AutoComplete() {
         Collections.sort(CommandList);
     }
 
-    public java.util.List<String> getCommandList() {
+    public List<String> getCommandList() {
         return CommandList;
     }
 }

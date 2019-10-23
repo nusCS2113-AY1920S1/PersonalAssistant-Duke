@@ -1,10 +1,8 @@
-import com.sun.source.tree.Tree;
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import help.MemorisePreviousFunctions;
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
-import impl.org.controlsfx.autocompletion.SuggestionProvider;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -50,6 +48,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
+    //@@ therealnickcheong
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -60,6 +59,13 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
         userIcon = new UserIcon();
         userImage = userIcon.getIcon();
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                userInput.requestFocus();
+            }
+        });
     }
 
     public void setDuke(Duke d) {
@@ -70,6 +76,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to.
      * the dialog container. Clears the user input after processing.
      */
+    //@@ cctt1014
     @FXML
     private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
@@ -119,21 +126,25 @@ public class MainWindow extends AnchorPane implements DataTransfer {
         userInput.clear();
     }
 
+    //@@ therealnickcheong
     @FXML
     private void handleSearchInput() {
         String input = searchBar.getText();
-        String[] response = duke.getResponse("find " + input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response[0], dukeImage)
-        );
-        if(!response[1].equals("")){
+        if(input.equals("")){
             graphContainer.getChildren().clear();
-            graphContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(response[1], dukeImage));
+        }else{
+            String[] response = duke.getResponse("find " + input);
+            graphContainer.getChildren().clear();
+            if(!response[1].equals("")){
+                graphContainer.getChildren().clear();
+                graphContainer.getChildren().addAll(
+                        DialogBox.getDukeDialog(response[1], dukeImage));
+            }
         }
+
     }
 
+    //@@ ChenChao19
     @FXML
     private void autoCompleteFunction() {
         AutoComplete autoComplete = new AutoComplete();
@@ -141,7 +152,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             TreeSet<String> suggestedCommands = new TreeSet<>();
             for (String i: autoComplete.getCommandList()) {
                 if (!sc.getUserText().isEmpty() && !i.equals(sc.getUserText())
-                        && i.startsWith(sc.getUserText().trim().toLowerCase())) {
+                        && i.startsWith(sc.getUserText())) {
                     suggestedCommands.add(i);
                 }
             }
@@ -154,6 +165,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private void help() {
         autoCompleteFunction();
+        userInput.setPromptText("Commands");
         userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {

@@ -15,7 +15,7 @@ image::chengweixuan.png[width="150", align="left"]
 {empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation + Intergration
+Responsibilities: Documentation + Model
 
 '''
 
@@ -42,7 +42,7 @@ image::cctt1014.png[width="150", align="left"]
 {empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data + UI
+Responsibilities: Integration + UI
 
 '''
 

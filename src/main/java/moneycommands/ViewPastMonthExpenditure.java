@@ -21,6 +21,7 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
+    //@@ chengweixuan
     public ViewPastMonthExpenditure(String command) {
         String inputString = command.replaceFirst("check expenditure ", "");
         String[] splitStr = inputString.split(" ");

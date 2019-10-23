@@ -11,6 +11,7 @@ public class GraphCommand extends MoneyCommand{
 
     private String cmd;
 
+    //@@ cctt1014
     public GraphCommand(String inputString) {
         cmd = inputString;
     }
