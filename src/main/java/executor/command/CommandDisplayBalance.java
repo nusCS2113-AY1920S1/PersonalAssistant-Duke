@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class CommandDisplayBalance extends Command {
 
     // Constructor
-    public CommandDisplayBalance() {
+    public CommandDisplayBalance(String userInput) {
+        this.userInput = userInput;
     }
 
     @Override

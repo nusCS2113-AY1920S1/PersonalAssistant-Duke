@@ -6,7 +6,8 @@ import ui.Wallet;
 
 public class CommandError extends Command {
     // Constructor
-    public CommandError() {
+    public CommandError(String userInpt) {
+        this.userInput = userInput;
     }
 
     /**

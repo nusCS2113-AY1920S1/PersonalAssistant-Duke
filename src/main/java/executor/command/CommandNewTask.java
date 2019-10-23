@@ -16,10 +16,10 @@ public class CommandNewTask extends Command {
      * Constructor for the CommandNewTask subCommand Class.
      * @param userInput The user input from the CLI.
      */
-    public CommandNewTask(String userInput, CommandType commandType) {
+    public CommandNewTask(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
-        this.taskType = TaskType.valueOf(commandType.toString());
+        this.taskType = TaskType.valueOf(Parser.parseForCommandType(userInput).toString());
     }
 
     @Override
