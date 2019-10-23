@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 public interface DataTransfer {
 
-    int NUMBEROFMONTHS = 3;
+    int NUMBER_OF_MONTHS = 3;
 
     /**
-     * This function sends the data of histogram for the monthly report
+     * This function gets the data of the current month's income and expenditure
+     * from the account then passes the data to getHistogram method and return the
+     * histogram it gets from getHistogram.
      * @return histogram for the monthly report
      */
     //@@ cctt1014
@@ -64,18 +66,18 @@ public interface DataTransfer {
         ArrayList<Float> yData1 = new ArrayList<>();
         ArrayList<Float> yData2 = new ArrayList<>();
 
-        LocalDate[] dateList = new LocalDate[NUMBEROFMONTHS+1];
-        for (int i = 0; i <= NUMBEROFMONTHS; i++) {
-            dateList[i] = endDate.minusMonths(NUMBEROFMONTHS-i);
+        LocalDate[] dateList = new LocalDate[NUMBER_OF_MONTHS+1];
+        for (int i = 0; i <= NUMBER_OF_MONTHS; i++) {
+            dateList[i] = endDate.minusMonths(NUMBER_OF_MONTHS-i);
         }
-        for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
+        for (int i = NUMBER_OF_MONTHS-1; i >= 0; i--) {
             xData.add(String.valueOf(endDate.minusMonths(i).getMonthValue()));
             yData1.add((float) 0);
             yData2.add((float) 0);
         }
 
         for (Income e : incomeList) {
-            for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
+            for (int i = NUMBER_OF_MONTHS-1; i >= 0; i--) {
                 if (e.getPayday().isBefore(endDate) && e.getPayday().isAfter(dateList[i])) {
                     yData1.set(i, yData1.get(i)+e.getPrice());
                     break;
@@ -83,7 +85,7 @@ public interface DataTransfer {
             }
         }
         for (Expenditure e : expList) {
-            for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
+            for (int i = NUMBER_OF_MONTHS-1; i >= 0; i--) {
                 if (e.getDateBoughtDate().isBefore(endDate) && e.getDateBoughtDate().isAfter(dateList[i])) {
                     yData2.set(i, yData2.get(i)+e.getPrice());
                     break;
