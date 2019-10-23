@@ -41,7 +41,9 @@ public class Investigation extends Treatment {
 
     @Override
     public String toString() {
-        return null;
+        String informationString;
+        informationString = "Summary " + this.summary + "\n";
+        return super.toString() + informationString;
     }
 
     @Override

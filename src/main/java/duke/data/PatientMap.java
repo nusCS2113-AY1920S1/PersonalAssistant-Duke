@@ -87,7 +87,7 @@ public class PatientMap {
         PatientMap filteredList = new PatientMap();
         for (Map.Entry mapElement : patientObservableMap.entrySet()) {
             Patient value = (Patient)mapElement.getValue();
-            if (value.getName().contains(searchTerm)) {
+            if (value.toString().contains(searchTerm)) {
                 filteredList.addPatient(value);
                 ++i;
             }

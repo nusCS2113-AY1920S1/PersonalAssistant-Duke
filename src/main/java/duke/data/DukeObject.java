@@ -21,7 +21,10 @@ public abstract class DukeObject {
      *
      * @return the String representation of the object
      */
-    public abstract String toString();
+    public String toString() {
+        String informationString = "Name: " + this.name + "\n";
+        return informationString;
+    }
 
     /*
      * The toDisplayString function returns a String formatted

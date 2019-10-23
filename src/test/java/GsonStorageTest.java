@@ -25,13 +25,13 @@ public class GsonStorageTest {
     private Patient dummy2 = new Patient("dummy2", "A200", null);
     private Patient dummy3 = new Patient("dummy3", "A300", "cats");
     private String expected = "["
-            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],"
+            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":{},"
             //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy3\"},"
-            + "{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],"
+            + "{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":{},"
             //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy1\"},"
-            + "{\"bedNo\":\"A200\",\"impressions\":[],"
+            + "{\"bedNo\":\"A200\",\"impressions\":{},"
             //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy2\"}]";
 
@@ -45,8 +45,8 @@ public class GsonStorageTest {
      */
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Complexia", "C100", "cookies");
-        complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient));
-        complexPatient.setPriDiagnosis(0);
+        Impression imp = complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient));
+        complexPatient.setPriDiagnosis(imp.getName());
         complexPatient.setAllergies("dogs");
         complexPatient.setHeight(124);
         complexPatient.setWeight(250);
