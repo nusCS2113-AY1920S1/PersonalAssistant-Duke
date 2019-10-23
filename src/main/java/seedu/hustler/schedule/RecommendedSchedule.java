@@ -33,7 +33,7 @@ public class RecommendedSchedule extends Scheduler {
     public static void recommend(long timeInSeconds) {
         seconds = timeInSeconds;
         Ui ui = new Ui();
-        if (Scheduler.size() == 0) {
+        if (size() == 0) {
             ui.show_message("There are no tasks to complete. "
                 + "Please add more tasks."); 
             return;
@@ -44,17 +44,17 @@ public class RecommendedSchedule extends Scheduler {
         if (hours <= 1) {
             recommended.add(schedule.get(0));
         } else if (hours > 1 && hours <= 2) {
-            recommended.add(Scheduler.schedule.get(0)); 
-            if (Scheduler.size() > 1) {
-                recommended.add(Scheduler.schedule.get(1));
+            recommended.add(schedule.get(0)); 
+            if (size() > 1) {
+                recommended.add(schedule.get(1));
             }
         } else {
-            recommended.add(Scheduler.schedule.get(0)); 
-            if (Scheduler.size() == 2) {
-                recommended.add(Scheduler.schedule.get(1));
+            recommended.add(schedule.get(0)); 
+            if (size() == 2) {
+                recommended.add(schedule.get(1));
             } else if (schedule.size() > 2) {
-                recommended.add(Scheduler.schedule.get(1));
-                recommended.add(Scheduler.schedule.get(2)); 
+                recommended.add(schedule.get(1));
+                recommended.add(schedule.get(2)); 
             }
         }
         reTime();
@@ -73,7 +73,7 @@ public class RecommendedSchedule extends Scheduler {
      * Sorts schedule based on priority for easy retreival.
      */
     public static void sort() {
-        Collections.sort(Scheduler.schedule, new SortByPriority());
+        Collections.sort(schedule, new SortByPriority());
     }
     
     /**
@@ -104,7 +104,7 @@ public class RecommendedSchedule extends Scheduler {
             entry.updateTimeSpent(entry.getTimeAlloc());
         }
         recommended = new ArrayList<ScheduleEntry>();
-        Scheduler.displayEntries();
+        displayEntries();
     }
 
     /**
@@ -113,7 +113,7 @@ public class RecommendedSchedule extends Scheduler {
      * @param index index of the task in the Hustler tasklist.
      */
     public static void addFromTaskList(int index) {
-        for (ScheduleEntry entry : Scheduler.schedule) {
+        for (ScheduleEntry entry : schedule) {
             if (entry.getTask() == Hustler.list.get(index)) {
                 recommended.add(entry);
                 break;

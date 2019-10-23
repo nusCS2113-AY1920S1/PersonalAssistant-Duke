@@ -211,6 +211,7 @@ public class Storage {
         // if list has nothing just quit
         if (inputList.isEmpty()) {
             (new File(this.filePath)).delete();
+            saveTimeSpent(inputList);
             return;
         }
         //if data folder doesnt exist create it
