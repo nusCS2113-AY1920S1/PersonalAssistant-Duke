@@ -76,9 +76,7 @@ public class DeletePatientCommand extends Command {
      * @param taskManager contains information of all the tasks.
      * @param patientManager contains information of all the patients.
      * @param ui interacts with user.
-     * @param patientTaskStorage save or load the relation between all the tasks and patients.
-     * @param taskStorage save or load all the tasks.
-     * @param patientStorage save or load all the patients.
+     * @param storageManager save the changes in csv file.
      * @throws DukeException if there is error deleting the patient.
      */
     @Override
@@ -102,14 +100,14 @@ public class DeletePatientCommand extends Command {
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted, true);
             if (toDelete) {
                 patientTaskList.deleteEntirePatientTask(patientToBeDeleted.getID());
-                patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+                storageManager.saveAssignedTasks(patientTaskList.fullPatientTaskList());
             }
         } catch (Exception e) {
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted,false);
         }
         if (toDelete) {
             patientManager.deletePatient(patientToBeDeleted.getID());
-            patientStorage.save(patientManager.getPatientList());
+            storageManager.savePatients(patientManager.getPatientList());
             ui.patientDeleted();
 
         }
