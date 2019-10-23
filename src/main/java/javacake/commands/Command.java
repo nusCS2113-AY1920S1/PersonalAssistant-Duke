@@ -17,11 +17,11 @@ public abstract class Command {
      */
     public enum CmdType {
         EXIT, LIST, FIND, DONE, DELETE, TODO, DEADLINE, REMIND, VIEWSCH,
-        EDIT, BACK, GOTO, QUIZ, HELP, TREE
+        EDIT, BACK, GOTO, QUIZ, HELP, TREE, CREATENOTE, EDITNOTE
     }
 
     public abstract String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
-            throws DukeException;
+            throws DukeException, IOException;
 
     /**
      * Method to get the type of command.
