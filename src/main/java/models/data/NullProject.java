@@ -107,7 +107,9 @@ public class NullProject implements IProject {
 
     @Override
     public void removeAssignment(Member member, Task task) {
-
+        /*
+        Empty method
+         */
     }
 
     @Override
