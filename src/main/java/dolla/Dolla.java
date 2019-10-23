@@ -22,9 +22,11 @@ import static dolla.Storage.load;
  */
 public class Dolla {
 
-    private TaskList tasks = new TaskList(new ArrayList<Task>());
+    //private TaskList tasks = new TaskList(new ArrayList<Task>());
     private DollaData dollaData = new DollaData();
-    //    Storage storage = new Storage();
+
+    //Storage storage = new Storage();
+
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
      */

@@ -1,34 +1,33 @@
 package dolla;
 
-import dolla.command.Command;
-import dolla.task.Log;
 import dolla.task.LogList;
-import dolla.task.Task;
-import dolla.task.TaskList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 
-
-
+/**
+ * Class handles Reminder-related methods.
+ */
 public class Reminder {
+
     protected LocalDate today;
     private String mode;
 
     /**
-     * Initialise the mode to debt mode
-     * @param mode debt
+     * Instantiates a new Reminder.
+     *
+     * @param mode the mode
      */
     public Reminder(String mode) {
         this.mode = "debt";
     }
 
     /**
-     * Get the loglist of debt mode and print the reminder
-     * @param dollaData
+     * Show reminder.
+     *
+     * @param dollaData the dolla data
      */
-    public void showReminder (DollaData dollaData) {
+    public void showReminder(DollaData dollaData) {
         LogList logList = new LogList(new ArrayList<>());
         logList = dollaData.getLogList(mode);
         today = LocalDate.now();
@@ -36,9 +35,10 @@ public class Reminder {
     }
 
     /**
-     * Check through the loglist. Print the logs if the due date is less than 2 days from today.
-     * @param today today's date
-     * @param logList loglist of debt
+     * Print reminder.
+     *
+     * @param today   the today
+     * @param logList the log list
      */
     public void printReminder(LocalDate today, LogList logList) {
         System.out.println("\tREMINDER!!!");

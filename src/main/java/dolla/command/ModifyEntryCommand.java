@@ -14,6 +14,13 @@ public class ModifyEntryCommand extends Command {
     private String description;
     private LocalDate date;
 
+    /**
+     * Instantiates a new ModifyEntryCommand.
+     * @param type type of modification
+     * @param amount amount to modify
+     * @param description description
+     * @param date date
+     */
     public ModifyEntryCommand(String type, double amount, String description, LocalDate date) {
         this.type = type;
         this.amount = amount;

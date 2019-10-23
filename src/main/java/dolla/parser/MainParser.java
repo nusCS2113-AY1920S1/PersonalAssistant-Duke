@@ -4,7 +4,6 @@ import dolla.Tag;
 import dolla.Ui;
 //import dolla.command.;
 
-import dolla.action.undo;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
@@ -13,11 +12,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * MainParser checks the current mode and user input
- * to create the relevant command.
+ * MainParser checks the current mode and user input to create the relevant command.
  */
 public class MainParser {
     private static String[] prevCommand = {"dolla","1"};
+
+    protected static final String MODE_DOLLA = "dolla";
+    protected static final String MODE_ENTRY = "entry";
+    protected static final String MODE_LIMIT = "limit";
+    protected static final String MODE_DEBT = "debt";
+    protected static final String MODE_SHORTCUT = "shortcut";
+    protected static final String SPACE = " ";
+    protected static final String COMMAND_BYE = "bye";
+
 
     /**
      * Returns a command corresponding to the user input by directing
@@ -29,58 +36,59 @@ public class MainParser {
 
         //Scanner input = new Scanner(System.in);
         //String inputLine = input.nextLine();
-        String[] inputArray = inputLine.split(" ");
+        String[] inputArray = inputLine.split(SPACE);
         String command = inputArray[0];
-        boolean isSwitchMode = command.equals("dolla") || command.equals("entry")
-                || command.equals("limit") || command.equals("debt")
-                || command.equals("shortcut");
+        boolean isSwitchMode = command.equalsIgnoreCase(MODE_DOLLA) || command.equals(MODE_ENTRY)
+                || command.equals(MODE_LIMIT) || command.equals(MODE_DEBT)
+                || command.equals(MODE_SHORTCUT);
 
-        if (command.equals("bye")) {
+        if (command.equals(COMMAND_BYE)) {
             //return new ExitCommand(); // TODO
         } else if (isSwitchMode) {
             return new SwitchModeCommand(command); // TODO
         }
 
-        if(prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
+        if (prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
             prevCommand[1] = "2";
-        } else if(prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
+        } else if (prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
             prevCommand[0] = command;
             prevCommand[1] = "1";
-        } else { //not from redo
+        } else { //not from Redo
             prevCommand[0] = command;
             prevCommand[1] = "1";
         }
-
-//    } else if(prevCommand[0].equals("redo") && prevCommand[1].equals("1")) {
-//        prevCommand[1] = "2";
-//    } else if(prevCommand[0].equals("redo") || prevCommand[1].equals("2")) {
-//        prevCommand[0] = command;
-//        prevCommand[1] = "1";
+        /*
+        } else if(prevCommand[0].equals("Redo") && prevCommand[1].equals("1")) {
+            prevCommand[1] = "2";
+        } else if(prevCommand[0].equals("Redo") || prevCommand[1].equals("2")) {
+            prevCommand[0] = command;
+            prevCommand[1] = "1";
+        */
 
         Tag tag = new Tag(inputLine);
+        tag.parseTag();
 
         switch (mode) {
-        case "dolla":
+        case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
             return dollaParser.handleInput(mode, inputLine);
-        case "entry":
+        case MODE_ENTRY:
             EntryParser entryParser = new EntryParser(inputLine);
             return entryParser.handleInput(mode, inputLine);
-        case "debt":
+        case MODE_DEBT:
             DebtsParser debtsParser = new DebtsParser(inputLine);
             return debtsParser.handleInput(mode, inputLine);
-        case "limit":
+        case MODE_LIMIT:
             LimitParser limitParser = new LimitParser(inputLine);
             return limitParser.handleInput(mode, inputLine);
-        case "modify entry":
+        case "modify entry": //is this a mode? (asking cause im not sure)
             ModifyParser modifyParser = new ModifyParser(inputLine);
             return modifyParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();
         }
-
 
         /*
         String[] inputArray = inputLine.split(" ");
@@ -190,12 +198,10 @@ public class MainParser {
     */
 
     /**
-     * This method will exit the entire program.
+     * This method will exit the entire program after printing a goodbye message.
      */
     public static void exit() {
-        ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "Bye. Hope to see you again soon!"
-        ));
+        String msg = "Bye. Hope to see you again soon!";
         Ui.printMsg(msg);
         //duke.Storage.save(tasks); // Don't need to save since any previous commands are already saved
     }

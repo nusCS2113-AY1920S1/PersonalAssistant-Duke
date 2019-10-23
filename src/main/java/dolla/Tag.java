@@ -1,7 +1,7 @@
 package dolla;
 
 /**
- * Package for
+ * This class handles tag related inputs.
  */
 public class Tag {
 
@@ -12,6 +12,11 @@ public class Tag {
     public static final String PREFIX_TAG = "/tag";
     public static final String SPACE = " ";
 
+    /**
+     * Instantiates a new Tag.
+     *
+     * @param inputLine the input line
+     */
     public Tag(String inputLine) {
         this.inputLine = inputLine;
         this.inputArray = inputLine.split(SPACE);
@@ -20,35 +25,45 @@ public class Tag {
     }
 
     /**
-     * Format state as text for viewing.
+     * Formats state as text for viewing.
      */
     public String toString() {
         return '[' + tagName + ']';
     }
 
+    /**
+     * Checks if inputArray has tag and changes tagIndex to the index of the tag name.
+     * @return true if inputArray contains "/tag"
+     */
     private Boolean hasTag() {
         Boolean hasTag = false;
-        for (int i = 0; i < inputArray.length; i++) {
-            if (inputArray[i].equalsIgnoreCase(PREFIX_TAG)) {
-                tagIndex = i + (PREFIX_TAG.length());
-                hasTag = true;
-                break;
-            }
+        int arraySize = inputArray.length;
+        if (arraySize > 1 && inputArray[arraySize - 2].equalsIgnoreCase((PREFIX_TAG))) {
+            tagIndex = arraySize - 1;
+            hasTag = true;
         }
         return hasTag;
     }
 
     private void findTag() {
-        tagName = inputLine.substring(tagIndex);
+        tagName = inputArray[tagIndex];
     }
 
+    /**
+     * Parse tag.
+     */
     public void parseTag() {
         if (hasTag()) {
             findTag();
         }
-        System.out.println("TAG IS " + tagName);
+        System.out.println("TAG IS " + getTagName()); //todo: store tag properly instead of printing it out.
     }
 
+    /**
+     * Gets tag name.
+     *
+     * @return the tag name
+     */
     public String getTagName() {
         return tagName;
     }

@@ -6,9 +6,6 @@ import dolla.task.Log;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- * Debt is a Class that stores an instance of the user's expense or income.
- */
 public class Debt extends Log {
 
     protected String type;
@@ -17,12 +14,13 @@ public class Debt extends Log {
     protected LocalDate date;
 
     /**
+     * Instantiates a new Debt.
      *
-     * @param type Owe or Borrow
-     * @param name Name of the person that you borrow from or owe your money
-     * @param amount Amount of money that is owed or borrowed
-     * @param description Details of the debt
-     * @param date The deadline for returning money or asking people to return money
+     * @param type        the type
+     * @param name        the name
+     * @param amount      the amount
+     * @param description the description
+     * @param date        the date
      */
     public Debt(String type, String name, double amount, String description, LocalDate date) {
         this.type = type;
@@ -30,7 +28,7 @@ public class Debt extends Log {
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.userInput = type + " " + name + " " + amount + " " + description + " " +"/due " + Time.dateToString(date);
+        this.userInput = type + " " + name + " " + amount + " " + description + " " + "/due " + Time.dateToString(date);
     }
 
     /**
