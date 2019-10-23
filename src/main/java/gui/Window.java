@@ -57,7 +57,7 @@ public class Window {
         frame.getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBounds(22, 357, 363, 191);
+        panel.setBounds(22, 284, 363, 264);
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         panel.setBackground(SystemColor.window);
         frame.getContentPane().add(panel);
@@ -66,17 +66,18 @@ public class Window {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(10, 10, 343, 171);
+        scrollPane.setBounds(10, 10, 343, 244);
         panel.add(scrollPane);
 
         JTextArea outputArea = new JTextArea();
+        scrollPane.setViewportView(outputArea);
         outputArea.setText("Welcome to Duke Pro!");
         outputArea.setEditable(false);
-        scrollPane.setViewportView(outputArea);
         outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
         outputArea.setWrapStyleWord(true);
         outputArea.setLineWrap(true);
         DefaultCaret caret = (DefaultCaret) outputArea.getCaret();
+        this.outputArea = outputArea;
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         JPanel panel1 = new JPanel();
@@ -101,13 +102,12 @@ public class Window {
                 inputField.requestFocus();
             }
         });
-        this.outputArea = outputArea;
 
         JPanel panel2 = new JPanel();
         panel2.setLayout(null);
         panel2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         panel2.setBackground(Color.WHITE);
-        panel2.setBounds(106, 307, 197, 40);
+        panel2.setBounds(106, 234, 197, 40);
         frame.getContentPane().add(panel2);
 
         completedPercField = new JTextField();
@@ -120,14 +120,14 @@ public class Window {
         panel2.add(completedPercField);
 
         JPanel piePanel = new JPanel();
-        piePanel.setLocation(76, 35);
+        piePanel.setLocation(106, 24);
         piePanel.setBackground(new Color(120, 168, 219));
         piePanel.setLayout(null);
-        piePanel.setSize(250, 250);
+        piePanel.setSize(200, 200);
 
         frame.getContentPane().add(piePanel);
         pieChart = new PieChart(tasksCounter.getPercCompleted());
-        pieChart.setBounds(0, 0, 250, 250);
+        pieChart.setBounds(0, 0, 200, 200);
         piePanel.add(pieChart);
 
         InputMemory im = new InputMemory();
