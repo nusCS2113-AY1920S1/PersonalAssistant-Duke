@@ -1,10 +1,6 @@
 package com.algosenpai.app.storage;
 
 import com.algosenpai.app.stats.ChapterStat;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Scanner;
 
 public class UserStorageParser {
@@ -14,13 +10,9 @@ public class UserStorageParser {
 
     /**
      * Initialises everything so that Scanner works.
-     * @throws FileNotFoundException will never be thrown as the file would already be prepared.
      */
-    public UserStorageParser() throws FileNotFoundException {
-        String workingDir = System.getProperty("user.dir") + File.separator + "UserData.txt";
-        FileReader reader = new FileReader(workingDir);
-        this.inputScanner = new Scanner(reader);
-
+    public UserStorageParser() {
+        this.inputScanner = new Scanner(this.getClass().getResourceAsStream("/data/UserData.txt"));
     }
 
     /**
@@ -38,18 +30,18 @@ public class UserStorageParser {
         final int attempts = Integer.parseInt(inputScanner.nextLine());
         inputScanner.skip("Total Questions answered : ");
         final int answered = Integer.parseInt(inputScanner.nextLine());
-        inputScanner.skip("Total Questions Correct : ");
+        inputScanner.skip("Total Questions correct : ");
         final int correctAnswers = Integer.parseInt(inputScanner.nextLine());
-        inputScanner.skip("Total Questions Wrong : ");
+        inputScanner.skip("Total Questions wrong : ");
         final int wrongAnswers = Integer.parseInt(inputScanner.nextLine());
         inputScanner.skip("Percentage of Questions correct : ");
         final double percentage = Double.parseDouble(inputScanner.nextLine());
         inputScanner.skip("Comments : ");
         String comments = inputScanner.nextLine();
-        // remove the quotes (1st and last character)
         comments = comments.substring(1,comments.length() - 1);
         return new ChapterStat(chapterName, chapterNo, attempts, answered,
                 correctAnswers, wrongAnswers, percentage, comments);
+
     }
 
     /**

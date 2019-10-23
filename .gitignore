@@ -16,3 +16,6 @@ bin/
 *.pdf
 
 *.log
+
+./*.pdf
+./*.txt

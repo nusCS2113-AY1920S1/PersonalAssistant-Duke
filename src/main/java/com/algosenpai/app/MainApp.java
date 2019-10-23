@@ -1,6 +1,6 @@
 package com.algosenpai.app;
 
-import com.algosenpai.app.logic.constant.SoundConstant;
+import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.ui.Ui;
 import com.algosenpai.app.ui.controller.MusicController;
 import javafx.animation.PauseTransition;
@@ -10,9 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import com.algosenpai.app.logic.Logic;
-import com.algosenpai.app.logic.Parser;
+import com.algosenpai.app.logic.parser.Parser;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -23,7 +24,8 @@ import java.net.URISyntaxException;
 public class MainApp extends Application {
     //Initialise the different components here
     private Parser parser = new Parser();
-    private Logic logic = new Logic(parser);
+    private Logic logic;
+    private UserStats userStats;
     private static MusicController musicController;
 
     static {
@@ -36,17 +38,27 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        initialize();
         startSplashScreen(stage);
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event -> {
-                try {
-                    startMain(stage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                stage.close();
+                startMain(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        );
+        });
         pause.play();
+    }
+
+    private void initialize() {
+        try {
+            userStats = new UserStats();
+            logic = new Logic(parser, userStats);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startSplashScreen(Stage stage) throws IOException {
@@ -70,5 +82,4 @@ public class MainApp extends Application {
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
     }
-
 }

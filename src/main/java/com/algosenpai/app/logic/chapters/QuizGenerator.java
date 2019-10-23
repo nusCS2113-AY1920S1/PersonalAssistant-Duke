@@ -1,6 +1,6 @@
 package com.algosenpai.app.logic.chapters;
 
-import com.algosenpai.app.logic.Question;
+import com.algosenpai.app.logic.models.QuestionModel;
 
 import java.util.ArrayList;
 
@@ -12,8 +12,8 @@ public class QuizGenerator {
      * @param questionList the ArrayList of Questions to be filled.
      * @return the ArrayList with all the questions generated
      */
-    public ArrayList<Question> generateQuiz(int selectedChapters, ArrayList<Question> questionList) {
-        questionList = new ArrayList<Question>();
+    public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
+        questionList = new ArrayList<QuestionModel>();
 
         if (selectedChapters == 0) {
             for (int i = 0; i < 10; i++) {

@@ -6,7 +6,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.algosenpai.app.ui.controller.SplashScreenController">
+            fx:controller="com.algosenpai.app.ui.components.SplashScreen">
     <Text fx:id="appTitle" text="home text" />
     <ImageView fx:id="appImage" />
 </AnchorPane>
