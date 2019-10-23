@@ -58,10 +58,18 @@ public class RequiredIngredients {
         if (requiredIngredientList.isEmpty()) {
             joinedString = "No required ingredient.";
         }
-        for (Ingredient Ingredient : requiredIngredientList) {
-            String.join(Ingredient.toSaveString(), joinedString);
-            String.join(" | ", joinedString);
+        for (Ingredient ingredient : requiredIngredientList) {
+            Ingredient temp = requiredIngredientList.get(requiredIngredientList.size() - 1);
+            if (temp.toSaveString().equals(ingredient.toSaveString())) {
+                joinedString += (ingredient.toSaveString());
+            } else {
+                joinedString += (ingredient.toSaveString() + " < ");
+            }
+//            String.join(ingredient.toSaveString(), joinedString);
+            System.out.println("this is the value for inner ingredient: " + ingredient.toSaveString());
+//            String.join(" | ", joinedString);
         }
+        System.out.println("this is the value for inner joinedstring: " + joinedString);
         return joinedString;
     }
 }

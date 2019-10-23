@@ -7,3 +7,7 @@
 1 | onion | 2.0 | G | chopped
 1 | water | 50.0 | G | sprinkle
 1 | chili | 50.0 | G | chopped
+1 | pork | 1.0 | G | minced
+1 | potato | 1.0 | G | mashed
+1 | milk | 100.0 | G | carton
+1 | beef | 10.0 | KG | medium rare
