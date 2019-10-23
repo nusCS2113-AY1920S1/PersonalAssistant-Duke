@@ -5,49 +5,39 @@ import storage.Storage;
 import task.TaskList;
 
 /**
- * The command abstract class is used to ensure that all the classes have
- * implementations of the methods and have the implementation of isExit().
+ * Ensures that all the classes of command type have implementations of the method execute.
  *
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
 public abstract class Command {
 
-    protected boolean exit;
-
     /**
-     * This Command constructor defines that exit is false when instantiated to
-     * allow the running of the program.
+     * Defines that isExit is false when instantiated to allow program to continue running.
      */
-    public Command() {
-        exit = false;
-    }
+    protected boolean isExit = false;
 
     /**
-     * This CommandOut function is to set exit to true, in order to terminate the
-     * program.
+     * Terminates the program by setting isExit to true.
      */
     public void commandOut() {
-        exit = true;
+        isExit = true;
     }
 
     /**
      * Contracts all Command type classes to have their own respective execute
-     * methods to ensure that the date is processed and stored properly.
+     * methods.
      *
-     * @param tasks   The TaskList that was loaded from persistent storage is passed
-     *                to the caller to utilise it.
-     * @param storage The storage is passed to the user to allow the user to save
-     *                the file after updating TaskList.
-     * @throws DukeException The DukeException class has all the respective methods
-     *                       and messages.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     * @throws DukeException Throws the exception according to the user-defined list: DukeException.
      */
     public abstract void execute(TaskList tasks, Storage storage) throws DukeException;
 
     /**
-     * This isExit function is called by a program to check the status of exit.
+     * This getExit function is called by a program to check the status of exit.
      */
-    public boolean isExit() {
-        return exit;
+    public boolean getExit() {
+        return isExit;
     }
 }

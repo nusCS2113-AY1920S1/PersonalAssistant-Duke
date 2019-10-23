@@ -6,10 +6,11 @@ import task.Task;
 import task.TaskList;
 import ui.Ui;
 
-
 /**
- * The EditCommand class is used whenever the user wishes to edit their task description
- * due to any changes.
+ * Edits the user's task description.
+ *
+ * @author Tan Yi Xiang
+ * @version v1.3
  */
 public class EditCommand extends Command {
 
@@ -21,6 +22,12 @@ public class EditCommand extends Command {
         this.newDescription = newDescription;
     }
 
+    /**
+     * Edits the description of a task and saves to persistent storage.
+     *
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {

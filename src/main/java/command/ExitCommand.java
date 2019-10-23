@@ -6,11 +6,10 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * The ExitCommand class is used when the user inputs bye and intends to
- * terminate the program.
+ * Terminates the program.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.3
  */
 public class ExitCommand extends Command {
 
@@ -18,8 +17,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * This execute function calls the super.CommandOut function which is used to
-     * terminate the program by updating the boolean flag exit to true.
+     * Terminates the program by updating isExit to true.
      */
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         super.commandOut();

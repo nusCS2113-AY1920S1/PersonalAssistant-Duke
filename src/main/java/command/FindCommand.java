@@ -1,10 +1,10 @@
 package command;
 
 /**
- * The FindCommand class is used when the user intends to check all tasks for a keyword.
+ * Finds all tasks that have a particular keyword.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.3
  */
 
 import exception.DukeException;
