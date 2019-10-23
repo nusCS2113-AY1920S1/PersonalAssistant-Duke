@@ -6,7 +6,6 @@ import duke.exception.DukeHelpException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static duke.command.Parser.ParseState.EMPTY;
 import static java.lang.Math.min;
 
 /**
@@ -95,7 +94,7 @@ public class Parser {
             throw new DukeException(currCommand.getEmptyArgMsg());
         }
 
-        state = EMPTY;
+        state = ParseState.EMPTY;
         currSwitchName = null;
         switchMap = currCommand.getSwitchMap();
         switchVals = new HashMap<String, String>();
@@ -220,7 +219,7 @@ public class Parser {
             break;
         case '\n': //fallthrough
         case ' ':
-            state = EMPTY;
+            state = ParseState.EMPTY;
             addSwitch();
             break;
         case '-':
@@ -242,7 +241,7 @@ public class Parser {
             currCommand.setArg(elementBuilder.toString());
         }
         elementBuilder.setLength(0); //clear elementBuilder
-        state = EMPTY;
+        state = ParseState.EMPTY;
     }
 
     private void addSwitch() throws DukeHelpException {
