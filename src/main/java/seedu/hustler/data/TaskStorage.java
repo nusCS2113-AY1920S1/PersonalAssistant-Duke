@@ -26,7 +26,7 @@ import static seedu.hustler.parser.DateTimeParser.getDateTime;
 /**
  * A class that stores current task list and loads it on request from disc.
  */
-public class Storage {
+public class TaskStorage {
     /**
      * Path to the file where tasks are stored and
      * retrieved from.
@@ -39,14 +39,14 @@ public class Storage {
     /**
      * Empty constructor.
      */
-    public Storage() {
+    public TaskStorage() {
 
     }
 
     /**
      * Initializes filePath.
      */
-    public Storage(String filePath) {
+    public TaskStorage(String filePath) {
         this.filePath = filePath;
         this.filePathBackup = filePath.split("hustler.txt")[0] + "backup/hustlerBackup.txt";
         this.schedule = new Schedule();

@@ -1,5 +1,10 @@
 package seedu.hustler.game.shop.items;
 
+import seedu.hustler.game.shop.items.armors.Armor;
+import seedu.hustler.game.shop.items.weapons.Weapon;
+
+import java.util.Optional;
+
 /**
  * The class in which every item will inherit from.
  */
@@ -18,6 +23,13 @@ public abstract class ShopItem implements Purchasable {
     protected String type;
 
     /**
+     * Boolean if the shop item is equipped. Optional as not all
+     * items can be equipped.
+     * @param true if the item is equipped; false if otherwise.
+     */
+    private Optional<Boolean> isEquipped;
+
+    /**
      * Constructs a ShopItem with the given cost, hasPurchased, and type.
      * @param cost the cost of the item.
      * @param hasPurchased if the ShopItem was purchased; false if otherwise.
@@ -27,6 +39,7 @@ public abstract class ShopItem implements Purchasable {
         this.cost = cost;
         this.isPurchased = hasPurchased;
         this.type = type;
+        this.isEquipped = Optional.empty();
     }
 
     /**
@@ -73,10 +86,5 @@ public abstract class ShopItem implements Purchasable {
     @Override
     public boolean canPurchase(int points) {
         return points >= this.cost;
-    }
-
-    @Override
-    public String toString() {
-        return isPurchased ? "[Purchased]" : "[" + this.cost + " points needed]";
     }
 }

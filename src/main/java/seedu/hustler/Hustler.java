@@ -16,6 +16,7 @@ import seedu.hustler.command.Command;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.MemoryManager;
+import seedu.hustler.game.avatar.Inventory;
 import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.task.Reminders;
@@ -52,7 +53,7 @@ public class Hustler extends Application {
      * Storage instance that stores and loads tasks to and from
      * disk.
      */
-    private static Storage storage = new Storage("data/hustler.txt");
+    private static TaskStorage taskStorage = new TaskStorage("data/hustler.txt");
 
     /**
      * UI instance that is used to take input from console
@@ -87,6 +88,11 @@ public class Hustler extends Application {
     public static CommandLog commandlog = new CommandLog();
 
     /**
+     * Inventory that stores all the bought items.
+     */
+    public static Inventory inventory = new Inventory();
+
+    /**
      * Initializes the essential components needed to run Hustler.
      * Loads existing task list and avatar.
      * Displays reminders at the start of Hustler.
@@ -103,6 +109,7 @@ public class Hustler extends Application {
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
         shopList = ShopStorage.load();
+        inventory = inventory.updateInventory();
     }
 
     /**
@@ -132,7 +139,7 @@ public class Hustler extends Application {
      * Loads different data from the relevant files.
      */
     public static void loadStorage() throws IOException {
-        list = new TaskList(storage.load());
+        list = new TaskList(taskStorage.load());
         avatar = AvatarStorage.load();
 
         //Check if it's the first time the user logs in.
@@ -151,7 +158,7 @@ public class Hustler extends Application {
     }
 
     public static void reloadBackup() {
-        list = new TaskList(storage.reloadBackup());
+        list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
     }
 
@@ -160,7 +167,7 @@ public class Hustler extends Application {
      */
     public static void saveStorage() {
         try {
-            storage.save(list.return_list());
+            taskStorage.save(list.return_list());
             AvatarStorage.save(avatar);
             AchievementStorage.saveAchievements(achievementList);
             AchievementStorage.saveStatus();
