@@ -1,3 +1,5 @@
+//@@author LongLeCE
+
 package planner.util.legacy.periods;
 
 import java.time.DayOfWeek;
