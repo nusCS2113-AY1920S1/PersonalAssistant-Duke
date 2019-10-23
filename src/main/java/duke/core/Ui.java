@@ -237,15 +237,20 @@ public class Ui {
 
     /**
      * It confirms with user on the deletion of a patient.
+     * It reminds user that the tasks assigned to this user will be delete
      * If user confirms, key in 'Y'. Otherwise key in 'N'.
      *
      * @param patient it contains patient's info
+     * @param withTasksAssigned it indicates whether the patient is assigned to any tasks
      * @return true if user confirmed the deletion. False otherwise.
      */
-    public boolean confirmPatientToBeDeleted(Patient patient) {
-        showPatientInfo(patient);
+    public boolean confirmPatientToBeDeleted(Patient patient, boolean withTasksAssigned) {
         while (true) {
-            System.out.println("The patient is to be deleted. Are you sure (Y/N)? ");
+            if (withTasksAssigned) {
+                System.out.println("The patient with above tasks assigned is to be deleted. Are you sure (Y/N)?");
+            } else {
+                System.out.println("The patient is to be deleted. Are you sure (Y/N)? ");
+            }
             String command = readCommand();
             if (command.toLowerCase().equals("y")) {
                 return true;
