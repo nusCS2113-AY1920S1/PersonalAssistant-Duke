@@ -2,86 +2,53 @@ package duke.model;
 
 import duke.exception.DukeException;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class PlanQuestionBank {
-    private int curr;
-    private List<String> questionList;
-    private List<String> expectedAnswerType;
+    private Map<Integer, PlanQuestion> questionList;
 
-    public PlanQuestionBank(){
-        questionList = new ArrayList<>();
-        expectedAnswerType = new ArrayList<>();
-        questionList.add("Are you a student from NUS?");
-        expectedAnswerType.add("bool");
-        curr = 0;
+    private static final String[] BOOL_ANSWERS = {"yes", "y", "no", "n"};
+    private static final String[] BOOL_ATTRIBUTE_VALUES = {"TRUE", "TRUE", "FALSE", "FALSE"};
+
+
+    public PlanQuestionBank() throws DukeException {
+        this.questionList = new HashMap<>();
+        questionList.put(1, new PlanQuestion(1,
+                "Are you a student from NUS?",
+                BOOL_ANSWERS,
+                BOOL_ATTRIBUTE_VALUES,
+                "NUS_STUDENT", new HashSet<>(Arrays.asList(2))));
+        questionList.put(2, new PlanQuestion(2, "Do you live on campus?", BOOL_ANSWERS, BOOL_ATTRIBUTE_VALUES, "CAMPUS_LIFE"));
+
     }
 
-    public Reply getReply(String input, Map<String,String> attributes){
-        if(expectedAnswerType.get(curr) == "bool"){
-            try {
-                parseBool(input);
-                attributes.put("NUS_STUDENT", "TRUE");
-                return new Reply("Noted", attributes);
-            } catch (DukeException e) {
-                return new Reply(e.getMessage(), attributes);
+
+    public Collection<PlanQuestion> getInitialQuestions(Map<String, String> knownAttributes) {
+        Map<String, PlanQuestion> attributeQuestion = new HashMap<>();
+        Queue<Integer> questionsToAdd = new LinkedList<>();
+        questionsToAdd.add(1);
+        while (!questionsToAdd.isEmpty()) {
+            Integer index = questionsToAdd.peek();
+            questionsToAdd.remove();
+            PlanQuestion question = questionList.get(index);
+            attributeQuestion.put(question.getAttribute(), question);
+            Set<Integer> children = questionList.get(index).getNeighbouringQuestions();
+            for (Integer child : children) {
+                questionsToAdd.add(child);
             }
         }
-        return new Reply("Something strange happened, please try again", attributes);
-    }
-
-    public String getCurrentQuestion() {
-        return questionList.get(curr);
-    }
-
-    private boolean parseBool(String input) throws DukeException {
-        input = input.toLowerCase();
-        switch (input) {
-        case "yes":
-        case "y":
-            return true;
-        case "no":
-        case "n":
-            return false;
-        default:
-            throw new DukeException("Your answer should be a yes/no!");
-
-
+        for (String knownAttribute : knownAttributes.keySet()) {
+            attributeQuestion.remove(knownAttribute);
         }
+        return attributeQuestion.values();
     }
-
-
-    private BigDecimal parseMoney(String input) {
-            double moneyDouble = Double.parseDouble(input);
-            BigDecimal money = BigDecimal.valueOf(moneyDouble);
-            return money.setScale(2, RoundingMode.HALF_EVEN);
-    }
-
-    public class Reply {
-        private String text;
-        private Map<String,String> attributes;
-
-        public Reply(String text, Map<String, String> attributes) {
-            this.text = text;
-            this.attributes = attributes;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public Map<String, String> getAttributes() {
-            return attributes;
-        }
-    }
-
 
 
 }
