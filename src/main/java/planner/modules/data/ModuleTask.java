@@ -15,7 +15,7 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed.getModuleCode();
     }
 
-    public float getModuleCredit() {
+    public Double getModuleCredit() {
         return moduleInfoDetailed.getModuleCredit();
     }
 

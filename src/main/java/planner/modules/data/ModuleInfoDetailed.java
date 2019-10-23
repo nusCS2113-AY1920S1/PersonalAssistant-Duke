@@ -25,8 +25,8 @@ public class ModuleInfoDetailed {
         return description;
     }
 
-    public Float getModuleCredit() {
-        return Float.parseFloat(moduleCredit);
+    public Double getModuleCredit() {
+        return Double.parseDouble(moduleCredit);
     }
 
     public String getDepartment() {
