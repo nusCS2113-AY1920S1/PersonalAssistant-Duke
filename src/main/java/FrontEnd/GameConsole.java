@@ -43,7 +43,7 @@ public class GameConsole {
         return title + content + " ".repeat(totalSpace - title.length() - content.length());
     }
 
-    static String content(ArrayList<String> stage, Farmer farmer, Map<String, Integer> Goals) {
+    static String content(ArrayList<String> frame, Farmer farmer, Map<String, Integer> Goals) {
         StringBuilder output = new StringBuilder();
         String location = farmer.getLocation();
         double level = farmer.getLevel();
@@ -67,11 +67,11 @@ public class GameConsole {
         output.append(GOAL_AND_CODE_TITLE);
         for (int i = 0; i < FRAME_SECTION_HEIGHT; i ++) {
             if (i < ASSET_SECTION_Y_POSITION_WRT_FRAME) {
-                output.append("|").append(goals.get(i)).append(stage.get(i)).append(userCode.get(i)).append("\n");
+                output.append("|").append(goals.get(i)).append(frame.get(i)).append(userCode.get(i)).append("\n");
             } else if (i == ASSET_SECTION_Y_POSITION_WRT_FRAME) {
-                output.append("|").append(ASSETS_TITLE).append(stage.get(i)).append(userCode.get(i)).append("\n");
+                output.append("|").append(ASSETS_TITLE).append(frame.get(i)).append(userCode.get(i)).append("\n");
             } else {
-                output.append("|").append(assets.get(i - ASSET_SECTION_Y_POSITION_WRT_FRAME - 1)).append(stage.get(i)).append(userCode.get(i)).append("\n");
+                output.append("|").append(assets.get(i - ASSET_SECTION_Y_POSITION_WRT_FRAME - 1)).append(frame.get(i)).append(userCode.get(i)).append("\n");
             }
         }
         output.append(BOTTOM_BORDER);
@@ -96,14 +96,15 @@ public class GameConsole {
         return userCodeOutput;
     }
 
-    static String blankConsole(ArrayList<String> stage) {
+    static String blankConsole(ArrayList<String> frame) {
         StringBuilder output = new StringBuilder();
         output.append(AsciiColours.SANE).append(TOP_BORDER);
         for (int i = 0; i < FULL_CONSOLE_HEIGHT; i ++) {
-            output.append(stage.get(i)).append("\n");
+            output.append(frame.get(i)).append("\n");
         }
         return output.toString();
     }
+
     private static ArrayList<String> tutorial1_1Goals(String location) {
         ArrayList<String> goals = new ArrayList<>();
         if (location.equals("Market")) {
