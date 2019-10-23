@@ -1,7 +1,11 @@
 package planner.modules.data;
 
 import planner.exceptions.original.ModBadGradeException;
-import planner.exceptions.original.ModException;
+import planner.exceptions.original.ModBadSUException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ModuleInfoDetailed {
 
@@ -16,6 +20,7 @@ public class ModuleInfoDetailed {
     private Attributes attributes = new Attributes();
     private String grade = "";
     private ExamInfo[] semesterData;
+    private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D+", "D", "F", "S", "U"));
 
 
     public String getModuleCode() {
@@ -67,15 +72,18 @@ public class ModuleInfoDetailed {
      */
     public void setGrade(String score) {
         try {
+            if (!validGrades.contains(score)) {
+                throw new ModBadGradeException();
+            }
             if (score.equalsIgnoreCase("S") || score.equalsIgnoreCase("U")) {
                 if (this.attributes.isSu()) {
                     this.grade = score;
                 } else {
-                    throw new ModBadGradeException();
+                    throw new ModBadSUException();
                 }
             }
             this.grade = score;
-        } catch (ModBadGradeException e) {
+        } catch (ModBadGradeException | ModBadSUException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -4,6 +4,6 @@ public class ModBadGradeException extends ModException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "S/U option is not allowed for this module!";
+        return super.getMessage() + "Please enter a valid letter grade!";
     }
 }
