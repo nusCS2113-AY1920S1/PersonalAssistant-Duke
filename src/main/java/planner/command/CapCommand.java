@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import planner.exceptions.original.ModCommandException;
+import planner.exceptions.original.ModEmptyCommandException;
 import planner.exceptions.original.ModEmptyListException;
 import planner.exceptions.original.ModException;
 import planner.exceptions.original.ModMissingArgumentException;
@@ -154,13 +155,13 @@ public class CapCommand extends ModuleCommand {
                                     PlannerUi plannerUi,
                                     Storage store,
                                     Scanner scanner)
-        throws ModMissingArgumentException, ModNotFoundException {
+        throws ModMissingArgumentException, ModNotFoundException, ModEmptyCommandException {
         String userInput = scanner.nextLine();
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
-                throw new ModMissingArgumentException("Please input a completed module and your grade for it,"
-                    +
-                    " or input done to finish and calculate your CAP");
+                throw new ModEmptyCommandException();
+                //"Please input a completed module and your grade for it,"
+                //" or input done to finish and calculate your CAP"
             }
             String[] userInfo = userInput.split(" ");
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
