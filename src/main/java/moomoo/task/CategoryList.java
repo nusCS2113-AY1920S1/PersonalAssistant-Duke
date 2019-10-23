@@ -116,7 +116,7 @@ public class CategoryList {
      */
     public Category returnCategory(String value) {
         for (Category iterCategory : categoryList) {
-            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
+            if (iterCategory.toString().equalsIgnoreCase(value)) {
                 return iterCategory;
             }
         }

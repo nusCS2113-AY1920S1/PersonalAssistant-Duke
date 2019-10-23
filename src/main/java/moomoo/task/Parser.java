@@ -39,7 +39,7 @@ public class Parser {
         case ("bye"):
             return new ExitCommand(true);
         case ("budget"):
-            return parseBudget(scanner, ui);
+            return parseBudget(scanner);
         case ("categories"):
             return new ListCategoryCommand();
         case ("schedule"):
@@ -107,7 +107,7 @@ public class Parser {
         return input;
     }
 
-    private static Command parseBudget(Scanner scanner, Ui ui) throws MooMooException {
+    private static Command parseBudget(Scanner scanner) throws MooMooException {
         String input = scanner.next();
         switch (input) {
         case "set":
@@ -255,28 +255,28 @@ public class Parser {
 
         while (true) {
             if (input.startsWith("c/")) {
-                if (inputCategory != "") {
+                if ("".equals(inputCategory)) {
                     categories.add(inputCategory);
                     inputCategory = "";
                 }
                 inputCategory += input.substring(2).toLowerCase();
             } else if (input.startsWith("s/")) {
-                if (inputCategory != "") {
+                if ("".equals(inputCategory)) {
                     categories.add(inputCategory);
                     inputCategory = "";
                 }
-                if (startMonth != "") {
+                if (!"".equals(startMonth)) {
                     throw new MooMooException("Please only set 1 starting period.");
                 }
                 startMonth = input.substring(2);
             } else if (input.startsWith("e/")) {
-                if (endMonth != "") {
-                    throw new MooMooException("Please only set 1 starting period.");
+                if (!"".equals(endMonth)) {
+                    throw new MooMooException("Please only set 1 ending period.");
                 }
                 endMonth = input.substring(2);
 
             } else {
-                if (inputCategory != "") {
+                if (!"".equals(inputCategory)) {
                     inputCategory += " " + input;
                 }
                 throw new MooMooException("Please input in this format \"c/CATEGORY s/STARTMONTHYEAR e/ENDMONTHYEAR\"");
@@ -288,7 +288,7 @@ public class Parser {
                 break;
             }
         }
-        if (startMonth == "") {
+        if ("".equals(startMonth)) {
             throw new MooMooException("Please set a start month and year in this format \"s/01/2019\"");
         }
 
@@ -315,7 +315,7 @@ public class Parser {
         try {
             String fullDate = "01/" + inputDate;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return java.time.LocalDate.parse(fullDate, formatter);
+            return LocalDate.parse(fullDate, formatter);
         } catch (Exception e) {
             return null;
         }

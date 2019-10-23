@@ -37,7 +37,7 @@ public class SetBudgetCommand extends Command {
                         Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
         for (int i = 0; i < categories.size(); ++i) {
-            String categoryName = categories.get(i);
+            String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
 
             if (inCategoryList(categoryName, catList) != null) {
@@ -55,7 +55,7 @@ public class SetBudgetCommand extends Command {
 
     private Category inCategoryList(String value, CategoryList catList) {
         for (Category iterCategory : catList.getCategoryList()) {
-            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
+            if (iterCategory.toString().equalsIgnoreCase(value)) {
                 return iterCategory;
             }
         }

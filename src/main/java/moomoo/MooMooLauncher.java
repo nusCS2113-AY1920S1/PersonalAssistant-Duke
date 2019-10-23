@@ -36,7 +36,7 @@ public class MooMooLauncher {
             if (operatingSystem.contains("win")) {
                 runWindowsCommand(path);
             } else if (operatingSystem.contains("mac")) {
-                //command = "bash -c " + "java -jar " + path + " CLI";
+                runLinuxCommand(path);
             } else if (operatingSystem.contains("nix") || operatingSystem.contains("nux")
                     || operatingSystem.contains("aix")) {
                 runLinuxCommand(path);
@@ -45,8 +45,8 @@ public class MooMooLauncher {
     }
 
     private static void runWindowsCommand(String path) throws IOException {
-        path = path.replace("/", File.separator);
-        path = path.substring(1);
+        String newPath = path.replace("/", File.separator);
+        newPath = newPath.substring(1);
 
         File tempScript = File.createTempFile("script", ".bat");
 
@@ -74,9 +74,9 @@ public class MooMooLauncher {
         printWriter.println("exec \"$SHELL\"");
         printWriter.close();
 
-        Process pr = Runtime.getRuntime().exec("chmod +x " + tempScript.getAbsolutePath());
+        Runtime.getRuntime().exec("chmod +x " + tempScript.getAbsolutePath());
 
-        pr = Runtime.getRuntime().exec("x-terminal-emulator -e " + tempScript.getAbsolutePath()
+        Runtime.getRuntime().exec("x-terminal-emulator -e " + tempScript.getAbsolutePath()
                 + " java -jar " + path + " CLI " + tempScript.getAbsolutePath());
     }
 }

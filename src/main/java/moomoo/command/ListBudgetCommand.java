@@ -43,7 +43,7 @@ public class ListBudgetCommand extends Command {
         }
 
         for (int i = 0; i < categories.size(); ++i) {
-            String categoryName = categories.get(i);
+            String categoryName = categories.get(i).toLowerCase();
 
             if (catList.returnCategory(categoryName) != null) {
                 if (budget.getBudgetFromCategory(categoryName) == 0) {

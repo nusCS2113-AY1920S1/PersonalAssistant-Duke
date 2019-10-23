@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StorageStub extends Storage {
-    private String budgetFilePath;
-    private String calendarFilePath;
 
     public StorageStub(String budgetFilePath, String calendarFilePath) {
-        this.budgetFilePath = budgetFilePath;
-        this.calendarFilePath = calendarFilePath;
+
     }
 
     @Override

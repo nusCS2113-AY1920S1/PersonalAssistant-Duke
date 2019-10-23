@@ -3,7 +3,6 @@ package moomoo.stubs;
 import moomoo.task.Category;
 import moomoo.task.CategoryList;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CategoryListStub extends CategoryList {
@@ -45,7 +44,7 @@ public class CategoryListStub extends CategoryList {
     @Override
     public Category returnCategory(String value) {
         for (Category iterCategory : newArrayList) {
-            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
+            if (iterCategory.toString().equalsIgnoreCase(value)) {
                 return iterCategory;
             }
         }

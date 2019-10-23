@@ -38,7 +38,7 @@ public class EditBudgetCommand extends Command {
                         Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
         for (int i = 0; i < categories.size(); ++i) {
-            String categoryName = categories.get(i);
+            String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
 
             if (catList.returnCategory(categoryName) != null) {

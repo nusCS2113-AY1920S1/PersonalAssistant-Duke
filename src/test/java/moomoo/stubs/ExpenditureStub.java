@@ -5,7 +5,6 @@ import moomoo.task.Expenditure;
 import java.time.LocalDateTime;
 
 public class ExpenditureStub extends Expenditure {
-    private String name;
     private double cost;
     private LocalDateTime dateTime;
 

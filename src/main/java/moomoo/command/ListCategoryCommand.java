@@ -2,7 +2,6 @@ package moomoo.command;
 
 import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
-import moomoo.task.MooMooException;
 import moomoo.task.CategoryList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;

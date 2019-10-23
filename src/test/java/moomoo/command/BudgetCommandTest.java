@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,9 +31,9 @@ public class BudgetCommandTest {
 
         ArrayList<String> categories = new ArrayList<>();
 
-        categories.add("shoes");
-        categories.add("food");
-        categories.add("places to go");
+        categories.add("Shoes");
+        categories.add("Food");
+        categories.add("Places to go");
         categories.add("Test Value");
 
         ArrayList<Double> budgets = new ArrayList<>();
@@ -57,7 +55,7 @@ public class BudgetCommandTest {
         assertEquals("You have set $50.00 as the budget for shoes\n"
                 + "You have set $100.00 as the budget for food\n"
                 + "You have set $150.00 as the budget for places to go\n"
-                + "Test Value category does not exist. Please add it first.\n", newUi.returnResponse());
+                + "test value category does not exist. Please add it first.\n", newUi.returnResponse());
     }
 
     @Test
@@ -103,7 +101,7 @@ public class BudgetCommandTest {
         assertEquals("You have changed the budget for shoes from $50.00 to $300.00\n"
                 + "The budget for food is the same.\n"
                 + "You have changed the budget for places to go from $150.00 to $675.00\n"
-                + "Test Value category does not exist. Please add it first.\n", newUi.returnResponse());
+                + "test value category does not exist. Please add it first.\n", newUi.returnResponse());
     }
 
     @Test
@@ -153,7 +151,7 @@ public class BudgetCommandTest {
 
         assertEquals("Budget for shoes is $50.00\n"
                 + "Budget for food is $100.00\n"
-                + "Budget for places to go is $150.00\nTest Value category does not exist. Please add it first.\n"
+                + "Budget for places to go is $150.00\ntest value category does not exist. Please add it first.\n"
                 + "Budget for sweets has not been set.\n", newUi.returnResponse());
     }
 
@@ -229,5 +227,19 @@ public class BudgetCommandTest {
                 + "The budget for sweets does not exist. Please set it using budget set.\n"
                 + "The budget for laptop does not exist. Please set it using budget set.\n"
                 + "You have overspent your total budget by: $150.00\n", newUi.returnResponse());
+
+        categories.clear();
+        assertEquals(0, categories.size());
+        categories.add("food");
+        assertEquals(1, categories.size());
+
+        startDate = LocalDate.of(2017, 9, 15);
+        endDate = LocalDate.of(2019, 2, 15);
+
+        savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("Your savings for food from SEPTEMBER 2017 to FEBRUARY 2019 is: $1500.00\n"
+                + "Your total savings: $1500.00\n", newUi.returnResponse());
     }
 }
