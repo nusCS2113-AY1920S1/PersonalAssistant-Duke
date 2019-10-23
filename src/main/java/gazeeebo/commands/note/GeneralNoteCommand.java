@@ -6,6 +6,7 @@ import gazeeebo.commands.Command;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
+import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -45,10 +46,13 @@ public class GeneralNoteCommand extends Command {
                 gnp.viewGeneralNotePage();
             } else if (ui.fullCommand.equals("edit goal")) {
                 gnp.editGoal(ui);
+                NotePageStorage.writeToGoalFile();
             } else if (ui.fullCommand.equals("add module")) {
                 gnp.addModule(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("delete module")) {
                 gnp.deleteModule(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("module")) {
                 (new ModuleCommand()).execute(null, ui, null, null, null, null);
             } else if (ui.fullCommand.equals("commands")) {

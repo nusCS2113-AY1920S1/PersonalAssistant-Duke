@@ -7,6 +7,7 @@ import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.notes.GeneralNotePage;
 import gazeeebo.notes.Module;
+import gazeeebo.storage.NotePageStorage;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 
@@ -74,20 +75,28 @@ public class ModuleCommand extends Command {
                 module.viewModule();
             } else if (ui.fullCommand.equals("edit name")) {
                 module.editName(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("add assmt")) {
                 module.addAssessment(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("edit assmt")) {
                 module.editAssessmentName(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("edit weightage")) {
                 module.editAssessmentWeightage(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("delete assmt")) {
                 module.deleteAssessment(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("add msc")) {
                 module.addMiscellaneous(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("edit msc")) {
                 module.editMiscellaneous(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("delete msc")) {
                 module.deleteMiscellaneous(ui);
+                NotePageStorage.writeToModulesFile();
             } else if (ui.fullCommand.equals("commands")) {
                 showListOfCommands();
             } else if (ui.fullCommand.split(" ")[0].equals("help")) {
