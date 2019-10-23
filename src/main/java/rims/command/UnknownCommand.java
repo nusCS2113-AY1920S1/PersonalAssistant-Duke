@@ -11,7 +11,7 @@ public class UnknownCommand extends Command {
     }
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
-        ui.ErrorPrint("Sorry, RIM does not support:" + '<' + input + ">" + " as a command yet.");
+        ui.ErrorPrint("Sorry, RIM does not support: " + '<' + input + ">" + " as a command yet.");
         ui.Home();
     }  
 }
