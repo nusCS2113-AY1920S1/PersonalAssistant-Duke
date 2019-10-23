@@ -33,7 +33,7 @@ public class taskCommand extends Command {
             String[] splitCommand = command.split(" ");
             if (splitCommand[0].equals("help")) {
                 new HelpCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
-        } else if (splitCommand[0].equals("list")) {
+            } else if (splitCommand[0].equals("list")) {
                 if (command.contains("event")) {
                     new CategoryListCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
                 } else if (command.contains("deadline")) {
@@ -107,11 +107,12 @@ public class taskCommand extends Command {
                 new TagCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (command.equals("calendar monthly view")) {
                 new CalendarMonthlyView().MonthlyView(list);
-            }else {
+            } else if (command.equals("esc")) {
+                System.out.println("Back to the main page!");
+            } else {
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
-        System.out.println("Back to the main page!");
     }
     @Override
     public boolean isExit() {
