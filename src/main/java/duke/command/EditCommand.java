@@ -7,7 +7,6 @@ import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -78,7 +77,6 @@ public class EditCommand extends Command {
         }
     }
 
-
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -99,14 +97,18 @@ public class EditCommand extends Command {
                         int priorityLevel = Integer.parseInt(editField);
                         t.setPriority(priorityLevel);
                         } catch (NumberFormatException e) {
-                            throw new DukeException("Please enter a numerical field for the duration!"); //Wah i not sure if this is the right way TODO fix exceptions
+                            throw new DukeException("Please enter a numerical field for the priority!"); //Wah i not sure if this is the right way TODO fix exceptions
                         } catch (DukeException e) {
                             throw e;
                         }
                         break;
                     case "t":
+                        try {
                         Optional<LocalDateTime> dateTime = Optional.of(DateTimeParser.parseDateTime(editField));
                         t.setDateTime(dateTime);
+                        } catch (NumberFormatException e) {
+                            throw e; //Are you supposed to include it like this? //TODO
+                        }
                         break;
                     case "d":
                         try {

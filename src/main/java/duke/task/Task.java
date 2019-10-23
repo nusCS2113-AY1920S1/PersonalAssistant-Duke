@@ -18,7 +18,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected String key;
-    protected LocalDate createdDate;
+    protected LocalDateTime createdDate;
     protected RecurrencePeriod recurrencePeriod;
     protected Priority priority;
     protected Optional<String> filter;
@@ -38,7 +38,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.key = "";
-        this.createdDate = LocalDate.now();
+        this.createdDate = LocalDateTime.now();
         this.priority = Priority.LOW;
         switch (recurrencePeriod) {
             case "none":
@@ -113,6 +113,10 @@ public class Task {
             default:
                 return false;
         }
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
     }
 
     public void setDescription(String description) {
