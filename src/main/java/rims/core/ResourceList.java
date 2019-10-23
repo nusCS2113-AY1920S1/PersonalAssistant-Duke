@@ -2,6 +2,8 @@ package rims.core;
 
 import java.util.ArrayList;
 
+import javax.naming.spi.ResolveResult;
+
 import rims.resource.Reservation;
 import rims.resource.ReservationList;
 import rims.resource.Resource;
@@ -58,9 +60,7 @@ public class ResourceList {
             Resource thisResource = resources.get(i);
             ReservationList thisList = thisResource.getReservations();
             for(int j=0; j < thisList.size(); j ++){
-                Reservation thisReservation = new Reservation();
-                thisReservation = thisList.getReservationByIndex(j);
-
+                Reservation thisReservation = thisList.getReservationByIndex(j);
                 if (thisReservation.getUid()==user_id){
                     list.addNewReservation(thisReservation);
                 }
@@ -107,7 +107,13 @@ public class ResourceList {
     }
 
     // update
-    // delete
+    /**
+     * Find a resource using the resource id, then remove it from the resources array.
+     * @exception invalidResourceId 
+     * 
+     * Then, it will use built-in remove method to take out this resource and update 
+     * 
+     */
     public void deleteResourceByResourceId(int resource_id) {
         int index_to_remove = -1;
 
