@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.BitSet;
 
+//@@author jaedonkey
 public class TaskIdManager {
 
     private BitSet idBitSet;
@@ -21,6 +22,7 @@ public class TaskIdManager {
         }
     }
 
+    //@@author jaedonkey
     /**
      * Synchronizes all edits made to the user file to the serial file holding the bitmap.
      * @param tl tasklist holding the arraylist of tasks
@@ -32,7 +34,7 @@ public class TaskIdManager {
         }
     }
 
-
+    //@@author jaedonkey
     /**
      * Assigns an ID to the task passed into it.
      * @param t task to be assigned an id
@@ -52,7 +54,7 @@ public class TaskIdManager {
         //if reached this point means bitmap full
     }
 
-
+    //@@author jaedonkey
     /**
      * Writes(saves) the current id bitset to file.
      */
@@ -68,16 +70,16 @@ public class TaskIdManager {
 
     }
 
+    //@@author jaedonkey
     public void clearId(int id) {
         idBitSet.clear(id);
     }
 
-
+    //@@author jaedonkey
     /**
      * Reads in the saved idbitset as an object and returns it.
      *
      * @return saved idbitset
-     * @author Jaedonkey
      */
     public BitSet readIdBitSet() {
         BitSet bs = null;

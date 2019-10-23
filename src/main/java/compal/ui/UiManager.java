@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//@@author jaedonkey
 public class UiManager implements Ui {
     private UiUtil uiUtil;
 

@@ -67,9 +67,12 @@ public class ParserManager {
             return new FindCommandParser().parseCommand(restOfInput);
         case CMD_EVENT:
             return new EventCommandParser().parseCommand(restOfInput);
+        case CMD_EDIT:
+            return new EditCommandParser().parseCommand(restOfInput);
         default:
+            return new HelpCommandParser().parseCommand(restOfInput);
             //suppose to return helpCommand();
-            throw new ParserException(MESSAGE_INVALID_COMMAND);
+            //throw new ParserException(MESSAGE_INVALID_COMMAND);
         }
 
     }

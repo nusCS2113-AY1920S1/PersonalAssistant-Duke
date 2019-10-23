@@ -6,6 +6,13 @@ import compal.model.tasks.TaskList;
 
 public class FindCommand extends Command {
 
+    public static final String MESSAGE_USAGE = "find\n\t"
+            + "Format: find <description>\n\n\t"
+            + "Note: content in \"<>\": need to be fulfilled by the user\n\n\t"
+            + "This command will search for all tasks containing the description\n"
+            + "Examples:\n\t"
+            + "find cs2106\n\t\t"
+            + "show all tasks containing cs2106 in their description";
     private String keyWord;
 
     public FindCommand(String keyWord) {
@@ -19,15 +26,15 @@ public class FindCommand extends Command {
         if (taskList.getArrList().isEmpty()) {
             return new CommandResult("You have no tasks at the moment!",false);
         }
-        Boolean isEmpty = true;
+        boolean isEmpty = true;
         StringBuilder sb = new StringBuilder();
         for (Task task : taskList.getArrList()) {
             if (task.getDescription().toUpperCase().contains(keyWord.toUpperCase())) {
                 if (isEmpty) {
-                    sb.append("Your search result for the keyword \" + searchTerm + \": \\n");
+                    sb.append("Your search result for the keyword ").append(keyWord).append(": \n");
                     isEmpty = false;
                 }
-                sb.append(task.toString() + "\n");
+                sb.append(task.toString()).append("\n");
 
             }
         }

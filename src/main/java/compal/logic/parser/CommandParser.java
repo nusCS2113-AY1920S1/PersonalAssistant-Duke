@@ -27,11 +27,13 @@ public interface CommandParser {
      * TOKENS FOR PARSING BELOW.
      */
     String TOKEN_TASK_ID = "/id";
+    String TOKEN_COMMAND = "/command";
     String TOKEN_STATUS = "/status";
     String TOKEN_SLASH = "/";
     String TOKEN_END_TIME = "/end";
     String TOKEN_DATE = "/date";
     String TOKEN_PRIORITY = "/priority";
+    String TOKEN_DESCRIPTION = "/description";
     String TOKEN_START_TIME = "/start";
     String TOKEN_FINAL_DATE = "/final-date";
     char TOKEN_SLASH_CHAR = '/';
@@ -363,6 +365,7 @@ public interface CommandParser {
      * @param restOfInput String input of user after command word
      * @return Final date of iteration in the form of a String
      * @throws ParserException if final date is not entered after the /final-date token
+     * @author Yue Jun Yi, yueyeah
      */
     default String getTokenFinalDate(String restOfInput) throws ParserException {
         int startPoint = restOfInput.indexOf(TOKEN_FINAL_DATE);
@@ -433,6 +436,25 @@ public interface CommandParser {
         } catch (ParseException e) {
             throw new ParserException(MESSAGE_INVALID_DATE_FORMAT);
         }
+    }
+
+    /**
+     * Returns the command in the String input.
+     *
+     * @param restOfInput String input of user after command word
+     * @return command
+     * @throws ParserException if the command input is missing
+     */
+    default String getCommand(String restOfInput) throws ParserException {
+        int startPoint = restOfInput.indexOf(TOKEN_COMMAND);
+        String typeStartInput = restOfInput.substring(startPoint);
+        Scanner scanner = new Scanner(typeStartInput);
+        scanner.next();
+        if (!scanner.hasNext()) {
+            throw new ParserException(MESSAGE_MISSING_INPUT);
+        }
+        String command = scanner.next();
+        return command;
     }
 
     //@@author yueyeah

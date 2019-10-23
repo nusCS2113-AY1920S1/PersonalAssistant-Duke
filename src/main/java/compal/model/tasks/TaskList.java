@@ -44,6 +44,7 @@ public class TaskList {
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
+    //@@author jaedonkey
     /**
      * Handles the adding of the tasks.
      * It tests for the task type, then parses it according to the correct syntax.
@@ -59,7 +60,7 @@ public class TaskList {
 
     }
 
-
+    //@@author jaedonkey
     /**
      * Returns a task that has an id value of id.
      */
@@ -73,6 +74,7 @@ public class TaskList {
         throw null;
     }
 
+    //@@author jaedonkey
     /**
      * Removes a task that has an id value of id.
      */
@@ -86,7 +88,6 @@ public class TaskList {
         throw null;
     }
 
-
     /**
      * Remove a task from the arrayList.
      */
@@ -94,6 +95,7 @@ public class TaskList {
         arrlist.remove(index);
     }
 
+    //@@author jaedonkey
     /**
      * Clears the current id for future tasks to use (used in deletion of tasks).
      *
@@ -108,11 +110,11 @@ public class TaskList {
         return this.arrlist;
     }
 
+    //@@author Sholihin
     /**
      * Sorts all the tasks in arrlist by date.
      *
      * @param arrlist sorted
-     * @author Sholihin
      */
     public void sortTask(ArrayList<Task> arrlist) {
         boolean sorted = false;
