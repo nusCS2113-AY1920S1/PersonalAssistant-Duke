@@ -39,8 +39,6 @@ public abstract class GenericList<T> {
         return genList.size();
     }
 
-
-
     /**
      * Returns the {@link Task} at the position indicated by the taskNb.
      * @param taskNb the position of the {@link Task} requested in the {@link TaskList}
@@ -70,5 +68,4 @@ public abstract class GenericList<T> {
     public void clearList() {
         genList.clear();
     }
-
 }
