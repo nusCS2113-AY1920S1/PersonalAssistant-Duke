@@ -20,7 +20,7 @@ public class DeleteBankAccountCommand extends MoneyCommand {
 
     private int index;
 
-    //@@author {cctt1014}
+    //@@author cctt1014
     public DeleteBankAccountCommand(String inputString) {
         inputString = inputString.replaceFirst("delete bank-account ", "");
         index = Integer.parseInt(inputString)-1;
@@ -52,7 +52,7 @@ public class DeleteBankAccountCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
        storage.undoDeletedEntry(account, "BAN", index + 1);
        Expenditure exp = account.getExpListTotal().get(account.getExpListTotal().size() - 1);

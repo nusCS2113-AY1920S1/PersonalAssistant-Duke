@@ -23,7 +23,7 @@ public class Account {
     private float goalSavings;
     private boolean toInitialize;
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public Account() {
         incomeListTotal = new ArrayList<>();
         expListTotal = new ArrayList<>();
@@ -49,12 +49,12 @@ public class Account {
         baseSavings = account.getBaseSavings();
         updateSavings();
         populateCurrentMonthLists();
-//        if (account.isInitialised()) {
-//            toInitialize = false;
-//        } else { toInitialize = true; }
+        //if (account.isInitialised()) {
+        //    toInitialize = false;
+        //} else { toInitialize = true; }
     }
 
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     public void initialize(float userSavings, float avgExp) {
         LocalDate nowDate = LocalDate.now();
         Income initialSavings;
@@ -72,7 +72,7 @@ public class Account {
         toInitialize = false;
     }
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public ArrayList<Income> getIncomeListTotal() {
         return incomeListTotal;
     }
@@ -97,7 +97,7 @@ public class Account {
         return shortTermGoals;
     }
 
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     public ArrayList<Loan> getLoans() {
         return loans;
     }
@@ -130,26 +130,26 @@ public class Account {
         return incomingLoans;
     }
 
-    //@@author {therealnickcheong}
-    public void sortShortTermGoals(ArrayList<Goal> shortTermGoals){
+    //@@author therealnickcheong
+    public void sortShortTermGoals(ArrayList<Goal> shortTermGoals) {
         Collections.sort(shortTermGoals, new Comparator<Goal>() {
             @Override
             public int compare(Goal g1, Goal g2) {
-                if(g1.getPriority() == g2.getPriority()){
+                if (g1.getPriority() == g2.getPriority()) {
                     return g1.getDescription().compareTo(g2.getDescription());
-                }else{
+                } else {
                     return g1.getPriority().compareTo(g2.getPriority());
                 }
             }
         });
     }
 
-    //@@author {cctt1014}
+    //@@author cctt1014
     public ArrayList<BankTracker> getBankTrackerList() {
         return bankTrackerList;
     }
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public void setBaseSavings(float baseSavings) {
         this.baseSavings = baseSavings;
     }
@@ -191,11 +191,6 @@ public class Account {
         return totalSavings;
     }
 
-    public float getCurrMonthSavings() {
-        currMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
-        return currMonthSavings;
-    }
-
     public float getBaseSavings() {
         return baseSavings;
     }
@@ -211,7 +206,7 @@ public class Account {
         goalSavings = getTotalSavings() - getBaseSavings();
     }
 
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     public boolean isToInitialize() {
         return toInitialize;
     }
@@ -224,7 +219,7 @@ public class Account {
      * This method is run upon initialisation to fill the Month Income List and
      * Month Expenditure List.
      */
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     public void populateCurrentMonthLists() {
         getIncomeListCurrMonth().clear();
         getExpListCurrMonth().clear();
@@ -244,12 +239,12 @@ public class Account {
     }
 
     /**
-     * This method helps to find the corresponding bank account tracker by given description(name)
+     * This method helps to find the corresponding bank account tracker by given description(name).
      * @param name The given description
      * @return The corresponding tracker
      * @throws DukeException Handle the case when there is no such account
      */
-    //@@author {cctt1014}
+    //@@author cctt1014
     public BankTracker findTrackerByName(String name) throws DukeException {
         BankTracker bankTracker = null;
         for (BankTracker b : bankTrackerList) {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class ListBankTrackerCommand extends MoneyCommand{
 
-    //@@author {cctt1014}
+    //@@author cctt1014
     public ListBankTrackerCommand() {
     }
 
@@ -46,7 +46,7 @@ public class ListBankTrackerCommand extends MoneyCommand{
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

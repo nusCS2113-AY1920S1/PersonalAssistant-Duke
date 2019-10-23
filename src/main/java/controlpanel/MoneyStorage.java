@@ -23,7 +23,7 @@ public class MoneyStorage {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     private void parseIncome(String[] info, Account account) {
         Income i = new Income(Float.parseFloat(info[1]), info[2],
                 LocalDate.parse(info[3], dateTimeFormatter));
@@ -89,7 +89,6 @@ public class MoneyStorage {
         account.getBankTrackerList().add(b);
     }
 
-    //@@author {chengweixuan}
     public Account load() {
         Account account = new Account();
         try {
@@ -139,7 +138,7 @@ public class MoneyStorage {
         return account;
     }
 
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     public void writeToFile(Account account) {
         try{
             FileWriter fileWriter = new FileWriter(fileName);
@@ -177,7 +176,7 @@ public class MoneyStorage {
             for (Instalment ins : account.getInstalments()) {
                 bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
                         ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
-                        ins.getAIR() + "\n");
+                        ins.getAnnualInterestRate() + "\n");
             }
 
             for (Loan l : account.getLoans()) {
@@ -197,7 +196,7 @@ public class MoneyStorage {
         }
     }
 
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void markDeletedEntry(String type, int index) throws DukeException {
         try {
             File tempFile = File.createTempFile("moneyAccountTemp", ".txt",

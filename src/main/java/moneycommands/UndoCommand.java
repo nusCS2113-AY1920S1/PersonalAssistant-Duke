@@ -13,7 +13,7 @@ import java.text.ParseException;
 
 public class UndoCommand extends  MoneyCommand {
 
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public UndoCommand() {}
 
     public boolean isExit() { return  false; }

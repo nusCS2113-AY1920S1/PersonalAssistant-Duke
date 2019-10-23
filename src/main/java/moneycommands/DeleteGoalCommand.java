@@ -18,7 +18,7 @@ public class DeleteGoalCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param index delete command inputted from user
      */
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     public DeleteGoalCommand(int index){
         serialNo = index;
     }
@@ -56,7 +56,7 @@ public class DeleteGoalCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         storage.undoDeletedEntry(account, "G", serialNo);
         storage.writeToFile(account);

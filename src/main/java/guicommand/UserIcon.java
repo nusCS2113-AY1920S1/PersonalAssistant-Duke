@@ -14,7 +14,7 @@ public class UserIcon {
     private Image icon;
     private String initialPath;
 
-    //@@author {cctt1014}
+    //@@author cctt1014
     public UserIcon() throws IOException {
         FileReader fileReader = new FileReader("data/iconPath.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);

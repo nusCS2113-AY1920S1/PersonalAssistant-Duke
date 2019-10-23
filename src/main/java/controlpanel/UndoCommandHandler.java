@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 public class UndoCommandHandler {
     private static MoneyCommand lastIssuedCommand;
 
-    //@@ author {Chianhaoplanks}
+    //@@ author Chianhaoplanks
     public UndoCommandHandler() {
         lastIssuedCommand = null;
     }

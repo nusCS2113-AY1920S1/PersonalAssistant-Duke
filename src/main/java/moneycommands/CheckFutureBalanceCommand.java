@@ -26,7 +26,7 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
      * @param inputString The command typed in by the user
      * @throws ParseException The exception for parsing the date
      */
-    //@@author {cctt1014}
+    //@@author cctt1014
     public CheckFutureBalanceCommand(String inputString) throws ParseException {
         description = inputString.split(" /at ")[0];
         description = description.replaceFirst("check-balance ", "");
@@ -72,7 +72,7 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }
