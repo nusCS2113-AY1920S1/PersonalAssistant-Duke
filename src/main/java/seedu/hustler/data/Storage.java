@@ -12,7 +12,15 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileWriter;
 
-import seedu.hustler.task.*;
+import seedu.hustler.task.Deadline;
+import seedu.hustler.task.RecurringDeadline;
+import seedu.hustler.task.RecurringEvent;
+import seedu.hustler.task.Event;
+import seedu.hustler.task.ToDo;
+import seedu.hustler.task.Task;
+
+import seedu.hustler.schedule.Scheduler;
+import seedu.hustler.schedule.ScheduleEntry;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
 
 /**
@@ -112,6 +120,13 @@ public class Storage {
                 + "create a list now.");
             System.out.println("\t_____________________________________\n\n");
         }
+
+        try {
+            this.loadTimeSpent(list);
+        } catch (IOException e) {
+            System.out.println();
+        }
+
         return list;
     }
 
@@ -196,6 +211,7 @@ public class Storage {
         // if list has nothing just quit
         if (inputList.isEmpty()) {
             (new File(this.filePath)).delete();
+            saveTimeSpent(inputList);
             return;
         }
         //if data folder doesnt exist create it
@@ -214,6 +230,64 @@ public class Storage {
             );
         writer.write(savedLine);
         writer.close();
+
+        saveTimeSpent(inputList);
+    }
+    
+    /**
+     * Saves the time spent on each task in a separate file that contains
+     * address of the task and the time spent in seconds.
+     *
+     * @param inputList list of tasks whose time spent is saved
+     * @throws IOException in case of IO error.
+     */
+    public void saveTimeSpent(ArrayList<Task> inputList) throws IOException {
+        // if list has nothing just quit
+        String saveAt = "data/timeSpent.txt";
+        if (inputList.isEmpty()) {
+            (new File(saveAt)).delete();
+            return;
+        }
+        //if data folder doesnt exist create it
+        File directory = new File(saveAt.split("/")[0]);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        // saveAchievements inputs
+        String savedLine = 0 + "|" + Scheduler.getTimeSpent(inputList.get(0));
+        for (int i = 1; i < inputList.size(); i++) {
+            savedLine = savedLine + "\n" + i + "|" + Scheduler.getTimeSpent(inputList.get(i));
+        }
+        BufferedWriter writer = new BufferedWriter(
+            new FileWriter(new File(saveAt))
+            );
+        writer.write(savedLine);
+        writer.close();
+    }
+    
+    /**
+     * Configures Scheduler on launch with time spent on incomplete tasks.
+     * 
+     * @param list list of tasks whose time spent is loaded
+     * @throws IOException IO loading error
+     */
+    public void loadTimeSpent(ArrayList<Task> list) throws IOException {
+        try {
+            Scanner timeSpentSaved = new Scanner(new File("data/timeSpent.txt"));
+
+            while (timeSpentSaved.hasNextLine()) {
+                String[] taskString = timeSpentSaved.nextLine().split("\\|");
+                int index = Integer.parseInt(taskString[0]);
+                int timeSpent = Integer.parseInt(taskString[1]);
+                Scheduler.add(list.get(index), timeSpent);
+            }
+            timeSpentSaved.close();
+        } catch (FileNotFoundException e) {
+            System.out.println();
+        }
+
+
     }
 
     /**

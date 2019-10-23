@@ -2,6 +2,10 @@ package seedu.hustler.ui;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.data.CommandLog;
+import seedu.hustler.task.Task;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * A class dedicated to performing interactions with the user.
@@ -50,8 +54,8 @@ public class Ui {
     public void correct_command_error() {
         if (!CommandLog.isRestoring()) {
             System.out.println(LINE);
-            System.out.println("\tPlease enter a valid command: todo, "
-                + "deadline, event, doafter, list, bye, find, delete.");
+            System.out.println("\tPlease enter a valid command: add, "
+                + "list, bye, find, delete.");
             System.out.println(LINE);
         }
     }
@@ -67,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Prints an error message if user performs an operation on a nonexistant
+     * Prints an error message if user performs an operation on a nonexistent
      * task.
      */
     public void task_doesnt_exist_error() {
@@ -123,7 +127,7 @@ public class Ui {
     public void showNameChangeSuccess() {
         System.out.println(LINE);
         System.out.println("\tName has been successfully changed!");
-        System.out.println("Your new name is: " + Hustler.avatar.getName());
+        System.out.println("\tYour new name is: " + Hustler.avatar.getName());
         System.out.println(LINE);
     }
 
@@ -159,7 +163,122 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
     }
 
+    /**
+<<<<<<< HEAD
+     * Prints a message if list is empty.
+     */
+    public void show_list_empty() {
+        System.out.println(LINE);
+        System.out.println("\tNothing to be cleared! Task list is already empty!");
+        System.out.println(LINE);
+    }
 
+    /**
+     * Prints a message when list is cleared.
+     */
+    public void show_list_cleared() {
+        System.out.println(LINE);
+        System.out.println("\tAll tasks in the task list has been cleared! List is now empty!");
+        System.out.println(LINE);
+    }
 
+    /**
+     * Prints a message when a task has been snoozed.
+     * @param taskDescription description of the snoozed task.
+     */
+    public void show_task_snoozed(String taskDescription) {
+        System.out.println(LINE);
+        System.out.println("\tGot it. You have snoozed the task.");
+        System.out.println("\t" + taskDescription);
+        System.out.println(LINE);
+    }
 
+    /**
+     * Prints the entire collection of tasks in task list.
+     * @param list collection of tasks.
+     */
+    public void show_list(ArrayList<Task> list) {
+        System.out.println(LINE);
+        System.out.println("\tHere are the tasks in your list:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + list.get(i).toString());
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * Prints a message when a task has been added.
+     * @param list collection of tasks.
+     */
+    public void show_task_added(ArrayList<Task> list) {
+        System.out.println(LINE);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + list.get(list.size() - 1).toString());
+        System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Prints a message when a task clashes with another task in the list.
+     */
+    public void show_task_clash() {
+        System.out.println(LINE);
+        System.out.println("Task clashes with another existing task in the list!");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Prints a message when a task has been completed.
+     * @param taskDescription description of the completed task.
+     */
+    public void show_task_done(String taskDescription) {
+        System.out.println(LINE);
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t  " + taskDescription);
+        System.out.println(LINE);
+    }
+
+    /**
+     * Prints a message when a task has been removed.
+     * @param list collection of tasks.
+     * @param taskDescription description of the removed task.
+     */
+    public void show_task_removed(ArrayList<Task> list, String taskDescription) {
+        System.out.println(LINE);
+        System.out.println("\tNoted. I have removed this task:");
+        System.out.println("\t  " + taskDescription);
+        System.out.println("\tNow there are " + list.size() + " tasks left.");
+        System.out.println(LINE);
+    }
+
+    /**
+     * Prints the tasks that contains the searched keyword.
+     * @param list collection of tasks.
+     * @param matchingTasks list of integers which contains the matching tasks.
+     */
+    public void show_matching_tasks(ArrayList<Task> list, ArrayList<Integer> matchingTasks) {
+        System.out.println(LINE);
+        System.out.println("\tFound " + matchingTasks.size() + ". Here you go.");
+        for (Integer id : matchingTasks) {
+            System.out.println("\t  " + (id + 1) + ". " + list.get(id).toString());
+        }
+        System.out.println(LINE);
+    }
+
+    /**
+     * Prints a message when the task list has been sorted.
+     * @param list collection of tasks.
+     */
+    public void show_list_sorted(ArrayList<Task> list) {
+        System.out.println(LINE);
+        System.out.println("\tTask list has been successfully sorted!");
+        show_list(list);
+    }
+
+    /** Issue an error if command not followed by number in case of
+     * commands like done, delete amongst others.
+     */
+    public void numberCommandError() {
+        this.show_message("Command should be followed by a number. /command <number>");
+    }
 }

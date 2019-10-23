@@ -4,6 +4,9 @@ import seedu.hustler.command.Command;
 import seedu.hustler.command.achievementCommand.AchievementCommand;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
 import seedu.hustler.command.avatar.SetNameCommand;
+import seedu.hustler.command.schedulecommands.AddEntry;
+import seedu.hustler.command.schedulecommands.RemoveEntry;
+import seedu.hustler.command.schedulecommands.UpdateEntry;
 import seedu.hustler.command.shop.BuyCommand;
 import seedu.hustler.command.shop.ShopListCommand;
 import seedu.hustler.command.task.*;
@@ -62,7 +65,7 @@ public class CommandParser extends Parser {
             return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar") && userInput[1].equals("stats")) {
             return new CheckAvatarCommand();
-        } else if (userInput[0].equals("/avatar") && userInput[1].contains("setname")) {
+        } else if (userInput[0].equals("/avatar") && userInput[1].equals("setname")) {
             return new SetNameCommand(userInput);
         } else if (userInput[0].equals("/achievement")) {
             return new AchievementCommand();
@@ -91,6 +94,12 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
+        } else if (userInput[0].equals("/remove"))  {
+            return new RemoveEntry(userInput);
+        } else if (userInput[0].equals("/update")) {
+            return new UpdateEntry(userInput);
+        } else if (userInput[0].equals("/addFromList")) {
+            return new AddEntry(userInput);
         } else if (userInput[0].equals("/sort")) {
             return new SortCommand(userInput[1]);
         } else if (userInput[0].equals("/bye")) {
