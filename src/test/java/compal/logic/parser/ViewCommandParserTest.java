@@ -26,41 +26,41 @@ class ViewCommandParserTest {
     private TaskList taskList = new TaskList();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         TaskStorageManager taskStorageManager = new TaskStorageManager();
         ArrayList<Task> taskArrList = new ArrayList<>(taskStorageManager.loadData());
         taskList.setArrList(taskArrList);
     }
 
     @Test
-    public void parse_invalidDate_failure() {
+    void parse_invalidDate_failure() {
         assertParseFailure(parser, "day /date 30/02/2019", MESSAGE_INVALID_DATE_FORMAT);
     }
 
     @Test
-    public void parse_invalidParam_failure() {
+    void parse_invalidParam_failure() {
         assertParseFailure(parser, "years /date 29/02/2020", MESSAGE_INVALID_PARAM);
         assertParseFailure(parser, "months /date 29/02/2020", MESSAGE_INVALID_PARAM);
     }
 
     @Test
-    public void parse_missingDate_failure() {
+    void parse_missingDate_failure() {
         assertParseFailure(parser, "day /date", MESSAGE_MISSING_INPUT);
     }
 
     @Test
-    public void parse_missingToken_failure() {
+    void parse_missingToken_failure() {
         assertParseFailure(parser, "", MESSAGE_MISSING_TOKEN);
     }
 
     @Test
-    public void parse_CorrectDate_success() throws ParserException {
+    void parse_CorrectDate_success() throws ParserException {
         boolean execute = parser.isDateValid("10/10/2010");
         assertEquals(execute, true);
     }
 
     @Test
-    public void parse_executeView_success() throws CommandException {
+    void parse_executeView_success() throws CommandException {
         String cmdParam = "week /date 23/10/2019";
         assertParseSuccess(parser, cmdParam,
             new ViewCommand("week","23/10/2019").commandExecute(taskList), taskList);
