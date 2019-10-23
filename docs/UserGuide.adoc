@@ -412,6 +412,19 @@ Format: `result -sum[mary] "<result summary>"`
 
 The result summary will be appended to the Investigation summary.
 
+== Command Summary
+=== Command Summary
+Summary of all the commands available in each context, for a more detailed description and associated switches, refer to section 1. 
+
+.Command summary
+image::CommandSummary.png[]
+
+=== Switch Summary
+Summary of all the switches available for the diffrent commands. For a more detailed description on how to use the switches with the diffrent commands, refer to section 1. 
+
+.Switch summary
+image::SwitchSummary.png[]
+
 == FAQ
 
 *Q*: How can I continue working with the same data on a different computer? +
