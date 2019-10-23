@@ -139,11 +139,18 @@ public class Parser {
                 .choices("modules", "ccas", "data")
                 .help("What to clear");
 
-        getSubParser("sort")
-                .help("Sort your modules in alphabet order")
-                .addArgument("toSort")
-                .choices("modules", "ccas")
+        Subparser sortParser = getSubParser("sort")
+                .help("Sort your modules or ccas");
+        Subparsers sortParsers = sortParser.addSubparsers()
+                .dest("toSort")
                 .help("What to sort");
+        sortParsers.addParser("ccas")
+                .help("Sort ccas in alphabet order");
+        sortParsers.addParser("modules")
+                .help("Sort modules")
+                .addArgument("type")
+                .choices("code", "level", "mc")
+                .help("What criteria to use for modules sorting");
 
         getSubParser("cap")
                 .help("Calculate your CAP")

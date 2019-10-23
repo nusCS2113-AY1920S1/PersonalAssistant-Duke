@@ -1,3 +1,5 @@
+//@@author e0313687
+
 package planner.logic.command;
 
 import planner.logic.modules.cca.Cca;
@@ -38,7 +40,21 @@ public class SortCommand extends ModuleCommand {
             case ("modules"):
             default: {
                 hold = tasks.getTasks();
-                hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
+                switch (arg("type")) {
+                    case ("level"): {
+                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleLevel()));
+                        break;
+                    }
+                    case ("mc"): {
+                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCredit()));
+                        break;
+                    }
+                    case ("code"):
+                    default: {
+                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
+                        break;
+                    }
+                }
                 break;
             }
         }
