@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +39,7 @@ public class Parser {
      * @return This returns a Command object based on user's input
      * @throws DukeException On invalid input or when wrong input format is entered
      */
-    public static Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand) throws DukeException, ParseException {
         try {
             if (fullCommand.trim().equals("bye")) {
                 return new ByeCommand();
@@ -107,7 +108,7 @@ public class Parser {
                     LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
                             "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
-                            "For example: add/e CS1231 project meeting /at 1/1/2020 from 1500 to 1700");
+                            "For example: add/e CS1231 project meeting /at 1/1/2020 /from 1500 /to 1700");
                 }
             } else if (fullCommand.trim().substring(0,7).equals("recur/e")) {
                 try {
@@ -151,8 +152,8 @@ public class Parser {
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter recurring event as follows:\n" +
-                            "recur/e modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy from HHmm to HHmm\n" +
-                            "For example: recur/e CS1231 project meeting /start 1/10/2019 to 15/11/2019 from 1500 to 1700");
+                            "recur/e modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy /from HHmm /to HHmm\n" +
+                            "For example: recur/e CS1231 project meeting /start 1/10/2019 to 15/11/2019 /from 1500 /to 1700");
                 }
             }else if(fullCommand.trim().substring(0,8).equals("delete/e")){
                 try { //add/e module_code description /at date from time to time
@@ -186,8 +187,8 @@ public class Parser {
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     LOGGER.log(Level.INFO, e.toString(), e);
                     throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
-                            "delete/e mod_code name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
-                            "or delete/e mod_code name_of_event /at week x day from HHmm to HHmm\n");
+                            "delete/e mod_code name_of_event /at dd/MM/yyyy /from HHmm /to HHmm\n" +
+                            "or delete/e mod_code name_of_event /at week x day /from HHmm /to HHmm\n");
                 }
             } else if (fullCommand.trim().substring(0,6).equals("remind")) {
                 try {
@@ -241,6 +242,17 @@ public class Parser {
                     throw new DukeException("OOPS!!! Please enter remind as follows:\n" +
                             "remind/(set/rm) mod_code description /by week n.o day time /to week n.o day time\n" +
                             "For example: remind/set cs2100 hand in homework /by week 9 fri 1500 /to week 9 thu 1500");
+                }
+            } else if (fullCommand.trim().equals("/show workload")) {
+                try {
+                    Date today = Calendar.getInstance().getTime();
+                    Date nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String nextWeekDate = formatter.format(nextWeek);
+                    return new ShowWorkloadCommand(nextWeekDate);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please enter show workload as follows:\n" +
+                            "/show workload");
                 }
             } else if (fullCommand.trim().substring(0,8).equals("delete/d")) {
                 try {
@@ -377,6 +389,12 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
+            } else if(fullCommand.startsWith("Available")){
+                fullCommand = fullCommand.replaceFirst("Available", "");
+                fullCommand = fullCommand.trim();
+                fullCommand = fullCommand.replaceFirst("hours", "");
+                fullCommand = fullCommand.trim();
+                return new FindFreeTimesCommand(Integer.parseInt(fullCommand));
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

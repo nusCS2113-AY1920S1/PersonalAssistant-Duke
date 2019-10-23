@@ -7,14 +7,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFx.MainWindow">
    <bottom>
@@ -58,11 +60,29 @@
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Label>
-                  <Region prefHeight="20.0" prefWidth="81.0" />
-                  <Label fx:id="currentTime" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="192.0" text="Label" />
+                  <HBox fx:id="timerBox" prefHeight="50.0" prefWidth="277.0">
+                     <children>
+                        <StackPane prefHeight="50.0" prefWidth="275.0">
+                           <children>
+                              <AnchorPane fx:id="timerPane" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="50.0" prefWidth="247.0" text="CountDown" />
+                                    <Text fx:id="currentTime" layoutX="82.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
+                                    <Label layoutY="32.0" text="Break" />
+                                    <Text fx:id="currentTime1" layoutX="82.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="125.22900390625" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane fx:id="blankPane" prefHeight="50.0" prefWidth="291.0" style="-fx-background-color: #9aabab;">
+                                 <children>
+                                    <Label layoutX="49.0" text="Blank" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                     </children></HBox>
                </children>
             </HBox>
-            <HBox fx:id="progressContainer" prefHeight="131.0" prefWidth="1000.0" />
+            <HBox fx:id="progressContainer" prefHeight="73.0" prefWidth="1000.0" />
          </children>
       </VBox>
    </top>
