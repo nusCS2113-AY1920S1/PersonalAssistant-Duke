@@ -1,6 +1,5 @@
-T | 1 | this stupid assignment | 0
-D | 1 | this project | 0 | 18/09/2019 1159
-D | 1 | homework | 0 | 25/09/2019 1100
-E | 1 | jumphigher | 0 | 03/10/2019 1120
-T | 1 | Push this to github | 0
-T | 0 | tutorial | 0
+T | 0 | e | 0
+T | 0 | d | 0
+T | 0 | a | 0
+T | 0 | b | 0
+T | 0 | c | 0

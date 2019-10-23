@@ -107,11 +107,11 @@ public class Parser {
         String[] splites = line.split(" \\| ");
         String name = splites[0].trim();
         int numOfTaskInCharge = splites.length - 1;
-        ArrayList<Integer> taskInCharge = new ArrayList<>();
+        ArrayList<Integer> tasksInChargeIndex = new ArrayList<>();
         for (int i = 0; i < numOfTaskInCharge; i++) {
-            taskInCharge.add(Integer.parseInt(splites[1 + i].trim()));
+            tasksInChargeIndex.add(Integer.parseInt(splites[1 + i].trim()));
         }
-        return new Member(name, taskInCharge);
+        return new Member(name, tasksInChargeIndex);
     }
 
     /**
@@ -136,7 +136,7 @@ public class Parser {
             temp = new AddCommand(splites[1]);
         } else if (splites[0].equals("LIST")) {
             if (length < 2) {
-                throw new DukeException("usage: list [tasks/members]");
+                throw new DukeException("usage: list [tasks/members/member [index]]");
             }
             temp = new ListCommand(splites[1].trim());
         } else if (splites[0].equals("DONE")) {
@@ -167,9 +167,13 @@ public class Parser {
         } else if (splites[0].equals("REMOVE")) {
             temp = new MemberDeleteCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
-            temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
+            temp = new ViewScheCommand(splites[1]);
         } else if (splites[0].equals("CHECK")) {
-            temp = new CheckAnomaliesCommand();
+            if (length < 2) {
+                temp = new CheckAnomaliesCommand();
+            } else {
+                temp = new CheckAnomaliesCommand(splites[1]);
+            }
         } else if (splites[0].equals("MEMBER")) {
             if (length < 2) {
                 throw new DukeException("usage: member [name]");
