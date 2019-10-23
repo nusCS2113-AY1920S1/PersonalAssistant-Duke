@@ -3,12 +3,10 @@ package duke.parser;
 import duke.command.Cmd;
 import duke.Duke;
 import duke.command.ingredientCommand.*;
+import duke.command.dishesCommand.*;
 import duke.exception.DukeException;
 import duke.command.orderCommand.*;
-import duke.command.dishesCommand.*;
-import duke.command.dishesCommand.InitCommand;
-import duke.dish.Dish;
-import duke.ingredient.Ingredient;
+import duke.Dishes.Dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
@@ -17,7 +15,7 @@ import duke.task.Todo;
 import java.util.Date;
 
 /**
- * Represents a parser used to parse the input String from the user into a Duke understandable {@link Cmd}.
+ * Represents a parser used to parse the input String from the user into a Duke understandable Command.
  * It should deals with making sense of the user command.
  */
 public class Parser {
@@ -94,7 +92,7 @@ public class Parser {
             case "dishadd":
                 String[] getnum = splitAndCheck(splitted[1], " /num ");
                 int amount = Integer.parseInt(getnum[1]);
-                return new AddDishCommand(new Dish(getnum[0]), amount);
+                return new AddDishCommand(new Dishes(getnum[0]), amount);
             case "dishlist":
                 return new ListDishCommand();
             case "dishdelete" :
@@ -103,7 +101,7 @@ public class Parser {
             case "addingredient" :
                 String[] getIng = splitAndCheck(splitted[1], " /add ");
                 int listNum = Integer.parseInt(getIng[1]);
-                return new AddIngredient(new Ingredient(getIng[0], listNum, new Date()) , listNum);
+                return new AddIngredient(getIng[0], listNum);
             case "dishinit" :
                 return new InitCommand();
             // OrderCommand
