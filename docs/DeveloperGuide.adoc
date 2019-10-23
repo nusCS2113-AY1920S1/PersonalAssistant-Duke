@@ -70,6 +70,8 @@ The main wrapper over requesting data from NUSMODS API, Gson library for JSON pa
 
 Main class which handles file writing during runtime and for maintaining user data in memory.
 
+[[Parser]]
+
 === Parser
 Main class which handles user input and manages internal command mapping.
 
@@ -77,7 +79,17 @@ Main class which handles user input and manages internal command mapping.
 
 === Command
 
+Commands are the main classes with which we execute our features. All of the specific `Command` classes inherit the base `ModuleCommand` abstract class, and utilize its `execute` method. 
+
+The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
+
+The `ModuleCommand` class also receives arguments based on the arguments passed by the `Argsparse4jWrapper` class, which is our main parser for the program, detailed above in <<Parser>>. 
++
+These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
+
 === CCA
+
+[[Implementation]]
 
 == Implementation
 This section explains and shows diagrams of how certain features of ModPlan are implemented.
