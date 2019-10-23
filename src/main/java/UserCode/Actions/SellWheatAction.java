@@ -10,7 +10,7 @@ import FrontEnd.Ui;
 public class SellWheatAction extends Action {
 
     public SellWheatAction() {
-        super(ActionType.sellWheat);
+        super(ActionType.sellGrain);
     }
 
     @Override

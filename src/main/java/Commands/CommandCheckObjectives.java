@@ -21,6 +21,9 @@ public class CommandCheckObjectives extends Command {
             //todo Implement Level.getFeedback() to print better feedback to user here
             farmio.getUi().typeWriter("Oh no! The objectives were not met by the deadline! Press [ENTER] to reset");
             farmio.setStage(Farmio.Stage.LEVEL_FAILED);
+        } else if (answer == Level.objectiveResult.INVALID) {
+            farmio.getUi().typeWriter("Oh no! There has been an error during code execution! Press [ENTER] to reset");
+            farmio.setStage(Farmio.Stage.LEVEL_FAILED);
         }
     }
 }

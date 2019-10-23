@@ -49,7 +49,9 @@ public class Ui {
     }
 
     public void typeWriter(String text) { //ill clean this shit up soon.
-
+        final char OBJECTIVE_PLACEHOLDER = ':';
+        final char LEVEL_BEGIN_PLACEHOLDER = '~';
+        final char EARLY_ESCAPE_PLACEHOLDER = '/';
         int i;
         int lineLength = 0;
         System.out.print(">>> ");
@@ -67,14 +69,14 @@ public class Ui {
             } else if (text.charAt(i) == '\n') {
                 System.out.print("   ");
                 lineLength = 0;
-            } else if (text.charAt(i) == ':') {
+            } else if (text.charAt(i) == OBJECTIVE_PLACEHOLDER) {
                 show(AsciiColours.RED + AsciiColours.UNDERLINE + "[Objective]" + AsciiColours.SANE);
                 System.out.print("   ");
                 lineLength = 0;
-            } else if (text.charAt(i) == '~') {
+            } else if (text.charAt(i) == LEVEL_BEGIN_PLACEHOLDER) {
                 System.out.println("\n\n"+ " ".repeat(44) + AsciiColours.GREEN + AsciiColours.UNDERLINE + "[LEVEL BEGIN]" + AsciiColours.SANE+ "\n");
                 return;
-            } else if (text.charAt(i) == '/') {
+            } else if (text.charAt(i) == EARLY_ESCAPE_PLACEHOLDER) {
                 return;
             }
             System.out.printf("%c", text.charAt(i));
