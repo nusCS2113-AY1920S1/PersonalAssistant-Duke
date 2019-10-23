@@ -17,8 +17,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class Storage {
@@ -30,6 +32,7 @@ public class Storage {
     private String absolutePath_Places = "Places.txt";
     private String absolutePath_Trivia = "Trivia.txt";
     private String absolutePath_CAP = "CAP.txt";
+    private String absolutePath_StudyPlanner = "Study_Plan.txt";
 
     public void writeToSaveFile(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -339,5 +342,31 @@ public class Storage {
             }
         }
         return CAPList;
+    }
+
+    public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException{
+        ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
+        if (new File(absolutePath_StudyPlanner).exists()) {
+            File file = new File(absolutePath_StudyPlanner);
+            Scanner sc = new Scanner(file);
+            for(int i =0;i<8;i++) {
+                if(sc.hasNext()) {
+                    String[] split = sc.nextLine().split(" ");
+                    ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                    studyplan.add(temp);
+                } else{
+                    ArrayList<String> temp = new ArrayList<String>();
+                    studyplan.add(temp);
+                }
+            }
+        }
+        return studyplan;
+    }
+
+    public void Storage_StudyPlan(String fileContent) throws IOException{
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_StudyPlanner));
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
     }
 }

@@ -38,7 +38,7 @@ public class ScheduleWeeklyCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            String[] date = ui.fullCommand.trim().split(" ");
+            String[] date = ui.fullCommand.split(" ");
             if (date.length > 3) {
                 System.out.println("The command should be in the format \"scheduleWeekly yyyy-MM-dd yyyy-MM-dd\".");
                 return;
@@ -82,11 +82,11 @@ public class ScheduleWeeklyCommand extends Command {
         ArrayList<Task> schedule = new ArrayList<Task>();
         for (Task t: list) {
             LocalDate tDate = null;
-            if (t.getClass().getName().equals("gazeeebo.Tasks.Event")) {
+            if (t.getClass().getName().equals("gazeeebo.tasks.Event")) {
                 tDate = ((Event) t).date;
-            } else if (t.getClass().getName().equals("gazeeebo.Tasks.Deadline")) {
+            } else if (t.getClass().getName().equals("gazeeebo.tasks.Deadline")) {
                 tDate = ((Deadline) t).by.toLocalDate();
-            } else if (t.getClass().getName().equals("gazeeebo.Tasks.Timebound")) {
+            } else if (t.getClass().getName().equals("gazeeebo.tasks.Timebound")) {
                 LocalDate startDate = ((Timebound) t).dateStart;
                 LocalDate endDate = ((Timebound) t).dateEnd;
                 if (endDate.equals(mon) || (startDate.isBefore(mon) && endDate.isAfter(mon)) ||

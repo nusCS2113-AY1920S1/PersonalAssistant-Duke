@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Duke {
+public class Gazeeebo {
     /**
      * Returns main function for duke.
      *
@@ -38,14 +38,15 @@ public class Duke {
             ui.MajorCategories();
             while (!isExit) {
                 ui.readCommand();
-                String command = ui.fullCommand.trim();
+                String command = ui.fullCommand;
                 Command c = Parser.parse(command,ui);
-                c.execute(list, ui, store, CommandStack, deletedTask,triviaManager);
-                if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                    CommandStack.push(command);
+                if (c != null) {
+                    c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
+                    if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                        CommandStack.push(command);
+                    }
+                    isExit = c.isExit();
                 }
-
-                isExit = c.isExit();
             }
         } catch (DukeException | ParseException | IOException | NullPointerException e) {
             if (e instanceof ParseException) {

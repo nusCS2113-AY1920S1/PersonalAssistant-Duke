@@ -149,4 +149,8 @@ public class Ui {
         System.out.println(e.getMessage());
     }
 
+    public void showDontKnowErrorMessage() {
+        System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
 }

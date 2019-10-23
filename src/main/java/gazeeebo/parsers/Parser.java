@@ -1,5 +1,8 @@
 package gazeeebo.parsers;
 
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.note.GeneralNoteCommand;
+import gazeeebo.commands.studyassist.studyassistCommand;
 import gazeeebo.commands.tasks.ByeCommand;
 import gazeeebo.commands.expenses.ExpenseCommand;
 
@@ -11,8 +14,9 @@ import gazeeebo.commands.contact.ContactsCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.places.PlacesCommand;
 
+
 public class Parser {
-    public static Command parse(final String command) throws DukeException {
+    public static Command parse(final String command, Ui ui) throws DukeException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("help")) {
             return new HelpCommand();
@@ -24,15 +28,20 @@ public class Parser {
             return new PlacesCommand();
         } else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
-        } else if(splitCommand[0].equals("tasks")) {
+        } else if (splitCommand[0].equals("tasks")) {
             return new taskCommand();
+        } else if (splitCommand[0].equals("moduleplanner")){
+            return new studyassistCommand();
         } else if(splitCommand[0].equals("cap")) {
             String moduleCode = "";
             int moduleCredit = 0;
             String grade = "";
             return new CAPCommand(moduleCode,moduleCredit,grade);
+        } else if (splitCommand[0].equals("notes")) {
+            return new GeneralNoteCommand();
         } else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            ui.showDontKnowErrorMessage();
+            return null;
         }
     }
 }
