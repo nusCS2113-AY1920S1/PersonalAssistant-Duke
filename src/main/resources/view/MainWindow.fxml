@@ -40,7 +40,7 @@
                <VBox layoutX="492.0" layoutY="431.0" prefHeight="60.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="640.0">
                   <children>
                      <Label fx:id="console" prefHeight="25.0" prefWidth="800.0" />
-                     <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="800.0" promptText="/Enter your Command.." />
+                     <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyPressed" prefHeight="35.0" prefWidth="800.0" promptText="/Enter your Command.." />
                   </children>
                </VBox>
                <Label fx:id="boardTitle" alignment="CENTER" layoutX="542.0" layoutY="26.0" prefHeight="40.0" prefWidth="800.0" text="Welcome to Duke++" AnchorPane.bottomAnchor="660.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -53,5 +53,3 @@
         </Scene>
     </scene>
 </fx:root>
-
-
