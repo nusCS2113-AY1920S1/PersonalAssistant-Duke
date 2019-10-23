@@ -280,15 +280,22 @@ public class Ui {
     /**
      * It lists out all info of patients.
      *
-     * @param patient the patients to be listed out
-     * @param patientTask the patients to be listed out
+     * @param id the patients to be listed out
      */
-    public void patientTaskDeleted(PatientTask patientTask, Patient patient) {
-        System.out.println("Got it. The task with ");
-        System.out.println(patientTask.toString());
-        System.out.println("has been deleted from patient: " + patient.getID() + " " + patient.getName());
+    public void patientTaskDeleted(int id) {
+        System.out.println("Got it. The task with unique ID: " + id + " has been deleted");
     }
 
+    /**
+     * It lists out all info of patients.
+     *
+     * @param patient the patients to be listed out
+     */
+    public void patientTaskAllDeleted(Patient patient) {
+        System.out.println("Got it. The tasks belong to: ");
+        System.out.println(patient.getName());
+        System.out.println("has been deleted");
+    }
 
     /**
      * It lists out all info of patients.

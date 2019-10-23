@@ -42,17 +42,17 @@ public class FindPatientTaskCommand extends Command {
         char firstChar = command.charAt(0);
         if (firstChar == '#') {
             int id;
-            try {
-                id = Integer.parseInt(command.substring(1, command.length()));
-                Patient patient = patientManager.getPatient(id);
+            id = Integer.parseInt(command.substring(1, command.length()));
+            Patient patient = patientManager.getPatient(id);
+            if (patientTaskList.doesPatientIdExist(id)) {
                 ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(id);
                 ArrayList<Task> tempTask = new ArrayList<>();
-                for (PatientTask temppatientTask : patientTask) {
-                    tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
+                for (PatientTask tempPatientTask : patientTask) {
+                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patient, patientTask, tempTask);
-            } catch (Exception e) {
-                throw new DukeException(e.getMessage());
+            } else {
+                throw new DukeException("This patient does not have any tasks.");
             }
         } else {
             String name = command.toLowerCase();
@@ -66,13 +66,13 @@ public class FindPatientTaskCommand extends Command {
                         patientWithTask = patientTaskList.getPatientTask(patient.getID());
                     }
                 }
-                for (PatientTask temppatientTask : patientWithTask) {
-                    tempTask.add(tasksManager.getTask(temppatientTask.getTaskID()));
+                for (PatientTask tempPatientTask : patientWithTask) {
+                    tempTask.add(tasksManager.getTask(tempPatientTask.getTaskID()));
                 }
                 ui.patientTaskFound(patientsWithSameName.get(0), patientWithTask, tempTask);
 
             } catch (Exception e) {
-                throw new DukeException("Please follow the format 'find patienttask #<id>' or 'find patient <name>'.");
+                throw new DukeException("The patient does not have any tasks");
             }
         }
     }
