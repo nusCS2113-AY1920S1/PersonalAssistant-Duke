@@ -2,7 +2,6 @@ package duke.data;
 
 public class Observation extends Evidence {
 
-    private String summary;
     private boolean isObjective;
 
     /**
@@ -18,8 +17,7 @@ public class Observation extends Evidence {
      * @param priority the priority level of the evidence
      */
     public Observation(String name, Impression impression, int priority, String summary, boolean isObjective) {
-        super(name, impression, priority);
-        this.summary = summary;
+        super(name, impression, priority, summary);
         this.isObjective = isObjective;
     }
 
