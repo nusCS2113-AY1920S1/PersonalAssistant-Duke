@@ -50,7 +50,7 @@ public class PostponeCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         String message = "";
         LocalDate today = storage.getToday();
 
@@ -81,6 +81,7 @@ public class PostponeCommand extends Command {
         } finally {
             ui.setMessage(message);
         }
+        return "show";
     }
 
     @Override
@@ -88,8 +89,4 @@ public class PostponeCommand extends Command {
         return details.trim().split("\\|", 3);
     }
 
-    @Override
-    public boolean isExit() {
-        return super.isExit();
-    }
 }

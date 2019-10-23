@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="583.0" style="-fx-border-color: WHITE; -fx-background-color: #CACFD2; -fx-background-radius: 20; -fx-border-radius: 20;" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="displayShowName" layoutX="25.0" layoutY="10.0" prefHeight="29.0" prefWidth="318.0" text="Label">
+         <font>
+            <Font name="Monospaced Regular" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="displayDate" layoutX="25.0" layoutY="47.0" prefHeight="18.0" prefWidth="127.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="388.0" layoutY="8.0" prefHeight="18.0" prefWidth="52.0" text="Tier 1:" />
+      <Label layoutX="388.0" layoutY="29.0" prefHeight="18.0" prefWidth="52.0" text="Tier 2:" />
+      <Label layoutX="388.0" layoutY="52.0" prefHeight="18.0" prefWidth="52.0" text="Tier 3:" />
+      <Label fx:id="displayTier1Seats" layoutX="426.0" layoutY="8.0" prefHeight="18.0" prefWidth="149.0" text="Label" />
+      <Label fx:id="displayTier2Seats" layoutX="426.0" layoutY="29.0" prefHeight="18.0" prefWidth="150.0" text="Label" />
+      <Label fx:id="displayTier3Seats" layoutX="426.0" layoutY="52.0" prefHeight="18.0" prefWidth="150.0" text="Label" />
+   </children>
+</fx:root>

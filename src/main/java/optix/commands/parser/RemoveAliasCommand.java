@@ -42,7 +42,7 @@ public class RemoveAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) throws OptixException {
+    public String execute(Model model, Ui ui, Storage storage) {
         // check if the alias exists
         if (!commandAliasMap.containsValue(command) || !commandAliasMap.containsKey(alias)) {
             throw new OptixException("Error removing alias.\n");
@@ -63,5 +63,6 @@ public class RemoveAliasCommand extends Command {
         } catch (IOException e) {
             ui.setMessage(e.getMessage());
         }
+        return "";
     }
 }

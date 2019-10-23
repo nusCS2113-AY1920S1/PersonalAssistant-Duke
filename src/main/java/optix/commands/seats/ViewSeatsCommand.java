@@ -37,7 +37,7 @@ public class ViewSeatsCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder(String.format(MESSAGE_SHOW_FOUND, showName, showDate));
         try {
             if (!formatter.isValidDate(showDate)) {
@@ -57,6 +57,7 @@ public class ViewSeatsCommand extends Command {
         } finally {
             ui.setMessage(message.toString());
         }
+        return "seat";
     }
 
     @Override
@@ -64,8 +65,4 @@ public class ViewSeatsCommand extends Command {
         return details.trim().split("\\|");
     }
 
-    @Override
-    public boolean isExit() {
-        return super.isExit();
-    }
 }

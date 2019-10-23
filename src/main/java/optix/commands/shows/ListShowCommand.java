@@ -18,7 +18,7 @@ public class ListShowCommand extends Command {
 
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder(String.format(MESSAGE_FOUND_SHOW, showName));
 
         message.append(model.listShow(showName));
@@ -28,6 +28,7 @@ public class ListShowCommand extends Command {
         }
 
         ui.setMessage(message.toString());
+        return "show";
     }
 
     @Override
@@ -35,10 +36,7 @@ public class ListShowCommand extends Command {
         return details.split(" ");
     }
 
-    @Override
-    public boolean isExit() {
-        return super.isExit();
-    }
+
 
     private boolean hasShow(String message) {
         return !message.equals(String.format(MESSAGE_FOUND_SHOW, showName));

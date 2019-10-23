@@ -40,7 +40,7 @@ public class AddAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         String message;
         // create parser object
         Parser dummyParser = new Parser(preferenceFilePath);
@@ -53,6 +53,7 @@ public class AddAliasCommand extends Command {
             message = e.getMessage();
         }
         ui.setMessage(message);
+        return "";
     }
 
     @Override
