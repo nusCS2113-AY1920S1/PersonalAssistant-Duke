@@ -191,20 +191,25 @@ public class TaskList {
      * @param amount the amount of time to snooze
      * @param timeUnit unit for snooze time: month, day, hour, minute
      */
-    public void snooze (int index, int amount, TimeUnit timeUnit){
-        switch (timeUnit) {
-        case month:
-            tasks.get(index).snoozeMonth(amount);
-            break;
-        case day:
-            tasks.get(index).snoozeDay(amount);
-            break;
-        case hours:
-            tasks.get(index).snoozeHour(amount);
-            break;
-        case minutes:
-            tasks.get(index).snoozeMinute(amount);
-            break;
+    public void snooze (int index, int amount, TimeUnit timeUnit) throws RoomShareException {
+        try {
+            switch (timeUnit) {
+                case month:
+                    tasks.get(index).snoozeMonth(amount);
+                    break;
+                case day:
+                    tasks.get(index).snoozeDay(amount);
+                    break;
+                case hours:
+                    tasks.get(index).snoozeHour(amount);
+                    break;
+                case minutes:
+                    tasks.get(index).snoozeMinute(amount);
+                    break;
+            }
+        }
+        catch (IndexOutOfBoundsException e) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
         }
     }
 

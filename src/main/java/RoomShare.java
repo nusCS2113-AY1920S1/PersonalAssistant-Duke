@@ -3,7 +3,6 @@ import Enums.*;
 import Model_Classes.*;
 import Operations.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +35,7 @@ public class RoomShare {
         try {
             taskList = new TaskList(storage.loadFile("data.txt"));
         } catch (RoomShareException e) {
+            ui.showError(e);
             ui.showLoadError();
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
@@ -69,11 +69,10 @@ public class RoomShare {
                 break;
 
             case list:
-                ui.showList();
                 try {
                     taskList.list();
                 } catch (RoomShareException e) {
-                    ui.showWriteError();
+                    ui.showError(e);
                 }
                 pg = new ProgressBar(taskList.getSize(), taskList.getDoneSize());
                 pg.showBar();
@@ -84,7 +83,7 @@ public class RoomShare {
                 try {
                     storage.writeFile(TaskList.currentList(), "data.txt");
                 } catch (RoomShareException e) {
-                    ui.showWriteError();
+                    ui.showError(e);
                 }
                 parser.close();
                 ui.showBye();
@@ -95,7 +94,7 @@ public class RoomShare {
                     taskList.done(parser.getIndexRange());
                     ui.showDone();
                 } catch (RoomShareException e) {
-                    ui.showIndexError();
+                    ui.showError(e);
                 }
                 break;
 
@@ -105,7 +104,7 @@ public class RoomShare {
                     taskList.delete(index, tempDeleteList);
                     ui.showDeleted(index);
                 } catch (RoomShareException e) {
-                    ui.showIndexError();
+                    ui.showError(e);
                 }
                 break;
 
@@ -123,11 +122,12 @@ public class RoomShare {
                 boolean success = true;
                 try {
                     taskList.list();
-                    ui.priority();
+                    ui.priorityInstruction();
                     taskList.setPriority(parser.getPriority());
                 } catch (RoomShareException e) {
                     success = false;
-                    ui.priority();
+                    ui.showError(e);
+                    ui.priorityInstruction();
                 } finally {
                     if (success) {
                         taskList.sortPriority();
@@ -147,7 +147,7 @@ public class RoomShare {
                         throw new RoomShareException(ExceptionType.timeClash);
                     }
                 } catch (RoomShareException e) {
-                    ui.showWriteError();
+                    ui.showError(e);
                 }
                 break;
                 
@@ -158,10 +158,8 @@ public class RoomShare {
                     TimeUnit timeUnit = parser.getTimeUnit();
                     taskList.snooze(index, amount, timeUnit);
                     ui.showSnoozeComplete(index + 1, amount, timeUnit);
-                } catch (IndexOutOfBoundsException e) {
-                    ui.showIndexError();
-                } catch (IllegalArgumentException e) {
-                    ui.showTimeError();
+                } catch (RoomShareException e) {
+                    ui.showError(e);
                 }
                 break;
 
@@ -174,12 +172,16 @@ public class RoomShare {
                 break;
 
             case subtask:
-                int index = parser.getIndexSubtask();
-                String subtasks = parser.getCommandLine();
-                if( TaskList.currentList().get(index) instanceof Assignment ) {
-                    ((Assignment) TaskList.currentList().get(index)).setSubTasks(subtasks);
-                } else {
-                    throw new RoomShareException(ExceptionType.subTask);
+                try {
+                    int index = parser.getIndexSubtask();
+                    String subTasks = parser.getCommandLine();
+                    if (TaskList.currentList().get(index) instanceof Assignment) {
+                        ((Assignment) TaskList.currentList().get(index)).setSubTasks(subTasks);
+                    } else {
+                        throw new RoomShareException(ExceptionType.subTask);
+                    }
+                } catch (RoomShareException e) {
+                    ui.showError(e);
                 }
                 break;
 
