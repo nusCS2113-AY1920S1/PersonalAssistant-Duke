@@ -1,26 +1,63 @@
 package duke.components;
 
+import duke.DukeException;
+import duke.commands.CopyObject;
+
+import java.io.ByteArrayOutputStream;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.Serializable;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class Bar {
+public class Bar extends CopyObject<Bar> implements Serializable {
 
     private ArrayList<Chord> chords;
     private int id;
     private ArrayList<String> barChart;
 
-    public Object clone()throws CloneNotSupportedException {
-        return super.clone();
+    /**
+     * the method that allows this item to be copied.
+     *
+     * @param object the object to be copied, which in this case is bar.
+     */
+
+    public Bar copy(Bar object) throws DukeException, IOException,ClassNotFoundException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+        out.writeObject(object);
+        // And then deserializing it from memory using ByteArrayOutputStream instead of FileInputStream,
+        // Deserialization process will create a new object with the same state as in the serialized object.
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream in = new ObjectInputStream(bis);
+        return (Bar) in.readObject();
     }
 
+    //@@author rohan-av
     /**
      * Constructor takes in a String representing a list of notes.
      *
      * @param id the ID of the Bar in the Song
      * @param notes the String representing the list of notes that compose a bar
      */
-    public Bar(int id, String notes) {
+    public Bar(int id, String notes) throws DukeException {
         this.id = id;
         this.chords = compileNotesToChords(convertStringToNotes(notes));
+        this.barChart = new ArrayList<>();
+        updateBarChart();
+    }
+
+    /**
+     * Alternate constructor for the Bar instance in the case that the Chord data is present.
+     *
+     * @param id the ID of the Bar in the Song
+     * @param chords an ArrayList of Chord objects that compose the Bar
+     */
+    public Bar(int id, ArrayList<Chord> chords) {
+        this.id = id;
+        this.chords = chords;
         this.barChart = new ArrayList<>();
         updateBarChart();
     }
@@ -31,7 +68,7 @@ public class Bar {
      * @param notes the input String representing the list of notes that compose a bar
      * @return an ArrayList of Note objects corresponding to the above notes
      */
-    private ArrayList<Note> convertStringToNotes(String notes) {
+    private ArrayList<Note> convertStringToNotes(String notes) throws DukeException {
         ArrayList<Note> result = new ArrayList<>();
         String[] notesArray = notes.split(" ");
         for (String note: notesArray) {
@@ -67,6 +104,7 @@ public class Bar {
         return chords;
     }
 
+    //@@author
     public void setId(int id) {
         this.id = id;
     }
@@ -91,11 +129,13 @@ public class Bar {
      * @return a storage-friendly String representation
      */
     public String toString() {
+
         StringBuilder result = new StringBuilder();
-        result.append("[").toString();
+        result.append("[");
         for (Chord chord: chords) {
             result.append(chord.toString()).append(",");
         }
+        result.setLength(result.length() - 1); // removes the last comma
         result.append("]");
         return result.toString();
     }

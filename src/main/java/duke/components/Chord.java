@@ -1,11 +1,14 @@
 package duke.components;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chord {
+public class Chord implements Serializable {
 
     private ArrayList<Note> notes;
     private String chordString;
+
+    //@@author rohan-av
 
     /**
      * A Chord has the set relative duration of 1/8, and is comprised of all the Note objects that are to be played
@@ -29,6 +32,7 @@ public class Chord {
         return notes;
     }
 
+    //@@author
     public String getChordString() {
         return chordString;
     }
@@ -46,6 +50,7 @@ public class Chord {
         }
     }
 
+    //@@author rohan-av
     /**
      * Returns a String representation for the Chord to be used in persistent storage.
      *
@@ -54,12 +59,14 @@ public class Chord {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("[");
+
         for (int i = 0; i < notes.size(); i++) {
             result.append(notes.get(i).toString());
             if (i != notes.size() - 1) {
                 result.append(";");
             }
         }
+        result.append("]");
         return result.toString();
     }
 
