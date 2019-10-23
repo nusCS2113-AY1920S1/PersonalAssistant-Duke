@@ -100,21 +100,38 @@ If the letter grade is invalid, either `ModModBadSUException` or `ModBadGradeExc
 Finally, the temporary module will be added to the `ModuleTaskList`, with the `letterGrade` included in its details.
 
 * Case 2: Module is in the task list
-If the module already exists in the task list, `GradeCommand` will simply check if the module can be S/U-ed, and update the `letterGrade` according to what the user inputs using the `setGrade` method.
+If the module already exists in the task list, (i.e `ModuleTaskList` contains `moduleCode`) `GradeCommand` will simply check if the module can be S/U-ed, and update the `letterGrade` according to what the user inputs using the `setGrade` method.
 
 Below is a Sequence Diagram showing how `GradeCommand` works.
 
 ==== Design Considerations
-*How Grade executes*
+*How GradeCommand executes*
+
+Checks had to be implemented to check if the module can be S/U-ed, as well as if the `letterGrade` the user inputs is a valid grade according to NUS specifications.
+These checks were implemented into the `ModuleInfoDetailed` class itself, which `ModuleTask` inherits as the baseline of the module task list. This way, other classes are able to use the methods and checks to set the letter grade for the respective module.
 
 === CapCommand
+==== Current Implementation
+The `cap` feature is operated by the `CapCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
+
+The parameter `TYPE` can take three forms according to the user input. +
+`cap overall` Where the user inputs modules of their choosing, as well as the letter grade, and the CAP is calculated accordingly. +
+`cap list` Where the user's CAP is calculated from the modules with letter grades in the module task list. +
+`cap module` Where the CAP of a module of the user's choosing can be calculated using the grades of prerequisite modules that the user has completed.
+
+
+Upon construction of the `CapCommand` class, a few variables involved in calculating the CAP of the user are initialized, notably the users `mcCount`, `currentCap`, `projectedModuleCap` and `projectedCap`. These variables will be used in the three different ways CapCommand can currently execute in.
+
+Since `CapCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `cap` command.
+
+As stated above,
 
 [appendix]
 == Product Scope
 
 *A better module planner*
 
-We aim to fullfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning. 
+We aim to fulfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning.
 
 [appendix]
 == User Stories
