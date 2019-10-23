@@ -1,7 +1,5 @@
 package rims.core;
-
 import java.util.ArrayList;
-
 import rims.command.AddCommand;
 import rims.command.CloseCommand;
 import rims.command.Command;
@@ -12,6 +10,7 @@ import rims.command.ReserveCommand;
 import rims.command.ReturnCommand;
 import rims.command.UnknownCommand;
 import rims.resource.ReservationList;
+
 
 public class Parser {
     Ui ui;
@@ -30,8 +29,11 @@ public class Parser {
             c = new CloseCommand();
         } else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
-        } else if (words[0].equals("reserve") && words.length == 1) {
-            c = ReadReserveCommand();
+          else if (words[0].equals("cal") && words.length == 1) {
+            CalendarCommand.printCal();
+        }
+         else if (words[0].equals("reserve") && words.length == 1) {
+            c = ReadReserveCommand();        
         } else if ((words[0].equals("cancel") || words[0].equals("return")) && words.length == 1) {
             c = ReadReturnCommandByUserId();
         } else if (words[0].equals("add")) {
