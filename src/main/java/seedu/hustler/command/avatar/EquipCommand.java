@@ -1,4 +1,4 @@
-package seedu.hustler.command.avatarCommand;
+package seedu.hustler.command.avatar;
 
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
@@ -16,7 +16,6 @@ public class EquipCommand extends Command {
 
     @Override
     public void execute() throws IOException {
-        System.out.println(index);
         Hustler.inventory.getToEquip(index - 1);
         AvatarStorage.save(Hustler.avatar);
     }

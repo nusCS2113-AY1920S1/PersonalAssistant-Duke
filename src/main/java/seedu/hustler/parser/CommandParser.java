@@ -1,5 +1,8 @@
 package seedu.hustler.parser;
 
+import seedu.hustler.command.shop.InventoryCommand;
+import seedu.hustler.command.shop.BuyCommand;
+import seedu.hustler.command.avatar.EquipCommand;
 import seedu.hustler.command.AchievementCommand;
 import seedu.hustler.command.Command;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
@@ -21,13 +24,6 @@ import seedu.hustler.command.task.SortCommand;
 import seedu.hustler.command.timer.StopTimerCommand;
 import seedu.hustler.command.timer.TimerCommand;
 import seedu.hustler.command.task.UndoCommand;
-import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
-import seedu.hustler.command.avatarCommand.EquipCommand;
-import seedu.hustler.command.avatarCommand.SetNameCommand;
-import seedu.hustler.command.shopCommand.InventoryCommand;
-import seedu.hustler.command.shopCommand.buyCommand;
-import seedu.hustler.command.shopCommand.shopListCommand;
-import seedu.hustler.command.taskCommand.*;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.command.schedulecommands.AddEntry;

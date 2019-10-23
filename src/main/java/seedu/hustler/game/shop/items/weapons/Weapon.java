@@ -29,7 +29,7 @@ public abstract class Weapon extends ShopItem {
             return Optional.of(new Broadsword());
         } else if (name.contains("Mace")) {
             return Optional.of(new Mace());
-        } else if (name.contains("MoonlightSword")) {
+        } else if (name.contains("Moonlight")) {
             return Optional.of(new MoonlightSword());
         }
         return Optional.empty();

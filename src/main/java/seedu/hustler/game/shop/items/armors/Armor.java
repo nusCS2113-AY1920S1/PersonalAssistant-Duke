@@ -33,11 +33,11 @@ public abstract class Armor extends ShopItem {
     }
 
     public static Optional<Armor> getArmor(String name) {
-        if (name.equals("Chainmail")) {
+        if (name.contains("Chainmail")) {
             return Optional.of(new Chainmail());
-        } else if (name.equals("IronArmor")) {
+        } else if (name.contains("Iron")) {
             return Optional.of(new IronArmor());
-        } else if (name.equals("LeatherArmor")) {
+        } else if (name.contains("Leather")) {
             return Optional.of(new LeatherArmor());
         }
         return Optional.empty();
