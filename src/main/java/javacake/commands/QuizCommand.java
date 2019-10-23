@@ -224,11 +224,24 @@ public class QuizCommand extends Command {
      * Method to check if answer is correct.
      * If it is, then update the score.
      * @param input the answer inputted by the user
+     * @throws DukeException error thrown if user inputs wrong type of answer.
      */
-    public void checkAnswer(String input) {
+    public void checkAnswer(String input) throws DukeException {
+        if (!isNumeric(input)) {
+            throw new DukeException("Please input answers in the form of integer");
+        }
         if (prevQuestion.isAnswerCorrect(input)) {
             currScore++;
         }
+    }
+
+    private static boolean isNumeric(String input) {
+        try {
+            int integer = Integer.parseInt(input);
+        } catch (NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 
     /**
