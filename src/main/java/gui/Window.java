@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 import core.Duke;
+import logic.LogicController;
 import utils.TasksCounter;
 import gui.PieChart;
 
@@ -37,12 +38,14 @@ public class Window {
 
     private JTextField completedPercField;
     private PieChart pieChart;
+    protected LogicController logicController;
 
     /**
      * Create the Window
      */
-    public Window(TasksCounter tc) {
+    public Window(TasksCounter tc, LogicController logicController) {
         Window.instance = this;
+        this.logicController = logicController;
         this.tasksCounter = tc;
         initialize();
         this.frame.setVisible(true);
@@ -135,7 +138,11 @@ public class Window {
         Action enterPressed = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Duke.processCommand(inputField.getText());
+                //TODO this is where we insert the new command
+//                Duke.processCommand(inputField.getText());
+//                im.addToHistory(inputField.getText());
+//                inputField.setText("");
+                executeCommand("not supposed to be seen");
                 im.addToHistory(inputField.getText());
                 inputField.setText("");
             }
@@ -173,5 +180,13 @@ public class Window {
     public void updatePercentage() {
         completedPercField.setText("" + (int) tasksCounter.getPercCompleted() + "% of tasks complete");
         pieChart.setPercentage(tasksCounter.getPercCompleted());
+    }
+
+    /**
+     * Updates the command text box to show results from commands
+     * */
+    public void executeCommand(String fullCommandText){
+//        outputArea.setText(outputArea.getText() + "\n\n" + toPrint);
+        outputArea.setText("test Command");
     }
 }

@@ -3,6 +3,7 @@ package core;
 import members.Member;
 import gui.Window;
 import commands.Command;
+import model.Model;
 import tasks.Task;
 import utils.DukeException;
 import utils.Parser;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 //=======New Imports for new structure
 import gui.UiController;
 import logic.LogicController;
-import model.Model;
+import model.ModelController;
 
 /**
  * This is the main class to be executed for DUKE PRO application
@@ -38,6 +39,9 @@ public class Duke {
     private ArrayList<Member> members;
 
     //=============New instantiation of new structure objects===================
+    protected Model modelController;
+    protected LogicController logicController;
+    protected UiController uiController;
 
     public static Duke instance;
 
@@ -52,28 +56,25 @@ public class Duke {
         storage = new Storage(taskFilePath, memberFilePath);
         tasks = storage.loadTaskList();
         members = storage.loadMemberList(tasks);
+        //========= instantiation for controllers ==============
+        modelController = new ModelController();
+        logicController = new LogicController(modelController);
+        uiController = new UiController(logicController, storage);
         Duke.instance = this;
     }
 
     /**
      * main running structure of Duke.
      */
-    public void run() {
-        TasksCounter tc = new TasksCounter(tasks);
-        new Window(tc);
-        Ui.welcome();
+    public void run() throws DukeException{
+        uiController.welcome();
+        uiController.start();
         //Reminder.checkReminders(tasks);
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         while (!isExit) {
-            try {
-                String fullCommand = Ui.readLine(in);
-                Command c = Parser.commandLine(fullCommand);
-                c.execute(tasks, members, storage);
-                isExit = c.isExit();
-            } catch (DukeException e) {
-                Ui.print(e.getMessage());
-            }
+                uiController.readCommand(in);
+                isExit = uiController.isExit();
         }
     }
 
@@ -110,7 +111,7 @@ public class Duke {
      *
      * @param args command line arguments, not used here
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         new Duke("data/tasks.txt", "data/members.txt").run();
     }
 }

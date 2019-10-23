@@ -2,19 +2,39 @@ package gui;
 
 import logic.LogicController;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import logic.command.CommandOutput;
+import tasks.Task;
 import utils.DukeException;
+import utils.TasksCounter;
+import utils.Storage;
 
 public class UiController {
     private static final String horizontalLine = "\t____________________________________________________________";
     private LogicController logicController;
     private boolean exit;
+    //TODO TEMP array list of tasks, should change to a model object
+    private ArrayList<Task> tasks;
+    protected Storage storage;
 
-    public UiController(LogicController logicController) {
+    public UiController(LogicController logicController, Storage storage) {
         this.logicController = logicController;
+        this.storage = storage;
     }
+
+    //@@author JustinChia1997
+    /**
+     * Initializes and starts the UI
+     * */
+    public void start(){
+        //TODO remove temp tasks list
+        tasks = storage.loadTaskList();
+        TasksCounter tc = new TasksCounter(tasks);
+        new Window(tc, logicController);
+    }
+
 
     /**
      * This method is used to read a line from Scanner in, before sending command to relevant controller
