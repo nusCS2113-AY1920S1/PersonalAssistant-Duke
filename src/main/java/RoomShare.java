@@ -69,6 +69,9 @@ public class RoomShare {
                 break;
 
             case list:
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                ui.showList();
                 try {
                     taskList.list();
                 } catch (RoomShareException e) {

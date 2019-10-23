@@ -53,42 +53,39 @@ public class TaskCreator {
             throw new RoomShareException(ExceptionType.emptyDescription);
 
         // extract date
-        String dateArray[] = input.split("&");
-        Date date;
+        String[] dateArray = input.split("&");
+        Date date = new Date();
+        Date from = new Date();
+        Date to = new Date();
         if (dateArray.length != 1) {
-            String dateInput = dateArray[1].trim();
-            try {
-                if (parser.formatDateCustom_1(dateInput) != null)
-                    date = parser.formatDateCustom_1(dateInput);
-                else if (parser.formatDateCustom_2(dateInput) != null)
-                    date = parser.formatDateCustom_2(dateInput);
-                else
-                    date = parser.formatDate(dateInput);
-            } catch (RoomShareException e) {
-                System.out.println("Wrong date format, date is set default to current date");
-                date = new Date();
-            }
-        } else
-            throw new RoomShareException(ExceptionType.emptyDate);
-
-        //extract date for leave
-        String leaveArray[] = input.split("&");
-        Date from;
-        Date to;
-        if (leaveArray.length != 1 && leaveArray.length > 2) {
-            String fromInput = dateArray[1].trim();
-            String toInput = dateArray[2].trim();
-            try {
-                from = new Parser().formatDate(fromInput);
-            } catch (RoomShareException e) {
-                System.out.println("Wrong date format, date is set default to current date");
-                from = new Date();
-            }
-            try {
-                to = new Parser().formatDate(toInput);
-            } catch (RoomShareException e) {
-                System.out.println("Wrong date format, date is set default to current date");
-                to = new Date();
+            if (dateArray.length <= 2) {
+                String dateInput = dateArray[1].trim();
+                try {
+                    if (parser.formatDateCustom_1(dateInput) != null)
+                        date = parser.formatDateCustom_1(dateInput);
+                    else if (parser.formatDateCustom_2(dateInput) != null)
+                        date = parser.formatDateCustom_2(dateInput);
+                    else
+                        date = parser.formatDate(dateInput);
+                } catch (RoomShareException e) {
+                    System.out.println("Wrong date format, date is set default to current date");
+                    date = new Date();
+                }
+            } else {
+                String fromInput = dateArray[1].trim();
+                String toInput = dateArray[2].trim();
+                try {
+                    from = new Parser().formatDate(fromInput);
+                } catch (RoomShareException e) {
+                    System.out.println("Wrong date format, date is set default to current date");
+                    from = new Date();
+                }
+                try {
+                    to = new Parser().formatDate(toInput);
+                } catch (RoomShareException e) {
+                    System.out.println("Wrong date format, date is set default to current date");
+                    to = new Date();
+                }
             }
         } else
             throw new RoomShareException(ExceptionType.emptyDate);
@@ -156,15 +153,16 @@ public class TaskCreator {
             assignment.setRecurrenceSchedule(recurrence);
             return assignment;
         } else if (type.contains("leave")) {
-            if (leaveArray.length > 3) {
-                Leave leave = new Leave(description, assignee, from, to);
-                leave.setPriority(priority);
-                leave.setRecurrenceSchedule(recurrence);
-            } else {
-                Leave leave = new Leave(description, assignee, date, duration, unit);
-                leave.setPriority(priority);
-                leave.setRecurrenceSchedule(recurrence);
-            }
+            String user;
+            String[] leaveUserArray = input.split("@");
+            if (leaveUserArray.length != 1) {
+                user = leaveUserArray[1].trim();
+            } else
+                throw new RoomShareException(ExceptionType.emptyUser);
+            Leave leave = new Leave(description, user, from, to);
+            leave.setPriority(priority);
+            leave.setRecurrenceSchedule(recurrence);
+            return leave;
         } else if (type.contains("meeting")) {
             if (remind) {
                 if (unit.equals(TimeUnit.unDefined)) {
@@ -204,6 +202,5 @@ public class TaskCreator {
         } else {
             throw new RoomShareException(ExceptionType.wrongTaskType);
         }
-        return null;
     }
 }
