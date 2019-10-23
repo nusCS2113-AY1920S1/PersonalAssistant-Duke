@@ -7,6 +7,8 @@ import duke.tasklist.TaskList;
 import duke.ui.TaskListPrinter;
 import duke.ui.Ui;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -32,7 +34,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
         TaskList tasks;
         if (filter.isEmpty()) {
             tasks = list;
