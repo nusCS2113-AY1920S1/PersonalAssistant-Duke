@@ -17,7 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit class testing the class GsonStorage.
+ * Attributes:
+ * - patientMap: a PatientMap object
+ * - storage: a GsonStorage object
+ * - dummy1: a dummy patient used for testing
+ * - dummy2: a dummy patient used for testing
+ * - dummy3: a dummy patient used for testing
+ * - expected: a String containing the correct JSON representation of dummy1, dummy2 and dummy 3
  */
+
 public class GsonStorageTest {
     public PatientMap patientMap;
     public GsonStorage storage;
@@ -35,6 +43,10 @@ public class GsonStorageTest {
             //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
             + "\"name\":\"dummy2\"}]";
 
+/**
+ * The constructor ig GsonStorateTest. Used to initialise the storage attribute.
+ * Also resets all storage data.
+ */
     GsonStorageTest() throws DukeFatalException, IOException {
         storage = new GsonStorage("data/patients.json");
         patientMap = storage.resetAllData();
@@ -42,6 +54,7 @@ public class GsonStorageTest {
 
     /**
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
+     * @return the created patient object.
      */
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Complexia", "C100", "cookies");
@@ -60,7 +73,7 @@ public class GsonStorageTest {
     /**
      * Compares all the attributes of two patients and returns true if they all are the same, otherwise it returns
      * false.
-     * TODO: compare impressions
+     * @return A boolean stating if the storage function is working properly or not.
      */
     private boolean identical(Patient patient1, Patient patient2) {
         if (!(patient1.getBedNo().equals(patient2.getBedNo()))) {
@@ -82,9 +95,8 @@ public class GsonStorageTest {
         }
     }
 
-
     /**
-     * Tests if patients are transformed from the json file to the hashmap properly.
+     * Tests if patients are transformed from the json file to the hash map properly.
      */
     @Test
     public void loadPatientHashMapTest() throws DukeException, IOException {
@@ -132,7 +144,7 @@ public class GsonStorageTest {
     }
 
     /**
-     * Tests if patients are transformed from the hashmap to the json file properly.
+     * Tests if patients are transformed from the hash map to the json file properly.
      */
     @Test
     public void writeJsonFileTest() throws DukeFatalException, IOException, DukeFatalException {
