@@ -10,7 +10,7 @@ import javax.swing.plaf.synth.SynthTabbedPaneUI;
 public class CommandCheckObjectives extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException {
-        Level.objectiveResult answer = farmio.getLevel().checkAnswer(farmio);
+        Level.objectiveResult answer = Level.objectiveResult.DONE;//farmio.getLevel().checkAnswer(farmio);
         if (answer == Level.objectiveResult.NOT_DONE) {
             farmio.getUi().typeWriter("Continue to next day? \n [ENTER] to continue [RESET] to reset to start of the level");
             farmio.setStage(Farmio.Stage.DAY_END);
