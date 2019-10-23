@@ -43,14 +43,20 @@ public class TaskUpdateCommand extends Command {
         try {
             for (int i = 0; i < descriptions.size(); i++) {
                 switch (attributes.get(i)) {
-                case time:
+                case TIME:
                     msg = updateTime(taskList, i);
                     break;
-                case doAfter:
+                case DO_AFTER:
                     msg = updateDoAfter(taskList, i);
                     break;
-                case priority:
+                case PRIORITY:
                     msg = updatePriority(taskList, i);
+                    break;
+                case TAG:
+                    msg = updateTags(taskList, i);
+                    i = descriptions.size();
+                    // tags will be the last entries in descriptions ArrayList and updateTags will handle
+                    // them all. So skip to the end.
                     break;
                 default:
                     msg = "Invalid attribute";
@@ -91,7 +97,19 @@ public class TaskUpdateCommand extends Command {
         return msg;
     }
 
+    private String updateTags(TaskList taskList, int i) throws CommandParseHelper.UserInputException {
+        String msg;
+        ArrayList<String> tags = new ArrayList<>();
+        for (int j = i; j < descriptions.size(); j++) {
+            if (attributes.get(j).equals(Attributes.TAG)) {
+                tags.add(descriptions.get(j));
+            }
+        }
+        msg = taskList.setTags(index, tags);
+        return msg;
+    }
+
     public enum Attributes {
-        time, doAfter, priority
+        TIME, DO_AFTER, PRIORITY, TAG
     }
 }
