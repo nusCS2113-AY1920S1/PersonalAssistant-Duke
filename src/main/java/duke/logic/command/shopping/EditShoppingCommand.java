@@ -53,7 +53,6 @@ public class EditShoppingCommand extends ShoppingCommand {
         Item<Ingredient> edited = ShoppingCommandUtil.createNewIngredient(toEdit, shoppingDescriptor);
 
         model.setShoppingList(toEdit, edited);
-        model.updateFilteredShoppingList(Model.PREDICATE_SHOW_ALL_SHOPPING);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, edited.getItem().getName()),
                 CommandResult.DisplayedPage.SHOPPING);

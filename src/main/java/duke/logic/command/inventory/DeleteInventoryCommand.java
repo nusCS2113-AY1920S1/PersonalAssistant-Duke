@@ -1,5 +1,6 @@
 package duke.logic.command.inventory;
 
+import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -15,7 +16,6 @@ public class DeleteInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "%s is removed from the inventory list";
-    public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index";
 
     private final Index index;
 
@@ -31,7 +31,7 @@ public class DeleteInventoryCommand extends InventoryCommand {
         List<Item<Ingredient>> inventoryList = model.getFilteredInventoryList();
 
         if (index.getZeroBased() >= inventoryList.size()) {
-            throw new CommandException(MESSAGE_INVALID_INDEX);
+            throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
 
         Item<Ingredient> toDelete = inventoryList.get(index.getZeroBased());
