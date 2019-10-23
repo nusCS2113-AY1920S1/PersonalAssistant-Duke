@@ -10,7 +10,7 @@ checkstyle {
 }
 
 group 'leduc.Duke'
-version '1.2'
+version '1.2.1'
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ application {
 
 shadowJar {
     archiveBaseName = "leduc"
-    archiveVersion = "v1.2"
+    archiveVersion = "v1.2.1"
     archiveClassifier = null
     archiveAppendix = null
 }
