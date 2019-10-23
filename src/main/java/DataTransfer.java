@@ -1,3 +1,4 @@
+import javafx.scene.layout.HBox;
 import money.Account;
 import money.Expenditure;
 import money.Income;
@@ -10,6 +11,10 @@ public interface DataTransfer {
 
     int NUMBER_OF_MONTHS = 3;
 
+    public enum Type {
+        HISTOGRAM, LINE_GRAPH, PIE_CHART
+    }
+
     /**
      * This function gets the data of the current month's income and expenditure
      * from the account then passes the data to getHistogram method and return the
@@ -17,17 +22,24 @@ public interface DataTransfer {
      * @return histogram for the monthly report
      */
     //@@ cctt1014
-    static Histogram getMonthlyData(Account account) throws IOException {
+    static HBox getMonthlyData(Account account, Type type) throws IOException {
         ArrayList<String> xData = new ArrayList<>();
         xData.add("Income");
         xData.add("Expenditure");
         ArrayList<Float> yData = new ArrayList<>();
         yData.add(account.getTotalIncome());
         yData.add(account.getTotalExp());
-        return Histogram.getHistogram("The Month Report", xData, yData);
+
+        if (type.equals(Type.PIE_CHART)) {
+            return null;
+        } else if (type.equals(Type.LINE_GRAPH)) {
+            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        } else {
+            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+        }
     }
 
-    static LineGraph getExpenditureTrend(Account account) throws IOException {
+    static HBox getExpenditureTrend(Account account, Type type) throws IOException {
         ArrayList<Expenditure> expList = account.getExpListTotal();
         ArrayList<String> xData = new ArrayList<>();
         ArrayList<Float> yData = new ArrayList<>();
@@ -40,10 +52,17 @@ public interface DataTransfer {
                 yData.add(e.getPrice());
             }
         }
-        return LineGraph.getLineGraph("Overall Expenditure Trend", xData, yData);
+
+        if (type.equals(Type.PIE_CHART)) {
+            return null;
+        } else if (type.equals(Type.HISTOGRAM)) {
+            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+        } else {
+            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        }
     }
 
-    static LineGraph getIncomeTrend(Account account) throws IOException {
+    static HBox getIncomeTrend(Account account, Type type) throws IOException {
         ArrayList<Income> incomeList = account.getIncomeListTotal();
         ArrayList<String> xData = new ArrayList<>();
         ArrayList<Float> yData = new ArrayList<>();
@@ -56,7 +75,13 @@ public interface DataTransfer {
                 yData.add(e.getPrice());
             }
         }
-        return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        if (type.equals(Type.PIE_CHART)) {
+            return null;
+        } else if (type.equals(Type.HISTOGRAM)) {
+            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+        } else {
+            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        }
     }
 
     static Histogram getCurrFinance(Account account, LocalDate endDate) throws IOException {

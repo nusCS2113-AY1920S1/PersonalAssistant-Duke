@@ -1,3 +1,4 @@
+import controlpanel.DukeException;
 import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
@@ -78,7 +79,7 @@ public class MainWindow extends AnchorPane {
      */
     //@@ cctt1014
     @FXML
-    private void handleUserInput() throws IOException, ParseException {
+    private void handleUserInput() throws IOException, ParseException, DukeException {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         if (input.equals("change icon")) {
