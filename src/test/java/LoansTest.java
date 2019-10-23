@@ -160,7 +160,7 @@ public class LoansTest {
     }
 
     @Test
-    public void deleteLoans() throws ParseException, DukeException {
+    public void testDeleteLoans() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan outgoingLoan = new Loan(500, "my bros", testDate, Loan.Type.OUTGOING);
         Loan incomingLoan = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
@@ -184,5 +184,19 @@ public class LoansTest {
                 "  [Outstanding] [O] my bros(loan: $500.0) (Lent On: 9/10/1997) " +
                 "Outstanding Amount: $500.0\n" +
                 " Now you have 0 total loans.\n", ui.getOutputString());
+    }
+
+    @Test
+    public void testExceedAmount() throws ParseException, DukeException {
+        account.getLoans().clear();
+        Loan settleLoan = new Loan(500, "my grandfather", testDate, Loan.Type.INCOMING);
+        account.getLoans().add(settleLoan);
+        String exceedInput = "paid 600 /to 1";
+        MoneyCommand exceedSettleCommand = new SettleLoanCommand(exceedInput);
+        ui.clearOutputString();
+        exceedSettleCommand.execute(account, ui, storage);
+        assertEquals("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt",
+                ui.getOutputString());
+
     }
 }
