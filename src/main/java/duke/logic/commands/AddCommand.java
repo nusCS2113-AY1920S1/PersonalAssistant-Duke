@@ -3,7 +3,7 @@ package duke.logic.commands;
 import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
-import duke.model.events.Task;
+import duke.model.Task;
 
 /**
  * Class representing a command to add a new task.

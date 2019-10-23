@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.events.Todo;
+import duke.model.planning.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

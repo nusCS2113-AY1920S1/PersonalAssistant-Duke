@@ -2,11 +2,11 @@ package duke.logic.commands.results;
 
 import duke.model.lists.RouteList;
 import duke.model.lists.TaskList;
-import duke.model.events.Task;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
+import duke.model.Task;
 
 public class CommandResultText extends CommandResult {
     /**

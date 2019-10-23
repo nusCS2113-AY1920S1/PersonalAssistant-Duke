@@ -1,7 +1,7 @@
 package duke.model.lists;
 
-import duke.model.events.Event;
-import duke.model.events.Task;
+import duke.model.Event;
+import duke.model.Task;
 import duke.model.locations.Venue;
 
 import java.util.ArrayList;
@@ -30,6 +30,19 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
     @Override
     public void add(Venue venue) {
         list.add(venue);
+    }
+
+    @Override
+    public List<Venue> getVenueList() {
+        return this.list;
+    }
+
+    public void setVenueList(Venue venue, int index) {
+        list.set(index,venue);
+    }
+
+    public void addList(List<Venue> venueList) {
+        this.list = venueList;
     }
 
     @Override

@@ -3,9 +3,9 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.model.events.Event;
-import duke.model.events.Task;
-import duke.model.events.Todo;
+import duke.model.Event;
+import duke.model.Task;
+import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
 import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
@@ -15,6 +15,7 @@ import duke.model.transports.BusService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Parser for Storage related operations.
@@ -199,5 +200,25 @@ public class ParserStorageUtil {
         default:
             throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
         }
+    }
+
+    /**
+     * Returns a list of todo's from a text file.
+     *
+     * @return The List of todo's
+     */
+    public static List<Todo> getTodoListFromStorage(String line) {
+        List<Todo> todoList = new ArrayList<>();
+        String[] todoParts = line.split("\\|");
+        for (String todoPart : todoParts) {
+            Todo todo = new Todo(todoPart);
+            todoList.add(todo);
+        }
+        return todoList;
+    }
+
+    public static int getNumberFromStorage(String line) {
+        String[] recommendParts = line.split("\\|");
+        return Integer.parseInt(recommendParts[1]);
     }
 }

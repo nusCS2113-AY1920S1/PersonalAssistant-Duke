@@ -4,9 +4,9 @@ import duke.commons.Messages;
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeTaskNotFoundException;
-import duke.model.events.Event;
-import duke.model.events.Task;
-import duke.model.events.TaskWithDates;
+import duke.model.Event;
+import duke.model.Task;
+import duke.model.TaskWithDates;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

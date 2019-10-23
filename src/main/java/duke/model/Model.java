@@ -2,11 +2,12 @@ package duke.model;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
-import duke.model.events.Task;
 import duke.model.lists.EventList;
 import duke.model.lists.RouteList;
 import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
+import duke.model.planning.Agenda;
+import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
@@ -56,8 +57,11 @@ public interface Model {
 
     /**
      * Returns the list of all attractions.
+     * @param numberOfDays number of days
+     * @param itinerary the itinerary to store in persistent storage
+     * @return List of Days
      */
-    List<Venue> getRecommendations() throws DukeException;
+    List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException;
 
     /**
      * Returns the list of Routes.
