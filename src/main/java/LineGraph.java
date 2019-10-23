@@ -14,7 +14,7 @@ public class LineGraph extends HBox {
     @FXML
     private LineChart<String, Number> lineChart;
 
-    //@@ cctt1014
+    //@@author {cctt1014}
     private LineGraph(String title) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/LineGraph.fxml"));
         fxmlLoader.setController(this);

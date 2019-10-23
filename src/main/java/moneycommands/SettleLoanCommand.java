@@ -27,7 +27,7 @@ public class SettleLoanCommand extends MoneyCommand {
      * Determines the type of of loan to settle specified in the user input.
      * @param command Settle command inputted by user
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public SettleLoanCommand(String command) {
         if (command.startsWith("paid")) {
             inputString = command.replaceFirst("paid ", "");
@@ -168,6 +168,7 @@ public class SettleLoanCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         /*
         String[] splitStr = inputString.split(" /to ", 2);

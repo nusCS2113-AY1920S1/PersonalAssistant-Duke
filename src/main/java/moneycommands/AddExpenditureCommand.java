@@ -23,7 +23,7 @@ public class AddExpenditureCommand extends MoneyCommand {
      * with the expenditure data within the user input.
      * @param command add command inputted from user
      */
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
     }
@@ -69,6 +69,7 @@ public class AddExpenditureCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author {Chianhaoplanks}
     public void undo(Account account, Ui ui, MoneyStorage storage) {
         int lastIndex = account.getExpListTotal().size() - 1;
         Expenditure exp = account.getExpListTotal().get(lastIndex);

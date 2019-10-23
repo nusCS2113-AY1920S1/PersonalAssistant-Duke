@@ -24,6 +24,7 @@ public class MoneyStorage {
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
+    //@@author {chengweixuan}
     private static boolean isCorrupted(String startStr) {
         return !startStr.equals("BS") && !startStr.equals("INC") && !startStr.equals("EXP") &&
                 !startStr.equals("SEX") && !startStr.equals("G") && !startStr.equals("INS") &&
@@ -95,7 +96,7 @@ public class MoneyStorage {
         account.getBankTrackerList().add(b);
     }
 
-    //@@ chengweixuan
+    //@@author {chengweixuan}
     public Account load() {
         Account account = new Account();
         try {
@@ -147,7 +148,7 @@ public class MoneyStorage {
         return account;
     }
 
-    //@@ therealnickcheong
+    //@@author {therealnickcheong}
     public void writeToFile(Account account) {
         try{
             FileWriter fileWriter = new FileWriter(fileName);
@@ -205,7 +206,7 @@ public class MoneyStorage {
         }
     }
 
-    //@@ Chianhaoplanks
+    //@@author {Chianhaoplanks}
     public void markDeletedEntry(String type, int index) throws DukeException {
         try {
             File tempFile = File.createTempFile("moneyAccountTemp", ".txt",

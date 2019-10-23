@@ -21,7 +21,7 @@ public interface DataTransfer {
      * histogram it gets from getHistogram.
      * @return histogram for the monthly report
      */
-    //@@ cctt1014
+    //@@author {cctt1014}
     static HBox getMonthlyData(Account account, Type type) throws IOException {
         ArrayList<String> xData = new ArrayList<>();
         xData.add("Income");

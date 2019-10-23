@@ -13,7 +13,7 @@ public class Main extends Application {
     private Duke duke = new Duke();
 
     @Override
-    //@@ therealnickcheong
+    //@@author {therealnickcheong}
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
