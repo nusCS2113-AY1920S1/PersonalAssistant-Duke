@@ -28,6 +28,8 @@ public class CreateNoteCommand extends Command {
     public CreateNoteCommand(String inputCommand) throws DukeException {
         type = CmdType.CREATENOTE;
         String[] wordsInInputCommand = inputCommand.split("\\s+");
+        File file = new File(defaultDirectoryPath + defaultFileName);
+        Storage.generateFolder(new File("data/notes/"));
         if (createNoteCommandHasSpecifiedFileName(inputCommand)) {
             userGivenFileName = wordsInInputCommand[1];
         } else if (validCommandWithNoSpecifiedFileName(inputCommand)) {

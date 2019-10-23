@@ -31,6 +31,8 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     public static boolean isSet = false;
+    public static boolean isScrollingText = true;
+
     private String displayText = "";
     private char[] charList;
     private int charCount = 0;
@@ -83,9 +85,13 @@ public class DialogBox extends HBox {
 
     private void setScrollText() {
         textTimeline = new Timeline(new KeyFrame(Duration.millis(10), ev -> {
-            if (charCount != charList.length) {
-                charCount++;
-                dialog.setText(displayText.substring(0, charCount));
+            if (isScrollingText) {
+                if (charCount != charList.length) {
+                    charCount++;
+                    dialog.setText(displayText.substring(0, charCount));
+                }
+            } else {
+                dialog.setText(displayText);
             }
         }));
         textTimeline.setCycleCount(Animation.INDEFINITE);

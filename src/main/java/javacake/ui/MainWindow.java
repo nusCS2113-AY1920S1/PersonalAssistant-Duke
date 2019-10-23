@@ -6,6 +6,7 @@ import javacake.exceptions.DukeException;
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
 import javacake.storage.Profile;
+import javacake.storage.Storage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -126,6 +127,7 @@ public class MainWindow extends AnchorPane {
             // get input first, don't get response first...
             userInput.clear();
             Duke.logger.log(Level.INFO, input);
+            DialogBox.isScrollingText = true;
             AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
             if (input.contains("exit")) {
                 // find out if exit condition
@@ -138,6 +140,7 @@ public class MainWindow extends AnchorPane {
                 handleResetConfirmation();
                 System.out.println("resetting time");
             } else if (isWritingNote) {
+                DialogBox.isScrollingText = false;
                 if (input.equals("/save")) {
                     isWritingNote = false;
                     response = EditNoteCommand.successSaveMessage();
@@ -160,6 +163,7 @@ public class MainWindow extends AnchorPane {
                         Duke.logger.log(Level.INFO, "Response: " + response);
                         isWritingNote = true;
                         response = EditNoteCommand.getHeadingMessage();
+                        DialogBox.isScrollingText = false;
                         showContentContainer();
                         EditNoteCommand.clearTextFileContent();
                     } else {
@@ -169,6 +173,7 @@ public class MainWindow extends AnchorPane {
                 } else {
                     //Must be quizCommand: checking of answers
                     handleGuiQuiz();
+                    DialogBox.isScrollingText = false;
                     showContentContainer();
                     System.out.println("quiz answer checking");
                 }
@@ -178,6 +183,7 @@ public class MainWindow extends AnchorPane {
                     isQuiz = true;
                     Duke.logger.log(Level.INFO, "Response: " + response);
                     response = getFirstQn(response);
+                    DialogBox.isScrollingText = false;
                     showContentContainer();
                     System.out.println("quiz first time");
                 }
@@ -269,6 +275,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("yes")) {
             //resets
             Profile.resetProfile();
+            Storage.resetStorage();
             duke.profile = new Profile();
             duke.userProgress = duke.profile.getTotalProgress();
             duke.userName = duke.profile.getUsername();
