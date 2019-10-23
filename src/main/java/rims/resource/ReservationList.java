@@ -9,18 +9,25 @@ public class ReservationList {
     protected ArrayList<Reservation> reservations;
     private Ui ui;
 
+    /**
+     * Empty constructor, where an empty ArrayList<Reservation> is constructed. This
+     * is to prevent null pointer exceptions but use with care.
+     * 
+     */
     public ReservationList() {
         this.reservations = new ArrayList<Reservation>();
     }
 
+    /**
+     * This constructor builds a reservation list for a given resource
+     * 
+     * @param reservations populated list of reservations
+     * @param ui           UI
+     */
     public ReservationList(ArrayList<Reservation> reservations, Ui ui) {
         this.reservations = reservations;
         this.ui = ui;
     }
-
-    /**
-     * This section contains all methods performing READ operations
-     */
 
     /**
      * Get the whole list
@@ -31,21 +38,14 @@ public class ReservationList {
         return this.reservations;
     }
 
+    /**
+     * Get a reservation residing at index i
+     * 
+     * @param i
+     * @return reservations.get(i)
+     */
     public Reservation getReservationByIndex(int i) {
         return reservations.get(i);
-    }
-
-    /**
-     * This method generates a reservation id by taking the last element's id + 1
-     * 
-     * @return id
-     */
-    public int generateReservationId() {
-        int i = 0;
-        if (reservations.size() > 0) {
-            i = reservations.get(reservations.size() - 1).getReservationId() + 1;
-        }
-        return i;
     }
 
     /**
@@ -65,14 +65,28 @@ public class ReservationList {
         return tempList;
     }
 
+    /**
+     * This method generates a reservation id by taking the last element's id + 1
+     * 
+     * @return id
+     */
+    public int generateReservationId() {
+        int i = 0;
+        if (reservations.size() > 0) {
+            i = reservations.get(reservations.size() - 1).getReservationId() + 1;
+        }
+        return i;
+    }
+
+    /**
+     * Fetch all the pairs of dates in a reservationList under a given resource,
+     * populate a list<pair_of_dates> and return this list. This is method is not
+     * yet finished!
+     * 
+     * @param resource_id
+     */
     public ArrayList<DateRange> getAllDates(int resource_id) {
         ArrayList<DateRange> listOfDates = new ArrayList<DateRange>();
-        for (int i = 0; i < reservations.size(); i++) {
-
-            DateRange newRange = new DateRange(reservations.get(i).getStartDate(), reservations.get(i).getEndDate());
-            listOfDates.add(newRange);
-
-        }
         return listOfDates;
     }
 
@@ -111,6 +125,9 @@ public class ReservationList {
      * structure)
      */
 
+    /**
+     * Returns the number of reservations in a reservation lists
+     */
     public int size() {
         return reservations.size();
     }

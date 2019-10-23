@@ -15,13 +15,16 @@ import rims.resource.ReservationList;
 import rims.resource.Resource;
 
 /**
- * Current format for text file: For every line: 0) ITEM/ROOM 1) ID (of unique
- * item/room) 2) DESCRIPTION 3) Booked or not? Optional: 4) Loan ID (if booked)]
- * 5) Loan start date 6) Loan end date
+ * Current format of data storage: -
+ * <p>
+ * Resource.txt [ resource id ] [ type ] [ name ]
+ * <p>
+ * Reserve.txt [ reservation id ] [ resource id ] [ user id ] [ date from ] [
+ * date until ]
+ * <p>
+ * 
  */
 public class Storage {
-    // protected HashMap<String, ArrayList<Resource>> resources = new
-    // HashMap<String, ArrayList<Resource>>();
     protected ArrayList<Resource> resources;
     protected ArrayList<Reservation> Reservations;
     protected ReservationList TempReservations;
@@ -43,6 +46,15 @@ public class Storage {
     /**
      * Obtains the contents of a ResourceList line by line from a text file in a
      * specified file path.
+     * 
+     * Data retrieval:<br>
+     * 1. Open the resource file<br>
+     * 2. Loop through each single entry to fetch [ resource id ] [ type ] [ name
+     * ]<br>
+     * 3. For each entry, open reservsation file and fetch any reservations under
+     * this resource_id <br>
+     * 4. Create a new resource object using the above data <br>
+     * 5. Add this object to ResourceList object
      *
      * @throws FileNotFoundException when specified file path does not lead to a
      *                               valid file type.
@@ -51,7 +63,7 @@ public class Storage {
      */
     public void readFromResourceFile() throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(resourceFile);
-        
+
         while (fileScanner.hasNextLine()) {
             Resource input = null;
             String[] line = fileScanner.nextLine().split(",");
@@ -95,7 +107,7 @@ public class Storage {
      */
     public void saveToFiles(ArrayList<Resource> resources) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
-        
+
         String line;
 
         for (int i = 0; i < resources.size(); i++) {
@@ -109,15 +121,15 @@ public class Storage {
             if (thisResource.getReservations().size() > 0) {
                 ReservationList thisReservationList = thisResource.getReservations();
                 saveToTempReservationList(thisReservationList);
-                }
             }
+        }
 
         saveToReservationFile(this.TempReservations);
         fileWriter.close();
     }
 
-    public void saveToTempReservationList (ReservationList reservations ) {
-        for(int i=0; i<reservations.size(); i ++){
+    public void saveToTempReservationList(ReservationList reservations) {
+        for (int i = 0; i < reservations.size(); i++) {
             this.TempReservations.addNewReservation(reservations.getReservationByIndex(i));
         }
     }

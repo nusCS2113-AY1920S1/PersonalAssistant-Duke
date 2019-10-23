@@ -11,7 +11,7 @@ public abstract class Resource {
     // utility classes
     protected Ui ui;
 
-    public Resource(){
+    public Resource() {
         ;
     }
 
@@ -19,9 +19,9 @@ public abstract class Resource {
      * Takes in id, type and name to create new resource. No reservation is created
      * for a newly added resource
      * 
-     * @param id
-     * @param type
-     * @param name
+     * @param id   integer
+     * @param type string
+     * @param name string
      * 
      */
     public Resource(int resource_id, String type, String name) {
@@ -31,13 +31,14 @@ public abstract class Resource {
     }
 
     /**
-     * Takes in id, type and name to load an existing resource and its reservation
-     * (if any) into the resourceList
+     * Takes in id, type and resource name as string tokens from the text file, and
+     * its reservation (if any) into the resourceList. The resource_id is casted to
+     * integer in this constructor
      * 
-     * @param resource_id
-     * @param type
-     * @param name
-     * @param reservations
+     * @param resource_id  string
+     * @param type         string
+     * @param name         string
+     * @param reservations string
      */
     public Resource(String resource_id, String type, String name, ReservationList reservations) {
         this.resource_id = Integer.parseInt(resource_id);
@@ -46,6 +47,15 @@ public abstract class Resource {
         this.reservations = reservations;
     }
 
+    /**
+     * Takes in id, type and resource name as string tokens from the text file, and
+     * its reservation (if any) into the resourceList.
+     * 
+     * @param resource_id  integer
+     * @param type         string
+     * @param name         string
+     * @param reservations string
+     */
     public Resource(int resource_id, String type, String name, ReservationList reservations) {
         this.resource_id = resource_id;
         this.type = type;
@@ -114,19 +124,23 @@ public abstract class Resource {
     }
 
     /**
-     * Remove the single reservation through a reservation id
+     * Remove the single reservation by a reservation id. The exception catching is
+     * not yet done.
+     * 
+     * @exception invalidReservationId A reservation cannot be found under using
+     *                                 this reservation id
      * @param reservation_id
      */
     public void removeReservationByReservationId(int reservation_id) {
         int index_to_remove = -1;
-        for(int i=0; i<this.reservations.size(); i ++){
+        for (int i = 0; i < this.reservations.size(); i++) {
             Reservation thisReservation = reservations.getReservationByIndex(i);
-            if (thisReservation.getReservationId()==reservation_id){
+            if (thisReservation.getReservationId() == reservation_id) {
                 index_to_remove = i;
             }
         }
 
-        if(index_to_remove != -1){
+        if (index_to_remove != -1) {
             reservations.deleteReservationByReservationID(index_to_remove);
         }
     }

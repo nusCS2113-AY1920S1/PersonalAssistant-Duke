@@ -129,6 +129,7 @@ public class Reader implements Read {
 
     /**
      * This method flushes out all resources, then takes in a resource ID from the user and delete it.
+     * @return DeleteCommand(resource_id)
      */
     public Command deleteItem(){
         Command c = new DeleteCommand();
