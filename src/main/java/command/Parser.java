@@ -5,6 +5,7 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import project.Project;
 import task.Deadline;
 import task.DoAfterTasks;
 import task.Task;
@@ -24,6 +25,8 @@ public class Parser {
     private static Instruction instr = new Instruction();
     private static Process process = new Process();
 
+    private static Project currentProject = null;
+
     /**
      * Method that parses input from the user and executes processes based on the input.
      * @param input Input from the user.
@@ -34,15 +37,28 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui,
-                                Storage storage, HashMap<String, Payee> managermap, ArrayList<String> commandList) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap, ArrayList<String> commandList, HashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
-
+            } else if (instr.isAddProject(input)) {
+                if (currentProject == null) {
+                    currentProject = process.addProject(input, ui, projectmap);
+                } else {
+                    process.addProject(input, ui, projectmap);
+                }
+            } else if (instr.isDeleteProject(input)) {
+                Project deletedProject = process.deleteProject(input, ui, projectmap);
+                if (currentProject == deletedProject) {
+                    currentProject = null;
+                }
+            } else if (instr.isGoToProject(input)) {
+                currentProject = process.goToProject(input, ui, projectmap);
+            } else if (currentProject == null) {
+                process.noProject(ui);
             } else if (instr.isList(input)) {
                 //print out current list
                 process.commandHistory(input, ui, commandList,storage);
@@ -100,7 +116,9 @@ public class Parser {
                 throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (AlphaNUSException | IOException e) {
-            ui.exceptionMessage(e.getMessage());
+            process.homePageMessage(currentProject.projectname, projectmap.size(), ui);
+        } catch (NullPointerException e) {
+            process.homePageMessage(null, projectmap.size(), ui);
         }
         return false;
     }
