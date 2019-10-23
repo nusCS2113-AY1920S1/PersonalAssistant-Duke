@@ -12,13 +12,20 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "wordup"
-    archiveVersion = "v1.2"
+    archiveVersion = "v1.2.1"
     archiveClassifier = null
     archiveAppendix = null
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    shadow 'junit:junit:3.8.2'
+}
+
+jar {
+    manifest {
+        attributes 'Class-Path': '/libs/a.jar'
+    }
 }
 
 test {
@@ -36,7 +43,6 @@ application {
     // Change this to your main class.
     mainClassName = "WordUp"
 }
-
 
 javafx {
     version = "11.0.2"
