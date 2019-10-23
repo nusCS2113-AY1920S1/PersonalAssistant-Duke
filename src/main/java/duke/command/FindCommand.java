@@ -2,12 +2,14 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.TaskListPrinter;
 import duke.ui.Ui;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -29,16 +31,15 @@ public class FindCommand extends Command {
 		if (tasks.size() == 0) {
 			ui.showLine("You have no tasks in your list! :-)");
 		} else {
-			int i = 0;
-			while (i < tasks.size()) {
-				if (tasks.get(i).getDescription().contains(keyword)) {
-					i += 1;
-				}
-				else {
-					tasks.remove(i);
+			ArrayList<Task> foundTasksTemp = new ArrayList<Task>();
+			for (int i=0; i<tasks.size(); i++) {
+				Task currentTask = tasks.get(i);
+				if (currentTask.getDescription().contains(keyword)) {
+					foundTasksTemp.add(currentTask);
 				}
 			}
-			listCommand.execute(tasks, ui, storage);
+			TaskList foundTasks = new TaskList(foundTasksTemp);
+			listCommand.execute(foundTasks, ui, storage);
 		}
 	}
 
