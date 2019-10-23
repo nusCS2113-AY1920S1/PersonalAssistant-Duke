@@ -29,7 +29,7 @@ public class Farmer {
 
     public Farmer() {
         this.money = 10;
-        this.level = 1.1;
+        this.level = 1.6;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
@@ -81,8 +81,8 @@ public class Farmer {
 
         }
         if(level >= 1.3) {
-            assets.put("Wheat", wheatFarm.getGreenWheat());
-            assets.put("Grain", wheatFarm.getRipeWheat());
+            assets.put("Wheat", wheatFarm.getRipeWheat());
+            assets.put("Grain", wheatFarm.getGrain());
         }
         if (level >= 1.2) {
             assets.put("Seeds", wheatFarm.getSeeds());
@@ -147,7 +147,7 @@ public class Farmer {
     }
 
     public void nextDay(Farmio farmio) throws FarmioException, FarmioFatalException {
-
+        wheatFarm.growSeedlings();
     }
 
 
