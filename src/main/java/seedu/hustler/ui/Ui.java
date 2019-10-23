@@ -164,7 +164,6 @@ public class Ui {
     }
 
     /**
-<<<<<<< HEAD
      * Prints a message if list is empty.
      */
     public void show_list_empty() {

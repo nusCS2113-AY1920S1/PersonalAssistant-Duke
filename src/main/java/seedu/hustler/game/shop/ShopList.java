@@ -9,6 +9,7 @@ import seedu.hustler.game.shop.items.armors.Chainmail;
 import seedu.hustler.game.shop.items.armors.IronArmor;
 import seedu.hustler.game.shop.items.armors.LeatherArmor;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * The list of items that can be purchased in the shop.
@@ -31,21 +32,25 @@ public class ShopList {
     /**
      * Prints out the list of ShopItems available in the store.
      */
-    public void list() {
-        System.out.println("********************* Here are the items in the shop *********************");
+    public ShopList list() {
+        System.out.println("******************** Here are the items in the shop ********************");
         System.out.println();
         for (int i = 0; i < this.shopList.size(); i++) {
             /**
              * Divides the list to format the printing of different classes.
              */
             if (i == 0 || !(shopList.get(i).isEquals(shopList.get(i - 1)))) {
-                System.out.println("\t======" + shopList.get(i).getType() + "=====");
+                System.out.println("\n\t\t\t\t======" + shopList.get(i).getType() + "=====");
             }
             System.out.print((i + 1) + ". ");
-            System.out.println(shopList.get(i).toString());
+            System.out.print(shopList.get(i).toString());
+            System.out.println(shopList.get(i).isPurchased() ? " [Purchased]" :
+                " [" + shopList.get(i).getCost() + " points to purchase]");
         }
         System.out.println();
-        System.out.println("***************************************************************************");
+        System.out.println("\t\t\t\tYou currently have: " + Achievements.totalPoints + " points.");
+        System.out.println("*************************************************************************");
+        return this;
     }
 
     /**
@@ -53,7 +58,7 @@ public class ShopList {
      * @param index the index of the item in the list.
      * @return the ShopItem in the given index; null if IndexOfOfBounds exception is caught.
      */
-    public ShopItem buy(int index) {
+    public Optional<ShopItem> buy(int index) {
         try {
             if (!shopList.get(index).isPurchased()) {
                 if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
@@ -61,18 +66,18 @@ public class ShopList {
                     Achievements.totalPoints -= shopList.get(index).getCost();
                     System.out.println("\t Item has been purchased!");
                     System.out.println("\tYour leftover points are: " + Achievements.totalPoints);
-                    return shopList.get(index);
+                    return Optional.ofNullable(shopList.get(index));
                 } else {
                     System.out.println("\tNot enough points. Please accumulate more points!");
-                    return shopList.get(index);
+                    return Optional.empty();
                 }
             } else {
                 System.out.println("\tItem has already been purchased! Please check your inventory.");
-                return shopList.get(index);
+                return Optional.empty();
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\tThere is no such index! Please input a valid number");
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -103,6 +108,16 @@ public class ShopList {
             toWrite += shopList.get(i).isPurchased().toString() + (i != shopList.size() - 1 ? "\n" : "");
         }
         return toWrite;
+    }
+
+    public ArrayList<ShopItem> getPurchasedItems() {
+        ArrayList<ShopItem> itemsPurchased = new ArrayList<>();
+        for (ShopItem item : shopList) {
+            if (item.isPurchased()) {
+                itemsPurchased.add(item);
+            }
+        }
+        return itemsPurchased;
     }
 
     /**
