@@ -45,6 +45,46 @@ There are three main components in the overall architecture of the application.
 
 
 === Clash handling
+==== Activity diagram
+
+                    +-----------+
+                    |  addEvent |
+                    |   called  |
+                    +-----------+
+                          |
+                          |
+                          v             found
+                    +-----------+   matching date   +------------+
+          +---------|  Search   | ----------------> |   Compare  |
+          |         |   List    |    +--------------|    times   |
+          |         +-----------+    |              +------------+
+          |                          |            Found     |
+     else |                      else|         overlapping  |
+          |         +----------------+            times     |
+          |         |                                       |
+          v         v                                       v
+    +-----------------+                         +----------------+
+    |      Return     |                         |     Return     |
+    |       null      |                         | clashing event |
+    +-----------------+                         +----------------+
+            |                                            |
+            |                                            |
+            |                                            |
+            v                                            v
+    +-----------------+                         +----------------+
+    |    Add Event    |                         |     Cancel     |
+    |     to list     |                         |   event entry  |
+    +-----------------+                         +----------------+
+            |                                            |
+            |                                            |
+            +----------------|        |------------------+
+                             |        |
+                             v        v
+                            +-----------+
+                            | Await new |
+                            |  Command  |
+                            +-----------+
+
 ==== How is it implemented
 The program is able to detect clashes when creating new events. When the user enters the command
 to add a new Event entry to the list, the method EventList.addEvent is called from the Command
