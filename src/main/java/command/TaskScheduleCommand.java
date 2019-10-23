@@ -65,7 +65,7 @@ public class TaskScheduleCommand extends Command {
                     currentEndDate = deadlineDate;
                 }
             } else {
-                nextStartDate = dateList.get(i+1).startDate;
+                nextStartDate = dateList.get(i + 1).startDate;
             }
 
             duration = ChronoUnit.HOURS.between(currentEndDate, nextStartDate);
@@ -73,7 +73,7 @@ public class TaskScheduleCommand extends Command {
                 isFreeBetweenEvents = true;
                 Ui.printOutput("You can schedule this task from " + currentEndDate
                         + " till " + nextStartDate);
-                    break;
+                break;
             }
         }
 
@@ -86,8 +86,9 @@ public class TaskScheduleCommand extends Command {
         ArrayList<Event> dateList = new ArrayList<>();
         for (Task item : tasks) {
             if (item.getClass() == task.Event.class) {
-                if (item.startDate.isBefore(deadlineDate))
+                if (item.startDate.isBefore(deadlineDate)) {
                     dateList.add((Event) item);
+                }
             }
         }
         Collections.sort(dateList);
@@ -98,7 +99,7 @@ public class TaskScheduleCommand extends Command {
     //TODO: Figure a way for GUI to accept subsequent inputs
     private boolean confirmSchedule(Task t, LocalDateTime start, long duration, TaskList tasks, Storage storage)
             throws DukeException {
-        while(true) {
+        while (true) {
             String answer = Ui.readInput().toLowerCase();
             if (answer.equals("y")) {
                 String description = t.description + "(Recommended period)";
