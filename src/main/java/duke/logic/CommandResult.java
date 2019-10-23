@@ -9,7 +9,8 @@ public class CommandResult {
     public enum DisplayedPane {
         EXPENSE,
         TRENDING,
-        CURRENT;
+        CURRENT,
+        PLAN;
         // todo: add more custom pages.
     }
 

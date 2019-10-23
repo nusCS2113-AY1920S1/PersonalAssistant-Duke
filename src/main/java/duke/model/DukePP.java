@@ -2,9 +2,12 @@ package duke.model;
 
 import duke.commons.LogsCenter;
 import duke.exception.DukeException;
+import duke.storage.PlanAttributesStorage;
+import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -17,6 +20,7 @@ public class DukePP implements Model {
     private static final Logger logger = LogsCenter.getLogger(DukePP.class);
 
     private final ExpenseList expenseList;
+    private final PlanBot planBot;
     // todo: add other data inside the DukePP.
 
     public ObservableList<Expense> externalExpenseList;
@@ -26,8 +30,9 @@ public class DukePP implements Model {
      * This constructor is used for loading DukePP from storage.
      */
     // todo: pass more arguments to constructor as more data are implemented.
-    public DukePP(ExpenseList expenseList) {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes) {
         this.expenseList = expenseList;
+        this.planBot = new PlanBot(planAttributes);
     }
 
     //******************************** ExpenseList operations
@@ -72,7 +77,23 @@ public class DukePP implements Model {
         return expenseList;
     }
 
+    //************************************************************
+    // PlanBot operations
+    public ObservableList<PlanBot.PlanDialog> getDialogObservableList() {
+        return planBot.getDialogObservableList();
+    }
+
+    public void processPlanInput(String input) {
+        planBot.processInput(input);
+    }
+
+    @Override
+    public Map<String, String> getKnownPlanAttributes() {
+        return planBot.getPlanAttributes();
+    }
+
     //******************************** Operations for other data....
     //******************************** For example, operations of monthly income list.
     //    todo: add other data operations
+
 }
