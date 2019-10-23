@@ -61,56 +61,38 @@ public class ProjectInputController implements IController {
             DukeLogger.logInfo(ProjectInputController.class, "Managing:"
                     + projectToManage.getDescription() + ",input:'"
                     + projectFullCommand + "'");
-            String[] projectCommand = projectFullCommand.split("-",1);
-            switch (projectCommand[0].trim()) {
-            case "exit":
+            if (projectFullCommand.matches("exit")) {
                 isManagingAProject = projectExit(projectToManage);
-                break;
-            case "add member":
+            } else if (projectFullCommand.matches("add member.*")) {
                 projectAddMember(projectToManage, projectFullCommand);
-                break;
-            case "edit member":
+            } else if (projectFullCommand.matches("edit member.*")) {
                 projectEditMember(projectToManage, projectFullCommand);
-                break;
-            case "delete member":
+            } else if (projectFullCommand.matches("delete member.*")) {
                 projectDeleteMember(projectToManage, projectFullCommand);
-                break;
-            case "view members":
+            } else if (projectFullCommand.matches("view members.*")) {
                 projectViewMembers(projectToManage);
-                break;
-            case "view credits":
+            } else if (projectFullCommand.matches("view credits.*")) {
                 projectViewCredits();
-                break;
-            case "add task":
+            } else if (projectFullCommand.matches("add task.*")) {
                 projectAddTask(projectToManage, projectFullCommand);
-                break;
-            case "view tasks":
+            } else if (projectFullCommand.matches("view tasks.*")) {
                 projectViewTasks(projectToManage, projectFullCommand);
-                break;
-            case "view assigned tasks":
-                projectViewAssigned(projectToManage, projectFullCommand);
-                break;
-            case "view task requirements i/": // need to refactor this command
+            } else if (projectFullCommand.matches("view assignments.*")) {
+                projectViewAssignments(projectToManage, projectFullCommand);
+            } else if (projectFullCommand.matches("view task requirements i/.*")) { // need to refactor this
                 projectViewTaskRequirements(projectToManage, projectFullCommand);
-                break;
-            case "edit task requirements":
+            } else if (projectFullCommand.matches("edit task requirements.*")) {
                 projectEditTaskRequirements(projectToManage, projectFullCommand);
-                break;
-            case "edit task":
+            } else if (projectFullCommand.matches("edit task.*")) {
                 projectEditTask(projectToManage, projectFullCommand);
-                break;
-            case "delete task":
+            } else if (projectFullCommand.matches("delete task.*")) {
                 projectDeleteTask(projectToManage, projectFullCommand);
-                break;
-            case "assign task":
+            } else if (projectFullCommand.matches("assign task.*")) {
                 projectAssignTask(projectToManage, projectFullCommand);
-                break;
-            case "bye":
+            } else if (projectFullCommand.matches("bye")) {
                 consoleView.end();
-                break;
-            default:
+            } else {
                 consoleView.consolePrint("Invalid command. Try again!");
-                break;
             }
         } else {
             consoleView.consolePrint("Please enter a command.");
@@ -118,9 +100,6 @@ public class ProjectInputController implements IController {
         return isManagingAProject;
     }
 
-    private void projectViewAssigned(Project projectToManage, String projectFullCommand) {
-
-    }
 
 
     /**
@@ -291,6 +270,15 @@ public class ProjectInputController implements IController {
         assignmentController.assignAndUnassign(projectCommand.substring(12));
         consoleView.consolePrint(assignmentController.getErrorMessages().toArray(new String[0]));
         consoleView.consolePrint(assignmentController.getSuccessMessages().toArray(new String[0]));
+    }
+
+    private void projectViewAssignments(Project projectToManage, String projectFullCommand) {
+        String input = projectFullCommand.substring(18);
+        if (input.charAt(0) == 'm') {
+            projectViewMembersAssignments(projectToManage, projectFullCommand.substring(20));
+        } else if (input.charAt(0) == 't') {
+            projectViewTasksAssignments(projectToManage, projectFullCommand.substring(20));
+        }
     }
 
     /**
