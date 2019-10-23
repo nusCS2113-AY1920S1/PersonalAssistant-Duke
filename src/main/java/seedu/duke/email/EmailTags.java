@@ -13,6 +13,12 @@ public class EmailTags {
         tagMap = new HashMap<>();
     }
 
+    /**
+     * Read emailList to construct a HashMap for tree-structured tagged emails.
+     *
+     * @param emailList Duke emailList.
+     * @return HashMap of tags with their associated emails.
+     */
     public static HashMap<String, SubTagMap> updateEmailTagList(EmailList emailList) {
         for (Email email : emailList) {
             ArrayList<Email.Tag> tags = email.getTags();
@@ -42,6 +48,12 @@ public class EmailTags {
         return tagMap;
     }
 
+    /**
+     * Display the tagged emails given the tagName.
+     *
+     * @param tags tag(s) input by users.
+     * @return String of tagged emails.
+     */
     public static String displayEmailTagList(ArrayList<String> tags) {
         String responseMsg = "";
         if (tags.size() > 2) {
@@ -95,17 +107,38 @@ public class EmailTags {
                 responseMsg += emailListTwo.toString();
                 return responseMsg;
             }
-            responseMsg = "Here is the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo +
-                    ": \n\n";
+            responseMsg = "Here is the email(s) tagged with both #" + tagNameOne + " and #" + tagNameTwo
+                    + ": \n\n";
             EmailList emailList = tagMap.get(tagNameOne).get(tagNameTwo);
             responseMsg += emailList.toString();
         }
         return responseMsg;
     }
 
+    /**
+     * String for displaying root tagged emails.
+     *
+     * @param responseMsg String to display.
+     * @param tagName tagName input by user.
+     * @return String for displaying root tagged emails.
+     */
+    public String displayRootEmailTag(String responseMsg, String tagName) {
+        responseMsg += "Here is the email(s) tagged with #" + tagName + ": \n\n";
+        SubTagMap subTagMap = tagMap.get(tagName);
+        for (HashMap.Entry<String, EmailList> entry : subTagMap.entrySet()) {
+            String subTagName = entry.getKey();
+            EmailList emailList = entry.getValue();
+            if (subTagName.equals(tagName)) {
+                continue;
+            }
+            responseMsg += subTagName + "\n\n: " + emailList.toString() + "\n\n";
+        }
+        return responseMsg;
+    }
+
     public static class SubTagMap extends HashMap<String, EmailList> {
 
-        public SubTagMap (String subTagName, EmailList subEmailList) {
+        public SubTagMap(String subTagName, EmailList subEmailList) {
         }
     }
 

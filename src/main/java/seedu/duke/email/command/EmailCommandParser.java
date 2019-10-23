@@ -71,7 +71,7 @@ public class EmailCommandParser {
     }
 
     private static Command parseEmailListCommand(ArrayList<Command.Option> optionList, String input) {
-        if(optionList.size() == 0) {
+        if (optionList.size() == 0) {
             return new EmailListCommand();
         }
         ArrayList<String> tags = CommandParseHelper.extractTags(optionList);
