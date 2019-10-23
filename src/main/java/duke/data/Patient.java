@@ -11,10 +11,10 @@ public class Patient extends DukeObject {
     private Impression priDiagnosis;
     private ArrayList<Impression> impressions;
 
-    private int height;
-    private int weight;
-    private int age;
-    private int number;
+    private Integer height;
+    private Integer weight;
+    private Integer age;
+    private Integer number;
     private String address;
     private String history;
 
@@ -23,17 +23,42 @@ public class Patient extends DukeObject {
      * A Patient object corresponds to the biometric information of a patient,
      * patient details, medical history, the impressions the doctor has about a patient.
      * Attributes:
-     * - name: the name of the patient
-     * - bedNo: the bed number of the patient
-     * - height: the height of the patient
-     * - weight: the weight of the patient
-     * - age: the age of the patient
-     * - number: the contact details of a patient's NOK
-     * - address: the residential address of a patient
-     * - history: the medical history of a patient
-     * - priDiagnosis: the chief complaint or most serious impression of a patient
-     * - allergies: the Food and Drug allergies a patient has
-     * - impression: the list of all impressions of a patient
+     * - priDiagnosis the chief complaint or most serious impression of a patient
+     * - impression the list of all impressions of a patient
+     * @param name the name of the patient
+     * @param bedNo the bed number of the patient
+     * @param height the height of the patient
+     * @param weight the weight of the patient
+     * @param age the age of the patient
+     * @param number the contact details of a patient's NOK
+     * @param address the residential address of a patient
+     * @param history the medical history of a patient
+     * @param allergies the Food and Drug allergies a patient has
+     */
+    public Patient(String name, String bedNo, String allergies, Integer height, Integer weight,
+                    Integer age, Integer number, String address, String history) {
+        super(name);
+        this.bedNo = bedNo;
+        this.allergies = allergies;
+        this.priDiagnosis = null;
+        this.impressions = new ArrayList<Impression>();
+
+        this.height = height;
+        this.weight = weight;
+        this.age = age;
+        this.number = number;
+        this.address = address;
+        this.history = history;
+    }
+
+    /**
+     * Represents the patient.
+     * A Patient object corresponds to the biometric information of a patient,
+     * patient details, medical history, the impressions the doctor has about a patient.
+     * Attributes:
+     * @param name the name of the patient
+     * @param bedNo the bed number of the patient
+     * @param allergies the Food and Drug allergies a patient has
      */
     public Patient(String name, String bedNo, String allergies) {
         super(name);
@@ -42,10 +67,10 @@ public class Patient extends DukeObject {
         this.priDiagnosis = null;
         this.impressions = new ArrayList<Impression>();
 
-        this.height = 0;
-        this.weight = 0;
-        this.age = 0;
-        this.number = 0;
+        this.height = null;
+        this.weight = null;
+        this.age = null;
+        this.number = null;
         this.address = null;
         this.history = null;
     }
@@ -132,6 +157,15 @@ public class Patient extends DukeObject {
         }
     }
 
+    /**
+     * This function find returns if a patient is allergic to an allergy.
+     * @param allergy String the possible allergy striped of spaces
+     * @return boolean
+     */
+    public boolean isAllergic(String allergy) {
+        return this.allergies.contains(allergy);
+    }
+
     @Override
     public String toString() {
         // Todo
@@ -170,7 +204,7 @@ public class Patient extends DukeObject {
         return priDiagnosis;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
@@ -178,7 +212,7 @@ public class Patient extends DukeObject {
         this.height = height;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
@@ -186,7 +220,7 @@ public class Patient extends DukeObject {
         this.weight = weight;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -194,7 +228,7 @@ public class Patient extends DukeObject {
         this.age = age;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
