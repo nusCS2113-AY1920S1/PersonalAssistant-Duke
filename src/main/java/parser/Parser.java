@@ -13,6 +13,7 @@ import command.SearchCommand;
 import command.RecentlyAddedCommand;
 import command.SearchFrequencyCommand;
 import command.EditCommand;
+import command.HelpCommand;
 
 import exception.CommandInvalidException;
 import exception.EmptyWordException;
@@ -50,8 +51,7 @@ public class Parser {
             if (userCommand.equals("exit")) {
                 return new ExitCommand();
             } else if (userCommand.equals("help")) {
-                // CREATE A HELP COMMAND TO SHOW THE AVAILABLE INSTRUCTION
-                return null;
+                command = parseHelp(taskInfo);
             } else if (userCommand.equals("add")) {
                 command = parseAdd(taskInfo);
             } else if (userCommand.equals("delete")) {
@@ -85,6 +85,18 @@ public class Parser {
 
     /**
      * Parses an add command.
+     * @param taskInfo String array containing first stage parsed user input
+     * @return an HelpCommand object
+     */
+    protected static Command parseHelp(String[] taskInfo) {
+        if (taskInfo.length == 1) {
+            return new HelpCommand("");
+        }
+        return new HelpCommand(taskInfo[1]);
+    }
+
+    /**
+     * Parses a help command.
      * @param taskInfo String array containing first stage parsed user input
      * @return an AddCommand object
      * @throws WrongAddFormatException when the format of the delete command does not match the required format

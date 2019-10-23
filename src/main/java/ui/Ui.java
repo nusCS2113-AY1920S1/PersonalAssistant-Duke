@@ -185,6 +185,51 @@ public class Ui {
     }
 
     /**
+     * Shows a string containing description and format of a specific instruction.
+     * @param instruction name of the instruction which user wants to know more
+     * @return a string to show manual of specific instruction
+     */
+    public String showHelp(String instruction) {
+        if (instruction.equals("add")) {
+            return "Add a word to wordbank.\n"
+                    + "Format: add w/WORD w/MEANING [t/TAG]";
+        } else if (instruction.equals("delete")) {
+            return "Delete a word or tag from wordbank.\n"
+                    + "Format: delete w/WORD_TO_BE_DELETED [t/TAG]";
+        } else if (instruction.equals("exit")) {
+            return "Exit WordUp.\n"
+                    + "Format: exit";
+        } else if (instruction.equals("search")) {
+            return "Search the meaning of a specific word.\n"
+                    + "Format: search w/WORD_TO_BE_SEARCHED";
+        } else if (instruction.equals("list")) {
+            return "Show the list of words in wordbank.\n"
+                    + "Format: list [o/ORDER]\n"
+                    + "(ORDER can be \"asc\" for ascending and \"desc\" for descending)";
+        } else if (instruction.equals("history")) {
+            return "View recent search history.\n"
+                    + "Format: history {int value}";
+        } else if (instruction.equals("freq")) {
+            return "Show search frequency of each word.\n"
+                    + "Format: freq [o/ORDER]\n"
+                    + "(ORDER can be \"asc\" for ascending and \"desc\" for descending)";
+        } else if (instruction.equals("edit")) {
+            return "Edit the meaning of word.\n"
+                    + "Format: edit w/WORD m/MEANING";
+        } else if (instruction.equals("tag")) {
+            return "Add tags of a specific word.\n"
+                    + "Format: tag w/WORD t/TAG...";
+        } else if (instruction.equals("quiz")) {
+            return "Take a quiz to test yourself.\n"
+                    + "Format: quiz";
+        } else {
+            return "Here are the instructions for WordUp.\n"
+                    + "add, delete, edit, exit, freq, help, history, list, search, tag, quiz\n"
+                    + "Enter \"help [instruction]\" for more details.";
+        }
+    }
+
+    /**
      * Displays quiz to ask user.
      * @param question word to be asked for meaning
      * @param options options available to be chosen
