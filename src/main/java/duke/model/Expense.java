@@ -248,7 +248,7 @@ public class Expense extends DukeItem {
             stringJoiner.add("(tentative)");
         }
         if (!tags.isEmpty()) {
-            stringJoiner.add("Tags: " + String.join(" ", tags));
+            stringJoiner.add(String.join(" ", tags));
         }
 
         return stringJoiner.toString();
@@ -267,7 +267,6 @@ public class Expense extends DukeItem {
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
         stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + Parser.formatTime(time));
         stringJoiner.add("isTentative" + STORAGE_NAME_SEPARATOR + isTentative);
-
         return stringJoiner.toString();
     }
 }

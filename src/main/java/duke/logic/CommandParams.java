@@ -41,12 +41,13 @@ public class CommandParams {
         new AddExpenseCommand(),
         // new BudgetCommand(),
         new DeleteExpenseCommand(),
-        // new ConfirmTentativeCommand(),
+        new ConfirmTentativeCommand(),
         new ExitCommand(),
         new FilterExpenseCommand(),
         new SortExpenseCommand(),
         new ViewExpenseCommand(),
-        new GoToCommand()
+        new GoToCommand(),
+        new PlanBotCommand()
     );
 
     /**

@@ -22,9 +22,11 @@
                         </font>
                      </Label>
                      <JFXButton fx:id="expenseButton" prefHeight="50.0" prefWidth="200.0" text="Expense" />
-                     <JFXButton fx:id="incomeButton" prefHeight="50.0" prefWidth="200.0" text="Monthly Income" />
+                      <JFXButton fx:id="planButton" prefHeight="50.0" prefWidth="200.0" text="Plan" />
+                      <JFXButton fx:id="incomeButton" prefHeight="50.0" prefWidth="200.0" text="Monthly Income" />
                      <JFXButton fx:id="loanButton" prefHeight="50.0" prefWidth="200.0" text="Loan &amp; Lend" />
                      <JFXButton fx:id="trendingButton" prefHeight="50.0" prefWidth="200.0" text="Expense Trending" />
+
                   </children>
                </VBox>
                <VBox layoutX="53.0" layoutY="350.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f0fff0 #f0fff0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="800.0" AnchorPane.topAnchor="450.0">

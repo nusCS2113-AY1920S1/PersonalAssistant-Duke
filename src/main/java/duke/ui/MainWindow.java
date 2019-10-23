@@ -28,10 +28,18 @@ public class MainWindow extends UiPart<Stage> {
 
     private ExpensePane expensePane;
     private TrendingPane trendingPane;
+
     // todo: create controller for trendingPage;
 
     private InputHistory inputHistory;
 
+
+    private PlanPane planPane;
+
+    private CommandResult.DisplayedPane displayedPane;
+    /* todo: create controller for trendingPage;
+    private TrendingPage trendingPage;
+     */
 
     // The area that can be switched.
     @FXML
@@ -60,6 +68,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton trendingButton;
 
+    @FXML
+    private JFXButton planButton;
+
     // Utilities Menu
     @FXML
     private JFXButton tagsButton;
@@ -70,7 +81,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML_FILE_NAME, primaryStage);
-
         this.primaryStage = primaryStage;
         this.logic = logic;
 
@@ -83,20 +93,30 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
+        planPane = new PlanPane(logic.getDialogObservableList());
+        logger.info("planPane is constructed." + logic.getDialogObservableList().size());
         // todo: add more data parts to be added.
+
     }
 
     @FXML
     private void handleUserInput() {
         String inputString = userInput.getText();
-
         try {
-            CommandResult commandResult = logic.execute(inputString);
+            CommandResult commandResult;
+
+            if (displayedPane == CommandResult.DisplayedPane.PLAN && !inputString.contains("goto") && !inputString.contains("bye")){
+                commandResult = logic.execute("plan " + inputString);
+            } else {
+                commandResult = logic.execute(inputString);
+            }
             console.setText(commandResult.getConsoleInfo());
+            fillInnerPart();
             showPane(commandResult);
 
-            if(commandResult.isExit()) Platform.exit();
-        } catch(DukeException e) {
+            if (commandResult.isExit()) Platform.exit();
+
+        } catch (DukeException e) {
             console.setText(e.getMessage());
         }
 
@@ -126,16 +146,22 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showPane(CommandResult commandResult) {
         switch (commandResult.getDisplayedPane()) {
-            case EXPENSE:
-                showExpensePane();
-                break;
+        case EXPENSE:
+            showExpensePane();
+            displayedPane = CommandResult.DisplayedPane.EXPENSE;
+            break;
 
-            case TRENDING:
-                showTrendingPane();
-                break;
+        case TRENDING:
+            showTrendingPane();
+            displayedPane = CommandResult.DisplayedPane.TRENDING;
+            break;
 
-            default:
-                break;
+        case PLAN:
+            showPlanPane();
+            displayedPane = CommandResult.DisplayedPane.PLAN;
+            break;
+        default:
+            break;
         }
     }
 
@@ -149,6 +175,7 @@ public class MainWindow extends UiPart<Stage> {
         loanButton.setButtonType(JFXButton.ButtonType.FLAT);
         trendingButton.setButtonType(JFXButton.ButtonType.FLAT);
         tagsButton.setButtonType(JFXButton.ButtonType.FLAT);
+        planButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         boardTitle.setText("Expenses");
     }
@@ -162,7 +189,26 @@ public class MainWindow extends UiPart<Stage> {
         loanButton.setButtonType(JFXButton.ButtonType.FLAT);
         trendingButton.setButtonType(JFXButton.ButtonType.RAISED);
         tagsButton.setButtonType(JFXButton.ButtonType.FLAT);
+        planButton.setButtonType(JFXButton.ButtonType.FLAT);
+
 
         boardTitle.setText("Trending");
     }
+
+
+    private void showPlanPane() {
+        commonBoard.getChildren().clear();
+        commonBoard.getChildren().add(planPane.getRoot());
+
+        expenseButton.setButtonType(JFXButton.ButtonType.FLAT);
+        incomeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        loanButton.setButtonType(JFXButton.ButtonType.FLAT);
+        trendingButton.setButtonType(JFXButton.ButtonType.FLAT);
+        tagsButton.setButtonType(JFXButton.ButtonType.FLAT);
+        planButton.setButtonType(JFXButton.ButtonType.RAISED);
+
+        boardTitle.setText("Plan");
+    }
+
+
 }

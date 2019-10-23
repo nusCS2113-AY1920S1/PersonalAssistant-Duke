@@ -1,14 +1,16 @@
-/*
-package duke.command;
+package duke.logic.command;
 
-import duke.Duke;
-import duke.dukeobject.Expense;
 import duke.exception.DukeException;
+import duke.logic.CommandParams;
+import duke.logic.CommandResult;
+import duke.model.Expense;
+import duke.model.Model;
+import duke.storage.Storage;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConfirmTentativeCommand extends Command {
+public class ConfirmTentativeCommand extends Command{
     /**
      * Creates a new command object, with its name, description, usage and secondary parameters.
      *
@@ -17,10 +19,10 @@ public class ConfirmTentativeCommand extends Command {
      * @param usage           the usage of the command to create.
      * @param secondaryParams the secondary parameters of the command to create.
      */
-/*
     private static final String name = "confirm";
     private static final String description = "confirm a tentative Expense";
     private static final String usage = "confirms $index, if it is a tentative task";
+    private static final String COMPLETE_MESSAGE = "Confirmed the tentative expense!";
 
     private enum SecondaryParam {
         ;
@@ -33,22 +35,21 @@ public class ConfirmTentativeCommand extends Command {
             this.description = description;
         }
     }
-
-
     public ConfirmTentativeCommand() {
         super(name, description, usage, Stream.of(SecondaryParam.values())
                 .collect(Collectors.toMap(s -> s.name, s -> s.description)));
     }
 
+
     @Override
-    public void execute(CommandParams commandParams, Duke duke) throws DukeException {
+    public CommandResult execute(CommandParams commandParams, Model model, Storage storage) throws DukeException {
         try {
             int index = Integer.parseInt(commandParams.getMainParam());
-            Expense expense = duke.expenseList.get(index);
+            Expense expense = model.getExpenseExternalList().get(index - 1);
             if (expense.isTentative()) {
-                duke.expenseList.remove(index);
+                model.deleteExpense(index);
                 expense.setTentative(false);
-                duke.expenseList.add(expense);
+                model.addExpense(expense);
             } else {
                 throw new DukeException(index + " is not a tentative task!");
             }
@@ -57,6 +58,7 @@ public class ConfirmTentativeCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("The index you've entered is out of range!");
         }
+        return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
     }
+
 }
-*/
