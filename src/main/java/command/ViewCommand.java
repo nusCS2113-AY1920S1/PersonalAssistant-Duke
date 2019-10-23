@@ -39,7 +39,6 @@ public class ViewCommand extends Command {
             }
             Ui.printOutput("The tasks you have on this date are:");
             Integer j = 1;
-            Integer k = 1;
             for (Task task : sortedRequiredSchedule) {
                 Ui.printMessage(i++ + "." + task.toString());
                 Ui.userOutputForUI += j++ + "." + task.toString() + "\n";

@@ -1,7 +1,6 @@
 package parser;
 
 import command.Command;
-import task.TaskList;
 import exception.DukeException;
 
 public abstract class IndexParser extends Parser {
