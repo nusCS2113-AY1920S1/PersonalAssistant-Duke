@@ -1,4 +1,4 @@
-package duke.model.events;
+package duke.model;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiParser;

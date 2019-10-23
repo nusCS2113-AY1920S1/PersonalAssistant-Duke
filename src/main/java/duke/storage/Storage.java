@@ -3,11 +3,15 @@ package duke.storage;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.ParserStorageUtil;
+import duke.logic.parsers.ParserTimeUtil;
 import duke.model.lists.TaskList;
-import duke.model.events.Task;
+import duke.model.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
+import duke.model.planning.Agenda;
+import duke.model.planning.Itinerary;
+import duke.model.planning.Todo;
 import duke.model.transports.BusService;
 import duke.model.locations.Venue;
 
@@ -15,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +36,7 @@ public class Storage {
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
+    private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
     //private static final String ROUTES_FILE_PATH = "/data/routes.txt";
@@ -125,13 +131,21 @@ public class Storage {
      * @return The List of all Venues in Recommendations list.
      */
 
-    public List<Venue> readVenues() {
-        List<Venue> recommendations = new ArrayList<>();
+    public List<Agenda> readVenues(int numDays) {
+        List<Agenda> recommendations = new ArrayList<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
-        while (s.hasNext()) {
-            recommendations.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+        int i = 1;
+        while (s.hasNext() && i <= numDays) {
+            List<Venue> venueList = new ArrayList<>();
+            venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            List<Todo> todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
+            venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            todoList.addAll(ParserStorageUtil.getTodoListFromStorage(s.nextLine()));
+            Agenda agenda = new Agenda(todoList, venueList, i++);
+            recommendations.add(agenda);
         }
         s.close();
+
         return recommendations;
     }
 
@@ -152,6 +166,54 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException(Messages.FILE_NOT_SAVE);
         }
+    }
+
+    /**
+     * Writes recommendations to filepath.
+     */
+    public void writeRecommendations(Itinerary itinerary) throws DukeException {
+        try {
+            FileWriter writer = new FileWriter(SAMPLE_RECOMMENDATIONS_FILE_PATH);
+            writer.write(itinerary.getStartDate().toString() + "\n" + itinerary.getEndDate().toString() + "\n"
+                    + itinerary.getHotelLocation().toString() + "\n");
+            for (Agenda agenda : itinerary.getList()) {
+                writer.write(agenda.toString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException(Messages.FILE_NOT_SAVE);
+        }
+    }
+
+    /**
+     * Reads recommendations from filepath.
+     */
+    public static Itinerary readRecommendations() throws DukeException {
+        List<Agenda> agendaList = new ArrayList<>();
+        Itinerary itinerary;
+        try {
+            File f = new File(SAMPLE_RECOMMENDATIONS_FILE_PATH);
+            Scanner s = new Scanner(f);
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(s.nextLine());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(s.nextLine());
+            Venue hotel = ParserStorageUtil.getVenueFromStorage(s.nextLine());
+            itinerary = new Itinerary(start,end,hotel);
+            while (s.hasNext()) {
+                List<Venue> venueList = new ArrayList<>();
+                List<Todo> todoList;
+                final int number = ParserStorageUtil.getNumberFromStorage(s.nextLine());
+                venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+                venueList.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+                todoList = ParserStorageUtil.getTodoListFromStorage(s.nextLine());
+                Agenda agenda = new Agenda(todoList, venueList, number);
+                agendaList.add(agenda);
+            }
+            s.close();
+            itinerary.setTasks(agendaList);
+        } catch (FileNotFoundException e) {
+            throw new DukeException(Messages.FILE_NOT_FOUND);
+        }
+        return itinerary;
     }
 
     public TaskList getTasks() {

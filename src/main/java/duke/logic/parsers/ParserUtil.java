@@ -3,8 +3,11 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeUnknownCommandException;
-import duke.model.events.Event;
-import duke.model.events.Todo;
+import duke.logic.api.ApiParser;
+import duke.model.Event;
+import duke.model.locations.Venue;
+import duke.model.planning.Itinerary;
+import duke.model.planning.Todo;
 
 import java.time.LocalDateTime;
 
@@ -46,6 +49,29 @@ public class ParserUtil {
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
         return new Event(withinDetails[0].strip(), start, end);
+    }
+
+    /**
+     * Parses the userInput and return a new Itinerary constructed from it.
+     *
+     * @param userInput The userInput read by the user interface.
+     * @return The new Itinerary object.
+     */
+    protected static Itinerary createRecommendation(String userInput) throws DukeException {
+        String[] itineraryDetails = userInput.substring("recommend".length()).strip().split("between| and");
+        if (itineraryDetails.length == 1) {
+            throw new DukeUnknownCommandException();
+        }
+        if (itineraryDetails.length != 3 || itineraryDetails[1] == null || itineraryDetails[2] == null) {
+            throw new DukeException(Messages.INVALID_FORMAT);
+        }
+        if (itineraryDetails[0].strip().isEmpty()) {
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
+        }
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(itineraryDetails[1].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(itineraryDetails[2].strip());
+        Venue hotelLocation = ApiParser.getLocationSearch(itineraryDetails[0].strip());
+        return new Itinerary(start, end, hotelLocation);
     }
 
     /**

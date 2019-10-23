@@ -1,8 +1,8 @@
 package duke.model.lists;
 
-import duke.model.events.Event;
-import duke.model.events.Task;
-import duke.model.events.TaskWithDates;
+import duke.model.Event;
+import duke.model.Task;
+import duke.model.TaskWithDates;
 
 import java.util.ArrayList;
 import java.util.Comparator;

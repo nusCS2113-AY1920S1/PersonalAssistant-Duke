@@ -1,6 +1,10 @@
 package duke.logic.parsers;
 
+import duke.commons.MessagesPrompt;
+import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.AddCommand;
+import duke.logic.commands.AddSampleItineraryCommand;
 import duke.logic.commands.Command;
 import duke.logic.commands.DeleteCommand;
 import duke.logic.commands.ExitCommand;
@@ -17,9 +21,6 @@ import duke.logic.commands.PromptCommand;
 import duke.logic.commands.RecommendationsCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
-import duke.commons.MessagesPrompt;
-import duke.commons.exceptions.DukeException;
-import duke.commons.exceptions.DukeUnknownCommandException;
 
 
 /**
@@ -59,11 +60,13 @@ public class Parser {
             return new FindPathCommand(input.strip().split(" ")[1], getEventIndexInList(1, input),
                     getEventIndexInList(2, input));
         case "recommend":
-            return new RecommendationsCommand(ParserUtil.getIndex(input) + 1);
+            return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
             return new StaticMapCommand(getWord(input));
+        case "addThisList":
+            return new AddSampleItineraryCommand();
         default:
             throw new DukeUnknownCommandException();
         }

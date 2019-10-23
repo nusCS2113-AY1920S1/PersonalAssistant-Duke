@@ -1,10 +1,10 @@
-package duke.logic.commands;
+package duke.model.planning;
 
 import duke.ModelStub;
-import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
+import duke.logic.commands.RecommendationsCommand;
+import duke.logic.commands.results.CommandResultText;
 import duke.model.locations.Venue;
-import duke.model.planning.Itinerary;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RecommendationsCommandTest {
+class AgendaTest {
 
     @Test
     void execute() throws DukeException {

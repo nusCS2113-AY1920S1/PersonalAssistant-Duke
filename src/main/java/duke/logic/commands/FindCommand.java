@@ -4,7 +4,7 @@ import duke.logic.commands.results.CommandResultText;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.lists.TaskList;
-import duke.model.events.Task;
+import duke.model.Task;
 
 /**
  * Class representing a command to find a task by keyword.
