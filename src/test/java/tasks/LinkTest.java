@@ -29,8 +29,8 @@ public class LinkTest {
 
 
         //members.get(0).setTask(1); //revisit this
-        assertEquals("This is a member's name for checkLink is in charge of task(s): [ 1 ]."
-                , members.get(0).getName() + " is in charge of task(s): [ " + setTo +" ].");
+        assertEquals("This is a member's name for checkLink is in charge of task(s): [ 1 ].",
+                members.get(0).getName() + " is in charge of task(s): [ " + setTo + " ].");
     }
 
 
