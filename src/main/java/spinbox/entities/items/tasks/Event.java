@@ -25,7 +25,7 @@ public class Event extends Schedulable {
      */
     public Event(int done, String description, DateTime startDate, DateTime endDate) {
         super(description);
-        this.setDone(done == 1);
+        this.updateDone(done == 1);
         this.startDate = startDate;
         this.endDate = endDate;
         taskType = TaskType.EVENT;

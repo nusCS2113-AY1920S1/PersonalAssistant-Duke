@@ -13,7 +13,7 @@ public class Todo extends NonSchedulable {
      */
     public Todo(int done, String taskName) {
         super(taskName);
-        this.setDone(done == 1);
+        this.updateDone(done == 1);
         taskType = TaskType.TODO;
     }
 

@@ -38,7 +38,7 @@ public class GradedComponent extends Item {
         super();
         try {
             String[] components = fromStorage.split(DELIMITER_FILTER);
-            this.setDone(Integer.parseInt(components[0]) == 1);
+            this.updateDone(Integer.parseInt(components[0]) == 1);
             this.setName(components[1]);
             this.setScoreKnown(Integer.parseInt(components[2]) == 1);
             this.setWeight(Double.parseDouble(components[3]));

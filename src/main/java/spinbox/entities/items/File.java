@@ -13,7 +13,7 @@ public class File extends Item {
      */
     public File(int done, String fileName) {
         super(fileName);
-        this.setDone(done == 1);
+        this.updateDone(done == 1);
     }
 
     /**
@@ -25,7 +25,7 @@ public class File extends Item {
         super();
         try {
             String[] components = fromStorage.split(DELIMITER_FILTER);
-            this.setDone(Integer.parseInt(components[0]) == 1);
+            this.updateDone(Integer.parseInt(components[0]) == 1);
             this.setName(components[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new CorruptedDataException();

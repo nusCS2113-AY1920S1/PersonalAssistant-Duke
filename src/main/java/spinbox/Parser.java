@@ -4,7 +4,7 @@ import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
 import spinbox.commands.HelpCommand;
-import spinbox.commands.MarkCommand;
+import spinbox.commands.UpdateCommand;
 import spinbox.commands.MultipleCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.ViewCommand;
@@ -123,8 +123,8 @@ public class Parser {
         case "remove":
             command = new RemoveCommand(pageDataComponents, content);
             break;
-        case "mark":
-            command = new MarkCommand(pageDataComponents, content);
+        case "update":
+            command = new UpdateCommand(pageDataComponents, content);
             break;
         case "remove-multiple":
             command = new MultipleCommand(pageDataComponents, content);
@@ -135,17 +135,5 @@ public class Parser {
         default:
         }
         return command;
-
-        //      **This will be an example of how to turn the input into commands.**
-        //
-        //        try {
-        //            switch (action) {
-        //                case "done":
-        //                    String moduleCode = pageDataComponents[1];
-        //                    command = new DoneCommand(moduleCode, Integer.parseInt(content) - 1);
-        //            }
-        //        } catch (NumberFormatException e) {
-        //            throw new InputException("Please enter an integer for index");
-        //        }
     }
 }

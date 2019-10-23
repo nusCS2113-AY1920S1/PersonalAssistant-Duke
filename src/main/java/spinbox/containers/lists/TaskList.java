@@ -30,6 +30,12 @@ public class TaskList extends SpinBoxList<Task> {
             DateTime startDateA = null;
             DateTime startDateB = null;
 
+            if (!a.getDone() && b.getDone()) {
+                return -1;
+            } else if (a.getDone() && !b.getDone()) {
+                return 1;
+            }
+
             if (a.isSchedulable()) {
                 startDateA = ((Schedulable)a).getStartDate();
             }

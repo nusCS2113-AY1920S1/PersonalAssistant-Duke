@@ -13,14 +13,15 @@ import spinbox.Ui;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
-public class MarkCommand extends Command {
+public class UpdateCommand extends Command {
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
-    private static final String FILE_MARKED = "Marked file: ";
-    private static final String TASK_MARKED = "Marked task: ";
-    private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
-    private static final String INVALID_MARK_FORMAT = "Please use valid remove format:\n"
-            + "mark <pageContent> / <type> <index>";
+    private static final String FILE_MARKED = "Updated file: ";
+    private static final String TASK_MARKED = "Updated task: ";
+    private static final String PROVIDE_INDEX = "Please provide an index of item to be updated.";
+    private static final String INVALID_MARK_FORMAT = "Please use valid update format:\n"
+            + "update <pageContent> / <type> <index> <booleanValue>";
     private static final String INVALID_INDEX = "Please enter a valid index.";
+    private static final String INVALID_VALUE = "PLease enter a valid boolean value.";
     private String type;
 
     private String moduleCode;
@@ -31,7 +32,7 @@ public class MarkCommand extends Command {
      * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
-    public MarkCommand(String[] pageDataComponents, String content) {
+    public UpdateCommand(String[] pageDataComponents, String content) {
         if (pageDataComponents.length > 1) {
             this.moduleCode = pageDataComponents[1];
         }
@@ -51,9 +52,16 @@ public class MarkCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
-                    int index = Integer.parseInt(content.split(" ")[1]) - 1;
+                    String[] contentComponents = content.split(" ");
+                    int index = Integer.parseInt(contentComponents[1]) - 1;
                     File fileMarked = files.get(index);
-                    files.mark(index);
+                    if (contentComponents[2].toLowerCase().equals("true")) {
+                        files.update(index, true);
+                    } else if (contentComponents[2].toLowerCase().equals("false")) {
+                        files.update(index, false);
+                    } else {
+                        throw new InputException(INVALID_VALUE);
+                    }
                     return FILE_MARKED + fileMarked.toString();
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);
@@ -73,12 +81,15 @@ public class MarkCommand extends Command {
                     TaskList tasks = module.getTasks();
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     Task taskMarked = tasks.get(index);
-                    tasks.mark(index);
+                    String[] contentComponents = content.split(" ");
+                    if (contentComponents[2].toLowerCase().equals("true")) {
+                        tasks.update(index, true);
+                    } else if (contentComponents[2].toLowerCase().equals("false")) {
+                        tasks.update(index, false);
+                    } else {
+                        throw new InputException(INVALID_VALUE);
+                    }
                     outputMessage = outputMessage.concat(TASK_MARKED + taskMarked.toString() + "\n");
-                    tasks.remove(index);
-                    outputMessage = outputMessage.concat("This task has been removed from the list.\n");
-                    outputMessage = outputMessage.concat("You currently have " + tasks.getList().size()
-                            + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list."));
                     return outputMessage;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);

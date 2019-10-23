@@ -22,7 +22,7 @@ public class Deadline extends Schedulable {
      */
     public Deadline(int done, String description, DateTime startDate) {
         super(description);
-        this.setDone(done == 1);
+        this.updateDone(done == 1);
         this.startDate = startDate;
         taskType = TaskType.DEADLINE;
     }

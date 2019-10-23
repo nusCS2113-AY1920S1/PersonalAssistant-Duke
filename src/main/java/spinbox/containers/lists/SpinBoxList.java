@@ -114,15 +114,16 @@ public abstract class SpinBoxList<T extends Item> {
     }
 
     /**
-     * Marks an item as done.
-     * @param index index of element to be marked done.
+     * Updates an item to value.
+     * @param index index of element to be set.
+     * @param value value to be marked
      * @return element marked done.
      * @throws DataReadWriteException saveData fail due to I/O Error.
      * @throws InvalidIndexException provided Index is out range.
      */
-    public T mark(int index) throws DataReadWriteException, InvalidIndexException {
+    public T update(int index, boolean value) throws DataReadWriteException, InvalidIndexException {
         try {
-            list.get(index).markDone();
+            list.get(index).updateDone(value);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }

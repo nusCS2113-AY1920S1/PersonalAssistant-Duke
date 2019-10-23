@@ -13,9 +13,9 @@ public class HelpList {
             + "\t2. help / add : To add a module/task/grade/file component\n"
             + "\t3. help / remove : To remove a module/task/grade/file component\n"
             + "\t4. help / remove-multiple : To remove multiple task/grade/file components\n"
-            + "\t5. help / mark : To mark a task/grade/file component as done and remove it from the respective list\n"
-            + "\t6. help / mark-multiple : To mark multiple task/grade/file components as done and remove them from "
-            + "the respective list\n" + horizontalLine);
+            + "\t5. help / update : To update a task/grade/file component to a value\n"
+            + "\t6. help / update-multiple : To update multiple task/grade/file components to a value\n"
+            + horizontalLine);
 
     public final String view = helpOutput.concat(horizontalLine + "Command: view\n"
             + "Function: To navigate and change view from the current page to the specified page\n"
@@ -71,18 +71,18 @@ public class HelpList {
             + "\t2. Remove the first 2 grade components under CG1111: TBC\n"
             + "\t3. Remove the first 2 tasks under module CG1111: remove CG1111 / task 1,2\n" + horizontalLine);
 
-    public final String mark = helpOutput.concat(horizontalLine + "Command: mark\n"
-            + "Function: To mark a task/grade/file component as done and remove it from the specific list\n"
-            + "Format: mark <module code> / <item type> <item index>\n"
+    public final String update = helpOutput.concat(horizontalLine + "Command: update\n"
+            + "Function: To update a task/grade/file component to a boolean value\n"
+            + "Format: update <module code> / <item type> <item index> <booleanValue>\n"
             + "Example:\n"
             + "\t* Note: omit module code if current page is the specific module *\n"
-            + "\t1. Mark a file under module CG1111: mark CG1111 / file 1\n"
-            + "\t2. Mark a grade component under CG1111: TBC\n"
-            + "\t3. Mark a task under module CG1111: mark CG1111 / task 1\n" + horizontalLine);
+            + "\t1. Update a file to downloaded under module CG1111: mark CG1111 / file 1 true\n"
+            + "\t2. Update a grade component under CG1111: TBC\n"
+            + "\t3. Update a task to done under module CG1111: mark CG1111 / task 1 true\n" + horizontalLine);
 
-    public final String markMultiple = helpOutput.concat(horizontalLine + "Command: mark-multiple\n"
-            + "Function: To mark multiple task/grade/file components as done and remove them from the respective list\n"
-            + "Format: mark-multiple <module code> / <item type> <item indexes>\n"
+    public final String updateMultiple = helpOutput.concat(horizontalLine + "Command: update-multiple\n"
+            + "Function: To update multiple task/grade/file components to a value\n"
+            + "Format: update-multiple <module code> / <item type> <item indexes> <item values>\n"
             + "Example:\n"
             + "\t* Note: omit module code if current page is the specific module *\n"
             + "\t1. Mark the first 2 files under module CG1111: mark-multiple CG1111 / file 1,2\n"

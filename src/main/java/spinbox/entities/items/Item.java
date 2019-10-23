@@ -43,11 +43,11 @@ public abstract class Item {
         return (this.getDone() ? 1 : 0) + STORE_DELIMITER + this.getName();
     }
 
-    protected void setDone(Boolean done) {
+    public void updateDone(Boolean done) {
         isDone = done;
     }
 
     public void markDone() {
-        this.setDone(true);
+        this.updateDone(true);
     }
 }
