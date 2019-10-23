@@ -55,7 +55,7 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
 
 [[Design-UI]]
-=== UI
+=== UI [PANG JIA JUN VERNON]
 image::plantuml/ui.svg[]
 
 This class diagram aptly describes the relationships between the various core classes in the UI component.
@@ -67,7 +67,7 @@ The UI component is exposed to external modules/components via the `Ui` interfac
 As mentioned, the UI is made up of a `MainWindow` that houses various UI elements such as `CommandWindow`, `HomeWindow`, `PatientWindow`, etc. These UI elements, including `MainWindow` extends from the abstract class `UiElement`. This abstract class serves as the base class for ALL UI elements used in the application, and allows for their easy creation.
 
 [[Design-Logic]]
-=== Parser Logic
+=== Parser Logic [JOHN CUTHBERT KHOO TENG FONG]
 image::plantuml/logic.svg[]
 
 This class diagram describes the relationships between the various core classes involved in parsing the user's input into `Commands`. The first word (delimited by a space or newline) of the user's input is the _command name_. All commands extend the `Command` abstract class, which provides enough functionality for basic commands consisting of a single word. The operation of the `Command` is specified in the `execute` method. The mapping from the command name to the `Command` should be created in the `Commands` class, which is loaded by the default `Parser` constructor, together with a reference to a `Context` enum (ordinarily, a reference to the `context` field in the `DukeCore` instance). A `Parser` can also be constructed with a subclass of `Commands` to specify a different set of commands.
@@ -111,7 +111,7 @@ If this is an `ArgCommand`, in addition to doing the above for a subclass of `Ar
 
 ==== Parsing
 
-The `Parser` object scans through a user-supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses several nested finite state machines (FSMs)which switch on the characters in the input the scan the rest of the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
+The `Parser` object scans through a user-supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses several nested finite state machines (FSMs) which switch on the characters in the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
 
 The finite state machine for input parsing has the following states:
 * `EMPTY`: parsing whitespace, which has no semantic meaning aside from serving as a separator
@@ -119,11 +119,29 @@ The finite state machine for input parsing has the following states:
 * `STRING`: parsing an argument that is surrounded by double quotes
 * `SWITCH`: parsing a switch name
 
-The state transitions are illustrated by the following state diagram: `Work in Progress`
+The state transitions on encountering would not be clearly represented on a state diagram, but can be summarised as follows:
 
-Preceding any transition charater with a backslash `\` will escape it, allowing it to be treated as an ordinary character.
+* `EMPTY` 
+** `EMPTY` -> `EMPTY`: <Newline> or <Space>
+** `EMPTY` -> `SWITCH`: `-`
+** `EMPTY` -> `STRING`: `"`
+** `EMPTY` -> `ARG`: <any other character>
+* `SWITCH` 
+** `SWITCH` -> `EMPTY`: <Newline> or <Space>
+** `SWITCH` -> `SWITCH` (add current switch and begin processing a new switch): `-`
+** `SWITCH` -> `STRING` (add current switch and begin parsing a string as an argument): `"`
+** `SWITCH` -> `SWITCH`: <any other character>
+* `STRING` 
+** `STRING` -> `EMPTY`: `"`
+** `STRING` -> `STRING`: <any other character>
+* `ARG` 
+** `ARG` -> `EMPTY`: <Newline> or <Space>
+** `ARG` -> Error: Unescaped `"` or `-`
+** `ARG` -> `ARG`: <any other character>
 
-When transitioning from `EMPTY` to any other state, `checkInputAllowed()` is used to check if input is allowed at that point. While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch, or written to the `Command` being constructed as an argument for the `Command` itself, or as a switch argument, with appropriate checks being performed. For more details on how switches are processed, see above on `Command` objects, and on the <<Feature-Switch-Autocorrect,Switch Autocorrect>> feature.
+Preceding any transition character with a backslash `\` will escape it, allowing it to be treated as an ordinary character.
+
+When transitioning from `EMPTY` to any other state, `checkInputAllowed()` is used to check if input is allowed at that point. While in the `ARG`, `STRING` or `SWITCH` states, each character that is read is added to a StringBuilder `elementBuilder`. When exiting the state, the string is processed as a switch via `addSwitch()`, or written to the `Command` being constructed as an argument by `writeElement()`. This can be an argument for the `Command` itself, or a switch argument. For more details on how switches are processed, see above on `Command` objects, and on the <<Feature-Switch-Autocorrect,Switch Autocorrect>> feature.
 
 [[Design-Model]]
 === Data Model
@@ -136,7 +154,7 @@ The *_Class Diagram_* shown above describes the relationship among the different
 The `statusArr` stores the textual description of each numerical value for the `status`.
 
 [[Design-Storage]]
-=== Storage System 
+=== Storage System [JACOB TORESSON]
 image::ClassDiagramData.png[]
 
 This class diagram describes the relationship between the Storage class, `GsonStorage`, the patient class, `Patient`, and the other classes used to describe and handle patient data. 
@@ -167,11 +185,11 @@ As can be seen in the class diagram, every individual's patient's data in nested
  
 If further development of `Dr.Duke` requires the storage of other objects that are nested from the patient objects that will be done automatically by the existing storage mechanism as long as there are no circle references. If further development requires storage of objects that are not nested from patient objects the storage mechanism needs to be updated to include two or more arrays instead of one; one containing the `JSON` representations of the `Patient` objects and the other/s containing the `JSON` representation of the other object/s.
 
-
-== Implementation
+== Feature Implementation
 
 This section describes some noteworthy details on how certain features in Dr. Duke are implemented.
 
+[[Feature-Switch-Autocomplete]]
 === Autocomplete [PANG JIA JUN VERNON]
 image:crop_ss.png[]
 
@@ -184,7 +202,7 @@ commands so users can get more things done faster. There are several benefits in
 * Reduce the time taken for the user to enter a complete and valid command.
 * Reduce the frequency at which the user refers to the User Guide or help section to view the syntax of a particular command.
 
-==== Proposed Implementation
+==== Implementation
 The autocomplete mechanism is facilitated by two main classes, namely `AutoCompleteTextField` and `AutoCompleteModel`.
 
 `AutoCompleteTextField` is an element of the UI component. It extends from JavaFX `TextField`, and it displays a contextual
@@ -227,10 +245,12 @@ image::AutoCompleteActivityDiagram.png[]
 ** Pros: More intuitive to the end-users.
 ** Cons: Significantly more complex to implement.
 
-== Features
-
 [[Feature-Switch-Autocorrect]]
-=== Switch Autocorrect
+=== Switch Autocorrect [JOHN CUTHBERT KHOO TENG FONG]
+
+==== Rationale
+
+==== Implementation
 
 If a user-supplied switch is _not_ an alias for any switch, this triggers the disambiguation functions in `CommandHelpers`. We use a modified Levenshtein-Damerau distance which takes into account the taxicab distance between keys on a standard QWERTY keyboard in weighting the cost of substitutions. Pseudocode for the Levenshtein-Damerau distance computation can be found https://dl.acm.org/citation.cfm?doid=1963190.1963191[here] and ideas for implementation of keyboard distance analysis are taken from https://stackoverflow.com/questions/29233888/[here]. This provides a realistic measure of the likelihood that a particular mistake was made, as the likelihood of accidentally pressing an incorrect key is dramatically decreased if the incorrect key in question is a keyboard's length away from one's intended key, which is a fact that the basic Levenshtein-Damerau distance algorithm fails to capture. Taxicab distance is used as opposed to Euclidean in order to avoid computing square roots, and only the substitution cost is affected by the keyboard distance, as having missed or accidentally added a character, or typing the characters out of sequence, is not dependent on the distance between two keys.
 
