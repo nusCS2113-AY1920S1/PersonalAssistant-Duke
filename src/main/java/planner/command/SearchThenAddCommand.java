@@ -43,9 +43,10 @@ public class SearchThenAddCommand extends ModuleCommand {
             case ("module"):
             default: {
                 String moduleCode = arg("moduleCode");
-                if (detailedMap.containsKey(moduleCode)) {
-                    ModuleInfoDetailed mod = detailedMap.get(moduleCode);
-                    ModuleTask temp = new ModuleTask(moduleCode, mod);
+                String upperModuleCode = moduleCode.toUpperCase().trim();
+                if (detailedMap.containsKey(upperModuleCode)) {
+                    ModuleInfoDetailed mod = detailedMap.get(upperModuleCode);
+                    ModuleTask temp = new ModuleTask(upperModuleCode, mod);
                     HashSet<ModuleTask> checkSet = tasks.getSetModuleTask();
                     if (checkSet.contains(temp)) {
                         throw new ModClashesException();
