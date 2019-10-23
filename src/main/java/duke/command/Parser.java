@@ -82,10 +82,6 @@ public class Parser {
         return command;
     }
 
-    /*public Command parse(String inputStr, DukeContext context) {
-
-    }*/
-
     /**
      * Parses the user's input after the Command name and loads the parameters for the Command from it.
      *
