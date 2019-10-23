@@ -56,7 +56,7 @@ public class Storage {
                     String[] synonymPart = meaningAndSynonym[1].trim().split(" ");
                     //System.out.println("synonymPart consist of ");
                     for (String s : synonymPart) {
-                        System.out.println(s.trim());
+                        //System.out.println(s.trim());
                         temp.add(s);
                     }
                     //System.out.println("synonymPart is of length " + synonymPart.length);

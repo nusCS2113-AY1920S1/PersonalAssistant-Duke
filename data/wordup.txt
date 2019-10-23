@@ -1,2 +1,3 @@
-green: a colour<s> g1 g2 g3<s>
-bicycle: a vehicle that we cycle<s> b2 b3 b4 b5 b6 b1<s><s> b2 b3 b1<s>
+papaya: a fruit<s> p1 p2 p3 p4 p5 p6 p7 p8 p9 g1 p10<s><s> p1 p2 p3 p4 p5 g1<s>
+pineapple: a large juicy tropical fruit consisting of aromatic edible yellow flesh surrounded by a thought segmented skin and topped with tuft of stiff leaves
+watermelon: the large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice<s> w1 w2 w3 w4 w5<s>
