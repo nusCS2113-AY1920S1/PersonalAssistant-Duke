@@ -23,14 +23,7 @@ public class MoneyStorage {
         fileName = filePath;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
-
     //@@author chengweixuan
-    private static boolean isCorrupted(String startStr) {
-        return !startStr.equals("BS") && !startStr.equals("INC") && !startStr.equals("EXP") &&
-                !startStr.equals("SEX") && !startStr.equals("G") && !startStr.equals("INS") &&
-                !startStr.equals("INIT") && !startStr.equals("LOA") && !startStr.equals("BAN");
-    }
-
     private void parseIncome(String[] info, Account account) {
         Income i = new Income(Float.parseFloat(info[1]), info[2],
                 LocalDate.parse(info[3], dateTimeFormatter));
@@ -96,7 +89,6 @@ public class MoneyStorage {
         account.getBankTrackerList().add(b);
     }
 
-    //@@author {chengweixuan}
     public Account load() {
         Account account = new Account();
         try {
@@ -106,9 +98,7 @@ public class MoneyStorage {
             while ((line = bufferedReader.readLine()) != null) {
                 //if (line.contains("#")) { continue; }
                 String[] info = line.split(" @ ");
-                if (isCorrupted(info[0])) {
-                    throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
-                }
+
                 switch(info[0]) {
                 case "INIT":
                     account.setToInitialize(Boolean.parseBoolean(info[1]));
@@ -138,7 +128,7 @@ public class MoneyStorage {
                     parseBankAccount(info, account);
                     break;
                 default:
-                    break;
+                    throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
                 }
             }
             bufferedReader.close();
