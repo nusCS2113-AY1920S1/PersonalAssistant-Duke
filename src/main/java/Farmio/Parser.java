@@ -72,6 +72,12 @@ class Parser {
         if (userInput.equals("menu")) {
             return new CommandMenuStart();
         }
+        if (userInput.equals("deleteall") || userInput.equals("delete all")) {
+            return new CommandTaskDeleteAll();
+        }
+        if (userInput.startsWith("delete")) {
+            return parseTaskDelete(userInput);
+        }
         if (userInput.toLowerCase().equals("start")) {
             return new CommandDayStart();
         }
@@ -87,6 +93,14 @@ class Parser {
             return parseConditionalTask(userInput);
         }
         throw new FarmioException("Invalid command!");
+    }
+
+    private static Command parseTaskDelete(String userInput) throws FarmioException {
+        if (userInput.matches("(delete)\\s+\\d+")) {
+            int taskID = Integer.parseInt((userInput.substring(userInput.indexOf(" "))).trim());
+            return new CommandTaskDelete(taskID);
+        }
+        throw new FarmioException("Invalid Command!");
     }
 
     private static Command parseDoTask(String userInput) throws FarmioException {
@@ -118,4 +132,5 @@ class Parser {
         }
         return new CommandTaskCreate(taskType, condition, action);
     }
+
 }
