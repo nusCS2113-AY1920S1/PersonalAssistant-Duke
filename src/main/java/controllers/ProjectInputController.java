@@ -202,13 +202,17 @@ public class ProjectInputController implements IController {
      * @param projectCommand The user input.
      */
     public void projectEditTask(Project projectToManage, String projectCommand) {
-        int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
-        String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
+        try {
+            int taskIndexNumber = Integer.parseInt(projectCommand.substring(10).split(" ")[0]);
+            String updatedTaskDetails = projectCommand.substring(projectCommand.indexOf("-"));
 
-        if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
-            consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
-        } else {
-            consoleView.consolePrint("The task index entered is invalid.");
+            if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                consoleView.editTask(projectToManage, updatedTaskDetails, taskIndexNumber);
+            } else {
+                consoleView.consolePrint("The task index entered is invalid.");
+            }
+        } catch (NumberFormatException e) {
+            consoleView.consolePrint("Please enter your task format correctly.");
         }
     }
 
