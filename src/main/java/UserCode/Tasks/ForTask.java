@@ -6,10 +6,10 @@ import Farmio.Farmio;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
-public class ForTask extends Task { //JX PLEASE FILL THIS SHIT UP
+public class ForTask extends Task {
 
     public ForTask(Condition condition, Action action) {
-        super(condition, action, "for");
+        super(Type.FOR, condition, action);
     }
 
     @Override

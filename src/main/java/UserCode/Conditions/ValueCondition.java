@@ -5,11 +5,18 @@ import Exceptions.FarmioException;
 import org.json.simple.JSONObject;
 
 public class ValueCondition extends Condition {
+
+    public static final String JSON_KEY_TYPE = "condition_value_type";
+    public static final String JSON_KEY_COMPARATOR = "comparator";
+    public static final String JSON_KEY_VALUE = "value";
+    public static final String CONDITION_TYPE = "value";
+
     private ValueConditionType type;
     private Comparator comparator;
     private int value;
 
     public ValueCondition(ValueConditionType type, Comparator comparator, int value) {
+        super(Type.VALUE);
         this.type = type;
         this.comparator = comparator;
         this.value = value;
@@ -22,11 +29,10 @@ public class ValueCondition extends Condition {
 
     @Override
     public JSONObject toJSON() {
-        JSONObject object = new JSONObject();
-        object.put("condition", "value");
-        object.put("type", type.name());
-        object.put("comparator", comparator.name());
-        object.put("value", value);
+        JSONObject object = super.toJSON();
+        object.put(JSON_KEY_TYPE, type.name());
+        object.put(JSON_KEY_COMPARATOR, comparator.name());
+        object.put(JSON_KEY_VALUE, value);
         return object;
     }
 

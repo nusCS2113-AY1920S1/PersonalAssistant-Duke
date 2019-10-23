@@ -6,7 +6,21 @@ import org.json.simple.JSONObject;
 
 public abstract class Condition {
 
-    public Condition() {}
+    public enum Type {
+        BOOLEAN,
+        VALUE
+    }
+
+    public static final String JSON_KEY_TYPE = "condition_type";
+
+    private Type type;
+
+    public Condition(Type type) {
+        this.type = type;
+    }
+
+    public Condition(JSONObject object){
+    }
 
     public boolean check(Farmio farmio) throws FarmioException {
         return false;
@@ -77,5 +91,25 @@ public abstract class Condition {
         throw new FarmioException("Failure Creating Condition!");
     }
 
-    public abstract JSONObject toJSON();
+    public static Condition toCondition(JSONObject object) throws FarmioException {
+        String conditionType = (String) object.get(JSON_KEY_TYPE);
+        switch(Type.valueOf((String) object.get(JSON_KEY_TYPE))){
+            case BOOLEAN:
+                BooleanConditionType booleanConditionType = BooleanConditionType.valueOf((String) object.get(BooleanCondition.JSON_KEY_TYPE));
+                return new BooleanCondition(booleanConditionType);
+            case VALUE:
+                ValueConditionType valueConditionType  = ValueConditionType.valueOf((String) object.get(ValueCondition.JSON_KEY_TYPE));
+                Comparator comparator = Comparator.valueOf((String) object.get(ValueCondition.JSON_KEY_COMPARATOR));
+                int value = (int) (long) object.get(ValueCondition.JSON_KEY_VALUE);
+                return new ValueCondition(valueConditionType, comparator, value);
+            default:
+                throw new FarmioException("Gave Save Corrupted!");
+        }
+    }
+
+    public JSONObject toJSON(){
+        JSONObject object = new JSONObject();
+        object.put(JSON_KEY_TYPE, type.name());
+        return object;
+    }
 }

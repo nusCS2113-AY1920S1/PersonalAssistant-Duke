@@ -5,14 +5,17 @@ import Farmio.Farmio;
 import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
+import org.json.simple.JSONObject;
 
 public class IfElseTask extends Task {
+
+    public static final String JSON_KEY_ACTION_ELSE = "action_else";
 
     private Action ifAction;
     private Action elseAction;
 
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
-        super(condition, ifAction, "if_else");
+        super(Type.IF_ELSE, condition, ifAction);
         this.ifAction = ifAction;
         this.elseAction = elseAction;
     }
@@ -31,5 +34,12 @@ public class IfElseTask extends Task {
     @Override
     public String toString() {
         return "if " + condition.toString() + " " + ifAction.toString() + " else " + elseAction.toString();
+    }
+
+    @Override
+    public JSONObject toJSON(){
+        JSONObject object = super.toJSON();
+        object.put(JSON_KEY_ACTION_ELSE, elseAction.toString());
+        return object;
     }
 }

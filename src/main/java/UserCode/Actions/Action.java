@@ -35,10 +35,10 @@ public abstract class Action {
         return false;
     }
 
-    public static Action stringToAction(String actionName) throws FarmioException {
+    public static Action toAction(String actionName) throws FarmioException {
         ActionType actionType = ActionType.buySeeds;
         for (ActionType a : ActionType.values()) {
-            if ((a.name()).toLowerCase().equals(actionName)) {
+            if (a.name().equalsIgnoreCase(actionName)) {
                 actionType = a;
             }
         }
