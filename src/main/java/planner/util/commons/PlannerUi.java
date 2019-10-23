@@ -302,4 +302,22 @@ public class PlannerUi {
             count++;
         }
     }
+
+    /**
+     * Message to print the sorted module list.
+     */
+    public void sortModuleMsg() {
+        System.out.println("Here are your modules in your requested orders!");
+    }
+
+    /**
+     * Sorts the module by the requested order and prints to the users.
+     * @param mods List of modules the student is taking.
+     */
+    public void showSortedModules(List<ModuleTask> mods) {
+        showLine();
+        for (ModuleTask hold : mods) {
+            System.out.println(hold);
+        }
+    }
 }
