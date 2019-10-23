@@ -24,23 +24,13 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimException {
-        // ID = (ID of the last element + 1)
-        // first get the id, then check if this id already exists, throws internal error
-        // first
-        int id = 0;
-        if (resources.size() > 0) {
-            id = resources.getResourceByIndex(resources.size() - 1).getResourceId() + 1;
-        }
-
-
+        int resource_id = resources.generateResourceId();
         ReservationList list = new ReservationList();
-        Resource newResource = new Item(id, type, resourceName, list);
-
-        resources.addResource(newResource);
-        
+        Resource newResource = new Item(resource_id, type, resourceName, list);
+        resources.addResource(newResource);   
         ui.printLine();
         ui.print("The following resource(s) have been successfully added:");
-        ui.print("\t" + newResource.toString());
+        ui.print(newResource.toString());
         ui.printLine();
     }
 }

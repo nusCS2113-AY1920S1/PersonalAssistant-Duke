@@ -65,7 +65,7 @@ public class Reader implements Read {
         user_id=Integer.parseInt(ui.getInput());
 
         ReservationList thisReservations = resources.getReservationsByUserId(user_id);
-        ui.printReservationArray(thisReservations);
+        ui.printReservationArrayReturn(thisReservations);
 
         ui.formattedPrint("Enter the resource ID of the resource you wish to return");
         resource_id=Integer.parseInt(ui.getInput());
@@ -80,10 +80,6 @@ public class Reader implements Read {
         c = new ReturnCommand(resource_id,reservation_id);
         return c;
     }
-
-    // public Command ReadReturnCommand(){
-
-    // }
 
     public Command ReadDeleteResourceCommand(){
         Command c = new HomeCommand();

@@ -5,6 +5,7 @@ import rims.command.Command;
 import rims.command.HomeCommand;
 import rims.command.ListCommand;
 import rims.command.ReturnCommand;
+import rims.command.UnknownCommand;
 
 public class Parser {
     Reader reader;
@@ -34,8 +35,6 @@ public class Parser {
         //         ;
         //         // throw new RimException (invalid paramType)
         //     }
-        // } else if (words[0].equals("lend") && words.length == 1) {
-        //     c = reader.ReadLoanCommand();
         } else if (words[0].equals("reserve") && words.length == 1) {
             c = reader.ReadReserveCommand();
         } else if ((words[0].equals("cancel") || words[0].equals("return")) && words.length == 1) {
@@ -44,8 +43,8 @@ public class Parser {
             c = reader.ReadAddCommand();
         } else if (words[0].equals("delete")) {
             c = reader.ReadDeleteResourceCommand();
-        // } else {
-        //     // throw new RimException
+        } else {
+            c = new UnknownCommand(input);
         }
         return c;
     }

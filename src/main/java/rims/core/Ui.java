@@ -13,6 +13,7 @@ public class Ui {
     protected String input;
     protected int intInput;
     public static String line = "____________________________________________________________________________________________________________________________________________";
+    public static String dashline = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ";
     public static String hash = "********************************************************************************************************************************************";
     public static String tab = "\t";
 
@@ -34,6 +35,10 @@ public class Ui {
 
     public void printLine() {
         System.out.println(tab + line);
+    }
+
+    public void printDashLine() {
+        System.out.println(tab + dashline);
     }
 
     public void ErrorPrint(String Error) {
@@ -69,8 +74,11 @@ public class Ui {
     public void printResourceArrayWithReservations(ArrayList<Resource> resources) {
         printLine();
         for (int i = 0; i < resources.size(); i++) {
+            printDashLine();
             print(resources.get(i).toString());
+            printEmptyLine();
             printReservationArray(resources.get(i).getReservations());
+            printEmptyLine();
         }
         printLine();
     }
@@ -78,6 +86,12 @@ public class Ui {
     public void printReservationArray(ReservationList reservations) {
         for (int i = 0; i < reservations.size(); i++) {
             System.out.println("\t" + reservations.getReservationByIndex(i).toString());
+        }
+    }
+
+    public void printReservationArrayReturn(ReservationList reservations) {
+        for (int i = 0; i < reservations.size(); i++) {
+            System.out.println("\t" + reservations.getReservationByIndex(i).toString("return"));
         }
     }
 
@@ -221,14 +235,13 @@ public class Ui {
 
     public void Home() {
         ArrayList<String> list = new ArrayList<String>();
+        printLine();
         list.add("add - add new resource to inventory");
         list.add("delete - delete existing resource from inventory");
         list.add("reserve - add new reservation request");
         list.add("return - return/cancel reservation");
         list.add("list - see all resources and current reservations");
-
-        printLine();
-        formattedPrintArray(list);
+        printArray(list);
         printLine();
     }
 

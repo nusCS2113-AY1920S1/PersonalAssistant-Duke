@@ -20,6 +20,14 @@ public class ResourceList {
         resources.add(resource);
     }
 
+    public int generateResourceId(){
+        int resource_id=0;
+        if(resources.size()>0){
+            resource_id=( resources.get( resources.size()-1 ).getResourceId() ) + 1 ;
+        }
+        return resource_id;
+    }
+
     // Read
     public ArrayList<Resource> getResourceList() {
         return resources;

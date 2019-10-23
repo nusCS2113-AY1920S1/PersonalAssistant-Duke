@@ -1,2 +1,3 @@
-0,R,room 1
 1,I,item 1
+2,I,item 2
+3,R,room 5

@@ -24,7 +24,7 @@ public class Rim {
         Boolean toExit = false;
         while (!toExit) {
             Command c = parser.parseInput(ui.getInput());
-            c.execute(ui, storage, resources);
+            c.execute(ui, storage, this.resources);
             toExit = c.getExitCode();
         }
     }

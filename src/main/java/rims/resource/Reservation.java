@@ -97,6 +97,14 @@ public class Reservation {
                  "\n\tFrom " + date_from + " to " + date_until + '\n';
         return s;
     }
+    public String toString(String input) {
+        String s = "";
+        if(input.equals("return")){
+        s = "Resource ID[" + resource_id + "] From " + date_from + " to " + date_until + '\n';
+        }
+        return s;
+    }
+
 
     /**
      * This method returns the current reserve detail, formatted in a string usable

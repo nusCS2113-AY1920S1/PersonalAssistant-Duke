@@ -77,7 +77,7 @@ public class Storage {
         ReservationList reservations = new ReservationList();
         while (fileScanner.hasNextLine()) {
             String[] line = fileScanner.nextLine().split(",");
-            if (line[0].equals(resource_id)) {
+            if (line[1].equals(resource_id)) {
                 Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4]);
                 reservations.addNewReservation(newReservation);
             }
