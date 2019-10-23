@@ -161,6 +161,10 @@ If the argument read for `toCap` is "list", the `calculateListCap` method will b
 This method calculates the CAP of modules from the user's `ModuleTaskList`.
 ** Note it will only take into account modules that have a letter grade attached to its details, and calculate the CAP accordingly. +
 
+* Case 3: `cap module` +
+If the argument read for `toCap` is "module", the `calculateModuleCap` method will be executed under the `execute` method. +
+This method calculates the CAP of modules from the user's completed prerequisites in their `ModuleTaskList`. +
+Firstly,
 ****
 
 [appendix]
