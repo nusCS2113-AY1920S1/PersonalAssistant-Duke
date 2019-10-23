@@ -45,10 +45,6 @@ public class Reservation {
         this.date_until = stringToDate(until);
     }
 
-    public Reservation() {
-        ;
-    }
-
     /**
      * get method to return the user id who made this reservation
      * 
