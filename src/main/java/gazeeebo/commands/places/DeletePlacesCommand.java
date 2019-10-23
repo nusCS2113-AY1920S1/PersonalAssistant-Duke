@@ -26,7 +26,7 @@ public class DeletePlacesCommand {
             }
         }
         else {
-            System.out.println("You need to indicate what you want to delete, Format: delete-name");
+            System.out.println("Incorrect format: delete-place");
         }
         String toStore = "";
         for (String key : places.keySet()) {

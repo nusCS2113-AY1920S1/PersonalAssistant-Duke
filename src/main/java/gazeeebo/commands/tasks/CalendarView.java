@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CalendarMonthlyView {
+public class CalendarView {
     /**
      * Returns the day of the start of the month
      *
@@ -115,9 +115,9 @@ public class CalendarMonthlyView {
             if (i != date && isBusy[i]) {
                 System.out.printf("%4s ", i + "*");
             } else if (i == date && !isBusy[i]){
-                System.out.printf("%4s ", "\u001B[32m" + i + "\u001B[0m");
+                System.out.printf("%5s", "|" + i + "|");
             } else if (i == date && isBusy[i]){
-                System.out.printf("%4s ", "\u001B[32m " + i + "*" + "\u001B[0m");
+                System.out.printf("%5s", "|" + i + "*" + "|");
             } else {
                 System.out.printf("%4s ", i );
             }

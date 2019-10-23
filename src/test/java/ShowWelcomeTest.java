@@ -18,7 +18,7 @@ public class ShowWelcomeTest {
         System.setIn(in);
         ByteArrayInputStream second = new ByteArrayInputStream("jjjry".getBytes());
         System.setIn(second);
-        assertEquals("\nWelcome to Gazeebo"
+        assertEquals("\nWelcome to Gazeeebo"
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n",ui.showWelcome());
