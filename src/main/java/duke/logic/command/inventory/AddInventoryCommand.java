@@ -5,8 +5,8 @@ import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 
 import static java.util.Objects.requireNonNull;
 

@@ -4,10 +4,10 @@ import duke.logic.command.sale.SaleDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.TimeParser;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 
 class SaleParserUtil {
 

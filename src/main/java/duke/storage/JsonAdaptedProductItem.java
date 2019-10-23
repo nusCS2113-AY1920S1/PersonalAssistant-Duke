@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
-import duke.model.inventory.Ingredient;
 import duke.model.product.Product;
 
 public class JsonAdaptedProductItem {

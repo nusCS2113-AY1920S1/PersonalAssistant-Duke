@@ -6,8 +6,8 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.TimeParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
-import duke.model.order.Order;
 import duke.model.commons.Quantity;
+import duke.model.order.Order;
 
 import java.util.HashSet;
 import java.util.List;

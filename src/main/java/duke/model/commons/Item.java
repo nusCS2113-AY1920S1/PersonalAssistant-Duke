@@ -1,7 +1,7 @@
 package duke.model.commons;
 
-import duke.model.product.Product;
 import duke.model.inventory.Ingredient;
+import duke.model.product.Product;
 
 import java.util.Objects;
 

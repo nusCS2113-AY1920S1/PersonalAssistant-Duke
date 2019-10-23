@@ -1,11 +1,9 @@
 package duke.model.product;
 
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
-import javafx.fxml.FXML;
+import duke.model.inventory.Ingredient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class IngredientItemList extends ArrayList<Item<Ingredient>> {
 

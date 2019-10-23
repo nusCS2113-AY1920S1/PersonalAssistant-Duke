@@ -8,11 +8,11 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
 import static duke.logic.parser.product.IngredientItemListParser.getIngredientsInInput;
 
