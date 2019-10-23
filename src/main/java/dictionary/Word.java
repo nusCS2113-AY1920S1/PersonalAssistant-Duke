@@ -40,19 +40,14 @@ public class Word {
      * Initializes a word with tags.
      * @param word description of the word
      * @param meaning meaning of the word
-     * @param synonySets hash set containing tags that are added to word
+     * @param synonymSet hash set containing tags that are added to word
      */
+
     public Word(String word, String meaning, HashSet<String> synonymSet) {
         this.word = word;
         this.meaning = meaning;
         this.synonyms = synonymSet;
         this.numberOfSearches = 0;
-    }
-
-    /**Tag synonyms to Word*/
-    public Word(String word, HashSet<String> synonyms){
-        this.word = word;
-        this.synonyms = synonyms;
     }
 
     public void setClosetSearch(String closetSearch) {
@@ -93,7 +88,7 @@ public class Word {
 
     public HashSet<String> getSynonyms() { return synonyms;}
 
-    public void addSyn(String synoWords){this.synonyms.add(synoWords);}
+    public void addSyn(String synonym){ this.synonyms.add(synonym); }
 
     @Override
     public String toString() {

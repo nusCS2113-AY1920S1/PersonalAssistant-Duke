@@ -49,19 +49,21 @@ public class Storage {
                 }
                 String[] parsedWordAndMeaning = line.split(":"); //papaya \\ this is a fruit <s> s1 s2 <s>
                 String[] meaningAndSynonym = parsedWordAndMeaning[1].trim().split("<s>"); //[this is a fruit] & [s1 s2 s3]
-                if(meaningAndSynonym.length==2) hasSynonym = 1;
-                System.out.println("MeaningAndSynonym is of length "+meaningAndSynonym.length);
-                String[] synonymPart = meaningAndSynonym[1].trim().split(" ");
-                System.out.println("synonymPart consist of ");
-                for(String s:synonymPart){
-                    System.out.println(s.trim());
-                }
-                System.out.println("synonymPart is of length "+synonymPart.length);
                 HashSet<String> temp = new HashSet<>();
-                for(String s : synonymPart) //Create HashSet of synonyms to be loaded into program
-                    temp.add(s);
+                if(meaningAndSynonym.length==2) {
+                    hasSynonym = 1;
+                    //System.out.println("MeaningAndSynonym is of length " + meaningAndSynonym.length);
+                    String[] synonymPart = meaningAndSynonym[1].trim().split(" ");
+                    //System.out.println("synonymPart consist of ");
+                    for (String s : synonymPart) {
+                        System.out.println(s.trim());
+                        temp.add(s);
+                    }
+                    //System.out.println("synonymPart is of length " + synonymPart.length);
+                }
                 if(hasSynonym==0) {
-                    Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
+                    //System.out.println("meaningAndSynonym is of size "+meaningAndSynonym.length +"thus no synonym detected");
+                    Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim()); //mainword, meaning
                     wordBank.put(word.getWord(), word);
                 }
                 else if(hasSynonym==1) {

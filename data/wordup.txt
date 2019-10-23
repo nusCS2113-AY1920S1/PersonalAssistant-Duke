@@ -1,1 +1,2 @@
-papaya: a tropical fruit shaped like an elongated melon with edible orange flesh and small black seeds
+green: a colour<s> g1 g2 g3<s>
+bicycle: a vehicle that we cycle<s> b2 b3 b4 b5 b6 b1<s><s> b2 b3 b1<s>
