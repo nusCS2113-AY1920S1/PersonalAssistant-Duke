@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Used to find the next free timeslot of a duration of user's choosing.
+ * Finds the next free time slot of a duration of user's choosing.
  *
  * @author Hans kurnia
- * @version 1.1
+ * @version 1.3
  */
 public class SearchCommand extends Command {
     private long durationToFind;
@@ -24,20 +24,15 @@ public class SearchCommand extends Command {
         this.durationToFind = duration;
     }
 
-    /**
-     * get the duration to find for.
-     *
-     * @return the durationToFind
-     */
     public long getDurationToFind() {
         return durationToFind;
     }
 
     /**
-     * executes the search command.
+     * Searches for the next available time slot based on the user's duration.
      *
-     * @param tasks   the current loaded task list
-     * @param storage the current loaded storage configuration
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
     public void execute(TaskList tasks, Storage storage) {
         ArrayList<Event> dateList = new ArrayList<Event>();

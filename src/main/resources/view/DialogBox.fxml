@@ -4,10 +4,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="227.0" type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #303030;" type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- fitHeight is the height of the dialogBox -->
       <ImageView fx:id="displayPicture" fitHeight="67.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="dialog" style="-fx-text-fill: black;" text="Label" wrapText="true" />
+      <Label fx:id="dialog" minHeight="-Infinity" minWidth="-Infinity" style="-fx-text-fill: #a8a8a8;" text="Label" textFill="WHITE" wrapText="true" />
    </children>
 </fx:root>

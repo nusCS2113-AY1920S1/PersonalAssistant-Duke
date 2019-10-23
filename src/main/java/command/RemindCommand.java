@@ -6,23 +6,26 @@ import task.Task;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * Adds a reminder.
+ *
+ * @author Fauzan
+ * @version v1.3
+ */
 public class RemindCommand extends Command {
-    private int indexOfTask;
-    private int days;
+    private Integer indexOfTask;
+    private Integer days;
 
-    public RemindCommand(int index, int days) {
-        this.indexOfTask = index;
+    public RemindCommand(Integer indexOfTask, Integer days) {
+        this.indexOfTask = indexOfTask;
         this.days = days;
     }
 
     /**
-     * This execute function is used to add the respective tasks to the TaskList and
-     * save to persistent storage.
+     * Creates a reminder for a task and saves the updated TaskList to persistent storage.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {

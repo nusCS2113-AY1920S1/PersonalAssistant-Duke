@@ -7,16 +7,13 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
-
-import javax.swing.UIClientPropertyKey;
-import java.lang.reflect.GenericDeclaration;
 import java.time.LocalDateTime;
 
 /**
- * Used to postpone a task to different times.
+ * Postpones a task to different times.
  *
  * @author Tan Yi Xiang
- * @version 1.2
+ * @version 1.3
  */
 public class PostponeCommand extends Command {
 
@@ -32,11 +29,11 @@ public class PostponeCommand extends Command {
     }
 
     /**
-     * Secondary constructor for event tasks.
+     * Secondary constructor for event tasks in particular.
      *
-     * @param indexOfTask Index of the task to postpone
-     * @param fromDate    New fromDate to represent the new time where event will start
-     * @param toDate      New toDate to represent the new time where the event will end
+     * @param indexOfTask Holds the index of the task to be commented on.
+     * @param fromDate    Holds the new start time of a task.
+     * @param toDate      Holds the new end time of a task.
      */
     public PostponeCommand(int indexOfTask, LocalDateTime fromDate, LocalDateTime toDate) {
         this.indexOfTask = indexOfTask;
@@ -44,41 +41,47 @@ public class PostponeCommand extends Command {
         this.toDate = toDate;
     }
 
+    /**
+     * Postpones a task properly and saves the updated TaskList  it to persistent storage.
+     *
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
-            throw new DukeException(DukeException.taskDoesNotExist());
-        }
-        Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
-        String description = taskToBePostponed.description;
+        if (isIndexValid(indexOfTask, tasks.getSize())) {
 
-        if (taskToBePostponed.toString().contains("[D]")) {
-            if (startDate == null) {
-                throw new DukeException(DukeException.wrongDateOrTime());
-            }
-            Deadline deadlineTest = new Deadline(description, startDate);
-            if (tasks.isClash(deadlineTest)) {
-                throw new DukeException(DukeException.taskClash());
+            Task taskToBePostponed = tasks.getTasks().get(indexOfTask);
+            String description = taskToBePostponed.description;
+
+            if (taskToBePostponed.toString().contains("[D]")) {
+                if (startDate == null) {
+                    throw new DukeException(DukeException.wrongDateOrTime());
+                }
+                Deadline deadlineTest = new Deadline(description, startDate);
+                if (tasks.isClash(deadlineTest)) {
+                    throw new DukeException(DukeException.taskClash());
+                } else {
+                    taskToBePostponed.setStartDate(startDate);
+                    storage.saveFile(tasks.getTasks());
+                    Ui.printOutput("Got it! I've postponed this deadline:\n " + taskToBePostponed.toString());
+                }
+            } else if (taskToBePostponed.toString().contains("[E]")) {
+                if (fromDate == null || toDate == null) {
+                    throw new DukeException(DukeException.wrongDateOrTime());
+                }
+                Event eventTest = new Event(description, fromDate, toDate);
+                if (tasks.isClash(eventTest)) {
+                    throw new DukeException(DukeException.taskClash());
+                } else {
+                    taskToBePostponed.setStartDate(fromDate);
+                    taskToBePostponed.setEndDate(toDate);
+                    storage.saveFile(tasks.getTasks());
+                    Ui.printOutput("Got it! I've postponed this event:\n " + taskToBePostponed.toString());
+                }
             } else {
-                taskToBePostponed.setStartDate(startDate);
-                storage.saveFile(tasks.getTasks());
-                Ui.printOutput("Got it! I've postponed this deadline:\n " + taskToBePostponed.toString());
+                Ui.printOutput("This task can't be scheduled");
             }
-        } else if (taskToBePostponed.toString().contains("[E]")) {
-            if (fromDate == null || toDate == null) {
-                throw new DukeException(DukeException.wrongDateOrTime());
-            }
-            Event eventTest = new Event(description, fromDate, toDate);
-            if (tasks.isClash(eventTest)) {
-                throw new DukeException(DukeException.taskClash());
-            } else {
-                taskToBePostponed.setStartDate(fromDate);
-                taskToBePostponed.setEndDate(toDate);
-                storage.saveFile(tasks.getTasks());
-                Ui.printOutput("Got it! I've postponed this event:\n " + taskToBePostponed.toString());
-            }
-        } else {
-            Ui.printOutput("This task can't be scheduled");
         }
     }
 }
