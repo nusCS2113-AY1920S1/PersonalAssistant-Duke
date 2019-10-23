@@ -118,11 +118,11 @@ public class Project implements IProject {
         /*
             bugs need to be fixed for getAllAssignedTasks
          */
-        for (Member currentMember : memberList.getMemberList()) {
+        //for (Member currentMember : memberList.getMemberList()) {
             /*
             Empty method
              */
-        }
+        //}
         return allCredits;
     }
 
