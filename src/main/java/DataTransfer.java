@@ -1,3 +1,4 @@
+import javafx.scene.layout.HBox;
 import money.Account;
 import money.Expenditure;
 import money.Income;
@@ -8,24 +9,37 @@ import java.util.ArrayList;
 
 public interface DataTransfer {
 
-    int NUMBEROFMONTHS = 3;
+    int NUMBER_OF_MONTHS = 3;
+
+    public enum Type {
+        HISTOGRAM, LINE_GRAPH, PIE_CHART
+    }
 
     /**
-     * This function sends the data of histogram for the monthly report
+     * This function gets the data of the current month's income and expenditure
+     * from the account then passes the data to getHistogram method and return the
+     * histogram it gets from getHistogram.
      * @return histogram for the monthly report
      */
     //@@ cctt1014
-    static Histogram getMonthlyData(Account account) throws IOException {
+    static HBox getMonthlyData(Account account, Type type) throws IOException {
         ArrayList<String> xData = new ArrayList<>();
         xData.add("Income");
         xData.add("Expenditure");
         ArrayList<Float> yData = new ArrayList<>();
         yData.add(account.getTotalIncome());
         yData.add(account.getTotalExp());
-        return Histogram.getHistogram("The Month Report", xData, yData);
+
+        if (type.equals(Type.PIE_CHART)) {
+            return null;
+        } else if (type.equals(Type.LINE_GRAPH)) {
+            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        } else {
+            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+        }
     }
 
-    static LineGraph getExpenditureTrend(Account account) throws IOException {
+    static HBox getExpenditureTrend(Account account, Type type) throws IOException {
         ArrayList<Expenditure> expList = account.getExpListTotal();
         ArrayList<String> xData = new ArrayList<>();
         ArrayList<Float> yData = new ArrayList<>();
@@ -38,10 +52,17 @@ public interface DataTransfer {
                 yData.add(e.getPrice());
             }
         }
-        return LineGraph.getLineGraph("Overall Expenditure Trend", xData, yData);
+
+        if (type.equals(Type.PIE_CHART)) {
+            return null;
+        } else if (type.equals(Type.HISTOGRAM)) {
+            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+        } else {
+            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        }
     }
 
-    static LineGraph getIncomeTrend(Account account) throws IOException {
+    static HBox getIncomeTrend(Account account, Type type) throws IOException {
         ArrayList<Income> incomeList = account.getIncomeListTotal();
         ArrayList<String> xData = new ArrayList<>();
         ArrayList<Float> yData = new ArrayList<>();
@@ -54,7 +75,13 @@ public interface DataTransfer {
                 yData.add(e.getPrice());
             }
         }
-        return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        if (type.equals(Type.PIE_CHART)) {
+            return null;
+        } else if (type.equals(Type.HISTOGRAM)) {
+            return Histogram.getHistogram("Overall Income Trend", xData, yData);
+        } else {
+            return LineGraph.getLineGraph("Overall Income Trend", xData, yData);
+        }
     }
 
     static Histogram getCurrFinance(Account account, LocalDate endDate) throws IOException {
@@ -64,18 +91,18 @@ public interface DataTransfer {
         ArrayList<Float> yData1 = new ArrayList<>();
         ArrayList<Float> yData2 = new ArrayList<>();
 
-        LocalDate[] dateList = new LocalDate[NUMBEROFMONTHS+1];
-        for (int i = 0; i <= NUMBEROFMONTHS; i++) {
-            dateList[i] = endDate.minusMonths(NUMBEROFMONTHS-i);
+        LocalDate[] dateList = new LocalDate[NUMBER_OF_MONTHS+1];
+        for (int i = 0; i <= NUMBER_OF_MONTHS; i++) {
+            dateList[i] = endDate.minusMonths(NUMBER_OF_MONTHS-i);
         }
-        for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
+        for (int i = NUMBER_OF_MONTHS-1; i >= 0; i--) {
             xData.add(String.valueOf(endDate.minusMonths(i).getMonthValue()));
             yData1.add((float) 0);
             yData2.add((float) 0);
         }
 
         for (Income e : incomeList) {
-            for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
+            for (int i = NUMBER_OF_MONTHS-1; i >= 0; i--) {
                 if (e.getPayday().isBefore(endDate) && e.getPayday().isAfter(dateList[i])) {
                     yData1.set(i, yData1.get(i)+e.getPrice());
                     break;
@@ -83,7 +110,7 @@ public interface DataTransfer {
             }
         }
         for (Expenditure e : expList) {
-            for (int i = NUMBEROFMONTHS-1; i >= 0; i--) {
+            for (int i = NUMBER_OF_MONTHS-1; i >= 0; i--) {
                 if (e.getDateBoughtDate().isBefore(endDate) && e.getDateBoughtDate().isAfter(dateList[i])) {
                     yData2.set(i, yData2.get(i)+e.getPrice());
                     break;
