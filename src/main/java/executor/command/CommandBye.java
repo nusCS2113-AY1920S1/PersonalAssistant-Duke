@@ -7,7 +7,8 @@ import ui.Wallet;
 public class CommandBye extends Command {
 
     // Constructor
-    public CommandBye() {
+    public CommandBye(String userInput) {
+        this.userInput = userInput;
     }
 
     @Override

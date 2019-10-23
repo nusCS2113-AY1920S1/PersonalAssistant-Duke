@@ -20,7 +20,6 @@ public class CommandQueue extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-
     }
 
     @Override

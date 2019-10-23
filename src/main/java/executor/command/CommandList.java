@@ -7,7 +7,8 @@ import ui.Wallet;
 public class CommandList extends Command {
 
     // Constructor
-    public CommandList() {
+    public CommandList(String userInput) {
+        this.userInput = userInput;
     }
 
     @Override
