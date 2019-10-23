@@ -35,14 +35,14 @@ public class RouteEditCommand extends Command {
         try {
             Route route = model.getRoutes().get(index);
             switch (var.toLowerCase()) {
-                case "name":
-                    route.setName(val);
-                    break;
-                case "description":
-                    route.setDescription(val);
-                    break;
-                default:
-                    throw new DukeException(Messages.UNKNOWN_VAR);
+            case "name":
+                route.setName(val);
+                break;
+            case "description":
+                route.setDescription(val);
+                break;
+            default:
+                throw new DukeException(Messages.UNKNOWN_VAR);
             }
 
             model.save();

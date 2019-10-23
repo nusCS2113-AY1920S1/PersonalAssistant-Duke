@@ -24,7 +24,9 @@ public abstract class RouteNode extends Venue {
     }
 
     @Override
-    public String toString() { return address + " (" + getLatitude() + ", " + getLongitude() + ")"; }
+    public String toString() {
+        return address + " (" + getLatitude() + ", " + getLongitude() + ")";
+    }
 
     public Constraint getType() {
         return type;

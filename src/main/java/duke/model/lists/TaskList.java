@@ -33,7 +33,9 @@ public class TaskList implements Iterable<Task>, Listable<Task> {
     }
 
     @Override
-    public boolean isEmpty() { return list.isEmpty(); }
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
 
     /**
      * Returns true if the list contains an equivalent Task as the given argument.

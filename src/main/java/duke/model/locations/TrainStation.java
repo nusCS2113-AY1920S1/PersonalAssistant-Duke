@@ -14,12 +14,11 @@ public class TrainStation extends RouteNode {
      * @param latitude latitude of train station
      * @param longitude longitude of train station
      */
-    public TrainStation(ArrayList<String> trainCode, String description, String address, double latitude, double longitude) {
+    public TrainStation(ArrayList<String> trainCode, String description, String address,
+                double latitude, double longitude) {
         super(Constraint.valueOf("MRT"), address, description, latitude, longitude);
         this.trainCode = trainCode;
     }
-
-    //Constraint type, String address, String description, double latitude, double longitude
 
     public ArrayList<String> getTrainCode() {
         return trainCode;

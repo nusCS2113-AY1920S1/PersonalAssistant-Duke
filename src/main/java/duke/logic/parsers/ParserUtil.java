@@ -56,12 +56,12 @@ public class ParserUtil {
     protected static RouteNode createRouteNode(String userInput) throws DukeException {
         try {
             String[] withinDetails = userInput.strip().split("at |with ", 2);
-            assert(withinDetails.length == 2);
+            assert (withinDetails.length == 2);
 
             String[] indexes = withinDetails[0].split(" ");
 
             String type = userInput.substring(withinDetails[0].length()).strip().substring(0, 4);
-            assert(type.substring(0, 2) == "at" || type == "with");
+            assert (type.substring(0, 2) == "at" || type == "with");
 
 
             String[] details;
@@ -70,34 +70,21 @@ public class ParserUtil {
             if (type.substring(0, 2).equals("at")) {
                 details = withinDetails[1].strip().split("by ");
                 switch (details[1].toUpperCase()) {
-                    case "BUS":
-                        BusStop result = new BusStop(details[0].strip(), null, null, 0, 0);
-                        return result;
-                    default:
-                        throw new DukeException(Messages.UNKNOWN_COMMAND);
+                case "BUS":
+                    BusStop result = new BusStop(details[0].strip(), null, null, 0, 0);
+                    return result;
+                default:
+                    throw new DukeException(Messages.UNKNOWN_COMMAND);
                 }
-
             } else {
                 details = withinDetails[1].split("by ");
                 String[] coordinateStrings = details[0].strip().split(" ");
-                assert(coordinateStrings.length == 2);
+                assert (coordinateStrings.length == 2);
 
                 double[] coordinates = new double[2];
                 for (int i = 0; i < coordinates.length; i++) {
                     coordinates[i] = Double.parseDouble(coordinateStrings[i].strip());
                 }
-
-
-            }
-
-            for (String detail: withinDetails) {
-                System.out.println(detail);
-            }
-
-            System.out.println("split");
-
-            for (String detail: details) {
-                System.out.println(detail);
             }
 
             return null;
@@ -185,7 +172,7 @@ public class ParserUtil {
      * @param input Input created by the ConversationManager object or user input.
      * @return RouteNodeAddCommand The command.
      */
-    public static RouteNodeAddCommand createRouteNodeAddCommand(String input) throws DukeException{
+    public static RouteNodeAddCommand createRouteNodeAddCommand(String input) throws DukeException {
         try {
             return new RouteNodeAddCommand(ParserUtil.createRouteNode(input),
                     ParserUtil.getFirstIndex(input), ParserUtil.getSecondIndex(input), false);
@@ -202,7 +189,7 @@ public class ParserUtil {
      * @param userInput The userInput read by the user interface.
      * @return The field.
      */
-    public static String getFieldInList(int index, int listSize, String userInput) throws DukeException{
+    public static String getFieldInList(int index, int listSize, String userInput) throws DukeException {
         String[] fields = userInput.split(" ", listSize);
         if (index >= 0 && index <= listSize) {
             return fields[index - 1].strip();

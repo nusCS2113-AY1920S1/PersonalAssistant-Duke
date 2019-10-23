@@ -190,14 +190,14 @@ public class ParserStorageUtil {
     public static RouteNode createNodeFromStorage(String line) throws DukeException {
         String[] details = line.split("\\|", 7);
         switch (details[1].strip()) {
-            case "BUS":
-                return new BusStop(details[2].strip(), details[3].strip(), details[4].strip(),
-                        Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
-            case "MRT":
-                return new TrainStation(new ArrayList<String>(), details[3].strip(), details[4].strip(),
-                        Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
-            default:
-                throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
+        case "BUS":
+            return new BusStop(details[2].strip(), details[3].strip(), details[4].strip(),
+                    Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
+        case "MRT":
+            return new TrainStation(new ArrayList<String>(), details[3].strip(), details[4].strip(),
+                    Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
+        default:
+            throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
         }
     }
 }

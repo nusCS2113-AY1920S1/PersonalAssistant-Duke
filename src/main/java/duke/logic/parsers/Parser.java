@@ -89,8 +89,8 @@ public class Parser {
         case "routeDelete":
             return new RouteDeleteCommand(ParserUtil.getIndex(input));
         case "routeNodeDelete":
-                return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
-                        ParserUtil.getSecondIndex(getWord(input)));
+            return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
+                    ParserUtil.getSecondIndex(getWord(input)));
         case "routeShow":
             return new RouteListCommand(ParserUtil.getIndex(getWord(input)));
         case "routeNodeShow":
