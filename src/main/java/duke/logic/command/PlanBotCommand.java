@@ -4,14 +4,12 @@ import duke.exception.DukeException;
 import duke.logic.CommandParams;
 import duke.logic.CommandResult;
 import duke.model.Model;
-import duke.model.PlanBot;
 import duke.storage.Storage;
 
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PlanBotCommand extends  Command{
+public class PlanBotCommand extends Command {
     private static final String name = "plan";
     private static final String description = "a reply to planBot";
     private static final String usage = "sends the user input to planBot";
@@ -29,7 +27,7 @@ public class PlanBotCommand extends  Command{
     }
 
 
-    public  PlanBotCommand() {
+    public PlanBotCommand() {
         super(name, description, usage, Stream.of(PlanBotCommand.SecondaryParam.values())
                 .collect(Collectors.toMap(s -> s.name, s -> s.description)));
     }

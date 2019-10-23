@@ -8,7 +8,6 @@ import duke.logic.Logic;
 import duke.logic.util.InputHistory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -105,7 +104,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult;
 
-            if (displayedPane == CommandResult.DisplayedPane.PLAN && !inputString.contains("goto") && !inputString.contains("bye")){
+            if (displayedPane == CommandResult.DisplayedPane.PLAN
+                    && !inputString.contains("goto")
+                    && !inputString.contains("bye")) {
                 commandResult = logic.execute("plan " + inputString);
             } else {
                 commandResult = logic.execute(inputString);
@@ -129,17 +130,17 @@ public class MainWindow extends UiPart<Stage> {
     private void handleKeyPressed(KeyEvent keyEvent) {
         logger.info("Key Press detected!");
         switch (keyEvent.getCode()) {
-            case UP:
-                if(inputHistory.isAbleToLast()) {
-                    userInput.setText(inputHistory.getLastInput());
-                }
-                break;
+        case UP:
+            if (inputHistory.isAbleToLast()) {
+                userInput.setText(inputHistory.getLastInput());
+            }
+            break;
 
-            case DOWN:
-                if(inputHistory.isAbleToNext()) {
-                    userInput.setText(inputHistory.getNextInput());
-                }
-                break;
+        case DOWN:
+            if (inputHistory.isAbleToNext()) {
+                userInput.setText(inputHistory.getNextInput());
+            }
+            break;
         }
     }
 
