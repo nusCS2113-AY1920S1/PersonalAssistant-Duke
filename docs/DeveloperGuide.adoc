@@ -38,11 +38,6 @@ There are three main components in the overall architecture of the application.
 === Common classes
 
 == Implementation
-=== [Proposed] Undo/Redo feature
-
-
-=== Your own implementation
-
 
 === Clash handling
 ==== Activity diagram
@@ -113,6 +108,51 @@ detection as a part of adding recurrent events (to check for clashes when recurr
 entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
+
+=== Adding recurring events
+==== How it is implemented
+The program is able to detect recurring events and their periods when creating new events.
+When the user enters the command to add a new `Lesson` or `Practice` event with a period (in days) followed,
+`createNewEvent` method will call `entryForEvent` to get the period. +
+If the new event is not a recurring event, the period value will be assigned to `NON-PERIOD` and then call the
+`addEvent` method in the `EventList` class.
+
+After getting the period, the `createNewEvent` method will call the `addRecurringEvent` method in the `EventList` class
+to create and store new events in the eventList. +
+The calculation of dates are done by Java Calendar, `Calendar.add` function is called to calculate the startDate
+and endDate of new events in `Java Date type`. The number of recurring events is depended on the period, since the
+maximum date between the first recurring event and the last one is up to `ONE_SEMESTER_DAYS` which is assigned to
+16 weeks (112 days) now. +
+When creating the `startEventDate` and `endEventDate` of the new event,
+`calendar.getTime` is called and the `identifier` in EventDate will be assigned to `DATE_TO_STRING`, so that the
+`startDateAndTime` and `endDateAndTime` are in `String type`, which fits the requirement of the `Event` class.
+
+All the events created in the `addRecurringEvent` method will be checked whether having clash with the events in the
+current eventList and then added in a temporary event list one by one. If no clash happens, the `tempEventList` will
+be added to the current `eventList`.
+
+Given below is an example usage scenario compared to adding non-recurring event. +
+Recurring event: `Lesson` or `Practice` <event description> /dd-MM-yyyy HHmm HHmm `/period(in days)` +
+Non-recurring event: <event type> <event description> /dd-MM-yyyy HHmm HHmm
+
+==== Sequence diagram
+The following sequence diagram shows how the adding recurring event operation works.
+
+image::recurringEventSequenceDiagram.png[width = "800"]
+
+==== Why it is implemented this way
+. Whether the input command has a period is considered at the first, so that the dependency between adding
+recurrent events and adding normal events could be reduced.
+. The `add(int field, int amount)` method of `Calendar` class is used to add or subtract from the given calendar field
+and a specific amount of time, based on the calendar's rules. +
+`public abstract void add(int _field_, int _amount_)`
+. Since the number of recurrent events with a short period could be large, it is more likely to have clashes with the
+current eventList. Hence, before added in the temporary event list, the new event need to be ensured that no clash
+happens.
+. To keep the format of creating new events, the format process of changing Java Date to String is done in the
+`EventDate` class instead of messing the `Event` class to accept both Date and String types as input date and time.
+
+
 == Documentation
 
 
@@ -125,7 +165,7 @@ an existing event, so that he/she does not inadvertently create a new schedule c
 [appendix]
 == Product Scope
 === Target User Profile
-<NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
+MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
 The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
 
 
