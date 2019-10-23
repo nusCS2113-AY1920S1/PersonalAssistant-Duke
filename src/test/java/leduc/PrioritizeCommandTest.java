@@ -3,11 +3,13 @@ package leduc;
 import leduc.command.PrioritizeCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
-import leduc.task.Task;
-import leduc.task.TaskList;
+import leduc.task.*;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -25,19 +27,65 @@ public class PrioritizeCommandTest {
         Ui ui = new Ui();
         Storage storage = null;
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/PrioritizeCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
-        TaskList tasks = new TaskList(new ArrayList<Task>());
+
+        TaskList tasks = new TaskList(new ArrayList<>());
+
+        LocalDateTime d1 = null;
+        LocalDateTime d2 = null;
+        Date date1 = null;
+        Date date2 = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+
+        tasks.add(new TodoTask("td1"));
+
         try{
-            tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
+            d1 = LocalDateTime.parse("13/09/2019 01:52".trim(), formatter);
+        }catch(Exception e){
+            try {
+                throw new NonExistentDateException();
+            } catch (NonExistentDateException ex) {
+                ex.printStackTrace();
+            }
         }
-        catch (DukeException e){
-            e.print();
+        date1 = new Date(d1);
+        tasks.add(new DeadlinesTask("d1",date1));
+
+        try{
+            d1 = LocalDateTime.parse("21/09/2019 22:22".trim(), formatter);
+            d2 = LocalDateTime.parse("28/09/2019 22:11".trim(), formatter);
+        }catch(Exception e){
+            try {
+                throw new NonExistentDateException();
+            } catch (NonExistentDateException ex) {
+                ex.printStackTrace();
+            }
         }
+        date1 = new Date(d1);
+        date2 = new Date(d2);
+        tasks.add(new EventsTask("e1",date1,date2));
+
+        tasks.add(new TodoTask("td3"));
+
+        tasks.add(new TodoTask("td4"));
+
+        try{
+            d1 = LocalDateTime.parse("13/09/2019 01:52".trim(), formatter);
+        }catch(Exception e){
+            try {
+                throw new NonExistentDateException();
+            } catch (NonExistentDateException ex) {
+                ex.printStackTrace();
+            }
+        }
+        date1 = new Date(d1);
+        tasks.add(new DeadlinesTask("d1",date1));
+
         assertTrue(tasks.size()==6);
 
         for (Task t : tasks.getList()){
@@ -119,31 +167,32 @@ public class PrioritizeCommandTest {
             }
         }
 
-        TaskList tasks2 = new TaskList(new ArrayList<>());
-        try{
-            tasks2 = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
-        }
-        catch (DukeException e){
-            e.print();
-        }
-        assertTrue(tasks2.size()==6);
+        assertTrue(tasks.size()==6);
 
-        assertTrue(tasks2.get(0).getPriority() == 0);
-        assertTrue(tasks2.get(1).getPriority()==2);
-        assertTrue(tasks2.get(2).getPriority()== 4);
-        assertTrue(tasks2.get(3).getPriority()==6);
-        assertTrue(tasks2.get(4).getPriority()==8);
-        assertTrue(tasks2.get(5).getPriority()==5);
+        assertTrue(tasks.get(0).getPriority() == 0);
+        assertTrue(tasks.get(1).getPriority()==2);
+        assertTrue(tasks.get(2).getPriority()== 4);
+        assertTrue(tasks.get(3).getPriority()==6);
+        assertTrue(tasks.get(4).getPriority()==8);
+        assertTrue(tasks.get(5).getPriority()==5);
 
-        for ( int i = 0 ; i< tasks2.getList().size() ; i++){
+        for ( int i = 0 ; i< tasks.getList().size() ; i++){
             PrioritizeCommand prioritizeCommand = new PrioritizeCommand("prioritize "+ (i+1) + " prio " + 5);
                 try {
-                    prioritizeCommand.execute(tasks2, ui, storage);
+                    prioritizeCommand.execute(tasks, ui, storage);
                 } catch (Exception e) {
                     assertTrue(false);
                 }
         }
 
+        tasks.getList().removeAll(tasks.getList());
+        try {
+            storage.save(tasks.getList());
+        }
+        catch(FileException f){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==0);
     }
 
 }

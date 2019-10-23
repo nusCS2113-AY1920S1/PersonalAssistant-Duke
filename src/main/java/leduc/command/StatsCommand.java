@@ -20,6 +20,7 @@ public class StatsCommand extends Command{
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList taskList, Ui ui, Storage storage){
+        //metrics to be analyzed
         double numComplete = 0.0;
         double numTasks = taskList.size();
         float percentComplete;
@@ -46,6 +47,7 @@ public class StatsCommand extends Command{
             }
         }
         percentComplete = (float) (numComplete/numTasks) * 100;
+        //display metrics
         String message = "Here are some statistics about your task list: \n" +
                 "Number of tasks: " + numTasks + "\n" +
                 "Number of Todo's : " + numTodos + "\n" +

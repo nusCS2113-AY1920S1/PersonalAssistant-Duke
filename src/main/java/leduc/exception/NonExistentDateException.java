@@ -1,7 +1,5 @@
 package leduc.exception;
 
-import leduc.Ui;
-import leduc.exception.DukeException;
 
 /**
  * Represent a exception when the date given does not exist.

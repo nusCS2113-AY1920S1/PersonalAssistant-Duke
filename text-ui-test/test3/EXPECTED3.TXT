@@ -8,15 +8,15 @@
 	test welcome message
 
 	---------------------------------------------------------------------------------
-	 MeaningLessException:
+	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	 MeaningLessException:
+	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
-	 MeaningLessException:
+	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
 	 emptyDeadlineException:
 		 ☹ OOPS!!! The description of a deadline task cannot be empty
-	 MeaningLessException:
+	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
 	 NonExistentDateException:
 		 ☹ OOPS!!! 

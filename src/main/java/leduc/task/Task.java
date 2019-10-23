@@ -75,13 +75,6 @@ public abstract class Task {
         this.task= taskDescription;
     }
 
-    /**
-     * Setter of the mark of the leduc.task.Task ( done or not).
-     * @param mark String ( "[✓]" or "[✗]");
-     */
-    protected void setMark(String mark){
-        this.mark= mark;
-    }
 
     /**
      * Set the task to done
