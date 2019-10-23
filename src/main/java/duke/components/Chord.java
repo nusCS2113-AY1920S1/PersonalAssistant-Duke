@@ -7,6 +7,8 @@ public class Chord {
     private ArrayList<Note> notes;
     private String chordString;
 
+    //@@author rohan-av
+
     /**
      * A Chord has the set relative duration of 1/8, and is comprised of all the Note objects that are to be played
      * in that specific duration of time.
@@ -29,6 +31,7 @@ public class Chord {
         return notes;
     }
 
+    //@@author
     public String getChordString() {
         return chordString;
     }
@@ -46,6 +49,7 @@ public class Chord {
         }
     }
 
+    //@@author rohan-av
     /**
      * Returns a String representation for the Chord to be used in persistent storage.
      *
@@ -60,6 +64,7 @@ public class Chord {
                 result.append(";");
             }
         }
+        result.append("]");
         return result.toString();
     }
 
