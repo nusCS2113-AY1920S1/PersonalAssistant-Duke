@@ -40,4 +40,9 @@ public class TaskList extends ArrayList<Task>{
         }
         return list;
     }
+
+    public String removeTask (int taskID) {
+        Task t = this.remove(taskID - 1);
+        return t.toString();
+    }
 }
