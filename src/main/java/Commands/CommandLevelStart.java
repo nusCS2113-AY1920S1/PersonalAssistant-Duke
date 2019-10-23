@@ -3,12 +3,25 @@ package Commands;
 import Exceptions.FarmioException;
 import Exceptions.FarmioFatalException;
 import Farmio.Farmio;
+import FrontEnd.Ui;
+import Farmio.Storage;
+import Farmio.Farmer;
+import Farmio.Level;
 
 public class CommandLevelStart extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException, FarmioFatalException {
-        //put the code to run the simulation at the start of the level here
-        farmio.getUi().typeWriter("Narratives be here!");
+        Ui ui = farmio.getUi();
+        Storage storage = farmio.getStorage();
+        Farmer farmer = farmio.getFarmer();
+        Level level = new Level(storage.getLevel(farmer.getLevel()), farmio.getFarmer());
+        farmio.setLevel(level);
+        int frameId = 0;
+        for(String narrative: level.getNarratives()){
+            ui.getInput();
+            farmio.getSimulation().animate(level.getPath(), frameId++);
+            ui.typeWriter(narrative);
+        }
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }

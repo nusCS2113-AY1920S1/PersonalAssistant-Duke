@@ -10,7 +10,7 @@
     "The first command you will be using is a 'Do' command.\nThe 'Do' command instructs farmer John to carry out an action.",
     "From the example above, 'Do' is the type of task given and 'gotoMarket' is the action to be carried out by the farmer.",
     "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
-    "Enter [Do GoToMarket] to create a task that tells Farmer X to drive to the market.~"
+    "Enter [Do GoToMarket] to create a task that tells Farmer John to drive to the market.~"
   ],
   "money": 0,
   "wheat_seed": 0,
