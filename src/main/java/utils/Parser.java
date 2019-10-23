@@ -13,6 +13,7 @@ import commands.ListCommand;
 import commands.MemberAddCommand;
 import commands.MemberDeleteCommand;
 import commands.RecurringCommand;
+import commands.RemindCommand;
 import commands.SnoozeCommand;
 import commands.UnlinkCommand;
 import commands.ViewScheCommand;
@@ -156,6 +157,13 @@ public class Parser {
                 throw new DukeException("usage: find [keyword]");
             }
             temp = new FindCommand(splites[1]);
+        } else if (splites[0].equals("REMINDER")) {
+            if (length < 2) {
+                throw new DukeException("usage: reminder [task] [time before]\n"
+                        + "*Only for tasks with dates\n"
+                        + "Time before: e.g. 5m, 10h, 3d");
+            }
+            temp = new RemindCommand(splites[1]);
         } else if (splites[0].equals("RECURRING")) {
             temp = new RecurringCommand(splites[1]);
         } else if (splites[0].equals("SNOOZE")) {
@@ -300,7 +308,7 @@ public class Parser {
      */
     public static String commandCorrector(String command) {
         String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
-            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"};
+            "FIND", "RECURRING", "REMINDER", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
