@@ -3,6 +3,8 @@ package seedu.hustler.command.shopCommand;
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.data.ShopStorage;
+import seedu.hustler.game.avatar.Inventory;
+
 import java.io.IOException;
 
 /**
@@ -27,5 +29,6 @@ public class buyCommand extends Command {
     public void execute() throws IOException {
         Hustler.shopList.buy(this.index - 1);
         ShopStorage.update();
+        Hustler.inventory.updateInventory();
     }
 }

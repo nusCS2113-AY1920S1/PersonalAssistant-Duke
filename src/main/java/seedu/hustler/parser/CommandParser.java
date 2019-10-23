@@ -2,7 +2,9 @@ package seedu.hustler.parser;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
+import seedu.hustler.command.avatarCommand.EquipCommand;
 import seedu.hustler.command.avatarCommand.SetNameCommand;
+import seedu.hustler.command.shopCommand.InventoryCommand;
 import seedu.hustler.command.shopCommand.buyCommand;
 import seedu.hustler.command.shopCommand.shopListCommand;
 import seedu.hustler.command.taskCommand.*;
@@ -86,6 +88,10 @@ public class CommandParser extends Parser {
             return new ShowTimerCommand();
         } else if (userInput[0].equals("/shop")) {
             return new shopListCommand();
+        } else if (userInput[0].equals("/inventory")) {
+            return new InventoryCommand();
+        } else if (userInput[0].equals("/equip")) {
+            return new EquipCommand(Integer.parseInt(userInput[1]));
         } else if (userInput[0].equals("buy")) {
             try {
                 int index = Integer.parseInt(userInput[1]);
