@@ -219,7 +219,7 @@ Refer to the guide <<Testing#, here>>.
 Offer a more time efficient, and fun platform to learn and practice data structures and algorithms.
 
 [appendix]
-== User Stories
+== Requirements
 
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -260,8 +260,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * | Tutor | Set my own storyline `[coming in v2.0]`| Make assignments more enjoyable.
 |=======================================================================
 
-[appendix]
-== Use Cases
+
+=== Use Cases
 (For all use cases below, the System is `AlgoSenpai` and the Actor is the `Student`, unless specified otherwise)
 
 [discrete]
@@ -530,8 +530,8 @@ Use case ends
 
 Use case ends
 
-[appendix]
-== Non Functional Requirements
+
+=== Non Functional Requirements
 
 - The application should work on any mainstream OS with Java 11 installed to run the game.
 - The computer should have a minimum of 320 by 300 screen resolution for the game to display.
