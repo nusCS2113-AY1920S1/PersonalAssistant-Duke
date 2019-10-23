@@ -3,7 +3,7 @@ package project;
 import java.util.HashMap;
 
 public abstract class ProjectManager {
-    HashMap<String, Project> projectmap;
+
 
     /**
      * Adds a new project to the project map.

@@ -43,6 +43,18 @@ This will generate all resources required by the application and tests.
 
 == Design
 
+[[Design-Logic]]
+=== Project component
+[[fig-ProjectClassDiagram]]
+.Structure of the Project Component
+image::ProjectClassDiagram.png[]
+
+.  Both `Project Manager` and `Payment Manager` takes in user command from `Command`.
+.  The `Project Manager` class manages a HashMap of `Project` objects.
+.  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
+.  Each `Payee` object contains a HashMap of `Payments` objects.
+.  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
+
 == Implementation
 
 == Documentation
