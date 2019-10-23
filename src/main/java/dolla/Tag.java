@@ -55,8 +55,9 @@ public class Tag {
     public void parseTag() {
         if (hasTag()) {
             findTag();
+            //todo: store tag properly instead of printing it out.
+            System.out.println("TAG IS " + getTagName());
         }
-        System.out.println("TAG IS " + getTagName()); //todo: store tag properly instead of printing it out.
     }
 
     /**
