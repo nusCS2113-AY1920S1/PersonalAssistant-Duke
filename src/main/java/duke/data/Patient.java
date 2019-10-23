@@ -207,8 +207,26 @@ public class Patient extends DukeObject {
 
     @Override
     public String toReportString() {
-        // Todo
-        return null;
+        String informationString;
+        informationString = "\tName of patient: " + getName() + "\n";
+        informationString += "\tHeight: " + Integer.toString(this.height) + "\n";
+        informationString += "\tWeight: " + Integer.toString(this.weight) + "\n";
+        informationString += "\tAge: " + Integer.toString(this.age) + "\n";
+        informationString += "\tNumber: " + Integer.toString(this.number) + "\n";
+        informationString += "\tAddress: " + this.address + "\n";
+        informationString += "\tHistory: " + this.history + "\n";
+        informationString += "\tRegistration details:\n";
+        informationString += "\tBed Number: " + this.bedNo + "\n";
+        informationString += "\tAllergies: " + this.allergies + "\n";
+        if (this.priDiagnosis != null) {
+            informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
+        }
+        informationString += "\nData about doctors impression about the patient and associated treatments and evidences;";
+        for (Map.Entry mapElement : this.impressions.entrySet()) {
+            Impression imp = (Impression) mapElement.getValue();
+            informationString += imp.toReportString();
+        }
+        return informationString + "\n\n";
     }
 
     public String getBedNo() {

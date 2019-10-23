@@ -23,12 +23,13 @@ public class ReportCommand extends ArgCommand {
             try {
                 FileWriter fileWriter = new FileWriter("reports" + File.separator + patientsName + "-"
                         + patientsBenNo + ".txt");
-                fileWriter.write("DISCHARGED PATIENT REPORT\n\n");
+                fileWriter.write("DISCHARGED PATIENT REPORT\n\nThis report shows all the data that was stored about " +
+                        "a patient at the time of discharge.\n\nPatient Data;\n");
                 if (getSwitchVal("summary") != null) {
                     fileWriter.write("Report Summary/Note: "
                             + getSwitchVal("summary") + ".\n\n");
                 }
-                fileWriter.write(core.patientMap.getPatient(getArg()).toString());
+                fileWriter.write(core.patientMap.getPatient(getArg()).toReportString());
                 fileWriter.close();
             } catch (IOException e) {
                 throw new DukeFatalException("Unable to create report! Some data may have been lost,");

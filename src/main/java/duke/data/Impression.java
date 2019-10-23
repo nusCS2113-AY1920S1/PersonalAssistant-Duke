@@ -173,8 +173,18 @@ public class Impression extends DukeObject {
 
     @Override
     public String toReportString() {
-        // Todo
-        return null;
+        String informationString;
+        informationString = "\n\tDescription of impression: " + this.description + "\n";
+        for (Map.Entry mapElement : this.evidences.entrySet()) {
+            Evidence valueE = (Evidence) mapElement.getValue();
+            informationString += "/t" + valueE.toReportString();
+        }
+
+        for (Map.Entry mapElement : this.treatments.entrySet()) {
+            Treatment valueT = (Treatment) mapElement.getValue();
+            informationString += "\t" + valueT.toReportString();
+        }
+        return informationString;
     }
 
     public String getDescription() {

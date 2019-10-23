@@ -53,6 +53,15 @@ public abstract class Treatment extends DukeData {
         return super.toString() + informationString;
     }
 
+    @Override
+    public String toReportString() {
+        String informationString;
+        informationString = "Status of treatment: " + Integer.toString(this.status) + "\n";
+        String joinedStatus = String.join(" ", this.statusArr);
+        informationString += "Status Description: " + joinedStatus + "\n";
+        return informationString;
+    }
+
     public void setStatus(Integer status) {
         this.status = status;
     }
@@ -69,16 +78,4 @@ public abstract class Treatment extends DukeData {
         this.statusArr = statusArr;
     }
 
-    @Override
-    public String toReportString() {
-        // TODO: make this look better
-        String toOutput = "\nTreatment given: " + getName() + "\nPriority level of treatment:  "
-                + getPriority() + "\nStatus of treatment when rapport was made:  " + status
-                + "\nDescription of the status tagged to this treatment: ";
-        for (String status : statusArr) {
-            toOutput += status + ", ";
-        }
-        toOutput = toOutput.substring(0, toOutput.length() - 2);
-        return toOutput;
-    }
 }
