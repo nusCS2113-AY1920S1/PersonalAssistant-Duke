@@ -1,5 +1,6 @@
 package duchess.ui;
 
+import duchess.model.Grade;
 import duchess.model.Module;
 import duchess.model.task.Task;
 
@@ -89,6 +90,33 @@ public class Ui {
         printIndented("  " + module);
         printIndented("Here are all your modules:");
         showModules(modules);
+    }
+
+    /**
+     * Displays the newly added grade as well as other grades.
+     *
+     * @param module module to which grade is added
+     * @param grade newly added grade
+     * @param grades existing grades
+     */
+
+    public void showGradeAdded(Module module, Grade grade, List<Grade> grades) {
+        printIndented("I've added this grade");
+        printIndented("  " + grade);
+        printIndented("Here are all your grades for " + module);
+        showGrades(grades);
+    }
+
+    /**
+     * Displays grades in the list given.
+     *
+     * @param grades list of grades
+     */
+    public void showGrades(List<Grade> grades) {
+        int counter = 1;
+        for (Grade grade : grades) {
+            printIndented(counter++ + ". " + grade.toString());
+        }
     }
 
     /**

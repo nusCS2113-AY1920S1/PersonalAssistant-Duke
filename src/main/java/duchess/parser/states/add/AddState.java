@@ -56,7 +56,7 @@ public class AddState implements ParserState {
     }
 
     private String validateInclusion(String type) {
-        List<String> validValues = List.of("module", "deadline", "todo", "event", "m", "d", "t", "e");
+        List<String> validValues = List.of("module", "deadline", "todo", "event", "grade", "m", "d", "t", "e", "g");
         if (validValues.indexOf(type) < 0) {
             return null;
         }
