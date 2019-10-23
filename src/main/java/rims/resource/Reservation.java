@@ -13,6 +13,7 @@ public class Reservation {
     private Date date_until;
 
     /**
+     * This builds an reservation from given user input
      * 
      * @param reservation_id
      * @param resource_id
@@ -46,9 +47,9 @@ public class Reservation {
 
     public Reservation() {
         ;
-	}
+    }
 
-	/**
+    /**
      * get method to return the user id who made this reservation
      * 
      * @return this.user_id
@@ -56,7 +57,6 @@ public class Reservation {
     public int getUid() {
         return this.user_id;
     }
-
 
     /**
      * get method to return the user id who made this reservation
@@ -93,18 +93,24 @@ public class Reservation {
      */
     public String toString() {
         String s;
-        s = "Reservation ID[" + reservation_id + "]" + " Borrowed By User: " + user_id + "\n" +
-                 "\n\tFrom " + date_from + " to " + date_until + '\n';
-        return s;
-    }
-    public String toString(String input) {
-        String s = "";
-        if(input.equals("return")){
-        s = "Resource ID[" + resource_id + "] From " + date_from + " to " + date_until + '\n';
-        }
+        s = "Reservation ID[" + reservation_id + "]" + " Borrowed By User: " + user_id + "\n" + "\n\tFrom " + date_from
+                + " to " + date_until + '\n';
         return s;
     }
 
+    /**
+     * This toString method formats the string output slightly differently for
+     * better UI.
+     * 
+     * @return String
+     */
+    public String toString(String input) {
+        String s = "";
+        if (input.equals("return")) {
+            s = "Resource ID[" + resource_id + "] From " + date_from + " to " + date_until + '\n';
+        }
+        return s;
+    }
 
     /**
      * This method returns the current reserve detail, formatted in a string usable
@@ -120,7 +126,7 @@ public class Reservation {
     }
 
     /**
-     * This section contains all utiliy methods
+     * This method casts strings to date, used for data retreival from txt file.
      */
     public Date stringToDate(String stringDate) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -128,6 +134,9 @@ public class Reservation {
         return dateValue;
     }
 
+    /**
+     * This method casts dates to string
+     */
     public String dateToString(Date thisDate) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmm");
         String stringDate = format.format(thisDate);
