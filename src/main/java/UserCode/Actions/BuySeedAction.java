@@ -11,7 +11,7 @@ import Places.Market;
 public class BuySeedAction extends Action {
 
     public BuySeedAction() {
-        this.type = ActionType.buySeeds;
+        super(ActionType.buySeeds);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package UserCode.Tasks;
 
+import org.json.simple.JSONArray;
+
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task>{
@@ -23,18 +25,18 @@ public class TaskList extends ArrayList<Task>{
         return this.remove(0);
     }
 
-//    public JSONArray toJSON(){
-//        JSONArray array = new JSONArray();
-//        for(Task task: this){
-//            array.add(task.toJSON());
-//        }
-//        return array;
-//    }
+    public JSONArray toJSON(){
+        JSONArray array = new JSONArray();
+        for(Task task: this){
+            array.add(task.toJSON());
+        }
+        return array;
+    }
 
     public ArrayList<String> toStringArray() {
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < this.size(); i++) {
-            list.add(this.get(i).toString());
+            list.add(Integer.toString(i + 1) + ". " + this.get(i).toString());
         }
         return list;
     }

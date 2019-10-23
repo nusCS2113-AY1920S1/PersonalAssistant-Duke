@@ -18,7 +18,7 @@ public class Farmio {
 
     private Farmio() {
         storage = new Storage();
-        farmer = new Farmer(); //for ui testing not originally here
+        farmer = new Farmer();
         ui = new Ui();
         simulation = new Simulation(this);
         stage = Stage.WELCOME;

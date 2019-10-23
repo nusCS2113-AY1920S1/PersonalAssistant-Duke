@@ -9,7 +9,7 @@ import FrontEnd.Ui;
 public class GotoMarketAction extends Action {
 
     public GotoMarketAction() {
-        this.type = ActionType.gotoMarket;
+        super(ActionType.gotoMarket);
     }
 
     @Override

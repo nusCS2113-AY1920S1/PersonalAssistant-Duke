@@ -2,6 +2,7 @@ package UserCode.Conditions;
 
 import Farmio.Farmio;
 import Exceptions.FarmioException;
+import org.json.simple.JSONObject;
 
 public class ValueCondition extends Condition {
     private ValueConditionType type;
@@ -17,6 +18,16 @@ public class ValueCondition extends Condition {
     @Override
     public boolean check(Farmio farmio) throws FarmioException {
         return ConditionChecker.check(type, comparator, value, farmio);
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject object = new JSONObject();
+        object.put("condition", "value");
+        object.put("type", type.name());
+        object.put("comparator", comparator.name());
+        object.put("value", value);
+        return object;
     }
 
     public String toString () {

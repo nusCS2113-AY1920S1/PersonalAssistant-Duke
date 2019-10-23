@@ -12,7 +12,7 @@ public class IfElseTask extends Task {
     private Action elseAction;
 
     public IfElseTask(Condition condition, Action ifAction, Action elseAction) {
-        super(condition, ifAction);
+        super(condition, ifAction, "if_else");
         this.ifAction = ifAction;
         this.elseAction = elseAction;
     }

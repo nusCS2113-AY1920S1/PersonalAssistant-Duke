@@ -19,7 +19,7 @@ public class Storage {
     }
 
     public boolean getSaveExist() {
-        return new File(appDir.concat("\\data\\save.json")).exists();
+        return new File(appDir.concat("\\save.json")).exists();
     }
 
     /**
@@ -30,7 +30,7 @@ public class Storage {
      * @throws IOException    "save.json" does not exist.
      */
     public JSONObject loadFarmer() throws ParseException, IOException {
-        Reader reader = new FileReader(appDir.concat("\\data\\save.json"));
+        Reader reader = new FileReader(appDir.concat("\\save.json"));
         JSONParser parser = new JSONParser();
         return (JSONObject) parser.parse(reader);
     }
@@ -41,11 +41,12 @@ public class Storage {
      * @param farmer Farmio.Farmer object to be stored in to save file.
      * @throws IOException Fail to save farmer object into save file.
      */
-    public static boolean storeFarmer(Farmer farmer) {
+    public boolean storeFarmer(Farmer farmer) {
         FileWriter file;
         try {
-            file = new FileWriter(appDir.concat("\\data\\save.json"));
+            file = new FileWriter(appDir.concat("\\save.json"));
             file.write(farmer.toJSON().toJSONString());
+            file.close();
         } catch (IOException e) {
             return false;
         }

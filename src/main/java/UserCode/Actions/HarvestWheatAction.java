@@ -10,7 +10,7 @@ import FrontEnd.Ui;
 public class HarvestWheatAction extends Action {
 
     public HarvestWheatAction() {
-        this.type = ActionType.harvestWheat;
+        super(ActionType.harvestWheat);
     }
 
     /*public HarvestWheatAction(JSONObject obj){

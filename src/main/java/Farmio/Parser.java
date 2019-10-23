@@ -5,12 +5,17 @@ import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 
+import javax.swing.plaf.multi.MultiSeparatorUI;
+
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         System.out.println(stage.name());
-        userInput = userInput.toLowerCase();
-        if (userInput.equals("exit")) {
+        userInput = userInput.toLowerCase().trim();
+        if (userInput.equals("quit game")) {
             return new CommandGameQuit();
+        }
+        if (userInput.matches("save game")) {
+            return new CommandGameSave();
         }
         switch (stage) {
             case WELCOME:
@@ -69,6 +74,12 @@ class Parser {
         }
         if (userInput.toLowerCase().equals("start")) {
             return new CommandDayStart();
+        }
+        if (userInput.equals("conditions") || userInput.equals("condition")) {
+            return new CommandConditionShow();
+        }
+        if (userInput.equals("actions") || userInput.equals("action")) {
+            return new CommandActionShow();
         }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);

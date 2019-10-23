@@ -9,7 +9,7 @@ import UserCode.Conditions.Condition;
 public class IfTask extends Task {
 
     public IfTask(Condition condition, Action action) {
-        super(condition, action);
+        super(condition, action, "if");
     }
 
     @Override

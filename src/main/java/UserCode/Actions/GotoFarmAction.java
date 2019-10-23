@@ -8,7 +8,7 @@ import FrontEnd.Ui;
 public class GotoFarmAction extends Action {
 
     public GotoFarmAction() {
-        this.type = ActionType.gotoWheatFarm;
+        super(ActionType.gotoWheatFarm);
     }
 
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) {
