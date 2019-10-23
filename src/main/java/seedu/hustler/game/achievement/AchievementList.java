@@ -20,6 +20,8 @@ public class AchievementList {
     public static ArrayList<Achievements> achievementList = new ArrayList<>();
 
 
+    private ArrayList<Achievements> listAchievement = new ArrayList<>();
+
     /**
      * When user first starts Hustler, Hustler will create a list of locked achievements.
      * It will then store achievements inside achievements.txt.
@@ -45,6 +47,18 @@ public class AchievementList {
         return achievementList;
     }
 
+    private ArrayList<Achievements> populate() {
+
+
+
+        return listAchievement;
+    }
+
+    public ArrayList<Achievements> update() {
+
+        return listAchievement;
+    }
+
     /**
      * Checks if user meets any condition of achievement for Busybee.
      * Unlocks Busybee achievements accordingly.
@@ -52,7 +66,6 @@ public class AchievementList {
      * @return returns list of achievement.
      */
     public static ArrayList<Achievements> updateAddTask (String achievementLevel) {
-        System.out.println(AddTask.addAchievementLevel);
         for(int i = 0; i < achievementList.size(); i += 1) {
             if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);

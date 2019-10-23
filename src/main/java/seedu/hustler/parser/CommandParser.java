@@ -1,6 +1,7 @@
 package seedu.hustler.parser;
 
 import seedu.hustler.command.Command;
+import seedu.hustler.command.achievementCommand.AchievementCommand;
 import seedu.hustler.command.avatar.CheckAvatarCommand;
 import seedu.hustler.command.avatar.SetNameCommand;
 import seedu.hustler.command.shop.BuyCommand;
@@ -8,7 +9,6 @@ import seedu.hustler.command.shop.ShopListCommand;
 import seedu.hustler.command.task.*;
 import seedu.hustler.command.timer.*;
 import seedu.hustler.data.CommandLog;
-import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;
 
 /**
