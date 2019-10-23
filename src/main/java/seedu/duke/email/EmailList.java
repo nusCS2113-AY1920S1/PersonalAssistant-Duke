@@ -29,7 +29,7 @@ public class EmailList extends ArrayList<Email> {
         int index = 0;
         String listOfEmails = "This is your list of emails " + "(total of " + this.size() + "): ";
         for (Email email : this) {
-            listOfEmails += "\n" + (++index) + ". " + email.getSubject();
+            listOfEmails += "\n" + (++index) + ". " + email.toGuiString();
         }
         return listOfEmails;
     }

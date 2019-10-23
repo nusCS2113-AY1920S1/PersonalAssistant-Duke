@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class CommandParseHelper {
 
     private static UI ui = Duke.getUI();
-    private static InputType inputType = InputType.TASK;
+    private static InputType inputType = InputType.EMAIL;
 
     /**
      * Checks if input command is in the correct format.

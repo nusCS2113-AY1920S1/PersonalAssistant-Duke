@@ -2,6 +2,7 @@ package seedu.duke.common.model;
 
 import seedu.duke.Duke;
 import seedu.duke.email.EmailList;
+import seedu.duke.email.EmailTags;
 import seedu.duke.task.TaskList;
 
 public class Model {
@@ -36,5 +37,10 @@ public class Model {
     public void updateGuiEmailList() {
         emailList.sortByGivenOrder();
         Duke.getUI().updateEmailList(emailList.getEmailGuiStringList());
+    }
+
+    public void updateEmailTagList() {
+        EmailTags.updateEmailTagList(emailList);
+        //Duke.getUI().updateEmailList(emailList.getEmailTagList());
     }
 }

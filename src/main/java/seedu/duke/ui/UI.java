@@ -159,6 +159,7 @@ public class UI {
     public void syncWithModel() {
         Duke.getModel().updateGuiTaskList();
         Duke.getModel().updateGuiEmailList();
+        Duke.getModel().updateEmailTagList();
     }
 
     /**
