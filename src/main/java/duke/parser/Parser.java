@@ -58,6 +58,11 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
                 }
                 return new FindCommand(fcArray[1], filter);
+            case "random":
+                if (fcArray.length == 1) {
+                    return new RandomCommand(filter);
+                }
+                return new RandomCommand(fcArray[1], filter);
             case "done":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of done cannot be empty.");
