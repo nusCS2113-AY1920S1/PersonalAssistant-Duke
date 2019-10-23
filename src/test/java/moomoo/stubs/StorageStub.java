@@ -10,13 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StorageStub extends Storage {
-
-    public StorageStub(String budgetFilePath, String calendarFilePath) {
-
-    }
-
     @Override
-    public void saveBudgetToFile(Budget budget) throws MooMooException {
+    public void saveBudgetToFile(Budget budget) {
     }
 
     @Override

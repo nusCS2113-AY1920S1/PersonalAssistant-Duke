@@ -116,7 +116,7 @@ public class Ui {
      * Prints out a message enclosed between two lines.
      * @param text message to be printed
      */
-    private void print(String text) {
+    public void print(String text) {
         System.out.println(text);
     }
 

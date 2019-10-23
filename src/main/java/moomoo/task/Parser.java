@@ -24,11 +24,14 @@ import java.util.Scanner;
  * Takes in a string and parses it to return a valid command to be ran.
  */
 public class Parser {
+    private static final String BUDGET_INVALID = "Your command is invalid. Please try again.";
+
     /**
      * Takes in input from user and returns a command based on the input given. All parsing of input
      * should be done here including separating a line of command into parts for each command.
+     *
      * @param input String given by the user
-     * @param ui MooMoo's ui
+     * @param ui    MooMoo's ui
      * @return The command object corresponding to the user input
      * @throws MooMooException Thrown when an invalid input is given
      */
@@ -39,7 +42,7 @@ public class Parser {
         case ("bye"):
             return new ExitCommand(true);
         case ("budget"):
-            return parseBudget(scanner);
+            return parseBudget(scanner, ui);
         case ("categories"):
             return new ListCategoryCommand();
         case ("schedule"):
@@ -54,23 +57,28 @@ public class Parser {
             return new GraphCommand(input);
         case ("total"):
             return new TotalCommand();
-        default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        default:
+            throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
     private static Command parseList(Scanner scanner, Ui ui) throws MooMooException {
         String input = parseInput(scanner, ui, "list");
         switch (input) {
-        case ("category"): return new ListCategoryCommand();
-        default: throw new MooMooException("Sorry I did not recognize that command.");
+        case ("category"):
+            return new ListCategoryCommand();
+        default:
+            throw new MooMooException("Sorry I did not recognize that command.");
         }
     }
 
     private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
         String input = parseInput(scanner, ui, "delete");
         switch (input) {
-        case ("category"): return new DeleteCategoryCommand();
-        default: throw new MooMooException("Sorry I did not recognize that command.");
+        case ("category"):
+            return new DeleteCategoryCommand();
+        default:
+            throw new MooMooException("Sorry I did not recognize that command.");
         }
     }
 
@@ -78,8 +86,10 @@ public class Parser {
         //String input = parseInput(scanner, ui, "add");
         //switch (input) {
         switch (scanner.next()) {
-        case ("category"): return new AddCategoryCommand();
-        case ("expenditure"): return parseAddExpenditure(ui);
+        case ("category"):
+            return new AddCategoryCommand();
+        case ("expenditure"):
+            return parseAddExpenditure(ui);
         default:
             throw new MooMooException("Sorry I did not recognize that command.");
 
@@ -107,58 +117,72 @@ public class Parser {
         return input;
     }
 
-    private static Command parseBudget(Scanner scanner) throws MooMooException {
-        String input = scanner.next();
+    private static Command parseBudget(Scanner scanner, Ui ui) throws MooMooException {
+        String input = "";
+        try {
+            input = scanner.next();
+        } catch (Exception e) {
+            throw new MooMooException("There is only edit/set/list/savings command under budget.");
+        }
         switch (input) {
         case "set":
-            return setBudget(scanner);
+            return setBudget(scanner, ui);
         case "edit":
-            return editBudget(scanner);
+            return editBudget(scanner, ui);
         case "list":
-            return listBudget(scanner);
+            return listBudget(scanner, ui);
         case "savings":
-            return savingsBudget(scanner);
-        default :
+            return savingsBudget(scanner, ui);
+        default:
             throw new MooMooException("There is only edit/set/list/savings command under budget.");
         }
     }
 
-    private static Command setBudget(Scanner scanner) throws MooMooException {
-        String input = scanner.next();
+    private static Command setBudget(Scanner scanner, Ui ui) throws MooMooException {
+        String input = "";
+        try {
+            input = scanner.next();
+        } catch (Exception e) {
+            throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
+        }
         int count = 0;
         ArrayList<String> categories = new ArrayList<>();
         ArrayList<Double> budgets = new ArrayList<>();
         String inputCategory = "";
 
-        while (true) {
-            if (input.startsWith("c/") && count % 2 == 0) {
-                inputCategory += input.substring(2).toLowerCase();
-            } else if (input.startsWith("b/") && count % 2 != 0) {
-                double budget = 0;
-                try {
-                    budget = Double.parseDouble(input.substring(2));
-                    if (budget <= 0) {
+        if (input != "") {
+            while (true) {
+                if (input.startsWith("c/") && count % 2 == 0) {
+                    inputCategory += input.substring(2).toLowerCase();
+                } else if (input.startsWith("b/") && count % 2 != 0) {
+                    double budget = 0;
+                    try {
+                        budget = Double.parseDouble(input.substring(2));
+                        if (budget <= 0) {
+                            throw new MooMooException("Please insert a number larger than 0 for the budget");
+                        }
+                    } catch (NumberFormatException e) {
                         throw new MooMooException("Please insert a number larger than 0 for the budget");
                     }
-                } catch (NumberFormatException e) {
-                    throw new MooMooException("Please insert a number larger than 0 for the budget");
-                }
-                categories.add(inputCategory);
-                budgets.add(budget);
-                inputCategory = "";
-            } else {
-                if (inputCategory != "") {
-                    inputCategory += " " + input;
+                    categories.add(inputCategory);
+                    budgets.add(budget);
+                    inputCategory = "";
                 } else {
-                    throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
+                    if (inputCategory != "") {
+                        inputCategory += " " + input;
+                    } else {
+                        throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
+                    }
+                }
+                ++count;
+                try {
+                    input = scanner.next();
+                } catch (NoSuchElementException e) {
+                    break;
                 }
             }
-            ++count;
-            try {
-                input = scanner.next();
-            } catch (NoSuchElementException e) {
-                break;
-            }
+        } else {
+            throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
         }
 
         if (categories.size() == 0 || budgets.size() == 0) {
@@ -169,14 +193,19 @@ public class Parser {
         return new SetBudgetCommand(false, categories, budgets);
     }
 
-    private static Command editBudget(Scanner scanner) throws MooMooException {
-        String input = scanner.next();
+    private static Command editBudget(Scanner scanner, Ui ui) throws MooMooException {
+        String input = "";
+        try {
+            input = scanner.next();
+        } catch (Exception e) {
+            throw new MooMooException("Please input in this format \"c/CATEGORY b/BUDGET\"");
+        }
         int count = 0;
         ArrayList<String> categories = new ArrayList<>();
         ArrayList<Double> budgets = new ArrayList<>();
         String inputCategory = "";
 
-        while (true) {
+        while (input != "") {
             if (input.startsWith("c/") && count % 2 == 0) {
                 inputCategory += input.substring(2).toLowerCase();
             } else if (input.startsWith("b/") && count % 2 != 0) {
@@ -207,6 +236,7 @@ public class Parser {
             }
         }
 
+
         if (categories.size() == 0 || budgets.size() == 0) {
             throw new MooMooException("You have entered the command wrongly. "
                     + "Please input in this format \"c/CATEGORY b/BUDGET\"");
@@ -215,12 +245,16 @@ public class Parser {
         return new EditBudgetCommand(false, categories, budgets);
     }
 
-    private static Command listBudget(Scanner scanner) throws MooMooException {
-        String input = scanner.next();
+    private static Command listBudget(Scanner scanner, Ui ui) throws MooMooException {
+        String input = "";
+        try {
+            input = scanner.next();
+        } catch (Exception e) {
+            throw new MooMooException("Please input in this format \"c/CATEGORY\"");
+        }
         ArrayList<String> categories = new ArrayList<>();
         String inputCategory = "";
-
-        while (true) {
+        while (input != "") {
             if (input.startsWith("c/")) {
                 if (inputCategory != "") {
                     categories.add(inputCategory);
@@ -228,7 +262,7 @@ public class Parser {
                 }
                 inputCategory += input.substring(2).toLowerCase();
             } else {
-                if (inputCategory != "") {
+                if (!"".equals(inputCategory)) {
                     inputCategory += " " + input;
                 } else {
                     throw new MooMooException("Please input in this format \"c/CATEGORY\"");
@@ -237,7 +271,7 @@ public class Parser {
             try {
                 input = scanner.next();
             } catch (NoSuchElementException e) {
-                if (inputCategory != "") {
+                if (!"".equals(inputCategory)) {
                     categories.add(inputCategory);
                 }
                 break;
@@ -246,22 +280,28 @@ public class Parser {
         return new ListBudgetCommand(false, categories);
     }
 
-    private static Command savingsBudget(Scanner scanner) throws MooMooException {
-        String input = scanner.next();
+    private static Command savingsBudget(Scanner scanner, Ui ui) throws MooMooException {
+        String input = "";
+        try {
+            input = scanner.next();
+        } catch (Exception e) {
+            throw new MooMooException("Please input in this format \"c/CATEGORY s/STARTMONTHYEAR e/ENDMONTHYEAR\"");
+        }
+
         ArrayList<String> categories = new ArrayList<>();
         String startMonth = "";
         String endMonth = "";
         String inputCategory = "";
 
-        while (true) {
+        while (input != "") {
             if (input.startsWith("c/")) {
-                if ("".equals(inputCategory)) {
+                if (!"".equals(inputCategory)) {
                     categories.add(inputCategory);
                     inputCategory = "";
                 }
                 inputCategory += input.substring(2).toLowerCase();
             } else if (input.startsWith("s/")) {
-                if ("".equals(inputCategory)) {
+                if (!"".equals(inputCategory)) {
                     categories.add(inputCategory);
                     inputCategory = "";
                 }

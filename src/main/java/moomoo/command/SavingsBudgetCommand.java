@@ -3,7 +3,6 @@ package moomoo.command;
 import moomoo.task.Budget;
 import moomoo.task.Category;
 import moomoo.task.CategoryList;
-import moomoo.task.MooMooException;
 import moomoo.task.ScheduleList;
 import moomoo.task.Storage;
 import moomoo.task.Ui;
@@ -11,7 +10,6 @@ import moomoo.task.Ui;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * View the savings for respective categories.

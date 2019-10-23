@@ -36,11 +36,14 @@ public class SetBudgetCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
+        boolean isUpdated = false;
+
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
 
-            if (inCategoryList(categoryName, catList) != null) {
+            if (catList.returnCategory(categoryName) != null) {
+                isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
                 outputValue += "You have set $" + df.format(categoryBudget) + " as the budget for "
                         + categoryName + "\n";
@@ -49,16 +52,10 @@ public class SetBudgetCommand extends Command {
             }
         }
         ui.setOutput(outputValue);
-        storage.saveBudgetToFile(budget);
-
-    }
-
-    private Category inCategoryList(String value, CategoryList catList) {
-        for (Category iterCategory : catList.getCategoryList()) {
-            if (iterCategory.toString().equalsIgnoreCase(value)) {
-                return iterCategory;
-            }
+        if (isUpdated) {
+            storage.saveBudgetToFile(budget);
         }
-        return null;
+
     }
+
 }

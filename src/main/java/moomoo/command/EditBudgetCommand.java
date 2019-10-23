@@ -37,6 +37,8 @@ public class EditBudgetCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
                         Ui ui, Storage storage) throws MooMooException {
         String outputValue = "";
+        boolean isUpdated = false;
+
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
@@ -51,7 +53,7 @@ public class EditBudgetCommand extends Command {
                     outputValue += "The budget for " + categoryName + " is the same.\n";
                     continue;
                 }
-
+                isUpdated = true;
                 budget.addNewBudget(categoryName, categoryBudget);
                 outputValue += "You have changed the budget for " + categoryName
                         + " from $" + df.format(currentBudget) + " to $" + df.format(categoryBudget) + "\n";
@@ -60,7 +62,8 @@ public class EditBudgetCommand extends Command {
             }
         }
         ui.setOutput(outputValue);
-        storage.saveBudgetToFile(budget);
-
+        if (isUpdated) {
+            storage.saveBudgetToFile(budget);
+        }
     }
 }
