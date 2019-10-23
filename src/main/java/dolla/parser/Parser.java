@@ -34,16 +34,8 @@ public abstract class Parser {
     public abstract Command handleInput(String mode, String inputLine);
 
     /**
-     * Returns true if the method runs without running into any error.
-     * <p>
-     *     This method splits and correctly assigns the task description and time from the given input.
-     * </p>
-     * <p>
-     *     If the incorrect format is given in the input, the corresponding alert will be printed, and
-     *     the method will then return false.
-     * </p>
-     * @see AddDeadlineCommand
-     * @see AddEventCommand
+     * Splits the input from the user and assigns the relevant data into description and date variables.
+     * If the incorrect format is given in the input, the corresponding alert will be printed.
      */
     public void splitDescTime() throws Exception {
         String[] data = inputLine.split(" /on "); // data[0] os description, data[1] is the time
@@ -51,6 +43,7 @@ public abstract class Parser {
         try {
             date = Time.readDate(dateString);
         } catch (ArrayIndexOutOfBoundsException e) {
+            // TODO: Shouldn't happen anymore, need to test if this will happen still
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");
         }  catch (DateTimeParseException e) {
@@ -81,6 +74,7 @@ public abstract class Parser {
         return newDouble;
     }
 
+    // TODO: Update
     public Command invalidCommand() {
         Ui.printInvalidCommandError();
         return new ErrorCommand();
