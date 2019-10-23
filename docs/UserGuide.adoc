@@ -140,7 +140,7 @@ Format: `details <task index>` or `notes <task index>`
 
 The user will be able to reschedule an existing event. +
 
-Format: `reschedule <task index> dd-MM-yyyy HHmm HHmm
+Format: `reschedule <task index> dd-MM-yyyy HHmm HHmm`
 
 
 === Searching for a free slot : `[coming v1.4]`
@@ -173,7 +173,7 @@ Format: `bye`
 
 == Additional Features
 
-=== Detecting Clashes : `[coming v2.0]`
+=== Detecting Clashes :
 
 When the user inputs a new event, MisterMusik will check
 if it has any clashing date and time with existing events
@@ -181,7 +181,7 @@ and warns the user of the clash. This also detects clashes
 when recurring events are entered, so there is no need
 to manually check for schedule clashes.
 
-=== Sorting By Date : `[coming v1.4]`
+=== Sorting By Date :
 
 MisterMusik will automatically sort the list by the date and time of each task
 so the user will not have to manually prioritise each event and todo task. ToDos
