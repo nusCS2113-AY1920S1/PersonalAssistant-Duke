@@ -72,6 +72,10 @@ public class WordCount {
         }
     }
 
+    /**
+     * Adds a word from wordCount.
+     * @param word the word to be added
+     */
     public void addWordToSearchCount(Word word) {
         int wordSearchCount = word.getNumberOfSearches();
         if (wordCount.containsKey(wordSearchCount)) {
