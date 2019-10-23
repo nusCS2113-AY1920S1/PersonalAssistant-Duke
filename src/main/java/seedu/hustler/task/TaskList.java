@@ -86,6 +86,7 @@ public class TaskList {
         } else {
             ui.show_task_clash();
         }
+        Scheduler.add(this.getLastTask());
     }
 
     /**
