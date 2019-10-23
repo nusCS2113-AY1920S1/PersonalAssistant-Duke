@@ -5,7 +5,7 @@ import duke.components.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class AsciiCommand {
+public class AsciiCommand2 {
     private static final String MUSIC_8 = "*";
     private static final String MUSIC_6 = "$.";
     private static final String MUSIC_4 = "$";
@@ -365,8 +365,8 @@ public class AsciiCommand {
                     return REST_6;
                 case 8:
                     return REST_8;
-                default:
-                    return "";
+                    default:
+                        return "";
             }
         } else {
             switch (duration){
@@ -382,8 +382,8 @@ public class AsciiCommand {
                     return MUSIC_6;
                 case 8:
                     return MUSIC_8;
-                default:
-                    return "";
+                    default:
+                        return "";
             }
         }
     }
