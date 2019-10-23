@@ -36,6 +36,7 @@ import duke.task.Contacts;
 import duke.task.BudgetList;
 import java.util.ArrayList;
 
+
 /**
  * Represents a parser that breaks down user input into commands.
  */
@@ -90,7 +91,7 @@ public class Parser {
                         return new DeleteCommand(tasknum);
                     }
                 }
-            }
+            } //@@author talesrune
         } else if (arr.length > ZERO && arr[ZERO].equals("find")) {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
@@ -110,7 +111,7 @@ public class Parser {
                 } else {
                     return new FilterCommand(arr[ONE]);
                 }
-            }
+            }   //@@author
         } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
             String[] getDescription = sentence.split(" ", TWO);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
@@ -374,7 +375,7 @@ public class Parser {
                 duration = Integer.parseInt(taskDesc.split("/in", TWO)[ZERO].trim()) - ONE;
                 int howManyDays = Integer.parseInt(afterTaskDesc);
                 return new RemindCommand(duration, howManyDays);
-            }
+            }  //@@author talesrune
         } else if (arr.length > ZERO && (arr[ZERO].equals("update"))) {
             if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");

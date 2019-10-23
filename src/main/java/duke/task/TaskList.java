@@ -2,6 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 
+//@@author talesrune
 /**
  * Represents a task list that stores a list of tasks.
  */
@@ -100,6 +101,7 @@ public class TaskList {
         return index;
     }
 
+    //@@author
     /**
      * Retrieves all tasks from the task list.
      *

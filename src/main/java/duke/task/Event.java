@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 
+//@@author talesrune
 /**
  * Represents an event that stores description and date/time.
  */

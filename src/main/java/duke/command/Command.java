@@ -10,6 +10,7 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+//@@author talesrune
 /**
  * An abstract class that represents various kinds of commands.
  */
@@ -22,6 +23,7 @@ public abstract class Command {
      */
     public abstract void execute(TaskList items, Ui ui);
 
+    //@@author
     /**
      * Executes a command with task list and ui.
      *
@@ -42,6 +44,7 @@ public abstract class Command {
     public void execute(TaskList items, ContactList contactList, Ui ui) {
     }
 
+    //@@author talesrune
     /**
      * Executes a command with Filter list and ui.
      *
@@ -60,11 +63,13 @@ public abstract class Command {
      * @return String to be outputted to the user.
      */
     public abstract String executeGui(TaskList items, Ui ui);
+    //@@author
 
     public String executeGui(TaskList items, ContactList contactList,Ui ui) {
         return null;
     }
 
+    //@@author talesrune
     /**
      * Executes a command that overwrites existing storage with the updated task list.
      *
@@ -75,6 +80,7 @@ public abstract class Command {
      */
     public abstract void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException;
 
+    //@@author
     /**
      * Executes a command that overwrites existing storage with the updated contact list.
      *

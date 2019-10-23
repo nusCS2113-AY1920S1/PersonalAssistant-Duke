@@ -2,6 +2,7 @@ package duke.task;
 
 import java.util.ArrayList;
 
+//@@author talesrune
 /**
  * Represents a filter list that stores a list of filtered tasks.
  */

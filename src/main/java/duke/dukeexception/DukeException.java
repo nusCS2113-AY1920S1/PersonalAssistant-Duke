@@ -1,5 +1,6 @@
 package duke.dukeexception;
 
+//@@author talesrune-reused
 /**
  * Represents an error occurred when duke is performing an action.
  */

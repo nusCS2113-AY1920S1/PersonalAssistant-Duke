@@ -2,6 +2,7 @@ package duke.task;
 
 import duke.dukeexception.DukeException;
 
+//@@author talesrune
 /**
  * Represents a to-do that stores description.
  */
