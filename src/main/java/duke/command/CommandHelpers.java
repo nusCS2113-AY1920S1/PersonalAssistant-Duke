@@ -44,15 +44,17 @@ public class CommandHelpers {
                 suggestions.clear();
                 suggestions.put(entry.getValue(), entry.getKey());
             }
-            // TODO: finish up
         }
 
         return null;
         //return disambiguate(word, suggestions, command.getSwitchMap().keySet());
+        // TODO: finish up disambiguate
     }
 
     /**
-     * Provides the user with the choice between several possible options for a switch which does not match exactly.
+     * Identifies a switch which is not matched exactly. Returns the closest match if it exists, and provides the user
+     * with a window offering the choice between the closest possible options and a list of valid options otherwise,
+     * including the choice to enter his own input.
      *
      * @param word The user-provided switch name.
      * @param suggestions A List of the closest matching switch names.

@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.DukeCore;
 import duke.command.Executor;
+import duke.command.Parser;
 import duke.data.PatientMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -27,6 +28,7 @@ class MainWindow extends UiElement<Stage> {
     private UiContext context;
     private PatientMap patientMap;
     private Executor executor;
+    private Parser parser;
 
     private CommandWindow commandWindow;
 
@@ -43,6 +45,7 @@ class MainWindow extends UiElement<Stage> {
         this.context = core.context;
         this.patientMap = core.patientMap;
         this.executor = new Executor(core);
+        this.parser = new Parser(core.context.getContext());
 
         placeChildUiElements();
     }
@@ -51,7 +54,7 @@ class MainWindow extends UiElement<Stage> {
      * Places child UI elements in the main UI window.
      */
     private void placeChildUiElements() {
-        commandWindow = new CommandWindow(executor);
+        commandWindow = new CommandWindow(executor, parser);
         commandWindowHolder.getChildren().add(commandWindow.getRoot());
 
         HomeWindow homeWindow = new HomeWindow(patientMap, commandWindow);
