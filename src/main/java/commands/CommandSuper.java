@@ -21,7 +21,6 @@ public abstract class CommandSuper {
     private COMMANDKEYS subRootCommand;
     private String payload;
     private boolean execute = false;
-    private String helpInstructions;
 
 
     /**

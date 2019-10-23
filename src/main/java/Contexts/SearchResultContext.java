@@ -66,8 +66,7 @@ public class SearchResultContext {
             mCurrentMovies.add(mi);
         }
         if (mMovies.size() == 0) {
-            for(MovieInfoObject mi : moviesInfo){
-
+            for (MovieInfoObject mi : moviesInfo) {
                 mMovies.add(mi);
                 keywords.add(mi.getTitle());
             }
@@ -78,12 +77,12 @@ public class SearchResultContext {
 
 
         HashMap<Long , Integer> movieDup = new HashMap<Long, Integer>();
-        for(MovieInfoObject a: mMovies){
-            movieDup.put( a.getID() , new Integer(1) );
+        for (MovieInfoObject a: mMovies) {
+            movieDup.put(a.getID() , new Integer(1));
         }
-        for(MovieInfoObject e: moviesInfo){
+        for (MovieInfoObject e: moviesInfo) {
           //  System.out.println(e.getTitle());
-            if(movieDup.get(e.getID())== null){
+            if (movieDup.get(e.getID()) == null) {
              //   System.out.println(e.getTitle());
                 mMovies.add(e);
                 keywords.add(e.getTitle());
@@ -92,7 +91,7 @@ public class SearchResultContext {
 
     }
 
-    public static ArrayList<MovieInfoObject> getMoviesToDisplay(){
+    public static ArrayList<MovieInfoObject> getMoviesToDisplay() {
         return mMovies;
     }
 }

@@ -90,7 +90,7 @@ public class ContextHelper {
             ((MovieHandler) controller).updateTextField(update);
             return allPossibilities;
         } else if (splitCommand.length == 2 && isSubRootCommandComplete(splitCommand[1])) {
-            ArrayList<String> hints  = commandSpecificHints(splitCommand[1]);
+            ArrayList<String> hints  = commandSpecificHints(splitCommand[0]);
 //            ((MovieHandler)controller).updateTextField(update);
 
             //TODO NOT COMPELTE and ROBUST
@@ -135,9 +135,9 @@ public class ContextHelper {
 
     }
 
-    private static ArrayList<String> commandSpecificHints(String subRoot) {
+    private static ArrayList<String> commandSpecificHints(String root) {
 
-        switch(subRoot.toLowerCase().trim()) {
+        switch(root.toLowerCase().trim()) {
             case("blacklist"):
                 System.out.println("BLACKLSITWEDM vervle");
                 return Blacklist.getBlackListAll();
@@ -154,7 +154,7 @@ public class ContextHelper {
     }
 
     private static ArrayList<String> commandSpecificHints(String root , String subRoot , String incompleteCommand) {
-        switch(subRoot) {
+        switch(root) {
             case("blacklist"):
                 ArrayList<String> hints = Blacklist.getBlackListHints(incompleteCommand);
                 if (!root.equals("remove")) {
