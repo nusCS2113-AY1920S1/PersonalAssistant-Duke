@@ -186,7 +186,7 @@ public class MoneyStorage {
             for (Instalment ins : account.getInstalments()) {
                 bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
                         ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
-                        ins.getAIR() + "\n");
+                        ins.getAnnualInterestRate() + "\n");
             }
 
             for (Loan l : account.getLoans()) {

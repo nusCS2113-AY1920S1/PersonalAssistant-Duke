@@ -7,7 +7,7 @@ import money.Account;
 
 import java.text.ParseException;
 
-public class DeleteInstalmentCommand extends MoneyCommand{
+public class DeleteInstalmentCommand extends MoneyCommand {
     private String inputString;
     private int serialNo;
 
@@ -19,10 +19,8 @@ public class DeleteInstalmentCommand extends MoneyCommand{
     }
 
     @Override
-    public boolean isExit() { return false; }
-
-    public int getSerialNo() {
-        return serialNo;
+    public boolean isExit() {
+        return false;
     }
 
     @Override

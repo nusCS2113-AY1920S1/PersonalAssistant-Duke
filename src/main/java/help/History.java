@@ -2,17 +2,17 @@ package help;
 
 import java.util.ArrayList;
 
-public class MemorisePreviousFunctions {
+public class History {
     private String previousCommand;
     private String nextCommand;
     private int currIndex;
-    private ArrayList<String> CommandsEntered;
+    private ArrayList<String> commandsEntered;
     private boolean flag;
     private boolean flagForFirstPress;
 
     //@@author {ChenChao19}
-    public MemorisePreviousFunctions() {
-        CommandsEntered = new ArrayList<>();
+    public History() {
+        commandsEntered = new ArrayList<>();
         this.flagForFirstPress = true;
         this.flag = true;
     }
@@ -25,8 +25,8 @@ public class MemorisePreviousFunctions {
         flag = false;
     }
 
-    public void addingCommandsEntered(String Commands) {
-        CommandsEntered.add(Commands);
+    public void addingCommandsEntered(String commands) {
+        commandsEntered.add(commands);
     }
 
     public int getCurrIndex() {
@@ -34,11 +34,11 @@ public class MemorisePreviousFunctions {
     }
 
     public int getMaxIndex() {
-        return CommandsEntered.size(); //0-based indexing
+        return commandsEntered.size(); //0-based indexing
     }
 
     public void setCurrIndex() {
-        currIndex = CommandsEntered.size(); //0-based indexing
+        currIndex = commandsEntered.size(); //0-based indexing
     }
 
     public void setFlagForFirstPress() {
@@ -46,7 +46,7 @@ public class MemorisePreviousFunctions {
     }
 
     public String getPreviousCommand() {
-        if(flagForFirstPress) {
+        if (flagForFirstPress) {
             currIndex = getMaxIndex() - 1;
             flagForFirstPress = false;
         } else {
@@ -54,19 +54,19 @@ public class MemorisePreviousFunctions {
                 currIndex -= 1;
             }
         }
-        previousCommand = CommandsEntered.get(currIndex);
+        previousCommand = commandsEntered.get(currIndex);
         return previousCommand;
     }
 
     public String getNextCommand() {
-        if(currIndex == getMaxIndex()) {
+        if (currIndex == getMaxIndex()) {
             currIndex = getMaxIndex() - 1;
         } else if (!flag) {
-            if(currIndex != getMaxIndex() - 1) {
+            if (currIndex != getMaxIndex() - 1) {
                 currIndex += 1;
             }
         }
-        nextCommand = CommandsEntered.get(currIndex);
+        nextCommand = commandsEntered.get(currIndex);
         return nextCommand;
     }
 }

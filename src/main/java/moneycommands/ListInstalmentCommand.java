@@ -26,7 +26,7 @@ public class ListInstalmentCommand extends MoneyCommand {
         df.setRoundingMode(RoundingMode.CEILING);
         for (Instalment i : account.getInstalments()) {
             ui.appendToGraphContainer(" " + counter + ".[" + df.format(i.getPercentage()) + "%] " + i.getDescription() + " ($"
-                    + df.format(i.EqualMonthlyInstalment()) + " per month until " + i.getDateEndDate() + ")\n");
+                    + df.format(i.equalMonthlyInstalment()) + " per month until " + i.getDateEndDate() + ")\n");
             counter++;
         }
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
