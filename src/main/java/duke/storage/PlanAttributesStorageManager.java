@@ -45,10 +45,10 @@ public class PlanAttributesStorageManager implements PlanAttributesStorage {
             try (Scanner scanner = new Scanner(PLAN_ATTRIBUTES_FILE).useDelimiter(STORAGE_DELIMITER)) {
                 while (scanner.hasNext()) {
                     String keyValue = scanner.next();
-                    if(!keyValue.isEmpty()){
                         String keyValueArr[] = keyValue.split(" ");
-                        attributes.put(keyValueArr[0], keyValueArr[1]);
-                    }
+                        if(keyValueArr.length == 2){
+                            attributes.put(keyValueArr[0], keyValueArr[1]);
+                        }
                 }
             }
 

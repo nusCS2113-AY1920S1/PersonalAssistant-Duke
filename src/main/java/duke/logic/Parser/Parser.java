@@ -2,6 +2,8 @@ package duke.logic.Parser;
 
 import duke.exception.DukeException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -38,4 +40,12 @@ public class Parser {
             throw new DukeException(String.format(DukeException.MESSAGE_PARSER_TIME_INVALID, string));
         }
     }
+
+    public static BigDecimal parseMoney(String string) throws DukeException {
+        double amountDouble = Double.parseDouble(string);
+        BigDecimal amount = BigDecimal.valueOf(amountDouble);
+        BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_EVEN);
+        return scaledAmount;
+    }
 }
+
