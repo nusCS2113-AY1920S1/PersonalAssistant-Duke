@@ -1,5 +1,6 @@
 package seedu.hustler.game.avatar;
 
+import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.game.shop.items.ShopItem;
 import seedu.hustler.game.shop.items.armors.Armor;
@@ -87,13 +88,14 @@ public class Avatar implements Convertible {
      *
      * @return the level of the avatar.
      */
-    public Level gainXp() {
-        this.level.increaseXp();
+    public Level gainXp() throws IOException {
+        this.level = level.increaseXp();
         if (this.level.canLevel()) {
-            this.level.levelUp();
-            this.stats.upStats(this.level.getLevel());
+            this.level = level.levelUp();
+            this.stats = stats.upStats(this.level.getLevel());
             showCongrats();
         }
+        AvatarStorage.save(this);
         return this.level;
     }
 
