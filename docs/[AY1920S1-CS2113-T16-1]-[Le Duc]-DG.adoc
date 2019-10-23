@@ -148,8 +148,26 @@
 
 ---
 
+== Features
+
+=== Modify a Task
+
+* *Reschedule an event task*
+
+image::SequenceDiagramReschedule.png[width="1000", align="left"]
+
+* *Snooze an deadline task*
+
+image::SequenceDiagramSnooze.png[width="1000", align="left"]
+
+* *Postpone an deadline task*
+
+image::SequenceDiagramPostpone.png[width="1000", align="left"]
+
+* *Edit a task* ( Only in multi-set commands yet)
 
 
+---
 == Non-functional requirements
 
 * *Task list size requirement*: The user is a super busy students, so he will have a lot of task. Size of task list possibly infinite (use of Arraylist, depends on the computer and the storage doesn’t use much as it is a written file).
@@ -209,23 +227,62 @@ The user type the "entry" (not shown in the sequence diagram) as `shortcut`. The
 image::SGShortcutMultiEveryCmd.png[width="790"]
 
 ==== Consideration
-
 * The config file that contains all the name for the shortcut can be edit by hand, because it is faster to edit the config file than doing it via the application.
-* When a command's shortcut is set, the default shortcut can still be used
+* When a command’s shortcut is set, the default shortcut can still be used
 
-=== Modify a Task
+=== Remind
 
-* *Reschedule an event task*
 
-image::SequenceDiagramReschedule.png[width="1000", align="left"]
+The Remind feature is done by the RemindCommand. Along with all of the other implemented commands, it extends Command. The feature will process each tasks date/timestamps to order them, and then remind the user of the top 3 upcoming tasks. The following methods were implemented in this feature:
 
-* *Snooze an deadline task*
+* `filterTasks` - Extracts the Deadline and Event tasks into a seperate ArrayList
+* `sort` - Orders the filtered TaskList in chronological order.
 
-image::SequenceDiagramSnooze.png[width="1000", align="left"]
+* *Sequence Diagram of the Remind Feature:*
 
-* *Postpone an deadline task*
+image::RemindSequenceDiagram.png[width="790"]
+There are 2 cases:
 
-image::SequenceDiagramPostpone.png[width="1000", align="left"]
+* TaskList contains a mix of all objects
+* TaskList contains only Todo objects
+* TaskList contains no objects
 
-* *Edit a task* ( Only in multi-step commands yet)
+Both cases are handled separately, as they must be ordered differently.
+
+==== TaskList contains only Deadline/Event objects
+
+* The original TaskList is passed through a filter.
+* The filtered TaskList is equal to the original TaskList, as there are no Todo objects to filter out. The filtered TaskList will then be sorted by TakList.sort(). The method will call each tasks .getDate() and build a sorted ArrayList. All Todo's will be appended to the end of the sortedlist
+* The first 3 most upcoming tasks will be displayed to the user.
+* *Output:*
+
+```---------------------------------------------------------------------------------
+remind
+1. [D][✗] d1 by: 14/09/2019 22:33 [Priority: 5]
+2. [E][✗] e1 at: 21/09/2019 00:00 - 28/10/2019 22:22 [Priority: 5]
+3. [T][✗] td1 [Priority: 5]
+```
+==== TaskList only contains Todo Objects
+
+* The TaskList.sort() method will return the original list containing only Todo's. Todo tasks have no associated date, so the order in which they were created will be preserved. This is assuming that the order they were created by the user is the order of the intended completion.
+* *Output:*
+```---------------------------------------------------------------------------------
+remind
+1. [T][✗] todo1 [Priority: 5]
+2. [T][✗] todo2 [Priority: 5]
+3. [T][✗] todo3 [Priority: 5]
+```
+==== TaskList Contains No Objects
+
+```
+---------------------------------------------------------------------------------
+    There are no upcoming tasks in your list
+---------------------------------------------------------------------------------
+
+```
+
+==== Consideration
+* Sorting the TaskList in place was considered, but it reduced cohesion of the design.
+* It was considered to only remind the user of tasks that are coming up in the next week,
+but that would limit its potential utility
 
