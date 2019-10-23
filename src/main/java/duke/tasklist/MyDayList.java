@@ -1,13 +1,12 @@
 package duke.tasklist;
 import duke.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-public class DailyList {
+public class MyDayList {
     private ArrayList<Task> taskList;
-    public DailyList() {
+    public MyDayList() {
         taskList = new ArrayList<Task>();
     }
 
@@ -22,7 +21,7 @@ public class DailyList {
         }
     }
 
-    public void refreshDaily() {
+    public void refreshMyDayList() {
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             if(ChronoUnit.DAYS.between(t.getCreatedDate(), LocalDateTime.now()) > 0) {
@@ -30,5 +29,5 @@ public class DailyList {
             }
         }
     }
-    //TODO discuss
+    //TODO discuss implementation
 }
