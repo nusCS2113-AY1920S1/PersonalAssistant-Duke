@@ -28,14 +28,19 @@ public class ContactStorage {
      * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
+        int numberofSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
+        numberofSlash = pathSplitter.length - ONE;
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
+            if (numberofSlash == ZERO) {
+                break;
+            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePathForContacts += directory + "/";
             } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
+            numberofSlash--;
         }
         this.filePathForContacts += filePathForContacts;
     }

@@ -22,14 +22,19 @@ public class BudgetStorage {
      * @param filePathForBudget The location of the file in computer.
      */
     public BudgetStorage(String filePathForBudget) {
+        int numberofSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
+        numberofSlash = pathSplitter.length - 1;
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
+            if (numberofSlash == 0) {
+                break;
+            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";
             } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
+            numberofSlash--;
         }
         this.filePath += filePathForBudget;
     }
