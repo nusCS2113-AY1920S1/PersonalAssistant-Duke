@@ -28,7 +28,7 @@ public class ClearCommand extends ModuleCommand {
         if (confirm) {
             switch (toClear) {
                 case ("modules"): {
-                    tasks.clear();
+                    tasks.clearAll();
                     break;
                 }
 

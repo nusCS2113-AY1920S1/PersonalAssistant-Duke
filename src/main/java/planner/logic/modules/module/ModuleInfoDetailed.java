@@ -1,5 +1,11 @@
 package planner.logic.modules.module;
 
+import planner.logic.exceptions.planner.ModBadGradeException;
+import planner.logic.exceptions.planner.ModBadSuException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ModuleInfoDetailed {
 
     private String moduleCode = "";
@@ -9,8 +15,12 @@ public class ModuleInfoDetailed {
     private String department = "";
     private String faculty = "";
     private String preclusion = "";
+    private String prerequisites = "";
     private Attributes attributes = new Attributes();
+    private String grade = "";
     private ExamInfo[] semesterData;
+    private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
+        "B-", "C+", "C", "D+", "D", "F", "S", "U"));
 
 
     public String getModuleCode() {
@@ -25,8 +35,12 @@ public class ModuleInfoDetailed {
         return description;
     }
 
-    public float getModuleCredit() {
-        return Float.parseFloat(moduleCredit);
+    public Double getModuleCredit() {
+        return Double.parseDouble(moduleCredit);
+    }
+
+    public String getModuleLevel() {
+        return moduleCode.replaceAll("[^0-9]", "");
     }
 
     public String getDepartment() {
@@ -37,9 +51,12 @@ public class ModuleInfoDetailed {
         return faculty;
     }
 
-
     public String getPreclusion() {
         return preclusion;
+    }
+
+    public String getPrerequisites() {
+        return  prerequisites;
     }
 
     public Attributes getAttributes() {
@@ -50,6 +67,27 @@ public class ModuleInfoDetailed {
         return semesterData;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
+    /**
+     * Checks if module is S/U-able, and assigns grade based on String score.
+     */
+    public void setGrade(String score) throws ModBadGradeException, ModBadSuException {
+        if (!validGrades.contains(score)) {
+            throw new ModBadGradeException();
+        }
+        if (score.equalsIgnoreCase("S") || score.equalsIgnoreCase("U")) {
+            if (this.attributes.isSu()) {
+                this.grade = score;
+            } else {
+                throw new ModBadSuException();
+            }
+        }
+        this.grade = score;
+    }
+
     @Override
     public String toString() {
         return "ModuleCode:"
@@ -57,6 +95,8 @@ public class ModuleInfoDetailed {
                 + ", MC:"
                 + getModuleCredit()
                 + ", SU:"
-                + getAttributes().isSu();
+                + getAttributes().isSu()
+                + ", grade:"
+                + getGrade();
     }
 }

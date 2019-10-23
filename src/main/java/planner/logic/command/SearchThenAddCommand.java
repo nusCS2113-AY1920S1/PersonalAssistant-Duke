@@ -1,10 +1,12 @@
 package planner.logic.command;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import planner.logic.exceptions.legacy.ModCcaScheduleException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
+import planner.logic.exceptions.planner.ModClashesException;
 import planner.logic.modules.cca.Cca;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
@@ -41,9 +43,14 @@ public class SearchThenAddCommand extends ModuleCommand {
             case ("module"):
             default: {
                 String moduleCode = arg("moduleCode");
-                if (detailedMap.containsKey(moduleCode)) {
-                    ModuleInfoDetailed mod = detailedMap.get(moduleCode);
-                    ModuleTask temp = new ModuleTask(moduleCode, mod);
+                String upperModuleCode = moduleCode.toUpperCase().trim();
+                if (detailedMap.containsKey(upperModuleCode)) {
+                    ModuleInfoDetailed mod = detailedMap.get(upperModuleCode);
+                    ModuleTask temp = new ModuleTask(upperModuleCode, mod);
+                    HashSet<ModuleTask> checkSet = tasks.getSetModuleTask();
+                    if (checkSet.contains(temp)) {
+                        throw new ModClashesException();
+                    }
                     tasks.getTasks().add(temp);
                     plannerUi.addedMsg(temp);
                     jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);

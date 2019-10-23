@@ -1,7 +1,10 @@
 package planner.logic.modules.module;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
+import planner.logic.modules.module.ModuleTask;
 
 public class ModuleTasksList {
 
@@ -33,6 +36,16 @@ public class ModuleTasksList {
         return temp;
     }
 
+    /**
+     * Returns all modules added to the moduleTaskList as a set.
+     * @return HashSet of ModuleTask.
+     */
+    public HashSet<ModuleTask> getSetModuleTask() {
+        HashSet<ModuleTask> moduleSet = new HashSet<>();
+        moduleSet.addAll(tasks);
+        return moduleSet;
+    }
+
     public void setTasks(List<ModuleTask> tasks) {
         this.tasks = tasks;
     }
@@ -45,7 +58,7 @@ public class ModuleTasksList {
         tasks.remove(index);
     }
 
-    public void clear() {
+    public void clearAll() {
         tasks.clear();
     }
 

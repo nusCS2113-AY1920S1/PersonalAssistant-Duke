@@ -1,5 +1,7 @@
 package planner.logic.modules.module;
 
+import planner.logic.exceptions.planner.ModBadGradeException;
+import planner.logic.exceptions.planner.ModBadSuException;
 import planner.logic.modules.legacy.task.Task;
 
 public class ModuleTask extends Task {
@@ -15,12 +17,24 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed.getModuleCode();
     }
 
-    public float getModuleCredit() {
+    public Double getModuleCredit() {
         return moduleInfoDetailed.getModuleCredit();
+    }
+
+    public String getModuleLevel() {
+        return moduleInfoDetailed.getModuleLevel();
     }
 
     public ModuleInfoDetailed getModuleInfoDetailed() {
         return moduleInfoDetailed;
+    }
+
+    public String getGrade() {
+        return moduleInfoDetailed.getGrade();
+    }
+
+    public void setGrade(String letterGrade) throws ModBadSuException, ModBadGradeException {
+        moduleInfoDetailed.setGrade(letterGrade);
     }
 
     @Override
