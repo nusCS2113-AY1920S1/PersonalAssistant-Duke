@@ -5,6 +5,8 @@ import duke.model.*;
 import duke.model.user.Gender;
 import duke.model.user.User;
 
+import java.math.BigDecimal;
+
 public class LoadLineParser {
 
     /**
@@ -45,6 +47,22 @@ public class LoadLineParser {
         }
     }
 
+    public static void parseTransactions(TransactionList transactionList, String line) {
+        String[] splitLine = line.split("\\|", 3);
+        String transactionType = splitLine[0];
+        BigDecimal transactionAmount = new BigDecimal(splitLine[1]);
+        String transactionDate = splitLine[1];
+        Transaction newTransaction;
+        if (transactionType.equals("PAY")) {
+            newTransaction = new Payment(transactionAmount, transactionDate);
+            LoadTransactionUtil.load(transactionList, newTransaction);
+        } else if (transactionType.equals("DEP")) {
+            newTransaction = new Deposit(transactionAmount, transactionDate);
+            LoadTransactionUtil.load(transactionList, newTransaction);
+        }
+
+    }
+
     public static User parseUser(String line) {
         String[] splitLine = line.split("\\|");
         String name = splitLine[0];
@@ -59,4 +77,5 @@ public class LoadLineParser {
             return new User(name, age, height, Gender.FEMALE, activityLevel, loseWeight);
         }
     }
+
 }

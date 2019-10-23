@@ -2,7 +2,6 @@ package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.AddTransactionCommand;
-import duke.logic.commands.PaymentCommand;
 import duke.model.Payment;
 
 import java.math.BigDecimal;

@@ -4,6 +4,7 @@ import duke.logic.autocorrect.Autocorrect;
 import duke.commons.exceptions.DukeException;
 import duke.model.Meal;
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.model.user.User;
 
 import java.io.*;
@@ -47,6 +48,25 @@ public class Load {
             throw new DukeException("Unable to open file");
         } catch (IOException e) {
             throw new DukeException("Error reading file");
+        }
+    }
+
+    public void loadTransactions(TransactionList transactions) throws DukeException {
+        try {
+            bufferedReader = new BufferedReader(new FileReader(TRANSACTION_FILE));
+        } catch (FileNotFoundException e) {
+            try {
+                bufferedWriter = new BufferedWriter(new FileWriter(TRANSACTION_FILE));
+            } catch (Exception f) {
+                throw new DukeException("Failed to load file");
+            }
+        }
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
