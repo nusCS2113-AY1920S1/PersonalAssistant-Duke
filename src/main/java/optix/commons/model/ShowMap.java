@@ -138,4 +138,9 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
     public String sellSeats(LocalDate localDate, String... seats) {
         return this.get(localDate).sellSeats(seats);
     }
+
+    public String reassignSeat(LocalDate showLocalDate, String oldSeat, String newSeat) {
+        return this.get(showLocalDate).reassignSeat(oldSeat, newSeat);
+
+    }
 }

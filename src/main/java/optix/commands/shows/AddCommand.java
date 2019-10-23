@@ -3,6 +3,7 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+
 import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -34,15 +35,18 @@ public class AddCommand extends Command {
             throw new OptixInvalidCommandException();
         }
         // need to check if it is a valid date if not need to throw exception
+
         this.showName = details[0].trim();
         this.showDates = details[2].trim().split("\\|");
         this.seatBasePrice = Double.parseDouble(details[1]);
+
     }
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
         LocalDate today = storage.getToday();
         ArrayList<String> errorShows = new ArrayList<>();
+
 
         StringBuilder message = new StringBuilder(MESSAGE_SUCCESSFUL);
 
@@ -51,11 +55,12 @@ public class AddCommand extends Command {
         for (int i = 0; i < showDates.length; i++) {
             String date = showDates[i].trim();
 
+
             if (!hasValidDate(date)) {
                 errorShows.add(date);
                 continue;
             }
-
+            
             LocalDate showLocalDate = formatter.toLocalDate(date);
 
             if (showLocalDate.compareTo(today) <= 0 || model.containsKey(showLocalDate)) {
@@ -85,11 +90,10 @@ public class AddCommand extends Command {
         return details.trim().split("\\|", 3);
     }
 
-
     private boolean hasValidDate(String date) {
         return formatter.isValidDate(date);
     }
-
+    
     @Override
     public boolean isExit() {
         return super.isExit();

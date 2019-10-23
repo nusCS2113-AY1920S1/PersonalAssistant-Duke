@@ -81,4 +81,9 @@ public class Model {
     public String sellSeats(LocalDate localDate, String... seats) {
         return shows.sellSeats(localDate, seats);
     }
+
+    public String reassignSeat(LocalDate showlocalDate, String oldSeat, String newSeat) {
+        return shows.reassignSeat(showlocalDate, oldSeat, newSeat);
+    }
+
 }

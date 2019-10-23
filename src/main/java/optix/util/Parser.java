@@ -7,6 +7,8 @@ import optix.commands.parser.AddAliasCommand;
 import optix.commands.parser.ListAliasCommand;
 import optix.commands.parser.RemoveAliasCommand;
 import optix.commands.parser.ResetAliasCommand;
+import optix.commands.seats.ReassignSeatCommand;
+
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
@@ -21,11 +23,13 @@ import optix.commands.shows.ViewProfitCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
+
 import java.io.IOException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +72,7 @@ public class Parser {
      * @return Command Object based on the first input word.
      * @throws OptixException if the Command word is not recognised by Optix.
      */
+
     public Command parse(String fullCommand) throws OptixException {
         // add exception for null pointer exception. e.g. postpone
         String[] splitStr = fullCommand.trim().split(" ", 2);
@@ -107,6 +112,7 @@ public class Parser {
                 return parseList(splitStr[1]);
             case "bye":
                 return new ByeCommand();
+
             case "add": // add poto|5/10/2020|20
                 return new AddCommand(splitStr[1]);
             case "delete": // e.g. delete SHOW_NAME DATE_1|DATE_2|etc
@@ -130,6 +136,7 @@ public class Parser {
     }
 
     //@@ OungKennedy
+
 
     /**
      * Adds a new alias-command pair to commandAliasMap.
@@ -212,8 +219,7 @@ public class Parser {
         commandAliasMap.put("d", "delete");
     }
 
-    //@@ cheesengg
-
+ 
     /**
      * Parse the remaining user input to its respective parameters for ListDateCommand or ListShowCommand.
      *
@@ -233,5 +239,19 @@ public class Parser {
         }
 
         return new ListShowCommand(details);
+    }
+
+    private static Command parseReassign(String details) throws OptixInvalidCommandException {
+        String[] splitStr = details.trim().split("\\|");
+        if (splitStr.length != 4) {
+            throw new OptixInvalidCommandException();
+        }
+
+        String showName = splitStr[0].trim();
+        String showDate = splitStr[1].trim();
+        String oldSeat = splitStr[2].trim();
+        String newSeat = splitStr[3].trim();
+
+        return new ReassignSeatCommand(showName, showDate, oldSeat, newSeat);
     }
 }

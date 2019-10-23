@@ -8,7 +8,7 @@ public class Seat {
     /**
      * the seat object.
      *
-     * @param seatTier tier of the seat. Higher tier seat is less precious.
+     * @param seatTier tier of the seat. Higher tier seat is more precious.
      */
     public Seat(String seatTier) {
         this.isBooked = false;
@@ -55,13 +55,13 @@ public class Seat {
     public double getSeatPrice(double basePrice) {
         assert (Integer.parseInt(seatTier) <= 3 && Integer.parseInt(seatTier) > 0);
         if (seatTier.equals("1")) {
-            ticketPrice = basePrice * 1.5;
+            ticketPrice = basePrice;
         }
         if (seatTier.equals("2")) {
             ticketPrice = basePrice * 1.2;
         }
         if (seatTier.equals("3")) {
-            ticketPrice = basePrice;
+            ticketPrice = basePrice * 1.5;
         }
         return ticketPrice;
 

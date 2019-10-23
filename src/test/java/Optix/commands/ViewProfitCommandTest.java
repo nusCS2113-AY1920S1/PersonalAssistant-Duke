@@ -1,9 +1,10 @@
 package optix.commands;
 
+import optix.commands.seats.SellSeatCommand;
 import optix.commands.shows.AddCommand;
+import optix.commands.shows.ViewProfitCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AddCommandTest {
+class ViewProfitCommandTest {
 
     private Ui ui = new Ui();
     private File currentDir = new File(System.getProperty("user.dir"));
@@ -20,40 +21,40 @@ class AddCommandTest {
     private Model model = new Model(storage);
 
     @Test
+    void execute() {
+        AddCommand addDummyShow = new AddCommand("dummy show name", "10/5/2020", 20);
+        addDummyShow.execute(model, ui, storage);
 
-    void execute() throws OptixInvalidCommandException {
-        AddCommand testCommand = new AddCommand("dummy show name|20|5/5/2020 | 6/10/2020");
+        SellSeatCommand sellDummySeat = new SellSeatCommand("dummy show name", "10/5/2020",
+                "A1 A2 A3");
+        sellDummySeat.execute(model, ui, storage);
 
+        ViewProfitCommand testCommand = new ViewProfitCommand("dummy show name", "10/5/2020");
         testCommand.execute(model, ui, storage);
+
         String expected = "__________________________________________________________________________________\n"
-                + "Noted. The following shows has been added:\n"
-                + "1. dummy show name (on: 5/5/2020)\n"
-                + "2. dummy show name (on: 6/10/2020)\n"
+                + "The profit for dummy show name on 10/5/2020 is 90.00\n"
                 + "__________________________________________________________________________________\n";
+
         assertEquals(expected, ui.showCommandLine());
 
-
-        AddCommand testCommand2 = new AddCommand("dummy show name|20|7/10/2020|6/10/2020");
-
+        ViewProfitCommand testCommand2 = new ViewProfitCommand("dummy show name", "6/5/2020");
         testCommand2.execute(model, ui, storage);
+
         String expected2 = "__________________________________________________________________________________\n"
-                + "Noted. The following shows has been added:\n"
-                + "1. dummy show name (on: 7/10/2020)\n"
-                + "\n"
-                + "☹ OOPS!!! Unable to add the following shows:\n"
-                + "1. dummy show name (on: 6/10/2020)\n"
+                + "☹ OOPS!!! The show cannot be found.\n"
                 + "__________________________________________________________________________________\n";
+
         assertEquals(expected2, ui.showCommandLine());
 
-
-        AddCommand testCommand3 = new AddCommand("dummy show name|20|5/5/2020|6/10/2020");
-
+        ViewProfitCommand testCommand3 = new ViewProfitCommand("wrong show name", "10/5/2020");
         testCommand3.execute(model, ui, storage);
+
         String expected3 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! Unable to add the following shows:\n"
-                + "1. dummy show name (on: 5/5/2020)\n"
-                + "2. dummy show name (on: 6/10/2020)\n"
+                + "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
+                + "Try again!\n"
                 + "__________________________________________________________________________________\n";
+
         assertEquals(expected3, ui.showCommandLine());
 
         filePath.deleteOnExit();

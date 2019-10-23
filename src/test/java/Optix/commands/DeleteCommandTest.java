@@ -4,6 +4,7 @@ import optix.commands.shows.AddCommand;
 import optix.commands.shows.DeleteCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+
 import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ class DeleteCommandTest {
     private Model model = new Model(storage);
 
     @Test
+
     void execute() throws OptixInvalidCommandException {
         AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020|6/5/2020");
         addTestShow1.execute(model, ui, storage);
@@ -33,6 +35,7 @@ class DeleteCommandTest {
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
 
+
         DeleteCommand testCommand2 = new DeleteCommand("Non-existent show|4/5/2020");
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
@@ -42,6 +45,7 @@ class DeleteCommandTest {
         assertEquals(expected2, ui.showCommandLine());
 
         addTestShow1.execute(model, ui, storage);
+
         DeleteCommand testCommand3 = new DeleteCommand("Test Show 1|6/5/2020|5/5/2020|2/5/2020");
         testCommand3.execute(model, ui, storage);
         String expected3 = "__________________________________________________________________________________\n"

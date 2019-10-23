@@ -31,12 +31,14 @@ public class ViewMonthlyCommand extends Command {
      * Views the profit for a certain month.
      * @param splitStr String of format "MONTH YEAR"
      */
+
     public ViewMonthlyCommand(String splitStr) {
         String[] details = parseDetails(splitStr);
         this.month = details[0].trim().toLowerCase();
         this.year = details[1].trim().toLowerCase();
         System.out.println("the month is " + month);
         System.out.println("the year is " + year);
+
     }
 
     /**
@@ -48,7 +50,7 @@ public class ViewMonthlyCommand extends Command {
         int mth = 1;
 
         for (int i = 0; i < monthList.length; i++) {
-            if (month.equals(monthList[i])) {
+            if (month.toLowerCase().equals(monthList[i])) {
                 return mth;
             } else {
                 mth++;
@@ -65,7 +67,7 @@ public class ViewMonthlyCommand extends Command {
      */
     private boolean isValidMonth(String description) {
         for (int i = 0; i < monthList.length; i++) {
-            if (description.equals(monthList[i])) {
+            if (description.toLowerCase().equals(monthList[i])) {
                 return true;
             }
         }

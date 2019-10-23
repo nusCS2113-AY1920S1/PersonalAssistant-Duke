@@ -3,6 +3,7 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+
 import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
@@ -32,6 +33,7 @@ public class ViewSeatsCommand extends Command {
         }
         this.showName = details[0].trim();
         this.showDate = details[1].trim();
+
     }
 
     @Override

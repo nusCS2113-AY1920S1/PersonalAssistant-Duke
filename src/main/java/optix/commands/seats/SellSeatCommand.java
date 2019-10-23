@@ -3,7 +3,9 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+
 import optix.exceptions.OptixInvalidCommandException;
+
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -70,3 +72,4 @@ public class SellSeatCommand extends Command {
         return super.isExit();
     }
 }
+

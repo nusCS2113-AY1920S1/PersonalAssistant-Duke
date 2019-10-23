@@ -3,7 +3,9 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+
 import optix.exceptions.OptixInvalidCommandException;
+
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -33,6 +35,7 @@ public class PostponeCommand extends Command {
      *
      * @param splitStr String containing "SHOW_NAME|OLD_DATE|NEW_DATE"
      */
+
     public PostponeCommand(String splitStr) throws OptixInvalidCommandException {
         // need to check if both dates are valid if not throw exception
         // need to check if the event was completed in the past. Past event shouldn't be postponed.
@@ -43,6 +46,7 @@ public class PostponeCommand extends Command {
         this.showName = details[0].trim();
         this.oldDate = details[1].trim();
         this.newDate = details[2].trim();
+
     }
 
     @Override
