@@ -1,8 +1,6 @@
 package duke;
 
 import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.list.tasklist.TaskList;
 import duke.ui.*;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -13,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,8 +23,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static duke.common.BookingMessages.COMMAND_VIEW_ORDERS;
 import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
 import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 
 /**
@@ -36,12 +33,6 @@ import static duke.common.RecipeMessages.COMMAND_LIST_RECIPE_INGREDIENT;
 public class MainWindow extends AnchorPane {
 
     private Duke duke;
-    private Storage storage;
-    private TaskList taskList;
-    private Ui ui;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -60,10 +51,8 @@ public class MainWindow extends AnchorPane {
     private ListView<String> listView, listViewResult;
 
     @FXML
-    public void initialize() throws ParseException, DukeException {
-//        if (!Main.isScreenLoaded) {
-//            loadStartingScreen();
-//        }
+    public void initialize() {
+
         Ui ui = new Ui(this);
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -71,10 +60,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getWelcome(duke.showWelcome())
         );
     }
-
-//    public void setDuke(Duke d) {
-//        duke = d;
-//    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -85,11 +70,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         if (input.isEmpty()) {
             showMessage("Pls input a command to proceed");
-//            resultDisplay.setText("Pls input a command to proceed");
         } else {
             resultDisplay.clear();
-//            listView.getItems().clear();
-//            listViewResult.getItems().clear();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input)
             );
@@ -102,9 +84,8 @@ public class MainWindow extends AnchorPane {
                 //causing items to be added twice
                 ArrayList<String> arrayList = new ArrayList<>(duke.runProgram(input));
                 showMessage(arrayList.get(0));
-//                showMessage(duke.runProgram(input).get(0));
-//                resultDisplay.setText(duke.runProgram(input).get(0));
-                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT) || input.trim().contains("vieworders")) {
+
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT) || input.trim().contains(COMMAND_VIEW_ORDERS)) {
                     listViewResult.getItems().clear();
                     for (int i = 1; i < arrayList.size(); i++) {
                         listViewResult.getItems().add(arrayList.get(i));

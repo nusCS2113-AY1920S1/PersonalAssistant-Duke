@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-
 public class ViewBookingScheduleCommand extends CommandBooking {
 
     public ViewBookingScheduleCommand(String userInputCommand) {
@@ -28,7 +27,26 @@ public class ViewBookingScheduleCommand extends CommandBooking {
         } catch (ParseException e) {
             return false;
         }
+    }
 
+    private static boolean isCurrentTime (Date currDate, Date bookingDate) {
+        Calendar calendar = GregorianCalendar.getInstance();
+
+        calendar.setTime(currDate);
+        int currDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int currMonth = calendar.get(Calendar.MONTH);
+        int currYear = calendar.get(Calendar.YEAR);
+
+        calendar.setTime(bookingDate);
+        int taskDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int taskMonth = calendar.get(Calendar.MONTH);
+        int taskYear = calendar.get(Calendar.YEAR);
+
+        if(taskYear == currYear && taskMonth == currMonth && taskDay == currDay) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -42,24 +60,14 @@ public class ViewBookingScheduleCommand extends CommandBooking {
             String inputDate = userInputCommand.substring(20).trim();
             if (isDateParsable(inputDate)) {
                 Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
-                Calendar calendar = GregorianCalendar.getInstance();
-                calendar.setTime(currDate);
-
-                int currDay = calendar.get(Calendar.DAY_OF_MONTH);
-                int currMonth = calendar.get(Calendar.MONTH);
-                int currYear = calendar.get(Calendar.YEAR);
-
+                
                 ArrayList<Booking> scheduleList = new ArrayList<>();
                 for (Booking booking : bookingList.getBookingList()) {
-                    calendar.setTime(booking.getDateTime());
-                    int taskDay = calendar.get(Calendar.DAY_OF_MONTH);
-                    int taskMonth = calendar.get(Calendar.MONTH);
-                    int taskYear = calendar.get(Calendar.YEAR);
-                    if (taskYear == currYear && taskMonth == currMonth && taskDay == currDay) {
+                    Date bookingDate = booking.getDateTime();
+                    if (isCurrentTime(currDate, bookingDate)) {
                         scheduleList.add(booking);
                     }
                 }
-
                 String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
                 if (scheduleList.isEmpty()) {
                     arrayList.add("      No booking on " + outputDate);

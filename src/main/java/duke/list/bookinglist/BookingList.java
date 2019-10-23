@@ -38,6 +38,9 @@ public class BookingList {
             final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             arrList.add("     " + displayIndex + ". " + bookingList.get(i));
         }
+        if(arrList.isEmpty()) {
+            arrList.add("      Sorry, no existing booking.");
+        }
         return arrList;
     }
 
