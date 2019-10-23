@@ -44,6 +44,7 @@ public class ListProductCommand extends ProductCommand {
             model.updateFilteredProductList(Model.PREDICATE_SHOW_ARCHIVE_PRODUCTS);
             break;
         default:
+            break;
         }
         model.getFilteredProductList();
         return new CommandResult(String.format(MESSAGE_LIST_SCOPE, scope), CommandResult.DisplayedPage.PRODUCT);

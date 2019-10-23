@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book.
+ * Unmodifiable view of BakingHome.
  */
 public interface ReadOnlyBakingHome {
 

@@ -131,6 +131,11 @@ public class ModelManager implements Model {
         filteredOrders.setPredicate(predicate);
     }
 
+    @Override
+    public void deleteProduct(Product product) {
+        bakingHome.removeProduct(product);
+    }
+
     //================Sale operations=================
 
 
