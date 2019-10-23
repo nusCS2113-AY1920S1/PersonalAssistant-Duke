@@ -1,4 +1,5 @@
 //@@lmtaek
+
 package duke.core;
 
 import org.junit.jupiter.api.Test;
@@ -8,17 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ParserTest {
 
     String patientDummyInput = "add patient :name :NRIC :room :remark";
-    String taskDummyInput = "add task Walk the dog";
+    String taskDummyInput = "add task :Walk the dog";
 
-    String assignPatientToDeadlineTask = "assign standard task :patient name :#2 :02/02/2002 2222";
+    String assignPatientToDeadlineTask = "assign deadline task :patient name :#2 :02/02/2002 2222";
     String assignPatientToEventTask = "assign event task :#2 :#1 :01/02/2003 1234 to 06/05/2004 2312";
 
-    String deletePatientInputWithID = "delete patient #123";
-    String deletePatientInputWithName = "delete patient billy joe";
-    String deleteTaskInputWithID = "delete task #10";
-    String deleteTaskInputWithName = "delete task Take medicine";
-    String deleteAssignedTaskInputWithID = "delete patient task #2 #5";
-    String deleteAssignedTaskInputWithName = "delete patient task patient name task name";
+    String deletePatientInputWithID = "delete patient :#123";
+    String deletePatientInputWithName = "delete patient :billy joe";
+    String deleteTaskInputWithID = "delete task :#10";
+    String deleteTaskInputWithName = "delete task :Take medicine";
+    String deleteAssignedTaskInputWithID = "delete assigned task :#2 :#5";
+    String deleteAssignedTaskInputWithName = "delete assigned task :patient name :task name";
 
     @Test
     public void parseAddPatientTest() throws DukeException {
@@ -43,7 +44,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseAssignStandardAndEventTasks() throws DukeException {
+    public void parseAssignDeadlineAndEventTasks() throws DukeException {
         Parser testParserDeadline = new Parser(assignPatientToDeadlineTask);
         Parser testParserEvent = new Parser(assignPatientToEventTask);
 
@@ -95,7 +96,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseDeletePatientTask() throws DukeException {
+    public void parseDeleteAssignedTask() throws DukeException {
         Parser testParserID = new Parser(deleteAssignedTaskInputWithID);
         Parser testParserName = new Parser(deleteAssignedTaskInputWithName);
 

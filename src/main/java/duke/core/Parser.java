@@ -1,4 +1,5 @@
 //@@lmtaek
+
 package duke.core;
 
 public class Parser {
@@ -23,7 +24,6 @@ public class Parser {
 
     /**
      * Parses user input so that it is compatible with `add patient` command.
-     * <p>
      * `add patient` output: patient_name, patient_NRIC, patient_room, patient_remark
      *
      * @return A formatted string that will work for the available `add patient` command.
@@ -46,7 +46,6 @@ public class Parser {
 
     /**
      * Parses user input so that it is compatible with `add task` command.
-     * <p>
      * `add task` output: task_description
      *
      * @return A formatted string that will work for the available `add task` command.
@@ -58,14 +57,13 @@ public class Parser {
         try {
             formattedOutput = parsedInput[1].trim();
         } catch (Exception e) {
-            throw new DukeException("Please follow the `add task :<task description>`.");
+            throw new DukeException("Please follow the `add task :<task description>` format.");
         }
         return formattedOutput;
     }
 
     /**
      * Takes the user input and formats it so it is compatible with `assign deadline task` commands.
-     * <p>
      * `assign standard task` output: patient_name or #patient_id, task_name or #task_id, deadline
      *
      * @return A string of formatted output to be used by `assign deadline task` command.
@@ -87,7 +85,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with `assign event task` command.
-     * <p>
      * `assign event task` output: patient_name or #patient_id, task_name or #task_id, start_time, end_time
      *
      * @return A string of formatted output to be used by `assign event task` command.
@@ -96,13 +93,13 @@ public class Parser {
     public String[] parseAssignEventTask() throws DukeException {
         String[] formattedInput = new String[4];
         try {
-            String[] parsedTimes = parsedInput[4].split(" to ");
+            String[] parsedTimes = parsedInput[3].split(" to ");
             for (int i = 1; i < (formattedInput.length - 1); i++) {
                 formattedInput[i - 1] = parsedInput[i].trim();
             }
 
-            formattedInput[3] = parsedTimes[0];
-            formattedInput[4] = parsedTimes[1];
+            formattedInput[2] = parsedTimes[0];
+            formattedInput[3] = parsedTimes[1];
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please follow the "
@@ -113,7 +110,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with 'delete patient' command.
-     * <p>
      * `delete patient` output: patient_name or #patient_id
      *
      * @return A string of formatted output to be used by 'delete patient' commands.
@@ -131,7 +127,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with 'delete task' command.
-     * <p>
      * `delete task` output: task_id or task_name
      *
      * @return A string of formatted output to be used by 'delete task' commands.
@@ -149,7 +144,6 @@ public class Parser {
 
     /**
      * Takes user input and formats it so it is compatible with 'delete patient task' command.
-     * <p>
      * `delete patient task` output: patient_name or #patient_id, task_name or #task_id
      *
      * @return Array of strings to be used by 'delete patient task' command.
@@ -170,7 +164,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with 'update patient' command.
-     * <p>
      * `update patient` output: patient_name or #patient_id, edited_field, updated_info
      *
      * @return A string of formatted output to be used by 'update patient' commands.
@@ -192,7 +185,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with 'update task' command.
-     * <p>
      * `update task` output: task_name or #task_id, updated_description
      *
      * @return A string of formatted output to be used by 'update task' commands.
@@ -213,7 +205,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with 'find patient' command.
-     * <p>
      * `find patient` output: patient_name or #patient_id
      *
      * @return A string of formatted output to be used by 'find patient' command.
@@ -230,7 +221,6 @@ public class Parser {
 
     /**
      * Takes the user input and formats it so it is compatible with 'find patient task' command.
-     * <p>
      * `find patient tasks` output: patient_name or #patient_id
      *
      * @return A string of formatted output to be used by 'find patient task' command.
