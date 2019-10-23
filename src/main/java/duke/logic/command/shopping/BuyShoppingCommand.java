@@ -1,5 +1,6 @@
 package duke.logic.command.shopping;
 
+import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -15,12 +16,11 @@ import static java.util.Objects.requireNonNull;
 public class BuyShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "buy";
-    public static final String MESSAGE_SUCCESS = "Shopping list ingredient(s) bought";
-    public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index";
+    public static final String MESSAGE_SUCCESS = "Shopping list ingredient(s) bought. Total cost is: $%s";
     private static final Double EMPTY = 0.0;
 
-
     private final Set<Index> indices;
+    private Double totalCost = 0.0;
 
     public BuyShoppingCommand(Set<Index> indices) {
         requireNonNull(indices);
@@ -36,9 +36,11 @@ public class BuyShoppingCommand extends ShoppingCommand {
 
         for (Index index : indices) {
             if (index.getZeroBased() >= shoppingList.size()) {
-                throw new CommandException(MESSAGE_INVALID_INDEX);
+                throw new CommandException(Message.MESSAGE_INVALID_INDEX);
             }
         }
+
+
 
         for (Index index : indices) {
             Item<Ingredient> toBuy = shoppingList.get(index.getZeroBased());
@@ -55,12 +57,10 @@ public class BuyShoppingCommand extends ShoppingCommand {
                 model.addInventory(toBuy);
             }
 
+            totalCost += toBuy.getTotalPrice();
             model.setShoppingList(toBuy, ShoppingCommandUtil.createNewIngredient(toBuy, EMPTY));
         }
 
-        model.updateFilteredInventoryList(Model.PREDICATE_SHOW_ALL_INVENTORY);
-        model.updateFilteredShoppingList(Model.PREDICATE_SHOW_ALL_SHOPPING);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, CommandResult.DisplayedPage.SHOPPING));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, totalCost, CommandResult.DisplayedPage.SHOPPING));
     }
 }

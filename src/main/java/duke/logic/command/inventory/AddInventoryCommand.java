@@ -39,6 +39,7 @@ public class AddInventoryCommand extends InventoryCommand {
         }
 
         model.addInventory(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getItem().getName()),
                 CommandResult.DisplayedPage.INVENTORY);
     }

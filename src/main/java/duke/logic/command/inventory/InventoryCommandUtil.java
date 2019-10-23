@@ -12,7 +12,6 @@ public class InventoryCommandUtil {
         Double quantity = edited.getQuantity().orElse(toEdit.getQuantity().getNumber());
         String remarks = edited.getRemarks().orElse(toEdit.getItem().getRemarks());
 
-
         return new Item<Ingredient>((new Ingredient(name, remarks)), new Quantity(quantity));
     }
 }

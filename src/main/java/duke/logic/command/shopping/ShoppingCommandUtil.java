@@ -18,6 +18,7 @@ public class ShoppingCommandUtil {
 
     public static Item<Ingredient> createNewIngredient(Item<Ingredient> toEdit, Double newQuantity) {
         assert toEdit != null;
+
         String name = toEdit.getItem().getName();
         Double quantity = newQuantity;
         String remarks = toEdit.getItem().getRemarks();

@@ -1,5 +1,6 @@
 package duke.logic.command.shopping;
 
+import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -15,7 +16,6 @@ public class DeleteShoppingCommand extends ShoppingCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "%s is removed from the shopping list";
-    public static final String MESSAGE_INVALID_INDEX = "Please enter a valid index";
 
     private final Index index;
 
@@ -31,7 +31,7 @@ public class DeleteShoppingCommand extends ShoppingCommand {
         List<Item<Ingredient>> shoppingList = model.getFilteredShoppingList();
 
         if (index.getZeroBased() >= shoppingList.size()) {
-            throw new CommandException(MESSAGE_INVALID_INDEX);
+            throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
 
         Item<Ingredient> toDelete = shoppingList.get(index.getZeroBased());
