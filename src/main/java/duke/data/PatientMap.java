@@ -116,6 +116,8 @@ public class PatientMap {
         return patientHashMap;
     }
 
+    public boolean patientExist(String keyIdentifier){return patientObservableMap.containsKey(keyIdentifier);}
+
     public ObservableMap<String, Patient> getPatientObservableMap() {
         return patientObservableMap;
     }

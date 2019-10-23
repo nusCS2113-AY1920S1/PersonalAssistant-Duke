@@ -6,11 +6,15 @@ import duke.exception.DukeException;
 public class ReportCommand extends ArgCommand {
 
     @Override
-    public void execute(DukeCore core) throws DukeException {
-        System.out.println("hej");
-    }
-    @Override
     protected ArgSpec getSpec() {
-        return null;
+        return ReportSpec.getSpec();
+    }
+
+    @Override
+    public void execute(DukeCore core) throws DukeException {
+        if(core.patientMap.patientExist(getArg())){
+            System.out.println("NU SKA EN RAPPORT SKAPAS");
+        }
+        core.patientMap.deletePatient(getArg());
     }
 }

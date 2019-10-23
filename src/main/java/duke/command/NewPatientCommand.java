@@ -11,8 +11,6 @@ public class NewPatientCommand extends ArgCommand {
         return NewPatientSpec.getSpec();
     }
 
-    ;
-
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
