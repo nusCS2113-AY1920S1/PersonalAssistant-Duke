@@ -312,7 +312,7 @@ class ParseType extends Parser {
                 listRecurringExpenditure.checkParameter();
                 return listRecurringExpenditure.getCommand();
             }
-            throw new ParserException("You entered an invalid type for recurbankexpenditure");
+            throw new ParserException("You entered an invalid type for recurbankexp");
         case "/fund":
             if ("/transfer".equals(command)) {
                 ParseTransfer parseTransfer = new ParseTransfer(rawData);
