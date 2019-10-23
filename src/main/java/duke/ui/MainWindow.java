@@ -5,11 +5,13 @@ import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.logic.CommandResult;
 import duke.logic.Logic;
+import duke.logic.util.InputHistory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -20,11 +22,18 @@ public class MainWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(MainWindow.class);
 
     private static final String FXML_FILE_NAME = "MainWindow.fxml";
+
     private Stage primaryStage;
     private Logic logic;
 
     private ExpensePane expensePane;
     private TrendingPane trendingPane;
+
+    // todo: create controller for trendingPage;
+
+    private InputHistory inputHistory;
+
+
     private PlanPane planPane;
 
     private CommandResult.DisplayedPane displayedPane;
@@ -74,6 +83,9 @@ public class MainWindow extends UiPart<Stage> {
         super(FXML_FILE_NAME, primaryStage);
         this.primaryStage = primaryStage;
         this.logic = logic;
+
+        inputHistory = new InputHistory();
+
     }
 
     public void fillInnerPart() {
@@ -86,7 +98,6 @@ public class MainWindow extends UiPart<Stage> {
         // todo: add more data parts to be added.
 
     }
-
 
     @FXML
     private void handleUserInput() {
@@ -109,8 +120,29 @@ public class MainWindow extends UiPart<Stage> {
             console.setText(e.getMessage());
         }
 
+        inputHistory.add(inputString);
+        // logger.info("New Input has been stored.");
         userInput.clear();
     }
+
+    @FXML
+    private void handleKeyPressed(KeyEvent keyEvent) {
+        logger.info("Key Press detected!");
+        switch (keyEvent.getCode()) {
+            case UP:
+                if(inputHistory.isAbleToLast()) {
+                    userInput.setText(inputHistory.getLastInput());
+                }
+                break;
+
+            case DOWN:
+                if(inputHistory.isAbleToNext()) {
+                    userInput.setText(inputHistory.getNextInput());
+                }
+                break;
+        }
+    }
+
 
     private void showPane(CommandResult commandResult) {
         switch (commandResult.getDisplayedPane()) {
