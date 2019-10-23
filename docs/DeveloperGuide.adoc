@@ -24,6 +24,13 @@ image::SampleSequenceDiagram.png[]
 _{Coming up soon!}_
 
 == Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Tagging feature
+
+==== Implementation
+
+==== Design Considerations
 
 _{Coming up soon!}_
 
@@ -44,10 +51,9 @@ _{Coming up soon!}_
 
 *Target user profile*:
 
+* NUS student staying on campus
 * has a need to manage their expenditure
-* stays on NUS campus
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
