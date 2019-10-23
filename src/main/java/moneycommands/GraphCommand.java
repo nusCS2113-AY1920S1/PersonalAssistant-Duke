@@ -11,7 +11,7 @@ public class GraphCommand extends MoneyCommand{
 
     private String cmd;
 
-    //@@author {cctt1014}
+    //@@author cctt1014
     public GraphCommand(String inputString) {
         cmd = inputString;
     }
@@ -31,7 +31,7 @@ public class GraphCommand extends MoneyCommand{
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

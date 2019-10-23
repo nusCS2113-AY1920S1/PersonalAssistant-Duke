@@ -16,7 +16,7 @@ public class Instalment extends Expenditure {
     private float percentage;
     private boolean payForTheMonth;
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public Instalment(float price, String description, String category,
                       LocalDate boughtDate, int numOfPaymentsReq, float annualIR) {
         super(price, description, category, boughtDate);

@@ -24,7 +24,7 @@ public class CommitGoalCommand extends MoneyCommand {
     private ArrayList<Goal> goalsAfterCommit;
     private float goalSavingsAfterCommit;
 
-    //@@author {therealnickcheong}
+    //@@author therealnickcheong
     public CommitGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -99,7 +99,7 @@ public class CommitGoalCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

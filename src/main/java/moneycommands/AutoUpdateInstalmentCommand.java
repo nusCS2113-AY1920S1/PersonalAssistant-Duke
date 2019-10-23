@@ -14,7 +14,7 @@ import java.time.Period;
 public class AutoUpdateInstalmentCommand extends MoneyCommand {
     private LocalDate currDate = LocalDate.now();
 
-    //@@author {ChenChao19}
+    //@@author ChenChao19
     public AutoUpdateInstalmentCommand() {
     }
 
@@ -45,7 +45,7 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

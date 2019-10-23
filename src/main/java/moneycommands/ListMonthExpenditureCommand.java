@@ -15,7 +15,7 @@ public class ListMonthExpenditureCommand extends MoneyCommand {
     /**
      * Constructor of the list command.
      */
-    //@@author {chengweixuan}
+    //@@author chengweixuan
     public ListMonthExpenditureCommand(){
     }
 
@@ -44,7 +44,7 @@ public class ListMonthExpenditureCommand extends MoneyCommand {
     }
 
     @Override
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

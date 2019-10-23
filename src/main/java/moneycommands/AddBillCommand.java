@@ -16,7 +16,7 @@ public class AddBillCommand extends MoneyCommand {
 
     private String inputString;
 
-    //@@author {Chianhaoplanks}
+    //@@author Chianhaoplanks
     public AddBillCommand (String command) {
         inputString = command.replaceFirst("add bill", "");
     }
@@ -53,6 +53,7 @@ public class AddBillCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         int lastIndex = account.getExpListTotal().size() - 1;
         String billDes = account.getExpListTotal().get(lastIndex).toString();

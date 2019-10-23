@@ -8,7 +8,7 @@ public class Ui {
     private static String outputString = "";
     private static String graphContainerString = "";
 
-    //@@author {cctt1014}
+    //@@author cctt1014
     public Ui() {
         scanner = new Scanner(System. in);
         outputString = "";
@@ -39,7 +39,7 @@ public class Ui {
         outputString = "";
     }
 
-    //@@author {chengweixuan}
+    //@@author therealnickcheong
     public String getGraphContainerString() {
         return graphContainerString;
     }
