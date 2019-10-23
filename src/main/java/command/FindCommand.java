@@ -1,12 +1,5 @@
 package command;
 
-/**
- * Finds all tasks that have a particular keyword.
- *
- * @author Sai Ganesh Suresh
- * @version v1.3
- */
-
 import exception.DukeException;
 import task.Task;
 import storage.Storage;
@@ -15,6 +8,12 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Finds all tasks that contain a particular keyword.
+ *
+ * @author Sai Ganesh Suresh
+ * @version v1.3
+ */
 public class FindCommand extends Command {
 
     private String keyWord;
@@ -24,28 +23,18 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This execute function is used to find the tasks with a particular keyword.
+     * Finds all the tasks with a particular keyword and passes it to UI which prints to user.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
-
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         ArrayList<Task> holdFoundTasks = tasks.find(keyWord);
         if (holdFoundTasks.isEmpty()) {
             Ui.printOutput("There are no matching tasks in your list.");
         } else {
             Ui.printOutput("Here are the matching task(s) in your list:");
-            Integer i = 1;
-            Integer j = 1;
-            Ui.printDash();
-            for (Task task : holdFoundTasks) {
-                Ui.printMessage(i++ + "." + task.toString());
-                Ui.userOutputForUI += j++ + "." + task.toString() + "\n";
-            }
-            Ui.printDash();
+            outputRequiredList(holdFoundTasks);
         }
     }
 }

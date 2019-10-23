@@ -13,13 +13,14 @@ import ui.Ui;
  * @version 1.2
  */
 public class CommentCommand extends Command {
-    private int indexOfTask;
+    private Integer indexOfTask;
     private String comment;
 
     /**
-     * Creates the command object.
+     * Initializes the different parameters when commenting on a task.
+     *
      * @param indexOfTask Holds the index of the task to be commented on.
-     * @param comment Holds the comment for the task as given by the user
+     * @param comment Holds the comment for the task as given by the user.
      */
     public CommentCommand(Integer indexOfTask, String comment) {
         this.indexOfTask = indexOfTask;
@@ -27,23 +28,21 @@ public class CommentCommand extends Command {
     }
 
     /**
-     * Adds the comment to the task and saves it to persistent storage.
+     * Adds the comment to the task and saves the updated TaskList it to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
+        if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task taskToEdit = tasks.editTaskComment(indexOfTask, comment);
             storage.saveFile(tasks.getTasks());
             Ui.printOutput("Noted. Your new task comment is:" + "\n " + taskToEdit.comment);
-        } else {
-            throw new DukeException(DukeException.taskDoesNotExist());
         }
     }
 
-    public int getIndexOfTask() {
+    public Integer getIndexOfTask() {
         return indexOfTask;
     }
 

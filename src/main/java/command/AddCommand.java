@@ -51,7 +51,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds the task to the TaskList and saves to persistent storage.
+     * Adds the task to the TaskList and saves the updated TaskList to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.

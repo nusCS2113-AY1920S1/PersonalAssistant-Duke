@@ -14,7 +14,7 @@ import ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    private int indexOfTask;
+    private Integer indexOfTask;
 
     public DeleteCommand(Integer indexOfTask) {
         this.indexOfTask = indexOfTask;
@@ -28,13 +28,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
+        if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task task = tasks.delete(indexOfTask);
             storage.saveFile(tasks.getTasks());
             Ui.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
-                + tasks.getSize() + " task(s) in the list.");
-        } else {
-            throw new DukeException(DukeException.taskDoesNotExist());
+            + tasks.getSize() + " task(s) in the list.");
         }
     }
 }

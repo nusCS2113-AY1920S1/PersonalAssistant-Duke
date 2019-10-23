@@ -23,19 +23,17 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Edits the description of a task and saves to persistent storage.
+     * Edits the description of a task and saves the updated TaskList to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
+        if ((isIndexValid(indexOfTask, tasks.getSize()))) {
             Task taskToEdit = tasks.editTaskDescription(indexOfTask, newDescription);
             storage.saveFile(tasks.getTasks());
             Ui.printOutput("Noted. Your new task description is:" + "\n " + taskToEdit.description);
-        } else {
-            throw new DukeException(DukeException.taskDoesNotExist());
         }
     }
 }

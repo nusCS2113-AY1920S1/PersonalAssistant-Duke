@@ -2,7 +2,11 @@ package command;
 
 import exception.DukeException;
 import storage.Storage;
+import task.Task;
 import task.TaskList;
+import ui.Ui;
+
+import java.util.ArrayList;
 
 /**
  * Ensures that all the classes of command type have implementations of the method execute.
@@ -23,6 +27,36 @@ public abstract class Command {
     public void commandOut() {
         isExit = true;
     }
+
+    /**
+     * Checks if the index of a Task provided by the user is within the TaskList.
+     *
+     * @param indexOfTask Holds the index of the task to be commented on.
+     * @param currentSizeOfTasks  Holds the integer value of the current list size.
+     */
+    public boolean isIndexValid (Integer indexOfTask, Integer currentSizeOfTasks) throws DukeException{
+        if (indexOfTask < 0 || indexOfTask > (currentSizeOfTasks - 1)) {
+            Ui.printOutput(DukeException.invalidIndex());
+           throw new DukeException(DukeException.invalidIndex());
+        }
+        return true;
+    }
+    /**
+     * Checks if the index of a Task provided by the user is within the TaskList.
+     *
+     * @param tasks  Holds the list that need to be formatted for UI.
+     */
+    public void outputRequiredList (ArrayList<Task> tasks) {
+        Integer i = 1;
+        Integer j = 1;
+        for (Task task : tasks) {
+            Ui.printMessage(i++ + "." + task.toString());
+            Ui.userOutputForUI += j++ + "." + task.toString() + "\n";
+        }
+        Ui.printDash();
+    }
+
+
 
     /**
      * Contracts all Command type classes to have their own respective execute

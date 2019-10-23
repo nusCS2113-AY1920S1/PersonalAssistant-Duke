@@ -1,11 +1,12 @@
 package parser;
 
 import command.Command;
+import task.TaskList;
 import exception.DukeException;
 
 public abstract class IndexParser extends Parser {
 
-    int indexOfTask;
+    Integer indexOfTask;
 
     public IndexParser(String userInput, String command) {
         super(userInput, command);
@@ -19,7 +20,7 @@ public abstract class IndexParser extends Parser {
     }
 
     private int parseIndex(String taskFeatures) throws DukeException {
-        int index;
+        Integer index;
         try {
             index = Integer.parseInt(taskFeatures.split("\\s+", 2)[0].trim()) - 1;
         } catch (NumberFormatException e) {

@@ -8,11 +8,10 @@ import ui.Ui;
 import java.util.ArrayList;
 
 /**
- * The ViewCommand class is used when the user intends to see all tasks
- * scheduled on a date!.
+ * Renders all the sorted tasks scheduled on a date.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.3
  */
 public class ViewCommand extends Command {
 
@@ -23,12 +22,10 @@ public class ViewCommand extends Command {
     }
 
     /**
-     * This execute function is used to view the schedule on a particular date.
+     * Finds all the tasks scheduled on a particular date and passes it to UI which prints to user.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
     public void execute(TaskList tasks, Storage storage) {
         ArrayList<Task> sortedRequiredSchedule = tasks.schedule(dateToFind);

@@ -20,19 +20,16 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Marks a task as complete.
+     * Marks a task as complete and saves the updated TaskList to persistent storage.
      *
      * @param tasks   Holds the list of all the tasks the user has.
      * @param storage Allows the saving of the file to persistent storage.
      */
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
-            throw new DukeException(DukeException.taskDoesNotExist());
+        if (isIndexValid(indexOfTask, tasks.getSize())) {
+            Task task = tasks.markAsDone(indexOfTask);
+            storage.saveFile(tasks.getTasks());
+            Ui.printOutput("Nice! I've marked this task as done: " + task.toString());
         }
-
-        Task task = tasks.markAsDone(indexOfTask);
-        storage.saveFile(tasks.getTasks());
-
-        Ui.printOutput("Nice! I've marked this task as done: " + task.toString());
     }
 }
