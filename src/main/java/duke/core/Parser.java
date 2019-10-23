@@ -234,12 +234,12 @@ public class Parser {
      * @return A string of formatted output to be used by 'find patient task' command.
      * @throws DukeException Thrown when the user input cannot be parsed in the desired manner.
      */
-    public String parseFindPatientTasks() throws DukeException {
+    public String parseFindAssignedTasks() throws DukeException {
         try {
             String formattedInput = parsedInput[1].trim();
             return formattedInput;
         } catch (Exception e) {
-            throw new DukeException("Please use the `find patient tasks :<patient name> or #<patient id>` format.");
+            throw new DukeException("Please use the `find assigned tasks :<patient name> or #<patient id>` format.");
         }
     }
 }

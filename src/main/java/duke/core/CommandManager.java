@@ -63,8 +63,8 @@ public class CommandManager {
             return new DeleteTaskCommand(parser.parseDeleteTask());
         case "find patient":
             return new FindPatientCommand((parser.parseFindPatient()));
-        case "find patient tasks":
-            return new FindPatientTaskCommand((parser.parseFindPatientTasks()));
+        case "find assigned tasks":
+            return new FindPatientTaskCommand((parser.parseFindAssignedTasks()));
         case "update patient":
             return new UpdatePatientCommand(parser.parseUpdatePatient());
         case "update task":
