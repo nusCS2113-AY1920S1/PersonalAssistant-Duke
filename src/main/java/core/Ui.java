@@ -20,7 +20,7 @@ public class Ui {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
-        print("Hello! I'm Duke\nWhat can I do for you?");
+        print("For a list of commands, type \"help\"");
     }
 
     /***<p>
@@ -34,7 +34,8 @@ public class Ui {
      * @param toPrint the message need to be printed
      */
     public static void print(String toPrint) {
-        Window.outputArea.setText(Window.outputArea.getText() +  "\n\n" + toPrint);
+        Window.instance.outputArea.setText(Window.instance.outputArea.getText() + "\n\n" + toPrint);
+        Window.instance.updatePercentage();
         System.out.println(horizontalLine);
         toPrint = "\t" + toPrint;
         for (int i = 0; i < toPrint.length(); i++) {

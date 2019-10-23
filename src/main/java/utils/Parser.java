@@ -7,6 +7,7 @@ import commands.Command;
 import commands.DeleteCommand;
 import commands.DoneCommand;
 import commands.FindCommand;
+import commands.HelpCommand;
 import commands.LinkCommand;
 import commands.ListCommand;
 import commands.MemberAddCommand;
@@ -37,7 +38,6 @@ public class Parser {
      * <p>parse a line in the data text to an object.</p>
      *
      * @param line a line of String to be parsed, without \n last
-     * @return a Task.Task object produced by the input line
      * @throws ParseException if the line cannot be parsed properly
      */
     public static Task taskDataLine(String line) throws ParseException {
@@ -107,11 +107,11 @@ public class Parser {
         String[] splites = line.split(" \\| ");
         String name = splites[0].trim();
         int numOfTaskInCharge = splites.length - 1;
-        ArrayList<Integer> taskInCharge = new ArrayList<>();
+        ArrayList<Integer> tasksInChargeIndex = new ArrayList<>();
         for (int i = 0; i < numOfTaskInCharge; i++) {
-            taskInCharge.add(Integer.parseInt(splites[1 + i].trim()));
+            tasksInChargeIndex.add(Integer.parseInt(splites[1 + i].trim()));
         }
-        return new Member(name, taskInCharge);
+        return new Member(name, tasksInChargeIndex);
     }
 
     /**
@@ -127,14 +127,16 @@ public class Parser {
         splites[0] = commandCorrector(splites[0]);
         Command temp = null;
         int length = splites.length;
-        if (splites[0].equals("ADD")) {
+        if (splites[0].equals("HELP")) {
+            temp = new HelpCommand();
+        } else if (splites[0].equals("ADD")) {
             if (length < 2) {
                 throw new DukeException("usage: add [type of tasks] ...");
             }
             temp = new AddCommand(splites[1]);
         } else if (splites[0].equals("LIST")) {
             if (length < 2) {
-                throw new DukeException("usage: list [tasks/members]");
+                throw new DukeException("usage: list [tasks/members/member [index]]");
             }
             temp = new ListCommand(splites[1].trim());
         } else if (splites[0].equals("DONE")) {
@@ -165,9 +167,13 @@ public class Parser {
         } else if (splites[0].equals("REMOVE")) {
             temp = new MemberDeleteCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
-            temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
+            temp = new ViewScheCommand(splites[1]);
         } else if (splites[0].equals("CHECK")) {
-            temp = new CheckAnomaliesCommand();
+            if (length < 2) {
+                temp = new CheckAnomaliesCommand();
+            } else {
+                temp = new CheckAnomaliesCommand(splites[1]);
+            }
         } else if (splites[0].equals("MEMBER")) {
             if (length < 2) {
                 throw new DukeException("usage: member [name]");
@@ -287,13 +293,14 @@ public class Parser {
      * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK",
      * "LINK", "UNLINK", "REMOVE"};
      * </code>
+     *
      * @param command the original command word
      * @return If the method can recognize the word, return the correct(ed) command word;
      * if the method cannot recognize the word, return the original word.
      */
     public static String commandCorrector(String command) {
         String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
-            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE"};
+            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK", "UNLINK", "REMOVE", "HELP"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
@@ -316,6 +323,7 @@ public class Parser {
      * <li>If similarity < 1, the two Strings have certain difference.</li>
      * <li>If similarity < 0, the two Strings have different lengths.</li>
      * </ul>
+     *
      * @param string1 the first String
      * @param string2 the second String
      * @return the defined similarity

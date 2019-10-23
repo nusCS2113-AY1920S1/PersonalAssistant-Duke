@@ -15,23 +15,35 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 import core.Duke;
+import utils.TasksCounter;
+import gui.PieChart;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 
 public class Window {
 
     private JFrame frame;
     private JTextField inputField;
+    private TasksCounter tasksCounter;
 
-    public static JTextArea outputArea;
+    public static Window instance;
+    public JTextArea outputArea;
+
+    private JTextField completedPercField;
+    private PieChart pieChart;
 
     /**
-     * Create the application.
+     * Create the Window
      */
-    public Window() {
+    public Window(TasksCounter tc) {
+        Window.instance = this;
+        this.tasksCounter = tc;
         initialize();
         this.frame.setVisible(true);
     }
@@ -40,12 +52,12 @@ public class Window {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
+        frame = new JFrame("Team Manager");
         frame.getContentPane().setBackground(new Color(120, 168, 219));
         frame.getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBounds(22, 397, 363, 151);
+        panel.setBounds(22, 284, 363, 264);
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
         panel.setBackground(SystemColor.window);
         frame.getContentPane().add(panel);
@@ -54,16 +66,18 @@ public class Window {
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(10, 10, 343, 131);
+        scrollPane.setBounds(10, 10, 343, 244);
         panel.add(scrollPane);
 
         JTextArea outputArea = new JTextArea();
-        outputArea.setEditable(false);
         scrollPane.setViewportView(outputArea);
-        outputArea.setFont(new Font("Constantia", Font.PLAIN, 15));
+        outputArea.setText("Welcome to Team Manager!");
+        outputArea.setEditable(false);
+        outputArea.setFont(new Font("Sans Serif", Font.PLAIN, 15));
         outputArea.setWrapStyleWord(true);
         outputArea.setLineWrap(true);
         DefaultCaret caret = (DefaultCaret) outputArea.getCaret();
+        this.outputArea = outputArea;
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         JPanel panel1 = new JPanel();
@@ -88,15 +102,76 @@ public class Window {
                 inputField.requestFocus();
             }
         });
-        Window.outputArea = outputArea;
+
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(null);
+        panel2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+        panel2.setBackground(Color.WHITE);
+        panel2.setBounds(106, 234, 197, 40);
+        frame.getContentPane().add(panel2);
+
+        completedPercField = new JTextField();
+        completedPercField.setText("" + (int) tasksCounter.getPercCompleted() + "% of tasks complete");
+        completedPercField.setHorizontalAlignment(SwingConstants.CENTER);
+        completedPercField.setFont(new Font("Constantia", Font.PLAIN, 15));
+        completedPercField.setColumns(10);
+        completedPercField.setBorder(BorderFactory.createEmptyBorder());
+        completedPercField.setBounds(10, 10, 177, 19);
+        panel2.add(completedPercField);
+
+        JPanel piePanel = new JPanel();
+        piePanel.setLocation(106, 24);
+        piePanel.setBackground(new Color(120, 168, 219));
+        piePanel.setLayout(null);
+        piePanel.setSize(200, 200);
+
+        frame.getContentPane().add(piePanel);
+        pieChart = new PieChart(tasksCounter.getPercCompleted());
+        pieChart.setBounds(0, 0, 200, 200);
+        piePanel.add(pieChart);
+
+        InputMemory im = new InputMemory();
 
         Action enterPressed = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Duke.processCommand(inputField.getText());
+                im.addToHistory(inputField.getText());
                 inputField.setText("");
             }
         };
         inputField.addActionListener(enterPressed);
+
+        Action upPressed = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inputField.setText(im.moveUp(inputField.getText()));
+            }
+        };
+        String key = "UP";
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(key);
+        inputField.getInputMap().put(keyStroke, key);
+        inputField.getActionMap().put(key, upPressed);
+
+
+        key = "DOWN";
+        keyStroke = KeyStroke.getKeyStroke(key);
+        inputField.getInputMap().put(keyStroke, key);
+
+        Action downPressed = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inputField.setText(im.moveDown(inputField.getText()));
+            }
+        };
+        inputField.getActionMap().put(key, downPressed);
+    }
+
+    /**
+     * Updates the percentage displayed on the window
+     */
+    public void updatePercentage() {
+        completedPercField.setText("" + (int) tasksCounter.getPercCompleted() + "% of tasks complete");
+        pieChart.setPercentage(tasksCounter.getPercCompleted());
     }
 }
