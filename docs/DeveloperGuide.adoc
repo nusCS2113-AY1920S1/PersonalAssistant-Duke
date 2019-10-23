@@ -132,55 +132,331 @@ The rest of the App consists of four components.
 .Ui Component Diagram
 image::UiComponent.png[width="800"]
 
+The `Ui` is responsible for printing output in a *user-friendly* manner and prints out changes made to `Model` by
+`Logic`.
+
 === Logic Component
 .High Level Logic Diagram
 image::HighLevelLogic.png[width="800"]
 
+* The `logic` package consists of the `parser`, `command` and `regex` packages.
+* The `parser` package contains classes that are responsible for parsing user commands.
+* The parser classes will make use of the `RegexUtil` stored in the `regex` package to verify the correctness of user
+input and will return a `Command` object back to `Main` upon determining the validity of the input which is
+explained in *Figure 4*.
+
+==== Parser
+
 .General Parser Class Diagram
 image::HighLevelLogicParser.png[width="800"]
 
-.High Level Bank Command Class Diagram
-image::LogicCommandBankPackage.png[width="970"]
+* The `Logic.parser` package consists of `Parser`, `ParseCommand`, `ParseType`, `ParseRawData` and the *abstract*
+`Parser` classes that more specific parsers will inherit from.
+* The `Parser` class provides *general methods* that more specific parser classes will *require*.
+* The `ParseCommand` class parses the action from the user input (e.g. `/add`, `/delete`, `/edit`), before passing the user
+input to the `ParseType` class for further parsing.
+* The `ParseType` class will continue to parse the type of user input (e.g. `/card`, `/bank`), before passing the user input
+to a more specific `Parser` class (e.g. `ParseAddCard` under the abstract class `ParseCard` which is not shown here) for further sophisticated parsing.
+* The specific parser classes will then call `ParseRawData` to extract required parameters based on the Command and Type
+that was determined earlier in `ParseCommand` and `ParseType` previously.
+* The specific parser class will also check the correctness of the extracted parameters by using `RegexUtil` stored
+in the `regex` package which is also part of the `logic` package as shown in *Figure 3*. After which, the parser class
+will proceed to create an instance of the appropriate command class and return it back to `Main`.
 
-.High Level Bond Command Class Diagram
+==== Command
+
+.Bank Command Class Diagram
+image::LogicCommandBankPackage.png[width="1000"]
+
+The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
+
+Both the `Savings` and `Investments` classes have the following common features:
+
+* Add
+* Edit
+* Delete
+* List
+
+`Main` will call the specific `Savings` or `Investment` command class that will construct the *required
+parameters* before calling the `Profile` class in `Model` to *execute*.
+
+.Bond Command Class Diagram
 image::LogicCommandBondPackage.png[width="800"]
 
-.High Level Card Command Class Diagram
+The `logic.command.bond` package consist of `Bond` classes with the following features:
+
+* Add
+* Edit
+* Delete
+* List
+
+`Main` will call the specific `Bond` command class that will construct the *required parameters* before calling the
+`Profile` class in `Model` to *execute*.
+
+
+.Card Command Class Diagram
 image::LogicCommandCardPackage.png[width="800"]
 
-.High Level Goals Command Class Diagram
+The `logic.command.card` package consist of `Card` classes with the following features:
+
+* Add
+* Edit
+* Delete
+* List
+
+`Main` will call the specific `Card` command class that will construct the *required parameters* before calling the
+`Profile` class in `Model` to *execute*.
+
+.Goals Command Class Diagram
 image::LogicCommandGoalsPackage.png[width="800"]
 
-.High Level Find Command Class Diagram
+The `logic.command.goals` package consist of `Goals` classes with the following features:
+
+* Add
+* Edit
+* Delete
+* List
+
+`Main` will call the specific `Goal` command class that will construct the *required parameters* before calling the
+`Profile` class in `Model` to *execute*.
+
+.Find Command Class Diagram
 image::LogicCommandFindPackage.png[width="800"]
 
-.High Level Transfer Command Class Diagram
+The `logic.command.find` package consist of `Find` classes with the ability to find any:
+
+* Bank account
+* Cards
+* Bonds
+* Card expenditure
+* Bank expenditure
+
+`Main` will call the specific `Find` command class that will construct the *required parameters* before calling the
+`Profile` class in `Model` to *execute*.
+
+
+.Transfer Command Class Diagram
 image::LogicCommandTransferPackage.png[width="800"]
+
+The Transfer Package under `logic.command.transfer` consist of the `TransferCommand` class which inherits from `Command`.
+
+`Main` will call the `TransferCommand` class that will construct the *required parameters* before calling the `Profile`
+class in `Model` to *execute*.
+
 
 === Model Component
 .Model Component Diagram
 image::ModelComponent.png[width="800"]
 
+The `Model` contains multiple packages that is responsible for specifying the structures and constraints of the *core
+functionalities* of *OwlMoney* as well as the storing of data of the application in memory.
+
+In general, the `Model` contains the following packages:
+
+* `bank` -> responsible for the savings and investment accounts.
+* `bond` -> responsible for the investment bonds.
+* `card` -> responsible for the credit cards.
+* `goals` -> responsible for financial goals.
+* `profile` -> responsible for the user profile.
+* `transaction` -> responsible for expenditures and deposits which are classified under the umbrella term Transaction.
+
+To execute any command, `Main` will invoke `profile.Profile` to execute commands.
+`Profile` has access to each individual ArrayList such as `CardList`, `BankList`, `GoalList` that stores objects of
+cards, bank accounts and financial goals respectively. Both `Card` and `Bank` objects each contains a `TransactionList`
+which holds records of transactions.
+If the `Card` or the `Bank` objects are *deleted*, its corresponding `TransactionList` that contains the records of
+transactions *will be deleted* along with it given that it has a *composite relationship* with `TransactionList`.
+
+
 === Storage Component
 
+To be added.
 
 === Common Classes
 
+To be added.
+
 == Implementation
-.Model Component Diagram
+=== Adding Savings
+.Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="970"]
 
-.Model Component Diagram
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
+
+The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
+`AddSavingsCommand`.
+
+The `AddSavingsCommand` requires *3* inputs:
+
+. Savings Account's name
+. Amount
+. Income
+
+When the user executes the `AddSavingsCommand`, the following steps are taken by the application:
+
+. When `AddSavingsCommand` is executed, it creates a new savings object using the *3* inputs.
+. After creating the savings object, the `AddSavingsCommand` will invoke the method `profileAddNewBank`.
+. Within the invocation of `profileAddNewBank`, a method `bankListAddBank` will be invoked to add the new savings object
+to an Arraylist containing all bank objects.
+. Once `bankListAddBank` is invoked, it will perform the following checks:
+
+* Check if the bank name specified is unique among all bank accounts in the bank list through the method
+`bankAccountExists`.
+
+[NOTE]
+`bankListAddBank` will throw an error if the above check fails.
+
+[start=5]
+
+. After passing the above checks, `bankListAddBank` will add the new savings object to the Arraylist which contains all
+bank objects.
+. Once the savings object has been added, the details of the new savings object will be displayed to inform the user
+of the *successful* addition of the savings object.
+
+=== Editing Bonds
+.Sequence Diagram of Editing Bonds
 image::editBondCommand.png[width="970"]
 
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
+
+The sequence diagram presented above depicts the interaction between the `Logic` and `Model` component for running
+`EditBondCommand`.
+
+The `EditBondCommand` requires a minimum of *3* and up to a maximum of *4* inputs:
+
+. Investment Account's name
+. Bond’s name
+. *At least 1* of the *2* inputs:
+.. Rate
+.. Year of maturity
+
+When the user executes the `EditBondCommand`, the following steps are taken by the application:
+
+. When `EditBondCommand` is executed, it will invoke `profileEditBond`.
+. Within the invocation of `profileEditBond`, a method named `bankListEditBond` will be invoked.
+. Once invoked, `bankListEditBond` will perform the following checks based on the bank name specified:
+
+* Check for the existence of the investment account containing the bond.
+
+[NOTE]
+`bankListEditBond` will throw an error if the above check fails.
+
+[start=4]
+. After passing the above checks, the method `investmentEditBond` will be invoked.
+. Within `investmentEditBond`, the method named `editBond` will be invoked.
+. Once invoked, `editBond` will perform the following checks:
+
+* Check for the existence of the bond within the investment account.
+* Check whether the newly specified year of maturity for the bond is more than or equal to the current year of
+maturity through the method `editBondYear`.
+
+[NOTE]
+`editBond` will throw an error if the above check fails.
+
+[start=7]
+. After passing all of the above checks, `editBond` will update the bond details with the new details specified using:
+* `editBondRate` -> edits bond's interest or coupon rate.
+* `editBondYear` -> edits year of maturity.
+
+. Once the bond object has been edited, the updated details of that bond object will be displayed to inform the user
+of the *successful* editing of the bond.
+
+=== Deleting Credit Card
 .Model Component Diagram
 image::DeleteCardCommand.png[width="970"]
 
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
+
+The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
+`DeleteCardCommand`.
+
+The `DeleteCardCommand` requires *1* input:
+
+* Credit Card’s name.
+
+When the user executes the `DeleteCardCommand`, the following steps are taken by the application:
+
+. When `DeleteCardCommand` is executed, it will invoke `profileDeleteCard`.
+. Within the invocation of `profileDeleteCard`, a method named `cardListDeleteCard` will be invoked.
+. Once invoked, `cardListDeleteCard` will perform the following checks:
+
+* Check the Arraylist containing all card objects is not empty through the method cardListCheckListEmpty .
+* Check for the existence of the card with the specified name.
+
+[NOTE]
+`cardListDeleteCard` will throw an error if any of the above checks fail.
+
+[start=4]
+. After passing the above checks, `cardListDeleteCard` will delete the card with the specified name from the Arraylist.
+. Once the card object has been deleted, the details of the deleted card object will be displayed to inform the user
+of the *successful* deletion of the card object.
+
+
+=== Listing Credit Cards
 .Model Component Diagram
 image::listCardCommand.png[width="970"]
 
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
+
+The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
+`ListCardCommand`.
+
+The `ListCardCommand` does not require any additional input.
+
+When the user executes the `ListCardCommand`, the following steps are taken by the application:
+
+. When the `ListCardCommand` is executed, it will invoke `profileListCard`.
+. Within the invocation of `profileListCard`, a method name `cardListListCard` will be invoked.
+. Once invoked, `cardListListCard` will perform the following checks:
+
+* Check the arraylist containing the card objects is not empty through the method cardListCheckListEmpty.
+
+[NOTE]
+`cardListListCard` will throw an error if the above check fail.
+
+[start=4]
+. After passing the above checks, `cardListListCard` will display the details of each card within the Arraylist.
+
+=== Transferring Funds
 .Model Component Diagram
 image::TransferCommand.png[width="970"]
+
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will produce a successful result.
+
+The above sequence diagram depicts the interaction between the `Logic` and `Model` component for running
+`TransferCommand`.
+
+The `TransferCommand` requires *4* inputs:
+
+* Sender Bank Account's name
+* Receiver Bank Account's name
+* Date of transfer
+* Amount to transfer
+
+When the user executes the `TransferCommand`, the following steps are taken by the application:
+
+. When the `TransferCommand` is executed, it will invoke `transferFund`.
+. Once invoked, `transferFund` will perform the following checks:
+
+* Check the transferring account exists in the Arraylist of banks through the method `bankListIsAccountExistToReceive`.
+* Check the transferring account has sufficient money for the transfer through the method
+`bankListIsSufficientForTransfer`.
+* Check the receiving account exists in the arraylist of bank through the method `bankListIsAccountExistToReceive`.
+
+[NOTE]
+`transferFund` will throw an error if any of the above checks fail.
+
+[start=3]
+. After passing the above checks, `transferFund` will add an expenditure to the transferring account.
+. After adding an *expenditure* to the transferring account, a *deposit* will be added to the receiving account for the
+fund transfer.
+. Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
+*successful* fund transfer.
 
 
 == Documentation
@@ -290,16 +566,34 @@ The SE-EDU team does not provide support for modified template files.
 
 == Testing
 === Running Tests
+To be added.
+
 === Types of Tests
+To be added.
+
 === Troubleshooting Tests
+To be added.
+
 
 == Dev Ops
 === Build Automation
+To be added.
+
 === Continuous Integration
+To be added.
+
 === Coverage Reporting
+To be added.
+
 === Documentation Previews
+To be added.
+
 === Making a Release
+To be added.
+
 === Managing Dependencies
+To be added.
+
 
 [appendix]
 == Product Scope
