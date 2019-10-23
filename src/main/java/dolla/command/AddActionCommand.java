@@ -47,7 +47,7 @@ public class AddActionCommand extends Command {
             redoCommand();
             break;
         case "repeat":
-            userInput = Repeat.getUserInput(mode);
+            userInput = Repeat.getRepeatInput(mode);
             break;
         }
         Command c = MainParser.handleInput(mode, userInput);

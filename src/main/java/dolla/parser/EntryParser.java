@@ -57,7 +57,7 @@ public class EntryParser extends Parser {
 
     private Command processAdd() {
         Command addEntry;
-        Repeat.setUserInput("entry", inputLine);
+        Repeat.setRepeatInput("entry", inputLine);
         if(undoFlag == 1) {//undo input
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
         } else if(redoFlag == 1) {
