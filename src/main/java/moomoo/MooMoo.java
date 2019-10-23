@@ -1,14 +1,18 @@
 package moomoo;
 
 import moomoo.command.Command;
-import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
-import moomoo.task.MooMooException;
-import moomoo.task.CategoryList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.Parser;
 import moomoo.task.Category;
+import moomoo.task.CategoryList;
+import moomoo.task.MooMooException;
+import moomoo.task.Parser;
+import moomoo.task.ScheduleList;
+import moomoo.task.SchedulePayment;
+import moomoo.task.Storage;
+import moomoo.task.Ui;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Runs MooMoo.
@@ -33,16 +37,20 @@ public class MooMoo {
             categoryList = new CategoryList();
         }
 
-        budget = new Budget(storage.loadBudget(categoryList.getCategoryList(), ui));
-        if (budget == null) {
-            ui.returnResponse();
+        HashMap<String, Double> loadedBudget = storage.loadBudget(categoryList.getCategoryList(), ui);
+        if (loadedBudget == null) {
+            ui.showResponse();
             budget = new Budget();
+        } else {
+            budget = new Budget(loadedBudget);
         }
 
-        calendar = new ScheduleList(storage.loadCalendar(ui));
-        if (calendar == null) {
-            ui.returnResponse();
+        ArrayList<SchedulePayment> scheduleList = storage.loadCalendar(ui);
+        if (scheduleList == null) {
+            ui.showResponse();
             calendar = new ScheduleList();
+        } else {
+            calendar = new ScheduleList(scheduleList);
         }
 
     }

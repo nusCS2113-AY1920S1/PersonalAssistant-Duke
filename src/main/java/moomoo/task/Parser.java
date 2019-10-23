@@ -4,7 +4,6 @@ import moomoo.command.AddCategoryCommand;
 import moomoo.command.AddExpenditureCommand;
 import moomoo.command.Command;
 import moomoo.command.DeleteCategoryCommand;
-import moomoo.command.DeleteCategoryCommand;
 import moomoo.command.EditBudgetCommand;
 import moomoo.command.ExitCommand;
 import moomoo.command.GraphCommand;
@@ -37,15 +36,24 @@ public class Parser {
         Scanner scanner = new Scanner(input);
         String commandType = scanner.next();
         switch (commandType) {
-        case ("bye"): return new ExitCommand(true);
-        case ("budget"): return parseBudget(scanner, ui);
-        case ("categories"): return new ListCategoryCommand();
-        case ("schedule"): return new ScheduleCommand(false, input);
-        case ("add"): return parseAdd(scanner, ui);
-        case ("delete"): return parseDelete(scanner, ui);
-        case ("list"): return parseList(scanner, ui);
-        case ("graph"): return new GraphCommand(input);
-        case ("total") : return new TotalCommand();
+        case ("bye"):
+            return new ExitCommand(true);
+        case ("budget"):
+            return parseBudget(scanner, ui);
+        case ("categories"):
+            return new ListCategoryCommand();
+        case ("schedule"):
+            return new ScheduleCommand(false, input);
+        case ("add"):
+            return parseAdd(scanner, ui);
+        case ("delete"):
+            return parseDelete(scanner, ui);
+        case ("list"):
+            return parseList(scanner, ui);
+        case ("graph"):
+            return new GraphCommand(input);
+        case ("total"):
+            return new TotalCommand();
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

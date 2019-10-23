@@ -16,9 +16,7 @@ public class DeleteCategoryCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
-                        Ui ui, Storage storage)
-            throws MooMooException {
-        super.execute(calendar, budget, categoryList, category, ui, storage);
+                        Ui ui, Storage storage) {
 
         categoryList.list(ui);
         ui.showEnterCategoryMessage();

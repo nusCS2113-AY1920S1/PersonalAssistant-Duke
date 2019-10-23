@@ -51,16 +51,9 @@ public class SavingsBudgetCommand extends Command {
 
         for (String iteratorCategory : categories) {
             iteratorCategory = iteratorCategory.toLowerCase();
+            Category currentCategory = catList.returnCategory(iteratorCategory);
 
-            Category currentCategory = null;
-            for (Category iterCategory : catList.getCategoryList()) {
-                if (iterCategory.toString().toLowerCase().equals(iteratorCategory)) {
-                    currentCategory = iterCategory;
-                    break;
-                }
-            }
-
-            if (inCategoryList(iteratorCategory, catList) == null || currentCategory == null) {
+            if (currentCategory == null) {
                 outputValue += iteratorCategory + " category does not exist."
                         + " Please create it first.\n";
                 continue;
@@ -138,14 +131,5 @@ public class SavingsBudgetCommand extends Command {
             outputValue += "You have overspent your total budget by: $" + df.format(Math.abs(totalSavings)) + "\n";
         }
         ui.setOutput(outputValue);
-    }
-
-    private Category inCategoryList(String value, CategoryList catList) {
-        for (Category iterCategory : catList.getCategoryList()) {
-            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
-                return iterCategory;
-            }
-        }
-        return null;
     }
 }

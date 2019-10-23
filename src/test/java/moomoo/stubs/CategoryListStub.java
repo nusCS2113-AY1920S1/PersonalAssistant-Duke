@@ -41,4 +41,14 @@ public class CategoryListStub extends CategoryList {
         }
         return total;
     }
+
+    @Override
+    public Category returnCategory(String value) {
+        for (Category iterCategory : newArrayList) {
+            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
+                return iterCategory;
+            }
+        }
+        return null;
+    }
 }

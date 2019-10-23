@@ -31,10 +31,7 @@ public class AddExpenditureCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList categoryList, Category category,
-                        Ui ui, Storage storage)
-            throws MooMooException {
-        super.execute(calendar, budget, categoryList, category, ui, storage);
-
+                        Ui ui, Storage storage) {
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).toString().equals(expenditureName)) {
                 Expenditure newExpenditure = new Expenditure(amount, LocalDateTime.now());

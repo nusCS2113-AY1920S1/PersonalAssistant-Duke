@@ -17,9 +17,7 @@ public class TotalCommand extends Command {
 
     @Override
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
-                        Ui ui, Storage storage)
-            throws MooMooException {
-        super.execute(calendar, budget, catList, category, ui, storage);
+                        Ui ui, Storage storage) {
         catList.list(ui);
         ui.showEnterCategoryMessage();
         int cat = ui.readNumber() - 1;

@@ -41,7 +41,7 @@ public class EditBudgetCommand extends Command {
             String categoryName = categories.get(i);
             double categoryBudget = budgets.get(i);
 
-            if (inCategoryList(categoryName, catList) != null) {
+            if (catList.returnCategory(categoryName) != null) {
                 double currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set. Please set it first.\n";
@@ -62,14 +62,5 @@ public class EditBudgetCommand extends Command {
         ui.setOutput(outputValue);
         storage.saveBudgetToFile(budget);
 
-    }
-
-    private Category inCategoryList(String value, CategoryList catList) {
-        for (Category iterCategory : catList.getCategoryList()) {
-            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
-                return iterCategory;
-            }
-        }
-        return null;
     }
 }

@@ -58,36 +58,28 @@ public class Storage {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
-                List<String> input = Files.readAllLines(Paths.get(this.budgetFilePath));
+                String input = Files.readString(Paths.get(this.budgetFilePath));
 
-                for (String value : input) {
-                    if (value.charAt(0) == 'B') {
-                        String[] splitInput = value.split(" \\| ");
-                        String category = "";
-                        double budget = 0;
-                        for (int i = 1; i < splitInput.length; ++i) {
-                            if (i % 2 == 0) {
-
-                                if (!"".equals(category)) {
-                                    budget = Double.parseDouble(splitInput[i]);
-                                    loadedBudgets.put(category, budget);
-                                }
-                                category = "";
-                            } else {
-                                if (inCategoryList(catList, splitInput[i])) {
-                                    category = splitInput[i];
-                                }
-                            }
+                String[] splitInput = input.split(" \\| ");
+                String category = "";
+                double budget = 0;
+                for (int i = 0; i < splitInput.length; ++i) {
+                    if (i % 2 == 1) {
+                        if (!"".equals(category)) {
+                            budget = Double.parseDouble(splitInput[i]);
+                            loadedBudgets.put(category, budget);
                         }
-                        return loadedBudgets;
+                        category = "";
+                    } else {
+                        if (isInCategoryList(catList, splitInput[i])) {
+                            category = splitInput[i];
+                        }
                     }
-                }
-                if (loadedBudgets == null) {
-                    ui.setOutput("Unable to load budget from file. Please reset your budget.");
                 }
                 return loadedBudgets;
             } else {
                 ui.setOutput("Budget File not found. New file will be created");
+                return null;
             }
         } catch (IOException e) {
             ui.setOutput("Unable to write to file. Please retry again.");
@@ -116,7 +108,7 @@ public class Storage {
                 }
                 return scheduleArray;
             } else {
-                ui.setOutput("Budget File not found. New file will be created");
+                ui.setOutput("Schedule File not found. New file will be created");
             }
         } catch (IOException e) {
             ui.setOutput("Unable to read file. Please retry again.");
@@ -146,12 +138,13 @@ public class Storage {
      */
     public void saveBudgetToFile(Budget budget) throws MooMooException {
         createFileAndDirectory(this.budgetFilePath);
-        String toSave = "B";
+        String toSave = "";
         Iterator budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry)budgetIterator.next();
-            toSave += " | " + mapElement.getKey() + " | " + df.format(mapElement.getValue());
+            toSave += mapElement.getKey() + " | " + df.format(mapElement.getValue()) + " | ";
         }
+        toSave = toSave.substring(0, toSave.length() - 3);
         try {
             Files.writeString(Paths.get(this.budgetFilePath), toSave);
         } catch (Exception e) {
@@ -181,7 +174,7 @@ public class Storage {
      * Checks if a category is found in the list of categories.
      * @return true if it exists.
      */
-    private boolean inCategoryList(ArrayList<Category> catList, String value) {
+    private boolean isInCategoryList(ArrayList<Category> catList, String value) {
         for (Category cat : catList) {
             if (cat.toString().equals(value)) {
                 return true;

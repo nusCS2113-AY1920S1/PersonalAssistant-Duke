@@ -108,7 +108,21 @@ public class CategoryList {
     public void deleteCategory(int categoryNumber) {
         categoryList.remove(categoryNumber);
     }
-    
+
+    /**
+     * Returns the category if it currently exists.
+     * @param value Name of category to return.
+     * @return
+     */
+    public Category returnCategory(String value) {
+        for (Category iterCategory : categoryList) {
+            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
+                return iterCategory;
+            }
+        }
+        return null;
+    }
+
     /**
      * Populate the categoryList array with dummy variables. FOT TESTING PURPOSES
      */

@@ -45,7 +45,7 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i);
 
-            if (inCategoryList(categoryName, catList) != null) {
+            if (catList.returnCategory(categoryName) != null) {
                 if (budget.getBudgetFromCategory(categoryName) == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";
                     continue;
@@ -57,14 +57,5 @@ public class ListBudgetCommand extends Command {
             }
         }
         ui.setOutput(outputValue);
-    }
-
-    private Category inCategoryList(String value, CategoryList catList) {
-        for (Category iterCategory : catList.getCategoryList()) {
-            if (iterCategory.toString().toLowerCase().equals(value.toLowerCase())) {
-                return iterCategory;
-            }
-        }
-        return null;
     }
 }
