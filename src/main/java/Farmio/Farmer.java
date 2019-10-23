@@ -5,10 +5,12 @@ import Exceptions.FarmioFatalException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
+import UserCode.Tasks.Task;
 import UserCode.Tasks.TaskList;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,10 +25,11 @@ public class Farmer {
     protected TaskList tasks;
     private int currentTask;
     private boolean hasfailedCurrentTask;
+    private ArrayList<Double> levelList = new ArrayList<Double>( Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2) );
 
     public Farmer() {
         this.money = 10;
-        this.level = 1.6;
+        this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
@@ -101,7 +104,6 @@ public class Farmer {
 
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
-            hasfailedCurrentTask = false;
             currentTask = -1;
             return true;
         }
@@ -123,14 +125,24 @@ public class Farmer {
 
     public int getCurrentTask() {return this.currentTask;}
 
-    public void nextLevel(){
-        ++this.level;
+    public double nextLevel(){
+        if (level < levelList.get(levelList.size() - 1)) {
+            level = levelList.get(levelList.indexOf(level) + 1);
+            return level;
+        }
+        return 0;
     }
 
     public void startDay(Farmio farmio) throws FarmioException, FarmioFatalException {
-        for (int i = 0; i < tasks.size(); i++) {
-            this.currentTask = i;
-            tasks.get(i).execute(farmio);
+        try {
+            for (int i = 0; i < tasks.size(); i++) {
+                this.currentTask = i;
+                tasks.get(i).execute(farmio);
+            }
+        } catch (FarmioException e) {
+            farmio.setStage(Farmio.Stage.LEVEL_FAILED);
+        } finally {
+            this.currentTask = -1;
         }
     }
 

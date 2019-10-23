@@ -19,18 +19,18 @@ public class Simulation {
         ui = farmio.getUi();
         farmer = farmio.getFarmer();
     }
-    public void animate(String framePath, int frameId, boolean is_fullscreen) throws FarmioFatalException {
+    public void animate(String framePath, int frameId, boolean isFullscreen) throws FarmioFatalException {
         refresh();
-        if (is_fullscreen) {
+        if (isFullscreen) {
             ui.show(GameConsole.blankConsole(storage.loadFrame(framePath, frameId, 103, 22)));
         } else {
             ui.show(GameConsole.content(storage.loadFrame(framePath, frameId, 55, 18), farmer, farmio.getLevel().getGoals()));
         }
     }
 
-    public void animate(String framePath, int startFrame, int endFrame, boolean is_fullscreen) throws FarmioFatalException {
+    public void animate(String framePath, int startFrame, int endFrame, boolean isFullscreen) throws FarmioFatalException {
         for(int i =  startFrame; i <= endFrame; i ++) {
-            animate(framePath, i, is_fullscreen);
+            animate(framePath, i, isFullscreen);
         }
     }
 

@@ -51,12 +51,16 @@ public class Level {
     public enum objectiveResult {
         NOT_DONE,
         DONE,
-        FAILED
+        FAILED,
+        INVALID
     }
 
     public objectiveResult checkAnswer(Farmio farmio){
-        //if (...)
-        return objectiveResult.NOT_DONE;
+        if (farmio.getFarmer().isHasfailedCurrentTask()) {
+            return objectiveResult.INVALID;
+        }
+        //TODO if (...) to return NOT_DONE, DONE, FAILED
+        return objectiveResult.DONE;
     }
 
     public Map<String, Integer> getGoals() {
