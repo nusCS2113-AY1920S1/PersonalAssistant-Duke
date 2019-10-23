@@ -8,7 +8,9 @@ public class Bank {
     protected WordBank wordBank;
     protected WordCount wordCount;
 
-    public Bank() {}
+    public Bank() {
+
+    }
 
     public Bank(Storage storage) {
         wordBank = new WordBank(storage);

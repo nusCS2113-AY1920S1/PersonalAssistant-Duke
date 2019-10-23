@@ -24,6 +24,12 @@ public class WordBank extends Bank {
         return wordBank;
     }
 
+    /**
+     * Searched for the Word object containing the word.
+     * @param word the word to be found
+     * @return a Word object containing the word and its meaning
+     * @throws NoWordFoundException when the wordBank does not contain the word
+     */
     public Word getWord(String word) throws NoWordFoundException {
         if (wordBank.containsKey(word)) {
             return wordBank.get(word);
@@ -32,6 +38,10 @@ public class WordBank extends Bank {
         }
     }
 
+    /**
+     * Adds a word to the wordBank.
+     * @param word the word to be added to the wordBank
+     */
     @Override
     public void addWord(Word word) {
         this.wordBank.put(word.getWordString(), word);
