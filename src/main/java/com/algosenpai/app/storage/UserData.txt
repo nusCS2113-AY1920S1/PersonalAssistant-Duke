@@ -1,0 +1,44 @@
+AlgoSenpai Adventures Overall Report
+
+User1
+miku.png
+
+Chapter 1 : Sorting
+Total Attempts made : 2
+Total Questions answered : 20
+Total Questions correct : 15
+Total Questions wrong : 5
+Percentage of Questions correct : 75.0
+Comments : "You are almost there!"
+
+Chapter 2 : Linked List
+Total Attempts made : 0
+Total Questions answered : 0
+Total Questions correct : 0
+Total Questions wrong : 0
+Percentage of Questions correct : 0
+Comments : "Try your best!"
+
+Chapter 3 : Bitmask
+Total Attempts made : 0
+Total Questions answered : 0
+Total Questions correct : 0
+Total Questions wrong : 0
+Percentage of Questions correct : 0
+Comments : "Try your best!"
+
+Chapter 4 : Binary Heap
+Total Attempts made : 0
+Total Questions answered : 0
+Total Questions correct : 0
+Total Questions wrong : 0
+Percentage of Questions correct : 0
+Comments : "Try your best!"
+
+Chapter 5 : Binary Search Tree
+Total Attempts made : 0
+Total Questions answered : 0
+Total Questions correct : 0
+Total Questions wrong : 0
+Percentage of Questions correct : 0
+Comments : "Try your best!"

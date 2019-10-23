@@ -52,7 +52,6 @@ test {
     testLogging {
         exceptionFormat = 'full'
     }
-
     systemProperty 'java.awt.headless', 'true'
     systemProperty 'testfx.robot', 'glass'
     systemProperty 'testfx.headless', 'true'
