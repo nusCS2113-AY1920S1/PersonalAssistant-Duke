@@ -5,6 +5,12 @@
  */
 package cube.logic.command;
 
+//not fully functional yet, pls dont test it now
+//will make it functional within 2 days, before friday demo
+//also, change the name to revenue for user friendliness
+//updated by LL-Pengfei
+
+
 import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
 import cube.model.Food;
