@@ -3,6 +3,7 @@ package seedu.hustler.command.task;
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.schedule.Scheduler;
 
 /**
@@ -30,6 +31,7 @@ public class AddCommand extends Command {
         Ui ui = new Ui();
         if (this.taskInfo.length == 1) {
             ui.empty_description_error();
+            CommandLog.deleteLatestLoggedCommand();
             return;
         }
 

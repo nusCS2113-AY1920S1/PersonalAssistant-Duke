@@ -6,20 +6,20 @@ import seedu.hustler.game.shop.items.weapons.Weapon;
 import java.util.Optional;
 
 /**
- * The class in which every item will inherit from.
- */
+ *  * The class in which every item will inherit from.
+ *   */
 public abstract class ShopItem implements Purchasable {
     /**
-     * The cost of the shop item.
-     */
+     *      * The cost of the shop item.
+     *           */
     protected int cost;
     /**
-     * Boolean if the shop item has been purchased.
-     */
+     *      * Boolean if the shop item has been purchased.
+     *           */
     protected Boolean isPurchased;
     /**
-     * The type in string, of each item.
-     */
+     *      * The type in string, of each item.
+     *           */
     protected String type;
 
     /**
@@ -43,42 +43,42 @@ public abstract class ShopItem implements Purchasable {
     }
 
     /**
-     * Gets the cost of the Shop Item.
-     * @return the cost of the shop item.
-     */
+     *      * Gets the cost of the Shop Item.
+     *           * @return the cost of the shop item.
+     *                */
     public int getCost() {
         return this.cost;
     }
 
     /**
-     * Gets the boolean value of isPurchased.
-     * @return true if item has been purchased; false if otherwise.
-     */
+     *      * Gets the boolean value of isPurchased.
+     *           * @return true if item has been purchased; false if otherwise.
+     *                */
     public Boolean isPurchased() {
         return this.isPurchased;
     }
 
     /**
-     * Sets the boolean value of isPurchased.
-     * @param purchased the boolean value if item has been purchased.
-     */
+     *      * Sets the boolean value of isPurchased.
+     *           * @param purchased the boolean value if item has been purchased.
+     *                */
     public void setPurchased(Boolean purchased) {
         this.isPurchased = purchased;
     }
 
     /**
-     * Gets the type of shop item.
-     * @return the type of the shop item in String.
-     */
+     *      * Gets the type of shop item.
+     *           * @return the type of the shop item in String.
+     *                */
     public String getType() {
         return this.type;
     }
 
     /**
-     * Checks if the shop item is same type as the other by comparing their type.
-     * @param other the other shop item to compare to.
-     * @return the boolean value if they are equivalent; false if otherwise.
-     */
+     *      * Checks if the shop item is same type as the other by comparing their type.
+     *           * @param other the other shop item to compare to.
+     *                * @return the boolean value if they are equivalent; false if otherwise.
+     *                     */
     public boolean isEquals(ShopItem other) {
         return this.type.equals(other.type);
     }

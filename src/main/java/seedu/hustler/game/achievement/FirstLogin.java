@@ -35,7 +35,7 @@ public class FirstLogin extends Achievements {
     public FirstLogin() {
         this.description = "Fresh off the boat";
         this.information = "Use Hustler for the first time.";
-        this.achievementLevel = "\uD83E\uDD47 Gold";
+        this.achievementLevel = "Gold";
         this.points = 15;
         locked = false;
     }

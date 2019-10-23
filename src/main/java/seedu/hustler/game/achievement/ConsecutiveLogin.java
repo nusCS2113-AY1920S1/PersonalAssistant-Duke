@@ -133,12 +133,14 @@ public class ConsecutiveLogin extends Achievements {
      * @return Achievement level.
      */
     public static String updateAchievementLevel() {
-        if (consecutiveCount == 5) {
-            loginAchievementLevel = "\uD83E\uDD49 Bronze";
-        } else if (consecutiveCount == 10) {
-            loginAchievementLevel = "\uD83E\uDD48 Silver";
+        if(consecutiveCount == 5) {
+            loginAchievementLevel = "Bronze";
+        } else if(consecutiveCount == 10) {
+            loginAchievementLevel = "Silver";
         } else if (consecutiveCount == 15) {
-            loginAchievementLevel = "\uD83E\uDD47 Gold";
+            loginAchievementLevel = "Gold";
+        } else {
+            loginAchievementLevel = null;
         }
         return loginAchievementLevel;
     }
@@ -157,6 +159,8 @@ public class ConsecutiveLogin extends Achievements {
         } else if (consecutiveCount == 15) {
             totalPoints += loginPoints;
             loginPoints += GOLD_POINT;
+        } else {
+            loginPoints = 0;
         }
         return loginPoints;
     }

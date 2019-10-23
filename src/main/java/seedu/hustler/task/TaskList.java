@@ -71,20 +71,45 @@ public class TaskList {
     }
 
     /**
+<<<<<<< HEAD
+     * Checks whether list is empty or not.
+     *
+     * @return true or false to whether the internal ArrayList is empty or not.
+     */
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
+    public TaskList createCopy() {
+        ArrayList<Task> AL = new ArrayList<Task>();
+	    for (int i = 0; i < this.list.size(); i += 1) {
+            AL.add(this.list.get(i));
+        }
+        return new TaskList(AL);
+    }
+
+    /**
+=======
+>>>>>>> 2feeec7ec17483f4577ed826f26dcf09a6b142eb
      * Adds a new Task to the task list.
      *
      * @param task new Task to be added.
      */
     public void add(Task task) {
         list.add(task);
+        String output = "\t  " + list.get(list.size() - 1).toString();
         if (!CommandLog.isRestoring()) {
             AddTask.increment();
             AddTask.updateAchievementLevel();
             AddTask.updatePoints();
             AchievementList.updateAddTask(addAchievementLevel);
-            ui.show_task_added(list);
+            if (!CommandLog.isRestoring()) {
+                ui.show_task_added(list);
+            }
         } else {
-            ui.show_task_clash();
+            if (!CommandLog.isRestoring()) {
+                ui.show_task_clash();
+            }
         }
         Scheduler.add(this.getLastTask());
     }
@@ -187,17 +212,21 @@ public class TaskList {
                 return;
             }
         }
-        if (!CommandLog.isRestoring()) {
-            if (!checkAnomaly) {
-                AddTask.increment();
-                AddTask.updateAchievementLevel();
-                AddTask.updatePoints();
-                AchievementList.updateAddTask(addAchievementLevel);
+
+        if (!checkAnomaly) {
+            AddTask.increment();
+            AddTask.updateAchievementLevel();
+            AddTask.updatePoints();
+            AchievementList.updateAddTask(addAchievementLevel);
+            if (!CommandLog.isRestoring()) {
                 ui.show_task_added(list);
-            } else {
+            }
+        } else {
+            if (!CommandLog.isRestoring()) {
                 ui.show_task_clash();
             }
         }
+
         Scheduler.add(this.getLastTask());
     }
 
@@ -220,11 +249,11 @@ public class TaskList {
         try {
             list.get(i).markAsDone();
             if (list.get(i).isDone) {
+                DoneTask.increment();
+                DoneTask.updateAchievementLevel();
+                DoneTask.updatePoints();
+                AchievementList.updateDoneTask(doneAchievementLevel);
                 if (!CommandLog.isRestoring()) {
-                    DoneTask.increment();
-                    DoneTask.updateAchievementLevel();
-                    DoneTask.updatePoints();
-                    AchievementList.updateDoneTask(doneAchievementLevel);
                     ui.show_task_done(list.get(i).toString());
                 }
                 Hustler.avatar.gainXp();
@@ -246,7 +275,9 @@ public class TaskList {
         try {
             String taskDescription = list.get(i).toString();
             list.remove(i);
-            ui.show_task_removed(list, taskDescription);
+            if (!CommandLog.isRestoring()) {
+                ui.show_task_removed(list, taskDescription);
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -257,10 +288,14 @@ public class TaskList {
      */
     public void clearList() {
         if (list.isEmpty()) {
-            ui.show_list_empty();
+            if (!CommandLog.isRestoring()) {
+                ui.show_list_empty();
+            }
         } else {
             list.clear();
-            ui.show_list_cleared();
+            if (!CommandLog.isRestoring()) {
+                ui.show_list_cleared();
+            }
         }
     }
 
@@ -301,7 +336,10 @@ public class TaskList {
                     return;
                 }
             }
-            ui.show_task_snoozed(list.get(i).toString());
+
+            if (!CommandLog.isRestoring()) {
+                ui.show_task_snoozed(list.get(i).toString());
+            }
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
@@ -366,7 +404,9 @@ public class TaskList {
             ui.show_message("Task list has remained the same. Please check your sort command.");
             return;
         }
-        ui.show_list_sorted(list);
+        if (!CommandLog.isRestoring()) {
+            ui.show_list_sorted(list);
+        }
     }
 
     /**
@@ -374,9 +414,13 @@ public class TaskList {
      */
     public void displayList() {
         if (list.isEmpty()) {
-            ui.show_empty_list_error();
+            if (!CommandLog.isRestoring()) {
+                ui.show_empty_list_error();
+            }
         } else {
-            ui.show_list(list);
+            if (!CommandLog.isRestoring()) {
+                ui.show_list(list);
+            }
         }
     }
 

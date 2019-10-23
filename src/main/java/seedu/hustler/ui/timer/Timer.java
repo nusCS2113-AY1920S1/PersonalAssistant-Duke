@@ -1,5 +1,8 @@
 package seedu.hustler.ui.timer;
 
+import java.util.*;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
+
 /**
  * The timer device operated by timerManager.
  */
@@ -8,7 +11,7 @@ public class Timer implements Runnable {
      * The current status of the timer, an attribute that is
      * affected by the types of commands used by the user.
      */
-    protected static ThreadStatus threadstatus = ThreadStatus.DEFAULT;
+    protected static threadStatus threadstatus = threadStatus.DEFAULT;
 
     /**
      * An array of 3 integers representing the hours, minutes
@@ -23,7 +26,7 @@ public class Timer implements Runnable {
      */
     protected Timer() {
         timeArray = new int[3];
-        threadstatus = ThreadStatus.DEFAULT;
+        threadstatus = threadStatus.DEFAULT;
     }
     /**
      * Overloaded constructor that directly sets the hours, minutes
@@ -37,19 +40,6 @@ public class Timer implements Runnable {
         timeArray[0] = Integer.parseInt(seconds);
         timeArray[1] = Integer.parseInt(minutes);
         timeArray[2] = Integer.parseInt(hours);
-    }
-
-    /**
-     * Types of statuses the timer can have.
-     */
-    protected enum ThreadStatus {
-        DEFAULT,
-        RUNNING,
-        PAUSED,
-        RESUMED,
-        RESET,
-        STOPPED,
-        FINISHED
     }
 
     /**

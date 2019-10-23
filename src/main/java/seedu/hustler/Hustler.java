@@ -5,6 +5,7 @@ import java.io.IOException;
 import seedu.hustler.data.*;
 import seedu.hustler.data.TaskStorage;
 import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
@@ -150,11 +151,15 @@ public class Hustler extends Application {
         ConsecutiveLogin.updateCount();
         ConsecutiveLogin.updatePoints();
         AchievementList.updateConsecutiveLogin(updateAchievementLevel());
+        AchievementStorage.createBackup(achievementList);
     }
 
-    public static void reloadBackup() {
+    public static void reloadBackup() throws IOException {
         list = new TaskList(taskStorage.reloadBackup());
         avatar = AvatarStorage.reloadBackup();
+        AchievementStorage.reloadStatus();
+        AchievementStorage.reloadAchievements();
+        AddTask.updateAchievementLevel();
     }
 
     /**

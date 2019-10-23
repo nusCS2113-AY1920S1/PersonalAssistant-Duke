@@ -5,22 +5,22 @@ package seedu.hustler.ui.timer;
  * timer's time. Allows the timer to actually countdown.
  */
 public class TimerLogic {
+
     /**
-     * Takes the current time of the timer and attempts
-     * to decrement it by one second.
-     * @param time current time.
+     * @param time[] takes the current time of the timer and attempts to
+     * decrement it by one second.
      * @return the next iteration of the countdown.
      */
-    protected static int[] decrement(int[] time) {
+    protected static int[] decrement(int time[]) {
         int index = 0;
         return recursiveDecrement(index, time);
     }
 
     /**
-     * Recursively countdowns the timer's time. If seconds if 0, reduce
+     * Recursively countsdown the timer's time. If seconds if 0, reduce
      * minutes, if minutes if 0, reduce hours etc.
      */
-    private static int[] recursiveDecrement(int index, int[] time) {
+    private static int[] recursiveDecrement(int index, int time[]) {
         if (time[index] == 0) {
             time[index] = 59;
             return recursiveDecrement(index + 1, time);

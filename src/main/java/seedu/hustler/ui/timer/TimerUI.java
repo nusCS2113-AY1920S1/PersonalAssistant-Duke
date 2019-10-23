@@ -1,20 +1,21 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.ThreadErrorUiMessages.ThreadErrorType;
-import seedu.hustler.ui.timer.Timer.ThreadStatus;
+import seedu.hustler.ui.timer.statusTypes.threadError;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
 
 /**
  * Manages all code that will need to print information for the user.
  * Acts as a node and HQ for all such user-interface activities.
  */
 public class TimerUI {
+
     /**
-     * All strings to be printed will always be generated else. This private
-     * function will be the last part of every printing-related; this method
-     * is the gate of sorts. This deliberate abstraction always the developer
+     * All strings to be printed will always be generated elsewhere. This private
+     * function will be the last part of every printing-related action; this method
+     * is the gate of sorts. This deliberate abstraction allows the developer
      * to mute printing if required.
      */
-    private static void printToUser(String output) {
+    private static void printToUser (String output) {
         System.out.println(output);
     }
 
@@ -22,11 +23,11 @@ public class TimerUI {
      * The main location to generate messages related to why a timer starts to
      * countdown (new timer started, old timer resumed, etc).
      */
-    protected static void printThreadStart(ThreadStatus threadstatus, int[] timeArray) {
-        if (threadstatus == ThreadStatus.RUNNING) {
-            printToUser(ThreadStartUiMessages.timerStart(timeArray));
-        } else if (threadstatus == ThreadStatus.RESUMED) {
-            printToUser(ThreadStartUiMessages.timerResumed());
+    protected static void printThreadStart(threadStatus threadstatus, int[] timeArray) {
+        if (threadstatus == threadStatus.RUNNING) {
+            printToUser(UIMessages.threadStart.TimerStart(timeArray));
+        } else if (threadstatus == threadStatus.RESUMED) {
+            printToUser(UIMessages.threadStart.TimerResumed());
         }
     }
 
@@ -34,28 +35,28 @@ public class TimerUI {
      * The main location to generate messages related to why a timer has
      * stopped its countdown (has it been paused, stopped prematurely, etc).
      */
-    protected static void printThreadInterrupt(ThreadStatus threadstatus) {
-        if (threadstatus == ThreadStatus.PAUSED) {
-            printToUser(ThreadStopUiMessages.timerPaused());
-        } else if (threadstatus == ThreadStatus.RESET) {
-            printToUser(ThreadStopUiMessages.timerStopped());
-        } else if (threadstatus == ThreadStatus.RUNNING || threadstatus == ThreadStatus.RESUMED) {
-            printToUser(ThreadStopUiMessages.timesUp());
-            Timer.threadstatus = ThreadStatus.FINISHED;
+    protected static void printThreadInterrupt(threadStatus threadstatus) {
+        if (threadstatus == threadStatus.PAUSED) {
+            printToUser(UIMessages.threadStop.TimerPaused());
+        } else if (threadstatus == threadStatus.RESET) {
+            printToUser(UIMessages.threadStop.TimerStopped());
+        } else if (threadstatus == threadStatus.RUNNING || threadstatus == threadStatus.RESUMED) {
+            printToUser(UIMessages.threadStop.TimesUp());
+            Timer.threadstatus = threadStatus.FINISHED;
         }
     }
 
     /**
      * The main location to generate messages related to all errors that arise
-     * to the the timer/ thread (invalid commands, etc). 
+     * to the the timer/ thread (invalid commands, etc).
      */
-    protected static void printThreadError(ThreadErrorType threaderrortype) {
-        if (threaderrortype == ThreadErrorType.RESUMEERROR) {
-            printToUser(ThreadErrorUiMessages.noTimerToResumeError());
-        } else if (threaderrortype == ThreadErrorType.PAUSEERROR) {
-            printToUser(ThreadErrorUiMessages.noTimerToPauseError());
-        } else if (threaderrortype == ThreadErrorType.STOPERROR) {
-            printToUser(ThreadErrorUiMessages.noTimerToStopError());
+    protected static void printThreadError(threadError threaderrortype) {
+        if (threaderrortype == threadError.RESUMEERROR) {
+            printToUser(UIMessages.threadError.NoTimerToResumeError());
+        } else if (threaderrortype == threadError.PAUSEERROR) {
+            printToUser(UIMessages.threadError.NoTimerToPauseError());
+        } else if (threaderrortype == threadError.STOPERROR) {
+            printToUser(UIMessages.threadError.NoTimerToStopError());
         }
     }
 

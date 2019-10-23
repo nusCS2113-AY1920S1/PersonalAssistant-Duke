@@ -23,8 +23,12 @@ public class MemoryManager {
         }
     }
 
-    public void reloadBackup(int numberOfCommandsToUndo) {
+    public void reloadBackup(int numberOfCommandsToUndo) throws IOException {
         Hustler.reloadBackup();
         CommandLog.restoreData(numberOfCommandsToUndo);
+    }
+
+    public void redo() throws IOException {
+        CommandLog.redo();
     }
 }

@@ -1,21 +1,23 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.Timer.ThreadStatus;
-import seedu.hustler.ui.timer.ThreadErrorUiMessages.ThreadErrorType;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
+import seedu.hustler.ui.timer.statusTypes.threadError;
+
 
 /**
- * The access point for all timer-related things.
+ * The access point for all Timer-related things.
  */
 public class TimerManager {
+
     /**
-     * All instances of timerManager share the same timer and
-     * thread so that all things timer-related are in sync.
+     * All instances of TimerManager share the same Timer and
+     * thread so that all things Timer-related are in sync.
      */
     protected static Timer countdownTimer;
     protected static Thread countdownThread;
 
     /**
-     * Empty constructor that also creates a timer and a thread
+     * Empty constructor that also creates a Timer and a thread
      * for the timeManager. All timeManagers are required to
      * have these two attributes initialised.
      */
@@ -25,7 +27,7 @@ public class TimerManager {
     }
 
     /**
-     * Allows the timeManager to set the timer's time as per
+     * Allows the timeManager to set the Timer's time as per
      * the user's wishes.
      */
     public void setTimer(String time) {
@@ -34,28 +36,28 @@ public class TimerManager {
     }
 
     /**
-     * Allows the timeManager to reset the timer, reverting
+     * Allows the timeManager to reset the Timer, reverting
      * its hours, minutes and seconds to 0 again at any
      * point.
      */
     public static void resetTimer() {
         countdownTimer = new Timer();
-        Timer.threadstatus = ThreadStatus.RESET;
+        Timer.threadstatus = threadStatus.RESET;
     }
 
     /**
-     * Allows the timeManager to start the timer countdown,
-     * usually done after setting the timer.
+     * Allows the timeManager to start the Timer countdown,
+     * usually done after setting the Timer.
      */
     public void startTimer() {
-        Timer.threadstatus = ThreadStatus.RUNNING;
+        Timer.threadstatus = threadStatus.RUNNING;
         countdownThread = new Thread(countdownTimer);
         countdownThread.start();
     }
 
     /**
      * Allows the timeManager to retrieve the current time
-     * of the timer in order to print and inform the user.
+     * of the Timer in order to print and inform the user.
      * Lets the user know how much time is left.
      */
     public void checkTimeLeft() {
@@ -63,45 +65,44 @@ public class TimerManager {
     }
 
     /**
-     * Allows the timeManager to pause the timer if the
+     * Allows the timeManager to pause the Timer if the
      * user so desires.
      */
     public static void pauseTimer() {
-        if (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED) {
-            Timer.threadstatus = ThreadStatus.PAUSED;
+        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED) {
+            Timer.threadstatus = threadStatus.PAUSED;
             countdownThread.interrupt();
         } else {
-            TimerUI.printThreadError(ThreadErrorType.PAUSEERROR);
+            TimerUI.printThreadError(threadError.PAUSEERROR);
         }
     }
 
     /**
-     * Allows the timeManager to resume a timer that has
+     * Allows the timeManager to resume a Timer that has
      * been paused by the user. Timers that have not been
      * paused cannot be resumed.
      */
     public static void resumeTimer() {
-        if (Timer.threadstatus == ThreadStatus.PAUSED) {
-            Timer.threadstatus = ThreadStatus.RESUMED;
+        if (Timer.threadstatus == threadStatus.PAUSED) {
+            Timer.threadstatus = threadStatus.RESUMED;
             countdownThread = new Thread(countdownTimer);
             countdownThread.start();
         } else {
-            TimerUI.printThreadError(ThreadErrorType.RESUMEERROR);
+            TimerUI.printThreadError(threadError.RESUMEERROR);
         }
     }
 
     /**
-     * Allows the timeManager to stop a timer's countdown
+     * Allows the timeManager to stop a Timer's countdown
      * prematurely.
      */
     public static void stopTimer() {
-        if (Timer.threadstatus == ThreadStatus.RUNNING || Timer.threadstatus == ThreadStatus.RESUMED
-                || Timer.threadstatus == ThreadStatus.PAUSED) {
-            Timer.threadstatus = ThreadStatus.STOPPED;
+        if (Timer.threadstatus == threadStatus.RUNNING || Timer.threadstatus == threadStatus.RESUMED || Timer.threadstatus == threadStatus.PAUSED) {
+            Timer.threadstatus = threadStatus.STOPPED;
             countdownThread.interrupt();
             resetTimer();
         } else {
-            TimerUI.printThreadError(ThreadErrorType.STOPERROR);
+            TimerUI.printThreadError(threadError.STOPERROR);
         }
     }
 }

@@ -2,6 +2,7 @@ package seedu.hustler.command.task;
 
 import seedu.hustler.command.Command;
 import seedu.hustler.data.MemoryManager;
+import java.io.IOException;
 
 /**
  * Command that undoes the previous command.
@@ -29,7 +30,7 @@ public class UndoCommand extends Command {
     /**
      * Undoes a set number of user commands..
      */
-    public void execute() {
+    public void execute() throws IOException {
         MemoryManager memorymanager = new MemoryManager();
 
         if (this.taskInfo.length == 1) {
