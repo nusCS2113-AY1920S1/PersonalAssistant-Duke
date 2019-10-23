@@ -13,6 +13,11 @@ import utils.Reminder;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+//=======New Imports for new structure
+import gui.UiController;
+import logic.LogicController;
+import model.Model;
+
 /**
  * This is the main class to be executed for DUKE PRO application
  *
@@ -31,6 +36,8 @@ public class Duke {
     private ArrayList<Task> tasks;
 
     private ArrayList<Member> members;
+
+    //=============New instantiation of new structure objects===================
 
     public static Duke instance;
 
