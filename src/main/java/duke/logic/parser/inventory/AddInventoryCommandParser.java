@@ -5,10 +5,9 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
-
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.commons.Quantity;
+import duke.model.inventory.Ingredient;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;

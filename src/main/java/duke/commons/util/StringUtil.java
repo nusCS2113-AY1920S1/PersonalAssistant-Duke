@@ -9,6 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Helper functions for handling strings.
+ * Adapted from AddressBook 4.
  */
 public class StringUtil {
 

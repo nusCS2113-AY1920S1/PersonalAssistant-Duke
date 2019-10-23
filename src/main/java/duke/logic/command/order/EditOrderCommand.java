@@ -62,9 +62,11 @@ public class EditOrderCommand extends OrderCommand {
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
 
+        //Completed order cannot be modified.
         if (orderToEdit.getStatus().equals(Order.Status.COMPLETED)) {
             throw new CommandException(MESSAGE_CANNOT_EDIT_COMPLETED_ORDER);
         }
+
         Order editedOrder = OrderCommandUtil.modifyOrder(
             orderToEdit,
             orderDescriptor,
@@ -72,6 +74,12 @@ public class EditOrderCommand extends OrderCommand {
             model.getFilteredInventoryList());
 
         model.setOrder(orderToEdit, editedOrder);
+
+        //Deduct inventory if order is set to complete.
+        if (editedOrder.getStatus() == Order.Status.COMPLETED) {
+            OrderCommandUtil.deductInventory(editedOrder, model);
+        }
+
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
 
         model.commit(MESSAGE_COMMIT);

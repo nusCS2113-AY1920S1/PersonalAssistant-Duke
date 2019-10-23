@@ -1,7 +1,5 @@
 package duke.model.product;
 
-import javafx.beans.property.StringProperty;
-
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;
@@ -15,7 +13,7 @@ public class Product {
     }
 
 
-    public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
+    public static final String MESSAGE_CONSTRAINTS = "Product name can take any values, "
             + "and should not be blank";
 
     private String productName;

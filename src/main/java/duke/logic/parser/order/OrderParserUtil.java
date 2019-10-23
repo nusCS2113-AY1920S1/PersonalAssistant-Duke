@@ -6,8 +6,8 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.TimeParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
-import duke.model.order.Order;
 import duke.model.commons.Quantity;
+import duke.model.order.Order;
 
 import java.util.HashSet;
 import java.util.List;
@@ -126,7 +126,6 @@ class OrderParserUtil {
     /**
      * Checks if a {@code toCheck}'s length is no more than {@code max}.
      * @throws ParseException if the string's is more than {@code max}
-     * with exception message specified by {@code message}.
      */
     private static void checkStringLength(String toCheck, int max, String message) throws ParseException {
         if (toCheck.length() > max) {

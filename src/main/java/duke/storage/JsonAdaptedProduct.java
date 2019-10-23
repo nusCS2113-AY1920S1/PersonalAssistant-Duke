@@ -3,15 +3,12 @@ package duke.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.model.commons.Item;
-import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class JsonAdaptedProduct {
     private final String productName;
@@ -66,7 +63,7 @@ public class JsonAdaptedProduct {
         product.setStatus(this.status);
 
         IngredientItemList ingredientItemList = new IngredientItemList();
-        for(JsonAdaptedIngredientItem jsonAdaptedIngredientItem : ingredientItems) {
+        for (JsonAdaptedIngredientItem jsonAdaptedIngredientItem : ingredientItems) {
             ingredientItemList.add(jsonAdaptedIngredientItem.toModelType());
 
         }

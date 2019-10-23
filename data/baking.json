@@ -1,0 +1,24 @@
+{
+  "orders" : [ {
+    "id" : 1571655155957,
+    "creationDate" : "2019-10-21T10:52:35.957+0000",
+    "name" : "customer",
+    "contact" : "N/A",
+    "remarks" : "N/A",
+    "deliveryDate" : "2019-10-21T10:52:29.306+0000",
+    "status" : "COMPLETED",
+    "total" : 0.0,
+    "items" : [ ]
+  } ],
+  "products" : [ ],
+  "inventory" : [ ],
+  "shoppingList" : [ ],
+  "sales" : [ {
+    "id" : 1571655155982,
+    "description" : "Order 1571655155957 completed.",
+    "saleDate" : "2019-10-21T10:52:29.306+0000",
+    "value" : 0.0,
+    "remarks" : "N/A"
+  } ],
+  "shortcuts" : [ ]
+}

@@ -1,17 +1,17 @@
 package duke.model;
 
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
-import duke.model.sale.Sale;
 import duke.model.product.Product;
+import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book.
+ * Unmodifiable view of BakingHome.
  */
 public interface ReadOnlyBakingHome {
 

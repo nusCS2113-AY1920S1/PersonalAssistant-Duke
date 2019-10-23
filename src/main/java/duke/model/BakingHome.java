@@ -1,9 +1,9 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
-import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -47,7 +47,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         resetData(toBeCopied);
     }
 
-    /*
+    /**
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
      */
     public void resetData(ReadOnlyBakingHome newData) {
@@ -174,11 +174,17 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Product operations==============
 
     /**
+     * Removes a given product from product List
+     */
+    public void removeProduct(Product product) {
+        products.remove(product);
+    }
+    /**
      * Adds an product to products.
      * The order must not already exist in orders.
      */
-    public void addProduct(Product p) {
-        products.add(p);
+    public void addProduct(Product product) {
+        products.add(product);
     }
 
     public void setProduct(Product originalProduct, Product editedProduct) {
@@ -365,4 +371,5 @@ public class BakingHome implements ReadOnlyBakingHome {
     public int hashCode() {
         return orders.hashCode();
     }
+
 }

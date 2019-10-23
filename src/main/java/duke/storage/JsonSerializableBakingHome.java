@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable BakingHome that is serializable to JSON format.
  */
 @JsonRootName(value = "bakinghome")
 class JsonSerializableBakingHome {

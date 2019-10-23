@@ -24,7 +24,7 @@ public class DeleteOrderCommand extends OrderCommand {
     private final Set<Index> indices;
 
     /**
-     * Creates a {@code DeleteOrderCommand}.
+     * Creates a {@code DeleteProductCommand}.
      *
      * @param indices of the orders to delete
      */

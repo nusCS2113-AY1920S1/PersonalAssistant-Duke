@@ -49,15 +49,15 @@ public class ParserUtil {
     }
 
     /**
-     * Returns a set of {@code Index} parsed from user input.
-     * The input string can be a) a single index e.g. {@code 1},
-     * or b) some indices separated by commas, e.g. {@code 1, 2, 4},
-     * or c) an interval of index {@code e.g. 1~4}
+     * Returns a set of unique {@code Index} parsed from user input.
+     * The input string can be a) a single index e.g. 1;
+     * or b) some indices separated by commas, e.g. 1, 2, 4;
+     * or c) an interval of index e.g. 1~4.
      *
      * @throws ParseException if user input is not in the specified format
      */
     public static Set<Index> getIndices(String indexString) throws ParseException {
-        Set<Index> indices = new HashSet<>();
+        Set<Index> indices;
         if (indexString.contains("~")) {
             indices = getIndicesInInterval(indexString);
         } else {

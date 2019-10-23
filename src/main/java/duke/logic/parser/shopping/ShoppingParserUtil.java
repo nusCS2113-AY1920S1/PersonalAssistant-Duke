@@ -3,10 +3,10 @@ package duke.logic.parser.shopping;
 import duke.logic.command.shopping.ShoppingDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_REMARKS;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_SHOPPING_COST;
 
 public class ShoppingParserUtil {
     /**
