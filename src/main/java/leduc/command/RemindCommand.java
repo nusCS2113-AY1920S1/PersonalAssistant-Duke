@@ -55,7 +55,7 @@ public class RemindCommand extends Command {
             System.out.println(result);
         }
         else{
-            ui.display("\t There is no upcoming tasks in your list");
+            ui.display("\t There are no upcoming tasks in your list");
         }
 
     }
