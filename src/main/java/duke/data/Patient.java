@@ -2,14 +2,15 @@ package duke.data;
 
 import duke.exception.DukeException;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Patient extends DukeObject {
 
     private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
-    private ArrayList<Impression> impressions;
+    private HashMap<String, Impression> impressions;
 
     private Integer height;
     private Integer weight;
@@ -41,7 +42,7 @@ public class Patient extends DukeObject {
         this.bedNo = bedNo;
         this.allergies = allergies;
         this.priDiagnosis = null;
-        this.impressions = new ArrayList<Impression>();
+        this.impressions = new HashMap<String, Impression>();
 
         this.height = height;
         this.weight = weight;
@@ -65,7 +66,7 @@ public class Patient extends DukeObject {
         this.bedNo = bedNo;
         this.allergies = allergies;
         this.priDiagnosis = null;
-        this.impressions = new ArrayList<Impression>();
+        this.impressions = new HashMap<String, Impression>();
 
         this.height = null;
         this.weight = null;
@@ -89,20 +90,20 @@ public class Patient extends DukeObject {
      * @return the Impression newly added
      */
     public Impression addNewImpression(Impression newImpression) {
-        this.impressions.add(newImpression);
+        this.impressions.put(newImpression.getName(), newImpression);
         return newImpression;
     }
 
     /**
      * This deleteImpression function deletes an impression at the specified index
      * from the impressions list.
-     * @param idx index of the impression
+     * @param keyIdentifier name of the impression
      * @return the Impression of the deleted Impression
      */
-    public Impression deleteImpression(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.impressions.size()) {
-            Impression imp = this.impressions.get(idx);
-            this.impressions.remove(idx);
+    public Impression deleteImpression(String keyIdentifier) throws DukeException {
+        if (this.impressions.containsKey(keyIdentifier)) {
+            Impression imp = this.impressions.get(keyIdentifier);
+            this.impressions.remove(keyIdentifier);
             return imp;
         } else {
             throw new DukeException("I don't have that entry in the list!");
@@ -111,12 +112,13 @@ public class Patient extends DukeObject {
 
     /**
      * This getImpression function returns the impression from the impressions list at the specified index.
-     * @param idx index of the impression
+     * @param keyIdentifier name of the impression
      * @return Impression the impression specified by the index
      */
-    public Impression getImpression(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.impressions.size()) {
-            return this.impressions.get(idx);
+    public Impression getImpression(String keyIdentifier) throws DukeException {
+        if (this.impressions.containsKey(keyIdentifier)) {
+            Impression imp = this.impressions.get(keyIdentifier);
+            return imp;
         } else {
             throw new DukeException("I don't have that entry in the list!");
         }
@@ -124,11 +126,12 @@ public class Patient extends DukeObject {
 
     /**
      * Sets the Primary Diagnosis of the patient specified by the index chosen.
-     * @param idx index of the impression
+     * @param keyIdentifier name of the impression
      */
-    public void setPriDiagnosis(int idx) throws DukeException {
-        if (idx >= 0 && idx < this.impressions.size()) {
-            this.priDiagnosis = this.impressions.get(idx);
+    public void setPriDiagnosis(String keyIdentifier) throws DukeException {
+        if (this.impressions.containsKey(keyIdentifier)) {
+            Impression imp = this.impressions.get(keyIdentifier);
+            this.priDiagnosis = imp;
             return;
         } else {
             throw new DukeException("I don't have that entry in the list!");
@@ -139,14 +142,15 @@ public class Patient extends DukeObject {
      * This function find returns a list of all DukeObjs
      * with names related to the patient containing the search term.
      * @param searchTerm String to be used to filter the DukeObj
-     * @return the list of DukeObjs
+     * @return the hashMap of DukeObjs
      */
-    public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
+    public HashMap<String, DukeObject> find(String searchTerm) throws DukeException {
         int i = 1;
-        ArrayList<DukeObject> searchResult = new ArrayList<DukeObject>();
-        for (Impression imp : this.impressions) {
-            if (imp.getName().contains(searchTerm)) {
-                searchResult.add(imp);
+        HashMap<String, DukeObject> searchResult = new HashMap<String, DukeObject>();
+        for (Map.Entry mapElement : this.impressions.entrySet()) {
+            Impression value = (Impression)mapElement.getValue();
+            if (value.toString().contains(searchTerm)) {
+                searchResult.put(value.getName(), value);
                 ++i;
             }
         }
@@ -188,7 +192,7 @@ public class Patient extends DukeObject {
         return bedNo;
     }
 
-    public ArrayList<Impression> getImpressions() {
+    public HashMap<String, Impression> getImpressions() {
         return impressions;
     }
 
