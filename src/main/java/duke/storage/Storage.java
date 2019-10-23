@@ -37,6 +37,7 @@ public class Storage {
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
     private static final String ROUTES_FILE_PATH = "routes.txt";
+
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
     //private List<Route> userRoutes;
