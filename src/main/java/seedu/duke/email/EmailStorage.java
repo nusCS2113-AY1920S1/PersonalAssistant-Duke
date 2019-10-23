@@ -76,6 +76,7 @@ public class EmailStorage {
         EmailList serverEmailList = Http.fetchEmail(60);
         combineServerAndLocalEmailList(serverEmailList);
         Duke.getModel().updateGuiEmailList();
+        Duke.getModel().updateEmailTagList();
         saveEmails(Duke.getModel().getEmailList());
     }
 
