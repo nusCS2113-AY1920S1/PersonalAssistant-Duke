@@ -139,7 +139,8 @@ public class Storage {
      */
     public void writeFile(ArrayList<Task> list, String fileName) throws RoomShareException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            FileWriter fw = new FileWriter(fileName);
+            BufferedWriter writer = new BufferedWriter(fw);
             for (Task s : list) {
                 String out = "";
                 String type = String.valueOf(s.toString().charAt(1));
@@ -197,12 +198,12 @@ public class Storage {
                                 + "#";
                     }
                 }
-                writer.write(out);
+                writer.write(out );
                 writer.newLine();
             }
             writer.close();
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            throw new RoomShareException(ExceptionType.wrongFormat);
+            throw new RoomShareException(ExceptionType.writeError);
         }
     }
 

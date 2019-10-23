@@ -2,6 +2,8 @@ package Operations;
 
 import Enums.TimeUnit;
 
+import java.io.IOException;
+
 /**
  * class to tell user about errors and completion of operations
  */
@@ -9,7 +11,8 @@ public class Ui {
     /**
      * Constructor for Ui class
      */
-    public Ui () {   }
+    public Ui() {
+    }
 
     /**
      * Shows the startup logo for RoomShare
@@ -46,13 +49,13 @@ public class Ui {
         System.out.println("Priority must be either high medium or low, wrapped in asterisks '*'\n " +
                 "\te.g *low*");
         System.out.println("Time must be specified, wrapped in '&'\n" +
-                "\te.g &22/12/2019 18:00&");
+                "\te.g &22/12/2019 18:00&  &this friday 13:00&  &next monday 14:00&  &tmr 16:00&");
         System.out.println("If time isn't specified, then the duration of the task must at least be specified");
         System.out.println("Duration can be specified by wrapping in '^', in terms of number of hours or number of minutes");
         System.out.println("\te.g ^2 hours^ ^1 minutes^");
         System.out.println("Recurrence of the task can be specified by wrapping either days, weeks or months" +
                 "\nin '%'\n\te.g %day% %week% %month%");
-        System.out.println("Task can also be assigned to a name, by wrapping the name in '@'\n"+
+        System.out.println("Task can also be assigned to a name, by wrapping the name in '@'\n" +
                 "\te.g @Alice@");
         System.out.println("You must specify the task type, description, and either time or duration");
         System.out.println("The rest of the fields can still be changed later using other commands");
@@ -67,39 +70,41 @@ public class Ui {
     /**
      * Prints an error message telling the user that the data file cannot be loaded and an empty list is generated instead
      */
-    public void showLoadError () {
+    public void showLoadError() {
         System.out.println("Error in loading data file, initialising empty task list...");
     }
 
     /**
      * Prints a message telling the user that the task at the index has been deleted.
+     *
      * @param index Index of task to be deleted.
      */
 
-    public void showDeleted (int[] index) {
+    public void showDeleted(int[] index) {
         if (index.length == 1)
             System.out.println("Deleted task number " + (index[0] + 1) + "!");
         else
             System.out.println("Deleted task number " + (index[0] + 1) + " to " + (index[1] + 1) + " !");
     }
+
     /**
      * Tells the user that the search operation is executing
      */
-    public void showFind () {
+    public void showFind() {
         System.out.println("Searching for item in task list...");
     }
 
     /**
      * Tells the user that the task of index has been done and the list has been updated.
      */
-    public void showDone () {
+    public void showDone() {
         System.out.println("Completed task! Your task list has been updated");
     }
 
     /**
      * tells the user that a task has been added into the list
      */
-    public void showAdd () {
+    public void showAdd() {
         System.out.println("Your task has been added into the list!");
     }
 
@@ -115,20 +120,6 @@ public class Ui {
      */
     public void showList() {
         System.out.println("Listing tasks in your task list...");
-    }
-
-    /**
-     * tells the user that there is an error in writing the data.txt file.
-     */
-    public void showWriteError() {
-        System.out.println("Error in writing file, cancelling write process...");
-    }
-
-    /**
-     * tells the user that the index specified doesn't exist
-     */
-    public void showIndexError() {
-        System.out.println("Index you've entered doesn't exist, try with another index!");
     }
 
     /**
@@ -155,15 +146,9 @@ public class Ui {
     }
 
     /**
-     * Tells the user to input valid amount of time
-     */
-    public void showTimeError(){
-        System.out.println("Please indicate a valid amount of time");
-    }
-    /**
      * Provides user with instructions to prioritise task
      */
-    public void priority() {
+    public void priorityInstruction() {
         System.out.println("Enter task index followed by priority (high, medium, low)");
         System.out.println("\te.g. 1 high");
     }
@@ -171,7 +156,9 @@ public class Ui {
     /**
      * Notifies the user that their task's priority has been set
      */
-    public void prioritySet() { System.out.println("Your task's priority has been set"); }
+    public void prioritySet() {
+        System.out.println("Your task's priority has been set");
+    }
 
     public void promptSecondIndex() {
         System.out.println("Please enter the index to swap to");
@@ -184,5 +171,9 @@ public class Ui {
     public void helpList() {
         System.out.println("Here are a list of commands you can input: \n add \n list \n find \n delete \n" +
                 "For more information about a specific command you can \nEnter help followed by a command, eg. help add");
+    }
+
+    public void showError(Exception e){
+        System.out.println(e);
     }
 }
