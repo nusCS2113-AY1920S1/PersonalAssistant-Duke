@@ -10,14 +10,14 @@ import duke.task.TaskManager;
 
 public class UpdatePatientCommand extends Command {
 
-    private String command;
+    private String[] command;
 
     /**
      * .
      *
      * @param command .
      */
-    public UpdatePatientCommand(String command) {
+    public UpdatePatientCommand(String[] command) {
         this.command = command;
     }
 
@@ -34,7 +34,7 @@ public class UpdatePatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager,
                         Ui ui, StorageManager storageManager) throws DukeException {
-        String[] tempCommand = command.split(" ", 3);
+        String[] tempCommand = command[0].split(" ", 3); //changed temporarily to allow build success
         char firstChar = tempCommand[0].charAt(0);
         if (firstChar == '#') {
             int id;
