@@ -1,5 +1,9 @@
 = Le Duc - Developer Guide
 :site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 
