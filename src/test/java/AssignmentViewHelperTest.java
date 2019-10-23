@@ -15,6 +15,10 @@ public class AssignmentViewHelperTest {
     private final Member member2;
     private final Member member3;
 
+    /**
+     * Test for AssignmentViewHelper. Initialise dummy project and members with assignments upon
+     * creation.
+     */
     public AssignmentViewHelperTest() {
         this.project = new Project("Test Project");
         this.member1 = new Member("Tom", "--", "--", 1);
@@ -92,10 +96,10 @@ public class AssignmentViewHelperTest {
         assertEquals("2. Dick", taskOutput.get(4));
         assertEquals("JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN",
             taskOutput.get(5));
-        assertEquals("Members assigned to task 2 (JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN)", taskOutput.get(6));
+        assertEquals("Members assigned to task 2 (JUnit tests | Priority: 0 | Due: -- | Credit: 0 | State: OPEN)",
+            taskOutput.get(6));
         assertEquals("1. Dick", taskOutput.get(7));
         assertEquals("2. Harry", taskOutput.get(8));
     }
-
 
 }
