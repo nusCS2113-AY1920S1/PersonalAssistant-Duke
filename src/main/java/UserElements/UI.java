@@ -180,6 +180,14 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void rescheduleFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter command in the following format:\n" +
+            "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
+                "Please ensure that the taskIndex is a valid integer as well!");
+        System.out.print(lineSeparation);
+    }
+
     /**
      * prints message if no event description is found when adding a new event to the list
      */
@@ -189,12 +197,17 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void eventEndsBeforeStart() {
+        System.out.print(lineSeparation);
+        System.out.println("The event you added ends before it starts! Please try again.");
+        System.out.print(lineSeparation);
+    }
     /**
      * prints message when event index from input is not an integer
      */
     public void notAnInteger() {
         System.out.print(lineSeparation);
-        System.out.println("That is not an integer! Please enter the index of the event you intend to alter.");
+        System.out.println("That is not a valid integer! Please enter the index of the event you intend to alter.");
         System.out.print(lineSeparation);
     }
 
