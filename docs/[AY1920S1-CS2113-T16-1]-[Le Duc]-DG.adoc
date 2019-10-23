@@ -11,7 +11,7 @@
 ---
 
 == Target User
-
+* *Target*: Super busy student who has "multiple life".
 * *Problem Scope*: Organize a students school tasks and non-academic tasks.
 * *Value Proposition*: A student will be able to better manage their time, and be more productive.
 
@@ -19,99 +19,99 @@
 
 == User Stories
 
-[cols="5,1", options="header"]
+[cols="3,5,1", options="header"]
 |===
-|User Stories |Priority
+|Target |User Stories |Priority
 
-|As a student, I want to sort my task by type of task/by date/by description/by tag
-|Must Have
+|As a student,| I want to sort my task by type of task/by date/by description/by tag
+|* * *
 
-|As a student, I want to prioritize different task
-|Must Have
+|As a student,| I want to prioritize different task
+|* * *
 
-|As a student, I want to have recurrent task
-|Must Have
+|As a student,| I want to have recurrent task
+|* * *
 
-|As a student, I want to display the task by day/week/month/year
-|Must Have
+|As a student,| I want to display the task by day/week/month/year
+|* * *
 
-|As a student, I want to edit a task
-|Must Have
+|As a student,| I want to edit a task
+|* * *
 
-|As a student, I want to a better find feature (fuzzy matching)
-|Must Have
+|As a student,| I want to a better find feature (fuzzy matching)
+|* * *
 
-|As a student, I want to postpone a task
-|Must Have
+|As a student,| I want to postpone a task
+|* * *
 
-|As a student, I want to have shortcut
-|Must Have
+|As a student,| I want to have shortcut
+|* * *
 
-|As a student, I want to display two or more different task list (for example professional and personal)
-|Must Have
+|As a student,| I want to display two or more different task list (for example professional and personal)
+|* * *
 
-|As a student, I want the app to send me an email about my task
-|Nice-To-Have
+|As a student,| I want the app to send me an email about my task
+|* *
 
-|As a student, I want to display only the task that hasn't been done yet
-|Nice-To-Have
+|As a student,| I want to display only the task that hasn't been done yet
+|* *
 
-|As a student, I want the app to alarm me when a deadline is near
-|Nice-To-Have
+|As a student,| I want the app to alarm me when a deadline is near
+|* *
 
-|As a student, I want to import from other task list
-|Nice-To-Have
+|As a student,| I want to import from other task list
+|* *
 
-|As a student, I want to have subtask
-|Nice-To-Have
+|As a student,| I want to have subtask
+|* *
 
-|As a student, I want to see which task was done late, which task hadn't been done and which task was done on time
-|Nice-To-Have
+|As a student,| I want to see which task was done late, which task hadn't been done and which task was done on time
+|* *
 
-|As a student, I want to set a reminder
-|Nice-To-Have
+|As a student,| I want to set a reminder
+|* *
 
-|As a student, I want to see my progression
-|Nice-To-Have
+|As a student,| I want to see my progression
+|* *
 
-|As a student, I want to add an excepted time
-|Nice-To-Have
+|As a student,| I want to add an excepted time
+|* *
 
-|As a student, I want to see the time left until the allocated time for that task is over
-|Nice-To-Have
+|As a student,| I want to see the time left until the allocated time for that task is over
+|* *
 
-|As a student, I want to know the location, the address
-|Nice-To-Have
+|As a student,| I want to know the location, the address
+|* *
 
-|As a student, I want to combine two tasks
-|Nice-To-Have
+|As a student,| I want to combine two tasks
+|* *
 
-|As a student, I want to visualize the task (GUI)
-|Not Useful
+|As a student,| I want to visualize the task (GUI)
+|*
 
-|As a student, I want to have a login and a password or have a profile
-|Not Useful
+|As a student,| I want to have a login and a password or have a profile
+|*
 
-|As a student, I want to customize the welcome message
-|Not Useful
+|As a student,| I want to customize the welcome message
+|*
 
-|As a student, I want to have secret task
-|Not Useful
+|As a student,| I want to have secret task
+|*
 
-|As a student, I want to have shared task
-|Not Useful
+|As a student,| I want to have shared task
+|*
 
-|As a student, I want to delete a profile (like an admin)
-|Not Useful
+|As a student,| I want to delete a profile (like an admin)
+|*
 
-|As a student, I want to have some statistics
-|Not Useful
+|As a student,| I want to have some statistics
+|*
 
-|As a student, I want to see others students task
-|Not Useful
+|As a student,| I want to see others students task
+|*
 
-|As a student, I want to have a message feature
-|Not Useful
+|As a student,| I want to have a message feature
+|*
 |===
 
 ---
