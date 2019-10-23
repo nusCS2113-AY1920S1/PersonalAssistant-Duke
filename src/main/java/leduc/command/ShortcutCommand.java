@@ -145,6 +145,12 @@ public class ShortcutCommand extends Command {
             } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
             setOneShortcut("prioritize", newShortcut);
 
+            do{
+                ui.display("The precedent shortcut for unfinished is " + PrioritizeCommand.getPrioritizeShortcut() +" please enter new shortcut");
+                newShortcut = ui.readCommand();
+            } while(setShortcut.contains(newShortcut) || setDefaultShortcut.contains(newShortcut));
+            setOneShortcut("unfinished", newShortcut);
+
             ui.display("All shortcut has been set");
         }
         storage.saveConfig();
@@ -236,9 +242,15 @@ public class ShortcutCommand extends Command {
                 setShortcut.remove(ShowCommand.getShowShortcut());
                 ShowCommand.setShowShortcut(shortcutName);
                 setShortcut.add(shortcutName);
+                break;
             case "prioritize" :
                 setShortcut.remove(PrioritizeCommand.getPrioritizeShortcut());
                 PrioritizeCommand.setPrioritizeShortcut(shortcutName);
+                setShortcut.add(shortcutName);
+                break;
+            case "unfinished" :
+                setShortcut.remove(UnfinishedCommand.getUnfinishedShortcut());
+                UnfinishedCommand.setUnfinishedShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
             default:
@@ -267,5 +279,7 @@ public class ShortcutCommand extends Command {
         setDefaultShortcut.add("todo");
         setDefaultShortcut.add("delete");
         setDefaultShortcut.add("show");
+        setDefaultShortcut.add("prioritize");
+        setDefaultShortcut.add("unfinished");
     }
 }

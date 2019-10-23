@@ -27,7 +27,7 @@
 	 The task is edited: 
 	 6 [T][✗] todo edited [Priority: 5]
 	---------------------------------------------------------------------------------
-	 MeaningLessException:
+	 MeaninglessException:
 		 OOPS!!! I'm sorry, but I don't know what that means :-("
 	---------------------------------------------------------------------------------
 	 Please choose the task to edit from the list by its index: 

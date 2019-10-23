@@ -1,8 +1,5 @@
 package leduc.exception;
 
-import leduc.Ui;
-import leduc.exception.DukeException;
-
 /**
  * Represent a exception when the description of the deadline task is not given by the user.
  */

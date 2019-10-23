@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 /**
  *  Represents leduc.Ui which deals with the interactions with the user.
@@ -182,9 +181,9 @@ public class Ui {
         System.out.println("\t Date format is DD/MM/YYYY HH:mm except for show");
         System.out.println("\t All blank space should be respected");
         System.out.println("\t Here are the list of all command:");
-        System.out.println("\t todo DESCRIPTION : create a todo task");
-        System.out.println("\t deadline DESCRIPTION /by DATE : create a deadline task");
-        System.out.println("\t event DESCRIPTION /at DATE - DATE : create an event task");
+        System.out.println("\t todo DESCRIPTION prio INDEX: create a todo task ( prio index is optional) with priority index");
+        System.out.println("\t deadline DESCRIPTION /by DATE prio INDEX: create a deadline task ( prio index is optional) with priority index");
+        System.out.println("\t event DESCRIPTION /at DATE - DATE prio INDEX: create an event task ( prio index is optional) with priority index");
         System.out.println("\t list : show all the tasks");
         System.out.println("\t bye : exit the application");
         System.out.println("\t done INDEX : mark as done the task of index INDEX");
@@ -199,6 +198,8 @@ public class Ui {
         System.out.println("\t edit : edit a task (then, you have to follow the instructions)");
         System.out.println("\t show DATEOPTION DATE: show task by day/dayofweek/month/year ( day format is DD/MM/YYYY; " +
                 "dayofweek format is monday,tuesday...; month format is MM/YYYY; year format is YYYY)");
+        System.out.println("\t prioritize INDEX prio INDEX : give priority to task");
+        System.out.println("\t unfinished: Find and display all unfinished tasks");
         System.out.println("\t help : show the list of all command");
         System.out.println("\t---------------------------------------------------------------------------------");
     }

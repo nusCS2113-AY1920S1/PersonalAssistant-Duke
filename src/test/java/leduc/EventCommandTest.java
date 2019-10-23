@@ -1,6 +1,5 @@
 package leduc;
 
-import leduc.command.DeleteCommand;
 import leduc.command.EventCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
@@ -25,7 +24,7 @@ public class EventCommandTest {
         Ui ui = new Ui();
         Storage storage = null;
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/EventCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
@@ -35,8 +34,8 @@ public class EventCommandTest {
         TaskList tasks = new TaskList( tasksList);
         LocalDateTime d1 = null;
         LocalDateTime d2 = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
         try{
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
             d1 = LocalDateTime.parse("11/12/2019 20:30".trim(), formatter);
             d2 = LocalDateTime.parse("12/12/2019 20:40".trim(), formatter);
         }catch(Exception e){
@@ -191,19 +190,11 @@ public class EventCommandTest {
         }
         assertTrue(tasks.size()==2);
 
-        DeleteCommand delete = new DeleteCommand("delete 1");
-        try{
-            delete.execute(tasks,ui,storage);
+        tasks.getList().removeAll(tasks.getList());
+        try {
+            storage.save(tasks.getList());
         }
-        catch( DukeException e){ //should not happen
-            assertTrue(false);
-        }
-        assertTrue(tasks.size()==1);
-
-        try{
-            delete.execute(tasks,ui,storage);
-        }
-        catch( DukeException e){ //should not happen
+        catch(FileException f){
             assertTrue(false);
         }
         assertTrue(tasks.size()==0);

@@ -5,7 +5,6 @@ import leduc.exception.DukeException;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
 import leduc.storage.Storage;
-import leduc.task.Task;
 import leduc.task.TaskList;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +18,13 @@ public class ShowCommandTest {
         Ui ui = new Ui();
         Storage storage = null;
         try {
-            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/ShowCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/testFile.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
         } catch (FileException e) {
             e.printStackTrace();
         } catch (MeaninglessException e) {
             e.printStackTrace();
         }
-        TaskList tasks = new TaskList(new ArrayList<Task>());
+        TaskList tasks = new TaskList(new ArrayList<>());
         ShowCommand showCommand = new ShowCommand("test");
         int dayOfWeek = 0;
         try {
