@@ -11,9 +11,8 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Bank class which is abstract where various bank types will inherit from given that it is abstract.
+ * Contains the details of a bank object.
  */
-
 public abstract class Bank {
     String type;
     private String accountName;
@@ -63,7 +62,7 @@ public abstract class Bank {
      *
      * @return The accountName of the bank account.
      */
-    String getAccountName() {
+    public String getAccountName() {
         return this.accountName;
     }
 
@@ -72,7 +71,7 @@ public abstract class Bank {
      *
      * @return The currentAmount of money in the bank account.
      */
-    double getCurrentAmount() {
+    public double getCurrentAmount() {
         return this.currentAmount;
     }
 
@@ -105,7 +104,7 @@ public abstract class Bank {
     }
 
     /**
-     * Abstract method which adds a new expenditure to the current bank account.
+     * Adds a new expenditure to the current bank account.
      *
      * @param exp      Expenditure to be added.
      * @param ui       Ui of OwlMoney.
@@ -115,7 +114,7 @@ public abstract class Bank {
     public abstract void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException;
 
     /**
-     * Abstract method which deletes an expenditure from the current bank account.
+     * Deletes an expenditure from the current bank account.
      *
      * @param exNum Transaction number.
      * @param ui    Ui of OwlMoney.
@@ -292,6 +291,61 @@ public abstract class Bank {
      * @throws BankException If used on investment account.
      */
     public double getIncome() throws BankException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Updates recurring transactions to transaction list if any.
+     *
+     * @param ui Used for printing.
+     */
+    abstract void updateRecurringTransactions(Ui ui);
+
+    /**
+     * Adds a new recurring expenditure to a savings account.
+     *
+     * @param newExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    void savingAddRecurringExpenditure(Transaction newExpenditure, Ui ui) throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Deletes a recurring expenditure from the bank.
+     *
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures or the index is out of range.
+     */
+    void savingDeleteRecurringExpenditure(int index, Ui ui) throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Edits a recurring expenditure from the bank.
+     *
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures or the index is out of range.
+     */
+    void savingEditRecurringExpenditure(int index, String description, String amount, String category, Ui ui)
+            throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Lists all recurring expenditures from the bank.
+     *
+     * @param ui Used for printing.
+     * @throws BankException If used on an investment account.
+     * @throws TransactionException If there are 0 recurring expenditures.
+     */
+    void savingListRecurringExpenditure(Ui ui) throws BankException, TransactionException {
         throw new BankException("This account does not support this feature");
     }
 }

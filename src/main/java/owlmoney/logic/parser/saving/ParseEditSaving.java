@@ -7,14 +7,14 @@ import owlmoney.logic.command.bank.EditSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for editing a saving.
+ * Parses the inputs for editing a saving.
  */
 public class ParseEditSaving extends ParseSaving {
 
     /**
      * Creates an instance of ParseEditSaving.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @throws ParserException If the first parameter is invalid.
      */
     public ParseEditSaving(String data) throws ParserException {

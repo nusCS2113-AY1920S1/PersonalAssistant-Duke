@@ -198,7 +198,7 @@ class TransactionListTest {
                 "test", 1, new Date("1/1/2019"),
                 "test"), uiTest, "bank");
         try {
-            transListTest.editEx(1, "", "5", "", "", uiTest);
+            transListTest.editExpenditure(1, "", "5", "", "", uiTest);
             assertEquals("New amount: 5.0", outContent.toString());
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");
@@ -215,7 +215,7 @@ class TransactionListTest {
                 "test", 1, new Date("1/1/2019"),
                 "test"), uiTest, "bank");
         try {
-            transListTest.editDep(1, "gg", "", "", uiTest);
+            transListTest.editDeposit(1, "gg", "", "", uiTest);
             assertEquals("New description: gg", outContent.toString());
         } catch (TransactionException errorMessage) {
             System.out.println("Expected no throw, but error thrown");

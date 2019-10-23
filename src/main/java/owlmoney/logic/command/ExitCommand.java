@@ -4,7 +4,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * ExitCommand class which contains the execution function to terminate OwlMoney.
+ * Executes ExitCommand and ends OwlMoney.
  */
 public class ExitCommand extends Command {
 

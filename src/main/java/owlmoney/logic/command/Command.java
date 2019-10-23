@@ -9,13 +9,13 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Command class which is abstract where various command types inherit from given that it is abstract.
+ * Executes the expected command and prints the results.
  */
 public abstract class Command {
     protected boolean isExit = false;
 
     /**
-     * Abstract method where each command type implements execution code.
+     * Executes the expected commands given by the user.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

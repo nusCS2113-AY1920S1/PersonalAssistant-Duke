@@ -1,21 +1,30 @@
 package owlmoney.model.bank;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.transaction.Expenditure;
+import owlmoney.model.transaction.RecurringExpenditureList;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * Savings account class that extends a normal bank account.
+ * Contains the details in a savings account in addition to a normal bank account.
  */
-
 public class Saving extends Bank {
 
     private double income;
     private static final String SAVING = "saving";
+    private static final String ACCOUNT_TYPE = "bank";
+    private Date nextIncomeDate;
+    private RecurringExpenditureList recurringExpenditures;
 
     /**
      * Creates an instance of a savings account.
@@ -29,6 +38,30 @@ public class Saving extends Bank {
         this.income = income;
         this.type = SAVING;
         this.transactions = new TransactionList();
+        this.recurringExpenditures = new RecurringExpenditureList();
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.DATE, 1);
+        calendar.add(Calendar.MONTH, 1);
+        nextIncomeDate = calendar.getTime();
+    }
+
+    /**
+     * Updates the next income date and current amount if an income has been earned.
+     *
+     * @return If there is an update to the income.
+     */
+    private boolean earnedIncome() {
+        if (income > 0 && new Date().compareTo(nextIncomeDate) >= 0) {
+            addToAmount(income);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(nextIncomeDate);
+            calendar.add(Calendar.MONTH, 1);
+            nextIncomeDate = calendar.getTime();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -138,7 +171,7 @@ public class Saving extends Bank {
             throw new BankException("Bank account cannot have a negative amount");
         }
         double oldAmount = transactions.getExpenditureAmount(expNum);
-        double newAmount = transactions.editEx(expNum, desc, amount, date, category, ui);
+        double newAmount = transactions.editExpenditure(expNum, desc, amount, date, category, ui);
         this.addToAmount(oldAmount);
         this.deductFromAmount(newAmount);
     }
@@ -162,7 +195,7 @@ public class Saving extends Bank {
             throw new BankException("Bank account cannot have a negative amount");
         }
         double oldAmount = transactions.getDepositValue(expNum);
-        double newAmount = transactions.editDep(expNum, desc, amount, date, ui);
+        double newAmount = transactions.editDeposit(expNum, desc, amount, date, ui);
         this.addToAmount(newAmount);
         this.deductFromAmount(oldAmount);
     }
@@ -199,5 +232,109 @@ public class Saving extends Bank {
         } else {
             this.deductFromAmount(transactions.deleteDepositFromList(index, ui));
         }
+    }
+
+    /**
+     * Updates the recurring expenditure to the net date and add an expenditure to expenditure list if overdue.
+     *
+     * @param recurringExpenditure The recurring expenditure to check.
+     * @param outdatedState The state of the recurring expenditure if it is outdated.
+     * @param ui Used for printing.
+     * @return Outdated state of the expenditure.
+     * @throws BankException If bank amount becomes negative.
+     */
+    private boolean savingUpdateRecurringExpenditure(Transaction recurringExpenditure, boolean outdatedState, Ui ui)
+            throws BankException {
+        DateFormat dateOutputFormat = new SimpleDateFormat("dd MMMM yyyy");
+        Date expenditureDate = null;
+        boolean currentState = outdatedState;
+        try {
+            expenditureDate = dateOutputFormat.parse(recurringExpenditure.getDate());
+        } catch (ParseException e) {
+            //check is already done when adding expenditure
+        }
+        if (new Date().compareTo(expenditureDate) >= 0) {
+            Transaction newExpenditure = new Expenditure(
+                    recurringExpenditure.getDescription(), recurringExpenditure.getAmount(),
+                    expenditureDate, recurringExpenditure.getCategory());
+            addInExpenditure(newExpenditure, ui, ACCOUNT_TYPE);
+            Calendar calendar = Calendar.getInstance();
+            calendar.clear();
+            calendar.setTime(expenditureDate);
+            calendar.add(Calendar.MONTH, 1);
+            recurringExpenditure.setDate(calendar.getTime());
+            currentState = true;
+        }
+        return currentState;
+    }
+
+    /**
+     * Updates all recurring expenditures in the bank.
+     * @param ui Used for printing.
+     */
+    @Override
+    void updateRecurringTransactions(Ui ui) {
+        boolean outdatedIncome;
+        boolean outdatedExpenditure;
+        do {
+            outdatedExpenditure = false;
+            outdatedIncome = earnedIncome();
+            for (int i = 0; i < recurringExpenditures.getListSize(); i++) {
+                try {
+                    outdatedExpenditure = savingUpdateRecurringExpenditure(
+                            recurringExpenditures.getRecurringExpenditure(i), outdatedExpenditure, ui);
+                } catch (BankException errorMessage) {
+                    ui.printError("There is not enough money in the bank for: "
+                            + recurringExpenditures.getRecurringExpenditure(i).getDescription());
+                }
+            }
+        } while (outdatedIncome || outdatedExpenditure);
+    }
+
+    /**
+     * Adds a new recurring expenditure to the bank.
+     *
+     * @param newExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    void savingAddRecurringExpenditure(Transaction newExpenditure, Ui ui) throws TransactionException {
+        recurringExpenditures.addRecurringExpenditure(newExpenditure, ui);
+    }
+
+    /**
+     * Deletes a recurring expenditure from the bank.
+     *
+     * @param index Index of the recurring expenditure.
+     * @param ui Used for printing.
+     * @throws TransactionException If there are 0 recurring expenditures or index is out of range.
+     */
+    void savingDeleteRecurringExpenditure(int index, Ui ui) throws TransactionException {
+        recurringExpenditures.deleteRecurringExpenditure(index, ui);
+    }
+
+    /**
+     * Edits a recurring transaction from the bank.
+     *
+     * @param index Index of the recurring expenditure.
+     * @param description New description of the recurring expenditure.
+     * @param amount New amount of the recurring expenditure.
+     * @param category New category of the recurring expenditure.
+     * @param ui Used for printing.
+     * @throws TransactionException If there are 0 recurring expenditures or index is out of range.
+     */
+    void savingEditRecurringExpenditure(int index, String description, String amount, String category, Ui ui)
+            throws TransactionException {
+        recurringExpenditures.editRecurringExpenditure(index, description, amount, category, ui);
+    }
+
+    /**
+     * Lists all recurring expenditures in the bank.
+     *
+     * @param ui Used for printing.
+     * @throws TransactionException If there are 0 recurring expenditures.
+     */
+    void savingListRecurringExpenditure(Ui ui) throws TransactionException {
+        recurringExpenditures.listRecurringExpenditure(ui);
     }
 }

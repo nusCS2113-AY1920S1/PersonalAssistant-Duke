@@ -13,6 +13,7 @@
 /build/reports/
 /build/test-results/
 /build/tmp/
+/build/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder

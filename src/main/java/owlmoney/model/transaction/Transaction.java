@@ -8,10 +8,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 /**
- * Transaction class abstracts various transaction types which the child will inherit from given that
- * it is abstract.
+ * Contains the details of a transaction.
  */
-
 public abstract class Transaction {
 
     private String description;
@@ -67,7 +65,7 @@ public abstract class Transaction {
      *
      * @return The description of the expenditure.
      */
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
@@ -76,7 +74,7 @@ public abstract class Transaction {
      *
      * @return The date that the expenditure was made in String format.
      */
-    String getDate() {
+    public String getDate() {
         DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
     }
@@ -96,7 +94,7 @@ public abstract class Transaction {
      *
      * @return The category of the expenditure that it was tagged to.
      */
-    String getCategory() {
+    public String getCategory() {
         return this.category;
     }
 
@@ -147,7 +145,7 @@ public abstract class Transaction {
      *
      * @param newDate New date of the transaction.
      */
-    void setDate(Date newDate) {
+    public void setDate(Date newDate) {
         this.date = newDate;
     }
 

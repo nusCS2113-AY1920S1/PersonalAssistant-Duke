@@ -11,7 +11,6 @@ import owlmoney.ui.Ui;
 /**
  * CardList class that provides a layer of abstraction for the ArrayList that stores credit cards.
  */
-
 public class CardList {
     private ArrayList<Card> cardLists;
     private static final int ONE_INDEX = 1;
@@ -225,8 +224,8 @@ public class CardList {
      * @param expNum                The transaction number.
      * @param deleteFromAccountCard The name of the card.
      * @param ui                    Required for printing.
-     * @throws TransactionException If invalid transaction.
      * @throws CardException        If card does not exist.
+     * @throws TransactionException If invalid transaction.
      */
     public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {

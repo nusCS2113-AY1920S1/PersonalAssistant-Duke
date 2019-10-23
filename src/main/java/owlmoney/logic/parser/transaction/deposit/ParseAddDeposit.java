@@ -8,16 +8,16 @@ import owlmoney.logic.command.transaction.AddDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for adding a deposit.
+ * Parses the inputs for adding a deposit.
  */
 public class ParseAddDeposit extends ParseDeposit {
     private static final String ADD = "/add";
     private Date date;
 
     /**
-     * Constructor which creates an instance of ParseAddDeposit.
+     * Creates an instance of ParseAddDeposit.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
     public ParseAddDeposit(String data) throws ParserException {

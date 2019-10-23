@@ -128,5 +128,4 @@ public class Bond {
                 + "Date Purchased: " + getDate() + "\n"
                 + "Number of years: " + getYear() + "\n";
     }
-
 }

@@ -9,7 +9,6 @@ import owlmoney.logic.parser.exception.ParserException;
 /**
  * Parses input by user for editing bonds.
  */
-
 public class ParseDeleteBond extends ParseBond {
     private static final String DELETE = "/delete";
 

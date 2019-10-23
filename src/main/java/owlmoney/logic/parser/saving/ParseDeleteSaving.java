@@ -8,7 +8,7 @@ import owlmoney.logic.command.bank.DeleteSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for deleting a saving.
+ * Parses the inputs for deleting a saving.
  */
 public class ParseDeleteSaving extends ParseSaving {
 

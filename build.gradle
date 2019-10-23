@@ -1,13 +1,15 @@
 plugins {
     id 'java'
-    id 'application'
+    id 'jacoco'
     id 'checkstyle'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.asciidoctor.convert' version '1.5.8'
+    id 'application'
 }
 
 group 'seedu.OwlMoney'
-version '1.2.0'
+version '1.3.0'
 
 repositories {
     mavenCentral()
@@ -24,7 +26,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "OwlMoney"
-    archiveVersion = "v1.2"
+    archiveVersion = "v1.3"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -38,8 +40,27 @@ run {
     standardInput = System.in
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.enabled true
+    }
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+}
+
 test {
     useJUnitPlatform()
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.4"
 }
 
 asciidoctor {
@@ -91,3 +112,5 @@ task deployOfflineDocs(type: Copy) {
 
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
+
+defaultTasks 'clean', 'headless', 'coverage', 'asciidoctor'

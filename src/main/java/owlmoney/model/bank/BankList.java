@@ -11,9 +11,8 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * BankList class that provides a layer of abstraction for the ArrayList that stores bank accounts.
+ * Contains a list of all bank objects in the profile.
  */
-
 public class BankList {
     private ArrayList<Bank> bankLists;
     private static final String SAVING = "saving";
@@ -33,13 +32,18 @@ public class BankList {
     }
 
     /**
-     * Gets the name of the bank account.
+     * Gets the saving account with the specified name.
      *
-     * @param bankListIndex The index of the bank account in the arrayList.
+     * @param bankName The name of the bank account in the arrayList.
      * @return The name of the bank account.
      */
-    public String bankListGetBankName(int bankListIndex) {
-        return bankLists.get(bankListIndex).getAccountName();
+    public Bank bankListGetSavingAccount(String bankName) throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName) && bankLists.get(i).getType().equals(SAVING)) {
+                return bankLists.get(i);
+            }
+        }
+        throw new BankException("Cannot find savings account with the name: " + bankName);
     }
 
     /**
@@ -591,7 +595,112 @@ public class BankList {
     }
 
     /**
-     * Checks whether the bank object to transfer the fund actually exist in the list.
+     * Retrieves the total amount in Bank Saving.
+     *
+     * @param savingName Represents the account name of Saving.
+     * @return The total amount in Saving account.
+     * @throws BankException If no bank of such name is found.
+     */
+    public double getSavingAmount(String savingName) throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(savingName)) {
+                return bankLists.get(i).getCurrentAmount();
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + savingName);
+    }
+
+    /** Adds a new recurring expenditure to the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param newRecurringExpenditure New recurring expenditure to be added.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException If the recurring expenditure list is full.
+     */
+    public void bankListAddRecurringExpenditure(String bankName, Transaction newRecurringExpenditure, Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingAddRecurringExpenditure(newRecurringExpenditure, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Deletes the recurring expenditure of the specified index from the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param index Index of recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException There are 0 recurring expenditures or index is out of range.
+     */
+    public void bankListDeleteRecurringExpenditure(String bankName, int index, Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingDeleteRecurringExpenditure(index, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Lists all recurring expenditures from the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException There are 0 recurring expenditures.
+     */
+    public void bankListListRecurringExpenditure(String bankName,  Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingListRecurringExpenditure(ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Updates the recurring expenditure of the specified index from the specified bank account.
+     *
+     * @param bankName Name of bank account.
+     * @param index Index of recurring expenditure.
+     * @param ui Used for printing.
+     * @throws BankException If bank is not found or is an investment account.
+     * @throws TransactionException There are 0 recurring expenditures or index is out of range.
+     */
+    public void bankListEditRecurringExpenditure(
+            String bankName, int index, String description, String amount, String category, Ui ui)
+            throws BankException, TransactionException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).savingEditRecurringExpenditure(index, description, amount, category, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Updates all recurring transactions from all banks.
+     *
+     * @param ui Used for printing,
+     */
+    public void bankListUpdateRecurringTransactions(Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            bankLists.get(i).updateRecurringTransactions(ui);
+        }
+    }
+
+    /** Checks whether the bank object to transfer the fund actually exist in the list.
      *
      * @param accName the bank account name.
      * @param amount  the amount to transfer.

@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteGoalsCommand class which contains the execution function to delete goal object.
+ * Executes DeleteGoalsCommand to delete goal object.
  */
 public class DeleteGoalsCommand extends Command {
 
@@ -31,7 +31,7 @@ public class DeleteGoalsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException {
-        profile.deleteGoals(name, ui);
+        profile.profileDeleteGoals(name, ui);
         return this.isExit;
     }
 }

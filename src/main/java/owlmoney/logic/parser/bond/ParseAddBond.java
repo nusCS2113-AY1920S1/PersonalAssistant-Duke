@@ -7,6 +7,9 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bond.AddBondCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Parses input by user for adding bonds.
+ */
 public class ParseAddBond extends ParseBond {
     private static final String ADD = "/add";
     private Date date;

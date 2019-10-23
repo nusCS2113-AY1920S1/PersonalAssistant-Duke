@@ -5,7 +5,6 @@ import owlmoney.logic.parser.exception.ParserException;
 /**
  * Parser class which provides methods that more specific parser classes will require.
  */
-
 abstract class Parser {
 
     private static final int SPACE_LENGTH = 1;
@@ -30,7 +29,7 @@ abstract class Parser {
      * @throws ParserException if the command is not entered to specific requirements.
      */
     String removeFirstField(String input, String firstField) throws ParserException {
-        if ("/exit".equals(firstField)) {
+        if ("/exit".equals(firstField) || "/update".equals(firstField)) {
             return input.substring(firstField.length());
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);

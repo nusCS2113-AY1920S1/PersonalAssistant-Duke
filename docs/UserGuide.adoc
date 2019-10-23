@@ -135,9 +135,8 @@ which can be used as:
 .. `/add /savings /name Standard Bank Investment Account /amount 123.45 /income 5678`
 * Items in square brackets are optional parameters
 ** e.g. `/category [/category TAG]` can be used as:
-.. `/add /expenditure /savings /amount 13.50 /from JunBank Savings Account [/category entertainment]` (with optional
-`category`
-parameter)
+.. `/add /bankexpenditure /amount 13.50 /from JunBank Savings Account /date 1/1/2019 /desc bubble tea [/category
+entertainment]` (with optional `category` parameter)
 .. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0` (without optional `category` parameter)
 
 [WARNING]
@@ -583,7 +582,7 @@ Signed up for a bond? Finding it difficult to keep up with the interest?
 No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
 
 *Command Syntax*
-`/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /years YEARS`
+`/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /year YEARS`
 
 [WARNING]
 ====
@@ -594,7 +593,7 @@ Bonds can only be added to investment accounts.
 
 *Example*
 
-* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
+* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92 /year 1`
 
 Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`% bought on
 `1/1/2019` for a period of `1` year(s).
@@ -603,14 +602,26 @@ Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with in
 Change in your investment details? Edit them here!
 
 *Command Syntax*
-`/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate BOND_RATE]`
+`/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/rate BOND_RATE] [/year YEARS]`
+
+[WARNING]
+====
+At least one of `/rate` or `/year` must be present when editing.
+
+Only `/rate` and `/year` can be edited.
+
+Editing `/rate` will only result in future bond coupon interest crediting to be modified, all past interest
+credited will not be edited.
+
+`/year` can only be edited to a year higher than the original year.
+
+====
 
 *Example*
 
-* `/edit /bonds /from DBB Vickers Account /name June SSB /amount 5000 /rate 1.98`
+* `/edit /bonds /from DBB Vickers Account /name June SSB /rate 1.98`
 
-Changes the bond named `June SSB` charged to `DBB Vickers Account` to a new amount of $`5000` with new interest rate
-of `1.98`%.
+Changes the bond named `June SSB` charged to `DBB Vickers Account` with a new interest rate of `1.98`%.
 
 ===== Deleting bonds `/delete /bonds`
 Sold your bonds? Delete it from *OwlMoney*!
@@ -933,7 +944,7 @@ Achieved your goals? You can safely delete them!
 Deletes a goal named `BTO at Punggol Downpayment`.
 
 ==== Profile Management
-===== Edit Profile details `/edit /profile`
+===== Editing profile details `/edit /profile`
 
 Thought of a new profile name? Change it now!
 
@@ -948,32 +959,192 @@ Thought of a new profile name? Change it now!
 Changes the profile name to JUNNY
 
 === Utility Commands
-==== /find `/find`
 
-Searching for a transaction in the past? *OwlMoney* helps you by providing you various ways to do it!
+*OwlMoney* provides commands that are available for usage throughout the application.
+
+They include capabilities like finding, listing, transferring money and advanced automation features!
+
+==== Finding information stored in OwlMoney `/find`
+
+In this section, you'll be introduced to commands and parameters that helps you to find and sieve information
+that you require quickly out of *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `ACCOUNT_NAME`
+| Indicates the name of the bank account.
+
+(e.g. DBB Vickers Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `CARD_NAME`
+| Indicates the name of the credit card.
+
+(e.g. POBB Everyday Card)
+
+| `CARD_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`CARD_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `BOND_NAME`
+| Indicates the name of the investment bond.
+
+(e.g. June SSB)
+
+| `BOND_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`BOND_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `DESCRIPTION`
+| Indicates the description of the transaction.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters and spaces only.
+
+Take note that there is a maximum of *50* character limit.
+
+| `DATE`
+| Indicates the date the transaction was made.
+
+(e.g. 2/2/2019)
+
+| `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
+
+|======
+
+
+
+
+
+===== Finding savings account details `/find /savings`
+
+Can't remember the name of your savings account? Don't worry *OwlMoney* allows you to find out details of
+your bank account as long as your remember part of your account name.
 
 *Command Syntax*
 
-`/find /savings /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /savings /name ACCOUNT_NAME`
 
-`/find /investment /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
-
-`/find /card /name CARD_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
-
-`/find /bonds /name BOND_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+[WARNING]
+====
+`ACCOUNT_NAME` is case-sensitive.
+====
 
 *Example*
 
-`/find /savings /name JunBank Savings Account /desc bubble tea`
+* `/find /savings /name Jun`
 
-Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
+Finds and lists all savings accounts that has the phrase `Jun` in the account name.
 
-`/find /savings /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+===== Finding investment account details `/find /investment`
 
-Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019`
-and `7/1/2019`.
+Can't remember the name of your investment account? Don't worry *OwlMoney* allows you to find out details of
+your bank account as long as your remember part of your account name.
 
-==== /list `/list`
+*Command Syntax*
+
+`/find /investment /name ACCOUNT_NAME`
+
+[WARNING]
+====
+`ACCOUNT_NAME` is case-sensitive.
+====
+
+*Example*
+
+* `/find /investment /name Vickers`
+
+Finds and lists all investment accounts that has the phrase `Vickers` in the account name.
+
+===== Finding credit card details `/find /card`
+
+Searching for a Credit Card? *OwlMoney* helps you by providing you various ways to do it!
+
+*Command Syntax*
+
+`/find /card /name CARD_NAME`
+
+[WARNING]
+====
+`CARD_NAME` is case-sensitive.
+====
+
+*Example*
+
+* `/find /card /name POBB`
+
+Finds and lists all card with the name that contains the phrase `POBB`.
+
+===== Finding bond details `/find /bonds`
+
+Searching for an investment bond within an investment account? *OwlMoney* is able to help you with that by providing
+you various ways to do it!
+
+*Command Syntax*
+
+`/find /bonds /name BOND_NAME /from ACCOUNT_NAME`
+
+[WARNING]
+====
+`BOND_NAME` is case-sensitive.
+
+`ACCOUNT_NAME` is case-sensitive.
+====
+
+*Example*
+
+* `/find /bonds /name SSB /from DBB Vickers Account`
+
+Finds and lists all bonds with bond name that contains the phrase `SSB` from the investment account called `DBB Vickers`
+Account.
+
+===== Finding bank transaction details `/find /banktransaction`
+
+Looking for a transaction from a bank account? *OwlMoney* is able to help you with that by providing you various ways
+to do it!
+
+*Command Syntax*
+
+`/find /banktransaction /name ACCOUNT_NAME /desc DESCRIPTION [/from DATE /to DATE]`
+
+[NOTE]
+====
+Transactions includes both expenditures and deposits.
+====
+
+*Example*
+
+* `/find /banktransaction /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+
+Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019` and
+`7/1/2019`.
+
+===== Finding card transaction details `/find /cardtransaction`
+
+Looking for transactions from a credit card? *OwlMoney* is able to help you with that by providing you various ways to
+do it!
+
+*Command Syntax*
+
+`/find /cardtransaction /name CARD_NAME /desc DESCRIPTION [/from DATE /to DATE]`
+
+*Example*
+
+* `/find /cardtransaction /name POBB Tomorrow Card /desc bubble tea /from 1/1/2019 /to 7/1/2019`
+
+Finds all transactions with the description `bubble tea` charged to `POBB Tomorrow Card` between `1/1/2019` and
+ `7/1/2019`.
+
+==== Listing multiple details `/list`
 
 Curious to find out your transactions for your accounts? Let us show you how it can be done!
 
@@ -983,11 +1154,13 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 `/list /card`
 
-`/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
+`/list /goals`
 
 `/list /bonds /from ACCOUNT_NAME [/num NUMBER]`
 
-`/list /expenditure /from CARD_NAME [/num NUMBER]`
+`/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
+
+`/list /cardexpenditure /from CARD_NAME [/num NUMBER]`
 
 [TIP]
 ====
@@ -1012,75 +1185,69 @@ Lists the most recent 60 transactions linked to JunBank Savings Account.
 
 Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
-==== /transfer `/transfer`
+==== Transferring money between accounts `/transfer`
 
-Transferred money between accounts? We can do that too.
+Thinking of transferring money between different accounts? We can do that too.
 
 *Command Syntax*
 
-`/transfer /savings /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT`
+`/transfer /fund /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT`
 
-`/transfer /investment /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT`
+[TIP]
+====
+*OwlMoney* allows you to transfer funds between investment and savings accounts.
+====
 
 *Example*
 
-* `/transfer /savings /from JunBank Savings Account /to POBB Savings Account /amount 500`
+* `/transfer /fund /from JunBank Savings Account /to POBB Savings Account /amount 500`
 
 Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`.
 
-* `/transfer /investment /from DBB Vickers Account /to JunBank Savings Account /amount 250`
+* `transfer /fund /from DBB Vickers Account /to JunBank Savings Account /amount 250`
 
 Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
 
-==== Adding recurring expenditures `/add /recurexpenditure`
+==== Adding recurring expenditures `/add /recurbankexp`
 
 Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
 
 *Command Syntax*
 
-`/add /recurexpenditure /amount AMOUNT /from ACCOUNT_NAME /frequency MONTH/WEEK/YEAR /desc DESCRIPTION [/category
- CATEGORY]`
+`/add /recurbankexp /amount AMOUNT /from ACCOUNT_NAME /desc DESCRIPTION [/category CATEGORY]`
 
 *Example*
 
-`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /desc Telco Bills /category
-Bills`
+`/add /recurbankexp /amount 72.90 /from JunBank Savings Account /desc Telco Bills /category Bills`
 
-Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
-Account`
-categorised under the `Bills` category.
+Adds a recurring expenditure that deducts $`72.90` every month to pay `Telco Bills` charged to `JunBank Savings
+Account` categorised under the `Bills` category.
 
-`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /desc AAB Bonds /category
-Investments`
-
-Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
-Account` categorised under the `Investments` category.
-
-==== Editing recurring expenditure `/edit /recurexpenditure`
+==== Editing recurring expenditure `/edit /recurbankexp`
 
 *Command Syntax*
 
-`/edit /recurexpenditure /from ACCOUNT_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
-AMOUNT] [/frequency MONTH/WEEK/YEAR]`
+`/edit /recurbankexp /from ACCOUNT_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT]`
 
 [WARNING]
 ====
-At least one of `/category`, `/amount`, `/frequency` must be used.
+At least one of `/desc`, `/category`, `/amount` must be used.
 ====
 
 *Example*
 
-* `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
+* `/edit /recurbankexp /from JunBank Savings Account /transno 2 /desc Telco Bills /amount 119.90`
 
-Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
+Changes recurring expenditure number `2` description to `Telco Bills` to charge $`119.90`.
 
-==== Deleting recurring expenditure `/delete /recurexpenditure`
+==== Deleting recurring expenditure `/delete /recurbankexp`
 
 Cancelled your recurring bill? You can delete it!
 
 *Command Syntax*
 
-`/delete /recurexpenditure /from ACCOUNT_NAME /desc DESCRIPTION`
+`/delete /recurbankexp /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
 
 [TIP]
 ====
@@ -1102,6 +1269,11 @@ shopping.
 === Support for Stocks `/stocks`
 Plans for stocks and options investment type will be supported in future releases. This will provide support for
 users who are more financially savvy in terms of growing their money with higher risk instruments.
+
+=== Insurance tracking `/insurance`
+Insurance is an important part of financial literacy. Ensuring that you are properly covered is important as medical
+bills are not cheap. Therefore, this feature will enable you to know what illnesses are covered and how much you are
+paying for the coverage.
 
 == FAQ
 *Q*: How do I save my data in the application? +
@@ -1213,13 +1385,13 @@ AMOUNT] [/date DATE]`
 
 | *Adding investment bonds for investment bank account*
 | Add an investment bond to the investment bank account specified.
-| `/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /years YEARS`
+| `/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /year YEARS`
 | `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
 
 | *Editing investment bonds for investment bank account*
 | Edit an investment bond tied to the investment bank account specified based on the new details given.
-| `/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate BOND_RATE]`
-| `/edit /bonds /from DBB Vickers Account /name June SSB /amount 5000 /rate 1.98`
+| `/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/rate BOND_RATE] [/year YEARS]`
+| `/edit /bonds /from DBB Vickers Account /name June SSB /rate 1.98`
 
 | *Deleting investment bonds for investment bank account*
 | Delete an investment bond tied to the investment bank account specified.
@@ -1321,18 +1493,18 @@ AMOUNT] [/date DATE]`
 |*Task*| *Purpose* | *Command Format* | *Example*
 | *List details*
 | List the details of the specified input.
-| `/list ...........`
-| `/list ...........`
+| `/list .........`
+| `/list .........`
 
 | *Find*
 | List the details of the specified input.
-| `/find ...........`
-| `/find ...........`
+| `/find .........`
+| `/find .........`
 
 | *Transferring Money*
 | List the details of the specified input.
-| `/transfer ...........`
-| `/transfer ...........`
+| `/transfer .........`
+| `/transfer .........`
 
 |======
 

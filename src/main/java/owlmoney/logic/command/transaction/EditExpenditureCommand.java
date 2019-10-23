@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * EditExpenditureCommand class which contains the execution function to edit an expenditure transaction.
+ * Executes EditExpenditureCommand to edit an expenditure transaction.
  */
 public class EditExpenditureCommand extends Command {
 
@@ -21,7 +21,7 @@ public class EditExpenditureCommand extends Command {
     private final String type;
 
     /**
-     * Construction to create an instance of EditExpenditureCommand.
+     * Creates an instance of EditExpenditureCommand.
      *
      * @param name        Bank account name.
      * @param amount      New amount of expenditure if any.
@@ -43,7 +43,7 @@ public class EditExpenditureCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a deposit transaction.
+     * Executes the function to edit an expenditure transaction.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

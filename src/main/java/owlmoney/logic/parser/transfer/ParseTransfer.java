@@ -15,6 +15,9 @@ import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
+/**
+ * Represents the parsing of inputs for transferring of fund.
+ */
 public class ParseTransfer {
 
     HashMap<String, String> transferParameters = new HashMap<String, String>();
@@ -32,7 +35,7 @@ public class ParseTransfer {
     /**
      * Creates an instance of any ParseTransfer type object.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      */
     public ParseTransfer(String data) throws ParserException {
         this.rawData = data;

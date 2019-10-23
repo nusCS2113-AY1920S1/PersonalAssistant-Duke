@@ -10,7 +10,6 @@ import owlmoney.ui.Ui;
  * BondList  provides a layer of abstraction for the ArrayList.
  * The ArrayList will store elements of type Bond.
  */
-
 public class BondList {
     private ArrayList<Bond> bondLists;
     private static final int ONE_INDEX = 1;
@@ -68,7 +67,7 @@ public class BondList {
      *
      * @return the size of the bondList.
      */
-    private int getSize() {
+    int getSize() {
         return bondLists.size();
     }
 
@@ -92,7 +91,10 @@ public class BondList {
      * @param bondName the name of the bond.
      * @param ui       required for printing.
      */
-    public void removeBondFromList(String bondName, Ui ui) {
+    public void removeBondFromList(String bondName, Ui ui) throws BondException {
+        if (getSize() == ISZERO) {
+            throw new BondException("There are no bonds");
+        }
         for (int i = ISZERO; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
                 Bond temp = bondLists.get(i);
@@ -102,6 +104,7 @@ public class BondList {
                 return;
             }
         }
+        throw new BondException("There are no bonds with the name: " + bondName);
     }
 
     /**

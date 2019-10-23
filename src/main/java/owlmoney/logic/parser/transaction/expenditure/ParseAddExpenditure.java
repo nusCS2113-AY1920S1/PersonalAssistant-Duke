@@ -8,7 +8,7 @@ import owlmoney.logic.command.transaction.AddExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * Represents the parsing of inputs for adding a expenditure.
+ * Parses the inputs for adding an expenditure.
  */
 public class ParseAddExpenditure extends ParseExpenditure {
 
@@ -16,9 +16,9 @@ public class ParseAddExpenditure extends ParseExpenditure {
     private Date date;
 
     /**
-     * Constructor which creates an instance of ParseAddExpenditure.
+     * Creates an instance of ParseAddExpenditure.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input data.
      * @param type Represents type of expenditure to be added.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
@@ -47,13 +47,15 @@ public class ParseAddExpenditure extends ParseExpenditure {
             if (CATEGORY.equals(key) && "deposit".equals(value)) {
                 throw new ParserException(key + " cannot be deposit when adding a new expenditure");
             } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
-                expendituresParameters.put(CATEGORY, "miscellaneous");
+                expendituresParameters.put(CATEGORY, "Miscellaneous");
+            } else if (CATEGORY.equals(key)) {
+                checkDescription(value, key);
             }
             if (AMOUNT.equals(key)) {
                 checkAmount(value);
             }
             if (DESCRIPTION.equals(key)) {
-                checkDescription(value);
+                checkDescription(value, key);
             }
             if (DATE.equals(key)) {
                 date = checkDate(value);
