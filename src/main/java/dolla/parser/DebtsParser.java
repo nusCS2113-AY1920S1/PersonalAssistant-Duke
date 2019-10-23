@@ -29,9 +29,8 @@ public class DebtsParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
             String type = commandToRun;
-            String name = null;
-            double amount = 0.0;
-            LocalDate date = null;
+            String name;
+            double amount;
             try {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
@@ -45,14 +44,7 @@ public class DebtsParser extends Parser {
             } catch (Exception e) {
                 return new ErrorCommand();
             }
-            Repeat.setUserInput("debt", inputLine); //setup repeat
-            if(undoFlag == 1) {//undo input
-                return new AddDebtsCommand(type, name, amount, description, date, prevPosition);
-            } else if(redoFlag == 1) {
-                return new AddDebtsCommand(type, name, amount, description, date, -2);
-            } else {//normal input, prePosition is -1
-                return new AddDebtsCommand(type, name, amount, description, date, -1);
-            }
+            return processAdd(type, name, amount);
         } else if (commandToRun.equals("search")) {
             String component = inputArray[1];
             String content = inputArray[2];
@@ -66,6 +58,19 @@ public class DebtsParser extends Parser {
         } else {
             return invalidCommand();
         }
+    }
+
+    private Command processAdd(String type, String name, double amount) {
+        Command addDebt;
+        Repeat.setUserInput("debt", inputLine); //setup repeat
+        if(undoFlag == 1) {//undo input
+            addDebt = new AddDebtsCommand(type, name, amount, description, date, prevPosition);
+        } else if(redoFlag == 1) {
+            addDebt = new AddDebtsCommand(type, name, amount, description, date, -2);
+        } else {//normal input, prePosition is -1
+            addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
+        }
+        return addDebt;
     }
 
     public static void setPrevPosition(int prevPosition) {

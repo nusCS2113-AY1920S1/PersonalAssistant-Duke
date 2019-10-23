@@ -30,14 +30,7 @@ public class EntryParser extends Parser {
                 String[] data = inputLine.split(" /on ");
                 String[] desc = data[0].split(inputArray[2] + " ");
                 description = desc[1];
-                Repeat.setUserInput("entry", inputLine);
-                if(undoFlag == 1) {//undo input
-                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
-                } else if(redoFlag == 1) {
-                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -2);
-                } else {//normal input, prePosition is -1
-                    return new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
-                }
+                return processAdd();
             } else {
                 return new ErrorCommand();
             }
@@ -60,6 +53,19 @@ public class EntryParser extends Parser {
         } else {
             return invalidCommand();
         }
+    }
+
+    private Command processAdd() {
+        Command addEntry;
+        Repeat.setUserInput("entry", inputLine);
+        if(undoFlag == 1) {//undo input
+            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, prevPosition);
+        } else if(redoFlag == 1) {
+            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -2);
+        } else {//normal input, prePosition is -1
+            addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
+        }
+        return addEntry;
     }
 
     public static void setPrePosition(int prevPosition) {
