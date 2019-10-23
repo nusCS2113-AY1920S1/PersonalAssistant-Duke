@@ -25,12 +25,15 @@ public class GsonStorageTest {
     private Patient dummy2 = new Patient("dummy2", "A200", null);
     private Patient dummy3 = new Patient("dummy3", "A300", "cats");
     private String expected = "["
-            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],\"height\":0,"
-            + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"},"
-            + "{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,"
-            + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},"
-            + "{\"bedNo\":\"A200\",\"impressions\":[],\"height\":0,"
-            + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"}]";
+            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],"
+            //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
+            + "\"name\":\"dummy3\"},"
+            + "{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],"
+            //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
+            + "\"name\":\"dummy1\"},"
+            + "{\"bedNo\":\"A200\",\"impressions\":[],"
+            //+ "\"height\":0,\"weight\":0,\"age\":0,\"number\":0,"
+            + "\"name\":\"dummy2\"}]";
 
     GsonStorageTest() throws DukeFatalException, IOException {
         storage = new GsonStorage("data/patients.json");
@@ -64,13 +67,13 @@ public class GsonStorageTest {
             return false;
         } else if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
             return false;
-        } else if (patient1.getHeight() != patient2.getHeight()) {
+        } else if (!(java.util.Objects.equals(patient1.getHeight(), patient2.getHeight()))) {
             return false;
-        } else if (patient1.getWeight() != patient2.getWeight()) {
+        } else if (!(java.util.Objects.equals(patient1.getWeight(), patient2.getWeight()))) {
             return false;
-        } else if (patient1.getAge() != patient2.getAge()) {
+        } else if (!(java.util.Objects.equals(patient1.getAge(), patient2.getAge()))) {
             return false;
-        } else if (patient1.getNumber() != patient2.getNumber()) {
+        } else if (!(java.util.Objects.equals(patient1.getNumber(), patient2.getNumber()))) {
             return false;
         } else if (!(java.util.Objects.equals(patient1.getAddress(), patient2.getAddress()))) {
             return false;
