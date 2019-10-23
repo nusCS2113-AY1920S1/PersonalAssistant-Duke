@@ -18,89 +18,113 @@ import duke.task.TaskManager;
 import java.util.ArrayList;
 
 public class DeletePatientCommand extends Command {
-    private int id;
     private String deletedPatientInfo;
+    private Patient patientToBeDeleted;
 
     /**
-     * It checks whether user is deleting a patient by id.
-     * It extracts the id of the patient to be deleted.
+     * It saves the delete patient command.
      *
-     * @param deletedPatientInfo it contains the information of the patient to be deleted
-     * @throws DukeException it shows user the correct format to delete a patient by id
+     * @param deletedPatientInfo it contains the information of the patient to be deleted.
      */
-    public DeletePatientCommand(String deletedPatientInfo) throws DukeException {
-
+    public DeletePatientCommand(String deletedPatientInfo) {
         this.deletedPatientInfo = deletedPatientInfo;
-        char firstChar = deletedPatientInfo.charAt(0);
-        if (firstChar == '#') {
-            try {
-                this.id = Integer.parseInt(deletedPatientInfo.substring(1));
-            } catch (Exception e) {
-                throw new DukeException("Please follow format 'delete patient #<id>'. ");
-            }
-        }
     }
 
     /**
-     * .
+     * It extracts patient id from the delete patient command.
+     * It checks whether user is deleting by id or name.
+     * It retrieves patient based on the id extracted.
      *
-     * @param patientTaskList        .
-     * @param taskManager              .
-     * @param patientManager     .
-     * @param ui                 .
-     * @param patientTaskStorage .
-     * @param taskStorage        .
-     * @param patientStorage     .
-     * @throws DukeException .
+     * @param deletedPatientInfo contains the delete patient command.
+     * @param ui allows user to choose the patient to delete.
+     * @param patientManager retrieves patient based on patient id.
+     * @return patient to be deleted.
+     * @throws DukeException if no matched patient found.
+     */
+    public Patient getPatientByDeletePatientCommand(String deletedPatientInfo, Ui ui,
+                                                    PatientManager patientManager) throws DukeException {
+        char firstChar = deletedPatientInfo.charAt(0);
+        Patient patient = null;
+        if (firstChar == '#') {
+            int id;
+            try {
+                id = Integer.parseInt(deletedPatientInfo.substring(1));
+            } catch (Exception e) {
+                throw new DukeException("Please follow format 'delete patient #<id>'. ");
+            }
+            try {
+                patient = patientManager.getPatient(id);
+            } catch (Exception e) {
+                throw new DukeException("The patient id does not exist. ");
+            }
+        } else {
+            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
+            if (patientsWithSameName.size() >= 1) {
+                ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
+                int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
+                if (numberChosen >= 1) {
+                    patient = patientsWithSameName.get(numberChosen - 1);
+                }
+            } else {
+                throw new DukeException("There is no patients matched this name.");
+            }
+        }
+        return patient;
+    }
+
+    /**
+     * It deletes the patient returned from getPatientByDeletePatientCommand.
+     * It checks whether this patient is assigned to any tasks.
+     * It deletes the relationship between this patient and any tasks.
+     *
+     * @param patientTaskList contains the information between all the tasks and patients.
+     * @param taskManager contains information of all the tasks.
+     * @param patientManager contains information of all the patients.
+     * @param ui interacts with user.
+     * @param patientTaskStorage save or load the relation between all the tasks and patients.
+     * @param taskStorage save or load all the tasks.
+     * @param patientStorage save or load all the patients.
+     * @throws DukeException if there is error deleting the patient.
      */
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager taskManager, PatientManager patientManager,
                         Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage,
                         PatientStorage patientStorage) throws DukeException {
+        try {
+            patientToBeDeleted = getPatientByDeletePatientCommand(deletedPatientInfo, ui, patientManager);
+        } catch (Exception e) {
+            ui.showError(e.getMessage());
+        }
 
         boolean toDelete;
-        ArrayList<PatientTask> patientTask = new ArrayList<>();
-        Patient patientToBeDeleted = null;
-
-        if (id != 0) {
-            patientToBeDeleted = patientManager.getPatient(id);
-            ui.showPatientInfo(patientToBeDeleted);
-        } else {
-            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
-            ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
-            if (patientsWithSameName.size() >= 1) {
-                int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
-                if (numberChosen >= 1) {
-                    patientToBeDeleted = patientsWithSameName.get(numberChosen - 1);
-                    ui.showPatientInfo(patientToBeDeleted);
-                }
-            }
-        }
+        ui.showPatientInfo(patientToBeDeleted);
         try {
-            patientTask = patientTaskList.getPatientTask(patientToBeDeleted.getID());
+            ArrayList<PatientTask> patientTask = patientTaskList.getPatientTask(patientToBeDeleted.getID());
             ArrayList<Task> tempTask = new ArrayList<>();
             for (PatientTask temppatientTask : patientTask) {
                 tempTask.add(taskManager.getTask(temppatientTask.getTaskID()));
             }
             ui.patientTaskFound(patientToBeDeleted, patientTask, tempTask);
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted, true);
+            if (toDelete) {
+                patientTaskList.deleteEntirePatientTask(patientToBeDeleted.getID());
+                patientTaskStorage.save(patientTaskList.fullPatientTaskList());
+            }
         } catch (Exception e) {
             toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted,false);
         }
         if (toDelete) {
             patientManager.deletePatient(patientToBeDeleted.getID());
-            patientTaskList.deleteEntirePatientTask(patientToBeDeleted.getID());
-            ui.patientDeleted();
             patientStorage.save(patientManager.getPatientList());
-            patientTaskStorage.save(patientTaskList.fullPatientTaskList());
-        }
+            ui.patientDeleted();
 
+        }
     }
 
     /**
-     * .
+     * It terminates the Dukepital.
      *
-     * @return .
+     * @return false.
      */
     @Override
     public boolean isExit() {
