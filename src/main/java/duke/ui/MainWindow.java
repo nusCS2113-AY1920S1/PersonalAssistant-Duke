@@ -9,7 +9,6 @@ import duke.logic.util.AutoCompleter;
 import duke.logic.util.InputHistory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -109,7 +108,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void fillInnerPart() {
-        expensePane = new ExpensePane(logic.getExternalExpenseList(), logic);
+        expensePane = new ExpensePane(logic.getExternalExpenseList());
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
@@ -125,7 +124,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult;
 
-            if (displayedPane == CommandResult.DisplayedPane.PLAN && !inputString.contains("goto") && !inputString.contains("bye")){
+            if (displayedPane == CommandResult.DisplayedPane.PLAN
+                    && !inputString.contains("goto")
+                    && !inputString.contains("bye")) {
                 commandResult = logic.execute("plan " + inputString);
             } else {
                 commandResult = logic.execute(inputString);
@@ -168,7 +169,6 @@ public class MainWindow extends UiPart<Stage> {
                     userInput.setText(autoCompleter.getFullSuggestion());
                 }
                 break;
-
         }
     }
 

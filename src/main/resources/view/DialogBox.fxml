@@ -6,8 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx"
+<VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefHeight="50.0" prefWidth="775.0">
-            <Label fx:id="text" prefHeight="50.0" prefWidth="775.0"/>
-</HBox>
+            >
+            <Label fx:id="text" prefWidth="775.0"/>
+</VBox>

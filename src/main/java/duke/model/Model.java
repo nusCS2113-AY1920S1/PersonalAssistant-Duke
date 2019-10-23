@@ -35,7 +35,7 @@ public interface Model {
 
     //PlanBot
     public ObservableList<PlanBot.PlanDialog> getDialogObservableList();
-    public void processPlanInput(String input);
+    public void processPlanInput(String input) throws DukeException;
     public Map<String, String> getKnownPlanAttributes();
 
 

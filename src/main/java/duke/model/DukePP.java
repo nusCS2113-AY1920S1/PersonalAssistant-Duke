@@ -30,7 +30,7 @@ public class DukePP implements Model {
      * This constructor is used for loading DukePP from storage.
      */
     // todo: pass more arguments to constructor as more data are implemented.
-    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes) {
+    public DukePP(ExpenseList expenseList, Map<String, String> planAttributes) throws DukeException {
         this.expenseList = expenseList;
         this.planBot = new PlanBot(planAttributes);
     }
@@ -83,7 +83,7 @@ public class DukePP implements Model {
         return planBot.getDialogObservableList();
     }
 
-    public void processPlanInput(String input) {
+    public void processPlanInput(String input) throws DukeException {
         planBot.processInput(input);
     }
 
