@@ -31,9 +31,11 @@ public class DeleteCommand extends Command {
             int order = Integer.parseInt(line);
             for (int i = 0; i < members.size(); i++) {
                 members.get(i).getTasksInCharge().remove(tasks.get(order - 1));
-                members.get(i).updateIndex();
             }
             Ui.print("Noted. I've removed this task: \n" + tasks.remove(order - 1));
+            for (int i = 0; i < members.size(); i++) {
+                members.get(i).updateIndex();
+            }
             storage.storeTaskList(tasks);
             storage.storeMemberList(members);
         } catch (Exception e) {
