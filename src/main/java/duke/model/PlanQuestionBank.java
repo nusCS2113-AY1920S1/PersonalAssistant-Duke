@@ -21,11 +21,11 @@ public class PlanQuestionBank {
     public PlanQuestionBank() throws DukeException {
         this.questionList = new HashMap<>();
         questionList.put(1, new PlanQuestion(1,
-                "Are you a student from NUS?" ,
+                "Are you a student from NUS?",
                 BOOL_ANSWERS,
                 BOOL_ATTRIBUTE_VALUES,
                 "NUS_STUDENT", new HashSet<>(Arrays.asList(2))));
-        questionList.put(2, new PlanQuestion(2, "Do you live on campus?", BOOL_ANSWERS, BOOL_ATTRIBUTE_VALUES,"CAMPUS_LIFE"));
+        questionList.put(2, new PlanQuestion(2, "Do you live on campus?", BOOL_ANSWERS, BOOL_ATTRIBUTE_VALUES, "CAMPUS_LIFE"));
 
     }
 
@@ -40,11 +40,11 @@ public class PlanQuestionBank {
             PlanQuestion question = questionList.get(index);
             attributeQuestion.put(question.getAttribute(), question);
             Set<Integer> children = questionList.get(index).getNeighbouringQuestions();
-            for(Integer child : children) {
+            for (Integer child : children) {
                 questionsToAdd.add(child);
             }
         }
-        for(String knownAttribute : knownAttributes.keySet()) {
+        for (String knownAttribute : knownAttributes.keySet()) {
             attributeQuestion.remove(knownAttribute);
         }
         return attributeQuestion.values();

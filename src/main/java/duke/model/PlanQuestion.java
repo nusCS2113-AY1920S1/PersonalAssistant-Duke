@@ -2,8 +2,6 @@ package duke.model;
 
 import duke.exception.DukeException;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,11 +20,11 @@ public class PlanQuestion {
         this.question = question;
         this.answersAttributesValue = new HashMap<>();
         int answersSize = answers.length;
-        if(attributeValue.length < answersSize){
+        if (attributeValue.length < answersSize) {
             answersSize = attributeValue.length;
             throw new DukeException("Some question was set up incorrectly!!! This shouldn't have happened!");
         }
-        for(int i = 0;  i < answersSize ; ++i  ) {
+        for (int i = 0; i < answersSize; ++i) {
             answersAttributesValue.put(answers[i], attributeValue[i]);
         }
         this.attribute = attribute;
@@ -38,11 +36,11 @@ public class PlanQuestion {
         this.question = question;
         this.answersAttributesValue = new HashMap<>();
         int answersSize = answers.length;
-        if(attributeValue.length < answersSize){
+        if (attributeValue.length < answersSize) {
             answersSize = attributeValue.length;
             throw new DukeException("Some question was set up incorrectly!!! This shouldn't have happened!");
         }
-        for(int i = 0;  i < answersSize ; ++i  ) {
+        for (int i = 0; i < answersSize; ++i) {
             answersAttributesValue.put(answers[i], attributeValue[i]);
         }
         this.attribute = attribute;
@@ -61,15 +59,15 @@ public class PlanQuestion {
         return neighbouringQuestions;
     }
 
-    public Reply getReply(String input, Map<String,String> attributes) throws DukeException {
-        try{
-            if(!answersAttributesValue.containsKey(input.toLowerCase())){
+    public Reply getReply(String input, Map<String, String> attributes) throws DukeException {
+        try {
+            if (!answersAttributesValue.containsKey(input.toLowerCase())) {
                 throw new NoSuchElementException();
             }
             String attributeVal = answersAttributesValue.get(input.toLowerCase());
             attributes.put(attribute, attributeVal);
             return new Reply("Ok noted!", attributes);
-        } catch (NoSuchElementException e ) {
+        } catch (NoSuchElementException e) {
             throw new DukeException("Please enter a valid reply!");
         }
     }
@@ -77,7 +75,7 @@ public class PlanQuestion {
 
     public class Reply {
         private String text;
-        private Map<String,String> attributes;
+        private Map<String, String> attributes;
 
         public Reply(String text, Map<String, String> attributes) {
             this.text = text;
@@ -87,6 +85,7 @@ public class PlanQuestion {
         public String getText() {
             return text;
         }
+
         public Map<String, String> getAttributes() {
             return attributes;
         }

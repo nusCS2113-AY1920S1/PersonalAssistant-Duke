@@ -1,10 +1,8 @@
 package duke.model;
 
 import duke.exception.DukeException;
-import duke.storage.PlanAttributesStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,7 +12,7 @@ import java.util.Queue;
 
 public class PlanBot {
 
-    public enum Agent{
+    public enum Agent {
         USER,
         BOT
     }
@@ -22,18 +20,18 @@ public class PlanBot {
     private List<PlanDialog> dialogList;
     private ObservableList<PlanDialog> dialogObservableList;
     private PlanQuestionBank planQuestionBank;
-    private Map<String,String> planAttributes;
+    private Map<String, String> planAttributes;
     private Queue<PlanQuestion> questionQueue;
     private PlanQuestion currentQuestion;
 
-    public PlanBot(Map<String,String> planAttributes) throws DukeException {
+    public PlanBot(Map<String, String> planAttributes) throws DukeException {
         this.dialogList = new ArrayList<>();
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
         this.questionQueue = new LinkedList<>();
-        if(!planAttributes.isEmpty()){
+        if (!planAttributes.isEmpty()) {
             StringBuilder knownAttributes = new StringBuilder("Here's what I know about you: \n");
-            for(String key : planAttributes.keySet()) {
+            for (String key : planAttributes.keySet()) {
                 knownAttributes.append(key + " : " + planAttributes.get(key) + "\n");
             }
             PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
@@ -41,9 +39,9 @@ public class PlanBot {
         }
         planQuestionBank = new PlanQuestionBank();
         questionQueue.addAll(planQuestionBank.getInitialQuestions(planAttributes));
-        if(questionQueue.isEmpty()){
+        if (questionQueue.isEmpty()) {
             currentQuestion = null;
-        }else {
+        } else {
             PlanQuestion firstQuestion = questionQueue.peek();
             currentQuestion = firstQuestion;
             questionQueue.remove();
@@ -60,25 +58,24 @@ public class PlanBot {
 
     public void processInput(String input) {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
-            if(currentQuestion == null){
-                PlanDialog emptyQueueDialog = new PlanDialog("I know everything about you already!", Agent.BOT);
-                dialogObservableList.add(emptyQueueDialog);
-            }else {
-                try {
-                    PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
-                    dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
-                    planAttributes = reply.getAttributes();
-                    currentQuestion = null;
-                    if(!questionQueue.isEmpty()) {
-                        currentQuestion = questionQueue.peek();
-                        questionQueue.remove();
-                    }
-                    dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
-                } catch (DukeException e) {
-                    dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+        if (currentQuestion == null) {
+            PlanDialog emptyQueueDialog = new PlanDialog("I know everything about you already!", Agent.BOT);
+            dialogObservableList.add(emptyQueueDialog);
+        } else {
+            try {
+                PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
+                dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
+                planAttributes = reply.getAttributes();
+                currentQuestion = null;
+                if (!questionQueue.isEmpty()) {
+                    currentQuestion = questionQueue.peek();
+                    questionQueue.remove();
+                }
+                dialogObservableList.add(new PlanDialog(currentQuestion.getQuestion(), Agent.BOT));
+            } catch (DukeException e) {
+                dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
         }
-
 
 
     }
