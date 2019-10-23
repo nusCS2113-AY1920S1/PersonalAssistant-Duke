@@ -28,6 +28,12 @@ public class Bar {
         updateBarChart();
     }
 
+    /**
+     * Alternate constructor for the Bar instance in the case that the Chord data is present.
+     *
+     * @param id the ID of the Bar in the Song
+     * @param chords an ArrayList of Chord objects that compose the Bar
+     */
     public Bar(int id, ArrayList<Chord> chords) {
         this.id = id;
         this.chords = chords;

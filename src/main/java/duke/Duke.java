@@ -1,10 +1,16 @@
 package duke;
 
-import duke.commands.*;
-
+import duke.commands.AddBarCommand;
+import duke.commands.AddOverlayCommand;
+import duke.commands.Command;
+import duke.commands.CopyCommand;
+import duke.commands.GroupCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.NewCommand;
+import duke.commands.RemindCommand;
+import duke.commands.ViewCommand;
 import duke.components.SongList;
-
-
 
 import java.nio.file.Paths;
 import java.util.Timer;
@@ -74,8 +80,7 @@ public class Duke {
                         || c instanceof GroupCommand
                         || c instanceof CopyCommand
                         || c instanceof AddOverlayCommand
-                        || c instanceof ListCommand)
-                {
+                        || c instanceof ListCommand) {
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);

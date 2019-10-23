@@ -1,6 +1,11 @@
 package duke;
 
-import duke.components.*;
+import duke.components.Bar;
+import duke.components.Chord;
+import duke.components.Note;
+import duke.components.Pitch;
+import duke.components.Song;
+import duke.components.SongList;
 import duke.tasks.ToDo;
 
 import duke.tasks.Deadline;
@@ -102,7 +107,7 @@ public class Storage {
     }
 
     private Bar convertBarFromString(String s, int barIndex) throws DukeException {
-        String barData = s.substring(1, s.length() -1 );
+        String barData = s.substring(1, s.length() - 1);
         String[] rawChords = barData.split(",");
         ArrayList<Chord> chords = new ArrayList<>();
         for (String rawChord: rawChords) {
