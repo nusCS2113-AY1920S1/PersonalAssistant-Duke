@@ -29,7 +29,7 @@ public class Level {
             narratives.add((String) i);
         }
         filePath = (String) object.get("file_path");
-        endMoney = Math.toIntExact((Long) object.get("money"));
+        gold = Math.toIntExact((Long) object.get("money"));
         endWheatSeed = Math.toIntExact((Long) object.get("wheat_seed"));
         endWheatGreen = Math.toIntExact((Long) object.get("wheat_green"));
         endWheatRipe = Math.toIntExact((Long) object.get("wheat_ripe"));
@@ -37,6 +37,8 @@ public class Level {
         endChickenEggs = 0;
         endCow = 0;
         endCowMilk = 0;
+
+
 //        location = Math.toIntExact((Long) object.get("location"));
     }
 
@@ -55,14 +57,41 @@ public class Level {
         INVALID
     }
 
+    public boolean checkDeadlineExceeded(int currentDay){
+        return deadline <= currentDay;
+    }
+
+    public boolean allDone(Farmer farmer){
+        int gold = farmer.getMoney();
+
+        //Wheat Farm
+        int WheatSeed = farmer.wheatFarm.getSeeds();
+        int WheatGreen = farmer.wheatFarm.getGreenWheat();
+        int WheatRipe = farmer.wheatFarm.getRipeWheat();
+
+        return (gold == endMoney )  && (WheatGreen == endWheatGreen)  && (WheatRipe == endWheatRipe) && (endWheatSeed == WheatSeed);
+    }
+
     public objectiveResult checkAnswer(Farmio farmio){
         if (farmio.getFarmer().isHasfailedCurrentTask()) {
             return objectiveResult.INVALID;
         }
-        //TODO if (...) to return NOT_DONE, DONE, FAILED
-        return objectiveResult.DONE;
+        int day = farmer.getDay();
+        objectiveResult currentLevelState;
+        if(checkDeadlineExceeded(day)){
+            currentLevelState =  levelState.FAILED;
+        }
+        else {
+            if (allDone(farmer)) {
+                currentLevelState = levelState.ALLDONE;
+            }
+            else{
+                currentLevelState = levelState.NOTDONE;
+            }
+        }
+        return currentLevelState;
     }
-
+    
 
 
 
