@@ -1,0 +1,12 @@
+Transport             Market            WheatFarm
+______________________________________________________
+gotoMarket       | buySeeds       | plantSeeds
+gotoWheatFarm    | sellGrains     | harvestWheat
+gotoChickenFarm  | buyChicken     |
+                 | sellEggs       |
+                 |                |
+                 |                |
+_________________|________________|___________________
+ChickenFarm      |   
+_________________|____________________________________
+collecEgg        |

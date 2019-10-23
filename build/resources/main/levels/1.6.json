@@ -1,0 +1,13 @@
+{
+  "narratives": [
+    "After selling your wheat, you can observe that you have more gold than when you first started.",
+    "Your current location is at the market. You can only plant your seeds in your farm.",
+    "Using the knowledge you have learnt so far, help farmer John get rich!",
+    ":Earn 100 gold within the next month.~"
+  ],
+  "money": 100,
+  "wheat_seed": 0,
+  "wheat_green": 0,
+  "wheat_ripe": 0,
+  "file_path": "Level1.6"
+}

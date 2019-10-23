@@ -1,14 +1,12 @@
-# IDEA files
-/.idea/
-/out/
-/*.iml
-
-# Gradle build files
-/.gradle/
-/build/
-src/main/resources/docs/
-
-# MacOS custom attributes files created by Finder
-.DS_Store
-*.iml
-bin/
+.gradle/5.5.1/javaCompile/javaCompile.lock
+.gradle/5.5.1/javaCompile/classAnalysis.bin
+.gradle/5.5.1/fileHashes/fileHashes.bin
+.gradle/5.5.1/fileContent/fileContent.lock
+.gradle/5.5.1/executionHistory/executionHistory.lock
+.gradle/5.5.1/executionHistory/executionHistory.bin
+.gradle/5.5.1/fileHashes/fileHashes.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.idea/workspace.xml
+build/
+.gradle/
+save.json
