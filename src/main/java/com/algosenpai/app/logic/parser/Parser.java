@@ -15,4 +15,6 @@ public class Parser {
         inputs.set(0, inputs.get(0).toLowerCase());
         return inputs;
     }
+
+
 }

@@ -59,7 +59,8 @@ public class QuizCommand extends Command {
             questionNumber.set(0);
             isQuizMode.set(false);
             isNewQuiz.set(true);
-            return "You got " + correctCount + "/10 questions correct!";
+            return "You got " + correctCount + "/10 questions correct!\n"
+                    + "You have gained " + correctCount + " EXP points!";
         }
         return "quiz";
     }

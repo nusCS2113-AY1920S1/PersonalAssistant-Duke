@@ -108,10 +108,23 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` class handles the reading and writing of user data to and from text files. It consists of two methods:
 
-* can save each quiz data attempted in text format and read it back.
-* can save the quiz data and results in a PDF format for easy viewing.
+* `saveData`: Takes in a filename and a string, saves the string to the filename.
+* `loadData`: Takes in a filename, returns the text in that file as a string.
+
+A few implementation details to take note of:
+
+. The `Storage` class only has static methods. This means that you do should not instantiate the object. The reasons
+for doing this are:
+- The class does not need to hold any state because of it's simple task,
+so it does not make sense to instantiate an object.
+- It is much more convenient to use, as you do not need to create a new `Storage` object for every storage operation.
+. The methods handle strings, instead of the object that is being stored/retrieved.
+This is so that methods can operate independently of what is being stored. The converting the object
+to string and vice-versa has to be handled within that class. This pattern reduces coupling.
+- The one situation which breaks this rule is when `loadData` is done on a file that doesn't exist yet.
+In the current version, a default `UserStats` object is returned. Ideally this will be changed for the final version.
 
 [[Design-Statistics]]
 === Statistics component
@@ -121,7 +134,7 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Statistics` component,
+The `UserStats` component,
 
 * can save `UserPref` objects in text format and read it back.
 * can save the quiz data in text format and read it back.
