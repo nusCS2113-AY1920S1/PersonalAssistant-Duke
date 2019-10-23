@@ -2,9 +2,6 @@ package duke.core;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * This is a command typo corrector for Duke user command.
  * It provides a method TypoCorrector.CommandCorrection which takes in an invalid input command
@@ -19,14 +16,10 @@ public class TypoCorrector {
     private static final double MAX_DISTANCE_DIFF_RATIO = 0.5;
 
     //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
-    private static final ArrayList<String> oneKeywordCommand = new ArrayList<String>(
-            Arrays.asList("bye"));
-    private static final ArrayList<String> twoKeywordsCommands = new ArrayList<String>(
-            Arrays.asList("list patients", "list tasks"));
-    private static final ArrayList<String> otherCommands = new ArrayList<String>(
-            Arrays.asList("update patient", "update task",
-                    "delete patient", "delete task", "add task", "add patient",
-                    "assign by", "find patient", "find task"));
+    private static final String[] simpleCommands = {"bye", "duke", "help", "list patients", "list tasks"};
+    private static final String[] otherCommands = {"update patient", "update task", "delete patient",
+        "delete task", "delete assigned task", "add task", "add patient", "find patient", "find task",
+        "find assigned task", "assign deadline task", "assign event task"};
 
     /**
      * This method take in an user input command with typo and return a possible matches
@@ -36,40 +29,35 @@ public class TypoCorrector {
      * @return a string of correctedCommand
      */
     public static String commandCorrection(String command) {
-        String[] splitCommand = command.split("\\s+");
+        String[] splitCommand = command.split(":", 2);
         int commandSize = splitCommand.length;
         String closestMatch;
-        String firstTwoKeywords;
-        if (commandSize == 1 || command.length() <= 6) {
-            closestMatch = matchStringFromDict(command, oneKeywordCommand);
-            if (isSimilar(command, closestMatch)) {
+        if (commandSize == 1) {
+            // Type A command with only command keywords
+            String fullCommand = command.trim().toLowerCase();//Ignore spaces(back and fore)and upper/lower cases
+            closestMatch = matchStringFromDict(fullCommand, simpleCommands); //get closest match
+            if (isSimilar(fullCommand, closestMatch)) {
                 return closestMatch;
             }
         } else if (commandSize == 2) {
-            firstTwoKeywords = command.toLowerCase();
-            closestMatch = matchStringFromDict(firstTwoKeywords, twoKeywordsCommands);
-            if (isSimilar(firstTwoKeywords, closestMatch)) {
-                return closestMatch;
-            }
-        } else {
-            firstTwoKeywords = (splitCommand[0] + " " + splitCommand[1]).toLowerCase();
-            closestMatch = matchStringFromDict(firstTwoKeywords, otherCommands);
-            if (isSimilar(firstTwoKeywords, closestMatch)) {
+            // Type B command with command keywords and other info/data
+            String keyword = splitCommand[0].trim().toLowerCase(); //Ignore spaces(back and fore)and upper/lower cases
+            closestMatch = matchStringFromDict(keyword, otherCommands); //get closest match
+            if (isSimilar(keyword, closestMatch)) {
                 splitCommand[0] = "";
-                splitCommand[1] = "";
-                return closestMatch + " " + String.join(" ", splitCommand).trim();
+                return closestMatch + " " + String.join(":", splitCommand).trim();
             }
         }
-        return command;
+        return command; // The input command will be return if there is no matched found
     }
 
     /**
      * Get the closest match string from the array targetDict.
      *
      * @param str the arbitrary string
-     * @return
+     * @return the closest matching from the target dict
      */
-    private static String matchStringFromDict(String str, ArrayList<String> targetDict) {
+    private static String matchStringFromDict(String str, String[] targetDict) {
         int minDist = 256;
         String closestMatch = null;
         for (String keyword : targetDict) {
@@ -89,7 +77,7 @@ public class TypoCorrector {
      * Get Levenshtein distance between target and an arbitrary string.
      *
      * @param str the arbitrary string
-     * @return
+     * @return the difference of two strings measured in distance
      */
     private static Integer getDistance(String str, String target) {
         LevenshteinDistance distance = new LevenshteinDistance();
