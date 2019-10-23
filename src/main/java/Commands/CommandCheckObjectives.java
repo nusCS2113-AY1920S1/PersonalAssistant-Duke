@@ -10,7 +10,7 @@ import javax.swing.plaf.synth.SynthTabbedPaneUI;
 public class CommandCheckObjectives extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException {
-        Level.objectiveResult answer = Level.objectiveResult.DONE;//farmio.getLevel().checkAnswer(farmio);
+        Level.objectiveResult answer = farmio.getLevel().checkAnswer(farmio);
         if (answer == Level.objectiveResult.NOT_DONE) {
             farmio.getUi().typeWriter("Continue to next day? \n [ENTER] to continue [RESET] to reset to start of the level");
             farmio.setStage(Farmio.Stage.DAY_END);
@@ -20,6 +20,9 @@ public class CommandCheckObjectives extends Command {
         } else if (answer == Level.objectiveResult.FAILED) {
             //todo Implement Level.getFeedback() to print better feedback to user here
             farmio.getUi().typeWriter("Oh no! The objectives were not met by the deadline! Press [ENTER] to reset");
+            farmio.setStage(Farmio.Stage.LEVEL_FAILED);
+        } else if (answer == Level.objectiveResult.INVALID) {
+            farmio.getUi().typeWriter("Oh no! There has been an error during code execution! Press [ENTER] to reset");
             farmio.setStage(Farmio.Stage.LEVEL_FAILED);
         }
     }

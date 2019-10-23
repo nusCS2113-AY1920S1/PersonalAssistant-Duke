@@ -104,7 +104,6 @@ public class Farmer {
 
     public boolean isHasfailedCurrentTask() {
         if (hasfailedCurrentTask) {
-            hasfailedCurrentTask = false;
             currentTask = -1;
             return true;
         }
@@ -135,11 +134,16 @@ public class Farmer {
     }
 
     public void startDay(Farmio farmio) throws FarmioException, FarmioFatalException {
-        for (int i = 0; i < tasks.size(); i++) {
-            this.currentTask = i;
-            tasks.get(i).execute(farmio);
+        try {
+            for (int i = 0; i < tasks.size(); i++) {
+                this.currentTask = i;
+                tasks.get(i).execute(farmio);
+            }
+        } catch (FarmioException e) {
+            farmio.setStage(Farmio.Stage.LEVEL_FAILED);
+        } finally {
+            this.currentTask = -1;
         }
-        this.currentTask = -1;
     }
 
     public JSONObject toJSON(){
