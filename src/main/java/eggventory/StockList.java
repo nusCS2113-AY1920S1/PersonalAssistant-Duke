@@ -1,5 +1,6 @@
 package eggventory;
 
+import eggventory.enums.Property;
 import eggventory.items.Stock;
 import eggventory.items.StockType;
 
@@ -119,6 +120,42 @@ public class StockList {
     }
 
     /**
+     * Edits a Stock object in a StockList.
+     * @param stockCode The unique String that identifies a Stock.
+     * @param property The attribute of the Stock that needs to be modified (Note: for now only 1).
+     * @param newValue  The new value of the property we want to edit.
+     * @return the stock before edits, for printing purposes.
+     */
+    public Stock setStock(String stockCode, Property property, String newValue) {
+        Stock beforeEdits;
+        for (StockType stockType : stockList) {
+            beforeEdits = stockType.setStock(stockCode, property, newValue);
+            if (beforeEdits != null) { //The corresponding stockCode was found in the StockList
+                return beforeEdits;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Edits a StockType object in a StockList. Note, the only edit to StockType in this version is to its name.
+     * @param stockTypeName The unique String that identifies a StockType.
+     * @param newName The newName of the StockType.
+     * @return the stockType before editing, for printing purpose.
+     */
+    public StockType setStockType(String stockTypeName, String newName) {
+        StockType previous;
+        for (StockType stockType : stockList) {
+            if (stockTypeName.equals(stockType.getName())) {
+                previous = stockType;
+                stockType.setName(newName);
+                return previous;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Gets the total number of stocks in this stockList. This sums the number of stocks across stockTypes.
      * @return the total number of stocks.
      */
@@ -129,6 +166,56 @@ public class StockList {
         }
 
         return total;
+    }
+
+    //@@author cyanoei
+    /**
+     * Determines if any of the stocks in this stockList have the same stockCode.
+     * @param stockCode the queried stockCode.
+     * @return true if a stock in this stockList has that stockCode and false if none of the stocks have this stockCode.
+     */
+    public boolean isExistingStockCode(String stockCode) {
+        for (StockType stockType : stockList) {
+            if (stockType.isExistingStockCode(stockCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //@@author
+    /**
+     * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
+     * @return The string of the stocklist whose stocktype matches query.
+     */
+    public String findStock(String query) {
+        String ret = "";
+        boolean found = false;
+        for (StockType stocktype : stockList) {
+            if (stocktype.getName().equals(query)) {
+                if (found == false) {
+                    ret += query + " INVENTORY\n";
+                    ret += "------------------------\n";
+                    found = true;
+                }
+                ret += stocktype.toString() + "\n";
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Prints all the stocktypes that are currently handled by Eggventory. Should only be called by Cli.
+     * @return The string of all the stocktypes
+     */
+    public String toStocktypeString() {
+        String ret = "";
+        ret += "QUERY INVENTORY\n";
+        for (StockType stocktype : stockList) {
+            ret += "------------------------\n";
+            ret += stocktype.getName() + "\n";
+        }
+        return ret;
     }
 
     /**

@@ -1,5 +1,7 @@
 package eggventory.items;
 
+import eggventory.enums.Property;
+
 import java.util.ArrayList;
 
 /**
@@ -149,11 +151,24 @@ public class StockType {
 
     /**
      * Returns a stock of the user's choice.
-     *
      * @param i the index of the stock selected.
      */
     public Stock getStock(int i) {
         return stocks.get(i);
+    }
+
+    /**
+     * Returns a stock of the user's choice.
+     * @param stockCode String which uniquely identifies a Stock.
+     * @return If Stock exits, the Stock otherwise null.
+     */
+    public Stock getStock(String stockCode) {
+        for (Stock stock: stocks) {
+            if (stockCode.equals(stock.getStockCode())) {
+                return stock;
+            }
+        }
+        return null;
     }
 
     /**
@@ -172,10 +187,69 @@ public class StockType {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Updates the name of the StockType.
+     * @param newName String which uniquely identifies a StockType.
+     */
+    public void setName(String newName) {
+        this.name = newName;
     }
 
+    /**
+     * Updates the values of properties of a Stock.
+     * @param stockCode String which uniquely identifies a Stock.
+     * @param property The attribute of a Stock we want to update.
+     * @param newValue The new value of the attribute to be updated.
+     * @return The unedited Stock, for printing purpose.
+     */
+    public Stock setStock(String stockCode, Property property, String newValue) {
+        Stock uneditedStock;
+        for (Stock stock: stocks) {
+            if (stockCode.equals(stock.getStockCode())) {
+                uneditedStock = stock;
+                switch (property) {
+                case STOCKCODE:
+                    stock.setStockCode(newValue);
+                    break;
+                case QUANTITY:
+                    stock.setQuantity(Integer.parseInt(newValue));
+                    break;
+                case LOANED:
+                    stock.setLoaned(Integer.parseInt(newValue));
+                    break;
+                case LOST:
+                    stock.setLost(Integer.parseInt(newValue));
+                    break;
+                case DESCRIPTION:
+                    stock.setDescription(newValue);
+                    break;
+                case MINIMUM:
+                    stock.setMinimum(Integer.parseInt(newValue));
+                    break;
+                default:
+                }
+                return uneditedStock;
+            }
+        }
+        return null;
+    }
+
+    //@@author cyanoei
+    /**
+     * Determines if any of the stocks in this stockType have the same stockCode.
+     * @param stockCode the queried stockCode.
+     * @return true if a stock in this stockType has that stockCode and false if none of the stocks have this stockCode.
+     */
+    public boolean isExistingStockCode(String stockCode) {
+        for (Stock stock : stocks) {
+            if (stock.getStockCode().equals(stockCode)) {
+                return true;
+            }
+        }
+        return false; //If none of the stocks had the same code.
+    }
+
+    //@@author
     /**
      * A string of all the stock objects within this stocktype. Should only be called by Cli and StockList.
      * @return A string list of all the stock objects and their details.
@@ -203,4 +277,5 @@ public class StockType {
         }
         return details;
     }
+
 }

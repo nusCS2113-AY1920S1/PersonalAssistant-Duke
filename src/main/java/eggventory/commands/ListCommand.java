@@ -6,33 +6,47 @@ import eggventory.ui.Cli;
 import eggventory.enums.CommandType;
 
 public class ListCommand extends Command {
-    public ListCommand(CommandType type) {
+    private String query;
+
+    public ListCommand(CommandType type, String query) {
         super(type);
+        this.query = query;
     }
 
     @Override
     public String execute(StockList list, Cli cli, Storage storage) {
-        String output;
-        int max = list.getStockQuantity();
-        String listString = "";
+        String output = "";
 
-        if (max == 0) {
-            output = "The list is currently empty.";
+        if (this.query.equals("stock")) { //list stock command
+            //Outstanding case when list is empty
+            int max = list.getStockQuantity();
+            String listString = "";
+            if (max == 0) {
+                output = "The list is currently empty.";
+                cli.print(output);
+                return output;
+            }
+
+            listString = list.toString(); //Should contain all the stockTypes already, need not iterate.
+            output = listString;
             cli.print(output);
-            return output;
+
+        } else if (this.query.equals("stocktype")) { //list stocktype command
+            String listString = "";
+            listString = list.toStocktypeString(); //Should contain all the stockTypes already, need not iterate.
+            output = listString;
+            cli.print(output);
+
+        } else { // list <stocktype> command
+            String listString = "";
+            listString = list.findStock(this.query);
+            output = listString;
+            if (listString.equals("")) {
+                cli.print("Invalid command: No such stocktype. list stock / list stocktype/ list <stocktype>");
+            } else {
+                cli.print(output);
+            }
         }
-
-        listString = list.toString(); //Should contain all the stockTypes already, need not iterate.
-
-        /*
-        for (int i = 0; i < max; i++) { //Index starts from 0.
-            // TODO: Change to StringBuilder - Raghav
-            listString += (i + 1 + ". " + list.toString() + "\n");
-        }
-         */
-
-        output = listString;
-        cli.print(output);
         return output;
     }
 }

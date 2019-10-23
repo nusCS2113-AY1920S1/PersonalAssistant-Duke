@@ -38,7 +38,7 @@ public class HelpCommand extends Command {
                 cli.print("Error in reading help.txt");
             }
         } else {
-            switch (options) {
+            switch (this.options) {
             case "add":
                 filename = "\\src\\main\\java\\eggventory\\commands\\help\\Helpadd.txt";
                 try {
