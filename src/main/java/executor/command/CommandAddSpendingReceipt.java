@@ -1,10 +1,8 @@
 package executor.command;
 
 import executor.task.TaskList;
-import interpreter.Parser;
 import ui.Receipt;
 import ui.Wallet;
-import ui.ReceiptTracker;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,8 +29,7 @@ public class CommandAddSpendingReceipt extends CommandAddReceipt {
     @Override
     public void execute(Wallet wallet) {
         Receipt r = new Receipt(this.cash, this.date, this.tags);
-        ReceiptTracker rt = new ReceiptTracker();
-        rt.addReceipt(r);
+        wallet.addReceipt(r);
     }
 
 }
