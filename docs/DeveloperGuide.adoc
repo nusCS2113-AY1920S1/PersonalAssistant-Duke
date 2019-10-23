@@ -347,7 +347,7 @@ Step 5)
 * Group project team leaders who monitor contributions of team members
 * Project managers who track progress for multiple projects
 * Teachers who evaluate and act upon their students’ progress
-*  Technical professionals who keep track of task deadlines
+* Technical professionals who keep track of task deadlines
 * Project planners who plan out priority and assignment of roles
 
 [appendix]
@@ -360,45 +360,63 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |project leader |be able to track deadlines for each project |prioritize which project to be completed earlier
 
-|`* * *` |project leader |indicate the weightage of each task |track the level of contribution by each member
+|`* * *` |project leader |be able to manage multiple projects and view all the task delegations of my team members in them |distribute my resources appropriately
+
+|`* * *` |project leader |be able to create projects |keep track of all my projects using a command line application
+
+|`* * *` |project leader |be able delete projects that are completed |have a cleaner working environment
 
 |`* * *` |project leader |view a progress bar for each project |have a clearer view of the total progress for each project
-
-|`* * *` |project leader |track the status of every task |track the progress of each project
 
 |`* * *` |project leader |manage my team members |assign different roles to team members so that they are clear of their relevant roles
 
 |`* * *` |project leader |manage my team members |assign different tasks to team members so that they will be clear of the work that they are supposed to do
 
-|`* * *` |project leader |assign one task to multiple students |more than one student can contribute to the task
+|`* * *` |project leader |add team members to a specific group project |assign different roles and tasks to them
+based on the project they belong to
 
-|`* * *` |project leader |import files from other sources |track all my projects from different workstations or work environments
+|`* * *` |project leader |update the details of my team members |have up to date information about them whenever needed
+
+|`* * *` |project leader |remove members from a particular project |remove unwanted or old members from a project
+that they are no longer contributing
 
 |`* * *` |project leader |keep track of each member’s progress and contributions |ensure all students contribute to their respective tasks sufficiently
 
-|`* * *` |project leader |generate a report of the contributions of the members |credit can be rightfully assigned to the respective members
-
-|`* * *` |project leader |be able to edit and read the exported file |have other people can add in details as well into the file and send back
-
 |`* * *` |project leader |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |project leader |have a good overview of all the projects I am managing |I can distribute my resources appropriately
+|`* * *` |project leader |generate a report of the contributions of the members |credit can be rightfully assigned to the respective members
+
+|`* * *` |project leader |indicate the credit of each task |track the level of contribution by each member
+
+|`* * *` |project leader |track the status of every task |track the progress of each project
 
 |`* * *` |project leader |indicate the priority of the tasks |ensure members know what order to be done
 
-|`* * *` |project leader |define a clear end goal/target for the project |that we stay on the right track
-
 |`* * *` |project leader |input the requirements of the tasks I have been assigned |ensure needs members are clear about what needs to be done
 
-|`* * *` |project leader |I can view the tasks and roles that I have assigned |ensure members can complete them
-
 |`* * *` |project leader |be able to track deadlines for each task |I will know if a group member is slacking.
+
+|`* * *` |project leader |assign one task to multiple students |more than one student can contribute to the task
+
+|`* * *` |project leader |delete erroneous tasks from the project I am managing| prevent any confusion and achieve a
+cleaner work space
+
+|`* * *` |project leader |view tasks sorted by name, index, date, priority, credit, assigned member names or Kanban
+board style | I can view all the tasks in a customised manner according to the required scenario.
+
+|`* * *` |project leader |import files from other sources |track all my projects from different workstations or work environments
+
+|`* * *` |project leader |be able to edit and read the exported file |have other people can add in details as well into the file and send back
+
+|`* * *` |project leader |have a good overview of all the projects I am managing |I can distribute my resources appropriately
+
+|`* * *` |project leader |define a clear end goal/target for the project |that we stay on the right track
+
+|`* * *` |project leader |I can view the tasks and roles that I have assigned |ensure members can complete them
 
 |`* * *` |project leader |keep track of the contributions of members |ensure everyone does his/her fair share
 
 |`* * *` |project leader |create task dependencies |members can complete tasks in a certain order
-
-|`* * *` |project leader |be able to manage multiple projects and view all the task delegations of my team members in them |distribute my resources appropriately
 
 |`* * *` |project leader |calculate the total weightage of tasks done by each member |keep track of the amount of contributions done by each member
 
