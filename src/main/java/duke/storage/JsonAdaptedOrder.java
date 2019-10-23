@@ -3,14 +3,15 @@ package duke.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.model.commons.Item;
-import duke.model.commons.Quantity;
-import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
-import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Jackson-friendly version of {@link duke.model.order.Order}.
@@ -77,11 +78,10 @@ public class JsonAdaptedOrder {
 
     /**
      * Converts this Jackson-friendly adapted order object into the model's {@code Order} object.
-     *
      */
     public Order toModelType() {
         Set<Item<Product>> productSet = new HashSet<>();
-        for(JsonAdaptedProductItem jsonAdaptedProductItem : items) {
+        for (JsonAdaptedProductItem jsonAdaptedProductItem : items) {
             productSet.add(jsonAdaptedProductItem.toModelType());
 
         }

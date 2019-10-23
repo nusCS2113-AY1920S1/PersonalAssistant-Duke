@@ -1,8 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -191,6 +191,14 @@ public interface Model {
 
     void updateFilteredSaleList(Predicate<Sale> predicate);
 
+    /**
+     * Creates a Sale entry from a completed Order.
+     * @param order
+     */
+    void addSaleFromOrder(Order order);
+
+    void addSaleFromShopping();
+
     //========Ingredient operations======
     /**
      * Returns an unmodifiable view of the filtered inventory list.
@@ -200,13 +208,13 @@ public interface Model {
     void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate);
 
     /**
-     * Adds an inventory item to the inventory list
+     * Adds an inventory item to the inventory list.
      * @param inventory The inventory item
      */
     void addInventory(Item<Ingredient> inventory);
 
     /**
-     * Checks if the item with the same name already exists in the inventory list
+     * Checks if the item with the same name already exists in the inventory list.
      * @return true if the given inventory item already exists in the inventory list
      */
     boolean hasInventory(Item<Ingredient> inventory);
@@ -216,13 +224,13 @@ public interface Model {
     boolean deductIngredient(Ingredient ingredient, double amount);
 
     /**
-     * Removes an inventory item from the inventory list
+     * Removes an inventory item from the inventory list.
      * @param inventory The inventory item
      */
     void deleteInventory(Item<Ingredient> inventory);
 
     /**
-     * Edits the ingredient toEdit with the ingredient edited
+     * Edits the ingredient toEdit with the ingredient edited.
      * @param toEdit the ingredient to be edited
      * @param edited the edited ingredient with changes
      */
@@ -231,7 +239,7 @@ public interface Model {
     void setInventory(List<Item<Ingredient>> replacement);
 
     /**
-     * Clears the inventory list
+     * Clears the inventory list.
      * @param emptyList
      */
     void clearInventory(List<Item<Ingredient>> emptyList);
@@ -243,25 +251,25 @@ public interface Model {
     void updateFilteredShoppingList(Predicate<Item<Ingredient>> predicate);
 
     /**
-     * Adds an ingredient to the shopping list
+     * Adds an ingredient to the shopping list.
      * @param toAdd the ingredient to be added
      */
     void addShoppingList(Item<Ingredient> toAdd);
 
     /**
-     * Checks if the item with the same name already exists in the shopping list
+     * Checks if the item with the same name already exists in the shopping list.
      * @return true if the given ingredient item already exists in the shopping list
      */
     boolean hasShoppingList(Item<Ingredient> ingredientItem);
 
     /**
-     * Removes an ingredient item from the shopping list
+     * Removes an ingredient item from the shopping list.
      * @param toDelete the ingredient item
      */
     void deleteShoppingList(Item<Ingredient> toDelete);
 
     /**
-     * Edits the ingredient toEdit with the ingredient edited
+     * Edits the ingredient toEdit with the ingredient edited.
      * @param toEdit the ingredient to be edited
      * @param edited the edited ingredient with changes
      */
@@ -270,7 +278,7 @@ public interface Model {
     void setShoppingList(List<Item<Ingredient>> replacement);
 
     /**
-     * Clears the shopping list
+     * Clears the shopping list.
      * @param emptyList an empty list
      */
     void clearShoppingList(List<Item<Ingredient>> emptyList);

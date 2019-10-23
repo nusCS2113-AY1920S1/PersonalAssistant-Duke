@@ -4,17 +4,16 @@ import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.commons.Item;
-import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
-import duke.model.product.Product;
 
 import java.util.Set;
 
+import static duke.logic.command.order.OrderCommandUtil.deductInventory;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to set {@code Status} of order(s) to {@code COMPLETED}.
+ * A command to set {@code Status} of order(s) to {@code COMPLETED} and
+ * creates a corresponding sale entry.
  *
  * @see Order#getStatus()
  */
@@ -57,6 +56,7 @@ public class CompleteOrderCommand extends OrderCommand {
                 model.getFilteredOrderList().get(index.getZeroBased()),
                 model
             );
+
             if (isIngredientsUsedUp) {
                 executeResult = MESSAGE_COMPLETE_INSUFFICIENT_INVENTORY;
             }
@@ -69,6 +69,10 @@ public class CompleteOrderCommand extends OrderCommand {
                         model.getFilteredInventoryList()
                     )
             );
+
+            //Add new sale entry
+            model.addSaleFromOrder(model.getFilteredOrderList().get(index.getZeroBased()));
+
         }
 
         model.commit(MESSAGE_COMMIT);
@@ -76,27 +80,5 @@ public class CompleteOrderCommand extends OrderCommand {
         return new CommandResult(String.format(executeResult, indices.size()),
                 CommandResult.DisplayedPage.ORDER);
 
-    }
-
-    /**
-     * Deducts the amount of ingredients used in this {@code order} from inventory in {@code model}.
-     * If ingredients in inventory are not enough, deducts to zero.
-     *
-     * @return true if ingredients in inventory are enough.
-     */
-    private boolean deductInventory(Order order, Model model) {
-        boolean isInventoryEnough = true;
-        for (Item<Product> productItem : order.getItems()) {
-            for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
-                if (model.hasIngredient(ingredientItem.getItem())) {
-                    if (model.deductIngredient(ingredientItem.getItem(),
-                        productItem.getQuantity().getNumber() * ingredientItem.getQuantity().getNumber()
-                        )) {
-                        isInventoryEnough = false;
-                    }
-                }
-            }
-        }
-        return isInventoryEnough;
     }
 }

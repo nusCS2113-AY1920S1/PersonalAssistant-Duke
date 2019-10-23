@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a Sale in the sale list.
+ */
 public class Sale {
 
     //Identity field
@@ -23,6 +26,11 @@ public class Sale {
         this.value = value;
         this.saleDate = saleDate;
         this.remarks = remarks;
+    }
+
+    public Sale(long id, String description, double value, Date saleDate, String remarks) {
+        this(description, value, saleDate, remarks);
+        this.id = id;
     }
 
     public long getId() {

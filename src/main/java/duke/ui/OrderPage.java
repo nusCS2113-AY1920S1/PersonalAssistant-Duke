@@ -12,6 +12,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.logging.Logger;
 
+/**
+ * Controller class for order page.
+ * An order page contains order cards.
+ */
 public class OrderPage extends UiPart<AnchorPane> {
     private static final String FXML = "OrderPage.fxml";
     private final Logger logger = LogsCenter.getLogger(OrderPage.class);

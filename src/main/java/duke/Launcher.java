@@ -17,10 +17,12 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+/**
+ * Launcher class for the app.
+ */
 public class Launcher extends Application {
     public static void main(String[] args) {
         launch(Launcher.class, args);
@@ -50,18 +52,16 @@ public class Launcher extends Application {
         ReadOnlyBakingHome initialData = new BakingHome();
 
         try {
-              bakingHomeOptional = storage.readBakingHome();
-              if (bakingHomeOptional.isEmpty()) {
-                  logger.info("Data file not found.");
-              } else {
-                  initialData = bakingHomeOptional.get();
-              }
-          } catch (DataConversionException e) {
-            e.printStackTrace();
-              logger.warning("Data file not in the correct format");
-          } catch (IOException e) {
-            e.printStackTrace();
-              logger.warning("Problem while reading from the file");
+            bakingHomeOptional = storage.readBakingHome();
+            if (bakingHomeOptional.isEmpty()) {
+                logger.info("Data file not found.");
+            } else {
+                initialData = bakingHomeOptional.get();
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file");
         }
 
         return new ModelManager(initialData);

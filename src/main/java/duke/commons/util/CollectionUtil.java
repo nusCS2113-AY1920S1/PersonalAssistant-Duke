@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Utility methods related to Collections.
+ * Utility methods related to Collections. Adapted from AddressBook 4.
  */
 public class CollectionUtil {
 

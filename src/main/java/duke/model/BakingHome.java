@@ -1,9 +1,9 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Item;
 import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
-import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -39,12 +39,15 @@ public class BakingHome implements ReadOnlyBakingHome {
         shortcuts = new UniqueEntityList<>();
     }
 
+    /**
+     * Creates BakingHome fro {@code toBeCopied}.
+     */
     public BakingHome(ReadOnlyBakingHome toBeCopied) {
         this();
         resetData(toBeCopied);
     }
 
-    /*
+    /**
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
      */
     public void resetData(ReadOnlyBakingHome newData) {
@@ -62,9 +65,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         this.products.setAll(products);
     }
 
-    public void setSale(List<Sale> allSale) {
-        this.sales.setAll(allSale);
-    }
+
     //================Order operations================
 
     /**
@@ -139,29 +140,6 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public void removeSale(Sale key) {
-        sales.remove(key);
-    }
-
-    /**
-     * Replaces the contents of the sale list with {@code sales}.
-     */
-    public void setSales(List<Sale> sales) {
-        this.sales.setAll(sales);
-    }
-
-    /**
-     * Returns true if a sale with the same identity as {@code sale} exists in {@code sales}.
-     */
-    public boolean hasSale(Sale sale) {
-        requireNonNull(sale);
-        return sales.contains(sale);
-    }
-
-    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -170,6 +148,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireNonNull(editedSale);
 
         sales.set(target, editedSale);
+    }
+
+    public void setSale(List<Sale> allSale) {
+        this.sales.setAll(allSale);
     }
 
     /**
@@ -284,7 +266,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Shopping operations==============
 
     /**
-     * Adds an ingredient to the shopping list
+     * Adds an ingredient to the shopping list.
      * @param toAdd The ingredient to be added to the shopping list.
      */
     public void addShoppingList(Item<Ingredient> toAdd) {
@@ -292,7 +274,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Removes an ingredient from the shopping list
+     * Removes an ingredient from the shopping list.
      * @param toRemove The ingredient to be removed from the shopping list.
      */
     public void removeShoppingList(Item<Ingredient> toRemove) {

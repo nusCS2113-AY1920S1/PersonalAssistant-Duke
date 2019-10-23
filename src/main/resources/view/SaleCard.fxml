@@ -8,14 +8,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" minHeight="230.0" prefHeight="200.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane maxHeight="1.7976931348623157E308" prefWidth="650.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="innerPane" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: brown;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+        <AnchorPane fx:id="innerPane" prefWidth="200.0" style="-fx-border-color: brown;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <GridPane>
+                  <GridPane alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -23,42 +22,15 @@
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="50.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="50.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <StackPane minHeight="30.0" style="-fx-background-color: B5651D;">
                            <children>
                               <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" text="Sale ID">
                                  <font>
-                                    <Font name="Arial" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </StackPane>
-                        <StackPane minHeight="30.0" style="-fx-background-color: B5651D;" GridPane.columnIndex="2">
-                           <children>
-                              <Label fx:id="saleDate" alignment="CENTER" contentDisplay="CENTER" text="Sale Date">
-                                 <font>
-                                    <Font name="Arial" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="description" text="Description">
-                                 <font>
-                                    <Font name="Arial" size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </StackPane>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
-                           <children>
-                              <Label fx:id="remarks" text="Remarks">
-                                 <font>
-                                    <Font name="Arial" size="16.0" />
+                                    <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
                            </children>
@@ -67,7 +39,34 @@
                            <children>
                               <Label fx:id="value" text="Value">
                                  <font>
-                                    <Font name="Arial" size="18.0" />
+                                    <Font name="Consolas" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane minHeight="30.0" style="-fx-background-color: B5651D;" GridPane.columnIndex="2">
+                           <children>
+                              <Label fx:id="saleDate" alignment="CENTER" contentDisplay="CENTER" text="Sale Date">
+                                 <font>
+                                    <Font name="Consolas" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane GridPane.columnSpan="3" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="description" text="Description" StackPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font name="Consolas" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane GridPane.columnSpan="3" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="remarks" text="Remarks" StackPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
                            </children>

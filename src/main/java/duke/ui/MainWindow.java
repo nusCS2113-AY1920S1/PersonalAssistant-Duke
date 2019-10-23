@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ProductPage productPage;
     private SalePage salePage;
     private InventoryPage inventoryPage;
+    private ShoppingPage shoppingPage;
 
     private List<String> inputHistory = new ArrayList<>();
     private int historyIndex = inputHistory.size();
@@ -67,7 +68,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton inventoryButton;
     @FXML
+    private JFXButton shoppingButton;
+    @FXML
     private JFXButton saleButton;
+
 
     /**
      * Creates the Main Window.
@@ -105,8 +109,10 @@ public class MainWindow extends UiPart<Stage> {
         orderPage = new OrderPage(logic.getFilteredOrderList(), logic.getFilteredInventoryList());
         productPage = new ProductPage(logic.getFilteredProductList());
         salePage = new SalePage(logic.getFilteredSaleList());
-        inventoryPage = new InventoryPage(logic.getFilteredInventoryList(), logic.getFilteredShoppingList());
-        setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
+        inventoryPage = new InventoryPage(logic.getFilteredInventoryList());
+        shoppingPage = new ShoppingPage(logic.getFilteredShoppingList());
+        setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(),
+                inventoryPage.getRoot(), shoppingPage.getRoot());
     }
 
     void show() {
@@ -156,8 +162,12 @@ public class MainWindow extends UiPart<Stage> {
             keyEvent.consume();
             autocomplete();
             break;
+        case ESCAPE:
+            keyEvent.consume();
+            break;
         default:
             // let JavaFx handle the keypress
+            break;
         }
     }
 
@@ -182,7 +192,6 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(false);
     }
 
-
     @FXML
     private void handleShowRecipe() {
         showProductPage();
@@ -199,9 +208,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
+    private void handleShowShopping() {
+        showShoppingPage();
+    }
+
+    @FXML
     private void handleShowSale() {
         showSalePage();
     }
+
 
     /**
      * Shows the pop up bar displaying a {@code message}.
@@ -246,6 +261,9 @@ public class MainWindow extends UiPart<Stage> {
         case INVENTORY:
             showInventoryPage();
             break;
+        case SHOPPING:
+            showShoppingPage();
+            break;
         default:
             break;
         }
@@ -259,6 +277,7 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        shoppingButton.setButtonType(JFXButton.ButtonType.FLAT);
         saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Orders");
@@ -271,6 +290,7 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        shoppingButton.setButtonType(JFXButton.ButtonType.FLAT);
         saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Products");
@@ -288,9 +308,23 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
+        shoppingButton.setButtonType(JFXButton.ButtonType.FLAT);
         saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Inventory");
+    }
+
+    private void showShoppingPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(shoppingPage.getRoot());
+
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
+        orderButton.setButtonType(JFXButton.ButtonType.FLAT);
+        inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        shoppingButton.setButtonType(JFXButton.ButtonType.RAISED);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
+
+        currentPage.setText("Shopping List");
     }
 
     private void showSalePage() {
@@ -300,6 +334,7 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
+        shoppingButton.setButtonType(JFXButton.ButtonType.FLAT);
         saleButton.setButtonType(JFXButton.ButtonType.RAISED);
 
         currentPage.setText("Sales");

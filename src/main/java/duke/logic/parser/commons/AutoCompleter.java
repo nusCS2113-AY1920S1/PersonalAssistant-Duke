@@ -1,6 +1,7 @@
 package duke.logic.parser.commons;
 
 import duke.logic.command.Command;
+import duke.logic.parser.exceptions.ParseException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,11 +77,23 @@ public class AutoCompleter {
 
     /**
      * Returns possible suggestion(s) in the form of {@code UserInputState}.
+     *
+     * <p>
      * If there is only one available suggestion, returns that state.
      * If there are multiple available suggestions, returns the next possible one,
      * and goes cyclic to the first one if there are no more new suggestions.
+     * For example, if the current input state has two suggestions "add" and "all",
+     * first call to the method returns the "add" state and second call returns "all" state.
+     * The third call returns "add" state again.
+     *</p>
+     *
+     * @throws ParseException if there is no suggestion
      */
-    public UserInputState complete() {
+    public UserInputState complete() throws ParseException {
+        if (suggestions.isEmpty()) {
+            throw new ParseException();
+        }
+
         suggestionPointer = (suggestionPointer + 1) % suggestions.size();
         return suggestions.get(suggestionPointer);
     }
@@ -102,14 +115,17 @@ public class AutoCompleter {
 
     /**
      * Adds a command class for auto-completion of command word and arguments.
+     * <p>
      * To auto-complete arguments, the command should have fields {@code AUTO_COMPLETION_INDICATOR} and
      * {@code AUTO_COMPLETION_ARGUMENTS}. The naming and type should be precise for auto-completer to
      * function properly.
-     *
+     * </p>
+     * <p>
      * {@code AUTO_COMPLETION_INDICATOR} is a string specifying when auto-completer should complete the arguments.
      * Auto-completer only completes the arguments when this field is present in the beginning of user input.
      * {@code AUTO_COMPLETION_ARGUMENTS} is an array of {@code Prefix} that is used by the command that
      * can be auto-completed.
+     * </p>
      */
     public void addCommand(Class<? extends Command> commandClass) {
         if (!commandClasses.contains(commandClass)) {

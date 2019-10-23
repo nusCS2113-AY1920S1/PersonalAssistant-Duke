@@ -2,7 +2,6 @@ package duke.storage;
 
 import duke.logic.command.exceptions.DataConversionException;
 import duke.model.ReadOnlyBakingHome;
-import javafx.scene.shape.Path;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -27,20 +26,10 @@ public interface BakingHomeStorage {
     Optional<ReadOnlyBakingHome> readBakingHome() throws DataConversionException, IOException;
 
     /**
-     * @see #getBakingHomeFilePath()
-     */
-    Optional<ReadOnlyBakingHome> readBakingHome(Path filePath) throws DataConversionException, IOException;
-
-    /**
      * Saves the given {@link ReadOnlyBakingHome} to the storage.
-     * @param BakingHome cannot be null.
+     * @param bakingHome cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveBakingHome(ReadOnlyBakingHome BakingHome) throws IOException;
-
-    /**
-     * @see #saveBakingHome(ReadOnlyBakingHome)
-     */
-    void saveBakingHome(ReadOnlyBakingHome BakingHome, Path filePath) throws IOException;
+    void saveBakingHome(ReadOnlyBakingHome bakingHome) throws IOException;
 
 }

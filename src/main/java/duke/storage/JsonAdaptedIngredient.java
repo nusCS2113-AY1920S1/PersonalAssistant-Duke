@@ -9,6 +9,9 @@ public class JsonAdaptedIngredient {
     private final Double unitPrice;
     private final String remarks;
 
+    /**
+     * Constructs a {@code JsonAdaptedIngredient} with the given details.
+     */
     @JsonCreator
     public JsonAdaptedIngredient(
             @JsonProperty("name") String name,
@@ -19,12 +22,18 @@ public class JsonAdaptedIngredient {
         this.remarks = remarks;
     }
 
+    /**
+     * Creates a jackson-friendly ingredient from {@code source}.
+     */
     public JsonAdaptedIngredient(Ingredient source) {
         this.name = source.name;
         this.unitPrice = source.unitPrice;
         this.remarks = source.remarks;
     }
 
+    /**
+     * Converts a given {@code Ingredient} into this class for Jackson use.
+     */
     public Ingredient toModelType() {
         return new Ingredient(name, unitPrice, remarks);
     }
