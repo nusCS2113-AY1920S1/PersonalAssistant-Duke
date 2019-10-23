@@ -1,10 +1,5 @@
 import command.Command;
 import exception.DukeException;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ObservableDoubleValue;
-import javafx.beans.value.ObservableStringValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,19 +15,14 @@ import parser.ParserFactory;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
-import task.Todo;
 import ui.Ui;
-
-import javax.xml.stream.Location;
 import java.io.File;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.

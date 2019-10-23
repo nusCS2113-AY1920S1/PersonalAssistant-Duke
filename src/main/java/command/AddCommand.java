@@ -4,15 +4,13 @@ import exception.DukeException;
 import task.*;
 import storage.Storage;
 import ui.Ui;
-
 import java.time.LocalDateTime;
 
 /**
- * The AddCommand class is used when the user has input a command which requires
- * a task to be added to the TaskList.
+ * Adds a task to TaskList if the user input is correctly parsable.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.3
  */
 public class AddCommand extends Command {
 
@@ -23,17 +21,12 @@ public class AddCommand extends Command {
     private int duration = 0;
 
     /**
-     * This AddCommand function is used to assign the different parameters required
-     * when adding a task.
+     * Initializes the different parameters when adding a task.
      *
-     * @param command      this string holds command type determinant to decide how
-     *                     to process the user input.
-     * @param taskFeatures this string holds the description of the task provided by
-     *                     the user.
-     * @param startDate       string contains the formatted user input that has the
-     *                     desired date time format.
-     * @param endDate       string contains the formatted user input that has the
-     *                     desired date time format.
+     * @param command      Holds the command type.
+     * @param taskFeatures Holds the description of the task provided by the user.
+     * @param startDate    Holds the start date of the task.
+     * @param endDate      Holds the end date of the task.
      */
 
     public AddCommand(String command, String taskFeatures, LocalDateTime startDate, LocalDateTime endDate) {
@@ -45,27 +38,23 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Creates an AddCommand based on duration of the task.
-     * @param command       holds command type determinant to decide how
-     *                      to process the user input.
-     * @param taskFeatures  holds the description of the task provided by
-     *                      the user.
-     * @param duration      holds the duration period of how long the task should last
+     * Initializes the different parameters when adding a task.
+     *
+     * @param command       Holds the command type.
+     * @param taskFeatures  Holds the description of the task provided by the user.
+     * @param duration      Holds the duration period the task.
      */
-    public AddCommand(String command, String taskFeatures, int duration) {
+    public AddCommand(String command, String taskFeatures, Integer duration) {
         this.command = command;
         this.taskFeatures = taskFeatures;
         this.duration = duration;
     }
 
     /**
-     * This execute function is used to add the respective tasks to the TaskList and
-     * save to persistent storage.
+     * Adds the task to the TaskList and saves the updated TaskList to persistent storage.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {

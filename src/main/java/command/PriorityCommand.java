@@ -8,11 +8,10 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * The PriorityCommand class is used when the user intends to add a priority level
- * to a certain list item.
+ * Adds a priority level to a certain task.
  *
  * @author Tan Yi Xiang
- * @version v1.0
+ * @version v1.3
  */
 public class PriorityCommand extends Command {
 
@@ -24,6 +23,13 @@ public class PriorityCommand extends Command {
         this.priorityString = priorityString.toLowerCase();
     }
 
+    /**
+     * Updates the priority level of a task that is not ignorable and saves the updated TaskList
+     * to persistent storage.
+     *
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
 
@@ -37,7 +43,7 @@ public class PriorityCommand extends Command {
 
         Task task = tasks.getTasks().get(indexOfTask);
         if (!task.isPrioritizable) {
-            Ui.printOutput("Ignorable tasks can't have a priority level");
+            Ui.printOutput("Ignorable tasks do not have a priority level");
         } else {
             task.setPriority(newPriority);
             storage.saveFile(tasks.getTasks());

@@ -7,10 +7,10 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * The DoneCommand class is used when the user intends to mark a task as done.
+ * Marks a task as complete or done.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.3
  */
 public class DoneCommand extends Command {
     private int indexOfTask;
@@ -20,22 +20,16 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * This execute function is used to add the respective tasks to the TaskList and
-     * save to persistent storage.
+     * Marks a task as complete and saves the updated TaskList to persistent storage.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
-            throw new DukeException(DukeException.taskDoesNotExist());
+        if (isIndexValid(indexOfTask, tasks.getSize())) {
+            Task task = tasks.markAsDone(indexOfTask);
+            storage.saveFile(tasks.getTasks());
+            Ui.printOutput("Nice! I've marked this task as done: " + task.toString());
         }
-
-        Task task = tasks.markAsDone(indexOfTask);
-        storage.saveFile(tasks.getTasks());
-
-        Ui.printOutput("Nice! I've marked this task as done: " + task.toString());
     }
 }

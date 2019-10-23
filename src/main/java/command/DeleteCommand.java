@@ -7,38 +7,32 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * The DeleteCommand class is used when the user intends to delete a particular
- * task from their task list.
+ * Allows the user to delete a particular task from their task list based on index.
  *
  * @author Sai Ganesh Suresh
- * @version v1.0
+ * @version v1.3
  */
 public class DeleteCommand extends Command {
 
-    private int indexOfTask;
+    private Integer indexOfTask;
 
-    public DeleteCommand(int indexOfTask) {
+    public DeleteCommand(Integer indexOfTask) {
         this.indexOfTask = indexOfTask;
     }
 
     /**
-     * Used to add the respective tasks to the TaskList and save to persistent
-     * storage.
+     * Removes the task from the TaskList and saves the updated TaskList to persistent storage.
      *
-     * @param tasks   this string holds command type determinant to decide how to
-     *                process the user input.
-     * @param storage this parameter provides the execute function the storage to
-     *                allow the saving of the file.
+     * @param tasks   Holds the list of all the tasks the user has.
+     * @param storage Allows the saving of the file to persistent storage.
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
+        if (isIndexValid(indexOfTask, tasks.getSize())) {
             Task task = tasks.delete(indexOfTask);
             storage.saveFile(tasks.getTasks());
             Ui.printOutput("Noted. I've removed this task:" + "\n " + task.toString() + "\nNow you have "
                 + tasks.getSize() + " task(s) in the list.");
-        } else {
-            throw new DukeException(DukeException.taskDoesNotExist());
         }
     }
 }
