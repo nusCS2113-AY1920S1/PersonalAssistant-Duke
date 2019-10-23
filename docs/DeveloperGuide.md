@@ -13,6 +13,10 @@
    7. Exception Component
    8. Recipebook Component
    9. RecipeCommand Component
+   10. Order Component
+   11. OrderCommand Component
+   12. Fridge Component
+   13. GenericList
 
 3. Implementation
 
@@ -258,7 +262,7 @@ The Order component contains 2 classes, Order Class and Order Class. The Order C
 | isDone(): boolean                      | returns a `boolean` indicating whether the order is finished or not |
 | markAsDone(): void                     | mark the order as finished                                   |
 | getStatusIcon(): String                | takes in an `int` and sets the new overall rating of the dish |
-| getOrderConten(): Map<Dishes, Integer> | returns the order content as `Map`                           |
+| getOrderContent(): Map<Dishes, Integer> | returns the order content as `Map`                           |
 | toString(): String                     | returns description of the order as `String`                 |
 | printInFile(): String                  | returns description of the order that used to store in the txt file |
 | hasDishes(Dishes): boolean             | returns a `boolean` indicating whether the order has the dishes or not |
@@ -283,21 +287,19 @@ The Order component contains 2 classes, Order Class and Order Class. The Order C
 
 | Methods                              | Description                                                  |
 | ------------------------------------ | ------------------------------------------------------------ |
-| addOrder(Order): void                | add the order to the order list                              |
-| removeOrder(int): Order              | remove the order in the orderList, return the removed order  |
 | size(): int                          | returns the number of orders in the orderList                |
 | markOrderDone(int): void             | mark a order as completed                                    |
 | getOrder(int): Order                 | return the order at the position indexed by number           |
-| getAllOrders(): List<Order>          | return all orders in the orderList                           |
 | getAllUndoneOrders(): List<Order>    | return all undone orders in the orderList                    |
 | getTodayOrders(): List<Order>        | return all today's orders in the orderList                   |
 | getTodayUndoneOrders(): List<Order>  | return all today's orders which is undone in the orderList   |
+| findOrderByDate(String): List<Order> | returns a list of orders on that date                        |
+| findOrderByDishes(Dish): List<Order> | returns a list of orders that contains that dishes           |
 | changeOrderDate(int, String): void   | alter the serving date of the order in the orderList         |
 | getDishesTodayAmount(Dishes): int    | return required amount of the dishes that needed to be done before the end of today |
 | addOrderDish(int, Dishes): void      | add dishes to the order in the orderList                     |
 | addOrderDish(int, Dishes, int): void | add dishes with amount to the order in the orderList         |
 | findDishesAmont(int, Dishes): int    | find dishes amount in the order among the orderList          |
-| clearList(): void                    | clear the whole order list                                   |
 
 #### 
 
@@ -306,20 +308,19 @@ The Order component contains 2 classes, Order Class and Order Class. The Order C
 The Order Command classes inherits from the `Command` class. They overwrite the abstract method `execute` of the `Command` class. The Order Command classes includes:
 
 - AddOrderCommand
-- AlterServingDateCommand
-- CancelOrderCommand
+- AlterDateCommand
+- DeleteOrderCommand
 - DoneOrderCommand
-- FindOrderByDateCommand
 - ListOrderCommand
 
-#### 2.10 Fridge Component
+#### 2.12 Fridge Component
 API: `Fridge.java`
 
 The Fridge class allows access and modification of the `Ingredient`s used by the chef. By keeping track of the Ingredients' expiry date, it allows the user to know which products have expired, and remove them. It allows for less ingredient waste, as it can return the most recently expiring ingredients, so that they can be used first. 
 
 ![Fridge](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/fridgeUML.png)
 
-#### 2.11 GenericList
+#### 2.13 GenericList
 API: `GenericList.java`
 
 This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
