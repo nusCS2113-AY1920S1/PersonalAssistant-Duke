@@ -4,9 +4,9 @@ import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.Parser;
 import duke.model.Model;
-import duke.model.transports.Route;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RouteDeleteCommandTest {
@@ -23,6 +23,6 @@ class RouteDeleteCommandTest {
                 (RouteDeleteCommand) Parser.parseComplexCommand("routeDelete 1");
         routeDeleteCommand.execute(model);
 
-        assertTrue(model.getRoutes().size() == 0);
+        assertEquals(0, model.getRoutes().size());
     }
 }

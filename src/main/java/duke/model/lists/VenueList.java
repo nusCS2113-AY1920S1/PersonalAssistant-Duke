@@ -32,7 +32,6 @@ public class VenueList implements Iterable<Venue>, Listable<Venue> {
         list.add(venue);
     }
 
-    @Override
     public List<Venue> getVenueList() {
         return this.list;
     }
