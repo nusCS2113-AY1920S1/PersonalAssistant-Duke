@@ -172,6 +172,15 @@ Examples:
 
 * `delete 3`
 
+== Delete a payee: `delete payee`
+
+Delete a payee and their details+
+Format: `delete payee p/payee`
+
+Examples:
+
+* `delete payee p/John`
+
 === Approve a payment form: `approve`
 
 Approve a payment form with a message+
@@ -196,6 +205,11 @@ the index of the task should not be out of range
 Examples:
 
 * `done 5`
+
+== View previous input commands: `history`
+
+view input commands entered by the user from the start till the present +
+Format: `history`
 
 === Exit command: `bye`
 
