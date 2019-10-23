@@ -11,7 +11,7 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class EmailFormatParser {
+public class EmailFormatParseHelper {
     protected static DateTimeFormatter format = DateTimeFormatter
             .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
@@ -160,6 +160,15 @@ public class EmailFormatParser {
 
         public String toString() {
             return name + " => " + address;
+        }
+
+        /**
+         * Formats sender in a user friendly way to be displayed in WebView.
+         *
+         * @return a user friendly display of sender
+         */
+        public String toWebViewString() {
+            return name + " &#60;" + address + "&#62;";
         }
     }
 

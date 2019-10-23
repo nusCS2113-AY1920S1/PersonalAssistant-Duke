@@ -20,7 +20,7 @@ public class SimpleServer {
     /**
      * Starts the server on port 3000.
      */
-    static void startServer() {
+    public static void startServer() {
         try {
             server = HttpServer.create(new InetSocketAddress(3000), 0);
             server.createContext("/", new MyHandler());
@@ -45,7 +45,7 @@ public class SimpleServer {
     /**
      * Handler used to handle the response of the http request from Outlook.
      */
-    static class MyHandler implements HttpHandler {
+    public static class MyHandler implements HttpHandler {
         /**
          * Handles the exchange/response of the http request from Outlook, which contains the authorization
          * code. Stops the server once received the code.

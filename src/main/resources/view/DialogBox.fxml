@@ -5,10 +5,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root alignment="TOP_RIGHT" minHeight="-Infinity" prefWidth="400.0"
-         style="-fx-background-color: #eeeeee; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #ffffff;"
-         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1"
-         xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_RIGHT" minHeight="-Infinity"
+         prefWidth="400.0"
+         style="-fx-background-color: #eeeeee; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #ffffff;" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/11.0.1">
     <children>
         <Label fx:id="dialog" text="Label" wrapText="true">
             <HBox.margin>

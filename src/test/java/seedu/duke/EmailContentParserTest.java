@@ -3,7 +3,7 @@ package seedu.duke;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.duke.email.EmailContentParser.editDistance;
+import static seedu.duke.email.EmailContentParseHelper.editDistance;
 
 public class EmailContentParserTest {
     @Test

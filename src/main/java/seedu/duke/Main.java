@@ -12,8 +12,6 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private Duke duke;
-
     @Override
     public void start(Stage stage) {
         try {
@@ -26,7 +24,8 @@ public class Main extends Application {
 
             stage.show();
 
-            duke = new Duke();
+            Duke duke = new Duke();
+            duke.run();
         } catch (IOException e) {
             e.printStackTrace();
         }

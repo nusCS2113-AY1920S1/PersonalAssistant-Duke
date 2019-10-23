@@ -34,6 +34,7 @@ public class Model {
     }
 
     public void updateGuiEmailList() {
+        emailList.sortByGivenOrder();
         Duke.getUI().updateEmailList(emailList.getEmailGuiStringList());
     }
 }

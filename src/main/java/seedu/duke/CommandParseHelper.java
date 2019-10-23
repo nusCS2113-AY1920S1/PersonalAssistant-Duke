@@ -1,10 +1,10 @@
 package seedu.duke;
 
-import seedu.duke.email.command.EmailCommandParser;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.task.command.TaskCommandParser;
+import seedu.duke.email.command.EmailCommandParser;
+import seedu.duke.task.command.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * A class that contains helper functions used to process user inputs. It also contains UserInputException
  * that is used across the project to handle the unexpected user input.
  */
-public class CommandParser {
+public class CommandParseHelper {
 
     private static UI ui = Duke.getUI();
     private static InputType inputType = InputType.TASK;
@@ -48,6 +48,7 @@ public class CommandParser {
             break;
         default:
             prefix = "";
+            break;
         }
         return prefix;
     }
@@ -84,14 +85,15 @@ public class CommandParser {
      * @return list of all options specified in the command.
      */
     public static ArrayList<Option> parseOptions(String input) {
+        String userInput = input;
         ArrayList<Option> optionList = new ArrayList<>();
         Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*");
-        Matcher optionMatcher = optionPattern.matcher(input);
+        Matcher optionMatcher = optionPattern.matcher(userInput);
         while (optionMatcher.matches()) {
             optionList.add(new Option(optionMatcher.group("key").substring(1),
                     optionMatcher.group("value")));
-            input = input.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*$", "");
-            optionMatcher = optionPattern.matcher(input);
+            userInput = userInput.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*$", "");
+            optionMatcher = optionPattern.matcher(userInput);
         }
         return optionList;
     }
@@ -104,22 +106,22 @@ public class CommandParser {
      * Parses the user/file input as command. It returns a command that is not yet executed. It also needs to
      * get a UI from Duke to display the messages.
      *
-     * @param input the user/file input that is to be parsed to a command
+     * @param commandString the user/file input that is to be parsed to a command
      * @return the parse result, which is a command ready to be executed
      */
-    public static Command parseCommand(String input) throws UserInputException {
-        if (!isCommandFormat(input)) {
+    public static Command parseCommand(String commandString) throws UserInputException {
+        if (!isCommandFormat(commandString)) {
             if (ui != null) {
                 ui.showError("Command is in wrong format");
             }
             return new InvalidCommand();
         }
-        ArrayList<Option> optionList = parseOptions(input);
-        input = stripOptions(input);
+        ArrayList<Option> optionList = parseOptions(commandString);
+        String strippedCommandString = stripOptions(commandString);
         if (inputType == InputType.TASK) {
-            return TaskCommandParser.parseTaskCommand(input, optionList);
+            return TaskCommandParseHelper.parseTaskCommand(strippedCommandString, optionList);
         } else if (inputType == InputType.EMAIL) {
-            return parseEmailCommand(input, optionList);
+            return parseEmailCommand(strippedCommandString, optionList);
         } else {
             return new InvalidCommand();
         }
@@ -152,6 +154,7 @@ public class CommandParser {
 
     /**
      * Extracts time string from the option list.
+     *
      * @param optionList the list of options where the time string is extracted
      * @return the time string
      * @throws UserInputException if time option appears more than once
@@ -160,7 +163,7 @@ public class CommandParser {
         String time = "";
         for (Option option : optionList) {
             if (option.getKey().equals("time")) {
-                if (time.equals("")) {
+                if ("".equals(time)) {
                     time = option.getValue();
                 } else {
                     throw new UserInputException("Each task can have only one time option");
