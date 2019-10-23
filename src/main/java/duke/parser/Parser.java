@@ -1,32 +1,18 @@
 package duke.parser;
 
 import duke.command.Cmd;
-import duke.Duke;
+import duke.command.dishesCommand.*;
 import duke.command.ingredientCommand.*;
-import duke.command.dishesCommand.*;
-import duke.exception.DukeException;
 import duke.command.orderCommand.*;
-<<<<<<< HEAD
-import duke.command.dishesCommand.*;
-import duke.command.dishesCommand.InitCommand;
 import duke.dish.Dish;
+import duke.Duke;
+import duke.exception.DukeException;
 import duke.ingredient.Ingredient;
-=======
-import duke.Dishes.Dishes;
->>>>>>> 7a8257b6995584c461da76d397bd91d8497d6357
-import duke.task.Deadline;
-import duke.task.DoWithinPeriodTasks;
-import duke.task.Event;
-import duke.task.Todo;
-
+import duke.task.*;
 import java.util.Date;
 
 /**
-<<<<<<< HEAD
  * Represents a parser used to parse the input String from the user into a Duke understandable {@link Cmd}.
-=======
- * Represents a parser used to parse the input String from the user into a Duke understandable Command.
->>>>>>> 7a8257b6995584c461da76d397bd91d8497d6357
  * It should deals with making sense of the user command.
  */
 public class Parser {

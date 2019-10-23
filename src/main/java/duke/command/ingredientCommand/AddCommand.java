@@ -49,6 +49,4 @@ public class AddCommand<T> extends Cmd<T> {
             throw new DukeException("Error while adding the command to the duke.txt file");
         }
     }
-
-
 }

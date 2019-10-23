@@ -3,35 +3,28 @@ package duke.ingredient;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-public class IngredientsList extends GenericList<Ingredient>
-{
+public class IngredientsList extends GenericList<Ingredient> {
 
-
-    public IngredientsList(List<Ingredient> ingredientsList)
-    {
+    public IngredientsList(List<Ingredient> ingredientsList) {
         super(ingredientsList);
     }
-    public IngredientsList()
-    {
+
+    public IngredientsList() {
         super();
     }
 
-    public void changeIngredientsDate(int Nb, Date date) throws DukeException
-    {
+    public void changeIngredientsDate(int Nb, Date date) throws DukeException {
         genList.get(Nb).changeDate(date);
-
     }
-    public void changeName(int Nb, String name)
-    {
+
+    public void changeName(int Nb, String name) {
         genList.get(Nb).setName(name);
     }
-    public void changeAmount(int Nb, Integer amount)
-    {
+
+    public void changeAmount(int Nb, Integer amount) {
         genList.get(Nb).changeAmount(amount);
     }
 }
-
