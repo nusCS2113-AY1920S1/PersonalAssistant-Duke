@@ -9,10 +9,6 @@ public class EmailTags {
 
     private static HashMap<String, SubTagMap> tagMap = new HashMap<>();
 
-    public EmailTags() {
-        tagMap = new HashMap<>();
-    }
-
     /**
      * Read emailList to construct a HashMap for tree-structured tagged emails.
      *
@@ -122,8 +118,8 @@ public class EmailTags {
      * @param tagName tagName input by user.
      * @return String for displaying root tagged emails.
      */
-    public String displayRootEmailTag(String responseMsg, String tagName) {
-        responseMsg += "Here is the email(s) tagged with #" + tagName + ": \n\n";
+    public String displayRootEmailTag(String tagName) {
+        String responseMsg = "Here is the email(s) tagged with #" + tagName + ": \n\n";
         SubTagMap subTagMap = tagMap.get(tagName);
         for (HashMap.Entry<String, EmailList> entry : subTagMap.entrySet()) {
             String subTagName = entry.getKey();
@@ -137,8 +133,12 @@ public class EmailTags {
     }
 
     public static class SubTagMap extends HashMap<String, EmailList> {
+        private String subTagName;
+        private EmailList subEmailList;
 
         public SubTagMap(String subTagName, EmailList subEmailList) {
+            this.subTagName = subTagName;
+            this.subEmailList = subEmailList;
         }
     }
 

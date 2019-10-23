@@ -24,6 +24,24 @@ public class EmailStorage {
      *
      * @return pathname of the email.txt file.
      */
+    public static String getDataDir() {
+        String dir = "";
+        String workingDir = System.getProperty("user.dir");
+        if (workingDir.endsWith(File.separator + "text-ui-test")) {
+            dir = ".." + File.separator + "data";
+        } else if (workingDir.endsWith(File.separator + "main")) {
+            dir = "." + File.separator + "data";
+        } else {
+            dir = "." + File.separator + "data";
+        }
+        return dir + File.separator;
+    }
+
+    /**
+     * Get the pathname of the data/email.txt.
+     *
+     * @return pathname of the email.txt file.
+     */
     public static String getEmailIndexDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
@@ -170,11 +188,13 @@ public class EmailStorage {
      *
      * @return EmailList created from data/email.txt.
      */
-    public static EmailList readEmailFromFile() {
+    public static EmailList readEmailFromFile(String indexDir) {
         EmailList emailList = new EmailList();
         try {
             prepareFolder();
-            String indexDir = getEmailIndexDir();
+            if (indexDir.equals("")) {
+                indexDir = getEmailIndexDir();
+            }
             File indexFile = new File(indexDir);
             FileInputStream indexIn = new FileInputStream(indexFile);
             Scanner scanner = new Scanner(indexIn);
