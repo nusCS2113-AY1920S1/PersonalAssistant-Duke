@@ -50,9 +50,10 @@ public class Storage {
                 String[] parsedWordAndMeaning = line.split(":"); //papaya \\ this is a fruit <s> s1 s2 <s>
                 String[] meaningAndSynonym = parsedWordAndMeaning[1].trim().split("<s>"); //[this is a fruit] & [s1 s2 s3]
                 HashSet<String> temp = new HashSet<>();
-                if(meaningAndSynonym.length==2) {
+                if(meaningAndSynonym.length>=2) {
+                    System.out.println("MeaningAndSynonym is of length " + meaningAndSynonym.length);
+                    System.out.println("meaningAndSynonym[1] is "+meaningAndSynonym[1]);
                     hasSynonym = 1;
-                    //System.out.println("MeaningAndSynonym is of length " + meaningAndSynonym.length);
                     String[] synonymPart = meaningAndSynonym[1].trim().split(" ");
                     //System.out.println("synonymPart consist of ");
                     for (String s : synonymPart) {
