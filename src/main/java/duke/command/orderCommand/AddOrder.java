@@ -1,6 +1,7 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
+import duke.command.ingredientCommand.AddCommand;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;

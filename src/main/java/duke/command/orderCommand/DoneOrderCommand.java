@@ -1,6 +1,7 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
+import duke.command.ingredientCommand.DoneCommand;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -11,19 +12,16 @@ import duke.ui.Ui;
 /**
  * Represents a specific {@link Cmd} used to mark a {@link Order} as done.
  */
-public class DoneOrderCmd extends Cmd<Order> {
+public class DoneOrderCommand extends DoneCommand<Order> {
     private int orderNb;
 
     /**
-     * the constructor method of {@link DoneOrderCmd}
+     * the constructor method of {@link DoneOrderCommand}
      *
-     * @param number order number in the order list
-     * @throws DukeException if input cannot be converted into number
+     * @param index order number in the order list
      */
-    public DoneOrderCmd(String number) throws DukeException{
-        int index;
-        try { index = Integer.parseInt(number) - 1; }
-        catch (Exception e) { throw new DukeException("Please enter a valid order number."); }
+    public DoneOrderCommand(int index) {
+        super(index);
         this.orderNb = index;
     }
 

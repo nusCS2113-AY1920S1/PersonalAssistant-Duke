@@ -1,6 +1,7 @@
 package duke.command.orderCommand;
 
 import duke.command.Cmd;
+import duke.command.ingredientCommand.DeleteCommand;
 import duke.exception.DukeException;
 import duke.list.GenericList;
 import duke.order.Order;
@@ -17,19 +18,16 @@ import java.util.List;
 /**
  * Represents a specific {@link Cmd} used to cancel/delete a {@link Order} from the {@link OrderList}.
  */
-public class CancelOrderCmd extends Cmd<Order> {
+public class DeleteOrderCommand extends DeleteCommand<Order> {
     private int orderNb;
 
     /**
-     * the constructor method of class {@link CancelOrderCmd}
+     * the constructor method of class {@link DeleteOrderCommand}
      *
-     * @param number order number in the order list
-     * @throws DukeException if input cannot be converted into a number
+     * @param index order number in the order list
      */
-    public CancelOrderCmd(String number) throws DukeException {
-        int index;
-        try { index = Integer.parseInt(number) - 1; }
-        catch (Exception e) { throw new DukeException(e.getMessage()); }
+    public DeleteOrderCommand(int index) {
+        super(index);
         this.orderNb = index;
     }
 

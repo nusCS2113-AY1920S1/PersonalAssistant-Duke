@@ -4,16 +4,10 @@ import duke.command.Cmd;
 import duke.Duke;
 import duke.command.ingredientCommand.*;
 import duke.command.dishesCommand.*;
+import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.command.orderCommand.*;
-<<<<<<< HEAD
-import duke.command.dishesCommand.*;
-import duke.command.dishesCommand.InitCommand;
-import duke.dish.Dish;
 import duke.ingredient.Ingredient;
-=======
-import duke.Dishes.Dishes;
->>>>>>> 7a8257b6995584c461da76d397bd91d8497d6357
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
@@ -125,9 +119,10 @@ public class Parser {
                 return new ListOrderCmd(splitted[1]);
             case "orderDone":
                 checkLength(splitted);
-                return new DoneOrderCmd(splitted[1]);
+                return new DoneOrderCommand(splitted[1]);
             case "orderCancel":
-                return new CancelOrderCmd(splitted[1]);
+                int index = Integer.parseInt(splitted[1]);
+                return new DeleteOrderCommand(index);
             case "orderAlterDate":
                 checkLength(splitted);
                 String[] getDate = splitAndCheck(splitted[1], " /to ");
