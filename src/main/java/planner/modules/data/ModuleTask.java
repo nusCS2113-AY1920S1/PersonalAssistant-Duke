@@ -19,6 +19,10 @@ public class ModuleTask extends Task {
         return moduleInfoDetailed.getModuleCredit();
     }
 
+    public String getModuleLevel() {
+        return moduleInfoDetailed.getModuleLevel();
+    }
+
     public ModuleInfoDetailed getModuleInfoDetailed() {
         return moduleInfoDetailed;
     }
