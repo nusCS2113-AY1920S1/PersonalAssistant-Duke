@@ -76,10 +76,12 @@ public class ProjectInputController implements IController {
                 projectAddTask(projectToManage, projectCommand);
             } else if (projectCommand.length() >= 10 && ("view tasks").equals(projectCommand.substring(0,10))) {
                 projectViewTasks(projectToManage, projectCommand);
-            } else if (projectCommand.length() > 19 && ("view assignments -m").equals(projectCommand.substring(0, 19))) {
+            } else if (projectCommand.length() > 19
+                && ("view assignments -m").equals(projectCommand.substring(0, 19))) {
                 //projectViewAssignedTasks(projectToManage.getAssignedTaskList());
                 projectViewMembersAssignments(projectToManage, projectCommand.substring(20));
-            } else if (projectCommand.length() > 19 && ("view assignments -t").equals(projectCommand.substring(0, 19))) {
+            } else if (projectCommand.length() > 19
+                && ("view assignments -t").equals(projectCommand.substring(0, 19))) {
                 projectViewTasksAssignments(projectToManage, projectCommand.substring(20));
             } else if (projectCommand.length() > 25
                     && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
@@ -308,16 +310,23 @@ public class ProjectInputController implements IController {
         if (!assignmentViewHelper.getErrorMessages().isEmpty()) {
             consoleView.consolePrint(assignmentViewHelper.getErrorMessages().toArray(new String[0]));
         }
-        consoleView.consolePrint(assignmentViewHelper.getMemberOutput(validMembers, projectToManage).toArray(new String[0]));
+        consoleView.consolePrint(assignmentViewHelper.getMemberOutput(validMembers,
+            projectToManage).toArray(new String[0]));
     }
 
+    /**
+     * Prints a list of tasks and the members assigned to them.
+     * @param projectToManage The project to manage.
+     * @param projectCommand The user input.
+     */
     private void projectViewTasksAssignments(Project projectToManage, String projectCommand) {
         AssignmentViewHelper assignmentViewHelper = new AssignmentViewHelper();
         ArrayList<Integer> validTasks = assignmentViewHelper.parseTasks(projectCommand, projectToManage);
         if (!assignmentViewHelper.getErrorMessages().isEmpty()) {
             consoleView.consolePrint(assignmentViewHelper.getErrorMessages().toArray(new String[0]));
         }
-        consoleView.consolePrint(assignmentViewHelper.getTaskOutput(validTasks, projectToManage).toArray(new String[0]));
+        consoleView.consolePrint(assignmentViewHelper.getTaskOutput(validTasks,
+            projectToManage).toArray(new String[0]));
     }
 
 
