@@ -28,7 +28,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <font>
-            <Font name="Edwardian Script ITC" size="59.0" />
+            <Font name="French Script MT" size="59.0" />
          </font>
       </Label>
       <ImageView fx:id="cakeRight" fitHeight="80.0" pickOnBounds="true" preserveRatio="true">

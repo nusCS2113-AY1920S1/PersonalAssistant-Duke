@@ -3,6 +3,8 @@ package javacake.storage;
 import javacake.Duke;
 import javacake.exceptions.DukeException;
 import javacake.tasks.Task;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.reflect.FieldUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +20,7 @@ public class Storage {
     private int stringBuffer = 7;
     private static ArrayList<Task> internalTaskData = new ArrayList<>();
 
+    private static String defaultFilePath = "data/";
     private String filepath;
     private TaskType dataType;
     public TaskList tasks;
@@ -104,13 +107,26 @@ public class Storage {
     }
 
     /**
+     * Method to hard reset profile.
+     */
+    public static void resetStorage() throws DukeException {
+        try {
+            FileUtils.deleteDirectory(new File(defaultFilePath));
+        } catch (IOException e) {
+            throw new DukeException("Unable to reset Storage");
+        }
+    }
+
+    /**
      * Generates starting folder when program starts.
      * @param sampleFile File that is auto-generated when program starts.
      * @throws DukeException If file does not exist.
      */
-    private static void generateFolder(File sampleFile) {
+    public static void generateFolder(File sampleFile) {
         if (!sampleFile.getParentFile().exists()) {
             sampleFile.getParentFile().mkdirs();
+            sampleFile.mkdirs();
+        } else if (!sampleFile.exists()) {
             sampleFile.mkdirs();
         }
     }
