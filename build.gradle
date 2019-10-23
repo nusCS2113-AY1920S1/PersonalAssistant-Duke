@@ -52,6 +52,10 @@ test {
     testLogging {
         exceptionFormat = 'full'
     }
+    testLogging.showStandardStreams = true
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
     systemProperty 'java.awt.headless', 'true'
     systemProperty 'testfx.robot', 'glass'
     systemProperty 'testfx.headless', 'true'
