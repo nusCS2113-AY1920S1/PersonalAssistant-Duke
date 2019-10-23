@@ -34,7 +34,9 @@ public class TypoCorrectorTest {
                 new String[]{"asSGn even tk :#1 :12 :12/12/2019 1645 :12/12/2020 1645",
                     "assign event task :#1 :12 :12/12/2019 1645 :12/12/2020 1645"},
                 new String[]{"fi n d p atin t: #1", "find patient : #1"},
-                new String[]{"u p da te pa i t en s :#12:Room:2A", "update patient :#12:Room:2A"}
+                new String[]{"u p da te pa i t en s :#12:Room:2A", "update patient :#12:Room:2A"},
+                new String[]{"", ""},
+                new String[]{" ", " "}
             ));
         for (String[] testPair : testCases) {
             String correctedOutput = TypoCorrector.commandCorrection(testPair[0]);

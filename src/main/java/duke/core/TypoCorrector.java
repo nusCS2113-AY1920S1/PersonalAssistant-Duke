@@ -29,24 +29,26 @@ public class TypoCorrector {
      * @return a string of correctedCommand
      */
     public static String commandCorrection(String command) {
-        String[] splitCommand = command.split(":");
+        String[] splitCommand = command.split(":", 2);
         int commandSize = splitCommand.length;
         String closestMatch;
         if (commandSize == 1) {
-            String fullCommand = command.trim().toLowerCase();
-            closestMatch = matchStringFromDict(fullCommand, simpleCommands);
+            // Type A command with only command keywords
+            String fullCommand = command.trim().toLowerCase();//Ignore spaces(back and fore)and upper/lower cases
+            closestMatch = matchStringFromDict(fullCommand, simpleCommands); //get closest match
             if (isSimilar(fullCommand, closestMatch)) {
                 return closestMatch;
             }
-        } else {
-            String keyword = splitCommand[0].trim().toLowerCase();
-            closestMatch = matchStringFromDict(keyword, otherCommands);
+        } else if (commandSize == 2){
+            // Type B command with command keywords and other info/data
+            String keyword = splitCommand[0].trim().toLowerCase(); //Ignore spaces(back and fore)and upper/lower cases
+            closestMatch = matchStringFromDict(keyword, otherCommands); //get closest match
             if (isSimilar(keyword, closestMatch)) {
                 splitCommand[0] = "";
                 return closestMatch + " " + String.join(":", splitCommand).trim();
             }
         }
-        return command;
+        return command; // The input command will be return if there is no matched found
     }
 
     /**
