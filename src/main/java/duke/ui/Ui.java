@@ -2,6 +2,7 @@ package duke.ui;
 
 import duke.model.Goal;
 import duke.model.Meal;
+import duke.model.Transaction;
 import duke.model.user.User;
 
 import java.math.BigDecimal;
@@ -169,6 +170,12 @@ public class Ui {
     public void showDeposit(BigDecimal depositAmount, BigDecimal accountBalance, String currencyCode) {
         System.out.println(padding + "Got it. I've deposited" + depositAmount + " " + currencyCode + " to your account.");
         System.out.println(padding + "Your account balance: " + accountBalance);
+    }
+
+    public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {
+        System.out.println(padding + "Got it. I've added this transaction:");
+        System.out.println(padding + transaction);
+        System.out.println(padding + "Your account balance is: " + accountBalance + " SGD");
     }
 
 }

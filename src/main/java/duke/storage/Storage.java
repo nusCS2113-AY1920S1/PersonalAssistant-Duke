@@ -81,7 +81,7 @@ public class Storage {
         writer.writeUser(user);
     }
 
-    public void saveTransaction(Transaction transaction) throws DukeException {
-
+    public void updateTransaction(TransactionList transactionList) throws DukeException {
+        writer.writeTransaction(transactionList);
     }
 }

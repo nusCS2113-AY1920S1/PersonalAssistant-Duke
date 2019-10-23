@@ -1,5 +1,7 @@
 package duke.model;
 
+import duke.model.user.User;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,12 +29,13 @@ public class TransactionList {
         }
     }
 
-    public void addTransaction(Transaction transaction) {
+    public void addTransaction(Transaction transaction, User user) {
         String dateStr = transaction.getDate();
         if (!transactionTracker.containsKey(dateStr)) {
             transactionTracker.put(dateStr, new ArrayList<Transaction>());
         }
         transactionTracker.get(dateStr).add(transaction);
+        user.updateAccountBalance(transaction);
     }
 
     public ArrayList<Transaction> getTransactionList(String dateStr) {

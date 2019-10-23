@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.model.user.User;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -31,6 +32,6 @@ public class DepositCommand extends Command{
     }
 
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) throws DukeException {
     }
 }

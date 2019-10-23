@@ -1,6 +1,7 @@
 package duke.model.user;
 
 import duke.commons.exceptions.DukeException;
+import duke.model.Transaction;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -162,10 +163,18 @@ public class User {
         this.account.deposit(depositAmount);
     }
 
-    public BigDecimal accountBalance() {
+    public BigDecimal getAccountBalance() {
         return this.account.getAmount();
     }
 
+    public void updateAccountBalance(Transaction transaction) {
+        BigDecimal transactionAmount = transaction.getTransactionAmount();
+        if (transaction.getType().equals("PAY")) {
+            this.account.withdraw(transactionAmount);
+        } else if (transaction.getType().equals("DEP")) {
+            this.account.deposit(transactionAmount);
+        }
+    }
     //TODO: might want to refactor (1 DoS)
     public String getCurrency() {
         return account.getCurrency();

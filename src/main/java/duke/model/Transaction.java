@@ -27,6 +27,10 @@ public class Transaction {
         return this.date;
     }
 
+    public BigDecimal getTransactionAmount() {
+        return this.transactionAmount;
+    }
+
     @Override
     public String toString() {
         return " SGD" + this.transactionAmount + "| " + getDate();

@@ -1,5 +1,6 @@
 package duke.logic.commands;
 
+import duke.model.TransactionList;
 import duke.storage.Storage;
 import duke.model.MealList;
 import duke.ui.Ui;
@@ -26,7 +27,7 @@ public class HistoryCommand extends Command {
     }
 
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
         ui.showHistory(historyCommandsList);
     }
 }
