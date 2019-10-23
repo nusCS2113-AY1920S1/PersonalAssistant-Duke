@@ -35,6 +35,9 @@ public class GradeCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper) throws ModException {
         String moduleCode = arg("moduleCode").toUpperCase();
         String letterGrade = arg("letterGrade").toUpperCase();
+        if (!detailedMap.containsKey(moduleCode)) {
+            throw new ModNotFoundException();
+        }
         ModuleInfoDetailed mod = detailedMap.get(moduleCode);
         ModuleTask temp = new ModuleTask(moduleCode, mod);
         if (!tasks.getTasks().contains(temp)) { // if list does not have module requested, add it with a grade
@@ -49,6 +52,7 @@ public class GradeCommand extends ModuleCommand {
             tasks.getTasks().get(location).setGrade(letterGrade);
             tasks.getTasks().get(location).setTaskDone();
             plannerUi.gradedMsg(temp.getModuleCode(), letterGrade);
+            jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
         } else {
             throw new ModNotFoundException();
         }

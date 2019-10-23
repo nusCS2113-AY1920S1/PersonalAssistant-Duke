@@ -75,7 +75,27 @@ This is assuming you have a JDK version of `11` and above.
 === CCA
 
 == Implementation
+This section explains and shows diagrams of how certain features of ModPlan are implemented.
 
+=== GradeCommand
+==== Current Implementation
+The `grade` feature is operated by the `GradeCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
+
+Since `GradeCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `grade` command.
+From the `Argsparse4jWrapper`, `GradeCommand` also receives two additional variable inputs from the user: +
+
+. The module code of the module to be graded.
+. The letter grade attained for the module that the user specifies above.
+
+There are two ways that the execute method can execute, depending upon whether the moduleCode the user enters is in their moduleTaskList or not.
+
+* Case 1: Module is not in the task list +
+If the module is not in the task list, `GradeCommand` executes in a similar fashion to `SearchThenAddCommand`, creating a temporary `ModuleInfoDetailed` class to check if the moduleCode entered by the user exists or not. +
+Following which, the letterGrade of the module is set using the method `setGrade` under the `ModuleInfoDetailed` class.
++
+** Note that the `setGrade` method will check if the letterGrade input by the user is valid,
+
+* Case 2: Module is in the task list
 
 === CapCommand
 
