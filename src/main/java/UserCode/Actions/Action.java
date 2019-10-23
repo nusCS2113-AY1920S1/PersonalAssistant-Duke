@@ -49,7 +49,7 @@ public abstract class Action {
                 return new HarvestWheatAction();
             case plantSeeds:
                 return new PlantSeedAction();
-            case sellWheat:
+            case sellGrain:
                 return new SellWheatAction();
             case gotoMarket:
                 return new GotoMarketAction();
