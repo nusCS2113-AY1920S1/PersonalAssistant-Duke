@@ -173,6 +173,23 @@ public class PlannerUi {
     }
 
     /**
+     * Message to print the sorted module list.
+     */
+    public void sortMsg(String toSort) {
+        System.out.println("Here are your sorted " + toSort + ":");
+    }
+
+    /**
+     * Sorts by ascending order and prints to the users.
+     */
+    public void showSorted(List<?> list) {
+        showLine();
+        for (Object object : list) {
+            System.out.println(object);
+        }
+    }
+
+    /**
      * Message to print out CoreModuleReport.
      */
     public void coreModReport() {
