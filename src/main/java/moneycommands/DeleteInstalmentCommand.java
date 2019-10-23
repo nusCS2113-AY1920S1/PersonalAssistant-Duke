@@ -21,6 +21,10 @@ public class DeleteInstalmentCommand extends MoneyCommand{
     @Override
     public boolean isExit() { return false; }
 
+    public int getSerialNo() {
+        return serialNo;
+    }
+
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         if (serialNo > account.getInstalments().size()) {
