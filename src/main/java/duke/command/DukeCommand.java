@@ -10,7 +10,7 @@ import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
 
-public class DukeCommand extends Command {
+public class DukeCommand implements Command {
 
     /**
      * .

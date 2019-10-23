@@ -10,7 +10,7 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class DeletePatientCommand extends Command {
+public class DeletePatientCommand implements Command {
     private int id;
     private String deletedPatientInfo;
 

@@ -8,7 +8,7 @@ import duke.storage.StorageManager;
 import duke.task.Task;
 import duke.task.TaskManager;
 
-public class UpdateTaskCommand extends Command {
+public class UpdateTaskCommand implements Command {
     private String[] command;
 
     /**
