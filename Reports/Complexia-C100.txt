@@ -1,0 +1,17 @@
+	Discharged Patient Report for Complexia.
+
+Name: Complexia
+Bed number: C100
+Allergies: dogs
+Primary Diagnosis: null
+Height: 124
+Weight: 250
+Age: 84
+Contact Number: 6582447
+Address: Broadway 12a
+History Operated the left arm in 2014 and have been feeling weak ever since
+Impressions:
+	
+Description: bit me
+Treatment:		
+	

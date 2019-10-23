@@ -64,11 +64,12 @@ public class Patient extends DukeObject {
         return null;
     }
 
-        /**
-         * This addNewImpression function adds a new impression to the impressions list.
-         * @param newImpression the impression to be added
-         * @return the Impression newly added
-         */
+    /**
+     * This addNewImpression function adds a new impression to the impressions list.
+     *
+     * @param newImpression the impression to be added
+     * @return the Impression newly added
+     */
 
     public Impression addNewImpression(Impression newImpression) {
         this.impressions.add(newImpression);
@@ -78,6 +79,7 @@ public class Patient extends DukeObject {
     /**
      * This deleteImpression function deletes an impression at the specified index
      * from the impressions list.
+     *
      * @param idx index of the impression
      * @return the Impression of the deleted Impression
      */
@@ -93,6 +95,7 @@ public class Patient extends DukeObject {
 
     /**
      * This getImpression function returns the impression from the impressions list at the specified index.
+     *
      * @param idx index of the impression
      * @return Impression the impression specified by the index
      */
@@ -106,6 +109,7 @@ public class Patient extends DukeObject {
 
     /**
      * Sets the Primary Diagnosis of the patient specified by the index chosen.
+     *
      * @param idx index of the impression
      */
     public void setPriDiagnosis(int idx) throws DukeException {
@@ -120,6 +124,7 @@ public class Patient extends DukeObject {
     /**
      * This function find returns a list of all DukeObjs
      * with names related to the patient containing the search term.
+     *
      * @param searchTerm String to be used to filter the DukeObj
      * @return the list of DukeObjs
      */
@@ -141,12 +146,13 @@ public class Patient extends DukeObject {
 
     @Override
     public String toReportString() {
-        // TODO make this look better
+        // TODO: make this look better
         String toOutput = "Name: " + getName() + "\nBed number: " + bedNo + "\nAllergies: "
-                + allergies + "\nPrimary Diagnosis: " + priDiagnosis + "\nHeight: " + height + "\nWeight: " + weight + "\nAge: " + age + "\nContact Number: "
-                + number + "\nAddress: " + address + "\nHistory " + history + "\nImpressions:\n\t";
-        for(Impression imp: impressions){
-            toOutput += imp.toReportString() + "\n\t";
+                + allergies + "\nPrimary Diagnosis: " + priDiagnosis + "\nHeight: " + height + "\nWeight: " + weight
+                + "\nAge: " + age + "\nContact Number: " + number + "\nAddress: " + address + "\nHistory: " + history
+                + "\nImpressions:";
+        for (Impression imp : impressions) {
+            toOutput += imp.toReportString() + " ";
         }
         return toOutput;
     }

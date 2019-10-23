@@ -62,15 +62,14 @@ public abstract class Treatment extends DukeData {
 
     @Override
     public String toReportString() {
-        // TODO make this look better
-        String toOutput = "\nTreatment given: " + getName() +  "\nPriority level of threatment:  "
+        // TODO: make this look better
+        String toOutput = "\nTreatment given: " + getName() + "\nPriority level of treatment:  "
                 + getPriority() + "\nStatus of treatment when rapport was made:  " + status
-                + "\nDescription of the status tagged to this threatment: ";
-        for(String status: statusArr){
+                + "\nDescription of the status tagged to this treatment: ";
+        for (String status : statusArr) {
             toOutput += status + ", ";
         }
-        toOutput = toOutput.substring(-2);
+        toOutput = toOutput.substring(0, toOutput.length() - 2);
         return toOutput;
     }
-
 }

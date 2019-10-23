@@ -86,7 +86,7 @@ public class PatientMap {
         int i = 1;
         PatientMap filteredList = new PatientMap();
         for (Map.Entry mapElement : patientObservableMap.entrySet()) {
-            Patient value = (Patient)mapElement.getValue();
+            Patient value = (Patient) mapElement.getValue();
             if (value.getName().contains(searchTerm)) {
                 filteredList.addPatient(value);
                 ++i;
@@ -116,7 +116,9 @@ public class PatientMap {
         return patientHashMap;
     }
 
-    public boolean patientExist(String keyIdentifier){return patientObservableMap.containsKey(keyIdentifier);}
+    public boolean patientExist(String keyIdentifier) {
+        return patientObservableMap.containsKey(keyIdentifier);
+    }
 
     public ObservableMap<String, Patient> getPatientObservableMap() {
         return patientObservableMap;
