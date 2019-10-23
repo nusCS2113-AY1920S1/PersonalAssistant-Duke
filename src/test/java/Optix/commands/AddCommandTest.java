@@ -3,6 +3,7 @@ package optix.commands;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +20,8 @@ class AddCommandTest {
     private Model model = new Model(storage);
 
     @Test
-    void execute() {
-        AddCommand testCommand = new AddCommand("dummy show name", "5/5/2020 | 6/10/2020", 20);
+    void execute() throws OptixInvalidCommandException {
+        AddCommand testCommand = new AddCommand("dummy show name|20|5/5/2020 | 6/10/2020");
 
         testCommand.execute(model, ui, storage);
         String expected = "__________________________________________________________________________________\n"
@@ -30,7 +31,7 @@ class AddCommandTest {
                 + "__________________________________________________________________________________\n";
         assertEquals(expected, ui.showCommandLine());
 
-        AddCommand testCommand2 = new AddCommand("dummy show name", "7/10/2020|6/10/2020", 20);
+        AddCommand testCommand2 = new AddCommand("dummy show name|20|7/10/2020|6/10/2020");
 
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
@@ -42,7 +43,7 @@ class AddCommandTest {
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
 
-        AddCommand testCommand3 = new AddCommand("dummy show name", "5/5/2020|6/10/2020", 20);
+        AddCommand testCommand3 = new AddCommand("dummy show name|20|5/5/2020|6/10/2020");
 
         testCommand3.execute(model, ui, storage);
         String expected3 = "__________________________________________________________________________________\n"

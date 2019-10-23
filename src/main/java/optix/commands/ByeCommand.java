@@ -15,6 +15,11 @@ public class ByeCommand extends Command {
         ui.exitOptix();
     }
 
+    @Override
+    public String[] parseDetails(String details) {
+        return new String[0];
+    }
+
     /**
      * Exits Optix.
      */

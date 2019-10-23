@@ -3,6 +3,7 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -23,14 +24,16 @@ public class SellSeatCommand extends Command {
      * This function is called when the customer has already
      * decided on his seat.
      *
-     * @param showName  name of show.
-     * @param showDate  date of show.
-     * @param seats     desired seat.
+     * @param splitStr String in the format "SHOW_NAME|SHOW_DATE|DATE_1 DATE_2 etc."
      */
-    public SellSeatCommand(String showName, String showDate, String seats) {
-        this.showName = showName;
-        this.showDate = showDate;
-        this.seats = seats.split(" ");
+    public SellSeatCommand(String splitStr) throws OptixInvalidCommandException {
+        String[] details = parseDetails(splitStr);
+        if (details.length != 3) {
+            throw new OptixInvalidCommandException();
+        }
+        this.showName = details[0];
+        this.showDate = details[1];
+        this.seats = details[2].split(" ");
     }
 
     //need to refactor
@@ -55,6 +58,11 @@ public class SellSeatCommand extends Command {
         } finally {
             ui.setMessage(message.toString());
         }
+    }
+
+    @Override
+    public String[] parseDetails(String details) {
+        return details.trim().split("\\|");
     }
 
     @Override

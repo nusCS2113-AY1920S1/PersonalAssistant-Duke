@@ -4,6 +4,7 @@ import optix.commands.shows.AddCommand;
 import optix.commands.shows.ListCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class ListCommandTest {
     private Model model = new Model(storage);
 
     @Test
-    void execute() {
+    void execute() throws OptixInvalidCommandException {
         // testing for an empty show list
         ListCommand testCommand1 = new ListCommand();
         testCommand1.execute(model, ui, storage);
@@ -30,9 +31,9 @@ class ListCommandTest {
         assertEquals(expected1, ui.showCommandLine());
 
         // testing for a filled show list
-        AddCommand addShow1 = new AddCommand("dummy test 1", "5/5/2020", 20);
+        AddCommand addShow1 = new AddCommand("dummy test 1|20|5/5/2020");
         addShow1.execute(model, ui, storage);
-        AddCommand addShow2 = new AddCommand("dummy test 2", "6/5/2020", 20);
+        AddCommand addShow2 = new AddCommand("dummy test 2|20|6/5/2020");
         addShow2.execute(model, ui, storage);
         ListCommand testCommand2 = new ListCommand();
         testCommand2.execute(model, ui, storage);

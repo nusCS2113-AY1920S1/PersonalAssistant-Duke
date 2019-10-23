@@ -4,6 +4,7 @@ import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.commons.model.ShowMap;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -25,12 +26,15 @@ public class ViewProfitCommand extends Command {
 
     /**
      * Views the profit made from a show on a certain date.
-     * @param showName name of the show.
-     * @param showDate date of the show.
+     * @param splitStr String of format "SHOW_NAME|SHOW_DATE"
      */
-    public ViewProfitCommand(String showName, String showDate) {
-        this.showName = showName.trim();
-        this.showDate = showDate.trim();
+    public ViewProfitCommand(String splitStr) throws OptixInvalidCommandException {
+        String[] details = parseDetails(splitStr);
+        if (details.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+        this.showName = details[0].trim();
+        this.showDate = details[1].trim();
     }
 
     @Override
@@ -71,6 +75,11 @@ public class ViewProfitCommand extends Command {
         } finally {
             ui.setMessage(message);
         }
+    }
+
+    @Override
+    public String[] parseDetails(String details) {
+        return details.trim().split("\\|");
     }
 
     @Override

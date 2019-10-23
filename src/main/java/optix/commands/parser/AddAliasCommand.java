@@ -3,29 +3,32 @@ package optix.commands.parser;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixException;
 import optix.ui.Ui;
+import optix.util.Parser;
+
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class AddAliasCommand extends Command {
     private String newAlias;
     private String command;
-    private HashMap<String, String> commandAliasMap;
+    private File preferenceFilePath;
 
+    //@@ OungKennedy
     /**
      * Command to add a new alias to the command alias map.
-     * @param alias alias to add
-     * @param command command which the alias is to be paired to
-     * @param commandAliasMap the command alias map
+     *
+     * @param details String containing "NEW_ALIAS|COMMAND"
      */
-    public AddAliasCommand(String alias, String command, HashMap<String, String> commandAliasMap) {
-        this.newAlias = alias;
-        this.command = command;
-        this.commandAliasMap = commandAliasMap;
+    public AddAliasCommand(String details, File filePath) {
+        String[] detailsArray = parseDetails(details);
+        this.newAlias = detailsArray[0];
+        this.command = detailsArray[1];
+        this.preferenceFilePath = filePath;
     }
 
     /**
@@ -38,21 +41,23 @@ public class AddAliasCommand extends Command {
      */
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
-        commandAliasMap.put(this.newAlias, this.command);
-        // open target file
-        File currentDir = new File(System.getProperty("user.dir"));
-        File filePath = new File(currentDir.toString() + "\\src\\main\\data\\ParserPreferences.txt");
+        String message;
+        // create parser object
+        Parser dummyParser = new Parser(preferenceFilePath);
         try {
-            PrintWriter writer = new PrintWriter(filePath);
-            for (Map.Entry<String, String> entry : commandAliasMap.entrySet()) {
-                writer.write(entry.getKey() + "|" + entry.getValue() + '\n');
-            }
-            writer.close();
-            String successMessage = String.format("Noted. The alias %s has been added to the command %s\n", this.newAlias, this.command);
-            ui.setMessage(successMessage);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            // adds the alias-command pair to commandAliasMap, and saves it to file
+            dummyParser.addAlias(newAlias, command);
+            dummyParser.savePreferences();
+            message = String.format("The new alias %s was successfully paired to the command %s\n", newAlias, command);
+        } catch (OptixException | IOException e) {
+            message = e.getMessage();
         }
+        ui.setMessage(message);
+    }
+
+    @Override
+    public String[] parseDetails(String details) {
+        return details.split("\\|", 2);
     }
 }
 

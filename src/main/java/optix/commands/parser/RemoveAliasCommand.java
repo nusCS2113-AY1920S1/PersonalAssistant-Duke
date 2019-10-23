@@ -3,6 +3,7 @@ package optix.commands.parser;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixException;
 import optix.ui.Ui;
 
 import java.io.File;
@@ -18,14 +19,18 @@ public class RemoveAliasCommand extends Command {
 
     /**
      * Command to remove an existing alias from aliasCommandMap.
-     * @param alias alias to remove
-     * @param command command which the alias belongs to
+     * @param details the details of alias to remove and its command, in an array
      * @param commandAliasMap the command alias map
      */
-    public RemoveAliasCommand(String alias, String command, HashMap<String, String> commandAliasMap) {
-        this.alias = alias;
-        this.command = command;
+    public RemoveAliasCommand(String details, HashMap<String, String> commandAliasMap) {
+        String[] aliasDetails = parseDetails(details);
+        this.alias = aliasDetails[0];
+        this.command = aliasDetails[1];
         this.commandAliasMap = commandAliasMap;
+    }
+
+    public String[] parseDetails(String details) {
+        return details.split("\\|",2);
     }
 
     /**
@@ -37,7 +42,11 @@ public class RemoveAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public void execute(Model model, Ui ui, Storage storage) throws OptixException {
+        // check if the alias exists
+        if (!commandAliasMap.containsValue(command) || !commandAliasMap.containsKey(alias)) {
+            throw new OptixException("Error removing alias.\n");
+        }
         // edit command alias map
         commandAliasMap.remove(this.alias, this.command);
         // open target file

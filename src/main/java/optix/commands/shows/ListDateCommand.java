@@ -52,6 +52,16 @@ public class ListDateCommand extends Command {
         }
     }
 
+    /**
+     * Dummy Command. Not used
+     * @param details n.a
+     * @return n.a.
+     */
+    @Override
+    public String[] parseDetails(String details) {
+        return new String[0];
+    }
+
     @Override
     public boolean isExit() {
         return super.isExit();

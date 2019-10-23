@@ -4,6 +4,7 @@ import optix.commands.shows.AddCommand;
 import optix.commands.shows.ListDateCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ class ListDateCommandTest {
 
 
     @Test
-    void execute() {
+    void execute() throws OptixInvalidCommandException {
         // try looking for a show that does not exist
         ListDateCommand testCommand1 = new ListDateCommand("december 2020");
         testCommand1.execute(model, ui, storage);
@@ -30,9 +31,9 @@ class ListDateCommandTest {
         assertEquals(expected1, ui.showCommandLine());
 
         // insert dummy show
-        AddCommand insertDummyShow1 = new AddCommand("Dummy Show", "5/5/2020", 20);
+        AddCommand insertDummyShow1 = new AddCommand("Dummy Show|20|5/5/2020");
         insertDummyShow1.execute(model, ui, storage);
-        AddCommand insertDummyShow2 = new AddCommand("Dummy Show", "6/5/2020", 20);
+        AddCommand insertDummyShow2 = new AddCommand("Dummy Show|20|6/5/2020");
         insertDummyShow2.execute(model, ui, storage);
         // attempt to view dummy show.
         ListDateCommand testCommand2 = new ListDateCommand("May 2020");

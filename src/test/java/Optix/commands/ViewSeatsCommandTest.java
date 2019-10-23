@@ -4,6 +4,7 @@ import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -20,11 +21,11 @@ class ViewSeatsCommandTest {
     private Model model = new Model(storage);
 
     @Test
-    void execute() {
+    void execute() throws OptixInvalidCommandException {
         // add a dummy show
-        AddCommand addDummyShow = new AddCommand("Dummy Show", "5/5/2020", 20);
+        AddCommand addDummyShow = new AddCommand("Dummy Show|20|5/5/2020");
         addDummyShow.execute(model, ui, storage);
-        ViewSeatsCommand testCommand = new ViewSeatsCommand("Dummy Show", "5/5/2020");
+        ViewSeatsCommand testCommand = new ViewSeatsCommand("Dummy Show|5/5/2020");
         testCommand.execute(model, ui, storage);
         String expected1 =
                 "__________________________________________________________________________________\n"
@@ -44,7 +45,7 @@ class ViewSeatsCommandTest {
         assertEquals(expected1, ui.showCommandLine());
 
         // view a show that does not exist
-        ViewSeatsCommand viewNonExistentShow = new ViewSeatsCommand("non existent show", "5/5/2020");
+        ViewSeatsCommand viewNonExistentShow = new ViewSeatsCommand("non existent show|5/5/2020");
         viewNonExistentShow.execute(model, ui, storage);
         String expected2 =
                 "__________________________________________________________________________________\n"

@@ -21,9 +21,14 @@ public class DeleteCommand extends Command {
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! Unable to find the following shows:\n";
 
-    public DeleteCommand(String showName, String showDate) {
-        this.showDates = showDate.split("\\|");
-        this.showName = showName;
+    /**
+     * Instantiate vars.
+     * @param splitStr String of format "SHOW_NAME|DATE_1|DATE_2|etc."
+     */
+    public DeleteCommand(String splitStr) {
+        String[] details = parseDetails(splitStr);
+        this.showDates = details[1].split("\\|");
+        this.showName = details[0];
     }
 
     @Override
@@ -63,6 +68,11 @@ public class DeleteCommand extends Command {
         }
 
         ui.setMessage(message.toString());
+    }
+
+    @Override
+    public String[] parseDetails(String details) {
+        return details.split("\\|",2);
     }
 
     private boolean hasValidDate(String date) {

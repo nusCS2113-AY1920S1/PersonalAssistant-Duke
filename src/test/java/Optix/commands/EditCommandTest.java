@@ -4,6 +4,7 @@ import optix.commands.shows.AddCommand;
 import optix.commands.shows.EditCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -19,21 +20,21 @@ class EditCommandTest {
     private Model model = new Model(storage);
 
     @Test
-    void execute() {
+    void execute() throws OptixInvalidCommandException {
         // add test shows
-        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 20);
+        AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020");
         addTestShow1.execute(model, ui, storage);
-        AddCommand addTestShow2 = new AddCommand("Test Show 2", "7/5/2020", 20);
+        AddCommand addTestShow2 = new AddCommand("Test Show 2|20|7/5/2020");
         addTestShow2.execute(model, ui, storage);
         // postpone show 1 to a valid date (there is no show on desired date.)
-        EditCommand testCommand = new EditCommand("Test Show 1", "5/5/2020", "Test Show 3");
+        EditCommand testCommand = new EditCommand("Test Show 1|5/5/2020|Test Show 3");
         testCommand.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
                 + "Show has been successfully updated to Test Show 3.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
         // postpone show 1 to an invalid date (there is a show on the desired date.)
-        EditCommand testCommand2 = new EditCommand("Test Show 1", "5/5/2020", "Test Show 3");
+        EditCommand testCommand2 = new EditCommand("Test Show 1|5/5/2020|Test Show 3");
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
                 + "☹ OOPS!!! The show you are finding does not exist!\n"

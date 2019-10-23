@@ -4,6 +4,7 @@ import optix.commands.seats.SellSeatCommand;
 import optix.commands.shows.AddCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
@@ -20,12 +21,12 @@ class SellSeatCommandTest {
     private Model model = new Model(storage);
 
     @Test
-    void execute() {
+    void execute() throws OptixInvalidCommandException {
         filePath.deleteOnExit();
-        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 20);
+        AddCommand addTestShow1 = new AddCommand("Test Show 1|20|5/5/2020");
         addTestShow1.execute(model, ui, storage);
         // sell an available seat
-        SellSeatCommand testCommand1 = new SellSeatCommand("Test Show 1", "5/5/2020", "A1");
+        SellSeatCommand testCommand1 = new SellSeatCommand("Test Show 1|5/5/2020|A1");
         testCommand1.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
                 + "You have successfully purchased the following seats: \n"
@@ -42,7 +43,7 @@ class SellSeatCommandTest {
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
         //sell a seat that does not exist
-        SellSeatCommand testCommand2 = new SellSeatCommand("Test Show 1", "5/5/2020", "%1");
+        SellSeatCommand testCommand2 = new SellSeatCommand("Test Show 1|5/5/2020|%1");
         testCommand2.execute(model, ui, storage);
         String expected3 = "__________________________________________________________________________________\n"
                 + "☹ OOPS!!! All of the seats [%1] are unavailable\n"

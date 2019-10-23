@@ -3,6 +3,7 @@ package optix.commands.shows;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -24,14 +25,16 @@ public class EditCommand extends Command {
     /**
      * Edit the name of an existing show.
      *
-     * @param oldShowName current name
-     * @param showDate    date where the show is scheduled
-     * @param newShowName new name
+     * @param splitStr String of format "OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME"
      */
-    public EditCommand(String oldShowName, String showDate, String newShowName) {
-        this.oldShowName = oldShowName;
-        this.newShowName = newShowName;
-        this.showDate = showDate;
+    public EditCommand(String splitStr) throws OptixInvalidCommandException {
+        String[] details = parseDetails(splitStr);
+        if (details.length != 3) {
+            throw new OptixInvalidCommandException();
+        }
+        this.oldShowName = details[0].trim();
+        this.showDate = details[1].trim();
+        this.newShowName = details[2].trim();
     }
 
     @Override
@@ -57,6 +60,11 @@ public class EditCommand extends Command {
         } catch (OptixInvalidDateException e) {
             ui.setMessage(e.getMessage());
         }
+    }
+
+    @Override
+    public String[] parseDetails(String details) {
+        return details.split("\\|");
     }
 
     @Override

@@ -28,6 +28,11 @@ public class ListCommand extends Command {
     }
 
     @Override
+    public String[] parseDetails(String details) {
+        return new String[0];
+    }
+
+    @Override
     public boolean isExit() {
         return super.isExit();
     }
