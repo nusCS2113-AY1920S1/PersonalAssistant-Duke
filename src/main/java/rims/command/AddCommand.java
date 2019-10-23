@@ -4,40 +4,33 @@ import rims.core.ResourceList;
 import rims.core.Storage;
 import rims.core.Ui;
 import rims.exception.RimException;
+import rims.resource.Item;
+import rims.resource.ReservationList;
+import rims.resource.Resource;
 
 public class AddCommand extends Command {
     protected String resourceName;
-    protected int qty;
-    protected char type;
+    protected String type;
 
-    public AddCommand(String itemName, int qty) {
+    public AddCommand(String itemName, String type) {
         this.resourceName = itemName;
-        this.qty = qty;
-        this.type = 'I';
-    }
-
-    public AddCommand(String roomName) {
-        this.resourceName = roomName;
-        this.qty = 1;
-        this.type = 'R';
+        if (type.equals("room")) {
+            this.type = "R";
+        }
+        else if (type.equals("item")) {
+            this.type = "I";
+        }
     }
 
     @Override
     public void execute(Ui ui, Storage storage, ResourceList resources) throws RimException {
-
-        for (int i = 0; i < qty; i++) {
-            resources.addResource(resourceName,type);
-        }
-
+        int resource_id = resources.generateResourceId();
+        ReservationList list = new ReservationList();
+        Resource newResource = new Item(resource_id, type, resourceName, list);
+        resources.addResource(newResource);   
         ui.printLine();
         ui.print("The following resource(s) have been successfully added:");
-        if (type == 'I') {
-            ui.print("[I] " + resourceName + " (qty: " + qty + ")");
-        } else if (type == 'R') {
-            ui.print("[R] " + resourceName);
-        } else {
-            throw new RimException("Invalid resource type!");
-        }
+        ui.print(newResource.toString());
         ui.printLine();
     }
 }

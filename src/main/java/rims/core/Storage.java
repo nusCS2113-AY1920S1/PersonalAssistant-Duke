@@ -1,105 +1,156 @@
 package rims.core;
 
-import rims.command.*;
-import rims.exception.*;
-import rims.resource.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-import java.util.*;
-import java.io.*;
-import java.text.*;
+import rims.resource.Item;
+import rims.resource.Reservation;
+import rims.resource.ReservationList;
+import rims.resource.Resource;
 
 /**
- * Current format for text file:
- * For every line:
- * 0) ITEM/ROOM
- * 1) ID (of unique item/room)
- * 2) DESCRIPTION
- * 3) Booked or not?
- * Optional:
- * 4) Loan ID (if booked)]
- * 5) Loan start date
- * 6) Loan end date
+ * Current format of data storage: -
+ * <p>
+ * Resource.txt [ resource id ] [ type ] [ name ]
+ * <p>
+ * Reserve.txt [ reservation id ] [ resource id ] [ user id ] [ date from ] [
+ * date until ]
+ * <p>
+ * 
  */
 public class Storage {
-    protected HashMap<String, ArrayList<Resource>> resources = new HashMap<String, ArrayList<Resource>>();
-    protected File file;
+    protected ArrayList<Resource> resources;
+    protected ArrayList<Reservation> Reservations;
+    protected ReservationList TempReservations;
+    protected File resourceFile;
+    protected File reservationFile;
+    private Ui ui;
 
-    public Storage(String filename) throws FileNotFoundException, ParseException {
-        file = new File(filename);
-        readFromFile();
+    public Storage(String ResourceFileName, String ReserveFileName, Ui ui)
+            throws FileNotFoundException, ParseException {
+        resourceFile = new File(ResourceFileName);
+        reservationFile = new File(ReserveFileName);
+        resources = new ArrayList<Resource>();
+        Reservations = new ArrayList<Reservation>();
+        TempReservations = new ReservationList();
+        this.ui = ui;
+        readFromResourceFile();
     }
 
     /**
-     * Obtains the contents of a ResourceList line by line
-     * from a text file in a specified file path.
+     * Obtains the contents of a ResourceList line by line from a text file in a
+     * specified file path.
+     * 
+     * Data retrieval:<br>
+     * 1. Open the resource file<br>
+     * 2. Loop through each single entry to fetch [ resource id ] [ type ] [ name
+     * ]<br>
+     * 3. For each entry, open reservsation file and fetch any reservations under
+     * this resource_id <br>
+     * 4. Create a new resource object using the above data <br>
+     * 5. Add this object to ResourceList object
      *
-     * @throws FileNotFoundException when specified file path does not lead to a valid file type.
-     * @throws ParseException when unable to parse an integer for ID or checking if a resource is booked.
+     * @throws FileNotFoundException when specified file path does not lead to a
+     *                               valid file type.
+     * @throws ParseException        when unable to parse an integer for ID or
+     *                               checking if a resource is booked.
      */
-    public void readFromFile() throws FileNotFoundException, ParseException {
-        Scanner fileScanner = new Scanner(file);
+    public void readFromResourceFile() throws FileNotFoundException, ParseException {
+        Scanner fileScanner = new Scanner(resourceFile);
+
         while (fileScanner.hasNextLine()) {
-            String[] line = fileScanner.nextLine().split("`");
-            boolean isBooked = Integer.parseInt(line[3]) == 1 ? true : false;
-            if (line[0].equals("I")) {
-                Item newItem;
-                if (isBooked) {
-                    newItem = new Item(line[2], Integer.parseInt(line[1]), Integer.parseInt(line[4]), line[5], line[6]);
-                }
-                else {
-                    newItem = new Item(line[2], Integer.parseInt(line[1]));
-                }
-                if (resources.containsKey(line[2])) {
-                    resources.get(line[2]).add(newItem);
-                }
-                else {
-                    resources.put(line[2], new ArrayList<Resource>(Arrays.asList(newItem)));
-                }
-            }
-            else if (line[0].equals("R")) {
-                Room newRoom;
-                if (isBooked) {
-                    newRoom = new Room(line[2], Integer.parseInt(line[1]), Integer.parseInt(line[4]), line[5], line[6]);
-                }
-                else {
-                    newRoom = new Room(line[2], Integer.parseInt(line[1]));
-                }
-                resources.put(line[2], new ArrayList<Resource>(Arrays.asList(newRoom)));
+            Resource input = null;
+            String[] line = fileScanner.nextLine().split(",");
+            String resource_id = line[0];
+            ReservationList reservations = readReservationsFromReserveFile(resource_id);
+            input = new Item(line[0], line[1], line[2], reservations);
+            this.resources.add(input);
+        }
+    }
+
+    /**
+     * Obtains the contents of a ResourceList line by line from a text file in a
+     * specified file path.
+     *
+     * @throws FileNotFoundException when specified file path does not lead to a
+     *                               valid file type.
+     * @throws ParseException        when unable to parse an integer for ID or
+     *                               checking if a resource is booked.
+     */
+    public ReservationList readReservationsFromReserveFile(String resource_id)
+            throws FileNotFoundException, ParseException {
+        Scanner fileScanner = new Scanner(reservationFile);
+        ReservationList tempreservations = new ReservationList();
+        while (fileScanner.hasNextLine()) {
+            String[] line = fileScanner.nextLine().split(",");
+            if (line[1].equals(resource_id)) {
+                Reservation newReservation = new Reservation(line[0], line[1], line[2], line[3], line[4]);
+                tempreservations.addNewReservation(newReservation);
             }
         }
+        ReservationList reservations = new ReservationList(tempreservations.getReservationList(), ui);
+        return reservations;
     }
 
     /**
      * Put contents of a ResourceList into a text file for future reference.
      *
      * @param resources ResourceList to put contents into text file.
-     * @throws IOException when file given is directory, or file does not exist and cannot be created.
+     * @throws IOException when file given is directory, or file does not exist and
+     *                     cannot be created.
      */
-    public void saveToFile(HashMap<String, ArrayList<Resource>> resources) throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
-        for (Map.Entry<String, ArrayList<Resource>> entry : resources.entrySet()) {
-            ArrayList<Resource> thisResourceArray = entry.getValue();
-            for (int i = 0; i < thisResourceArray.size(); i++) {
-                Resource thisResource = thisResourceArray.get(i);
-                int isBooked = (thisResource.isBookedOrReserved() == true) ? 1 : 0;
-                String line = thisResource.getType() + "`" + thisResource.getId() + "`" + thisResource.getName() + "`" + isBooked;
-                if (thisResource.isBookedOrReserved()) {
-                    line += "`";
-                    line += thisResource.getLoanId();
-                    line += "`";
-                    line += thisResource.dateToString(thisResource.getDateBookedFrom());
-                    line += "`";
-                    line += thisResource.dateToString(thisResource.getDateBookedTill());
-                }
-                fileWriter.write(line);
-                fileWriter.newLine();
+    public void saveToFiles(ArrayList<Resource> resources) throws IOException {
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(resourceFile, false));
+
+        String line;
+
+        for (int i = 0; i < resources.size(); i++) {
+            Resource thisResource = resources.get(i);
+            line = thisResource.toDataString();
+
+            fileWriter.write(line);
+            ui.ErrorPrint("Saved:" + line);
+            fileWriter.newLine();
+
+            if (thisResource.getReservations().size() > 0) {
+                ReservationList thisReservationList = thisResource.getReservations();
+                saveToTempReservationList(thisReservationList);
             }
         }
+
+        saveToReservationFile(this.TempReservations);
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<Resource>> getResources() {
+    public void saveToTempReservationList(ReservationList reservations) {
+        for (int i = 0; i < reservations.size(); i++) {
+            this.TempReservations.addNewReservation(reservations.getReservationByIndex(i));
+        }
+    }
+
+    public void saveToReservationFile(ReservationList reservations) throws IOException {
+        BufferedWriter ReservationfileWriter = new BufferedWriter(new FileWriter(reservationFile, false));
+        String ReservationLine;
+        for (int i = 0; i < reservations.size(); i++) {
+            ReservationLine = reservations.getReservationByIndex(i).toDataString();
+            ReservationfileWriter.write(ReservationLine);
+            ui.ErrorPrint("Saved:" + ReservationLine);
+            ReservationfileWriter.newLine();
+        }
+        ReservationfileWriter.close();
+    }
+
+    public ArrayList<Resource> getResources() {
         return resources;
     }
 
+    public ArrayList<Reservation> getReservations() {
+        return Reservations;
+    }
 }
