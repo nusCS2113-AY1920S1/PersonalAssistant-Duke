@@ -4,8 +4,8 @@ import executor.task.TaskList;
 import ui.Wallet;
 
 public abstract class Command {
-    String userInput;
     protected Boolean exitRequest = false;
+    protected String userInput = null;
     protected CommandType commandType;
     protected String description = "NO DESCRIPTION";
 

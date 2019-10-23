@@ -17,9 +17,9 @@ public class CommandNewTask extends Command {
      * @param userInput The user input from the CLI.
      */
     public CommandNewTask(String userInput) {
-        this.taskType = Parser.parseTaskType(userInput);
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
+        this.taskType = TaskType.valueOf(Parser.parseForCommandType(userInput).toString());
     }
 
     @Override
@@ -29,11 +29,8 @@ public class CommandNewTask extends Command {
 
     @Override
     public void execute(TaskList taskList) {
-        if (this.taskType == TaskType.BLANK) {
-            return;
-        }
         try {
-            checkS(this.userInput);
+            checkForwardSlash(this.userInput);
         } catch (DukeException e) {
             e.printStackTrace();
             return;
@@ -53,9 +50,9 @@ public class CommandNewTask extends Command {
      * @param input this is the user's input
      * @throws DukeException this shows the error message and gives the format to follow
      */
-    public void checkS(String input) throws DukeException {
+    public void checkForwardSlash(String input) throws DukeException {
         if (this.taskType.equals(TaskType.FDURATION)) {
-            if (!Parser.checkSlash(input)) {
+            if (!Parser.containsForwardSlash(input)) {
                 throw new DukeException("Check your format!!! Correct format is: fduration <description> / <time>");
             }
         }

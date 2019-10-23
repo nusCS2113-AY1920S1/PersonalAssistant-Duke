@@ -1,7 +1,6 @@
 package executor.command;
 
 public enum CommandType {
-    TEST(CommandDelete.class),
     TASK(CommandNewTask.class),
     BYE(CommandBye.class),
     LIST(CommandList.class),
@@ -18,7 +17,12 @@ public enum CommandType {
     OUT(CommandAddSpendingReceipt.class),
     SETBALANCE(CommandUpdateBalance.class),
     EXPENSES(CommandDisplayExpenditure.class),
-    HELP(CommandHelp.class);
+    HELP(CommandHelp.class),
+    DEADLINE(CommandNewTask.class),
+    EVENT(CommandNewTask.class),
+    TODO(CommandNewTask.class),
+    RECUR(CommandNewTask.class),
+    FDURATION(CommandNewTask.class);
 
     private final Class commandClass;
 
