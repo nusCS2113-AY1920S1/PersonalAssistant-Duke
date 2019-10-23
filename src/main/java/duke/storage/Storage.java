@@ -39,14 +39,19 @@ public class Storage {
      * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
+        int numberofSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
+        numberofSlash = pathSplitter.length - ONE;
         for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
+            if (numberofSlash == ZERO) {
+                break;
+            } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePath += directory + "/";
             } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
+            numberofSlash--;
         }
         this.filePath += filePath;
     }
