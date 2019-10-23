@@ -32,6 +32,7 @@ public class Word {
         this.word = word;
         this.meaning = meaning;
         this.tags = new HashSet<>();
+        this.synonyms = new HashSet<>();
         this.numberOfSearches = 0;
     }
 
@@ -39,12 +40,12 @@ public class Word {
      * Initializes a word with tags.
      * @param word description of the word
      * @param meaning meaning of the word
-     * @param tags hash set containing tags that are added to word
+     * @param synonySets hash set containing tags that are added to word
      */
-    public Word(String word, String meaning, HashSet<String> tags) {
+    public Word(String word, String meaning, HashSet<String> synonymSet) {
         this.word = word;
         this.meaning = meaning;
-        this.tags = tags;
+        this.synonyms = synonymSet;
         this.numberOfSearches = 0;
     }
 

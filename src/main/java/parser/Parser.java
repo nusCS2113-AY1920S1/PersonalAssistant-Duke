@@ -60,7 +60,10 @@ public class Parser {
                 command = parseTag(taskInfo);
             } else if (userCommand.equals("quiz")) {
                 command = parseQuiz(taskInfo);
-            } else {
+            }
+            else if (userCommand.equals("addsyn")) {
+                command = parseSyn(taskInfo);
+            }else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e) {
@@ -256,7 +259,6 @@ public class Parser {
      * @return a AddSynonymCommand object
      * @throws WrongAddSynonymException when the format of the add tag command does not match required format
      */
-
     protected static Command parseSyn(String[] taskInfo) throws WrongAddSynonymException{
             if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                 throw new WrongAddSynonymException();

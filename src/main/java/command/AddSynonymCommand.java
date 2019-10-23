@@ -21,11 +21,20 @@ public class AddSynonymCommand extends Command {
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
         try {
-            HashSet<String> synonymList = wordBank.addSyn(mainWord, synonyms);
-            return ui.showAddSyn(mainWord, synonyms, synonymList);
+            HashSet<String> synonymSet = wordBank.addSyn(mainWord, synonyms);
+            String oldData = wordBank.getWordBank().get(mainWord).toString();
+            System.out.println("oldData is "+oldData);
+            synonymSet = wordBank.getWordBank().get(mainWord).getSynonyms();//Update
+            String[] splitOldData = oldData.split("<s>");
+            String temp = "<s>";
+            for(String s:synonymSet){
+                temp = temp + " "+s;
+            }
+            temp += "<s>";//lock
+            storage.editFromFile(oldData,oldData+temp);
+            return ui.showAddSyn(mainWord, synonyms, synonymSet);
         } catch (NoWordFoundException e) {
             return e.showError();
         }
     }
-
 }

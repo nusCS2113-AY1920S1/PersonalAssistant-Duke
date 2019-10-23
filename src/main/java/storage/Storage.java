@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Stack;
 import java.util.TreeMap;
 
@@ -33,6 +34,7 @@ public class Storage {
         File file = new File(FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;
+        int hasSynonym=0;
         try {
             fr = new FileReader(file);
             br = new BufferedReader(fr);
@@ -45,9 +47,27 @@ public class Storage {
                     line = br.readLine();
                     continue;
                 }
-                String[] parsedWordAndMeaning = line.split(":");
-                Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
-                wordBank.put(word.getWord(), word);
+                String[] parsedWordAndMeaning = line.split(":"); //papaya \\ this is a fruit <s> s1 s2 <s>
+                String[] meaningAndSynonym = parsedWordAndMeaning[1].trim().split("<s>"); //[this is a fruit] & [s1 s2 s3]
+                if(meaningAndSynonym.length==2) hasSynonym = 1;
+                System.out.println("MeaningAndSynonym is of length "+meaningAndSynonym.length);
+                String[] synonymPart = meaningAndSynonym[1].trim().split(" ");
+                System.out.println("synonymPart consist of ");
+                for(String s:synonymPart){
+                    System.out.println(s.trim());
+                }
+                System.out.println("synonymPart is of length "+synonymPart.length);
+                HashSet<String> temp = new HashSet<>();
+                for(String s : synonymPart) //Create HashSet of synonyms to be loaded into program
+                    temp.add(s);
+                if(hasSynonym==0) {
+                    Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
+                    wordBank.put(word.getWord(), word);
+                }
+                else if(hasSynonym==1) {
+                    Word word = new Word(parsedWordAndMeaning[0].trim(),meaningAndSynonym[0].trim(),temp);
+                    wordBank.put(word.getWord(), word);
+                }
                 line = br.readLine();
             }
             return wordBank;
