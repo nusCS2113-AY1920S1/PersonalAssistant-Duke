@@ -11,6 +11,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser is an abstract class that loads the appropriate command according to the user's input.
+ * It also ensures that the user's input for the command is valid, such as by checking the format
+ * of the input, and the utilisation of correct terms.
+ */
 public abstract class Parser {
 
     protected LocalDate date;
@@ -22,8 +27,8 @@ public abstract class Parser {
 
 
     /**
-     * Instantiates a new parser.
-     * @param inputLine inputLine
+     * Creates an instance of a parser.
+     * @param inputLine The entire string containing the user's input.
      */
     public Parser(String inputLine) {
         this.inputLine = inputLine;
@@ -81,6 +86,10 @@ public abstract class Parser {
         return newDouble;
     }
 
+    /**
+     * Alerts the user that the input is invalid, and returns an ErrorCommand.
+     * @return an ErrorCommand
+     */
     public Command invalidCommand() {
         Ui.printInvalidCommandError();
         return new ErrorCommand();

@@ -419,7 +419,7 @@ public abstract class Ui {
     }
 
     /**
-     * Print invalid modify format error.
+     * Prints out error message when the user inputs the wrong format for 'modify' command.
      */
     public static void printInvalidModifyFormatError() {
         System.out.println(line);
@@ -430,7 +430,7 @@ public abstract class Ui {
     }
 
     /**
-     * Print initial modify msg.
+     * Prints a message asking what the user wants to modify the selected log to.
      */
     public static void printInitialModifyMsg() {
         System.out.println(line);
