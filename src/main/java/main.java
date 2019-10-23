@@ -124,6 +124,6 @@ public class main extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return new AlphaNUS("data/AlphaNUS.txt").run();
+        return "AlphaNUS heard: " + input;
     }
 }
