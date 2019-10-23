@@ -38,16 +38,16 @@ public class ListCommand extends Command {
             }
         } else if (option[0].equals("member") && option.length > 1) {
             int memberIndex = Integer.parseInt(option[1]);
-            ArrayList<Task> tasksInCharge = members.get(memberIndex-1).getTasksInCharge();
+            ArrayList<Task> tasksInCharge = members.get(memberIndex - 1).getTasksInCharge();
             ArrayList<Integer> tasksInChargeIndex = members.get(memberIndex - 1).getTasksInChargeIndex();
             if (tasksInCharge.size() > 0) {
                 output += "task(s) of member ";
-                output += memberIndex + ". " + members.get(memberIndex-1).getName();
+                output += memberIndex + ". " + members.get(memberIndex - 1).getName();
                 for (int i = 0; i < tasksInCharge.size(); i++) {
                     output += "\n" + tasksInChargeIndex.get(i) + ". " + tasksInCharge.get(i);
                 }
             } else {
-                output += "member " + memberIndex + ". " + members.get(memberIndex -1).getName();
+                output += "member " + memberIndex + ". " + members.get(memberIndex - 1).getName();
                 output += " is free.";
             }
 

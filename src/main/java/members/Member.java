@@ -62,9 +62,13 @@ public class Member {
         return name;
     }
 
-    public ArrayList<Task> getTasksInCharge() { return this.tasksInCharge; }
+    public ArrayList<Task> getTasksInCharge() {
+        return this.tasksInCharge;
+    }
 
-    public ArrayList<Integer> getTasksInChargeIndex() { return this.tasksInChargeIndex; }
+    public ArrayList<Integer> getTasksInChargeIndex() {
+        return this.tasksInChargeIndex;
+    }
 
     public void setTask(int indexInList) {
         tasksInChargeIndex.add(indexInList);
@@ -75,15 +79,13 @@ public class Member {
      * a method to remove a task from the list of members
      * @param indexInList the index in the list of members
      */
-    public boolean removeTask(int indexInList) {
+    public void removeTask(int indexInList) {
         for (int i = 0; i < tasksInChargeIndex.size(); i++) {
             if (tasksInChargeIndex.get(i) == indexInList) {
                 tasksInChargeIndex.remove(i);
                 tasksInCharge.remove(tasks.get(indexInList - 1));
-                return true;
             }
         }
-        return false;
     }
 
 
@@ -101,6 +103,12 @@ public class Member {
             return this.name + " is in charge of task(s): " + tasksInChargeString + ".";
         }
     }
+
+
+    //@@author yuyanglin28
+    /**
+     * this is a method to update index in Member when deleting task
+     */
 
     public void updateIndex() {
         tasksInChargeIndex.clear();

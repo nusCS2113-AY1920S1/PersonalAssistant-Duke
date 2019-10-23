@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         try {
             int order = Integer.parseInt(line);
-            for (int i = 0; i < members.size(); i++){
+            for (int i = 0; i < members.size(); i++) {
                 members.get(i).getTasksInCharge().remove(tasks.get(order - 1));
                 members.get(i).updateIndex();
             }
