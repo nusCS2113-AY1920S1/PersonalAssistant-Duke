@@ -147,6 +147,7 @@ public class Parser {
     private void handleEmpty(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
+            //TODO: check if switch is allowed rather than letting addSwitch handle it
             state = ParseState.SWITCH;
             break;
         case '"':
