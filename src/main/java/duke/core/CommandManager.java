@@ -1,17 +1,19 @@
+//@@lmtaek
+
 package duke.core;
 
+import duke.command.AddPatientCommand;
 import duke.command.AddStandardTaskCommand;
 import duke.command.AssignTaskToPatientCommand;
 import duke.command.Command;
-import duke.command.AddPatientCommand;
-import duke.command.ListPatientsCommand;
-import duke.command.ListTasksCommand;
-import duke.command.DeletePatientTaskCommand;
 import duke.command.DeletePatientCommand;
+import duke.command.DeletePatientTaskCommand;
 import duke.command.DeleteTaskCommand;
+import duke.command.ExitCommand;
 import duke.command.FindPatientCommand;
 import duke.command.FindPatientTaskCommand;
-import duke.command.ExitCommand;
+import duke.command.ListPatientsCommand;
+import duke.command.ListTasksCommand;
 import duke.command.UpdatePatientCommand;
 import duke.command.UpdateTaskCommand;
 
@@ -22,10 +24,10 @@ import duke.command.UpdateTaskCommand;
 public class CommandManager {
 
     /**
-     * Parses a Task from a string array.
+     * Decides which command to execute based on keywords available in the user's input.
      *
-     * @param userInput The string array to be parsed.
-     * @return The Command received from user.
+     * @param userInput The user's input.
+     * @return The command dictated by the user.
      */
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
@@ -35,95 +37,43 @@ public class CommandManager {
                 userInput = possibleCommand;
             }
         }
-        String[] command = userInput.split("\\s+", 3);
-        String firstKeyword = command[0].toLowerCase();
+        String[] command = userInput.toLowerCase().split(":");
+        String keyWord = command[0].trim();
+
         Parser parser = new Parser(userInput);
-        switch (firstKeyword) { //change this depending on how string is parsed
-        case "add":
-            String secondKeyword = command[1].toLowerCase();
-            if (secondKeyword.equals("patient")) {
-                String[] formattedInput = parser.parseAdd();
-                AddPatientCommand addPatientCommand = new AddPatientCommand(formattedInput);
-                return addPatientCommand;
-            } else if (secondKeyword.equals("task")) {
-                String formattedInput = parser.parseAdd()[0];
-                AddStandardTaskCommand addStandardTaskCommand = new AddStandardTaskCommand(formattedInput);
-                return addStandardTaskCommand;
-            } else {
-                throw new DukeException("Add command fails. ");
-            }
-        case "assign":
-            return new AssignTaskToPatientCommand(parser.parseAssign());
-        case "list":
-            try {
-                String[] tempCommand = command[1].split("\\s+");
-                if (tempCommand[0].toLowerCase().equals("patients")) {
-                    return new ListPatientsCommand();
-                } else if (tempCommand[0].toLowerCase().equals("tasks")) {
-                    return new ListTasksCommand();
-                } else {
-                    throw new Exception("Invalid 'list' command. ");
-                }
-            } catch (Exception e) {
-                throw new DukeException("List command fails. " + e.getMessage());
-            }
-        case "delete":
-            try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
-                    String formattedInput = parser.parseDeletePatient();
-                    return new DeletePatientCommand(formattedInput);
-                } else if (secondKeyword.equals("task")) {
-                    return new DeleteTaskCommand(parser.parseDeleteTask());
-                } else if (secondKeyword.equals("patienttask")) {
-                    return new DeletePatientTaskCommand(parser.parseDeletePatientTask());
-                } else {
-                    throw new Exception("Invalid format. ");
-                }
-            } catch (Exception e) {
-                throw new DukeException("Delete command fails. " + e.getMessage());
-            }
-        case "find":
-            try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
-                    try {
-                        return new FindPatientCommand(command[2]);
-                    } catch (Exception e) {
-                        throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
-                    }
-                } else if (secondKeyword.equals("patienttask")) {
-                    try {
-                        return new FindPatientTaskCommand(command[2]);
-                    } catch (Exception e) {
-                        throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
-                    }
-                } else {
-                    throw new Exception("Invalid format. ");
-                }
-            } catch (Exception e) {
-                throw new DukeException("Find command fails. " + e.getMessage());
-            }
-        case "update":
-            try {
-                secondKeyword = command[1].toLowerCase();
-                if (secondKeyword.equals("patient")) {
-                    String formattedInput = parser.parseUpdatePatient();
-                    return new UpdatePatientCommand(formattedInput);
-                } else if (secondKeyword.equals("task")) {
-                    String formattedInput = parser.parseUpdateTask();
-                    return new UpdateTaskCommand(formattedInput);
-                } else {
-                    throw new Exception("Invalid format. ");
-                }
-            } catch (Exception e) {
-                throw new DukeException("update command fails. " + e.getMessage());
-            }
+
+        switch (keyWord) {
+        case "add patient":
+            return new AddPatientCommand(parser.parseAddPatient());
+        case "add task":
+            return new AddStandardTaskCommand(parser.parseAddTask());
+        case "assign deadline task":
+            return new AssignTaskToPatientCommand(parser.parseAssignDeadlineTask());
+        case "assign event task":
+            return new AssignTaskToPatientCommand(parser.parseAssignEventTask());
+        case "list patients":
+            return new ListPatientsCommand();
+        case "list tasks":
+            return new ListTasksCommand();
+        case "delete assigned task":
+            return new DeletePatientTaskCommand(parser.parseDeleteAssignedTask());
+        case "delete patient":
+            return new DeletePatientCommand(parser.parseDeletePatient());
+        case "delete task":
+            return new DeleteTaskCommand(parser.parseDeleteTask());
+        case "find patient":
+            return new FindPatientCommand((parser.parseFindPatient()));
+        case "find patient tasks":
+            return new FindPatientTaskCommand((parser.parseFindPatientTasks()));
+        case "update patient":
+            return new UpdatePatientCommand(parser.parseUpdatePatient());
+        case "update task":
+            return new UpdateTaskCommand(parser.parseUpdateTask());
         case "bye":
             ExitCommand exitCommand = new ExitCommand();
             return exitCommand;
         default:
-            throw new DukeException("Could not understand user input");
+            throw new DukeException("Could not understand user input.");
         }
     }
 }
