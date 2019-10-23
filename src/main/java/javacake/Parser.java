@@ -27,7 +27,8 @@ import java.util.List;
 
 public class Parser {
 
-    private static String[] commands = {"exit", "list", "back", "help", "score", "reset", "goto", "overview", "deadline", "editnote", "createnote"};
+    private static String[] commands = {"exit", "list", "back", "help", "score", "reset",
+            "goto", "overview", "deadline", "editnote", "createnote"};
 
     /**
      * Allows the user input to be parsed before running 'execute'.
