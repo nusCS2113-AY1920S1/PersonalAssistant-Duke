@@ -119,7 +119,7 @@ public class ProjectInputController implements IController {
     }
 
     private void projectViewAssigned(Project projectToManage, String projectFullCommand) {
-        
+
     }
 
 
