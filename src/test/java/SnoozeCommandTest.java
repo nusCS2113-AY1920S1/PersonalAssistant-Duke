@@ -1,10 +1,10 @@
+import gazeeebo.commands.tasks.DeadlineCommand;
+import gazeeebo.commands.tasks.SnoozeCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.DeadlineCommand;
-import gazeeebo.commands.SnoozeCommand;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
