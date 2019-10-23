@@ -1,4 +1,4 @@
-package Operations;
+package Model_Classes;
 
 import CustomExceptions.RoomShareException;
 import Enums.Priority;

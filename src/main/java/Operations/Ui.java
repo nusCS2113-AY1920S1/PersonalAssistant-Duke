@@ -30,6 +30,7 @@ public class Ui {
         System.out.println("Enter 'help' if you require assistance");
     }
 
+
     public void helpAdd() {
         System.out.println("adds a Meeting or Assignment to the list");
         System.out.println("You must specify the description, type of task, and time of the task");
