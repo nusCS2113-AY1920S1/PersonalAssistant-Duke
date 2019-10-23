@@ -178,7 +178,7 @@ If the entire LLS is empty at the end of the execution, it means that the user h
 
 The diagram below shows the example more clearly, where only one of the prerequisites within a LS need to be taken, while all of prerequisites across the LLS need to be taken. +
 
-images::CapCommandLLS.png[align="center"] 
+image::CapCommandLLS.png[align="center"] 
 
 In this case, the modules the user needs to take are: +
 
