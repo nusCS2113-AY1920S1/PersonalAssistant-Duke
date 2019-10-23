@@ -181,6 +181,7 @@ public class Ui extends AnchorPane {
                 if (idleMaxMinutes > 0) {
                     idleMaxMinutes--;
                 } else {
+                    idleMaxMinutes = 180;
                     dialogContainer.getChildren()
                             .add(DialogBox.getSenpaiDialog("Hello do you need help?", senpaiImage));
                 }
