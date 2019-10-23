@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Parent class for all other types of tasks
  */
-public class Task{
+public abstract class Task{
     private String description;
     private boolean isDone;
     private Priority priority;
