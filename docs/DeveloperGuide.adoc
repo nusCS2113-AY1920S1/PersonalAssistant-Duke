@@ -37,10 +37,40 @@ There are three main components in the overall architecture of the application.
 === Storage component
 === Common classes
 
-== Implementaion
+== Implementation
 === [Proposed] Undo/Redo feature
+
+
 === Your own implementation
 
+
+=== Clash handling
+==== How is it implemented
+The program is able to detect clashes when creating new events. When the user enters the command
+to add a new Event entry to the list, the method EventList.addEvent is called from the Command
+class upon execution.
+
+The addEvent method will then call the clashEvent method to check the
+existing entries for any clash in schedule. This is done by first searching the list for an event
+that has a matching date with the new event.
+
+If no such event is found, the method returns a null value, indicating that there is no schedule clash.
+If an event is found with a matching date, the method then calls the EventList.timeClash method to check whether
+the two events have overlapping time periods. This is done by simple mathematical comparison using > and
+< operators, comparing the times in 24h format.
+
+If there is any overlap, the timeClash method will return a true boolean value, indicating there is a schedule clash.
+The clashEvent method then returns the specific task that caused the clash so that the details of the clash can
+be printed for the user, in order for him/her to fix the schedule conflict.
+
+==== Why it is implemented this way
+The process of checking for a clash was implemented as small, separate abstracted methods so as to ensure scalability,
+easier testing, and to reduce dependencies.
+
+Because of the way the clash detection was split into multiple small methods, it was easy to implement this clash
+detection as a part of adding recurrent events (to check for clashes when recurrent events were automatically
+entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
+an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
 == Documentation
 
