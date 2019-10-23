@@ -1,5 +1,8 @@
 package moomoo.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
 
 /**
@@ -75,6 +78,17 @@ public class Ui {
     public void showResponse() {
         System.out.println(this.output);
         this.output = "";
+    }
+
+    /**
+     * Show today's date.
+     */
+    public String showDate() {
+        LocalDate today = java.time.LocalDate.now();
+        String formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+        String shortDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
+        print("\n" + formattedDate + "\n");
+        return shortDate;
     }
 
 

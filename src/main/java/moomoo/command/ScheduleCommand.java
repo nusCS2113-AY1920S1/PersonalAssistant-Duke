@@ -30,12 +30,12 @@ public class ScheduleCommand extends Command {
                     + "please indicate the d/<date in dd/mm/yyyy> a/<amount> t/<type of payment>.");
         }
         input = input.substring(8);
-        if (!input.contains("t/")) {
-            throw new MooMooException("OOPS!!! Please indicate the type of payment using t/<type of payment>");
-        } else if (!input.contains("d/")) {
-            throw new MooMooException("OOPS!!! Please indicate the scheduled date using d/<dd/mm/yyyy>");
+        if (!input.contains("d/")) {
+            throw new MooMooException("OOPS!!! Please indicate the scheduled date using d/<dd/mm/yy>");
         } else if (!input.contains("a/")) {
             throw new MooMooException("OOPS!!! Please indicate the amount to be paid using a/<amount>");
+        } else if (!input.contains("t/")) {
+            throw new MooMooException("OOPS!!! Please indicate the type of payment using t/<type of payment>");
         }
 
         /*
@@ -52,7 +52,7 @@ public class ScheduleCommand extends Command {
         task = task.replace("t/", "") + " " + amount.replace("a/", "");
         SchedulePayment list = new SchedulePayment(date, task);
         calendar.addToCalendar(list);
-        ui.setOutput("You have scheduled a payment on " + date + " to " + task);
+        ui.setOutput("You have scheduled a payment on " + date + " for " + task);
         storage.saveScheduleToFile(calendar);
     }
 }
