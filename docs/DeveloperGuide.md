@@ -157,7 +157,7 @@ The rest of the App consists of four components.
 
 For example, the `Parser` component (see the class diagram given below) defines it’s API in the `CommandParser.java` interface and exposes its functionality using the `ParserManager.java` class.
 
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="Overview of Logic parser" width="700"/>
+<img src="/docs/diagrams/LogicClassDiagram.png" alt="Overview of Logic parser" width="700"/>
 Figure 2. Class Diagram of Logic Parser Component
 
 **Events-Driven nature of the design**
@@ -190,17 +190,17 @@ The  `UI`  component,
 - Display ​daily calendar of the user via `DailyCalender`. 
 
 ### 4.3. Logic component
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="700"/>
+<img src="/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="700"/>
 Figure 6. Structure of the Logic component
 
-**API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/logic/parser/CommandParser.java)
+The  `Logic`  component handles the parsing of user input and interacts with the Task objects.
 
-The  `Logic`  component,
+1. Uses the `CommandParser` class to parse user input. 
+    - This results in a `Command` object which is executed.
+2. The execution of `Command` can affect a `Task` object (e.g. adding a `Task` to the `TaskList`)
+3. The result of the `Command` execution is encapsulated as a `CommandResult` object which is passed to the `UI` to be rendered as output for the user. 
 
-- Set up `ParserManager` to parse the user command.
-- `ParserManager` creates respective `xCommand` class.
-- `xCommand` class can execute the command and can affect the `model`.
-- `xCommand` class can instruct the `ui` to print information.
+A Sequence Diagram for interactions within the `Logic` component will be uploaded soon.
 
 ### 4.4. Commons Component
 Classes used by multiple components are in the [`commons`](/src/main/java/compal/commons) package. It contains 2 important classes: [`Compal`](/src/main/java/compal/commons/Compal.java) and [`Messages`](/src/main/java/compal/commons/Messages.java).
@@ -362,11 +362,11 @@ Though the current implementation has much prevent cluttering the application wh
 1.  `Weekly View Tab` of _task_ in a  weekly schedule GUI format
     
 2.  `Monthly View Tab` of _task_ in a  monthly schedule GUI format
-    
+
 ### 5.5 Find Feature
   This feature allows the user to search for a keyword or phrase in the description field belonging to all of the tasks.
 
-#### [](LINK)5.5.1. Current Implementation
+#### 5.5.1. Current Implementation
 The current implementation matches the keyword or phrase exactly to the description. As long as the keyword or phrase is a sub-string in the description field, the task is returned as a match. Likeness of the words are not considered at the moment e.g 'frst' will not match 'first'. 
 
 1. Upon the user entering the find command with a valid keyword, the `LogicManager` is called and sends the user input to `ParserManager`. 
