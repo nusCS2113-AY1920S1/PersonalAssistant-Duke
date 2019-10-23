@@ -138,10 +138,11 @@ Format: `cap overall`
 
 ****
 * Typing `cap overall` into the command line shows a CAP calculation message.
-* Type the module taken, along with it's letter grade. Keep typing all the module names in the module list and their respective grades. 
+* Type the module taken, along with it's letter grade. +
+Keep typing all the module names in the module list and their respective grades with the format shown below
 * Format: `MOD_CODE GRADE_LETTER`
 * Type `done` when you are ready to calculate the CAP.
-* Shows your current cumulative or predicated CAP.
+* ModPlan then shows your current cumulative or predicated CAP.
 ****
 
 Example: +

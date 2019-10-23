@@ -115,16 +115,91 @@ image::CCA.png[]
 
 
 == Implementation
+This section explains and shows diagrams of how certain features of ModPlan are implemented.
 
+***
+
+=== GradeCommand
+==== Current Implementation
+The `grade` feature is operated by the `GradeCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
+
+Since `GradeCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `grade` command.
+From the `Argsparse4jWrapper`, `GradeCommand` also receives two additional variable inputs from the user: +
+
+. The module code of the module to be graded.
+. The letter grade attained for the module that the user specifies above.
+
+There are two ways that the execute method can execute, depending upon whether the moduleCode the user enters is in their moduleTaskList or not.
+
+****
+
+* Case 1: Module is not in the task list +
+If the module is not in the task list, `GradeCommand` executes in a similar fashion to `SearchThenAddCommand`, creating a temporary `ModuleInfoDetailed` class to check if the moduleCode entered by the user exists or not. +
+Following which, the letterGrade of the module is set using the method `setGrade` under the `ModuleInfoDetailed` class.
++
+** *Note:* The `setGrade` method will check if the letterGrade input by the user is valid (a valid letter grade, as well as S/U capabilities).
++
+If the letter grade is invalid, either `ModModBadSUException` or `ModBadGradeException` will be thrown.
++
+Finally, the temporary module will be added to the `ModuleTaskList`, with the `letterGrade` included in its details.
+
+* Case 2: Module is in the task list
+If the module already exists in the task list, (i.e `ModuleTaskList` contains `moduleCode`) `GradeCommand` will simply check if the module can be S/U-ed, and update the `letterGrade` according to what the user inputs using the `setGrade` method.
+
+****
+
+Below is a Sequence Diagram showing how `GradeCommand` works.
+
+==== Design Considerations
+*How GradeCommand executes*
+
+Checks had to be implemented to check if the module can be S/U-ed, as well as if the `letterGrade` the user inputs is a valid grade according to NUS specifications.
+These checks were implemented into the `ModuleInfoDetailed` class itself, which `ModuleTask` inherits as the baseline of the module task list. This way, other classes are able to use the methods and checks to set the letter grade for the respective module.
+
+***
 
 === CapCommand
+==== Current Implementation
+The `cap` feature is operated by the `CapCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
+
+Since `CapCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `cap` command. +
+
+The parameter `TYPE` can take three forms according to the user input. +
+`cap overall` Where the user inputs modules of their choosing, as well as the letter grade, and the CAP is calculated accordingly. +
+`cap list` Where the user's CAP is calculated from the modules with letter grades in the module task list. +
+`cap module` Where the CAP of a module of the user's choosing can be calculated using the grades of prerequisite modules that the user has completed. +
+
+These `TYPE` parameters will be parsed by the `Argsparse4jWrapper` class and pass the corresponding argument of `toCap` into the `CapCommand` class. A switch case statement will handle the `toCap` argument, and choose to execute from three methods accordingly: +
+`calculateOverallCap`,
+`calculateListCap`
+and
+`calculateModuleCap` +
+
+Upon construction of the `CapCommand` class, a few variables involved in calculating the CAP of the user are initialized, notably the users `mcCount`, `currentCap`, `projectedModuleCap` and `projectedCap`. These variables will be used in the three different ways CapCommand can currently execute in.
+
+As stated above, there are three methods that can be executed depending upon the `TYPE` the user inputs.
+
+****
+* Case 1: `cap overall` +
+If the argument read for `toCap` is "overall", the `calculateOverallCap` method will be executed under the `execute` method. +
+Firstly, a new `Scanner` will be created to continue reading in the modules and grades that the user wishes to calculate their CAP for. +
+The user will be prompted to input a module and its respective letter grade. The system will automaticall convert the letter grade to NUS specifications according to the below chart +
+
+image::CAPchart.png[align="center"]
+
+The user inputs are read in until the user inputs `done`, proceeding which the scanner will close and the calculation is done +
+Finally the user's CAP is calculated and printed according to NUS guidelines using the below formula: +
+
+image::CAPformula.png[align="center"]
+
+****
 
 [appendix]
 == Product Scope
 
 *A better module planner*
 
-We aim to fullfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning. 
+We aim to fulfill a need that is currently lacking in module planning, which in this case the is ability to plan ahead for more semesters up until graduation. Additional features would likely include the ability to generate a projection report for CAP computation and CCA planning.
 
 [appendix]
 == User Stories
@@ -132,7 +207,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
+|Priority |As a ... |I can ... |So that ...
 |`* * *` |NUS CEG Student |Search for a module's workload |Balance my workload for the current semester
 |`* * *` |NUS CEG Student |Monitor my total workload from my modules |Track my total workload for the current semester 
 |`* * *` |NUS Student |See my daily timetable |Keep a schedule of what classes and extra-curricular activities I have 
@@ -163,6 +238,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Use Case C01: Adding modules to user's timetable
 Actor: NUS CEG Student
 
+*MSS*
+
 1. User inputs the module code
 2. ModPlan shows the module information to the user, such as description, number of MCs, prerequisite modules etc. and requests confirmation from the user to add this module
 3. User confirms they want to add the module 
@@ -173,14 +250,16 @@ Use case ends.
 
 *Extensions*
 
-2a. If the module is a Level-1000 module, ModPlan checks for the user's current number of Level-1000 modules taken +
-2b. If the limit is not exceeded, proceed to step 3 +
-2c. If the limit will be exceeded, warn the user, and prevent addition of the module +
-2d. Additionally, if the prerequisites of the module have not been fulfilled, prevent addition of the module, and inform user of the modules needed to be taken +
+2a1. If the module is a Level-1000 module, ModPlan checks for the user's current number of Level-1000 modules taken +
+2a2. If the limit is not exceeded, proceed to step 3 +
+2a3. If the limit will be exceeded, warn the user, and prevent addition of the module +
+2a4. Additionally, if the prerequisites of the module have not been fulfilled, prevent addition of the module, and inform user of the modules needed to be taken +
 Return to step 3.
 
 === Use Case C02: Viewing graduation requirements
 Actor: NUS CEG Undergraduate Student
+
+*MSS*
 
 1. User inputs their course name
 2. ModPlan shows the courses that match the user's input
@@ -197,22 +276,30 @@ Return to Step 4.
 === Use Case C03: Viewing class and CCA timetable
 Actor: NUS Student
 
-1. User inputs the command to `view timetable`
+*MSS*
+
+1. User inputs the command to view timetable
 2. ModPlan shows the user their current timetable, including class and CCA timings
 
 === Use Case C04: Viewing of modules taken in past semester
 Actor: NUS Student
 
-1. User inputs the command to `view past modules`
-2. ModPlan shows the user a list of all modules taken, and those they are currently taking.
+*MSS*
+
+1. User inputs the command to view past modules
+2. ModPlan shows the user a list of all modules taken, and those they are currently taking. +
+Use case ends.
 
 === Use Case C05: Generation of current CAP based on past modules
 Actor: NUS Student
 
-1. User inputs the command to `generate CAP report`
+*MSS*
+
+1. User inputs the command to generate CAP report
 2. ModPlan shows the user modules they had taken, and requests user to input their grades obtained
 3. User inputs the modules they have taken, as well as the respective grades obtained
-4. After inputting the grades, ModPlan calculates and shows the user their current MCs accumulated and CAP
+4. After inputting the grades, ModPlan calculates and shows the user their current MCs accumulated and CAP. +
+Use case ends.
 
 *Extensions*
 
@@ -222,18 +309,24 @@ Actor: NUS Student
 === Use Case C06: Check Module information via input search
 Actor: NUS Student
 
-1. User inputs the command to `search module information`
-2. ModPlan shows the user key information regarding the module, if it is SU-able or if it has any prequisites.
+*MSS*
+
+1. User inputs the command to search module information
+2. ModPlan shows the user key information regarding the module, if it is SU-able or if it has any prequisites. +
+Use case ends.
 
 === Use Case C07: Creating a personalised Module (eg. for CCAs)
 Actor: NUS Student
 
-1. User inputs the command to `create custom module`
+*MSS*
+
+1. User inputs the command to create custom module
 2. ModPlan prompts the user for additional details of the custom module, such as description and times
 3. User inputs the description and date/times
 4. ModPlan prompts user to confirm addition of custom module to timetable
 5. User confirms addition
-6. ModPlan adds custom module to timetable, and shows user updated timetable
+6. ModPlan adds custom module to timetable, and shows user updated timetable. +
+Use case ends.
 
 *Extensions*
 
@@ -243,8 +336,11 @@ Actor: NUS Student
 === Use Case C08: Checking number of MCs taken
 Actor: NUS Student
 
-1. User inputs the command to `check MC`
-2. ModPlan will show the total MCs taken up to this point
+*MSS*
+
+1. User inputs the command to check MC
+2. ModPlan will show the total MCs taken up to this point. +
+Use case ends.
 
 *Extensions*
 
