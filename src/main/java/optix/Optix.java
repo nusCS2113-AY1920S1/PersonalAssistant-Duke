@@ -78,7 +78,7 @@ public class Optix {
     public String runGui(String fullCommand) {
         String taskType = "";
         try {
-            Command c = Parser.parse(fullCommand);
+            Command c = parser.parse(fullCommand);
             taskType = c.execute(model, ui, storage);
         } catch (OptixException e) {
             ui.setMessage(e.getMessage());

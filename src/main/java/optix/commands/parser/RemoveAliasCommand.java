@@ -7,8 +7,8 @@ import optix.exceptions.OptixException;
 import optix.ui.Ui;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,16 +43,17 @@ public class RemoveAliasCommand extends Command {
      */
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
-        // check if the alias exists
-        if (!commandAliasMap.containsValue(command) || !commandAliasMap.containsKey(alias)) {
-            throw new OptixException("Error removing alias.\n");
-        }
-        // edit command alias map
-        commandAliasMap.remove(this.alias, this.command);
-        // open target file
-        File currentDir = new File(System.getProperty("user.dir"));
-        File filePath = new File(currentDir.toString() + "\\src\\main\\data\\ParserPreferences.txt");
         try {
+        // check if the alias exists
+            if (!commandAliasMap.containsValue(command) || !commandAliasMap.containsKey(alias)) {
+                throw new OptixException("Error removing alias.\n");
+            }
+            // edit command alias map
+            commandAliasMap.remove(this.alias, this.command);
+            // open target file
+            File currentDir = new File(System.getProperty("user.dir"));
+            File filePath = new File(currentDir.toString() + "\\src\\main\\data\\ParserPreferences.txt");
+
             PrintWriter writer = new PrintWriter(filePath);
             for (Map.Entry<String, String> entry : commandAliasMap.entrySet()) {
                 writer.write(entry.getKey() + "|" + entry.getValue() + '\n');
@@ -61,6 +62,8 @@ public class RemoveAliasCommand extends Command {
             String successMessage = String.format("Noted. The alias %s has been removed\n", this.alias);
             ui.setMessage(successMessage);
         } catch (IOException e) {
+            ui.setMessage(e.getMessage());
+        } catch (OptixException e) {
             ui.setMessage(e.getMessage());
         }
         return "";

@@ -172,7 +172,11 @@ public class Parser {
             BufferedReader br = new BufferedReader(fr);
             String aliasPreference;
             while ((aliasPreference = br.readLine()) != null) {
+                if (aliasPreference.length() == 0) { // handle empty line
+                    continue;
+                }
                 String[] aliasDetails = aliasPreference.split("\\|");
+
                 String alias = aliasDetails[0];
                 String command = aliasDetails[1];
                 try {

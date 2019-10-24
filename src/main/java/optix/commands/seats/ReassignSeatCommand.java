@@ -39,7 +39,7 @@ public class ReassignSeatCommand extends Command {
     }
 
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder();
         try {
             if (!formatter.isValidDate(showDate)) {
@@ -60,5 +60,11 @@ public class ReassignSeatCommand extends Command {
         } finally {
             ui.setMessage(message.toString());
         }
+        return "seat";
+    }
+
+    @Override
+    public String[] parseDetails(String details) {
+        return new String[0];
     }
 }

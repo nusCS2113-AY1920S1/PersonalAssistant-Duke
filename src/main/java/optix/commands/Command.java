@@ -2,7 +2,6 @@ package optix.commands;
 
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.exceptions.OptixException;
 import optix.ui.Ui;
 
 public abstract class Command {
@@ -20,4 +19,7 @@ public abstract class Command {
 
     public abstract String[] parseDetails(String details);
 
+    public boolean isExit() {
+        return false;
+    }
 }

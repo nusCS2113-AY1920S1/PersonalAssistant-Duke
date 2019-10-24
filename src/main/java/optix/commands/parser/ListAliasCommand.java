@@ -20,13 +20,14 @@ public class ListAliasCommand extends Command {
      * @param storage The filepath of txt file which data are being stored.
      */
     @Override
-    public void execute(Model model, Ui ui, Storage storage) {
+    public String execute(Model model, Ui ui, Storage storage) {
         StringBuilder systemMessage = new StringBuilder("Alias list: \n");
         for (Map.Entry<String, String> entry : Parser.commandAliasMap.entrySet()) {
             systemMessage.append(entry.getKey()).append(" : ").append(entry.getValue()).append('\n');
         }
 
         ui.setMessage(systemMessage.toString());
+        return "seat";
     }
 
     /**
