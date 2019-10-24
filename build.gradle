@@ -39,6 +39,13 @@ shadowJar {
     archiveAppendix = null
 }
 
+test {
+    useJUnitPlatform()
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
@@ -48,13 +55,6 @@ jacocoTestReport {
 
 coveralls {
     jacocoReportPath 'build/reports/jacoco/test/jacocoTestReport.xml'
-}
-
-test {
-    useJUnitPlatform()
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
 }
 
 dependencies {

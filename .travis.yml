@@ -4,8 +4,5 @@ jdk: oraclejdk11
 before_install:
   - chmod +x gradlew
 
-script:
-  - ./gradlew clean checkstyleMain checkstyleTest test
-
 after_success:
   - ./gradlew jacocoTestReport coveralls
