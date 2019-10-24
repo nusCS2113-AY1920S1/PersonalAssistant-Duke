@@ -21,20 +21,10 @@ public class DebtsParser extends Parser {
     private static int prevPosition;
     private static int undoFlag = 0;
 
-    /**
-     * Instantiate a new command under the debt mode.
-     * @param inputLine Command line by the user.
-     */
     public DebtsParser(String inputLine) {
         super(inputLine);
     }
 
-    /**
-     * Analise the input command and execute the command.
-     * @param mode The current mode.
-     * @param inputLine Command line input by the user.
-     * @return Command according to the user input.
-     */
     @Override
     public Command handleInput(String mode, String inputLine) {
         if (commandToRun.equals("debts")) { //show debt list

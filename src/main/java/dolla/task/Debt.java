@@ -47,35 +47,19 @@ public class Debt extends Log {
                 + "[/due " + Time.dateToString(date) + "]";
     }
 
-    /**
-     * Returns a string with description about the description part of the debt.
-     * @return String with description about the description part of the debt.
-     */
     @Override
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Returns a string with the information about the name associated with the debt.
-     * @return String with the information about the name associated with the debt.
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Returns a LocalDate with information about the due date of the debt.
-     * @return LocalDate with information about the due date of the debt.
-     */
     public LocalDate getDate() {
         return date;
     }
 
-    /**
-     * Returns a string with information about the amount of the debt.
-     * @return String with information about the amount of the debt.
-     */
     public String amountToMoney() {
         return "$" + amount;
     }
@@ -94,10 +78,6 @@ public class Debt extends Log {
                 + Time.dateToString(date);
     }
 
-    /**
-     * Returns a string with information about the user input.
-     * @return String with information about the user input.
-     */
     @Override
     public String getUserInput() {
         return userInput;
