@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
+import duke.model.lists.RouteList;
 import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
 import duke.model.locations.BusStop;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ModelManager implements Model {
     private Storage storage;
     private TaskList tasks;
+    private RouteList routes;
     private CreateMap map;
     //private List<Route> userRoutes;
 
@@ -28,6 +30,7 @@ public class ModelManager implements Model {
         storage = new Storage();
         tasks = storage.getTasks();
         map = storage.getMap();
+        routes = storage.getRoutes();
         //userRoutes = storage.getRoutes();
     }
 
@@ -39,6 +42,11 @@ public class ModelManager implements Model {
     @Override
     public TaskList getTasks() {
         return tasks;
+    }
+
+    @Override
+    public RouteList getRoutes() {
+        return routes;
     }
 
     @Override

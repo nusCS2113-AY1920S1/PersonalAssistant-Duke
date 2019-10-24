@@ -7,6 +7,8 @@ import duke.model.Event;
 import duke.model.Task;
 import duke.model.planning.Todo;
 import duke.model.locations.BusStop;
+import duke.model.transports.Route;
+import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
@@ -71,6 +73,29 @@ public class ParserStorageUtil {
         throw new DukeException(Messages.CORRUPTED_TASK);
     }
 
+    /**
+     * Parses a route with its nodes from routes to String format.
+     * @param route The route.
+     * @return routeString The corresponding String format of the route object.
+     */
+    public static String toRouteStorageString(Route route) {
+        String routeString = "";
+        routeString += "route | " + route.getName() + " | " + route.getDescription() + "\n";
+
+        for (RouteNode node: route.getNodes()) {
+            if (node instanceof BusStop) {
+                routeString += "node | BUS | " + ((BusStop) node).getBusCode() + " | " + node.getAddress() + " | "
+                        + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude() + "\n";
+            } else if (node instanceof TrainStation) {
+                routeString += "node | MRT | " + ((TrainStation) node).getTrainCode() + " | " + node.getAddress()
+                        + " | " + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude()
+                        + "\n";
+            }
+        }
+
+        return routeString;
+    }
+
 
     /**
      * Parses a bus stop from String format back to BusStop.
@@ -85,7 +110,7 @@ public class ParserStorageUtil {
         String address = busStopData[2].strip();
         double latitude = Double.parseDouble(busStopData[3].strip());
         double longitude = Double.parseDouble(busStopData[4].strip());
-        BusStop busStop = new BusStop(busCode,description, address, latitude, longitude);
+        BusStop busStop = new BusStop(busCode, address, description, latitude, longitude);
         for (int i = 5; i < busStopData.length; i++) {
             busStop.addBuses(busStopData[i].strip());
         }
@@ -144,7 +169,37 @@ public class ParserStorageUtil {
         for (int i = 3; i < trainParts.length; i++) {
             trainCode.add(trainParts[i].strip());
         }
-        return new TrainStation(trainCode, address, latitude, longitude);
+        return new TrainStation(trainCode, null, address, latitude, longitude);
+    }
+
+    /**
+     * Parses a route from String format back to route.
+     * @param line The String description of a route.
+     * @return The corresponding Route object.
+     */
+    public static Route createRouteFromStorage(String line) {
+        String[] details = line.split("\\|", 3);
+
+        return new Route(new ArrayList<>(), details[1].strip(), details[2].strip());
+    }
+
+    /**
+     * Parses a route node from String format back to a route node.
+     * @param line The String description of a route node.
+     * @return The corresponding RouteNode object.
+     */
+    public static RouteNode createNodeFromStorage(String line) throws DukeException {
+        String[] details = line.split("\\|", 7);
+        switch (details[1].strip()) {
+        case "BUS":
+            return new BusStop(details[2].strip(), details[3].strip(), details[4].strip(),
+                    Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
+        case "MRT":
+            return new TrainStation(new ArrayList<String>(), details[3].strip(), details[4].strip(),
+                    Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
+        default:
+            throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
+        }
     }
 
     /**

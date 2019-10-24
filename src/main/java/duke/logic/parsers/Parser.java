@@ -19,9 +19,15 @@ import duke.logic.commands.LocationSearchCommand;
 import duke.logic.commands.MarkDoneCommand;
 import duke.logic.commands.PromptCommand;
 import duke.logic.commands.RecommendationsCommand;
+import duke.logic.commands.RouteAddCommand;
+import duke.logic.commands.RouteDeleteCommand;
+import duke.logic.commands.RouteEditCommand;
+import duke.logic.commands.RouteListCommand;
+import duke.logic.commands.RouteNodeDeleteCommand;
+import duke.logic.commands.RouteNodeEditCommand;
+import duke.logic.commands.RouteNodeListCommand;
 import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
-
 
 /**
  * Parser for commands entered by the user. It reads from standard input and
@@ -65,6 +71,27 @@ public class Parser {
             return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         case "map":
             return new StaticMapCommand(getWord(input));
+        case "routeAdd":
+            return new RouteAddCommand(getWord(input));
+        case "routeNodeAdd":
+            return ParserUtil.createRouteNodeAddCommand(getWord(input));
+        case "routeEdit":
+            return new RouteEditCommand(ParserUtil.getFirstIndex(getWord(input)), getEventIndexInList(1, input),
+                    getEventIndexInList(0, input));
+        case "routeNodeEdit":
+            return new RouteNodeEditCommand(ParserUtil.getFirstIndex(getWord(input)),
+                    ParserUtil.getSecondIndex(getWord(input)), ParserUtil.getFieldInList(3, 4, getWord(input)),
+                    ParserUtil.getFieldInList(4, 4, getWord(input)));
+        case "routeDelete":
+            return new RouteDeleteCommand(ParserUtil.getIndex(input));
+        case "routeNodeDelete":
+            return new RouteNodeDeleteCommand(ParserUtil.getFirstIndex(getWord(input)),
+                    ParserUtil.getSecondIndex(getWord(input)));
+        case "routeShow":
+            return new RouteListCommand(ParserUtil.getIndex(getWord(input)));
+        case "routeNodeShow":
+            return new RouteNodeListCommand(ParserUtil.getFirstIndex(getWord(input)),
+                    ParserUtil.getSecondIndex(getWord(input)));
         case "addThisList":
             return new AddSampleItineraryCommand();
         default:

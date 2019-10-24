@@ -3,11 +3,13 @@ package duke.storage;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.ParserStorageUtil;
+import duke.model.lists.RouteList;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.model.lists.TaskList;
 import duke.model.Task;
 import duke.logic.CreateMap;
 import duke.model.locations.BusStop;
+import duke.model.transports.Route;
 import duke.model.locations.TrainStation;
 import duke.model.planning.Agenda;
 import duke.model.planning.Itinerary;
@@ -33,13 +35,15 @@ import java.util.logging.Logger;
 public class Storage {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private TaskList tasks;
+    private RouteList routes;
     private CreateMap map;
     private static final String BUS_FILE_PATH = "/data/bus.txt";
     private static final String RECOMMENDATIONS_FILE_PATH = "/data/recommendations.txt";
     private static final String SAMPLE_RECOMMENDATIONS_FILE_PATH = "samples.txt";
     private static final String TRAIN_FILE_PATH = "/data/train.txt";
     private static final String EVENTS_FILE_PATH = "events.txt";
-    //private static final String ROUTES_FILE_PATH = "/data/routes.txt";
+    private static final String ROUTES_FILE_PATH = "routes.txt";
+
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
     //private List<Route> userRoutes;
@@ -49,10 +53,11 @@ public class Storage {
      */
     public Storage() {
         tasks = new TaskList();
+        routes = new RouteList();
         try {
             read();
         } catch (DukeException e) {
-            logger.log(Level.WARNING, "File path does not exists.");
+            logger.log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -63,8 +68,8 @@ public class Storage {
         readBus();
         readTrain();
         readEvent();
+        readRoutes();
     }
-
 
     /**
      * Reads train from filepath.
@@ -126,11 +131,42 @@ public class Storage {
     }
 
     /**
+     * Reads routes from filepath. Creates empty routes if file cannot be read.
+     */
+    private void readRoutes() throws DukeException {
+        List<Route> newRoutes = new ArrayList<>();
+        try {
+            File f = new File(ROUTES_FILE_PATH);
+            Scanner s = new Scanner(f);
+            Route newRoute = new Route(new ArrayList<>(), "", "");
+            while (s.hasNext()) {
+                String input = s.nextLine();
+                if (input.split("\\|", 2)[0].strip().equals("route")) {
+                    if (newRoute.getNumNodes() != 0) {
+                        newRoutes.add(newRoute);
+                    }
+                    newRoute = ParserStorageUtil.createRouteFromStorage(input);
+                } else {
+                    newRoute.addNode(ParserStorageUtil.createNodeFromStorage(input));
+                }
+            }
+            if (!newRoute.getName().equals("")) {
+                newRoutes.add(newRoute);
+            }
+
+            s.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException(Messages.FILE_NOT_FOUND);
+        }
+
+        routes.setRoutes(newRoutes);
+    }
+
+    /**
      * Returns Venues fetched from stored memory.
      *
      * @return The List of all Venues in Recommendations list.
      */
-
     public List<Agenda> readVenues(int numDays) {
         List<Agenda> recommendations = new ArrayList<>();
         Scanner s = new Scanner(getClass().getResourceAsStream(RECOMMENDATIONS_FILE_PATH));
@@ -154,6 +190,7 @@ public class Storage {
      */
     public void write() throws DukeException {
         writeEvents();
+        writeRoutes();
     }
 
     private void writeEvents() throws DukeException {
@@ -168,6 +205,20 @@ public class Storage {
         }
     }
 
+    private void writeRoutes() throws DukeException {
+        try {
+            FileWriter writer = new FileWriter(ROUTES_FILE_PATH);
+            String routesString = "";
+            for (Route route : routes) {
+                routesString += ParserStorageUtil.toRouteStorageString(route);
+            }
+            writer.write(routesString); 
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException(Messages.FILE_NOT_SAVE);
+        }
+    }
+  
     /**
      * Writes recommendations to filepath.
      */
@@ -222,5 +273,9 @@ public class Storage {
 
     public CreateMap getMap() {
         return this.map;
+    }
+
+    public RouteList getRoutes() {
+        return routes;
     }
 }

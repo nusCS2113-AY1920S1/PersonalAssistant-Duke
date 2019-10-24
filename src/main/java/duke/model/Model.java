@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.lists.EventList;
+import duke.model.lists.RouteList;
 import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
 import duke.model.planning.Agenda;
@@ -61,6 +62,11 @@ public interface Model {
      * @return List of Days
      */
     List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException;
+
+    /**
+     * Returns the list of Routes.
+     */
+    RouteList getRoutes();
 
     /**
      * Saves the Model data in storage.

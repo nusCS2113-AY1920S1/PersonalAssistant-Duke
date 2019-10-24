@@ -66,8 +66,8 @@ public class ApiParser {
             for (int i = 0; i < arr.size(); i++) {
                 BusStop busstop = new BusStop(
                         arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                        arr.get(i).getAsJsonObject().get("Description").getAsString(),
                         arr.get(i).getAsJsonObject().get("RoadName").getAsString(),
+                        arr.get(i).getAsJsonObject().get("Description").getAsString(),
                         arr.get(i).getAsJsonObject().get("Latitude").getAsDouble(),
                         arr.get(i).getAsJsonObject().get("Longitude").getAsDouble());
                 allBus.put(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(), busstop);
