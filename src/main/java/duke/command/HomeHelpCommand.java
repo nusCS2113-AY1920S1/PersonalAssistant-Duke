@@ -24,7 +24,6 @@ public class HomeHelpCommand extends ArgCommand {
         helpDetails = core.storage.loadHelpHashMap(filePath);
         if (getSwitchVals().containsKey("all")) {
             for (Map.Entry<String, HashMap<String, String>> mapElement : helpDetails.entrySet()) {
-                String key = mapElement.getKey();
                 HashMap<String,String> value = mapElement.getValue();
                 String helpInfo = "";
                 for (int i = 0; i < 3; i++) {
