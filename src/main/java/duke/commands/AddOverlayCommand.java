@@ -94,7 +94,9 @@ public class AddOverlayCommand extends Command<SongList> {
                 Song song = songList.getSongIndex(songIndex);
                 //System.out.println("adjjdsa1213");
                 ArrayList<Bar> barList = song.getBars();
-
+                int barIndexToBeCopiedTo = Integer.parseInt(sections[1]) - 1;
+                System.out.print("hellqellwe");
+                System.out.println(barIndexToBeCopiedTo);
                 Bar overlayingBarToBeCopied = barList.get(barIndexToAdd);
                 Bar overlayingBar = overlayingBarToBeCopied.copy(overlayingBarToBeCopied);
                 //Bar overlayingBar = barList.get(barIndexToAdd);
@@ -107,16 +109,21 @@ public class AddOverlayCommand extends Command<SongList> {
                     int i = 0;
                     while (iterator1.hasNext()) {
                         Bar temp = iterator1.next();
-                        combineBar(overlayingBar,temp);
+                        if(i>= barIndexToBeCopiedTo) {
+                            combineBar(overlayingBar, temp);
+                        }
+                        i+=1;
                     }
+
                 } else {
-                    //System.out.println("no repeat found");
-                    Bar temp = barList.get(0);
-                    //System.out.println("bar temp gotten");
+                    System.out.println("no repeat found");
+                    Bar temp = barList.get(barIndexToBeCopiedTo);
+
                     ArrayList<Chord> tempChordList = temp.getChords();
                     //System.out.println("here i after the chord from bar");
                     //Iterator<Chord> iterator1 = tempChordList.iterator();
                     combineBar(overlayingBar,temp);
+                    System.out.println("bar temp gotten");
                 }
                 //add the bar to the song in the songlist
                 storage.updateFile(songList);
