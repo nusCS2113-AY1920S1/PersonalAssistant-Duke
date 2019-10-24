@@ -40,7 +40,7 @@ public class Farmer {
 
     public Farmer() {
         this.money = 95;
-        this.level = 1.6;
+        this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm();

@@ -96,7 +96,7 @@ public class Level {
                 currentLevelState = objectiveResult.NOT_DONE;
             }
         }
-        getFeedback(farmer, currentLevelState);
+        //getFeedback(farmer, currentLevelState);
         return currentLevelState;
     }
 
