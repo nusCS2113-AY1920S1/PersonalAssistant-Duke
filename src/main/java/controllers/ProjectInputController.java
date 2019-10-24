@@ -7,6 +7,7 @@ import models.member.Member;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
+import util.AssignmentViewHelper;
 import util.ParserHelper;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
@@ -42,7 +43,13 @@ public class ProjectInputController implements IController {
      */
     public void onCommandReceived(String input) {
         DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
-        int projectNumber = Integer.parseInt(input);
+        int projectNumber;
+        try {
+            projectNumber = Integer.parseInt(input);
+        } catch (NumberFormatException err) {
+            this.consoleView.consolePrint("Input is not a number! Please input a proper project index!");
+            return;
+        }
         Project projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
         boolean isManagingAProject = true;

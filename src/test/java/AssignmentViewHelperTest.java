@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controllers.AssignmentViewHelper;
+import util.AssignmentViewHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import models.data.Project;
