@@ -163,20 +163,6 @@ public class Ui {
     }
 
     /**
-     * Prints message to show help for goal of the day.
-     */
-    public void showHelpGoal() {
-        System.out.println(
-            "Actions you can take now: \n"
-            + "Enter the date in this format: dd/MM/yyyy\n"
-            + "Press 1 to view goals of the day\n"
-            + "Press 2 to add a goal of the day\n"
-            + "Press 3 to delete a goal of the day\n"
-            + "Press 4 to clear all goals of the day\n"
-            + "Press 5 to quit goal of the day");
-    }
-
-    /**
      * Prints message asking for full command.
      */
     public void showFullCommand() {
