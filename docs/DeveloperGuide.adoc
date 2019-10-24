@@ -303,9 +303,12 @@ Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `ex
 The parameter `TYPE` can take four forms according to the user input: + 
 ****
 * `show cca`
-* `show `
+* `show core`
+* `show ge`
+* `show ue`
 ****
 
+Upon construction of the `ShowCommand` class, one variable is involved in the generation of the report are initiazlised, which refers to the `coreModList`. This variable is being used to store the strings of core modules taken by CEG students throughout the four years. The list of core modules are being taken from the NUS module requirements websites.
 
 
 === JsonWrapper
