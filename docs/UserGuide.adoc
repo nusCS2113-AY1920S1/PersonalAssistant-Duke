@@ -242,9 +242,9 @@ Format: `clear modules`
 Clears and empties the list of CCAs being added. +
 Format: `clear ccas`
 
-=== Rescheduling a CCA : `scheduleCca`
+=== Adding another schedule to a CCA : `scheduleCca`
 
-Reschedules a CCA which is already added. +
+Adds another schedule to a CCA which is already added, as the CCA may have multiple slots. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 
 ****
