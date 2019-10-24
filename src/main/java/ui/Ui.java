@@ -147,17 +147,13 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * prints the list of input commands entered by the user.
+     * @param list1 list of input commands entered by the user.
+     */
     public void printArrayList(ArrayList<String> list1) {
         for (int i = 0; i < list1.size(); i = i + 1) {
             System.out.println(list1.get(i));
-        }
-    }
-
-    public void printTxtfile(String storage) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(storage));
-        String line = null;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
         }
     }
 
