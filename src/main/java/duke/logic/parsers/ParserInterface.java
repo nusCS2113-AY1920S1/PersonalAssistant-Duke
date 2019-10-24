@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
  */
 public interface ParserInterface<T extends Command> {
 
-     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * Parses user input into a Command of type T and returns it.
      * @param userInput String input by user.

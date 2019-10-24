@@ -51,6 +51,7 @@ public class Main {
             ui.showMessage(e.getMessage());
         }
         try {
+            //TODO: Implement in different function
             storage.loadTransactions(transactions, user);
         } catch (DukeException e) {
             ui.showLoadinngTransactionError();
