@@ -19,6 +19,14 @@ import seedu.duke.ui.UI;
 public class Duke {
     private static UI ui = new UI();
     private static Model model = new Model();
+    private static Duke duke;
+
+    public static Duke getInstance() {
+        if (duke == null) {
+            duke = new Duke();
+        }
+        return duke;
+    }
 
     /**
      * Main function of the GUI program.

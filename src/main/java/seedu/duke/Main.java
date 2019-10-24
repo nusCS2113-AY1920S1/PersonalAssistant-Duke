@@ -23,9 +23,7 @@ public class Main extends Application {
             configureUi(stage, fxmlLoader, scene);
 
             stage.show();
-
-            Duke duke = new Duke();
-            duke.run();
+            Duke.getInstance().run();
         } catch (IOException e) {
             e.printStackTrace();
         }

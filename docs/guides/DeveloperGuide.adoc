@@ -1,0 +1,200 @@
+= Email Manager - Developer Guide
+
+By: F11-3
+
+. Introduction
+. https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[About the Developer Guide]
+. Setting up
+. Design
+4.1. Architecture +
+4.2. UI component +
+4.3. Logic component +
+4.4. Model component +
+4.5. Storage component +
+4.6. Common classes
+
+. Implementation
+. Documentation
+. Testing
+. Dev Ops
+. Appendices
+Appendix A: Suggested Programming Tasks to Get Started +
+Appendix B: Product Scope +
+Appendix C: User Stories +
+Appendix D: Use Cases +
+Appendix E: Non Functional Requirements +
+Appendix F: Glossary +
+Appendix G: Product Survey +
+Appendix H: Instructions for Manual Testing
+
+
+. *Introduction*
+
+Welcome to the Email Manager Developer Guide! +
+Email Manager is an email and task manager app, specifically designed for NUS School of Computing Students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
+
+. https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[*About the Developer Guide]*
+
+This developer guide provides detailed documentation on the implementation of all the various features Email Manager offers. It also suggests methods for you to modify and build upon it. +
+Throughout this developer guide, there will be various icons used, as shown below:
+|===
+|💡|This is a tip. Follow these tips to aid your development of Email Manager.
+
+|===
+
+|===
+|ℹ️|This is a note. Read these for additional information.
+
+|===
+
+|===
+|⚠️|This is a warning. Heed these warnings to avoid making mistakes that will hamper your development efforts.
+
+|===
+
+. *Setting up*
+
+This section shows how to set up Email Manager on your desktop and begin your development journey.
+
+. *Design*
+4.1. Architecture
+
+Figure 1. Architecture Diagram +
+The _Architecture Diagram_ given above explains the high-level design of the App. Given below is a quick overview of each component. +
+4.2. UI component +
+4.3. Logic component +
+4.4. Model component +
+4.5. Storage component +
+4.6. Common classes
+
+. *Implementation*
+
+. *Documentation*
+
+. *Testing*
+
+. *Dev Ops*
+
+
+*Appendix B: Product Scope*
+
+Target user profile:
+
+. National University of Singapore (NUS) School of Computing Students.
+. Busy computing student who is tired of receiving too many emails.
+. Busy computing student who has a lot of todos, deadlines and events.
+. Students who prefer desktop apps over other types.
+. Students who prefer typing over other means of input.
+
+Value proposition:
+
+. Helps busy computing student to manage their emails.
+. Helps busy computing student to manage their tasks and schedules.
+. Reminds busy computing students of their important emails and tasks.
+
+*Appendix C: User Stories*
+
+|===
+|*As a/an*|*I can*|*So that...*|*Priority*
+
+|active student|get emails filtered out on student-life activities|I can get the interesting event info immediately|Must-Have
+|advanced user|tag the emails|I can search for them efficiently|Must-Have
+|busy student|prioritize my tasks by setting priority levels|I can work on more pressing task first|Must-Have
+|busy student|assign emails with color codes according to priority|I can have a clear view of priorities|Must-Have
+|computing student|filter out different types of emails by specifying the type we want to filter|I can access the type of emails we want easily|Must-Have
+|computing student|sort email according to module code|I can easily access the information related to my project|Must-Have
+|computing student|set auto delete function to delete emails from a specific address|I can keep my mailbox clean|Must-Have
+|computing student|filter out emails by specifying a keyword|I can access the email I am interested easily|Must-Have
+|computing student|auto-categorize the emails|my mailbox is not messy|Must-Have
+|email sender|send emails with tags|recipients can filter emails easily|Must-Have
+|email user|get the list of unread emails|I can attend the unread easily|Must-Have
+|job hunting student|add alarm to job/internship application deadlines|I will not miss any important application deadlines|Must-Have
+|advanced user|advance search based on Regular expression|I can search with complex filters|Nice-To-Have
+|advanced user|use shorter versions of command and auto-completion of command|I can type faster command|Nice-To-Have
+|busy student|check my calendar to see if there are new added|I can keep track of my task efficiently|Nice-To-Have
+|busy student|highlight tasks that are due soon (<24 hours)|I can work on things that are more pressing|Nice-To-Have
+|busy student|set alarm to review some important emails|I can remember to attend to some important emails that I don't have time to handle now|Nice-To-Have
+|busy student|sync with NUSMODS to automatically set deadlines for homework|I can my deadlines or homework assigned to a specific time|Nice-To-Have
+|busy student|undo my previous command|recover to the previous state|Nice-To-Have
+|computing student|set important emails to reply by a specific date|I won't miss any important deadlines|Nice-To-Have
+|computing student|update my calendar if the email contains a date|I won't miss out important deadline|Nice-To-Have
+|computing student|download all uploaded files sent through emails|I can get the latest version of the file|Nice-To-Have
+|computing student|get connected with list on contacts on email|I can easily send to or find the email user|Nice-To-Have
+|computing student|filter out competition/hackathon emails|I won't miss any interesting competition|Nice-To-Have
+|computing student|find teams for competition/hackathon|I can quickly find teams after the competition email is sent out|Nice-To-Have
+|email user|send, forward or reply to email|I do not need to switch to email app after reading from this app|Nice-To-Have
+|email user|highlights links, action items|I can take action and quickly get to a website|Nice-To-Have
+|email user|automatically restore emails that were thrown to the junk mail by the system|I won't miss any important emails just because they are in the junk mail without me knowing it|Nice-To-Have
+|job hunting student|put away all outdated emails on internships/jobs|I can focus on the newest and valid ones|Nice-To-Have
+|job hunting student|get the jobs and internship emails sorted|I can find a job|Nice-To-Have
+|team member|tag emails with project stages|I can access emails from different stages of our project|Nice-To-Have
+|team member|sort all emails from my team members together|I can easily access the information related to my project|Nice-To-Have
+|team member|send progress tracking emails to other team members periodically|The team can be always updating each other's progress|Nice-To-Have
+|===
+
+
+
+*Appendix D: Use Cases*
+
+System: Email Manager +
+Actor: User (SoC student)
+
+*Use Case: Fetch email from account* +
+1. User starts system or enters the fetch command.. +
+2. System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved, combined with those from local storage and displayed. +
+Use case ends. +
+Extensions: +
+2a. System is unable to retrieve a valid account key, receives error from Microsoft. +
+2a1. Opens Microsoft portal in browser. +
+2a2. The user types in the username and password into Microsoft portal. +
+2a3. System saves the account key from Microsoft for future logins, downloads new emails, and displays email. +
+Use case ends.
+
+2b. System does not receive a response from Microsoft server. +
+	2b1. System notifies user of failure to log in and loads email from local file. +
+	Use case ends.
+
+*Use Case: Set priority to different keyword*
+
+. The user selects the “Keyword Priority” from the menu
+. System presents the user with all current priority settings
+. The user selects “New” from the menu
+. System displays a text box for input of keyword/regular expression.
+. The user types in the keyword/regular expression, selects the priority level of this keyword and selects “Save” and confirm
+
+*Use Case: View Email List with Priority*
+
+. The user selects “All Email” from the menu
+. The user selects “by Priority” from the menu
+. System displays all the priorities and keywords under each priority
+. The user selects the priority range that he/she wants to view
+. System leads the user back to the email list page
+
+	Extension: +
+3.1. The user can include or exclude a particular keyword from that priority
+
+*Use Case: Auto categorisation of emails*
+
+. User creates a new categorize name.
+. User specifies the keyword for this category.
+. The app will look through the emails and put the related-emails under the category.
+
+
+*Appendix E: Non-Functional Requirements*
+
+Email Manager meets the following non-functional requirements:
+
+* Security of user login credentials (user enters details directly into Microsoft portal)
+* Data Accessibility (efficient storage)should we take this out?
+* Time-out take this out as well?
+* Clean layout
+* Works with common operating systems
+
+
+*Appendix F: Glossary*
+
+*Appendix G: Product Survey*
+
+*Appendix H: Instructions for Manual Testing*
+
+
