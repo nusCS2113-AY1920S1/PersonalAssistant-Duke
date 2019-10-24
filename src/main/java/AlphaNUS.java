@@ -36,7 +36,7 @@ public class AlphaNUS {
         tasklist = new TaskList();
         fund = new Fund(); //TODO the fund need to be stored in the text file.
         managermap = new HashMap<String, Payee>();
-        commandList = new ArrayList<String>();
+        ArrayList<String> commandList = storage.load();
         projectmap = new HashMap<String, Project>();//To replace managermap in main class
         run();
     }
@@ -50,7 +50,7 @@ public class AlphaNUS {
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, fund, storage, managermap, commandList, projectmap);
+            isExit = Parser.parse(input, tasklist, ui, fund, storage, commandList, managermap, projectmap);
         }
     }
 
@@ -59,7 +59,6 @@ public class AlphaNUS {
      * @param args Unused.
      */
     public static void main(String[] args) {
-        new AlphaNUS("..data/AlphaNUS.txt").run();
+        new AlphaNUS("data/duke.txt").run();
     }
-
 }
