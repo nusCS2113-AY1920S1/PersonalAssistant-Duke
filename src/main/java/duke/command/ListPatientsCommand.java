@@ -10,7 +10,7 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class ListPatientsCommand extends Command {
+public class ListPatientsCommand implements Command {
 
     public ListPatientsCommand() {
         super();

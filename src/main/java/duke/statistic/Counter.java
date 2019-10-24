@@ -11,9 +11,7 @@ import java.util.Map;
 //@@author qjie7
 
 /**
- * This is a Counter class that mainly used for counting purpose
- * which can then to be used for relevant application.
- *
+ * This is a Counter class that mainly used for counting purpose.
  * @author QIAN JIE
  * @version 1.3
  */

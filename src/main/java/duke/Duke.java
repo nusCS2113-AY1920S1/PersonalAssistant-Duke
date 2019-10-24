@@ -34,7 +34,7 @@ public class Duke {
     /**
      * A Ui object that deals with interactions with the user.
      */
-    private Ui ui = Ui.getUi();
+    private static final Ui ui = Ui.getUi();
 
     /**
      * Constructs a Duke object with a relative file path.

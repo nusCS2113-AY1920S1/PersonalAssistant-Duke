@@ -14,7 +14,9 @@ import duke.task.TaskManager;
 
 import java.util.ArrayList;
 
-public class DeleteTaskCommand extends Command {
+public class DeleteTaskCommand implements Command {
+    private int id;
+
     private String deletedTaskInfo;
     private Task taskToBeDeleted;
 

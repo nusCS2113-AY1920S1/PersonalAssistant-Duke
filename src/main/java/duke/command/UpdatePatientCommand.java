@@ -10,7 +10,7 @@ import duke.relation.PatientTaskList;
 import duke.storage.StorageManager;
 import duke.task.TaskManager;
 
-public class UpdatePatientCommand extends Command {
+public class UpdatePatientCommand implements Command {
 
     private String[] command;
 
