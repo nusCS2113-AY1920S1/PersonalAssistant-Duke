@@ -137,7 +137,8 @@ class ProjectInputControllerTest {
             projectInputController.projectAddTask(project, simulatedUserInput);
 
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
             expectedOutput = "1. Documentation for product | Priority: 2 | Due: 21 Sep 2019"
@@ -169,7 +170,8 @@ class ProjectInputControllerTest {
                         + "-r do nothing -r do another thing";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
             expectedOutput = "1. No documentation | Priority: 5 | Due: 22 Sep 2019"
@@ -180,7 +182,8 @@ class ProjectInputControllerTest {
             simulatedUserInput = "edit task 1 -p 5 -t Infinity War -d 22/09/2019 -c 40 -s todo";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
 
@@ -192,7 +195,8 @@ class ProjectInputControllerTest {
             simulatedUserInput = "edit task 1 -t Infinity War -p 1 -c 30";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
             expectedOutput = "1. Infinity War | Priority: 1 | Due: 22 Sep 2019"
@@ -203,7 +207,8 @@ class ProjectInputControllerTest {
             simulatedUserInput = "edit task 1 -c 20 -p 2";
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
             expectedOutput = "1. Infinity War | Priority: 2 | Due: 22 Sep 2019"
@@ -215,7 +220,8 @@ class ProjectInputControllerTest {
             dueDate = dateTimeHelper.formatDate("12/12/2020");
             projectInputController.projectEditTask(project,simulatedUserInput);
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
             expectedOutput = "1. End Game | Priority: 6 | Due: 12 Dec 2020"
@@ -250,7 +256,8 @@ class ProjectInputControllerTest {
             Date dueDate1 = dateTimeHelper.formatDate("12/12/2021");
             Date dueDate2 = dateTimeHelper.formatDate("1/1/2020");
             actualOutput = "";
-            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+            for (String message : project.getTasks().getAllTaskDetails(
+                    project.getTasksAndAssignedMembers()).toArray(new String[0])) {
                 actualOutput += message;
             }
             expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
@@ -341,7 +348,8 @@ class ProjectInputControllerTest {
         simulatedUserInput = "delete task 1";
         projectInputController.projectDeleteTask(project, simulatedUserInput);
         actualOutput = "";
-        for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+        for (String message : project.getTasks().getAllTaskDetails(
+                project.getTasksAndAssignedMembers()).toArray(new String[0])) {
             actualOutput += message;
         }
         expectedOutput = "";
