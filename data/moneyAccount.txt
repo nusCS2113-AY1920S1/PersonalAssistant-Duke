@@ -23,6 +23,13 @@ EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 2.0 @ shit  @ food  @ 22/10/2019
+SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ dood&0 ! dood2and&0
+SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ dood&0 ! dood2&0
+SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ &0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ gary&0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ dabboy&0 ! bros&0
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH

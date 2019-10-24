@@ -4,12 +4,10 @@ import controlpanel.MoneyStorage;
 import money.Account;
 import controlpanel.DukeException;
 import controlpanel.Ui;
-;import controlpanel.Ui;
 import money.Income;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 /**
  * This command allows users to check the income
@@ -25,16 +23,22 @@ public class ViewPastMonthIncome extends MoneyCommand {
      * @param command Check command inputted from user
      */
     //@@author chengweixuan
-    public ViewPastMonthIncome(String command) {
+    public ViewPastMonthIncome(String command) throws DukeException {
         if (command.equals("list month")) {
             LocalDate currDate = LocalDate.now();
             month = currDate.getMonthValue();
             year = currDate.getYear();
         } else {
-            String inputString = command.replaceFirst("check income ", "");
-            String[] splitStr = inputString.split(" ");
-            month = Integer.parseInt(splitStr[0]);
-            year = Integer.parseInt(splitStr[1]);
+            try {
+                String inputString = command.replaceFirst("check income ", "");
+                String[] splitStr = inputString.split(" ", 2);
+                month = Integer.parseInt(splitStr[0]);
+                year = Integer.parseInt(splitStr[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please include the year!");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please input in the format: check income <month> <year>\n");
+            }
         }
     }
 
@@ -120,7 +124,6 @@ public class ViewPastMonthIncome extends MoneyCommand {
         ui.appendToOutput("Got it, list will be printed in the other pane!\n");
         ui.appendToGraphContainer("Total income for " + getMonthName(month) + " of " + year + " : $");
         ui.appendToGraphContainer(totalMonthIncome + "\n");
-
     }
 
     @Override
