@@ -65,7 +65,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                     data.add(new String[]{"Month", monthFormatted});
                     data.add(new String[]{"Budget Left", "$" + budgetLeft});
                     data.add(new String[]{"Total Spent", "$" + totalSpent});
-                    data.add(new String[]{"S/N", "Description", "Date", "Amount", "Category", "Recur", "Frequency"});
+                    data.add(new String[]{"S/N", "Description", "Amount", "Date", "Category", "Recur", "Frequency"});
                     for (Expense e : expenseList.getExpenseList()) {
                         String indexOutput = Integer.toString(index);
                         String description = e.getDescription();
