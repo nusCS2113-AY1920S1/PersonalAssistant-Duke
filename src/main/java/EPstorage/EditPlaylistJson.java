@@ -47,8 +47,8 @@ public class EditPlaylistJson {
         File newFile = new File("EPdata/tempPlaylists.json");
         ArrayList<Playlist> playlists = load();
         ArrayList<Playlist> newPlaylists = new ArrayList<>(10);
-        for (Playlist log : playlists){
-            if (!log.getListName().equals(playlistName)){
+        for (Playlist log : playlists) {
+            if (!log.getListName().equals(playlistName)) {
                 newPlaylists.add(log);
             }
         }

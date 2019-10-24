@@ -132,15 +132,14 @@ public class CommandParser {
                     CommandStack.pushCmd(bbc);
                 }
                 break;
-//            case watchlist:
-//                System.out.println("watchlist");
-//                WatchlistCommand wlc = new WatchlistCommand(UIController);
-//                wlc.initCommand(CommandArr , Command);
-//
-//                if (command.isValidCommand()) {
-//                    CommandStack.pushCmd(wlc);
-//                }
-//                break;
+            case watchlist:
+               System.out.println("watchlist");
+                WatchlistCommand wlc = new WatchlistCommand(UIController);
+                wlc.initCommand(CommandArr , Command);
+                if (command.isValidCommand()) {
+                    CommandStack.pushCmd(wlc);
+                }
+                break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(CommandArr , COMMANDKEYS.none , UIController);
                 ((MovieHandler) UIController).setFeedbackText("Sorry we are unable to process your command. Please check help for more details!");
@@ -251,16 +250,14 @@ public class CommandParser {
                 }
 
                 break;
-//            case "watchlist":
-//                System.out.println("watchlist");
-//                WatchlistCommand wlc = new WatchlistCommand(uicontroller);
-//                wlc.initCommand(commandArr , command);
-//
-//                if (wlc.initCommand(commandArr , command)) {
-//                    CommandStack.pushCmd(wlc);
-//                }
-//
-//                break;
+           case "watchlist":
+                System.out.println("watchlist");
+                WatchlistCommand wlc = new WatchlistCommand(uicontroller);
+               wlc.initCommand(commandArr , command);
+                if (wlc.initCommand(commandArr , command)) {
+                    CommandStack.pushCmd(wlc);
+                }
+                break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none, uicontroller);
                 if (pair.getSubRootCommand() == COMMANDKEYS.none) {

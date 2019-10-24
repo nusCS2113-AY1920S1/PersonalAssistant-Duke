@@ -3,6 +3,7 @@ package MovieUI;
 import Contexts.CommandContext;
 import Contexts.ContextHelper;
 import Contexts.SearchResultContext;
+import EPparser.CommandParser;
 import EPstorage.*;
 import Execution.CommandStack;
 import javafx.application.Platform;
@@ -15,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -26,20 +26,13 @@ import javafx.scene.text.TextFlow;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
-import EPparser.CommandParser;
 import object.PastCommandStructure;
-import org.apache.commons.lang3.ObjectUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import retractCommands.PastUserCommands;
 import sort.EditSortProfileJson;
 import sort.SortProfile;
 import ui.Ui;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -89,6 +82,24 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML
     private AnchorPane movieAnchorPane;
 
+    @FXML
+    private Label userPlaylistsLabel;
+
+
+    private boolean isViewBack = false;
+    private boolean isViewBackMoreInfo = false;
+
+    public boolean isViewBackMoreInfo() {
+        return isViewBackMoreInfo;
+    }
+
+    public void setViewBackMoreInfo(boolean viewBackMoreInfo) {
+        isViewBackMoreInfo = viewBackMoreInfo;
+    }
+
+    public void setViewBack(boolean viewBack) {
+        isViewBack = viewBack;
+    }
 
     private AnchorPane anchorPane;
     private static UserProfile userProfile;
@@ -190,6 +201,7 @@ public class MovieHandler extends Controller implements RequestListener {
         sortAlphaOrderLabel.setText(sortProfile.getAlphaOrder());
         sortLatestDateLabel.setText(sortProfile.getLatestDatesOrder());
         sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
+        userPlaylistsLabel.setText(Integer.toString(playlists.size()));
     }
 
 
@@ -312,15 +324,47 @@ public class MovieHandler extends Controller implements RequestListener {
         System.out.println("cleared");
         for (MovieInfoObject mf : MoviesFinal) {
             //mMovies.add(mf);
-            //System.out.println("yaaz" + mf.getTitle());
+            System.out.println("yaaz" + mf.getTitle());
         }
         //System.out.print("Request rsdceceived");
         SearchResultContext.addResults(MoviesFinal);
         mMovies = MoviesFinal;
 
-        //System.out.println("this is size: " + mMovies.size());
-        mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+        if (isViewBackMoreInfo) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    // Update UI here.
+            PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
+                    getPastCommands().getMap().size() - 2);
+            String command = pastCommandStructure.getQuery();
+            String[] getStrips = command.split(" ");
+            int num = 0;
+            if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
+                num = Integer.parseInt(getStrips[2]);
+            }
+            showMovie(num);
+            isViewBackMoreInfo = false;
+                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                        getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                        PastUserCommands.update(pastCommands);
+                        isViewBack = false;
+                }
+            });
+
+
+        } else {
+            //System.out.println("this is size: " + mMovies.size());
+            mImagesLoadingProgress = new double[mMovies.size()];
+            Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+            if (isViewBack == true) {
+                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                PastUserCommands.update(pastCommands);
+                isViewBack = false;
+            }
+        }
+
 
     }
 
@@ -444,7 +488,27 @@ public class MovieHandler extends Controller implements RequestListener {
         if (currentTotalProgress >= mMovies.size()) {
             mProgressBar.setVisible(false);
             mStatusLabel.setText("");
+            if (isViewBack) {
+                PastCommandStructure pastCommandStructure = getPastCommands().getMap().get(
+                        getPastCommands().getMap().size() - 2);
+                String command = pastCommandStructure.getQuery();
+                String[] getStrips = command.split(" ");
+                int num = 0;
+                if (getPastCommands().getMap().get(getPastCommands().getMap().size() - 2).getQuery().startsWith("view entry")) {
+                    num = Integer.parseInt(getStrips[2]);
+                }
+                showMovie(num);
+                isViewBack = false;
+                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                getPastCommands().getMap().remove(getPastCommands().getMap().size() - 1);
+                PastUserCommands.update(pastCommands);
+
+            }
         }
+    }
+
+    public boolean isViewBack() {
+        return isViewBack;
     }
 
     public void showMovie(int num) {
