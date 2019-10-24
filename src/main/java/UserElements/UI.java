@@ -14,24 +14,24 @@ import java.util.Queue;
  */
 public class UI {
     private static String lineSeparation = "____________________________________________________________\n";
-    
-    /** 
+
+    /**
      * Comparator function codes
      */
-	private static final int EQUAL = 0;
-	private static final int GREATER_THAN = 1;
-	private static final int SMALLER_THAN = 2;
-	
-	/**
-	 * Filter type codes
-	 */
+    private static final int EQUAL = 0;
+    private static final int GREATER_THAN = 1;
+    private static final int SMALLER_THAN = 2;
+
+    /**
+     * Filter type codes
+     */
     private static final int DATE = 0;
     private static final int TYPE = 1;
-    
+
     /**
      * prints welcome message and instructions for use.
      */
-    public void welcome(EventList Events){
+    public void welcome(EventList Events) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -52,18 +52,18 @@ public class UI {
 //        printReminder(Events);
         System.out.println("Enter a command:");
     }
-    
-    
+
     /**
      * Obtains the current date and prints the events to be completed within the next
      * three days as a reminder.
+     *
      * @param events the EventList used in the Duke function.
      */
 
     public void printReminder(EventList events) {
-    	System.out.print(lineSeparation);
-    	System.out.print(events.getReminder());
-    	System.out.print(lineSeparation);
+        System.out.print(lineSeparation);
+        System.out.print(events.getReminder());
+        System.out.print(lineSeparation);
     }
 
     /**
@@ -127,34 +127,6 @@ public class UI {
                 "<venue>/<teachers or assessors>/<pieces to practice>/<performers>. For non-applicable categories please input 'NA'.");
     }
 
-    public void eventDetailsAdded(Event detailedEvent) {
-        try {
-            System.out.println(lineSeparation + "Got it. I've added the details to this event:");
-            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
-                    detailedEvent.getDescription() + " START: " + detailedEvent.getStartDate().getFormattedDateString() +
-                    " END: " + detailedEvent.getEndDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
-            System.out.print(lineSeparation);
-        } catch (NullPointerException e) {
-            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
-                    detailedEvent.getDescription() + " BY: " + detailedEvent.getStartDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
-            System.out.print(lineSeparation);
-        }
-    }
-
-    public void printEventDetails(Event detailedEvent) {
-        try {
-            System.out.println(lineSeparation + "Here are the details for the event:");
-            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
-                    detailedEvent.getDescription() + " START: " + detailedEvent.getStartDate().getFormattedDateString() +
-                    " END: " + detailedEvent.getEndDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
-            System.out.print(lineSeparation);
-        } catch (NullPointerException e) {
-            System.out.println("[" + detailedEvent.getDoneSymbol() + "][" + detailedEvent.getType() + "] " +
-                    detailedEvent.getDescription() + " BY: " + detailedEvent.getStartDate().getFormattedDateString() + "\n" + detailedEvent.getDetails());
-            System.out.print(lineSeparation);
-        }
-    }
-
     /**
      * prints message when a event is marked as completed
      *
@@ -184,7 +156,7 @@ public class UI {
      * prints error message if no events are found
      *
      * @param allFoundEvents string containing all the events found, separated by newline character
-     * @param found         boolean signifying whether or not any events were found
+     * @param found          boolean signifying whether or not any events were found
      */
     public void printFoundEvents(String allFoundEvents, boolean found) {
         if (found) {
@@ -208,6 +180,14 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void rescheduleFormatWrong() {
+        System.out.print(lineSeparation);
+        System.out.println("Please enter command in the following format:\n" +
+            "reschedule <taskIndex> dd-MM-yyyy HHmm HHmm\n" +
+                "Please ensure that the taskIndex is a valid integer as well!");
+        System.out.print(lineSeparation);
+    }
+
     /**
      * prints message if no event description is found when adding a new event to the list
      */
@@ -217,12 +197,17 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    public void eventEndsBeforeStart() {
+        System.out.print(lineSeparation);
+        System.out.println("The event you added ends before it starts! Please try again.");
+        System.out.print(lineSeparation);
+    }
     /**
      * prints message when event index from input is not an integer
      */
     public void notAnInteger() {
         System.out.print(lineSeparation);
-        System.out.println("That is not an integer! Please enter the index of the event you intend to alter.");
+        System.out.println("That is not a valid integer! Please enter the index of the event you intend to alter.");
         System.out.print(lineSeparation);
     }
 
@@ -231,7 +216,8 @@ public class UI {
      */
     public void eventFormatWrong() {
         System.out.print(lineSeparation);
-        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm' or 'dd-MM-yyyy'.");
+        System.out.println("Please enter the date in the format 'dd-MM-yyyy HHmm HHmm' or 'dd-MM-yyyy'.\n" +
+                "First time entered is start time, second time entered is end time.");
         System.out.print(lineSeparation);
     }
 
@@ -256,15 +242,6 @@ public class UI {
     }
 
     /**
-     * prints message when format of input is wrong for adding new recurring events
-     */
-    public void recursionFormatWrong() {
-        System.out.print(lineSeparation);
-        System.out.println("Please enter the period of the recurring event (in days) after /every.");
-        System.out.print(lineSeparation);
-    }
-
-    /**
      * prints next 3 days that are free
      *
      * @param freeDays queue of free days of type DateObj
@@ -272,7 +249,7 @@ public class UI {
     public void printFreeDays(Queue<String> freeDays) {
         System.out.print(lineSeparation);
         System.out.println("Here are the next 3 free days!");
-        for(int i=0; i<=freeDays.size(); i++) {
+        for (int i = 0; i <= freeDays.size(); i++) {
             System.out.println(freeDays.poll());
         }
         System.out.print(lineSeparation);
@@ -298,7 +275,7 @@ public class UI {
     /**
      * Prints message to show success of edit command.
      *
-     * @param eventIndex The index of the edited event.
+     * @param eventIndex  The index of the edited event.
      * @param eventEdited The event after edit.
      */
     public void printEditedEvent(int eventIndex, Event eventEdited) {
@@ -313,5 +290,12 @@ public class UI {
                     eventEdited.getDescription() + " BY: " + eventEdited.getStartDate().getFormattedDateString());
             System.out.print(lineSeparation);
         }
+    }
+
+    public void printCalendar(String calendarInfo) {
+        System.out.print(lineSeparation);
+        System.out.println("Here is the calendar of the next 7 days!");
+        System.out.println(calendarInfo);
+        System.out.println("\nEnter a command:");
     }
 }

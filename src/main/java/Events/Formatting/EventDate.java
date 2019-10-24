@@ -41,7 +41,7 @@ public class EventDate {
     /**
      * Takes in an identifier and performs the corresponding actions.
      *
-     * @param identifier
+     * @param identifier identify the date information is string to date or date to string
      */
     private void formatDate(int identifier) {
         if (identifier == STRING_TO_DATE) { //convert user input to java date and store both.
