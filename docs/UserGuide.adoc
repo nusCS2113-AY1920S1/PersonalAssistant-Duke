@@ -363,15 +363,15 @@ To find out which transaction to edit, use the `/list` or `/find` function to fi
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 2 /desc Uniwlo Shirt`
 
-Changes expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
+Edits expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
-Changes expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
+Edits expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
 
 * `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
 
-Changes expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
+Edits expenditure `5` that was charged to `JunBank Savings Account` to an amount of $`3.50`.
 
 ===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
 
@@ -428,12 +428,12 @@ To find which to deposit to edit, use the `/list` or `/find` function to find th
 
 * `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
 
-Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
+Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
 `FREELANCE WORK`, setting a new amount of $`270` and a new date of `29/11/2019`
 
 * `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
 
-Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
+Edits the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
 
 ===== Deleting deposit for savings bank account `/delete /deposit`
 
@@ -533,7 +533,7 @@ of $`10000` inside that you can start investing with.
 
 ===== Editing investment bank account `/edit /investment`
 
-Want changes made to your investment account? Here is how you can do it!
+Changes made to your investment account? Here is how you can do it!
 
 *Command Syntax*
 
@@ -548,15 +548,15 @@ At least one of `/newname`, `/amount` must be used.
 
 * `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account`
 
-Changes the name of the account from `DBB Vickers Account` to `OBOB Securities Account`.
+Edits the name of the account from `DBB Vickers Account` to `OBOB Securities Account`.
 
 * `/edit /investment /name DBB Vickers Account /amount 50000`
 
-Changes the amount in `DBB Vickers Account` to $`50 000`.
+Edits the amount in `DBB Vickers Account` to $`50 000`.
 
 * `/edit /investment /name DBB Vickers Account /newname OBOB Securities Account /amount 50000`
 
-Changes the name of the account from `DBB Vickers Account` to `OBOB Securities Account` and the amount in the account
+Edits the name of the account from `DBB Vickers Account` to `OBOB Securities Account` and the amount in the account
 to $`50 000`.
 
 ===== Deleting investment bank Account `/delete /investment`
@@ -621,7 +621,7 @@ credited will not be edited.
 
 * `/edit /bonds /from DBB Vickers Account /name June SSB /rate 1.98`
 
-Changes the bond named `June SSB` charged to `DBB Vickers Account` with a new interest rate of `1.98`%.
+Edits the bond named `June SSB` charged to `DBB Vickers Account` with a new interest rate of `1.98`%.
 
 ===== Deleting bonds `/delete /bonds`
 Sold your bonds? Delete it from *OwlMoney*!
@@ -742,15 +742,15 @@ At least one of `/newname`, `/amount` or `/rebate` must be used.
 
 * `/edit /card /name POBB Tomorrow Card /newname JunBank GoodVibes Card`
 
-Changes the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`.
+Edits the credit card name from `POBB Tomorrow Card` to `JunBank GoodVibes Card`.
 
 * `/edit /card /name POBB Tomorrow Card /amount 10 000`
 
-Changes the credit limit of `POBB Tomorrow Card` to $`10 000`.
+Edits the credit limit of `POBB Tomorrow Card` to $`10 000`.
 
 * `/edit /card /name POBB Tomorrow Card /rebate 2.05`
 
-Changes the cashback rate of `POBB Tomorrow Card` to `2.05`%.
+Edits the cashback rate of `POBB Tomorrow Card` to `2.05`%.
 
 ===== Deleting credit card `/delete /card`
 
@@ -809,11 +809,11 @@ To find out which transaction to edit, use the `/list` or `/find` function to fi
 
 * `/edit /cardexpenditure /from MYCARD /transno 2 /desc Uniwlo Shirt`
 
-Changes expenditure `2` that was charged to `MYCARD` to a new description of `Uniwlo Shirt`.
+Edits expenditure `2` that was charged to `MYCARD` to a new description of `Uniwlo Shirt`.
 
 * `/edit /cardexpenditure /from MYCARD /transno 5 /amount 3.50`
 
-Changes expenditure `5` that was charged to `MYCARD` to an amount of $`3.50`
+Edits expenditure `5` that was charged to `MYCARD` to an amount of $`3.50`
 
 ===== Deleting expenditures for credit cards `/cardexpenditure`
 
@@ -956,7 +956,7 @@ Thought of a new profile name? Change it now!
 
 `/edit /profile /newname JUNNY`
 
-Changes the profile name to JUNNY
+Edits the profile name to JUNNY
 
 === Utility Commands
 
@@ -1239,7 +1239,7 @@ At least one of `/desc`, `/category`, `/amount` must be used.
 
 * `/edit /recurbankexp /from JunBank Savings Account /transno 2 /desc Telco Bills /amount 119.90`
 
-Changes recurring expenditure number `2` description to `Telco Bills` to charge $`119.90`.
+Edits recurring expenditure number `2` description to `Telco Bills` to charge $`119.90`.
 
 ==== Deleting recurring expenditure `/delete /recurbankexp`
 
