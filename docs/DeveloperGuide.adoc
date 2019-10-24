@@ -563,16 +563,34 @@ You should only modify them if you need greater control over the site's layout t
 The SE-EDU team does not provide support for modified template files.
 ====
 
+[[Testing]]
 == Testing
+
 === Running Tests
-To be added.
 
-=== Types of Tests
-To be added.
+There are *2* ways to run tests.
 
-=== Troubleshooting Tests
-To be added.
+*Method 1: Using IntelliJ JUnit test runner*
 
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+=== Types of tests
+
+We have two types of tests:
+
+.. _System Tests_ that test the *OwlMoney* by running base level automated tests on https://www.appveyor.com/[AppVeyor].
+.. _Unit tests_ that test the individual components. These are in `test.java` package.
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `owlmoney.model`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `owlmoney.model.bond.BondListTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `owlmoney.model.bond.BondListTest`
 
 == Dev Ops
 
