@@ -57,7 +57,7 @@ Given below is a quick overview of each component.
 This section describes some noteworthy details on how certain features in Email Manager are implemented.
 
 === Natural dates Support
-image:emailmanager.png[]
+image: emailmanager.png[]
 
 ==== Rationale
 
