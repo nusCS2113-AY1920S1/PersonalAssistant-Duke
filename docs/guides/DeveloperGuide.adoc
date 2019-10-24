@@ -68,9 +68,48 @@ There are three main types of tasks that Email Manager works with: `todo`, `dead
 
 ==== Current Implementation
 
-*Natural Dates Support*
+===== Natural Dates Support
 
-*Updating of Tags*
+The email manager aims to help computing students handle their tasks efficiently. Therefore, one of its main
+goals is to speed up the process at which students enter their task details so that their task can be added
+into the task list quickly. The benefits of having this Natural Dates support are:
+
+* Reduce the time and effort needed to key in the date and time for deadline and event tasks.
+
+The Natural Dates support is facilitated by two main classes, namely `TaskCommandParseHelper` and `TaskParseNaturalDateHelper`.
+
+`TaskParseNaturalDateHelper` is an element of the will retrieve the parsed time string from
+`TaskCommandParseHelper` and convert
+the extracted string to LocalDateTime format. It implements the following operations:
+
+* `TaskParseNaturalDateHelper#isCorrectNaturalDate(input)` - Checks if input contains natural date format.
+* `TaskParseNaturalDateHelper#convertNaturalDate(day, time)` - Converts string day and time to local date in
+LocalTimeDate format.
+* `TaskParseNaturalDateHelper#getDate(input)` - Returns a date and time(if applicable) after checking if
+natural date input contains a time element.
+
+`TaskCommandParseHelper` is an element of the Command component. It handles all parsing of inputs when the
+input type is set to `task`.
+
+Given below is an example usage scenario and how Natural Dates Support behaves at each step.
+
+Step 1: The user launches the application. The input type is currently in `email` mode. The user wishes
+to add a task and key in `flip` to switch input type to `task` mode.
+
+Step 2: The user executes `deadline homework -time Mon 1200` to add a new deadline task.
+
+* `TaskCommandParseHelper` takes in the command, parses and extracts the date and time information of the task
+ and saves it inside a list of type `ArrayList<Command.Option>`.
+* The extracted date and time will go through `TaskParseNaturalDateHelper#getDate()`, which calls the relevant
+ methods in the class to process the date and time.
+
+Step 3: The user wishes to update the date and time for the task above, let the task above be task 1 in the
+task list. The user executes `update 1 -time Tue` to change the task date from Mon to Tue.
+
+* `TaskParseNaturalDateHelper` will be called to process the time information and update the task accordingly.
+ When no time is entered, the time is set to 0000 (HHmm).
+
+===== Updating of Tags
 
 Tasks have a variety of attributes that a user may want to add or change. The current attributes that
 can be modified are: `time`, `doafter`, `priority` and `tags`.
@@ -87,9 +126,9 @@ method in `TaskList`.
 
 Step 3: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
 
-== Implementation
+=== Email Management
 
-=== Email Auto Parsing
+==== Email Auto Parsing
 
 The emails fetched or stored locally will be automatically parsed to extract important information for
 tagging, task creation and reminder purposes. The parsing consists of two stages, the *format parsing* and
@@ -97,7 +136,7 @@ tagging, task creation and reminder purposes. The parsing consists of two stages
 the raw string fetched from the server or stored in local file. The content parsing is to parse the keyword
 included all components of email.
 
-==== Email Format Parsing
+===== Email Format Parsing
 .Email Format Parsing
 [#img-email-format-parsing]
 [caption="Figure N: "]
@@ -118,7 +157,7 @@ json and instantiate an `Email` object to be added to the `emailList` created ea
 
 This process repeats until all the email information in the response is processed.
 
-==== Email Content Parsing
+===== Email Content Parsing
 .Email Content Parsing
 [#img-email-content-parsing]
 [caption="Figure N+1: "]
