@@ -1,87 +1,103 @@
 package duke.model;
 
+import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class PlanQuestionBank {
-    private int curr;
-    private List<String> questionList;
-    private List<String> expectedAnswerType;
+    private Map<Integer, PlanQuestion> questionList;
 
-    public PlanQuestionBank(){
-        questionList = new ArrayList<>();
-        expectedAnswerType = new ArrayList<>();
-        questionList.add("Are you a student from NUS?");
-        expectedAnswerType.add("bool");
-        curr = 0;
+    private static final Logger logger = LogsCenter.getLogger(PlanQuestionBank.class);
+
+
+    private static final String[] BOOL_ANSWERS = {"YES", "Y", "NO", "N"};
+    private static final String[] BOOL_ATTRIBUTE_VALUES = {"TRUE", "TRUE", "FALSE", "FALSE"};
+
+    /**
+     * Constructor of the question bank, developers should add new questions inside here.
+     * @throws DukeException on Error constructing the QuestionBank
+     */
+    public PlanQuestionBank() throws DukeException {
+        this.questionList = new HashMap<>();
+        PlanQuestion question1 = new PlanQuestion(1,
+                "Are you a student from NUS? <yes/no>",
+                BOOL_ANSWERS,
+                BOOL_ATTRIBUTE_VALUES,
+                "NUS_STUDENT");
+        question1.addNeighbouring("TRUE", 2);
+        questionList.put(1, question1);
+
+        PlanQuestion question2 = new PlanQuestion(2,
+                "Do you live on campus? <yes/no>",
+                BOOL_ANSWERS,
+                BOOL_ATTRIBUTE_VALUES,
+                "CAMPUS_LIFE");
+        question2.addNeighbouring("FALSE", 3);
+        question2.addNeighbouring("FALSE", 4);
+        question2.addNeighbouring("FALSE", 5);
+        questionList.put(2, question2);
+
+        questionList.put(3, new PlanQuestion(3,
+                "How many days of the week do you travel go to school? <1 - 7>",
+                new String[]{"0", "1", "2", "3", "4", "5", "6", "7"},
+                new String[]{"0", "1", "2", "3", "4", "5", "6", "7"},
+                "TRAVEL_DAYS"));
+
+        questionList.put(4, new PlanQuestion(4,
+                "How do you go to school? <bus, mrt, both>",
+                new String[]{"BUS", "MRT", "BOTH"},
+                new String[]{"BUS", "MRT", "BOTH"},
+                "TRANSPORT_METHOD"));
+
+        questionList.put(5, new PlanQuestion(5,
+                "How much does your trip cost each way?",
+                new String[]{"DOUBLE"},
+                new String[]{"DOUBLE"},
+                "TRIP_COST"));
+
+
     }
 
-    public Reply getReply(String input, Map<String,String> attributes){
-        if(expectedAnswerType.get(curr) == "bool"){
-            try {
-                parseBool(input);
-                attributes.put("NUS_STUDENT", "TRUE");
-                return new Reply("Noted", attributes);
-            } catch (DukeException e) {
-                return new Reply(e.getMessage(), attributes);
+    /**
+     * Gets a Queue of questions to ask a user in PlanBot.
+     * @param knownAttributes Map of String to String of what we already know about the users
+     * @return a Queue of questions to ask the user
+     */
+    public Queue<PlanQuestion> getQuestions(Map<String, String> knownAttributes) {
+        Map<String, PlanQuestion> attributeQuestion = new HashMap<>();
+        Queue<Integer> questionsToAdd = new LinkedList<>();
+        questionsToAdd.add(1);
+        while (!questionsToAdd.isEmpty()) {
+            Integer index = questionsToAdd.peek();
+            questionsToAdd.remove();
+            PlanQuestion question = questionList.get(index);
+            String questionAttribute = question.getAttribute();
+            attributeQuestion.put(question.getAttribute(), question);
+            if (knownAttributes.containsKey(questionAttribute)) {
+                String attributeValue = knownAttributes.get(questionAttribute);
+                Set<Integer> children = questionList.get(index).getNeighbouringQuestions(attributeValue);
+                if (!children.isEmpty()) {
+                    questionsToAdd.addAll(children);
+                }
             }
-        }
-        return new Reply("Something strange happened, please try again", attributes);
-    }
-
-    public String getCurrentQuestion() {
-        return questionList.get(curr);
-    }
-
-    private boolean parseBool(String input) throws DukeException {
-        input = input.toLowerCase();
-        switch (input) {
-        case "yes":
-        case "y":
-            return true;
-        case "no":
-        case "n":
-            return false;
-        default:
-            throw new DukeException("Your answer should be a yes/no!");
-
 
         }
-    }
 
-
-    private BigDecimal parseMoney(String input) {
-            double moneyDouble = Double.parseDouble(input);
-            BigDecimal money = BigDecimal.valueOf(moneyDouble);
-            return money.setScale(2, RoundingMode.HALF_EVEN);
-    }
-
-    public class Reply {
-        private String text;
-        private Map<String,String> attributes;
-
-        public Reply(String text, Map<String, String> attributes) {
-            this.text = text;
-            this.attributes = attributes;
+        for (String knownAttribute : knownAttributes.keySet()) {
+            attributeQuestion.remove(knownAttribute);
         }
 
-        public String getText() {
-            return text;
-        }
+        Queue<PlanQuestion> questions = new LinkedList<>();
+        questions.addAll(attributeQuestion.values());
 
-        public Map<String, String> getAttributes() {
-            return attributes;
-        }
+        return questions;
     }
-
 
 
 }

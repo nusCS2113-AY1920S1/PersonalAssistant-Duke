@@ -5,12 +5,13 @@ import duke.commons.LogsCenter;
 import duke.exception.DukeException;
 import duke.logic.CommandResult;
 import duke.logic.Logic;
+import duke.logic.util.AutoCompleter;
 import duke.logic.util.InputHistory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,6 +26,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+
+    private AutoCompleter autoCompleter;
 
     private ExpensePane expensePane;
     private TrendingPane trendingPane;
@@ -85,11 +88,27 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         inputHistory = new InputHistory();
+        autoCompleter = new AutoCompleter();
 
+        this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                logger.info("TAB detected");
+                autoCompleter.receiveText(userInput.getText());
+                logger.info("autoCompleter received the text");
+                String fullSuggestion = autoCompleter.getFullSuggestion();
+                if(autoCompleter.isCompletable()) {
+                    logger.info("autoCompleter is autoCompletable");
+                    userInput.setText(fullSuggestion);
+                    userInput.positionCaret(userInput.getText().length());
+                }
+                logger.info("Autocomplete finish");
+                event.consume();
+            }
+        });
     }
 
     public void fillInnerPart() {
-        expensePane = new ExpensePane(logic.getExternalExpenseList(), logic);
+        expensePane = new ExpensePane(logic.getExternalExpenseList(),logic);
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");
@@ -105,7 +124,9 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult;
 
-            if (displayedPane == CommandResult.DisplayedPane.PLAN && !inputString.contains("goto") && !inputString.contains("bye")){
+            if (displayedPane == CommandResult.DisplayedPane.PLAN
+                    && !inputString.contains("goto")
+                    && !inputString.contains("bye")) {
                 commandResult = logic.execute("plan " + inputString);
             } else {
                 commandResult = logic.execute(inputString);
@@ -127,7 +148,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleKeyPressed(KeyEvent keyEvent) {
-        logger.info("Key Press detected!");
         switch (keyEvent.getCode()) {
             case UP:
                 if(inputHistory.isAbleToLast()) {
@@ -138,6 +158,15 @@ public class MainWindow extends UiPart<Stage> {
             case DOWN:
                 if(inputHistory.isAbleToNext()) {
                     userInput.setText(inputHistory.getNextInput());
+                }
+                break;
+
+            case TAB:
+                keyEvent.consume();
+
+                autoCompleter.receiveText(userInput.getText());
+                if(autoCompleter.isCompletable()) {
+                    userInput.setText(autoCompleter.getFullSuggestion());
                 }
                 break;
         }

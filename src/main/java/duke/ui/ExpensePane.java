@@ -3,18 +3,17 @@ package duke.ui;
 import duke.commons.LogsCenter;
 import duke.logic.Logic;
 import duke.model.Expense;
-import duke.model.Model;
-import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.ListCell;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -30,7 +29,7 @@ public class ExpensePane extends UiPart<AnchorPane>  {
     private PieChart pieChartSample;
 
     @FXML
-    private ListView<Expense> expenseListView;
+    TableView expenseTableView;
 
     public Logic logic;
     public Set<String> tags;
@@ -38,10 +37,66 @@ public class ExpensePane extends UiPart<AnchorPane>  {
     public ExpensePane(ObservableList<Expense> expenseList, Logic logic) {
         super(FXML_FILE_NAME, null);
         logger.info("expenseList has length " + expenseList.size());
-        expenseListView.setItems(expenseList);
+        logger.info("expenseList has length " + expenseList.size());
+        expenseTableView.getItems().clear();
+        expenseTableView.setPlaceholder(new Label("No expenses to display!"));
+        TableColumn<Expense, Void> indexColumn = new TableColumn<>("No.");
+        indexColumn.setCellFactory(col -> {
+            TableCell<Expense, Void> cell = new TableCell<>();
+            cell.textProperty().bind(Bindings.createStringBinding(() -> {
+                if (cell.isEmpty()) {
+                    return null;
+                } else {
+                    return Integer.toString(cell.getIndex() + 1);
+                }
+            }, cell.emptyProperty(), cell.indexProperty()));
+            return cell;
+        });
+        indexColumn.setSortable(false);
+        TableColumn<String, Expense> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
+        timeColumn.setSortable(false);
+        TableColumn<String, Expense> amountColumn = new TableColumn<>("Amount");
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        amountColumn.setSortable(false);
+        TableColumn<Expense, String> descriptionColumn = new TableColumn<>("Description");
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descriptionColumn.setSortable(false);
+        TableColumn<Expense, String> tagColumn = new TableColumn<>("Tags");
+        tagColumn.setSortable(false);
+        tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
+        tagColumn.setSortable(false);
+        expenseTableView.setRowFactory(new Callback<TableView<Expense>, TableRow<Expense>>() {
+            @Override
+            public TableRow<Expense> call(TableView<Expense> tableView) {
+                final TableRow<Expense> row = new TableRow<Expense>() {
+                    @Override
+                    protected void updateItem(Expense expense, boolean empty) {
+                        super.updateItem(expense, empty);
+                        if (expense != null && expense.isTentative()) {
+                            setStyle("-fx-text-background-color: grey;");
+
+                        } else {
+                            setStyle("-fx-text-background-color: black;");
+                        }
+                    }
+                };
+                return row;
+            }
+        });
+        expenseTableView.getColumns().setAll(
+                indexColumn,
+                timeColumn,
+                amountColumn,
+                descriptionColumn,
+                tagColumn
+        );
         logger.info("Items are set.");
-        expenseListView.setCellFactory(listview -> new ExpenseListViewCell());
+        for (Expense expense : expenseList) {
+            expenseTableView.getItems().add(expense);
+        }
         logger.info("cell factory is set.");
+
         this.logic = logic;
         PieChart pieChartSample = new PieChart();
         pieChartSample.setData(getData());
@@ -49,25 +104,6 @@ public class ExpensePane extends UiPart<AnchorPane>  {
         pieChartSample.setTitle("Expenditure");
         paneView.getChildren().add(pieChartSample);
         logger.info("Pie chart is set.");
-    }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
-     */
-    class ExpenseListViewCell extends ListCell<Expense> {
-        @Override
-        protected void updateItem(Expense expense, boolean empty) {
-            super.updateItem(expense, empty);
-
-            if (empty || expense == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                //setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
-                String tmp = expense.getAmount() + expense.getDescription() + expense.getTimeString();
-                setText(tmp);
-            }
-        }
     }
 
     /**
@@ -83,9 +119,6 @@ public class ExpensePane extends UiPart<AnchorPane>  {
         for (Object tag : this.tags) {
             dataList.add(new PieChart.Data((String) tag, logic.getTagAmount((String) tag).doubleValue()));
         }
-        //final PieChart chart = new PieChart(dataList);
-        //chart.setTitle("Expenditure");
-
         return dataList;
     }
 
@@ -97,7 +130,11 @@ public class ExpensePane extends UiPart<AnchorPane>  {
         for (Expense expense : logic.getExternalExpenseList()) {
             String[] tagsString = expense.getTagsString().split(" ");
             if (tagsString.length > 0) {
-                tags.addAll(Arrays.asList(tagsString));
+                for(String tag: tagsString) {
+                    if(!tag.equals("")) {
+                        tags.add(tag);
+                    }
+                }
             }
         }
     }
