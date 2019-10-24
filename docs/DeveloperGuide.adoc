@@ -296,21 +296,22 @@ Below is a Sequence Diagram showing how `SortCommand` works.
 
 ==== Current implementation
 
-The `show` feature is opearted by the `ShowCommand`class, which is called by the `Parser` class. Uon user input of `show TYPE`, the Parser will return a new `ShowCommand`. +
+The `show` feature is opearted by the `ShowCommand` class, which is called by the `Parser` class. Upon user input of `show TYPE`, the Parser will return a new `ShowCommand`. +
 
 Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `show` command. +
 
-The parameter `TYPE` can take four forms according to the user input: + 
+The parameter `TYPE` can take five forms according to the user input: + 
 ****
 * `show cca`
 * `show core`
 * `show ge`
 * `show ue`
+* `show module`
 ****
 
-Upon construction of the `ShowCommand` class, one variable is involved in the generation of the report are initiazlised, which refers to the `coreModList`. This variable is being used to store the strings of core modules taken by CEG students throughout the four years. The list of core modules are being taken from the NUS module requirements websites. +
+Upon construction of the `ShowCommand` class, one variable is involved in the generation of the report are initiazlised, which refers to the `coreModList`. This variable is being used to store the strings of core modules taken by CEG students throughout the four years. The list of core modules are being taken from the NUS module requirements website. +
 
-As stated above, there are four methods that can be executed depending on the `TYPE`that the usr inputs.
+As stated above, there are four methods that can be executed depending on the `TYPE` that the user inputs.
 
 ****
 * Case 1: `show cca` +
@@ -319,11 +320,21 @@ If the arguement read for `toShow` is "cca", an iterator iterates through the ar
 * Case 2: `show core` +
 If the arguement read for `toShow` is "core", an iterator loops through the array list of `ModuleTask` and checks it against the set of `coreModList`. If the `moduleCode` in `ModuleTask` matches the `moduleCode` from the `coreModList`, that `moduleCode` is being printed out. 
 
+** The second part subtracts the number of core modules taken from the total number of core modules required to be taken, which the information is taken from the NUS module requirements website. Hence, it shows the users the number of core modules left to take.
+
 * Case 3: `show ge` +
-If the arguement read for `toShow` is "ge", an iterator loops through the array list of `ModuleTask` and checks the starting two letters of the `moduleCode`. If the `moduleCode` starts with a "GE", it is classified as a General Elective module and will be printed out.
+If the arguement read for `toShow` is "ge", an iterator loops through the array list of `ModuleTask` and checks the starting two letters of the `moduleCode`. If the `moduleCode` starts with a "GE", it is classified as a General Elective(GE) module and will be printed out.
+
+** The second part subtracts the number of GE modules taken from the total number of GE modules required to be taken, which the information is taken from the NUS module requirements website. Hence, it shows the users the number of GE modules left to take.
 
 * Case 4: `show ue` +
-If the arguement read for `toShow` is "ue", an iterator loops through the array list of `ModuleTask`. It checks the starting two letters of the `moduleCode` and also checks the `moduleCode` against the set of `coreModList`. If the `moduleCode`  does not match the `moduleCode` from the `coreModList` and it does not start with a `GE`, it is classified as a Unrestricted Elective module and will be printed out.
+If the arguement read for `toShow` is "ue", an iterator loops through the array list of `ModuleTask`. It checks the starting two letters of the `moduleCode` and also checks the `moduleCode` against the set of `coreModList`. If the `moduleCode`  does not match the `moduleCode` from the `coreModList` and it does not start with a `GE`, it is classified as a Unrestricted Elective(UE) module and will be printed out.
+
+** The second part subtracts the number of UE modules taken from the total number of UE modules required to be taken, which the information is taken from the NUS module requirements website. Hence, it shows the users the number of UE modules left to take.
+
+* Case 5: `show module` +
+If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
+****
 
 
 === JsonWrapper
