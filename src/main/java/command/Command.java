@@ -6,6 +6,8 @@ import storage.Storage;
 import exception.DukeException;
 import list.DegreeList;
 
+import java.io.IOException;
+
 /**
  * Abstract Command class.
  * Superclass of all commands.
@@ -33,7 +35,7 @@ public abstract class Command {
      * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
      * @throws DukeException DukeException throws exception
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
+    public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException, IOException;
 
     /**
      * unexecutes default.

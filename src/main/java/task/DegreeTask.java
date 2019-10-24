@@ -20,7 +20,7 @@ public class DegreeTask extends Task {
     public void loadDegreeTasks() throws DukeException {
         this.storage = new Storage("degreeTasks.txt");
         try {
-            TaskList thisList = new TaskList(storage.load());
+            TaskList thisList = new TaskList(storage.getTaskList());
             fullDegreeTasklist.add(thisList);
         } catch (DukeException e) {
             throw new DukeException("Error Obtaining Degree Programme Events");

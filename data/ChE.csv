@@ -1,13 +1,13 @@
-﻿Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:
-32,EG2401A  Engineering Professionalism,2,CN1101A Chemical Engineering Principles and Practice I,4,CN2101 Material and Energy Balances,3,CN4123R Final Year Design Project,6,Technical Electives,8
-,ES1531  Critical Thinking and Writing,4,CN2102 Chemical Engineering Principles and Practice II,4,CN2116 Chemical Kinetics and Reactor Design,4,,,EG3611A Industrial Attachment (IA),10
-,,,CS1010E Programming Methodology,4,CN2121 Chemical Engineering Thermodynamics,4,,,,
-,,,EE2211 Introduction to Machine Learning,4,CN2122A Fluid Mechanics,4,,,,
-,,,EG1311 Design and Make,4,CN2125 Heat and Mass Transfer,4,,,,
-,,,IE2141 Systems Thinking and Dynamics,4,CN3101 Chemical Engineering Laboratory,4,,,,
-,,,MA1511 Engineering Calculus,2,CN3121 Process Dynamics and Control,4,,,,
-,,,MA1512 Differential Equations for Engineering,2,CN3124A Fluid-Particle Systems,4,,,,
-,,,MA1513 Linear Algebra with Differential Equations,2,CN3132 Separation Processes,4,,,,
-,,,MLE1010 Materials Engineering Principles and Practice,4,"CN3135 Process Safety, Health & Environment",3,,,,
-,,,,,CN3421A Process Modelling and Numerical Simulation,3,,,,
-,,,,,CN4122 Process Synthesis and Simulation,3,,,,
+Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:,Common Aliases:
+32,EG2401A Engineering Professionalism,2,CN1101A Chemical Engineering Principles and Practice I,4,CN2101 Material and Energy Balances,3,CN4123R Final Year Design Project,6,Technical Electives,8,ChE
+,ES1531 Critical Thinking and Writing,4,CN2102 Chemical Engineering Principles and Practice II,4,CN2116 Chemical Kinetics and Reactor Design,4,,,EG3611A Industrial Attachment (IA),10,Chem Eng
+,,,CS1010E Programming Methodology,4,CN2121 Chemical Engineering Thermodynamics,4,,,,,Chemical Engineering
+,,,EE2211 Introduction to Machine Learning,4,CN2122A Fluid Mechanics,4,,,,,
+,,,EG1311 Design and Make,4,CN2125 Heat and Mass Transfer,4,,,,,
+,,,IE2141 Systems Thinking and Dynamics,4,CN3101 Chemical Engineering Laboratory,4,,,,,
+,,,MA1511 Engineering Calculus,2,CN3121 Process Dynamics and Control,4,,,,,
+,,,MA1512 Differential Equations for Engineering,2,CN3124A Fluid-Particle Systems,4,,,,,
+,,,MA1513 Linear Algebra with Differential Equations,2,CN3132 Separation Processes,4,,,,,
+,,,MLE1010 Materials Engineering Principles and Practice,4,CN3135 Process Safety: Health & Environment,3,,,,,
+,,,,,CN3421A Process Modelling and Numerical Simulation,3,,,,,
+,,,,,CN4122 Process Synthesis and Simulation,3,,,,,

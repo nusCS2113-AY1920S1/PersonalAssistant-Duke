@@ -1,10 +1,10 @@
-﻿Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:
-32,EG2401A  Engineering Professionalism,2,CE1101A   Civil Engineering Principles & Practices,2,CE2134     Hydraulics,4,ESE4501    Design Project,4,Technical Electives,8
-Faculty Requirements,ES1531  Critical Thinking and Writing,4,CS1010E   Programming Methodology,2,ESE2000   Environmental Engineering Fundamentals,4,ESE4502R  B.Eng. Dissertation,8,Pathway Electives,8
-,,,EG1311     Design and Make,4,ESE2001    Environmental Challenges in Anthropocene,4,,,EG3611A    Industrial Attachment,10
-,,,ESE2101   Principles & Practice in Infrastructure and Environment,4,ESE2401    Water Science & Technology,4,,,,
-,,,EE2211     Introduction to Machine Learning,4,ESE3101    Solid and Hazardous Waste Management,4,,,,
-,,,MA1511     Engineering Calculus,4,ESE3201    Air Quality Management,4,,,,
-,,,MA1506     Differential Equations for Engineering,4,ESE3301    Environmental Microbiological Principles,4,,,,
-,,,MLE1010   Materials Engineering Principles & Practice,4,ESE3401    Sustainable Urban Water Technology,4,,,,
-,,,IE2141      Systems Thinking & Dynamics,4,,,,,,
+Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:,Common Aliases:
+32,EG2401A Engineering Professionalism,2,CE1101A Civil Engineering Principles & Practices,2,CE2134 Hydraulics,4,ESE4501 Design Project,4,Technical Electives,8,Environmental Engineering
+,ES1531 Critical Thinking and Writing,4,CS1010E Programming Methodology,2,ESE2000 Environmental Engineering Fundamentals,4,ESE4502R B.Eng. Dissertation,8,Pathway Electives,8,ENVE
+,,,EG1311 Design and Make,4,ESE2001 Environmental Challenges in Anthropocene,4,,,EG3611A Industrial Attachment,10,
+,,,ESE2101 Principles & Practice in Infrastructure and Environment,4,ESE2401 Water Science & Technology,4,,,,,
+,,,EE2211 Introduction to Machine Learning,4,ESE3101 Solid and Hazardous Waste Management,4,,,,,
+,,,MA1511 Engineering Calculus,4,ESE3201 Air Quality Management,4,,,,,
+,,,MA1506 Differential Equations for Engineering,4,ESE3301 Environmental Microbiological Principles,4,,,,,
+,,,MLE1010 Materials Engineering Principles & Practice,4,ESE3401 Sustainable Urban Water Technology,4,,,,,
+,,,IE2141 Systems Thinking & Dynamics,4,,,,,,,

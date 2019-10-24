@@ -33,8 +33,10 @@ public class Storage {
     private File saveFile;
     private String saveFileString;
     private String input = "";
-    private final Path folder = Paths.get("..\\data\\");
-    private final String folderName = "..\\data\\";
+    private final Path folder = Paths.get("../data/");
+    private final String folderName = "../data/";
+    //private final Path folder = Paths.get("..\\data\\");
+    //private final String folderName = "..\\data\\";
     private HashMap<String, List<String>> data = new HashMap<>();
     private HashMap<String, String> readable = new HashMap<>();
     private List<String> fileNames = new ArrayList<>();
@@ -87,7 +89,7 @@ public class Storage {
      * This method reads the folder.
      *
      */
-    private void load() throws DukeException {
+    public void load() throws DukeException {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(folder)) {
             for (Path path : directoryStream) {
                 String file = path.toString().substring(folderName.length());
