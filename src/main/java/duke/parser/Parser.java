@@ -2,12 +2,6 @@ package duke.parser;
 
 import duke.command.*;
 import duke.exception.DukeException;
-
-import java.lang.reflect.Array;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -74,6 +68,11 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of " + keyword + " cannot be empty.");
                 }
                 return new AddCommand(fcArray[1], keyword, filter);
+            case "pomodoro":
+                if (fcArray.length == 1) {
+                    throw new DukeException("☹ OOPS!!! Please specify which pomodoro timer you would like to start!");
+                }
+                return new PomodoroCommand(fcArray[1]);
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
