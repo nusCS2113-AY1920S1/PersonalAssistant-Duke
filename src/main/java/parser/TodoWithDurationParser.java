@@ -7,10 +7,12 @@ import exception.DukeException;
 /**
  * Extract the components required to add a TodoWithDuration task.
  *
- * @author Tan Yi Xiang
+ * @author Fauzan
  * @version v1.0
  */
 public class TodoWithDurationParser extends TodoParser {
+
+    private static final String INVALID_DURATION = "Invalid duration format. Duration must be a number";
 
     public TodoWithDurationParser(String userInput, String command) {
         super(userInput, command);
@@ -31,7 +33,7 @@ public class TodoWithDurationParser extends TodoParser {
         try {
             duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid duration format. Duration must be a number");
+            throw new DukeException(INVALID_DURATION);
         }
         return duration;
     }

@@ -3,6 +3,12 @@ package parser;
 import command.Command;
 import exception.DukeException;
 
+/**
+ * Backbone of all parsers that process input based on strings.
+ *
+ * @author Fauzan
+ * @version v1.0
+ */
 public abstract class DescriptionParser extends Parser {
 
     String checkType;
