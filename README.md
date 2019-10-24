@@ -24,4 +24,6 @@ Duke will help you to sort, filter and clear you inbox.
 
 **Site Map**
 
-[About Us]: <docs/AboutUs.adoc>
+* [Developer Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/DeveloperGuide.adoc)
+* [User Guide](https://github.com/AY1920S1-CS2113T-F11-3/main/blob/master/docs/guides/UserGuide.adoc)
+

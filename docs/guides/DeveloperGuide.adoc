@@ -8,17 +8,22 @@
 :xrefstyle: full
 :repoURL: https://github.com/AY1920S1-CS2113T-F11-3/main/tree/doc
 
-By: `Team AY1920S1-CS2113T-F11-3`      Since: `Sept 2019`      Licence: `MIT`
+By: `Team AY1920S1-CS2113T-F11-3`      Since: `Sept 2019`
+//Licence: `MIT`
 
 == Introduction
 
-Welcome to the *Email Manager* Developer Guide! +
+Welcome to the *Email Manager* Developer Guide!
+
 *Email Manager* is an email and task manager app, specifically designed for NUS School of Computing Students
-to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
+to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer
+typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User
+Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
 
-== https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[*About the Developer Guide]*
+== About the Developer Guide
 
-This developer guide provides detailed documentation on the implementation of all the various features Email Manager offers. It also suggests methods for you to modify and build upon it. +
+This developer guide provides detailed documentation on the implementation of all the various
+features Email Manager offers. It also suggests methods for you to modify and build upon it. +
 Throughout this developer guide, there will be various icons used, as shown below:
 |===
 |💡|This is a tip. Follow these tips to aid your development of Email Manager.
@@ -42,21 +47,58 @@ This section shows how to set up Email Manager on your desktop and begin your de
 == Design
 === Architecture
 
-Figure 1. Architecture Diagram +
+==== How the architecture components interact with each other
 
 The _Architecture Diagram_ given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-* UI component
-* Logic component
-* Model component
-* Common classes
+==== UI component
+==== Logic component
+==== Model component
+==== Common classes
 
 == Implementation
 
-This section describes some noteworthy details on how certain features in Email Manager are implemented.
+This section describes some noteworthy details on how certain features in *Email Manager* are implemented.
+// Maybe in the future we split the sub-sections into overall command structure, email management, task management and GUI?
 
-=== Natural dates Support
+=== Task Management
+There are three main types of tasks that Email Manager works with: `todo`, `deadline` and `event`.
+
+==== Current Implementation
+
+*Natural Dates Support*
+
+*Updating of Tags*
+
+Tasks have a variety of attributes that a user may want to add or change. The current attributes that
+can be modified are: `time`, `doafter`, `priority` and `tags`.
+The updating of task details is facilitated by `TaskUpdateCommand`. It extends `Command`, overriding the `execute` method.
+
+The details of the update mechanism are as follows:
+
+Step 1: `TaskCommandParseHelper` takes in the command from the user input text field, and parses it.
+If the command starts with `update` than it will separate all the parameters into an ArrayList,
+passing it into the `TaskUpdateCommand`.
+
+Step 2: `TaskUpdateCommand.execute()` will then go through the ArrayList, calling the appropriate
+method in `TaskList`.
+
+Step 3: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
+
+==== Design considerations
+===== Aspect: Handling updating of tags
+* Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
+** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
+** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.
+* Alternative 2: if a tag is entered as part of the command, it will amend on top of existing tags.
+** Pros: this will save users time if they only want to add on tags
+** Cons: no option to remove tags
+* Alternative 3 (proposed): there will be an option to add tags and an option to remove tags.
+** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
+** Cons: added complexity in commands
+
+=== Logging
 
 == Documentation
 
@@ -136,6 +178,8 @@ immediately|`* * *`
 
 [discrete]
 === Use Case: Fetch email from account
+*MSS*
+
 . User starts system or enters the fetch command.
 . System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved,
 combined with those from local storage and displayed.
@@ -161,6 +205,7 @@ Use case ends.
 
 [discrete]
 === Use Case: Set priority to different keyword
+*MSS*
 
 . The user selects the “Keyword Priority” from the menu
 . System presents the user with all current priority settings
@@ -172,6 +217,7 @@ Use case ends.
 
 [discrete]
 === Use Case: View Email List with Priority
+*MSS*
 
 . The user selects “All Email” from the menu
 . The user selects “by Priority” from the menu
@@ -183,12 +229,14 @@ Use case ends.
 
 *Extensions*
 
+
 * 3a. The user can include or exclude a particular keyword from that priority
 +
 Use case ends.
 
 [discrete]
 === Use Case: Auto categorisation of emails
+*MSS*
 
 . User creates a new categorize name.
 . User specifies the keyword for this category.
@@ -196,18 +244,18 @@ Use case ends.
 +
 Use case ends.
 
-
 [appendix]
 == Non-Functional Requirements
 
 Email Manager meets the following non-functional requirements:
 
 * Security of user login credentials (user enters details directly into Microsoft portal)
-* Data Accessibility (efficient storage)should we take this out?
-* Time-out take this out as well?
+* Data Accessibility (efficient storage)
+// ^ should we take this out?
+* Time-out
+// ^ take this out as well?
 * Clean layout
 * Works with common operating systems
-
 
 [appendix]
 == Glossary
