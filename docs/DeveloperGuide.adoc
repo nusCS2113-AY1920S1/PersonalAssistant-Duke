@@ -143,6 +143,7 @@ The `delete project` command is implemented in the same manner to the `add proje
 The `history` feature is implemented to keep track of the input commands entered by the user. It is facilitated by the `Storage` class which is called by the `Process` class in the `command` component.
 
 This feature supports the following commands:
+
 * `history` - lists all the input commands(with the date and time beside) entered by the user.
 * (proposed) `view history h/DATE to DATE` - lists the input commands entered by the user during a certain time period.
 * (proposed) `delete history h/DATE to DATE` - deletes the input commands entered by the user during a certain time period.
@@ -157,8 +158,8 @@ The use case for the command `history` is given below to demonstrate how each co
 
 ==== Design Considerations
 ===== Aspect: How `view history h/DATE to DATE` is implemented
-* **Alternative 1(proposed): The application loops through the arraylist of all the input commands loaded from the txt file in storage. This is done to find the index(i1) of the first command entered on the first/earlier `DATE` and the index(i2) of the last command entered on the second/later `DATE`.
-Then commands in the for loop from index i1 to i2 are added to a new arraylist. This arraylist is printed to the user. 
+* Alternative 1(proposed): The application loops through the arraylist of all the input commands loaded from the txt file in storage. This is done to find the index(i1) of the first command entered on the first/earlier `DATE` and the index(i2) of the last command entered on the second/later `DATE`.
+Then commands in the for loop from index i1 to i2 are added to a new arraylist. This arraylist is printed to the user.
 
 //tag::deadline
 === Add Invoices
