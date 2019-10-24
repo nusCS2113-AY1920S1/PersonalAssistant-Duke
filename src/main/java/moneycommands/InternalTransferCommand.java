@@ -52,9 +52,6 @@ public class InternalTransferCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         BankTracker bankTracker = account.findTrackerByName(description);
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
         if (add) {
             bankTracker.updateDate(date);
             bankTracker.addAmt(amt);
