@@ -1,5 +1,6 @@
 ﻿# Dolla
 [![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F11-2/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F11-2/main)
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-F11-2/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-F11-2/main?branch=master)
 
 Dolla is a command line based expense tracker targeted at NUS students staying on campus.
 
