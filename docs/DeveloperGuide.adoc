@@ -166,7 +166,7 @@ will proceed to create an instance of the appropriate command class and return i
 ==== Command
 
 .Bank Command Class Diagram
-image::LogicCommandBankPackage.png[width="1000"]
+image::LogicCommandBankPackage.png[width="970"]
 
 The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
 
@@ -282,9 +282,20 @@ To be added.
 .Sequence Diagram of Parsing Commands
 image::GeneralParsingSequenceDiagram.png[width="970]
 
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
+
+The above sequence diagram depicts the general sequence of parsing user input for all commands in general, before going
+into the the specific Parser classes in `ParseTypeMenu`.
+
+Depending on the `type` of command the user enters, the specific parser class invoked will be different (e.g.
+ParseAddBond, ParseDeleteInvestment) which will return a `Command` object back to main to prepare for execution.
+
+The execution of commands will be elaborated in subsequent diagrams below.
+
 === Adding Savings
 .Sequence Diagram of Adding Savings
-image::AddSavingCommand.png[width="920"]
+image::AddSavingCommand.png[width="970"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
