@@ -1,21 +1,21 @@
 package moomoo.command;
 
-import moomoo.task.Budget;
 import moomoo.task.Category;
-import moomoo.task.CategoryList;
+import moomoo.task.ScheduleList;
+import moomoo.task.Budget;
 import moomoo.task.MooMooException;
+import moomoo.task.CategoryList;
 import moomoo.task.Storage;
-import moomoo.task.TransactionList;
 import moomoo.task.Ui;
 
 import java.util.ArrayList;
 
 public class GraphCommand extends Command {
     private ArrayList<String> verticalAxis;
-    private final String fullBlock = "█";
-    private final String halfBlock = "▌";
-    private final String topBorder = "┬";
-    private final String bottomBorder = "┴";
+    private final String fullBlock = "@";
+    private final String halfBlock = "#";
+    private final String topBorder = "$";
+    private final String bottomBorder = "%";
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";
@@ -30,13 +30,14 @@ public class GraphCommand extends Command {
     }
     
     @Override
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList,
+                        Category category, Ui ui, Storage storage)
             throws MooMooException {
         if (input.length() < 7) {
             throw new MooMooException("OOPS!!! Please use the total/[CATEGORY} sub-command");
         }
         input = input.substring(6);
-        if (input.equals("total")) {
+        if ("total".equals(input)) {
             if (catList.size() == 0) {
                 throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
             }
@@ -62,8 +63,8 @@ public class GraphCommand extends Command {
             output += topSpace + horizontalAxisTop + "\n";
 
             for (int i = 0; i < catList.size(); i += 1) {
-                Category category = catList.get(i);
-                double percentage = 100 * (category.getMonthlyTotal(1) / grandTotal);
+                Category cat = catList.get(i);
+                double percentage = 100 * (cat.getMonthlyTotal(1) / grandTotal);
                 percentage = roundToTwoDp(percentage);
                 
                 int noOfFullBars = (int) percentage;
