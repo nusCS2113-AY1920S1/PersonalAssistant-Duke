@@ -122,8 +122,8 @@ image::DGCheck.png[width = 100%]
             |                                            |
             v                                            v
     +-----------------+                         +----------------+
-    |    Add Event    |                         |     Cancel     |
-    |     to list     |                         |   event entry  |
+    |    Add Event    |                         | Alert user of  |
+    |     to list     |                         |     clash      |
     +-----------------+                         +----------------+
             |                                            |
             |                                            |
