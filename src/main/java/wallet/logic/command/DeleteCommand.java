@@ -43,6 +43,7 @@ public class DeleteCommand extends Command {
     public boolean execute(Wallet wallet) {
         switch (object) {
         case "expense":
+            //@@author kyang96
             Expense expense = wallet.getExpenseList().deleteExpense(id);
             if (expense != null) {
                 wallet.getExpenseList().setModified(true);
@@ -52,6 +53,7 @@ public class DeleteCommand extends Command {
                 System.out.println(MESSAGE_ERROR_DELETE_EXPENSE);
             }
             break;
+        //@@author
 
         case "loan":
             Loan loan = wallet.getLoanList().deleteLoan(id);

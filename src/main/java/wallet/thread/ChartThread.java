@@ -1,3 +1,5 @@
+//@@author matthewng1996
+
 package wallet.thread;
 
 public class ChartThread implements Runnable {

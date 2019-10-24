@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseParserTest {
+    //@@author kyang96
     private static Wallet testWallet;
 
     @BeforeAll
@@ -20,15 +21,15 @@ public class ExpenseParserTest {
     @Test
     public void getRecurringRecords_populatedList_success() {
         ExpenseList expenseList = new ExpenseList();
-        expenseList.addExpense(new Expense("Lunch", LocalDate.now(), 5, "Food", false, null));
-        expenseList.addExpense(new Expense("Dinner", LocalDate.now(), 10, "Food", false, null));
-        expenseList.addExpense(new Expense("Breakfast", LocalDate.now(), 3, "Food", true, "WEEKLY"));
+        expenseList.addExpense(new Expense("Lunch", LocalDate.now(), 5, Category.FOOD, false, null));
+        expenseList.addExpense(new Expense("Dinner", LocalDate.now(), 10, Category.FOOD, false, null));
+        expenseList.addExpense(new Expense("Breakfast", LocalDate.now(), 3, Category.FOOD, true, "WEEKLY"));
 
         for (Expense e : ExpenseParser.getRecurringRecords(expenseList)) {
             assertEquals("Breakfast", e.getDescription());
             assertEquals(LocalDate.now(), e.getDate());
             assertEquals(3.0, e.getAmount());
-            assertEquals("Food", e.getCategory());
+            assertEquals(Category.FOOD, e.getCategory());
             assertEquals(true, e.isRecurring());
             assertEquals("WEEKLY", e.getRecFrequency());
         }
@@ -40,7 +41,7 @@ public class ExpenseParserTest {
         LocalDate currentDate = LocalDate.now();
         LocalDate expenseDate = currentDate.minusDays(5);
         ExpenseList expenseList = testWallet.getExpenseList();
-        expenseList.addExpense(new Expense("Breakfast", expenseDate, 3, "Food", true, "DAILY"));
+        expenseList.addExpense(new Expense("Breakfast", expenseDate, 3, Category.FOOD, true, "DAILY"));
 
         for (int i = 0; i < expenseList.getSize(); i++) {
             Expense e = expenseList.getExpense(i);
@@ -48,14 +49,14 @@ public class ExpenseParserTest {
                 assertEquals("Breakfast", e.getDescription());
                 assertEquals(expenseDate, e.getDate());
                 assertEquals(3.0, e.getAmount());
-                assertEquals("Food", e.getCategory());
+                assertEquals(Category.FOOD, e.getCategory());
                 assertEquals(false, e.isRecurring());
                 assertEquals(null, e.getRecFrequency());
             } else {
                 assertEquals("Breakfast", e.getDescription());
                 assertEquals(expenseDate, e.getDate());
                 assertEquals(3.0, e.getAmount());
-                assertEquals("Food", e.getCategory());
+                assertEquals(Category.FOOD, e.getCategory());
                 assertEquals(true, e.isRecurring());
                 assertEquals("DAILY", e.getRecFrequency());
             }

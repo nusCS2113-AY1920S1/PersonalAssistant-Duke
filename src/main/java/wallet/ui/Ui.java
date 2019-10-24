@@ -24,7 +24,7 @@ public class Ui {
         sc = new Scanner(System.in);
     }
 
-
+    //@@author matthewng1996
     /**
      * Prints the welcome message of the program.
      */
@@ -42,6 +42,7 @@ public class Ui {
         printLine();
     }
 
+    //@@author
     /**
      * Prints the goodbye message when the user exits the program.
      */
@@ -65,34 +66,37 @@ public class Ui {
         System.out.println("_______________________________________________________________________________");
     }
 
+    //@@author kyang96
     /**
      * Displays the expense list in table format.
      */
     public static void printExpenseTable(ArrayList<Expense> expenseList) {
         System.out.println("Here are the expenses in your list:");
         System.out.println("-----------------------------------------------------"
-                + "-----------------------------------------------\n"
+                + "-------------------------------------------------\n"
                 + "|  ID  |              Description                 |"
-                + " Category |    Date    |   Amount   | Recurring |\n"
-                + "|-------------------------------------------------------------"
+                + "  Category  |    Date    |   Amount   | Recurring |\n"
+                + "|---------------------------------------------------------------"
                 + "-------------------------------------|");
         double total = 0;
         for (Expense e : expenseList) {
             if (e.isRecurring()) {
-                System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
+                System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
                         e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
             } else {
-                System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n",
+                System.out.printf("| %-4d | %-40s | %-10s | %-10s |  $%-7.2f  |  %-7s  |\n",
                         e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
 
             }
             total += e.getAmount();
         }
         System.out.println("-----------------------------------------------------"
-                + "-----------------------------------------------");
-        System.out.println("Total amount spent: $" + total);
+                + "-------------------------------------------------");
+        System.out.printf("Total amount spent: $%.2f\n", total);
     }
+    //@@author
 
+    //@@author matthewng1996
     public void drawPieChart() {
         ChartThread chartThread = new ChartThread();
         System.out.println("Please wait while we draw the pie chart...");
