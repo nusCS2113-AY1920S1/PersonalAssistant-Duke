@@ -1,11 +1,14 @@
 package duke.logic;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.EmptyVenueException;
+import duke.commons.exceptions.EventNotSelectedException;
 import duke.logic.parsers.EditorParser;
 import duke.logic.selectors.EventFieldSelector;
 import duke.logic.selectors.LocationSelector;
 import duke.model.Event;
 import duke.model.lists.EventList;
+import duke.model.lists.VenueList;
 import javafx.scene.input.KeyEvent;
 
 public class EditorManager {
@@ -16,9 +19,9 @@ public class EditorManager {
     private Event currentEvent;
     private int eventField;
 
-    public EditorManager(EventList events) {
+    public EditorManager(EventList events, VenueList venues) throws EmptyVenueException {
         this.events = events;
-        eventSelector = new LocationSelector();
+        eventSelector = new LocationSelector(venues);
         fieldSelector = new EventFieldSelector();
         isEventLock = false;
     }

@@ -1,7 +1,6 @@
 package duke.logic.selectors;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.EmptyVenueException;
 import duke.model.lists.VenueList;
 import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
@@ -18,11 +17,11 @@ public class LocationSelector implements Selector {
     /**
      * Constructs a new Location Selector object.
      * @param venues The venues to be iterated through.
-     * @throws DukeException If there is no venues in the list.
+     * @throws EmptyVenueException If there is no venues in the list.
      */
-    public LocationSelector(VenueList venues) throws DukeException {
+    public LocationSelector(VenueList venues) throws EmptyVenueException {
         if (venues.isEmpty()) {
-            throw new DukeException(Messages.LOCATION_SELECTOR_ERROR);
+            throw new EmptyVenueException();
         }
         this.venues = venues;
         index = 0;

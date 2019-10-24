@@ -28,5 +28,7 @@ public class Messages {
     public static final String PARSE_ERROR = "Parsing failed.";
     public static final String RECOMMENDATION_ERROR = "☹ I'm sorry, our recommendation services are down";
     public static final String FORMAT_ERROR = "☹ I'm sorry, numbers or words cannot be formatted.";
-    public static final String LOCATION_SELECTOR_ERROR = "There is no locations to be selected!";
+    public static final String EMPTY_VENUE = "There are no locations!";
+    public static final String EVENT_SELECTION_OUT_OF_BOUNDS = "There is no such field within the event!";
+    public static final String EVENT_NOT_SELECTED = "There is no event selected!";
 }

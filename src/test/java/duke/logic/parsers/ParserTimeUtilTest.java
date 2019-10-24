@@ -1,6 +1,6 @@
 package duke.logic.parsers;
 
-import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.parser.DukeDateTimeParseException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

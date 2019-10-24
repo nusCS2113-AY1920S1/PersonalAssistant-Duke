@@ -1,6 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.parser.EventSelectionOutOfBoundsException;
 import duke.logic.api.ApiParser;
 import duke.model.Event;
 
@@ -9,7 +10,7 @@ public class EditorParser {
     private static final int START_DATE = 1;
     private static final int END_DATE = 2;
 
-    public void parse(String userInput, int eventField, Event event) throws DukeException {
+    public static void parse(String userInput, int eventField, Event event) throws DukeException {
         switch (eventField) {
         case DESCRIPTION:
             event.setLocation(ApiParser.getLocationSearch(userInput));

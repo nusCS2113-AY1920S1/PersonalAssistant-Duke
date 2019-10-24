@@ -1,7 +1,7 @@
 package duke.logic.conversations;
 
 import duke.commons.MessagesPrompt;
-import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.parser.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.ParserTimeUtil;
 import duke.logic.parsers.ParserUtil;

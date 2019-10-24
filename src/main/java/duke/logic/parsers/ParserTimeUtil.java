@@ -1,7 +1,7 @@
 package duke.logic.parsers;
 
 import duke.commons.enumerations.TimePatternType;
-import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.parser.DukeDateTimeParseException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
