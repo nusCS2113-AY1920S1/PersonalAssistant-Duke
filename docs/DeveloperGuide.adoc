@@ -396,6 +396,20 @@ Internally, this class is responsible for requesting data from the `NUSMODS API`
 
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
 
+***
+
+=== Cca
+
+`Cca` is a class designed for managing user-defined CCAs. All instances of `Cca` are stored in a `List`-like structure `CcaList` which inherits from `ArrayList`.
+
+==== Current implementation
+
+`Cca` is a child class of a legacy class `TaskWithMultipleWeeklyPeriod` which belongs to one of our previous projects. Since `Cca` itself does not differ much from the parent class, it is recommended to refer to the parent class's implementation instead which can be found in <<Legacy>>.
+
+==== Design consideration
+
+It is generally not recommended to modify this class as it inherits from a legacy class. However, a fresh re-implementation might be considered so that the class itself can be customized more for `ModPlanner`.
+
 [[Documentation]] 
 == Documentation
 
@@ -408,6 +422,11 @@ The current implementation is fixed to only request data for the current academi
 
 [[DevOps]] 
 == Dev Ops
+
+(TBD)
+
+[[Legacy]]
+== Legacy Classes
 
 (TBD)
 
