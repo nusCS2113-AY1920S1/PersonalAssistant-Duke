@@ -8,9 +8,9 @@ public class FixedDuration extends Meeting {
 
     /**
      * Constructor for fixed duration
-     * @param description Description of event
-     * @param at Date of event
-     * @param duration Duration of event
+     * @param description Description of meeintg
+     * @param at Date of meeting
+     * @param duration Duration of meeting
      */
     public FixedDuration(String description, Date at, String duration, String unit) {
         super(description, at);
@@ -20,15 +20,15 @@ public class FixedDuration extends Meeting {
 
     /**
      * Returns duration
-     * @return duration of event in DD/MM/YYYY format
+     * @return duration of meeting in DD/MM/YYYY format
      */
     public String getDuration(){
         return duration;
     }
 
     /**
-     * Return time unit of the duration of event
-     * @return time unit of the duration of event
+     * Return time unit of the duration of meeting
+     * @return time unit of the duration of meeting
      */
     public String getUnit() {
         return unit;
@@ -36,7 +36,7 @@ public class FixedDuration extends Meeting {
 
     /**
      * Returns string with format of date and duration
-     * @return string containing date and duration of the event
+     * @return string containing date and duration of the meeting
      */
     @Override
     public String toString() {

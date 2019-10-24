@@ -21,7 +21,7 @@ public class RoomShare {
 
 
     /**
-     * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
+     * Constructor of a RoomShare class. Creates all necessary objects and collections for RoomShare to run
      * Also loads the ArrayList of tasks from the data.txt file
      */
     public RoomShare() throws RoomShareException {
@@ -50,7 +50,7 @@ public class RoomShare {
     }
 
     /**
-     * Deals with the operation flow of Duke.
+     * Deals with the operation flow of RoomShare.
      */
     public void run() throws RoomShareException {
         boolean isExit = false;
@@ -69,6 +69,9 @@ public class RoomShare {
                 break;
 
             case list:
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                ui.showList();
                 try {
                     taskList.list();
                 } catch (RoomShareException e) {
@@ -150,7 +153,7 @@ public class RoomShare {
                     ui.showError(e);
                 }
                 break;
-                
+
             case snooze :
                 try {
                     int index = parser.getIndex();
@@ -193,10 +196,10 @@ public class RoomShare {
     }
 
     /**
-     * Main function of Duke.
-     * Creates a new instance of Duke class
+     * Main function of RoomShare.
+     * Creates a new instance of RoomShare class
      * @param args command line arguments
-     * @throws RoomShareException Custom exception class within Duke program
+     * @throws RoomShareException Custom exception class within RoomShare program
      */
     public static void main(String[] args) throws RoomShareException {
         new RoomShare().run();

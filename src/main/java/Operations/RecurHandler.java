@@ -99,7 +99,7 @@ public class RecurHandler {
     }
 
     /**
-     * checks if the recurrence date has passed for a RecurringDeadline or RecurringEvent object
+     * checks if the recurrence date has passed for a Meeting or Assignment object
      * if date has passed, returns true
      * if date has not passed, returns false.
      * @param currentTime current time of the system as a string

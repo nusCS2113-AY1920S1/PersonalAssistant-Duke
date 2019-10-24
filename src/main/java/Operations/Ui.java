@@ -30,6 +30,7 @@ public class Ui {
         System.out.println("Enter 'help' if you require assistance");
     }
 
+
     public void helpAdd() {
         System.out.println("adds a Meeting or Assignment to the list");
         System.out.println("You must specify the description, type of task, and time of the task");
@@ -119,7 +120,7 @@ public class Ui {
      */
     public void showCommandError() {
         System.out.println("Sorry, I don't understand this command...");
-        System.out.println("Try typing todo, deadline or event followed by the task description to add tasks to your todo list");
+        System.out.println("Try type \"help add\" for instructions on how to add new task");
         System.out.println("    Type list, find, done, delete to perform operations on your todo list");
     }
 
