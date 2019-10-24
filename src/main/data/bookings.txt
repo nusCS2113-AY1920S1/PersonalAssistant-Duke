@@ -1,5 +1,6 @@
-booking | zihan | 91520567 | 2 | 10/10/2019 | steak and fish
-booking | John | 8473739 | 2 | 1/1/2019 | pasta, garlic prawn
-booking | Alex | 91837462 | 2 | 30/12/2019 | beef bolognese
-booking | James | 8371638 | 3 | 12/12/2019 | fish & chip, pasta
-booking | Adam | 83716484 | 4 | 23/10/2019 | salmon steak and pasta
+booking | zihan | 91520567 | 2 | 10/10/2019 | orders/ chicken rice, spaghetti bolognese
+booking | John | 8473739 | 2 | 1/1/2019 | orders/ pasta, garlic prawn
+booking | Alex | 91837462 | 2 | 30/12/2019 | orders/ beef bolognese
+booking | James | 8371638 | 3 | 12/12/2019 | orders/ fish & chip, pasta
+booking | Adam | 83716484 | 4 | 23/10/2019 | orders/ salmon steak, pasta
+booking | zihan | 91520567 | 2 | 1/1/2019 | orders/    beef,    wine,    noodles
