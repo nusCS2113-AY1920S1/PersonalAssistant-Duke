@@ -62,73 +62,70 @@ public class ShowCommand extends ModuleCommand {
         switch (arg("toShow")) {
             case "cca": {
                 plannerUi.listCcaMsg();
-                int counter = 0;
+                int count = 0;
                 for (Cca cca : ccas) {
-                    plannerUi.println(++counter + " " + cca);
+                    plannerUi.println(count++ + " " + cca);
                 }
                 break;
             }
 
             case ("core"): {
                 plannerUi.coreModReport();
-                int count = 1;
-                Set<String> coreModList = getCoreModList();
+                int count = 0;
+                coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleCode();
                     if (coreModList.contains(moduleCode)) {
                         ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count + ". " + temp);
-                        count++;
+                        System.out.println(count++ + ". " + temp);
                     }
                 }
                 plannerUi.coreModLeft();
                 int numOfCoreMods = 22;
-                System.out.println(numOfCoreMods - (count - 1));
+                System.out.println(numOfCoreMods - count);
                 break;
             }
 
             case ("ge"): {
                 plannerUi.geModReport();
-                int count = 1;
+                int count = 0;
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if (moduleCode.startsWith("GE")) {
                         ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count + ". " + temp);
-                        count++;
+                        System.out.println(count++ + ". " + temp);
                     }
                 }
                 plannerUi.geModLeft();
                 int numOfGeMods = 5;
-                System.out.println(numOfGeMods - (count - 1));
+                System.out.println(numOfGeMods - count);
                 break;
             }
 
             case ("ue"): {
                 plannerUi.ueModReport();
-                int count = 1;
-                Set<String> coreModList = getCoreModList();
+                int count = 0;
+                coreModList = getCoreModList();
                 for (int i = 0; i < tasks.getTasks().size(); i++) {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
                         ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count + ". " + temp);
-                        count++;
+                        System.out.println(count++ + ". " + temp);
                     }
                 }
                 plannerUi.ueModLeft();
                 int numOfUeMods = 8;
-                System.out.println(numOfUeMods - (count - 1));
+                System.out.println(numOfUeMods - count);
                 break;
             }
 
             case "module":
             default: {
                 plannerUi.listMsg();
-                int counter = 1;
+                int count = 1;
                 List<ModuleTask> hold = tasks.getTasks();
                 for (ModuleTask temp : hold) {
-                    System.out.print(counter++ + " ");
+                    System.out.print(count++ + " ");
                     plannerUi.showObject(temp);
                 }
                 break;
