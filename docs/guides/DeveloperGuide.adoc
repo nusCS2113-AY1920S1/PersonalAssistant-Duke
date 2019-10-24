@@ -170,7 +170,6 @@ of emails with the relevant tags.
 * Format: `update ITEM_NUMBER [-tag TAG1] [-tag TAG2]...` +
 * Tags the specified item with the tag(s) minimum number of tags is 1.
 
-
 ===== Filtering email: 'list`
 Format: `list [-tag TAG1] [-tag TAG2]...` +
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
@@ -183,7 +182,7 @@ where the String here refers to the tag name, and EmailList is an ArrayList<Emai
 == Testing
 
 == Dev Ops
-=======
+
 Email content parsing is to parse the keyword from different components of an email.
 
 Email content parsing starts with the calling of `allKeywordInEmail(email)` and parse in the email in
@@ -198,13 +197,12 @@ called to search for matches across these components. It will then return a rele
 relevance score means a more occurrence. Keyword with all its expressions absent in the email will get a 0
 relevance score. Also, subject and sender will have a higher weights compared to the email body.
 
-
 Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be
 added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 
-==== Design considerations
+=== Design considerations
 
-===== Aspect: Handling updating of tags
+Aspect: Handling updating of tags
 * Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
 ** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
 ** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.
@@ -216,12 +214,6 @@ added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
 ** Cons: added complexity in commands
 
 === Logging
-
-== Documentation
-
-== Testing
-
-== Dev Ops
 
 [appendix]
 == Suggested Programming Tasks to Get Started
@@ -345,8 +337,6 @@ Use case ends.
 Use case ends.
 
 *Extensions*
-
-
 * 3a. The user can include or exclude a particular keyword from that priority
 +
 Use case ends.
