@@ -28,7 +28,7 @@
 **Site Map**
 
 **Acknowledgements**
-* Most parts of this sample application came from https://github.com/j-lum/duke[Duke] by someone.
+* Most parts of this sample application came from https://github.com/j-lum/duke[duke.Duke] by someone.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TestFX],
