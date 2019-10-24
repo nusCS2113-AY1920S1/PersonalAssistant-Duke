@@ -10,8 +10,6 @@ import duke.ui.UiContext;
  * user input.
  */
 public class Commands {
-    // TODO: adapt getCommand to take in a Context as an argument and use it to disambiguate commands
-
     /**
      * Constructs and returns the command corresponding to a name provided by the user.
      *
@@ -19,6 +17,7 @@ public class Commands {
      * @return The newly constructed command without any parameters loaded.
      */
     public Command getCommand(String cmdStr, Context context) {
+        // TODO replace with overall switch on context
         switch (cmdStr) {
         case "bye":
             return new ByeCommand();

@@ -3,7 +3,6 @@ package mocks;
 import duke.command.Command;
 import duke.command.Commands;
 import duke.ui.Context;
-import duke.ui.UiContext;
 
 public class TestCommands extends Commands {
     @Override

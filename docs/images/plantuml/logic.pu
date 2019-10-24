@@ -97,12 +97,17 @@ class ParseState <<enumeration>> {
     SWITCH
 }
 
+class Commands {
+    +getCommand(String cmdStr, Context context)
+}
+
 class CommandHelpers {
     {static} +findSwitch(String word, ArgCommand command) : String
     {static} +disambiguate(String word, ArrayList<String> suggestions,\nSet<String> valid) : String
     {static} -stringDistance(String str1, String str2) : int
 }
 
+Parser o-- "1" Commands : < maps names to commands for
 ParseState <.. Parser
 Switch <.. Parser
 ArgCommand <.. Parser
