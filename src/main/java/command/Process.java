@@ -482,6 +482,7 @@ public class Process {
      * @param ui Ui that interacts with the user.
      * @param storage Storage that stores the input commands entered by the user.
      */
+
     public void commandHistory(String input, Ui ui, Storage storage) {
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();

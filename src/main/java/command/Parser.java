@@ -37,8 +37,8 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap,
-                                ArrayList<String> commandList, HashMap<String, Project> projectmap) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, ArrayList<String> commandList,
+                                HashMap<String, Payee> managermap, HashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
