@@ -360,13 +360,12 @@ The above function is done in the `CliLauncher` class, during the setup function
 
 Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
 
-This allows us to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the
+This allows the application to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the
 following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
 
 image::PackageModule.png[]
 
 Since some modules may not contain data for every field, each of the module classes above are required to have default values on initialisation so as to prevent `NullPointerExceptions` during runtime when such module data is accessed.
-
 
 image::ModuleInfoDetailed.png[]
 
@@ -385,8 +384,19 @@ image::FutureRequests.png[]
 
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
 
+The remove further dependency on the Internet for making API calls to NUSMODS, in future this implementation would be modified to use provided the data in the JAR resources.
+
 For the proposed implementation of updating user data, there are a few alternatives which could be considered:
 
+****
+* Alternative 1: There would be a prompt for the user on startup to check if they wish to update their module data. If the user decides to do so, they enter `yes` and it would be updated.
+    ** Since this may be distracting for users on every startup, once they user entered `no`, it would no longer prompt for the data update.
+    ** This implementation requires our application to remember user settings preferences which can be added as an additional feature.
+
+* Alternative 2: Automatic prompting, where the initial startup date is recorded, and would be mapped to a particular semester.
+    ** Once the semester has been completed, it would prompt the user to update the data. Since this requires and internet connection, this prompt is necessary.
+
+****
 
 [[Documentation]] 
 == Documentation
