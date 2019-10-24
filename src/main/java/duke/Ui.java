@@ -45,7 +45,7 @@ public class Ui {
      * This function prints out the welcome message of Duke.
      */
     public void welcome() {
-        System.out.println("Hello! I'm Duke, your personal sports manager!\n"
+        System.out.println("Hello! I'm Duke, your personal coach manager!\n"
             + "What can I do for you?");
     }
 
@@ -90,17 +90,6 @@ public class Ui {
             + "(Cmd: student search [name])");
     }
 
-
-    public void lessonHeading(Lesson lessonDate) {
-        System.out.flush();
-        System.out.println("What would you like to do on \n" + lessonDate + "?\n"
-            + "1. View lessons of the day\n"
-            + "2. Add a lesson of the day\n"
-            + "3. Delete a lesson of the day\n"
-            + "4. Clear all lessons of the day\n"
-            + "5. Quit lesson of the day");
-    }
-
     /**
      * This function prints out the heading when option 3 is chosen.
      */
@@ -125,4 +114,136 @@ public class Ui {
         return "Here are the matching names in your list: " + foundStudent;
     }
 
+    /**
+     * Prints message when asking for date for goal.
+     */
+    public void showGoalPromptDate() {
+        System.out.println("Please enter the date of the day "
+            + "in this format: dd/MM/yyyy");
+    }
+
+    /**
+     * Prints all possible actions with goal once entered.
+     * @param goalDate The date of the day
+     */
+    public void showGoalAllActions(String goalDate) {
+        System.out.println(
+            "\nWhat would you like to do on " + goalDate + "?\n"
+                + "1. View goals of the day\n"
+                + "2. Add a goal of the day\n"
+                + "3. Delete a goal of the day\n"
+                + "4. Clear all goals of the day\n"
+                + "5. Quit goal of the day");
+    }
+
+    /**
+     * Prints message when asking for goal to add.
+     * @param goalDate The date of the day
+     */
+    public void showGoalPromptAddGoal(String goalDate) {
+        System.out.println("To add a goal to "
+            + goalDate + ", enter the goal.");
+    }
+
+    /**
+     * Prints message when asking for goal to delete.
+     * @param goalDate The date of the day
+     */
+    public void showGoalPromptDeleteGoal(String goalDate) {
+        System.out.println("To delete a goal from "
+            + goalDate + ", enter the goal.");
+    }
+
+    /**
+     * Prints message when quitting goal of the day.
+     */
+    public void showQuitGoal() {
+        System.out.println(
+            "You have quit the goal of the day.");
+    }
+
+    /**
+     * Prints message to show help for goal of the day.
+     */
+    public void showHelpGoal() {
+        System.out.println(
+            "Actions you can take now: \n"
+            + "Enter the date in this format: dd/MM/yyyy\n"
+            + "Press 1 to view goals of the day\n"
+            + "Press 2 to add a goal of the day\n"
+            + "Press 3 to delete a goal of the day\n"
+            + "Press 4 to clear all goals of the day\n"
+            + "Press 5 to quit goal of the day");
+    }
+
+    /**
+     * Prints message asking for full command.
+     */
+    public void showFullCommand() {
+        System.out.println("Please enter the full command.");
+    }
+
+    /**
+     * Prints message asking for correct format.
+     */
+    public void showCorrectFormat() {
+        System.out.println(
+            "Please enter the details in the correct format.");
+    }
+
+    /**
+     * Prints message showing don't know what it means.
+     */
+    public void showDontKnow() {
+        System.out.println("\u2639 OOPS!!! I'm sorry,"
+            + "but I don't know what that means :-(");
+    }
+
+    /**
+     * Prints message when asking for date for lesson.
+     */
+    public void showLessonPromptDate() {
+        System.out.println("Please enter the date of the day "
+            + "in this format: dd/MM/yyyy");
+    }
+
+    /**
+     * Prints all possible actions with lesson once entered.
+     * @param lessonDate The date of the day
+     */
+    public void showLessonAllActions(String lessonDate) {
+        System.out.println(
+            "\nWhat would you like to do on " + lessonDate + "?\n"
+                + "1. View lessons of the day\n"
+                + "2. Add a lesson of the day\n"
+                + "3. Delete a lesson of the day\n"
+                + "4. Clear all lessons of the day\n"
+                + "5. Quit lesson of the day");
+    }
+
+    /**
+     * Prints message when asking for lesson to add.
+     * @param lessonDate The date of the day
+     */
+    public void showLessonPromptAddLesson(String lessonDate) {
+        System.out.println("To add a lesson to "
+            + lessonDate + ", enter the lesson.");
+    }
+
+    /**
+     * Prints message when asking for lesson to delete.
+     * @param lessonDate The date of the day
+     */
+    public void showLessonPromptDeleteLesson(String lessonDate) {
+        System.out.println("To delete a lesson from "
+            + lessonDate + ", enter the lesson.");
+    }
+
+    /**
+     * Prints message when quitting lesson of the day.
+     */
+    public void showQuitLesson() {
+        System.out.println(
+            "You have quit the lesson of the day.");
+    }
 }
