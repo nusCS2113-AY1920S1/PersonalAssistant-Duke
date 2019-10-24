@@ -86,7 +86,6 @@ public class Parser {
             if (!description.isBlank()) {
                 command = new FindCommand(CommandType.FIND, description);
             } else {
-                command = new Command();
                 throw new BadInputException("Please enter the search description.");
             }
             break;
@@ -110,7 +109,6 @@ public class Parser {
             break;
         }
         default:
-            command = new Command(); //Bad Command
             throw new BadInputException("Sorry, I don't recognise that input keyword!");
         }
         return command;

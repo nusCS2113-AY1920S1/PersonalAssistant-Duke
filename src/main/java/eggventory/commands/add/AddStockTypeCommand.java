@@ -16,8 +16,8 @@ public class AddStockTypeCommand extends Command {
      * @param name Name of StockType to add.
      */
     public AddStockTypeCommand(CommandType type, String name) {
+        super(type);
         this.name = name;
-        this.type = type;
     }
 
     /**
