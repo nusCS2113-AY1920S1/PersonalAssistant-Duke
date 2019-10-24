@@ -39,8 +39,8 @@ public class TaskParseNaturalDateHelper {
      * @param parsedDay    an input that contains the day of the task to be done.
      * @param parsedTiming an input that contains the time of the task to be done.
      * @return dateTime that gives the date and time of the input.
-     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due to a
-     *                                          wrong format
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due
+     *                                               to a wrong format
      */
     private static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming)
             throws CommandParseHelper.UserInputException {
@@ -71,7 +71,8 @@ public class TaskParseNaturalDateHelper {
      *
      * @param timeString time of the task in string format
      * @return time LocalDateTime format
-     * @throws CommandParseHelper.UserInputException
+     * @throws CommandParseHelper.UserInputException an exception when the parsing is failed, most likely due
+     *                                               to a wrong format
      */
     public static LocalDateTime getDate(String timeString) throws CommandParseHelper.UserInputException {
         String day = null;
