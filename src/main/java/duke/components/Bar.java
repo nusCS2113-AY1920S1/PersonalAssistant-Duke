@@ -146,8 +146,8 @@ public class Bar extends CopyObject<Bar> implements Serializable {
     }
 
     /**
-     * Checks the length of the Bar and whether it matches the correct length as specified by the time signature (modification
-     * of time signature to be introduced in v2).
+     * Checks the length of the Bar and whether it matches the correct length as specified by the time signature
+     * (modification of time signature to be introduced in v2).
      *
      * @param chords the ArrayList of Chord objects that make up the Bar
      * @param eighthNotesPerBar the number of eighth notes that should be in the bar

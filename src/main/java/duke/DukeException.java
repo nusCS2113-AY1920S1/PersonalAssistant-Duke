@@ -7,7 +7,8 @@ public class DukeException extends Exception {
 
     private String input;
     private String type = "other";
-    private static final String[] COMMAND_STRINGS = {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay"};
+    private static final String[] COMMAND_STRINGS =
+        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay"};
 
     //@@author rohan-av
     /**
@@ -42,7 +43,8 @@ public class DukeException extends Exception {
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
-        String word = input.trim().equals("event") || input.trim().equals("overlay") || input.trim().equals("addbar")? "an " : "a ";
+        String word = input.trim().equals("event") || input.trim().equals("overlay") || input.trim().equals("addbar")
+                ? "an " : "a ";
 
         if (hasEmptyDescription(input)) {
 
@@ -149,8 +151,8 @@ public class DukeException extends Exception {
     }
 
     /**
-     * Returns a boolean value corresponding to whether the input string, when trimmed, is equal to just the command, hence
-     * indicating the lack of further description.
+     * Returns a boolean value corresponding to whether the input string, when trimmed, is equal to just the command,
+     * hence indicating the lack of further description.
      *
      * @param message the input String
      * @return a boolean indicating whether the message has an empty description
