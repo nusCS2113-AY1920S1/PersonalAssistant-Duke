@@ -77,6 +77,16 @@ public class Ui {
         this.output = "";
     }
 
+
+    /**
+     * Prints the error message for the user.
+     * @param message error message
+     */
+    public void showErrorMessage(String message) {
+        print(message);
+    }
+
+
     /**
      * Prompts the user for confirmation.
      * @return value given by user
@@ -123,7 +133,7 @@ public class Ui {
      * Prints the list of categories.
      * @param categories list of current categories
      */
-    void showCategoryList(String categories) {
+    public void showCategoryList(String categories) {
         print("These are your current categories:"
                 + "\n_______________________________________________"
                 + categories
@@ -145,12 +155,31 @@ public class Ui {
         print("Ok, I've deleted the category named " + category.toString() + ".");
     }
 
+
+    /**
+     * Prints out when a new expenditure is created.
+     * @param expenditureName name of the new expenditure
+     */
+    public void showNewExpenditureMessage(String expenditureName) {
+        print("Ok, I've added a new expenditure under " + expenditureName);
+    }
+
+
     /**
      * Promts the user to enter the number corresponding to a month.
      */
     public void showEnterMonthMessage() {
         print("Please enter a month in the format MM.");
     }
+
+
+    /**
+     * Prompts the user to enter a expenditure name.
+     */
+    public void showAddExpenditureMessage() {
+        print("Please enter a name for which category's expenditure and amount with a '-' in between");
+    }
+
 
     /**
      * Shows the user his total spending for the month in a category.
@@ -166,7 +195,7 @@ public class Ui {
     /**
      * Prompts the user to enter what to add.
      */
-    void showAddMessage(String text) {
+    public void showAddMessage(String text) {
         print("What do you wish to " + text + "?"
                 + "\ncategory"
                 + "\nexpenditure");

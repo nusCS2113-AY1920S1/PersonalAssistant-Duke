@@ -57,7 +57,9 @@ public class CategoryList {
     public void list(Ui ui) {
         String categoryList = "";
         for (int i = 0; i < this.categoryList.size(); i++) {
-            categoryList = categoryList.concat("\n" + i + ". " + this.categoryList.get(i).toString());
+            categoryList = categoryList.concat("\n" + i + ". "
+                    + this.categoryList.get(i).toString()
+                    + " [ $" + this.categoryList.get(i).getCategoryMonthTotal() + " ]");
         }
         ui.showCategoryList(categoryList);
     }

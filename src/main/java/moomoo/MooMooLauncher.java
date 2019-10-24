@@ -1,9 +1,12 @@
+package moomoo;
+
 import javafx.application.Application;
+import moomoo.gui.Main;
 
 /**
  * Launches the application.
  */
-public class Launcher {
+public class MooMooLauncher {
     /**
      * Runs the program either in GUI or CLI mode.
      * @param args If appropriate argument is given, GUI will be launched.

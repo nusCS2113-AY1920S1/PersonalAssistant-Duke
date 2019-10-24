@@ -5,7 +5,7 @@ import moomoo.task.Category;
 import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
-import moomoo.task.TransactionList;
+import moomoo.task.ScheduleList;
 import moomoo.task.Ui;
 
 import java.text.DecimalFormat;
@@ -32,13 +32,14 @@ public class BudgetCommand extends Command {
     }
 
     @Override
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
-            throws MooMooException {
+
+    public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category, 
+                        Ui ui, Storage storage) throws MooMooException {
         try {
             if (input.length() == 6) {
-                manageBudgetPrompt(budget, catList, transList, ui, storage);
+                manageBudgetPrompt(budget, catList, ui, storage);
             } else {
-                manageBudget(budget, catList, transList, ui, storage);
+                manageBudget(budget, catList, ui, storage);
             }
         } catch (MooMooException e) {
             throw new MooMooException(e.getMessage());
@@ -53,9 +54,9 @@ public class BudgetCommand extends Command {
      */
     private LocalDate parseMonth(String inputDate) {
         try {
-            inputDate = "01/" + inputDate;
+            String fullDate = "01/" + inputDate;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate parsedDate = LocalDate.parse(inputDate, formatter);
+            LocalDate parsedDate = LocalDate.parse(fullDate, formatter);
             return parsedDate;
         } catch (Exception e) {
             return null;
@@ -67,12 +68,11 @@ public class BudgetCommand extends Command {
      *
      * @param budget    Budget object containing the budget.
      * @param catList   CategoryList object containing the categories
-     * @param transList TransactionList object containing transactions within each category.
      * @param ui        Ui object for interaction with user interface.
      * @param storage   Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    private void manageBudget(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    private void manageBudget(Budget budget, CategoryList catList, Ui ui, Storage storage)
             throws MooMooException {
         input = input.substring(7);
         String outputValue = "";
@@ -85,10 +85,9 @@ public class BudgetCommand extends Command {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
                         category = splitInput[i].substring(2);
-                        if (splitInput[i + 1].startsWith("b/")) {
-                            if (!inCategoryList(category, catList)) { //check if category exists.
-                                throw new MooMooException(category + " does not exist. Please create it first.");
-                            }
+                        if (splitInput[i + 1].startsWith("b/") && !inCategoryList(category, catList)) {
+                            throw new MooMooException(category + " does not exist. Please create it first.");
+
                         }
                     } else {
                         if (!reset) {
@@ -116,7 +115,7 @@ public class BudgetCommand extends Command {
                 }
             }
 
-            if (outputValue == "") {
+            if ("".equals(outputValue)) {
                 throw new MooMooException("You have not typed in a valid format. "
                         + " Please use budget set c/CATEGORY b/BUDGET.");
             }
@@ -131,11 +130,9 @@ public class BudgetCommand extends Command {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
                         category = splitInput[i].substring(2);
-                        if (splitInput[i + 1].startsWith("b/")) {
-                            if (!inCategoryList(category, catList)) { //check if category exists.
-                                throw new MooMooException("The " + category
-                                        + " does not exist. Please create it first.");
-                            }
+                        if (splitInput[i + 1].startsWith("b/") && !inCategoryList(category, catList)) {
+                            throw new MooMooException("The " + category
+                                    + " does not exist. Please create it first.");
                         }
                     } else {
                         if (!reset) {
@@ -168,7 +165,7 @@ public class BudgetCommand extends Command {
                     }
                 }
             }
-            if (outputValue == "") {
+            if ("".equals(outputValue)) {
                 throw new MooMooException("You have not typed in a valid format. "
                         + " Please use budget set c/CATEGORY b/BUDGET.");
             }
@@ -209,7 +206,7 @@ public class BudgetCommand extends Command {
                         }
                     }
                 }
-                if (outputValue == "") {
+                if ("".equals(outputValue)) {
                     throw new MooMooException("You have not typed in a valid format. "
                             + "Please list down the categories using c/CATEGORY.");
                 }
@@ -231,13 +228,13 @@ public class BudgetCommand extends Command {
                     hasCategories = true;
                     categories.add(splitInput[i].substring(2));
                 } else if (splitInput[i].startsWith("s/")) {
-                    if (startMonth.equals("")) {
+                    if ("".equals(startMonth)) {
                         startMonth = splitInput[i].substring(2);
                     } else {
                         throw new MooMooException("Please only set 1 starting period.");
                     }
                 } else if (splitInput[i].startsWith("e/")) {
-                    if (endMonth.equals("")) {
+                    if ("".equals(endMonth)) {
                         endMonth = splitInput[i].substring(2);
                     } else {
                         throw new MooMooException("Please only set 1 ending period.");
@@ -247,9 +244,9 @@ public class BudgetCommand extends Command {
                 }
             }
             if (hasCategories) {
-                outputValue += viewSavings(budget, ui, catList, startMonth, endMonth, "", categories);
+                outputValue += viewSavings(budget, catList, startMonth, endMonth, "", categories);
             } else {
-                outputValue += viewSavings(budget, ui, catList, startMonth, endMonth, "", null);
+                outputValue += viewSavings(budget, catList, startMonth, endMonth, "", null);
             }
 
             if (outputValue.endsWith("\n")) {
@@ -267,12 +264,11 @@ public class BudgetCommand extends Command {
      *
      * @param budget    Budget object containing the budget.
      * @param catList   CategoryList object containing the categories
-     * @param transList TransactionList object containing transactions within each category.
      * @param ui        Ui object for interaction with user interface.
      * @param storage   Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    private void manageBudgetPrompt(Budget budget, CategoryList catList, TransactionList transList, Ui ui,
+    private void manageBudgetPrompt(Budget budget, CategoryList catList, Ui ui,
                                     Storage storage) throws MooMooException {
         String initialInput = "Please select a job to do (1 - 4):\n1. set (sets budget)\n2. edit (changes budget)\n"
                 + "3. list (view budget)\n4. savings (view savings per month)\n5. exit";
@@ -282,14 +278,14 @@ public class BudgetCommand extends Command {
             try {
                 switch (Integer.parseInt(command)) {
                 case 1:
-                    String category = initialPrompt(catList, ui, budget,
+                    String category = initialPrompt(catList, ui,
                             "Please type in the category that you would like to set the budget for, "
                                     + "type 0 to exit.");
-                    while (!category.equals("0")) {
+                    while (!"0".equals(category)) {
                         if (!inCategoryList(category, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            category = initialPrompt(catList, ui,
                                     "Please type in the category that you would like to set the budget for, "
                                             + "type 0 to exit.");
                             continue;
@@ -301,7 +297,7 @@ public class BudgetCommand extends Command {
                         ui.setOutput(addBudget(budget, inputBudget, category));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        category = initialPrompt(catList, ui,
                                 "Please type in the category that you would like to set the budget for, "
                                         + "type 0 to exit.");
                     }
@@ -316,15 +312,15 @@ public class BudgetCommand extends Command {
                         continue;
                     }
 
-                    category = initialPrompt(catList, ui, budget,
+                    category = initialPrompt(catList, ui,
                             "Please type in the category that you would like to change the budget for, "
                                     + "type 0 to exit");
 
-                    while (!category.equals("0")) {
+                    while (!"0".equals(category)) {
                         if (!inCategoryList(category, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            category = initialPrompt(catList, ui,
                                     "Please type in the category that you would like to change the budget for, "
                                             + "type 0 to exit.");
                             continue;
@@ -335,7 +331,7 @@ public class BudgetCommand extends Command {
                         ui.setOutput(editBudget(budget, inputBudget, category));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        category = initialPrompt(catList, ui,
                                 "Please type in the category that you would like to change the budget for, "
                                         + "type 0 to exit.");
                     }
@@ -350,15 +346,15 @@ public class BudgetCommand extends Command {
                         continue;
                     }
 
-                    category = initialPrompt(catList, ui, budget,
+                    category = initialPrompt(catList, ui,
                             "Please type in the category that you would like to view the budget for, "
                                     + "type 0 to exit or leave blank to view all categories.");
 
-                    while (!category.equals("0")) {
-                        if (category.equals("")) {
+                    while (!"0".equals(category)) {
+                        if ("".equals(category)) {
                             ui.setOutput(budget.toString().substring(0, budget.toString().length() - 1));
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            category = initialPrompt(catList, ui,
                                     "Please type in the category that you would like to view the budget for, "
                                             + "type 0 to exit or leave blank to view all categories.");
                             continue;
@@ -367,7 +363,7 @@ public class BudgetCommand extends Command {
                         if (!inCategoryList(category, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            category = initialPrompt(catList, ui,
                                     "Please type in the category that you would like to view the budget for, "
                                             + "type 0 to exit or leave blank to view all categories.");
                             continue;
@@ -376,7 +372,7 @@ public class BudgetCommand extends Command {
                         ui.setOutput(budget.toStringCategory(category));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        category = initialPrompt(catList, ui,
                                 "Please type in the category that you would like to view the budget for, "
                                         + "type 0 to exit or leave blank to view all categories.");
                     }
@@ -389,15 +385,15 @@ public class BudgetCommand extends Command {
                         inputVal = initialInput;
                         continue;
                     }
-                    category = initialPrompt(catList, ui, budget,
+                    category = initialPrompt(catList, ui,
                             "Please type in the category that you would like to view your savings for, "
                                     + "type 0 to exit or leave it blank to view all.");
 
-                    while (!category.equals("0")) {
-                        if (!category.equals("") && !inCategoryList(category, catList)) {
+                    while (!"0".equals(category)) {
+                        if (!"".equals(category) && !inCategoryList(category, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
-                            category = initialPrompt(catList, ui, budget,
+                            category = initialPrompt(catList, ui,
                                     "Please type in the category that you would like to view your savings for, "
                                             + "type 0 to exit or leave it blank to view all.");
                             continue;
@@ -409,10 +405,10 @@ public class BudgetCommand extends Command {
                         inputVal = "Please type in the end period or leave blank to view for a month (10/2019).";
                         String endMonth = ui.confirmPrompt(inputVal);
 
-                        ui.setOutput(viewSavings(budget, ui, catList, startMonth, endMonth, category, null));
+                        ui.setOutput(viewSavings(budget, catList, startMonth, endMonth, category, null));
                         ui.showResponse();
 
-                        category = initialPrompt(catList, ui, budget,
+                        category = initialPrompt(catList, ui,
                                 "Please type in the category that you would like to view your savings for, "
                                         + "type 0 to exit or leave it blank to view all.");
                     }
@@ -505,18 +501,18 @@ public class BudgetCommand extends Command {
         return outputValue;
     }
 
-    private String viewSavings(Budget budget, Ui ui, CategoryList catList, String startMonth,
+    private String viewSavings(Budget budget, CategoryList catList, String startMonth,
                                String endMonth, String category, List<String> categories) throws MooMooException {
         String outputValue = "";
         LocalDate start = parseMonth(startMonth.strip());
         LocalDate end = parseMonth(endMonth.strip());
 
-        if (!endMonth.equals("") && end == null) {
+        if (!"".equals(endMonth) && end == null) {
             outputValue = "Please set your start and end month in this format \"05/2019\"";
             return outputValue;
         }
 
-        if (!startMonth.equals("") && start == null) {
+        if (!"".equals(startMonth) && start == null) {
             outputValue = "Please set your start and end month in this format \"05/2019\"";
             return outputValue;
         }
@@ -526,51 +522,67 @@ public class BudgetCommand extends Command {
             return outputValue;
         }
 
-        if (categories == null && category.equals("")) {
-            if (endMonth.equals("")) {
-                outputValue = "Your total savings for " + start.getMonth()
-                        + " " + start.getYear() + " is: ";
-            } else {
-                outputValue = "Your total savings from " + start.getMonth()
-                        + " " + start.getYear() + " to "
-                        + end.getMonth() + " " + end.getYear() + " is: ";
-            }
+        if (categories == null && "".equals(category)) {
+            outputValue = viewTotalSavings(start, end, endMonth);
         } else {
-            if (!category.equals("") && categories == null) {
-                categories = new ArrayList<>();
-                categories.add(category);
+            List<String> newCategoryList = new ArrayList<>();
+            if (!"".equals("category") && categories == null) {
+                newCategoryList.add(category);
+            } else {
+                newCategoryList = categories;
             }
-            for (String iteratorCategory : categories) {
-                if (!inCategoryList(iteratorCategory, catList)) {
-                    throw new MooMooException("The " + iteratorCategory + " does not exist."
-                            + " Please create it first.");
-                }
-                if (budget.getBudgetFromCategory(iteratorCategory) == 0) {
-                    throw new MooMooException("The budget for " + iteratorCategory + " does not exist."
-                            + "Please set it using budget set.");
-                }
-                if (endMonth.equals("")) {
-                    outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
-                            + " " + start.getYear() + " is: $"
-                            + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
-                } else {
-                    outputValue += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
-                            + start.getYear() + " to "
-                            + end.getMonth() + " " + end.getYear() + " is: $"
-                            + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
-                }
+            outputValue =  viewCategorySavings(newCategoryList, catList, budget, start, end, endMonth);
+
+        }
+        return outputValue;
+    }
+
+    private String viewTotalSavings(LocalDate start, LocalDate end, String endMonth) {
+        String outputValue = "";
+        if ("".equals(endMonth)) {
+            outputValue = "Your total savings for " + start.getMonth()
+                    + " " + start.getYear() + " is: ";
+        } else {
+            outputValue = "Your total savings from " + start.getMonth()
+                    + " " + start.getYear() + " to "
+                    + end.getMonth() + " " + end.getYear() + " is: ";
+        }
+        return outputValue;
+    }
+
+    private String viewCategorySavings(List<String> categoryList, CategoryList catList, Budget budget,
+                                       LocalDate start, LocalDate end, String endMonth) throws MooMooException {
+        String outputValue = "";
+        for (String iteratorCategory : categoryList) {
+            if (!inCategoryList(iteratorCategory, catList)) {
+                throw new MooMooException("The " + iteratorCategory + " does not exist."
+                        + " Please create it first.");
+            }
+            if (budget.getBudgetFromCategory(iteratorCategory) == 0) {
+                throw new MooMooException("The budget for " + iteratorCategory + " does not exist."
+                        + "Please set it using budget set.");
+            }
+            if ("".equals(endMonth)) {
+                outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
+                        + " " + start.getYear() + " is: $"
+                        + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
+            } else {
+                outputValue += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
+                        + start.getYear() + " to "
+                        + end.getMonth() + " " + end.getYear() + " is: $"
+                        + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
             }
         }
         return outputValue;
     }
 
-    private String initialPrompt(CategoryList catList, Ui ui, Budget budget, String promptValue) {
+    private String initialPrompt(CategoryList catList, Ui ui, String promptValue) {
         String outputValue = "CATEGORIES:\n";
         for (int i = 0; i < catList.getCategoryList().size(); ++i) {
             String categoryName = catList.getCategoryList().get(i).toString();
             outputValue += categoryName + "\n";
         }
-        if (outputValue.equals("CATEGORIES:\n")) {
+        if ("CATEGORIES:\n".equals(outputValue)) {
             outputValue += "There are no categories set.\n";
         }
         String inputVal = outputValue + promptValue;
