@@ -18,7 +18,7 @@ import cube.exception.CubeException;
 /**
  * the main class of Duke Programme
  */
-public class Duke {
+public class Cube {
 
     private StorageManager storageManager;
     private FileUtilJson storage;
@@ -26,11 +26,11 @@ public class Duke {
     private Ui ui;
 
     /**
-     * Duke constructor with filePath.
+     * Cube constructor with filePath.
      *
      * @param filePath the file path where duke data is stored.
      */
-    public Duke(String filePath) {
+    public Cube(String filePath) {
         ui = new Ui();
         storage = new FileUtilJson(filePath);
 
@@ -46,7 +46,7 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke programme by receiving user commands and executing the commands.
+     * Runs the Cube programme by receiving user commands and executing the commands.
      */
     public void run() {
         ui.showWelcome();
@@ -74,6 +74,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         //todo: allow user to specify data path
-        new Duke("data").run();
+        new Cube("data").run();
     }
 }
