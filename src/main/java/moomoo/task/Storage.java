@@ -22,6 +22,13 @@ public class Storage {
     private String categoryFilePath;
 
     /**
+     * Initializes empty Storage object.
+     */
+    public Storage() {
+
+    }
+
+    /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
      * @param scheduleFilePath File path to store all categories
@@ -70,44 +77,37 @@ public class Storage {
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public HashMap<String, Double> loadBudget(CategoryList catList) throws MooMooException {
+    public HashMap<String, Double> loadBudget(ArrayList<Category> catList, Ui ui) {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
-                List<String> input = Files.readAllLines(Paths.get(this.budgetFilePath));
+                String input = Files.readString(Paths.get(this.budgetFilePath));
 
-                for (String value : input) {
-                    if (value.charAt(0) == 'B') {
-                        String[] splitInput = value.split(" \\| ");
-                        String category = "";
-                        double budget = 0;
-                        for (int i = 1; i < splitInput.length; ++i) {
-                            if (i % 2 == 0) {
-
-                                if (!"".equals(category)) {
-                                    budget = Double.parseDouble(splitInput[i]);
-                                    loadedBudgets.put(category, budget);
-                                }
-                                category = "";
-                            } else {
-                                if (inCategoryList(catList, splitInput[i])) {
-                                    category = splitInput[i];
-                                }
-                            }
+                String[] splitInput = input.split(" \\| ");
+                String category = "";
+                double budget = 0;
+                for (int i = 0; i < splitInput.length; ++i) {
+                    if (i % 2 == 1) {
+                        if (!"".equals(category)) {
+                            budget = Double.parseDouble(splitInput[i]);
+                            loadedBudgets.put(category, budget);
                         }
-                        return loadedBudgets;
+                        category = "";
+                    } else {
+                        if (isInCategoryList(catList, splitInput[i])) {
+                            category = splitInput[i];
+                        }
                     }
-                }
-                if (loadedBudgets == null) {
-                    throw new MooMooException("Unable to load budget from file. Please reset your budget.");
                 }
                 return loadedBudgets;
             } else {
-                throw new MooMooException("Budget File not found. New file will be created");
+                ui.setOutput("Budget File not found. New file will be created");
+                return null;
             }
         } catch (IOException e) {
-            throw new MooMooException("Unable to write to file. Please retry again.");
+            ui.setOutput("Unable to write to file. Please retry again.");
         }
+        return null;
     }
 
     /**
@@ -115,7 +115,7 @@ public class Storage {
      * @return ArrayList object consisting of the scheduled payments read from the file
      * @throws MooMooException Thrown when file does not exist
      */
-    public ArrayList<SchedulePayment> loadCalendar() throws MooMooException {
+    public ArrayList<SchedulePayment> loadCalendar(Ui ui) {
         ArrayList<SchedulePayment> scheduleArray = new ArrayList<>();
         try {
             if (Files.isRegularFile(Paths.get(this.scheduleFilePath))) {
@@ -131,11 +131,12 @@ public class Storage {
                 }
                 return scheduleArray;
             } else {
-                throw new MooMooException("File not found. New file will be created");
+                ui.setOutput("Schedule File not found. New file will be created");
             }
         } catch (IOException e) {
-            throw new MooMooException("Unable to read file. Please retry again.");
+            ui.setOutput("Unable to read file. Please retry again.");
         }
+        return null;
     }
 
     /**
@@ -195,16 +196,17 @@ public class Storage {
      */
     public void saveBudgetToFile(Budget budget) throws MooMooException {
         createFileAndDirectory(this.budgetFilePath);
-        String toSave = "B";
+        String toSave = "";
         Iterator budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry)budgetIterator.next();
-            toSave += " | " + mapElement.getKey() + " | " + df.format(mapElement.getValue());
+            toSave += mapElement.getKey() + " | " + df.format(mapElement.getValue()) + " | ";
         }
+        toSave = toSave.substring(0, toSave.length() - 3);
         try {
             Files.writeString(Paths.get(this.budgetFilePath), toSave);
         } catch (Exception e) {
-            throw new MooMooException("Unable to write to file. Please retry again.");
+            throw new MooMooException("Unable to write to budget file. Please retry again.");
         }
     }
 
@@ -230,8 +232,8 @@ public class Storage {
      * Checks if a category is found in the list of categories.
      * @return true if it exists.
      */
-    private boolean inCategoryList(CategoryList catList, String value) {
-        for (Category cat : catList.getCategoryList()) {
+    private boolean isInCategoryList(ArrayList<Category> catList, String value) {
+        for (Category cat : catList) {
             if (cat.toString().equals(value)) {
                 return true;
             }

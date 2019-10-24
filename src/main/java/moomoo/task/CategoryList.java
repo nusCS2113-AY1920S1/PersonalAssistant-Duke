@@ -94,7 +94,37 @@ public class CategoryList {
         
         return longestName;
     }
-    
+
+    /**
+     * Calculates the total of all expenditures from all categories for selected month and year.
+     * @param month month to check
+     * @return total expenditure for the month
+     */
+    public double getMonthlyGrandTotal(int month, int year) {
+        double total = 0;
+        for (Category category : categoryList) {
+            total += category.getCategoryTotalPerMonthYear(month, year);
+        }
+        return total;
+    }
+
+    public void deleteCategory(int categoryNumber) {
+        categoryList.remove(categoryNumber);
+    }
+
+    /**
+     * Returns the category if it currently exists.
+     * @param value Name of category to return.
+     * @return
+     */
+    public Category getCategory(String value) {
+        for (Category iterCategory : categoryList) {
+            if (iterCategory.toString().equalsIgnoreCase(value)) {
+                return iterCategory;
+            }
+        }
+        return null;
+    }
     /**
      * Populate the categoryList array with dummy variables. FOT TESTING PURPOSES
      */

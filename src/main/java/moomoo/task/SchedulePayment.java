@@ -1,7 +1,5 @@
 package moomoo.task;
 
-import java.util.ArrayList;
-
 public class SchedulePayment {
     public String date;
     public String tasks;

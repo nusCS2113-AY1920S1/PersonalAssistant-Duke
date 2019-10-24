@@ -1,3 +1,5 @@
+package moomoo.gui;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import moomoo.MooMoo;
 
 /**
  * Represents the main window holding the different elements of the GUI.
@@ -29,8 +32,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setMoomoo(MooMoo d) {
-        moomoo = d;
+    public void setMoomoo(MooMoo newMooMoo) {
+        moomoo = newMooMoo;
     }
 
     @FXML

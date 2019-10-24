@@ -34,6 +34,7 @@ public class Category {
     }
 
     public void add(Expenditure newExpenditure) {
+        monthTotal += newExpenditure.getCost();
         category.add(newExpenditure);
     }
 
@@ -48,12 +49,30 @@ public class Category {
             LocalDate now = LocalDate.now(); // Now see if the month and year match.
             if (date.getMonth() == now.getMonth() && date.getYear() == now.getYear()) {
                 // You have a hit.
-                totalCost += expenditure.amount();
+                totalCost += expenditure.getCost();
             }
         }
         return totalCost;
     }
-    
+
+    /**
+     * Returns the total expenditure for the given month and year.
+     * @param month integer value representing the month
+     * @param year integer value representing the value.
+     * @return total expenditure spent for corresponding month and year
+     */
+    public double getCategoryTotalPerMonthYear(int month, int year) {
+        double totalCost = 0.00;
+        for (int i = 0; i < category.size(); i++) {
+            Expenditure currExpenditure = category.get(i);
+            if (currExpenditure.getDateTime().getMonthValue() == month
+                    && currExpenditure.getDateTime().getYear() == year) {
+                totalCost += currExpenditure.getCost();
+            }
+        }
+        return totalCost;
+    }
+
     public double getMonthlyTotal(int month) {
         return monthTotal;
     }
