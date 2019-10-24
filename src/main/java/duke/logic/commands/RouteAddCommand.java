@@ -7,7 +7,7 @@ import duke.model.lists.RouteList;
 import duke.model.transports.Route;
 
 /**
- * Class representing a command to add a Route to RouteList.
+ * Adds a Route to RouteList.
  */
 public class RouteAddCommand extends Command {
     private String name;

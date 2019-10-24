@@ -14,7 +14,7 @@ import com.google.gson.JsonParser;
 import duke.commons.Messages;
 
 /**
- * URL request to OneMap API to get coordinates of location.
+ * Handles URL requests to OneMap API to get coordinates of location.
  */
 public class LocationSearchUrlRequest extends UrlRequest {
     private static final String paramType = "searchVal";

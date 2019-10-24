@@ -16,7 +16,7 @@ import duke.model.planning.Todo;
 import java.time.LocalDateTime;
 
 /**
- * Parser for utility functions.
+ * Defines parsing methods for utility functions.
  */
 public class ParserUtil {
     /**

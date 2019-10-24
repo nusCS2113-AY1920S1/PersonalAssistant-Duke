@@ -7,7 +7,7 @@ import duke.model.lists.TaskList;
 import duke.model.Task;
 
 /**
- * Class representing a command to find a task by keyword.
+ * Finds a task by keyword.
  */
 public class FindCommand extends Command {
     private String keyword;

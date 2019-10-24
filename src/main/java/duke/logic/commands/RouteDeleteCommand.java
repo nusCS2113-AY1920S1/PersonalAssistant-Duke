@@ -7,7 +7,7 @@ import duke.model.Model;
 import duke.model.lists.RouteList;
 
 /**
- * Class representing a command to delete a Route from RouteList.
+ * Deletes a Route from RouteList.
  */
 public class RouteDeleteCommand extends Command {
     private int index;

@@ -6,6 +6,9 @@ import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an event occurring at a particular venue between a certain time.
+ */
 public class Event extends TaskWithDates {
     private Venue venue;
 

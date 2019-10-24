@@ -2,6 +2,9 @@ package duke.logic.conversations;
 
 import duke.commons.MessagesPrompt;
 
+/**
+ * Handles the conversation occurring when a todo command is entered.
+ */
 public class ToDoConversation extends Conversation {
     private static final String command = "todo";
     private String description;

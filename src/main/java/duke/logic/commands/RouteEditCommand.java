@@ -7,7 +7,7 @@ import duke.model.Model;
 import duke.model.transports.Route;
 
 /**
- * Class representing a command to edit a Route in RouteList.
+ * Edits a Route in RouteList.
  */
 public class RouteEditCommand extends Command {
     private int index;

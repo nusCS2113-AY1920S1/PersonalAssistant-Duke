@@ -2,6 +2,9 @@ package duke.model.transports;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Bus and its route.
+ */
 public class BusService {
     private String bus;
     private ArrayList<String> direction1;

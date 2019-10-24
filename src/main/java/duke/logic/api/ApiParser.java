@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Class to handle all API requests.
+ * Handles all API requests.
  */
 public class ApiParser {
 

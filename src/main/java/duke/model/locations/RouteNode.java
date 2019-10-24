@@ -3,6 +3,9 @@ package duke.model.locations;
 import duke.commons.enumerations.Constraint;
 import duke.model.locations.Venue;
 
+/**
+ * Represents one transportation node - bus stop / train station.
+ */
 public abstract class RouteNode extends Venue {
     private Constraint type;
     private String address;

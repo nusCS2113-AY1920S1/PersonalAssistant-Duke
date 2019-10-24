@@ -4,7 +4,7 @@ import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 
 /**
- * Conversation manager for Duke to handle two-way communications.
+ * Manages two-way communications between SGTravel and the user.
  */
 public class ConversationManager {
     private boolean isFinished;

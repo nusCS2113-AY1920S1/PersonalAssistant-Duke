@@ -7,7 +7,7 @@ import duke.model.planning.Itinerary;
 import duke.storage.Storage;
 
 /**
- * Class representing a command to list items in a task list.
+ * Adds the given recommended list to users itineraries.
  */
 public class AddSampleItineraryCommand extends Command {
     private Itinerary itinerary;

@@ -4,7 +4,7 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Class representing a command to list all Routes in RouteList.
+ * Lists all Routes in RouteList.
  */
 public class RouteListAllCommand extends Command {
     /**

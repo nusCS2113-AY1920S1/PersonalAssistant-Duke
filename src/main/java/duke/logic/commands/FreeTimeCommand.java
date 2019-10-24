@@ -5,6 +5,9 @@ import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.model.Model;
 
+/**
+ * Retrieves the number of free hours.
+ */
 public class FreeTimeCommand extends Command {
     private int duration;
 

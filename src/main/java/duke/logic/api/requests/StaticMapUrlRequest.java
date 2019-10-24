@@ -6,6 +6,9 @@ import javafx.scene.image.Image;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Handles static, map URL requests.
+ */
 public class StaticMapUrlRequest extends UrlRequest {
     private static final String URL = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?";
 

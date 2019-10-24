@@ -16,6 +16,9 @@ import duke.storage.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements the methods defined in the Model Interface.
+ */
 public class ModelManager implements Model {
     private Storage storage;
     private TaskList tasks;

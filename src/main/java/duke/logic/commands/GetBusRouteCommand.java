@@ -8,6 +8,9 @@ import duke.model.transports.BusService;
 
 import java.util.HashMap;
 
+/**
+ * Retrieves the bus route of a given bus.
+ */
 public class GetBusRouteCommand extends Command {
     private String bus;
     private static final String MESSAGE_BUS_ROUTE = "Here is the bus route:\n";

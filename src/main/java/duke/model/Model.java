@@ -14,6 +14,9 @@ import duke.model.locations.Venue;
 
 import java.util.List;
 
+/**
+ * Interface which grants other components access to information from persistent storage.
+ */
 public interface Model {
     /**
      * Returns the list of tasks.

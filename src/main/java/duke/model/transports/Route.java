@@ -8,6 +8,9 @@ import duke.model.locations.TrainStation;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a route between 2 locations as a list of route nodes.
+ */
 public class Route {
     private ArrayList<RouteNode> nodes;
     private String name;

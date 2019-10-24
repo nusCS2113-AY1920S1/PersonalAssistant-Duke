@@ -9,6 +9,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the transportation map of the Singapore transport network.
+ */
 public class CreateMap {
     private HashMap<String, BusService> busMap;
     private HashMap<String, BusStop> busStopMap;
