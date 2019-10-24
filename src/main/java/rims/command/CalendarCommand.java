@@ -25,12 +25,22 @@ public abstract class CalendarCommand extends Command{
     private static String MidRight = "╣";
     private static String MidLeft = "╠";
 
-    private static String[] data = {"mon12345678910111213", "tue","wed","thur", "fri", "sat", "sun"};
+    private static String[][] array = {
+            {"mon12345678910111213", "a", "h"},
+            {"tue", "b" , "i"},
+            {"wed", "c" , "j", "fl;kj", ";idfolhf"},
+            {"thur", "k"},
+            {"fri", "e", "l"},
+            {"sat"},
+            {"sun", "g", "n"}
+    };
+
 
     // todo: check and align days of the week / offset from first box (mon)
     // todo: add in items and reservation status
-    public static void printCal() {
+    // todo: add "..." for when cell cannot display all rows
 
+    public static void printCal() {
         printTopCells();
         for (int row = 2; row < CalHeight; row++) {
            printMidCells(row);
@@ -120,8 +130,8 @@ public abstract class CalendarCommand extends Command{
         for (int row = 2; row < cellHeight; row++) {
                 for (int i = 0; i <= cellLength * CalWidth; i++) {
                     int day = getDay(i, cellRow);
-                    String phrase = data[(day-1)%7];
-                    String phraseToPrint = shortenPhrase(phrase);
+
+                    String phraseToPrint;
 
                     if ((i % cellLength) == 0) {
                         System.out.print(Vert);
@@ -141,7 +151,16 @@ public abstract class CalendarCommand extends Command{
                         System.out.print(Vert);
                         i += cellLength;
                     }
+
+                    else if ( row-3 > array[(day-1)%7].length-1) {
+                        phraseToPrint = shortenPhrase("");
+                        System.out.print(phraseToPrint);
+                        System.out.print(Vert);
+                        i += cellLength;
+                    }
                     else {
+                        String phrase = array[(day-1)%7][row-3];
+                        phraseToPrint = shortenPhrase(phrase);
                         System.out.print(phraseToPrint);
                         System.out.print(Vert);
                         i += cellLength;
@@ -197,7 +216,18 @@ public abstract class CalendarCommand extends Command{
 
     private static void getData(){
         for(int day = 1; day < DaysInMonth; day ++){
+            String [] list;
+            /*
+            list[1];
 
+            iterate all days
+            make a list for per day
+            list for that day and get the first item
+            append item to list
+            do the same for the rest of the items on that same day
+            append list to data
+            return data
+        */
         }
     }
 }
