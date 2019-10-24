@@ -52,7 +52,7 @@ public class AddBarCommand extends Command<SongList> {
             Song song = songList.getSongIndex(songIndex);
 
             song.addBar(newBar);
-            //storage.updateFile(songList);
+            storage.updateFile(songList);
             System.out.println(notesIndex);
             try {
                 ArrayList<Song> temp = songList.getSongList();

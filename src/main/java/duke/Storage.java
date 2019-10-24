@@ -93,9 +93,12 @@ public class Storage {
         }
     }
 
-    // twink [[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA]]
+    // twinkle [[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA]]
     private Song convertSongFromString(String s) throws DukeException {
         String[] sections = s.split(" ");
+        if (sections.length == 1) {
+            throw new DukeException("io","");
+        }
         String name = sections[0];
         String key = sections[1];
         int tempo = Integer.parseInt(sections[2]);
