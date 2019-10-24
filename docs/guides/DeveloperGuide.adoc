@@ -57,43 +57,6 @@ Given below is a quick overview of each component.
 This section describes some noteworthy details on how certain features in Email Manager are implemented.
 
 === Natural dates Support
-image: emailmanager.png[]
-
-==== Rationale
-
-The email manager aims to help computing students handle their tasks efficiently. Therefore, one of its main
-goals is to speed up the process at which students enter their task details so that their task can be added
-into the task list quickly. The benefits of having this Natural Dates support are:
-
-* Reduce the time and effort needed to key in the date and time for deadline and event tasks.
-
-==== Implementation
-
-The Natural Dates support is facilitated by two main classes, namely `TaskCommandParseHelper` and `TaskParseNaturalDateHelper`.
-
-`TaskParseNaturalDateHelper` is an element of the will retrieve the parsed time string from
-`TaskCommandParseHelper` and convert
-the extracted string to LocalDateTime format. It implements the following operations:
-
-* `TaskParseNaturalDateHelper#isCorrectNaturalDate(input)` - Checks if input contains natural date format.
-* `TaskParseNaturalDateHelper#convertNaturalDate(day, time)` - Converts string day and time to local date in
-LocalTimeDate format.
-* `TaskParseNaturalDateHelper#getDate(input)` - Returns a date and time(if applicable) after checking if
-natural date input contains a time element.
-
-`TaskCommandParseHelper` is an element of the Command component. It handles all parsing of inputs when the
-input type is set to `task`.
-
-Given below is an example usage scenario and how Natural Dates Support behaves at each step.
-
-Step 1: The user launches the application. The input type is currently in `email` mode. The user wishes
-to add a task and key in `flip` to switch input type to `task` mode.
-
-Step 2: The user executes `deadline homework -time Mon 1200` to add a new deadline task. The `deadline`
-command calls `TaskCommandParseHelper#parseAddTaskCommand()`, which parses and extracts the relevant
-information that are included in the command and saves it inside a list of type `ArrayList<Command.Option>`.
-
-Step 3: The user wishes to update the date and time for the task above, . The user executes `update `
 
 == Documentation
 
