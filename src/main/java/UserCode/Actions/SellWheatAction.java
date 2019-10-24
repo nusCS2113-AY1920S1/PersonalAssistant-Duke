@@ -15,7 +15,7 @@ public class SellWheatAction extends Action {
 
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException, FarmioException {
-        if (!farmer.getWheatFarm().hasRipened() || !farmer.getLocation().equals("Market")) {
+        if (!farmer.getWheatFarm().hasWheat() || !farmer.getLocation().equals("Market")) {
             farmer.setTaskFailed();
             simulation.animate("ErrorInExecution", 0);
             if (!farmer.getWheatFarm().hasWheat()) {

@@ -20,11 +20,11 @@ public class WheatFarm extends Farm {
     }
 
     public boolean hasWheat() {
-        return grain > 0;
+        return wheat > 0;
     }
 
-    public boolean hasRipened() {
-        return wheat > 0;
+    public boolean hasGrain() {
+        return grain > 0;
     }
 
     public WheatFarm() {
