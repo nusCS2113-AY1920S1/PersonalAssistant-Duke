@@ -339,7 +339,20 @@ Internally, this class is responsible for requesting data from the `NUSMODS API`
 
 The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
 
+[[Documentation]] 
+== Documentation
 
+(TBD)
+
+[[Testing]] 
+== Testing
+
+(TBD)
+
+[[DevOps]] 
+== Dev Ops
+
+(TBD)
 
 [appendix]
 == Product Scope
