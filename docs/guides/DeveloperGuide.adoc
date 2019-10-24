@@ -1,71 +1,59 @@
 = Email Manager - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-3/main
 
 By: F11-3
 
-. Introduction
-. https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[About the Developer Guide]
-. Setting up
-. Design
-4.1. Architecture +
-4.2. UI component +
-4.3. Logic component +
-4.4. Model component +
-4.5. Storage component +
-4.6. Common classes
-
-. Implementation
-. Documentation
-. Testing
-. Dev Ops
-. Appendices
-Appendix A: Suggested Programming Tasks to Get Started +
-Appendix B: Product Scope +
-Appendix C: User Stories +
-Appendix D: Use Cases +
-Appendix E: Non Functional Requirements +
-Appendix F: Glossary +
-Appendix G: Product Survey +
-Appendix H: Instructions for Manual Testing
-
-
-. *Introduction*
+== Introduction
 
 Welcome to the Email Manager Developer Guide! +
 Email Manager is an email and task manager app, specifically designed for NUS School of Computing Students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
 
-. https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[*About the Developer Guide]*
+== https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[*About the Developer Guide]*
 
 This developer guide provides detailed documentation on the implementation of all the various features Email Manager offers. It also suggests methods for you to modify and build upon it. +
 Throughout this developer guide, there will be various icons used, as shown below:
-|===
-|💡|This is a tip. Follow these tips to aid your development of Email Manager.
 
-|===
+[TIP]
+This is a tip. Follow these tips to aid your development of Email Manager.
 
-|===
-|ℹ️|This is a note. Read these for additional information.
+[NOTE]
+This is a note. Read these for additional information.
 
-|===
+[WARNING]
+This is a warning. Heed these warnings to avoid making mistakes that will hamper your development efforts.
 
-|===
-|⚠️|This is a warning. Heed these warnings to avoid making mistakes that will hamper your development efforts.
-
-|===
-
-. *Setting up*
+== Setting up
 
 This section shows how to set up Email Manager on your desktop and begin your development journey.
 
-. *Design*
-4.1. Architecture
+== Design
+=== Architecture
 
 Figure 1. Architecture Diagram +
-The _Architecture Diagram_ given above explains the high-level design of the App. Given below is a quick overview of each component. +
-4.2. UI component +
-4.3. Logic component +
-4.4. Model component +
-4.5. Storage component +
-4.6. Common classes
+The _Architecture Diagram_ given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+=== UI component
+
+=== Logic component
+
+=== Model component
+
+=== Storage component
+
+=== Common classes
 
 . *Implementation*
 
@@ -75,8 +63,9 @@ The _Architecture Diagram_ given above explains the high-level design of the App
 
 . *Dev Ops*
 
+== Appendices
 
-*Appendix B: Product Scope*
+=== Appendix B: Product Scope
 
 Target user profile:
 
@@ -92,7 +81,7 @@ Value proposition:
 . Helps busy computing student to manage their tasks and schedules.
 . Reminds busy computing students of their important emails and tasks.
 
-*Appendix C: User Stories*
+=== Appendix C: User Stories
 
 |===
 |*As a/an*|*I can*|*So that...*|*Priority*
@@ -134,7 +123,7 @@ Value proposition:
 
 
 
-*Appendix D: Use Cases*
+=== Appendix D: Use Cases
 
 System: Email Manager +
 Actor: User (SoC student)
@@ -180,7 +169,7 @@ Use case ends.
 . The app will look through the emails and put the related-emails under the category.
 
 
-*Appendix E: Non-Functional Requirements*
+=== Appendix E: Non-Functional Requirements
 
 Email Manager meets the following non-functional requirements:
 
@@ -191,10 +180,10 @@ Email Manager meets the following non-functional requirements:
 * Works with common operating systems
 
 
-*Appendix F: Glossary*
+=== Appendix F: Glossary
 
-*Appendix G: Product Survey*
+=== Appendix G: Product Survey
 
-*Appendix H: Instructions for Manual Testing*
+=== Appendix H: Instructions for Manual Testing
 
 
