@@ -4,12 +4,18 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import project.Project;
+import project.ProjectManager;
 import task.Deadline;
 import task.DoAfterTasks;
 import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +39,71 @@ public class Process {
             cleanArr[i] = arr[i].trim();
         }
         return cleanArr;
+    }
+
+    /**
+     * Processes the homepage messages to be displayed.
+     * @param currentprojectname Current project that the treasurer is working on.
+     * @param projectsize Number of projects in the record.
+     * @param ui Ui that interacts with the user.
+     */
+    public void homePageMessage(String currentprojectname, int projectsize, Ui ui) {
+        ui.printProjectStatus(currentprojectname, projectsize);
+    }
+
+    /**
+     * Processes the message when there is no project in the record.
+     * @param ui Ui that interacts with the user.
+     */
+    public void noProject(Ui ui) {
+        ui.printNoProjectMessage();
+    }
+
+    /**
+     * Processes the add project command to add a new project to the projectmap.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param projectmap Hashmap containing projects.
+     * @return
+     */
+    public Project addProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String projectname = split[1];
+        Project newProject = ProjectManager.addProject(projectname, projectmap);
+        int projectsize = projectmap.size();
+        ui.printAddProject(newProject, projectsize);
+        return newProject;
+    }
+
+    /**
+     * Processes the delete project command to delete a project from the projectmap.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param projectmap Hashmap containing projects.
+     * @return Returns the Project object of the deleted project.
+     */
+    public Project deleteProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String projectname = split[1];
+        Project deletedProject = ProjectManager.deleteProject(projectname, projectmap);
+        int projectsize = projectmap.size();
+        ui.printDeleteProject(deletedProject, projectsize);
+        return deletedProject;
+    }
+
+    /**
+     * Processes the goto project command to set a project in the projectmap
+     * as the current project that the user is working on.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param projectmap Hashmap containing projects.
+     * @return Returns the Project object of the project that was gone to.
+     */
+    public Project goToProject(String input, Ui ui, HashMap<String, Project> projectmap) {
+        String[] split = input.split("pr/", 2); //TODO check for valid input
+        String projectname = split[1];
+        ui.printGoToProject(projectname);
+        return projectmap.get(projectname);
     }
 
     /**
@@ -128,7 +199,7 @@ public class Process {
      */
     public void deadline(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
+            String[] splitspace = input.split("d/", 2);
             String taskDescription = splitspace[1];
             Deadline deadline = new Deadline(taskDescription);
             tasklist.addTask(deadline);
@@ -408,4 +479,22 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
+
+    public void commandHistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws IOException {
+        if (!input.equals("history")) {
+                Calendar cal = Calendar.getInstance();
+                Date date = cal.getTime();
+                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                String formattedDate = dateFormat.format(date);
+                String command_time = input + " at " + formattedDate;
+                //commandList.add(command_time);
+                FileWriter fw = new FileWriter(String.valueOf(storage));
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(command_time);
+            }
+            else{
+                //ui.printArrayList(commandList);
+                ui.printTxtfile(String.valueOf(storage));
+            }
+        }
 }
