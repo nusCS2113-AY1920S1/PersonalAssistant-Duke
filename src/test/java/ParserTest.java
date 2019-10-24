@@ -4,7 +4,6 @@ import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.Context;
-import duke.ui.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
 import org.junit.jupiter.api.Test;
@@ -14,22 +13,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
-    // TODO move checks for individual commands to CommandTest
     // TODO check if exceptions are thrown for incorrect input formats
 
     private Parser uut = new Parser(Context.HOME, new TestCommands());
-
-    @Test
-    public void parseCommands_validHomeCommands_correctCommandsReturned() {
-        Parser actualParser = new Parser(Context.HOME);
-        try {
-            assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
-            assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
-                    NewPatientCommand.class);
-        } catch (DukeException excp) {
-            fail("Exception thrown while extracting valid commands!");
-        }
-    }
 
     @Test
     public void parseCommands_fullSwitchNames_argumentsExtracted() {
