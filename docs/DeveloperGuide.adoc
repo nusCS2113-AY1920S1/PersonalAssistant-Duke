@@ -458,15 +458,6 @@ fund transfer.
 . Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
 *successful* fund transfer.
 
-
-== Documentation
-
-We use asciidoc for writing documentation.
-
-[NOTE]
-We chose asciidoc over Markdown because asciidoc,
-although a bit more complex than Markdown, provides more flexibility in formatting.
-
 == Documentation
 
 We use asciidoc for writing documentation.
