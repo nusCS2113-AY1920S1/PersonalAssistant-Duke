@@ -15,6 +15,8 @@ public class StorageManager {
 	private FoodStorage foodStorage;
 	@JsonProperty
 	private RevenueStorage revenueStorage;
+	@JsonProperty
+	private ConfigStorage configStorage;
 
 	/**
 	 * Default constructor.
@@ -23,15 +25,17 @@ public class StorageManager {
 	public StorageManager() {
 		this.foodStorage = new FoodStorage();
 		this.revenueStorage = new RevenueStorage();
+		this.configStorage = new ConfigStorage();
 	}
 
 	/**
 	 * Constructor with 2 arguments.
 	 * Creates a new instance of Food & Revenue Storage Classes.
 	 */
-	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage) {
+	public StorageManager(FoodStorage foodStorage, RevenueStorage revenueStorage, ConfigStorage configStorage) {
 		this.foodStorage = foodStorage;
 		this.revenueStorage = revenueStorage;
+		this.configStorage = configStorage;
 	}
 
 	/**
@@ -73,6 +77,15 @@ public class StorageManager {
 	 */
 	public void storeRevenue(double revenue) {
 		revenueStorage.storeRevenue(revenue);
+	}
+
+	/**
+	 * Retrieves the configuration storage containing user-defined configurations.
+	 * @return ConfigStorage object containing the user-defined configurations.
+	 */
+	@JsonIgnore
+	public ConfigStorage getConfig() {
+		return configStorage;
 	}
 
 }
