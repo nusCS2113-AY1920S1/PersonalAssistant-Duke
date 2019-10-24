@@ -26,7 +26,7 @@
   "shoppingList" : [ {
     "ingredient" : {
       "name" : "Cake",
-      "unitPrice" : 5.5555,
+      "unitPrice" : 100.0,
       "remarks" : ""
     },
     "amount" : 0.0
@@ -37,6 +37,20 @@
       "remarks" : ""
     },
     "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Pork",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Chicken",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 0.0
   } ],
   "sales" : [ ],
   "shortcuts" : [ ]
