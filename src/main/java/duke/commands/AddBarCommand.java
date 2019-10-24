@@ -59,12 +59,12 @@ public class AddBarCommand extends Command<SongList> {
                 System.out.println("i have gotten the song list");
                 return ui.formatAddBar(temp, newBar, song);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
                 return "hello myfddafadf ";
             }
             //
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
             throw new DukeException(message, "addbar");
         }
     }

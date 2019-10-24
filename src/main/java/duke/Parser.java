@@ -72,7 +72,7 @@ class Parser {
             }
             break;
         case "addbar":
-            if (message.length() >= 8) {
+            if (message.length() >= 7) {
                 return new AddBarCommand(message);
             }
             break;
@@ -94,6 +94,6 @@ class Parser {
         default:
             return new AddCommand(message);
         }
-        throw new DukeException("", "Other");
+        throw new DukeException(message);
     }
 }
