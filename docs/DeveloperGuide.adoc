@@ -16,6 +16,19 @@ endif::[]
 
 By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
 
+
+== Introduction
+
+=== About AlphaNUS
+
+NUS treasurers often come face to face with piles of payment forms for claims and also need to
+keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
+may find it a chore to keep up to date with their finances.
+
+AlphaNUS is a financial management system for treasurers to keep track of payment forms made by payees as well manage the club's funds for projects.
+
+This developer guide includes detailed documentation on the designs and implementations of the project and how developers can make changes it.
+
 == Setting up
 
 === Prerequisites
@@ -42,6 +55,41 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 This will generate all resources required by the application and tests.
 
 == Design
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
+
+The *_Architecture Diagram_* given above displays the n-tier architecture design of the AlphaNUS. Given below is a quick overview of each component.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Command,*`Command`*>>: The command executor and parser.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+The UI solely consists of a `Ui` object that is initiated at the start of the program.
+
+The `UI` component,
+
+* Executes user commands using the `Command` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+[[Design-Command]]
+=== Command component
+
+.Structure of the Command Component
+image::CommandClassDiagram.png[]
+
+The `Command` component consists of:
+
+* `Parser` to make sense of user input.
+* `Instruction` to determine which process to execute.
+* `Process` to process the execution of the command.
+
 
 [[Design-Model]]
 === Model component
@@ -54,6 +102,11 @@ image::ModelClassDiagram.png[]
 .  Each `Project` object contains a `Budget` object and a HashMap of `Payee` objects.
 .  Each `Payee` object contains a HashMap of `Payments` objects.
 .  Results of the command execution by `ProjectManager` and `PaymentManager` are encapsulated as a `Project` and `Payments` objects respectively by `ProjectManager` and passed back to `Command`.
+
+[[Design-Storage]]
+=== Storage component
+
+{To be added}
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
@@ -137,9 +190,15 @@ Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the appli
 
 == Documentation
 
+{To be added}
+
 == Testing
 
+{To be added}
+
 == Dev Ops
+
+{To be added}
 
 [appendix]
 == Product Scope
