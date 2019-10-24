@@ -17,6 +17,7 @@
    11. OrderCommand Component
    12. Fridge Component
    13. GenericList
+   14. Ingredient
 
 3. Implementation
 
@@ -163,16 +164,16 @@ API: `DukeException.java`
 
 The Recipebook contains 2 classes, Dishes Class and DishList Class. The Dishes Class 
 
-![Dishes](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishes%20diagram.png)
+![Dishes]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/dishes diagram.png)
 
 **<u>Dishes Class</u>**
 
-| Attributes                   | Description                                     |
-| ---------------------------- | ----------------------------------------------- |
-| dishName: String             | name of the dish                                |
-| total: int                   | the total number of orders for that dish        |
-| rating: float                | the overall rating for that dish                |
-| ingredientList: List<String> | a list of ingredients associated with that dish |
+| Attributes                       | Description                                     |
+| -------------------------------- | ----------------------------------------------- |
+| dishName: String                 | name of the dish                                |
+| total: int                       | the total number of orders for that dish        |
+| rating: float                    | the overall rating for that dish                |
+| ingredientList: `IngredientList` | a list of ingredients associated with that dish |
 
 
 
@@ -191,45 +192,35 @@ The Recipebook contains 2 classes, Dishes Class and DishList Class. The Dishes C
 | setRating(int): void          | takes in an `int` and sets the new overall rating of the dish |
 | getRating(): float            | returns the rating of that dish                              |
 | addIngredients(String): void  | takes a string and adds into ingredientlist                  |
+| toString(): String            | it returns a String of all the ingredients that the dish contains |
 
 **<u>DishList Class</u>**
 
-| Atrributes             | Description |
-| ---------------------- | ----------- |
-| dishList: List<dishes> |             |
+this class inherits the GenericList class  which takes in a List of Dish.
+
+| Constructor          | Description |
+| -------------------- | ----------- |
+| DishList(List<Dish>) |             |
+| DishList()           |             |
+
+//Todo: give elaboration for the use of this class 
 
 
 
-| Constructor | Description                                       |
-| ----------- | ------------------------------------------------- |
-| DishList()  | initalize the empty dishLIst as a new ArrayList<> |
+#### 2.9 dishesCommand Component
 
-
-
-| Methods                  | Description |
-| ------------------------ | ----------- |
-| addDishes(Dishes): void  |             |
-| deleteDish(int): void    |             |
-| getDish(int): Dishes     |             |
-| getSize(): int           |             |
-| clearList(): void        |             |
-| toString(Dishes): String |             |
-
-
-
-#### 2.9 RecipeCommand Component
-
-The RecipeCommand class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes
+The dishesCommand class is used as an abstract class for other classes, its method `execute` is also declared as an abstract method that is used by the following classes
 
 - AddDishCommand
+  - //Todo: put in a code snippet and explain how it works and why it is done this way. same goes for the other classes
 - AddIngredient
 - DeleteDishCommand
 - InitCommand
 - ListDishCommand
 
-![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/dishesCommand%20diagram.png)
+![DishesCommand](https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/dishesCommand diagram.png)
 
-
+//Todo: add uml diagram from intelliJ. elaborate on current classes. future plans for this component
 
 #### 2.10 Order Component
 
@@ -239,11 +230,11 @@ The Order component contains 2 classes, Order Class and Order Class. The Order C
 
 **<u>Order Class</u>**
 
-| Attributes                    | Description                                                  |
-| ----------------------------- | ------------------------------------------------------------ |
-| content: Map<Dishes, Integer> | the content of the order, specifying ordered dishes and amount |
-| isDone: boolean               | the status of the order: *true* if done, *false* otherwise   |
-| date: Date                    | the serving date of the order (not the date when the order was created) |
+| Attributes                                          | Description                                                  |
+| --------------------------------------------------- | ------------------------------------------------------------ |
+| content: Map<Dishes,                       Integer> | the content of the order, specifying ordered dishes and amount |
+| isDone: boolean                                     | the status of the order: *true* if done, *false* otherwise   |
+| date: Date                                          | the serving date of the order (not the date when the order was created) |
 
 
 
@@ -326,6 +317,57 @@ API: `GenericList.java`
 This abstract class allows for creation of different types of lists, and basic list entry manipulations. It is extended by multiple classes, including `IngredientsList.java`, `TaksList.java`, `OrderList.java` and `DishList.java`. All of these classes inherit the basic methods from the Generic List and extend it with their specific methods, eg.  `allUndoneOrders()` from`OrderList.java`, or `changeAmount()` from `IngredientsList.java`. A UML Class Diagram is shown below.
 
 ![GenericList](https://github.com/AY1920S1-CS2113-T14-2/main/blob/master/docs/images/GenericListUML.png)
+
+#### 2.14 Ingredient Component
+
+The Recipebook contains 2 classes, Ingredient and IngredientsList. 
+
+//!add diagram of the Ingredient component.
+
+**<u>Ingredient Class</u>**
+
+| Attributes           | Description                            |
+| -------------------- | -------------------------------------- |
+| name: String         | Name of the ingredient                 |
+| amount: int          | Total amount of the ingredient         |
+| expiryDate: Date     | Expiry date of the given ingredient    |
+| dateAsString: String | A string to store the date as a string |
+
+
+
+| Constructor                       | Description                                               |
+| --------------------------------- | --------------------------------------------------------- |
+| Ingredient(String, Integer, Date) | Gives the name , amount and expiry date of the ingredient |
+
+
+
+| Methods                             | Description                               |
+| ----------------------------------- | ----------------------------------------- |
+| Ingredient(String, Integer, String) | Converts the Date into String             |
+| getAmount(): int                    | Returns amount of ingredient              |
+| getName(): String                   | Returns name of the Ingredient            |
+| changeDate(Date): void              | Changes the expiry date of the ingredient |
+| setName(String): void               | Sets the name of the ingredient           |
+| changeAmount(Integer):              | Changes the amount of the ingredient      |
+| getExpiryDate(): Date               | Returns the expiry date of the ingredient |
+
+**<u>IngredientsList Class</u>**
+
+| Constructor                                       | Description                                                |
+| ------------------------------------------------- | ---------------------------------------------------------- |
+| IngredientsList(List<Ingredient> ingredientsList) | Initializes the IngredientsList as a new List<Ingredients> |
+
+
+
+| Methods                          | Description                                                |
+| -------------------------------- | ---------------------------------------------------------- |
+| changeIngredientsDate(int, Date) | Changes the date of the Ingredient using an Index number   |
+| changeName(int, String)          | Changes the name of the ingredient using an Index number   |
+| changeAmount(int, String)        | Changes the amount of the ingredient using an index number |
+
+//!add commands such as FindIngredient()
+
+#### 
 
 ### 3. Implementation
 

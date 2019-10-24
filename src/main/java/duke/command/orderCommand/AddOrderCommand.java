@@ -79,7 +79,7 @@ public class AddOrderCommand extends AddCommand<Order> {
 
     public Dish findDishes(String dishName) {
         // to do
-        return new Dish();
+        return new Dish(dishName);
     }
 
 

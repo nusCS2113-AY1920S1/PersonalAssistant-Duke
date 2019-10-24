@@ -1,5 +1,4 @@
 T|1|read book
-D|1|return book|09/09/09 2359
 T|0|beef 16/10/2019
 T|0|test 09/09/09
 T|1|test1 16/10/2019 
