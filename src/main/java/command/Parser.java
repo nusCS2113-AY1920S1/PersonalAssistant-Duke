@@ -5,6 +5,7 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
+import project.Fund;
 import project.Project;
 import task.Deadline;
 import task.DoAfterTasks;
@@ -37,7 +38,8 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, ArrayList<String> commandList,
+
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Fund fund, Storage storage, ArrayList<String> commandList,
                                 HashMap<String, Payee> managermap, HashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
@@ -129,6 +131,12 @@ public class Parser {
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
+            } else if (instr.isHistory(input)) {
+                process.commandHistory(input, ui, storage);
+            } else if (instr.isSetFund(input)) {
+                process.setFund(input, ui, fund);
+            } else if (instr.isAddFund(input)) {
+                process.addFund(input, ui, fund);
             } else {
                 throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
