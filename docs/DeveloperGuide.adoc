@@ -303,9 +303,27 @@ Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `ex
 The parameter `TYPE` can take four forms according to the user input: + 
 ****
 * `show cca`
-* `show `
+* `show core`
+* `show ge`
+* `show ue`
 ****
 
+Upon construction of the `ShowCommand` class, one variable is involved in the generation of the report are initiazlised, which refers to the `coreModList`. This variable is being used to store the strings of core modules taken by CEG students throughout the four years. The list of core modules are being taken from the NUS module requirements websites. +
+
+As stated above, there are four methods that can be executed depending on the `TYPE`that the usr inputs.
+
+****
+* Case 1: `show cca` +
+If the arguement read for `toShow` is "cca", an iterator iterates through the array list of `ccas`, which includes the CCAs added, and prints it out.
+
+* Case 2: `show core` +
+If the arguement read for `toShow` is "core", an iterator loops through the array list of `ModuleTask` and checks it against the set of `coreModList`. If the `moduleCode` in `ModuleTask` matches the `moduleCode` from the `coreModList`, that `moduleCode` is being printed out. 
+
+* Case 3: `show ge` +
+If the arguement read for `toShow` is "ge", an iterator loops through the array list of `ModuleTask` and checks the starting two letters of the `moduleCode`. If the `moduleCode` starts with a "GE", it is classified as a General Elective module and will be printed out.
+
+* Case 4: `show ue` +
+If the arguement read for `toShow` is "ue", an iterator loops through the array list of `ModuleTask`. It checks the starting two letters of the `moduleCode` and also checks the `moduleCode` against the set of `coreModList`. If the `moduleCode`  does not match the `moduleCode` from the `coreModList` and it does not start with a `GE`, it is classified as a Unrestricted Elective module and will be printed out.
 
 
 === JsonWrapper
