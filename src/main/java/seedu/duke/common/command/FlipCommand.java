@@ -8,7 +8,7 @@ public class FlipCommand extends Command {
     @Override
     public boolean execute() {
         responseMsg = "Input type flipped.";
-        CommandParseHelper.filpInputType();
+        CommandParseHelper.flipInputType();
         Duke.getUI().showResponse(responseMsg);
         return true;
     }

@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.CommandParseHelper.extractTags;
+import static seedu.duke.CommandParseHelper.extractTime;
 
 public class TaskCommandParseHelper {
     private static UI ui = Duke.getUI();
@@ -360,11 +361,16 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
+    /**
+     * Gets time in LocalDateTime format from string extracted.
+     *
+     * @param optionList contains all options specified in input command
+     * @return time in LocalDateTime format
+     */
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
-            String timeString = CommandParseHelper.extractTime(optionList);
-            LocalDateTime time = Task.parseDate(timeString);
-            return time;
+            String timeString = extractTime(optionList);
+            return TaskParseNaturalDate.getDate(timeString);
         } catch (CommandParseHelper.UserInputException e) {
             return null;
         }
