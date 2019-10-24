@@ -171,7 +171,7 @@ The reminder function is split the various components into different methods for
 prints the output to the user interface, EventList.getReminder is responsible for compiling the output whereas EventList.filteredList
 obtains the filtered list of events from `eventArrayList`. 
 
-This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
+This implementation also improves scalability as the Predicate class and the EventList.filteredList method can be reused for other
 functionalities. 
 
 == Documentation
