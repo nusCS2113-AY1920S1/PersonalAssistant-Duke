@@ -11,7 +11,7 @@ public class PersonList {
     private ArrayList<Person> personList;
 
     public PersonList() {
-
+        personList = new ArrayList<>();
     }
 
     /**
