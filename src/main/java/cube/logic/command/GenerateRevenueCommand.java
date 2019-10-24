@@ -25,12 +25,15 @@ public class GenerateRevenueCommand extends Command {
      * Use enums to specify the states of the object whose revenue is to be generated.
      */
     public enum GenerateRevenueBy {
-        INDEX, NAME, TYPE
+        INDEX, NAME, TYPE, ALL
     }
 
     private int generateRevenueIndex;
     private String generateRevenueDescription;
     private GenerateRevenueCommand.GenerateRevenueBy param;
+    private final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the revenue for all the stocks:\n"
+            + "%1$s\n"
+            + "Now you have %2$s food in the list.\n";
     private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the revenue for this food:\n"
             + "%1$s\n"
             + "Now you have %2$s food in the list.\n";
@@ -41,9 +44,19 @@ public class GenerateRevenueCommand extends Command {
             + "Now you have %3$s food in the list.\n";
 
     /**
-     * The default constructor, generating total revenue.
+     * The default constructor, empty since parameters are required to perform generating revenue command.
      */
     public GenerateRevenueCommand() {
+    }
+
+
+    /**
+     * The constructor for generating the total revenue.
+     *
+     * @param param The parameter is used to specify the type of generating revenue.
+     */
+    public GenerateRevenueCommand(String param) {
+        this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
     }
 
     /**
@@ -115,6 +128,8 @@ public class GenerateRevenueCommand extends Command {
     public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
         Food toGenerateRevenue;
         switch (param) {
+            case ALL:
+                return new CommandResult(String.format(MESSAGE_SUCCESS_ALL, Food.getRevenue(), list.size()));
             case INDEX:
                 checkValidIndex(list);
                 toGenerateRevenue = list.get(generateRevenueIndex);
