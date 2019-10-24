@@ -96,4 +96,12 @@ public class Instruction {
         return input.startsWith("goto project");
     }
 
+    public boolean isSetFund(String input) {
+        return input.startsWith("set fund");
+    }
+
+    public boolean isAddFund(String input) {
+        return input.startsWith("add fund");
+    }
+
 }
