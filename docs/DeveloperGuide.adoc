@@ -163,7 +163,6 @@ detection as a part of adding recurrent events (to check for clashes when recurr
 entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
-
 === Add recurring events
 ==== How it is implemented
 The program is able to detect recurring events and their periods when creating new events.
@@ -208,6 +207,43 @@ happens.
 . To keep the format of creating new events, the format process of changing Java Date to String is done in the
 `EventDate` class instead of messing the `Event` class to accept both Date and String types as input date and time.
 
+=== Viewing specific dates
+==== How is it implemented
+The implementation is a simple for loop that runs through the existing task list. If a matching date is detected,
+it will return the corresponding task and add it to a temporary list of found tasks. After running through the whole
+list, the temporary list will be printed out to display all the tasks of a specific date.
+
+Step 1: When the command "view <date>" is given, the viewEvents() method will be called.
+
+Step 2: A temporary ArrayList is created by the method to be populated.
+
+Step 3: The date string from the input command is passed into the EventDate class to be formatted into the same format as that of
+each event and returned as a string.
+
+Step 4: The returned string is compared with each task in the event list to check for any event with a matching date.
+
+Step 5: When an event with a matching date is found, the event is added to the temporary list.
+
+Step 6: After the entire list has been checked, the temporary list is passed into a UI instance
+
+Step 7: The printFoundEvents() method will be called. The said method then prints out the temporary list, displaying the list of events taking place on a specific date.
+
+In the situation when an empty temporary list is passed into the UI for it to print, an exception will occur and the
+printFoundEvents() method will catch the exception before printing out a string to inform the user that there are no tasks
+taking place on that specific date.
+
+==== Activity Diagram
+image::DGViewEventsDiagram.png[]
+
+==== Why is it implemented this way
+The matching events are being stored individually into a separate temporary list before being printed out. This is to allow
+an easier handling of individual tasks as separate instances in case the user wishes to edit a particular task from the
+temporary list.
+
+==== Alternative implementations considered
+Storing all the matching events as a single string, passing the string into the printFoundEvents() method to print out. This
+implementation is undesirable as it will be difficult to access individual matching events in the case the user wishes to edit
+them as mentioned above.
 
 == Documentation
 
@@ -286,6 +322,10 @@ Extension 3.1: System can remove types of events from list at user’s command
 Extension: 3.2. System can allow the user to only view a specific type of event.
 3.2.1. User can also enter commands `show examinations` for example, to only show examinations in the list of events.
 3.2.2. System will respond accordingly, displaying only type of event that the user specified.
+
+Extension: 3.3. System can allow the user to only view events on a specific date.
+3.3.1. User can enter the command "view <dd-MM-yyyy>"" to view all events on that specific date.
+3.3.2. System will display the events, and the user can edit the events accordingly.
 
 === Entering the examination details
 . User enters command `examination`, together with a description of the examination, along with the date, time, venue and any other notes in a given format.
