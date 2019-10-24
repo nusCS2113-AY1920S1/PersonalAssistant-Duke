@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 
-public class DegreeList implements Serializable, Cloneable{
+public class DegreeList implements Serializable, Cloneable {
     private static ArrayList<String> list = new ArrayList<>();
     static int i = 0;
     public static ArrayList<String> getDegrees(){
@@ -184,7 +184,7 @@ public class DegreeList implements Serializable, Cloneable{
     }
 
 
-    public void swap(String input) throws DukeException {
+    public void swap(String input, DegreeListStorage dd) throws DukeException {
         String[] split = input.split(Parser.swap);
         if(split.length < 3) {
             throw new DukeException("Please mention both the indices to swap the degrees");
@@ -194,9 +194,21 @@ public class DegreeList implements Serializable, Cloneable{
                 String first_index = split[0];
                 String second_index = split[2];
                 int request = Integer.parseInt(first_index);
+                String degree = list.get(request - 1);
                 int request1 = Integer.parseInt(second_index);
+                String degree1 = list.get(request1 - 1);
                 Collections.swap(list, request - 1, request1 - 1);
                 System.out.println("Swap complete!");
+            try {
+                dd.work(degree, Integer.toString(request1 - 1));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                dd.work(degree1, Integer.toString(request - 1));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

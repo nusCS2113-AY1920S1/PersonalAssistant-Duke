@@ -7,9 +7,12 @@ import storage.Storage;
 import task.TaskList;
 import ui.UI;
 
+import java.io.IOException;
+
 public class SwapCommand extends Command{
     private String command;
     private String input;
+    private DegreeListStorage dd = new DegreeListStorage();
     private int listType = 0;
 
     public SwapCommand(String command, String input) {
@@ -36,7 +39,7 @@ public class SwapCommand extends Command{
 
             degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
-            lists.swap(this.input);
+            lists.swap(this.input, this.dd);
             break;
         default:
             throw new DukeException("Invalid SwapCommand");

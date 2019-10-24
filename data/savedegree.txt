@@ -1,6 +1,0 @@
-degree-ceg-0
-degree-ee-1
-degree-me-2-REMOVED
-degree-chemeng-2
-degree-bioeng-3
-degree-mse-4
