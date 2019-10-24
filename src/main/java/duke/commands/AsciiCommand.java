@@ -1,15 +1,98 @@
 package duke.commands;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
 import duke.components.Bar;
 import duke.components.Chord;
 import duke.components.Group;
 import duke.components.Note;
 import duke.components.Pitch;
 import duke.components.Song;
+import duke.components.SongList;
+import duke.components.VerseList;
 
 import java.util.ArrayList;
 
-public class AsciiCommand {
+public class AsciiCommand extends Command<SongList> {
+
+    //@@author Samuel787
+
+    private String message;
+    private Song song;
+
+    /**
+     * Constructor for the command to print out a bar, group or song in ASCII.
+     * @param message the input message that resulted in the creation of the duke.Commands.Command
+     */
+    public AsciiCommand(String message) {
+        this.message = message.trim();
+    }
+
+    /**
+     * Prints out a bar, group or song in ASCII to represent the song sheet for that component.
+     * @param songList the duke.TaskList or duke.components.SongList object that contains the task list in use
+     * @param ui the Ui object responsible for the reading of user input and the display of
+     *           the responses
+     * @param storage the Storage object used to read and manipulate the .txt file
+     * @return the string corresponding to the ASCII song sheet as requested by user
+     * @throws DukeException if an exception occurs in the parsing of the message or in IO
+     */
+    @Override
+    public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
+        String result = "";
+        if (message.length() < 6 || !message.substring(0, 6).equals("ascii ")) {
+            throw new DukeException(message);
+        }
+        try {
+            message = message.substring(6).trim();
+            String command = message.split(" ")[0];
+            if (command.equals("bar")) {
+                int barNum = Integer.parseInt(message.split(" ")[1]);
+                //get the current song out
+                Song song = new Song("Test song", "C-Major", 120);
+                //bar index for user is assumed to start from 1
+                if (barNum > song.getNumBars() || barNum < 1) {
+                    throw new DukeException(message, "AsciiCommand");
+                }
+                Bar bar = song.getBars().get(barNum - 1);
+                result = printBarAscii(bar);
+            } else if (command.equals("group")) {
+                String groupName = message.split(" ")[1];
+                //Get the verseList from storage
+                VerseList verseList = new VerseList();
+                Group group = verseList.find(groupName);
+                if (group == null) {
+                    throw new DukeException(message, "AsciiCommand");
+                } else {
+                    result = printGroupAscii(group);
+                }
+            } else if (command.equals("song")) {
+                String songName = message.split(" ")[1];
+                //Get the song from the storage
+                Song song = new Song("Test song", "C-Major", 120);
+                //if song exists
+                result = printSongAscii(song);
+            } else {
+                //wrong command
+                throw new DukeException(message, "AsciiCommand");
+            }
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException(message, "AsciiCommand");
+        }
+        return result;
+    }
+
+    /**
+     * Returns a boolean value representing whether the program will terminate or not, used in
+     * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.
+     *
+     * @return a boolean value that represents whether the program will terminate after the command
+     */
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 
     private static final String MUSIC_8 = "*";
     private static final String MUSIC_6 = "$.";
@@ -25,7 +108,6 @@ public class AsciiCommand {
     private static final String REST_1 = "&";
     private static final String CONT = "-";
 
-    //@@author Samuel787
     /**
      * Prints out the selected bar in ASCII format to represnt the song sheet.
      * @param bar the bar that user wants to print in ASCII

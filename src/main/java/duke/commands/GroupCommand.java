@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class GroupCommand extends Command<SongList> {
 
+    //@@author Samuel787
     private String message;
     private Song song;
 
@@ -58,7 +59,7 @@ public class GroupCommand extends Command<SongList> {
             //code to add this group into the storage (verse list)
 
             return ui.formatGroupBar(startNo, endNo, name);
-        } catch (Exception e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DukeException(message, "group");
         }
     }
