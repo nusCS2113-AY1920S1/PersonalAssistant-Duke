@@ -46,8 +46,6 @@ public class Parser {
 //            return new AddRecipeIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE)) {
             return new DeleteRecipeCommand(input);
-        } else if (input.trim().contains(COMMAND_EDIT_RECIPE)) {
-            return new EditRecipeCommand(input);
         } else {
             System.out.println("went to listallrecipes");
             return new ListAllRecipeCommand(input);

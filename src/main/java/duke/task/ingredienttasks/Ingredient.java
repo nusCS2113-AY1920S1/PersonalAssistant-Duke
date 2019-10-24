@@ -11,7 +11,7 @@ public class Ingredient {
 
     public Ingredient(String ingredientName, String quantity, String unit, String additionalInfo) {
         this.ingredientName = ingredientName;
-        this.quantity = Double.valueOf(quantity);
+        this.quantity = Double.parseDouble(quantity);
         this.unit = assignUnit(unit);
         this.additionalInfo = additionalInfo;
         this.mass = calculateMass();

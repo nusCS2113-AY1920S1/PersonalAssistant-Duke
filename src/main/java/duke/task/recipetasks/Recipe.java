@@ -30,6 +30,7 @@ public class Recipe {
         this.rating = assignRating(rating);
         this.prepStep = new PrepStep(prepStep);
         this.requiredIngredients = new RequiredIngredients(requiredIngredients);
+        this.feedback = new Feedback();
     }
 
     public String getRecipeTitle() {

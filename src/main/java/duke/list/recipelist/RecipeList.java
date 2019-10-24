@@ -38,9 +38,9 @@ public class RecipeList {
         this.recipeLHM.put(Integer.parseInt(recipeIndex), new Recipe(value.getRecipeTitle(), new RequiredIngredients(recipeIngredientName, quantity, unit, additionalInfo)));
     }
 
-    public Recipe deleteRecipe(String recipeTitle) {
+    public Recipe deleteRecipe(String recipeIndex) {
         Recipe value;
-        return value = this.recipeLHM.remove(recipeTitle);
+        return value = this.recipeLHM.remove(Integer.parseInt(recipeIndex));
     }
 
     public Recipe createNewRecipe(String recipeTitle) {
