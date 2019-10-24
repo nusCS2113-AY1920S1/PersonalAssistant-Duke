@@ -5,6 +5,7 @@ import duke.Storage;
 import duke.Ui;
 import duke.components.Song;
 import duke.components.SongList;
+import java.util.Arrays;
 
 /**
  * A class representing the command to add a new song to the song list.
@@ -41,13 +42,17 @@ public class NewCommand extends Command<SongList> {
         Song song;
         try {
             String[] sections = message.substring(4).split(" ");
+
             songName = sections[0];
             key = sections[1];
+            System.out.println(Arrays.toString(sections));
             timeSignature = sections[2];
             tempo = Integer.parseInt(sections[3]);
             song = new Song(songName, key, tempo);
+
             songList.add(song);
             storage.updateFile(songList);
+            System.out.println("after creating song");
             return ui.formatNewSong(songList.getSongList(), song);
         } catch (Exception e) {
             throw new DukeException(message, "new");

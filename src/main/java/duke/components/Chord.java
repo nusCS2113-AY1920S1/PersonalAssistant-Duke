@@ -1,8 +1,9 @@
 package duke.components;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Chord {
+public class Chord implements Serializable {
 
     private ArrayList<Note> notes;
     private String chordString;
@@ -58,6 +59,7 @@ public class Chord {
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("[");
+
         for (int i = 0; i < notes.size(); i++) {
             result.append(notes.get(i).toString());
             if (i != notes.size() - 1) {

@@ -1,19 +1,16 @@
 package duke;
 
 import duke.commands.AddBarCommand;
-
-import duke.commands.Command;
-import duke.commands.RemindCommand;
 import duke.commands.AddOverlayCommand;
-import duke.commands.ViewCommand;
-import duke.commands.GroupCommand;
-import duke.commands.NewCommand;
-import duke.commands.HelpCommand;
+import duke.commands.Command;
 import duke.commands.CopyCommand;
-
+import duke.commands.GroupCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.NewCommand;
+import duke.commands.RemindCommand;
+import duke.commands.ViewCommand;
 import duke.components.SongList;
-
-
 
 import java.nio.file.Paths;
 import java.util.Timer;
@@ -29,7 +26,6 @@ public class Duke {
     private SongList songs;
     private Ui ui;
 
-
     /**
      * Constructor for the duke.Duke object, which initializes the UI, duke.TaskList and duke.Storage in
      * order to carry out its functions.
@@ -39,12 +35,12 @@ public class Duke {
         tasks = new TaskList();
         songs = new SongList();
         storage = new Storage(Paths.get("data", "todo_list.txt"));
-        //        try {
-        //            storage.loadList(tasks);
-        //        } catch (DukeException e) {
-        //            System.out.println(ui.showError(e));
-        //            tasks = new TaskList();
-        //        }
+        try {
+            storage.loadToList(songs);
+        } catch (DukeException e) {
+            System.out.println(ui.showError(e));
+            songs = new SongList();
+        }
     }
 
     /**
@@ -83,8 +79,8 @@ public class Duke {
                         || c instanceof HelpCommand
                         || c instanceof GroupCommand
                         || c instanceof CopyCommand
-                        || c instanceof AddOverlayCommand) {
-
+                        || c instanceof AddOverlayCommand
+                        || c instanceof ListCommand) {
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);
