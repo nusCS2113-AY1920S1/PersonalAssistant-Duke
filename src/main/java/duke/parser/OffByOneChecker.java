@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class OffByOneChecker {
     public static String offByOne(String keyword) {
         ArrayList<String> commandList = new ArrayList<>(Arrays.asList("bye", "help", "list", "delete", "find",
-                                                                      "done", "edit", "todo", "deadline", "event"));
+                                                                      "done", "edit", "task"));
         for (String command : commandList) {
             if (keyword.length() != command.length()) {
                 continue;
