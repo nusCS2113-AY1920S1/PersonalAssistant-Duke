@@ -15,19 +15,19 @@ public class SellWheatAction extends Action {
 
     @Override
     public void execute(Ui ui, Storage storage, Farmer farmer, Simulation simulation) throws FarmioFatalException, FarmioException {
-        if (!farmer.getWheatFarm().hasWheat() || !farmer.getLocation().equals("Market")) {
+        if (!farmer.getWheatFarm().hasGrain() || !farmer.getLocation().equals("Market")) {
             farmer.setTaskFailed();
             simulation.animate("ErrorInExecution", 0);
-            if (!farmer.getWheatFarm().hasWheat()) {
-                ui.typeWriter("Error! you have attempted to sell wheat despite not having any wheat/\n");
+            if (!farmer.getWheatFarm().hasGrain()) {
+                ui.typeWriter("Error! you have attempted to sell grain despite not having any grain/\n");
             } else {
-                ui.typeWriter("Error! you have attempted to sell wheat despite not being at the market/\n");
+                ui.typeWriter("Error! you have attempted to sell grain despite not being at the market/\n");
             }
             throw new FarmioException("Task Error!");
         }
         try {
             simulation.animate("SellWheatSimulation", 0, 6);
-            ui.show("Selling wheat!");
+            ui.show("Selling grain!");
             farmer.earnMoney(farmer.getWheatFarm().sell());
             simulation.animate(1000, "SellWheatSimulation", 7);
         } catch (Exception e) {
