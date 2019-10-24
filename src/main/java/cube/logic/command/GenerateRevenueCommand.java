@@ -5,11 +5,9 @@
  */
 package cube.logic.command;
 
-//not fully functional yet, pls dont test it now
-//will make it functional within 2 days, before friday demo
-//also, change the name to revenue for user friendliness
-//updated by LL-Pengfei
-
+// need to add support for adding revenue at the start and update revenue later (cmd)
+// need to change the name to revenue for user friendliness
+// updated by LL-Pengfei
 
 import cube.logic.command.exception.CommandErrorMessage;
 import cube.logic.command.exception.CommandException;
@@ -32,16 +30,16 @@ public class GenerateRevenueCommand extends Command {
     private String generateRevenueDescription;
     private GenerateRevenueCommand.GenerateRevenueBy param;
     private final String MESSAGE_SUCCESS_ALL = "Nice! I've generated the revenue for all the stocks:\n"
-            + "%1$s\n"
-            + "Now you have %2$s food in the list.\n";
+            + "$ %1$s\n"
+            + "In total, you have %2$s food in the list.\n";
     private final String MESSAGE_SUCCESS_SINGLE = "Nice! I've generated the revenue for this food:\n"
-            + "%1$s\n"
-            + "Now you have %2$s food in the list.\n";
+            + "$ %1$s\n"
+            + "In total, you have %2$s food in the list.\n";
     private final String MESSAGE_SUCCESS_MULTIPLE = "Nice! I've generated the revenue for this type:\n"
-            + "%1$s\n"
+            + "$ %1$s\n"
             + "This type contains "
             + "%2$s food items\n"
-            + "Now you have %3$s food in the list.\n";
+            + "In total, you have %3$s food in the list.\n";
 
     /**
      * The default constructor, empty since parameters are required to perform generating revenue command.
@@ -69,7 +67,6 @@ public class GenerateRevenueCommand extends Command {
         this.generateRevenueIndex = index - 1;
         this.param = GenerateRevenueCommand.GenerateRevenueBy.valueOf(param);
     }
-
     /**
      * The constructor for generating revenue using food name or food type.
      *
@@ -133,20 +130,22 @@ public class GenerateRevenueCommand extends Command {
             case INDEX:
                 checkValidIndex(list);
                 toGenerateRevenue = list.get(generateRevenueIndex);
-                list.removeIndex(generateRevenueIndex);
-                storage.storeFoodList(list);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue, list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue.getFoodRevenue(), list.size()));
             case NAME:
                 checkValidName(list);
                 toGenerateRevenue = list.get(generateRevenueDescription);
-                list.removeName(generateRevenueDescription);
-                storage.storeFoodList(list);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue, list.size()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_SINGLE, toGenerateRevenue.getFoodRevenue(), list.size()));
             case TYPE:
                 checkValidType(list);
-                int count = list.removeType(generateRevenueDescription);
-                storage.storeFoodList(list);
-                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, generateRevenueDescription, count, list.size()));
+                double totalRevenue = 0;
+                int count = 0, listSize = list.size(); //listSize stored in a variable to speed up the loop below (one time access)
+                for (int i = 0; i < listSize; ++i) {
+                    if ((list.get(i).getType() != null) && (list.get(i).getType().equals(generateRevenueDescription))) {
+                        totalRevenue = totalRevenue + list.get(i).getFoodRevenue();
+                        ++count;
+                    }
+                }
+                return new CommandResult(String.format(MESSAGE_SUCCESS_MULTIPLE, totalRevenue, count, listSize));
         }
         return null;
     }

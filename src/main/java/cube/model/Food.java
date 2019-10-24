@@ -10,6 +10,7 @@ public class Food {
 	protected double price;
 	protected int stock;
 	protected Date expiryDate;
+	protected double foodRevenue;
 	//Data fields
 	protected static double revenue;
 
@@ -32,6 +33,7 @@ public class Food {
 		this.name = name;
 		this.revenue = 0;
 		this.stock = 0;
+		this.foodRevenue = 350; //ad hoc
 	}
 
 	/**
@@ -112,7 +114,6 @@ public class Food {
 	 *
 	 * @param newRevenue New total revenue made from selling the product.
 	 */
-
 	public static void updateRevenue(double newRevenue) {
 		revenue = newRevenue;
 	}
@@ -122,9 +123,12 @@ public class Food {
 	 *
 	 * @return the revenue earned from selling the product.
 	 */
-
 	public static double getRevenue() {
 		return revenue;
+	}
+
+	public double getFoodRevenue() {
+		return foodRevenue;
 	}
 
 
