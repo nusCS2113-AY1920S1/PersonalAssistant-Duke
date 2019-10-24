@@ -1,7 +1,33 @@
-E | 0 | Open House for Prospective Students | 11-5-2019 1030
-E | 0 | NUS-ECE Open House | 18-5-2019 1330
-D | 0 | CS1010 Placement Examination Application | 26-6-2019 1700
-D | 0 | Math Refresher Course Application | 30-6-2019 2359
-E | 0 | CEG Freshmen Welcome Tea | 22-7-2019 0900
-
-
+bme
+E | 0 | [BME] Open House for Prospective Students | 11-5-2019 1030
+E | 0 | [BME] NUS-BME Open House | 18-5-2019 1330
+che
+D | 0 | [CHE] Chemical Engineering Camp Application | 26-6-2019 1700
+D | 0 | [CHE] Math Refresher Course Application | 30-6-2019 2359
+cive
+D | 0 | [CIVE] Math Refresher Course Application | 30-6-2019 2359
+E | 0 | [CIVE] Civil Engineering Freshmen Welcome Tea | 22-7-2019 0900
+come
+E | 0 | [COME] Open House for Prospective Students | 11-5-2019 1030
+E | 0 | [COME] NUS-ECE Open House | 18-5-2019 1330
+D | 0 | [COME] CS1010 Placement Examination Application | 26-6-2019 1700
+D | 0 | [COME] Math Refresher Course Application | 30-6-2019 2359
+E | 0 | [COME] CEG Freshmen Welcome Tea | 22-7-2019 0900
+elece
+E | 0 | [ELECE] Open House for Prospective Students | 11-5-2019 1030
+E | 0 | [ELECE] NUS-ECE Open House | 18-5-2019 1330
+E | 0 | [ELECE] NUS-ECE Freshmen Orientation Programme | 18-5-2019 1330
+enve
+E | 0 | [ENVE] Open House for Prospective Students | 11-5-2019 1030
+E | 0 | [ENVE] NUS-EnvE Open House | 18-5-2019 1330
+ise
+E | 0 | [ISE] Open House for Prospective Students | 11-5-2019 1030
+E | 0 | [ISE] NUS-ECE Open House | 18-5-2019 1330
+D | 0 | [ISE] CS1010 Placement Examination Application | 26-6-2019 1700
+me
+E | 0 | [ME] Open House for Prospective Students | 11-5-2019 1030
+E | 0 | [ME] NUS-ECE Open House | 18-5-2019 1330
+D | 0 | [ME] CS1010 Placement Examination Application | 26-6-2019 1700
+mse
+D | 0 | [MSE] Chemical Engineering Camp Application | 26-6-2019 1700
+D | 0 | [MSE] Math Refresher Course Application | 30-6-2019 2359
