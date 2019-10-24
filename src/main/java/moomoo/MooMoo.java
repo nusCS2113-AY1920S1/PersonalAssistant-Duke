@@ -60,6 +60,10 @@ public class MooMoo {
      */
     private void run() {
         ui.showWelcome();
+        String date = ui.showDate();
+        String todaySchedule = calendar.showSchedule(date);
+        ui.setOutput(todaySchedule);
+        ui.showResponse();
         boolean isExit = false;
         while (!isExit) {
             try {
