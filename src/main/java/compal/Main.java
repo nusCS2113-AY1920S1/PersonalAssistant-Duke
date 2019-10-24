@@ -2,6 +2,7 @@ package compal;
 
 import compal.logic.LogicManager;
 import compal.logic.command.CommandResult;
+import compal.logic.command.ListCommand;
 import compal.logic.command.exceptions.CommandException;
 import compal.logic.parser.exceptions.ParserException;
 import compal.ui.Ui;
@@ -42,7 +43,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws ParseException, ParserException, CommandException {
         ui.start(primaryStage);
-        CommandResult cmdResult = logicManager.logicExecute("view week");
-        uiUtil.printg("Hello there!\n" + cmdResult.feedbackToUser);
+        CommandResult cmdResult = logicManager.logicExecute("list");
+
+        if (ListCommand.LIST_EMPTY.equals(cmdResult.feedbackToUser)) {
+            uiUtil.printg("Hello there!\n\n" + cmdResult.feedbackToUser);
+        } else {
+            cmdResult = logicManager.logicExecute("view week");
+            uiUtil.printg("Hello there!\n\n" + cmdResult.feedbackToUser);
+        }
     }
 }

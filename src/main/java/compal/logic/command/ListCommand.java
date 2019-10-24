@@ -13,6 +13,8 @@ import java.util.Comparator;
  */
 public class ListCommand extends Command {
     private static final String LIST_PREFIX = "Here are the tasks in your list: \n";
+    public static final String LIST_EMPTY = "Looks like your list is empty!\nStart adding in your task "
+        + "by looking at the help command!";
 
     @Override
     public CommandResult commandExecute(TaskList taskList) {
@@ -27,8 +29,7 @@ public class ListCommand extends Command {
         }
 
         if (count == 1) {
-            finalList = "Oops,looks like your list is empty!\nStart adding in your task "
-                + "by looking at the help command!";
+            finalList = LIST_EMPTY;
         }
 
         return new CommandResult(finalList, false);
