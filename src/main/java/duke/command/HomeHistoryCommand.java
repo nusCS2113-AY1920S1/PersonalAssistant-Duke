@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.DukeCore;
-import duke.data.Patient;
 import duke.exception.DukeException;
 
 public class HomeHistoryCommand extends ArgCommand {
