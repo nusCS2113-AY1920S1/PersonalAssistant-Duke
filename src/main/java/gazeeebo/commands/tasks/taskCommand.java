@@ -107,6 +107,8 @@ public class taskCommand extends Command {
                 new TagCommand().execute(list,ui,storage,commandStack,deletedTask,triviaManager);
             } else if (command.equals("calendar monthly view")) {
                 new CalendarView().MonthlyView(list);
+            } else if (command.equals("calendar annual view")) {
+                new CalendarView().AnnualView(list);
             } else if (command.equals("esc")) {
                 System.out.println("Back to the main page!");
             } else {
