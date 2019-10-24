@@ -55,13 +55,13 @@ The _Architecture Diagram_ given above explains the high-level design of the App
 
 === Common classes
 
-. *Implementation*
+==== Implementation
 
-. *Documentation*
+==== Documentation
 
-. *Testing*
+==== Testing
 
-. *Dev Ops*
+==== Dev Ops
 
 == Appendices
 
