@@ -9,6 +9,7 @@ import duke.components.SongList;
 
 import java.util.ArrayList;
 
+//@@author jwyf
 /**
  * A class representing the command to add a new bar of notes to the current song.
  */

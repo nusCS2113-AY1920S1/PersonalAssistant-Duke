@@ -7,6 +7,7 @@ import duke.components.Song;
 import duke.components.SongList;
 import java.util.Arrays;
 
+//@@author jwyf
 /**
  * A class representing the command to add a new song to the song list.
  */

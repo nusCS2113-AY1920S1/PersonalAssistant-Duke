@@ -7,6 +7,7 @@ import duke.components.Bar;
 import duke.components.Song;
 import duke.components.SongList;
 
+//@@author jwyf
 /**
  * A class that represents the command to delete an bar from a song.
  */

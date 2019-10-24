@@ -6,6 +6,7 @@ import duke.Ui;
 import duke.components.Song;
 import duke.components.SongList;
 
+//@@author jwyf
 /**
  * A class that represents the command to delete an song from the song list.
  */
