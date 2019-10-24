@@ -35,8 +35,8 @@ public class AddCommand extends Command{
 	@Override
 	public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
 		checkValid(list);
-
 		list.add(toAdd);
+		Food.updateRevenue(Food.getRevenue() + toAdd.getFoodRevenue());
 		storage.storeFoodList(list);
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, list.size()));
 	}
