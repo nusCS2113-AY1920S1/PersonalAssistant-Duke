@@ -4,7 +4,6 @@ import java.util.Stack;
 
 public class Redo {
     private static String redoInput;
-    private static Stack<String> redoCommand = new Stack<>();
     private static String userInput;
     private static String mode;
     private static int index;
