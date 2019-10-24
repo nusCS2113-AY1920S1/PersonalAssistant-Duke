@@ -7,5 +7,6 @@
   "wheat_seed": 0,
   "wheat_green": 0,
   "wheat_ripe": 0,
+  "deadline" : 5,
   "file_path": "Level1.5"
 }

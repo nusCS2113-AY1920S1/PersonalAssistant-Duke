@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.iml" filepath="$PROJECT_DIR$/.idea/modules/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.main.iml" filepath="$PROJECT_DIR$/.idea/modules/main.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.test.iml" filepath="$PROJECT_DIR$/.idea/modules/main.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CS2113_Project.iml" filepath="$PROJECT_DIR$/.idea/modules/CS2113_Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CS2113_Project.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CS2113_Project.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CS2113_Project.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CS2113_Project.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/test/test.iml" filepath="$PROJECT_DIR$/src/test/test.iml" />
     </modules>
   </component>
