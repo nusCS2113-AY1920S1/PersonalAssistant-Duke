@@ -30,18 +30,18 @@ public class CommandListTag extends CommandList {
 
     @Override
        public void execute(Wallet wallet) {
-        ReceiptTracker a = wallet.getReceipts().findReceiptsByTag(this.tag);
+        ReceiptTracker taggedReceipts = wallet.getReceipts().findReceiptsByTag(this.tag);
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         Ui.dukeSays("You spent a total of $"
                 +
-                decimalFormat.format(a.getTotalCashSpent())
+                decimalFormat.format(taggedReceipts.getTotalCashSpent())
                 + " "
                 + "on"
                 + " "
                 + tag
         );
         Ui.printSeparator();
-        a.printReceipts();
+        taggedReceipts.printReceipts();
         Ui.printSeparator();
     }
 }
