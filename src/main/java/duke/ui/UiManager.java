@@ -21,10 +21,7 @@ public class UiManager implements Ui {
     @Override
     public void start(Stage primaryStage) {
         mainWindow = new MainWindow(primaryStage, logic);
-
         mainWindow.show();
-
-        mainWindow.fillInnerPart(); // ***
         logger.info("MainWindow are showed and filled in.");
     }
 }

@@ -20,15 +20,13 @@ public class AutoCompleter {
 
     private final List<String> allCommandNames;
     private final HashMap<String, List<String>> allSecondaryParams;
-    private boolean isCompletable;
-    private String lastSuggestion;
+    private String lastComplement;
     private Purpose purpose;
     private String fromInput;
     private int numberOfTokens;
     private int startIndexOfLastToken;
-    private List<String> suggestionList;
-    private int suggestionIndex;
-
+    private List<String> complementList;
+    private int iteratingIndex;
 
     private static final Supplier<Stream<Command>> COMMANDS = () -> Stream.of(
             new AddExpenseCommand(),
@@ -52,25 +50,24 @@ public class AutoCompleter {
             allSecondaryParams.put(c.getName(), secondaryParamList);
         });
 
-        suggestionList = new ArrayList<String>();
-        lastSuggestion = EMPTY_STRING;
+        complementList = new ArrayList<String>();
+        lastComplement = EMPTY_STRING;
     }
 
     private enum Purpose {
         COMPLETE_COMMAND_NAME,
-        GENERATE_PARAMETER,
+        PRODUCE_PARAMETER,
         COMPLETE_PARAMETER,
         ITERATE,
         NOT_DOABLE;
     }
 
     // criteria for purpose
-    private boolean isSameAsLastSuggestion() {
-        return fromInput.equals(lastSuggestion);
+    private boolean isSameAsLastComplement() {
+        return fromInput.equals(lastComplement);
     }
 
     private boolean isEmpty() {
-        logger.info("1.1");
         return fromInput.trim().equals(EMPTY_STRING);
     }
 
@@ -83,8 +80,6 @@ public class AutoCompleter {
     }
 
     private boolean hasValidCommandName() {
-        logger.info("3.1");
-        logger.info("The size of commandNames is " + allCommandNames.size());
         return allCommandNames.contains(getCommandName());
     }
 
@@ -108,11 +103,10 @@ public class AutoCompleter {
 
     public void receiveText(String fromInput) {
         this.fromInput = fromInput;
-        isCompletable = true;
         logger.info("start receive Text");
         if (isEmpty()) {
             purpose = Purpose.NOT_DOABLE;
-        } else if (isSameAsLastSuggestion()) {
+        } else if (isSameAsLastComplement()) {
             purpose = Purpose.ITERATE;
         } else if (!hasValidCommandName()) {
             if(numberOfTokens > 1 || endsWithSpace()) {
@@ -121,91 +115,81 @@ public class AutoCompleter {
                 purpose = Purpose.COMPLETE_COMMAND_NAME;
             }
         } else if (endsWithSpace()) {
-            purpose = Purpose.GENERATE_PARAMETER;
+            purpose = Purpose.PRODUCE_PARAMETER;
         } else if (inUncompletedParameter()) {
-            logger.info("5");
             purpose = Purpose.COMPLETE_PARAMETER;
         } else if (numberOfTokens == 1){
-            logger.info("6");
             purpose = Purpose.COMPLETE_COMMAND_NAME;
         } else {
-            logger.info("7");
             purpose = Purpose.NOT_DOABLE;
         }
         logger.info("purpose decided.");
     }
 
-    private void generateCommandNameSuggestions() {
+    private void completeCommandNameComplements() {
         String unCompletedCommandName = getLastToken();
-        suggestionList = allCommandNames.stream()
+        complementList = allCommandNames.stream()
                 .filter(s -> s.startsWith(unCompletedCommandName)).collect(Collectors.toList());
     }
 
-    private void completeParameterSuggestions() {
+    private void completeParameterComplements() {
         String unCompletedParameter = getLastToken().substring(1);
         List<String> usableParameters = allSecondaryParams.get(getCommandName());
         List<String> options = usableParameters.stream()
                 .filter(s -> s.startsWith(unCompletedParameter)).collect(Collectors.toList());
         logger.info("options for suggestionList lengths " + options.size());
-        suggestionList = options.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
+        complementList = options.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
     }
 
-    private void generateParameterSuggestions() {
+    private void produceParameterComplements() {
         String empty = getLastToken(); // updates the starting index of last token.
         List<String> options = allSecondaryParams.get(getCommandName());
-        suggestionList = options.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
+        complementList = options.stream().map(s -> PARAMETER_INDICATOR + s).collect(Collectors.toList());
     }
 
-    public String getFullSuggestion() {
-        String suggestion = getSuggestion();
-        lastSuggestion = fromInput.substring(0, startIndexOfLastToken) + suggestion;
-        return fromInput.substring(0, startIndexOfLastToken) + suggestion;
+    public String getFullComplement() {
+        String complement = getComplement();
+        lastComplement = fromInput.substring(0, startIndexOfLastToken) + complement;
+        return lastComplement;
     }
 
-    public boolean isCompletable() {
-        return isCompletable;
-    }
-
-    private String getSuggestion() {
+    private String getComplement() {
         switch (purpose) {
             case COMPLETE_COMMAND_NAME:
-                generateCommandNameSuggestions();
-                suggestionIndex = 0;
+                completeCommandNameComplements();
+                iteratingIndex = 0;
                 break;
 
-            case GENERATE_PARAMETER:
-                generateParameterSuggestions();
-                suggestionIndex = 0;
+            case PRODUCE_PARAMETER:
+                produceParameterComplements();
+                iteratingIndex = 0;
                 break;
 
             case COMPLETE_PARAMETER:
-                logger.info("Completing parameter");
-                completeParameterSuggestions();
-                suggestionIndex = 0;
+                completeParameterComplements();
+                iteratingIndex = 0;
                 break;
 
             case ITERATE:
-                logger.info("reach ");
-                iterateSuggestionIndex();
+                iterateIndex();
                 break;
 
             case NOT_DOABLE:
-                isCompletable = false;
-                suggestionList.clear();
+                complementList.clear();
+                break;
         }
 
-        if(suggestionList.isEmpty()) {
-            isCompletable = false;
-            return EMPTY_STRING;
+        if(complementList.isEmpty()) {
+            return getLastToken();
         } else {
-            return suggestionList.get(suggestionIndex);
+            return complementList.get(iteratingIndex);
         }
     }
 
-    private void iterateSuggestionIndex() {
-        suggestionIndex += 1;
-        if(suggestionIndex >= suggestionList.size()) {
-            suggestionIndex = 0;
+    private void iterateIndex() {
+        iteratingIndex += 1;
+        if(iteratingIndex >= complementList.size()) {
+            iteratingIndex = 0;
         }
     }
 
