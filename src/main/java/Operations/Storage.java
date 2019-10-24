@@ -247,7 +247,7 @@ public class Storage {
 
     /**
      * Extracts and converts all the information in the task object for storage
-     * will format the time information for deadline and event tasks
+     * will format the time information for meeting and assignment tasks
      * Additional formatting will be done for recurring tasks to include recurrence schedule
      * returns a string with all the relevant information.
      *
