@@ -52,7 +52,7 @@ Developing JavaCake poses a unique software development situation. The developer
 
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
 
-.Figure 1: Architecture Diagram
+Architecture Diagram
 image::dg_figure1.png[width="500"]
 
 
