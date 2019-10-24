@@ -34,7 +34,7 @@ class Parser {
             case DAY_END:
                 return new CommandDayEnd();
             case DAY_START:
-                return new CommandDayNew();
+                return new CommandDayStart();
             case LEVEL_END:
                 return new CommandLevelEnd();
             case LEVEL_FAILED:
