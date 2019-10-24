@@ -389,12 +389,6 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
-            } else if(fullCommand.startsWith("Available")){
-                fullCommand = fullCommand.replaceFirst("Available", "");
-                fullCommand = fullCommand.trim();
-                fullCommand = fullCommand.replaceFirst("hours", "");
-                fullCommand = fullCommand.trim();
-                return new FindFreeTimesCommand(Integer.parseInt(fullCommand));
             } else {
                 throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
