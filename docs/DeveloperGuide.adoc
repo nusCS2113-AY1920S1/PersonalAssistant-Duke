@@ -52,17 +52,67 @@ Developing JavaCake poses a unique software development situation. The developer
 
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
 
-Architecture Diagram
+.Architecture Diagram
 image::dg_figure1.png[width="500"]
+
+Main has two classes; Main and Duke.
+
+[none]
+* At app launch: Initialises the other class components in the proper sequence.
++
+Main: Links up the respective resource files before launching the GUI.
++
+Duke: Responsible for returning the back-end response for each user input.
+* At app exit: Shuts down the app.
+
+The rest of the program consists of four modules.
+
+[none]
+* Ui: Handles user interaction and user interface.
+* Logic: Executes the respective command after user input is parsed.
+* Model: Holds the current content and quiz questions in memory during the operation of the program.
+* Storage: Reads data from and writes data to hard disk.
+
+The sections below provide more information on each module.
 
 
 === Logic
 
+Within the logic module, the major classes include ProgressStack, ListCommand, GotoCommand and BackCommand.
+
+.Structure of the Logic Component
+image::dg_figure2.png[width="500"]
+
 === Model
+
+The Model stores a QuestionList object which itself consists of one or more Question objects. Model can then use this QuestionList object to set up a QuizSession or ReviewSession object which interfaces with UI to execute a quiz.
+
+Model also references Storage in order to load and generate the QuestionList object from Storage when a QuestionList object is created.
+
+.Structure of the Model Component
+image::dg_figure3.png[width="500"]
 
 === Storage
 
+The Storage module handles fetching data from and writing data to the hard disk. This module consists of the following classes: Profile, TaskStorage, TaskList and StorageManager. 
+
+There are also enumeration classes used to keep track of the different types of tasks(TaskType) and different state of the task(TaskState).
+
+.Structure of the Storage Component
+image::dg_figure4.png[width="500"]
+
+The Storage component,
+
+[none]
+* can save Profile objects in txt format and read it back.
+* can save the TaskStorage  data in txt format and read it back.
+
 === UI
+
+The [red]#UI# module handles the user interface and user interaction with the program. It consists of a MainWindow, which is made up of the following parts: DialogBox, TopBar and AvatarScreen. The API of the UI module is implemented by MainWindow.java in GUI mode. The module also contains a Ui class which defines the implementation of the API in CLI mode.
+
+.Structure of the UI Component
+image::dg_figure5.png[width="500"]
 
 == Implementation
 
