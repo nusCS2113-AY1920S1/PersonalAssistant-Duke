@@ -1,7 +1,7 @@
 package duke.commons.exceptions;
 
 /**
- * Represents an empty field command error.
+ * Displays an error when a field is left empty.
  */
 public class DukeEmptyFieldException extends DukeException {
     public DukeEmptyFieldException(String message) {

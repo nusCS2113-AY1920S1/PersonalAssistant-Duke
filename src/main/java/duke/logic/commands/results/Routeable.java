@@ -6,7 +6,7 @@ import duke.model.locations.Venue;
 import java.util.ArrayList;
 
 /**
- * Interface representing a command result containing a route.
+ * Interface representing a route.
  */
 public interface Routeable {
 

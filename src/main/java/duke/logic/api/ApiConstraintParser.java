@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class to handle all API constraint parsing.
+ * Handles all API constraint parsing.
  */
 public class ApiConstraintParser {
 

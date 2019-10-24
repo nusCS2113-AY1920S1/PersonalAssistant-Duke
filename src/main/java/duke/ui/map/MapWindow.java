@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * Class which represents a generic Map Window in the UI.
+ * Represents a generic Map Window in the UI.
  */
 public class MapWindow extends UiPart<Stage> {
     @FXML

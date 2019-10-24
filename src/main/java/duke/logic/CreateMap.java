@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class which stores information in the map corresponding to bus-stops and train lines.
+ * Represents the transportation map of the Singapore transport network
  */
 public class CreateMap {
     private HashMap<String, BusService> busMap;

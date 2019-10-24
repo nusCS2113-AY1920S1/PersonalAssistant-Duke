@@ -3,7 +3,7 @@ package duke.logic.commands.results;
 import javafx.scene.image.Image;
 
 /**
- * Class representing the result of any command containing an image.
+ * Defines the command result of any command containing an image.
  */
 public class CommandResultImage extends CommandResult implements Imageable {
     private String message;

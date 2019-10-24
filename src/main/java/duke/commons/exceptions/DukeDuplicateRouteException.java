@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Represents a duplicate route error.
+ * Displays an error when a duplicate route is found.
  */
 public class DukeDuplicateRouteException extends DukeException {
     public DukeDuplicateRouteException() {

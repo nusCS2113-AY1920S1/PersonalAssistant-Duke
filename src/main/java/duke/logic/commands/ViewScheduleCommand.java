@@ -5,7 +5,7 @@ import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 
 /**
- * Class representing a command to to view users calender.
+ * Command to allow users to view their calender.
  */
 public class ViewScheduleCommand extends Command {
     private static final String MESSAGE_SHOW_CALENDAR = "Calendar is launching...";

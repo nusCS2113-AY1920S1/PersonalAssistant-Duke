@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Represents a route not found error.
+ * Displays an error when a route is not found.
  */
 public class DukeRouteNotFoundException extends DukeException {
     public DukeRouteNotFoundException() {

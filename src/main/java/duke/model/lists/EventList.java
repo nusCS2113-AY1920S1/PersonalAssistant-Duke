@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Class which represents a list of Events and contains its related accessor methods.
+ * Represents a list of Events and contains its related accessor methods.
  */
 public class EventList implements Iterable<Event>, Listable<Event> {
     private List<Event> events;

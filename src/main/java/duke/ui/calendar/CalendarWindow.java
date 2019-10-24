@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that represents a calender window in the UI.
+ * Represents a calender window in the UI.
  */
 public class CalendarWindow extends UiPart<Stage> {
     private static final String FXML = "CalendarWindow.fxml";

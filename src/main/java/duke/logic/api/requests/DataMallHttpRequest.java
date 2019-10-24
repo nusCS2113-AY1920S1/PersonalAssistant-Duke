@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Class representing Data Mall URL request.
+ * Handles Data Mall URL request.
  */
 public class DataMallHttpRequest extends HttpRequest {
     private static final String URL = "http://datamall2.mytransport.sg/ltaodataservice/";

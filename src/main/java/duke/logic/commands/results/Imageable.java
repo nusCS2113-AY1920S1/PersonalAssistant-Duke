@@ -3,7 +3,7 @@ package duke.logic.commands.results;
 import javafx.scene.image.Image;
 
 /**
- * Interface representing a command result containing an image.
+ * Interface representing an image.
  */
 public interface Imageable {
 

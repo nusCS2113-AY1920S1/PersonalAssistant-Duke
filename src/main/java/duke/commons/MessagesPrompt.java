@@ -1,7 +1,7 @@
 package duke.commons;
 
 /**
- * Messages sent via Prompt by Duke.
+ * Defines messages sent via Prompt by Duke.
  */
 public class MessagesPrompt {
 

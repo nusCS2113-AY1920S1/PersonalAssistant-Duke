@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Class which represents a location card in the UI.
+ * Represents a location card in the UI.
  */
 public class LocationCard extends UiPart<StackPane> {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);

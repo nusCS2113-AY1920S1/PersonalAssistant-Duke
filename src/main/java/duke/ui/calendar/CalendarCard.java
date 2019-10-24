@@ -9,7 +9,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 
 /**
- * Class which represents a calender card as a part of the UI.
+ * Represents a calender card as a part of the UI.
  */
 public class CalendarCard extends UiPart<StackPane> {
     @FXML

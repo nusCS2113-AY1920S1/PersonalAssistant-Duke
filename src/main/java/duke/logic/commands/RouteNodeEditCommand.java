@@ -9,7 +9,7 @@ import duke.model.Model;
 import duke.model.locations.RouteNode;
 
 /**
- * Class representing a command to edit a RouteNode in RouteList.
+ * Edits a RouteNode in RouteList.
  */
 public class RouteNodeEditCommand extends Command {
     private int indexRoute;

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Class representing an Itinerary and its contained information.
+ * Represents an Itinerary and its contained information.
  */
 public class Itinerary extends AgendaList {
 

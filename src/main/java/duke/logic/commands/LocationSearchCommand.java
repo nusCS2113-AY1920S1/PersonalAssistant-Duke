@@ -7,7 +7,7 @@ import duke.model.Model;
 import duke.model.locations.Venue;
 
 /**
- * Class representing a command to send the test URL connection.
+ * Tests the URL connection.
  */
 public class LocationSearchCommand extends Command {
     private Venue result;

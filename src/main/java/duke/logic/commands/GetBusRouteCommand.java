@@ -9,7 +9,7 @@ import duke.model.transports.BusService;
 import java.util.HashMap;
 
 /**
- * Class representing a command to get the bus route of a given bus.
+ * Retrieves the bus route of a given bus.
  */
 public class GetBusRouteCommand extends Command {
     private String bus;

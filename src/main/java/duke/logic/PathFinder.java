@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 /**
- * Class which contains algorithms to find a path between 2 Venues.
+ * Defines an algorithm to find a path between 2 Venues.
  */
 public class PathFinder {
     private CreateMap map;

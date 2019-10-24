@@ -9,7 +9,7 @@ import duke.model.locations.TrainStation;
 import java.util.ArrayList;
 
 /**
- * Class which represents a route between 2 locations as a list of route nodes.
+ * Represents a route between 2 locations as a list of route nodes.
  */
 public class Route {
     private ArrayList<RouteNode> nodes;

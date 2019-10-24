@@ -8,7 +8,7 @@ import duke.model.locations.Venue;
 import javafx.scene.image.Image;
 
 /**
- * Class representing a command to show a map of location.
+ * Shows a map of location.
  */
 public class StaticMapCommand extends Command {
     private String param;

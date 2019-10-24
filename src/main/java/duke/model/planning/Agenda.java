@@ -6,7 +6,7 @@ import duke.model.locations.Venue;
 import java.util.List;
 
 /**
- * Class representing an Agenda - Places to go and things to do within a day.
+ * Represents an Agenda - places to go and things to do within a day.
  */
 public class Agenda extends VenueList {
     private List<Todo> todoList;

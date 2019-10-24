@@ -9,7 +9,7 @@ import duke.model.planning.Itinerary;
 import java.util.List;
 
 /**
- * Class representing a command to list recommendations of an itinerary based on number of trip days.
+ * Recommends an itinerary based on number of trip days entered by user.
  */
 public class RecommendationsCommand extends Command {
     private Itinerary itinerary;

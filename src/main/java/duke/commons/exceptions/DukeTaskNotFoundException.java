@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Represents a task not found error.
+ * Displays an error when a task is not found.
  */
 public class DukeTaskNotFoundException extends DukeException {
     public DukeTaskNotFoundException() {

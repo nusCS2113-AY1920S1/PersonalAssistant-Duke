@@ -6,7 +6,7 @@ import duke.logic.commands.results.CommandResultText;
 import duke.model.Model;
 
 /**
- * Class representing a command to list a given RouteNode in RouteList.
+ * Lists a given RouteNode in RouteList.
  */
 public class RouteNodeListCommand extends Command {
     private int indexRoute;

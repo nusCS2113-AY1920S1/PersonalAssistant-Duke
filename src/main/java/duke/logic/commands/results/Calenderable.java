@@ -3,7 +3,7 @@ package duke.logic.commands.results;
 import duke.model.lists.EventList;
 
 /**
- * Interface representing a command result containing a calender.
+ * Interface representing a calender.
  */
 public interface Calenderable {
 

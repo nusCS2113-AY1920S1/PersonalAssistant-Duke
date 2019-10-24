@@ -1,7 +1,7 @@
 package duke.commons.exceptions;
 
 /**
- * Represents an API error.
+ * Displays an error when an API call fails.
  */
 public class DukeApiException extends DukeException {
     public DukeApiException(String message) {

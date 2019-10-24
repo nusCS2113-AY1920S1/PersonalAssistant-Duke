@@ -14,7 +14,7 @@ import duke.model.locations.Venue;
 import java.util.ArrayList;
 
 /**
- * Class representing a command to send the test URL connection.
+ * Finds a path between two Venues.
  */
 public class FindPathCommand extends Command {
     private Constraint constraint;

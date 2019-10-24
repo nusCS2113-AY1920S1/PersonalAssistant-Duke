@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Represents a date time parsing error.
+ * Displays an error when date / time parsing fails.
  */
 public class DukeDateTimeParseException extends DukeException {
     public DukeDateTimeParseException() {

@@ -3,7 +3,7 @@ package duke.commons.exceptions;
 import duke.commons.Messages;
 
 /**
- * Represents a duplicate task error.
+ * Displays an error when a duplicate task is detected.
  */
 public class DukeDuplicateTaskException extends DukeException {
     public DukeDuplicateTaskException() {

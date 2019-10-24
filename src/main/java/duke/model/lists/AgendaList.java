@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Class which represents a list of Agendas (Things to do in a day) and contains its related accessor methods.
+ * Represents a list of Agendas (Things to do in a day) and contains its related accessor methods.
  */
 public class AgendaList implements Iterable<Agenda> {
 

@@ -3,7 +3,7 @@ package duke.model.lists;
 import duke.commons.exceptions.DukeException;
 
 /**
- * Interface Listable to model a List of planning objects.
+ * Interface - Models a List of planning objects.
  */
 interface Listable<T> {
     void add(T item) throws DukeException;

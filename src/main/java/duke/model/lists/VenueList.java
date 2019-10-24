@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Class which represents a list of Venues (Locations).
+ * Represents a list of Venues (Locations).
  */
 public class VenueList implements Iterable<Venue>, Listable<Venue> {
     private List<Venue> list;

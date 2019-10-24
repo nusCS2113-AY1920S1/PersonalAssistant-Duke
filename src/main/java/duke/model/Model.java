@@ -15,7 +15,7 @@ import duke.model.locations.Venue;
 import java.util.List;
 
 /**
- * Interface "Model" which allows other components to access information from persistent storage.
+ * Interface which grants other components access to information from persistent storage.
  */
 public interface Model {
     /**

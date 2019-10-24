@@ -3,7 +3,7 @@ package duke.model.transports;
 import java.util.ArrayList;
 
 /**
- * Class which represents a Bus and its route.
+ * Represents a Bus and its route.
  */
 public class BusService {
     private String bus;

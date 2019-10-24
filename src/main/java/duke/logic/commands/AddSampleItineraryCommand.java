@@ -7,7 +7,7 @@ import duke.model.planning.Itinerary;
 import duke.storage.Storage;
 
 /**
- * Class representing a command to add the recommended list to users itineraries.
+ * Adds the given recommended list to users itineraries.
  */
 public class AddSampleItineraryCommand extends Command {
     private Itinerary itinerary;

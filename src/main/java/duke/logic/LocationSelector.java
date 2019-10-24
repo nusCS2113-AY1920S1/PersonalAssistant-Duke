@@ -7,9 +7,6 @@ import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-/**
- * Class which represents a location selector.
- */
 public class LocationSelector {
     private VenueList venues;
     private int index;

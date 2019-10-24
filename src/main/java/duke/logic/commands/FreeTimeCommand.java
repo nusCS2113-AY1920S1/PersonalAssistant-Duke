@@ -6,7 +6,7 @@ import duke.commons.Messages;
 import duke.model.Model;
 
 /**
- * Class representing a command to find the number of free hours.
+ * Retrieves the number of free hours.
  */
 public class FreeTimeCommand extends Command {
     private int duration;
