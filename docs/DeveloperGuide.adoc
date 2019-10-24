@@ -137,6 +137,7 @@ detection as a part of adding recurrent events (to check for clashes when recurr
 entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
+
 == Documentation
 
 
