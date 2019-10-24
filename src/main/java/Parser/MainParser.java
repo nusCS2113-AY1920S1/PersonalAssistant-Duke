@@ -1,14 +1,14 @@
 package Parser;
 import Commands.Command;
-
+/*
 public class MainParser {
     public static Command parse(String fullCommand) {
         String [] stringSplit = fullCommand.split(" ");
         String command = stringSplit[0];
         switch (command) {
             case "add/e":
-                break;
             case "add/d":
+                return new AddParse(fullCommand);
                 break;
             case "delete/e":
                 break;
@@ -37,3 +37,4 @@ public class MainParser {
         }
     }
 }
+*/

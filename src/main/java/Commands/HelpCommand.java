@@ -1,5 +1,6 @@
 package Commands;
 
+import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import Tasks.TaskList;
@@ -16,7 +17,7 @@ public class HelpCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display delete task message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         String help;
         help = "Here is a guide of how to use the different commands";
         return ui.showHelp(help);
