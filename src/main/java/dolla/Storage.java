@@ -257,14 +257,14 @@ public class Storage {
                 file.write(fileContent);
                 file.write(System.lineSeparator());
             }
-
+            storage.clear();
 
 //            for (Log currEntries : entries) {
 //                String fileContent = currEntries.formatSave();
 //                file.write(fileContent);
 //                file.write(System.lineSeparator());
 //            }
-
+//
 //            for (Log currLimits : limits) {
 //                String fileContent = currLimits.formatSave();
 //                file.write(fileContent);
