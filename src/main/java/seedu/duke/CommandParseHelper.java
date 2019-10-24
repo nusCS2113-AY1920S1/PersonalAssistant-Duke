@@ -3,7 +3,7 @@ package seedu.duke;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
 import seedu.duke.common.command.InvalidCommand;
-import seedu.duke.email.command.EmailCommandParser;
+import seedu.duke.email.command.EmailCommandParseHelper;
 import seedu.duke.task.command.TaskCommandParseHelper;
 import seedu.duke.ui.UI;
 
@@ -70,7 +70,7 @@ public class CommandParseHelper {
     /**
      * Flip between Email and Task input type of the command parser.
      */
-    public static void filpInputType() {
+    public static void flipInputType() {
         if (inputType == InputType.TASK) {
             inputType = InputType.EMAIL;
         } else {
@@ -129,7 +129,7 @@ public class CommandParseHelper {
 
     private static Command parseEmailCommand(String input, ArrayList<Option> optionList) {
         try {
-            return EmailCommandParser.parseEmailCommand(input, optionList);
+            return EmailCommandParseHelper.parseEmailCommand(input, optionList);
         } catch (UserInputException e) {
             ui.showError(e.getMessage());
             return new InvalidCommand();

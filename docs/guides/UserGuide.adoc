@@ -126,6 +126,16 @@ Format: `list` +
 Gives a complete list of tasks.
 
 ==== Update Tasks Commands: `update`
+Format: `update ITEM_NUMBER [-time dd/mm/yyyy hhMM] [-doafter DOAFTER_TASK][-priority PRIORITY_LEVEL][-tag TAG1]...` +
+Updates attributes of the specified task. Requires minimum of one attribute to function.
+
+[TIP]
+Parameters other than item number can be entered in any order.
+[NOTE]
+If there are more than one `time`, `doafter` or `priority` parameters,
+only the last one will be valid.
+[WARNING]
+Any tags in the command will overwrite *all* current tags in the task
 
 ==== Delete Tasks Commands: `delete`
 Format: `delete ITEM_NUMBER` +
@@ -173,7 +183,7 @@ Show the email at the index number in the email list.
 Format: `fetch` +
 Fetches email from Outlook.com.
 
-==== Filtering email: 'list`
+==== Filtering email: `list`
 Format: `list [-tag TAG1] [-tag TAG2]...` +
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
 

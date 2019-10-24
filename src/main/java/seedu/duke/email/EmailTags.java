@@ -115,7 +115,6 @@ public class EmailTags {
     /**
      * String for displaying root tagged emails.
      *
-     * @param responseMsg String to display.
      * @param tagName tagName input by user.
      * @return String for displaying root tagged emails.
      */
