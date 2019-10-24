@@ -108,6 +108,9 @@ Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the appli
 ** Pros: This method saves memory required and minimize the runtime when the command is called.
 ** Cons: It might be inaccurate when the user applies reschedule. Possible solution is to sort the list everytime the user reschedule a task. This will make the reschedule command to be slow on the other hand.
 
+=== History feature
+
+The `history` feature is implemented to keep track of the input commands entered by the user. It is facilitated by the `Storage` class which is called by the `Process` class in the `command` component.
 
 == Documentation
 
