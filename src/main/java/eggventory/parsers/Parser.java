@@ -4,6 +4,7 @@ import eggventory.commands.Command;
 import eggventory.commands.FindCommand;
 import eggventory.commands.help.HelpCommand;
 import eggventory.commands.ListCommand;
+import eggventory.commands.ByeCommand;
 import eggventory.enums.CommandType;
 import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
@@ -58,7 +59,7 @@ public class Parser {
             }
             break;
         case "bye":
-            command = new Command(CommandType.BYE);
+            command = new ByeCommand(CommandType.BYE);
             break;
 
         case "delete":
