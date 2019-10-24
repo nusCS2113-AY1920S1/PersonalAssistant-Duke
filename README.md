@@ -56,5 +56,5 @@ Please visit [here](./docs/AboutUs.md) if you would like to learn more about the
 ## Contribute to Eggventory
 <p align = "center"> <img src="./docs/assets/contribute_icon.png" alt="Contributing" height=20% width=20%> </p>
 
-We welcome you to join us in contributing to Eggventory and to give back to the community. Please see [guidelines on contributing.](./CONTRIBUTING.md)
+We welcome you to join us in contributing to Eggventory and to give back to the community. Please see [guidelines on contributing](./CONTRIBUTING.md) for more information.
 If you would like to get familiar with Eggventory's implementation, please view the [Developer Guide.](./docs/CS2113T-F09-3-Eggventory-DG.docx)
