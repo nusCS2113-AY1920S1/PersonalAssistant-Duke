@@ -222,6 +222,9 @@ public class Patient extends DukeObject {
         if (this.weight != null) {
             informationString += "\tWeight: " + Integer.toString(this.weight) + "\n";
         }
+        if (this.allergies != null) {
+            informationString += "\tAllergies: " + this.allergies + "\n";
+        }
         if (this.age != null) {
             informationString += "\tAge: " + Integer.toString(this.age) + "\n";
         }
@@ -238,7 +241,8 @@ public class Patient extends DukeObject {
             informationString += "\tRegistration details:\n";
             informationString += "\tAllergies: " + this.allergies + "\n";
             informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
-            informationString += "\nData about doctors impression of the patient and associated treatments and evidences;";
+            informationString += "\nData about doctors impression of the patient and associated"
+                    + " treatments and evidences;";
             for (Map.Entry mapElement : this.impressions.entrySet()) {
                 Impression imp = (Impression) mapElement.getValue();
                 informationString += imp.toReportString();
