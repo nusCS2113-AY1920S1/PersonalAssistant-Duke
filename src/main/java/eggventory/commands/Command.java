@@ -14,7 +14,6 @@ import eggventory.enums.CommandType;
 
 public class Command {
 
-
     protected CommandType type;
 
     //Currently the default constructor is a bad command

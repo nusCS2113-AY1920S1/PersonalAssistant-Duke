@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Cli {
 
     private Scanner in;
-    private String line = "____________________________________________________________";
 
     public Cli() {
         this.in = new Scanner(System.in);
@@ -39,13 +38,13 @@ public class Cli {
      */
     public String print(String printString) {
         String output;
-        output = addIndent() + line + "\n";
+        output = addIndent() + addLine() + "\n";
 
         String[] linesToPrint = printString.split("\n", 0);
         for (int i = 0; i < linesToPrint.length; i++) {
             output += (addIndent() + linesToPrint[i]) + "\n";
         }
-        output += addIndent() + line + "\n";
+        output += addIndent() + addLine() + "\n";
         System.out.print(output);
         return output;
     }
@@ -79,21 +78,20 @@ public class Cli {
      */
     public void printExitMessage() {
         print("Bye! Your stonks are safe with me!");
-        System.exit(0);
     }
 
     public String read() {
         return in.nextLine();
     }
 
-    public static String addIndent() {
+    protected static String addIndent() {
         return "        ";
     }
 
     /**
      * Prints the standard newline.
      */
-    private void printNewLine() {
-        System.out.println(addIndent() + "____________________________________________________________");
+    protected String addLine() {
+        return "____________________________________________________________";
     }
 }
