@@ -17,12 +17,16 @@ public class MainWindow extends UiManager<Stage> {
 
     private Stage primaryStage;
     private ResultDisplay resultDisplay;
+    private ListPanel listPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane listPanelPlaceholder;
 
     private StorageManager storageManager;
     private ConfigStorage configStorage;
@@ -58,6 +62,9 @@ public class MainWindow extends UiManager<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        listPanel = new ListPanel();
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
     }
 
     private CommandResult executeCommand(String command) throws CubeException {
