@@ -230,33 +230,106 @@ class ProjectInputControllerTest {
 
     @Test
     void testProjectViewTask() {
-        Project project = new Project("Infinity_Gauntlet");
-        simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo";
-        projectInputController.projectAddTask(project, simulatedUserInput);
+        try {
+            Project project = new Project("Infinity_Gauntlet");
+            simulatedUserInput = "add task -t task1 -p 10 -c 10 -s todo -d 12/12/2021";
+            projectInputController.projectAddTask(project, simulatedUserInput);
+            simulatedUserInput = "add task -t task2 -p 5 -c 100 -s doing";
+            projectInputController.projectAddTask(project, simulatedUserInput);
+            simulatedUserInput = "add task -t task3 -p 1 -c 50 -s done -d 1/1/2020";
+            projectInputController.projectAddTask(project, simulatedUserInput);
+            simulatedUserInput = "add member -n Dillen -i 9999 -e dillen@gmail.com";
+            projectInputController.projectAddMember(project, simulatedUserInput);
+            simulatedUserInput = "add member -n Jerry - i 9999 -e jerryn@gmail.com";
+            projectInputController.projectAddMember(project, simulatedUserInput);
+            simulatedUserInput = "assign task -i 1 -to 1 2";
+            projectInputController.projectAssignTask(project, simulatedUserInput);
+            simulatedUserInput = "assign task -i 2 -to 1";
+            projectInputController.projectAssignTask(project, simulatedUserInput);
 
-        simulatedUserInput = "add task -t task2 -p 5 -c 100 -s doing";
-        projectInputController.projectAddTask(project, simulatedUserInput);
+            Date dueDate1 = dateTimeHelper.formatDate("12/12/2021");
+            Date dueDate2 = dateTimeHelper.formatDate("1/1/2020");
+            actualOutput = "";
+            for (String message : project.getTasks().getAllTaskDetails(project.getTasksAndAssignedMembers()).toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 10 | State: TODO"
+                    + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
+                    + "3. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE";
+            assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "add member -n Dillen -i 9999 -e dillen@gmail.com";
-        projectInputController.projectAddMember(project, simulatedUserInput);
+            actualOutput = "";
+            for (String message : project.getTasks().getAllSortedTaskDetails(
+                    project.getTasksAndAssignedMembers(), "/PRIORITY").toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 10 | State: TODO"
+                    + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
+                    + "3. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE";
+            assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "add member -n Jerry - i 9999 -e jerryn@gmail.com";
-        projectInputController.projectAddMember(project, simulatedUserInput);
+            actualOutput = "";
+            for (String message : project.getTasks().getAllSortedTaskDetails(
+                    project.getTasksAndAssignedMembers(), "/NAME").toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 10 | State: TODO"
+                    + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
+                    + "3. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE";
+            assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "assign task -i 1 -to 1 2";
-        projectInputController.projectAssignTask(project, simulatedUserInput);
+            actualOutput = "";
+            for (String message : project.getTasks().getAllSortedTaskDetails(
+                    project.getTasksAndAssignedMembers(), "/DATE").toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE"
+                    + "2. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 10 | State: TODO";
+            assertEquals(expectedOutput, actualOutput);
 
-        simulatedUserInput = "assign task -i 2 -to 1";
-        projectInputController.projectAssignTask(project, simulatedUserInput);
+            actualOutput = "";
+            for (String message : project.getTasks().getAllSortedTaskDetails(
+                    project.getTasksAndAssignedMembers(), "/CREDIT").toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING"
+                    + "2. task3 | Priority: 1 | Due: 01 Jan 2020"
+                    + dateTimeHelper.getDifferenceDays(dueDate2)
+                    + " | Credit: 50 | State: DONE"
+                    + "3. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 10 | State: TODO";
+            assertEquals(expectedOutput, actualOutput);
 
-        actualOutput = "";
-        for (String message : project.getTasks().getAllSortedTaskDetails(
-                project.getTasksAndAssignedMembers(),"/WHO-Dillen").toArray(new String[0])) {
-            actualOutput += message;
+            actualOutput = "";
+            for (String message : project.getTasks().getAllSortedTaskDetails(
+                    project.getTasksAndAssignedMembers(), "/WHO-Dillen").toArray(new String[0])) {
+                actualOutput += message;
+            }
+            expectedOutput = "1. task1 | Priority: 10 | Due: 12 Dec 2021"
+                    + dateTimeHelper.getDifferenceDays(dueDate1)
+                    + " | Credit: 10 | State: TODO"
+                    + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING";
+            assertEquals(expectedOutput, actualOutput);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        expectedOutput = "1. task1 | Priority: 10 | Due: -- | Credit: 10 | State: TODO"
-                + "2. task2 | Priority: 5 | Due: -- | Credit: 100 | State: DOING";
-        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
