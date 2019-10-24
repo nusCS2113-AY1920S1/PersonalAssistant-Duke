@@ -222,6 +222,10 @@ The use case for the `history` command is given below to show how each component
 
 3. This arraylist is passed to `Ui` for printing the list of input commands to the user.
 
+Below is the sequence diagram showing the interactions between the different components used to implement the `history` command.
+
+image::sequenceDiagramforHistory.PNG[]
+
 ==== Design Considerations
 ===== Aspect: How `view history h/DATE to DATE` is implemented
 * Alternative 1(proposed): The application loops through the arraylist of all the input commands loaded from the txt file in storage. This is done to find the index(i1) of the first command entered on the first/earlier `DATE` and the index(i2) of the last command entered on the second/later `DATE`.
