@@ -109,10 +109,10 @@ public class AddOverlayCommand extends Command<SongList> {
                     int i = 0;
                     while (iterator1.hasNext()) {
                         Bar temp = iterator1.next();
-                        if(i>= barIndexToBeCopiedTo) {
+                        if (i >= barIndexToBeCopiedTo) {
                             combineBar(overlayingBar, temp);
                         }
-                        i+=1;
+                        i += 1;
                     }
 
                 } else {
