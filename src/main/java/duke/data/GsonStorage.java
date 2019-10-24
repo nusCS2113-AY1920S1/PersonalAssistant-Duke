@@ -36,7 +36,7 @@ public class GsonStorage {
      */
     public GsonStorage(String path) throws DukeFatalException {
         File dataDir = new File("data");
-        File reportDir = new File("Reports");
+        File reportDir = new File( "data/Reports");
 
         if (!dataDir.exists()) {
             dataDir.mkdir();
