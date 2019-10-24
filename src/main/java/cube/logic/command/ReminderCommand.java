@@ -1,23 +1,33 @@
 package cube.logic.command;
 
-import cube.model.food.FoodList;
-import cube.model.food.Food;
-import cube.ui.Ui;
+import cube.logic.command.exception.CommandException;
+import cube.model.FoodList;
+import cube.model.Food;
 import cube.storage.StorageManager;
+import cube.logic.parser.ParserUtil;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class ReminderCommand extends Command{
 
-    /**
-     * Always returns false since this is not an exit command.
-     *
-     * @return false.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
+    private String MESSAGE_SUCCESS = "";
+
+    private void buildExpiryReminder(FoodList list) {
+        MESSAGE_SUCCESS += "Here are the upcoming expiry dates:\n";
+        for(int i = 0; i < list.size(); i++) {
+            Food food = list.get(i);
+            MESSAGE_SUCCESS += String.format("%1$s due in %2$s\n", food.getName(), ParserUtil.parseDateToString(food.getExpiryDate()));
+        }
+        MESSAGE_SUCCESS += "\n";
+    }
+
+    private void buildStockReminder(FoodList list) {
+        MESSAGE_SUCCESS += "Here are the food products that are low in stock:\n";
+        for(int i = 0; i < list.size(); i++) {
+            Food food = list.get(i);
+            MESSAGE_SUCCESS += String.format("%1$s : %2$s left\n", food.getName(), food.getStock());
+        }
     }
 
     /**
@@ -30,7 +40,7 @@ public class ReminderCommand extends Command{
      */
 
     @Override
-    public void execute(FoodList list, Ui ui, StorageManager storage) {
+    public CommandResult execute(FoodList list, StorageManager storage) throws CommandException {
         FoodList stockReminder = new FoodList();
         FoodList expiryReminder = new FoodList();
         Calendar cal = Calendar.getInstance();
@@ -49,8 +59,10 @@ public class ReminderCommand extends Command{
                 stockReminder.add(food);
             }
         }
-        ui.showExpiryReminder(expiryReminder);
-        System.out.println();
-        ui.showStockReminder(stockReminder);
+
+        buildExpiryReminder(expiryReminder);
+        buildStockReminder(stockReminder);
+
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

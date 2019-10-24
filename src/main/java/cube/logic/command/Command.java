@@ -1,8 +1,6 @@
 package cube.logic.command;
 
-import cube.exception.CubeException;
-import cube.model.food.FoodList;
-import cube.ui.Ui;
+import cube.model.FoodList;
 import cube.storage.StorageManager;
 import cube.logic.command.exception.CommandException;
 
@@ -12,5 +10,5 @@ public abstract class Command {
 		return false;
 	}
 
-	public abstract void execute(FoodList list, Ui ui, StorageManager storage) throws CommandException;
+	public abstract CommandResult execute(FoodList list, StorageManager storage) throws CommandException;
 }

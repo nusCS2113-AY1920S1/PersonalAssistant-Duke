@@ -24,16 +24,9 @@ public class Message {
 	public static final String EXISTING_DESCRIPTION
 			= "OOPS!!! There is an existing task that contains the exact description!";
 	public static final String IO_ERROR
-			= "OOPS!!! The data file is deprecated. Unable to read or write in cube.dat in ";
+			= "OOPS!!! The data file is deprecated. IO Exception is caught. Unable to read or write in cube.dat in ";
+	public static final String IO_Class_Not_Found_ERROR
+			= "OOPS!!! The data file is deprecated. ClassNotFound Exception is caught.";
 	public static final String EMPTY_DURATION
 			= "OOPS!!! The duration cannot be empty. Please provide the duration of the task after \\ Character";
-
-
-
-	public static final String FOOD_ALREADY_EXISTS
-			= "OOPS!!! The food already exists";
-	public static final String FOOD_NOT_EXISTS
-			= "OOPS!!! The food does not exists";	
-	public static final String INVALID_QUANTITY_SOLD
-			= "OOPS!!! The quantity sold is negative or too large";	
 }

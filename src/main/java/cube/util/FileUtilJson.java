@@ -49,8 +49,8 @@ public class FileUtilJson {
      * @return true if data file available, otherwise false.
      * @throws CubeLoadingException exception occurs when unable to create new file.
      */
-    public boolean checkFileAvailable() throws CubeLoadingException {
-        File file = new File(fileFullPath);
+    public boolean checkFileAvailable(String fullPath) throws CubeLoadingException {
+        File file = new File(fullPath);
         if (file.exists()) {
             return true;
         } else {
@@ -67,7 +67,7 @@ public class FileUtilJson {
      */
     public StorageManager load() throws CubeException {
         StorageManager storageManager = new StorageManager();
-        if (checkFileAvailable()) {
+        if (checkFileAvailable(fileFullPath)) {
             System.out.println("Loading file from : " + fileFullPath);
 
             try {
@@ -89,7 +89,7 @@ public class FileUtilJson {
      * @throws CubeException exception happens in writing to the data file.
      */
     public void save(StorageManager storageManager) throws CubeException {
-        checkFileAvailable();
+        checkFileAvailable(fileFullPath);
         try {
             File fileSave = new File(fileFullPath);
             ObjectMapper mapper = new ObjectMapper();
