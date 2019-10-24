@@ -43,10 +43,10 @@ public class PostponeParser extends IndexParser {
 
 
     private void extractEventDates(String dateString) throws DukeException {
+        String obtainStartDate = dateString.split("-", 2)[0].trim();
+        String obtainEndDate = dateString.split("-", 2)[1].trim();
         try {
-            String obtainStartDate = dateString.split("-", 2)[0].trim();
             newFromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
-            String obtainEndDate = dateString.split("-", 2)[1].trim();
             newToDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());

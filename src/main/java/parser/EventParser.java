@@ -23,7 +23,6 @@ public class EventParser extends DescriptionParser {
     @Override
     public Command parse() throws DukeException {
         super.extract();
-
         LocalDateTime fromDate;
         LocalDateTime toDate;
         try {
