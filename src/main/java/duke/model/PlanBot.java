@@ -64,7 +64,7 @@ public class PlanBot {
      * @param planAttributes the loaded attributes from Storage
      * @throws DukeException when there is an error loading questions based on the loaded planAttributes
      */
-    public PlanBot(Map<String, String> planAttributes) throws DukeException {
+    public PlanBot(Map<String, String> planAttributes) {
         this.dialogList = new ArrayList<>();
         dialogObservableList = FXCollections.observableList(dialogList);
         this.planAttributes = planAttributes;
@@ -77,12 +77,23 @@ public class PlanBot {
             PlanDialog knownDialog = new PlanDialog(knownAttributes.toString(), Agent.BOT);
             dialogObservableList.add(knownDialog);
         }
-        planQuestionBank = new PlanQuestionBank();
-        questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
+        try {
+            planQuestionBank = new PlanQuestionBank();
+        } catch (DukeException e) {
+            dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+        }
+        try {
+            questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
+        } catch (DukeException e) {
+            dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+        }
         if (questionQueue.isEmpty()) {
             currentQuestion = null;
-            dialogList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
-
+            try {
+                dialogList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
+            } catch (DukeException e) {
+                dialogList.add(new PlanDialog(e.getMessage(), Agent.BOT));
+            }
         } else {
             PlanQuestion firstQuestion = questionQueue.peek();
             currentQuestion = firstQuestion;
@@ -90,7 +101,6 @@ public class PlanBot {
             PlanDialog initial = new PlanDialog(firstQuestion.getQuestion(), Agent.BOT);
             dialogObservableList.add(initial);
         }
-
     }
 
     public ObservableList<PlanDialog> getDialogObservableList() {
@@ -106,13 +116,14 @@ public class PlanBot {
     public void processInput(String input) throws DukeException {
         dialogObservableList.add(new PlanDialog(input, Agent.USER));
         if (currentQuestion == null) {
-            PlanDialog emptyQueueDialog = new PlanDialog("I know everything about you already!", Agent.BOT);
+            PlanDialog emptyQueueDialog = new PlanDialog("Based on what you've told me, here's a recommended budget plan!", Agent.BOT);
             dialogObservableList.add(emptyQueueDialog);
             dialogObservableList.add(new PlanDialog(makeRecommendation(), Agent.BOT));
         } else {
             try {
                 PlanQuestion.Reply reply = currentQuestion.getReply(input, planAttributes);
-                questionQueue = planQuestionBank.getQuestions(planAttributes);
+                questionQueue.clear();
+                questionQueue.addAll(planQuestionBank.getQuestions(planAttributes));
                 logger.info("\n\n\nQueue size: " + questionQueue.size());
                 dialogObservableList.add(new PlanDialog(reply.getText(), Agent.BOT));
                 planAttributes = reply.getAttributes();
@@ -130,23 +141,10 @@ public class PlanBot {
                 dialogObservableList.add(new PlanDialog(e.getMessage(), Agent.BOT));
             }
         }
-
-
     }
 
 
-    /**
-     * A container for an individual chat history.
-     */
-    public class PlanDialog {
-        public String text;
-        public Agent agent;
 
-        public PlanDialog(String text, Agent agent) {
-            this.agent = agent;
-            this.text = text;
-        }
-    }
 
     public Map<String, String> getPlanAttributes() {
         return planAttributes;
@@ -163,49 +161,79 @@ public class PlanBot {
         if (planAttributes.get("NUS_STUDENT").equals("FALSE")) {
             return "Since you're not a NUS student, I can't make any recommendations for you :(";
         }
-
         if (planAttributes.get("CAMPUS_LIFE").equals("FALSE")) {
             String tripCostString = planAttributes.get("TRIP_COST");
             String tripsPerWeekString = planAttributes.get("TRAVEL_DAYS");
             int tripsPerWeek = Integer.parseInt(tripsPerWeekString);
             BigDecimal tripsPerWeekBD = BigDecimal.valueOf(tripsPerWeek);
             BigDecimal tripCost = Parser.parseMoney(tripCostString);
-            BigDecimal monthlyCost = tripCost.multiply(tripsPerWeekBD).multiply(BigDecimal.valueOf(4));
+            BigDecimal monthlyCost = tripCost.multiply(tripsPerWeekBD).multiply(BigDecimal.valueOf(8));
             switch (planAttributes.get("TRANSPORT_METHOD")) {
             case "MRT":
                 if (monthlyCost.compareTo(BigDecimal.valueOf(48)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n");
-                    recommendation.append("MRT concession costs: $48.00 monthly.\n");
+                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n" +
+                            "MRT concession costs: $48.00 monthly.\n" +
+                            "You should set your transport budget at $48.00 monthly\n");
                 } else {
-                    recommendation.append("Your transport costs $" + monthlyCost + " monthly. \n");
+                    recommendation.append("You should set transport budget at $" + monthlyCost + " monthly. \n");
                 }
                 break;
-
             case "BUS":
                 if (monthlyCost.compareTo(BigDecimal.valueOf(52)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n");
-                    recommendation.append("MRT concession costs: $52.00 monthly.\n");
+                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n" +
+                            "MRT concession costs: $52.00 monthly.\n" +
+                            "You should set your transport budget at $52.00 monthly\n");
                 } else {
-                    recommendation.append("Your transport costs $" + monthlyCost + " monthly. \n");
+                    recommendation.append("You should set transport budget at $" + monthlyCost + " monthly. \n");
                 }
                 break;
-
-
             default:
                 if (monthlyCost.compareTo(BigDecimal.valueOf(85)) > 0) {
-                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n");
-                    recommendation.append("Both Bus and MRT concession cost: $85.00 monthly.\n");
+                    recommendation.append("Based on your travelling habits, it is cheaper to buy concession!\n" +
+                            "Combined concession costs: $85.00 monthly.\n" +
+                            "You should set your transport budget at $85.00 monthly\n");
                 } else {
-                    recommendation.append("Your transport costs $" + monthlyCost + " monthly. \n");
+                    recommendation.append("You should set transport budget at $" + monthlyCost + " monthly. \n");
                 }
                 break;
+            }
 
+            int mealsPerDay =  Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
+            BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
+            BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal.valueOf(mealsPerDay)).multiply(BigDecimal.valueOf(30));
+            recommendation.append("You should set food budget at $" + monthlyFoodBudget +  " monthly. \n");
+        } else {
+            if(planAttributes.get("DINE_IN_HALL").equals("TRUE")) {
+                BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
+                BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal.valueOf(1)).multiply(BigDecimal.valueOf(11)); //11 since 3 meals during each weekend * 1 meal per day
+                recommendation.append("You should set food budget at $" + monthlyFoodBudget + " monthly. \n");
+            }else {
+                int mealsPerDay =  Integer.parseInt(planAttributes.get("MEALS_PER_DAY"));
+                BigDecimal costPerMeal = Parser.parseMoney(planAttributes.get("AVERAGE_MEAL_COST"));
+                BigDecimal monthlyFoodBudget = costPerMeal.multiply(BigDecimal.valueOf(mealsPerDay)).multiply(BigDecimal.valueOf(30));
+                recommendation.append("You should set food budget at $" + monthlyFoodBudget + " monthly. \n");
             }
         }
 
+
+
+        if(recommendation.toString().isEmpty()){
+            return "I can't make any recommendations for you :(. Something probably went wrong";
+        }
         return recommendation.toString();
+    }
 
+    /**
+     * A container for an individual chat history.
+     */
+    public class PlanDialog {
+        public String text;
+        public Agent agent;
 
+        public PlanDialog(String text, Agent agent) {
+            this.agent = agent;
+            this.text = text;
+        }
     }
 
 
