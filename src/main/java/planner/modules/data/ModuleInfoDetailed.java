@@ -18,7 +18,7 @@ public class ModuleInfoDetailed {
     private String prerequisites = "";
     private Attributes attributes = new Attributes();
     private String grade = "";
-    private ExamInfo[] semesterData;
+    private ExamInfo[] semesterData = new ExamInfo[0];
     private ArrayList<String> validGrades = new ArrayList<String>(Arrays.asList("A+", "A", "A-", "B+", "B",
         "B-", "C+", "C", "D+", "D", "F", "S", "U"));
 
