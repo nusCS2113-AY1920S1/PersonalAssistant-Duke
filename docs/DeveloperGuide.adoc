@@ -136,26 +136,254 @@ When you are ready to start coding, we recommend that you get some sense of the 
 
 === Continuous Integration
 
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
 === Coverage Reporting
 
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
 === Documentation Previews
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 [appendix]
 == Product Scope
 
+*Target user profile*:
+
+* IT savvy private home chef
+
+* has a need to manage numerous bookings, recipes, list of inventory
+* the list gets constantly updated (add & delete bookings in real time)
+* prefers typing over mouse/handwritten
+* can type fast
+* enjoys using CLI software
+
+*Value proposition*: manage bookings, recipes, and inventory using a list faster than a typical handwritten book/GUI driven app
+
 [appendix]
 == User Stories
 
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+|`* * *` |Private home chef |check for the availability of a specific date & time in booking list |confirm a new customer’s booking, and add to the booking list
+
+|`* * *` |Private home chef |view all existing bookings showing the details (e.g date, number of pax, name, contact number, orders) |know the available dates and periods (lunch/dinner)
+
+|`* * *` |Forgetful private home chef |add new recipes to a list to save all my recipes |refer to the recipe when needed
+
+|`* * *` |Private home chef |delete recipes that are not able to implement |have a list of successful recipes
+
+|`* * *` |Private home chef |archive the steps and ingredients needed for my recipe |keep track of the relevant info of the dish. (write down the different steps)
+
+|`* * *` |Private home chef |view a specific list of recipe ingredients |know the required ingredients for that particular recipe
+
+|`* * *` |Private home chef |delete a recipe ingredient in the list |improve my recipe
+
+|`* * *` |Private home chef |make changes to the archived recipe |make improvements to the recipe (edit the different steps)
+
+|`* * *` |Private home chef |check for stock availability in my inventory list based on the orders |know if top-up of ingredients is necessary
+
+|`* * *` |Private home chef |know the rating and review of my recipes based on customers’ feedback |sort recipes based on its popularity
+
+|`* *` |Private home chef |view specific booking when searched with customer name |quickly finds out the details of a customer’s booking when requested
+
+|`* *` |Private home chef |sort the recipe based on its price |help customer to choose the orders that fits their budget
+
+|`* *` |Private home chef |sort recipe by the amount of time to prepare the dish |know the time needed to prepare for the dining
+
+|`* *` |Private home chef |sort recipe into different types(baking, steam, fried, chinese food, etc) |cater to the different ethnic groups
+
+|`* *` |Private home chef |know the exact amount of ingredients that I have to top up based on stock availability |prepare for my upcoming reservation
+
+|`* *` |Private home chef |keep a list of new ideas for the recipe |refer to them in the future (listing the ideas)
+
+|`* *` |Private home chef |calculate the calories that my customers are eating |be informed about their health status
+
+|`* *` |Private home chef |block out recipes that a specific customer may be allergic to |do not accidentally make that recipe
+
+|`*` |Private home chef |know the dining preference of my customer [too vague] |decide on the specific recipes to fit the theme
+
+|`*` |Customer-oriented private home chef |know the special reason for coming to my restaurant(e.g wedding anniversary, birthday celebration etc) |provide the most suitable dishes and theme to my customer [not feasible]
+
+|`*` |Statistically oriented private home chef |keep track of all sales made in a year |foresee the peak/non-peak season of the year
+|=======================================================================
+
 [appendix]
 == Use Cases
+
+(For all use cases below, the System is the PrivateHomeChefManager and the Actor is the private home chef, unless specified otherwise)
+
+[discrete]
+=== Use case: Check for available dining dates
+
+Pre-condition: A list of booked dates and timings.
+
+*Main Success Scenario (MSS)*
+
+1. Chef types in the command to check bookings.
+2. System prompts to enter date.
+3. Chef enters a date.
+4. System checks if there are any duplicate dates in the current booking.
+5. There are no duplicate dates in current booking list. System requests for booking details.
+6. Chef inputs (name / order / pax / contact number).
+7. System confirms the booking. Request for any allergies of customers.
+8. Chef inputs allergy (if any).
+9. System shows full details of the booking made.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 5a. There are duplicate dates.
++
+[none]
+** 5a.1 System prompts an error stating duplicate of dates.
++
+5a.2 System suggests the available dates.
++
+Use case resumes at step 3.
+
+[none]
+* 7a. System detects an error in booking details.
++
+[none]
+** 7a.1 System prompts to request input of details again in the proper format.
++
+7a.2 Chef inputs the details again
++
+Use case resumes at step 7.
+
+[discrete]
+=== Use case: Add new recipes into list
+
+Pre-condition: A list of current recipes
+
+*Main Success Scenario (MSS)*
+
+1. Chef types in command to add a new recipe.
+2. System prompts for name of dish.
+3. Chef types in the name of dish.
+4. System checks if there are any duplicate dates in the current booking.
+5. There are no duplicates of dish name, system prompts for ingredients required and preparation steps.
+6. System confirms with the newly added recipe.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 5a. Duplicate name of dish is found in the recipe list.
++
+[none]
+** 5a.1. System prompts an error stating duplicate of recipes.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete current recipes in list
+
+Pre-condition: A list of current recipes
+
+*Main Success Scenario (MSS)*
+
+1. Chef types in command to delete a current recipe.
+2. System prompts for name of dish.
+3. Chef types in the name of dish.
+4. System confirms the deletion of the recipe.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. No such recipe is found in the recipe list.
+
+[none]
+** 4a.1. System prompts an error stating that only recipes in the list can be deleted.
++
+4a.2. Systems prompts chef to re-input the recipe to be deleted.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit current recipes in list
+
+Pre-condition: A list of current recipes
+
+*Main Success Scenario (MSS)*
+
+1. Chef types in command to edit a current recipe.
+2. System prompts for name of dish.
+3. Chef types in the name of dish.
+4. Chef edits the specific parts of the recipe. (steps / ingredients required / feedback / rating)
+5. System confirms the edit.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. No such recipe is found in the recipe list.
++
+[none]
+**3a.1. System prompts an error stating that only recipes in the list can be edited.
++
+3a.2. Systems prompts chef to re-input the recipe to be edited.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Check for stock availability for a specific booking
+
+Pre-condition: list of booking details (orders, date)
+
+*Main Success Scenario (MSS)*
+
+1. Chef types in the command to check for stock availability.
+2. System displays the list of current bookings.
+3. System prompts to enter specific booking from the list.
+4. Chef enters the booking number to be checked.
+5. System shows the list of ingredients and the respective amount needed to be purchased for that specific booking(all orders).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Chef enters an invalid booking number.
+
+[none]
+** 3a.1 System prompts user to re-input the booking number.
++
+Use case resumes at step 4.
 
 [appendix]
 == Non Functional Requirements
 
 [appendix]
 == Glossary
+
+[[recipe]] Recipe::
+Contains the name of dish, ingredients required and preparation steps.
+
+[[booking]] Booking::
+Contains the details of the customer, such as name, contact number, number of pax, date of visit, and dishes orders.
+
+[[inventory]] Inventory::
+Consist of the amount and type of raw ingredients required for making dishes.
 
 [appendix]
 == Product Survey
