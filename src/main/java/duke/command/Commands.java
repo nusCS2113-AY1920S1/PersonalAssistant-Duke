@@ -3,7 +3,6 @@ package duke.command;
 // TODO: Write different commands for different contexts
 
 import duke.ui.Context;
-import duke.ui.UiContext;
 
 /**
  * Maintains the associations between command keywords and commands (e.g. "list" -> ListCommand). For use in parsing
@@ -29,7 +28,7 @@ public class Commands {
             }
         case "new":
             if (context == Context.HOME) {
-                return new NewPatientCommand();
+                return new HomeNewCommand();
             } else {
                 return null; // TODO: fill in the other contexts
             }

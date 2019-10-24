@@ -4,11 +4,11 @@ import duke.DukeCore;
 import duke.data.Patient;
 import duke.exception.DukeException;
 
-public class NewPatientCommand extends ArgCommand {
+public class HomeNewCommand extends ArgCommand {
 
     @Override
     protected ArgSpec getSpec() {
-        return NewPatientSpec.getSpec();
+        return HomeNewSpec.getSpec();
     }
 
     @Override
