@@ -13,6 +13,7 @@ public class RoomShareException extends Exception {
     public static final String wrongTaskType_Text = "Only meeting or assignment tag are accepted";
     public static final String emptyDescription_Text = "You haven't included the description of you task";
     public static final String emptyDate_Text = "You haven't included the date of your task";
+    public static final String emptyUser_Text = "You haven't included the user of your task";
     public static final String emptyTaskType_Text = "You haven't specified the type of your task: assignment or meeting";
     public static final String writeError_Text = "Error in writing file, cancelling write process...";
     public static final String wrongIndexFormat_Text = "The index you've enter is in the wrong format";
@@ -27,6 +28,10 @@ public class RoomShareException extends Exception {
      */
     public RoomShareException(ExceptionType type){
         switch(type) {
+
+        case emptyUser:
+            message = emptyUser_Text;
+            break;
 
         case emptyList:
             message = emptyList_Text;
