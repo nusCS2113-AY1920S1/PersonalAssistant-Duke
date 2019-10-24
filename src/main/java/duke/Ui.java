@@ -115,31 +115,6 @@ public class Ui {
             + "activities or switching activity positions "
             + "(Cmd: plan edit [intensity level] [plan number])");
     }
-
-    /**
-     * This function takes the standard input defined by the user.
-     * passes it into the Parser class.
-     *
-     * @param input    user input
-     * @param tasks    task class
-     * @param storage  saving/loading class
-     * @param students students class
-     * @param schedule schedule class
-     * @param plan     training plan class
-     * @throws FileNotFoundException if save files cannot be loaded
-     * @throws ParseException if loadSchedule has an error
-     */
-    public void readCommand(final String input,
-                            final TaskList tasks,
-                            final Storage storage,
-                            final ManageStudents students,
-                            final Schedule schedule,
-                            final MyPlan plan)
-        throws FileNotFoundException, ParseException {
-        Parser parser = new Parser();
-        parser.parseInput(input, tasks, storage, students, schedule, plan);
-    }
-
     /**
      * Displays student from student list that is matching to search.
      *

@@ -232,13 +232,6 @@ public class Parser {
                 }
             }
             break;
-
-
-        case "home":
-            Ui viewMenu = new Ui();
-            viewMenu.mainMenu();
-            break;
-
         default:
             System.out.println("\u2639 OOPS!!! I'm sorry,"
                 + "but I don't know what that means :-(");

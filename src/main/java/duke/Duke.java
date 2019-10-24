@@ -17,7 +17,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.Scanner;
 
-public class Duke extends Application {
+public class Duke  {
 
     /**
      * ui is the command line user interface object.
@@ -80,44 +80,20 @@ public class Duke extends Application {
     }
 
     /**
-     * Method starts all functions required to operate main program.
-     *
-     * @throws FileNotFoundException if Storage class cannot find files
-     * @throws ParseException        upon loadSchedule error
-     */
-    public void run() throws FileNotFoundException, ParseException {
-        ui.welcome();
-        tasks.addAllList(storage);
-        ui.mainMenu();
-        while (true) {
-            Scanner sc = new Scanner(System.in);
-            if (sc.hasNextLine()) {
-                String input = sc.nextLine();
-                if (input.equals("bye")) {
-                    ui.goodbye();
-                    System.exit(0);
-                }
-
-                ui.readCommand(input, tasks, storage, students, schedule, plan);
-            }
-        }
-    }
-
-    /**
      * Upon running launcher main, start() will run.
      */
-    @Override
-    public void start(final Stage stage) {
-        try {
-            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
-            System.out.println(url);
-            Parent root = FXMLLoader.load(url);
-            stage.setScene(new Scene(root, width, height));
-            stage.setTitle("Sports Manager");
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Could not find menu.fxml");
-        }
-    }
+//    @Override
+//    public void start(final Stage stage) {
+//        try {
+//            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+//            System.out.println(url);
+//            Parent root = FXMLLoader.load(url);
+//            stage.setScene(new Scene(root, width, height));
+//            stage.setTitle("Sports Manager");
+//            stage.show();
+//        } catch (IOException e) {
+//            System.err.println("Could not find menu.fxml");
+//        }
+//    }
 
 }
