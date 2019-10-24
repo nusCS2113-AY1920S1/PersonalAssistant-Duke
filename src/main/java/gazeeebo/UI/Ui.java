@@ -21,7 +21,7 @@ public class Ui {
 
     public void readCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        fullCommand = reader.readLine();
+        fullCommand = reader.readLine().trim();
     }
 
     /**
@@ -31,12 +31,12 @@ public class Ui {
      * @throws IOException catch the error if the read file fails.
      */
     public String showWelcome() throws IOException {
-        System.out.println("Input password to enter Gazeebo:");
+        System.out.println("Input password to enter Gazeeebo:");
         String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
                 + "|     |   |   / |    |    |    |   \\ |   |\n"
                 + "|  __ |__ |  /  |___ |___ |___ |___| |   |\n"
                 + "|___| |   | /__ |___ |___ |___ |___/ |___|";
-        String welcomemessage = "\nWelcome to Gazeebo"
+        String welcomemessage = "\nWelcome to Gazeeebo"
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n";
@@ -69,6 +69,9 @@ public class Ui {
         majorCategories.add("places");
         majorCategories.add("tasks");
         majorCategories.add("cap");
+        majorCategories.add("moduleplanner");
+        majorCategories.add("notes");
+
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");

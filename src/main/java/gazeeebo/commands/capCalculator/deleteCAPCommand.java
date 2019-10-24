@@ -1,7 +1,6 @@
 package gazeeebo.commands.capCalculator;
 
 import gazeeebo.UI.Ui;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Map;

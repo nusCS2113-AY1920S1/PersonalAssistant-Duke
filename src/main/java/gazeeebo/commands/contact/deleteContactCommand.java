@@ -11,9 +11,9 @@ public class deleteContactCommand {
      * Deletes the contact from the contact list.
      *
      * @param ui      deals with printing things to the user.
-     * @param contact map each name to its own phone number
+     * @param contactList map each name to its own phone number
      */
-    public deleteContactCommand(Ui ui, Map<String, String> contact) {
+    public deleteContactCommand(Ui ui, Map<String, String> contactList) {
         String nameToDelete = "";
         for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
             if (i != ui.fullCommand.split(" ").length - 1) {
@@ -24,8 +24,8 @@ public class deleteContactCommand {
         }
         if (ui.fullCommand.equals("delete")) {
             System.out.print("Incorrect format: delete name\n");
-        } else if (contact.containsKey(nameToDelete)) {
-            contact.remove(nameToDelete);
+        } else if (contactList.containsKey(nameToDelete)) {
+            contactList.remove(nameToDelete);
             System.out.print("Successfully deleted: "+ nameToDelete + "\n");
         } else {
             System.out.print(nameToDelete + " is not found in the list.\n");

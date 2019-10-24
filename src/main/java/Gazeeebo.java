@@ -7,6 +7,7 @@ import gazeeebo.notes.NoteList;
 import gazeeebo.parsers.*;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.NoteStorage;
+
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Gazeeebo {
             while (!isExit) {
                 ui.readCommand();
                 String command = ui.fullCommand;
-                Command c = Parser.parse(command,ui);
+                Command c = Parser.parse(command, ui);
                 if (c != null) {
                     c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
                     if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
@@ -60,5 +61,4 @@ public class Gazeeebo {
             System.out.println("System exiting");
         }
     }
-
 }

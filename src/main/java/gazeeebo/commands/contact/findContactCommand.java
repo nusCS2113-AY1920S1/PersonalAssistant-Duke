@@ -10,10 +10,10 @@ public class findContactCommand {
      * Finds the contact number with the contact name.
      *
      * @param ui        deals with printing things to the user.
-     * @param contact   map each name to its own phone number
+     * @param contactList   map each name to its own phone number
      * @param lineBreak String separator
      */
-    public findContactCommand(Ui ui, Map<String, String> contact, String lineBreak) {
+    public findContactCommand(Ui ui, Map<String, String> contactList, String lineBreak) {
         int a = ui.fullCommand.split(" ")[1].toCharArray()[0];
         String nameToFind = "";
         String toPrint = "";
@@ -25,7 +25,7 @@ public class findContactCommand {
                 nameToFind = nameToFind.concat(ui.fullCommand.split(" ")[i]);
             }
         }
-        for (String keys : contact.keySet()) {
+        for (String keys : contactList.keySet()) {
             if (keys.contains(nameToFind)) {
                 isExist = true;
                 toPrint += keys;
@@ -33,7 +33,7 @@ public class findContactCommand {
                 for (int i = 0; i < l; i++) {
                     toPrint += " ";
                 }
-                toPrint += "| " + contact.get(keys) + "\n" + lineBreak;
+                toPrint += "| " + contactList.get(keys) + "\n" + lineBreak;
             }
         }
         if(!isExist) {

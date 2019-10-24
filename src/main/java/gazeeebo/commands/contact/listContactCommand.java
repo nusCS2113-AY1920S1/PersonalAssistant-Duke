@@ -9,26 +9,26 @@ public class listContactCommand {
     /**
      * List out all the phone numbers.
      *
-     * @param contact   to Map each name to its phone number.
+     * @param contactList   to Map each name to its phone number.
      * @param lineBreak to print out a separator to separate each line in the list.
      */
-    public listContactCommand(Map<String, String> contact, String lineBreak) {
+    public listContactCommand(Map<String, String> contactList, String lineBreak) {
         System.out.print("Name:                         | Number:\n" + lineBreak);
-        for (String key : contact.keySet()) {
+        for (String key : contactList.keySet()) {
             if (!key.contains("NUS") || !key.contains("CEG")) {
-                forPrint(contact, lineBreak, key);
+                forPrint(contactList, lineBreak, key);
             }
         }
         System.out.print("\nCEG CONTACTS:\n");
-        for (String key : contact.keySet()) {
+        for (String key : contactList.keySet()) {
             if (key.contains("CEG")) {
-                forPrint(contact, lineBreak, key);
+                forPrint(contactList, lineBreak, key);
             }
         }
         System.out.print("\nNUS CONTACTS:\n");
-        for (String key : contact.keySet()) {
+        for (String key : contactList.keySet()) {
             if (key.contains("NUS")) {
-                forPrint(contact, lineBreak, key);
+                forPrint(contactList, lineBreak, key);
             }
         }
     }
