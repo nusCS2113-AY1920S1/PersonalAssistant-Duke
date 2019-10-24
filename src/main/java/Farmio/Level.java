@@ -1,6 +1,7 @@
 package Farmio;
 
 import Places.Farm;
+import Places.WheatFarm;
 import UserCode.Conditions.BooleanCondition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,7 +13,6 @@ import java.util.Map;
 public class Level {
     ArrayList<String> narratives;
     String filePath;
-    int endMoney;
     int endWheatSeed;
     int endWheatGreen;
     int endWheatRipe;
@@ -21,6 +21,8 @@ public class Level {
     int endCow;
     int endCowMilk;
     int location;
+    int gold;
+    int deadline;
 
     public Level(JSONObject object, Farmer farmer) {
         JSONArray array = (JSONArray) object.get("narratives");
@@ -37,6 +39,7 @@ public class Level {
         endChickenEggs = 0;
         endCow = 0;
         endCowMilk = 0;
+        deadline = Math.toIntExact((Long) object.get("deadline"));
 
 
 //        location = Math.toIntExact((Long) object.get("location"));
@@ -62,38 +65,91 @@ public class Level {
     }
 
     public boolean allDone(Farmer farmer){
-        int gold = farmer.getMoney();
 
         //Wheat Farm
         int WheatSeed = farmer.wheatFarm.getSeeds();
         int WheatGreen = farmer.wheatFarm.getGreenWheat();
-        int WheatRipe = farmer.wheatFarm.getRipeWheat();
+        int WheatRipe = farmer.wheatFarm.getWheat();
+        return (WheatGreen == endWheatGreen)  && (WheatRipe == endWheatRipe) && (endWheatSeed == WheatSeed);
 
-        return (gold == endMoney )  && (WheatGreen == endWheatGreen)  && (WheatRipe == endWheatRipe) && (endWheatSeed == WheatSeed);
+
+        //Cow Farm
     }
 
     public objectiveResult checkAnswer(Farmio farmio){
         if (farmio.getFarmer().isHasfailedCurrentTask()) {
             return objectiveResult.INVALID;
         }
+
+        Farmer farmer = farmio.getFarmer();
         int day = farmer.getDay();
         objectiveResult currentLevelState;
         if(checkDeadlineExceeded(day)){
-            currentLevelState =  levelState.FAILED;
+            currentLevelState =  objectiveResult.FAILED;
+            getFeedback(farmer, currentLevelState);
         }
         else {
             if (allDone(farmer)) {
-                currentLevelState = levelState.ALLDONE;
+                currentLevelState = objectiveResult.DONE;
             }
             else{
-                currentLevelState = levelState.NOTDONE;
+                currentLevelState = objectiveResult.NOT_DONE;
             }
         }
+        getFeedback(farmer, currentLevelState);
         return currentLevelState;
     }
-    
+
+    public String checkIncompleteObjectives (Farmer farmer){
+       //compare the differences
+       //check the level types
+        String output = "";
+        int WheatSeed = farmer.wheatFarm.getSeeds();
+        int WheatGreen = farmer.wheatFarm.getGreenWheat();
+        int WheatRipe = farmer.wheatFarm.getWheat();
+
+        if(WheatSeed != endWheatSeed){
+            int balancedWheatSeed = endWheatSeed - WheatSeed;
+            output += "\nWheatSeed left :"  + balancedWheatSeed;
+        }
+        else {
+            output += "\nWheatSeed Completed";
+        }
+        if(WheatGreen != endWheatGreen){
+            int balancedWheatGreen = endWheatGreen - WheatGreen;
+            output += "\n WheatGreen left :"  + balancedWheatGreen;
+        }
+        else {
+            output += "\nWheatGreen Completed";
+        }
+        if(WheatRipe != endWheatRipe){
+            int balancedWheatRipe = endWheatRipe - WheatRipe;
+            output += "\nWheatRipe left :" + balancedWheatRipe;
+        }
+        else {
+            output += "\nWheatRipe Completed";
+        }
+
+        return output;
+    }
 
 
+    public String getFeedback( Farmer farmer, objectiveResult currentLevelState ){
+       //get Feedback on whats not completed
+        //need to complete.
+        if(currentLevelState == objectiveResult.DONE){
+            return "all tasks has been completed";
+        }
+
+        else if(currentLevelState == objectiveResult.NOT_DONE){
+            return checkIncompleteObjectives(farmer);
+        }
+
+        else if (currentLevelState == objectiveResult.FAILED){
+            return "level failed";
+        }
+        return "";
+    }
 
 
 
