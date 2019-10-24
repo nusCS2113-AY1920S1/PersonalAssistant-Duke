@@ -43,6 +43,18 @@ This will generate all resources required by the application and tests.
 
 == Design
 
+[[Design-Logic]]
+=== Project component
+[[fig-ProjectClassDiagram]]
+.Structure of the Project Component
+image::ProjectClassDiagram.png[]
+
+.  Both `Project Manager` and `Payment Manager` takes in user command from `Command`.
+.  The `Project Manager` class manages a HashMap of `Project` objects.
+.  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
+.  Each `Payee` object contains a HashMap of `Payments` objects.
+.  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
+
 == Implementation
 
 == Documentation
@@ -56,7 +68,8 @@ This will generate all resources required by the application and tests.
 
 *Target user profile*:
 
-* has a need to manage a significant number of payment forms
+* NUS treasurers who need to track a large number of payment forms
+* manages the finances of multiple projects at once
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -113,6 +126,69 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For all use cases below, the *System* is `AlphaNUS` and the *Actor* is the `NUS Treasurer`, unless specified otherwise)
+
+=== Use case: Add a new project
+
+*MSS*
+
+1.  User requests to add a new project.
+2.  AlphaNUS adds a new project to its record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user types in an invalid command.
+** 1a1. AlphaNUS shows an error message.
++
+Use case ends.
+
+* 2a. There is no current project being worked on.
+** 2a1. AlphaNUS adds a new project to its record.
+** 2a2. AlphaNUS updates the current project to the newly created project.
++
+Use case ends.
+
+=== Use case: Delete a project
+
+*MSS*
+
+1.  User requests to delete a project.
+2.  AlphaNUS deletes the project from its record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user types in an invalid command.
+** 1a1. AlphaNUS shows an error message.
++
+Use case ends.
+
+* 2a. The project to delete is the current project being worked on.
+** 2a1. AlphaNUS removes the project from being currently worked on.
+** 2a2. AlphaNUS deletes the project from its record.
++
+Use case ends.
+
+=== Use case: Go to a project.
+
+*MSS*
+
+1.  User requests to go to a project.
+2.  AlphaNUS sets the current project being worked on to the project specified.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user types in an invalid command.
+** 1a1. AlphaNUS shows an error message.
++
+Use case ends.
 
 === Use case: Add a new deadline
 
