@@ -2,6 +2,7 @@ package Interface;
 
 
 import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,12 @@ public class LookupTable {
         // InputStream is = getClass().getResourceAsStream("Lookup.txt");
          //InputStreamReader isr = new InputStreamReader(is);
          //BufferedReader reader = new BufferedReader(isr);
-         BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\data\\Lookup.txt"));
+        ClassLoader loader = this.getClass().getClassLoader(); // or YourClass.class.getClassLoader()
+        URL resourceUrl = loader.getResource("documents/Lookup.txt");
+        BufferedReader reader = null;
+        if (resourceUrl != null) {
+            reader = new BufferedReader(new FileReader(resourceUrl.getFile()));
+        }
 
         while ((line = reader.readLine()) != null)
         {
