@@ -73,7 +73,6 @@ Main class which handles file writing during runtime and for maintaining user da
 [[Parser]]
 
 === Parser
-Main class which handles user input and manages internal command mapping.
 
 Parser is implemented as `Parser` class which is a wrapper for the `argparse4j` library to handle user input and manage internal command mapping.
 
