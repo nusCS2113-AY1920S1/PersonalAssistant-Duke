@@ -43,20 +43,47 @@ This will generate all resources required by the application and tests.
 
 == Design
 
-[[Design-Logic]]
-=== Project component
-[[fig-ProjectClassDiagram]]
-.Structure of the Project Component
-image::ProjectClassDiagram.png[]
+[[Design-Model]]
+=== Model component
+[[fig-ModelClassDiagram]]
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
 
-.  Both `Project Manager` and `Payment Manager` takes in user command from `Command`.
-.  The `Project Manager` class manages a HashMap of `Project` objects.
-.  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
+.  Both `ProjectManager` and `PaymentManager` takes in user input from `Command`.
+.  The `ProjectManager` class manages a HashMap of `Project` objects.
+.  Each `Project` object contains a `Budget` object and a HashMap of `Payee` objects.
 .  Each `Payee` object contains a HashMap of `Payments` objects.
-.  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
+.  Results of the command execution by `ProjectManager` and `PaymentManager` are encapsulated as a `Project` and `Payments` objects respectively by `ProjectManager` and passed back to `Command`.
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Project Feature
+The `project` feature is managed by the `ProjectManager` class, which is called by the
+`Process` class in the `Command` component.
+
+This feature supports the following commands:
+
+* `add project pr/PROJECT_NAME` -- Adds a new project to the record.
+* `delete project pr/PROJECT_NAME` -- Deletes a project from the record.
+* `goto project pr/PROJECT_NAME` -- Go to a project in the record.
+* `list project` -- Lists all projects in the record.
+
+A detailed explanation of the use case for the `add project` command is given below to demonstrate how each component interacts with each other.
+
+1. User executes the command `add project pr/RAG` in the CLI. This input is passed from the `Ui` to `Command` where the input will be parsed to determine the command to execute.
+
+2. The `Command` component will process the `add project` command and execute it in the `Model` component, calling `ProjectManager` to add a new `Project` object with the user defined `PROJECT_NAME` to its HashMap of `Project` objects.
+
+3. `ProjectManager` then returns a value of the newly created `Project` object to `Command` which is passed to `Ui` for printing the project details to the user.
+
+Below is a sequence diagram to provide a visual representation of the `add project` command.
+
+[[fig-AddProjectSeqDiagram]]
+.Sequence Diagram of the add project command
+image::AddProjectSeqDiagram.png[]
+
+The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
 
 //tag::deadline
 === Add Invoices
@@ -107,7 +134,6 @@ Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the appli
 * **Alternative 2:** The application only performs sorting once when a new task is added. The result id will be stored in a single integer.
 ** Pros: This method saves memory required and minimize the runtime when the command is called.
 ** Cons: It might be inaccurate when the user applies reschedule. Possible solution is to sort the list everytime the user reschedule a task. This will make the reschedule command to be slow on the other hand.
-
 
 == Documentation
 
