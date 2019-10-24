@@ -32,6 +32,12 @@ public class Commands {
             } else {
                 return null; // TODO: fill in the other contexts
             }
+        case "open":
+            if (context == Context.HOME) {
+                return new HomeOpenCommand();
+            } else {
+                return null; // TODO: fill in the other contexts
+            }
         case "discharge":
             return new ReportCommand();
         default:

@@ -30,6 +30,13 @@ public class UiContext {
         pcs.addPropertyChangeListener(pcl);
     }
 
+    /**
+     * Set context for the application. An associated DukeObject should be provided as well.
+     * For example, from Home -> Patient, a Patient object should be passed in.
+     *
+     * @param newContext New context
+     * @param object     DukeObject associated with the new object.
+     */
     public void setContext(Context newContext, DukeObject object) {
         pcs.firePropertyChange("context", this.context, newContext);
         this.context = newContext;

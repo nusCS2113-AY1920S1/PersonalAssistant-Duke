@@ -6,6 +6,7 @@ public class HomeOpenSpec extends ArgSpec {
     public static HomeOpenSpec getSpec() {
         return spec;
     }
+
     private HomeOpenSpec() {
         emptyArgMsg = "You didn't tell me anything about the patient!";
         cmdArgLevel = ArgLevel.NONE;

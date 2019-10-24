@@ -8,7 +8,7 @@ import duke.ui.Context;
 public class HomeOpenCommand extends ArgCommand {
     @Override
     protected ArgSpec getSpec() {
-        return null;
+        return HomeOpenSpec.getSpec();
     }
 
     @Override
