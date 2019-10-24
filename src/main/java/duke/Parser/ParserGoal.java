@@ -2,13 +2,13 @@ package duke.Parser;
 
 import duke.Ui;
 import duke.data.Storage;
-import duke.module.Lesson;
+import duke.module.Goal;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Scanner;
 
-public class ParserLesson {
+public class ParserGoal {
     /**
      * Constants to represent the index 3.
      */
@@ -38,13 +38,13 @@ public class ParserLesson {
      */
     private boolean isRunning = true;
     /**
-     * The lesson that has been loaded.
+     * The goal that has been loaded.
      */
-    private Lesson lesson;
+    private Goal goal;
     /**
-     * The storage of the lesson being accessed.
+     * The storage of the goal being accessed.
      */
-    private Storage lessonStorage;
+    private Storage goalStorage;
     /**
      * The ui object responsible for showing things to the user.
      */
@@ -52,63 +52,63 @@ public class ParserLesson {
     /**
      * The scanner object responsible for taking in user input.
      */
-    private Scanner myLessonScan;
+    private Scanner myGoalScan;
     /**
-     * Constructor for ParserLesson.
+     * Constructor for ParserGoal.
      *
      * @throws FileNotFoundException if file does not exist
      * @throws ParseException if user input is not in the correct format
      */
-    public ParserLesson() throws FileNotFoundException, ParseException {
+    public ParserGoal() throws FileNotFoundException, ParseException {
         ui = new Ui();
-        lessonStorage = new Storage(
-            ".\\src\\main\\java\\duke\\data\\lessons.txt");
-        lesson = new Lesson(lessonStorage.loadLesson());
-        myLessonScan = new Scanner(System.in);
+        goalStorage = new Storage(
+            ".\\src\\main\\java\\duke\\data\\goals.txt");
+        goal = new Goal(goalStorage.loadGoal());
+        myGoalScan = new Scanner(System.in);
     }
 
     /**
-     * Method to run when entering lesson of the day.
+     * Method to run when entering goal of the day.
      */
-    public void runLesson() {
-        ui.showLessonPromptDate();
-        String lessonDate = myLessonScan.next();
+    public void runGoal() {
+        ui.showGoalPromptDate();
+        String goalDate = myGoalScan.next();
 
         while (isRunning) {
             try {
-                ui.showLessonAllActions(lessonDate);
-                int executeType = myLessonScan.nextInt();
-                myLessonScan.nextLine();  // This line you have
+                ui.showGoalAllActions(goalDate);
+                int executeType = myGoalScan.nextInt();
+                myGoalScan.nextLine();  // This line you have
                 // to add (It consumes the \n character)
                 switch (executeType) {
                 case 1:
-                    System.out.print(lesson.viewLesson(lessonDate));
+                    System.out.print(goal.viewGoal(goalDate));
                     break;
 
                 case 2:
-                    ui.showLessonPromptAddLesson(lessonDate);
-                    String myLesson = myLessonScan.nextLine();
+                    ui.showGoalPromptAddGoal(goalDate);
+                    String myGoal = myGoalScan.nextLine();
                     System.out.println(
-                        lesson.addLesson(
-                            lessonDate, myLesson, lessonStorage));
+                        goal.addGoal(
+                            goalDate, myGoal, goalStorage));
                     break;
 
                 case indexThree:
-                    ui.showLessonPromptDeleteLesson(lessonDate);
-                    String message = myLessonScan.nextLine();
+                    ui.showGoalPromptDeleteGoal(goalDate);
+                    String message = myGoalScan.nextLine();
                     System.out.println(
-                        lesson.removeLesson(
-                            lessonDate, message, lessonStorage));
+                        goal.removeGoal(
+                            goalDate, message, goalStorage));
                     break;
 
                 case indexFour:
-                    System.out.println(lesson.removeAllLesson(
-                        lessonDate, lessonStorage));
+                    System.out.println(goal.removeAllGoal(
+                        goalDate, goalStorage));
                     break;
 
                 case indexFive:
                     isRunning = false;
-                    ui.showQuitLesson();
+                    ui.showQuitGoal();
                 default:
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -120,3 +120,4 @@ public class ParserLesson {
     }
 
 }
+
