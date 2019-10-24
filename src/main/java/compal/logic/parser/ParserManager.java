@@ -56,11 +56,11 @@ public class ParserManager {
         case CMD_VIEW:
             return new ViewCommandParser().parseCommand(restOfInput);
         case CMD_SET_REMINDER:
-            return new SetReminderParser().parseCommand(restOfInput);
+            return new SetReminderCommandParser().parseCommand(restOfInput);
         case CMD_VIEW_REMINDER:
-            return new ViewReminderParser().parseCommand(restOfInput);
+            return new ViewReminderCommandParser().parseCommand(restOfInput);
         case CMD_FIND_FREE_SLOT:
-            return new FindFreeSlotParser().parseCommand(restOfInput);
+            return new FindFreeSlotCommandParser().parseCommand(restOfInput);
         case CMD_DEADLINE:
             return new DeadlineCommandParser().parseCommand(restOfInput);
         case CMD_DONE:
