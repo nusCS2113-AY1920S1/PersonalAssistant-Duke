@@ -131,6 +131,43 @@ public class CommandConvert extends Command {
         return null;
     }
 
+    /**
+     * result basically returns the to.string() version of the output that the user will be shown
+     * @param convertedAmount this is amount which was converted into
+     * @return string of output is returned
+     */
+    private String result(Double convertedAmount) {
+        convertedAmount = roundByDecimalPlace(convertedAmount, 2);
+        return "DUKE$$$ has converted " + this.from
+                + " " + roundByDecimalPlace(this.amount, 2) + " "
+                + "to" + " "
+                + this.to + " " + convertedAmount + "\n";
+    }
+
+    /**
+     * roundtheNum is basically a function to round the values to a specific number of decimal places.
+     * @param value this is the value which we want to round
+     * @param places number of decimal places
+     * @return the rounded double value is returned as the output
+     */
+    private double roundByDecimalPlace(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+
+    /**
+     * rateUsed is a function that helps to display the exchange rate which was used for the conversion.
+     * @return string version of the exchange rate is displayed
+     */
+    private String rateUsed() {
+        return "Exchange rate used = " + this.getExchangeRate().toString() + "\n";
+    }
 
     private String getFrom() {
         return from;
@@ -144,49 +181,12 @@ public class CommandConvert extends Command {
         return amount;
     }
 
-    /**
-     * result basically returns the to.string() version of the output that the user will be shown
-     * @param convertedAmount this is amount which was converted into
-     * @return string of output is returned
-     */
-    private String result(Double convertedAmount) {
-        convertedAmount = roundTheNum(convertedAmount, 2);
-        return "DUKE$$$ has converted " + this.from
-                + " " + roundTheNum(this.amount, 2) + " "
-                + "to" + " "
-                + this.to + " " + convertedAmount + "\n";
-    }
-
-    /**
-     * roundtheNum is basically a function to round the values to a specific number of decimal places.
-     * @param value this is the value which we want to round
-     * @param places number of decimal places
-     * @return the rounded double value is returned as the output
-     */
-    public double roundTheNum(double value, int places) {
-        if (places < 0) {
-            throw new IllegalArgumentException();
-        }
-
-        BigDecimal bd = BigDecimal.valueOf(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
-
     public Double getExchangeRate() {
         return exchangeRate;
     }
 
     private void setExchangeRate(Double exchangeRate) {
-        exchangeRate = roundTheNum(exchangeRate, 3);
+        exchangeRate = roundByDecimalPlace(exchangeRate, 3);
         this.exchangeRate = exchangeRate;
-    }
-
-    /**
-     * rateUsed is a function that helps to display the exchange rate which was used for the conversion.
-     * @return string version of the exchange rate is displayed
-     */
-    private String rateUsed() {
-        return "Exchange rate used = " + this.getExchangeRate().toString() + "\n";
     }
 }
