@@ -4,21 +4,17 @@ import controlpanel.DukeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class Account {
     private ArrayList<Income> incomeListTotal;
     private ArrayList<Expenditure> expListTotal;
-    private ArrayList<Income> incomeListCurrMonth;
-    private ArrayList<Expenditure> expListCurrMonth;
     private ArrayList<Goal> shortTermGoals;
     private ArrayList<Instalment> instalments;
     private ArrayList<BankTracker> bankTrackerList;
     private ArrayList<Loan> loans;
     private float totalSavings;
-    private float currMonthSavings;
     private float baseSavings;
     private float goalSavings;
     private boolean toInitialize;
@@ -27,8 +23,6 @@ public class Account {
     public Account() {
         incomeListTotal = new ArrayList<>();
         expListTotal = new ArrayList<>();
-        incomeListCurrMonth = new ArrayList<>();
-        expListCurrMonth = new ArrayList<>();
         shortTermGoals = new ArrayList<>();
         instalments = new ArrayList<>();
         bankTrackerList = new ArrayList<>();
@@ -39,8 +33,6 @@ public class Account {
     public Account(Account account) {
         incomeListTotal = account.getIncomeListTotal();
         expListTotal = account.getExpListTotal();
-        incomeListCurrMonth = account.getIncomeListCurrMonth();
-        expListCurrMonth = account.getExpListCurrMonth();
         shortTermGoals = account.getShortTermGoals();
         instalments = account.getInstalments();
         bankTrackerList = account.getBankTrackerList();
@@ -48,7 +40,6 @@ public class Account {
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
         updateSavings();
-        populateCurrentMonthLists();
         //if (account.isInitialised()) {
         //    toInitialize = false;
         //} else { toInitialize = true; }
@@ -81,16 +72,8 @@ public class Account {
         return expListTotal;
     }
 
-    public ArrayList<Income> getIncomeListCurrMonth() {
-        return incomeListCurrMonth;
-    }
-
     public ArrayList<Instalment> getInstalments() {
         return instalments;
-    }
-
-    public ArrayList<Expenditure> getExpListCurrMonth() {
-        return expListCurrMonth;
     }
 
     public ArrayList<Goal> getShortTermGoals() {
@@ -170,22 +153,6 @@ public class Account {
         return total;
     }
 
-    public float getCurrMonthIncome() {
-        float total = 0;
-        for (Income i : incomeListCurrMonth) {
-            total += i.getPrice();
-        }
-        return total;
-    }
-
-    public float getCurrMonthExp() {
-        float total = 0;
-        for (Expenditure i : expListCurrMonth) {
-            total += i.getPrice();
-        }
-        return total;
-    }
-
     public float getTotalSavings() {
         totalSavings = getTotalIncome() - getTotalExp();
         return totalSavings;
@@ -202,7 +169,6 @@ public class Account {
 
     public void updateSavings() {
         totalSavings = getTotalIncome() - getTotalExp();
-        currMonthSavings = getCurrMonthIncome() - getCurrMonthExp();
         goalSavings = getTotalSavings() - getBaseSavings();
     }
 
@@ -215,28 +181,6 @@ public class Account {
         this.toInitialize = initStatus;
     }
 
-    /**
-     * This method is run upon initialisation to fill the Month Income List and
-     * Month Expenditure List.
-     */
-    //@@author chengweixuan
-    public void populateCurrentMonthLists() {
-        getIncomeListCurrMonth().clear();
-        getExpListCurrMonth().clear();
-        Calendar dateNow = Calendar.getInstance();
-        int currMonth = dateNow.get(Calendar.MONTH) + 1;
-        int currYear  = dateNow.get(Calendar.YEAR);
-        for (Income i : incomeListTotal) {
-            if (i.getPayday().getMonthValue() == currMonth && i.getPayday().getYear() == currYear) {
-                incomeListCurrMonth.add(i);
-            }
-        }
-        for (Expenditure e : expListTotal) {
-            if (e.getDateBoughtDate().getMonthValue() == currMonth && e.getDateBoughtDate().getYear() == currYear) {
-                expListCurrMonth.add(e);
-            }
-        }
-    }
 
     /**
      * This method helps to find the corresponding bank account tracker by given description(name).

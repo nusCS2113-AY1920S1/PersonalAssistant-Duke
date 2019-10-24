@@ -20,10 +20,14 @@ public class DeleteLoanCommand extends MoneyCommand {
      * @param command delete command inputted from user
      */
     //@@author chengweixuan
-    public DeleteLoanCommand(String command) {
-        inputString = command;
-        String temp = inputString.replaceAll("[^0-9]", "");
-        serialNo = Integer.parseInt(temp);
+    public DeleteLoanCommand(String command) throws DukeException {
+        try {
+            inputString = command;
+            String temp = inputString.replaceAll("[^0-9]", "");
+            serialNo = Integer.parseInt(temp);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical number as the index of the loan to be deleted\n");
+        }
     }
 
     @Override

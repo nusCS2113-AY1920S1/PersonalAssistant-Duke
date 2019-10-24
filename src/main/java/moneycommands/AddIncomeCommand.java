@@ -6,12 +6,10 @@ import controlpanel.Ui;
 import controlpanel.DukeException;
 import money.Account;
 import money.Income;
-import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.time.format.DateTimeParseException;
 
 /**
  * This command adds an income source to the Total Income List.
@@ -19,6 +17,9 @@ import java.util.Calendar;
 public class AddIncomeCommand extends MoneyCommand {
 
     private String inputString;
+    private String description;
+    private float salary;
+    private LocalDate payDay;
 
     /**
      * Constructor of the command which initialises the add income command
@@ -46,21 +47,23 @@ public class AddIncomeCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        String[] splitStr = inputString.split("/amt ", 2);
-        String description = splitStr[0];
-        String[] furSplit = splitStr[1].split("/payday ", 2);
-        float salary = Float.parseFloat(furSplit[0]);
-        LocalDate payDay = Parser.shortcutTime(furSplit[1]);
+        try {
+            String[] splitStr = inputString.split("/amt ", 2);
+            description = splitStr[0];
+            String[] furSplit = splitStr[1].split("/payday ", 2);
+            salary = Float.parseFloat(furSplit[0]);
+            payDay = Parser.shortcutTime(furSplit[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Please enter in the format: " +
+                    "add income <description> /amt <amount> /on <date>\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter the amount in numbers!\n");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
         Income i = new Income(salary, description, payDay);
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);
-
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        if (payDay.getMonthValue() == currMonth && payDay.getYear() == currYear) {
-            account.getIncomeListCurrMonth().add(i);
-        }
 
         ui.appendToOutput(" Got it. I've added this income source: \n");
         ui.appendToOutput("     ");
