@@ -3,13 +3,12 @@ package spinbox;
 import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
+import spinbox.commands.FindCommand;
 import spinbox.commands.HelpCommand;
 import spinbox.commands.UpdateCommand;
 import spinbox.commands.MultipleCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.ViewCommand;
-
-
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
@@ -128,6 +127,9 @@ public class Parser {
             break;
         case "remove-multiple":
             command = new MultipleCommand(pageDataComponents, content);
+            break;
+        case "find":
+            command = new FindCommand(pageDataComponents, content);
             break;
         case "help":
             command = new HelpCommand(content);

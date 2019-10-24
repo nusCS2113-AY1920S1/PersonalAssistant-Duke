@@ -31,7 +31,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
 
     @Override
     public void sort() {
-        Collections.sort(list, new GradedComponentComparator());
+        list.sort(new GradedComponentComparator());
     }
 
     @Override
@@ -56,8 +56,29 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         List<String> output = new ArrayList<>();
         output.add("Here are the graded components in your module:");
         for (int i = 0; i < list.size(); i++) {
-            output.add((Integer.toString(i + 1) + ". " + list.get(i).toString()));
+            output.add(((i + 1) + ". " + list.get(i).toString()));
         }
+        return output;
+    }
+
+    @Override
+    public List<String> containsKeyword(String keyword) {
+        List<GradedComponent> contains = new ArrayList<>();
+        for (GradedComponent gradedComponent : this.getList()) {
+            if (gradedComponent.getName().toLowerCase().contains(keyword)) {
+                contains.add(gradedComponent);
+            }
+        }
+
+        contains.sort(new GradedComponentComparator());
+
+        List<String> output = new ArrayList<>();
+        output.add("Here are the graded components that contain " + keyword
+                + " in your module:");
+        for (int i = 0; i < contains.size(); i++) {
+            output.add(((i + 1) + ". " + contains.get(i).toString()));
+        }
+
         return output;
     }
 }

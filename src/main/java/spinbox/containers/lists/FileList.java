@@ -30,7 +30,7 @@ public class FileList extends SpinBoxList<File> {
     }
 
     public void sort() {
-        Collections.sort(list, new FileComparator());
+        list.sort(new FileComparator());
     }
 
     @Override
@@ -55,8 +55,29 @@ public class FileList extends SpinBoxList<File> {
         List<String> output = new ArrayList<>();
         output.add("Here are the files in your module:");
         for (int i = 0; i < list.size(); i++) {
-            output.add((Integer.toString(i + 1) + ". " + list.get(i).toString()));
+            output.add(((i + 1) + ". " + list.get(i).toString()));
         }
+        return output;
+    }
+
+    @Override
+    public List<String> containsKeyword(String keyword) {
+        List<File> contains = new ArrayList<>();
+        for (File file : this.getList()) {
+            if (file.getName().toLowerCase().contains(keyword)) {
+                contains.add(file);
+            }
+        }
+
+        contains.sort(new FileComparator());
+
+        List<String> output = new ArrayList<>();
+        output.add("Here are the files that contain " + keyword
+                + " in your module:");
+        for (int i = 0; i < contains.size(); i++) {
+            output.add(((i + 1) + ". " + contains.get(i).toString()));
+        }
+
         return output;
     }
 }
