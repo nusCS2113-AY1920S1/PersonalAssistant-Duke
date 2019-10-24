@@ -165,19 +165,19 @@ The name of the file(s) found in the current directory will be stored in _listOf
 
 *Aspect 1: How reading of content works*
 
-* Alternative 1 (current choice): Dynamically reads the name of content.
+* *Alternative 1* (current choice): Dynamically reads the name of content.
 +
 *Pros*: Very scalable, no hard-coding required.
 +
 *Cons*: Slightly harder implementation of reading content.
 
-* Alternative 2: Creating individual classes for each subtopic.
+* *Alternative 2*: Creating individual classes for each subtopic.
 +
 *Pros*: Easier to code since it only requires hard-coding.
 +
 *Cons*: Not scalable, expanding content files require redoing of codebase.
 
-* Alternative 3: Hardcoding location of every file and directory.
+* *Alternative 3*: Hardcoding location of every file and directory.
 +
 *Pros*: Very easy brute force way to implement.
 +
@@ -185,13 +185,13 @@ The name of the file(s) found in the current directory will be stored in _listOf
 
 *Aspect 2: Data structure to keep track of current location in program*
 
-* Alternative 1 (current choice): Storing current file path in a string variable.
+* *Alternative 1* (current choice): Storing current file path in a string variable.
 +
 *Pros*: Very scalable, concatenate string variable with new file path.
 +
 *Cons*: Slightly harder implementation since the file locations are harder to find and keep track in Java ARchive (JAR) files.
 
-* Alternative 2:  Using a stack data structure to store current progress in program.
+* *Alternative 2*:  Using a stack data structure to store current progress in program.
 +
 *Pros*: Easy to implement.
 +
@@ -301,17 +301,17 @@ When the quiz session is complete, a results screen will be shown to the user, d
 *Aspect 1: How quiz content is stored and read*
 
 [none]
-* Alternative 1: (Current choice) Quiz questions are stored with their answers in the text files. The getQuestions() method will iterate through all the files and store them into the quiz array. 
+* *Alternative 1*: (Current choice) Quiz questions are stored with their answers in the text files. The getQuestions() method will iterate through all the files and store them into the quiz array. 
 +
-Pros: Very scalable as additional questions and answers can be easily added without having to manually change the code. 
+*Pros*: Very scalable as additional questions and answers can be easily added without having to manually change the code. 
 +
-Cons: Each text file that contains the quiz must follow a certain naming format. 
+*Cons*: Each text file that contains the quiz must follow a certain naming format. 
 
-* Alternative 2: A QuestionList class that contains the hardcoded location of all the quizzes and the number of quizzes that each topic contains.  
+* *Alternative 2*: A QuestionList class that contains the hardcoded location of all the quizzes and the number of quizzes that each topic contains.  
 +
-Pros: Easy to implement and test as it is not susceptible to IO or File exceptions that may arise from reading from an external file.
+*Pros*: Easy to implement and test as it is not susceptible to IO or File exceptions that may arise from reading from an external file.
 +
-Cons: As all questions and answers have to be hard coded within the class, it is not scalable as number of quiz questions increases.
+*Cons*: As all questions and answers have to be hard coded within the class, it is not scalable as number of quiz questions increases.
 
 === MegaListCommand feature
 
