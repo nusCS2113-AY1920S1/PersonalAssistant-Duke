@@ -8,7 +8,7 @@ public class HelpCommand extends Command{
 	String MESSAGE_SUCCESS = "Currently we support the following commands: (all command ignore cases)\n"
 			+ "Manipulate tasks:\n"
 			+ String.format("%1$-50s", "  'add <food name> -t <food type> -p <price> -s <stock> -e <expiry date>' ") + "add a new food product with all details/description\n"
-			+ String.format("%1$-50s", "  'generaterevenue -i <number> OR -n <food name> OR -t <food type>'") + "generate the revenue for the specified food product in the list\n"
+			+ String.format("%1$-50s", "  'generaterevenue -all OR -i <number> OR -n <food name> OR -t <food type>'") + "generate the revenue for the specified food product in the list, -all for total revenue\n"
 			+ String.format("%1$-50s", "  'delete -i <number> OR -n <food name> OR -t <food type>'") + "delete the specified food product in the list\n"
 			+ String.format("%1$-50s", "  'sold -n <food name> -q <quantity>'") + "marks quantity q of product n sold\n"
 			+ "Show task list:\n"
