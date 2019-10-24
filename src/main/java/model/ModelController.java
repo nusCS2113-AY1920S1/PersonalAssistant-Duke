@@ -5,22 +5,23 @@ import model.task.Task;
 import java.util.ArrayList;
 
 public class ModelController implements Model {
-    private ProjectManager projectManager;
+    private TasksManager tasksManager;
 
     /**
      * Handles model changes.
      * */
     public ModelController() {
         //Create new project manager object, TODO change to loading from storage
-        projectManager = new ProjectManager();
+        tasksManager = new TasksManager();
 
     }
 
+    //================== Task CRUD operations ==============================
     @Override
     public void addTask(Task task) {
-        projectManager.addTask(task);
+        tasksManager.addTask(task);
     }
 
     @Override
-    public ArrayList<Task> getTaskList() { return projectManager.getTasks(); }
+    public ArrayList<Task> getTaskList() { return tasksManager.getTasks(); }
 }

@@ -21,4 +21,6 @@ public class Task {
         return name;
     }
 
+    public Description getDescription() { return description; }
+
 }
