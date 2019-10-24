@@ -17,7 +17,6 @@ public class ConsoleInputController implements IController {
     private CLIView consoleView;
     private ProjectRepository projectRepository;
     private ProjectInputController projectInputController;
-    private String filePath = System.getProperty("user.dir") + "/savedProjects.json";
 
     /**
      * Constructor.
@@ -25,7 +24,7 @@ public class ConsoleInputController implements IController {
      */
     public ConsoleInputController(CLIView view) {
         this.consoleView = view;
-        loadProjectsData();
+        this.projectRepository = new ProjectRepository();
         this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
     }
 
@@ -71,7 +70,6 @@ public class ConsoleInputController implements IController {
             consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
         } else {
             consoleView.consolePrint("Project created!");
-            saveProjectsData();
         }
     }
 
@@ -106,37 +104,5 @@ public class ConsoleInputController implements IController {
     private void commandHelp() {
         // TODO help page displaying all commands available
         // Not implemented
-    }
-
-    private void saveProjectsData() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
-        try {
-            DukeLogger.logDebug(ConsoleInputController.class, "Saving to file.");
-            FileWriter fileWriter = new FileWriter(filePath);
-            gson.toJson(this.projectRepository, fileWriter);
-            fileWriter.flush();
-            fileWriter.close();
-            DukeLogger.logDebug(ConsoleInputController.class, "File saved.");
-        } catch (IOException err) {
-            DukeLogger.logError(ConsoleInputController.class, "savedProjects file is not found.");
-            consoleView.consolePrint("savedProjects file does not exist or is not created!");
-        }
-    }
-
-    private void loadProjectsData() {
-        Gson gson = new Gson();
-        try (FileReader fileReader = new FileReader(filePath)) {
-            DukeLogger.logDebug(ConsoleInputController.class, "Loading saved file.");
-            this.projectRepository = gson.fromJson(fileReader, ProjectRepository.class);
-            if (this.projectRepository == null) {
-                this.projectRepository = new ProjectRepository();
-            }
-            DukeLogger.logDebug(ConsoleInputController.class, "Saved file loaded.");
-        } catch (IOException err) {
-            DukeLogger.logError(ConsoleInputController.class, "Saved file not loaded");
-            this.projectRepository = new ProjectRepository();
-        }
     }
 }

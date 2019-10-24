@@ -13,21 +13,21 @@ class MemberTest {
 
     @Test
     void testGetDetails() {
-        Member member = new Member("Tom","91198766", "tom@gmail.com",1);
-        assertEquals("1. Tom (Phone: 91198766 | Email: tom@gmail.com)",member.getDetails());
+        Member member = new Member("Tom","91198766", "tom@gmail.com",1, "member");
+        assertEquals("1. Tom (Phone: 91198766 | Email: tom@gmail.com | Role: member)",member.getDetails());
     }
 
     @Test
     void testSetIndexNumber() {
-        Member member = new Member("Tom","91198766", "tom@gmail.com",1);
+        Member member = new Member("Tom","91198766", "tom@gmail.com",1, "member");
         member.setIndexNumber(2);
-        assertEquals("2. Tom (Phone: 91198766 | Email: tom@gmail.com)",member.getDetails());
+        assertEquals("2. Tom (Phone: 91198766 | Email: tom@gmail.com | Role: member)",member.getDetails());
     }
 
     @Test
     void testUpdateDetails() {
-        Member member = new Member("Tom","91198766", "tom@gmail.com",1);
+        Member member = new Member("Tom","91198766", "tom@gmail.com",1, "member");
         member.updateDetails("John", "911", "john@hotmail.com");
-        assertEquals("1. John (Phone: 911 | Email: john@hotmail.com)", member.getDetails());
+        assertEquals("1. John (Phone: 911 | Email: john@hotmail.com | Role: member)", member.getDetails());
     }
 }

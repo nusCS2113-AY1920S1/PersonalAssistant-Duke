@@ -161,8 +161,8 @@ class TaskListTest {
                     TaskState.TODO, taskRequirements));
             project.addTask(new Task("task1",10, null,10,
                     TaskState.TODO, taskRequirements));
-            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1));
-            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2));
+            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1, "member"));
+            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2, "member"));
             project.getTask(1).assignMember(project.getMembers().getMember(1));
             project.getTask(1).assignMember(project.getMembers().getMember(2));
             project.getTask(2).assignMember(project.getMembers().getMember(1));

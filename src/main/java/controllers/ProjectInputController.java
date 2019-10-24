@@ -7,6 +7,7 @@ import models.member.Member;
 import models.task.ITask;
 import models.task.Task;
 import repositories.ProjectRepository;
+import util.AssignmentViewHelper;
 import util.ParserHelper;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
@@ -42,7 +43,13 @@ public class ProjectInputController implements IController {
      */
     public void onCommandReceived(String input) {
         DukeLogger.logInfo(ProjectInputController.class, "Managing project: " + input);
-        int projectNumber = Integer.parseInt(input);
+        int projectNumber;
+        try {
+            projectNumber = Integer.parseInt(input);
+        } catch (NumberFormatException err) {
+            this.consoleView.consolePrint("Input is not a number! Please input a proper project index!");
+            return;
+        }
         Project projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
         boolean isManagingAProject = true;
@@ -73,6 +80,8 @@ public class ProjectInputController implements IController {
                 projectDeleteMember(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view members.*")) {
                 projectViewMembers(projectToManage);
+            } else if (projectFullCommand.matches("role.*")) {
+                projectRoleMembers(projectToManage, projectFullCommand);
             } else if (projectFullCommand.matches("view credits.*")) {
                 projectViewCredits(projectToManage);
             } else if (projectFullCommand.matches("add task.*")) {
@@ -102,7 +111,24 @@ public class ProjectInputController implements IController {
         return isManagingAProject;
     }
 
-
+    /**
+     * Adds roles to Members in a Project.
+     * @param projectToManage : The project specified by the user.
+     * @param projectFullCommand : User input.
+     */
+    public void projectRoleMembers(Project projectToManage, String projectFullCommand) {
+        String parsedCommands = projectFullCommand.substring(5);
+        String[] commandOptions = parsedCommands.split(" -n ");
+        if (commandOptions.length != 2) {
+            consoleView.consolePrint("Wrong command format! Please enter role INDEX -n ROLE_NAME");
+            return;
+        }
+        int memberIndex = Integer.parseInt(commandOptions[0]);
+        IMember selectedMember = projectToManage.getMembers().getMember(memberIndex);
+        selectedMember.setRole(commandOptions[1]);
+        consoleView.consolePrint("Successfully changed the role of " + selectedMember.getName() + " to "
+                                + selectedMember.getRole() + ".");
+    }
 
     /**
      * Adds a member to the current project.

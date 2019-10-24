@@ -19,11 +19,12 @@ public class ParserHelper {
      * @return An array consisting of name in index 0, phone number in index 1 and email in index 2.
      */
     public String[] parseMemberDetails(String input) {
-        String[] memberDetails = new String[4];
+        String[] memberDetails = new String[5];
         memberDetails[0] = "--";
         memberDetails[1] = "--";
         memberDetails[2] = "--";
         memberDetails[3] = "0";
+        memberDetails[4] = "member";
 
         String[] newMemberDetails = input.split("-");
         ArrayList<String> newMemberDetailsA = new ArrayList<>(Arrays.asList(newMemberDetails));
@@ -41,6 +42,9 @@ public class ParserHelper {
                 break;
             case 'x':
                 memberDetails[3] = s.substring(1).trim();
+                break;
+            case 'r':
+                memberDetails[4] = s.substring(1).trim();
                 break;
             default:
                 break;

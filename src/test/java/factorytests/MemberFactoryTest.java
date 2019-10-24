@@ -33,7 +33,7 @@ public class MemberFactoryTest {
         simulatedFactoryInput = "-n Thor -i 91234567 -e thor@marvel.com -x 1";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
         Member expectedMember = new Member("Thor", "91234567",
-                "thor@marvel.com", 1);
+                "thor@marvel.com", 1, "member");
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
@@ -43,14 +43,14 @@ public class MemberFactoryTest {
     void memberCreation_correctPartialInputs_creationSuccess() {
         simulatedFactoryInput = "-n Iron man -i 12345678 -x 2";
         IMember simulatedMember = memberFactory.create(simulatedFactoryInput);
-        Member expectedMember = new Member("Iron man", "12345678", "--", 2);
+        Member expectedMember = new Member("Iron man", "12345678", "--", 2, "member");
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
 
         simulatedFactoryInput = "-n Dr Strange -x 3";
         simulatedMember = memberFactory.create(simulatedFactoryInput);
-        expectedMember = new Member("Dr Strange", "--", "--", 3);
+        expectedMember = new Member("Dr Strange", "--", "--", 3, "member");
         assertEquals(expectedMember.getDetails(), simulatedMember.getDetails());
         assertEquals(expectedMember.getIndexNumber(), simulatedMember.getIndexNumber());
         assertEquals(expectedMember.getName(), simulatedMember.getName());
