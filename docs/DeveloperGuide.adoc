@@ -142,11 +142,11 @@ The `delete project` command is implemented in the same manner to the `add proje
 === Add Invoices
 
 ==== Implementation
-The add invoice function is an extending feature for `deadline`. It considers real life situations and automatically set up the deadline for submission of payment forms for the users.
+The add invoice function is an extending feature for `payment`. It considers real life situations and automatically set up the deadline for submission of payment forms for the users.
 
 Given below is an example usage scenario and how the `add invoice` behaves at each step.
 
-Step 1: The user add in a new deadline for payment form submission using the command `deadline d/DESCRIPTION`. Now there is no invoice for this submission, therefore both invoice and deadline should be shown as null.
+Step 1: The user add in a new payment form form submission. Now there is no invoice for this submission, therefore both invoice and deadline should be shown as null.
 
 Step 2: The user gets the corresponding invoice. He then sets the invoice number to the deadline using the command `invoice ID i/INVOICE_NUMBER`.
 
@@ -162,12 +162,15 @@ Step 3: The user then call the `list` command, he can observe that the deadline 
 * **Alternative 2:** The user can set the gap time by themselves.
 ** Pros: In this way the application is more customized and can be applied to different situations.
 ** Cons: This might cause unnecessary inconvenience.
+
+.Sequence Diagram of the add invoice command
+image::AddInvoiceSeqDiagram.png[]
 //end of add invoice
 
 //tag: reminder
 === (Proposed) Reminder
 ==== Proposed Implementation
-The reminder function is another extending feature for deadline. By calling the relative command `reminder`, AlphaNUS will return the deadline with the highest priority (i.e. the earliest deadline). The deadline with the highest priority will also be shown at the starting page so as to perform as a reminder for the user.
+The reminder function is another extending feature for payment. By calling the relative command `reminder`, AlphaNUS will return the deadline with the highest priority (i.e. the earliest deadline). The deadline with the highest priority will also be shown at the starting page so as to perform as a reminder for the user.
 
 Given below is an example usage scenario and how the `reminder` behaves at each step.
 
