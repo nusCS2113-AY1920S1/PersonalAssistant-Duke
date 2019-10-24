@@ -78,9 +78,61 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 The undo/redo mechanism is done using a simplified memento pattern, since the command classes have already been implemented. This works as an extension of the command classes and makes use of existing code without any 3rd party libraries or additional dependencies.
 
-Each command that modifies the task or degree lists saves the complete previous state within itself as a `memento` class. Thus, when we call this command's `memento`, we can "unexecute" the command and get the complete state of the task or degree list before it was modified by the `command`. 
+Each command that modifies the task or degree lists saves the complete previous state within the command as a `memento` object. Thus, when we "unexecute" the command, we call this object and get the complete state of the task or degree list before it was modified by this `command`. 
 
-All of these commands are stored in a `commandList` stack, where it will be used to retrieve the latest `command` whenever undo is input, or to be manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+All of these commands are stored in a `CommandList`, where it has methods to retrieve the previous `command` whenever undo is input, or to manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+
+Once a command has been undone and the user makes new changes to the task or degree list, all commands after the `undoRedoPointer` will be removed to make way for new commands.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+The undo/redo mechanism is done using a simplified memento pattern, since the command classes have already been implemented. This works as an extension of the command classes and makes use of existing code without any 3rd party libraries or additional dependencies.
+
+Each command that modifies the task or degree lists saves the complete previous state within the command as a `memento` object. Thus, when we "unexecute" the command, we call this object and get the complete state of the task or degree list before it was modified by this `command`. 
+
+All of these commands are stored in a `CommandList` object, where it has methods to retrieve the previous `command` whenever undo is input, or to manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+
+Once a command has been undone and the user makes new changes to the task or degree list, all commands after the `undoRedoPointer` will be removed to make way for new commands.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+*Step 1*: The user launches the application, and duke initializes an empty `CommandList`. The `undoRedoPointer` points to -1 as there are currently no elements in `CommandList`.
+
+(Image showing an empty Command List)
+
+*Step 2*: The user inputs "todo Sleep". This adds a todo task to the `TaskList` and constructs an `AddCommand` object to be executed. Once that `AddCommand` is executed, it saves the current `TaskList` into a memento object, and then it adds "todo Sleep" into the `TaskList`.
+
+*Step 3*: After command execution, the `AddCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `AddCommand` at index 0.
+
+(Image showing a CommandList with 1 element and the pointer at 0)
+
+*Step 4*: The user inputs "list" to double check the addition of the new task. This executes `PrintCommand` to display the contents of `TaskList`, but does not modify it in any way. Thus, it will not be added to `CommandList`.
+
+*Step 5*: The user inputs "done 3" to mark the 3rd task in `TaskList` as done. This constructs a `ModCommand` object to change the contents of an element in `TaskList`. Once `ModCommand` is executed, it saves the current `TaskList` into a memento object, and then marks the 3rd task as done.
+
+*Step 6*: After command execution, the `ModCommand` object is added to `CommandList`. The `undoRedoPointer` increments by 1 and now points to the newly added `ModCommand` at index 1.
+
+(Image showing a CommandList with 2 elements and the pointer at 1)
+
+*Step 7*: The user now inputs "undo" to undo the task marking. This will call the `undo` method of `CommandList`, gets the command that `undoRedoPointer` is pointing to (which is `ModCommand` in this case) and unexecute it. `ModCommand` will call its `memento` object and replace the current `TaskList`. The `undoRedoPointer` decrements by 1, and now points to index 0. Note that `ModCommand` is not removed to facilitate redos.
+
+(Image showing a CommandList with 2 elements and the pointer at 0)
+
+*Step 8*: The user inputs another "undo" to undo the task addition. Similar to step 7, it will call the `undo` method of `CommandList` again and unexecutes the command that `undoRedoPointer` is pointing to. `AddCommand` will call its `memento` object and replace the current `TaskList` with the one that does not have the new task. The `undoRedoPointer` decrements by 1, and now points to index -1.
+
+(Image showing a CommandList with 2 elements and the pointer at -1)
+
+*Step 9*: The user now inputs "redo" to undo the undo. This will call the `redo` method of `CommandList`. It will first increment the `undoRedoPointer` by 1, and it will then execute the command at the pointed element. This will add "todo Sleep" back to the `TaskList`.
+
+(Image showing a CommandList with 2 elements and the pointer at 0)
+
+*Step 10*: The user now inputs "done 1" to mark the 1st task as done. Since its now a different command from "done 3" and not "redo", `CommandList` will check if there are commands past `undoRedoPointer`. Currently, `ModCommand` is the element after the one at `undoRedoPointer`, thus `CommandList` will pop all commands from the back of the Stack until `undoRedoPointer`. 
+
+(Image showing a CommandList with 1 elements and the pointer at 0; show modCommand is removed)
+
+*Step 11*: Once the excess commands are removed, it will proceed back to normal by executing a new `ModCommand` and adding it to `CommandList`, and incrementing `undoRedoPointer` by 1.
+
+(Image showing a CommandList with 2 elements and the pointer at 1)
 
 ==== Design Considerations
 How undo/redo executes:
