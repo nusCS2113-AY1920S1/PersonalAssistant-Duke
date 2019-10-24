@@ -78,7 +78,7 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please follow the "
-                    + "`assign standard task :<patient name> or #<patient id> :#<task id> or <task name> "
+                    + "`assign deadline task :<patient name> or #<patient id> :#<task id> or <task name> "
                     + ":<dd/MM/YYYY HHmm>` format.");
         }
     }
