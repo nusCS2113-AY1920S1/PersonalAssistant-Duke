@@ -17,7 +17,7 @@ import java.util.*;
 public class DegreeTask extends Task {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
-    //this map relates all the engineering programmes with an arbitrary integer
+    // this map relates all the engineering programmes with an arbitrary integer
     private static final Map<String, Integer> degreeMap;
     static {
         Map<String, Integer> aMap = new HashMap<>();
@@ -35,7 +35,8 @@ public class DegreeTask extends Task {
 
 
     /**
-     *
+     * takes in a list of strings of raw .txt data from degreeTasks.txt
+     * builds an arraylist of Taskslists, each with tasks related to one degree programme
      * @throws DukeException
      */
     public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
@@ -70,9 +71,16 @@ public class DegreeTask extends Task {
             Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
             userTasklist.add(toAppend);
         }
-        checkDuplicates(userTasklist);
+        checkDuplicates(degreeName, userTasklist);
     }
 
+    /**
+     * removes all tasks that are related to the degree programme that has been deleted
+     * @param index
+     * @param userDegreeList
+     * @param userTaskList
+     * @throws DukeException
+     */
     public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
         String removedDegree =  userDegreeList.get(Integer.parseInt(index));
         System.out.println(removedDegree);
@@ -87,8 +95,6 @@ public class DegreeTask extends Task {
     }
 
 
-    public void checkDuplicates (TaskList userTasklist){
-
-
+    public void checkDuplicates (String degreeName, TaskList userTasklist){
     }
 }
