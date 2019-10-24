@@ -248,7 +248,7 @@ run `OOF` with the command `java -jar .\v1.X.jar \| Out-Host`|
 
 image::ViewWeekEmpty.png[]
 
-Given below is an example usage scenario and how the 'ViewWeekCommand` class behaves at each step.
+Given below is an example usage scenario and how the `ViewWeekCommand` class behaves at each step.
 
 [NOTE]
 Due to heavy abstraction in the Ui and the limitation of the software used to draw UML diagrams, trivial helper functions in the Ui to print the output will be omitted.
