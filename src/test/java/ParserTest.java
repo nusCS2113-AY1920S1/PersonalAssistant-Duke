@@ -1,6 +1,6 @@
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.NewPatientCommand;
+import duke.command.HomeNewCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.Context;
@@ -24,7 +24,7 @@ public class ParserTest {
         try {
             assertEquals(ByeCommand.class, actualParser.parse("bye").getClass());
             assertEquals(actualParser.parse("new -n Hello -b 100 -a world").getClass(),
-                    NewPatientCommand.class);
+                    HomeNewCommand.class);
         } catch (DukeException excp) {
             fail("Exception thrown while extracting valid commands!");
         }

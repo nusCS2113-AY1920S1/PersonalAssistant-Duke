@@ -10,6 +10,6 @@ public class ReportSpec extends ArgSpec {
     private ReportSpec() {
         emptyArgMsg = "You didn't tell me anything about the patient, cant discharge";
         cmdArgLevel = ArgLevel.REQUIRED;
-        initSwitches(new Switch("summary", Integer.class, true, ArgLevel.OPTIONAL, "sum"));
+        initSwitches(new Switch("summary", String.class, true, ArgLevel.OPTIONAL, "sum"));
     }
 }
