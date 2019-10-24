@@ -80,30 +80,6 @@ public class Duke  {
     }
 
     /**
-     * Method starts all functions required to operate main program.
-     *
-     * @throws FileNotFoundException if Storage class cannot find files
-     * @throws ParseException        upon loadSchedule error
-     */
-    public void run() throws FileNotFoundException, ParseException {
-        ui.welcome();
-        tasks.addAllList(storage);
-        ui.mainMenu();
-        while (true) {
-            Scanner sc = new Scanner(System.in);
-            if (sc.hasNextLine()) {
-                String input = sc.nextLine();
-                if (input.equals("bye")) {
-                    ui.goodbye();
-                    System.exit(0);
-                }
-
-                ui.readCommand(input, tasks, storage, students, schedule, plan);
-            }
-        }
-    }
-
-    /**
      * Upon running launcher main, start() will run.
      */
 //    @Override
