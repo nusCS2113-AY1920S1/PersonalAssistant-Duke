@@ -38,8 +38,9 @@ public class Duke extends Application {
     private DegreeList lists;
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
+    private ArrayList<String> mydegrees = new ArrayList<>();
 
-    public static ArrayList<String> getTasks() {
+    public ArrayList<String> getTasks() {
         return mydegrees;
     }
     
