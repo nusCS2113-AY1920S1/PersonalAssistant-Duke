@@ -321,8 +321,6 @@ public class MyPlan {
                     if (input.equals("finalize")) {
                         System.out.println("Plan created.");
                         System.out.println("Saving to map.");
-                        //String key = createKey(intensity,....);
-                        //saveToMap(getList(),key);
                         break;
                     } else if (input.equals("show")) {
                         if (getList().isEmpty()) {
