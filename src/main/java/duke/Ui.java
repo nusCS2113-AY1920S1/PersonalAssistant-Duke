@@ -1,17 +1,7 @@
 package duke;
 
 import duke.Parser.ParserCommand;
-import duke.Parser.Parser;
-import duke.module.Lesson;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
-import duke.sports.MyPlan;
-import duke.task.TaskList;
-import duke.data.Storage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
+import duke.sports.MyTraining;
 import java.util.Scanner;
 
 public class Ui {
@@ -126,7 +116,7 @@ public class Ui {
      * Prints all possible actions with goal once entered.
      * @param goalDate The date of the day
      */
-    public void showGoalAllActions(String goalDate) {
+    public void showGoalAllActions(final String goalDate) {
         System.out.println(
             "\nWhat would you like to do on " + goalDate + "?\n"
                 + "1. View goals of the day\n"
@@ -140,7 +130,7 @@ public class Ui {
      * Prints message when asking for goal to add.
      * @param goalDate The date of the day
      */
-    public void showGoalPromptAddGoal(String goalDate) {
+    public void showGoalPromptAddGoal(final String goalDate) {
         System.out.println("To add a goal to "
             + goalDate + ", enter the goal.");
     }
@@ -149,7 +139,7 @@ public class Ui {
      * Prints message when asking for goal to delete.
      * @param goalDate The date of the day
      */
-    public void showGoalPromptDeleteGoal(String goalDate) {
+    public void showGoalPromptDeleteGoal(final String goalDate) {
         System.out.println("To delete a goal from "
             + goalDate + ", enter the goal.");
     }
@@ -160,20 +150,6 @@ public class Ui {
     public void showQuitGoal() {
         System.out.println(
             "You have quit the goal of the day.");
-    }
-
-    /**
-     * Prints message to show help for goal of the day.
-     */
-    public void showHelpGoal() {
-        System.out.println(
-            "Actions you can take now: \n"
-            + "Enter the date in this format: dd/MM/yyyy\n"
-            + "Press 1 to view goals of the day\n"
-            + "Press 2 to add a goal of the day\n"
-            + "Press 3 to delete a goal of the day\n"
-            + "Press 4 to clear all goals of the day\n"
-            + "Press 5 to quit goal of the day");
     }
 
     /**
@@ -211,7 +187,7 @@ public class Ui {
      * Prints all possible actions with lesson once entered.
      * @param lessonDate The date of the day
      */
-    public void showLessonAllActions(String lessonDate) {
+    public void showLessonAllActions(final String lessonDate) {
         System.out.println(
             "\nWhat would you like to do on " + lessonDate + "?\n"
                 + "1. View lessons of the day\n"
@@ -225,7 +201,7 @@ public class Ui {
      * Prints message when asking for lesson to add.
      * @param lessonDate The date of the day
      */
-    public void showLessonPromptAddLesson(String lessonDate) {
+    public void showLessonPromptAddLesson(final String lessonDate) {
         System.out.println("To add a lesson to "
             + lessonDate + ", enter the lesson.");
     }
@@ -234,7 +210,7 @@ public class Ui {
      * Prints message when asking for lesson to delete.
      * @param lessonDate The date of the day
      */
-    public void showLessonPromptDeleteLesson(String lessonDate) {
+    public void showLessonPromptDeleteLesson(final String lessonDate) {
         System.out.println("To delete a lesson from "
             + lessonDate + ", enter the lesson.");
     }
@@ -245,5 +221,101 @@ public class Ui {
     public void showQuitLesson() {
         System.out.println(
             "You have quit the lesson of the day.");
+    }
+
+    /**
+     * Prints message when asking for proper intensity level.
+     */
+    public void showIntensityLevel() {
+        System.out.println("Please input a proper "
+            + "intensity level: high, moderate, relaxed");
+    }
+    /**
+     * Prints message when plan is successfully loaded.
+     * @param planNum The plan number of the plan to be loaded.
+     * @param intensity The intensity of the plan to be loaded.
+     */
+    public void showPlanLoaded(final int planNum, final String intensity) {
+        System.out.println("You have loaded plan " + planNum + " of "
+            + intensity + " intensity " + " into the list");
+    }
+
+    /**
+     * Prints message when asking for correct intensity level and plan number.
+     */
+    public void showIntensityAndNumber() {
+        System.out.println("Please input the correct"
+            + " intensity and plan number.");
+    }
+
+    /**
+     * Prints message when plan is successfully removed.
+     */
+    public void showPlanRemoved() {
+        System.out.println("Plan successfully removed.");
+    }
+
+    /**
+     * Prints message when plan is successfully created.
+     */
+    public void showPlanCreated() {
+        System.out.println("Plan successfully created.");
+    }
+
+    /**
+     * Prints message when saving plan to map.
+     */
+    public void showSavePlanToMap() {
+        System.out.println("Saving to map.");
+    }
+
+    /**
+     * Prints message if no activity has been added to show.
+     */
+    public void showNoActivity() {
+        System.out.println("No activity has been added.");
+    }
+
+    /**
+     * Prints message when plan is being created.
+     * @param intensity The intensity of the plan to be created.
+     */
+    public void showPlanCreating(final String intensity) {
+        System.out.println("Creating plan of " + intensity + " intensity.\n"
+            + "Please input activity to add in format of "
+            + "[activity] [number of sets] [number of reps].");
+    }
+
+    /**
+     * Prints message when activity is successfully added.
+     * @param activity The activity object to be added.
+     */
+    public void showActivityAdded(final MyTraining activity) {
+        System.out.println("Successfully added activity: "
+            + activity.toString());
+    }
+
+    /**
+     * Prints message to show all plans loaded into the current list.
+     * @param plans The plans to be printed out.
+     */
+    public void showViewPlan(final String plans) {
+        System.out.println(plans);
+    }
+
+    /**
+     * Prints message to prompt the user on what to do next.
+     */
+    public void showPlanPrompt1() {
+        System.out.println("Continue adding activities, "
+            + "or finalize plan.");
+    }
+
+    /**
+     * Prints message to prompt the user on what to do next.
+     */
+    public void showPlanPrompt2() {
+        System.out.println("Please input new activity,"
+            + "finalize the plan or look at current list.");
     }
 }
