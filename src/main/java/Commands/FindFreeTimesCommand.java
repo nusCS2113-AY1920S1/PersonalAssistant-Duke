@@ -1,5 +1,6 @@
 package Commands;
 
+import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import Tasks.Task;
@@ -112,12 +113,12 @@ public class FindFreeTimesCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display freeTimes message
      * @throws Exception On date parsing error
      */
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-    mapDataMap(events);
-    findFindTime();
-    setOutput();
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+        mapDataMap(events);
+        findFindTime();
+        setOutput();
         System.out.println(message);
-    return ui.showFreeTimes(message);
+        return ui.showFreeTimes(message);
     }
 
     /**
@@ -209,7 +210,6 @@ public class FindFreeTimesCommand extends Command {
                     }
                 }
             }
-
         }
     }
 

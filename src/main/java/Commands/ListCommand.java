@@ -21,7 +21,7 @@ public class ListCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display list message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         if(list.equals("event")) {
             listToView = events;
         } else if(list.equals("deadline")){

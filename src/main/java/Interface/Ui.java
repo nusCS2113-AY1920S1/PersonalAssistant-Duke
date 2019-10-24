@@ -167,15 +167,14 @@ public class Ui {
      * @param keyword keyword entered by user
      *
      */
-    public String showFilter(TaskList list,String keyword){
+    public String showFilter(ArrayList<String> list,String keyword){
 
-        if(list.taskListSize() == 0) {
+        if(list.size() == 0) {
                 return "There are no task(s) matching your keyword.\n";
             } else {
                 String message = "Here are the following events/deadline with the keyword " + keyword + "\n";
-
-                for (int i = 1; i <= list.taskListSize(); i++) {
-                    message = message + i + "." + list.taskToString(i - 1) + "\n";
+                for (int i = 1; i <= list.size(); i++) {
+                    message = message + i + "." + list.get(i - 1) + "\n";
                 }
                 return message;
             }

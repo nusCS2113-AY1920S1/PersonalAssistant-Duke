@@ -1,4 +1,5 @@
 package JavaFx;
+import Commands.UpdateProgressIndicatorCommand;
 import Interface.*;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -28,9 +29,7 @@ import javafx.util.Pair;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -125,19 +124,14 @@ public class MainWindow extends BorderPane implements Initializable {
             //seeList();
             setProgressContainer();
             setListView();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
     private void displayQuoteOfTheDay(){
         try {
-            ClassLoader loader = this.getClass().getClassLoader(); // or YourClass.class.getClassLoader()
-            URL resourceUrl = loader.getResource("documents/quotes.txt");
-            File path = null;
-            if (resourceUrl != null) {
-                path = new File(resourceUrl.getFile());
-            }
+            File path = new File(System.getProperty("user.dir") + "\\data\\quotes.txt");
             Scanner scanner = new Scanner(path);
             String firstLine = scanner.nextLine();
             FileWriter writer = new FileWriter(path);
@@ -162,30 +156,15 @@ public class MainWindow extends BorderPane implements Initializable {
      * This method creates the progress indicator for the different modules.
      * @throws IOException On reading error in the lines of the file
      */
-    private void setProgressContainer() {
+    private void setProgressContainer() throws IOException {
         progressContainer.getChildren().clear();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
-        number_of_modules = result.getKey().keySet().size();
 
-        HashMap<String, String> modules = result.getKey();
-        for (String module : modules.keySet()) {
-            int totalNumTasks = 0;
-            int completedValue = 0;
-            ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
-            for (Pair<String, Pair<String, String>> as : tasks) {
-                if (as.getKey().equals(module)) {
-                    totalNumTasks += 1;
-                    if (as.getValue().getKey().equals("\u2713")) {
-                        completedValue += 1;
-                    }
-                }
-            }
+        UpdateProgressIndicatorCommand updateProgressIndicatorCommand = new UpdateProgressIndicatorCommand(eventsList, deadlinesList);
+        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData = updateProgressIndicatorCommand.getWholeDate(eventsList, deadlinesList);
+        HashMap<String, String> moduleMap = updateProgressIndicatorCommand.getModuleMap(wholeData);
+
+        HashMap<String, Pair<Integer, Integer>> progressIndicatorValues = updateProgressIndicatorCommand.getValues(moduleMap, wholeData);
+        for (String module : progressIndicatorValues.keySet()) {
             FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
             Parent loads = null;
             try {
@@ -193,7 +172,9 @@ public class MainWindow extends BorderPane implements Initializable {
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
-            fxmlLoad.<ProgressController>getController().getData(module, totalNumTasks, completedValue);
+            int totalNumOfTasks = progressIndicatorValues.get(module).getKey();
+            int completedValue = progressIndicatorValues.get(module).getValue();
+            fxmlLoad.<ProgressController>getController().getData(module, totalNumOfTasks, completedValue);
             progressContainer.getChildren().add(loads);
         }
     }
@@ -309,18 +290,21 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws IOException{
         String input = userInput.getText();
         String response = duke.getResponse(input);
         retrieveList();
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
-        }/* else if (input.startsWith("add")) {
-            if(response.startsWith("true|")) {
-                refresh(input);
-                setProgressContainer();
-            }
+        } else if (input.startsWith("add")) {
+            //if(response.startsWith("true|")) {
+            //refresh(input);
+            //setWeek(false, input);
+            setListView();
+            deadlineTable.setItems(setDeadlineTable());
+            setProgressContainer();
+            //}
         } else if (input.startsWith("delete/e" ) || input.startsWith("done/e")) {
             String[] split = input.split("/at");
             String[] dateAndTime = split[1].split("from");
@@ -329,19 +313,22 @@ public class MainWindow extends BorderPane implements Initializable {
                 String[] dateSplit = date.split(" ");
                 date = dateSplit[0] + " " + dateSplit[1];
             } else {
-                date = LT.getWeek(date);
+                date = LT.getValue(date);
             }
             if (date.equals(week)) setWeek(false, week);
 
-        } */else if (userInput.getText().equals("bye")) {
+        }else if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
-        AlertBox.display("", "",
-                response, Alert.AlertType.INFORMATION);
+        if (!input.startsWith("Week")) {
+            AlertBox.display("", "",
+                    response, Alert.AlertType.INFORMATION);
+        }
         userInput.clear();
     }
+
 
     private boolean overdueCheck(Date date) {
         Calendar c = Calendar.getInstance();
@@ -423,7 +410,7 @@ public class MainWindow extends BorderPane implements Initializable {
             for(Map.Entry<String, ArrayList<Task>> item: moduleValue.entrySet()) {
                 String strDate = item.getKey();
                 String[] spilt = strDate.split(" ", 3);
-                String selectedWeek = LT.getWeek(spilt[1]);
+                String selectedWeek = LT.getValue(spilt[1]);
                 if((selectedWeek).equals(week)) {
                     ArrayList<Task> data = item.getValue(); // each item in data has the contents
                     for(Task task: data){
@@ -482,14 +469,14 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String date = dateFormat.format(dateTime);
-            selectedWeek = LT.getWeek(date);
-            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            selectedWeek = LT.getValue(date);
+            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,23));
             currentWeek.setTextFill(Color.GOLDENROD);
         }
         else{
-            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
         }
     }
@@ -519,7 +506,7 @@ public class MainWindow extends BorderPane implements Initializable {
             String[] modAndTask = (spiltInput[0].replaceFirst("add/e ", "")).split(" ");
             String[] dateAndTime = spiltInput[1].split(" from ");
             String date = dateAndTime[0].trim();
-            if(date.startsWith("Week")) date = LT.getDates(date.toLowerCase());
+            if(date.startsWith("Week")) date = LT.getValue(date.toLowerCase());
             Date inputDate = null;
             Date currentDate = null;
             try {
