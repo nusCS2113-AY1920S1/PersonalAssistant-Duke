@@ -10,6 +10,7 @@ import spinbox.commands.RemoveMultipleCommand;
 import spinbox.commands.UpdateCommand;
 import spinbox.commands.UpdateMultipleCommand;
 import spinbox.commands.ViewCommand;
+import spinbox.commands.SetNameCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
@@ -134,6 +135,9 @@ public class Parser {
             break;
         case "find":
             command = new FindCommand(pageDataComponents, content);
+            break;
+        case "set-name":
+            command = new SetNameCommand(pageDataComponents, content);
             break;
         case "help":
             command = new HelpCommand(content);

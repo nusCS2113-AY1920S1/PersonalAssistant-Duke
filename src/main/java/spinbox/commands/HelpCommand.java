@@ -38,6 +38,9 @@ public class HelpCommand extends Command {
             case "remove-multiple":
                 helpOutput = helpText.removeMultiple;
                 break;
+            case "set-name":
+                helpOutput = helpText.setName;
+                break;
             case "update":
                 helpOutput = helpText.update;
                 break;

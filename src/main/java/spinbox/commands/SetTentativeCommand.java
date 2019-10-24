@@ -11,7 +11,7 @@ import spinbox.entities.items.tasks.Task;
 
 import java.util.ArrayList;
 
-public class SetCommand extends Command {
+public class SetTentativeCommand extends Command {
     private int index;
     private DateTime startDate;
     private DateTime endDate;
@@ -22,7 +22,7 @@ public class SetCommand extends Command {
      * @param fullCommand the full command.
      * @throws InputException wrong format for set-tentative.
      */
-    public SetCommand(String[] components, String fullCommand) throws InputException {
+    public SetTentativeCommand(String[] components, String fullCommand) throws InputException {
         try {
             this.index = Integer.parseInt(components[1]) - 1;
 

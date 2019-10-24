@@ -32,6 +32,20 @@ public class Notepad {
     }
 
     /**
+     * Return note at index.
+     * @param index Index of note.
+     * @return Note at index.
+     * @throws InvalidIndexException If index is out of range.
+     */
+    public String getLine(int index) throws InvalidIndexException {
+        try {
+            return notes.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException();
+        }
+    }
+
+    /**
      * Updates a line of text within the notepad.
      * @param index The line's index/number, starting from 0.
      * @param line A string representing one line of entered text.

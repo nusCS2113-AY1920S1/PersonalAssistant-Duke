@@ -15,6 +15,7 @@ public class HelpList {
             + "\t4. help / remove-multiple : To remove multiple task/grade/file components\n"
             + "\t5. help / update : To update a task/grade/file component to a value\n"
             + "\t6. help / update-multiple : To update multiple task/grade/file components to a value\n"
+            + "\t7. help / set-name : To set task/grade/file name to a new name\n"
             + horizontalLine);
 
     public final String view = helpOutput.concat(horizontalLine + "\n" + "Command: view\n"
@@ -88,5 +89,17 @@ public class HelpList {
             + "\t1. Update the first 2 files under module CG1111: update-multiple CG1111 / file 1,2 true\n"
             + "\t2. Update the first 2 grade components under CG1111: TBC\n"
             + "\t3. Update the first 2 tasks under module CG1111: update-multiple CG1111 / task 1,2 true\n"
+            + horizontalLine);
+
+    public final String setName = helpOutput.concat(horizontalLine + "\n" + "Command: set-name\n"
+            + "Function: To set task/grade/file name to a new name\n"
+            + "Format: set-name <module code> / <item type> <item index> to: <new name>\n"
+            + "Example:\n"
+            + "\t* Note: omit module code if current page is the specific module *\n"
+            + "\t1. Set the first file under module CG1111 to 'lecture note': set-name CG1111 / file 1 to: lecture"
+            + " note\n"
+            + "\t2. Set the first first grade component under CG1111: TBC\n"
+            + "\t3. Set the first first task under module CG1111 'return book': set-name CG1111 / task 1 to: "
+            + "return book\n"
             + horizontalLine);
 }

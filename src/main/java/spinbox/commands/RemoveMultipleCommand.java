@@ -53,6 +53,15 @@ public class RemoveMultipleCommand extends Command {
         this.type = content.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Method to remove multiple files from the file list.
+     * @param finalIndexes Indexes of the files to be removed.
+     * @param files The list of files in the storage.
+     * @param outputMessage The message to be output to the screen.
+     * @return outputMessage to be printed to the screen.
+     * @throws InvalidIndexException If an invalid index is accessed.
+     * @throws DataReadWriteException If there is an error reading/writing to the file.
+     */
     private String removeMultipleFile(List<Integer> finalIndexes, FileList files, String outputMessage)
             throws InvalidIndexException, DataReadWriteException {
         for (int i = 0; i < finalIndexes.size(); i++) {
@@ -65,6 +74,15 @@ public class RemoveMultipleCommand extends Command {
         return outputMessage;
     }
 
+    /**
+     * Method to remove multiple tasks from the task list.
+     * @param finalIndexes Indexes of the tasks to be removed.
+     * @param tasks The list of tasks in the storage.
+     * @param outputMessage The message to be output to the screen.
+     * @return outputMessage to be printed to the screen.
+     * @throws InvalidIndexException If an invalid index is accessed.
+     * @throws DataReadWriteException If there is an error reading/writing to the file.
+     */
     private String removeMultipleTask(List<Integer> finalIndexes, TaskList tasks, String outputMessage)
             throws InvalidIndexException, DataReadWriteException {
         for (int i = 0; i < finalIndexes.size(); i++) {

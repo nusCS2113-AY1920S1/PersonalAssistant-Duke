@@ -19,7 +19,7 @@ public class UpdateCommand extends Command {
     private static final String FILE_MARKED = "Updated file: ";
     private static final String TASK_MARKED = "Updated task: ";
     private static final String PROVIDE_INDEX = "Please provide an index of item to be updated.";
-    private static final String INVALID_MARK_FORMAT = "Please use valid update format:\n"
+    private static final String INVALID_MARK_FORMAT = "Please use the valid update format:\n"
             + "update <pageContent> / <type> <index> <booleanValue>";
     private static final String INVALID_INDEX = "Please enter a valid index.";
     private static final String INVALID_VALUE = "PLease enter a valid boolean value.";

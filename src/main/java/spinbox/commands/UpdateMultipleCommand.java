@@ -40,7 +40,7 @@ public class UpdateMultipleCommand extends Command {
     private String outputMessage = "";
 
     /**
-     * Constructor for initialization of variables to support update of entities.
+     * Constructor for initialization of variables to support update of multiple entities.
      * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
@@ -52,6 +52,16 @@ public class UpdateMultipleCommand extends Command {
         this.type = content.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Method to update multiple files with the new boolean value.
+     * @param finalIndexes Indexes of the files to be updated.
+     * @param updateValue Boolean value of the value to be updated to.
+     * @param files The list of files in the storage.
+     * @param outputMessage The message to be output to the screen.
+     * @return outputMessage to be printed to the screen.
+     * @throws InputException If boolean value is not either true or false.
+     * @throws DataReadWriteException If there is an error reading/writing to the file.
+     */
     private String updateMultipleFile(List<Integer> finalIndexes, String updateValue, FileList files, String
             outputMessage) throws InputException, DataReadWriteException {
         for (int i = 0; i < finalIndexes.size(); i++) {
@@ -71,6 +81,16 @@ public class UpdateMultipleCommand extends Command {
         return outputMessage;
     }
 
+    /**
+     * Method to update multiple tasks with the new boolean value.
+     * @param finalIndexes Indexes of the tasks to be updated.
+     * @param updateValue Boolean value of the value to be updated to.
+     * @param tasks The list of tasks in the storage.
+     * @param outputMessage The message to be output to the screen.
+     * @return outputMessage to be printed to the screen.
+     * @throws InputException If boolean value is not either true or false.
+     * @throws DataReadWriteException If there is an error reading/writing to the file.
+     */
     private String updateMultipleTask(List<Integer> finalIndexes, String updateValue, TaskList tasks, String
             outputMessage) throws InputException, DataReadWriteException {
         if (updateValue.equals("false")) {
