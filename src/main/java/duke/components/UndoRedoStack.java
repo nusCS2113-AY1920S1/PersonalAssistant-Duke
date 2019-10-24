@@ -7,7 +7,7 @@ import duke.commands.UndoCommand;
 
 import java.util.Stack;
 
-//@@ Sha Long
+//@@author SalonetheGreat
 public class UndoRedoStack {
     private Stack<SongList> undoRedoStack;
     private int currentVersionIndex;

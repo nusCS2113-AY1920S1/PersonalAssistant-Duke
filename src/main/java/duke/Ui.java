@@ -408,7 +408,7 @@ public class Ui {
         return result;
     }
 
-    //@@author Sha Long
+    //@@author SalonetheGreat
     /**
      * Returns a message indicating that user cannot undo because it is the first version.
      * @return the formatted string to be displayed.
@@ -418,7 +418,7 @@ public class Ui {
         return wrap(output);
     }
 
-    //@@ Sha Long
+    //@@author SalonetheGreat
     /**
      * Returns a string indicating that the undo command has been successfully executed.
      * @param currentVersionIndex current version number, which is used to identify how many times can the user undo
@@ -438,7 +438,7 @@ public class Ui {
         return wrap(output);
     }
 
-    //@@author Sha Long
+    //@@author SalonetheGreat
     /**
      * Returns a message indicating that user cannot redo because it is the latest version.
      * @return the formatted string to be displayed.
@@ -448,7 +448,7 @@ public class Ui {
         return wrap(output);
     }
 
-    //@@ Sha Long
+    //@@author SalonetheGreat
     /**
      * Returns a string indicating that the redo command has been successfully executed.
      * @param numOfRedoLeft number of redo times left, which is used to identify how many times can the user redo
