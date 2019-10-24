@@ -6,6 +6,7 @@ import cube.logic.command.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.FoodList;
 import cube.storage.StorageManager;
+import cube.storage.ConfigStorage;
 import cube.util.FileUtilJson;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
@@ -24,6 +25,7 @@ public class MainWindow extends UiManager<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     private StorageManager storageManager;
+    private ConfigStorage configStorage;
     private FileUtilJson storage;
     private FoodList foodList;
 
@@ -33,13 +35,14 @@ public class MainWindow extends UiManager<Stage> {
         this.primaryStage = primaryStage;
     }
 
-    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson storage, FoodList foodList) {
+    public MainWindow (Stage primaryStage, StorageManager storageManager, FileUtilJson storage) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
         this.storageManager = storageManager;
         this.storage = storage;
-        this.foodList = foodList;
+        this.configStorage = storageManager.getConfig();
+        this.foodList = storageManager.getFoodList();
     }
 
     public void show() {
@@ -47,6 +50,9 @@ public class MainWindow extends UiManager<Stage> {
     }
 
     public void initComponents() {
+        primaryStage.setHeight(configStorage.getWindowHeight());
+        primaryStage.setWidth(configStorage.getWindowWidth());
+
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
