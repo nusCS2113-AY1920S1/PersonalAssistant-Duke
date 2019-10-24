@@ -168,12 +168,15 @@ class TaskListTest {
                     TaskState.TODO, taskRequirements));
             project.addTask(new Task("task1",10, null,10,
                     TaskState.TODO, taskRequirements));
-            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1));
-            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2));
+            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1, "member"));
+            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2, "member"));
+            project.getTask(1).assignMember(project.getMembers().getMember(1));
+            project.getTask(1).assignMember(project.getMembers().getMember(2));
+            project.getTask(2).assignMember(project.getMembers().getMember(1));
             AssignmentController assignmentController = new AssignmentController(project);
-            assignmentController.assignAndUnassign("-i 1 -to 1 2");
+            assignmentController.assignAndUnassign("assign task -i 1 -to 1 2".substring(12));
             AssignmentController assignmentController2 = new AssignmentController(project);
-            assignmentController2.assignAndUnassign("-i 2 -to 1");
+            assignmentController2.assignAndUnassign("assign task -i 2 -to 1".substring(12));
             String testMemberTaskListString = "[1. task2 | Priority: 5 | Due: -- | Credit: 10 | State: TODO]";
             String testMemberTaskListString2 = "[1. task1 | Priority: 10 | Due: -- | Credit: 10 | "
                     + "State: TODO, 2. task2 | Priority: 5 | Due: -- | Credit: 10 | State: TODO]";

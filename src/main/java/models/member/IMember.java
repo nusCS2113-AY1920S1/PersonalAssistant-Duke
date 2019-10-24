@@ -14,4 +14,8 @@ public interface IMember {
     String getPhone();
 
     String getEmail();
+
+    String getRole();
+
+    String setRole(String input);
 }

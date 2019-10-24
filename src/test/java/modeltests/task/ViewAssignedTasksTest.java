@@ -29,9 +29,9 @@ class ViewAssignedTasksTest {
 
     @Test
     void testViewAssignedTask() {
-        String testAssignedTasks = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com)\n"
-                + "2. Jerry (Phone: 9999 | Email: jerryn@gmail.com)";
-        String testAssignedTasks2 = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com)";
+        String testAssignedTasks = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com | Role: member)\n"
+                + "2. Jerry (Phone: 9999 | Email: jerryn@gmail.com | Role: member)";
+        String testAssignedTasks2 = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com | Role: member)";
         try {
             Date dueDate = dateTimeHelper.formatDate("19/10/2019");
             ArrayList<String> taskRequirements = new ArrayList<>();
@@ -40,8 +40,8 @@ class ViewAssignedTasksTest {
             project.addTask(new Task("task2",5, dueDate,10, TaskState.TODO, taskRequirements));
             project.addTask(new Task("task1",10, dueDate,10, TaskState.TODO, taskRequirements));
 
-            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1));
-            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2));
+            project.addMember(new Member("Dillen", "9999", "dillen@gmail.com",1, "member"));
+            project.addMember(new Member("Jerry", "9999", "jerryn@gmail.com",2, "member"));
 
             project.getTask(1).assignMember(project.getMembers().getMember(1));
             project.getTask(1).assignMember(project.getMembers().getMember(2));

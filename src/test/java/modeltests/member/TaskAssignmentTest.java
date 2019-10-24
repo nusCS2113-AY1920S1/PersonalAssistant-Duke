@@ -24,9 +24,9 @@ class TaskAssignmentTest {
      */
     TaskAssignmentTest() {
         this.project = new Project("New project");
-        this.member1 = new Member("Tom", "NIL", "NIL", 1);
-        this.member2 = new Member("Dick", "NIL","NIL", 2);
-        this.member3 = new Member("Harry", "NIL", "NIL", 3);
+        this.member1 = new Member("Tom", "NIL", "NIL", 1, "member");
+        this.member2 = new Member("Dick", "NIL","NIL", 2, "member");
+        this.member3 = new Member("Harry", "NIL", "NIL", 3, "member");
         Task task = new Task("Test task", 0,
             null, 0, TaskState.OPEN, new ArrayList<>());
         this.project.addMember(member1);
@@ -44,11 +44,11 @@ class TaskAssignmentTest {
     @Test
     @Order(2)
     void testSetupOfProjectAndMembers() {
-        assertEquals("1. Tom (Phone: NIL | Email: NIL)",
+        assertEquals("1. Tom (Phone: NIL | Email: NIL | Role: member)",
             member1.getDetails());
-        assertEquals("2. Dick (Phone: NIL | Email: NIL)",
+        assertEquals("2. Dick (Phone: NIL | Email: NIL | Role: member)",
             member2.getDetails());
-        assertEquals("3. Harry (Phone: NIL | Email: NIL)",
+        assertEquals("3. Harry (Phone: NIL | Email: NIL | Role: member)",
             member3.getDetails());
         assertEquals(3, project.getNumOfMembers());
         assertEquals("Tom", project.getMembers().getMember(1).getName());
