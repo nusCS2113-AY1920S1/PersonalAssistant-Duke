@@ -279,7 +279,7 @@ To be added.
 == Implementation
 === Adding Savings
 .Sequence Diagram of Adding Savings
-image::AddSavingCommand.png[width="970"]
+image::AddSavingCommand.png[width="920"]
 
 [NOTE]
 The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
