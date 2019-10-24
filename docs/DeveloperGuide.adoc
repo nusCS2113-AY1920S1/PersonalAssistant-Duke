@@ -303,6 +303,7 @@ differences, listed below:
 
 ArchDuke allows users to manage each individual project in the `ProjectRepository`.
 
+image::images/ManageProject_Sequence.png[]
 
 *Task assignments*
 
@@ -324,7 +325,7 @@ Assignments are tracked in the `Project` class using 2 Java HashMaps.
 Using a HashMap for storage would allow for fast and easy writing and retrieval of data.
 It also prevents cyclic dependencies as `Task` and `Member` objects would not have to be aware of
 each other (such as each class keeping an ArrayList of the assignment) in order to establish the
-assignment. 
+assignment.
 
 // ==== Design Considerations
 
