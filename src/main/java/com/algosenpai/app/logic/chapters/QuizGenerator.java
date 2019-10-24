@@ -12,6 +12,7 @@ public class QuizGenerator {
      * @param questionList the ArrayList of Questions to be filled.
      * @return the ArrayList with all the questions generated
      */
+
     public ArrayList<QuestionModel> generateQuiz(int selectedChapters, ArrayList<QuestionModel> questionList) {
         questionList = new ArrayList<QuestionModel>();
 
@@ -24,7 +25,6 @@ public class QuizGenerator {
                 questionList.add(ChapterSorting.generateQuestions());
             }
         }
-
         return questionList;
     }
 }

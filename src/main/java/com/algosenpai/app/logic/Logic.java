@@ -1,17 +1,25 @@
+//@@author carrieng0323852
+
 package com.algosenpai.app.logic;
 
-import com.algosenpai.app.logic.command.ByeCommand;
-import com.algosenpai.app.logic.command.Command;
-import com.algosenpai.app.logic.command.MenuCommand;
-import com.algosenpai.app.logic.command.PrintCommand;
-import com.algosenpai.app.logic.command.ResultCommand;
-import com.algosenpai.app.logic.command.HistoryCommand;
-import com.algosenpai.app.logic.command.QuizCommand;
-import com.algosenpai.app.logic.command.InvalidCommand;
-import com.algosenpai.app.logic.command.UndoCommand;
-import com.algosenpai.app.logic.command.ClearCommand;
-import com.algosenpai.app.logic.command.BackCommand;
 import com.algosenpai.app.logic.chapters.QuizGenerator;
+import com.algosenpai.app.logic.command.BackCommand;
+import com.algosenpai.app.logic.command.ByeCommand;
+import com.algosenpai.app.logic.command.ClearCommand;
+import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.HelpCommand;
+import com.algosenpai.app.logic.command.HistoryCommand;
+import com.algosenpai.app.logic.command.StatsCommand;
+import com.algosenpai.app.logic.command.InvalidCommand;
+import com.algosenpai.app.logic.command.MenuCommand;
+import com.algosenpai.app.logic.command.SelectCommand;
+import com.algosenpai.app.logic.command.PrintCommand;
+import com.algosenpai.app.logic.command.QuizCommand;
+import com.algosenpai.app.logic.command.ArchiveCommand;
+import com.algosenpai.app.logic.command.SaveCommand;
+import com.algosenpai.app.logic.command.ResultCommand;
+import com.algosenpai.app.logic.command.SetupCommand;
+import com.algosenpai.app.logic.command.UndoCommand;
 import com.algosenpai.app.logic.models.QuestionModel;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
@@ -26,13 +34,12 @@ public class Logic {
     private QuizGenerator quizMaker;
 
     //All variables for the settings of the program
-    private boolean isNew = true;
-    private boolean isSettingUp = false;
-    private int level = 0;
-    private String name;
+    private int setupStage = 0;
+    private AtomicBoolean isSettingUp = new AtomicBoolean(false);
+    private double playerExp = 0.0;
 
     //All variables for the quiz function
-    private int selectedChapters = 0;
+    private AtomicInteger chapterNumber = new AtomicInteger(0);
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     private ArrayList<QuestionModel> quizList;
@@ -40,7 +47,7 @@ public class Logic {
     private int prevResult = 0;
 
     // Review features;
-    private ArrayList<QuestionModel> reviewList;
+    private ArrayList<QuestionModel> archiveList;
 
     // History features;
     private ArrayList<String> historyList;
@@ -55,15 +62,17 @@ public class Logic {
         this.userStats = userStats;
         quizMaker = new QuizGenerator();
         historyList = new ArrayList<>();
+        archiveList = new ArrayList<>();
     }
 
     /**
      * Executes the command.
      * @param input user input.
-     * @return the program String response to be displayed.
+     * @return the command object to be executed.
      */
     public Command executeCommand(String input) {
         ArrayList<String> inputs = Parser.parseInput(input);
+        historyList.add(input);
 
         if (isQuizMode.get()) {
             if (inputs.get(0).equals("back")) {
@@ -74,17 +83,28 @@ public class Logic {
             return new QuizCommand(inputs, quizList, questionNumber, isQuizMode, isNewQuiz);
         }
 
+        if (isSettingUp.get()) {
+            setupStage++;
+            if (setupStage == 3) {
+                isSettingUp.set(false);
+            }
+            return new SetupCommand(inputs, setupStage, isSettingUp);
+        }
+
         switch (inputs.get(0)) {
-        case "setup":
-            // TODO
-            return null;
+        case "hello":
+            if (!isSettingUp.get()) {
+                isSettingUp.set(true);
+                setupStage++;
+                return new SetupCommand(inputs, setupStage, isSettingUp);
+            }
+            return new SetupCommand(inputs, setupStage, isSettingUp);
         case "help":
-            // TODO
+            return new HelpCommand(inputs);
         case "menu":
             return new MenuCommand(inputs);
         case "select":
-            // TODO
-            return null;
+            return new SelectCommand(inputs, chapterNumber, userStats);
         case "result":
             return new ResultCommand(inputs, prevResult);
         case "report":
@@ -99,18 +119,18 @@ public class Logic {
             // TODO
             return null;
         case "save":
-            // TODO
-            return null;
+            return new SaveCommand(inputs, userStats);
         case "exit":
             return new ByeCommand(inputs);
         case "print":
             return new PrintCommand(inputs, quizList);
+        case "stats":
+            return new StatsCommand(inputs, userStats);
         case "archive":
-            // TODO
-            return null;
+            return new ArchiveCommand(inputs, quizList, archiveList);
         case "quiz":
             if (isNewQuiz.get()) {
-                quizList = quizMaker.generateQuiz(selectedChapters, quizList);
+                quizList = quizMaker.generateQuiz(chapterNumber.get(), quizList);
                 isNewQuiz.set(false);
                 isQuizMode.set(true);
             }

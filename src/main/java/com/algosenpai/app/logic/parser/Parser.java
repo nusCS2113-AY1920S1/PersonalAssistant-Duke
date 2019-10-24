@@ -1,3 +1,5 @@
+//@@author carrieng0323852
+
 package com.algosenpai.app.logic.parser;
 
 import java.util.ArrayList;
@@ -11,8 +13,10 @@ public class Parser {
      * @return the Command with the relevant type and parameter.
      */
     public static ArrayList<String> parseInput(String input) {
-        ArrayList<String> inputs = new ArrayList<>(Arrays.asList(input.split(" ")));
+        ArrayList<String> inputs = new ArrayList<>(Arrays.asList(input.trim().split(" ")));
         inputs.set(0, inputs.get(0).toLowerCase());
         return inputs;
     }
+
+
 }
