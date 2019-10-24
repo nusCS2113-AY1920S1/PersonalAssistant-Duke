@@ -58,21 +58,42 @@ This symbol denotes some information or caveats that you will need to take note 
 
 == Setting up
 
-1. Install JDK 11.
-2. Fork this GitHub repository to your GitHub account: 
+=== Prerequisites
+
+1. *JDK `11`* or above
++
+[WARNING]
+Even if using newer versions of *Java*, the *JAR* file may not launch if it's not *JDK `11`*
+
+2. *IntelliJ* Integrated Development Interface(IDE)
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+=== Project set-up
+
+. Install JDK 11, if not yet installed.
+. Fork this GitHub repository to your GitHub account: 
 +
 https://github.com/AY1920S1-CS2113T-W13-2/main.
-3. Clone your fork to your local computer.
-4. Configure your IDE of choice to set up structure for new projects in JDK 11.
-5. We recommend using IntelliJ IDEA IDE.
-6. Import the project to your IDE as a Gradle project.
+. Clone your fork to your local computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` and find the directory of the JDK
+. Click `Import Project`
+. Locate the `build.gradle` file and select it. Click `OK`
+. Click `Open as Project`
+. Click `OK` to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
 
 == Design
 
 === Architecture
 
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
-
 
 .Architecture Diagram
 image::dg_figure1.png[width="500"]
