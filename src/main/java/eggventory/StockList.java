@@ -183,6 +183,21 @@ public class StockList {
         return false;
     }
 
+    /**
+     * Determines if the queried stockType already exists in the system.
+     * @param stockTypeName the new name for a stockType that the user wants to add/edit.
+     * @return true if the stockType is already implemented, false if it is new.
+     */
+    public boolean isExistingStockType(String stockTypeName) {
+        for (StockType stockType : stockList) {
+            if (stockType.getName().equals(stockTypeName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     //@@author
     /**
      * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
