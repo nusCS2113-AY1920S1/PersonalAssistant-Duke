@@ -27,15 +27,6 @@ public class DukeCore extends Application {
     public PatientMap patientMap;
 
     public TaskList taskList = null; //deprecated
-  
-    /**
-     * Entry point into the application.
-     *
-     * @param args Supplied command-line arguments.
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     /**
      * Constructs a DukeCore object.

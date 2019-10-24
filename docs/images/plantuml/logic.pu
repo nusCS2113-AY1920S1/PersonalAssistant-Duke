@@ -76,8 +76,8 @@ class Parser {
     -isEscaped : boolean 
     -switchMap : Map<String, Switch> 
     -switchVals : HashMap<String, String>
-    +Parser(Commands commands)   
-    +Parser()   
+    +Parser(Context context, Commands commands)   
+    +Parser(Context context)   
     +parse(String inputStr) : Command
     -parseArgument(String inputStr) : void
     -handleEmpty() : void

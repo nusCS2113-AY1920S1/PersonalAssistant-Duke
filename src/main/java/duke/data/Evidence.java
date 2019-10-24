@@ -14,16 +14,21 @@ import duke.exception.DukeException;
  * - priority: the priority level of the evidence
  */
 public abstract class Evidence extends DukeData {
-    public Evidence(String name, Impression impression, int priority) {
+
+    private String summary;
+
+    public Evidence(String name, Impression impression, Integer priority, String summary) {
         super(name, impression, priority);
+        this.summary = summary;
     }
 
-    protected Evidence(String name, String impression, int priority) {
+    protected Evidence(String name, String impression, Integer priority, String summary) {
         super(name, impression, priority);
+        this.summary = summary;
     }
 
     @Override
-    public int updatePriority(int priorityVal) throws DukeException {
+    public Integer updatePriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);
             return super.getPriority();
@@ -32,4 +37,26 @@ public abstract class Evidence extends DukeData {
         }
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    @Override
+    public String toString() {
+        String informationString;
+        informationString = "Summary: " + this.summary + "\n";
+        return super.toString() + informationString;
+    }
+
+    @Override
+    public String toReportString() {
+
+        String informationString;
+        informationString = "Summary: " + this.summary + "\n";
+        return informationString;
+    }
 }

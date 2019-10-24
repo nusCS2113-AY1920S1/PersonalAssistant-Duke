@@ -32,14 +32,7 @@ public class UiContext {
         this.context = newContext;
     }
 
-    /**
-     * Enum defining the types of contexts that {@code context} can take on.
-     */
-    public enum Context {
-        HOME,
-        PATIENT,
-        TREATMENT,
-        EVIDENCE,
-        INVESTIGATION
+    public Context getContext() {
+        return context;
     }
 }

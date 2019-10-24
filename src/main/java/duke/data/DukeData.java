@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 public abstract class DukeData extends DukeObject {
 
     private String impression;
-    private int priority;
+    private Integer priority;
 
     /**
      * Abstraction of the evidence or treatment data of a patient.
@@ -17,7 +17,7 @@ public abstract class DukeData extends DukeObject {
      * @param impression the impression object the data is tagged to
      * @param priority the priority level of the investigation
      */
-    public DukeData(String name, Impression impression, int priority) {
+    public DukeData(String name, Impression impression, Integer priority) {
         super(impression.getName() + "\t" + name);
         this.impression = impression.getName();
         this.priority = priority;
@@ -33,7 +33,7 @@ public abstract class DukeData extends DukeObject {
      * @param impression the name of the impression object the data is tagged to
      * @param priority the priority level of the investigation
      */
-    protected DukeData(String name, String impression, int priority) {
+    protected DukeData(String name, String impression, Integer priority) {
         super(impression + "\t" + name);
         this.impression = impression;
         this.priority = priority;
@@ -44,7 +44,7 @@ public abstract class DukeData extends DukeObject {
      * @param int the integer value of the priority between 1 to 4
      * @return the integer of the updated priority
      */
-    public abstract int updatePriority(int priorityVal) throws DukeException;
+    public abstract Integer updatePriority(Integer priorityVal) throws DukeException;
 
     public String getImpression() {
         return impression;
@@ -65,11 +65,19 @@ public abstract class DukeData extends DukeObject {
         super.setName(this.impression + "\t" + name);
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        String informationString;
+        informationString = "Impression: " + this.impression + "\n";
+        informationString += "Priority: " + Integer.toString(this.priority) + "\n";
+        return super.toString() + informationString;
     }
 }

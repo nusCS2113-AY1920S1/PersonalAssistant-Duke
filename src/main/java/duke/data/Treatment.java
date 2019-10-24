@@ -4,7 +4,7 @@ import duke.exception.DukeException;
 
 public abstract class Treatment extends DukeData {
 
-    private int status;
+    private Integer status;
     private String[] statusArr;
 
     /**
@@ -26,7 +26,7 @@ public abstract class Treatment extends DukeData {
     }
 
     @Override
-    public int updatePriority(int priorityVal) throws DukeException {
+    public Integer updatePriority(Integer priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
             super.setPriority(priorityVal);
             return super.getPriority();
@@ -44,12 +44,30 @@ public abstract class Treatment extends DukeData {
         setStatusArr(statusArr);
     }
 
-    public int getStatus() {
-        return status;
+    @Override
+    public String toString() {
+        String informationString;
+        informationString = "Status: " + Integer.toString(this.status) + "\n";
+        String joinedStatus = String.join(" ", this.statusArr);
+        informationString += "Status Description: " + joinedStatus + "\n";
+        return super.toString() + informationString;
     }
 
-    public void setStatus(int status) {
+    @Override
+    public String toReportString() {
+        String informationString;
+        informationString = "Status of treatment: " + Integer.toString(this.status) + "\n";
+        String joinedStatus = String.join(" ", this.statusArr);
+        informationString += "Status Description: " + joinedStatus + "\n";
+        return informationString;
+    }
+
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getStatus() {
+        return status;
     }
 
     public String[] getStatusArr() {
@@ -59,4 +77,5 @@ public abstract class Treatment extends DukeData {
     public void setStatusArr(String[] statusArr) {
         this.statusArr = statusArr;
     }
+
 }

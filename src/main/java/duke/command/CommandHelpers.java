@@ -22,7 +22,6 @@ public class CommandHelpers {
         }
     }
 
-    private final static int ALPHABET_COUNT = 26;
     private final static Map<Character, Coord> keyboardMap =
             Map.ofEntries(Map.entry('q', new Coord(0, 1)), Map.entry('w', new Coord(1, 1)),
             Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
@@ -93,7 +92,9 @@ public class CommandHelpers {
     }
 
     /**
-     * Provides the user with the choice between several possible options for a switch which does not match exactly.
+     * Identifies a switch which is not matched exactly. Returns the closest match if it exists, and provides the user
+     * with a window offering the choice between the closest possible options and a list of valid options otherwise,
+     * including the choice to enter his own input.
      *
      * @param word The user-provided switch name.
      * @param suggestions A map of the closest matching switch aliases to the switch names they represent.
@@ -140,7 +141,7 @@ public class CommandHelpers {
      */
     private static int stringDistance(String str1, String str2, int minDist) {
 
-        int[] da = new int[ALPHABET_COUNT]; //initialised to 0
+        int[] da = new int[keyboardMap.size()]; //values initialised to 0
 
         //if minDist is 0, run till the end; else break when dist exceeds minDist
         return str1.length() - str2.length() + minDist; //placeholder to deceive codacy
