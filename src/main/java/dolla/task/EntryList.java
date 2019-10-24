@@ -21,6 +21,7 @@ public class EntryList extends LogList {
     @Override
     public void insertPrevPosition(int prevPosition, Log newLog) {
         super.insertPrevPosition(prevPosition, newLog);
+        Storage.setEntries(get()); //save
     }
 
     @Override

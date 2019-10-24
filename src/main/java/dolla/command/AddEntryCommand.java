@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.Ui;
+import dolla.action.Redo;
 import dolla.action.Undo;
 import dolla.task.Entry;
 
@@ -24,6 +25,8 @@ public class AddEntryCommand extends Command {
      * @param amount Amount of money that is earned/spent.
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
+     * @param prevPosition previous position of a deleted input that is passed from an undo command;
+     *                     -1 if the input is not from undo command.
      */
     public AddEntryCommand(String type, double amount, String description, LocalDate date, int prevPosition) {
         this.type = type;
@@ -35,15 +38,23 @@ public class AddEntryCommand extends Command {
 
     @Override
     public void execute(DollaData dollaData) {
+        String mode = "entry";
         Entry newEntry = new Entry(type, amount, description, date);
 
-        if (prevPosition != -1) { //an Undo input
-            dollaData.addToPrevPosition("entry", newEntry, prevPosition);
+        if (prevPosition == -1) {
+            dollaData.addToLogList(mode, newEntry);
+            index = dollaData.getLogList(mode).size();
+            Undo.removeCommand(mode, index);
+            Redo.clearRedo(mode);
+        } else if (prevPosition == -2) {
+            dollaData.addToLogList(mode, newEntry);
+            index = dollaData.getLogList(mode).size();
+            Undo.removeCommand(mode, index);
             prevPosition = -1; //reset to -1
-        } else { //normal input
-            dollaData.addToLogList("entry", newEntry);
-            index = dollaData.getLogList("entry").size();
-            Undo.removeCommand("entry",index);
+        } else {
+            dollaData.addToPrevPosition(mode, newEntry, prevPosition);
+            Redo.removeCommand(mode,prevPosition);
+            prevPosition = -1; //reset to -1
         }
         Ui.echoAddEntry(newEntry);
     }

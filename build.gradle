@@ -23,6 +23,7 @@ application {
 
 dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.4.2")
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
 
 shadowJar {
@@ -34,4 +35,8 @@ shadowJar {
 
 run {
     standardInput = System.in
+}
+
+test {
+    useJUnitPlatform()
 }

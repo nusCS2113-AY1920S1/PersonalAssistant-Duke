@@ -2,7 +2,6 @@ package dolla.parser;
 
 import dolla.Tag;
 import dolla.Ui;
-//import dolla.command.;
 
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
@@ -15,7 +14,6 @@ import java.util.Arrays;
  * MainParser checks the current mode and user input to create the relevant command.
  */
 public class MainParser {
-    private static String[] prevCommand = {"dolla","1"};
 
     protected static final String MODE_DOLLA = "dolla";
     protected static final String MODE_ENTRY = "entry";
@@ -48,26 +46,8 @@ public class MainParser {
             return new SwitchModeCommand(command); // TODO
         }
 
-        if (prevCommand[0].equals("undo") && prevCommand[1].equals("1")) {
-            prevCommand[1] = "2";
-        } else if (prevCommand[0].equals("undo") && prevCommand[1].equals("2")) {
-            prevCommand[0] = command;
-            prevCommand[1] = "1";
-        } else { //not from Redo
-            prevCommand[0] = command;
-            prevCommand[1] = "1";
-        }
-        /*
-        } else if(prevCommand[0].equals("Redo") && prevCommand[1].equals("1")) {
-            prevCommand[1] = "2";
-        } else if(prevCommand[0].equals("Redo") || prevCommand[1].equals("2")) {
-            prevCommand[0] = command;
-            prevCommand[1] = "1";
-        */
-
         Tag tag = new Tag(inputLine);
         tag.parseTag();
-
         switch (mode) {
         case MODE_DOLLA:
             DollaParser dollaParser = new DollaParser(inputLine);
