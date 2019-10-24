@@ -404,7 +404,7 @@ The current implementation is fixed to only request data for the current academi
 
 ==== Current implementation
 
-`Cca` is a child class of a legacy class `TaskWithMultipleWeeklyPeriod` which belongs to one of our previous projects. Since `Cca` itself does not differ much from the parent class, it is recommended to refer to the parent class's implementation instead which can be found in <<Legacy>>.
+`Cca` is a child class of a legacy class `TaskWithMultipleWeeklyPeriod` which belongs to one of our previous projects. Since `Cca` itself does not differ much from the parent class except for some `String` representations, it is recommended to refer to the parent class's implementation instead which can be found in <<Legacy>>.
 
 ==== Design consideration
 
