@@ -76,7 +76,7 @@ public class Parser {
                     throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number blank.");
                 }
             } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
-                try { //add/e module_code description /at date from time to time
+                try { //add/e module_code description /at date /from time /to time
                     String activity = fullCommand.trim().substring(5);
                     split = activity.split("/at"); //split[0] is " module_code description", split[1] is "date /from time /to time"
                     if (split[0].trim().isEmpty()) {
@@ -294,7 +294,7 @@ public class Parser {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                     }
                     String weekDate ="";
-                    split2 = split[1].trim().split(" ");
+                    split2 = split[1].trim().split(" "); //date time
                     weekDate = split2[0];
                     if(weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                         || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
