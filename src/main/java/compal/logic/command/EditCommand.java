@@ -12,7 +12,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = "edit\n\t"
             + "Format: edit /id <num> "
-            + "[/description <description>][/date dd/mm/yyyy][/start hhhh][/end hhhh][/priority high|medium|low]\n\n\t"
+            + "[/description <description>][/date <dd/mm/yyyy>][/start <hhhh>][/end <hhhh>]"
+            + "[/priority <high|medium|low>]\n\n\t"
             + "Note: content in \"[]\": optional\n\t"
             + "content in \"<>\": need to be fulfilled by the user\n\t"
             + "content separated by \"|\": must choose exactly one from them\n\t"

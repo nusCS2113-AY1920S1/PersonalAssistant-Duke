@@ -8,11 +8,6 @@ import compal.logic.parser.exceptions.ParserException;
 public class HelpCommandParser implements CommandParser {
     @Override
     public Command parseCommand(String restOfInput) throws ParserException {
-        if (hasToken(restOfInput, TOKEN_COMMAND)) {
-            String command = getCommand(restOfInput);
-            return new HelpCommand(command);
-        } else {
-            return new HelpCommand();
-        }
+        return new HelpCommand(restOfInput);
     }
 }

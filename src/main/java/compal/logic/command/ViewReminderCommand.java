@@ -12,10 +12,10 @@ public class ViewReminderCommand extends Command {
 
     public static final String MESSAGE_USAGE = "view-reminder\n\t"
             + "Format: view-reminder\n\n\t"
-            + "This command will show all tasks with reminder on\n"
+            + "This command will show all tasks with reminder on or are within a week\n"
             + "Examples:\n\t"
             + "view-reminder\n\t\t"
-            + "show all tasks with reminder on";
+            + "show all tasks with reminder on or are within a week";
     private static final String MESSAGE_UNABLE_TO_EXECUTE = "Unable to execute command!";
 
     @Override

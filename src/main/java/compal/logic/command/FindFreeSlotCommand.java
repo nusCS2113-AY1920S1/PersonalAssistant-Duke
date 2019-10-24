@@ -12,7 +12,7 @@ import java.util.Date;
 public class FindFreeSlotCommand extends Command {
 
     public static final String MESSAGE_USAGE = "findfreeslot\n\t"
-            + "Format: findfreeslot /date dd/mm/yyyy /hour <num> /min <num>\n\n\t"
+            + "Format: findfreeslot /date <dd/mm/yyyy> /hour <num> /min <num>\n\n\t"
             + "Note: content in \"<>\": need to be fulfilled by the user\n\t"
             + "dd/mm/yyyy is the date format. e.g. 01/01/2000\n\n"
             + "This command will show all free time slots on that day with <num> hours <num> minutes\n"
