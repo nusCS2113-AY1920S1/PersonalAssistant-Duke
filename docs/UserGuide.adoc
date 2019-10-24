@@ -42,9 +42,106 @@ AlphaNUS is a personal assistant for NUS club treasurers to easily manage their 
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[p/PAYMENT_DETAIL]…`​ can be used as `` ``(i.e. 0 times), `p/food 12`, `p/food 12 p/drinks 7` etc
 ====
 
+=== Adding a new payee: `add payee`
+
+Adds a new payee named `PAYEE` to project with details of `PAYEE` such as their email address `EMAIL`, matriculation number `MATRICNUM` and phone number `PHONENUM`. +
+Format: `add payee p/PAYEE e/EMAIL m/MATRICNUM ph/PHONENUM`
+
+[TIP]
+You may use more than one word for all fields.
+
+[TIP]
+You may not add a new `PAYEE` if a payee named `PAYEE` already exists.
+
+Examples:
+
+* GOOD: `payments p/John Doe i/Welcome Tea c/12.00 v/INV-001`
+* BAD: `payments p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
+
+=== Adding a new payment: `add payment`
+
+Adds a new payment under a specified `PAYEE` with payment name `ITEM` that incurs cost `COST` and have an invoice number `INVOICE`. +
+Format: `add payment p/PAYEE i/ITEM c/COST v/INVOICE`
+
+[TIP]
+You may use more than one word for all fields except `COST`.
+[TIP]
+`COST` must be a number, omit any other characters. Decimals are allowed.
+
+Examples:
+
+* GOOD: `payments p/John Doe i/Welcome Tea c/12.00 v/INV-001`
+* BAD: `payments p/John Doe i/Welcome Tea c/*$*12.00 v/INV-001`
+
+
+=== Edit the payment details: `edit`
+
+Edits any field `FIELD` of payee named `PAYEE`, replacing the existing data in that field with `REPLACEMENT`+
+If only the payee fields are being modified, `INVOICE` should be blank. +
+The following payee fields are acceptable: `PAYEE`, `EMAIL`, `MATRIC`, `PHONE` +
+The following payment fields are acceptable: `ITEM`, `COST`, `INV`, `DEADLINE`, `STATUS` +
+
+Format: `edit p/PAYEE v/INVOICE f/FIELD r/REPLACEMENT`
+
+[TIP]
+Ensure `FIELD` supplied matches one of the acceptable fields above!
+[TIP]
+`DEADLINE` should be specified in `dd/mm/yyyy` format
+
+Examples:
+
+* `redetail 2 d/drinks 8 d/snacks 20`
+* `redetail 2`(i.e. this operation removes all previous details)
+
+=== Find a payment or deadline based on its description: `find`
+
+Find a payment or deadline based on its description +
+Format: `find d/DESCRIPTION`
+
+[TIP]
+there can have spaces in the description
+
+Examples:
+
+* `find d/welcome tea`
+
+=== Delete a deadline/payment form: `delete`
+
+Delete a deadline/payment from the task list +
+Format: `delete ID`
+
+[TIP]
+the index of the task should not be out of range
+
+Examples:
+
+* `delete 3`
+
+=== Delete a payee: `delete payee`
+
+Delete a payee and their details +
+Format: `delete payee p/payee`
+
+Examples:
+
+* `delete payee p/John`
+
+=== Approve a payment form: `approve`
+
+Approve a payment form with a message +
+Format: `approve ID [m/MESSAGE]`
+
+[TIP]
+the index of the task should not be out of range
+
+Examples:
+
+* `approve 3 m/approved by xxx on Monday`
+* `approve 3`
+
 === List out all current submission deadlines: `list`
 
-List out all current deadlines with their index number. The deadlines are sorted by date.+
+List out all payments, sorted into overdue, pending and approved statuses, in order of ascending deadlines+
 Format: `list`
 
 === Adding a deadline: `deadline`
@@ -107,49 +204,6 @@ Examples:
 
 * `snooze 5`
 
-=== Adding a new payment: `payments`
-
-Adds a new payment form with details +
-Format: `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
-
-[TIP]
-there can have spaces in the description and payment detail
-[TIP]
-there can be any number of payment details added
-
-Examples:
-
-* `payments d/welcome tea p/food 12`
-* `payments d/maintenance fee`
-
-
-=== Edit the payment details: `redetail`
-
-Edit a previously added payment's details +
-Format: `redetail ID [d/PAYMENT_DETAIL]...`
-
-[TIP]
-the id input should not be out of range
-[TIP]
-there can be any number of details
-
-Examples:
-
-* `redetail 2 d/drinks 8 d/snacks 20`
-* `redetail 2`(i.e. this operation removes all previous details)
-
-=== Find a payment or deadline based on its description: `find`
-
-Find a payment or deadline based on its description +
-Format: `find d/DESCRIPTION`
-
-[TIP]
-there can have spaces in the description
-
-Examples:
-
-* `find d/welcome tea`
-
 === View deadline by schedule: `view`
 View current deadlines in a specific date +
 Format: `view t/DATE`
@@ -162,52 +216,6 @@ the format of the date should be DD/MM/YYYY
 Examples:
 
 * `view t/05/10/2019`
-
-=== Delete a deadline/payment form: `delete`
-
-Delete a deadline/payment from the task list +
-Format: `delete ID`
-
-[TIP]
-the index of the task should not be out of range
-
-Examples:
-
-* `delete 3`
-
-=== Delete a payee: `delete payee`
-
-Delete a payee and their details +
-Format: `delete payee p/payee`
-
-Examples:
-
-* `delete payee p/John`
-
-=== Approve a payment form: `approve`
-
-Approve a payment form with a message +
-Format: `approve ID [m/MESSAGE]`
-
-[TIP]
-the index of the task should not be out of range
-
-Examples:
-
-* `approve 3 m/approved by xxx on Monday`
-* `approve 3`
-
-=== Mark a deadline as done: `done`
-
-mark a deadline task as done +
-Format: `done ID`
-
-[TIP]
-the index of the task should not be out of range
-
-Examples:
-
-* `done 5`
 
 === View previous input commands: `history`
 
@@ -239,5 +247,4 @@ There is no need to save manually.
 * *view* : `view t/DATE`
 * *delete* : `delete ID`
 * *approve*: `approve ID [m/MESSAGE]`
-* *done*: `done ID`
 * *exit*: `bye`
