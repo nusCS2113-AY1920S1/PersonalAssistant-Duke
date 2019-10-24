@@ -59,7 +59,9 @@ This symbol denotes some information or caveats that you will need to take note 
 == Setting up
 
 1. Install JDK 11.
-2. Fork this GitHub repository to your GitHub account: https://github.com/AY1920S1-CS2113T-W13-2/main.
+2. Fork this GitHub repository to your GitHub account: 
++
+https://github.com/AY1920S1-CS2113T-W13-2/main.
 3. Clone your fork to your local computer.
 4. Configure your IDE of choice to set up structure for new projects in JDK 11.
 5. We recommend using IntelliJ IDEA IDE.
@@ -72,50 +74,40 @@ This symbol denotes some information or caveats that you will need to take note 
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
 
 .Architecture Diagram
-image::dg_figure1.png[alt="Architecture", width="500"]
+image::dg_figure1.png[width="500"]
 
-Main has two classes; Main and Duke.
-
-[none]
-* At app launch: Initialises the other class components in the proper sequence.
-+
-Main: Links up the respective resource files before launching the GUI.
-+
-Duke: Responsible for returning the back-end response for each user input.
-* At app exit: Shuts down the app.
-
-The rest of the program consists of four modules.
+The figure above showcases the high-level view of how *JavaCake* is run. The program can be abstracted into these five modules which are explained below.
 
 [none]
-* Ui: Handles user interaction and user interface.
-* Logic: Executes the respective command after user input is parsed.
-* Model: Holds the current content and quiz questions in memory during the operation of the program.
-* Storage: Reads data from and writes data to hard disk.
+* `UI`: Handles user interaction and user interface.
+* `Main`: Acts as the bridge for transferring inputs and outputs from the `UI` to `Logic` and vice versa.
+* `Logic`: Executes the respective commands after user input is parsed.
+* `Model`: Holds the current content and quiz questions in memory during the operation of the program.
+* `Storage`: Reads data from and writes data to hard disk when required.
 
 The sections below provide more information on each module.
 
-
 === Logic
 
-Within the logic module, the major classes include ProgressStack, ListCommand, GotoCommand and BackCommand.
+Within the `Logic` module, the major classes include `ProgressStack`, `ListCommand`, `GotoCommand` and `BackCommand`.
 
 .Structure of the Logic Component
 image::dg_figure2.png[width="500"]
 
 === Model
 
-The Model stores a QuestionList object which itself consists of one or more Question objects. Model can then use this QuestionList object to set up a QuizSession or ReviewSession object which interfaces with UI to execute a quiz.
+The `Model` stores a `QuestionList` object which itself consists of one or more `Question` objects. `Model` can then use this `QuestionList` object to set up a `QuizSession` or `ReviewSession` object which interfaces with `UI` to execute a quiz.
 
-Model also references Storage in order to load and generate the QuestionList object from Storage when a QuestionList object is created.
+`Model` also references `Storage` in order to load and generate the `QuestionList` object from `Storage` when a `QuestionList` object is created.
 
 .Structure of the Model Component
 image::dg_figure3.png[width="600"]
 
 === Storage
 
-The Storage module handles fetching data from and writing data to the hard disk. This module consists of the following classes: Profile, TaskStorage, TaskList and StorageManager. 
+The `Storage` module handles fetching data from and writing data to the hard disk. This module consists of the following classes: `Profile`, `TaskStorage`, `TaskList` and `StorageManager`. 
 
-There are also enumeration classes used to keep track of the different types of tasks(TaskType) and different state of the task(TaskState).
+There are also enumeration classes used to keep track of the different types of tasks(`TaskType`) and different state of the task(`TaskState`).
 
 .Structure of the Storage Component
 image::dg_figure4.png[width="600"]
@@ -123,12 +115,12 @@ image::dg_figure4.png[width="600"]
 The `Storage` component,
 
 [none]
-* can save `Profile` objects in txt format and read it back.
-* can save the `TaskStorage` data in txt format and read it back.
+* can save `Profile` objects in `.txt` format and read it back.
+* can save the `TaskStorage` data in `.txt` format and read it back.
 
 === UI
 
-The `UI` module handles the user interface and user interaction with the program. It consists of a MainWindow, which is made up of the following parts: DialogBox, TopBar and AvatarScreen. The API of the `UI` module is implemented by MainWindow.java in GUI mode. The module also contains a Ui class which defines the implementation of the API in CLI mode.
+The `UI` module handles the user interface and user interaction with the program. It consists of a `MainWindow`, which is made up of the following parts: `DialogBox`, `TopBar` and `AvatarScreen`. The API of the `UI` module is implemented by `MainWindow.java` in GUI mode. The module also contains a `Ui` class which defines the implementation of the API in CLI mode.
 
 .Structure of the UI Component
 image::dg_figure5.png[width="600"]
@@ -136,10 +128,10 @@ image::dg_figure5.png[width="600"]
 The UI component,
 
 [none]
-* In CLI Mode, executes user commands through the `Main` component which executes the respective commands in `Logic`.
-* In GUI Mode, executes user commands through the `Main component which executes the respective commands in `Logic`. The output is then shown in the DialogBox class.
-* Listens for changes to `Main` data so that the `UI` can be updated with the modified data.
-* MainWindow implements Model for displaying output from QuizSession class.
+* [CLI Mode] executes user commands through the `Main` component which executes the respective commands in `Logic`.
+* [GUI Mode] executes user commands through the `Main` component which executes the respective commands in `Logic`. The output is then shown in the `DialogBox` class.
+* listens for changes to `Main` data so that the `UI` can be updated with the modified data.
+* implements `Model` for displaying output from `QuizSession` class.
 
 == Implementation
 
@@ -155,19 +147,19 @@ This section describes some noteworthy details on how certain features are imple
 
 ==== Proposed Implementation
 
-The browsing of content feature is facilitated by ProgressStack, which allows users to dynamically navigate through the content in the content directory without the need to hardcode any of the content in our codebase. 
+The browsing of content feature is facilitated by `ProgressStack`, which allows users to dynamically navigate through the content in the content directory without the need to hardcode any of the content in our codebase. 
 
 .Activity Diagram for Content Browsing in JavaCake
 image::dg_figure6.png[width="600"]
 
 
-Figure 6 shows the overall activity diagram for content browsing. Two variables of defaultFilePath and currentFilePath are used, in which defaultFilePath stores the file path towards the start of our content directory and currentFilePath is used to store the updated file path towards the content requested by the user. 
+Figure 6 shows the overall activity diagram for content browsing. Two variables of _defaultFilePath_ and _currentFilePath_ are used, in which _defaultFilePath_ stores the file path towards the start of our content directory and _currentFilePath_ is used to store the updated file path towards the content requested by the user. 
 
-When a command such as list, back and goto that requires the program to traverse through the content directory is called, currentFilePath is being updated by concatenating the name of the file to the currentFilePath . 
+When a command such as `list`, `back` and `goto` that requires the program to traverse through the content directory is called, _currentFilePath_ is being updated by concatenating the name of the file to the _currentFilePath_. 
 
-The files contained in currentFilePath can be either a text file or directories. If the file in currentFilePath is a text file, the currentFilePath will be updated once more to enter the file in order to read the content stored in the file. The content will then be displayed to the user. If the files contained in currentFilePath are directories, the name of the directories will be displayed to the user. 
+The files contained in _currentFilePath_ can be either a text file or directories. If the file in _currentFilePath_ is a text file, the _currentFilePath_ will be updated once more to enter the file in order to read the content stored in the file. The content will then be displayed to the user. If the files contained in _currentFilePath_ are directories, the name of the directories will be displayed to the user. 
 
-The name of the file(s) found in the current directory will be stored in listOfFiles, which is a list container for strings.
+The name of the file(s) found in the current directory will be stored in _listOfFiles_, which is a list container for strings.
 
 ==== Design Considerations
 
@@ -209,12 +201,12 @@ The name of the file(s) found in the current directory will be stored in listOfF
 
 ==== Proposed Implementation
 
-When the command entered by the user is list, currentFilePath will be reset to defaultFilePath in which the names of the directories stored within the start of our content file will be displayed. To make it more scalable, we conveniently renamed our directories to have proper indexing.
+When the command entered by the user is `list`, _currentFilePath_ will be reset to _defaultFilePath_ in which the names of the directories stored within the start of our content file will be displayed. To make it more scalable, we conveniently renamed our directories to have proper indexing.
 
 .Sequence diagram for ListCommand
 image::dg_figure7.png[width="600"]
 
-*ListCommand implements the following methods in ProgressStack as shown in Figure 2*:
+*ListCommand implements the following methods in `ProgressStack` as shown in Figure 2*:
 
 * `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
 
@@ -224,7 +216,7 @@ image::dg_figure7.png[width="600"]
 
 ==== Proposed Implementation
 
-When the command entered by the user is goto [index], currentFilePath will be updated by concatenating the file or directory name found in the index at that particular directory. If the name refers to a new directory, a list of the items in the directory will be shown. Else, content, which may include the quiz, is shown.  If the user knows the location of the file/directory and wishes to view it directly instead of going through the directories one by one, the user just needs to concatenating the index of the content or directory with a ‘.’. The index of files goto command is expected to go through is stored in a queue. The function execute() is recursively called until all the index in the queue is popped as shown in Figure 3 below. 
+When the command entered by the user is `goto [index]`, _currentFilePath_ will be updated by concatenating the file or directory name found in the index at that particular directory. If the name refers to a new directory, a list of the items in the directory will be shown. Else, content, which may include the quiz, is shown.  If the user knows the location of the file/directory and wishes to view it directly instead of going through the directories one by one, the user just needs to concatenating the index of the content or directory with a ‘.’. The index of files goto command is expected to go through is stored in a queue. The function _execute()_ is recursively called until all the index in the queue is popped as shown in Figure 3 below. 
 
 .Activity diagram for Goto Command
 image::dg_figure8.png[width="600"]
@@ -233,75 +225,76 @@ image::dg_figure8.png[width="600"]
 
 * `progressStack#gotoFilePath()` —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command. 
 
-* `progressStack#updateFilePath()` —  Updates currentFilePath.
+* `progressStack#updateFilePath()` —  Updates _currentFilePath_.
 
 * `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
 
 * `progressStack#displayDirectories()` —  Prints out all files that are directories.
 
-* `progressStack#readQuery()` —  Read the content in a text file.
+* `progressStack#readQuery()` —  Reads the content in a text file.
 
 === BackCommand feature
 
 ==== Proposed Implementation
 
-When the command entered by the user is back, currentFilePath will be updated depending if the current file is a directory or a text file. If the current file is a directory, the last partition of the currentFilePath will be removed. If the current file is a text file, the last 2 partitions of the currentFilePath will be removed. After which, the appropriate content will be displayed to the user.
+When the command entered by the user is `back`, _currentFilePath_ will be updated depending if the current file is a directory or a text file. If the current file is a directory, the last partition of the _currentFilePath_ will be removed. If the current file is a text file, the last 2 partitions of the _currentFilePath_ will be removed. After which, the appropriate content will be displayed to the user.
 
-*This feature implements the following methods in ProgressStack*:
+*This feature implements the following methods in `ProgressStack`*:
 
-* progressStack#insertQueries() —  Insert all possible file paths based on current directory.
+* `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
 
-* progressStack#displayDirectories() —  Prints out all files that are directories.
+* `progressStack#displayDirectories()` —  Prints out all files that are directories.
 
-* progressStack#readQuery() —  Read the content in a text file.
+* `progressStack#readQuery()` —  Reads the content in a text file.
 
-* progressStack#backToPreviousPath() — Checks if current file is a directory or file. If it is a directory, removes last partition of currentFilePath, else removes last 2 partitions of currentFilePath.
+* `progressStack#backToPreviousPath()` — Checks if current file is a directory or file. If it is a directory, removes last partition of _currentFilePath_, else removes last 2 partitions of _currentFilePath_.
 
 
 === Profile feature
 
 ==== Proposed Implementation
 
-When the user first launches the program, the user will be prompted to fill out his username. The Profile keeps a reference of the default file path and creates the respective directories and files if they do not exist.
+When the user first launches the program, the user will be prompted to fill out his username. The `Profile` keeps a reference of the default file path and creates the respective directories and files if they do not exist.
 
-Three variables of filepath , username and topicsDone are used. The filepath stores the default file path of where the save file should be stored, along with its respective file name. The username is used to store the current user’s username which can be accessed either internally within Profile or externally via external function calls.
+Three variables of _filepath_ and _username_ are used. The _filepath_ stores the default file path of where the save file should be stored, along with its respective file name. The _username_ is used to store the current user’s username which can be accessed either internally within Profile or externally via external function calls.
 
-*This feature implements the following methods in Profile*:
+*This feature implements the following methods in `Profile`*:
 
-* profile#getUsername() —  Gets the username of the user.
+* `profile#getUsername()` —  Gets the _username_ of the user.
 
-* profile#resetProfile() —  Resets the current user’s profile, along with their respective data after calling the reset command.
+* `profile#resetProfile()` —  Resets the current user’s profile, along with their respective data after calling the reset command.
 
-* profile#overwriteName() —  Overwrites the default username of the user, when either first launching the program or when reset is called.
+* `profile#overwriteName()` —  Overwrites the default _username_ of the user, when either first launching the program or when `reset` is called.
 
-* profile#setMarks() — Sets the marks of the user for a particular quiz (specified in the function parameters).
+* `profile#setMarks()` — Sets the marks of the user for a particular quiz (specified in the function parameters).
 
-* profile#getContentMarks() — Gets the marks of the user for a particular quiz (specified in the function parameters).
+* `profile#getContentMarks()` — Gets the marks of the user for a particular quiz (specified in the function parameters).
 
-* profile#getTotalProgress() — Gets the overall marks of the user for all the quizzes.
+* `profile#getTotalProgress()` — Gets the overall marks of the user for all the quizzes.
 
 === QuizCommand feature
 
 ==== Proposed Implementation
 
-When goto [index] leads to the location of the quiz content, the QuizCommand is called to set up a quiz session. A list of Question objects, containing fields question and the question’s correct answer, is first initialized by reading from the Quiz text file in its current location. Depending on the value of MAX_QUESTIONS, that number of questions is then randomly selected from the initialized list into a smaller list called chosenQuestions. chosenQuestions is the list of questions for the user to attempt during the quiz session.
+When `goto [index]` leads to the location of the quiz content, the `QuizCommand` is called to set up a quiz session. A list of `Question` objects, containing fields question and the question’s correct _answer_, is first initialized by reading from the `Quiz` text file in its current location. Depending on the value of _MAX_QUESTIONS_, that number of questions is then randomly selected from the initialized list into a smaller list called _chosenQuestions_. The _chosenQuestions_ variable is the list of questions for the user to attempt during the quiz session.
 
-The quiz session starts with a currScore of 0, and displays a question from chosenQuestions. For every question, the question text will be displayed and the program awaits user input. Once user input is received, checkAnswer() will compare the user input to the correct answer of that question and add 1 to currScore if they match. The next question is then displayed to await user input. This continues until all questions in the session are attempted.
+The quiz session starts with a _currScore_ of 0, and displays a question from _chosenQuestions_. For every question, the question text will be displayed and the program awaits user input. Once user input is received, _checkAnswer()_ will compare the user input to the correct answer of that question and add 1 to _currScore_ if they match. The next question is then displayed to await user input. This continues until all questions in the session are attempted.
 
-If the program is in GUI mode, quiz command will be handled directly by MainWindow.java. MainWindow.java will instantiate a new QuizCommand depending on the topic, and interact with the class in the sequence explained above. If the program is in CLI mode, the QuizCommand.java will directly interact with the user by calling Ui.java.
+If the program is in GUI mode, quiz command will be handled directly by MainWindow.java. `MainWindow.java` will instantiate a new `QuizCommand` depending on the topic, and interact with the class in the sequence explained above. If the program is in CLI mode, the `QuizCommand.java` will directly interact with the user by calling `Ui.java`.
 
-When the quiz session is complete, a results screen will be shown to the user, displaying the final currscore out of MAX_QUESTIONS. Custom messages will be displayed as well, determined by a scoreGrade of BAD, OKAY or GOOD, which in turn is determined by the calculated percentage score in the quiz session. If the program is in GUI mode, the avatar’s expression on the screen will depend on the scoreGrade. 
+When the quiz session is complete, a results screen will be shown to the user, displaying the final _currscore_ out of _MAX_QUESTIONS_. Custom messages will be displayed as well, determined by a _scoreGrade_ of _BAD_, _OKAY_ or _GOOD_, which in turn is determined by the calculated percentage score in the quiz session. If the program is in GUI mode, the avatar’s expression on the screen will depend on the _scoreGrade_. 
 
 *This feature implements the following methods*:
 
-* QuestionList#PickQuestions() chooses random questions from the question bank.
+* `QuestionList#PickQuestions()` — chooses random questions from the question bank.
 
-* QuestionList#getQuestions() loads all the questions in text files and stores them. in an array list.
-QuizCommand#checkAnswer() checks the answer given by user and updates user’s score.
+* `QuestionList#getQuestions()` — loads all the questions in text files and stores them. in an array list.
 
-* QuizCommand#getQuizScore() gets the score of the attempted quiz.
+* `QuizCommand#checkAnswer()` — checks the answer given by user and updates user’s score.
 
-* QuizCommand#overwriteOldScore() updates the score in profile to the new score from the quiz session if the new score is higher than the score in profile.
+* `QuizCommand#getQuizScore()` — gets the score of the attempted quiz.
+
+* `QuizCommand#overwriteOldScore()` — updates the score in profile to the new score from the quiz session if the new score is higher than the score in profile.
 
 ==== Design Considerations
 
@@ -324,13 +317,13 @@ Cons: As all questions and answers have to be hard coded within the class, it is
 
 ==== Proposed Implementation
 
-When the command entered by the user is overview, currentFilePath will be reset to defaultFilePath. By iterating through the files and comparing with defaultFilePath, we store and format the name of the files depending on the number of parent directories it contains.
+When the command entered by the user is `overview`, _currentFilePath_ will be reset to _defaultFilePath_. By iterating through the files and comparing with _defaultFilePath_, we store and format the name of the files depending on the number of parent directories it contains.
 
-*This feature implements the following methods in ProgressStack*:
+*This feature implements the following methods in `ProgressStack`*:
 
-* progressStack#setDefaultFilePath() — Resetting the file path back to default.
+* `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
 
-* progressStack#insertQueries() — Insert all possible file paths based on current directory.
+* `progressStack#insertQueries()` — Insert all possible file paths based on current directory.
 
 
 == Documentation
