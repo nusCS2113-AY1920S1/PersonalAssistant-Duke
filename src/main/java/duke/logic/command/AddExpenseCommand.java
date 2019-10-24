@@ -77,6 +77,7 @@ public class AddExpenseCommand extends Command {
         model.addExpense(expenseBuilder.build());
         // duke.expenseList.update();
         storage.saveExpenseList(model.getExpenseList());
+
         return new CommandResult(COMPLETE_MESSAGE, CommandResult.DisplayedPane.EXPENSE);
         /*
         if (commandParams.containsParams(SecondaryParam.TENTATIVE.name)) {

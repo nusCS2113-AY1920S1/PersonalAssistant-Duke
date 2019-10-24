@@ -108,7 +108,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void fillInnerPart() {
-        expensePane = new ExpensePane(logic.getExternalExpenseList());
+        expensePane = new ExpensePane(logic.getExternalExpenseList(),logic);
         logger.info("The filled externalList length " + logic.getExternalExpenseList().size());
         trendingPane = new TrendingPane();
         logger.info("trendingPane is constructed.");

@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.TableView?>
-<BorderPane maxHeight="-Infinity"
-            maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="600.0"
-            prefWidth="800.0"
-            xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
-      <center>
-      <TableView fx:id="expenseTableView" minWidth="600"/>
-      </center>
+<?import javafx.scene.layout.Pane?>
 
-</BorderPane>
+<?import javafx.scene.control.TableView?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="expenseTableView" minWidth="0.0"/>
+      <Pane fx:id="paneView" layoutX="345.0" layoutY="-5.0" prefHeight="407.0" prefWidth="261.0" />
+   </children>
+</AnchorPane>
