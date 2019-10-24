@@ -13,9 +13,6 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
 public class DebtsParser extends Parser {
-    private static int prevPosition;
-    private static int undoFlag = 0;
-    private static int redoFlag = 0;
 
     public DebtsParser(String inputLine) {
         super(inputLine);
@@ -58,6 +55,13 @@ public class DebtsParser extends Parser {
         }
     }
 
+    /**
+     * This method will process and return a "add" command for debt.
+     * @param type the type of input. i.e. owe or borrow.
+     * @param name the name of the borrower/lender
+     * @param amount the amount borrowed/lent
+     * @return an AddDebtsCommand with respect to the nature of the input.
+     */
     private Command processAdd(String type, String name, double amount) {
         Command addDebt;
         Repeat.setRepeatInput("debt", inputLine); //setup repeat
@@ -69,23 +73,5 @@ public class DebtsParser extends Parser {
             addDebt = new AddDebtsCommand(type, name, amount, description, date, -1);
         }
         return addDebt;
-    }
-
-    public static void setPrevPosition(int prevPosition) {
-        DebtsParser.prevPosition = prevPosition;
-        undoFlag = 1;
-    }
-
-    public static void resetUndoFlag() {
-        DebtsParser.prevPosition = -1;
-        undoFlag = 0;
-    }
-
-    public static void setRedoFlag() {
-        redoFlag = 1;
-    }
-
-    public static void resetRedoFlag() {
-        redoFlag = 0;
     }
 }

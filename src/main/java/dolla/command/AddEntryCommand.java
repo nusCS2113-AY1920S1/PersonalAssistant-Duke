@@ -25,6 +25,8 @@ public class AddEntryCommand extends Command {
      * @param amount Amount of money that is earned/spent.
      * @param description Details pertaining to the entry.
      * @param date Date of income/expense.
+     * @param prevPosition previous position of a deleted input that is passed from an undo command;
+     *                     -1 if the input is not from undo command.
      */
     public AddEntryCommand(String type, double amount, String description, LocalDate date, int prevPosition) {
         this.type = type;

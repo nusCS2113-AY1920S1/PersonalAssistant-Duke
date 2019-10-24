@@ -24,16 +24,17 @@ public class AddDebtsCommand extends Command {
      * @param amount amount of debt
      * @param description description of debt
      * @param date date of debt
-     * @param prePosition -1 by default
+     * @param prevPosition previous position of a deleted input that is passed from an undo command;
+     *                     -1 if the input is not from undo command.
      */
     public AddDebtsCommand(String type, String name, double amount,
-                           String description, LocalDate date, int prePosition) { //prevPosition is -1 by default
+                           String description, LocalDate date, int prevPosition) { //prevPosition is -1 by default
         this.type = type;
         this.name = name;
         this.amount = amount;
         this.description = description;
         this.date = date;
-        this.prevPosition = prePosition;
+        this.prevPosition = prevPosition;
     }
 
     @Override

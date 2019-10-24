@@ -12,9 +12,6 @@ import dolla.command.SearchCommand;
 import dolla.command.RemoveCommand;
 
 public class EntryParser extends Parser {
-    private static int prevPosition;
-    private static int undoFlag = 0;
-    private static int redoFlag = 0;
 
     public EntryParser(String inputLine) {
         super(inputLine);
@@ -66,24 +63,6 @@ public class EntryParser extends Parser {
             addEntry = new AddEntryCommand(inputArray[1], stringToDouble(inputArray[2]), description, date, -1);
         }
         return addEntry;
-    }
-
-    public static void setPrePosition(int prevPosition) {
-        EntryParser.prevPosition = prevPosition;
-        undoFlag = 1;
-    }
-
-    public static void resetUndoFlag() {
-        EntryParser.prevPosition = -1;
-        undoFlag = 0;
-    }
-
-    public static void setRedoFlag() {
-        redoFlag = 1;
-    }
-
-    public static void resetRedoFlag() {
-        redoFlag = 0;
     }
 }
 

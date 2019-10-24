@@ -7,6 +7,7 @@ import dolla.action.Undo;
 import dolla.parser.DebtsParser;
 import dolla.parser.EntryParser;
 import dolla.parser.MainParser;
+import dolla.parser.Parser;
 
 public class AddActionCommand extends Command {
     private String mode;
@@ -72,43 +73,27 @@ public class AddActionCommand extends Command {
      * This method will set the previous position int in the respective mode.
      */
     private void setPrevPosition() {
-        if(mode.equals("debt")) {
-            DebtsParser.setPrevPosition(prevPosition);
-        } else if(mode.equals("entry")) {
-            EntryParser.setPrePosition(prevPosition);
-        }
+        Parser.setPrevPosition(prevPosition);
     }
 
     /**
      * This method will call the resetUndoFlag method in the respective mode.
      */
     private void resetUndoFlag() {
-        if(mode.equals("debt")) {
-            DebtsParser.resetUndoFlag();
-        } else if(mode.equals("entry")) {
-            EntryParser.resetUndoFlag();
-        }
+        Parser.resetUndoFlag();
     }
 
     /**
      * This method will call the setRedoFlag method in the respective mode.
      */
     private void setRedoFlag() {
-        if(mode.equals("debt")) {
-            DebtsParser.setRedoFlag();
-        } else if(mode.equals("entry")) {
-            EntryParser.setRedoFlag();
-        }
+        Parser.setRedoFlag();
     }
 
     /**
      * This method will call the resetRedoFlag method in the respective mode.
      */
     private void resetRedoFlag() {
-        if(mode.equals("debt")) {
-            DebtsParser.resetRedoFlag();
-        } else if(mode.equals("entry")) {
-            EntryParser.resetRedoFlag();
-        }
+        Parser.resetUndoFlag();
     }
 }

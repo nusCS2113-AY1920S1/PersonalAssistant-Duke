@@ -19,6 +19,9 @@ public abstract class Parser {
     protected String[] inputArray;
     protected String commandToRun;
     protected static final String SPACE = " ";
+    protected static int undoFlag = 0;
+    protected static int redoFlag = 0;
+    protected static int prevPosition;
 
 
     /**
@@ -133,5 +136,36 @@ public abstract class Parser {
             return false;
         }
         return true;
+    }
+
+    /**
+     * This method will set the prevPosition int in this class
+     * @param prevPosition the prevPosition of a deleted input.
+     */
+    public static void setPrevPosition(int prevPosition) {
+        Parser.prevPosition = prevPosition;
+        undoFlag = 1;
+    }
+
+    /**
+     * THis method will set prevPosition to -1 and undoFlag to 0.
+     */
+    public static void resetUndoFlag() {
+        Parser.prevPosition = -1;
+        undoFlag = 0;
+    }
+
+    /**
+     * This method will set redoFlag to 1.
+     */
+    public static void setRedoFlag() {
+        redoFlag = 1;
+    }
+
+    /**
+     * This method will set redoFlag to 0.
+     */
+    public static void resetRedoFlag() {
+        redoFlag = 0;
     }
 }
