@@ -199,7 +199,7 @@ public class Process {
      */
     public void deadline(String input, TaskList tasklist, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
+            String[] splitspace = input.split("d/", 2);
             String taskDescription = splitspace[1];
             Deadline deadline = new Deadline(taskDescription);
             tasklist.addTask(deadline);
