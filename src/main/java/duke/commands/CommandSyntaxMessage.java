@@ -19,6 +19,7 @@ public abstract class CommandSyntaxMessage {
     private static String viewSyntax = "view [n/BAR_NO](last bar - 1)\n";
     private static String addSyntax = "add s/NOTE\n";
     private static String addbarSyntax = "addbar s/NOTES [bar:n/BAR_NO_TO_ADD_AFTER](last bar)\n";
+    private static String asciiSyntax = "ascii song song_name\n";
     // TODO: add overlay syntax
     private static String overlaySyntax = "To be implemented in version 2.0\n";
     private static String copySyntax = "copy start_num end_num\nFormat: copy start_num end_num insert_num\n";
@@ -47,6 +48,7 @@ public abstract class CommandSyntaxMessage {
             put("overlay", overlaySyntax);
             put("copy", copySyntax);
             put("group", groupSyntax);
+            put("ascii", asciiSyntax);
             put("list_group", list_groupSyntax);
             put("play", playSyntax);
             put("close", closeSyntax);
