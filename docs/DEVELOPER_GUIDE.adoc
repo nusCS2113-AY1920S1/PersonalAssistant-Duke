@@ -76,6 +76,77 @@ There some issues with quotes, etc. No progress on that since 2012.
 - Using Java CSV +
 Java CSV is a small fast open source Java library for reading and writing CSV and plain delimited text files. All kinds of CSV files can be handled, text qualified, Excel formatted, etc.
 
+*B. Reminders Feature*
+
+1. Implementation of Reminders Feature.
+The reminders mechanism is facilitated by the RemindersCommand. It extends upon Command.
+This is stored internally within the RemindersList & UnauthorisedList based on the model LockerList which will then be stored within the FileHandling class.
+Once the application starts the RemindersList & UnauthorisedList will be booted up from the file storage and be viewed through the GUI.
+
+- RemindersList will contain lockers that are only going to be expired within 3 days.
+- UnauthorisedList will contain lockers that are in unauthorised usage.
+
+The logic found in the Find feature will be used to continuously add into the UnauthorisedList.
+
+*Insert image*
+
+2.
+Design Considerations
+
+Use of Data Structures:
+
+    * Using a List data structure
+    - Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+    - Cons: Will need to keep a separate list.
+
+
+*B. Find Feature*
+
+1. Implementation of Find Feature.
+
+The find mechanism is facilitated by the FindCommand. It extends upon Command.
+Use cases for the find feature:
+
+- Find the locker details based on name.
+- Find the locker details based on other tags like availability.
+
+2.
+Design Considerations
+
+How the find feature executes:
+
+    * Search by single tag: Find /n Kevin
+- Pros: Easy to implement
+- Cons: Will only be able to filter less and show a list instead.
+
+    * Search multiple tags: Find /n Kevin Alvarez /t unauthorised
+- Pros: Able to find lockers accurately
+- Cons: May need to spell the phrase correctly as it searched the whole string of characters rather than the most similar number of characters.
+
+*C. Sort Feature*
+
+1. Implementation of Sort Feature.
+
+The sort mechanism is facilitated by the SortCommand. It extends upon Command.
+Use cases for the sort feature:
+
+- Sort the lockers based on name.
+- Sort the lockers based on other tags like unauthorised usage.
+
+2.
+Design Considerations
+
+How the sort feature executes:
+
+* Sort by single tag: Find /t unauthorised
+- Pros: Easy to implement
+- Cons: Will only be able to filter less and show a list instead.
+
+* Sort multiple tags: Find /t broken /t unauthorised
+- Pros: Able to find lockers accurately
+- Cons: May take some time to as it will sort tag by tag
+
+
 Back to Top
 
 *B. Undo and Redo Feature*
