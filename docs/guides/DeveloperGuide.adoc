@@ -55,13 +55,29 @@ The _Architecture Diagram_ given above explains the high-level design of the App
 
 === Common classes
 
-==== Implementation
+== Implementation
 
-==== Documentation
+=== Email Tags (Tagging and Searching Emails)
 
-==== Testing
+This section describes how Email Manager managing emails by tags, including tagging of email and searching
+of emails with the relevant tags.
 
-==== Dev Ops
+==== Tagging Email: `update`
+* Format: `update ITEM_NUMBER [-tag TAG1] [-tag TAG2]...` +
+* Tags the specified item with the tag(s) minimum number of tags is 1.
+
+
+==== Filtering email: 'list`
+Format: `list [-tag TAG1] [-tag TAG2]...` +
+Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
+
+The tags associated with emails is stored in HashMap<String, HashMap<String, EmailList>>,
+where the String here refers to the tag name, and EmailList is an ArrayList<Email>.
+
+
+== Testing
+
+== Dev Ops
 
 == Appendices
 

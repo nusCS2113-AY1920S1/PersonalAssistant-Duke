@@ -178,7 +178,7 @@ Format: `list [-tag TAG1] [-tag TAG2]...` +
 Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
 
 ==== Tagging Email: `update`
-Format: `update ITEM_NUMBER [-tag TAG1] [-tag TAG2]...` +
+Format: `update ITEM_NUMBER [-tag TAG1] [-tag TAG2]`
 Tags the specified item with the tag(s) minimum number of tags is 1.
 
 ==== Sending Email (coming in v2.0)

@@ -15,7 +15,7 @@ public class EmailTagsTest {
     @Test
     public void updateEmailTagListTest() {
         String dir = EmailStorage.getDataDir() + "emailTagsTestFile.txt";
-        EmailList emailList = EmailStorage.readEmailFromFile(dir);
+        EmailList emailList = EmailStorage.readEmailFromFile("");
         System.out.println(emailList.toString());
 
         HashMap<String, EmailTags.SubTagMap> tagMap = EmailTags.updateEmailTagList(emailList);
