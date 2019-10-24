@@ -1,16 +1,10 @@
 package dolla;
 
 import dolla.command.Command;
-import dolla.task.EntryList;
-import dolla.task.LogList;
-import dolla.task.Task;
-import dolla.task.TaskList;
 import dolla.parser.MainParser;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import static dolla.Storage.load;
+
+import java.util.Scanner;
 
 /**
  * <h1>duke.Dolla</h1>
@@ -42,7 +36,6 @@ public class Dolla {
         //Reminder reminderObject = new Reminder(); //reminder pop up
         //reminderObject.execute(tasks);
         boolean isExit = false;
-        System.out.println("hi");
         Reminder reminder = new Reminder("debt");
         reminder.showReminder(dollaData);
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
