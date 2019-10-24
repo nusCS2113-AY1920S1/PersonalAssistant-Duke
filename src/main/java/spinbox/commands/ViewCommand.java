@@ -84,6 +84,10 @@ public class ViewCommand extends Command {
         } else {
             throw new InputException("Please input correct format for view command.");
         }
+
+        if (moduleCode != null) {
+            moduleCode = moduleCode.toUpperCase();
+        }
     }
 
     /**
