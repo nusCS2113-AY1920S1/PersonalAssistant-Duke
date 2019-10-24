@@ -106,7 +106,7 @@ In summary, to define a new `Command`:
 If this is an `ArgCommand`, in addition to doing the above for a subclass of `ArgCommand`:
 
 . Define a subclass of `ArgSpec` (by convention, `<name>Spec` is associated with `<name>Command`)
-. Define the private static field `spec` and the public static `getSpec` to provide singleton behaviour
+. Define the private static field `spec` and the public static method `getSpec()` to provide singleton behaviour
 . Create a private constructor for the subclass
 .. Define `cmdArgLevel` and `emptyArgMsg`
 .. Construct the switches for the `ArgCommand` and supply them as arguments to `switchInit()`

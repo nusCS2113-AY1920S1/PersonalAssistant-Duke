@@ -14,8 +14,13 @@ public class NewPatientCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
+        Integer height = CommandHelpers.toInt(getSwitchVal("height"));
+        Integer weight = CommandHelpers.toInt(getSwitchVal("weight"));
+        Integer age = CommandHelpers.toInt(getSwitchVal("age"));
+        Integer number = CommandHelpers.toInt(getSwitchVal("number"));
         core.patientMap.addPatient(new Patient(getSwitchVal("name"), getSwitchVal("bed"),
-                getSwitchVal("allergies")));
+                getSwitchVal("allergies"), height, weight, age, number,
+                getSwitchVal("address"), getSwitchVal("history")));
         core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }
 }
