@@ -1,10 +1,15 @@
 package ui;
 
+import command.Storage;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
+import project.Project;
 import task.Task;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -46,8 +51,77 @@ public class Ui {
      * Prints ending message for the AlphaNUS program.
      */
     public void byeMessage() {
-        String output = line + "     Bye. Hope to see you again soon!\n" + line;
-        System.out.println(output);
+        System.out.print(line);
+        System.out.println("\t" + "Bye. Hope to see you again soon!");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints a message to indicate that there are no projects in the record.
+     */
+    public void printNoProjectMessage() {
+        System.out.print(line);
+        System.out.println("\t" + "There are no projects in the record.");
+        System.out.println("\t" + "Please add a new project.");
+        System.out.println("\t" + "Format: add project pr/PROJECTNAME");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints a message to indicate that a project has been added.
+     * @param newProject The project that was added.
+     * @param projectsize The current number of projects in the projectmap.
+     */
+    public void printAddProject(Project newProject, int projectsize) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added this project:");
+        System.out.println("\t" + "Name: " + newProject.projectname);
+        System.out.println("\t" + "Budget: " + newProject.budget);
+        System.out.println("\t" + "Spending: " + newProject.spending);
+        System.out.println("\t" + "There are " + projectsize + " projects in the record.");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints a message to indicate that a project has been deleted.
+     * @param deletedProject The project that was deleted.
+     * @param projectsize The current number of projects in the projectmap.
+     */
+    public void printDeleteProject(Project deletedProject, int projectsize) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've deleted this project:");
+        System.out.println("\t" + "Name: " + deletedProject.projectname);
+        System.out.println("\t" + "Budget: " + deletedProject.budget);
+        System.out.println("\t" + "Spending: " + deletedProject.spending);
+        System.out.println("\t" + "There are " + projectsize + " projects in the record.");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints the number of projects in the projectmap and the current project
+     * that is being worked on.
+     * @param currentprojectname Name of the current project.
+     * @param projectsize The current number of projects in the projectmap.
+     */
+    public void printProjectStatus(String currentprojectname, int projectsize) {
+        System.out.print(line);
+        if (currentprojectname == null) {
+            System.out.println("\t" + "There are no projects in the record.");
+        } else {
+            System.out.println("\t" + "Current Project: " + currentprojectname);
+            System.out.println("\t" + "There are " + projectsize + " projects in the record.");
+        }
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message to indicate the project that is gone to.
+     * @param projectname Name of project that is gone to.
+     */
+    public void printGoToProject(String projectname) {
+        System.out.print(line);
+        System.out.println("\t" + "Going to Project: " + projectname);
+        System.out.print(line);
     }
 
     /**
@@ -71,6 +145,20 @@ public class Ui {
             System.out.print("     " + listnum + "." + list.get(i).giveTask() + "\n");
         }
         System.out.print(line);
+    }
+
+    public void printArrayList(ArrayList<String> list1) {
+        for (int i = 0; i < list1.size(); i = i + 1) {
+            System.out.println(list1.get(i));
+        }
+    }
+
+    public void printTxtfile(String storage) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(storage));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
     }
 
     /**
