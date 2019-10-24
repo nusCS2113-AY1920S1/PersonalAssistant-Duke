@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class AddExpensesCommand {
+public class AddExpenseCommand {
 
     /**
      * This method adds the expense from the expense list and expenses.
@@ -20,7 +20,7 @@ public class AddExpensesCommand {
      * @param expenses the object that map each expenses to its date
      * @throws IOException catch any error if read file fails
      */
-    public AddExpensesCommand (Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException{
+    public AddExpenseCommand(Ui ui, Storage storage, Map<LocalDate, ArrayList<String>> expenses) throws IOException{
 
         System.out.println("What did you buy:");
         ui.readCommand();

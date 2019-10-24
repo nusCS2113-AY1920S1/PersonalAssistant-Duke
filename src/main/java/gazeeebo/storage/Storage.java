@@ -3,6 +3,7 @@ package gazeeebo.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 
+import gazeeebo.commands.specialization.moduleCategories;
 import gazeeebo.commands.gpacalculator.GPACommand;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
@@ -14,6 +15,7 @@ import gazeeebo.TriviaManager.TriviaManager;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class Storage {
     private String absolutePath_Places = "Places.txt";
     private String absolutePath_Trivia = "Trivia.txt";
     private String absolutePath_GPA = "Gpa.txt";
+    private String absolutePathSpecialization = "Specialization.txt";
+
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -70,7 +74,7 @@ public class Storage {
                     }
                     tList.add(e);
                 } else if (details[0].equals("P")) {
-                    Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
+                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if (details[1].equals("D")) {
                         tb.isDone = true;
                     } else {
@@ -320,5 +324,61 @@ public class Storage {
             }
         }
         return gpaList;
+    }
+
+
+    public void specializationStorage(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePathSpecialization);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public HashMap<String, ArrayList<moduleCategories>> Specialization() throws IOException {
+        HashMap<String, ArrayList<moduleCategories>> specMap = new HashMap<>();
+        ArrayList<moduleCategories> modAndBool = new ArrayList<>();
+        if(new File(absolutePathSpecialization).exists()) {
+            File file = new File(absolutePathSpecialization);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                if(split[0].equals("commsB")) {
+                    moduleCategories mC = new moduleCategories(split[2].trim());
+                    if(split[3].equals("D")) {
+                        mC.isDone = true;
+                    } else {
+                        mC.isDone = false;
+                    }
+                    modAndBool.add(mC);
+                } else if(split[0].equals("commsD")) {
+                    moduleCategories mC2 = new moduleCategories(split[2].trim());
+                    if (split[3].equals("D")) {
+                        mC2.isDone = true;
+                    } else {
+                        mC2.isDone = false;
+                    }
+                    modAndBool.add(mC2);
+
+                } else if(split[0].equals("embB")) {
+                        moduleCategories mC3 = new moduleCategories(split[2].trim());
+                        if(split[3].equals("D")) {
+                            mC3.isDone = true;
+                        } else {
+                            mC3.isDone = false;
+                        }
+                    modAndBool.add(mC3);
+                } else if(split[0].equals("embD")) {
+                    moduleCategories mC4 = new moduleCategories(split[2].trim());
+                    if(split[3].equals("D")) {
+                        mC4.isDone = true;
+                    } else {
+                        mC4.isDone = false;
+                    }
+                    modAndBool.add(mC4);
+                }
+
+            }
+        }
+        return specMap;
     }
 }

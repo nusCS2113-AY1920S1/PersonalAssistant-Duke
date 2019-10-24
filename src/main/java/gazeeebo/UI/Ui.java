@@ -67,6 +67,7 @@ public class Ui {
         majorCategories.add("places");
         majorCategories.add("tasks");
         majorCategories.add("gpa");
+        majorCategories.add("spec");
         System.out.println("\nContent Page:");
         System.out.println("------------------ " +
                 "");

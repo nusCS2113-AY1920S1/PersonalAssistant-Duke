@@ -1,6 +1,6 @@
 package gazeeebo.parsers;
 
-import gazeeebo.commands.edit.EditCommand;
+import gazeeebo.commands.Edit.EditCommand;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.commands.note.DeleteNoteCommand;
 import gazeeebo.commands.note.EditNoteCommand;
@@ -8,6 +8,9 @@ import gazeeebo.commands.note.ListNoteCommand;
 import gazeeebo.commands.schedule.ScheduleDailyCommand;
 import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
 import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
+//import gazeeebo.commands.specialization.SpecializationCommand;
+//import gazeeebo.commands.specialization.SpecializationCommand;
+import gazeeebo.commands.specialization.SpecializationCommand;
 import gazeeebo.commands.tasks.*;
 
 import gazeeebo.commands.expenses.ExpenseCommand;
@@ -32,8 +35,13 @@ public class Parser {
             return new PlacesCommand();
         } else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
+        }
+        //-------
+        else if (command.equals("spec")) {
+            return new SpecializationCommand();
+        }
 
-        } else if (command.contains("/require")) {
+        else if (command.contains("/require")) {
             return new FixDurationCommand();
         } else if (splitCommand[0].equals("reschedule")) {
             return new RescheduleCommand();
@@ -72,8 +80,7 @@ public class Parser {
         } else if (command.contains("#")) {
             return new TagCommand();
         }
-//        else if(command.equals("modules")) {
-//            return new ModuleCommand();
+
         else if(splitCommand[0].equals("tasks")) {
             return new taskCommand();
         } else if(splitCommand[0].equals("gpa")) {

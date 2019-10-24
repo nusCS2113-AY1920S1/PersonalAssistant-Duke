@@ -29,7 +29,6 @@ public class ExpenseCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
-        ArrayList<String> expenseList = new ArrayList<>();
 
         System.out.print("Welcome to your expenses record! What would you like to do?\n\n");
         System.out.println("__________________________________________________________");
@@ -43,7 +42,7 @@ public class ExpenseCommand extends Command {
         ui.readCommand();
         while(!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.contains("add")) {
-                new AddExpensesCommand(ui, storage, expenses);
+                new AddExpenseCommand(ui, storage, expenses);
             } else if(ui.fullCommand.contains("find")) {
                 new FindExpenseCommand(ui, expenses);
             } else if(ui.fullCommand.contains("delete")) {
