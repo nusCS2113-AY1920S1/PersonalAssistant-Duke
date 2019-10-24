@@ -25,14 +25,20 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -40,7 +46,7 @@ import java.util.*;
 public class MainWindow extends BorderPane implements Initializable {
     private static final String NO_FIELD = "void";
     @FXML
-    private Label currentTime;
+    private Text currentTime;
     @FXML
     private Label currentWeek;
     @FXML
@@ -82,11 +88,12 @@ public class MainWindow extends BorderPane implements Initializable {
     private TaskList eventsList;
     private TaskList deadlinesList;
     private static LookupTable LT;
+    private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
     static {
         try {
             LT = new LookupTable();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
 
@@ -101,8 +108,9 @@ public class MainWindow extends BorderPane implements Initializable {
             events = new ArrayList<>();
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
-            setClock();
+           // setClock();
             setWeek(true, NO_FIELD);
+            displayQuoteOfTheDay();
 
             retrieveList();
             openReminderBox();
@@ -114,32 +122,62 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
-
+            //seeList();
             setProgressContainer();
             setListView();
-        } catch (IOException | NullPointerException | ParseException e) {
+        } catch (NullPointerException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
+    }
+
+    private void displayQuoteOfTheDay(){
+        try {
+            ClassLoader loader = this.getClass().getClassLoader(); // or YourClass.class.getClassLoader()
+            URL resourceUrl = loader.getResource("documents/quotes.txt");
+            File path = null;
+            if (resourceUrl != null) {
+                path = new File(resourceUrl.getFile());
+            }
+            Scanner scanner = new Scanner(path);
+            String firstLine = scanner.nextLine();
+            FileWriter writer = new FileWriter(path);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line != firstLine)
+                    writer.write(line + "\n");
+            }
+            writer.write(firstLine+"\n");
+            AlertBox.display("Quote of the day", "Quote of the day !!", firstLine, Alert.AlertType.INFORMATION);
+
+            scanner.close();
+            writer.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * This method creates the progress indicator for the different modules.
      * @throws IOException On reading error in the lines of the file
      */
-    private void setProgressContainer() throws IOException {
+    private void setProgressContainer() {
         progressContainer.getChildren().clear();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-        fxmlLoader.load();
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
         Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
         number_of_modules = result.getKey().keySet().size();
-        //System.out.println("Number of times: " + (String.valueOf(number_of_modules)));
 
         HashMap<String, String> modules = result.getKey();
-        int totalNumTasks = 0;
-        int completedValue = 0;
         for (String module : modules.keySet()) {
+            int totalNumTasks = 0;
+            int completedValue = 0;
             ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
-            //totalNumTasks = tasks.size();
             for (Pair<String, Pair<String, String>> as : tasks) {
                 if (as.getKey().equals(module)) {
                     totalNumTasks += 1;
@@ -149,7 +187,12 @@ public class MainWindow extends BorderPane implements Initializable {
                 }
             }
             FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-            Parent loads = fxmlLoad.load();
+            Parent loads = null;
+            try {
+                loads = fxmlLoad.load();
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
             fxmlLoad.<ProgressController>getController().getData(module, totalNumTasks, completedValue);
             progressContainer.getChildren().add(loads);
         }
@@ -167,12 +210,12 @@ public class MainWindow extends BorderPane implements Initializable {
      * Animates the clock timer in MainWindow GUI.
      */
     private void setClock() {
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
-            currentTime.setText(LocalDateTime.now().format(formatter));
-        }), new KeyFrame(Duration.seconds(1)));
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
+//        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E dd/MM/yyyy HH:mm:ss");
+//            currentTime.setText(LocalDateTime.now().format(formatter));
+//        }), new KeyFrame(Duration.seconds(1)));
+//        clock.setCycleCount(Animation.INDEFINITE);
+//        clock.play();
     }
 
     /**
@@ -180,7 +223,7 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws IOException On input error reading lines in the file
      * @throws ParseException On conversion error from string to Task object
      */
-    private void retrieveList() throws IOException, ParseException {
+    private void retrieveList() {
         storage = new Storage();
         eventsList = new TaskList();
         deadlinesList = new TaskList();
@@ -191,7 +234,7 @@ public class MainWindow extends BorderPane implements Initializable {
         deadlines = deadlinesList.getList();
     }
 
-    private ObservableList<DeadlineView> setDeadlineTable() throws ParseException {
+    private ObservableList<DeadlineView> setDeadlineTable()  {
         String to;
         String description;
         String activity;
@@ -200,7 +243,12 @@ public class MainWindow extends BorderPane implements Initializable {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             DateFormat timeFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            Date date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
+            Date date = null;
+            try {
+                date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
+            } catch (ParseException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
             to = timeFormat.format(date);
             description = task.getDescription();
             if (overdueCheck(date) && activity.contains("\u2718")) {
@@ -212,7 +260,7 @@ public class MainWindow extends BorderPane implements Initializable {
         return deadlineViews;
     }
 
-    private ObservableList<DeadlineView> setOverdueTable() throws ParseException {
+    private ObservableList<DeadlineView> setOverdueTable() {
         String daysDue;
         String description;
         String activity;
@@ -220,7 +268,12 @@ public class MainWindow extends BorderPane implements Initializable {
         for (Task task : overdue) {
             activity = task.toString();
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            Date date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
+            Date date = null;
+            try {
+                date = dateFormat.parse(activity.substring(activity.indexOf("by:") + 4, activity.indexOf(')')));
+            } catch (ParseException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
             daysDue = String.valueOf(daysBetween(date));
             description = task.getDescription();
             overdueViews.add(new DeadlineView(daysDue, description));
@@ -256,13 +309,14 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     @FXML
-    private void handleUserInput() throws ParseException, IOException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        retrieveList();
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
-        } else if (input.startsWith("add")) {
+        }/* else if (input.startsWith("add")) {
             if(response.startsWith("true|")) {
                 refresh(input);
                 setProgressContainer();
@@ -279,7 +333,7 @@ public class MainWindow extends BorderPane implements Initializable {
             }
             if (date.equals(week)) setWeek(false, week);
 
-        }else if (userInput.getText().equals("bye")) {
+        } */else if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
@@ -445,14 +499,20 @@ public class MainWindow extends BorderPane implements Initializable {
      * @param input The user input from Command Line
      * @throws ParseException The exception when that is error with the date given
      */
-    private void refresh(String input) throws ParseException {
+    private void refresh(String input) {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat dateDayFormat = new SimpleDateFormat("E dd/MM/yyyy");
         DateFormat timeFormat_24 = new SimpleDateFormat("HHmm");
         DateFormat timeFormat_12 = new SimpleDateFormat("hh:mm a");
         String[] spiltWeekLabel = (currentWeek.getText()).split(" ");
-        Date startDate = dateFormat.parse(spiltWeekLabel[3]);
-        Date endDate = dateFormat.parse(spiltWeekLabel[5]);
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = dateFormat.parse(spiltWeekLabel[3]);
+            endDate = dateFormat.parse(spiltWeekLabel[5]);
+        } catch (ParseException e) {
+            LOGGER.log(Level.SEVERE, e.toString(), e);
+        }
 
         if (input.startsWith("add/e")) {
             String[] spiltInput = input.split(" /at ");
@@ -460,15 +520,27 @@ public class MainWindow extends BorderPane implements Initializable {
             String[] dateAndTime = spiltInput[1].split(" from ");
             String date = dateAndTime[0].trim();
             if(date.startsWith("Week")) date = LT.getDates(date.toLowerCase());
-            Date inputDate = dateFormat.parse(date);
-            Date currentDate = dateFormat.parse(dateFormat.format(new Date()));
+            Date inputDate = null;
+            Date currentDate = null;
+            try {
+                currentDate = dateFormat.parse(dateFormat.format(new Date()));
+                inputDate = dateFormat.parse(date);
+            } catch (ParseException e) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
             if(inputDate.before(currentDate)) return;
             String[] startAndEndTime = dateAndTime[1].split(" to ");
 
             if (inputDate.after(startDate) && inputDate.before(endDate)) {
                 String day = (dateDayFormat.format(inputDate)).substring(0,3);
-                Date startTime = timeFormat_24.parse(startAndEndTime[0]);
-                Date endTime = timeFormat_24.parse(startAndEndTime[1]);
+                Date startTime = null;
+                Date endTime = null;
+                try {
+                    endTime = timeFormat_24.parse(startAndEndTime[1]);
+                    startTime = timeFormat_24.parse(startAndEndTime[0]);
+                } catch (ParseException e) {
+                    LOGGER.log(Level.SEVERE, e.toString(), e);
+                }
                 Text toShow = new Text("Start: " + timeFormat_12.format(startTime) + "\nEnd: " +timeFormat_12.format(endTime) + "\n" + modAndTask[0] + "\n" + modAndTask[1]);
                 toShow.wrappingWidthProperty().bind(monEventView.widthProperty().subtract(15));
                 toShow.setFont(Font.font(10));

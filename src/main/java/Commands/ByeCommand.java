@@ -15,12 +15,9 @@ public class ByeCommand extends Command {
      * @param ui The Ui object to display the goodbye message
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display goodbye message
-     * @throws Exception On file not found error
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        storage.updateEventList(events);
-        storage.updateDeadlineList(deadlines);
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         return ui.showBye();
     }
 }

@@ -3,7 +3,7 @@ package Tasks;
 /**
  * Represents a task in the Duke program.
  */
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
     private boolean isReminder;
@@ -22,21 +22,13 @@ public class Task {
         this.modCode ="";
     }
 
-    public String getType() {
-        return "void";
-    }
+    public abstract String getType();
 
-    public String getDateTime(){
-        return "void";
-    }
+    public abstract String getDateTime();
 
-    public String getDate() {
-        return "void";
-    }
+    public abstract String getDate();
 
-    public String getTime() {
-        return "void";
-    }
+    public abstract String getTime();
 
     /**
      * Checks whether the task is completed.
@@ -72,13 +64,9 @@ public class Task {
     public String remindTimeToString() {
         return "[<R" + remindTime + "/R>] ";
     }
+
     public String toString() {
-        if (isReminder) {
-            return "[" + getStatusIcon()
-                    + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
-        } else {
-            return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
-        }
+        return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
     }
 
     public String getModCode() {

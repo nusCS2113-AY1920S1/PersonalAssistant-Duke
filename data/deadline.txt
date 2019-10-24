@@ -1,4 +1,6 @@
-
-cs2101 [D][✘][NR][<R/R>] des (by: Mon 14/10/2019 12:00 pm)
-cs2107 [D][✘][NR][<R/R>] find flag (by: Sun 20/10/2019 12:00 pm)
-
+CS2100 [D][✘][NR][<R/R>] lab (by: Tue 22/10/2019 09:00 AM)
+CS2100 [D][✘][NR][<R/R>] bla bla (by: Mon 21/10/2019 04:00 AM)
+CS2100 [D][✘][NR][<R/R>] kaskd (by: Mon 21/10/2019 11:59 PM)
+CS2107 [D][✘][NR][<R/R>] find flag (by: Sun 20/10/2019 12:00 PM)
+CS2107 [D][✘][NR][<R/R>] assignment (by: Mon 04/11/2019 08:00 AM)
+CS2101 [D][✘][NR][<R/R>] presentation (by: Wed 06/11/2019 12:00 PM)
