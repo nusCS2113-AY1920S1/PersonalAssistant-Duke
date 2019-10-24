@@ -1,6 +1,6 @@
 package entertainment.pro.model;
 
-public class Deadline extends Tasks {
+public class Deadline extends Tasks  {
 
     //private String deadline;
     private MyDate date;
@@ -34,5 +34,14 @@ public class Deadline extends Tasks {
         return description + " (by: " + date.toString() + ")";
     }
 
+    /*
+    @Override
+    public int compareTo(Deadline o) {
+        if (getDate() == null || o.getDate() == null) {
+            return 0;
+        }
+        return getDate().compareTo(o.getDate());
+    }
+    */
 }
 
