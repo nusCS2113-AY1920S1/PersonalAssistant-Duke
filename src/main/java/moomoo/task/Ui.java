@@ -84,7 +84,7 @@ public class Ui {
      * Show today's date.
      */
     public String showDate() {
-        LocalDate today = java.time.LocalDate.now();
+        LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
         String shortDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
         print("\n" + formattedDate + "\n");

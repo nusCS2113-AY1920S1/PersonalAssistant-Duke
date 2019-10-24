@@ -50,8 +50,8 @@ public class ScheduleCommand extends Command {
         String amount;
         amount = arr[2];
         task = task.replace("t/", "") + " " + amount.replace("a/", "");
-        SchedulePayment list = new SchedulePayment(date, task);
-        calendar.addToCalendar(list);
+        SchedulePayment newTask = new SchedulePayment(date, task);
+        calendar.addToCalendar(newTask);
         ui.setOutput("You have scheduled a payment on " + date + " for " + task);
         storage.saveScheduleToFile(calendar);
     }
