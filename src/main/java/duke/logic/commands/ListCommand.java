@@ -15,7 +15,6 @@ import java.util.Scanner;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
- * @author Ivan Andika Lie
  */
 public class ListCommand extends Command {
 
@@ -51,6 +50,6 @@ public class ListCommand extends Command {
         }
         ui.showList(currentMeals);
         ui.showCaloriesLeft(currentMeals, user, currentDate);
-        ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
+        //ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
     }
 }

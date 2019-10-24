@@ -17,7 +17,6 @@ import duke.model.user.User;
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
  * A MarkDoneCommand object encapsulates the index of meal to be marked as done.
- * @author Ivan Andika Lie
  */
 public class MarkDoneCommand extends Command {
     private int index;

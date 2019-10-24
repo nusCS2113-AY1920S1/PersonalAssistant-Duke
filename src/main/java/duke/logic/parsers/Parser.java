@@ -90,6 +90,8 @@ public class Parser {
                     historyCommand.clearHistory();
                 }
                 return historyCommand;
+            case SUGGEST_COMMAND:
+                return new SuggestCommandParser().parse(userInput);
             default:
                 throw new DukeException(UNKNOWN_COMMAND);
         }

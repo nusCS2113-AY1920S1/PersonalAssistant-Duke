@@ -14,7 +14,6 @@ import duke.model.user.User;
 /**
  * AddCommand is a public class that inherits from abstract class Command.
  * An AddCommand object encapsulates the current meal that is to be added.
- * @author Ivan Andika Lie
  */
 public class AddCommand extends Command {
     private Meal meal;
@@ -29,7 +28,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * The object will execute the "add" command, updating the current tasks, ui, and storage in the process.
+     * Executes add command.
      * @param meals the MealList object in which the meal is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals

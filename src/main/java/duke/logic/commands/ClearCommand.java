@@ -15,7 +15,6 @@ import java.util.Scanner;
 /**
  * ClearCommand is a public class that inherits from abstract class Command.
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.
- * @author 
  */
 public class ClearCommand extends Command {
     Date startDate;

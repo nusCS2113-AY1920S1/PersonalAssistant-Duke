@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 /**
  * This is a class that will store user information to be used for processing.
- * @Author Foo Chi Hen
  */
 
 public class User {

@@ -3,7 +3,6 @@ package duke.commons.definitions;
 
 /**
  * This class defines all the command keywords that will be used in the program.
- * @author Chua Zong Wei
  */
 public class CommandDefinitions {
     public static final String BREAKFAST_COMMAND = "breakfast";
@@ -23,4 +22,5 @@ public class CommandDefinitions {
     public static final String HISTORY_COMMAND = "history";
     public static final String DEPOSIT_COMMAND = "deposit";
     public static final String PAYMENT_COMMAND = "pay";
+    public static final String SUGGEST_COMMAND = "suggest";
 }

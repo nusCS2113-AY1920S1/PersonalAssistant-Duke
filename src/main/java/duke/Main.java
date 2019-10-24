@@ -60,7 +60,6 @@ public class Main {
     /**
      *  Run is a function that generate the flow of duke program from beginning until the end.
      */
-
     public void run() {
         if (!user.getIsSetup()) {
             ui.showWelcomeNew();
@@ -101,17 +100,3 @@ public class Main {
         new Main().run();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

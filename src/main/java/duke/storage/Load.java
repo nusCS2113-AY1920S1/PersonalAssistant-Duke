@@ -15,7 +15,6 @@ import static duke.commons.FilePaths.*;
 
 /**
  * This object is in charge of all reading from save operations.
- * @author Chua Zong Wei
  */
 public class Load {
     private BufferedReader bufferedReader = null;
@@ -120,4 +119,5 @@ public class Load {
             throw new DukeException("Error reading help file");
         }
     }
+
 }

@@ -15,7 +15,6 @@ import java.util.Scanner;
 /**
  * Command is the abstract base class for all the command objects
  * which allow the child class to specify which command (e.g. add, delete, etc) to use.
- * @author Ivan Andika Lie
  */
 public abstract class Command {
     protected DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

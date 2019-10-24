@@ -97,15 +97,24 @@ The figure above illustrates how our program might look like from a high-level p
 * At shutdown: Stop all running processes, and initiate any cleanup methods whenever required
 
 === Model
-.Model Diagram
+.Model Diagram : Meal Management
 image::model.png[width="800"]
 
-The Model component of the code is in charge of tracking and managing all of the data involved during the application's runtime. It accomplishes this by:
+The Model component of the code is in charge of tracking and managing all of the meal data involved during the application's runtime. It accomplishes this by:
 
 * Initializing a MealList object, which stores:
 ** All of the user's meal info
 ** All of the previously defined default meal values
 * Initializing a Goal object, which stores the user defined dietary targets to be met.
+* Being capable of operating independently of all the other code components.
+
+.Model Diagram: Cost Management
+image::transactionmodel.png[width="800"]
+
+The Model component of the code is in charge of managing the transaction data involved during the application's runtime. It accomplishes this by:
+
+* Initializing a TransactionList object, which stores
+** All of the transactions information (e.g. transaction amount, dates of transaction).
 * Being capable of operating independently of all the other code components.
 
 === Storage
@@ -142,6 +151,44 @@ The Ui component of the code is in charge of:
 
 == Implementation
 
+As of now, all commands entered by the user go through the following validation checks:
+
+. The autocorrect function takes in the user input, and determines if there are any typos present in the user input.
+* If autocorrectable typos are present, the program attempts to replace the erroneous text with the correct command from a predetermined set of words.
+* If no typos are present, or there exists a word that cannot be autocorrected, the command is returned as is to the parser.
+. This autocorrected command is then subjected to additional checks in the `*CommandParser` class (e.g AddCommandParser, EditCommandParser, etc.), which ensures that the command structure is correct.
+
+=== User initialization
+
+User initialization personalises the program for each user to cater to their needs
+
+This section describes the implmentation and design considerations.
+
+==== Current implementation
+
+On start up, `Main` will load `user.txt` file. If no data is found, `Main` class will instead ask for user information before starting the program.
+
+The following step describes the flow of the initialisation:
+
+. The `Main` class will load `user.txt` via `Storage` class and check if there is user data already stored.
+.. If no data is found, `Main` will request for user to input personal data in this order:
+... `Name`
+... `Age`
+... `Weight`
+... `Height`
+... `Activity Level`
+... If they would like to maintain or lose weight
+.. If data is found, `Main` will load the data from `user.txt` via `Storage`
+. The `Main` will continue on with the function.
+. On exit, `Main` will save the `User` data to `user.txt`
+
+==== Design considerations
+
+Problem 1: *How to store weight data to be displayed over time*
+
+*Solution 1 (current implementation): HashMap
+** By storing data in HashMap, we are able to store a weight data to a date and this can be changed easily by accessing the same date in the HashMap.
+
 === Add command
 
 The Add feature gives the user the ability to assign default nutritional values associated with certain meal names.
@@ -151,12 +198,8 @@ This section describes the implementation and design considerations involved in 
 ==== Current implementation
 Assuming that there are no preexisting default values assigned to meals, and the user inputs the `add` command `add hotcakes /calories 300`, the application processes the command through the following steps:
 
-. The `Main` class calls the parse function of the `Parser` class to parse the user input. During this stage, the following validation checks are carried out before parsing:
-.. The autocorrect function (implemented by: Foo Chi Hen) takes in the user input, and determines if there are any typos present in the user input.
-* If autocorrectable typos are present, the program attempts to replace the erroneous text with the correct command from a predetermined set of words.
-* If no typos are present, or there exists a word that cannot be autocorrected, the command is returned as is to the parser.
-.. This autocorrected command is then subjected to additional checks in the `AddItemCommandParser` class:
-* Ensures that the command structure is correct.
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
+
 . After parsing, the data is then used to create an instance of the `AddItemCommand` object, which is then returned to the `Main` function.
 . The `Main` function would then invoke the `AddItemCommand#execute()` function.
 . The `AddItemCommand#execute()` function then further invokes the `MealList#addStoredItem(...)` function, which stores the data in a `storedItems` object of type `HashMap<String, HashMap<String, Integer>>`, in the following format:
@@ -167,6 +210,47 @@ The steps carried out by the program as described above are captured in figure 5
 
 .Add command sequence diagram
 image::addcommand.png[width="800"]
+
+
+=== Mark as Done command
+
+The Mark as Done feature gives the user the ability to mark the meals they have eaten as done and this will update the calorie they can eat for the rest of the day, the application processes the command through the following steps:
+
+==== Current Implementation
+Assuming that the index in the user input is not outside the boundary of the meals on that certain day, the implementations are as follows:
+
+. The `Main` class calls the parse function of the `Parser` class to parse the user input which consist of the index of meal marked done and the specified date.
+. After parsing, the data parsed is used to create an instance `MarkDoneCommand` object, which is the returned to the `Main` function.
+. The `Main` function would then invoke the `MarkDoneCommand#execute()` function.
+. The `MarkDoneCommand#execute()` function will invoke the function `MealList#markDone(...)` which update the state of the specified meal.
+. The `MarkDoneCommand#execute()` function will also invoke the `ui#showCaloriesLeft` which will calculate the amount of calories left to be eaten in that day.
+
+=== Transaction command (Will be implemented by `v1.3`)
+
+The Transaction feature gives the user the ability to manage their accounts when it comes to choosing meals of different prices.
+
+==== Projected Implementation
+Assuming that there is enough balance in the user account, the application processes the commands through the following steps:
+
+. The `Main` class calls the parse function of the `Parser` class to parse the user input.
+. After parsing, the data parsed are then used to create an instance of the `AddTransactionCommand` object, which is then returned to the `Main` function.
+. The `Main` function would then invoke the `AddTransactionCommand#execute()` function.
+. The `AddTransactionCommand#execute()` function the furthers invokes the 'user#updateAccount(...)' function, which update the data of the account balance of the user.
+
+=== Sort command
+
+The Sort feature gives the user the ability to sort the data according to nutritional value or based on costs.
+
+This section describes the tentative implementation and design considerations involved in the Sort feature and how the Sort feature works.
+
+==== Projected implementation
+In the event where the user would like to sort the default meals from the least amount of calorie, the user inputs `sort /calories /ascending`, the application processes the command through the following steps:
+
+. The `Main`` class calls the parse function of the `Parser` class to parse the user input. During this stage, the following validation checks are carried out before parsing:
+. After parsing, the data is then used to create an instance of `Sortcommand`, which is then returned to the `Main` function.
+. The `Main` function would then invoke the the `SortCommand#execute` function.
+. The `SortCommand#execute()` function then sort the invoke the `storage#LoadFile` function, which fetches the data from the default meal text file and update the generate a mealList.
+. The mealList will then be sorted based on the calorie content in ascending order and and displayed to the user through `ui#showList`.
 
 ==== Design considerations
 
@@ -182,6 +266,66 @@ Problem 2: *Where to instantiate the data structure used to store the data for t
 ** However, this violates the separation of concerns architecture principle
 * Solution 2 (planned implementation by v1.3): In a separate class
 ** By instantiating the data structure in a different class, it improves the cohesion of the code, and satisfies the separation of concerns principle
+
+
+
+
+=== Suggest  command
+
+The Suggest command provides the user the ability to get personalized meal recommendations from our application based on the current database of food available in our application as well as the food habits of the user, all while ensuring the user has a healthy meal that matches his/her lifestyle and calorie limit.
+
+The following section describes the implementation and design considerations involved in the Suggest feature, and how the Suggest feature facilitates meal recommendations.
+
+==== Current implementation
+The Suggest command assumes that there is a pre-existing list of food items from which it can suggest food from and that this list contains food parameters such as cost, calories, nutrients, etc. This is a sample of how this feature will work in principle:
+
+. When the application is being initialized, the `Storage#load()` function will be utilized to load all the meal parameters to memory in the `MealList` object.
+
+. The `MealSuggestion` class will be created and hold a reference of the `MealList` object to perform data analysis for meal suggestion when requested by user.
+
+. After the application initializes, every time the user keys in a meal entry, the `MealSuggestion` class will update its mealFrequency parameter of the meal for the respective week.
+
+. Once the user enters the suggest command
+    * Parser checks if date is provided, else defaults to current date (based on system clock)
+    * Parser checks if meal parameters are provided, else defaults to all parameters.
+    * Autocorrect will work on all the input provided by the user to prevent repeated entering of command due to typo from user.
+
+. `MealSuggestion#getMealPreferenceScore(...)` function computes the meal preference score of each meal based on the date provided and the meal parameters the user wants.
+
+. `MealSuggestion#getMealSuggestion(...)` function sorts the meals based on the preference score calculated and returns most suitable meal to the user.
+
+
+==== Design considerations
+
+Problem 1: *How to determine most suitable meal for user*
+
+* Solution 1: Assign total meal preference score of each meal in a list and provide meal suggestion based on the overall lowest cost of meal preferance score.
+
+** Pros: Provides a way to compare various meal parameters together in which a total preference cost can be computed by by summing all the normalized parameter values.
+
+** Cons: Requires a non-trivial way to normalize all the different parameter values. Example: Is a $1 cheaper meal worth 100 more calories to the user?
+
+* Solution 2: Calculate the ranking of each parameter of each meal with the rest of the meals and provide meal suggestion based on the meal with the lowest ranking in as many of the parameters specified by the user.
+
+** Pros: Simple to implement as it performs a static ranking of all the parameters of each meal.
+
+** Cons: Has no way to objectify the difference across different parameter categories. Example: A very healthy meal that is very nutritious but costs $30 will likely be suggested to the user as it performs the best in all categories except price, giving it the lowest overall ranking although it costs 3 times as much as any other meal.
+
+Problem 2: *How to prevent excessive repeated meal suggestions*
+
+* Solution 1: Add another parameter to each meal that tracks the number of times the user has eaten that meal over a week and ensure the number does not cross a threshold maximum.
+
+** Pros: New parameter created is easy to implement and is objectively able to limit the meal suggestions based on a threshold amount of times the food has been eaten.
+
+** Cons: Arbitary threshold number may not work well for different users who have different preferences of how often they mind eating the same meal over a week.
+
+* Solution 2: Provide a random meal suggestion based on the top few meals ranked by the preference score (within some tolerance to prevent low scoring meals from being accidentally suggested).
+
+** Pros: Very easy to implement and allows for a (somewhat) guaranteed way to mix up the meal suggestions such that the meal is not consumed too often.
+
+** Cons: Undeterministic meal suggestion that provides different meal suggestion given the same input parameters. There is still a small chance that the same meals can be suggested repeatedly.
+
+
 
 
 == Documentation
