@@ -5,17 +5,8 @@ import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;
 import duke.task.TaskList;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
 import java.text.ParseException;
-import java.util.Scanner;
 
 public class Duke  {
 
@@ -76,7 +67,6 @@ public class Duke  {
     public static void main(final String[] args) {
         Ui ui = new Ui();
         ui.execute();
-//        new Duke().run();
     }
 
     /**

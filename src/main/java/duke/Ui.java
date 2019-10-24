@@ -1,17 +1,7 @@
 package duke;
 
 import duke.Parser.ParserCommand;
-import duke.Parser.Parser;
 import duke.module.Lesson;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
-import duke.sports.MyPlan;
-import duke.task.TaskList;
-import duke.data.Storage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Ui {
