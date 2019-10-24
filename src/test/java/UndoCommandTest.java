@@ -1,8 +1,8 @@
+import gazeeebo.commands.tasks.UndoCommand;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.commands.UndoCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
