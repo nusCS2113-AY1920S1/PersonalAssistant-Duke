@@ -28,7 +28,7 @@ public class SearchCommand extends Command {
     }
 
     /**
-     * Executes the search command according to the mode and the command
+     * Executes the search command according to the mode and the command.
      * @param dollaData the dolla data
      * @throws Exception handle exception
      */

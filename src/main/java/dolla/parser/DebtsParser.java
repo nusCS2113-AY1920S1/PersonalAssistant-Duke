@@ -22,18 +22,18 @@ public class DebtsParser extends Parser {
     private static int undoFlag = 0;
 
     /**
-     * Instantiate a new command under the debt mode
-     * @param inputLine command line by the user
+     * Instantiate a new command under the debt mode.
+     * @param inputLine Command line by the user.
      */
     public DebtsParser(String inputLine) {
         super(inputLine);
     }
 
     /**
-     * Analise the input command and execute the command
-     * @param mode the current mode
-     * @param inputLine command line input by the user
-     * @return Command according to the user input
+     * Analise the input command and execute the command.
+     * @param mode The current mode.
+     * @param inputLine Command line input by the user.
+     * @return Command according to the user input.
      */
     @Override
     public Command handleInput(String mode, String inputLine) {
@@ -79,7 +79,7 @@ public class DebtsParser extends Parser {
     }
 
     /**
-     * Set the previous position of a log in the list
+     * Set the previous position of a log in the list.
      * @param prePosition the index of the log in the list
      */
     public static void setPrePosition(int prePosition) {
