@@ -76,6 +76,15 @@ public class SettleLoanCommand extends MoneyCommand {
         }
     }
 
+    /**
+     * This method settles the debt of a loan.
+     * Sets loan to settled if the entire debt is paid.
+     * @param loanList ArrayList of loans containing the loan
+     * @param serialNo Integer index of the loan
+     * @param amount Float amount of debt to be settled
+     * @throws ParseException If invalid date is parsed
+     * @throws DukeException When the amount is greater than the outstanding debt
+     */
     private void setLoanToSettled(ArrayList<Loan> loanList, int serialNo, float amount) throws ParseException, DukeException {
         if (amount > loanList.get(serialNo).getOutstandingLoan()) {
             throw new DukeException("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt\n");
