@@ -10,8 +10,14 @@ import java.util.ArrayList;
 public class CommandDisplayBalance extends Command {
 
     // Constructor
+    /**
+     * Constructor for CommandDisplayBalance subCommand Class.
+     * @param userInput The user input from the CLI
+     */
     public CommandDisplayBalance(String userInput) {
         this.userInput = userInput;
+        this.description = "Shows the current balance available in the wallet";
+        this.commandType = CommandType.BALANCE;
     }
 
     @Override

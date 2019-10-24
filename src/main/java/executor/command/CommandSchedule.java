@@ -14,9 +14,14 @@ public class CommandSchedule extends Command {
 
 
     //constructor
+    /**
+     * Constructor for CommandSchedule subCommand Class.
+     * @param userInput The user input from the CLI
+     */
     public CommandSchedule(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.VIEWSCHEDULE;
+        this.description = "Prints the schedule for the input date";
     }
 
     @Override
