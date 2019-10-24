@@ -10,8 +10,15 @@ public class CommandMarkDone extends Command {
     private String userInput;
 
     // Constructor
+    /**
+     * Constructor for CommandMarkDone subCommand Class.
+     * @param userInput The user input from the CLI
+     */
     public CommandMarkDone(String userInput) {
         this.userInput = userInput;
+        this.description = "Marks a certain task as done";
+        this.commandType = CommandType.DONE;
+
     }
 
     @Override

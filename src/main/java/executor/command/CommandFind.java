@@ -14,6 +14,8 @@ public class CommandFind extends Command {
      */
     public CommandFind(String userInput) {
         this.userInput = userInput;
+        this.description = "Parses input and loops through list of entries and checks if input matches any of them";
+        this.commandType = CommandType.FIND;
     }
 
     @Override

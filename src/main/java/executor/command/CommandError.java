@@ -6,8 +6,14 @@ import ui.Wallet;
 
 public class CommandError extends Command {
     // Constructor
-    public CommandError(String userInpt) {
+    /**
+     * Constructor for CommandError subCommand Class.
+     * @param userInput The user input from the CLI
+     */
+    public CommandError(String userInput) {
         this.userInput = userInput;
+        this.description = "Prints error message when program encounters an error";
+        this.commandType = CommandType.ERROR;
     }
 
     /**

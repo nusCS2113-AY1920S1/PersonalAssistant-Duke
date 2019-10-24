@@ -7,8 +7,14 @@ import ui.Wallet;
 public class CommandList extends Command {
 
     // Constructor
+    /**
+     * Constructor for CommandList subCommand Class.
+     * @param userInput The user input from the CLI
+     */
     public CommandList(String userInput) {
         this.userInput = userInput;
+        this.description = "Lists all tasks and receipts added by user";
+        this.commandType = CommandType.LIST;
     }
 
     @Override
