@@ -68,7 +68,8 @@ public class Ui {
     }
 
     /**
-     * This function prints out the heading when Daily Schedule option is chosen.
+     * This function prints out the heading when
+     * Daily Schedule option is chosen.
      */
     public void dailyScheduleHeading() {
         System.out.flush();
@@ -345,7 +346,7 @@ public class Ui {
      * Prints all possible actions with schedule once entered.
      * @param scheduleDate The date to see classes of the day
      */
-    public void showScheduleAllActions(String scheduleDate) {
+    public void showScheduleAllActions(final String scheduleDate) {
         System.out.println(
             "\nWhat would you like to do on " + scheduleDate + "?\n"
                 + "1. View all classes\n"
@@ -367,14 +368,16 @@ public class Ui {
      * Prints message when asking for the start time of a class.
      */
     public void showPromptStartTime() {
-        System.out.println("Please enter the start time in this format: dd/MM/yyyy HHmm");
+        System.out.println(
+            "Please enter the start time in this format: dd/MM/yyyy HHmm");
     }
 
     /**
      * Prints message when asking for the end time of a class.
      */
     public void showPromptEndTime() {
-        System.out.println("Please enter the end time in this format: dd/MM/yyyy HHmm");
+        System.out.println(
+            "Please enter the end time in this format: dd/MM/yyyy HHmm");
     }
 
     /**

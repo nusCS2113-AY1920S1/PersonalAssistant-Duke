@@ -65,9 +65,9 @@ public class ParserSchedule {
         schedule = new Schedule(scheduleStorage.loadSchedule());
         sc = new Scanner(System.in);
     }
-
     /**
      * Method to run when entering class of the day.
+     * @throws ParseException if user input is not in the correct format
      */
     public void runSchedule() throws ParseException {
         ui.showSchedulePromptDate();
@@ -109,7 +109,8 @@ public class ParserSchedule {
                     break;
 
                 case indexFour:
-                    System.out.println(schedule.delAllClass(scheduleDate, scheduleStorage));
+                    System.out.println(
+                        schedule.delAllClass(scheduleDate, scheduleStorage));
                     break;
 
                 case indexFive:

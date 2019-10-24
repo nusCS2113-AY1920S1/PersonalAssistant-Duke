@@ -146,13 +146,15 @@ public class Schedule {
      * @param location The location where the class is held
      * @param className The name of the class
      * @param scheduleStorage The object responsible for storing the class
+     * @throws ParseException if startTime or endTime is in wrong format
      * @return The outcome of the opeation,whether the class was added or not
      */
     public String addClass(final String startTime,
                            final String endTime,
                            final String location,
                            final String className,
-                           final Storage scheduleStorage) throws ParseException {
+                           final Storage scheduleStorage)
+        throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
             "dd/MM/yyyy HHmm");
         Date start = simpleDateFormat.parse(startTime);
