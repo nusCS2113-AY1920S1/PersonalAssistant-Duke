@@ -582,6 +582,7 @@ Signed up for a bond? Finding it difficult to keep up with the interest?
 No worries! *OwlMoney* allows efficient tracking of your semi-annual coupon interest!
 
 *Command Syntax*
+
 `/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /year YEARS`
 
 [WARNING]
@@ -781,9 +782,9 @@ Charged an expenditure to your credit card to earn cashback rebates? You can rec
 
 *Example*
 
-* `/add /cardexpenditure /amount 1.20 /from MYCARD /date 28/09/2019 /desc bubble tea /category Dining`
+* `/add /cardexpenditure /amount 1.20 /from POBB Tomorrow Card /date 28/09/2019 /desc bubble tea /category Dining`
 
-Adds an expenditure that charged to `MYCARD` dated `28/09/2019` that costs `$1.20` with the description of `bubble
+Adds an expenditure that charged to `POBB Tomorrow Card` dated `28/09/2019` that costs `$1.20` with the description of `bubble
 tea` and category of `Dining`.
 
 ===== Editing expenditures for credit cards `/edit /cardexpenditure`
@@ -807,13 +808,13 @@ To find out which transaction to edit, use the `/list` or `/find` function to fi
 
 *Example*
 
-* `/edit /cardexpenditure /from MYCARD /transno 2 /desc Uniwlo Shirt`
+* `/edit /cardexpenditure /from POBB Tomorrow Card /transno 2 /desc Uniwlo Shirt`
 
-Edits expenditure `2` that was charged to `MYCARD` to a new description of `Uniwlo Shirt`.
+Edits expenditure `2` that was charged to `POBB Tomorrow Card` to a new description of `Uniwlo Shirt`.
 
-* `/edit /cardexpenditure /from MYCARD /transno 5 /amount 3.50`
+* `/edit /cardexpenditure /from POBB Tomorrow Card /transno 5 /amount 3.50`
 
-Edits expenditure `5` that was charged to `MYCARD` to an amount of $`3.50`
+Edits expenditure `5` that was charged to `POBB Tomorrow Card` to an amount of $`3.50`
 
 ===== Deleting expenditures for credit cards `/cardexpenditure`
 
@@ -830,9 +831,9 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 
 *Example*
 
-* `/delete /cardexpenditure /from /MYCARD /transno 1`
+* `/delete /cardexpenditure /from /POBB Tomorrow Card /transno 1`
 
-Deletes an expenditure from `MYCARD` with transaction number `1`.
+Deletes an expenditure from `POBB Tomorrow Card` with transaction number `1`.
 
 ==== Financial Goal Management
 In this section, you'll be introduced to commands and parameters that help you to create financial goals to
@@ -1425,18 +1426,18 @@ AMOUNT] [/date DATE]`
 | *Adding expenditures for credit card*
 | Add an expenditure record to the credit card specified.
 | `/add /cardexpenditure /amount AMOUNT /from CARD_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
-| `/add /cardexpenditure /amount 1.20 /from MYCARD /date 28/09/2019 /desc bubble tea /category Dining`
+| `/add /cardexpenditure /amount 1.20 /from POBB Tomorrow Card /date 28/09/2019 /desc bubble tea /category Dining`
 
 | *Editing expenditures for credit card*
 | Edit an expenditure record tied to the credit card specified based on the new details given.
 | `/edit /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
 AMOUNT] [/date DATE]`
-| `/edit /cardexpenditure /from MYCARD /transno 2 /desc Uniwlo Shirt`
+| `/edit /cardexpenditure /from POBB Tomorrow Card /transno 2 /desc Uniwlo Shirt`
 
 | *Deleting expenditures for credit card*
 | Delete an expenditure record tied to the credit card specified.
 | `/delete /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER`
-| `/delete /cardexpenditure /from /MYCARD /transno 1`
+| `/delete /cardexpenditure /from /POBB Tomorrow Card /transno 1`
 
 |======
 
