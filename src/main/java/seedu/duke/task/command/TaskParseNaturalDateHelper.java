@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-public class TaskParseNaturalDate {
+public class TaskParseNaturalDateHelper {
 
     /**
      * Checks if the input is a short form for a day of the week.
@@ -77,13 +77,13 @@ public class TaskParseNaturalDate {
         String day = null;
         String timing = null;
         if (!timeString.contains("/") && !timeString.isEmpty()) {
-            timeString = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
-            if (timeString.contains(" ")) {
-                String[] tokens = timeString.split("\\s+", 3);
+            String timeStr = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
+            if (timeStr.contains(" ")) {
+                String[] tokens = timeStr.split("\\s+", 3);
                 day = tokens[0];
                 timing = tokens[1];
             } else {
-                day = timeString;
+                day = timeStr;
             }
         }
         if (isCorrectNaturalDate(day)) {

@@ -2,7 +2,7 @@ package seedu.duke.task;
 
 import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
-import seedu.duke.task.command.TaskParseNaturalDate;
+import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
@@ -185,9 +185,9 @@ public class TaskList extends ArrayList<Task> {
 
     private void setTimeByType(String description, Task task) throws CommandParseHelper.UserInputException {
         if (task.getTaskType() == Task.TaskType.Deadline) {
-            ((Deadline) task).setTime(TaskParseNaturalDate.getDate(description));
+            ((Deadline) task).setTime(TaskParseNaturalDateHelper.getDate(description));
         } else if (task.getTaskType() == Task.TaskType.Event) {
-            ((Event) task).setTime(TaskParseNaturalDate.getDate(description));
+            ((Event) task).setTime(TaskParseNaturalDateHelper.getDate(description));
         }
     }
 

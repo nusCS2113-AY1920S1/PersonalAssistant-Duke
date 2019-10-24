@@ -330,10 +330,8 @@ public class TaskCommandParseHelper {
     private static String extractSnooze(ArrayList<Command.Option> optionList) {
         String snooze = "";
         for (Command.Option option : optionList) {
-            if (option.getKey().equals("by")) {
-                if (snooze.equals("")) {
-                    snooze = option.getValue();
-                }
+            if (option.getKey().equals("by") && snooze.equals("")) {
+                snooze = option.getValue();
             }
         }
         return snooze;
@@ -370,7 +368,7 @@ public class TaskCommandParseHelper {
     public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
             String timeString = extractTime(optionList);
-            return TaskParseNaturalDate.getDate(timeString);
+            return TaskParseNaturalDateHelper.getDate(timeString);
         } catch (CommandParseHelper.UserInputException e) {
             return null;
         }
