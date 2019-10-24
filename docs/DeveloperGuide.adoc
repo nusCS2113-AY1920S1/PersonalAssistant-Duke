@@ -90,18 +90,17 @@ The `Command` component consists of:
 * `Instruction` to determine which process to execute.
 * `Process` to process the execution of the command.
 
-
 [[Design-Model]]
 === Model component
 [[fig-ModelClassDiagram]]
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-.  Both `ProjectManager` and `PaymentManager` takes in user input from `Command`.
-.  The `ProjectManager` class manages a HashMap of `Project` objects.
-.  Each `Project` object contains a `Budget` object and a HashMap of `Payee` objects.
-.  Each `Payee` object contains a HashMap of `Payments` objects.
-.  Results of the command execution by `ProjectManager` and `PaymentManager` are encapsulated as a `Project` and `Payments` objects respectively by `ProjectManager` and passed back to `Command`.
+.  Both `Project Manager` and `Payment Manager` takes in user command from `Command`.
+.  The `Project Manager` class manages a HashMap of `Project` objects.
+.  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
+.  Each `Payee` object contains an ArrayList of `Payments` objects.
+.  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
 
 [[Design-Storage]]
 === Storage component
@@ -111,6 +110,7 @@ image::ModelClassDiagram.png[]
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::Project
 === Project Feature
 The `project` feature is managed by the `ProjectManager` class, which is called by the
 `Process` class in the `Command` component.
@@ -138,27 +138,74 @@ image::AddProjectSeqDiagram.png[]
 
 The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
 
-=== History feature
+//tag::payee
+=== Payee Feature
+==== Payee Class
+The `Payee` Class object holds all information regarding the identity of the payee, as well as an ArrayList `payments` of `Payment` objects.
+When a new `Payee` object is created, it is stored in the respective HashMap `managerMap` for the specific project the payee is being paid for. +
+The following are the class members storing the payee's identity information.
 
-The `history` feature is implemented to keep track of the input commands entered by the user. It is facilitated by the `Storage` class which is called by the `Process` class in the `command` component.
+** Name : `name`
+** Email Address : `email`
+** Matriculation Number : `matricNum`
+** Phone Number : `phoneNum`
 
-This feature supports the following commands:
-* `history` - lists all the input commands(with the date and time beside) entered by the user.
-* (proposed) `view history h/DATE to DATE` - lists the input commands entered by the user during a certain time period.
-* (proposed) `delete history h/DATE to DATE` - deletes the input commands entered by the user during a certain time period.
+==== Payments Class
+The `Payments` Class object stores the details of the payment being made. A `Payments` object once constructed will be added to the ArrayList `payments` member of the specified payee the payment is being made to.
+The following are the class members storing the payment's details.
 
-The use case for the command `history` is given below to demonstrate how each component interacts with each other.
+** Description of Payment : `item`
+** Amount being paid : `cost`
+** Invoice Number : `inv`
+** Due date for payment : `deadline`
 
-1. User executes the command `history` in the CLI. The input is passed from the `Ui` to `Command` where the input will be parsed to determine the command to execute.
+Note that the due date is automatically set to 30 days after the creation of the `Payments` object.
 
-2. The `Command` component will process the `history` command and load the text file consisting all the input commands from the `Storage` class into an arraylist.
+==== Field and Status Enums
+The feature is also supported by 2 enum objects, `Field`; +
 
-3. The arraylist is then passed to `Ui` for printing the list of input commands to the user.
+** PAYEE
+** EMAIL
+** MATRIC
+** PHONE
+** ITEM
+** COST
+** INV
+** DEADLINE
+** STATUS
 
-==== Design Considerations
-===== Aspect: How `view history h/DATE to DATE` is implemented
-* **Alternative 1(proposed): The application loops through the arraylist of all the input commands loaded from the txt file in storage. This is done to find the index(i1) of the first command entered on the first/earlier `DATE` and the index(i2) of the last command entered on the second/later `DATE`.
-Then commands in the for loop from index i1 to i2 are added to a new arraylist. This arraylist is printed to the user. 
+and `Status`: +
+
+** PENDING
+** APPROVED
+** OVERDUE
+
+
+==== Payee Feature Commands
+The payee feature supports the following commands:
+
+* `add payee p/name e/email m/matricNum ph/phoneNum` -- Adds a new payee to the record.
+* `add payment p/name i/item c/cost v/inv` -- Adds a new payee to the record.
+* `delete payee p/name` -- Deletes a payee from the record.
+* `delete payment p/name v/inv` -- Deletes a payment from the record.
+* `edit p/name v/inv f/field r/replacement` -- Edits data for an existing payee in the record.
+* `find p/name` -- Lists all payments for specified payee in the record.
+
+==== PaymentManager
+The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the payee feature commands (Section 4.2.4). The `PaymentManager` class implements the following methods:
+
+* PaymentManager#addPayee
+* PaymentManager#addPayments
+* PaymentManager#deletePayee
+* PaymentManager#deletePayments
+* PaymentManager#editPayee
+* PaymentManager#findPayee
+
+A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other. +
+1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Command where the input will be parsed to determine the command to execute. +
+2. The PaymentManager is invoked, and in this case, the addPayee method is called. The method checks which project is currently selected and constructs a new Payee object. The Payee object is pushed into the current project's managerMap, a HashMap of all the project's payees. +
+3. Assuming a valid input was passed from the user, a confirmation message showing the summary of the details of the newly created Payee would be printed. Else, an error will prompt the user to try again and provide the correct template for the command they attempted. +
+
 
 //tag::deadline
 === Add Invoices
@@ -353,8 +400,8 @@ Use case ends.
 
 *MSS*
 
-1.  User opens the JAR file.
-2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+`1.  User opens the JAR file.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “`Payments” and “Payment History”.
 3.  User types in the command line the deadline description and time.
 4.  AlphaNUS adds the deadline.
 +
