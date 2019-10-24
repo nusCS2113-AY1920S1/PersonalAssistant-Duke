@@ -9,8 +9,6 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
-import UserElements.Parser;
-import UserElements.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,13 +25,11 @@ public class EventList {
      * list of Model_Class.Event objects currently stored.
      */
     private ArrayList<Event> eventArrayList;
-    
-    /** 
+
+    /**
      * Comparator function codes
      */
-	private static final int EQUAL = 0;
-	private static final int GREATER_THAN = 1;
-	private static final int SMALLER_THAN = 2;
+    private static final int GREATER_THAN = 1;
 
     /**
      * Filter type codes
@@ -41,14 +37,12 @@ public class EventList {
     private static final int DATE = 0;
     private static final int TYPE = 1;
 
-    protected int ONE_SEMESTER_DAYS = 16*7;
-
     /**
      * Creates new Model_Class.EventList object.
      *
      * @param inputList list of strings containing all information extracted from save file
      */
-    public EventList(ArrayList<String> inputList, Parser parser) {
+    public EventList(ArrayList<String> inputList) {
         //magic characters for type of event
         final char TODO = 'T';
         final char CONCERT = 'C';
@@ -57,27 +51,22 @@ public class EventList {
         final char EXAM = 'E';
         final char RECITAL = 'R';
 
-        eventArrayList = new ArrayList<Event>();
+        eventArrayList = new ArrayList<>();
         for (String currLine : inputList) {
             boolean isDone = currLine.substring(0, 3).equals("✓");
             char eventType = currLine.charAt(3);
 
-            if (eventType == TODO) { //for special todo type event (single date string)
+            if (eventType == TODO) {
                 String[] splitString = currLine.split(" ");
                 String description = splitString[1];
                 String date = splitString[2];
                 eventArrayList.add(new ToDo(description, isDone, date));
+
             } else { //for all other events
                 String[] splitString = currLine.split(" ");
                 String description = splitString[1];
                 String startDateAndTime = splitString[2] + " " + splitString[3];
-                String endDateAndTime;
-
-                if (splitString.length == 6) {
-                    endDateAndTime = splitString[4] + " " + splitString[5];
-                } else {
-                    endDateAndTime = "";
-                }
+                String endDateAndTime = splitString[4] + " " + splitString[5];
 
                 switch (eventType) {
                     case CONCERT:
@@ -105,42 +94,55 @@ public class EventList {
     }
 
     /**
+     * Edit an event's description, start time and end time in the list.
+     *
+     * @param eventIndex     Index of the event to be edited.
+     * @param newDescription The new description.
+     */
+    public void editEvent(int eventIndex, String newDescription) {
+        Event tempEvent = this.eventArrayList.get(eventIndex);
+        tempEvent.editEvent(newDescription);
+        this.eventArrayList.set(eventIndex, tempEvent);
+    }
+
+    /**
      * Checks for a clash, then adds a new event if possible.
      *
      * @param event Model_Class.Event object to be added
-     * @return boolean signifying whether or not the event was added successfully. True if succeeded
-     * and false if not
      */
-    public boolean addEvent(Event event) throws ClashException{
+    public void addEvent(Event event) throws Exception {
+        if (event.getStartDate().getEventJavaDate().compareTo(event.getEndDate().getEventJavaDate()) == 1) {
+            throw new Exception();
+        }
+
         Event clashEvent = clashEvent(event); //check the list for a schedule clash
         if (clashEvent == null) { //null means no clash was found
             this.eventArrayList.add(event);
-            return true; //succeeded
         } else { //if clash is found, notify user via terminal.
             throw new ClashException(clashEvent);
         }
     }
 
-    public void addNewTodo(Event event, UI ui) {
+    public void addNewTodo(Event event) {
         this.eventArrayList.add(event);
     }
 
     /**
      * Adds recurring events to the list.
-     *
-     * @param event Event to be added as recursion.
+     *  @param event  Event to be added as recursion.
      * @param period Period of the recursion.
      */
-    public boolean addRecurringEvent(Event event, int period) throws ClashException {
+    public void addRecurringEvent(Event event, int period) throws ClashException {
         Calendar calendarStartDate = Calendar.getInstance();
         Calendar calendarEndDate = Calendar.getInstance();
         calendarStartDate.setTime(event.getStartDate().getEventJavaDate());
         calendarEndDate.setTime(event.getEndDate().getEventJavaDate());
 
-        ArrayList<Event> tempEventList = new ArrayList<Event>();
+        ArrayList<Event> tempEventList = new ArrayList<>();
 
         Event newEvent = null;
-        for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
+        int ONE_SEMESTER_DAYS = 16 * 7;
+        for (int addEventCount = 0; addEventCount * period <= ONE_SEMESTER_DAYS; addEventCount++) {
             EventDate toFormatCalendarStartDate = new EventDate(calendarStartDate.getTime());
             EventDate toFormatCalendarEndDate = new EventDate(calendarEndDate.getTime());
             if (event.getType() == 'L') {
@@ -149,9 +151,9 @@ public class EventList {
             } else if (event.getType() == 'P') {
                 newEvent = new Practice(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(),
                         toFormatCalendarEndDate.getUserInputDateString());
-                tempEventList.add(newEvent);
             }
 
+            assert newEvent != null;
             if (clashEvent(newEvent) == null) {
                 tempEventList.add(newEvent);
             } else {
@@ -161,23 +163,20 @@ public class EventList {
             calendarEndDate.add(Calendar.DATE, period);
         }
 
-        for (Event tempEvent : tempEventList) {
-            this.eventArrayList.add(tempEvent);
-        }
-        return true;
+        this.eventArrayList.addAll(tempEventList);
     }
 
     /**
      * Checks the list of events for any clashes with the newly added event. If
      * there is a clash, return a reference to the event, if not, return null.
+     *
      * @param checkingEvent newly added event
      * @return event that causes a clash
      */
     private Event clashEvent(Event checkingEvent) {
         /*  NOTE: DateObj userInputString is arranged as follows: dd-MM-yyyy HHmm.
             for now, only have one date with differing start time and end time, date in startDateObj will be same as
-            in endDateObj
-        */
+            in endDateObj */
 
         //split new event date string into date and time.
         String[] newEventStartDateTime = checkingEvent.getStartDate().getUserInputDateString().split(" ");
@@ -191,30 +190,37 @@ public class EventList {
 
             String[] currEventStartDateTime = currEvent.getStartDate().getUserInputDateString().split(" ");
             String[] currEventEndDateTime = currEvent.getEndDate().getUserInputDateString().split(" ");
-            if (newEventDate.equals(currEventStartDateTime[0])) { //if date is same for event to be added and event in list.
-                int currEventStartTime = Integer.parseInt(currEventStartDateTime[1]); //assign time
-                int currEventEndTime = Integer.parseInt(currEventEndDateTime[1]);
 
-                if (newEventStartTime > currEventStartTime) { //new event starts after current event
-                    if (currEventEndTime > newEventStartTime) {
-                        return currEvent;
-                    }
-                } else if (newEventStartTime < currEventStartTime){ //new event starts before current event
-                    if (newEventEndTime > currEventStartTime) {
-                        return currEvent;
-                    }
-                } else { //new event starts at the same time as current event
-                    return currEvent;
-                }
+            if (newEventDate.equals(currEventStartDateTime[0]) && //check for same date
+                    timeClash(newEventStartTime, newEventEndTime, currEventStartDateTime[1], currEventEndDateTime[1])) { //check for time clash
+                return currEvent; //clash found
             }
         }
-        return null;
+        return null; //no clash found
+    }
+
+    /**
+     * Checks for a clash in time, returns appropriate boolean.
+     */
+    private boolean timeClash(int newEventStartTime, int newEventEndTime, String s, String s1) {
+        int currEventStartTime = Integer.parseInt(s); //assign time
+        int currEventEndTime = Integer.parseInt(s1);
+
+        if (newEventStartTime > currEventStartTime) { //new event starts after current event starts
+            return currEventEndTime > newEventStartTime; //check if new event starts before current event ends
+
+        } else if (newEventStartTime < currEventStartTime) { //new event starts before current event starts
+            return newEventEndTime > currEventStartTime; //check if new event ends after current event starts
+
+        } else { //new event starts at the same time as current event
+            return true;
+        }
     }
 
     /**
      * sorts the list of events/tasks according to date, in increasing order.
      */
-    public void sortList(){
+    public void sortList() {
         Collections.sort(eventArrayList);
     }
 
@@ -271,15 +277,14 @@ public class EventList {
     }
 
     /**
-     * Gets a filtered list of events based on a predicate.
-     * @return String containing the filtered list of events, separated by a newline.
+     * @return String containing the filtered list of events, each separated by a newline.
      */
-    public String filteredList(Predicate<Object> predicate, int filterCode) {
+    private String filteredList(Predicate<Object> predicate) {
         String filteredEvents = "";
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else if (filterCode == DATE) {
+            else {
                 if (eventArrayList.get(i) != null) {
                     if (!predicate.check(eventArrayList.get(i).getStartDate())) {
                         continue;
@@ -287,27 +292,31 @@ public class EventList {
                 } else {
                     continue;
                 }
-            } else if (filterCode == TYPE) {
-                if (!predicate.check(eventArrayList.get(i).getType())) {
-                    continue;
-                }
             }
-            j = i+1;
+            j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
         return filteredEvents;
     }
-    
+
+    /**
+     * @return String containing events found in the next 3 days
+     */
     public String getReminder() {
         String systemDateAndTime = new Date().toString();
-    	EventDate limit = new EventDate(systemDateAndTime);
-    	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getEventJavaDate().toString();
-    	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
-    	String res = "The time now is " + systemDateAndTime + ".\n" + 
-    	    "Here is a list of events you need to complete in the next 3 days (by " + 
-    		reminderDeadline + "):\n" + filteredList(pred, DATE);
-    	return res;
+        EventDate limit = new EventDate(systemDateAndTime);
+        limit.addDaysAndSetMidnight(3);
+        String reminderDeadline = limit.getEventJavaDate().toString();
+        Predicate<Object> objectPredicate = new Predicate<>(limit, GREATER_THAN);
+        return "The time now is " + systemDateAndTime + ".\n" +
+                "Here is a list of events you need to complete in the next 3 days (by " +
+                reminderDeadline + "):\n" + filteredList(objectPredicate);
     }
-    
+
+    /**
+     * Used to reinstate deleted event in case of failure to reschedule
+     */
+    public void undoDeletionOfEvent(Event event) {
+        eventArrayList.add(event);
+    }
 }

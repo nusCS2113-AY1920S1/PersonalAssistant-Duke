@@ -1,4 +1,4 @@
-= NAME - Developer Guide
+= MisterMusik - Developer Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -17,11 +17,143 @@ endif::[]
 By: `Team CS2113T-F11-4`      Since: `Aug 2019`      Licence: `MIT`
 
 
+== Setting up
 
-== Target User Profile
+
+== Design
+=== Overall Architecture
+There are three main components in the overall architecture of the application.
+
+`Duke` class: contains the `main()` class of the application.
+* Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
+* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui). 
+
+`Events` Package: contains classes pertaining to the events.
+
+`UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
+
+=== UI component
+=== Model component
+=== Storage component
+=== Common classes
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Calendar Table
+The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
+starting from a specified day, including the events within this time period. +
+
+Given below is an example of how a calendar table is generated and printed.
+
+Step 1. User enters `calendar` to start the initialization process of a calendar table with today as the starting day.
+
+Step 2. The program checks the date of the given start day to generate a list of 7 days, starting from given day.
+It also gets the day of the 7 days (e.g. Monday, Tuesday, etc). This sets the dates info of the table.
+
+Step 3. The program find all events in the `EventList` that is within the 7 days,
+and store them correspondingly into 7 queues, representing the 7 days. This is for further printing.
+
+Step 4. The program now have all the information of these 7 days and is then able to print the calendar table.
+
+. It initiates an empty string to store all info of the calendar and for later printing.
+. It puts the header of he table into the string.
+. It puts the days of week and dates info into the string.
+. To add in events, each event takes 3 rows (time info, description, and dashes) to print. For each 3 rows,
+there can be at most 7 events. The events are added per 3 rows. For each 3 rows, the program creates an array of 3 * 7
+to store the details. Whenever there exists an event at the position of a day, details of the event will be added to
+the corresponding 3 rows (1 column) of the array. The array is then added by rows into the string.
+
+=== Check
+
+
+=== Clash handling
+==== Activity diagram
+====
+                    +-----------+
+                    |  addEvent |
+                    |   called  |
+                    +-----------+
+                          |
+                          |
+                          v             found
+                    +-----------+   matching date   +------------+
+          +---------|  Search   | ----------------> |   Compare  |
+          |         |   List    |    +--------------|    times   |
+          |         +-----------+    |              +------------+
+          |                          |            Found     |
+     else |                      else|         overlapping  |
+          |         +----------------+            times     |
+          |         |                                       |
+          v         v                                       v
+    +-----------------+                         +----------------+
+    |      Return     |                         |     Return     |
+    |       null      |                         | clashing event |
+    +-----------------+                         +----------------+
+            |                                            |
+            |                                            |
+            |                                            |
+            v                                            v
+    +-----------------+                         +----------------+
+    |    Add Event    |                         |     Cancel     |
+    |     to list     |                         |   event entry  |
+    +-----------------+                         +----------------+
+            |                                            |
+            |                                            |
+            +----------------|        |------------------+
+                             |        |
+                             v        v
+                            +-----------+
+                            | Await new |
+                            |  Command  |
+                            +-----------+
+====
+
+==== How is it implemented
+The program is able to detect clashes when creating new events. When the user enters the command
+to add a new Event entry to the list, the method EventList.addEvent is called from the Command
+class upon execution.
+
+The addEvent method will then call the clashEvent method to check the
+existing entries for any clash in schedule. This is done by first searching the list for an event
+that has a matching date with the new event.
+
+If no such event is found, the method returns a null value, indicating that there is no schedule clash.
+If an event is found with a matching date, the method then calls the EventList.timeClash method to check whether
+the two events have overlapping time periods. This is done by simple mathematical comparison using > and
+< operators, comparing the times in 24h format.
+
+If there is any overlap, the timeClash method will return a true boolean value, indicating there is a schedule clash.
+The clashEvent method then returns the specific task that caused the clash so that the details of the clash can
+be printed for the user, in order for him/her to fix the schedule conflict.
+
+==== Why it is implemented this way
+The process of checking for a clash was implemented as small, separate abstracted methods so as to ensure scalability,
+easier testing, and to reduce dependencies.
+
+Because of the way the clash detection was split into multiple small methods, it was easy to implement this clash
+detection as a part of adding recurrent events (to check for clashes when recurrent events were automatically
+entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
+an existing event, so that he/she does not inadvertently create a new schedule conflict).
+
+== Documentation
+
+
+== Testing
+
+
+== Dev Ops
+
+
+[appendix]
+== Product Scope
+=== Target User Profile
 <NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
 The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
 
+
+[appendix]
 == User Stories
 . As a busy music student with multiple classes, I want to be able to track my practice sessions so that I won’t miss any trainings.
 . As a music student with a heavy workload, I want to be able to track my upcoming recitals and their details so I can prioritize which pieces/what techniques to practice and focus on.
@@ -30,10 +162,12 @@ The program is designed to automate and streamline most of the process in schedu
 . As a student who wants to categorize what I learn in classes, I want to be able to take notes and organize them into different categories, so that I can easily review it anytime.
 . As a student who wishes to be aware of his upcoming events, I wish to be able to view my schedule within a selected number of weeks so that I can plan for it.
 
+
+[appendix]
 == Use cases
 
 === Entering a practice schedule into the system
-. User enters a command to add a practice followed by a date, and the details of the intended practice. 
+. User enters a command to add a practice followed by a date, and the details of the intended practice.
 . System prompts user about whether or not he wishes to make this a recurring practice (e.g every Tuesday).
 . User responds to the prompt accordingly.
 . System adds practice session to a stored list and saves it to a file on the user’s hard drive.
@@ -55,7 +189,7 @@ Extension 3.2: System detects a clash with another recital or an examination at 
 3.2.3. System updates the stored list and saves it to the file on the user’s hard disk.
 Use case ends
 
-=== Making notes    
+=== Making notes
 . User chooses to enter a command to start a note-taking/viewing session
 . System shows the user a list of categories (directories) of notes that have been made previously and prompts the user to enter one or create a new file.
 . User makes a choice to enter a category directory or create a new one.
@@ -90,13 +224,20 @@ Extension 1.1: System detects a clash with the examination date entered and anot
 1.1.2. User reschedules the specified event by entering a date and time. The user is also able to delete an event with the delete command to free up the schedule if he wishes to do so.
 1.1.3. System once again checks for clashes and repeats the process of rescheduling if necessary.
 
-=== Rate and comment on the efficiency of practice sessions 
+=== Rate and comment on the efficiency of practice sessions
 . User enters a command to rate a practice session
 . System brings up a list of practice sessions that the user has already completed
 . User selects a practice session
 . System displays the details of the selected practice session and prompts the user to select an efficiency rating along with any additional notes
 . User rates the efficiency of the practice session and takes down any notes or feedback from their instructor
 . System saves the entry onto the hard disk
+
+=== Edit descriptions of any existing event
+. User enters a command to edit the description of an event
+. System edits corresponding description and prompts user of success
+
+Extension 1: System detects a clash of incorrect format entered by the user.
+1.1. System will prompt the user that the entered format was incorrect.
 
 Extensions 4.1: Selected practice session has already been rated.
 4.1.1. If the selected practice session has already been rated, the system notifies the user and allows them to edit.
@@ -106,27 +247,21 @@ Extensions 4.1: Selected practice session has already been rated.
 Extensions 5.1: User inputs an invalid rating.
 5.1.1. System displays an error message to inform the user of the correct rating format until a valid input is detected.
 
+=== Viewing all events in the coming 7 days.
+. User enters a command to view all events in the next 7 days.
+. System shows all events in the next 7 days in a calendar table.
+
+
+[appendix]
 == Non-functional requirements
 . System should work on windows and linux.
 . System response within 1 second.
 . Usable by non tech-savvy individuals.
-. Clear user prompts 
+. Clear user prompts
 . Visually pleasing display
 
-== Design
 
-=== Overall Architecture
-
-There are three main components in the overall architecture of the application.
-
-`Duke` class: contains the `main()` class of the application.
-* Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
-* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui). 
-
-`Events` Package: contains classes pertaining to the events.
-
-`UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
-
+[appendix]
 == Instructions for Manual Testing
 
 === Launch and Shutdown
@@ -134,7 +269,7 @@ There are three main components in the overall architecture of the application.
 .. Open Duke.java in src.
 .. Run the file +
    Expected: The Welcome Message is printed in stdout and the system requests for an input.
-   
+
 . Shutdown
 .. Key in `bye` as input. +
    Expected: The Goodbye Message ('Bye. Hope to see you again soon!') is printed in stdout and the process exits.
@@ -146,42 +281,45 @@ There are three main components in the overall architecture of the application.
 
 === Add a Task
 . Add Todo +
-   Key in `Todo tdtask` +
+   Key in `todo tdtask /01-01-2011 0100` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [T][x] tdtask +
-   Now you have <previous number of items + 1> items in your list. 
+   [x][T] tdtask  BY: Sat, 01 Jan 2011, 01:00 +
+   Now you have <previous number of items + 1> items in the list.
 
 . Add Exam +
    Key in `exam Music Rudiments /08-08-2018 0800 0900` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [E][x] Music Rudiments (on 08-08-2018, 0800 - 0900) +
+   [x][E] Music Rudiments  START: Wed, 08 Aug 2018, 08:00 END: Wed, 08 Aug 2018, 09:00 +
    Now you have <previous number of items + 1> tasks in the list.
-   
+
 . Add Practice session +
    Key in `practice morningprac /07-08-2018 0800 0900` +
-   Expected: Added a recurring practice session that lasts for one semester.
-   
+   Expected: Output should be +
+   Got it. I've added this event: +
+   [x][P] morningprac  START: Tue, 07 Aug 2018, 08:00 END: Tue, 07 Aug 2018, 09:00 +
+   Now you have <previous number of items + 1> tasks in the list.
+
 . Add Concert +
    Key in `concert Noon Concert /06-06-2016 1200 1400` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [C][x] Noon Concert (on 06-06-2016, 1200 - 1400) +
+   [x][C] Noon Concert  START: Mon, 06 Jun 2016, 12:00 END: Mon, 06 Jun 2016, 14:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Recital +
    Key in `recital Evening Recital /07-07-2017 1900 2100` +
    Expected: Output should be +
    Got it. I've added this task: +
-   [R][x] Evening Recital (on 07-07-2017, 1900 - 2100) +
+   [x][R] Evening Recital  START: Fri, 07 Jul 2017, 19:00 END: Fri, 07 Jul 2017, 21:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 . Add Lesson +
    Key in `lesson Class /09-09-2019 0900 0100` +
    Expected: Output should be +
    Got it. I’ve added this task: +
-   [L][x] Class (on 09-09-2019, 0900 - 1000) +
+   [x][L] Class  START: Mon, 09 Sep 2019, 09:00 END: Mon, 09 Sep 2019, 01:00 +
    Now you have <previous number of items + 1> tasks in the list.
 
 === Set a Task as done
@@ -200,4 +338,24 @@ Expected: Prints a list of tasks to be completed in the next three days.
 Key in view `<date>`, where `<date>` has the format dd/MM/yyyy. +
 Expected: Prints a list of tasks that occurs on the given `<date>`.
 
-  
+=== Edit description of an event
+Key in `<edit> <event index>/<new description>`.+
+Expected: Prints the success of editing event of index `<event index>`.
+
+=== Reschedule an event
+Key in `<reschedule> <event index> <new date> <new start time> <new end time>`,
+where `<new date> <new start time> <new end time>` has the format dd-MM-yyyy HH:mm HH:mm. +
+Expected: Prints the success of rescheduling event of index `<event index>`.
+
+=== Check the next 3 free days
+Key in `check`. +
+Expected: Prints the next 3 days without any events.
+
+=== View the calendar table of the next 7 days.
+Key in `calendar`.+
+Expected: Prints the calendar table containing all events of the next 7 days,
+where the first column of the table is the current day.
+
+[appendix]
+== Instructions for Manual Testing
+=== Launch and Shutdown

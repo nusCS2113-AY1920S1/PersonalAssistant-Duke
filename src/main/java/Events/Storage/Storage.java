@@ -56,7 +56,7 @@ public class Storage {
         }
         System.out.print(ui.getLineSeparation());
 
-        ArrayList<String> readFromFile = new ArrayList<String>();
+        ArrayList<String> readFromFile = new ArrayList<>();
 
         String fileContent;
         if (this.scanFile != null) {
@@ -72,8 +72,8 @@ public class Storage {
     /**
      * Saves current information to the storage file.
      *
-     * @param events Eventlist where information is extracted to be saved
-     * @param ui    User interface
+     * @param events EventList where information is extracted to be saved
+     * @param ui     User interface
      */
     public void saveToFile(EventList events, UI ui) {
         String toWriteToFile = "";

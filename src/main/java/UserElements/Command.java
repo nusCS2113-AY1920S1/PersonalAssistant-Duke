@@ -8,6 +8,7 @@ import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.EventDate;
+import Events.Formatting.CalendarView;
 import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
@@ -125,7 +126,15 @@ public class Command {
                 break;
 
             case "reschedule":
-                rescheduleEvents(events, ui);
+                rescheduleEvent(events, ui);
+                break;
+
+            case "edit":
+                editEvent(events, ui);
+                break;
+
+            case "calendar":
+                printCalendar(events, ui);
                 break;
 
             default:
@@ -139,6 +148,27 @@ public class Command {
         }
     }
 
+    private void printCalendar(EventList events, UI ui) {
+        CalendarView calendarView = new CalendarView(events);
+        calendarView.setCalendarInfo();
+        ui.printCalendar(calendarView.getStringForOutput());
+    }
+
+    /**
+     * Command to edit an event in the list.
+     */
+    private void editEvent(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String[] splitInfo = continuation.split("/");
+            int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
+            String newDescription = splitInfo[1];
+            events.editEvent(eventIndex, newDescription);
+            ui.printEditedEvent(eventIndex + 1, events.getEvent(eventIndex));
+        }
+    }
+
     private void searchEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -148,22 +178,25 @@ public class Command {
             int viewIndex = 1;
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(searchKeyWords)) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";    
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                 }
                 viewIndex++;
             }
-            
+
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
     }
 
+    /**
+     * Finds the next 3 free days in the schedule and passes them to UI class to be printed.
+     */
     public void checkFreeDays(EventList events, UI ui) {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDay = formatter.format(dayToCheckIfFree.getTime());
         EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
-        Queue<String> daysFree = new LinkedList<String>();
+        Queue<String> daysFree = new LinkedList<>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
             boolean isFree = true;
@@ -182,6 +215,9 @@ public class Command {
         ui.printFreeDays(daysFree);
     }
 
+    /**
+     * Searches list for events found in a singular date, passes to UI for printing.
+     */
     public void viewEvents(EventList events, UI ui) {
         if (continuation.isEmpty()) {
             ui.eventDescriptionEmpty();
@@ -209,50 +245,59 @@ public class Command {
 
             try {
                 EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
-                Event newEvent = null;
-                switch (eventType) {
-                    case 'L':
-                        newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'C':
-                        newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'P':
-                        newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'E':
-                        newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
-                    case 'R':
-                        newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
-                                entryForEvent.getEndDate());
-                        break;
+                Event newEvent = NewEvent(eventType, entryForEvent); //instantiate new event
+                assert newEvent != null;
+
+                if (entryForEvent.getPeriod() == NO_PERIOD) { //non-recurring
+                    events.addEvent(newEvent);
+                    ui.eventAdded(newEvent, events.getNumEvents());
+                } else { //recurring
+                    events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                    ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                 }
 
-                if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                    try {
-                        events.addEvent(newEvent);
-                        ui.eventAdded(newEvent, events.getNumEvents());
-                    } catch (ClashException e) {
-                        ui.scheduleClash(e.getClashEvent());
-                    }
-                } else { //add recurring event
-                    try {
-                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    } catch (ClashException e) {
-                        ui.scheduleClash(e.getClashEvent());
-                    }
-                }
-
-            } catch (StringIndexOutOfBoundsException outOfBoundsE) {
+            } catch (ClashException e) { //clash found
+                ui.scheduleClash(e.getClashEvent());
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | NullPointerException e) {
                 ui.eventFormatWrong();
+            } catch (Exception e) { //start time is after end time
+                ui.eventEndsBeforeStart();
             }
         }
+    }
+
+    /**
+     * Instantiates a new event based on details passed as parameter
+     *
+     * @param entryForEvent contains all necessary info for creating new event
+     * @return instantiated event
+     */
+    private Event NewEvent(char eventType, EntryForEvent entryForEvent) {
+        Event newEvent = null;
+        switch (eventType) {
+            case 'L':
+                newEvent = new Lesson(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'C':
+                newEvent = new Concert(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'P':
+                newEvent = new Practice(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'E':
+                newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+            case 'R':
+                newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                        entryForEvent.getEndDate());
+                break;
+        }
+
+        return newEvent;
     }
 
     public void createNewTodo(EventList events, UI ui) {
@@ -262,7 +307,7 @@ public class Command {
         }
         EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
         Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addNewTodo(newEvent, ui);
+        events.addNewTodo(newEvent);
         ui.eventAdded(newEvent, events.getNumEvents());
     }
 
@@ -295,39 +340,36 @@ public class Command {
         }
     }
 
-    public void rescheduleEvents(EventList events, UI ui) {
+    public void rescheduleEvent(EventList events, UI ui) {
+        Event copyOfEvent = null, newEvent = null;
         try {
-            String[] rescheduleDetail = continuation.split(" ");
+            String[] rescheduleDetail = continuation.split(" "); //split details by space (dd-MM-yyyy HHmm HHmm)
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
-            Event tempEvent = events.getEvent(eventIndex);
-            events.deleteEvent(eventIndex);
-            EventDate newStartDate;
-            EventDate newEndDate;
+            copyOfEvent = events.getEvent(eventIndex); //copy of event in case rescheduling fails
 
-            if (rescheduleDetail.length > 2) {
-                newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
-                newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
+            newEvent = events.getEvent(eventIndex); //event to be used as a replacement.
 
-            } else {
-                newStartDate = new EventDate(rescheduleDetail[1]);
-                newEndDate = null;
-            }
+            EventDate newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
+            EventDate newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
 
-            tempEvent.rescheduleStartDate(newStartDate);
-            tempEvent.rescheduleEndDate(newEndDate);
+            newEvent.rescheduleStartDate(newStartDate); //reschedule start date & time
+            newEvent.rescheduleEndDate(newEndDate); //reschedule end date & time
 
-            try {
-                events.addEvent(tempEvent);
-                ui.rescheduleEvent(tempEvent);
-            } catch (ClashException clashE) {
-                ui.scheduleClash(clashE.getClashEvent());
-            }
+            events.deleteEvent(eventIndex); //delete event from list before continuing
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            ui.rescheduleFormatWrong();
+            return;
+        }
 
-        } catch (IndexOutOfBoundsException outOfBoundsE) {
-            ui.noSuchEvent();
-
-        } catch (NumberFormatException notInteger) {
-            ui.notAnInteger();
+        try {
+            events.addEvent(newEvent);
+            ui.rescheduleEvent(newEvent);
+        } catch (ClashException clashE) {
+            ui.scheduleClash(clashE.getClashEvent());
+            events.undoDeletionOfEvent(copyOfEvent); //reinstate previous event when rescheduling fails
+        } catch (Exception e) {
+            ui.eventEndsBeforeStart();
+            events.undoDeletionOfEvent(copyOfEvent); //reinstate previous event when rescheduling fails
         }
     }
 
@@ -367,7 +409,7 @@ public class Command {
         /**
          * contains all info regarding an entry for a non-recurring event
          *
-         * @return
+         * @return organized entryForEvent information
          */
         public EntryForEvent invoke() {
             int NON_RECURRING = -1;
@@ -393,7 +435,7 @@ public class Command {
             } else {
                 period = Integer.parseInt(splitEvent[2]);
             }
-            return this; 
+            return this;
         }
     }
 }

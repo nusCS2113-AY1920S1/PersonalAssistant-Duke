@@ -1,13 +1,12 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
-import java.util.Comparator;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
-public abstract class Event implements Comparable<Event>{
+public abstract class Event implements Comparable<Event> {
     protected String description;
     protected boolean isDone;
     protected EventDate startEventDate;
@@ -21,7 +20,7 @@ public abstract class Event implements Comparable<Event>{
      * @param isDone      boolean representing state of event completion
      * @param dateAndTime string representing date of event
      */
-    public Event(String description, boolean isDone, String dateAndTime) { 
+    public Event(String description, boolean isDone, String dateAndTime) {
         this.description = description;
         this.isDone = isDone;
         this.startEventDate = new EventDate(dateAndTime);
@@ -32,10 +31,10 @@ public abstract class Event implements Comparable<Event>{
     /**
      * Creates event with two date input
      *
-     * @param description event description
-     * @param isDone      boolean representing state of event completion
+     * @param description      event description
+     * @param isDone           boolean representing state of event completion
      * @param startDateAndTime string representing start date of event
-     * @param endDateAndTime string representing end date of event
+     * @param endDateAndTime   string representing end date of event
      */
     public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
         this.description = description;
@@ -46,13 +45,23 @@ public abstract class Event implements Comparable<Event>{
     }
 
     /**
+     * Edit event with new description and two date input
+     *
+     * @param newDescription new event description
+     */
+    public void editEvent(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Converts event type task to string format for printing.
      *
      * @return Formatted string representing the event, whether or not it is completed and its date.
      */
     public String toString() {
         if (getType() == 'T') { //if todo, then only one date entry
-            return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
+            return "[" + getDoneSymbol() + "][T] " + getDescription()
+                    + " BY: " + this.getStartDate().getFormattedDateString();
         } else { //multiple date entries
             return "[" + getDoneSymbol() + "][" + getType() + "] " +
                     getDescription() + " START: " + startEventDate.getFormattedDateString() +
@@ -68,9 +77,9 @@ public abstract class Event implements Comparable<Event>{
         return getDoneSymbol() + getType() + " " + getDescription() + " " +
                 getStartDate().getUserInputDateString() + " " + getEndDate().getUserInputDateString();
     }
-    
+
     public char getType() {
-    	return eventType;
+        return eventType;
     }
 
     public EventDate getStartDate() {
@@ -81,7 +90,7 @@ public abstract class Event implements Comparable<Event>{
         return endEventDate;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 

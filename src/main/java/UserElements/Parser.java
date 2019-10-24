@@ -8,18 +8,16 @@ import java.util.Scanner;
 public class Parser {
 
     private Scanner inputScanner = new Scanner(System.in);
+
     /**
      * Creates new Model_Class.Parser object.
      */
-    public Parser() {
-    }
+    public Parser() {}
 
-    /**
-     *
-     */
-    public String readUserInput(){
+    public String readUserInput() {
         return inputScanner.nextLine();
     }
+
     /**
      * Parses user input to extract command.
      *
