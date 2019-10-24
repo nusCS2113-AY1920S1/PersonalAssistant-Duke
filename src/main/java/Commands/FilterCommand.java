@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Represents the command to show the list of tasks corresponding to a keyword
  */
-public class FilterCommand extends  Command{
+public class FilterCommand extends Command{
     private String keyword;
 
     public FilterCommand(String keyword){

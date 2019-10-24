@@ -50,7 +50,7 @@ public class DeleteParse extends Parse {
                 weekDate = split2[0];
                 if (weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                         || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")) {
-                    weekDate = LT.getDate(split1[0].trim());
+                    weekDate = LT.getValue(split1[0].trim());
                 } else {
                     weekDate = split1[0].trim();
                 }
@@ -86,7 +86,7 @@ public class DeleteParse extends Parse {
                         || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")) {
                     weekDate = split[1].substring(0, split[1].length() - 4); // week x day y
                     String time = split[1].substring(split[1].length() - 4); // time E.g 0300
-                    weekDate = LT.getDate(weekDate) + " " + time;
+                    weekDate = LT.getValue(weekDate) + " " + time;
                 } else {
                     weekDate = split[1];
                 }
