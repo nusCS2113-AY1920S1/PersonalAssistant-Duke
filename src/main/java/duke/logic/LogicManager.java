@@ -10,6 +10,9 @@ import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
 
+/**
+ * The main logic of the application.
+ */
 public class LogicManager extends Logic {
     private Model model;
     private ConversationManager conversationManager;
@@ -46,12 +49,12 @@ public class LogicManager extends Logic {
      */
     private Command getCommandFromConversationManager(String userInput) throws DukeException {
         conversationManager.converse(userInput);
+        String result;
         if (conversationManager.isFinished()) {
-            String result = conversationManager.getResult();
-            return Parser.parseComplexCommand(result);
+            result = conversationManager.getResult();
         } else {
-            String prompt = conversationManager.getPrompt();
-            return Parser.parsePromptCommand(prompt);
+            result = conversationManager.getPrompt();
         }
+        return Parser.parseComplexCommand(result);
     }
 }
