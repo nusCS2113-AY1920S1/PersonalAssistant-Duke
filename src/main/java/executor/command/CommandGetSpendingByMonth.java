@@ -19,6 +19,10 @@ public class CommandGetSpendingByMonth extends Command {
         this.description = "Provides the user the total expenditure for the month stated. "
                 + "FORMAT: expended <month> /year<year>";
     }
+    
+    @Override
+    public void execute(TaskList taskList) {
+    }
 
     @Override
     public void execute(Wallet wallet) {
@@ -70,11 +74,4 @@ public class CommandGetSpendingByMonth extends Command {
             return 0;
         }
     }
-
-    @Override
-    public void execute(TaskList taskList) {
-
-    }
-
-
 }
