@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.23">
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\AddCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\AddCommand.java">
 <error line="52" column="9" severity="error" message="&apos;}&apos; at column 9 should be on the same line as the next part of a multi-block statement (one that directly contains multiple blocks: if/else-if/else, do/while or try/catch/finally)." source="RightCurlySame"/>
 <error line="60" column="9" severity="error" message="&apos;}&apos; at column 9 should be on the same line as the next part of a multi-block statement (one that directly contains multiple blocks: if/else-if/else, do/while or try/catch/finally)." source="RightCurlySame"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\BadCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\BadCommand.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\Command.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\Command.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\CommandList.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\CommandList.java">
 <error line="47" severity="error" message="At-clause should have a non-empty description." source="com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheck"/>
 <error line="71" severity="error" message="&apos;if&apos; construct must use &apos;{}&apos;s." source="com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\ExitCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\ExitCommand.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\HelpCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\HelpCommand.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\Memento.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\Memento.java">
 <error line="13" severity="error" message="&apos;CLASS_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
 <error line="14" column="1" severity="error" message="&apos;{&apos; at column 1 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="24" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -24,17 +24,17 @@
 <error line="44" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="54" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\ModCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\ModCommand.java">
 <error line="96" severity="error" message="At-clause should have a non-empty description." source="com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\PrintCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\PrintCommand.java">
 <error line="26" severity="error" message="Comment has incorrect indentation level 0, expected is 4, indentation should be the same level as line 37." source="com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheck"/>
 <error line="38" column="9" severity="error" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 <error line="41" column="9" severity="error" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\command\SearchCommand.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\command\SearchCommand.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\degree\Degree.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\degree\Degree.java">
 <error line="15" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="32" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="37" column="30" severity="error" message="WhitespaceAround: &apos;&lt;&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
@@ -85,34 +85,19 @@
 <error line="197" severity="error" message="&apos;if&apos; construct must use &apos;{}&apos;s." source="com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck"/>
 <error line="197" column="13" severity="error" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\exception\DukeException.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\exception\DukeException.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\javafx\AutoComplete.java">
-<error line="23" column="1" severity="error" message="&apos;{&apos; at column 1 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="35" column="9" severity="error" message="&apos;{&apos; at column 9 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="39" column="17" severity="error" message="&apos;{&apos; at column 17 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="42" column="17" severity="error" message="&apos;{&apos; at column 17 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="46" column="21" severity="error" message="&apos;{&apos; at column 21 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="49" column="25" severity="error" message="&apos;{&apos; at column 25 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="53" column="21" severity="error" message="&apos;{&apos; at column 21 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="62" severity="error" message="Line is longer than 120 characters (found 122)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="62" column="93" severity="error" message="Parameter name &apos;aBoolean&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.ParameterNameCheck"/>
-<error line="62" column="111" severity="error" message="Parameter name &apos;aBoolean2&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.ParameterNameCheck"/>
-<error line="77" column="43" severity="error" message="&apos;{&apos; at column 43 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="77" column="61" severity="error" message="&apos;}&apos; at column 61 should be alone on a line." source="RightCurlyAlone"/>
-<error line="89" column="9" severity="error" message="&apos;{&apos; at column 9 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
-<error line="94" column="13" severity="error" message="&apos;{&apos; at column 13 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<file name="C:\Users\Asus\Desktop\main\src\main\java\javafx\DialogBox.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\javafx\DialogBox.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\javafx\Launcher.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\javafx\Launcher.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\javafx\Main.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\javafx\Main.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\javafx\MainWindow.java">
+<error line="113" severity="error" message="Empty catch block." source="com.puppycrawl.tools.checkstyle.checks.blocks.EmptyCatchBlockCheck"/>
+<error line="121" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\javafx\MainWindow.java">
-<error line="96" severity="error" message="Empty catch block." source="com.puppycrawl.tools.checkstyle.checks.blocks.EmptyCatchBlockCheck"/>
-</file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\list\DegreeList.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\list\DegreeList.java">
 <error line="2" severity="error" message="&apos;import&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
 <error line="7" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - java.io.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="11" column="59" severity="error" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
@@ -154,16 +139,16 @@
 <error line="163" column="38" severity="error" message="WhitespaceAround: &apos;+&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 <error line="163" column="38" severity="error" message="WhitespaceAround: &apos;+&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\list\DegreeListStorage.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\list\DegreeListStorage.java">
 <error line="17" column="5" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="17" column="17" severity="error" message="Method name &apos;ReadFile&apos; must match pattern &apos;^[a-z][a-z0-9][a-zA-Z0-9_]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
 <error line="24" severity="error" message="&apos;if&apos; child has incorrect indentation level 19, expected level should be 20." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\main\Duke.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\main\Duke.java">
 <error line="80" column="5" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="84" severity="error" message="Distance between variable &apos;old&apos; declaration and its first usage is 4, but allowed 3.  Consider making that variable final if you still need to store its value in advance (before method calls that might have side effects on the original value)." source="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\module\ConjuctiveModule.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\module\ConjuctiveModule.java">
 <error line="7" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="15" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="23" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -177,7 +162,7 @@
 <error line="59" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="61" column="9" severity="error" message="WhitespaceAround: &apos;for&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\module\Module.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\module\Module.java">
 <error line="3" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="12" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="18" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
@@ -196,7 +181,7 @@
 <error line="90" column="9" severity="error" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 <error line="92" severity="error" message="&apos;else&apos; construct must use &apos;{}&apos;s." source="com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\module\ModuleList.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\module\ModuleList.java">
 <error line="13" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="17" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="20" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
@@ -218,27 +203,27 @@
 <error line="91" severity="error" message="&apos;if&apos; construct must use &apos;{}&apos;s." source="com.puppycrawl.tools.checkstyle.checks.blocks.NeedBracesCheck"/>
 <error line="91" column="13" severity="error" message="WhitespaceAround: &apos;if&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\module\NonDescriptive.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\module\NonDescriptive.java">
 <error line="3" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="10" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="19" column="5" severity="error" message="&apos;{&apos; at column 5 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="24" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="34" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\parser\Parser.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\parser\Parser.java">
 <error line="3" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - command.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="31" severity="error" message="&apos;CTOR_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
 <error line="47" severity="error" message="Comment has incorrect indentation level 0, expected is 8, indentation should be the same level as line 49." source="com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\storage\Storage.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\storage\Storage.java">
 <error line="94" column="9" severity="error" message="WhitespaceAround: &apos;for&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 <error line="95" column="9" severity="error" message="&apos;{&apos; at column 9 should be on the previous line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\After.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\After.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Deadline.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Deadline.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\DegreeTask.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\DegreeTask.java">
 <error line="8" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="18" severity="error" message="At-clause should have a non-empty description." source="com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheck"/>
 <error line="30" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
@@ -251,15 +236,15 @@
 <error line="39" column="13" severity="error" message="WhitespaceAround: &apos;for&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 <error line="39" column="70" severity="error" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Event.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Event.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Fixed.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Fixed.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Recurring.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Recurring.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Task.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Task.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\TaskList.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\TaskList.java">
 <error line="6" severity="error" message="Using the &apos;.*&apos; form of import should be avoided - java.io.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="342" severity="error" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="348" column="44" severity="error" message="WhitespaceAround: &apos;|&apos; is not followed by whitespace. Empty blocks may only be represented as {} when not part of a multi-block statement (4.1.3)" source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
@@ -268,10 +253,10 @@
 <error line="350" column="13" severity="error" message="&apos;}&apos; at column 13 should be alone on a line." source="RightCurlySame"/>
 <error line="354" column="37" severity="error" message="WhitespaceAround: &apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Todo.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Todo.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\task\Within.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\task\Within.java">
 </file>
-<file name="C:\Users\zhenyu\Desktop\main\src\main\java\ui\UI.java">
+<file name="C:\Users\Asus\Desktop\main\src\main\java\ui\UI.java">
 </file>
 </checkstyle>

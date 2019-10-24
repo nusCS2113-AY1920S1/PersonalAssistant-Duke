@@ -16,6 +16,9 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Controller for JavaFX.MainWindow. Provides the layout for the other controls.
@@ -33,16 +36,11 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    @FXML
-    private CustomTextField autoSuggest;
-    @FXML
-    private GridPane gridPane;
-    @FXML
-    private Label suggestion;
-    @FXML
-    private VBox suggestContainer;
 
     private Duke duke;
+
+    //We want this to be accessed outside so that it can be cleared manually by the user
+    public List<String> autoSuggestion = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -60,9 +58,21 @@ public class MainWindow extends AnchorPane {
 
         duke = d;
 
+        autoSuggestion.add("list");
+        autoSuggestion.add("detail");
+        autoSuggestion.add("help");
+        autoSuggestion.add("todo");
+        autoSuggestion.add("delete");
+        autoSuggestion.add("clear");
+        autoSuggestion.add("add");
+        autoSuggestion.add("swap");
+        autoSuggestion.add("bye");
+        autoSuggestion.add("replace");
+
+        //Initialize autocompletion field
         TextFields.bindAutoCompletion(
-                this.autoSuggest,
-                "Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola");
+                this.userInput,
+                autoSuggestion);
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -115,17 +125,15 @@ public class MainWindow extends AnchorPane {
                 System.exit(0);
             }).start();
         }
+
+        //Learn new auto suggestions based on user inputs
+        if (!autoSuggestion.contains(input)) {
+            autoSuggestion.add(input);
+            TextFields.bindAutoCompletion(
+                    this.userInput,
+                    autoSuggestion);
+        }
+
         userInput.clear();
-    }
-
-    /**
-     * Ideally, this should create a dropdown box that shows the auto complete suggestions
-     * @throws DukeException Error
-     */
-    @FXML
-    private void handleAutoSuggest() throws DukeException {
-
-        gridPane.add(new Label("Auto-complete Text"), 0, 0);
-        //gridPane.add(autoSuggest, 0, 1);
     }
 }
