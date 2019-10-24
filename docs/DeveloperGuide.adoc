@@ -221,12 +221,40 @@ At this point, the user can choose to remove the degree programme from his list 
 *Step 5*: The tasks related to this degree programme are removed from his TaskList
 
 
-==== [Proposed] Automated Priority for Degree Tasks
+==== [Proposed] Priority for Degree Tasks
+
+In addition to the adding and removing of degree-related tasks, there will be a passive feature of prioritising tasks that have closer dates, or that relate to degree programmes that are higher on the user's degree list.
+
+This mechanism is facilitated by the `TaskRanking` class. It extends `TaskList` and has an internal list of integers that correspond with each task on the user's tasklist. This list is internally stored as `PriorityList`.
+
+The priority will be calculated by giving each task points that correspond with higher priority.
+|===
+| Days Away from Date | Points
+| Less Than or Equal to 3 | 7
+| Less Than or Equal to 5 | 5
+| Less Than or Equal to 7 | 3
+| Greater than 7 | 2
+| No Date | 0
+|===
+
+
+
+Degree-Related Tasks also get a boost in points based on how high up on the degree list they are
+|===
+| Ranking of Degree | Points
+| Rank 1 | 10
+| Rank 2 | 8
+| Rank 3 | 6
+| Rank 4 | 3
+| Rank 5 | 2
+| Rank 6 and Above | 1
+|===
 
 
 
 ==== Design Considerations
 Aspect: Implementing the Degree Tasks
+
 * Alternative 1: Implementing Degree Tasks as just Events and Deadlines (current choice):
 
 * Alternative 2: Implementing Degree Tasks as an extension of the Event and Deadline class:
