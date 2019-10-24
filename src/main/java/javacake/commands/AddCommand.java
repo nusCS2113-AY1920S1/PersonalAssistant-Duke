@@ -1,30 +1,28 @@
 package javacake.commands;
 
-import javacake.DukeException;
+import javacake.Parser;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
+import javacake.storage.Profile;
+import javacake.storage.TaskList;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
+
+import java.io.File;
 
 public class AddCommand extends Command {
     /**
      * Constructor for Adding of commands.
-     * @param cmdType Type of command
      * @param str Input string
      * @throws DukeException Throws exception when empty task
      */
-    public AddCommand(CmdType cmdType, String str) throws DukeException {
+    public AddCommand(String str) throws DukeException {
         input = str;
-        if (cmdType == CmdType.TODO) {
-            if (input.length() == 4) {
-                throw new DukeException("     ☹ OOPS!!! The description of a todo cannot be empty.");
-            }
-        } else if (cmdType == CmdType.DEADLINE) {
-            if (input.length() == 8) {
-                throw new DukeException("     ☹ OOPS!!! The description of a deadline cannot be empty.");
-            }
+        type = CmdType.DEADLINE;
+        if (input.length() == 8) {
+            throw new DukeException("The description of a deadline cannot be empty!");
         }
-        type = cmdType;
+
     }
 
     /**
@@ -37,6 +35,11 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+        String output = TaskList.runDeadline(storage.tasks.getData(), input, TaskList.TaskState.NOT_DONE);
+        Storage.generateFolder(new File("data/tasks/"));
+        storage.write(storage.tasks.getData());
+        return output;
+
 
         /*switch (type) {
         case TODO:
@@ -66,6 +69,5 @@ public class AddCommand extends Command {
         default:
             throw new DukeException("     [Unknown COMMAND TYPE]");
         }*/
-        return "";
     }
 }

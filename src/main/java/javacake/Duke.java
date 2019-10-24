@@ -1,6 +1,10 @@
 package javacake;
 
 import javacake.commands.Command;
+import javacake.exceptions.DukeException;
+import javacake.storage.Profile;
+import javacake.storage.Storage;
+import javacake.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,12 +14,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Duke  {
-    private static String savedDataPath = "data/";
     private static Ui ui;
-    private static Storage storage;
     private static ProgressStack progressStack;
     private static boolean isCliMode = true;
 
+    public static Storage storage;
     public static Profile profile;
     public static boolean isFirstTimeUser;
     public static String userName;
@@ -26,14 +29,14 @@ public class Duke  {
     /**
      * Constructor for main class to initialise the settings.
      */
-    public Duke(String filePath) {
+    public Duke() {
         logger.log(Level.INFO, "Starting Duke Constructor!");
         ui = new Ui();
         try {
             progressStack = new ProgressStack();
-            //storage = new Storage(filePath);
+            storage = new Storage();
             //tasks = new TaskList(storage.load());
-            profile = new Profile(filePath);
+            profile = new Profile();
             userProgress = profile.getTotalProgress();
             userName = profile.getUsername();
             // Default username when creating new profile
@@ -73,7 +76,6 @@ public class Duke  {
                 logger.log(Level.WARNING, "Profile overwrite failed.");
             }
         }
-
         ui.showMessage(Ui.showWelcomeMsgPhaseB(isFirstTimeUser, userName, userProgress));
     }
 
@@ -140,6 +142,6 @@ public class Duke  {
      * Program Start.
      */
     public static void main(String[] args) {
-        new Duke(savedDataPath).runAsCli();
+        new Duke().runAsCli();
     }
 }

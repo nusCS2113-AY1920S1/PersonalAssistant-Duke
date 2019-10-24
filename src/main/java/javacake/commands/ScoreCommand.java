@@ -1,9 +1,9 @@
 package javacake.commands;
 
-import javacake.Profile;
+import javacake.storage.Profile;
 import javacake.ProgressStack;
-import javacake.Storage;
-import javacake.Ui;
+import javacake.storage.Storage;
+import javacake.ui.Ui;
 
 public class ScoreCommand extends Command {
 

@@ -1,4 +1,4 @@
-package javacake;
+package javacake.ui;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -10,10 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +47,6 @@ public class AvatarScreen extends VBox {
      * @param type Type of face Avatar makes
      */
     public AvatarScreen(AvatarMode type) {
-        initialiseList();
-        avatarMode = type;
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/AvatarScreen.fxml"));
             fxmlLoader.setController(this);
@@ -61,31 +55,9 @@ public class AvatarScreen extends VBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-            if (avatarMode == AvatarMode.HAPPY) {
-                if (timeFrame % 4 <= 2) {
-                    avatarImage.setImage(images.get(3));
-                } else {
-                    avatarImage.setImage(images.get(2));
-                }
-            } else if (avatarMode == AvatarMode.SAD) {
-                if (timeFrame % 4 <= 2) {
-                    avatarImage.setImage(images.get(1));
-                } else {
-                    avatarImage.setImage(images.get(0));
-                }
-            } else {
-                if (timeFrame % 4 <= 2) {
-                    avatarImage.setImage(images.get(5));
-                } else {
-                    avatarImage.setImage(images.get(4));
-                }
-            }
-            timeFrame++;
-        }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        initialiseList();
+        avatarMode = type;
+        setStyleLoop();
     }
 
     /**
@@ -95,5 +67,32 @@ public class AvatarScreen extends VBox {
      */
     public static AvatarScreen setAvatar(AvatarMode type) {
         return new AvatarScreen(type);
+    }
+
+    private void setStyleLoop() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
+            if (avatarMode == AvatarMode.HAPPY) {
+                if (timeFrame % 16 <= 14) {
+                    avatarImage.setImage(images.get(3));
+                } else {
+                    avatarImage.setImage(images.get(2));
+                }
+            } else if (avatarMode == AvatarMode.SAD) {
+                if (timeFrame % 16 <= 14) {
+                    avatarImage.setImage(images.get(1));
+                } else {
+                    avatarImage.setImage(images.get(0));
+                }
+            } else {
+                if (timeFrame % 16 <= 14) {
+                    avatarImage.setImage(images.get(5));
+                } else {
+                    avatarImage.setImage(images.get(4));
+                }
+            }
+            timeFrame = (timeFrame + 1) % 16;
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 }

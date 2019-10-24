@@ -1,4 +1,7 @@
-package javacake;
+package javacake.storage;
+
+import javacake.Duke;
+import javacake.exceptions.DukeException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,9 +10,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class Profile {
-    private String filepath = "save/savefile.txt";
+    private static String filepath = "data/save/savefile.txt";
     private String username;
     private ArrayList<Integer> topicsDone = new ArrayList<>();
 
@@ -23,19 +27,31 @@ public class Profile {
      * @throws DukeException when unable to create profile
      */
     public Profile(String filename) throws DukeException {
-        filepath = filename + File.separator + filepath;
         try {
-            File file = new File(filepath);
+            File file = new File("data/save/savefile.txt");
+            Duke.logger.log(Level.INFO,"Filepath: " + filepath);
             try {
-                if (!file.exists()) {
+                if (!file.getParentFile().getParentFile().exists()) {
                     file.getParentFile().getParentFile().mkdir();
                     file.getParentFile().mkdir();
                     file.createNewFile();
                     initialiseUser();
+                    System.out.println("A" + file.getParentFile().getParentFile().getPath());
+                } else if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdir();
+                    file.createNewFile();
+                    initialiseUser();
+                    System.out.println("B" + file.getParentFile().getPath());
+                } else if (!file.exists()) {
+                    file.createNewFile();
+                    initialiseUser();
+                    System.out.println("C" + file.getPath());
+                } else {
+                    Duke.logger.log(Level.INFO, filepath + " is found!");
                 }
 
-
             } catch (IOException e) {
+                System.out.println("before reader");
                 throw new DukeException("Failed to create new file");
             }
 
@@ -52,7 +68,19 @@ public class Profile {
             }
             reader.close();
         } catch (IOException e) {
+            System.out.println("after reader");
             throw new DukeException("Failed to close reader");
+        }
+    }
+
+    /**
+     * Method to hard reset profile.
+     */
+    public static void resetProfile() {
+        File file = new File(filepath);
+        if (file.exists()) {
+            file.delete();
+            System.out.println("deleting: " + file.getPath());
         }
     }
 

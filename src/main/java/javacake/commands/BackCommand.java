@@ -1,12 +1,10 @@
 package javacake.commands;
 
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
-
-import java.io.IOException;
+import javacake.storage.Profile;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
 
 public class BackCommand extends Command {
 
@@ -16,7 +14,7 @@ public class BackCommand extends Command {
 
     /**
      * Execute going back to previous index.
-     * @param progressStack TaskList containing current tasks
+     * @param progressStack tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user

@@ -3,6 +3,7 @@ package javacake.quiz;
 public class Question {
     private String question;
     private String answer;
+    private String userAnswer;
 
     public enum QuestionType {
         BASIC, OOP, EXTENSIONS, ALL
@@ -19,6 +20,14 @@ public class Question {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public void setUserAnswer(String userInput) {
+        userAnswer = userInput;
+    }
+
+    public String getUserAnswer() {
+        return userAnswer;
     }
 
     /**

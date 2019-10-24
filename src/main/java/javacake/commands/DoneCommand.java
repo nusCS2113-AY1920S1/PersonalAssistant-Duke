@@ -1,10 +1,10 @@
 package javacake.commands;
 
-import javacake.DukeException;
+import javacake.exceptions.DukeException;
 import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
+import javacake.storage.Profile;
+import javacake.ui.Ui;
+import javacake.storage.Storage;
 
 public class DoneCommand extends Command {
     public DoneCommand(String str) {
@@ -37,7 +37,7 @@ public class DoneCommand extends Command {
                     progressStack.get(i).markAsDone();
                     storage.write(progressStack.getData());
                     ui.showMessage("Nice! I've marked this task as done: ");
-                    ui.showMessage("    [✓] " + progressStack.get(i).toString().substring(3));
+                    ui.showMessage("    [✗] " + progressStack.get(i).toString().substring(3));
                     isInsideData = true;
                     break;
                 }

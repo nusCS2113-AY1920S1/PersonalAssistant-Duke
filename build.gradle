@@ -8,11 +8,12 @@ plugins {
 
 checkstyle {
     toolVersion = '8.23'
+    configFile = file("config/checkstyle/checkstyle.xml")
 }
 
 shadowJar {
     archiveBaseName = "JavaCake"
-    archiveVersion = "0.1.2"
+    archiveVersion = "1.2.1"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -51,6 +52,10 @@ run {
 dependencies {
     //compile files("${System.properties['java.home']}/../lib/tools.jar")
     compile group: 'com.joestelmach', name: 'natty', version: '0.6'
+    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.2'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 
     String javaFxVersion = '11'
