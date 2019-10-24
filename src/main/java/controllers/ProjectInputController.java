@@ -104,6 +104,11 @@ public class ProjectInputController implements IController {
         return isManagingAProject;
     }
 
+    /**
+     * Adds roles to Members in a Project.
+     * @param projectToManage : The project specified by the user.
+     * @param projectFullCommand : User input.
+     */
     public void projectRoleMembers(Project projectToManage, String projectFullCommand) {
         String parsedCommands = projectFullCommand.substring(5);
         String[] commandOptions = parsedCommands.split(" -n ");

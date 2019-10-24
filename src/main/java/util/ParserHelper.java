@@ -45,6 +45,7 @@ public class ParserHelper {
                 break;
             case 'r':
                 memberDetails[4] = s.substring(1).trim();
+                break;
             default:
                 break;
             }
