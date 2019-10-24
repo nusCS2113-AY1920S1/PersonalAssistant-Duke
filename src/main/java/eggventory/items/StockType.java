@@ -4,6 +4,7 @@ import eggventory.enums.Property;
 
 import java.util.ArrayList;
 
+//@@author Deculsion
 /**
  * Manages the list of (different types of classes),
  * including all the methods to modify the list:
@@ -24,8 +25,6 @@ public class StockType {
     public StockType(String name, ArrayList<Stock> savedFile) {
         this.name = name;
         stocks = savedFile;
-        //quantity = savedFile.size();
-        //isUniqueStock = isUniqueStock();
     }
 
     /**
@@ -36,8 +35,6 @@ public class StockType {
     public StockType(String name, boolean isUniqueStock) {
         this.name = name;
         this.stocks = new ArrayList<>();
-        //this.quantity = 0;
-        //this.isUniqueStock = isUniqueStock;
     }
 
     /**
@@ -47,23 +44,7 @@ public class StockType {
     public StockType(String name) {
         this.name = name;
         this.stocks = new ArrayList<>();
-        //this.quantity = 0;
-        //this.isUniqueStock = false;
     }
-
-    /**
-     * Determines whether this StockType is a collection of UniqueStock or CollectiveStock.
-     */
-    /*
-        private boolean isUniqueStock() {
-            for (Stock stock : stocks) {
-                if (stock instanceof CollectiveStock) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    */
 
     /**
      * Adds a stock to the stockList.
@@ -71,7 +52,6 @@ public class StockType {
      */
     public boolean addStock(String stockType, String stockCode, int quantity, String description) {
         stocks.add(new CollectiveStock(stockType, stockCode, quantity, description));
-        //this.quantity++;
         return true;
     }
 
@@ -83,9 +63,6 @@ public class StockType {
      */
     public Stock deleteStock(String stockCode) {
 
-        //While this is nice, we are unable to print a confirmation message of the stock deleted.
-        //stocks.removeIf(stock -> stock.getStockCode().equals(stockCode));
-
         Stock deletedStock;
 
         for (Stock stock : stocks) {
@@ -96,7 +73,6 @@ public class StockType {
             }
         }
         return null;
-        //this.quantity--;
     }
 
     /**
@@ -141,6 +117,7 @@ public class StockType {
         }
     }
 
+    //@@author
     /**
      * Returns the entire stockList.
      * @return the stockList.
@@ -171,6 +148,7 @@ public class StockType {
         return null;
     }
 
+    //@@author Deculsion
     /**
      * Gets the total number of stocks.
      * @return the number of stocks in this stockType.
@@ -195,6 +173,7 @@ public class StockType {
         this.name = newName;
     }
 
+    //@@author
     /**
      * Updates the values of properties of a Stock.
      * @param stockCode String which uniquely identifies a Stock.
@@ -249,7 +228,7 @@ public class StockType {
         return false; //If none of the stocks had the same code.
     }
 
-    //@@author
+    //@@author Deculsion
     /**
      * A string of all the stock objects within this stocktype. Should only be called by Cli and StockList.
      * @return A string list of all the stock objects and their details.
