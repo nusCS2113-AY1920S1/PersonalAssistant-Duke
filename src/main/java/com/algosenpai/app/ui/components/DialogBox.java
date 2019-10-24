@@ -77,4 +77,12 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public ImageView getDisplayPicture() {
+        return displayPicture;
+    }
+
+    public Label getDialog() {
+        return dialog;
+    }
 }

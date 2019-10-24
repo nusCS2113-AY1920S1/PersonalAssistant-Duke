@@ -99,6 +99,15 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `help` Command
 image::DeleteSequenceDiagram.png[]
 
+==== Parser Component
+
+When the user inputs a command, the command will be parsed through by the parser class, checking for the validity of the command by comparing it with the enum of commands.
+
+. If valid, the command will be split by the spaces in between them and stored into an arraylist. (e.g. `select 3` will be split into {select, 3})
+    - The logic class will then call for the first string in the arraylist, in which it will be used to determine which command to call for next.
+. If invalid, the InvalidCommand class will be called for, whereby the user will be notified to input a valid command: `error please input a valid command`.
+
+image::ParserandCommandClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -108,50 +117,170 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` class handles the reading and writing of user data to and from text files. It consists of two methods:
 
-* can save each quiz data attempted in text format and read it back.
-* can save the quiz data and results in a PDF format for easy viewing.
+* `saveData`: Takes in a filename and a string, saves the string to the filename.
+* `loadData`: Takes in a filename, returns the text in that file as a string.
 
-[[Design-Statistics]]
-=== Statistics component
+A few implementation details to take note of:
 
-.Structure of the Statistics Component
-image::StorageClassDiagram.png[]
+. The `Storage` class only has static methods. This means that you do should not instantiate the object. The reasons
+for doing this are:
+- The class does not need to hold any state because of it's simple task,
+so it does not make sense to instantiate an object.
+- It is much more convenient to use, as you do not need to create a new `Storage` object for every storage operation.
+. The methods handle strings, instead of the object that is being stored/retrieved.
+This is so that methods can operate independently of what is being stored. The converting the object
+to string and vice-versa has to be handled within that class. This pattern reduces coupling.
+- The one situation which breaks this rule is when `loadData` is done on a file that doesn't exist yet.
+In the current version, a default `UserStats` object is returned. Ideally this will be changed for the final version.
+
+[[Design-UserData]]
+=== Stats component
+
+.Structure of the Stats Component
+image::StatsClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Statistics` component,
+The Stats component defines what data is stored permanently. It includes information about the user, and the
+statistics for each chapter (such as correct answer %, number of attempts).
 
-* can save `UserPref` objects in text format and read it back.
-* can save the quiz data in text format and read it back.
-* can save all the previous user attempts of the quiz and read it back.
+[discrete]
+==== Relationship between Stats and `Storage`
+The `Storage` component is used to store
+this data permanently and retrieve it from storage later. An instance of `UserStats` is used to hold
+and modify the data during runtime.
+
+[discrete]
+==== Description of the classes
+* `ChapterStat` holds the statistics about the quiz attempts for that chapter, such as answer %, and number of attempts.
+* `UserStats` holds an ArrayList of `ChapterStat` s, one for each chapter. It also holds some additional information
+about the user, such as name, gender.
+
+[discrete]
+==== How to handle storage
+Each class has a `toString` method that converts the data in that object to a string representation that can be
+stored in the text file. If the name of your `UserStats` instance is `userStats`, pass
+ `userStats.toString()` as the parameter to `Storage.saveData()`.
+
+Similarly, each class has a static `parseString()` to convert a string to the object. Pass the result of
+`Storage.loadData()` to `UserStats.parseString()` to get the `UserStats` object.
+
+Note that `ChapterStat` has its own `parseString` and `toString` methods which are used by the corresponding `UserStats`
+methods. This is done so increase modularity.
+
+IMPORTANT: When editing the `toString` method, make sure to edit the corresponding `parseString` method (and vice-versa)
+
+[discrete]
+==== How to use `UserStats`
+* Use the `currentChapter` object to hold stats for the current chapter while it is being played. Afterwards,
+use `saveCurrentChapterToChapterData` to transfer the relevant data from `currentChapter` to the appropriate
+element in the `chapterData` ArrayList.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Tutor information feature
+// tag::print[]
+=== [Proposed] Printing Archived/Quiz/UserStats features
 ==== Proposed Implementation
+This feature allows the user print the attempted quiz, the archived questions and his/her profile to PDF. The user has
+to input `print archive` into the text field to print the archived questions, `print quiz` to print the quiz questions,
+and `print report` to print the user profile. `PrintArchiveCommand` is used to print to archive questions to PDF, and
+`PrintReportCommand` for the user stats, and `PrintQuizCommand` for the quiz. The `PrintArchiveCommand`,
+`PrintQuizCommand`, and `PrintReportCommand` is a children class of `PrintCommand`.
+
+image::PrintCommandImplementation.png[]
+
+==== Design Considerations
+===== Aspect: Modularizing program to write to PDF
+* **Alternative 1 (current choice):** Use inheritance.
+** Pros: Allow future expansion for specific commands, share the inherited method `saveToPdf` from the `PrintCommand` to write the data into PDF.
+** Cons: Increase storage size and memory usage from multiple files and instances.
+* **Alternative 2:** Use overloading.
+** Pros: Convenient to parse the data to write to PDF.
+** Cons: Difficult to develop other features to print to PDF in future.
+
+// tag::audio[]
+=== [Proposed] Playing Audio features
+==== Proposed Implementation
+This feature allows the user play in-built music while he/she uses the application. The music will be randomly chosen
+and played. Once the music ends, another music start playing. The user can input `sound <sound level>` to adjust the
+sound level. For example, `sound 0` means the music is off, while `sound 10` means the music is played at maximum
+intensity. This feature is separated into `MusicController` and instantiated in the `MainApp`.
+
+==== Design Considerations
+===== Aspect: Tracking when to play the next music
+* **Alternative 1 (current choice):** Use multi-threading to playing the music.
+** Pros: Reduce timing overhead due to asynchronous execution.
+** Cons: Code is not able to reuse.
+* **Alternative 2:** Use the `AnimationTimer` in `JavaFx` to poll and check the music status.
+** Pros: Easy to implement and reuse `AnimationTimer`.
+** Cons: Additional overhead for the `AnimationTimer` due to synchronous execution.
+
+===== Aspect: Data structure to contain the music
+* **Alternative 1 (current choice):** Use a `HashMap` to store the list of music.
+** Pros: Easy to store and track the music name in a `HashMap` using `SoundEnum`
+** Cons: Need to convert to a list of string to display music name on the user interface.
+* **Alternative 2:** Use `List` to store the music
+** Pros: Easy to random a music, display music on the user interface, and search for the music name in a list.
+** Cons: More prone to mistakes when handling the music names in `String`.
+
+// tag::improvisedparser[]
+=== [Proposed] Improvising on current parser
+
+==== The Proposed Implementation
+
+While the current parser serves its purpose, we seek to implement a `Did you mean...` feature, where rather than just returning `???!` to the user,
+it also returns the command that is most similar to what the user has inputted.
+
+For example, unnecessary spaces in between such as `me n u` or with an accidental typo such as `seect` will be taken into consideration and the word that is most similar to it will be derived and return `Did you mean.. menu?` and `Did you mean.. select?`
 
 ==== Design Considerations
 
-===== Aspect:
+===== Aspect: How the improvised parser works
+
+- It will be implemented under the invalid command, where the input string will be compared with the enum of commands, and returning the string that has the most number of similar characters to whatever the user has inputted.
+
+    Pros:
+    - It is easy to implement
+    - Will be more user friendly
+    - Saves time and allows user to have a better overall experience
+
+===== Aspect: Data structure to support the improvisation of parser
+
+- Function to compare the number of similar characters between two strings will be needed
+- Function to pick out the command that is most similar to the command entered by the user will be needed
+
+// end::improvisedparser[]
 
 
-// tag::customquestions[]
-=== [Proposed] Loading of custom questions
+// tag::reset[]
+=== [Proposed] Reset Command
 
-_{Explain here how the loading of custom questions is to be implemented}_
+==== Proposed Implementation
 
-// end::customquestions[]
+The reset command is to be implemented to remove all the existing data the system has about the user.
+That means that the storage is cleared, and there will be no history on the past quizzes attempted and the scores.
 
+==== Design Considerations
 
-[[Implementation-Configuration]]
-=== Configuration
+===== Aspect: How reset command works
 
-Certain properties of the application can be controlled (e.g user prefs file location, user settings) through the configuration file (default: `settings.txt`).
+- User just has to enter `reset`
+- System will then notify the user that such an action cannot be undone and will seek the user's confirmation
+`Are you sure you want to reset? Data removed will not be retrievable. Y/N`
+
+===== Aspect: Data structure to support the reset command
+
+- A reset command extending the existing command class will be needed
+
+- Under the execute() block, the storage will then be called for it to be cleared.
+
+    Pros: Efficient memory allocation as user can decide when to reset
+
+// end::reset[]
 
 == Documentation
 
@@ -177,7 +306,7 @@ Refer to the guide <<Testing#, here>>.
 Offer a more time efficient, and fun platform to learn and practice data structures and algorithms.
 
 [appendix]
-== User Stories
+== Requirements
 
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -218,8 +347,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | * | Competitive User | Have rewards in-game `[coming in v2.0]`| Feel motivated to clear the entire game.
 |=======================================================================
 
-[appendix]
-== Use Cases
+
+=== Use Cases
 (For all use cases below, the System is `AlgoSenpai` and the Actor is the `Student`, unless specified otherwise)
 
 [discrete]
@@ -487,8 +616,8 @@ Use case ends
 
 Use case ends
 
-[appendix]
-== Non Functional Requirements
+
+=== Non Functional Requirements
 
 - The application should work on any mainstream OS with Java 11 installed to run the game.
 - The computer should have a minimum of 320 by 300 screen resolution for the game to display.

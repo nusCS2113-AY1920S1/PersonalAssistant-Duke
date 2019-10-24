@@ -15,6 +15,11 @@ public class UserStorageParser {
         this.inputScanner = new Scanner(this.getClass().getResourceAsStream("/data/UserData.txt"));
     }
 
+    public void saveUserData(String str) {
+        // TODO
+        System.out.println("Saving to file");
+    }
+
     /**
      * Responsible for parsing in the input for each chapter. The skips are used to remove unnecessary information
      * from each line of input. All the respective information needed for each ChapterStat is derived and constructed.

@@ -159,7 +159,7 @@ public class UserStats {
      * @param name The Name of the Chapter to be searched.
      * @return The index of the chapter if it exists, -1 if the chapter does not exist.
      */
-    private int getIndexByName(String name) {
+    public int getIndexByName(String name) {
         if (chapterNumber.containsKey(name)) {
             return chapterNumber.get(name);
         }
@@ -228,6 +228,11 @@ public class UserStats {
             chapterStats.add(ChapterStat.parseString(chapterString));
         }
         return new UserStats(userName, characterImagePath, chapterStats);
+    }
+
+    public void saveUserStats() {
+        UserStorageParser userStorageParser = new UserStorageParser();
+        userStorageParser.saveUserData(this.toString());
     }
 
     /**
