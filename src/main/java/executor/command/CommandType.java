@@ -23,6 +23,8 @@ public enum CommandType {
     RECUR(CommandNewTask.class),
     FDURATION(CommandNewTask.class),
     TAGLIST(CommandListTag.class),
+    EXPENDED(CommandGetSpendingByMonth.class),
+    CONVERT(CommandConvert.class),
     ERROR(CommandError.class);
 
     private final Class commandClass;
