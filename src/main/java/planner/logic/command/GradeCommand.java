@@ -2,18 +2,17 @@
 
 package planner.logic.command;
 
-
-import java.util.HashMap;
-
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
+import planner.util.crawler.JsonWrapper;
 import planner.logic.modules.module.ModuleTasksList;
 import planner.ui.cli.PlannerUi;
-import planner.util.crawler.JsonWrapper;
 import planner.util.storage.Storage;
+import planner.logic.modules.cca.CcaList;
+
+import java.util.HashMap;
 
 public class GradeCommand extends ModuleCommand {
 

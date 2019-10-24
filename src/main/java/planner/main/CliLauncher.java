@@ -15,7 +15,7 @@ import planner.util.crawler.JsonWrapper;
 import planner.ui.cli.PlannerUi;
 import planner.util.legacy.reminder.Reminder;
 import planner.util.storage.Storage;
-import planner.logic.parser.Argparse4jWrapper;
+import planner.logic.parser.Parser;
 import planner.logic.modules.module.ModuleTasksList;
 
 public class CliLauncher {
@@ -27,7 +27,7 @@ public class CliLauncher {
     private Storage store;
     private ModuleTasksList modTasks;
     private CcaList ccas;
-    private Argparse4jWrapper argparser;
+    private Parser argparser;
     private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
@@ -40,7 +40,7 @@ public class CliLauncher {
     public CliLauncher(boolean gui) {
         store = new Storage();
         modUi = new PlannerUi();
-        argparser = new Argparse4jWrapper();
+        argparser = new Parser();
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
         ccas = new CcaList();

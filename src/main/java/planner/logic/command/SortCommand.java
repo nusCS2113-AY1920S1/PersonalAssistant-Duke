@@ -1,17 +1,19 @@
-package planner.logic.command;
+//@@author e0313687
 
-import planner.logic.modules.cca.Cca;
-import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.cca.CcaList;
-import planner.util.crawler.JsonWrapper;
-import planner.ui.cli.PlannerUi;
-import planner.util.storage.Storage;
-import planner.logic.modules.module.ModuleTasksList;
+package planner.logic.command;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import planner.logic.modules.cca.Cca;
+import planner.logic.modules.cca.CcaList;
+import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.module.ModuleTask;
+import planner.logic.modules.module.ModuleTasksList;
+import planner.ui.cli.PlannerUi;
+import planner.util.crawler.JsonWrapper;
+import planner.util.storage.Storage;
 
 public class SortCommand extends ModuleCommand {
 
@@ -38,7 +40,21 @@ public class SortCommand extends ModuleCommand {
             case ("modules"):
             default: {
                 hold = tasks.getTasks();
-                hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
+                switch (arg("type")) {
+                    case ("level"): {
+                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleLevel()));
+                        break;
+                    }
+                    case ("mc"): {
+                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCredit()));
+                        break;
+                    }
+                    case ("code"):
+                    default: {
+                        hold.sort(Comparator.comparing((Object t) -> ((ModuleTask) t).getModuleCode()));
+                        break;
+                    }
+                }
                 break;
             }
         }

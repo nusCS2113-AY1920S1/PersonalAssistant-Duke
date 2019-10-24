@@ -1,22 +1,24 @@
+//@@author kyawtsan99
+
 package planner.logic.command;
 
+import planner.logic.modules.cca.Cca;
+import planner.logic.modules.cca.CcaList;
+import planner.util.crawler.JsonWrapper;
+import planner.ui.cli.PlannerUi;
+import planner.util.storage.Storage;
+
+import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.module.ModuleTask;
+import planner.logic.modules.module.ModuleTasksList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import planner.logic.modules.cca.Cca;
-import planner.logic.modules.cca.CcaList;
-import planner.logic.modules.module.ModuleInfoDetailed;
-import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.module.ModuleTasksList;
-import planner.ui.cli.PlannerUi;
-import planner.util.crawler.JsonWrapper;
-import planner.util.storage.Storage;
-
 public class ShowCommand extends ModuleCommand {
 
-    private static Set<String> coreModList;
+    private static Set<String> coreModList = new HashSet<>();
 
     public ShowCommand(Arguments args) {
         super(args);
@@ -83,7 +85,7 @@ public class ShowCommand extends ModuleCommand {
                     String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
                     if (coreModList.contains(moduleCode)) {
                         ModuleTask temp = tasks.getTasks().get(i);
-                        System.out.println(count + ". " + temp.toString());
+                        System.out.println(count + ". " + temp);
                         count++;
                     }
                 }
