@@ -64,7 +64,7 @@ public class Parser {
      * Add arguments for respective sub-parsers.
      */
     // Add arguments for parsers here
-    public void mapBuiltinParserArguments() {
+    private void mapBuiltinParserArguments() {
         Subparser addParser = getSubParser("add")
                 .help("Add a module or cca");
         Subparsers addParsers = addParser.addSubparsers()
