@@ -577,7 +577,7 @@ There are *2* ways to run tests.
 
 *Method 2: Using Gradle*
 
-* Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
 === Types of tests
 
