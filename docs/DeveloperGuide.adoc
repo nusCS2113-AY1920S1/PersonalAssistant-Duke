@@ -292,6 +292,22 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 
+=== ShowCommand
+
+==== Current implementation
+
+The `show` feature is opearted by the `ShowCommand`class, which is called by the `Parser` class. Uon user input of `show TYPE`, the Parser will return a new `ShowCommand`. +
+
+Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `show` command. +
+
+The parameter `TYPE` can take four forms according to the user input: + 
+****
+* `show cca`
+* `show `
+****
+
+
+
 === JsonWrapper
 
 ==== Current implementation
