@@ -180,6 +180,8 @@ and `Status`: +
 ** APPROVED
 ** OVERDUE
 
+
+==== Payee Feature Commands
 The payee feature supports the following commands:
 
 * `add payee p/name e/email m/matricNum ph/phoneNum` -- Adds a new payee to the record.
@@ -190,7 +192,7 @@ The payee feature supports the following commands:
 * `find p/name` -- Lists all payments for specified payee in the record.
 
 ==== PaymentManager
-The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the user command. The `PaymentManager` class implements the following methods:
+The `PaymentManager` is an abstract class that is subclassed in the payments package, which contains the `Payee` and `Payments` classes. It serves to process the input from the `Command` package and implement the payee feature commands (Section 4.2.4). The `PaymentManager` class implements the following methods:
 
 * PaymentManager#addPayee
 * PaymentManager#addPayments
@@ -199,14 +201,11 @@ The `PaymentManager` is an abstract class that is subclassed in the payments pac
 * PaymentManager#editPayee
 * PaymentManager#findPayee
 
+A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other. +
+1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Command where the input will be parsed to determine the command to execute. +
+2. The PaymentManager is invoked, and in this case, the addPayee method is called. The method checks which project is currently selected and constructs a new Payee object. The Payee object is pushed into the current project's managerMap, a HashMap of all the project's payees. +
+3. Assuming a valid input was passed from the user, a confirmation message showing the summary of the details of the newly created Payee would be printed. Else, an error will prompt the user to try again and provide the correct template for the command they attempted. +
 
-
-
-
-
-A detailed explanation of the use case for the add payee command is given below to demonstrate how each component interacts with each other.
-1. User executes the command `add payee p/name e/email m/matricNum ph/phoneNum` in the CLI. This input is passed from the Ui to Command where the input will be parsed to determine the command to execute.
-2. 
 
 //tag::deadline
 === Add Invoices
