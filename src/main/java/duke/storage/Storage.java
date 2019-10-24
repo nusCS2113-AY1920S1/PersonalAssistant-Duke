@@ -218,7 +218,7 @@ public class Storage {
             throw new DukeException(Messages.FILE_NOT_SAVE);
         }
     }
-    
+
     /**
      * Writes recommendations to filepath.
      */
