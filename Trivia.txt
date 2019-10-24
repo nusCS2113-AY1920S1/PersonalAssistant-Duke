@@ -5,45 +5,10 @@ todo dinner
 snooze 1
 deadline return book /by 2008-07-07 03:03:03
 deadline weekly assignment /by 2019-10-10 10:10:10
-event skfm /at 2019-09-09 08:08:08-09:09:09
 todo read book
-event sleep/at 2019-12-12 12:03:03-14:10:04
-deadline return book /by 2008-07-07 03:03:03
-Love Qinhuai River
-event camp /at 2019-10-12 12:12:12
-event camp /at 2019-10-12 12:12:12-13:12:12
 todo SHOPPING
+event sleep/at 2019-12-12 12:03:03-14:10:04
+todo DG review
+Love Qinhuai River
 
-event sleep/at 2019-12-12 12:03:03-14:10:04
-event sleep/at 2019-12-12 03:03:03-04:04:04
-event sleep/at 2019-12-12 02:03:03-03:10:04
-event sleep/at 2019-12-12 03:10:03-03:50:04
-deadline return book /by 2008-07-07 03:03:03
-deadline return book /by 2008-07-07 03:03:03
-Love Qinhuai River
-Love Qinhuai River
-event sleep/at 2019-12-12 12:03:03-14:10:04
-event sleep/at 2019-12-12 03:03:03-04:04:04
-event sleep/at 2019-12-12 02:03:03-03:10:04
-event sleep/at 2019-12-12 03:10:03-03:50:04
-Love Qinhuai River
-Love Qinhuai River
-deadline return book /by 2008-07-07 03:03:03
-deadline return book /by 2008-07-07 03:03:03
-event sleep/at 2019-12-12 12:03:03-14:10:04
-event sleep/at 2019-12-12 03:03:03-04:04:04
-event sleep/at 2019-12-12 02:03:03-03:10:04
-event sleep/at 2019-12-12 03:10:03-03:50:04
-Love Qinhuai River
-Love Qinhuai River
-deadline return book /by 2008-07-07 03:03:03
-deadline return book /by 2008-07-07 03:03:03
-event sleep/at 2019-12-12 12:03:03-14:10:04
-event sleep/at 2019-12-12 03:03:03-04:04:04
-event sleep/at 2019-12-12 02:03:03-03:10:04
-event sleep/at 2019-12-12 03:10:03-03:50:04
-deadline return book /by 2008-07-07 03:03:03
-deadline return book /by 2008-07-07 03:03:03
-Love Qinhuai River
-Love Qinhuai River
-deadline return books/by 2019-10-23 12:12:12
+event UG review /at 2019-10-24 08:08:08-12:12:12

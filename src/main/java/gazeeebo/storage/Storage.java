@@ -16,10 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.*;
 
 
@@ -254,23 +251,27 @@ public class Storage {
         return placesList;
     }
 
-    public void Read_Trivia(TriviaManager triviamanager) throws IOException {
+    public Map<String, ArrayList<String>> Read_Trivia() throws IOException {
+        Map<String, ArrayList<String>> CommandMemory = new HashMap<>();
         if (new File(absolutePath_Trivia).exists()) {
             File file = new File(absolutePath_Trivia);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String InputCommand = sc.nextLine();
-                if (triviamanager.CommandMemory.containsKey(InputCommand.split(" ")[0])) {
-                    ArrayList<String> oldlist = new ArrayList<String>(triviamanager.CommandMemory.get(InputCommand.split(" ")[0]));
-                    oldlist.add(InputCommand);
-                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+                if (CommandMemory.containsKey(InputCommand.split(" ")[0])) {
+                    ArrayList<String> oldlist = new ArrayList<String>(CommandMemory.get(InputCommand.split(" ")[0]));
+                    if(!oldlist.contains(InputCommand)){
+                        oldlist.add(InputCommand);
+                        CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+                    }
                 } else {
                     ArrayList<String> newlist = new ArrayList<String>();
                     newlist.add(InputCommand);
-                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0], newlist);
+                    CommandMemory.put(InputCommand.split(" ")[0], newlist);
                 }
             }
         }
+        return CommandMemory;
     }
 
     public void Storage_Trivia(String fileContent) throws IOException {
