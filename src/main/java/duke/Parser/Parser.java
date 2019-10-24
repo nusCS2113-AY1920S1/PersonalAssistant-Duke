@@ -24,6 +24,8 @@ public class Parser {
 
     Ui ui = new Ui();
 
+    String helpState = "";
+
     /**
      * Constants to represent the index 3.
      */
@@ -126,6 +128,7 @@ public class Parser {
             break;
 
         case "schedule":
+            helpState = "scheduleState";
             Storage scheduleStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\timeslots.txt");
 
@@ -170,6 +173,7 @@ public class Parser {
             break;
 
         case "goal":
+            helpState = "goalState";
             Storage goalStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\goals.txt");
             Goal goal = new Goal(goalStorage.loadGoal());
@@ -220,6 +224,12 @@ public class Parser {
                 }
             }
             break;
+        case "help":
+            if (helpState.equals("goalState")) {
+                ui.showHelpGoal();
+            } else if (helpState.equals("scheduleState")) {
+                //show all possible inputs
+            }
         default:
             ui.showDontKnow();
             break;
