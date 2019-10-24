@@ -66,9 +66,7 @@ This section describes some noteworthy details on how certain features in *Email
 === Task Management
 There are three main types of tasks that Email Manager works with: `todo`, `deadline` and `event`.
 
-==== Current Implementation
-
-===== Natural Dates Support
+==== Natural Dates Support
 
 The email manager aims to help computing students handle their tasks efficiently. Therefore, one of its main
 goals is to speed up the process at which students enter their task details so that their task can be added
@@ -109,7 +107,7 @@ task list. The user executes `update 1 -time Tue` to change the task date from M
 * `TaskParseNaturalDateHelper` will be called to process the time information and update the task accordingly.
  When no time is entered, the time is set to 0000 (HHmm).
 
-===== Updating of Tags
+==== Updating of Tags
 
 Tasks have a variety of attributes that a user may want to add or change. The current attributes that
 can be modified are: `time`, `doafter`, `priority` and `tags`.
