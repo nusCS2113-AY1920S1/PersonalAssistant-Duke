@@ -96,7 +96,6 @@ public class SettleSplitCommand extends MoneyCommand {
         LocalDate payday = Parser.shortcutTime("now");
         Income i = new Income(price, description, payday);
         account.getIncomeListTotal().add(i);
-        account.getIncomeListCurrMonth().add(i);
         storage.writeToFile(account);
 
         String statusStr;

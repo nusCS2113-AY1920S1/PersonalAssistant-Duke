@@ -7,6 +7,7 @@ import controlpanel.Ui;
 import money.Expenditure;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 
 /**
  * This command allows users to check the expenditure
@@ -23,10 +24,16 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
      */
     //@@author chengweixuan
     public ViewPastMonthExpenditure(String command) {
-        String inputString = command.replaceFirst("check expenditure ", "");
-        String[] splitStr = inputString.split(" ");
-        month = Integer.parseInt(splitStr[0]);
-        year = Integer.parseInt(splitStr[1]);
+        if (command.equals("list month")) {
+            LocalDate currDate = LocalDate.now();
+            month = currDate.getMonthValue();
+            year = currDate.getYear();
+        } else {
+            String inputString = command.replaceFirst("check expenditure ", "");
+            String[] splitStr = inputString.split(" ");
+            month = Integer.parseInt(splitStr[0]);
+            year = Integer.parseInt(splitStr[1]);
+        }
     }
 
     /**
@@ -103,14 +110,14 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
         int counter = 1;
         for (Expenditure i : account.getExpListTotal()) {
             if (i.getDateBoughtDate().getMonthValue() == month && i.getDateBoughtDate().getYear() == year) {
-                ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
+                ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
                 counter++;
                 totalMonthExpenditure += i.getPrice();
             }
         }
-
-        ui.appendToOutput("Total expenditure for " + getMonthName(month) + " of " + year + " : $");
-        ui.appendToOutput(totalMonthExpenditure + "\n");
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
+        ui.appendToGraphContainer("Total expenditure for " + getMonthName(month) + " of " + year + " : $");
+        ui.appendToGraphContainer(totalMonthExpenditure + "\n");
 
     }
 

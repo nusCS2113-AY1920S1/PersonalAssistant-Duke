@@ -60,9 +60,6 @@ public class InternalTransferCommand extends MoneyCommand {
             bankTracker.addAmt(amt);
             Income income = new Income(amt, "Deposit to " + bankTracker.getDescription(), date);
             account.getIncomeListTotal().add(income);
-            if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-                account.getIncomeListCurrMonth().add(income);
-            }
         } else {
             if (bankTracker.predictAmt(date) < amt) {
                 throw new DukeException("Sorry, FG only allow non-zero balance. Here is the account info: \n"
@@ -73,9 +70,6 @@ public class InternalTransferCommand extends MoneyCommand {
             Expenditure expenditure = new Expenditure(amt, "Withdraw from " +
                     bankTracker.getDescription(), "withdraw from bank", date);
             account.getExpListTotal().add(expenditure);
-            if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-                account.getExpListCurrMonth().add(expenditure);
-            }
         }
         storage.writeToFile(account);
         ui.appendToOutput("  Got it. Here is the current information about this account:\n    "

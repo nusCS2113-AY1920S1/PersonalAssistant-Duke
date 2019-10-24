@@ -69,8 +69,6 @@ public class AddSplitCommand extends MoneyCommand {
         account.getExpListTotal().add(s);
         storage.writeToFile(account); // need to link this to storage later
 
-        account.populateCurrentMonthLists();
-
         ui.appendToOutput(" Got it. I've added this split expenditure to your total spending: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");

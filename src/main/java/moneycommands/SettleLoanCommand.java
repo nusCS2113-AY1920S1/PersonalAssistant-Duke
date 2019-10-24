@@ -141,7 +141,6 @@ public class SettleLoanCommand extends MoneyCommand {
             account.getOutgoingLoans().set(serialNo, l);
             Income i = new Income(amount, "From " + l.getDescription(), Parser.shortcutTime("now"));
             account.getIncomeListTotal().add(i);
-            account.getIncomeListCurrMonth().add(i);
         } else if (type == Loan.Type.INCOMING && amount <=
                 account.getIncomingLoans().get(serialNo).getOutstandingLoan()) {
             l = account.getIncomingLoans().get(serialNo);
@@ -151,7 +150,6 @@ public class SettleLoanCommand extends MoneyCommand {
             Expenditure e = new Expenditure(amount, "To " + l.getDescription(), "Loan Repayment",
                     Parser.shortcutTime("now"));
             account.getExpListTotal().add(e);
-            account.getExpListCurrMonth().add(e);
         } else {
             throw new DukeException("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt");
         }

@@ -55,13 +55,6 @@ public class AddIncomeCommand extends MoneyCommand {
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);
 
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        if (payDay.getMonthValue() == currMonth && payDay.getYear() == currYear) {
-            account.getIncomeListCurrMonth().add(i);
-        }
-
         ui.appendToOutput(" Got it. I've added this income source: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getIncomeListTotal().get(account.getIncomeListTotal().size() - 1).toString()

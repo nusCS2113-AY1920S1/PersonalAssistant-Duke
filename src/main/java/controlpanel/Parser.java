@@ -97,9 +97,9 @@ public class Parser {
         } else if (cmd.startsWith("list all instalment")) {
             moneyCommand = new ListInstalmentCommand();
         } else if (cmd.equals("list month income")) {
-            moneyCommand = new ListMonthIncomeCommand();
+            moneyCommand = new ViewPastMonthIncome("list month");
         } else if (cmd.equals("list month expenditure")) {
-            moneyCommand = new ListMonthExpenditureCommand();
+            moneyCommand = new ViewPastMonthExpenditure("list month");
         } else if (cmd.startsWith("check income")) {
             moneyCommand = new ViewPastMonthIncome(cmd);
         } else if (cmd.startsWith("check expenditure")) {
