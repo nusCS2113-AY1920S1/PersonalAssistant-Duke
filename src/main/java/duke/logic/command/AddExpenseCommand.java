@@ -70,6 +70,10 @@ public class AddExpenseCommand extends Command {
             expenseBuilder.setTime(commandParams.getParam(SecondaryParam.TIME.name));
         }
 
+        if (commandParams.containsParams(SecondaryParam.TENTATIVE.name)) {
+            expenseBuilder.setTentative(true);
+        }
+
         model.addExpense(expenseBuilder.build());
         // duke.expenseList.update();
         storage.saveExpenseList(model.getExpenseList());

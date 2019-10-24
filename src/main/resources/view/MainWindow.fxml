@@ -22,9 +22,11 @@
                         </font>
                      </Label>
                      <JFXButton fx:id="expenseButton" prefHeight="50.0" prefWidth="200.0" text="Expense" />
-                     <JFXButton fx:id="incomeButton" prefHeight="50.0" prefWidth="200.0" text="Monthly Income" />
+                      <JFXButton fx:id="planButton" prefHeight="50.0" prefWidth="200.0" text="Plan" />
+                      <JFXButton fx:id="incomeButton" prefHeight="50.0" prefWidth="200.0" text="Monthly Income" />
                      <JFXButton fx:id="loanButton" prefHeight="50.0" prefWidth="200.0" text="Loan &amp; Lend" />
                      <JFXButton fx:id="trendingButton" prefHeight="50.0" prefWidth="200.0" text="Expense Trending" />
+
                   </children>
                </VBox>
                <VBox layoutX="53.0" layoutY="350.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #f0fff0 #f0fff0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="800.0" AnchorPane.topAnchor="450.0">
@@ -40,7 +42,7 @@
                <VBox layoutX="492.0" layoutY="431.0" prefHeight="60.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="640.0">
                   <children>
                      <Label fx:id="console" prefHeight="25.0" prefWidth="800.0" />
-                     <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="35.0" prefWidth="800.0" promptText="/Enter your Command.." />
+                     <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyPressed" prefHeight="35.0" prefWidth="800.0" promptText="/Enter your Command.." />
                   </children>
                </VBox>
                <Label fx:id="boardTitle" alignment="CENTER" layoutX="542.0" layoutY="26.0" prefHeight="40.0" prefWidth="800.0" text="Welcome to Duke++" AnchorPane.bottomAnchor="660.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -53,5 +55,3 @@
         </Scene>
     </scene>
 </fx:root>
-
-

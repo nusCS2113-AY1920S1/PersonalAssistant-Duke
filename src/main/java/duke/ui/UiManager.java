@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.commons.LogsCenter;
+import duke.exception.DukeException;
 import duke.logic.Logic;
 import javafx.stage.Stage;
 

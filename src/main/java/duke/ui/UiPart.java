@@ -31,6 +31,7 @@ public abstract class UiPart<T> {
         this(getFxmlFileUrl(fxmlFileName), root);
     }
 
+
     /**
      * Returns the root object of the scene graph of this UiPart.
      */
