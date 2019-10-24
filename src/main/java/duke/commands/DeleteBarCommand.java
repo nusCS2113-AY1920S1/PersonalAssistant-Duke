@@ -3,34 +3,34 @@ package duke.commands;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
+import duke.components.Bar;
 import duke.components.Song;
 import duke.components.SongList;
 
 //@@author jwyf
 /**
- * A class that represents the command to delete an song from the song list.
+ * A class that represents the command to delete an bar from a song.
  */
-public class DeleteCommand extends Command<SongList> {
-
-    private int songIndex;
+public class DeleteBarCommand extends Command<SongList> {
+    private int barIndex;
 
     /**
-     * Constructor for the duke.Commands.Command created to delete a song from the duke.SongList
+     * Constructor for the duke.Commands.Command created to delete a bar from a song
      *
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      * @throws DukeException if an exception occurs in the parsing of the message
      */
-    public DeleteCommand(String message) throws DukeException {
+    public DeleteBarCommand(String message) throws DukeException {
         this.message = message;
         try {
-            songIndex = Integer.parseInt(message.substring(7));
+            barIndex = Integer.parseInt(message.substring(10));
         } catch (Exception e) {
             throw new DukeException("","other");
         }
     }
 
     /**
-     * Modifies the song list in use and returns the messages intended to be displayed.
+     * Modifies the song and returns the messages intended to be displayed.
      *
      * @param songList the duke.SongList object that contains the song list
      * @param ui the Ui object that determines the displayed output of duke.Duke
@@ -42,17 +42,18 @@ public class DeleteCommand extends Command<SongList> {
         if (songList.getSize() == 0) {
             throw new DukeException("", "empty");
         }
-        if (songIndex > songList.getSize() || songIndex < 1) {
+        if (barIndex > songList.getSongIndex(0).getBars().size() || barIndex < 1) {
             throw new DukeException("", "index");
         } else {
-            Song deletedSong = songList.getSongIndex(songIndex - 1);
-            songList.remove(songIndex - 1);
+            Song song = songList.getSongIndex(0);
+            Bar deletedBar = song.getBars().get(barIndex - 1);
+            song.getBars().remove(barIndex - 1);
             try {
                 storage.updateFile(songList);
             } catch (Exception e) {
                 throw new DukeException("","io");
             }
-            return ui.formatDelete(songList, deletedSong);
+            return ui.formatDeleteBar(song, deletedBar);
         }
     }
 

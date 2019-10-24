@@ -46,9 +46,9 @@ public class AsciiCommand extends Command<SongList> {
         }
         try {
             message = message.substring(6).trim();
-            String command = message.split(" ")[0];
+            String command = message.split(" ", 2)[0];
             if (command.equals("bar")) {
-                int barNum = Integer.parseInt(message.split(" ")[1]);
+                int barNum = Integer.parseInt(message.split(" ", 2)[1].trim());
                 //get the current song out
                 Song song = new Song("Test song", "C-Major", 120);
                 //bar index for user is assumed to start from 1
@@ -58,7 +58,7 @@ public class AsciiCommand extends Command<SongList> {
                 Bar bar = song.getBars().get(barNum - 1);
                 result = printBarAscii(bar);
             } else if (command.equals("group")) {
-                String groupName = message.split(" ")[1];
+                String groupName = message.split(" ", 2)[1].trim();
                 //Get the verseList from storage
                 VerseList verseList = new VerseList();
                 Group group = verseList.find(groupName);
@@ -68,9 +68,18 @@ public class AsciiCommand extends Command<SongList> {
                     result = printGroupAscii(group);
                 }
             } else if (command.equals("song")) {
-                String songName = message.split(" ")[1];
+                String songName = message.split(" ", 2)[1].trim();
+
                 //Get the song from the storage
-                Song song = new Song("Test song", "C-Major", 120);
+                //Song song = new Song("Test song", "C-Major", 120);
+                ArrayList<Song> songs = songList.findSong(songName);
+                Song song;
+                if (songs.size() == 1) {
+                    song = songs.get(0);
+                } else {
+                    //song does not exist or query returned more than 1 result
+                    throw new DukeException(message, "AsciiCommand");
+                }
                 //if song exists
                 result = printSongAscii(song);
             } else {
@@ -81,6 +90,7 @@ public class AsciiCommand extends Command<SongList> {
             throw new DukeException(message, "AsciiCommand");
         }
         return result;
+        
     }
 
     /**

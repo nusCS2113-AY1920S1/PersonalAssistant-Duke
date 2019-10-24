@@ -2,6 +2,7 @@ package duke.components;
 
 import java.util.ArrayList;
 
+//@@author jwyf
 /**
  * Class used to store the song list and perform necessary manipulations to the song list such as
  * adding songs, removing songs and finding songs based on keywords, as well as obtaining the size
