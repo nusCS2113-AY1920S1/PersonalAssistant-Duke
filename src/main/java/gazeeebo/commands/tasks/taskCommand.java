@@ -1,7 +1,7 @@
 package gazeeebo.commands.tasks;
 
 import gazeeebo.commands.Command;
-import gazeeebo.commands.edit.EditCommand;
+import gazeeebo.commands.Edit.EditCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.commands.note.DeleteNoteCommand;
