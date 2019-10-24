@@ -8,11 +8,13 @@ import java.util.*;
 
 /**
  * DegreeTask stores an arraylist of tasklists relevant for each degree programme
+ * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
+ * it removes all tasks from the user's tasklist related to a removed degree
  */
 public class DegreeTask extends Task {
     public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
-    //this map relates all the engineeering programmes with an arbitrary integer
+    //this map relates all the engineering programmes with an arbitrary integer
     private static final Map<String, Integer> degreeMap;
     static {
         Map<String, Integer> aMap = new HashMap<>();
@@ -30,7 +32,7 @@ public class DegreeTask extends Task {
 
 
     /**
-     * loads an arraylist of tasklists by reading the file degreeTasks.txt
+     *
      * @throws DukeException
      */
     public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
@@ -57,9 +59,10 @@ public class DegreeTask extends Task {
      * @throws DukeException
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
-        if (degreeName.contains("ceg")) {
-            System.out.println(fullDegreeTasklist.get(degreeMap.get(degreeName)).get(0).toString());
-            System.out.println(userTasklist.get(0).toList());
+        int n = fullDegreeTasklist.get(degreeMap.get(degreeName)).size();
+        for (int i = 0; i < n; i++) {
+            Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
+            userTasklist.add(toAppend);
         }
     }
 }

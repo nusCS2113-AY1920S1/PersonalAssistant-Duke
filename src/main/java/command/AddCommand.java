@@ -59,8 +59,7 @@ public class AddCommand extends Command {
 
             lists.add_custom(this.arguments);
             DegreeTask degreeTask = new DegreeTask();
-            degreeTask.addDegreeTasks (this.arguments, tasks);
-
+            degreeTask.addDegreeTasks(this.arguments, tasks);
         }
         else {
             this.listType = 0;
