@@ -5,7 +5,7 @@ import dolla.task.Log;
 import java.util.Comparator;
 
 public class ListComparator {
-
+    
     static Comparator<Log> dateComparator() {
         return new Comparator<Log>() {
             @Override

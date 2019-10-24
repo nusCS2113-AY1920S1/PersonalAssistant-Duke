@@ -2,9 +2,6 @@ package dolla.action;
 
 import java.util.Stack;
 
-/**
- * The type Redo. //TODO: edit javadoc
- */
 public class Redo {
     private static String redoInput;
     private static Stack<String> redoCommand = new Stack<>();

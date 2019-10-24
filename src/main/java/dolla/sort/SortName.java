@@ -12,9 +12,9 @@ import java.util.Collections;
 public class SortName extends Sort {
 
     /**
-     * Instantiates a new Sort name.
-     *
-     * @param list the list
+     * This method will call the nameComparator method, sort the input ArrayList according to name
+     * and print out the sorted list.
+     * @param list the ArrayList to be sorted.
      */
     public SortName(ArrayList<Log> list) {
         super(list);

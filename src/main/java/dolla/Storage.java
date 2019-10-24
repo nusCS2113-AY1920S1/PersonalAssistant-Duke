@@ -24,10 +24,11 @@ import java.util.Arrays;
  */
 public class Storage {
 
-    protected static ArrayList<Log> entries = new ArrayList<Log>();
-    protected static ArrayList<Log> limits = new ArrayList<Log>();
-    protected static ArrayList<Log> debts = new ArrayList<Log>();
-    protected static ArrayList<Log> shortcuts = new ArrayList<Log>();
+    private static ArrayList<Log> entries = new ArrayList<Log>();
+    private static ArrayList<Log> limits = new ArrayList<Log>();
+    private static ArrayList<Log> debts = new ArrayList<Log>();
+    private static ArrayList<Log> shortcuts = new ArrayList<Log>();
+    private static ArrayList<Log> storage = new ArrayList<Log>();
 
     private static double stringToDouble(String str) {
         double newDouble = 0.0;
@@ -172,37 +173,69 @@ public class Storage {
         //return list;
     }
 
+    /**
+     * This method will return the ArrayList containing the entries.
+     * @return entries the ArrayList containing all the entries.
+     */
     public static ArrayList<Log> getEntriesFromSave() {
         return entries;
     }
 
+    /**
+     * This method will return the ArrayList containing the limits.
+     * @return limits the ArrayList containing all the limits.
+     */
     public static ArrayList<Log> getLimitsFromSave() {
         return limits;
     }
 
+    /**
+     * This method will return the ArrayList containing the debts.
+     * @return entries the ArrayList containing all the debts.
+     */
     public static ArrayList<Log> getDebtsFromSave() {
         return debts;
     }
 
+    /**
+     * This method will return the ArrayList containing the shortcuts.
+     * @return entries the ArrayList containing all the shortcuts.
+     */
     public static ArrayList<Log> getShortcutsFromSave() {
         return shortcuts;
     }
 
+    /**
+     * This method will set the ArrayList of entries in this class.
+     * @param entries the ArrayList this method going to set to.
+     */
     public static void setEntries(ArrayList<Log> entries) {
         Storage.entries = entries;
         save();
     }
 
+    /**
+     * This method will set the ArrayList of limits in this class.
+     * @param limits the ArrayList this method going to set to.
+     */
     public static void setLimits(ArrayList<Log> limits) {
         Storage.limits = limits;
         save();
     }
 
+    /**
+     * This method will set the ArrayList of debts in this class.
+     * @param debts the ArrayList this method going to set to.
+     */
     public static void setDebts(ArrayList<Log> debts) {
         Storage.debts = debts;
         save();
     }
 
+    /**
+     * This method will set the ArrayList of debts in this class.
+     * @param shortcuts the ArrayList this method going to set to.
+     */
     public static void setShortcuts(ArrayList<Log> shortcuts) {
         Storage.shortcuts = shortcuts;
         save();
@@ -210,52 +243,50 @@ public class Storage {
 
 
     /**
-     * //TODO: do javadoc.
+     * This method will save all the ArrayList into an external text file.
      */
     public static void save() {
         try (FileWriter file = new FileWriter("./data/duke.txt")) {
+            storage.addAll(entries);
+            storage.addAll(debts);
+            storage.addAll(limits);
+            storage.addAll(shortcuts);
 
-            for (Log currEntries : entries) {
-                String fileContent = currEntries.formatSave();
+            for(Log currSave : storage) {
+                String fileContent = currSave.formatSave();
                 file.write(fileContent);
                 file.write(System.lineSeparator());
             }
 
-            for (Log currLimits : limits) {
-                String fileContent = currLimits.formatSave();
-                file.write(fileContent);
-                file.write(System.lineSeparator());
-            }
 
-            for (Log currDebts : debts) {
-                String fileContent = currDebts.formatSave();
-                file.write(fileContent);
-                file.write(System.lineSeparator());
-            }
+//            for (Log currEntries : entries) {
+//                String fileContent = currEntries.formatSave();
+//                file.write(fileContent);
+//                file.write(System.lineSeparator());
+//            }
 
-            for (Log currShortcuts : shortcuts) {
-                String fileContent = currShortcuts.formatSave();
-                file.write(fileContent);
-                file.write(System.lineSeparator());
-            }
+//            for (Log currLimits : limits) {
+//                String fileContent = currLimits.formatSave();
+//                file.write(fileContent);
+//                file.write(System.lineSeparator());
+//            }
+//
+//            for (Log currDebts : debts) {
+//                String fileContent = currDebts.formatSave();
+//                file.write(fileContent);
+//                file.write(System.lineSeparator());
+//            }
+//
+//            for (Log currShortcuts : shortcuts) {
+//                String fileContent = currShortcuts.formatSave();
+//                file.write(fileContent);
+//                file.write(System.lineSeparator());
+//            }
 
         } catch (IOException e) {
             System.out.println("***Error writing to duke.txt***");
         }
     }
-
-    /*
-    public static void save(Log saveList) {
-        try (FileWriter file = new FileWriter("./data/duke.txt",true)) {
-            String fileContent = saveList.formatSave();
-            System.out.println(fileContent); ///////////////////////
-            file.write(fileContent);
-            file.write(System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println("***Error writing to duke.txt***");
-        }
-    }
-    */
 
     /**
      * Create save file called data in root folder.
