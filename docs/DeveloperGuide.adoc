@@ -138,42 +138,6 @@ entered) as well as the rescheduling function (to check for clashes when the use
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
 
-=== Reminders
-
-==== How it is implemented
-The reminder function filters out the tasks that are due or are happening before 2359 three days after the current date, 
-and prints them out as a reminder for the users. 
-
-After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the 
-Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
-EventList.filteredList method to filter out a list of events that are due or are happening before 2359 three 
-days after the current date. The EventList.filteredList method filters out events from the stored list of events
-according to a certain input predicate. 
-
-The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the 
-item that is used for the comparison reference (comp) input, and the comparator is the operator that is used for the 
-comparison. The comparator should be either one of the three global integer variables: EQUAL, GREATER_THAN or SMALLER_THAN. 
-The Predicate.check method takes in an input and checks if reference (comp) input is true by calling the appropriate method 
-in the Predicate class depending on the type of the reference and input.
-
-In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to 
-2359 three days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder method 
-calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of Events in 
-`eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the 
-EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true 
-and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
-EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time, 
-the date and time at 2359 three days after the current date, and the filtered list of events. This string is printed to
-stdout in the Ui.printReminders function.
-
-==== Why it is implemented this way
-The reminder function is split the various components into different methods for easier testing. In this case, Ui.printReminders 
-prints the output to the user interface, EventList.getReminder is responsible for compiling the output whereas EventList.filteredList
-obtains the filtered list of events from `eventArrayList`. 
-
-This implementation also improves scalability as the Predicate class and the EventList.filteredList method can be reused for other
-functionalities. 
-
 == Documentation
 
 
