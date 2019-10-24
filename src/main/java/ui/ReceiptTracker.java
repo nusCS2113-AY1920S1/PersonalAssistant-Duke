@@ -81,11 +81,11 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      * @param tag Specific String to be filtered with.
      * @return ArrayList containing all the Receipts with the specific tag
      */
-    public ArrayList<Receipt> findReceiptsByTag(String tag) {
-        ArrayList<Receipt> taggedReceipts = new ArrayList<>();
+    public ReceiptTracker findReceiptsByTag(String tag) {
+        ReceiptTracker taggedReceipts = new ReceiptTracker();
         for (Receipt receipt : this) {
             if (receipt.containsTag(tag)) {
-                taggedReceipts.add(receipt);
+                taggedReceipts.addReceipt(receipt);
             }
         }
         return taggedReceipts;
