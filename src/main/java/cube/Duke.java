@@ -5,12 +5,13 @@
  */
 package cube;
 
-import cube.model.food.FoodList;
-import cube.model.food.Food;
+import cube.model.Food;
+import cube.model.FoodList;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
-import cube.util.FileUtilJson;
 import cube.logic.command.Command;
+import cube.logic.command.CommandResult;
+import cube.util.FileUtilJson;
 import cube.storage.*;
 import cube.exception.CubeException;
 
@@ -40,7 +41,6 @@ public class Duke {
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
             foodList = new FoodList();
-            Food.updateRevenue(0);
             storageManager = new StorageManager();
         }
     }
@@ -57,7 +57,8 @@ public class Duke {
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
-                c.execute(foodList, ui, storageManager);
+                CommandResult result = c.execute(foodList, storageManager);
+                ui.showCommandResult(result);
                 storage.save(storageManager);
             } catch (CubeException e) {
                 ui.showError(e.getMessage());

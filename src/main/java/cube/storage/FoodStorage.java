@@ -1,9 +1,11 @@
 package cube.storage;
 
-import cube.model.food.Food;
-import cube.model.food.FoodList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import cube.model.Food;
+import cube.model.FoodList;
 
 public class FoodStorage {
+	@JsonProperty
 	private FoodList foodList;
 
 	public FoodStorage() {

@@ -12,7 +12,7 @@ public class DukeLoadingException extends DukeException
     /**
      * Default Constructor.
      */
-    public DukeLoadingException(String filePath) {
-        super(Message.IO_ERROR + filePath);
+    public DukeLoadingException(String type, String filePath) {
+
     }
 }

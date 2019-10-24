@@ -1,24 +1,23 @@
+//@@author LL-Pengfei
 /**
- * This class is used as interface with the user. It could reads from user and print message to the user.
- *
- * @author tygq13
+ * Ui.java
+ * Support user interaction.
  */
 package cube.ui;
 
-import cube.model.food.Food;
-import cube.model.food.FoodList;
-import cube.task.TaskList;
-import cube.task.Task;
-import cube.util.Parser;
+import cube.logic.command.CommandResult;
 import java.util.Scanner;
-import java.util.Date;
 
-
+/**
+ * This class is used as an user interface. It supports
+ * interactions with the users, including data and instructions
+ * input and output.
+ */
 public class Ui {
 	private Scanner in = new Scanner(System.in);
 
 	/**
-	 * Returns the next line of user input being read.
+	 * Return the next line of user input being read.
 	 *
 	 * @return next line of user input.
 	 */
@@ -26,9 +25,8 @@ public class Ui {
 		return in.nextLine();
 	}
 
-	//@@author LL-Pengfei
 	/**
-	 * Prints the welcome screen of Cube.
+	 * Print the welcome screen of Cube.
 	 */
 	public void showWelcome(){
 	    String logo = " ________  ___  ___  ________  _______      \n" +
@@ -43,136 +41,19 @@ public class Ui {
 	}
 
 	/**
-	 * Prints a dotted line with new line.
+	 * Prints a dotted line in anew line.
 	 */
 	public void showLine() {
 		System.out.println("------------------------------------------------------------------------------------------------------");
 	}
 
-	/**
-	 * Prints the exit message of Cube.
-	 */
-	public void showExit() {
-		System.out.println("Bye. Hope to see you again soon!");
+	public void showError(String e) {
+		System.out.println(e);
 	}
 
 	/**
-	 * Prints the information of the task added.
-	 *
-	 * @param list the list of tasks stored in Cube.
-	 */
-	public void showAdd(TaskList list) {
-		System.out.println("Got it. I've added this task:");
-		Task t = list.get(list.size() -1);
-		System.out.println("  " + t);
-		System.out.println("Now you have " + list.size() + " tasks in the list.");
-	}
-
-	/**
-	 * Prints each task in the task list.
-	 *
-	 * @param list the list of tasks stored in Cube.
-	 */
-	public void showList(TaskList list) {
-		System.out.println("Here are the tasks in your list: ");
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println((i + 1) + "." + list.get(i));
-		}
-	}
-
-	/**
-	 * Prints the list of task with specified keyword.
-	 *
-	 * @param list the list of task stored in Cube.
-	 */
-	public void showFind(TaskList list) {
-		System.out.println("Here are the matching tasks in your list:");
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println((i + 1) + "." + list.get(i));
-		}
-	}
-
-	/**
-	 * Prints the message of task being marked as done.
-	 *
-	 * @param finished the task being marked as done.
-	 */
-	public void showDone(Task finished) {
-		System.out.println("Nice! I've marked this task as done:");
-		System.out.println(finished);
-	}
-
-	//@@author LL-Pengfei
-	/**
-	 * Show Snooze Message.
-	 *
-	 * @param snoozed the task snoozed.
-	 */
-	public void showSnooze(Task snoozed) {
-		System.out.println("Here is the task snoozed for 24 hours:");
-		System.out.println(snoozed);
-	}
-	//@@author
-
-	/**
-	 * Prints the list of food products whose expiry is in the next 7 days.
-	 *
-	 * @param list the list of food products nearing expiry.
-	 */
-	public void showExpiryReminder(FoodList list) {
-		System.out.println("Here are the upcoming expiry dates:");
-		for(int i = 0; i < list.size(); i++) {
-			Food food = list.get(i);
-			System.out.println(food.getName() + " due in " + Parser.parseDateToString(food.getExpiryDate()));
-		}
-	}
-
-	/**
-	 * Prints the list of food products that are low on stock.
-	 *
-	 * @param list the list of food products that are low on stock.
-	 */
-	public void showStockReminder(FoodList list) {
-		System.out.println("Here are the food products that are low in stock:");
-		for(int i = 0; i < list.size(); i++) {
-			Food food = list.get(i);
-			System.out.println(food.getName() + ": " + food.getStock() + " left");
-		}
-	}
-
-	/**
-	 * Prints the message of a task being removed.
-	 *
-	 * @param removed the task being removed.
-	 * @param list the list of task stored in Cube.
-	 */
-	public void showRemove(Task removed, TaskList list) {
-		System.out.println("Nice! I've removed this task:");
-		System.out.println(removed);
-		System.out.println("Now you have " + list.size() + " tasks in the list.");
-	}
-
-	/**
-	 * Prints the message of a task being removed.
-	 *
-	 * @param removed the task being removed.
-	 * @param list the list of task stored in Cube.
-	 */
-	public void showFreeDay(Date date) {
-		System.out.println("Your next free day is: " + Parser.parseDateToString(date));
-	}
-
-	/**
-	 * Prints the error message.
-	 *
-	 * @param error the error message.
-	 */
-	public void showError(String error) {
-		System.out.println(error);
-	}
-
-	/**
-	 * Prints the error message of loading error.
+	 * Print the error message of loading error.
+	 * @param path the filepath that the user intends to use to load.
 	 */
 	public void showLoadingError(String path) {
 		showLine();
@@ -195,5 +76,9 @@ public class Ui {
 				+ String.format("%1$-85s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-85s", "  'help'") + "to show a list of available command\n";
 		System.out.print(help);
+
+	// temporary use before GUI finish
+	public void showCommandResult(CommandResult result) {
+		System.out.println(result.getFeedbackToUser());
 	}
 }

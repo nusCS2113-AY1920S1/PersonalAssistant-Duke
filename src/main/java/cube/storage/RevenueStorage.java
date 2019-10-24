@@ -1,21 +1,37 @@
+//@@author LL-Pengfei
+/**
+ * RevenueStorage.java
+ * Support revenue-related methods for storage.
+ */
 package cube.storage;
 
-// for testing only
+/**
+ * This class supports revenue-related methods for storage.
+ */
 public class RevenueStorage {
     private double revenue;
 
+    /**
+     * Default constructor, setting revenue to 0.
+     */
     public RevenueStorage() {
         this.revenue = 0;
     }
 
-	public RevenueStorage(double revenue) {
-        this.revenue = revenue;
-	}
-
+    /**
+     * Getter for revenue.
+     *
+     * @return The revenue value.
+     */
     public double getRevenue() {
         return revenue;
     }
 
+    /**
+     * Setter for revenue.
+     *
+     * @param revenue The revenue variable, kept for convenient access to the total revenue.
+     */
     public void storeRevenue(double revenue) {
         this.revenue = revenue;
     }
