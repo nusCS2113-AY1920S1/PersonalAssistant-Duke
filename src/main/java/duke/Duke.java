@@ -8,9 +8,12 @@ import duke.commands.GroupCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.NewCommand;
+import duke.commands.RedoCommand;
 import duke.commands.RemindCommand;
+import duke.commands.UndoCommand;
 import duke.commands.ViewCommand;
 import duke.components.SongList;
+import duke.components.UndoRedoStack;
 
 import java.nio.file.Paths;
 import java.util.Timer;
@@ -25,6 +28,7 @@ public class Duke {
     private TaskList tasks;
     private SongList songs;
     private Ui ui;
+    private UndoRedoStack undoRedoStack;
 
     /**
      * Constructor for the duke.Duke object, which initializes the UI, duke.TaskList and duke.Storage in
@@ -34,13 +38,14 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList();
         songs = new SongList();
-        storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
+        storage = new Storage(Paths.get("data/todo_list.txt"));
         try {
             storage.loadToList(songs);
         } catch (DukeException e) {
             System.out.println(ui.showError(e));
             songs = new SongList();
         }
+        undoRedoStack = new UndoRedoStack(songs);
     }
 
     /**
@@ -82,6 +87,10 @@ public class Duke {
                         || c instanceof AddOverlayCommand
                         || c instanceof ListCommand) {
                     output = c.execute(songs, ui, storage);
+                    undoRedoStack.add(songs);
+                } else if (c instanceof UndoCommand || c instanceof RedoCommand) {
+                    output = c.execute(songs, ui, storage, undoRedoStack);
+                    songs = undoRedoStack.getCurrentVersion();
                 } else {
                     output = c.execute(tasks, ui, storage);
                 }

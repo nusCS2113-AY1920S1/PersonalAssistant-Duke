@@ -1,1 +1,3 @@
-twinkle aminor 123 [[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA],[UAs;UAs],[UA;UA]] 
+twinkle a 123 
+twinkle a 123 
+twinkle a 123 

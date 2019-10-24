@@ -371,4 +371,39 @@ public class Ui {
         }
         return result;
     }
+
+    public String formatUndo() {
+        String output = "This is the first version.\nYou cannot undo anymore.";
+        return wrap(output);
+    }
+
+    public String formatUndo(int currentVersionIndex) {
+        String output;
+        if (currentVersionIndex == 0) {
+            output = "Undo successfully! You cannot undo anymore.";
+        } else if (currentVersionIndex == 1) {
+            output = "Undo successfully! You can undo for 1 more time.";
+        } else {
+            output = String.format("Undo successfully! You can undo for %d more times", currentVersionIndex).toString();
+        }
+        return wrap(output);
+    }
+
+    public String formatRedo() {
+        String output = "This is the latest version.\nYou cannot redo anymore.\n\n";
+        return wrap(output);
+    }
+
+
+    public String formatRedo(int numOfRedoLeft) {
+        String output;
+        if (numOfRedoLeft == 0) {
+            output = "Redo successfully! You cannot redo anymore.";
+        } else if (numOfRedoLeft == 1) {
+            output = "Redo successfully! You can redo for 1 more time.";
+        } else {
+            output = String.format("Redo successfully! You can redo for %d more times.", numOfRedoLeft).toString();
+        }
+        return wrap(output);
+    }
 }

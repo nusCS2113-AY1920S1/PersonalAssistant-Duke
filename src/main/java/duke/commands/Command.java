@@ -3,6 +3,8 @@ package duke.commands;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
+import duke.components.SongList;
+import duke.components.UndoRedoStack;
 
 /**
  * An abstract class used to represent a command interpreted from an input message. Extended by
@@ -36,6 +38,10 @@ public abstract class Command<T> {
      * @throws DukeException in the case of either parsing or IO errors
      */
     public abstract String execute(T object, Ui ui, Storage storage) throws DukeException;
+
+    public String execute(SongList songs, Ui ui, Storage storage, UndoRedoStack undoRedoStack) throws DukeException {
+        return null;
+    }
 
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
