@@ -14,7 +14,7 @@ public class CommandLevelStart extends Command {
         Ui ui = farmio.getUi();
         Storage storage = farmio.getStorage();
         Farmer farmer = farmio.getFarmer();
-        Level level = new Level(storage.getLevel(farmer.getLevel()), farmio.getFarmer());
+        Level level = new Level(storage.getLevel(farmer.getLevel()));
         farmio.setLevel(level);
         int frameId = 0;
         for(String narrative: level.getNarratives()){

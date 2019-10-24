@@ -17,7 +17,7 @@ public class Level {
     int endGold;
     int deadline;
 
-    public Level(JSONObject object, Farmer farmer) {
+    public Level(JSONObject object) {
         JSONArray array = (JSONArray) object.get("narratives");
         narratives = new ArrayList<>();
         for (Object i : array) {
