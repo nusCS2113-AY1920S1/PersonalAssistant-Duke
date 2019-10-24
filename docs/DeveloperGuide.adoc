@@ -176,6 +176,15 @@ Data Structure to support undo/redo:
 *** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
 *** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
 
+=== Degree-Related Tasks
+==== Implementation
+
+The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
+
+
+
+Currently, the `DegreeTask`
+
 == Testing
 
 == Documentation
