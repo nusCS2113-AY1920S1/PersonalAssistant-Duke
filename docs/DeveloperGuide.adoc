@@ -289,7 +289,7 @@ The above sequence diagram depicts the general sequence of parsing user input fo
 into the the specific Parser classes in `ParseTypeMenu`.
 
 Depending on the `type` of command the user enters, the specific parser class invoked will be different (e.g.
-ParseAddBond, ParseDeleteInvestment) which will return a `Command` object back to main to prepare for execution.
+`ParseAddBond`, `ParseDeleteInvestment`) which will return a `Command` object back to main to prepare for execution.
 
 The execution of commands will be elaborated in subsequent diagrams below.
 
