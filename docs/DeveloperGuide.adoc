@@ -62,13 +62,31 @@ This is assuming you have a JDK version of `11` and above.
 
 === Architecture
 
+Our integration approach would be bottom-up, since we are morphing the original Duke Assistant into our ModPlanner application, some of the components can be adapted and reused of other purposes. +
+
+The high-level UML Diagram of ModPlan can be seen below:
+
+image::Architecture.png[]
+
+In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
+
+
+
 === JsonWrapper
 
-The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing and Natty for relative date processing. Dependant on Storage class for writing data files obtained.
+The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing. Dependant on Storage class for writing data files obtained.
+
+image::JsonWrapper.png[width="350"]
+
+This class is also dependant on a RequestsData class which serves as the main API caller for ModPlanner, but it is not used anywhere else in the code base.
 
 === Storage
 
 Main class which handles file writing during runtime and for maintaining user data in memory.
+
+image::Storage.png[width="350"]
+
+This class was adapted from the existing Duke storage to suit the needs of ModPlanner.
 
 [[Parser]]
 
@@ -76,7 +94,13 @@ Main class which handles file writing during runtime and for maintaining user da
 
 Parser is implemented as `Parser` class which is a wrapper for the `argparse4j` library to handle user input and manage internal command mapping.
 
+image::Parser.png[]
+
 === PlannerUi
+
+The main class which handles user display, which includes reading user input and printing module, CAP and CCA information back to the user on command-line.
+
+image::PlannerUi.png[]
 
 === Command
 
@@ -88,9 +112,13 @@ The `ModuleCommand` class also receives arguments based on the arguments passed 
 +
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
+image::Command.png[]
+
 === CCA
 
 CCA is implemented as `Cca` class which is the backbone for representing and managing user-defined CCAs. Typically, CCAs are loaded and stored in an `List`-like structure implemented in `CcaList` class which inherits from the builtin `ArrayList`.
+
+image::CCA.png[]
 
 [[Implementation]]
 
