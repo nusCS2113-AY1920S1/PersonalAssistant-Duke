@@ -21,13 +21,12 @@ public class RemindCommand extends Command {
     @Override
     public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         String[] splites = line.split(" ");
-        if (splites.length != 2)    {
+        if (splites.length != 2) {
             throwSyntaxError();
         }
 
         int taskIndex = 0;
         int beforeInt = 0;
-        char beforeMult = splites[1].charAt(splites[1].length() - 1);
 
         try {
             taskIndex = Integer.parseInt(splites[0]);
@@ -39,20 +38,19 @@ public class RemindCommand extends Command {
         String response = "Alright! I'll remind you about: \n";
         try {
             response += tasks.get(taskIndex - 1).toString() + '\n';
-        } catch (IndexOutOfBoundsException e)   {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task does not exist!");
         }
         response += beforeInt;
-        if (beforeMult == 'm')  {
+        
+        char beforeMult = splites[1].charAt(splites[1].length() - 1);
+        if (beforeMult == 'm') {
             response += " mintutes";
-        }
-        else if (beforeMult == 'h') {
+        } else if (beforeMult == 'h') {
             response += " hours";
-        }
-        else if (beforeMult == 'd') {
+        } else if (beforeMult == 'd') {
             response += " days";
-        }
-        else    {
+        } else {
             throw new DukeException("Specify m (minutes), h (hours) or d (days)");
         }
 
@@ -70,6 +68,11 @@ public class RemindCommand extends Command {
         return false;
     }
 
+    /**
+     * Shows tooltip for correct syntax
+     *
+     * @throws DukeException Hint for proper syntax
+     */
     public void throwSyntaxError() throws DukeException {
         throw new DukeException("usage: reminder [task index] [time before]\n"
                 + "*Only for tasks with dates\n"
