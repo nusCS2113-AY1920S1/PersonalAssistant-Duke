@@ -3,7 +3,9 @@ package task;
 import exception.DukeException;
 import storage.Storage;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DegreeTask stores an arraylist of tasklists relevant for each degree programme
@@ -11,13 +13,15 @@ import java.util.ArrayList;
 public class DegreeTask extends Task {
     private Storage storage;
     private ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
+    private static final String filename = "../data/degreeTasks.txt"; //text file for tasks related to degrees
+    File file = new File(filename);
 
 
     /**
      * loads an arraylist of tasklists by reading the file degreeTasks.txt
      * @throws DukeException
      */
-    public void loadDegreeTasks() throws DukeException {
+    public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
         this.storage = new Storage("degreeTasks.txt");
         try {
             TaskList thisList = new TaskList(storage.getTaskList());
@@ -34,7 +38,6 @@ public class DegreeTask extends Task {
      * @throws DukeException
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
-        loadDegreeTasks();
         if(degreeName.contains("ceg")){
             for(int i = 0; i < fullDegreeTasklist.get(0).size(); i++){
                 userTasklist.add(fullDegreeTasklist.get(0).get(i));
