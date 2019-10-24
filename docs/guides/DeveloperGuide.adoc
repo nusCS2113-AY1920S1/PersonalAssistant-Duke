@@ -43,7 +43,9 @@ This section shows how to set up Email Manager on your desktop and begin your de
 === Architecture
 
 Figure 1. Architecture Diagram +
-The _Architecture Diagram_ given above explains the high-level design of the App. Given below is a quick overview of each component. +
+
+The _Architecture Diagram_ given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 * UI component
 * Logic component
 * Model component
