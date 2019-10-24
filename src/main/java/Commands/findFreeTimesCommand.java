@@ -113,7 +113,7 @@ public class FindFreeTimesCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display freeTimes message
      * @throws Exception On date parsing error
      */
-    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(LookupTable LT, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
     mapDataMap(events);
     findFindTime();
     setOutput();
@@ -210,7 +210,6 @@ public class FindFreeTimesCommand extends Command {
                     }
                 }
             }
-
         }
     }
 

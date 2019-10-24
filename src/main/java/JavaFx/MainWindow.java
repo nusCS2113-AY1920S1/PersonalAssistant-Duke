@@ -28,9 +28,7 @@ import javafx.util.Pair;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -132,12 +130,7 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void displayQuoteOfTheDay(){
         try {
-            ClassLoader loader = this.getClass().getClassLoader(); // or YourClass.class.getClassLoader()
-            URL resourceUrl = loader.getResource("documents/quotes.txt");
-            File path = null;
-            if (resourceUrl != null) {
-                path = new File(resourceUrl.getFile());
-            }
+            File path = new File(System.getProperty("user.dir") + "\\data\\quotes.txt");
             Scanner scanner = new Scanner(path);
             String firstLine = scanner.nextLine();
             FileWriter writer = new FileWriter(path);
@@ -316,7 +309,7 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
-        }/* else if (input.startsWith("add")) {
+        } else if (input.startsWith("add")) {
             if(response.startsWith("true|")) {
                 refresh(input);
                 setProgressContainer();
@@ -329,11 +322,11 @@ public class MainWindow extends BorderPane implements Initializable {
                 String[] dateSplit = date.split(" ");
                 date = dateSplit[0] + " " + dateSplit[1];
             } else {
-                date = LT.getWeek(date);
+                date = LT.getValue(date);
             }
             if (date.equals(week)) setWeek(false, week);
 
-        } */else if (userInput.getText().equals("bye")) {
+        }else if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
@@ -423,7 +416,7 @@ public class MainWindow extends BorderPane implements Initializable {
             for(Map.Entry<String, ArrayList<Task>> item: moduleValue.entrySet()) {
                 String strDate = item.getKey();
                 String[] spilt = strDate.split(" ", 3);
-                String selectedWeek = LT.getWeek(spilt[1]);
+                String selectedWeek = LT.getValue(spilt[1]);
                 if((selectedWeek).equals(week)) {
                     ArrayList<Task> data = item.getValue(); // each item in data has the contents
                     for(Task task: data){
@@ -482,14 +475,14 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String date = dateFormat.format(dateTime);
-            selectedWeek = LT.getWeek(date);
-            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            selectedWeek = LT.getValue(date);
+            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,23));
             currentWeek.setTextFill(Color.GOLDENROD);
         }
         else{
-            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
         }
     }
@@ -519,7 +512,7 @@ public class MainWindow extends BorderPane implements Initializable {
             String[] modAndTask = (spiltInput[0].replaceFirst("add/e ", "")).split(" ");
             String[] dateAndTime = spiltInput[1].split(" from ");
             String date = dateAndTime[0].trim();
-            if(date.startsWith("Week")) date = LT.getDates(date.toLowerCase());
+            if(date.startsWith("Week")) date = LT.getValue(date.toLowerCase());
             Date inputDate = null;
             Date currentDate = null;
             try {
