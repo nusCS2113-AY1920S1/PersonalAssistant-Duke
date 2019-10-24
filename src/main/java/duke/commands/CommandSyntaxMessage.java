@@ -6,7 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 //@@ Sha Long
-public final class CommandSyntaxMessage {
+
+/**
+ * CommandSyntaxMessage is a class that cannot be instantiated.
+ *
+ * To add a new command format, just create a <code>String</code> which indicates the command format,
+ * and add the command name and format into nameToSyntax HashMap.
+ */
+public abstract class CommandSyntaxMessage {
     private static String listSyntax = "list\n";
     private static String newSyntax = "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
     private static String openSyntax = "open s/SONG_NAME\n";
@@ -25,6 +32,8 @@ public final class CommandSyntaxMessage {
     private static String clearSyntax = "To be implemented in version 2.0\n";
     private static String deleteSyntax = "To be implemented in version 2.0\n";
     private static String exitSyntax = "To be implemented in version 2.0\n";
+    private String startHelpMessage = String.format("There are %d commands in Ducats.\n", nameToSyntax.size());
+    private static String endInstructionMessage = "Alternatively, you can use help [command] to see format for specific command.\n";
 
     //@@ Sha Long
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
@@ -52,11 +61,14 @@ public final class CommandSyntaxMessage {
      * The function is to get ALL the commands including their name and format in a single String.
      * @return a string with all the formats
      */
-    public static String getMessage() {
+    public String getMessage() {
         StringBuilder output = new StringBuilder();
+        output.append(startHelpMessage.toString());
+        int i = 0;
         for (Map.Entry<String, String> entry : nameToSyntax.entrySet()) {
-            output.append(entry.getKey() + "\nFormat: " + entry.getValue() + "\n");
+            output.append((++i) + "." + entry.getKey() + "\nFormat: " + entry.getValue() + "\n");
         }
+        output.append(endInstructionMessage);
         return output.toString();
     }
 
@@ -67,7 +79,7 @@ public final class CommandSyntaxMessage {
      * @return a string with name and format of the the input command
      * @throws DukeException when you cannot find the command, throw other DukeException
      */
-    public static String getMessage(String helpMessage) throws DukeException {
+    public String getMessage(String helpMessage) throws DukeException {
         if (nameToSyntax.containsKey(helpMessage)) {
             StringBuilder output = new StringBuilder();
             output.append(helpMessage + "\nFormat: " + nameToSyntax.get(helpMessage));
