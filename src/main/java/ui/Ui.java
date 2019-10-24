@@ -4,6 +4,7 @@ import command.Storage;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
+import project.Fund;
 import project.Project;
 import task.Task;
 
@@ -147,17 +148,13 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * prints the list of input commands entered by the user.
+     * @param list1 list of input commands entered by the user.
+     */
     public void printArrayList(ArrayList<String> list1) {
         for (int i = 0; i < list1.size(); i = i + 1) {
             System.out.println(list1.get(i));
-        }
-    }
-
-    public void printTxtfile(String storage) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(storage));
-        String line = null;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
         }
     }
 
@@ -318,6 +315,28 @@ public class Ui {
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
         System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message of adding a fund to all projects
+     * @param fund the fund for all projects
+     */
+    public void printSetFundMessage(Fund fund) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've set overall fund as follow:");
+        System.out.print(fund.giveFund());
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message of adding a fund to all projects
+     * @param fund the fund for all projects
+     */
+    public void printAddFundMessage(Fund fund, double amount) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've add " + amount + "to the fund. The new fund is as follow:");
+        System.out.print(fund.giveFund());
         System.out.print(line);
     }
 
