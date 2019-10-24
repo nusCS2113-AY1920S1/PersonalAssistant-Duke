@@ -1,7 +1,6 @@
 package UserCode.Tasks;
 
 import Exceptions.FarmioException;
-import UserCode.Actions.Action;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
