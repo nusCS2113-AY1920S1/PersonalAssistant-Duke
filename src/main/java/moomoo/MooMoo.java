@@ -1,14 +1,18 @@
 package moomoo;
 
 import moomoo.command.Command;
-import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
-import moomoo.task.MooMooException;
-import moomoo.task.CategoryList;
-import moomoo.task.Ui;
-import moomoo.task.Storage;
-import moomoo.task.Parser;
 import moomoo.task.Category;
+import moomoo.task.CategoryList;
+import moomoo.task.MooMooException;
+import moomoo.task.Parser;
+import moomoo.task.ScheduleList;
+import moomoo.task.SchedulePayment;
+import moomoo.task.Storage;
+import moomoo.task.Ui;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Runs MooMoo.
@@ -28,27 +32,25 @@ public class MooMoo {
         ui = new Ui();
         storage = new Storage("data/budget.txt","data/schedule.txt");
 
-        try {
-            categoryList = new CategoryList(storage.loadCategories());
-        } catch (MooMooException e) {
-            ui.printException(e);
-            ui.showResponse();
+        categoryList = new CategoryList(storage.loadCategories());
+        if (categoryList == null) {
             categoryList = new CategoryList();
         }
 
-        try {
-            budget = new Budget(storage.loadBudget(categoryList.getCategoryList()));
-        } catch (MooMooException e) {
-            ui.printException(e);
+        HashMap<String, Double> loadedBudget = storage.loadBudget(categoryList.getCategoryList(), ui);
+        if (loadedBudget == null) {
             ui.showResponse();
             budget = new Budget();
+        } else {
+            budget = new Budget(loadedBudget);
         }
 
-        try {
-            calendar = new ScheduleList(storage.loadCalendar());
-        } catch (MooMooException e) {
-            ui.printException(e);
+        ArrayList<SchedulePayment> scheduleList = storage.loadCalendar(ui);
+        if (scheduleList == null) {
+            ui.showResponse();
             calendar = new ScheduleList();
+        } else {
+            calendar = new ScheduleList(scheduleList);
         }
 
     }
@@ -65,7 +67,7 @@ public class MooMoo {
                 Command c = Parser.parse(fullCommand, ui);
                 c.execute(calendar, budget, categoryList, category, ui, storage);
 
-                if (!ui.printResponse().equals("")) {
+                if (!ui.returnResponse().equals("")) {
                     ui.showResponse();
                 }
               
@@ -91,9 +93,9 @@ public class MooMoo {
             isExit = c.isExit;
             if (isExit) {
                 ui.showGoodbye();
-                return ui.printResponse();
+                return ui.returnResponse();
             }
-            return ui.printResponse();
+            return ui.returnResponse();
         } catch (MooMooException e) {
             return ui.printException(e);
         }

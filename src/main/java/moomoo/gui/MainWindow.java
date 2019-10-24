@@ -32,8 +32,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setMoomoo(MooMoo d) {
-        moomoo = d;
+    public void setMoomoo(MooMoo newMooMoo) {
+        moomoo = newMooMoo;
     }
 
     @FXML

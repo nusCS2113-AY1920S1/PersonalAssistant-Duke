@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ public class Ui {
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public String printResponse() {
+    public String returnResponse() {
         return this.output;
     }
 
@@ -73,7 +74,12 @@ public class Ui {
      * Prints out response from command.
      */
     public void showResponse() {
-        System.out.println(this.output);
+        try {
+            PrintStream out = new PrintStream(System.out, true, "UTF-8");
+            out.println(this.output);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         this.output = "";
     }
 
@@ -110,7 +116,7 @@ public class Ui {
      * Prints out a message enclosed between two lines.
      * @param text message to be printed
      */
-    private void print(String text) {
+    public void print(String text) {
         System.out.println(text);
     }
 
@@ -158,10 +164,10 @@ public class Ui {
 
     /**
      * Prints out when a new expenditure is created.
-     * @param expenditureName name of the new expenditure
+     * @param categoryName name of the new expenditure
      */
-    public void showNewExpenditureMessage(String expenditureName) {
-        print("Ok, I've added a new expenditure under " + expenditureName);
+    public void showNewExpenditureMessage(String categoryName) {
+        print("Ok, I've added a new expenditure under " + categoryName);
     }
 
 
