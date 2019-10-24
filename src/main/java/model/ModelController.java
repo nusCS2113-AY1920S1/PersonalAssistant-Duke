@@ -1,6 +1,8 @@
 package model;
 
-import model.task.ToDo;
+import model.task.Task;
+
+import java.util.ArrayList;
 
 public class ModelController implements Model {
     private ProjectManager projectManager;
@@ -15,7 +17,10 @@ public class ModelController implements Model {
     }
 
     @Override
-    public void addToDo(ToDo todo) {
-        projectManager.addTodo(todo);
+    public void addTask(Task task) {
+        projectManager.addTask(task);
     }
+
+    @Override
+    public ArrayList<Task> getTaskList() { return projectManager.getTasks(); }
 }

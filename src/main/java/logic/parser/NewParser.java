@@ -11,11 +11,12 @@ public class NewParser {
     /**
      * Used for initial separation of command word and args.
      *
-     * @author Justin Chia
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final String ADD_COMMAND_WORD = "add";
+    private static final String LIST_COMMAND_WORD = "list";
 
+    //@@author JustinChia1997
     /**
      * General top level parser.
      * */
@@ -34,6 +35,9 @@ public class NewParser {
 
         case ADD_COMMAND_WORD:
             return AddParser.parseAddCommand(arguments);
+
+        case LIST_COMMAND_WORD:
+            return ListParser.parseListCommand(arguments);
 
         default:
             throw new DukeException("Command word not found");

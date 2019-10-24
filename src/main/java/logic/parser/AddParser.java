@@ -1,12 +1,11 @@
 package logic.parser;
 
+import logic.command.AddTaskCommand;
 import logic.command.Command;
 import utils.DukeException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import logic.command.AddToDoCommand;
 
 public class AddParser {
     private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -24,8 +23,8 @@ public class AddParser {
         final String arguments = matcher.group("arguments");
 
         switch (addType) {
-        case AddToDoCommand.COMMAND_WORD:
-            return new AddToDoCommand(arguments);
+        case AddTaskCommand.COMMAND_WORD:
+            return new AddTaskCommand(arguments);
         default:
             throw new DukeException("Command word not found");
         }

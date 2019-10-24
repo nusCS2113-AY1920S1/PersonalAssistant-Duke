@@ -16,6 +16,8 @@ import javax.swing.text.DefaultCaret;
 
 import core.Duke;
 import logic.LogicController;
+import logic.command.CommandOutput;
+import utils.DukeException;
 import utils.TasksCounter;
 import gui.PieChart;
 
@@ -142,7 +144,12 @@ public class Window {
 //                Duke.processCommand(inputField.getText());
 //                im.addToHistory(inputField.getText());
 //                inputField.setText("");
-                executeCommand("not supposed to be seen");
+                try{
+                executeCommand(inputField.getText());
+                } catch (DukeException error){
+                    //TODO Error handling not done
+                    setOutputArea(error.toString());
+                }
                 im.addToHistory(inputField.getText());
                 inputField.setText("");
             }
@@ -183,10 +190,18 @@ public class Window {
     }
 
     /**
+     * Sets output area to desired text
+     * */
+    private void setOutputArea(String outputString){
+        outputArea.setText(outputArea.getText() + "\n\n" + outputString);
+    }
+
+
+    /**
      * Updates the command text box to show results from commands
      * */
-    public void executeCommand(String fullCommandText){
-//        outputArea.setText(outputArea.getText() + "\n\n" + toPrint);
-        outputArea.setText("test Command");
+    public void executeCommand(String fullCommandText) throws DukeException {
+        CommandOutput commandOutput = logicController.execute(fullCommandText);
+        setOutputArea(commandOutput.getOutputToUser());
     }
 }
