@@ -37,7 +37,8 @@ public class MainParser {
                 break;
             case "done":
                 break;
-            case "Available":
+            case "Find":
+                return new FindFreeTimesParse(fullCommand).execute();
                 break;
             case "bye":
                 return new ByeCommand();
