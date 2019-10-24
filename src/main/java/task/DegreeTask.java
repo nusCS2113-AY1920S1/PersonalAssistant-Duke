@@ -1,6 +1,7 @@
 package task;
 
 import exception.DukeException;
+import list.DegreeList;
 import storage.Storage;
 
 import java.io.File;
@@ -60,9 +61,32 @@ public class DegreeTask extends Task {
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
         int n = fullDegreeTasklist.get(degreeMap.get(degreeName)).size();
+        if (n < 1){
+            throw new DukeException("There are no tasks related to " + degreeName);
+        }
         for (int i = 0; i < n; i++) {
             Task toAppend = fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i);
             userTasklist.add(toAppend);
         }
+        checkDuplicates(userTasklist);
+    }
+
+    public void removeDegreeTasks(String index, DegreeList userDegreeList, TaskList userTaskList) throws DukeException{
+        String removedDegree =  userDegreeList.get(Integer.parseInt(index));
+        System.out.println(removedDegree);
+        TaskList removedTasklist = new TaskList();
+        for (int i = 0; i < userTaskList.size(); i++){
+            if (userTaskList.get(i).description.toLowerCase().contains(removedDegree)){
+                removedTasklist.add(userTaskList.get(i));
+                userTaskList.banishDelete(Integer.toString(i+1));
+            }
+        }
+
+    }
+
+
+    public void checkDuplicates (TaskList userTasklist){
+
+
     }
 }
