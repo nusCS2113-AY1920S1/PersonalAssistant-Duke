@@ -70,6 +70,12 @@ Format: `add module MOD_CODE`
 Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
 
+****
+* The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
+* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
+* Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
+****
+
 === Removing a module or CCA : `remove`
 
 Removes the specified module or CCA.
@@ -257,34 +263,37 @@ This error appears when there is bad internet connection. The information from t
 Example of error message: `Error: Bad Status Connection!`
 
 > **_Solving the error:_** +
-> Reconnect to a better wifi connection.
+> Reconnect to a stronger and more stable wifi connection.
 
 === `ModFailedJsonException`
 This error appears when the file from the nusMods V2 API is not correctly converted for Java usage.
 
 Example of error message: `Error: Failed to parse data file!`
 
+> **_Solving the error:_** +
+> Reconnect to a stronger and more stable wifi connection.
+
 === `ModNotFoundException`
 This error appears when the user searches for a module code that is not found in the nusMod list.
 
-image::ModNotFoundException.png[width="250"]
+image::ModNotFoundException.png[width="250"] 
 
 > **_Solving the error:_** +
 > ****
-* Input another module code which exists in the nusMod list. +
-* Input the correct module code into the command line.
-****
+> * Input another module code which exists in the nusMod list. +
+> * Input the correct module code into the command line. +
+> ****
 
 === `ModCommandException`
 This error appears when the user does not input a valid command name into the command line.
 
-image::ModCommandException.png[width="250"]
+image::ModCommandException.png[width="250"] 
 
 > **_Solving the error:_** +
 > ****
-* Input a valid command name into the command line. +
-* If unsure of the available command names, refer to the <<Command Summary>>. 
-****
+> * Input a valid command name into the command line. +
+> * If unsure of the available command names, refer to the <<Command Summary>>. + 
+> ****
 
 === `ModCcaScheduleException`
 This error appears when the user inputs a CCA whose time period clashes with another CCA.
@@ -298,8 +307,28 @@ Example of error message:`Error: This CCA clashes with existing CCA!`
 
 == Command Summary
 
-* *Add* `add MOD_CODE` +
+* *Add* :
+** `add module MOD_CODE` +
 e.g. `add CG2028`
-* *Remove* : `remove INDEX` +
-e.g. `remove 3`
-* *Show* : `show`
+** `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
+e.g. `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
+* *Remove* : 
+** `remove module INDEX` +
+e.g. `remove module 3` 
+** `remove cca INDEX` +
+e.g. `remove cca 2` 
+* *Show* : 
+** `show module`
+** `show core` 
+** `show ge`
+** `show ue`
+** `show cca`
+* *CAP* :
+** `cap overall`, `MOD_CODE GRADE_LETTER`, `done` +
+e.g. `cap overall` +
+`CG2027 B-` +
+`CG2028 A` +
+`done`
+** `cap list`
+** `cap module`
+
