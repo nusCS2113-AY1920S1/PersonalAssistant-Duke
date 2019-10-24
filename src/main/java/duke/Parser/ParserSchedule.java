@@ -66,10 +66,10 @@ public class ParserSchedule {
         sc = new Scanner(System.in);
     }
     /**
-     * Method to run when entering class of the day.
+     * Method to run when entering daily schedule.
      * @throws ParseException if user input is not in the correct format
      */
-    public void runSchedule() throws ParseException {
+    public void dailySchedule() throws ParseException {
         ui.showSchedulePromptDate();
         String scheduleDate = sc.next();
         schedule.getDay(scheduleDate);
@@ -127,11 +127,17 @@ public class ParserSchedule {
         }
     }
 
-        /**
-        if (word[1].equals("view-week")) {
-            System.out.println(schedule.getWeek());
-        } else if (word[1].equals("view-month")) {
-            System.out.println(schedule.getMonth());
-        } */
+    /**
+     * Method to run when entering weekly schedule.
+     */
+    public void weeklySchedule() {
+        System.out.println(schedule.getWeek());
+    }
 
+    /**
+     * Method to run when entering monthly schedule.
+     */
+    public void monthlySchedule() {
+        System.out.println(schedule.getMonth());
+    }
 }

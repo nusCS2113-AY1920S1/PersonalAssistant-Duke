@@ -39,7 +39,7 @@ public class ParserCommand implements IParser {
                         // to add (It consumes the \n character)
                         if (dailyType == 1) {
                             ParserSchedule parserSchedule = new ParserSchedule();
-                            parserSchedule.runSchedule();
+                            parserSchedule.dailySchedule();
                         } else if (dailyType == 2) {
                             ParserGoal parserGoal = new ParserGoal();
                             parserGoal.runGoal();
@@ -48,9 +48,11 @@ public class ParserCommand implements IParser {
                             parserLesson.runLesson();
                         }
                     } else if (executeType == 2) {
-                        //Weekly Schedule
+                        ParserSchedule parserSchedule = new ParserSchedule();
+                        parserSchedule.weeklySchedule();
                     } else if (executeType == 3) {
-                        //Monthly Schedule
+                        ParserSchedule parserSchedule = new ParserSchedule();
+                        parserSchedule.monthlySchedule();
                     } else {
                         ui.showCorrectFormat();
                     }
