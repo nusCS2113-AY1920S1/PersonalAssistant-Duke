@@ -1,3 +1,5 @@
+//@@author LongLeCE
+
 package planner.main;
 
 import planner.ui.gui.Main;
