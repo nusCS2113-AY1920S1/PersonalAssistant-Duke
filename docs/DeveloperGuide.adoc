@@ -2,6 +2,7 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toclevels: 2
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,7 +13,29 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2113T-W13-2/main
+
+== Introduction
+
+Purpose
+
+This document specifies architecture and software design decisions for the educational app, JavaCake. The intended audience of this document is the developers, designers, and software testers of JavaCake. 
+
+Design Goals
+
+*Target user profile*:
+
+* Has a need to gain a basic grasp of Java
+* Prefers desktop apps over mobile
+* Can type quickly
+* Prefers typing over mouse input
+* Is reasonably comfortable using Command Line Interface (CLI) apps
+* Is goal-driven (likes setting goals for themselves)
+
+Value proposition:
+Managing the learning of Java and managing the learning progress through a desktop app which is CLI-based.
+Developing JavaCake poses a unique software development situation. The developers work closely to ensure both technical and non-technical requirements are met in the 34development process. The design of JavaCake takes into consideration various factors such as user-friendliness and relevance.
+
 
 == Setting up
 
