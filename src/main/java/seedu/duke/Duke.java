@@ -21,6 +21,11 @@ public class Duke {
     private static Model model = new Model();
     private static Duke duke;
 
+    /**
+     * Gets new instance.
+     *
+     * @return duke
+     */
     public static Duke getInstance() {
         if (duke == null) {
             duke = new Duke();

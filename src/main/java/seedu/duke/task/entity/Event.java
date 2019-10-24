@@ -121,8 +121,8 @@ public class Event extends Task {
     }
 
     @Override
-    public void snooze() {
-        time = time.plusDays(3);
+    public void snooze(int duration) {
+        time = time.plusDays(duration);
     }
 
     /**

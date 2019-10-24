@@ -7,14 +7,17 @@ import seedu.duke.task.TaskList;
 
 public class TaskSnoozeCommand extends Command {
     private int index;
+    private int duration;
 
     /**
      * Instantiation of the snooze command which can be used to snooze a task.
      *
      * @param index the index of the task to be snoozed
      */
-    TaskSnoozeCommand(int index) {
+    TaskSnoozeCommand(int index, int duration) {
         this.index = index;
+        this.duration = duration;
+
     }
 
     /**
@@ -26,7 +29,7 @@ public class TaskSnoozeCommand extends Command {
     public boolean execute() {
         TaskList taskList = Duke.getModel().getTaskList();
         try {
-            String msg = taskList.snoozed(index);
+            String msg = taskList.snoozed(index, duration);
             if (!silent) {
                 responseMsg = msg;
                 Duke.getUI().showResponse(msg);
