@@ -1,5 +1,6 @@
 package duke.sports;
-//import duke.data.Storage;
+import duke.Ui;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -15,6 +16,11 @@ import java.util.Set;
  */
 
 public class MyPlan {
+
+     /**
+      * The ui object responsible for showing things to the user.
+      */
+    private Ui ui;
 
      /**
       * Represents the file path of the plans.
@@ -266,8 +272,7 @@ public class MyPlan {
     public void loadPlan(final String intensity, final String plan) {
         clearPlan();
         if (!Intensity.contains(intensity)) {
-            System.out.println("Please input a proper "
-                   + "intensity level: high, moderate, relaxed");
+            ui.showIntensityLevel();
         } else {
             int planNum = Integer.parseInt(plan.split("/")[1]);
             String key = createKey(intensity, planNum);
@@ -275,8 +280,7 @@ public class MyPlan {
                 for (MyTraining t : getMap().get(key)) {
                     getList().add(t);
                 }
-                System.out.println("You have loaded plan " + planNum + " of "
-                        + intensity + " intensity " + " into the list");
+                ui.showPlanLoaded(planNum, intensity);
             }
         }
     }
@@ -311,27 +315,24 @@ public class MyPlan {
     public void createPlan(final String intensity) {
         clearPlan();
         if (Intensity.contains(intensity)) {
-            System.out.println("Creating plan of " + intensity + " intensity.");
-            System.out.println("Please input activity to add in format of "
-                    + "[activity] [number of sets] [number of reps].");
+            ui.showPlanCreating(intensity);
             while (true) {
                 Scanner sc = new Scanner(System.in);
                 if (sc.hasNextLine()) {
                     String input = sc.nextLine();
                     if (input.equals("finalize")) {
-                        System.out.println("Plan created.");
-                        System.out.println("Saving to map.");
+                        ui.showPlanCreated();
+                        ui.showSavePlanToMap();
                         //String key = createKey(intensity,....);
                         //saveToMap(getList(),key);
                         break;
                     } else if (input.equals("show")) {
                         if (getList().isEmpty()) {
-                            System.out.println("No activity has been added.");
+                            ui.showNoActivity();
                         } else {
                             int x = 1;
-                            System.out.println(viewPlan());
-                            System.out.println("Continue adding activities, "
-                                    + "or finalize plan.");
+                            ui.showViewPlan(viewPlan());
+                            ui.showPlanPrompt1();
                         }
                     } else {
                         String[] details = input.split(" ");
@@ -340,17 +341,14 @@ public class MyPlan {
                                 Integer.parseInt(details[2]));
                         getList().add(a);
                         int temp = getList().size() - 1;
-                        System.out.println("Successfully added activity: "
-                                + getList().get(temp).toString());
-                        System.out.println("Please input new activity,"
-                                + "finalize the plan or look at current list.");
+                        ui.showActivityAdded(getList().get(temp));
+                        ui.showPlanPrompt2();
                     }
                 }
             }
             saveToMap(getList(), intensity, "0");
         } else {
-            System.out.println("Please enter the correct intensity level:"
-                    + " high, moderate or relaxed.");
+            ui.showIntensityLevel();
         }
     }
 
@@ -363,11 +361,10 @@ public class MyPlan {
     public String deletePlan(final String intensity, final int planNum) {
         String key = createKey(intensity, planNum);
         if (!getMap().containsKey(key)) {
-            System.out.println("Please input the correct"
-                    + " intensity and plan number.");
+            ui.showIntensityAndNumber();
         } else {
             getMap().remove(key);
-            System.out.println("Plan successfully removed.");
+            ui.showPlanRemoved();
         }
         return "0";
     }

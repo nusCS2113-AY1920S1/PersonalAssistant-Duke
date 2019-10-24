@@ -6,12 +6,14 @@ import duke.module.Lesson;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;
+import duke.sports.MyTraining;
 import duke.task.TaskList;
 import duke.data.Storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -231,5 +233,97 @@ public class Ui {
     public void showQuitLesson() {
         System.out.println(
             "You have quit the lesson of the day.");
+    }
+
+    /**
+     * Prints message when asking for proper intensity level.
+     */
+    public void showIntensityLevel() {
+        System.out.println("Please input a proper "
+            + "intensity level: high, moderate, relaxed");
+    }
+
+    /**
+     * Prints message when plan is successfully loaded.
+     */
+    public void showPlanLoaded(int planNum, String intensity) {
+        System.out.println("You have loaded plan " + planNum + " of "
+            + intensity + " intensity " + " into the list");
+    }
+
+    /**
+     * Prints message when asking for correct intensity level and plan number.
+     */
+    public void showIntensityAndNumber() {
+        System.out.println("Please input the correct"
+            + " intensity and plan number.");
+    }
+
+    /**
+     * Prints message when plan is successfully removed.
+     */
+    public void showPlanRemoved() {
+        System.out.println("Plan successfully removed.");
+    }
+
+    /**
+     * Prints message when plan is successfully created.
+     */
+    public void showPlanCreated() {
+        System.out.println("Plan successfully created.");
+    }
+
+    /**
+     * Prints message when saving plan to map.
+     */
+    public void showSavePlanToMap() {
+        System.out.println("Saving to map.");
+    }
+
+    /**
+     * Prints message if no activity has been added to show.
+     */
+    public void showNoActivity() {
+        System.out.println("No activity has been added.");
+    }
+
+    /**
+     * Prints message when plan is being created.
+     */
+    public void showPlanCreating(String intensity) {
+        System.out.println("Creating plan of " + intensity + " intensity.\n"
+            + "Please input activity to add in format of "
+            + "[activity] [number of sets] [number of reps].");
+    }
+
+    /**
+     * Prints message when activity is successfully added.
+     */
+    public void showActivityAdded(MyTraining activity) {
+        System.out.println("Successfully added activity: "
+            + activity.toString());
+    }
+
+    /**
+     * Prints message to show all plans loaded into the current list.
+     */
+    public void showViewPlan(String plans) {
+        System.out.println(plans);
+    }
+
+    /**
+     * Prints message to prompt the user on what to do next.
+     */
+    public void showPlanPrompt1() {
+        System.out.println("Continue adding activities, "
+            + "or finalize plan.");
+    }
+
+    /**
+     * Prints message to prompt the user on what to do next.
+     */
+    public void showPlanPrompt2() {
+        System.out.println("Please input new activity,"
+            + "finalize the plan or look at current list.");
     }
 }
