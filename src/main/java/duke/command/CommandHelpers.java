@@ -3,8 +3,10 @@ package duke.command;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,6 +24,10 @@ public class CommandHelpers {
         }
     }
 
+    /**
+     * For autocorrect, do not consider strings whose lengths differ from the input by more than this value.
+     */
+    private final static int MAX_LEN_DIFF = 2;
     private final static Map<Character, Coord> keyboardMap =
             Map.ofEntries(Map.entry('q', new Coord(0, 1)), Map.entry('w', new Coord(1, 1)),
             Map.entry('e', new Coord(2, 1)), Map.entry('r', new Coord(3, 1)),
@@ -46,6 +52,17 @@ public class CommandHelpers {
             Map.entry(',', new Coord(8, 3)), Map.entry('.', new Coord(9, 3)),
             Map.entry('/', new Coord(10, 3)), Map.entry('-', new Coord(10, 0)),
             Map.entry('+', new Coord(11, 0)));
+    private final static Map<Character, Integer> charMap;
+
+    static {
+        HashMap<Character, Integer> tempMap = new HashMap<Character, Integer>();
+        int i = 0;
+        for (char c : keyboardMap.keySet()) {
+            tempMap.put(c, i);
+            ++i;
+        }
+        charMap = Collections.unmodifiableMap(tempMap);
+    }
 
     // I hate Java
 
@@ -85,7 +102,7 @@ public class CommandHelpers {
                 minDist = dist;
             } else if (dist == minDist) {
                 suggestions.put(entry.getValue(), entry.getKey());
-            }
+            } //ignore if dist > minDist
         }
 
         return disambiguate(word, suggestions, command.getSwitchMap().keySet());
@@ -127,24 +144,68 @@ public class CommandHelpers {
 
     /**
      * Algorithm to compute a hybrid version of the Damerau-Levenshtein distance that takes into account distance
-     * between keys on a standard QWERTY keyboard.
-     * <p>
-     * https://stackoverflow.com/questions/29233888/
-     * https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
-     * https://dl.acm.org/citation.cfm?doid=1963190.1963191
-     * </p>
+     * between keys on a standard QWERTY keyboard when computing substitution cost. Search is pruned if it exceeds
+     * the minimum distance found so far, returning the distance computed up to that point.
      *
      * @param str1 The first string to compare.
      * @param str2 The second string to compare.
-     * @param minDist The minimum string distance found so far.
+     * @param minDist The minimum string distance found so far, or 0 if no distance computations have been
+     *                performed yet.
      * @return The hybrid Damerau-Levenshtein distance between str1 and str2.
      */
     private static int stringDistance(String str1, String str2, int minDist) {
+        //setup values
+        int len1 = str1.length();
+        int len2 = str2.length();
+        int[] d1 = new int[keyboardMap.size()]; //values initialised to 0
+        int[][] d = new int[len1 + 2][len2 + 2];
+        int maxdist = len1 + len2;
 
-        int[] da = new int[keyboardMap.size()]; //values initialised to 0
+        //populate boundary values
+        d[0][0] = maxdist;
+        for (int i = 1; i <= len1 + 1; ++i) {
+            d[i][0] = maxdist;
+            d[i][1] = i;
+        }
+        for (int j = 1; j <= len2 + 1; ++j) {
+            d[0][j] = maxdist;
+            d[1][j] = j;
+        }
 
-        //if minDist is 0, run till the end; else break when dist exceeds minDist
-        return str1.length() - str2.length() + minDist; //placeholder to deceive codacy
-        //if dist == 0 throw an error
+        for (int i = 2; i <= len1 + 1; ++i) {
+            int d2 = 2;
+            char c1 = str1.charAt(i - 2);
+            for (int j = 2; j <= len2 + 1; ++j) {
+                int k = d1[str2.charAt(j - 2)]; // TODO: translate letters of alphabet (keyboardMap) into integers
+                int l = d2;
+                int subCostInc;
+                char c2 = str2.charAt(j - 2);
+                if (c1 == c2) {
+                    subCostInc = 0;
+                    d2 = j;
+                } else {
+                    // TODO: implement scaling factor?
+                    subCostInc = Math.abs(keyboardMap.get(c1).x - keyboardMap.get(c2).x)
+                            + Math.abs(keyboardMap.get(c1).y - keyboardMap.get(c2).y);
+                }
+
+                //calculate cost of each edit and find minimum
+                int subCost = d[i - 2][j - 2] + subCostInc;
+                int insCost = d[i - 1][j - 2] + 1;
+                int delCost = d[i - 2][j - 1] + 1;
+                int transCost = d[k - 2][l - 2] + (i - k - 3) + 1 + (j - l - 3);
+                List<Integer> costs = Arrays.asList(subCost, insCost, delCost, transCost);
+                // TODO: verify that this pruning works; won't work if the distance decreases as it converges
+                int min = Collections.min(costs);
+                assert(min != 0);
+                if (min > minDist && minDist != 0) {
+                    return min;
+                } else {
+                    d[i - 1][j - 1] = min;
+                }
+            }
+            d1[str1.charAt(i - 2)] = i;
+        }
+        return d[len1 + 1][len2 + 1];
     }
 }
