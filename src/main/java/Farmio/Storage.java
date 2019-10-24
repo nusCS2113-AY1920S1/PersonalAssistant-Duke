@@ -53,37 +53,9 @@ public class Storage {
         return true;
     }
 
-    public String getAsciiArt(String name) throws FarmioFatalException {
-        String path = "asciiArt/" + name + ".txt";
-        StringBuilder art = new StringBuilder();
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(getResourceFile(path));
-        } catch (FileNotFoundException e) {
-            throw new FarmioFatalException(formatFatalMessage(path));
-        }
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String line;
-        while (true) {
-            try {
-                if ((line = bufferedReader.readLine()) == null) break;
-            } catch (IOException e) {
-                throw new FarmioFatalException(formatFatalMessage(path));
-            }
-            art.append(line).append("\n");
-        }
-        return art.toString();
-    }
-
     public ArrayList<String> loadFrame(String path, int frameId, int frameWidth, int frameHeight) throws FarmioFatalException {
         path = "asciiArt/" + path + "/frame" + frameId + ".txt";
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(getResourceFile(path));
-        } catch (FileNotFoundException | FarmioFatalException e) {
-            throw new FarmioFatalException(formatFatalMessage(path));
-        }
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader   bufferedReader = new BufferedReader(new InputStreamReader(getResourceStream(path)));
         String line;
         ArrayList<String> frame = new ArrayList<>();
         while (true) {
@@ -123,27 +95,16 @@ public class Storage {
 
     public JSONObject getLevel(double level) throws FarmioFatalException {
         String path = "levels/" + level + ".json";
-        Reader reader;
-        try {
-            reader = new FileReader(getResourceFile(path));
-        } catch (FileNotFoundException e) {
-            throw new FarmioFatalException(formatFatalMessage(path));
-        }
         JSONParser parser = new JSONParser();
         try {
-            return (JSONObject) parser.parse(reader);
+            return (JSONObject) parser.parse(new InputStreamReader(getResourceStream(path)));
         } catch (IOException | ParseException e) {
             throw new FarmioFatalException(formatFatalMessage(path));
         }
     }
 
-    private File getResourceFile(String path) throws FarmioFatalException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource(path);
-        if (resource == null) {
-            throw new FarmioFatalException(formatFatalMessage(path));
-        }
-        return new File(resource.getFile());
+    private InputStream getResourceStream(String path){
+        return ClassLoader.getSystemClassLoader().getResourceAsStream(path);
     }
 
     private String formatFatalMessage(String path) {
