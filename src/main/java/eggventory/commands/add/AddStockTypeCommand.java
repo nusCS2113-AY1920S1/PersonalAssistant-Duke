@@ -8,7 +8,6 @@ import eggventory.enums.CommandType;
 
 public class AddStockTypeCommand extends Command {
     private String name;
-    private CommandType type;
 
     /**
      * Creates a new StockType in a StorageList.

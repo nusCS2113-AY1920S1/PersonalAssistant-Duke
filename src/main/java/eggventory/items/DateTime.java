@@ -4,7 +4,7 @@ import eggventory.exceptions.BadInputException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-//TODO: Import an existing datetime class or write a better one.
+
 /**
  * Stores date and time information by field - day, month, year, hour, minute.
  * Allows printing of a fancy formatted date.
