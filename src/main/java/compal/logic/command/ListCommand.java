@@ -1,5 +1,6 @@
 package compal.logic.command;
 
+import compal.model.tasks.Deadline;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
@@ -21,10 +22,15 @@ public class ListCommand extends Command {
         String finalList = LIST_PREFIX;
         int count = 1;
         for (Task t : toList) {
-            // uiUtil.printg(count++ + "." + t.toString());
             String taskString = count++ + "." + t.toString() + "\n";
             finalList += taskString;
         }
+
+        if (count == 1) {
+            finalList = "Oops,looks like your list is empty!\nStart adding in your task "
+                + "by looking at the help command!";
+        }
+
         return new CommandResult(finalList, false);
     }
 }
