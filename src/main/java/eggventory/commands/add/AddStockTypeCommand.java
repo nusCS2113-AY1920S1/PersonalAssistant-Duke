@@ -30,11 +30,14 @@ public class AddStockTypeCommand extends Command {
     public String execute(StockList list, Cli cli, Storage storage) {
         String output;
 
-        list.addStockType(name);
-        output = String.format("Nice! I have successfully added the stocktype: %s", name);
+        if (list.isExistingStockType(name)) {
+            output = String.format("Sorry, \"%s\" is already an existing stock type.", name);
 
+        } else {
+            list.addStockType(name);
+            output = String.format("Nice! I have successfully added the stocktype: %s", name);
+        }
         cli.print(output);
-
         return output;
     }
 }

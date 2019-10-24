@@ -15,13 +15,24 @@ class AddStockTypeCommandTest {
     private Storage testStorage = new Storage("");
 
     @Test
-    void testExecute_AddStocktypeSuccess() {
+    void testExecute_AddStockType_Success() {
         StockList testList = new StockList();
-        testList.addStockType("testStockType");
 
         String output = new AddStockTypeCommand(CommandType.ADD, "testStockType")
                 .execute(testList, testCli, testStorage);
 
         assertEquals("Nice! I have successfully added the stocktype: testStockType", output);
+    }
+
+    @Test
+    void testExecute_AddRepeatedStockType_Error() {
+        StockList testList = new StockList();
+
+        testList.addStockType("testStockType");
+
+        String output = new AddStockTypeCommand(CommandType.ADD, "testStockType")
+                .execute(testList, testCli, testStorage);
+
+        assertEquals(String.format("Sorry, \"testStockType\" is already an existing stock type."), output);
     }
 }

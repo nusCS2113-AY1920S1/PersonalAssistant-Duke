@@ -37,10 +37,16 @@ public class EditStockTypeCommand extends Command {
     @Override
     public String execute(StockList list, Cli cli, Storage storage) {
         String output;
-        StockType edited = list.setStockType(stockType, newName);
-        output = String.format("Awesome! I have successfully updated the following stockType name: %s\n",
-                edited.getName());
-        storage.save(list);
+
+        if (list.isExistingStockType(newName)) {
+            output = String.format("Sorry, \"%s\" is already an existing stock type.", newName);
+
+        } else {
+            StockType edited = list.setStockType(stockType, newName);
+            output = String.format("Awesome! I have successfully updated the following stockType name: %s\n",
+                    edited.getName());
+            storage.save(list);
+        }
         cli.print(output);
         return output;
     }
