@@ -44,10 +44,10 @@ This section shows how to set up Email Manager on your desktop and begin your de
 
 Figure 1. Architecture Diagram +
 The _Architecture Diagram_ given above explains the high-level design of the App. Given below is a quick overview of each component. +
-=== UI component +
-=== Logic component +
-=== Model component +
-=== Common classes
+* UI component +
+* Logic component +
+* Model component +
+* Common classes
 
 == Implementation
 
@@ -78,19 +78,19 @@ LocalTimeDate format.
 * `TaskParseNaturalDateHelper#getDate(input)` - Returns a date and time(if applicable) after checking if
 natural date input contains a time element.
 
- `TaskCommandParseHelper` is an element of the Command component. It handles all parsing of inputs when the
- input type is set to `task`.
+`TaskCommandParseHelper` is an element of the Command component. It handles all parsing of inputs when the
+input type is set to `task`.
 
- Given below is an example usage scenario and how Natural Dates Support behaves at each step.
+Given below is an example usage scenario and how Natural Dates Support behaves at each step.
 
- Step 1: The user launches the application. The input type is currently in `email` mode. The user wishes
- to add a task and key in `flip` to switch input type to `task` mode.
+Step 1: The user launches the application. The input type is currently in `email` mode. The user wishes
+to add a task and key in `flip` to switch input type to `task` mode.
 
- Step 2: The user executes `deadline homework -time Mon 1200` to add a new deadline task. The `deadline`
- command calls `TaskCommandParseHelper#parseAddTaskCommand()`, which parses and extracts the relevant
- information that are included in the command and saves it inside a list of type `ArrayList<Command.Option>`.
+Step 2: The user executes `deadline homework -time Mon 1200` to add a new deadline task. The `deadline`
+command calls `TaskCommandParseHelper#parseAddTaskCommand()`, which parses and extracts the relevant
+information that are included in the command and saves it inside a list of type `ArrayList<Command.Option>`.
 
- Step 3: The user wishes to update the date and time for the task above, . The user executes `update `
+Step 3: The user wishes to update the date and time for the task above, . The user executes `update `
 
 == Documentation
 
@@ -168,6 +168,7 @@ immediately|`* * *`
 *System*: `Email Manager` +
 *Actor*: `User` (SoC student)
 
+[discrete]
 === Use Case: Fetch email from account
 . User starts system or enters the fetch command.
 . System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved,
@@ -192,6 +193,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use Case: Set priority to different keyword
 
 . The user selects the “Keyword Priority” from the menu
@@ -202,6 +204,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use Case: View Email List with Priority
 
 . The user selects “All Email” from the menu
@@ -218,6 +221,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use Case: Auto categorisation of emails
 
 . User creates a new categorize name.
