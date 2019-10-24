@@ -112,6 +112,10 @@ public class ProjectRepository implements IRepository<Project> {
         return toPrintAll;
     }
 
+    /**
+     * Method that is responsible for saving Projects Data by using GSON library to convert to a human editable JSON
+     * file.
+     */
     private void saveProjectsData() {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -128,6 +132,9 @@ public class ProjectRepository implements IRepository<Project> {
         }
     }
 
+    /**
+     * Method responsible for loading Projects Data from hard coded directory where savedProjects.json file is located
+     */
     private void loadProjectsData() {
         Gson gson = new Gson();
         try (FileReader fileReader = new FileReader(filePath)) {
