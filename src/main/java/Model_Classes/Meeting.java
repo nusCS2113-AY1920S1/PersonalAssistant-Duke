@@ -4,18 +4,18 @@ import Enums.TimeUnit;
 import java.util.Date;
 
 /**
- * An object class representing types of tasks that are events.
- * Stores the description and when the event happens.
+ * An object class representing types of tasks: meeting.
+ * Stores the description and when the meeting happens.
  */
 public class Meeting extends Task {
     private boolean isFixedDuration;
     private int duration = 0;
     private TimeUnit timeUnit = TimeUnit.unDefined;
     /**
-     * Constructor for Event object
-     * Takes in inputs for description of the event and the time the event occurs
-     * @param description Description of the event
-     * @param at Time the event happens
+     * Constructor for Meeting object
+     * Takes in inputs for description of the meeting and the time the meeting occurs
+     * @param description Description of the meeting
+     * @param at Time the meeting happens
      */
     public Meeting(String description, Date at) {
         super(description, at);
@@ -30,7 +30,7 @@ public class Meeting extends Task {
     }
 
     /**
-     * Returns a string that has the full description of the vent including the occurrence time
+     * Returns a string that has the full description of the meeting including the occurrence time
      * @return A string indicating the task type, description and the occurrence of the task
      */
     @Override

@@ -3,21 +3,21 @@ package CustomExceptions;
 import Enums.ExceptionType;
 
 public class RoomShareException extends Exception {
-    private static final String outOfBounds_Text = "Index is out of Bounds!";
-    private static final String anomaly_Text = "Anomaly Detected";
-    private static final String emptyList_Text = "List is empty";
-    private static final String timeClash_Text = "Time Clash Detected";
-    private static final String wrongFormat_Text = "Wrong Format Detected";
-    private static final String wrongPriority_Text = "You've entered wrong format of priority";
-    private static final String subTask_Text = "Meetings do not support Subtasks";
-    public static final String wrongTaskType_Text = "Only meeting or assignment tag are accepted";
-    public static final String emptyDescription_Text = "You haven't included the description of you task";
-    public static final String emptyDate_Text = "You haven't included the date of your task";
-    public static final String emptyUser_Text = "You haven't included the user of your task";
-    public static final String emptyTaskType_Text = "You haven't specified the type of your task: assignment or meeting";
-    public static final String writeError_Text = "Error in writing file, cancelling write process...";
-    public static final String wrongIndexFormat_Text = "The index you've enter is in the wrong format";
-    public static final String wrongTimeFormat_Text = "You've entered an invalid time format";
+    private static final String OUT_OF_BOUNDS_TEXT = "Index is out of Bounds!";
+    private static final String ANOMALY_TEXT = "Anomaly Detected";
+    private static final String EMPTY_LIST_TEXT = "List is empty";
+    private static final String TIME_CLASH_TEXT = "Time Clash Detected";
+    private static final String WRONG_FORMAT_TEXT = "Wrong Format Detected";
+    private static final String WRONG_PRIORITY_TEXT = "You've entered wrong format of priority";
+    private static final String SUB_TASK_TEXT = "Meetings do not support Subtasks";
+    public static final String WRONG_TASK_TYPE_TEXT = "Only meeting or assignment tag are accepted";
+    public static final String EMPTY_DESCRIPTION_TEXT = "You haven't included the description of you task";
+    public static final String EMPTY_DATE_TEXT = "You haven't included the date of your task";
+    public static final String EMPTY_USER_TEXT = "You haven't included the user of your task";
+    public static final String EMPTY_TASK_TYPE_TEXT = "You haven't specified the type of your task: assignment or meeting";
+    public static final String WRITE_ERROR_TEXT = "Error in writing file, cancelling write process...";
+    public static final String WRONG_INDEX_FORMAT_TEXT = "The index you've enter is in the wrong format";
+    public static final String WRONG_TIME_FORMAT_TEXT = "You've entered an invalid time format";
 
 
     private String message;
@@ -30,66 +30,66 @@ public class RoomShareException extends Exception {
         switch(type) {
 
         case emptyUser:
-            message = emptyUser_Text;
+            message = EMPTY_USER_TEXT;
             break;
 
         case emptyList:
-            message = emptyList_Text;
+            message = EMPTY_LIST_TEXT;
             break;
 
         case writeError:
-            message = writeError_Text;
+            message = WRITE_ERROR_TEXT;
             break;
 
         case wrongIndexFormat:
-            message = wrongIndexFormat_Text;
+            message = WRONG_INDEX_FORMAT_TEXT;
             break;
 
         case wrongTimeFormat:
-            message = wrongTimeFormat_Text;
+            message = WRONG_TIME_FORMAT_TEXT;
             break;
 
         case timeClash:
-            message = timeClash_Text;
+            message = TIME_CLASH_TEXT;
             break;
 
         case wrongFormat:
-            message = wrongFormat_Text;
+            message = WRONG_FORMAT_TEXT;
             break;
 
         case outOfBounds:
-            message = outOfBounds_Text;
+            message = OUT_OF_BOUNDS_TEXT;
             break;
 
         case wrongPriority:
-            message = wrongPriority_Text;
+            message = WRONG_PRIORITY_TEXT;
             break;
 
         case subTask:
-            message = subTask_Text;
+            message = SUB_TASK_TEXT;
             break;
 
         case wrongTaskType:
-            message = wrongTaskType_Text;
+            message = WRONG_TASK_TYPE_TEXT;
             break;
 
         case emptyDescription:
-            message = emptyDescription_Text;
+            message = EMPTY_DESCRIPTION_TEXT;
             break;
 
         case emptyDate:
-            message = emptyDate_Text;
+            message = EMPTY_DATE_TEXT;
             break;
 
         case emptyTaskType:
-            message = emptyTaskType_Text;
+            message = EMPTY_TASK_TYPE_TEXT;
             break;
 
         case others:
             break;
 
         default:
-            message = anomaly_Text;
+            message = ANOMALY_TEXT;
             break;
         }
     }
