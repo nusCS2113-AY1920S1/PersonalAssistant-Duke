@@ -1,19 +1,7 @@
 package duke;
 
 import duke.Parser.ParserCommand;
-import duke.Parser.Parser;
-import duke.module.Lesson;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
-import duke.sports.MyPlan;
 import duke.sports.MyTraining;
-import duke.task.TaskList;
-import duke.data.Storage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -128,7 +116,7 @@ public class Ui {
      * Prints all possible actions with goal once entered.
      * @param goalDate The date of the day
      */
-    public void showGoalAllActions(String goalDate) {
+    public void showGoalAllActions(final String goalDate) {
         System.out.println(
             "\nWhat would you like to do on " + goalDate + "?\n"
                 + "1. View goals of the day\n"
@@ -142,7 +130,7 @@ public class Ui {
      * Prints message when asking for goal to add.
      * @param goalDate The date of the day
      */
-    public void showGoalPromptAddGoal(String goalDate) {
+    public void showGoalPromptAddGoal(final String goalDate) {
         System.out.println("To add a goal to "
             + goalDate + ", enter the goal.");
     }
@@ -151,7 +139,7 @@ public class Ui {
      * Prints message when asking for goal to delete.
      * @param goalDate The date of the day
      */
-    public void showGoalPromptDeleteGoal(String goalDate) {
+    public void showGoalPromptDeleteGoal(final String goalDate) {
         System.out.println("To delete a goal from "
             + goalDate + ", enter the goal.");
     }
@@ -199,7 +187,7 @@ public class Ui {
      * Prints all possible actions with lesson once entered.
      * @param lessonDate The date of the day
      */
-    public void showLessonAllActions(String lessonDate) {
+    public void showLessonAllActions(final String lessonDate) {
         System.out.println(
             "\nWhat would you like to do on " + lessonDate + "?\n"
                 + "1. View lessons of the day\n"
@@ -213,7 +201,7 @@ public class Ui {
      * Prints message when asking for lesson to add.
      * @param lessonDate The date of the day
      */
-    public void showLessonPromptAddLesson(String lessonDate) {
+    public void showLessonPromptAddLesson(final String lessonDate) {
         System.out.println("To add a lesson to "
             + lessonDate + ", enter the lesson.");
     }
@@ -222,7 +210,7 @@ public class Ui {
      * Prints message when asking for lesson to delete.
      * @param lessonDate The date of the day
      */
-    public void showLessonPromptDeleteLesson(String lessonDate) {
+    public void showLessonPromptDeleteLesson(final String lessonDate) {
         System.out.println("To delete a lesson from "
             + lessonDate + ", enter the lesson.");
     }
@@ -242,11 +230,12 @@ public class Ui {
         System.out.println("Please input a proper "
             + "intensity level: high, moderate, relaxed");
     }
-
     /**
      * Prints message when plan is successfully loaded.
+     * @param planNum The plan number of the plan to be loaded.
+     * @param intensity The intensity of the plan to be loaded.
      */
-    public void showPlanLoaded(int planNum, String intensity) {
+    public void showPlanLoaded(final int planNum, final String intensity) {
         System.out.println("You have loaded plan " + planNum + " of "
             + intensity + " intensity " + " into the list");
     }
@@ -289,8 +278,9 @@ public class Ui {
 
     /**
      * Prints message when plan is being created.
+     * @param intensity The intensity of the plan to be created.
      */
-    public void showPlanCreating(String intensity) {
+    public void showPlanCreating(final String intensity) {
         System.out.println("Creating plan of " + intensity + " intensity.\n"
             + "Please input activity to add in format of "
             + "[activity] [number of sets] [number of reps].");
@@ -298,16 +288,18 @@ public class Ui {
 
     /**
      * Prints message when activity is successfully added.
+     * @param activity The activity object to be added.
      */
-    public void showActivityAdded(MyTraining activity) {
+    public void showActivityAdded(final MyTraining activity) {
         System.out.println("Successfully added activity: "
             + activity.toString());
     }
 
     /**
      * Prints message to show all plans loaded into the current list.
+     * @param plans The plans to be printed out.
      */
-    public void showViewPlan(String plans) {
+    public void showViewPlan(final String plans) {
         System.out.println(plans);
     }
 

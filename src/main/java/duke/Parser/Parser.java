@@ -1,8 +1,6 @@
 package duke.Parser;
 
 import duke.data.Storage;
-import duke.module.Goal;
-import duke.module.Lesson;
 import duke.module.Reminder;
 import duke.module.Schedule;
 import duke.task.TaskList;
@@ -13,7 +11,6 @@ import duke.sports.MyPlan;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.Scanner;
 import java.util.Date;
 
 /**
@@ -22,7 +19,10 @@ import java.util.Date;
  */
 public class Parser {
 
-    Ui ui = new Ui();
+    /**
+     * The ui object responsible for showing things to the user.
+     */
+    private Ui ui = new Ui();
 
     /**
      * Constants to represent the index 3.
