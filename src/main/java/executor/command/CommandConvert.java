@@ -16,8 +16,8 @@ import java.math.BigDecimal;
  * This command helps to convert user entered currency amount into another country's currency amount using api call.
  */
 public class CommandConvert extends Command {
-    private String from = " ";
-    private String to = " ";
+    private String from;
+    private String to;
     private Double amount;
     private Double exchangeRate = 0.00;
 
@@ -31,6 +31,8 @@ public class CommandConvert extends Command {
         this.amount = extractAmount(this.commandType, userInput);
         this.from = getFromUserInput(userInput);
         this.to = getToUserInput(userInput);
+        this.description = "Command that converts the user input cash amount from"
+                + " one currency to another and print it in the User Interface.";
     }
 
 
