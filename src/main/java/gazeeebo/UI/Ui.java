@@ -69,6 +69,7 @@ public class Ui {
         majorCategories.add("places");
         majorCategories.add("tasks");
         majorCategories.add("cap");
+        majorCategories.add("spec");
         majorCategories.add("moduleplanner");
         majorCategories.add("notes");
 

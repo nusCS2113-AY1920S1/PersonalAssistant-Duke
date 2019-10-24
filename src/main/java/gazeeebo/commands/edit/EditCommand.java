@@ -1,4 +1,4 @@
-package gazeeebo.commands.edit;
+package gazeeebo.commands.Edit;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.TriviaManager.TriviaManager;

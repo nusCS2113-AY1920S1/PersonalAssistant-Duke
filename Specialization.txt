@@ -1,0 +1,4 @@
+
+
+embB|Embedded Computing|CS1231|ND|b:true|d:false
+embD|Embedded Computing|CS4324|ND|b:false|d:true

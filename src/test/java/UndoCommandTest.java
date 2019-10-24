@@ -37,14 +37,14 @@ public class UndoCommandTest {
         System.setOut(original);
     }
     @Test
-    public void EmptyCommandStackTest() {
+    public void EmptyCommandStackTest() throws IOException {
         UndoCommand undoCommand = new UndoCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager();
+        TriviaManager triviaManager = new TriviaManager(storage);
         try {
             undoCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | IOException | DukeException e) {

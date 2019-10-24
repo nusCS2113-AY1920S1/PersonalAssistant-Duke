@@ -25,13 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SnoozeCommandTest {
     @Test
-    public void testExecuteSnooze() {
+    public void testExecuteSnooze() throws IOException {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         SnoozeCommand snoozeCommand = new SnoozeCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
-        TriviaManager triviaManager = new TriviaManager();
+        TriviaManager triviaManager = new TriviaManager(storage);
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         ui.fullCommand = "deadline return book /by 2008-07-07 03:03:03";
