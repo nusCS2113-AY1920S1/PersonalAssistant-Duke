@@ -3,19 +3,36 @@ package executor.command;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.ReceiptTracker;
+import ui.Ui;
 import ui.Wallet;
 
-public class CommandGetMonthlySpending extends Command {
+public class CommandGetSpendingByMonth extends Command {
     protected String userInput;
 
     /**
      * Constructor to explain about the command.
      * @param userInput is the input from the user
      */
-    public CommandGetMonthlySpending(String userInput) {
+    public CommandGetSpendingByMonth(String userInput) {
+        this.commandType = CommandType.EXPENDED;
         this.userInput = userInput;
         this.description = "Provides the user the total expenditure for the month stated. "
                 + "FORMAT: expended <month> /year<year>";
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+        ReceiptTracker monSpend = new ReceiptTracker();
+        String mon = Parser.parseForPrimaryInput(CommandType.EXPENDED, userInput);
+        int month = getMon(mon);
+        if (month != 0) {
+            int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
+            monSpend = wallet.getReceipts().findReceiptByMonthYear(month, year);
+            Double totalMoney = monSpend.getTotalCashSpent();
+            Ui.dukeSays("The total amount of money spent in " + mon + " " + year + " : " + totalMoney);
+        } else {
+            Ui.dukeSays("Invalid input, CORRECT FORMAT : expended <month> <year> ");
+        }
     }
 
     /**
@@ -59,18 +76,5 @@ public class CommandGetMonthlySpending extends Command {
 
     }
 
-    @Override
-    public void execute(Wallet wallet) {
-        ReceiptTracker monSpend = new ReceiptTracker();
-        String mon = Parser.parseForPrimaryInput(CommandType.EXPENDED, userInput);
-        int month = getMon(mon);
-        if (month != 0) {
-            int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
-            monSpend = wallet.getReceipts().findReceiptByMonthYear(month, year);
-            Double totalMoney = monSpend.getTotalCashSpent();
-            System.out.println("The total amount of money spent in " + mon + " " + year + " : " + totalMoney);
-        } else {
-            System.out.println("Invalid input, CORRECT FORMAT : expended <month> <year> ");
-        }
-    }
+
 }
