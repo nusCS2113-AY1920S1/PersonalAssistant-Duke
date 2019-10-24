@@ -8,11 +8,13 @@ import duke.components.SongList;
 
 import java.util.ArrayList;
 
+//@@ Sha Long
 /**
  * A class representing the command to display help: the command list.
  */
 public class HelpCommand extends Command<SongList> {
 
+    //@@ Sha Long
     /**
      * Constructor for the command to display help.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
@@ -21,6 +23,7 @@ public class HelpCommand extends Command<SongList> {
         this.message = message;
     }
 
+    //@@ Sha Long
     /**
      * Displays the command list in use; returns the help messages intended to be displayed.
      *
@@ -39,6 +42,7 @@ public class HelpCommand extends Command<SongList> {
         return ui.formatHelp(helpMessage);
     }
 
+    //@@ Sha Long
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.

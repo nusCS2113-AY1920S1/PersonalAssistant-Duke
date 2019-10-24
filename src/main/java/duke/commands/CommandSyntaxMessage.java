@@ -5,6 +5,7 @@ import duke.DukeException;
 import java.util.HashMap;
 import java.util.Map;
 
+//@@ Sha Long
 public final class CommandSyntaxMessage {
     private static String listSyntax = "list\n";
     private static String newSyntax = "new s/SONG_NAME [key:s/KEY](C) [time:n/TIME_SIG](4/4) [tempo:n/TEMPO](120)\n";
@@ -25,6 +26,7 @@ public final class CommandSyntaxMessage {
     private static String deleteSyntax = "To be implemented in version 2.0\n";
     private static String exitSyntax = "To be implemented in version 2.0\n";
 
+    //@@ Sha Long
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
         {
             put("list", listSyntax);
@@ -45,6 +47,7 @@ public final class CommandSyntaxMessage {
         }
     };
 
+    //@@ Sha Long
     /**
      * The function is to get ALL the commands including their name and format in a single String.
      * @return a string with all the formats
@@ -52,12 +55,12 @@ public final class CommandSyntaxMessage {
     public static String getMessage() {
         StringBuilder output = new StringBuilder();
         for (Map.Entry<String, String> entry : nameToSyntax.entrySet()) {
-            output.append(entry.getKey() + "\nFormat: " + entry.getValue())
-                    .append("\n");
+            output.append(entry.getKey() + "\nFormat: " + entry.getValue() + "\n");
         }
         return output.toString();
     }
 
+    //@@ Sha Long
     /**
      * The getMessage is to get the command and format of a specific command.
      * @param helpMessage the command to show
