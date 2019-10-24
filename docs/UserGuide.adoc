@@ -242,9 +242,9 @@ Format: `clear modules`
 Clears and empties the list of CCAs being added. +
 Format: `clear ccas`
 
-=== Rescheduling a CCA : `scheduleCca`
+=== Adding another schedule to a CCA : `scheduleCca`
 
-Reschedules a CCA which is already added. +
+Adds another schedule to a CCA which is already added, as the CCA may have multiple slots. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
 
 ****
@@ -324,15 +324,21 @@ Example of error message: `Error: This CCA clashes with existing CCA!`
 === `ModBadGradeException`
 This error appears when you input an invalid letter grade.
 
+Example of error message: `Error: Please enter a valid letter grade!`
+
 > **_Solving the error:_** +
 > Input one of the following grades: "A+, A, A-, B+, B, B-, C+, C, C-, D+, D, F, S or U".
 
 === `ModBadSuException`
 This errors appears when you input an S or U grade for a module that does not have an S/U option.
 
+Example of error message: `S/U option is not allowed for this module!`
+
 > **_Solving the error:_** +
-> Use `show module` to check whether the module is S/U'able.
-> Only modules with the 
+> ****
+> * Use `show module` to check whether the module is S/U'able.
+> * Only modules with the "SU: true" indicates that the module is S/U'able and an S or U grade can be input.
+> ****
 
 == FAQ
 

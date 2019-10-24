@@ -204,6 +204,8 @@ If the module already exists in the task list, (i.e `ModuleTaskList` contains `m
 
 Below is a Sequence Diagram showing how `GradeCommand` works.
 
+image::GradeCommandSequenceDiagram.png[]
+
 ==== Design Considerations
 *How GradeCommand executes*
 
@@ -278,6 +280,10 @@ In this case, the modules the user needs to take are: +
 * moduleCode5 +
 ****
 
+Below is a sequence diagram showing how `CapCommand` works. +
+
+image::CapCommandSequenceDiagram.png[]
+
 === SortCommand
 
 ==== Current implementation
@@ -293,7 +299,7 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 
-image::SortCommandSequentialDiagram.png[align="center"]
+image::SortCommandSequentialDiagram.png[width="600"]
 
 === ShowCommand
 
@@ -341,6 +347,9 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
 ****
 
+Below is a Sequence Diagram showing how `ShowCommand` works.
+
+image::ShowCommandSequenceDiagram.png[width="600"]
 
 === JsonWrapper
 
