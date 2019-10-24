@@ -167,6 +167,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
             // let JavaFx handle the keypress
+            break;
         }
     }
 

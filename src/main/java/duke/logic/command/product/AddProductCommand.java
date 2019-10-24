@@ -15,8 +15,6 @@ public class AddProductCommand extends ProductCommand {
             + "product list";
     private final Product toAdd;
 
-
-
     public AddProductCommand(Product toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;

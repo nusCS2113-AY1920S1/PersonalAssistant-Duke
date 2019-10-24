@@ -13,7 +13,7 @@ public class Product {
     }
 
 
-    public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
+    public static final String MESSAGE_CONSTRAINTS = "Product name can take any values, "
             + "and should not be blank";
 
     private String productName;

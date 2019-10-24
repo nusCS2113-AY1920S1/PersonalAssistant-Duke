@@ -2,6 +2,7 @@ package duke.logic.parser.product;
 
 import duke.commons.core.Message;
 import duke.logic.command.product.AddProductCommand;
+import duke.logic.command.product.DeleteProductCommand;
 import duke.logic.command.product.EditProductCommand;
 import duke.logic.command.product.ListProductCommand;
 import duke.logic.command.product.ProductCommand;
@@ -32,8 +33,11 @@ public class ProductCommandParser implements SubCommandParser<ProductCommand> {
             return new EditProductCommandParser().parse(args);
         case ListProductCommand.COMMAND_WORD:
             return new ListProductCommandParser().parse(args);
+        case DeleteProductCommand.COMMAND_WORD:
+            return new DeleteProductCommandParser().parse(args);
+        default:
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
-        throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
     }
 
 }
