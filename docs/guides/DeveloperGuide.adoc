@@ -19,11 +19,16 @@ By: F11-3
 == Introduction
 
 Welcome to the Email Manager Developer Guide! +
-Email Manager is an email and task manager app, specifically designed for NUS School of Computing Students to manage their emails and busy schedules. As a text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI). Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email and task details in an appealing, well-organized format.
+Email Manager is an email and task manager app, specifically designed for NUS
+School of Computing Students to manage their emails and busy schedules. As a
+text-based application, it is optimized for those who prefer typing and working with Command Line Interface (CLI).
+Email Manager also has a developed Graphical User Interface (GUI) that allows users to view email
+and task details in an appealing, well-organized format.
 
-== https://github.com/CS2113-AY1819S2-T08-4/main/blob/master/docs/DeveloperGuide.adoc#about-the-developer-guide[*About the Developer Guide]*
+== About the Developer Guide
 
-This developer guide provides detailed documentation on the implementation of all the various features Email Manager offers. It also suggests methods for you to modify and build upon it. +
+This developer guide provides detailed documentation on the implementation of all the various
+features Email Manager offers. It also suggests methods for you to modify and build upon it. +
 Throughout this developer guide, there will be various icons used, as shown below:
 
 [TIP]
@@ -45,6 +50,9 @@ This section shows how to set up Email Manager on your desktop and begin your de
 Figure 1. Architecture Diagram +
 The _Architecture Diagram_ given above explains the high-level design of the App. Given below is a quick overview of each component.
 
+==== How the architecture components interact with each other
+
+
 === UI component
 
 === Logic component
@@ -55,17 +63,64 @@ The _Architecture Diagram_ given above explains the high-level design of the App
 
 === Common classes
 
-==== Implementation
+== Implementation
+This section describes some noteworthy details on how certain features are implemented.
+// Maybe in the future we split the sub-sections into overall command structure, email management, task management and GUI?
 
-==== Documentation
+=== Task Management
+There are three main types of tasks that Email Manager works with: `todo`, `deadline` and `event`.
 
-==== Testing
 
-==== Dev Ops
+==== Current Implementation
+Tasks have a variety of attributes that a user wants to add or change. The current attributes that
+can be modified are: `time`, `doafter`, `priority` and `tags`.
+The updating of task details is facilitated by `TaskUpdateCommand`. It extends `Command`, overriding the `execute` method.
 
-== Appendices
+The details of the update mechanism are as follows:
 
-=== Appendix B: Product Scope
+Step 1: `TaskCommandParseHelper` takes in the command from the user input text field, and parses it.
+If the command starts with `update` than it will separate all the parameters into an ArrayList,
+passing it into the `TaskUpdateCommand`.
+
+Step 2: `TaskUpdateCommand.execute()` will then go through the ArrayList, calling the appropriate
+method in `TaskList`.
+
+Step 3: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
+
+==== Design considerations
+===== Aspect: Handling Tags
+* Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
+** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags
+** Cons: if there are many tags, and the user only wants to add on an extra tag, the user will need to retype all existing tags into the command.
+* Alternative 2: if a tag is entered as part of the command, it will amend on top of existing tags.
+** Pros: this will save users time if they only want to add on tags
+** Cons: no option to remove tags
+* Alternative 3 (proposed): there will be an option to add tags and an option to remove tags.
+** Pros: gives users highest amount of flexibility and control over the tags they want to keep.
+** Cons: added complexity in commands
+
+=== Logging
+
+
+== Documentation
+
+
+== Testing
+
+== Dev Ops
+
+[appendix]
+== Product Scope
+
+*Target user profile*
+
+* student who is bombarded with emails and tasks
+* familiar and comfortable with command line inputs
+
+*Value proposition*
+
+[appendix]
+== Product Scope
 
 Target user profile:
 
@@ -81,7 +136,8 @@ Value proposition:
 . Helps busy computing student to manage their tasks and schedules.
 . Reminds busy computing students of their important emails and tasks.
 
-=== Appendix C: User Stories
+[appendix]
+== User Stories
 
 |===
 |*As a/an*|*I can*|*So that...*|*Priority*
@@ -121,21 +177,23 @@ Value proposition:
 |team member|send progress tracking emails to other team members periodically|The team can be always updating each other's progress|Nice-To-Have
 |===
 
-
-
-=== Appendix D: Use Cases
+[appendix]
+== Use Cases
 
 System: Email Manager +
 Actor: User (SoC student)
 
-*Use Case: Fetch email from account* +
-1. User starts system or enters the fetch command.. +
-2. System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved, combined with those from local storage and displayed. +
-Use case ends. +
+*Use Case: Fetch email from account*
+
+. User starts system or enters the fetch command.
+. System retrieves account key from file, connects to Microsoft and logs in. New emails are retrieved,
+combined with those from local storage and displayed. +
+Use case ends.
+
 Extensions: +
 2a. System is unable to retrieve a valid account key, receives error from Microsoft. +
-2a1. Opens Microsoft portal in browser. +
-2a2. The user types in the username and password into Microsoft portal. +
+2a1. System opens Microsoft portal in browser. +
+2a2. User types in the username and password into Microsoft portal. +
 2a3. System saves the account key from Microsoft for future logins, downloads new emails, and displays email. +
 Use case ends.
 
@@ -159,7 +217,7 @@ Use case ends.
 . The user selects the priority range that he/she wants to view
 . System leads the user back to the email list page
 
-	Extension: +
+Extension: +
 3.1. The user can include or exclude a particular keyword from that priority
 
 *Use Case: Auto categorisation of emails*
@@ -168,22 +226,26 @@ Use case ends.
 . User specifies the keyword for this category.
 . The app will look through the emails and put the related-emails under the category.
 
-
-=== Appendix E: Non-Functional Requirements
+[appendix]
+== Non-Functional Requirements
 
 Email Manager meets the following non-functional requirements:
 
 * Security of user login credentials (user enters details directly into Microsoft portal)
-* Data Accessibility (efficient storage)should we take this out?
-* Time-out take this out as well?
+* Data Accessibility (efficient storage)
+// ^ should we take this out?
+* Time-out
+// ^ take this out as well?
 * Clean layout
 * Works with common operating systems
 
+[appendix]
+== Glossary
 
-=== Appendix F: Glossary
+[appendix]
+== Product Survey
 
-=== Appendix G: Product Survey
-
-=== Appendix H: Instructions for Manual Testing
+[appendix]
+== Instructions for Manual Testing
 
 
