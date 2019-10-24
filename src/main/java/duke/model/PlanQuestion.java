@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class PlanQuestion {
-    private Integer questionNumber;
     private String question;
     private Map<String, String> answersAttributesValue;
     private Map<String, Set<Integer>> neighbouringQuestions;
@@ -21,7 +20,6 @@ public class PlanQuestion {
 
     /**
      * Constructor for PlanQuestion.
-     * @param index int Index of the question
      * @param question String the question we are asking the user
      * @param answers an Array of strings of the possible answers
      * @param attributeValue an Array of Attributes the attribute could take,
@@ -29,12 +27,10 @@ public class PlanQuestion {
      * @param attribute the attribute of the user we want to determine from the question
      * @throws DukeException when there are errors in the construction of the question
      */
-    public PlanQuestion(int index,
-                        String question,
+    public PlanQuestion(String question,
                         String[] answers,
                         String[] attributeValue,
                         String attribute) throws DukeException {
-        this.questionNumber = index;
         this.question = question;
         this.answersAttributesValue = new HashMap<>();
         int answersSize = answers.length;
@@ -50,15 +46,15 @@ public class PlanQuestion {
     }
 
 
-    String getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    String getAttribute() {
+    public String getAttribute() {
         return attribute;
     }
 
-    Set<Integer> getNeighbouringQuestions(String attribute) {
+    public Set<Integer> getNeighbouringQuestions(String attribute) {
         if (neighbouringQuestions.containsKey(attribute)) {
             return neighbouringQuestions.get(attribute);
         }
@@ -91,7 +87,7 @@ public class PlanQuestion {
         return new Reply("Something strange happened", attributes);
     }
 
-    void addNeighbouring(String attribute, Integer neighbouring) {
+    public void addNeighbouring(String attribute, Integer neighbouring) {
         if (neighbouringQuestions.containsKey(attribute)) {
             neighbouringQuestions.get(attribute).add(neighbouring);
         } else {
