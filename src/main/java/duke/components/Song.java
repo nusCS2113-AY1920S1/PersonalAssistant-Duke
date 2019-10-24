@@ -1,10 +1,5 @@
 package duke.components;
 
-import duke.components.Bar;
-import duke.components.Note;
-import duke.components.Song;
-import duke.components.Chord;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;

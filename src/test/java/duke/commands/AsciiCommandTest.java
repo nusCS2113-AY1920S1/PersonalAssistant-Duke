@@ -1,75 +1,211 @@
 package duke.commands;
 
+import duke.DukeException;
 import duke.components.Bar;
-import duke.components.Chord;
-import duke.components.Note;
+import duke.components.Group;
 import duke.components.Song;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class AsciiCommandTest {
 
-    Song song = new Song("Test Song", "C-Major", 120);
-    Chord chord_1 = new Chord();
-    Chord chord_2 = new Chord();
-    Chord chord_3 = new Chord();
-    Chord chord_4 = new Chord();
-    Chord chord_5 = new Chord();
-    Chord chord_6 = new Chord();
-    Chord chord_7 = new Chord();
-    Chord chord_8 = new Chord();
-
-    Bar bar_1 = new Bar(0, "4_UA 4_UA");
-    Bar bar_2 = new Bar(1, "2_UA 2_UB");
-    Bar bar_3 = new Bar(2, "1_UC");
-    Bar bar_4 = new Bar(3, "1_REST");
-    Bar bar_5 = new Bar(4, "2_MC 2_MC");
-    Bar bar_6 = new Bar(5, "4_LE 4_LD 4_LC");
-
-
     @Test
-    public void convertSongToAscii(){
-        song.addBar(bar_1);
-        song.addBar(bar_2);
-        song.addBar(bar_3);
-        song.addBar(bar_4);
-        song.addBar(bar_5);
-        song.addBar(bar_6);
+    public void testPrintBarAscii_validBars_success(){
+        //test case 1
+        try{
+            Bar bar_1 = new Bar(5, "4_LE 4_LD 4_LC 4_MC");
+            String result = "UC:         \n" +
+                    "UB:         \n" +
+                    "UA:         \n" +
+                    "UG: --------\n" +
+                    "UF:         \n" +
+                    "UE: --------\n" +
+                    "UD:         \n" +
+                    "MC: ------@-\n" +
+                    "LB:         \n" +
+                    "LA: --------\n" +
+                    "LG:         \n" +
+                    "LF: --------\n" +
+                    "LE: @       \n" +
+                    "LD: --@-    \n" +
+                    "LC:     @   \n";
+            assertEquals(result, AsciiCommand.printBarAscii(bar_1));
+        } catch (DukeException e){
+            fail();
+        }
 
-        AsciiCommand.printSongAscii(song);
+        //test case 2
+        try{
+            Bar bar_2 = new Bar(20, "2_UE 4_MC 4_RT");
+            String result = "UC:         \n" +
+                    "UB:         \n" +
+                    "UA:         \n" +
+                    "UG: --------\n" +
+                    "UF:         \n" +
+                    "UE: $-------\n" +
+                    "UD:         \n" +
+                    "MC: ----@-^-\n" +
+                    "LB:         \n" +
+                    "LA: --------\n" +
+                    "LG:         \n" +
+                    "LF: --------\n" +
+                    "LE:         \n" +
+                    "LD:         \n" +
+                    "LC:         \n";
+            assertEquals(result, AsciiCommand.printBarAscii(bar_2));
+        } catch (DukeException e){
+            fail();
+        }
+
+        //test case 3
+        try{
+            Bar bar_3 = new Bar(0, "8_LA 8_MC 8_UB 8_UE 8_RT 8_UF 8_LB 8_LE");
+            String result = "UC:         \n" +
+                    "UB:  -!-    \n" +
+                    "UA:         \n" +
+                    "UG: --------\n" +
+                    "UF:      !  \n" +
+                    "UE: ---!----\n" +
+                    "UD:         \n" +
+                    "MC: -!--&---\n" +
+                    "LB:       ! \n" +
+                    "LA: !-------\n" +
+                    "LG:         \n" +
+                    "LF: --------\n" +
+                    "LE:        !\n" +
+                    "LD:       --\n" +
+                    "LC:         \n";
+            assertEquals(result, AsciiCommand.printBarAscii(bar_3));
+        } catch (DukeException e){
+            fail();
+        }
     }
 
-//    @Test
-//    public void convertSongToAscii(){
-//        song.addBar(bar_1);
-//        song.addBar(bar_2);
-//        song.addBar(bar_3);
-//        song.addBar(bar_4);
-//        song.addBar(bar_5);
-//        ArrayList<Chord> chords = bar_1.getChords();
-//        for(Chord chord : chords){
-//            ArrayList<Note> notes = chord.getNotes();
-//            for(Note note: notes){
-//                if(note.isStart())
-//                System.out.println(note.getNumericalDuration() + "_test_"+note.getPitch());
-//            }
-//        }
-//        ArrayList<String> ascii = AsciiCommand.convertSongToAscii(song);
-//        for(int i = 0; i < ascii.size(); i++){
-//            System.out.println(ascii.get(i));
-//        }
-//    }
+    @Test
+    public void testPrintGroupAscii_validGroups_success(){
+        //test case 1
+        try{
+            ArrayList<Bar> barsGroup1 = new ArrayList<>();
+            barsGroup1.add(new Bar(0, "4_LE 4_LD 4_LC 4_MC"));
+            barsGroup1.add(new Bar(1, "2_UE 4_MC 4_RT"));
+            barsGroup1.add(new Bar(2, "8_LA 8_MC 8_UB 8_UE 8_RT 8_UF 8_LB 8_LE"));
+            Group testGroup1 = new Group("testGroup1", barsGroup1);
+            String result = "UC:                           \n" +
+                    "UB:                    -!-    \n" +
+                    "UA:                           \n" +
+                    "UG: --------|--------|--------\n" +
+                    "UF:         |        |     !  \n" +
+                    "UE: --------|$-------|---!----\n" +
+                    "UD:         |        |        \n" +
+                    "MC: ------@-|----@-^-|-!--&---\n" +
+                    "LB:         |        |      ! \n" +
+                    "LA: --------|--------|!-------\n" +
+                    "LG:         |        |        \n" +
+                    "LF: --------|--------|--------\n" +
+                    "LE: @                        !\n" +
+                    "LD: --@-                    --\n" +
+                    "LC:     @                     \n";
+            assertEquals(result, AsciiCommand.printGroupAscii(testGroup1));
+        } catch (DukeException e){
+            fail();
+        }
 
-//    Bar testbar_1 = new Bar(0, "4_UA 4_UA");
-//    Bar testbar_2 = new Bar(1, "2_UA 2_UB");
-//    Bar testbar_3 = new Bar(2, "1_UC");
-//    Bar testbar_4 = new Bar(3, "1_REST");
-//    Bar testbar_5 = new Bar(4, "2_MC 2_MC");
-//    @Test
-//    public void convertBarToAscii(){
-//        //System.out.println(testBar_1.getChords().size());
-//        AsciiCommand2.printBarAscii(testbar_2);
-//    }
+        //test case 2
+        try{
+            ArrayList<Bar> barsGroup2 = new ArrayList<>();
+            barsGroup2.add(new Bar(0, "4_MC 4_RT 4_MC 4_RT"));
+            barsGroup2.add(new Bar(0, "4_UC 4_UA 4_UG 4_UF"));
+            barsGroup2.add(new Bar(0, "4_UF 4_UG 4_UA 4_UC"));
+            barsGroup2.add(new Bar(0, "4_LC 4_LD 4_LE 4_LF"));
+            barsGroup2.add(new Bar(0, "4_LG 4_LA 4_MC 4_UD"));
+            barsGroup2.add(new Bar(0, "4_LB 4_RT 4_LB 4_RT"));
+            barsGroup2.add(new Bar(0, "4_LF 4_LD 4_UA 4_UA"));
+            Group testGroup2 = new Group("testGroup2", barsGroup2);
 
+            String result = "UC:          @              @                                     \n" +
+                    "UB:          --            ---                                    \n" +
+                    "UA:            @          @                                   @ @ \n" +
+                    "UG: --------|----@---|--@-----|--------|--------|--------|--------\n" +
+                    "UF:         |      @ |@       |        |        |        |        \n" +
+                    "UE: --------|--------|--------|--------|--------|--------|--------\n" +
+                    "UD:         |        |        |        |      @ |        |        \n" +
+                    "MC: @-^-@-^-|--------|--------|--------|----@---|--^---^-|--------\n" +
+                    "LB:         |        |        |        |        |@   @   |        \n" +
+                    "LA: --------|--------|--------|--------|--@-----|--------|--------\n" +
+                    "LG:         |        |        |        |@       |        |        \n" +
+                    "LF: --------|--------|--------|------@-|--------|--------|@-------\n" +
+                    "LE:                                @                              \n" +
+                    "LD:                             -@---                      -@-    \n" +
+                    "LC:                            @                                  \n";
+            assertEquals(result, AsciiCommand.printGroupAscii(testGroup2));
+        } catch (DukeException e){
+            fail();
+        }
+
+        //test case 3
+        try{
+            ArrayList<Bar> barsGroup3 = new ArrayList<>();
+            barsGroup3.add(new Bar(0, "4_MC 4_RT 4_MC 4_RT"));
+            barsGroup3.add(new Bar(1, "4*_UC 4*_UC 4_UC"));
+            barsGroup3.add(new Bar(2, "2_RT 4*_RT 8_UB"));
+            Group testGroup3 = new Group("testGroup3", barsGroup3);
+            String result = "UC:          @. @. @          \n" +
+                    "UB:          --------       -!\n" +
+                    "UA:                           \n" +
+                    "UG: --------|--------|--------\n" +
+                    "UF:         |        |        \n" +
+                    "UE: --------|--------|--------\n" +
+                    "UD:         |        |        \n" +
+                    "MC: @-^-@-^-|--------|%---^.--\n" +
+                    "LB:         |        |        \n" +
+                    "LA: --------|--------|--------\n" +
+                    "LG:         |        |        \n" +
+                    "LF: --------|--------|--------\n" +
+                    "LE:                           \n" +
+                    "LD:                           \n" +
+                    "LC:                           \n";
+            assertEquals(result, AsciiCommand.printGroupAscii(testGroup3));
+        } catch (DukeException e){
+            fail();
+        }
+    }
+
+    @Test
+    public void testPrintSongAscii_validGroups_success(){
+        //test case 1
+        try{
+            Song song = new Song("Winnie the Pooh", "C-Major", 120);
+            song.addBar(new Bar(0, "4_MC 4_RT 4_MC 4_RT"));
+            song.addBar(new Bar(1, "4*_UC 4*_UC 4_UC"));
+            song.addBar(new Bar(2, "2_RT 4*_RT 8_UB"));
+            song.addBar(new Bar(0, "4_MC 4_RT 4_MC 4_RT"));
+            song.addBar(new Bar(0, "4_UC 4_UA 4_UG 4_UF"));
+            song.addBar(new Bar(0, "4_UF 4_UG 4_UA 4_UC"));
+            song.addBar(new Bar(0, "4_LC 4_LD 4_LE 4_LF"));
+            song.addBar(new Bar(0, "4_LG 4_LA 4_MC 4_UD"));
+            song.addBar(new Bar(0, "4_LB 4_RT 4_LB 4_RT"));
+            song.addBar(new Bar(0, "4_LF 4_LD 4_UA 4_UA"));
+            String result = "UC:          @. @. @                    @              @                                     \n" +
+                    "UB:          --------       -! -        --            ---                                    \n" +
+                    "UA:                                       @          @                                   @ @ \n" +
+                    "UG: --------|--------|--------|--------|----@---|--@-----|--------|--------|--------|--------\n" +
+                    "UF:         |        |        |        |      @ |@       |        |        |        |        \n" +
+                    "UE: --------|--------|--------|--------|--------|--------|--------|--------|--------|--------\n" +
+                    "UD:         |        |        |        |        |        |        |      @ |        |        \n" +
+                    "MC: @-^-@-^-|--------|%---^.--|@-^-@-^-|--------|--------|--------|----@---|--^---^-|--------\n" +
+                    "LB:         |        |        |        |        |        |        |        |@   @   |        \n" +
+                    "LA: --------|--------|--------|--------|--------|--------|--------|--@-----|--------|--------\n" +
+                    "LG:         |        |        |        |        |        |        |@       |        |        \n" +
+                    "LF: --------|--------|--------|--------|--------|--------|------@-|--------|--------|@-------\n" +
+                    "LE:                                                           @                              \n" +
+                    "LD:                                                        -@---                      -@-    \n" +
+                    "LC:                                                       @                                  \n";
+            assertEquals(result, AsciiCommand.printSongAscii(song));
+        } catch (DukeException e){
+            fail();
+        }
+    }
 }
