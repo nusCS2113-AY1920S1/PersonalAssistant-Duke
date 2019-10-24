@@ -88,7 +88,7 @@ public class Parser {
                     weekDate = split2[0];
                     if(weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                             || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
-                        weekDate = LT.getDate(split1[0].trim());
+                        weekDate = LT.getValue(split1[0].trim());
                     }else{
                         weekDate = split1[0].trim();
                     }
@@ -126,7 +126,7 @@ public class Parser {
                     startWeekDate = split4[0].trim();
                     if (startWeekDate.equalsIgnoreCase("reading") || startWeekDate.equalsIgnoreCase("exam")
                             || startWeekDate.equalsIgnoreCase("week") || startWeekDate.equalsIgnoreCase("recess")) {
-                        startWeekDate = LT.getDate(split3[0].trim());
+                        startWeekDate = LT.getValue(split3[0].trim());
                     } else {
                         startWeekDate = split3[0].trim();
                     }
@@ -134,7 +134,7 @@ public class Parser {
                     endWeekDate = split4[0].trim();
                     if (endWeekDate.equalsIgnoreCase("reading") || endWeekDate.equalsIgnoreCase("exam")
                             || endWeekDate.equalsIgnoreCase("week") || endWeekDate.equalsIgnoreCase("recess")) {
-                        endWeekDate = LT.getDate(split3[1].trim());
+                        endWeekDate = LT.getValue(split3[1].trim());
                     } else {
                         endWeekDate = split3[1].trim();
                     }
@@ -168,7 +168,7 @@ public class Parser {
                     weekDate = split2[0];
                     if(weekDate.equalsIgnoreCase("reading") || weekDate.equalsIgnoreCase("exam")
                             || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
-                        weekDate = LT.getDate(split1[0].trim());
+                        weekDate = LT.getValue(split1[0].trim());
                     }else{
                         weekDate = split1[0].trim();
                     }
@@ -222,9 +222,9 @@ public class Parser {
                         weekDate = split1[0].substring(0,split1[0].length()- 4);
                         reminderDate = split1[1].substring(0,split1[1].length()- 4);
                         String time = split1[0].substring(split1[0].length()- 4);
-                        weekDate = LT.getDate(weekDate) + " " + time;
+                        weekDate = LT.getValue(weekDate) + " " + time;
                         time = split1[1].substring(split1[1].length()- 4);
-                        reminderDate = LT.getDate(reminderDate) + " " + time;
+                        reminderDate = LT.getValue(reminderDate) + " " + time;
                     } else {
                         weekDate = split1[0];
                         reminderDate = split1[1];
@@ -268,7 +268,7 @@ public class Parser {
                             || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
                         weekDate = split[1].substring(0,split[1].length()- 4); // week x day y
                         String time = split[1].substring(split[1].length()- 4); // time E.g 0300
-                        weekDate = LT.getDate(weekDate) + " " + time;
+                        weekDate = LT.getValue(weekDate) + " " + time;
                     }else{
                         weekDate = split[1];
                     }
@@ -300,7 +300,7 @@ public class Parser {
                         || weekDate.equalsIgnoreCase("week") || weekDate.equalsIgnoreCase("recess")){
                         weekDate = split[1].substring(0,split[1].length()- 4); // week x day y
                         String time = split[1].substring(split[1].length()- 4); // time E.g 0300
-                        weekDate = LT.getDate(weekDate) + " " + time;
+                        weekDate = LT.getValue(weekDate) + " " + time;
                     }else{
                         weekDate = split[1];
                     }
