@@ -139,6 +139,10 @@ public class DukeException extends Exception {
                 message = "OOPS!!! The data is corrupted.";
                 break;
             }
+            case "AsciiCommand": {
+                message = "OOPS!!! Your Ascii Command is not recognised.";
+                break;
+            }
             default: {
                 message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
             }

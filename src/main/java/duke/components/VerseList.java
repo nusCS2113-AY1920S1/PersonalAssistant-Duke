@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class VerseList {
 
+    //@@author Samuel787
     private ArrayList<Group> verseList = new ArrayList<>();
 
     /**
