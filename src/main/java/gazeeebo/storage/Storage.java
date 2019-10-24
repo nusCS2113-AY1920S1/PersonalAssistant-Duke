@@ -19,8 +19,10 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.*;
 
 
 public class Storage {
@@ -32,8 +34,9 @@ public class Storage {
     private String absolutePath_Places = "Places.txt";
     private String absolutePath_Trivia = "Trivia.txt";
     private String absolutePath_GPA = "Gpa.txt";
-    private String absolutePathSpecialization = "Specialization.txt";
 
+    private String absolutePathSpecialization = "Specialization.txt";
+    private String absolutePath_StudyPlanner = "Study_Plan.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -157,7 +160,7 @@ public class Storage {
                 String decodedPassword = sc.nextLine();
                 char[] decryption = decodedPassword.toCharArray();
                 StringBuilder realPassword = new StringBuilder();
-                for(int i = decodedPassword.length() - 1; i >= 0; i--) {
+                for (int i = decodedPassword.length() - 1; i >= 0; i--) {
                     realPassword.append(decryption[i]);
                 }
                 System.out.println(realPassword);
@@ -326,7 +329,6 @@ public class Storage {
         return gpaList;
     }
 
-
     public void specializationStorage(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePathSpecialization);
         fileWriter.write(fileContent);
@@ -337,20 +339,20 @@ public class Storage {
     public HashMap<String, ArrayList<moduleCategories>> Specialization() throws IOException {
         HashMap<String, ArrayList<moduleCategories>> specMap = new HashMap<>();
         ArrayList<moduleCategories> modAndBool = new ArrayList<>();
-        if(new File(absolutePathSpecialization).exists()) {
+        if (new File(absolutePathSpecialization).exists()) {
             File file = new File(absolutePathSpecialization);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");
-                if(split[0].equals("commsB")) {
+                if (split[0].equals("commsB")) {
                     moduleCategories mC = new moduleCategories(split[2].trim());
-                    if(split[3].equals("D")) {
+                    if (split[3].equals("D")) {
                         mC.isDone = true;
                     } else {
                         mC.isDone = false;
                     }
                     modAndBool.add(mC);
-                } else if(split[0].equals("commsD")) {
+                } else if (split[0].equals("commsD")) {
                     moduleCategories mC2 = new moduleCategories(split[2].trim());
                     if (split[3].equals("D")) {
                         mC2.isDone = true;
@@ -359,17 +361,17 @@ public class Storage {
                     }
                     modAndBool.add(mC2);
 
-                } else if(split[0].equals("embB")) {
-                        moduleCategories mC3 = new moduleCategories(split[2].trim());
-                        if(split[3].equals("D")) {
-                            mC3.isDone = true;
-                        } else {
-                            mC3.isDone = false;
-                        }
+                } else if (split[0].equals("embB")) {
+                    moduleCategories mC3 = new moduleCategories(split[2].trim());
+                    if (split[3].equals("D")) {
+                        mC3.isDone = true;
+                    } else {
+                        mC3.isDone = false;
+                    }
                     modAndBool.add(mC3);
-                } else if(split[0].equals("embD")) {
+                } else if (split[0].equals("embD")) {
                     moduleCategories mC4 = new moduleCategories(split[2].trim());
-                    if(split[3].equals("D")) {
+                    if (split[3].equals("D")) {
                         mC4.isDone = true;
                     } else {
                         mC4.isDone = false;
@@ -381,4 +383,29 @@ public class Storage {
         }
         return specMap;
     }
-}
+        public ArrayList<ArrayList<String>> Read_StudyPlan () throws IOException {
+            ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
+            if (new File(absolutePath_StudyPlanner).exists()) {
+                File file = new File(absolutePath_StudyPlanner);
+                Scanner sc = new Scanner(file);
+                for (int i = 0; i < 8; i++) {
+                    if (sc.hasNext()) {
+                        String[] split = sc.nextLine().split(" ");
+                        ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                        studyplan.add(temp);
+                    } else {
+                        ArrayList<String> temp = new ArrayList<String>();
+                        studyplan.add(temp);
+                    }
+                }
+            }
+            return studyplan;
+        }
+
+        public void Storage_StudyPlan (String fileContent) throws IOException {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_StudyPlanner));
+            fileWriter.write(fileContent);
+            fileWriter.flush();
+            fileWriter.close();
+        }
+    }

@@ -4,15 +4,15 @@ import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 import gazeeebo.commands.Command;
 import gazeeebo.notes.NoteList;
-import gazeeebo.parsers.*;
+import gazeeebo.parsers.Parser;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.NoteStorage;
-import java.io.*;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Duke {
+public class Gazeeebo {
     /**
      * Returns main function for duke.
      *
@@ -38,14 +38,15 @@ public class Duke {
             ui.MajorCategories();
             while (!isExit) {
                 ui.readCommand();
-                String command = ui.fullCommand.trim();
-                Command c = Parser.parse(command);
-                c.execute(list, ui, store, CommandStack, deletedTask,triviaManager);
-                if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                    CommandStack.push(command);
+                String command = ui.fullCommand;
+                Command c = Parser.parse(command, ui);
+                if (c != null) {
+                    c.execute(list, ui, store, CommandStack, deletedTask, triviaManager);
+                    if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                        CommandStack.push(command);
+                    }
+                    isExit = c.isExit();
                 }
-
-                isExit = c.isExit();
             }
         } catch (DukeException | ParseException | IOException | NullPointerException e) {
             if (e instanceof ParseException) {

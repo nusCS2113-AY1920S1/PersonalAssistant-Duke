@@ -27,9 +27,15 @@ public class SortCommand extends Command {
                         System.out.println(SortedList.get(i).listFormat());
                     }
                 }else if(ui.fullCommand.split(" ")[1].equals("date")){
-                    throw new DukeException("OOPS!!! Gazeebo currently does not support sort by date.");
+                    Collections.sort(SortedList,new CustomeDateComparator());
+                        for(int i =0;i<SortedList.size();i++){
+                            System.out.println(SortedList.get(i).listFormat());
+                        }
                 }else if(ui.fullCommand.split(" ")[1].equals("priority")){
-                    throw new DukeException("OOPS!!! Gazeebo currently does not support sort by priority.");
+                    Collections.sort(SortedList,new CustomPriorityComparator());
+                    for(int i =0;i<SortedList.size();i++){
+                        System.out.println(SortedList.get(i).listFormat()+" priority: "+SortedList.get(i).priority);
+                    }
                 }else{
                     throw new DukeException("OOPS!!! Gazeebo currently does not support this sorting method.");
                 }
@@ -42,6 +48,11 @@ public class SortCommand extends Command {
     @Override
     public boolean isExit() {
         return false;
+    }
+}
+class CustomPriorityComparator implements Comparator<Task>{
+    public int compare(Task a, Task b) {
+        return b.priority-a.priority;
     }
 }
 
@@ -81,8 +92,3 @@ class CustomeDateComparator implements Comparator<Task>{
         }
     }
 }
-
-//                    Collections.sort(SortedList,new CustomeDateComparator());
-//                            for(int i =0;i<SortedList.size();i++){
-//        System.out.println(SortedList.get(i).listFormat());
-//        }
