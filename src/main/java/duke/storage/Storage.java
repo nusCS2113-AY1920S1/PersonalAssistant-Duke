@@ -212,13 +212,13 @@ public class Storage {
             for (Route route : routes) {
                 routesString += ParserStorageUtil.toRouteStorageString(route);
             }
-            writer.write(routesString); 
+            writer.write(routesString);
             writer.close();
         } catch (IOException e) {
             throw new DukeException(Messages.FILE_NOT_SAVE);
         }
     }
-  
+    
     /**
      * Writes recommendations to filepath.
      */
