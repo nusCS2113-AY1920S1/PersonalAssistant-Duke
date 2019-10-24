@@ -10,7 +10,7 @@ import duke.model.Model;
 public class ShowInventoryCommand extends InventoryCommand {
     public static final String COMMAND_WORD = "";
 
-    private static final String MESSAGE_LIST_SUCCESS = "Showing Inventory List.";
+    private static final String MESSAGE_LIST_SUCCESS = "Showing the Inventory List.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

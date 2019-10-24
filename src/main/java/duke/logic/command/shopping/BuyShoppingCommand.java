@@ -40,8 +40,6 @@ public class BuyShoppingCommand extends ShoppingCommand {
             }
         }
 
-
-
         for (Index index : indices) {
             Item<Ingredient> toBuy = shoppingList.get(index.getZeroBased());
 

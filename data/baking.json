@@ -26,10 +26,17 @@
   "shoppingList" : [ {
     "ingredient" : {
       "name" : "Cake",
-      "unitPrice" : 5.55,
+      "unitPrice" : 0.0,
       "remarks" : ""
     },
     "amount" : 0.0
+  }, {
+    "ingredient" : {
+      "name" : "Bacon",
+      "unitPrice" : 0.0,
+      "remarks" : ""
+    },
+    "amount" : 5.0
   } ],
   "sales" : [ ],
   "shortcuts" : [ ]
