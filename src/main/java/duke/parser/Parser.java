@@ -3,11 +3,6 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.DukeException;
 
-import java.lang.reflect.Array;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,6 +31,7 @@ public class Parser {
         }
         String[] fcArray = fullCommand.split(" ", 2);
         String keyword = fcArray[0];
+        keyword = StartsWithChecker.checkStartsWithAnyCommand(keyword);
         keyword = OffByOneChecker.offByOne(keyword);
 
         switch (keyword) {
