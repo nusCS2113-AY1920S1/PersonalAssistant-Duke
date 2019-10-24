@@ -7,7 +7,10 @@ public class DukeException extends Exception {
 
     private String input;
     private String type = "other";
+    private static final String[] COMMAND_STRINGS =
+        {"todo","deadline", "event", "doafter", "new", "view", "addbar", "copy", "group", "overlay"};
 
+    //@@author rohan-av
     /**
      * Constructor for duke.DukeException for default type.
      *
@@ -40,12 +43,10 @@ public class DukeException extends Exception {
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
-        String word = input.trim().equals("event") ? "an " : "a ";
+        String word = input.trim().equals("event") || input.trim().equals("overlay") || input.trim().equals("addbar")
+                ? "an " : "a ";
 
-        if (input.trim().equals("todo") || input.trim().equals("event")
-                || input.trim().equals("deadline") || input.trim().equals("doafter")
-                || input.trim().equals("new") || input.trim().equals("view")
-                || input.trim().equals("addbar")) {
+        if (hasEmptyDescription(input)) {
 
             message = "OOPS!!! The description of "
                     + word
@@ -147,5 +148,21 @@ public class DukeException extends Exception {
         }
         return Ui.wrap(message);
         // wrap is called from Ui in order to standardize the formatting of the output
+    }
+
+    /**
+     * Returns a boolean value corresponding to whether the input string, when trimmed, is equal to just the command,
+     * hence indicating the lack of further description.
+     *
+     * @param message the input String
+     * @return a boolean indicating whether the message has an empty description
+     */
+    private boolean hasEmptyDescription(String message) {
+        for (String commandString: COMMAND_STRINGS) {
+            if (message.trim().equals(commandString)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -17,13 +17,43 @@ public class Bar extends CopyObject<Bar> implements Serializable {
     private ArrayList<Chord> chords;
     private int id;
     private ArrayList<String> barChart;
+    private static final int EIGHTH_NOTES_PER_BAR = 8;
 
+    //@@author rohan-av
+    /**
+     * Constructor takes in a String representing a list of notes.
+     *
+     * @param id the ID of the Bar in the Song
+     * @param notes the String representing the list of notes that compose a bar
+     */
+    public Bar(int id, String notes) throws DukeException {
+        this.id = id;
+        this.chords = compileNotesToChords(convertStringToNotes(notes));
+        checkLength(chords, EIGHTH_NOTES_PER_BAR);
+        this.barChart = new ArrayList<>();
+        updateBarChart();
+    }
+
+    /**
+     * Alternate constructor for the Bar instance in the case that the Chord data is present.
+     *
+     * @param id the ID of the Bar in the Song
+     * @param chords an ArrayList of Chord objects that compose the Bar
+     */
+    public Bar(int id, ArrayList<Chord> chords) throws DukeException {
+        this.id = id;
+        this.chords = chords;
+        checkLength(this.chords, EIGHTH_NOTES_PER_BAR);
+        this.barChart = new ArrayList<>();
+        updateBarChart();
+    }
+
+    //@@author
     /**
      * the method that allows this item to be copied.
      *
      * @param object the object to be copied, which in this case is bar.
      */
-
     public Bar copy(Bar object) throws DukeException, IOException,ClassNotFoundException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);
@@ -36,32 +66,6 @@ public class Bar extends CopyObject<Bar> implements Serializable {
     }
 
     //@@author rohan-av
-    /**
-     * Constructor takes in a String representing a list of notes.
-     *
-     * @param id the ID of the Bar in the Song
-     * @param notes the String representing the list of notes that compose a bar
-     */
-    public Bar(int id, String notes) throws DukeException {
-        this.id = id;
-        this.chords = compileNotesToChords(convertStringToNotes(notes));
-        this.barChart = new ArrayList<>();
-        updateBarChart();
-    }
-
-    /**
-     * Alternate constructor for the Bar instance in the case that the Chord data is present.
-     *
-     * @param id the ID of the Bar in the Song
-     * @param chords an ArrayList of Chord objects that compose the Bar
-     */
-    public Bar(int id, ArrayList<Chord> chords) {
-        this.id = id;
-        this.chords = chords;
-        this.barChart = new ArrayList<>();
-        updateBarChart();
-    }
-
     /**
      * Returns an ArrayList of Note objects from the input String of the constructor.
      *
@@ -123,6 +127,7 @@ public class Bar extends CopyObject<Bar> implements Serializable {
         }
     }
 
+    //@@author rohan-av
     /**
      * Returns a String representation of the Bar to be used in persistent storage.
      *
@@ -140,4 +145,17 @@ public class Bar extends CopyObject<Bar> implements Serializable {
         return result.toString();
     }
 
+    /**
+     * Checks the length of the Bar and whether it matches the correct length as specified by the time signature
+     * (modification of time signature to be introduced in v2).
+     *
+     * @param chords the ArrayList of Chord objects that make up the Bar
+     * @param eighthNotesPerBar the number of eighth notes that should be in the bar
+     * @throws DukeException an exception indicating the incorrect adding of a Bar due to invalid format
+     */
+    public void checkLength(ArrayList<Chord> chords, int eighthNotesPerBar) throws DukeException {
+        if (chords.size() != eighthNotesPerBar) {
+            throw new DukeException("addbar", "");
+        }
+    }
 }
