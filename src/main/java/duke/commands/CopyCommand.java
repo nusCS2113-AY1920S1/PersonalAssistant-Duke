@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class CopyCommand extends Command<SongList> {
 
+    //@@author Samuel787
     private String message;
     private Song song; //current working song
 

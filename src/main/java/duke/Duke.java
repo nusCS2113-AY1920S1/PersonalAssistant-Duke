@@ -2,14 +2,18 @@ package duke;
 
 import duke.commands.AddBarCommand;
 import duke.commands.AddOverlayCommand;
+import duke.commands.AsciiCommand;
 import duke.commands.Command;
 import duke.commands.CopyCommand;
+import duke.commands.ViewCommand;
 import duke.commands.GroupCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.NewCommand;
 import duke.commands.RemindCommand;
-import duke.commands.ViewCommand;
+
+
+
 import duke.components.SongList;
 
 import java.nio.file.Paths;
@@ -34,7 +38,8 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList();
         songs = new SongList();
-        storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
+        //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
+        storage = new Storage(Paths.get("data", "todo_list.txt"));
         try {
             storage.loadToList(songs);
         } catch (DukeException e) {
@@ -80,7 +85,8 @@ public class Duke {
                         || c instanceof GroupCommand
                         || c instanceof CopyCommand
                         || c instanceof AddOverlayCommand
-                        || c instanceof ListCommand) {
+                        || c instanceof ListCommand
+                        || c instanceof AsciiCommand) {
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);
