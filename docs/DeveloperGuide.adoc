@@ -89,7 +89,7 @@ checks all the events whether any is in this day.
 . If not, this day will be added into a list.
 . Above process will continue until the list has 3 days, which will then be printed.
 ====
-The following sequence diagram shows how check free days is implemented.
+The following logic diagram shows how check free days is implemented.
 
 image::DGCheck.png[width = 100%]
 ====
