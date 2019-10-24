@@ -2,6 +2,7 @@ package seedu.duke.task;
 
 import seedu.duke.CommandParseHelper;
 import seedu.duke.Duke;
+import seedu.duke.task.command.TaskParseNaturalDateHelper;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
@@ -133,18 +134,16 @@ public class TaskList extends ArrayList<Task> {
      * @param index of the task in taskList.
      * @return string msg.
      */
-    public String snoozed(int index) throws CommandParseHelper.UserInputException {
+    public String snoozed(int index, int duration) throws CommandParseHelper.UserInputException {
         validateIndex(index);
         Task task = this.get(index);
-        return constructSnoozeMessage(task);
+        return constructSnoozeMessage(task, duration, index);
     }
 
-    private String constructSnoozeMessage(Task task) {
+    private String constructSnoozeMessage(Task task, int duration, int index) {
         if (task.getTaskType() != Task.TaskType.ToDo) {
-            task.snooze();
-            String msg = "Noted. I've snoozed this task: \n";
-            msg += task.getName();
-            return msg;
+            task.snooze(duration);
+            return "Noted. I've snoozed task " + (index + 1) + " by " + duration + " days";
         } else {
             Duke.getUI().showError("This task cannot be snoozed");
             return "This task cannot be snoozed";
@@ -186,9 +185,9 @@ public class TaskList extends ArrayList<Task> {
 
     private void setTimeByType(String description, Task task) throws CommandParseHelper.UserInputException {
         if (task.getTaskType() == Task.TaskType.Deadline) {
-            ((Deadline) task).setTime(Task.parseDate(description));
+            ((Deadline) task).setTime(TaskParseNaturalDateHelper.getDate(description));
         } else if (task.getTaskType() == Task.TaskType.Event) {
-            ((Event) task).setTime(Task.parseDate(description));
+            ((Event) task).setTime(TaskParseNaturalDateHelper.getDate(description));
         }
     }
 

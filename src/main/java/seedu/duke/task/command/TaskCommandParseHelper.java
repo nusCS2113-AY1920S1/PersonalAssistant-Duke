@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.duke.CommandParseHelper.extractTags;
+import static seedu.duke.CommandParseHelper.extractTime;
 
 public class TaskCommandParseHelper {
     private static UI ui = Duke.getUI();
@@ -52,7 +53,7 @@ public class TaskCommandParseHelper {
         } else if (input.startsWith("doafter")) {
             return parseDoAfterCommand(input, optionList);
         } else if (input.startsWith("snooze")) {
-            return parseSnoozeCommand(input);
+            return parseSnoozeCommand(input, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(input, optionList);
         } else if (input.startsWith("update")) {
@@ -187,7 +188,8 @@ public class TaskCommandParseHelper {
     private static Command parsePriorityCommand(String input, ArrayList<Command.Option> optionList) {
         Matcher priorityCommandMatcher = prepareCommandMatcher(input, "^set\\s+(?<index>[\\d]+)\\s*$");
         if (!priorityCommandMatcher.matches()) {
-            showError("Please enter index after 'set' command and priority level after '-priority' option");
+            showError("Please enter task index after 'set' and priority level after '-priority' "
+                    + "option");
             return new InvalidCommand();
         }
         try {
@@ -207,17 +209,22 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static Command parseSnoozeCommand(String input) {
-        Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*");
+    private static Command parseSnoozeCommand(String input, ArrayList<Command.Option> optionList) {
+        Matcher snoozeCommandMatcher = prepareCommandMatcher(input, "^snooze\\s+(?<index>[\\d]+)\\s*$");
         if (!snoozeCommandMatcher.matches()) {
-            showError("Please enter snooze command with an index");
+            showError("Please enter task index after 'snooze' and duration to snooze after '-by' ");
             return new InvalidCommand();
         }
         try {
+            String snooze = extractSnooze(optionList);
+            if (snooze.equals("")) {
+                snooze = "3";
+            }
             int index = parseTaskIndex(snoozeCommandMatcher.group("index"));
-            return new TaskSnoozeCommand(index);
+            int duration = Integer.parseInt(snooze);
+            return new TaskSnoozeCommand(index, duration);
         } catch (NumberFormatException e) {
-            showError("Please enter a valid task index");
+            showError("Please enter a valid task index after \'snooze\'");
             return new InvalidCommand();
         }
     }
@@ -320,6 +327,16 @@ public class TaskCommandParseHelper {
         return priority;
     }
 
+    private static String extractSnooze(ArrayList<Command.Option> optionList) {
+        String snooze = "";
+        for (Command.Option option : optionList) {
+            if (option.getKey().equals("by") && snooze.equals("")) {
+                snooze = option.getValue();
+            }
+        }
+        return snooze;
+    }
+
     /**
      * Parses the specific part of a user/file input that is relevant to a task. A successful parsing always
      * returns an AddCommand, as it is assumed that an input starting with a task name is an add command.
@@ -342,11 +359,16 @@ public class TaskCommandParseHelper {
         }
     }
 
-    private static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
+    /**
+     * Gets time in LocalDateTime format from string extracted.
+     *
+     * @param optionList contains all options specified in input command
+     * @return time in LocalDateTime format
+     */
+    public static LocalDateTime parseTaskTime(ArrayList<Command.Option> optionList) {
         try {
-            String timeString = CommandParseHelper.extractTime(optionList);
-            LocalDateTime time = Task.parseDate(timeString);
-            return time;
+            String timeString = extractTime(optionList);
+            return TaskParseNaturalDateHelper.getDate(timeString);
         } catch (CommandParseHelper.UserInputException e) {
             return null;
         }
