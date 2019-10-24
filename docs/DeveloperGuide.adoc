@@ -1,5 +1,5 @@
 = MisterMusik - Developer Guide
-:site-section: UserGuide
+:site-section: DevelopGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -26,7 +26,7 @@ There are three main components in the overall architecture of the application.
 
 `Duke` class: contains the `main()` class of the application.
 * Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
-* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui). 
+* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui).
 
 `Events` Package: contains classes pertaining to the events.
 
@@ -38,11 +38,61 @@ There are three main components in the overall architecture of the application.
 === Common classes
 
 == Implementation
-=== [Proposed] Undo/Redo feature
+This section describes some noteworthy details on how certain features are implemented.
 
+=== Calendar Table
+The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
+starting from a specified day, including the events within this time period. +
 
-=== Your own implementation
+==== How it is implemented
+Given below is how a calendar table is generated and printed.
 
+Step 1. User enters `calendar` to start the initialization process of a calendar table with today as the starting day.
+
+Step 2. The program checks the date of the given start day to generate a list of 7 days, starting from given day.
+It also gets the day of the 7 days (e.g. Monday, Tuesday, etc). This sets the dates info of the table.
+====
+E.g. Example of a day and dates list
+
+image::DGCalendarTableDaysList.png[width = 75%]
+====
+
+Step 3. The program find all events in the `EventList` that is within the 7 days,
+and store them correspondingly into 7 queues, representing the 7 days. This is for further printing.
+====
+E.g. Example of an event list of 7 days
+
+image::DGCalendarTableExample.png[width = 75%]
+====
+
+Step 4. The program now have all the information of these 7 days and is then able to print the calendar table.
+
+. It initiates an empty string to store all info of the calendar and for later printing.
+. It puts the header of he table into the string.
+. It puts the days of week and dates info into the string.
+. To add in events, each event takes 3 rows (time info, description, and dashes) to print. For each 3 rows,
+there can be at most 7 events. The events are added per 3 rows. For each 3 rows, the program creates an array of 3 * 7
+to store the details. Whenever there exists an event at the position of a day, details of the event will be added to
+the corresponding 3 rows (1 column) of the array. The array is then added by rows into the string.
+====
+E.g. Example of a row of events stored for printing
+
+image::DGCalendarTableRow.png[width = 75%]
+====
+
+=== Check Free Days
+CheckFreeDays is a command that allows the program to search for the next 3 days without any
+events (except ToDos). +
+
+. When the user enters `check`, starting from the current day, the program
+checks all the events whether any is in this day.
+. If not, this day will be added into a list.
+. Above process will continue until the list has 3 days, which will then be printed.
+====
+The following logic diagram shows how check free days is implemented.
+
+image::DGCheck.png[width = 100%]
+====
 
 === Clash handling
 ==== Activity diagram
@@ -113,6 +163,131 @@ detection as a part of adding recurrent events (to check for clashes when recurr
 entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
 
+=== Add recurring events
+==== How it is implemented
+The program is able to detect recurring events and their periods when creating new events.
+When the user enters the command to add a new `Lesson` or `Practice` event with a period (in days) followed,
+`createNewEvent` method will call `entryForEvent` to get the period. +
+If the new event is not a recurring event, the period value will be assigned to `NON-PERIOD` and then call the
+`addEvent` method in the `EventList` class.
+
+After getting the period, the `createNewEvent` method will call the `addRecurringEvent` method in the `EventList` class
+to create and store new events in the eventList. +
+The calculation of dates are done by Java Calendar, `Calendar.add` function is called to calculate the startDate
+and endDate of new events in `Java Date type`. The number of recurring events is depended on the period, since the
+maximum date between the first recurring event and the last one is up to `ONE_SEMESTER_DAYS` which is assigned to
+16 weeks (112 days) now. +
+When creating the `startEventDate` and `endEventDate` of the new event,
+`calendar.getTime` is called and the `identifier` in EventDate will be assigned to `DATE_TO_STRING`, so that the
+`startDateAndTime` and `endDateAndTime` are in `String type`, which fits the requirement of the `Event` class.
+
+All the events created in the `addRecurringEvent` method will be checked whether having clash with the events in the
+current eventList and then added in a temporary event list one by one. If no clash happens, the `tempEventList` will
+be added to the current `eventList`.
+
+Given below is an example usage scenario compared to adding non-recurring event. +
+Recurring event: `Lesson` or `Practice` <event description> /dd-MM-yyyy HHmm HHmm `/period(in days)` +
+Non-recurring event: <event type> <event description> /dd-MM-yyyy HHmm HHmm
+
+==== Sequence diagram
+The following sequence diagram shows how the adding recurring event operation works.
+====
+image::recurringEventSequenceDiagram.png[width = 100%]
+====
+
+==== Why it is implemented this way
+. Whether the input command has a period is considered at the first, so that the dependency between adding
+recurrent events and adding normal events could be reduced.
+. The `add(int field, int amount)` method of `Calendar` class is used to add or subtract from the given calendar field
+and a specific amount of time, based on the calendar's rules. +
+`public abstract void add(int _field_, int _amount_)`
+. Since the number of recurrent events with a short period could be large, it is more likely to have clashes with the
+current eventList. Hence, before added in the temporary event list, the new event need to be ensured that no clash
+happens.
+. To keep the format of creating new events, the format process of changing Java Date to String is done in the
+`EventDate` class instead of messing the `Event` class to accept both Date and String types as input date and time.
+
+=== Viewing specific dates
+==== How is it implemented
+The implementation is a simple for loop that runs through the existing task list. If a matching date is detected,
+it will return the corresponding task and add it to a temporary list of found tasks. After running through the whole
+list, the temporary list will be printed out to display all the tasks of a specific date.
+
+Step 1: When the command "view <date>" is given, the viewEvents() method will be called.
+
+Step 2: A temporary ArrayList is created by the method to be populated.
+
+Step 3: The date string from the input command is passed into the EventDate class to be formatted into the same format as that of
+each event and returned as a string.
+
+Step 4: The returned string is compared with each task in the event list to check for any event with a matching date.
+
+Step 5: When an event with a matching date is found, the event is added to the temporary list.
+
+Step 6: After the entire list has been checked, the temporary list is passed into a UI instance
+
+Step 7: The printFoundEvents() method will be called. The said method then prints out the temporary list, displaying the list of events taking place on a specific date.
+
+In the situation when an empty temporary list is passed into the UI for it to print, an exception will occur and the
+printFoundEvents() method will catch the exception before printing out a string to inform the user that there are no tasks
+taking place on that specific date.
+
+==== Activity Diagram
+image::DGViewEventsDiagram.png[]
+
+==== Why is it implemented this way
+The matching events are being stored individually into a separate temporary list before being printed out. This is to allow
+an easier handling of individual tasks as separate instances in case the user wishes to edit a particular task from the
+temporary list.
+
+==== Alternative implementations considered
+Storing all the matching events as a single string, passing the string into the printFoundEvents() method to print out. This
+implementation is undesirable as it will be difficult to access individual matching events in the case the user wishes to edit
+them as mentioned above.
+
+=== Reminders
+
+==== How it is implemented
+The reminder function filters out the tasks that are due or are happening before 2359 three days after the current date, 
+and prints them out as a reminder for the users. 
+
+After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the 
+Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
+EventList.filteredList method to filter out a list of events that are due or are happening before 2359 three 
+days after the current date. The EventList.filteredList method filters out events from the stored list of events
+according to a certain input predicate. 
+
+The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the 
+item that is used for the comparison reference (comp) input, and the comparator is the operator that is used for the 
+comparison. The comparator should be either one of the three global integer variables: EQUAL, GREATER_THAN or SMALLER_THAN. 
+The Predicate.check method takes in an input and checks if reference (comp) input is true by calling the appropriate method 
+in the Predicate class depending on the type of the reference and input.
+
+In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to 
+2359 three days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder method 
+calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of Events in 
+`eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the 
+EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true 
+and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
+EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time, 
+the date and time at 2359 three days after the current date, and the filtered list of events. This string is printed to
+stdout in the Ui.printReminders function.
+
+==== Sequence diagram
+The following sequence diagram shows how the reminder functionality works.
+====
+image::reminderSequenceDiagram.png[width = 100%]
+====
+
+==== Why it is implemented this way
+The reminder function is split the various components into different methods for easier testing. In this case, Ui.printReminders 
+prints the output to the user interface, EventList.getReminder is responsible for compiling the output whereas EventList.filteredList
+obtains the filtered list of events from `eventArrayList`. 
+
+This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
+functionalities.
+
+
 == Documentation
 
 
@@ -125,7 +300,7 @@ an existing event, so that he/she does not inadvertently create a new schedule c
 [appendix]
 == Product Scope
 === Target User Profile
-<NAME_OF_PROJECT> is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
+MisterMusik is a scheduler program created for serious music students pursuing a professional music career as a western classical music performer.
 The program is designed to automate and streamline most of the process in scheduling and organisation of materials, allowing the students to focus more on the important aspects of their education.
 
 
@@ -190,6 +365,10 @@ Extension 3.1: System can remove types of events from list at user’s command
 Extension: 3.2. System can allow the user to only view a specific type of event.
 3.2.1. User can also enter commands `show examinations` for example, to only show examinations in the list of events.
 3.2.2. System will respond accordingly, displaying only type of event that the user specified.
+
+Extension: 3.3. System can allow the user to only view events on a specific date.
+3.3.1. User can enter the command "view <dd-MM-yyyy>"" to view all events on that specific date.
+3.3.2. System will display the events, and the user can edit the events accordingly.
 
 === Entering the examination details
 . User enters command `examination`, together with a description of the examination, along with the date, time, venue and any other notes in a given format.
