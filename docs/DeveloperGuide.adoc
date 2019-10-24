@@ -208,7 +208,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Cake` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-==== Use case: Find topics
+==== *Use case: Find topics*
 
 *MSS*
 
@@ -347,6 +347,7 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
+[discrete]
 ==== Launch and Shutdown
 
 . Initial launch
@@ -363,6 +364,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+[discrete]
 ==== Deleting a person
 
 . Deleting a person while all persons are listed
@@ -377,6 +379,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+[discrete]
 ==== Saving data
 
 . Dealing with missing/corrupted data files
