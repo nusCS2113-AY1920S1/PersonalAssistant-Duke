@@ -17,11 +17,11 @@ endif::[]
 
 == Introduction
 
-Purpose
+=== Purpose
 
 This document specifies architecture and software design decisions for the educational app, JavaCake. The intended audience of this document is the developers, designers, and software testers of JavaCake. 
 
-Design Goals
+=== Design Goals
 
 *Target user profile*:
 
@@ -39,9 +39,25 @@ Developing JavaCake poses a unique software development situation. The developer
 
 == Setting up
 
-Refer to the guide <<UserGuide#, here>>.
+1. Install JDK 11.
+2. Fork this GitHub repository to your GitHub account: https://github.com/AY1920S1-CS2113T-W13-2/main.
+3. Clone your fork to your local computer.
+4. Configure your IDE of choice to set up structure for new projects in JDK 11.
+5. We recommend using IntelliJ IDEA IDE.
+6. Import the project to your IDE as a Gradle project.
 
 == Design
+
+=== Architecture
+
+The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
+
+image::dg_figure1.png[width="500"]
+
+[.text-center]
+Figure 1: Architecture Diagram
+
+=== 
 
 
 == Implementation
