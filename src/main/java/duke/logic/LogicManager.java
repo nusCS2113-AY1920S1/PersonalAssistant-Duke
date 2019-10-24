@@ -10,6 +10,9 @@ import duke.logic.parsers.Parser;
 import duke.model.Model;
 import duke.model.ModelManager;
 
+/**
+ * Class which receives control from the conversation manager.
+ */
 public class LogicManager extends Logic {
     private Model model;
     private ConversationManager conversationManager;

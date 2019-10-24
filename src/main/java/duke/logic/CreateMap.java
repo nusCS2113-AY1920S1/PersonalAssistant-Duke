@@ -9,6 +9,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class which stores information in the map corresponding to bus-stops and train lines.
+ */
 public class CreateMap {
     private HashMap<String, BusService> busMap;
     private HashMap<String, BusStop> busStopMap;

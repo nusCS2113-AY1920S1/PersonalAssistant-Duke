@@ -2,6 +2,9 @@ package duke.logic.conversations;
 
 import duke.commons.MessagesPrompt;
 
+/**
+ * Class which handles the conversation occurring when a search command is entered.
+ */
 public class SearchConversation extends Conversation {
     private static final String command = "search";
     private String location;

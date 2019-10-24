@@ -2,6 +2,9 @@ package duke.logic.conversations;
 
 import duke.commons.MessagesPrompt;
 
+/**
+ * Class which handles the conversation occurring when a busStop command is entered.
+ */
 public class GetBusStopConversation extends Conversation {
     private static final String command = "busStop";
     private String busCode;

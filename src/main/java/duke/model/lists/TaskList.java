@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class which represents a list of Tasks and contains its related accessor methods.
+ */
 public class TaskList implements Iterable<Task>, Listable<Task> {
     private List<Task> list;
 

@@ -3,6 +3,10 @@ package duke.logic;
 import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Class which contains helper methods for the LocationSelector. Contains methods which check the position of
+ * one venue with respects to another.
+ */
 public class LocationHelper {
 
     /**

@@ -8,6 +8,9 @@ import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 import duke.model.Task;
 
+/**
+ * Class representing the output of various commands as a string.
+ */
 public class CommandResultText extends CommandResult {
     /**
      * Constructs a basic CommandResultImage object.

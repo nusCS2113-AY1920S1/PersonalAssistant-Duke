@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class which represents a bus stop.
+ */
 public class BusStop extends RouteNode {
     private String busCode;
     private Set<String> buses;

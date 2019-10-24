@@ -4,6 +4,9 @@ import duke.logic.commands.results.CommandResultCalender;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 
+/**
+ * Class representing a command to to view users calender.
+ */
 public class ViewScheduleCommand extends Command {
     private static final String MESSAGE_SHOW_CALENDAR = "Calendar is launching...";
 

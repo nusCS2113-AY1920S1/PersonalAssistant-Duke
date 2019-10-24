@@ -8,6 +8,9 @@ import duke.model.locations.BusStop;
 
 import java.util.HashMap;
 
+/**
+ * Class representing a command to get the bus stop of a given bus' code.
+ */
 public class GetBusStopCommand extends Command {
     private String buscode;
 

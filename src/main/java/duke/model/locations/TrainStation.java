@@ -4,6 +4,9 @@ import duke.commons.enumerations.Constraint;
 
 import java.util.ArrayList;
 
+/**
+ * Class which models a train station.
+ */
 public class TrainStation extends RouteNode {
     private ArrayList<String> trainCode;
 
