@@ -42,7 +42,7 @@ public class Parser {
 		command = command.trim().toLowerCase();
 		switch (command) {
 			case "reminder":
-				return new ReminderCommand();
+				return new ReminderCommandParser().parse(inputs);
 			case "add":
 				return new AddCommandParser().parse(inputs);
 			case "list":

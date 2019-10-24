@@ -9,6 +9,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ReminderCommand extends Command{
+    int daysToExpiry;
+    int stockIndex;
+
+    public ReminderCommand(int daysToExpiry, int stockIndex) {
+        this.daysToExpiry = daysToExpiry;
+        this.stockIndex = stockIndex;
+    }
 
     /**
      * Always returns false since this is not an exit command.
@@ -35,7 +42,7 @@ public class ReminderCommand extends Command{
         FoodList expiryReminder = new FoodList();
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date()); // get current time
-        cal.add(Calendar.DATE, 7); // deadline within 7 days
+        cal.add(Calendar.DATE, daysToExpiry); // deadline within 7 days
         for (int i = 0; i < list.size(); i++) {
             Food food = list.get(i);
             Date expiryDate = food.getExpiryDate();
@@ -45,7 +52,7 @@ public class ReminderCommand extends Command{
                 expiryReminder.add(food);
             }
 
-            if (stock != 0 && stock < 5 ) {
+            if (stock != 0 && stock < stockIndex ) {
                 stockReminder.add(food);
             }
         }
