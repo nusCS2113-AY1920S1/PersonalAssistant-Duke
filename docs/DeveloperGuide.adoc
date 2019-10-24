@@ -230,7 +230,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Exchange Student |Know if a module can be mapped to my home university |Plan what modules to take in NUS 
 
 |=======================================================================
-(more to be added as necessary)
+(more to be added in v2.0 as necessary)
 
 [appendix]
 == Use Cases
