@@ -29,6 +29,30 @@ public class ParserCommand implements IParser {
                 case "1":
                     // Schedule
                     ui.trainingScheduleHeading();
+                    int executeType = sc.nextInt();
+                    sc.nextLine();  // This line you have
+                    // to add (It consumes the \n character)
+                    if (executeType == 1) {
+                        ui.dailyScheduleHeading();
+                        int dailyType = sc.nextInt();
+                        sc.nextLine();  // This line you have
+                        // to add (It consumes the \n character)
+                        if (dailyType == 1) {
+                            //Classes
+                        } else if (dailyType == 2) {
+                            ParserGoal parserGoal = new ParserGoal();
+                            parserGoal.runGoal();
+                        } else if (dailyType == 3) {
+                            ParserLesson parserLesson = new ParserLesson();
+                            parserLesson.runLesson();
+                        }
+                    } else if (executeType == 2) {
+                        //Weekly Schedule
+                    } else if (executeType == 3) {
+                        //Monthly Schedule
+                    } else {
+                        ui.showCorrectFormat();
+                    }
                     break;
                 case "2":
                     ui.manageStudentsHeading();
@@ -45,7 +69,7 @@ public class ParserCommand implements IParser {
                             + "but I don't know what that means :-(");
                     break;
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         }
     }

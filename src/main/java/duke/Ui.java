@@ -61,7 +61,21 @@ public class Ui {
      */
     public void trainingScheduleHeading() {
         System.out.flush();
-        System.out.println("TRAINING SCHEDULE:\n");
+        System.out.println("TRAINING SCHEDULE:\n"
+            + "1. Daily Schedule\n"
+            + "2. Weekly Schedule\n"
+            + "3. Monthly Schedule");
+    }
+
+    /**
+     * This function prints out the heading when Daily Schedule option is chosen.
+     */
+    public void dailyScheduleHeading() {
+        System.out.flush();
+        System.out.println("DAILY SCHEDULE:\n"
+            + "1. Classes of the day\n"
+            + "2. Goals of the day\n"
+            + "3. Lessons learnt of the day");
     }
 
     /**
