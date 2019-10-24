@@ -6,6 +6,7 @@ import degree.Degree;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
 import task.TaskList;
@@ -61,6 +62,8 @@ public class Duke extends Application {
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.getTaskList());
+            DegreeListStorage degreeListStorage = new DegreeListStorage();
+            degreeListStorage.ReadFile();
         } catch (DukeException e) {
             myList = new TaskList();
             ui.showLoadingError();
