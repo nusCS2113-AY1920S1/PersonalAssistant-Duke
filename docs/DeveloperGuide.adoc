@@ -166,7 +166,7 @@ will proceed to create an instance of the appropriate command class and return i
 ==== Command
 
 .Bank Command Class Diagram
-image::LogicCommandBankPackage.png[width="1000"]
+image::LogicCommandBankPackage.png[width="970"]
 
 The `logic.command.bank` package consist of `Savings` and `Investment` classes which inherits from the `Command` class.
 
@@ -277,6 +277,22 @@ To be added.
 To be added.
 
 == Implementation
+
+=== Parsing Commands in General
+.Sequence Diagram of Parsing Commands
+image::GeneralParsingSequenceDiagram.png[width="970]
+
+[NOTE]
+The sequence diagram presented above is assumed to be a valid command which will generate in a successful result.
+
+The above sequence diagram depicts the general sequence of parsing user input for all commands in general, before going
+into the the specific Parser classes in `ParseTypeMenu`.
+
+Depending on the `type` of command the user enters, the specific parser class invoked will be different (e.g.
+`ParseAddBond`, `ParseDeleteInvestment`) which will return a `Command` object back to main to prepare for execution.
+
+The execution of commands will be elaborated in subsequent diagrams below.
+
 === Adding Savings
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="970"]
@@ -458,7 +474,6 @@ fund transfer.
 . Once the transfer has been completed, the details of the transfer will be displayed to inform the user of the
 *successful* fund transfer.
 
-
 == Documentation
 
 We use asciidoc for writing documentation.
@@ -468,9 +483,86 @@ We chose asciidoc over Markdown because asciidoc,
 although a bit more complex than Markdown, provides more flexibility in formatting.
 
 === Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
 === Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
 === Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="800"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
+|===
+
+[[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+
+_{asterisk} Official SE-EDU projects only_
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
 
 === Site Template
 
@@ -487,36 +579,81 @@ You should only modify them if you need greater control over the site's layout t
 The SE-EDU team does not provide support for modified template files.
 ====
 
+[[Testing]]
 == Testing
+
 === Running Tests
-To be added.
 
-=== Types of Tests
-To be added.
+There are *2* ways to run tests.
 
-=== Troubleshooting Tests
-To be added.
+*Method 1: Using IntelliJ JUnit test runner*
 
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+=== Types of tests
+
+We have two types of tests:
+
+.. _System Tests_ that test the *OwlMoney* by running base level automated tests on https://www.appveyor.com/[AppVeyor].
+.. _Unit tests_ that test the individual components. These are in `test.java` package.
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `owlmoney.model`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `owlmoney.model.bond.BondListTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `owlmoney.model.bond.BondListTest`
 
 == Dev Ops
+
 === Build Automation
-To be added.
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
 === Continuous Integration
-To be added.
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_
+on our projects.
+
+See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
 === Coverage Reporting
-To be added.
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects.
+
+See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation Previews
-To be added.
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of
+how the HTML version of those asciidoc files will look like when the pull request is merged.
+
+See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
-To be added.
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/build.gradle[`build.gradle`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v1.8`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
-To be added.
 
+A project often depends on third-party libraries.
+
+Managing these _dependencies_ can be automated using
+Gradle.
+
+For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope

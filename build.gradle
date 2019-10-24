@@ -59,6 +59,15 @@ test {
     }
 }
 
+task(nonGuiTests)
+task(allTests)
+
+// Run `test` task if `nonGuiTests` is specified
+nonGuiTests.dependsOn test
+
+// `allTests` implies both `guiTests` and `nonGuiTests`
+allTests.dependsOn nonGuiTests
+
 jacoco {
     toolVersion = "0.8.4"
 }
@@ -113,4 +122,20 @@ task deployOfflineDocs(type: Copy) {
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
 
-defaultTasks 'clean', 'headless', 'coverage', 'asciidoctor'
+task buildJar(type: GradleBuild) {
+    tasks = ['clean', 'deployOfflineDocs', 'shadowJar']
+}
+
+compileJava {
+    options.warnings = false
+    options.deprecation = false
+    options.compilerArgs += [ "-Xlint:cast,deprecation,divzero,rawtypes,unchecked" ]
+}
+
+compileTestJava {
+    options.warnings = false
+    options.deprecation = false
+    options.compilerArgs += [ "-Xlint:cast,deprecation,divzero,rawtypes,unchecked" ]
+}
+
+defaultTasks 'clean', 'checkstyleMain', 'checkstyleTest', 'allTests', 'coverage', 'asciidoctor'
