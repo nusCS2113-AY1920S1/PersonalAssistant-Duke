@@ -293,6 +293,8 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 
+image::SortCommandSequentialDiagram.png[align="center"]
+
 === ShowCommand
 
 ==== Current implementation
