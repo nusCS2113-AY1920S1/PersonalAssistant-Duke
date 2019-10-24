@@ -26,7 +26,7 @@ There are three main components in the overall architecture of the application.
 
 `Duke` class: contains the `main()` class of the application.
 * Upon startup: a Welcome Message is printed (see section under Ui) data is loaded from the memory storage to the system.
-* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui). 
+* Upon exit (when the user enters 'bye'): a Goodbye Message is printed (see section under Ui).
 
 `Events` Package: contains classes pertaining to the events.
 
@@ -38,11 +38,33 @@ There are three main components in the overall architecture of the application.
 === Common classes
 
 == Implementation
-=== [Proposed] Undo/Redo feature
+This section describes some noteworthy details on how certain features are implemented.
 
+=== Calendar Table
+The calendar table is generated from the `EventList`. It prints on the screen a table of calendar of 7 days
+starting from a specified day, including the events within this time period. +
 
-=== Your own implementation
+Given below is an example of how a calendar table is generated and printed.
 
+Step 1. User enters `calendar` to start the initialization process of a calendar table with today as the starting day.
+
+Step 2. The program checks the date of the given start day to generate a list of 7 days, starting from given day.
+It also gets the day of the 7 days (e.g. Monday, Tuesday, etc). This sets the dates info of the table.
+
+Step 3. The program find all events in the `EventList` that is within the 7 days,
+and store them correspondingly into 7 queues, representing the 7 days. This is for further printing.
+
+Step 4. The program now have all the information of these 7 days and is then able to print the calendar table.
+
+. It initiates an empty string to store all info of the calendar and for later printing.
+. It puts the header of he table into the string.
+. It puts the days of week and dates info into the string.
+. To add in events, each event takes 3 rows (time info, description, and dashes) to print. For each 3 rows,
+there can be at most 7 events. The events are added per 3 rows. For each 3 rows, the program creates an array of 3 * 7
+to store the details. Whenever there exists an event at the position of a day, details of the event will be added to
+the corresponding 3 rows (1 column) of the array. The array is then added by rows into the string.
+
+=== Check
 
 === Clash handling
 ==== Activity diagram
