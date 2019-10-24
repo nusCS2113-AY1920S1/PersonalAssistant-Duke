@@ -158,7 +158,7 @@ There are several "init" methods which would be called on every new instance of 
 ===== Operation
 `Parser` provides several methods for parsing inputs:
 
-* `parseCommand` takes in a `String` object as argument and returns an object that inherits from `ModuleCommand` (dynamic type) corresponding to the input received or `null` if the input is invalid. If any `ModuleCommand` object invoked `throw` a `ModException` object, the exception will be re-`throw`. This is the method used by ModPlanner to parse commands and invoke the corresponding `ModuleCommand` classes.
+* `parseCommand` takes in a `String` object as argument and returns an object that inherits from `ModuleCommand` (dynamic type) corresponding to the input received or `null` if the input is invalid. If any `ModuleCommand` object invoked `throw` a `ModException` object, the exception will be re-`throw`. This is the method used by `ModPlanner` to parse commands and invoke the corresponding `ModuleCommand` classes.
 
 * `parse` returns a `Namespace` object containing all the parsed arguments instead. It has several overloaded implementations:
 
