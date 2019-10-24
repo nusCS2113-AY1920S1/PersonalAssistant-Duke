@@ -74,11 +74,11 @@ class CommandWindow extends UiElement<Region> {
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-        case UP:
+        case PAGE_UP:
             keyEvent.consume();
             navigateToPreviousInput();
             break;
-        case DOWN:
+        case PAGE_DOWN:
             keyEvent.consume();
             navigateToNextInput();
             break;

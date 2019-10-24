@@ -20,6 +20,7 @@ public class AutoCompleteTextField extends TextField {
 
     /**
      * Constructs a new textfield with autocomplete.
+     * TODO: Populate entries in constructor for the full menu.
      */
     public AutoCompleteTextField() {
         entries = new TreeSet<>();
@@ -35,9 +36,9 @@ public class AutoCompleteTextField extends TextField {
                 if (entries.size() > 0) {
                     updateMenu(menuEntries);
 
-                    if (!menu.isShowing()) {
-                        menu.show(AutoCompleteTextField.this, Side.BOTTOM, getCaretPosition(), 0);
-                    }
+                    // temporary workaround for focus
+                    menu.hide();
+                    menu.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                 } else {
                     menu.hide();
                 }
@@ -65,19 +66,11 @@ public class AutoCompleteTextField extends TextField {
             CustomMenuItem item = new CustomMenuItem(new Label(entry), true);
             item.setOnAction(actionEvent -> {
                 setText(entry);
+                positionCaret(AutoCompleteTextField.this.getText().length());
                 menu.hide();
             });
 
             menu.getItems().add(item);
         }
-    }
-
-    /**
-     * Check if the context menu is currently visible in the CommandWindow.
-     *
-     * @return True if the context menu is visible.
-     */
-    boolean isMenuVisible() {
-        return menu.isShowing();
     }
 }
