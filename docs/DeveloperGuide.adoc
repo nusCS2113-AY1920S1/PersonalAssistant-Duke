@@ -62,19 +62,45 @@ This is assuming you have a JDK version of `11` and above.
 
 === Architecture
 
+Our integration approach would be bottom-up, since we are morphing the original Duke Assistant into our ModPlanner application, some of the components can be adapted and reused of other purposes. +
+
+The high-level UML Diagram of ModPlan can be seen below:
+
+image::Architecture.png[]
+
+In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
+
+
+
 === JsonWrapper
 
-The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing and Natty for relative date processing. Dependant on Storage class for writing data files obtained.
+The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing. Dependant on Storage class for writing data files obtained.
+
+image::JsonWrapper.png[width="350"]
+
+This class is also dependant on a RequestsData class which serves as the main API caller for ModPlanner, but it is not used anywhere else in the code base.
 
 === Storage
 
 Main class which handles file writing during runtime and for maintaining user data in memory.
 
+image::Storage.png[width="350"]
+
+This class was adapted from the existing Duke storage to suit the needs of ModPlanner.
+
 [[Parser]]
 
 === Parser
 
+Parser is implemented as `Parser` class which is a wrapper for the `argparse4j` library to handle user input and manage internal command mapping.
+
+image::Parser.png[]
+
 === PlannerUi
+
+The main class which handles user display, which includes reading user input and printing module, CAP and CCA information back to the user on command-line.
+
+image::PlannerUi.png[]
 
 === Command
 
@@ -82,25 +108,77 @@ Commands are the main classes with which we execute our features. All of the spe
 
 The execute method takes in the detailed map of modules drawn from the NUSMODS API Json file, module task list, cca list, planner UI, storage, and the jsonWrapper parser. Each execute method is overriden in the specific Command classes to do what the feature requires of the class.
 
-The `ModuleCommand` class also receives arguments based on the arguments passed by the `Argsparse4jWrapper` class, which is our main parser for the program, detailed above in <<Parser>>. 
+The `ModuleCommand` class also receives arguments based on the arguments passed by the `Parser` class, which is our main parser for the program, detailed above in <<Parser>>. 
 +
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
+image::Command.png[]
+
 === CCA
+
+CCA is implemented as `Cca` class which is the backbone for representing and managing user-defined CCAs. Typically, CCAs are loaded and stored in an `List`-like structure implemented in `CcaList` class which inherits from the builtin `ArrayList`.
+
+image::CCA.png[]
 
 [[Implementation]]
 
 == Implementation
 This section explains and shows diagrams of how certain features of ModPlan are implemented.
 
+=== Parser
+User inputs are recorded by `PlannerUi` and then handled and interpreted by `Parser` class, which is a wrapper for the `argparse4j` library for customized parsing behaviours such as command calling or custom `Action` definition.
+
+==== Properties
+
+[[Attributes]]
+
+===== Attributes
+`Parser` relies on two major `private` variables `commandMapper` which has the type `HashMap<String, Class<? extends ModuleCommand>>` and `parser` which is an instance of `ArgumentParser`.
+
+Additionally, `Parser` also has attribute `subParserManager` which is the `Subparsers` object associated with `parser` and `subParsers` which is of type `HashMap<String, Subparser>`. Any `Subparser` object added by `subParserManager` should be added to `subParser` as new value with its name as the key for ease of retrieval.
+
+* `parser` is the parent parser for all user inputs, any commands implemented must be parsed using a `Subparser` object added by `subParserManager` as described above.
+
+* `commandMapper` is the `HashMap` which maps the command name (which is often the same as the `subParser` 's name and the key in `subParser`) to the corresponding `ModuleCommand` class.
+
+===== Methods
+There are several "init" methods which would be called on every new instance of `Parser`:
+
+* `private void initBuiltinActions()` initializes all builtin `Action` objects necessary for normal parsing of builtin commands.
+
+* `private void mapBuiltinCommands()` maps builtin commands and corresponding classes using `commandMapper` as described in <<Attributes>>.
+
+* `private void initBuiltinParsers()` initializes all `Subparser` objects for builtin commands.
+
+* `private void mapBuiltinParserArguments()` specifies all arguments and properties for `Subparser` objects generated by `initBuiltinParsers`.
+
+==== Operation
+`Parser` provides several methods for parsing inputs:
+
+* `parseCommand` takes in a `String` object as argument and returns a `ModuleCommand` object corresponding to the input received or `null` if the input is invalid. If any `ModuleCommand` object invoked `throw` a `ModException` object, the object will be re-`throw`. This is the method used by ModPlanner to parse commands and invoke the corresponding `ModuleCommand` classes.
+
+* `parse` returns a `Namespace` object containing all the parsed arguments instead. It has several overloaded implementations:
+
+** `public Namespace parse(String[] args)`
+
+** `public Namespace parse(String userInput)`
+
+** `public Namespace parse(String subParserName, String[] args)`
+
+** `public Namespace parse(String subParserName, String userInput)`
+
+`subParserName`, if specified when calling, will tell `Parser` to look for the corresponding `Subparser` object associated with `parser` as mapped in `subParsers` for parsing instead of using `parser`.
+
+Parsing errors are handled by a `private` `handleError` method and only the logs are printed to `stdout`.
+
 ***
 
 === GradeCommand
 ==== Current Implementation
-The `grade` feature is operated by the `GradeCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
+The `grade` feature is operated by the `GradeCommand` class, which is called by the `Parser` class. Upon user input of `grade MODULECODE LETTERGRADE`, the Parser will return a new `GradeCommand`.
 
 Since `GradeCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `grade` command.
-From the `Argsparse4jWrapper`, `GradeCommand` also receives two additional variable inputs from the user: +
+From the `Parser`, `GradeCommand` also receives two additional variable inputs from the user: +
 
 . The module code of the module to be graded.
 . The letter grade attained for the module that the user specifies above.
@@ -136,7 +214,7 @@ These checks were implemented into the `ModuleInfoDetailed` class itself, which 
 
 === CapCommand
 ==== Current Implementation
-The `cap` feature is operated by the `CapCommand` class, which is called by the `Argsparse4jWrapper` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
+The `cap` feature is operated by the `CapCommand` class, which is called by the `Parser` class. Upon user input of `cap TYPE`, the Parser will return a new `CapCommand`. +
 
 Since `CapCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `cap` command. +
 
@@ -145,7 +223,7 @@ The parameter `TYPE` can take three forms according to the user input. +
 `cap list` Where the user's CAP is calculated from the modules with letter grades in the module task list. +
 `cap module` Where the CAP of a module of the user's choosing can be calculated using the grades of prerequisite modules that the user has completed. +
 
-These `TYPE` parameters will be parsed by the `Argsparse4jWrapper` class and pass the corresponding argument of `toCap` into the `CapCommand` class. A switch case statement will handle the `toCap` argument, and choose to execute from three methods accordingly: +
+These `TYPE` parameters will be parsed by the `Parser` class and pass the corresponding argument of `toCap` into the `CapCommand` class. A switch case statement will handle the `toCap` argument, and choose to execute from three methods accordingly: +
 `calculateOverallCap`,
 `calculateListCap`
 and
@@ -197,8 +275,84 @@ In this case, the modules the user needs to take are: +
 * One of moduleCode1, moduleCode2, moduleCode3 +
 * moduleCode4 +
 * moduleCode5 +
+****
+
+=== SortCommand
+
+==== Current implementation
+
+The `sort` feature is operated by the `SortCommand` class, which is called by the `Parser` class. Upon user input of `sort TOSORT TYPE`, the Parser will return a new `SortCommand`.
+
+Since `SortCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `SortCommand`. From the `Parser`, `SortCommand` also receives two additional variable inputs from the user: +
 
 ****
+* The object to sort, e.g. modules or cca.
+* The type of sorting the user specifies.
+****
+
+Below is a Sequence Diagram showing how `SortCommand` works.
+
+=== ShowCommand
+
+==== Current implementation
+
+The `show` feature is opearted by the `ShowCommand`class, which is called by the `Parser` class. Uon user input of `show TYPE`, the Parser will return a new `ShowCommand`. +
+
+Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `show` command. +
+
+The parameter `TYPE` can take four forms according to the user input: + 
+****
+* `show cca`
+* `show `
+****
+
+
+
+=== JsonWrapper
+
+==== Current implementation
+
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have only, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+
+image::PackageCrawler.png[]
+
+Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
+
+This allows us to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the +
+following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
+
+image::PackageModule.png[]
+
+Since certain modules may not contain data for every field, each of the module classes above are required to have default values on startup so as to prevent `NullPointerExceptions` during runtime when such data is accessed.
+This also extends to choosing the right data type for modelling our module information, since certain fields maybe malformed and thus our implementation of the fields data type in module information classes would mostly contain `strings`, unless it is certain that
+the data type found in the returned JSON string is strictly `boolean` or `double`.
+
+To allow for quick access to the module information classes, after parsing of the module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
+is the string containing the module code, and the value is the `ModuleInfoDetailed`. This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+data is accessible directly to the user.
+
+==== RequestsData
+
+Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
+
+The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
+
+[[Documentation]] 
+== Documentation
+
+(TBD)
+
+[[Testing]] 
+== Testing
+
+(TBD)
+
+[[DevOps]] 
+== Dev Ops
+
+(TBD)
 
 [appendix]
 == Product Scope
