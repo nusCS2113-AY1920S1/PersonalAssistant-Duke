@@ -32,37 +32,40 @@ public class AcademicYear {
         return date.plusYears(years).with(month).with(TemporalAdjusters.dayOfWeekInMonth(2, DayOfWeek.MONDAY));
     }
 
+    private String getWeek(LocalDate comparison, LocalDate date) {
+        final double week = 7.0;
+        long daysBetween = ChronoUnit.DAYS.between(comparison, date) + 1;
+        int currWeek = (int) Math.ceil(daysBetween / week);
+        if (currWeek == 7) {
+            return ", Recess Week";
+        } else if (currWeek >= 8 && currWeek <= 14) {
+            return ", W" + (currWeek - 1);
+        } else if (currWeek == 15) {
+            return ", Reading Week";
+        } else if (currWeek == 16 || currWeek == 17) {
+            return ", Examinations";
+        } else {
+            return ", W" + currWeek;
+        }
+    }
+
     private String processInformation(LocalDate date) {
         boolean isSemesterOne = date.compareTo(semOneStart) >= 0 && date.compareTo(semOneEnd) <= 0;
         boolean isSemesterTwo = date.compareTo(semTwoStart) >= 0 && date.compareTo(semTwoEnd) <= 0;
         boolean isSchoolTerm = isSemesterOne || isSemesterTwo;
         String str = "AY" + semOneStart.getYear() + "/" + semOneStart.plusYears(1).getYear();
         LocalDate comparison = null;
-        
         if (isSemesterOne) {
-            comparison = semOneStart;
             str += ", Semester 1";
+            comparison = semOneStart;
         } else if (isSemesterTwo) {
-            comparison = semTwoStart;
             str += ", Semester 2";
+            comparison = semTwoStart;
         } else {
             str += ", Break";
         }
         if (isSchoolTerm) {
-            final double week = 7.0;
-            long daysBetween = ChronoUnit.DAYS.between(comparison, date) + 1;
-            int currWeek = (int) Math.ceil(daysBetween / week);
-            if (currWeek == 7) {
-                str += ", Recess Week";
-            } else if (currWeek >= 8 && currWeek <= 14) {
-                str += ", W" + (currWeek - 1);
-            } else if (currWeek == 15) {
-                str += ", Reading Week";
-            } else if (currWeek == 16 || currWeek == 17) {
-                str += ", Examinations";
-            } else {
-                str += ", W" + currWeek;
-            }
+            str += getWeek(comparison, date);
         }
         return str;
     }
