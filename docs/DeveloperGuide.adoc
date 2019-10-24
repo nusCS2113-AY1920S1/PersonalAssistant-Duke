@@ -277,6 +277,11 @@ To be added.
 To be added.
 
 == Implementation
+
+=== Parsing Commands in General
+.Sequence Diagram of Parsing Commands
+image::GeneralParsingSequenceDiagram.png[width="970]
+
 === Adding Savings
 .Sequence Diagram of Adding Savings
 image::AddSavingCommand.png[width="920"]
