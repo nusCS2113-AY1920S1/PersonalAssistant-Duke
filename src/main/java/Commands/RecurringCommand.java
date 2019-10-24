@@ -1,5 +1,6 @@
 package Commands;
 
+import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import Tasks.Event;
@@ -35,7 +36,7 @@ public class RecurringCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
         String startDateString = dateFormat.format(startDate);
         String endDateString = dateFormat.format(endDate);
