@@ -2,6 +2,7 @@ package wallet.logic.command;
 
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.ui.Ui;
@@ -62,7 +63,8 @@ public class ListCommand extends Command {
         case "contact":
             //@@author Xdecosee
             System.out.println(MESSAGE_LIST_CONTACTS);
-            Ui.printContactTable();
+            ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
+            Ui.printContactTable(contactList);
             if (!isListAll) {
                 break;
             }
@@ -71,6 +73,7 @@ public class ListCommand extends Command {
 
         case "loan":
             ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
+            System.out.println("Arraylist wallet: " + LogicManager.getWallet());
             Ui.printLoanTable(loanList);
             if (!isListAll) {
                 break;

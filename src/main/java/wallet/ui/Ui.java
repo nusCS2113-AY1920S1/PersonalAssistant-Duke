@@ -1,6 +1,7 @@
 package wallet.ui;
 
 import wallet.logic.LogicManager;
+import wallet.logic.command.ListCommand;
 import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
@@ -101,8 +102,8 @@ public class Ui {
     /**
      * Displays the contact list in table format.
      */
-    public static void printContactTable() {
-        ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
+    public static void printContactTable(ArrayList<Contact> contactList) {
+        ArrayList<Contact> contactListCopy = contactList;
         String dash = "-";
         String lineBreak = dash.repeat(100);
         String headerBreak = dash.repeat(98);
@@ -133,8 +134,7 @@ public class Ui {
      * Displays the loan list in table format.
      */
     public static void printLoanTable(ArrayList<Loan> loanList) {
-
-        System.out.println("Here are the loans in your list:");
+        System.out.println(ListCommand.MESSAGE_LIST_LOANS);
         printLoanTableHeaders();
         for (Loan loan : loanList) {
             printLoanRow(loan);

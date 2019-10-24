@@ -32,7 +32,6 @@ public class Main {
         ui.welcomeMsg();
         boolean isExit = false;
         LogicManager.getReminder().autoRemindStart();
-        LogicManager.getWalletStack().push(LogicManager.getWallet()); //initialise the walletStack
         while (!isExit) {
             String fullCommand = ui.readLine();
             ui.printLine();

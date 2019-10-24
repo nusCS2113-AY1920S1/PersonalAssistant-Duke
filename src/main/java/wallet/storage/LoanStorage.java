@@ -41,7 +41,6 @@ public class LoanStorage extends Storage<Loan> {
                 isLend = !data[4].equals("0");
                 isSettled = !data[5].equals("0");
 
-
                 ContactList contactList = new ContactList(contactStorage.loadFile());
                 int index = contactList.findIndexWithId(Integer.parseInt(data[6]));
                 person = contactList.getContact(index);
@@ -72,6 +71,7 @@ public class LoanStorage extends Storage<Loan> {
     @Override
     public void writeListToFile(ArrayList<Loan> loanList) {
         try {
+
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_LOAN, "rws");
             raf.setLength(0);
 
