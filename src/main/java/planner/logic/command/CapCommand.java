@@ -6,19 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import planner.logic.exceptions.legacy.ModCommandException;
-import planner.logic.exceptions.legacy.ModEmptyCommandException;
-import planner.logic.exceptions.legacy.ModEmptyListException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.legacy.ModMissingArgumentException;
 import planner.logic.exceptions.planner.ModNotFoundException;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
+import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleTask;
 import planner.logic.modules.module.ModuleTasksList;
-import planner.ui.cli.PlannerUi;
 import planner.util.crawler.JsonWrapper;
+import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
+import planner.logic.exceptions.legacy.ModCommandException;
+import planner.logic.exceptions.legacy.ModEmptyCommandException;
+import planner.logic.exceptions.legacy.ModEmptyListException;
 
 public class CapCommand extends ModuleCommand {
 
@@ -49,14 +49,6 @@ public class CapCommand extends ModuleCommand {
     private double projectedModuleCap;
     private double projectedCap;
     private double mcCount;
-
-    private enum CommandType {
-        OVERALL,
-        MODULE,
-        SEMESTER
-    }
-
-    private CommandType type;
 
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP.
@@ -145,7 +137,7 @@ public class CapCommand extends ModuleCommand {
                 //TODO in progress
                 break;
             case "list":
-                var hold = moduleTasksList.getTasks();
+                List<ModuleTask> hold = moduleTasksList.getTasks();
                 plannerUi.capListStartMsg(hold);
                 calculateListCap(moduleTasksList, detailedMap, plannerUi, store, scanner, hold);
                 break;
@@ -201,7 +193,7 @@ public class CapCommand extends ModuleCommand {
                                     Scanner scanner)
         throws ModMissingArgumentException,
         ModNotFoundException,
-            ModEmptyListException {
+        ModEmptyListException {
         String moduleCode = scanner.nextLine().toUpperCase();
         if (!detailedMap.containsKey(moduleCode)) {
             throw new ModNotFoundException();

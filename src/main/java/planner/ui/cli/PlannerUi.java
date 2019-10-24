@@ -83,8 +83,6 @@ public class PlannerUi {
         println(task);
     }
 
-
-
     /**
      * Added Message for new task.
      * @param task Task to be added.
@@ -96,11 +94,11 @@ public class PlannerUi {
 
     /**
      * Delete Message for task.
-     * @param cca Task to be deleted.
+     * @param task Task to be deleted.
      */
-    public void deleteMsg(Task cca) {
-        System.out.println("Got it, module will be deleted");
-        println(cca);
+    public void deleteMsg(Task task) {
+        System.out.println("Got it, " + task.type() + " will be deleted");
+        showObject(task);
     }
 
     public void listMsg() {

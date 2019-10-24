@@ -21,7 +21,7 @@ By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS Scho
 **ModPlan**
 
 Your one stop solution to module planning through out your university tenure! +
-ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree.
+ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree. ModPlan also helps NUS Computer Engineering students to customise the modules they want to take and keep track of the current and future modules to be taken. As such, NUS Computer Engineering students can graduate in time with the planning provided by the ModPlan!
 
 == Quick Start
 
@@ -69,6 +69,12 @@ Format: `add module MOD_CODE`
 
 Adds a CCA task into the CCA list. +
 Format: `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK`
+
+****
+* The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
+* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
+* Example: `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
+****
 
 === Removing a module or CCA : `remove`
 
@@ -183,10 +189,10 @@ Example: +
 === Grading your modules: `grade`
 
 Allows you to input your letter grade received for the modules you have taken. +
-Format: `grade MODULECODE LETTERGRADE`
+Format: `grade MOD_CODE LETTER_GRADE`
 
 ****
-* Type `grade MODULECODE LETTERGRADE` into the command line, replacing `MODULECODE` with an actual module code, and `LETTERGRADE` with the grade you received for that module.
+* Type `grade MOD_CODE LETTER_GRADE` into the command line, replacing `MODULECODE` with an actual module code, and `LETTER_GRADE` with the grade you received for that module.
 * ModPlan will either update the grade of the module if it is in your list, or add the module with the letter grade included if it is not in your list.
 * ModPlan will also check if the module is S/U-able, and will allow the user to input S and U grades accordingly.
 ** If the module is not S/U-able, ModPlan will inform the user if they try to input a S or U grade.
@@ -224,10 +230,16 @@ Format: `clear modules`
 Clears and empties the list of modules being added. +
 Format: `clear ccas`
 
-=== Adding schedule to a CCA : `scheduleCca`
+=== Rescheduling a CCA : `scheduleCca`
 
-Add additional schedule to a CCA which was added. +
+Reschedule a CCA which is already added. +
 Format: `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK`
+
+****
+* The `BEGIN_TIME` and `END_TIME` must be in the format of HH:mm.
+* The `DAY_OF_WEEK` must be in the format of the day names such as, "Monday", "Tuesday", etc. 
+* Example: `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+****
 
 === Exiting the program : `bye`
 
@@ -256,20 +268,38 @@ This error appears when there is bad internet connection. The information from t
 
 Example of error message: `Error: Bad Status Connection!`
 
+> **_Solving the error:_** +
+> Reconnect to a stronger and more stable wifi connection.
+
 === `ModFailedJsonException`
 This error appears when the file from the nusMods V2 API is not correctly converted for Java usage.
 
 Example of error message: `Error: Failed to parse data file!`
 
+> **_Solving the error:_** +
+> Reconnect to a stronger and more stable wifi connection.
+
 === `ModNotFoundException`
 This error appears when the user searches for a module code that is not found in the nusMod list.
 
-image::ModNotFoundException.png[width="250"]
+image::ModNotFoundException.png[width="250"] 
+
+> **_Solving the error:_** +
+> ****
+> * Input another module code which exists in the nusMod list. +
+> * Input the correct module code into the command line. +
+> ****
 
 === `ModCommandException`
 This error appears when the user does not input a valid command name into the command line.
 
-image::ModCommandException.png[width="250"]
+image::ModCommandException.png[width="250"] 
+
+> **_Solving the error:_** +
+> ****
+> * Input a valid command name into the command line. +
+> * If unsure of the available command names, refer to the <<Command Summary>>. + 
+> ****
 
 === `ModCcaScheduleException`
 This error appears when the user inputs a CCA whose time period clashes with another CCA.
@@ -283,8 +313,47 @@ Example of error message:`Error: This CCA clashes with existing CCA!`
 
 == Command Summary
 
-* *Add* `add MOD_CODE` +
+* *Add* :
+** `add module MOD_CODE` +
 e.g. `add CG2028`
-* *Remove* : `remove INDEX` +
-e.g. `remove 3`
-* *Show* : `show`
+** `add cca CCA_NAME --begin BEGIN_TIME --end END_TIME --dayOfWeek DAY_OF_WEEK` +
+e.g. `add cca SOCCER --begin 16:00 --end 18:00 --dayOfWeek Monday`
+* *Remove* : 
+** `remove module INDEX` +
+e.g. `remove module 3` 
+** `remove cca INDEX` +
+e.g. `remove cca 2` 
+* *Show* : 
+** `show module`
+** `show core` 
+** `show ge`
+** `show ue`
+** `show cca`
+* *CAP* :
+** `cap overall`, `MOD_CODE GRADE_LETTER`, `done` +
+e.g. `cap overall` +
+`CG2027 B-` +
+`CG2028 A` +
+`done`
+** `cap list`
+** `cap module`, `MOD_CODE` +
+eg. `cap module` +
+`CS2040C`
+* *Grade* :
+** `grade MOD_CODE LETTER_GRADE` +
+e.g `grade CS101 A-` +
+`grade CS1231 S`
+* *Sort* : 
+** `sort module`
+** `sort cca`
+* *Clear* :
+** `clear modules`
+** `clear ccas`
+* *Schedule CCA* :
+** `scheduleCca INDEX --begin BEGIN_TIME --end END_TIME --DAY_OF_WEEK` +
+e.g `scheduleCca 1 --begin 13:00 --end 15:00 Tuesday`
+* *Exit* :
+** `bye`
+
+
+

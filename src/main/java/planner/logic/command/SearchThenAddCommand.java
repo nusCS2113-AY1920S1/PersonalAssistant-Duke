@@ -1,20 +1,22 @@
+//@@author namiwa
+
 package planner.logic.command;
 
 import java.util.HashMap;
 import java.util.HashSet;
 
-import planner.logic.exceptions.planner.ModClashesException;
 import planner.logic.exceptions.legacy.ModCcaScheduleException;
 import planner.logic.exceptions.legacy.ModException;
 import planner.logic.exceptions.planner.ModNotFoundException;
+import planner.logic.exceptions.planner.ModClashesException;
 import planner.logic.modules.cca.Cca;
-import planner.logic.modules.cca.CcaList;
 import planner.logic.modules.module.ModuleInfoDetailed;
 import planner.logic.modules.module.ModuleTask;
-import planner.logic.modules.module.ModuleTasksList;
-import planner.ui.cli.PlannerUi;
+import planner.logic.modules.cca.CcaList;
 import planner.util.crawler.JsonWrapper;
+import planner.ui.cli.PlannerUi;
 import planner.util.storage.Storage;
+import planner.logic.modules.module.ModuleTasksList;
 
 public class SearchThenAddCommand extends ModuleCommand {
 
