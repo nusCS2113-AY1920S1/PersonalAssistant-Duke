@@ -4,7 +4,7 @@ import eggventory.commands.Command;
 import eggventory.commands.edit.EditStockCommand;
 import eggventory.commands.edit.EditStockTypeCommand;
 import eggventory.enums.CommandType;
-import eggventory.enums.Property;
+import eggventory.enums.StockProperty;
 import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
 
@@ -23,17 +23,17 @@ public class ParseEdit {
         String stockCode = addInput[0];
         switch (addInput[1]) {
         case "stockCode":
-            return new EditStockCommand(CommandType.EDIT, stockCode, Property.STOCKCODE, addInput[2]);
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.STOCKCODE, addInput[2]);
         case "quantity":
-            return new EditStockCommand(CommandType.EDIT, stockCode,Property.QUANTITY, addInput[2]);
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.QUANTITY, addInput[2]);
         case "loaned":
-            return new EditStockCommand(CommandType.EDIT, stockCode,Property.LOANED, addInput[2]);
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOANED, addInput[2]);
         case "lost":
-            return new EditStockCommand(CommandType.EDIT, stockCode,Property.LOST, addInput[2]);
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.LOST, addInput[2]);
         case "description":
-            return new EditStockCommand(CommandType.EDIT, stockCode,Property.DESCRIPTION, addInput[2]);
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.DESCRIPTION, addInput[2]);
         case "minimum":
-            return new EditStockCommand(CommandType.EDIT, stockCode,Property.MINIMUM, addInput[2]);
+            return new EditStockCommand(CommandType.EDIT, stockCode, StockProperty.MINIMUM, addInput[2]);
         default:
             throw new BadInputException("The property you are trying to edit does not exist.");
         }

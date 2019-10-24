@@ -4,7 +4,7 @@ import eggventory.StockList;
 import eggventory.Storage;
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
-import eggventory.enums.Property;
+import eggventory.enums.StockProperty;
 import eggventory.items.Stock;
 import eggventory.ui.Ui;
 
@@ -15,7 +15,7 @@ import eggventory.ui.Ui;
 public class EditStockCommand extends Command {
 
     private String stockCode;
-    private Property property; //Stores the property you want to edit
+    private StockProperty property; //Stores the property you want to edit
     private String newValue; //Stores the newValue you want
 
     /**
@@ -25,7 +25,7 @@ public class EditStockCommand extends Command {
      * @param property The property of the Stock that is to be changed.
      * @param newValue The newValue of the property.
      */
-    public EditStockCommand(CommandType type, String stockCode, Property property, String newValue) {
+    public EditStockCommand(CommandType type, String stockCode, StockProperty property, String newValue) {
         super(type);
         this.stockCode = stockCode;
         this.property = property;
@@ -43,7 +43,7 @@ public class EditStockCommand extends Command {
     public String execute(StockList list, Ui ui, Storage storage) {
         String output;
 
-        if (property == Property.STOCKCODE && list.isExistingStockCode(newValue)) {
+        if (property == StockProperty.STOCKCODE && list.isExistingStockCode(newValue)) {
             output = String.format("Sorry, the stock code \"%s\" is already assigned to a stock in the system. "
                     + "Please enter a different stock code.", newValue);
             ui.print(output);

@@ -1,5 +1,5 @@
 package eggventory.enums;
 
-public enum Property {
+public enum StockProperty {
     STOCKCODE, QUANTITY, LOANED, LOST, DESCRIPTION, MINIMUM;
 }

@@ -1,6 +1,6 @@
 package eggventory.items;
 
-import eggventory.enums.Property;
+import eggventory.enums.StockProperty;
 
 import java.util.ArrayList;
 
@@ -181,7 +181,7 @@ public class StockType {
      * @param newValue The new value of the attribute to be updated.
      * @return The unedited Stock, for printing purpose.
      */
-    public Stock setStock(String stockCode, Property property, String newValue) {
+    public Stock setStock(String stockCode, StockProperty property, String newValue) {
         Stock uneditedStock;
         for (Stock stock: stocks) {
             if (stockCode.equals(stock.getStockCode())) {
