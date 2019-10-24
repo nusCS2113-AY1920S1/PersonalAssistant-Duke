@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class ModuleList {
     private Set<Module> modList = new HashSet<>();
+    private int sum = 0;
 
     /**
      * Default Module List constructor
@@ -17,6 +18,7 @@ public class ModuleList {
     {
 
     }
+
     /**
      * Creates the Module List using the stored data input
      *
@@ -44,6 +46,7 @@ public class ModuleList {
     public void add (Module wry)
     {
         modList.add(wry);
+        this.updateSum(wry.getMc());
     }
 
     /**
@@ -51,7 +54,7 @@ public class ModuleList {
      *
      * @return Set<Module> is the current set of Modules in the ModuleList
      */
-    private Set<Module> getModules()
+    public Set<Module> getModules()
     {
         return this.modList;
     }
@@ -92,5 +95,25 @@ public class ModuleList {
                 difference.add(temp);
         }
         return difference;
+    }
+
+    /**
+     * Returns the total number of MCs in the Module List
+     *
+     * @return sum of the modules in the ModuleList List<Module> data structure
+     */
+    public int getSum()
+    {
+        return this.sum;
+    }
+
+    /**
+     * Increases the current mc count by the amount given
+     *
+     * @params mc is the amount for the sum to be increased by
+     */
+    private void updateSum(int mc)
+    {
+        this.sum += mc;
     }
 }

@@ -2,15 +2,14 @@ package degree;
 
 
 import exception.DukeException;
-import module.ConjuctiveModule;
+import module.ConjunctiveModule;
 import module.Module;
 import module.ModuleList;
 import module.NonDescriptive;
 import parser.Parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
  * Degree Class contains the module information for the Degree
@@ -26,7 +25,7 @@ public class Degree {
     private ModuleList designProject = new ModuleList();
     private ModuleList electives = new ModuleList();
     private List<String> aliases = new ArrayList<>();
-    //private DisjoinUnionSet ;
+    //private DisjointUnionSet aliases;
     private Integer uem = null;
 
     /**
@@ -34,18 +33,20 @@ public class Degree {
      * @param input is a list of strings which should be taken from storage
      */
     public Degree(List<String> input) throws DukeException {
+        validateList(input);
         for (int row = 1; row< input.size(); row++)
         {
-            String[] split = input.get(row).split(",");
+            String[] split = input.get(row).split(",", -1);
             assert(split.length == 12);
             int col = 0;
             setUem(split[col]);
             for(col = 1; col < split.length - 1; col += 2)
             {
+                //System.out.println("Trying to add " + col +": "+split[col]+" "+split[col+1]);
                 addToList(col, split[col], split[col+1]);
             }
             assert (col == split.length - 1);
-            addAlias(split[col+1]);
+            addAlias(split[col]);
         }
     }
 
@@ -114,9 +115,9 @@ public class Degree {
         int credits = validInt(mcs);
         if(in.contains(" OR "))
         {
-            String[] split = in.split(" OR ");
+            String[] split = in.split(" OR ", -1);
             validateModule(split);
-            return new ConjuctiveModule(in, credits);
+            return new ConjunctiveModule(in, credits);
         }
         if(validateModule(in)) {
             Scanner splitter = new Scanner(in);
@@ -174,6 +175,8 @@ public class Degree {
      */
     private void setUem(String in) throws DukeException {
         try {
+            if(in.isBlank())
+                return;
             if(this.uem != null)
                 throw new DukeException("Unrestricted Elective Modules Amount already has a value set.");
             if(!in.isBlank())
@@ -201,6 +204,86 @@ public class Degree {
             throw new DukeException(e.getLocalizedMessage());
         } catch (NumberFormatException e) {
             throw new DukeException("That is NOT a valid integer");
+        }
+    }
+
+    /**
+     * Validates the csv files split by newlines
+     *
+     * @param input is list of lines from csv file
+     * @throws DukeException when format of csv is incorrect
+     */
+    private void validateList(List<String> input) throws DukeException {
+        if(input == null)
+            throw new DukeException("Degree not found");
+        if(input.isEmpty())
+            throw new DukeException("No data found");
+        if(input.size() == 1)
+            throw new DukeException("Insufficient Data");
+        String[] split = input.get(1).split(",", -1);
+        if(split.length != 12)
+            throw new DukeException("Incorrect Number of Columns");
+    }
+
+    /**
+     * Prints out the degree details
+     *
+     */
+    public void print()
+    {
+        System.out.println("General Education Modules (GE) (5 Modules, each of 4MCs)");
+        System.out.println("Human and Cultures (H&C)");
+        System.out.println("GER 1000 Quantitative Reasoning (QR),");
+        System.out.println("Thinking and Expression (T&E)");
+        System.out.println("Singapore Studies (SS)");
+        System.out.println("GEQ 1000 Asking Questions (AQ))");
+        System.out.println();
+        printListHeader("Unrestricted Electives", this.uem);
+        System.out.println();
+        System.out.println("Programme Requirements");
+        printListHeader("Faculty Requirements:", this.facultyReq.getSum());
+        printList(this.facultyReq);
+        printListHeader("Common Core Requirements:", this.commonCore.getSum());
+        printList(this.commonCore);
+        printListHeader("Core Modules:", this.coreMod.getSum());
+        printList(this.coreMod);
+        printListHeader("Design and Project Modules:", this.designProject.getSum());
+        printList(this.designProject);
+        printListHeader("Electives:", this.electives.getSum());
+        printList(this.electives);
+        printListHeader("Total", 160);
+    }
+
+    /**
+     * Given a string and an integer, it will print out the list header (string) and its total Mc value (int)
+     *
+     * @param front is the header to be printed
+     * @param sum is the value associated with that header
+     */
+    private void printListHeader(String front, int sum)
+    {
+        StringBuilder result = new StringBuilder();
+        result.append(front);
+        char[] pad = new char[Math.max(Parser.windowWidth - result.length() - 4, 0)];
+        Arrays.fill(pad, ' ');
+        result.append(pad);
+        result.append(sum);
+        System.out.println(result.toString());
+    }
+
+
+    /**
+     * Given a list of modules, sort them, and then print out the name and mcs linked to each modules
+     *
+     * @param modList is a ModuleList class which contains a list of modules;
+     */
+    private void printList(ModuleList modList)
+    {
+        List<Module> temp = new ArrayList<>(modList.getModules());
+        Collections.sort(temp);
+        for(Module res: temp)
+        {
+            res.print();
         }
     }
 }

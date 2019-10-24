@@ -1,13 +1,17 @@
 package module;
 
+import parser.Parser;
+
+import java.util.Arrays;
+
 /**
  * Basic Module class which expects a Module Code of type [A-Z]{2,3}[1-9]([0-9]{3}|X{3})[A-Z]{0,1}
  * Example CS2113T, CS2101, MSE1102
  */
-public class Module {
-    String code;
-    private String name;
-    Integer mc;
+public class Module implements Comparable<Module> {
+    String code = "";
+    private String name = "";
+    Integer mc = -1;
 
     /**
      * Default module constructor
@@ -34,9 +38,18 @@ public class Module {
      *
      * @return String containing the module's code then its human friendly name, separated by a space
      */
-    public String viewFriendly()
+    public String print()
     {
-        return this.getCode() + " " + this.getName();
+        StringBuilder module = new StringBuilder();
+        module.append(getCode());
+        module.append(" ");
+        module.append(getName());
+        char[] pad = new char[Math.max(Parser.windowWidth - module.length() - 4, 0)];
+        Arrays.fill(pad, ' ');
+        module.append(pad);
+        module.append(getMc());
+        System.out.println(module.toString());
+        return module.toString();
     }
 
     /**
@@ -53,7 +66,7 @@ public class Module {
      *
      * @return String that is the human friendly name of the module
      */
-    public String getName(){
+    private String getName(){
         return this.name;
     }
 
@@ -62,7 +75,7 @@ public class Module {
      *
      * @return Integer that is the credits allocated to the module
      */
-    public Integer getMc()
+    Integer getMc()
     {
         return mc;
     }
@@ -88,8 +101,22 @@ public class Module {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Module)
-            return this.toString().matches(obj.toString());
+            return this.toString().equals(obj.toString());
         else
             return false;
+    }
+
+    /**
+     * Compare 2 modules based on their module code
+     *
+     * @param other is the other module to be compared to
+     * @return A negative integer, zero, or a positive integer as this module
+     *          is less than, equal to, or greater than the supplied module object.
+     *
+     */
+    @Override
+    public int compareTo(Module other)
+    {
+        return this.getCode().compareTo(other.getCode());
     }
 }
