@@ -24,9 +24,6 @@ public class EntryParser extends Parser {
             return new ShowListCommand(mode);
         } else if (commandToRun.equals("add")) {
             if (verifyAddCommand()) {
-                String[] data = inputLine.split(" /on ");
-                String[] desc = data[0].split(inputArray[2] + " ");
-                description = desc[1];
                 return processAdd();
             } else {
                 return new ErrorCommand();

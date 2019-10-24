@@ -5,12 +5,12 @@ package dolla;
  */
 public class Tag {
 
-    public String inputLine;
-    public String[] inputArray;
-    public String tagName;
-    protected int tagIndex;
-    public static final String PREFIX_TAG = "/tag";
-    public static final String SPACE = " ";
+    protected String inputLine;
+    private String[] inputArray;
+    private String tagName;
+    private int tagIndex;
+    private static final String PREFIX_TAG = "/tag";
+    private static final String SPACE = " ";
 
     /**
      * Instantiates a new Tag.
@@ -55,8 +55,9 @@ public class Tag {
     public void parseTag() {
         if (hasTag()) {
             findTag();
+            //todo: store tag properly instead of printing it out.
+            System.out.println("TAG IS " + getTagName());
         }
-        System.out.println("TAG IS " + getTagName()); //todo: store tag properly instead of printing it out.
     }
 
     /**
