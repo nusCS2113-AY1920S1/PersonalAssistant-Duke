@@ -56,7 +56,7 @@ image::ModelClassDiagram.png[]
 .  Results of the command execution by `ProjectManager` and `PaymentManager` are encapsulated as a `Project` and `Payments` objects respectively by `ProjectManager` and passed back to `Command`.
 
 == Implementation
-This section explains how certain features of AlphaNUS are implemented.
+This section describes some noteworthy details on how certain features are implemented.
 
 === Project Feature
 The `project` feature is managed by the `ProjectManager` class, which is called by the
@@ -84,6 +84,56 @@ Below is a sequence diagram to provide a visual representation of the `add proje
 image::AddProjectSeqDiagram.png[]
 
 The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
+
+//tag::deadline
+=== Add Invoices
+
+==== Implementation
+The add invoice function is an extending feature for `deadline`. It considers real life situations and automatically set up the deadline for submission of payment forms for the users.
+
+Given below is an example usage scenario and how the `add invoice` behaves at each step.
+
+Step 1: The user add in a new deadline for payment form submission using the command `deadline d/DESCRIPTION`. Now there is no invoice for this submission, therefore both invoice and deadline should be shown as null.
+
+Step 2: The user gets the corresponding invoice. He then sets the invoice number to the deadline using the command `invoice ID i/INVOICE_NUMBER`.
+
+Step 3: The user then call the `list` command, he can observe that the deadline is automatically set to 30 days after the current date. The invoice number is not null anymore as well.
+
+==== Design Considerations
+
+===== Aspect: How add invoice executes
+
+* **Alternative 1 (current choice):** The deadline is set to a fixed date(30 days after the invoice comes). The deadline can be adjusted using `reschedule` and `snooze`.
+** Pros: Easy for the NUS treasurers to use.
+** Cons: The customers cannot customize the time gap between the submission deadline and the date they get the deadline.
+* **Alternative 2:** The user can set the gap time by themselves.
+** Pros: In this way the application is more customized and can be applied to different situations.
+** Cons: This might cause unnecessary inconvenience.
+//end of add invoice
+
+//tag: reminder
+=== (Proposed) Reminder
+==== Proposed Implementation
+The reminder function is another extending feature for deadline. By calling the relative command `reminder`, AlphaNUS will return the deadline with the highest priority (i.e. the earliest deadline). The deadline with the highest priority will also be shown at the starting page so as to perform as a reminder for the user.
+
+Given below is an example usage scenario and how the `reminder` behaves at each step.
+
+Step 1: The user launches the application for the first time. No reminder will be shown on the starting page as there is no deadline.
+
+Step 2: The user adds in new deadlines and assigns different deadlines to it by adding invoice at different dates.
+
+Step 3: Now the user can perform 'reminder' command. AlphaNUS will return a deadline task which has the earliest deadline among all the current deadlines that have received their invoices. If there is no submissions with their deadlines set, AlphaNUS will return a null result.
+
+Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the application, the reminder of the deadline with the highest priority will be shown on the starting page.
+
+==== Design Considerations
+===== Aspect: How reminder executes
+* **Alternative 1 (current choice):** the application performs sorting on the tasklist and returns the first element everytime the command is called
+** Pros: The result is accurate
+** Cons: This will cause the application to be slow when there are many tasks to be processed.
+* **Alternative 2:** The application only performs sorting once when a new task is added. The result id will be stored in a single integer.
+** Pros: This method saves memory required and minimize the runtime when the command is called.
+** Cons: It might be inaccurate when the user applies reschedule. Possible solution is to sort the list everytime the user reschedule a task. This will make the reschedule command to be slow on the other hand.
 
 == Documentation
 

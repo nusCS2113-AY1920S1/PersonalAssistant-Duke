@@ -23,7 +23,7 @@ AlphaNUS is a personal assistant for NUS club treasurers to easily manage their 
 == Quick Start
 .  Some example commands you can try:
 
-* *`list`* : lists all tasks
+* *`list`* : lists all submission deadlines
 * **`delete`**`3` : deletes the 3rd task shown in the current list
 * *`bye`* : exits the app
 
@@ -42,24 +42,70 @@ AlphaNUS is a personal assistant for NUS club treasurers to easily manage their 
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[p/PAYMENT_DETAIL]…`​ can be used as `` ``(i.e. 0 times), `p/food 12`, `p/food 12 p/drinks 7` etc
 ====
 
-=== List out all current deadlines/payment forms: `list`
+=== List out all current submission deadlines: `list`
 
-List out all current items with their index number+
+List out all current deadlines with their index number. The deadlines are sorted by date.+
 Format: `list`
 
 === Adding a deadline: `deadline`
 
-Adds a new deadline +
-Format: `deadline d/DESCRIPTION t/TIME`
+Adds a new deadline with description +
+Format: `deadline d/DESCRIPTION`
 
 [TIP]
 there can have spaces in the deadline description +
-[TIP]
-the format of time should be DD/MM/YYYY HHMM
 
 Examples:
 
-* `deadline d/submit venue payment t/05/10/2019 1159`
+* `deadline d/submit venue payment`
+
+=== Adding an invoice to a deadline: `deadline`
+
+Adds a invoice to a deadline with invoice number +
+Format: `invoice ID i/INVOICE_NUMBER`
+
+[TIP]
+the date of the deadline will be automatically set to one month after the date that an invoice is assigned to it +
+[TIP]
+the ID should not be out of range
+
+Examples:
+* `invoice i i/123456`
+
+=== See the nearest deadline: `reminder`
+
+Show the deadline task with the nearest deadline. +
+Format: `reminder`
+
+[TIP]
+the result deadline usually has a higher priority than the other deadlines
+
+=== Edit the deadline/payment form's description: `edit`
+
+Edit a previously added task's description and details +
+Format: `edit ID d/NEW_DESCRIPTION`
+
+[TIP]
+there can have spaces in the description
+[TIP]
+the id should not e out of range
+
+Examples:
+
+* `edit 2 d/welcome tea for freshmen`
+
+=== snooze the deadline: `snooze`
+
+snooze the deadline time by 1 hour +
+Format: `snooze ID`
+
+[TIP]
+the id input should not be out of range
+
+
+Examples:
+
+* `snooze 5`
 
 === Adding a new payment: `payments`
 
@@ -76,49 +122,6 @@ Examples:
 * `payments d/welcome tea p/food 12`
 * `payments d/maintenance fee`
 
-=== Edit the deadline/payment form's description: `edit`
-
-Edit a previously added task's description and details +
-Format: `edit ID d/NEW_DESCRIPTION`
-
-[TIP]
-there can have spaces in the description
-[TIP]
-the id should not e out of range
-
-Examples:
-
-* `edit 2 d/welcome tea for freshmen`
-
-
-=== Edit the deadline time: `reschedule`
-
-Edit a previously added deadline's time +
-Format: `reschedule ID t/NEW_TIME`
-
-[TIP]
-the id input should not be out of range
-[TIP]
-the format of time should be DD/MM/YYYY HHMM
-[TIP]
-to postpone the deadline for a short time, use `snooze` could be easier(see 3.7)
-
-Examples:
-
-* `reschedule 2 07/10/2019 2359`
-
-=== snooze the deadline: `snooze`
-
-snooze the deadline time by 1 hour +
-Format: `snooze ID`
-
-[TIP]
-the id input should not be out of range
-
-
-Examples:
-
-* `snooze 5`
 
 === Edit the payment details: `redetail`
 
@@ -225,11 +228,12 @@ There is no need to save manually.
 == Command Summary
 
 * *list*: `list`
-* *deadline*: `deadline d/DESCRIPTION t/TIME`
-* *payments* : `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
+* *deadline*: `deadline d/DESCRIPTION`
+* *invoice*: `invoice ID i/INVOICE_number`
+* *reminder*: `reminder`
 * *edit* : `edit ID d/NEW_DESCRIPTION`
-* *reschedule* : `reschedule ID t/NEW_TIME`
 * *snooze*: `snooze ID`
+* *payments* : `payments d/DESCRIPTION [p/PAYMENT_DETAIL]...`
 * *redetail*: `redetail ID [d/PAYMENT_DETAIL]...`
 * *find* : `find d/DESCRIPTION`
 * *view* : `view t/DATE`
