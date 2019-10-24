@@ -36,14 +36,12 @@ public class DegreeTask extends Task {
     public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
         if(taskDataRaw == null)
             throw new DukeException("degreeTasks.txt file not found");
-        String delimiter = taskDataRaw.get(0);
-        System.out.println(delimiter);
         String toTasklist = "";
         for (int i = 1; i < taskDataRaw.size(); i++) {
             if((taskDataRaw.get(i) != null) && (!taskDataRaw.get(i).equals("")) && (taskDataRaw.get(i).matches("^[a-zA-Z]*$"))){
-                toTasklist = "";
                 TaskList thisList = new TaskList(toTasklist);
                 fullDegreeTasklist.add(thisList);
+                toTasklist = "";
 
             }
             else{
@@ -59,10 +57,9 @@ public class DegreeTask extends Task {
      * @throws DukeException
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
-        if(degreeName.contains("ceg")){
-            for(int i = 0; i < fullDegreeTasklist.get(degreeMap.get(degreeName)).size(); i++){
-                userTasklist.add(fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i));
-            }
+        if (degreeName.contains("ceg")) {
+            System.out.println(fullDegreeTasklist.get(degreeMap.get(degreeName)).get(0).toString());
+            System.out.println(userTasklist.get(0).toList());
         }
     }
 }
