@@ -160,6 +160,7 @@ The browsing of content feature is facilitated by ProgressStack, which allows us
 .Activity Diagram for Content Browsing in JavaCake
 image::dg_figure6.png[width="600"]
 
+
 Figure 6 shows the overall activity diagram for content browsing. Two variables of defaultFilePath and currentFilePath are used, in which defaultFilePath stores the file path towards the start of our content directory and currentFilePath is used to store the updated file path towards the content requested by the user. 
 
 When a command such as list, back and goto that requires the program to traverse through the content directory is called, currentFilePath is being updated by concatenating the name of the file to the currentFilePath . 
@@ -174,35 +175,35 @@ The name of the file(s) found in the current directory will be stored in listOfF
 
 * Alternative 1 (current choice): Dynamically reads the name of content.
 +
-Pros: Very scalable, no hard-coding required.
+*Pros*: Very scalable, no hard-coding required.
 +
-Cons: Slightly harder implementation of reading content.
+*Cons*: Slightly harder implementation of reading content.
 
 * Alternative 2: Creating individual classes for each subtopic.
 +
-Pros: Easier to code since it only requires hard-coding.
+*Pros*: Easier to code since it only requires hard-coding.
 +
-Cons: Not scalable, expanding content files require redoing of codebase.
+*Cons*: Not scalable, expanding content files require redoing of codebase.
 
 * Alternative 3: Hardcoding location of every file and directory.
 +
-Pros: Very easy brute force way to implement.
+*Pros*: Very easy brute force way to implement.
 +
-Cons: Tedious and not scalable when content increases.
+*Cons*: Tedious and not scalable when content increases.
 
 *Aspect 2: Data structure to keep track of current location in program*
 
 * Alternative 1 (current choice): Storing current file path in a string variable.
 +
-Pros: Very scalable, concatenate string variable with new file path.
+*Pros*: Very scalable, concatenate string variable with new file path.
 +
-Cons: Slightly harder implementation since the file locations are harder to find and keep track in Java ARchive (JAR) files.
+*Cons*: Slightly harder implementation since the file locations are harder to find and keep track in Java ARchive (JAR) files.
 
 * Alternative 2:  Using a stack data structure to store current progress in program.
 +
-Pros: Easy to implement.
+*Pros*: Easy to implement.
 +
-Cons: Not scalable especially when content files are expanded since every new path location has to be properly indexed.
+*Cons*: Not scalable especially when content files are expanded since every new path location has to be properly indexed.
 
 === ListCommand feature
 
@@ -211,13 +212,13 @@ Cons: Not scalable especially when content files are expanded since every new pa
 When the command entered by the user is list, currentFilePath will be reset to defaultFilePath in which the names of the directories stored within the start of our content file will be displayed. To make it more scalable, we conveniently renamed our directories to have proper indexing.
 
 .Sequence diagram for ListCommand
-image::dg_figure6.png[width="600"]
+image::dg_figure7.png[width="600"]
 
 *ListCommand implements the following methods in ProgressStack as shown in Figure 2*:
 
-* progressStack#setDefaultFilePath() — Resetting the file path back to default.
+* `progressStack#setDefaultFilePath()` — Resetting the file path back to default.
 
-* progressStack#processQueries() — Storing all possible file paths from current directory.
+* `progressStack#processQueries()` — Storing all possible file paths from current directory.
 
 === GoToCommand feature
 
@@ -226,19 +227,19 @@ image::dg_figure6.png[width="600"]
 When the command entered by the user is goto [index], currentFilePath will be updated by concatenating the file or directory name found in the index at that particular directory. If the name refers to a new directory, a list of the items in the directory will be shown. Else, content, which may include the quiz, is shown.  If the user knows the location of the file/directory and wishes to view it directly instead of going through the directories one by one, the user just needs to concatenating the index of the content or directory with a ‘.’. The index of files goto command is expected to go through is stored in a queue. The function execute() is recursively called until all the index in the queue is popped as shown in Figure 3 below. 
 
 .Activity diagram for Goto Command
-image::dg_figure6.png[width="600"]
+image::dg_figure8.png[width="600"]
 
 *This feature implements the following methods in ProgressStack*:
 
-* progressStack#gotoFilePath() —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command. 
+* `progressStack#gotoFilePath()` —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command. 
 
-* progressStack#updateFilePath() —  Updates currentFilePath.
+* `progressStack#updateFilePath()` —  Updates currentFilePath.
 
-* progressStack#insertQueries() —  Insert all possible file paths based on current directory.
+* `progressStack#insertQueries()` —  Insert all possible file paths based on current directory.
 
-* progressStack#displayDirectories() —  Prints out all files that are directories.
+* `progressStack#displayDirectories()` —  Prints out all files that are directories.
 
-* progressStack#readQuery() —  Read the content in a text file.
+* `progressStack#readQuery()` —  Read the content in a text file.
 
 === BackCommand feature
 
