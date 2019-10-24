@@ -33,11 +33,12 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      * @param storage Storage for the Tasklist.
-     * @param commandList
+     * @param commandList List of input commands.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap, ArrayList<String> commandList, HashMap<String, Project> projectmap) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap,
+                                ArrayList<String> commandList, HashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
@@ -60,15 +61,14 @@ public class Parser {
                     currentProject = null;
                 }
             } else if (instr.isGoToProject(input)) {
-                if(currentProject == null){
+                if (currentProject == null) {
                     process.noProject(ui);
                 }
                 currentProject = process.goToProject(input, ui, projectmap);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isList(input)) {
-                //print out current list
                 ui.printList(tasklist, "list");
-               process.commandHistory(input, ui, storage);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isDone(input)) {
                 process.done(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);

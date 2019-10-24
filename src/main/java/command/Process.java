@@ -476,20 +476,22 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
-
+    /**
+     * processes the input command and stores it in a text file.
+     * @param input Input from the user.
+     * @param ui Ui that interacts with the user.
+     * @param storage Storage that stores the input commands entered by the user.
+     */
     public void commandHistory(String input, Ui ui, Storage storage) {
-                Calendar cal = Calendar.getInstance();
-                Date date = cal.getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                String formattedDate = dateFormat.format(date);
-                String command_time = input + "  | " + formattedDate;
-                storage.save(command_time);
-                /*FileWriter fw = new FileWriter(String.valueOf(storage));
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(command_time);
-                 */
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = dateFormat.format(date);
+        String commandTime = input + "  | " + formattedDate;
+        storage.save(commandTime);
     }
-    public void history(Ui ui, ArrayList<String> commandList, Storage storage){
+
+    public void history(Ui ui, ArrayList<String> commandList, Storage storage) {
         commandList = storage.load();
         ui.printArrayList(commandList);
     }

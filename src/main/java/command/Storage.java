@@ -1,8 +1,13 @@
 package command;
 
-import java.io.*;
-
 import task.Task;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -28,16 +33,16 @@ public class Storage {
     public static ArrayList<String> load() {
         try {
             String line;
-            ArrayList<String> List = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<String>();
             FileReader fileReader = new FileReader(filepath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while ((line = bufferedReader.readLine()) != null) {
-                List.add(line);
+                list.add(line);
             }
 
             bufferedReader.close();
-            return List;
+            return list;
             /*FileInputStream file = new FileInputStream(filepath);
             ObjectInputStream out = new ObjectInputStream(file);
 
@@ -46,7 +51,13 @@ public class Storage {
             out.close();
              */
 
-        } /*catch (EOFException e) {
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file '" + filepath + "'");
+        } catch (IOException ex) {
+            System.out.println("Error reading file '" + filepath + "'");
+        }
+        return new ArrayList<String>();
+        /*catch (EOFException e) {
             System.out.println("File is empty");
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -55,12 +66,7 @@ public class Storage {
             c.printStackTrace();
         }
         return new ArrayList<String>();
-        */ catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + filepath + "'");
-        } catch (IOException ex) {
-            System.out.println("Error reading file '" + filepath + "'");
-        }
-        return new ArrayList<String>();
+        */
     }
 
     /**
