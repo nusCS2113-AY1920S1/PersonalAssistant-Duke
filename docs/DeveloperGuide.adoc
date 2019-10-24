@@ -73,10 +73,9 @@ https://github.com/AY1920S1-CS2113T-W13-2/main.
 
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
 
-====
+
 .Architecture Diagram
 image::dg_figure1.png[width="500"]
-====
 
 The figure above showcases the high-level view of how *JavaCake* is run. The program can be abstracted into these five modules which are explained below.
 
@@ -518,18 +517,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |User and newbie to programming |see table-of-content |view the different topics required to gain a basic understanding of Java
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Goal-oriented user |add a new deadline |pace myself when learning Java
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a deadline |remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |mark a deadline as done |keep track of topics I have completed 
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |check reminders for topics to read |be reminded of what topics to read before a previously set deadline
+
+|`* * *` |user |do a quiz at the end of a topic |reinforce my learning
+
+|`* * *` |user |hard reset my profile |start my progress over from scratch
+
+|`* *` |user |find a topic by name |locate details of topics without having to go through the entire list
+
+|`* *` |user who cannot absorb the content fast |do quizzes of varying difficulties |challenge myself more when I’m confident of the content
+
+|`* *` |user |Have stars/visual aids to represent my progression |Have an easier time to track my progress
+
+|`* *` |user |ability to know the progress of individual subtopics |I can choose to focus on the topics that require more attention.
+
+|`* *` |user |dynamic audio content |feel more engaged with the app
+
+|`*` |user with many deadlines in the reminders |sort deadlines by date |locate a deadline easily
+
+|`*` |user with uptight preferences |Choose between light and dark mode for the GUI |have more flexibility in viewing the content
+
+|`*` |User that may find the content too boring |have motivational quotes or jokes |make the learning process more interesting
+
+|`*` |User |know when my last login is |keep track of my progression in completing Java Cake  
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 === Use Cases
