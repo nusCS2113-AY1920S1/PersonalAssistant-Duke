@@ -37,6 +37,7 @@ public class GraphCommand extends Command {
         }
         input = input.substring(6);
         if (input.equals("total")) {
+            catList.testPopulate();
             if (catList.size() == 0) {
                 throw new MooMooException("OOPS!!! MooMoo cannot find any expenditure data :(");
             }
