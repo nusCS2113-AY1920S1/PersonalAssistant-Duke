@@ -597,7 +597,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
             for (int i = 0; i < movies.size(); i++) {
                 parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
             }
-            if (sortProfile.getAlphaOrder().equals("Y")) {
+         /**   if (sortProfile.getAlphaOrder().equals("Y")) {
                 Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
                     public int compare(MovieInfoObject v1, MovieInfoObject v2) {
                         return v1.getTitle().compareTo(v2.getTitle());
@@ -616,7 +616,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
                     }
                 });
             }
-
+**/
             mListener.requestCompleted(parsedMovies);
             p_Movies = parsedMovies;
             //} else {

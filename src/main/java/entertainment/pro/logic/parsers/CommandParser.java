@@ -136,7 +136,7 @@ public class CommandParser {
                 WatchlistCommand wlc = new WatchlistCommand(UIController);
                 wlc.initCommand(CommandArr , Command);
 
-                if (command.isValidCommand()) {
+                    if (wlc.initCommand(CommandArr, Command)) {
                     CommandStack.pushCmd(wlc);
                 }
                 break;
@@ -258,7 +258,6 @@ public class CommandParser {
                 if (wlc.initCommand(commandArr , command)) {
                     CommandStack.pushCmd(wlc);
                 }
-
                 break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(commandArr , COMMANDKEYS.none, uicontroller);

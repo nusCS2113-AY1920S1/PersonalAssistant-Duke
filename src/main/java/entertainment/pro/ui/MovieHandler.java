@@ -30,7 +30,6 @@ import entertainment.pro.logic.movieRequesterAPI.RetrieveRequest;
 import entertainment.pro.logic.parsers.CommandParser;
 import org.json.simple.parser.ParseException;
 import entertainment.pro.storage.utils.PastUserCommands;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -79,6 +78,9 @@ public class MovieHandler extends Controller implements RequestListener {
 
     @FXML
     private AnchorPane movieAnchorPane;
+
+    @FXML
+    private Label userPlaylistsLabel;
 
 
     private boolean isViewBack = false;
@@ -196,6 +198,7 @@ public class MovieHandler extends Controller implements RequestListener {
         sortAlphaOrderLabel.setText(sortProfile.getAlphaOrder());
         sortLatestDateLabel.setText(sortProfile.getLatestDatesOrder());
         sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
+        userPlaylistsLabel.setText(Integer.toString(playlists.size()));
     }
 
 
@@ -217,7 +220,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
                 setAutoCompleteText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
-            } else if (event.getCode().equals(KeyCode.BACK_SLASH)) {
+            } else if (event.getCode().equals(KeyCode.ALT_GRAPH) || event.getCode().equals(KeyCode.ALT)) {
                 System.out.println("I pressed bit");
                 mSearchTextField.clear();
                 String cmd = CommandStack.nextCommand();
