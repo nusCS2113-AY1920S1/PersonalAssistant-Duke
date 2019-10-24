@@ -16,7 +16,7 @@ repositories {
 }
 
 application {
-    mainClassName = "duke.DukeCore"
+    mainClassName = "duke.Launcher"
 }
 
 run {
@@ -34,7 +34,7 @@ javafx {
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveVersion = "v1.2"
+    archiveVersion = "v1.2.1"
     archiveClassifier = null
     archiveAppendix = null
 }

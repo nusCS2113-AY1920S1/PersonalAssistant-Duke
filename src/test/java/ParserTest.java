@@ -4,7 +4,6 @@ import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.Context;
-import duke.ui.UiContext;
 import mocks.DoctorCommand;
 import mocks.TestCommands;
 import org.junit.jupiter.api.Test;
