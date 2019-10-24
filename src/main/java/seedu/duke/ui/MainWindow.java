@@ -58,8 +58,8 @@ public class MainWindow extends AnchorPane {
     private boolean isUpKey;
     private int inputListIndex;
     private ArrayList<String> inputList = new ArrayList<>();
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/winner.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/robot.png"));
 
     /**
      * Starts up GUI screen by loading welcome message, task list and email list.
