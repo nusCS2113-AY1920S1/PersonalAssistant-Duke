@@ -1,13 +1,22 @@
+//@@author Raghav-B
+
 package eggventory.ui;
 
 import eggventory.StockList;
 import eggventory.items.Stock;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 /**
  * This is a controller class used to control the Gui.fxml from the entry point for
@@ -16,65 +25,78 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * Cli implementation. Overrides some Cli functionality to interface with the Gui instead
  * of Cli.
  */
-public class Gui extends Cli {
+public class Gui extends Ui  {
+    @FXML
     private TextField inputField;
+    @FXML
     private TextArea outputField;
+    @FXML
     private TableView outputTable;
+    @FXML
     private ScrollPane outputTableScroll;
 
+    public Gui() {
+    }
+
     /**
-     * Takes in references to some of the nodes in the JavaFX Gui, so that they can be
-     * controlled by Command.execute() functions and changes can be represented in the Gui
-     * instead of Cli.
-     * @param inputField Where the user can place input.
-     * @param outputField Where the user will see Eggventory's text output.
-     * @param outputTable User will see Eggventory's table output here.
-     * @param outputTableScroll Scroll node to control outputTable scroll property.
+     * Starts the REPL loop and creates the JavaFX window.
+     * @param runMethod Function passed in for REPL loop.
      */
-    public Gui(TextField inputField, TextArea outputField, TableView outputTable,
-               ScrollPane outputTableScroll) {
-        this.inputField = inputField;
-        this.outputField = outputField;
-        this.outputTable = outputTable;
-        this.outputTableScroll = outputTableScroll;
+    public void initialize(Runnable runMethod) {
+        Platform.startup(() -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/Gui.fxml"));
+                fxmlLoader.setController(this);
+                Stage stage = fxmlLoader.load();
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            printIntro();
+
+            // Event handler for pressing ENTER
+            inputField.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    runMethod.run();
+                }
+            });
+
+            // Event handler for pressing TAB
+            inputField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent ->  {
+                if (keyEvent.getCode() == KeyCode.TAB) {
+                    inputField.appendText("Tab has been pressed! ");
+                    keyEvent.consume();
+                }
+            });
+        });
+    }
+
+    /**
+     * Reads in user input from inputField TextBox and outputs to outputField
+     * TextArea.
+     * @return Returns String to be used by Parser in REPL loop.
+     */
+    public String read() {
+        String userInput = inputField.getText();
+
+        if (!userInput.equals("")) { // Check for blank input
+            inputField.setText("");
+            outputField.appendText("\n" + userInput);
+        }
+
+        return userInput;
     }
 
     /**
      * Prints text output in the outputField TextArea.
      * @param printString The raw String to be printed out, after some extra formatting.
      */
-    @Override
     public String print(String printString) {
-        String output; //= super.print(printString);
-        output = addIndent() + addLine() + "\n";
-
-        String[] linesToPrint = printString.split("\n", 0);
-        for (int i = 0; i < linesToPrint.length; i++) {
-            output += (addIndent() + linesToPrint[i]) + "\n";
-        }
-        output += addIndent() + addLine() + "\n";
-
+        String output = printFormatter(printString);
         outputField.appendText("\n" + output);
-        //outputField.setScrollTop(Double.MAX_VALUE);
 
         return output;
-    }
-
-    /**
-     * Prints opening message.
-     */
-    @Override
-    public void printIntro() {
-        String logo = "  _      __    __                     __         ____         _   __         __               \n"
-                + " | | /| / /__ / /______  __ _  ___   / /____    / __/__ ____ | | / /__ ___  / /____  ______ __\n"
-                + " | |/ |/ / -_) / __/ _ \\/  ' \\/ -_) / __/ _ \\  / _// _ `/ _ `/ |/ / -_) _ \\/ __/ _ \\/"
-                + " __/ // /\n"
-                + " |__/|__/\\__/_/\\__/\\___/_/_/_/\\__/  \\__/\\___/ /___/\\_, /\\_, /|___/\\__/_//_/\\__/\\___/_/"
-                + "  \\_, / \n"
-                + "                                                  /___//___/                           /___/  \n";
-
-        outputField.appendText(logo);
-        print("Hello! I'm Humpty Dumpty\n" + "What can I do for you?");
     }
 
     /**
