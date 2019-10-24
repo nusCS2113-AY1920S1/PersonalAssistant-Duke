@@ -1,6 +1,5 @@
 package compal.logic.command;
 
-import compal.model.tasks.Deadline;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
@@ -12,6 +11,11 @@ import java.util.Comparator;
  * The ListCommand Class handles all list commands.
  */
 public class ListCommand extends Command {
+    public static final String MESSAGE_USAGE = "list\n\t"
+        + "Format: list\n\t"
+        + "e.g. \"list\"\n\n"
+        + "This command will list all the tasks stored in COMPal.";
+
     private static final String LIST_PREFIX = "Here are the tasks in your list: \n";
     public static final String LIST_EMPTY = "Looks like your list is empty!\nStart adding in your task "
         + "by looking at the help command!";

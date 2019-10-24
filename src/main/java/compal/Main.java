@@ -20,7 +20,7 @@ public class Main extends Application {
 
     private Ui ui;
     private UiUtil uiUtil;
-    LogicManager logicManager;
+    private LogicManager logicManager;
 
     /**
      * Constructs a new Main object.
