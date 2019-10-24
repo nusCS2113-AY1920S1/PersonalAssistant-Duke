@@ -1,13 +1,13 @@
-﻿Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:
-32,EG2401A  Engineering Professionalism,2,MA1508E Linear Algebra for Engineering,4,CG2023 Signals and Systems,4,CG1111 Engineering Principles and Practice I,6,Technical Electives: ,20
-Faculty Requirements:,ES1531  Critical Thinking and Writing,4,MA1511 Engineering Calculus,2,CG2027 Transistor-level Digital Circuits,2,CG1112 Engineering Principles and Practice II,6,Pathway Electives,8
-,,,MA1512 Differential Equations for Engineering,2,CG2028 Computer Organization,2,CG4002 Computer Engineering Capstone Project,8,EG3611A Industrial Attachment (IA),10
-,,,ST2334 Probability & Statistics,4,CG2271 Real-time Operating Systems,4,,,,
-,,,,,CS1010 Programming Methodology,4,,,,
-,,,,,CS1231 Discrete Structures,4,,,,
-,,,,,CS2040C Data Structures & Algorithms,4,,,,
-,,,,,CS2101 Effective Communication for Computing Professionals,4,,,,
-,,,,,CS2113T Software Engineering & Object-Oriented Programming,4,,,,
-,,,,,EE2026 Digital Design,4,,,,
-,,,,,EE4204 Computer Networks,4,,,,
-,,,,,CG3207 Computer Architecture OR CS3230 Design and Analysis of Algorithms ,4,,,,
+Unrestricted Electives,Faculty Requirements:,Faculty Requirement MCs:,Common Core,Common Core MCs,Core Modules:,Core Modules MCs:,Design and Project Modules:,Design and Project Modules MCs:,Electives:,Elective MCs:,Common Aliases:
+32,EG2401A Engineering Professionalism,2,MA1508E Linear Algebra for Engineering,4,CG2023 Signals and Systems,4,CG1111 Engineering Principles and Practice I,6,Technical Electives: ,20,CEG
+,ES1531 Critical Thinking and Writing,4,MA1511 Engineering Calculus,2,CG2027 Transistor-level Digital Circuits,2,CG1112 Engineering Principles and Practice II,6,Pathway Electives,8,ComE
+,,,MA1512 Differential Equations for Engineering,2,CG2028 Computer Organization,2,CG4002 Computer Engineering Capstone Project,8,EG3611A Industrial Attachment (IA),10,Computer Engineering
+,,,ST2334 Probability & Statistics,4,CG2271 Real-time Operating Systems,4,,,,,
+,,,,,CS1010 Programming Methodology,4,,,,,
+,,,,,CS1231 Discrete Structures,4,,,,,
+,,,,,CS2040C Data Structures & Algorithms,4,,,,,
+,,,,,CS2101 Effective Communication for Computing Professionals,4,,,,,
+,,,,,CS2113T Software Engineering & Object-Oriented Programming,4,,,,,
+,,,,,EE2026 Digital Design,4,,,,,
+,,,,,EE4204 Computer Networks,4,,,,,
+,,,,,CG3207 Computer Architecture OR CS3230 Design and Analysis of Algorithms ,4,,,,,

@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\duke-0.1.0.jar
+set CLASSPATH=%APP_HOME%\lib\duke-1.2.jar
 
 @rem Execute duke
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %DUKE_OPTS%  -jar "%CLASSPATH%" %CMD_LINE_ARGS%
