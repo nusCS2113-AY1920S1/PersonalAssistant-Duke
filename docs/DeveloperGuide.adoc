@@ -314,37 +314,37 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-| * * * | New User | See a summary of the commands available in the program | Have a brief idea of how to navigate through the program
-| * * * | New User | Start the game | Start learning concepts immediately
-| * * * | New User | Pause the game | Pause the game and save the current quiz records
-| * * * | New User | End the game | See the results for the current quiz
-| * * * | New User | Go back to the previous question | Review the question and change my answer if necessary
-| * * * | New User | Skip to the next question of the game | Move on to other questions that I am more confident in to avoid spending too much time on a single question
-| * * * | New User | See the results of the previous games I have played | Can see a tangible improvement in my quiz scores
-| * * * | Weak User | Choose to attempt the game only on a certain chapter | Work on my weaker areas
-| * * * | New User | Continue the game which I have previously ended off with | Save time on trying to find out where I last ended off
-| * * * | User | Have an undo button | Reverse my actions if I typed the wrong command
-| * *  | User | Share and spread this game to my friends | Invite them to learn together
-| * *  | Average User | Get feedback on my performance | Identify my common misconceptions and work on those areas
-| * *  | User | Provide feedback to developers | Give them suggestions on what they can improve on
-| * *  | User | Receive notifications and reminders to complete a few games a day | Be more consistent with my learning
-| * *  | User | Experience a storyline | Learn in a less boring manner
-| * *  | Weak User | Have visual aids for the questions | Understand the topic better
-| * *  | Weak User | Have an explanation for any wrong answers | Learn faster from my mistakes
-| * *  | Strong User | Have a time limit | Challenge myself to perform better
-| * *  | Strong User | Have an arcade mode | Challenge myself to see how proficient I am in a topic
-| * *  | Weak User | Have a multiple choice option rather than open-ended | Practice on my concepts before attempting harder questions
+| * * * | New User | See a summary of the commands available in the program | Have a brief idea of how to navigate through the program.
+| * * * | User | Start the game | Start learning concepts immediately.
+| * * * | User | Pause the game | Save the current quiz records and take a break.
+| * * * | User | End the game | See the results for the current quiz.
+| * * * | User | Go back to the previous question | Review the question and change my answer if necessary.
+| * * * | User | Skip to the next question of the game | Move on to other questions that I am more confident in to avoid spending too much time on a single question.
+| * * * | Weak User | See the results of the previous games I have played | Can see a tangible improvement in my quiz scores.
+| * * * | Weak User | Choose to attempt the game only on a certain chapter | Work on my weaker areas.
+| * * * | User | Continue the game which I have previously ended off with | Save time on trying to find out where I last ended off.
+| * * * | User | Have an undo button | Reverse my actions if I typed the wrong command.
+| * *  | User | Share and spread this game to my friends | Invite them to learn together.
+| * *  | Average User | Get feedback on my performance | Identify my common misconceptions and work on those areas.
+| * *  | User | Provide feedback to developers | Give them suggestions on what they can improve on.
+| * *  | User | Receive notifications and reminders to complete a few games a day | Be more consistent with my learning.
+| * *  | Easily Bored User | Experience a storyline | Learn in a less boring manner.
+| * *  | Weak User | Have pictorial representations for the questions | Visualise the question better.
+| * *  | Weak User | Have an explanation for any wrong answers | Learn faster from my mistakes.
+| * *  | Strong User | Have a time limit | Challenge myself to perform better.
+| * *  | Strong User | Have an arcade mode | Challenge myself to see how proficient I am in a topic.
+| * *  | Weak User | Have a multiple choice option rather than open-ended | Practice on my concepts before attempting harder questions.
 | * *  | User | Have a reset option | Replay the game if I'm done with the storyline.
-| *  | Weak User | Clarify certain concepts with a virtual agent/chatbot | Build a stronger foundation
-| *  | User | be challenged every time I play the game | improve incrementally as I play it more
-| *  | Advanced User | Get updates whenever the program has new levels | Keep up with the game and maintain my rank
-| *  | User | enjoy playing the game  | Have fun as I learn
-| * * * | Tutor | Track my students’ progress | Cater my teaching style according to the weak chapters.
+| *  | Weak User | Clarify certain concepts with a virtual agent/chatbot | Build a stronger foundation for my weaker topics.
+| *  | User | Be challenged every time I play the game | Improve incrementally as I play it more.
+| *  | Advanced User | Get updates whenever the program has new levels | Explore new concepts and increase my understanding in data structures and algorithms.
+| * * * | User | Set a to-do for certain topics   | Gradually pick up skills in programming without feeling overwhelmed.
+| * * * | User | Get a reminder for my to-do chapters | Be notified if I have not revised on a particular topic.
 | *  | User | Customise my own questions `[coming in v2.0]` | Test myself on questions I know I'm weak at.
-| *  | User | Choose which character to play in the game `[coming in v2.0]` | Vary the experience I have in every game
-| * *  | Tutor | See which students are in dire need of help `[coming in v2.0]`| Focus more attention on weaker students
-| * | Tutor | Set my own questions `[coming in v2.0]`| Test my students’ understanding on the current topic
-| * | Tutor | Set my own storyline `[coming in v2.0]`| Make assignments more enjoyable.
+| *  | User | Choose which character to play in the game `[coming in v2.0]` | Vary the experience I have in every game.
+| * * | User | See my overall progress since I started the game `[coming in v2.0]`| See how much I have improved and learnt since then.
+| * * | User | Have a recap section `[coming in v2.0]`| Have a quick reference to the topics without leaving the game.
+| * | Competitive User | Have rewards in-game `[coming in v2.0]`| Feel motivated to clear the entire game.
 |=======================================================================
 
 
@@ -362,7 +362,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 . User enters an answer
 . System displays the next question
 . User enters an answer
-. Steps 8 - 9 repeats until the game is over
+(Steps 8 - 9 repeats until the game is over)
 . System shows the result and returns to the main menu
 
 
@@ -371,249 +371,248 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 - User enters an invalid command/answer.
 
 . System shows an error message and prompts the user to input a valid command
-. User inputs a new command
-. Steps 1 and 2 repeats till the user has entered a valid command
+. User inputs a new command (Steps 1 and 2 repeats till the user has entered a valid command)
 
 
 [discrete]
 ==== UC01: Have a summary of commands
 . User enters the `menu` command
-- System displays a list of commands
+. System displays a list of commands
 
 Use case ends.
 
 [discrete]
 ==== UC02: Start quiz
 . User enters the `start` command
-- System displays the first question of the quiz
+. System displays the first question of the quiz
 
 Use case ends.
 
 [discrete]
 ==== UC03: Pause quiz
 . User enters the `pause` command
-- System pauses the ongoing quiz
+. System pauses the ongoing quiz
 
 Use case ends.
 
 [discrete]
 ==== UC04: End quiz
 . User enters the `end` command
-- System exits user from the current quiz and shows him/her the results
+. System exits user from the current quiz and shows him/her the results
 
 Use case ends.
 
 [discrete]
 ==== UC05: Revisit attempted questions
 . User enters the `previous` command
-- System displays the previous question
+. System displays the previous question
 
 Use case ends.
 
 [discrete]
 ==== UC06: Move to the next question
 . User enters the `next` command
-- System displays the next question
+. System displays the next question
 
 Use case ends.
 
 [discrete]
 ==== UC07: View the history of the attempted quizzes
 . User enters the `history` command
-- System displays the results of all the quizzes attempted by the user
+. System displays the results of all the quizzes attempted by the user
 
 Use case ends.
 
 [discrete]
 ==== UC08: Attempt quiz of a topic
 . User enters the `chapters` command
-- System displays the list of chapters
-- User enters the number corresponding to the topic he/she would like to attempt
-- System displays the first question of the selected chapter
+. System displays the list of chapters
+. User enters the number corresponding to the topic he/she would like to attempt
+. System displays the first question of the selected chapter
 
 Use case ends.
 
 [discrete]
 ==== UC09: Resume quiz
 . User enters the `resume` command
-- System displays the next question from the uncompleted quiz
+. System displays the next question from the uncompleted quiz
 
 Use case ends.
 
 [discrete]
 ==== UC10: Undo my answers
 . User enters the `undo` command
-- System  the previous action done by the user
+. System  the previous action done by the user
 
 Use case ends.
 
 [discrete]
 ==== UC11: Share this game with my friends
 . User enters the `share` command
-- System displays the social media platforms for the user to choose from
-- User selects one
-- System displays a pop up message "This will be opened in a separate window, do you wish to continue? Y/N"
-- User enters "Y" (If user accidentally entered "N", he/she will be redirected to the menu)
-- User then selects the contact he/she wishes to send the invite to
+. System displays the social media platforms for the user to choose from
+. User selects one
+. System displays a pop up message "This will be opened in a separate window, do you wish to continue? Y/N"
+. User enters "Y" (If user accidentally entered "N", he/she will be redirected to the menu)
+. User then selects the contact he/she wishes to send the invite to
 
 Use case ends.
 
 [discrete]
 ==== UC12: Get review on my performance
 . User enters the `review` command
-- System displays the review generated by a virtual agent
+. System displays the review generated by a virtual agent
 
 Use case ends.
 
 [discrete]
 ==== UC13: Provide feedback to developers
 . User enters the `feedback` command
-- System displays "A separate window will be opened, do you wish to continue? Y/N"
-- User enters "Y" (If the user accidentally enters "N", he/she will be redirected to the menu)
-- A google form window is opened for the user to fill up
+. System displays "A separate window will be opened, do you wish to continue? Y/N"
+. User enters "Y" (If the user accidentally enters "N", he/she will be redirected to the menu)
+. A google form window is opened for the user to fill up
 
 Use case ends.
 
 [discrete]
 ==== UC14: Receive remainders for quizzes
 . User enters the `settings` command
-- System displays the settings menu
-- User enters the timing(s) he/she would like to receive the reminders under the "reminder" window
-- System will display a pop-up reminding the user to complete the quizzes at the specified timings
+. System displays the settings menu
+. User enters the timing(s) he/she would like to receive the reminders under the "reminder" window
+. System will display a pop-up reminding the user to complete the quizzes at the specified timings
 
 Use case ends.
 
 [discrete]
 ==== UC15: Get help
 . User enters the `help` command
-- System displays the help menu
+. System displays the help menu
 
 Use case ends.
 
 [discrete]
 ==== UC16: Learn through animations
 . User enters the `settings` command
-- System displays the settings menu
-- User clicks on for the animation section
-- System turns on animations and returns to the quiz
+. System displays the settings menu
+. User clicks on for the animation section
+. System turns on animations and returns to the quiz
 
 Use case ends
 
 [discrete]
 ==== UC17: View explanations for wrong answers
 . User enters `help` command
-- System displays the help menu
-- User clicks on "explanation" and enters the question number he requires explanation for
-- System displays the explanation for the selected question
+. System displays the help menu
+. User clicks on "explanation" and enters the question number he requires explanation for
+. System displays the explanation for the selected question
 
 Use case ends
 
 [discrete]
 ==== UC18: Set time limit
 . User enters `settings` command
-- System displays the settings menu
-- User inputs a number under the time limit section
+. System displays the settings menu
+. User inputs a number under the time limit section
 
 Use case ends
 
 [discrete]
 ==== UC19: Have a quest to complete
 . User enters `quest` command
-- System displays the list of quests available
+. System displays the list of quests available
 
 Use case ends
 
 [discrete]
 ==== UC20: Have MCQ instead of open-ended ones
 . User enters `mode` command
-- System displays the mode menu
-- User clicks on "MCQ"
+. System displays the mode menu
+. User clicks on "MCQ"
 
 Use case ends
 
 [discrete]
 ==== UC21: Have a reset option
 . User enters `reset` command
-- System clears all existing answers
-- System displays the first question of the current quiz
+. System clears all existing answers
+. System displays the first question of the current quiz
 
 Use case ends
 
 [discrete]
 ==== UC22: Clarify concepts with an agent 24/7
 . User enters `help` command
-- System displays the help menu
-- User opts for a live agent
-- System starts a live chat with a live agent
+. System displays the help menu
+. User opts for a live agent
+. System starts a live chat with a live agent
 
 Use case ends
 
 [discrete]
 ==== UC23: Share my highest score with my friends
 . User enters `history` command
-- User enters `share` command
-- System displays the social media platforms for the user to choose from
-- User selects one
-- System displays a pop up message "This will be opened in a separate window, do you wish to continue? Y/N"
-- User enters "Y" (If user accidentally entered "N", he/she will be redirected to the menu)
-- System displays a default post on the selected social media platform
-- User can type his/her own caption and proceed to upload it
+. User enters `share` command
+. System displays the social media platforms for the user to choose from
+. User selects one
+. System displays a pop up message "This will be opened in a separate window, do you wish to continue? Y/N"
+. User enters "Y" (If user accidentally entered "N", he/she will be redirected to the menu)
+. System displays a default post on the selected social media platform
+. User can type his/her own caption and proceed to upload it
 
 Use case ends
 
 [discrete]
 ==== UC24: Print the quiz to pdf
 . User enters `print` command
-- System converts file to pdf and proceeds with the command
+. System converts file to pdf and proceeds with the command
 
 Use case ends
 
 [discrete]
 ==== UC25: Listen to music during the quiz
 . User enters `settings` command
-- System displays settings menu
-- User selects a playlist
-- System starts to play the playlist and returns back to the menu/quiz
+. System displays settings menu
+. User selects a playlist
+. System starts to play the playlist and returns back to the menu/quiz
 
 Use case ends
 
 [discrete]
 ==== UC26: Archive difficult questions
 . User enters `help` command
-- System displays the help menu
-- User clicks on "archive"
-- System automatically archives the question the user is on
+. System displays the help menu
+. User clicks on "archive"
+. System automatically archives the question the user is on
 
 [discrete]
 ==== UC27: Take screenshots of the students' results
 Actor: Tutor
 
 . User enters `screenshot` command
-- System automatically saves the screenshot into the user's hard disk
+. System automatically saves the screenshot into the user's hard disk
 
 Use case ends
 
 [discrete]
 ==== UC28: Interact with characters in the game
 . User enters `interact` command
-- System displays the list of users who are online
-- User selects another user and a chat page pops up
+. System displays the list of users who are online
+. User selects another user and a chat page pops up
 
 Use case ends
 
 [discrete]
 ==== UC29: Refer to the algorithms
 . User enters `settings` command
-- System displays the settings menu
-- User selects "algorithm" option
+. System displays the settings menu
+. User selects "algorithm" option
 
 Use case ends
 
 [discrete]
 ==== UC30: Choose an answer verbally
 . User enters `settings` command
-- System displays the settings menu
-- User selects "microphone" option
+. System displays the settings menu
+. User selects "microphone" option
 
 Use case ends
 
