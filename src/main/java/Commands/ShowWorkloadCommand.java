@@ -33,7 +33,7 @@ public class ShowWorkloadCommand extends Command {
     }
 
     @Override
-    public String execute (TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
+    public String execute (LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
         String workloadWeek = LT.getWeek(week);
         HashMap<String, HashMap<String, ArrayList<Task>>> eventMap = events.getMap();
         HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();

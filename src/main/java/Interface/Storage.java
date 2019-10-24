@@ -33,10 +33,10 @@ public class Storage {
      * Creates Storage object.
      */
     public Storage(){
-        filePath = new File(System.getProperty("user.dir") + "\\data");
+        filePath = new File(System.getProperty("user.dir") + File.separator + "data");
         filePath.mkdir();
-        filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
-        filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
+        filePathEvent = System.getProperty("user.dir") + File.separator + "data" + File.separator + "event.txt";
+        filePathDeadline = System.getProperty("user.dir") + File.separator + "data" + File.separator + "deadline.txt";
         reminderMap = new HashMap<>();
         map = new HashMap<>();
     }
@@ -82,6 +82,8 @@ public class Storage {
     public void readEventList(TaskList list) {
         ArrayList<String> temp = null;
         try {
+            File eventFile = new File(filePathEvent);
+            eventFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
@@ -121,6 +123,8 @@ public class Storage {
     public void readDeadlineList(TaskList list) {
         ArrayList<String> temp = null;
         try {
+            File deadlineFile = new File(filePathDeadline);
+            deadlineFile.createNewFile();
             temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);

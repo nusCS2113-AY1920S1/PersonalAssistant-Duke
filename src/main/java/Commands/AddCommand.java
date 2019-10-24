@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         String out = "";
         int con = 0;
         boolean isOK = true;

@@ -28,7 +28,9 @@ import javafx.util.Pair;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,7 +132,12 @@ public class MainWindow extends BorderPane implements Initializable {
 
     private void displayQuoteOfTheDay(){
         try {
-            File path = new File(System.getProperty("user.dir") + "\\data\\quotes.txt");
+            ClassLoader loader = this.getClass().getClassLoader(); // or YourClass.class.getClassLoader()
+            URL resourceUrl = loader.getResource("documents/quotes.txt");
+            File path = null;
+            if (resourceUrl != null) {
+                path = new File(resourceUrl.getFile());
+            }
             Scanner scanner = new Scanner(path);
             String firstLine = scanner.nextLine();
             FileWriter writer = new FileWriter(path);
@@ -309,7 +316,7 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
-        } else if (input.startsWith("add")) {
+        }/* else if (input.startsWith("add")) {
             if(response.startsWith("true|")) {
                 refresh(input);
                 setProgressContainer();
@@ -326,7 +333,7 @@ public class MainWindow extends BorderPane implements Initializable {
             }
             if (date.equals(week)) setWeek(false, week);
 
-        }else if (userInput.getText().equals("bye")) {
+        } */else if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
