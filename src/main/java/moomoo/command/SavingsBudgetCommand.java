@@ -51,7 +51,7 @@ public class SavingsBudgetCommand extends Command {
 
         for (String iteratorCategory : categories) {
             iteratorCategory = iteratorCategory.toLowerCase();
-            Category currentCategory = catList.returnCategory(iteratorCategory);
+            Category currentCategory = catList.getCategory(iteratorCategory);
 
             if (currentCategory == null) {
                 outputValue += iteratorCategory + " category does not exist."

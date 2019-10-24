@@ -114,7 +114,7 @@ public class CategoryList {
      * @param value Name of category to return.
      * @return
      */
-    public Category returnCategory(String value) {
+    public Category getCategory(String value) {
         for (Category iterCategory : categoryList) {
             if (iterCategory.toString().equalsIgnoreCase(value)) {
                 return iterCategory;

@@ -32,11 +32,13 @@ public class ListBudgetCommand extends Command {
     public void execute(ScheduleList calendar, Budget budget, CategoryList catList, Category category,
                         Ui ui, Storage storage) {
         String outputValue = "";
+        double currentBudget = 0;
         if (categories.size() == 0) {
             for (int i = 0; i < catList.getCategoryList().size(); ++i) {
                 String categoryName = catList.getCategoryList().get(i).toString();
+                currentBudget = budget.getBudgetFromCategory(categoryName);
                 outputValue += "Budget for " + categoryName + " is $"
-                        + df.format(budget.getBudgetFromCategory(categoryName)) + "\n";
+                        + df.format(currentBudget) + "\n";
             }
             ui.setOutput(outputValue);
             return;
@@ -45,13 +47,14 @@ public class ListBudgetCommand extends Command {
         for (int i = 0; i < categories.size(); ++i) {
             String categoryName = categories.get(i).toLowerCase();
 
-            if (catList.returnCategory(categoryName) != null) {
-                if (budget.getBudgetFromCategory(categoryName) == 0) {
+            if (catList.getCategory(categoryName) != null) {
+                currentBudget = budget.getBudgetFromCategory(categoryName);
+                if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set.\n";
                     continue;
                 }
                 outputValue += "Budget for " + categoryName + " is $"
-                        + df.format(budget.getBudgetFromCategory(categoryName)) + "\n";
+                        + df.format(currentBudget) + "\n";
             } else {
                 outputValue += categoryName + " category does not exist. Please add it first.\n";
             }

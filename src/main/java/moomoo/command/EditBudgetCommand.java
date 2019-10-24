@@ -43,7 +43,7 @@ public class EditBudgetCommand extends Command {
             String categoryName = categories.get(i).toLowerCase();
             double categoryBudget = budgets.get(i);
 
-            if (catList.returnCategory(categoryName) != null) {
+            if (catList.getCategory(categoryName) != null) {
                 double currentBudget = budget.getBudgetFromCategory(categoryName);
                 if (currentBudget == 0) {
                     outputValue += "Budget for " + categoryName + " has not been set. Please set it first.\n";

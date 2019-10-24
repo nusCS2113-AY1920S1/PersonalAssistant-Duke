@@ -42,7 +42,7 @@ public class CategoryListStub extends CategoryList {
     }
 
     @Override
-    public Category returnCategory(String value) {
+    public Category getCategory(String value) {
         for (Category iterCategory : newArrayList) {
             if (iterCategory.toString().equalsIgnoreCase(value)) {
                 return iterCategory;

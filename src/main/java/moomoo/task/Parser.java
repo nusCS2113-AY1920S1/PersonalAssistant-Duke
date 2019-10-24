@@ -40,7 +40,7 @@ public class Parser {
         case ("bye"):
             return new ExitCommand(true);
         case ("budget"):
-            return parseBudget(scanner, ui);
+            return parseBudget(scanner);
         case ("categories"):
             return new ListCategoryCommand();
         case ("schedule"):
@@ -81,8 +81,6 @@ public class Parser {
     }
 
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
-        //String input = parseInput(scanner, ui, "add");
-        //switch (input) {
         switch (scanner.next()) {
         case ("category"):
             return new AddCategoryCommand();
@@ -115,8 +113,8 @@ public class Parser {
         return input;
     }
 
-    private static Command parseBudget(Scanner scanner, Ui ui) throws MooMooException {
-        String input = "";
+    private static Command parseBudget(Scanner scanner) throws MooMooException {
+        String input;
         try {
             input = scanner.next();
         } catch (Exception e) {
@@ -137,7 +135,7 @@ public class Parser {
     }
 
     private static Command setBudget(Scanner scanner) throws MooMooException {
-        String input = "";
+        String input;
         try {
             input = scanner.next();
         } catch (Exception e) {
@@ -189,7 +187,7 @@ public class Parser {
     }
 
     private static Command editBudget(Scanner scanner) throws MooMooException {
-        String input = "";
+        String input;
         try {
             input = scanner.next();
         } catch (Exception e) {
@@ -277,7 +275,7 @@ public class Parser {
     }
 
     private static Command savingsBudget(Scanner scanner) throws MooMooException {
-        String input = "";
+        String input;
         try {
             input = scanner.next();
         } catch (Exception e) {
