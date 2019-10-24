@@ -215,22 +215,38 @@ public class Patient extends DukeObject {
     public String toReportString() {
         String informationString;
         informationString = "\tName of patient: " + getName() + "\n";
-        informationString += "\tHeight: " + Integer.toString(this.height) + "\n";
-        informationString += "\tWeight: " + Integer.toString(this.weight) + "\n";
-        informationString += "\tAge: " + Integer.toString(this.age) + "\n";
-        informationString += "\tNumber: " + Integer.toString(this.number) + "\n";
-        informationString += "\tAddress: " + this.address + "\n";
-        informationString += "\tHistory: " + this.history + "\n";
-        informationString += "\tRegistration details:\n";
         informationString += "\tBed Number: " + this.bedNo + "\n";
-        informationString += "\tAllergies: " + this.allergies + "\n";
-        if (this.priDiagnosis != null) {
-            informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
+        if (this.height != null) {
+            informationString += "\tHeight: " + Integer.toString(this.height) + "\n";
         }
-        informationString += "\nData about doctors impression of the patient and associated treatments and evidences;";
-        for (Map.Entry mapElement : this.impressions.entrySet()) {
-            Impression imp = (Impression) mapElement.getValue();
-            informationString += imp.toReportString();
+        if (this.weight != null) {
+            informationString += "\tWeight: " + Integer.toString(this.weight) + "\n";
+        }
+        if (this.allergies != null) {
+            informationString += "\tAllergies: " + this.allergies + "\n";
+        }
+        if (this.age != null) {
+            informationString += "\tAge: " + Integer.toString(this.age) + "\n";
+        }
+        if (this.number != null) {
+            informationString += "\tNumber: " + Integer.toString(this.number) + "\n";
+        }
+        if (this.address != null) {
+            informationString += "\tAddress: " + this.address + "\n";
+        }
+        if (this.history != null) {
+            informationString += "\tHistory: " + this.history + "\n";
+        }
+        if (this.priDiagnosis != null) {
+            informationString += "\tRegistration details:\n";
+            informationString += "\tAllergies: " + this.allergies + "\n";
+            informationString += "\tPrimary Diagnosis: " + this.priDiagnosis.getDescription() + "\n";
+            informationString += "\nData about doctors impression of the patient and associated"
+                    + " treatments and evidences;";
+            for (Map.Entry mapElement : this.impressions.entrySet()) {
+                Impression imp = (Impression) mapElement.getValue();
+                informationString += imp.toReportString();
+            }
         }
         return informationString + "\n\n";
     }

@@ -1,20 +1,21 @@
 package duke.command;
 
-public class NewPatientSpec extends ArgSpec {
+public class HomeNewSpec extends ArgSpec {
 
-    private static final NewPatientSpec spec = new NewPatientSpec();
+    private static final HomeNewSpec spec = new HomeNewSpec();
 
-    public static NewPatientSpec getSpec() {
+    public static HomeNewSpec getSpec() {
         return spec;
     }
 
-    private NewPatientSpec() {
+    private HomeNewSpec() {
         emptyArgMsg = "You didn't tell me anything about the patient!";
         cmdArgLevel = ArgLevel.NONE;
         initSwitches(
                 new Switch("name", String.class, false, ArgLevel.REQUIRED, "n"),
                 new Switch("bed", String.class, false, ArgLevel.REQUIRED, "b"),
-                new Switch("allergies", String.class, false, ArgLevel.REQUIRED, "a"),
+                new Switch("allergies", String.class, false, ArgLevel.REQUIRED, "a",
+                        "allergy"),
                 new Switch("go", String.class, true, ArgLevel.NONE, "g"),
                 new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
                 new Switch("weight", Integer.class, true, ArgLevel.REQUIRED, "w"),

@@ -115,7 +115,7 @@ If the `-b` switch is used, look up the bed number. If the `-im` switch is used,
 
 ==== `new` - Add a new Patient to the system
 
-Format: `new -n[ame] "<name>" -b[ed] <bed number> -a[llergies] "<allergies>" [<optional switch>]*`
+Format: `new -n[ame] "<name>" -b[ed] <bed number> -a[llerg(y|ies)] "<allergies>" [<optional switch>]*`
 
 Optional switches:
 
@@ -198,7 +198,7 @@ Switches and corresponding new value format:
 
 * `-n[ame] "<name>"`
 * `-b[ed] <bed number>`
-* `-a[llergies] "<allergies>"`
+* `-a[llerg(y|ies)] "<allergies>"`
 * `-h[eight] <height>` 
 * `-w[eight] <weight>` 
 * `-ag[e] <age>`
