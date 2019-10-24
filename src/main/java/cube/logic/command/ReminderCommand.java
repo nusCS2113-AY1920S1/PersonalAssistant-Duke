@@ -42,7 +42,6 @@ public class ReminderCommand extends Command{
      * or approaching/nearing its expiry date (by a week or lesser).
      *
      * @param list the list of food products
-     * @param ui the user interface to output message
      * @param storage storage of Cube
      */
 

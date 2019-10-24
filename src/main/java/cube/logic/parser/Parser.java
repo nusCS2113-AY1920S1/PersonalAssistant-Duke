@@ -50,8 +50,6 @@ public class Parser {
 				return new DeleteCommandParser().parse(inputs);
 			case "sold":
 				return new SoldCommandParser().parse(inputs);
-			case "reminder":
-				return new ReminderCommand();
 			case "help":
 				return new HelpCommand();
 			case "bye":
