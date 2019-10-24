@@ -26,7 +26,7 @@ public class ShowCommand extends ModuleCommand {
 
     private Set<String> getCoreModList() {
         int numOfCoreMods = 22;
-        if (coreModList.size() != numOfCoreMods ) {
+        if (coreModList.size() != numOfCoreMods) {
             coreModList.add("CG1111");
             coreModList.add("CG1112");
             coreModList.add("CS1010");
@@ -99,8 +99,8 @@ public class ShowCommand extends ModuleCommand {
                     }
                 }
                 plannerUi.geModLeft();
-                int numOfGEMods = 5;
-                System.out.println(numOfGEMods - (count - 1));
+                int numOfGeMods = 5;
+                System.out.println(numOfGeMods - (count - 1));
                 break;
             }
 
@@ -117,8 +117,8 @@ public class ShowCommand extends ModuleCommand {
                     }
                 }
                 plannerUi.ueModLeft();
-                int numOfUEMods = 8;
-                System.out.println(numOfUEMods - (count - 1));
+                int numOfUeMods = 8;
+                System.out.println(numOfUeMods - (count - 1));
                 break;
             }
 
