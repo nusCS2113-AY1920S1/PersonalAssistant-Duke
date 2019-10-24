@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
@@ -40,7 +41,8 @@ public class HelpCommand extends Command {
      * @throws DukeException when there is an error loading the help file
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         ArrayList<String> helpLines = new ArrayList<>();
         storage.loadHelp(helpLines, specifiedHelp);
         ui.showHelp(helpLines);

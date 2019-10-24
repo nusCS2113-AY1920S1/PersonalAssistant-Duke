@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.model.Meal;
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.commons.exceptions.DukeException;
@@ -48,7 +49,8 @@ public class ListCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = meals.getMealsList(currentDate);
         if (!meals.checkDate(currentDate)) {

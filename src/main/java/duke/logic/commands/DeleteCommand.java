@@ -3,6 +3,7 @@ package duke.logic.commands;
 import duke.commons.exceptions.DukeException;
 import duke.model.Meal;
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.model.user.User;
@@ -58,7 +59,8 @@ public class DeleteCommand extends Command {
      * @throws DukeException when the index of the object to be deleted is out of bounds
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         if (index <= 0 || index > meals.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }

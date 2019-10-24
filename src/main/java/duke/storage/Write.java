@@ -1,9 +1,7 @@
 package duke.storage;
 
 import duke.commons.exceptions.DukeException;
-import duke.model.Goal;
-import duke.model.Meal;
-import duke.model.MealList;
+import duke.model.*;
 import duke.model.user.Gender;
 import duke.model.user.Tuple;
 import duke.model.user.User;
@@ -132,6 +130,7 @@ public class Write {
         } else {
             toWrite += "F";
         }
+        toWrite += "|" + user.getAccountBalance();
         ArrayList<Tuple> allWeight = user.getAllWeight();
         for (int i = 0; i < user.getAllWeight().size(); i += 1) {
             toWrite += "\n";
@@ -144,6 +143,31 @@ public class Write {
             bufferedWriter.write(toWrite);
             bufferedWriter.close();
         } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+    }
+
+    public void writeTransaction(TransactionList transactionList) throws DukeException {
+        HashMap<String, ArrayList<Transaction>> transactions = transactionList.getTransactionTracker();
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(TRANSACTION_FILE));
+        } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+        try {
+            for (String i : transactions.keySet()) {
+                ArrayList<Transaction> transactionInADay = transactions.get(i);
+                for (int j = 0; j < transactions.get(i).size(); j++) {
+                    Transaction currentTransaction = transactionInADay.get(j);
+                    String toWrite = currentTransaction.getType() + "|" + currentTransaction.getTransactionAmount()
+                            + "|" + currentTransaction.getDate() + "\n";
+                    bufferedWriter.write(toWrite);
+                }
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
             System.out.println("Error writing to file");
             e.printStackTrace();
         }

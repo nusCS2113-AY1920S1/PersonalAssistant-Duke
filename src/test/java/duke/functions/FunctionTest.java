@@ -8,6 +8,8 @@ import duke.storage.Storage;
 import duke.model.user.User;
 import duke.model.MealList;
 import duke.ui.Ui;
+import duke.model.TransactionList;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
@@ -53,19 +55,20 @@ public class FunctionTest {
         setup();
         Command c;
         Parser parser = new Parser(autocorrect);
+        TransactionList transactionList = new TransactionList();
         try {
             c = parser.parse("add burger /calorie 100 /sodium 100 /fats 100");
-            c.execute(tasks, ui, storage, user, in);
+            c.execute(tasks, ui, storage, user, in, transactionList);
             c = parser.parse("breakfast burger");
-            c.execute(tasks, ui, storage, user, in);
+            c.execute(tasks, ui, storage, user, in, transactionList);
             c = parser.parse("breakfast burger /calorie 100");
-            c.execute(tasks, ui, storage, user, in);
+            c.execute(tasks, ui, storage, user, in, transactionList);
         } catch (DukeException e) {
             exceptionThrown1 = true;
         }
         try {
             c = parser.parse("breakfast taco");
-            c.execute(tasks, ui, storage, user, in);
+            c.execute(tasks, ui, storage, user, in, transactionList);
         } catch (DukeException e) {
             exceptionThrown2 = true;
         }

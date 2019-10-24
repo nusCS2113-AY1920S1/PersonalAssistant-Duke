@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.commons.exceptions.DukeException;
+import duke.model.TransactionList;
 import duke.storage.Storage;
 import duke.model.Goal;
 import duke.model.MealList;
@@ -35,8 +36,8 @@ public class AddGoalCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
-
+    public void execute(MealList meals, Ui ui, Storage storage, User user,
+                        Scanner in, TransactionList transactions) throws DukeException {
         try {
             meals.addGoal(this.goal, false);
             ui.showAddedGoal(goal);

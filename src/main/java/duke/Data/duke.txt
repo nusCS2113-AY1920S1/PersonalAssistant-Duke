@@ -9,6 +9,10 @@ B|0|burger|date|22/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|22/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|24/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|24/10/2019|sodium|100|fats|100|calorie|100
+B|0|burger|date|24/10/2019|sodium|100|fats|100|calorie|100
+B|0|burger|date|24/10/2019|sodium|100|fats|100|calorie|100
+B|0|burger|date|24/10/2019|sodium|100|fats|100|calorie|100
+B|0|burger|date|24/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|19/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|19/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|13/10/2019|calorie|100

@@ -21,4 +21,6 @@ public class CommandDefinitions {
     public static final String PARSER_SET_GOAL_COMMAND = "setgoal";
     public static final String PARSER_HISTORY_COMMAND = "history";
     public static final String PARSER_SUGGEST_COMMAND = "suggest";
+    public static final String PARSER_DEPOSIT_COMMAND = "deposit";
+    public static final String PARSER_PAYMENT_COMMAND = "pay";
 }

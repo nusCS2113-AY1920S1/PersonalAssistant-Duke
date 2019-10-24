@@ -11,6 +11,7 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_ADD_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_BREAKFAST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_CLEAR_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DELETE_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_DEPOSIT_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DINNER_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_DONE_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_EDIT_COMMAND;
@@ -20,6 +21,7 @@ import static duke.commons.definitions.CommandDefinitions.PARSER_HELP_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_HISTORY_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_LIST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_LUNCH_COMMAND;
+import static duke.commons.definitions.CommandDefinitions.PARSER_PAYMENT_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SET_GOAL_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_SUGGEST_COMMAND;
 import static duke.commons.definitions.CommandDefinitions.PARSER_UPDATE_WEIGHT_COMMAND;
@@ -98,6 +100,10 @@ public class Parser {
                 return new SetgoalCommandParser().parse(userInput);
             case PARSER_HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
+            case PARSER_DEPOSIT_COMMAND:
+                return new DepositCommandParser().parse(userInput);
+            case PARSER_PAYMENT_COMMAND:
+                return new PaymentCommandParser().parse(userInput);
             case PARSER_HISTORY_COMMAND:
                 // clear history if requested
                 if (!userInput.isEmpty() && userInput.equals("clear")) {

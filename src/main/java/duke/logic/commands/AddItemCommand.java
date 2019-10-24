@@ -2,9 +2,10 @@ package duke.logic.commands;
 
 import duke.model.Meal;
 import duke.model.MealList;
-import duke.model.user.User;
-import duke.storage.Storage;
+import duke.model.TransactionList;
 import duke.ui.Ui;
+import duke.storage.Storage;
+import duke.model.user.User;
 
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ public class AddItemCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
         storage.updateDefaults(meals);
