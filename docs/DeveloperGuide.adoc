@@ -19,9 +19,6 @@ By: `Team 13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-[.text-center]
-Tests
-
 === Purpose
 
 This document specifies architecture and software design decisions for the educational app, JavaCake. The intended audience of this document is the developers, designers, and software testers of JavaCake. 
@@ -76,8 +73,10 @@ https://github.com/AY1920S1-CS2113T-W13-2/main.
 
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
 
+====
 .Architecture Diagram
 image::dg_figure1.png[width="500"]
+====
 
 The figure above showcases the high-level view of how *JavaCake* is run. The program can be abstracted into these five modules which are explained below.
 
