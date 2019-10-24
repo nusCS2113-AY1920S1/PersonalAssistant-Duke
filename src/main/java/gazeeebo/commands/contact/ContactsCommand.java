@@ -1,4 +1,4 @@
-package gazeeebo.commands.contact;
+package gazeeebo.commands.Contact;
 
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;

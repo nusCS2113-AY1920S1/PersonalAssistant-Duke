@@ -3,6 +3,7 @@ package gazeeebo.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 
+import gazeeebo.commands.specialization.ModuleCategories;
 import gazeeebo.commands.gpacalculator.GPACommand;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
@@ -29,6 +30,8 @@ public class Storage {
     private String absolutePath_Places = "Places.txt";
     private String absolutePath_Trivia = "Trivia.txt";
     private String absolutePath_GPA = "Gpa.txt";
+
+    private String absolutePathSpecialization = "Specialization.txt";
     private String absolutePath_StudyPlanner = "Study_Plan.txt";
 
     public void Storages(String fileContent) throws IOException {
@@ -153,7 +156,7 @@ public class Storage {
                 String decodedPassword = sc.nextLine();
                 char[] decryption = decodedPassword.toCharArray();
                 StringBuilder realPassword = new StringBuilder();
-                for(int i = decodedPassword.length() - 1; i >= 0; i--) {
+                for (int i = decodedPassword.length() - 1; i >= 0; i--) {
                     realPassword.append(decryption[i]);
                 }
                 System.out.println(realPassword);
@@ -325,29 +328,84 @@ public class Storage {
         }
         return gpaList;
     }
-    public ArrayList<ArrayList<String>> Read_StudyPlan() throws IOException{
-        ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
-        if (new File(absolutePath_StudyPlanner).exists()) {
-            File file = new File(absolutePath_StudyPlanner);
-            Scanner sc = new Scanner(file);
-            for(int i =0;i<8;i++) {
-                if(sc.hasNext()) {
-                    String[] split = sc.nextLine().split(" ");
-                    ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
-                    studyplan.add(temp);
-                } else{
-                    ArrayList<String> temp = new ArrayList<String>();
-                    studyplan.add(temp);
-                }
-            }
-        }
-        return studyplan;
-    }
 
-    public void Storage_StudyPlan(String fileContent) throws IOException{
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_StudyPlanner));
+    public void specializationStorage(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePathSpecialization);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
-}
+
+    public HashMap<String, ArrayList<ModuleCategories>> Specialization() throws IOException {
+        HashMap<String, ArrayList<ModuleCategories>> specMap = new HashMap<>();
+        ArrayList<ModuleCategories> modAndBool = new ArrayList<>();
+        if (new File(absolutePathSpecialization).exists()) {
+            File file = new File(absolutePathSpecialization);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                if (split[0].equals("commsB")) {
+                    ModuleCategories mC = new ModuleCategories(split[2].trim());
+                    if (split[3].equals("D")) {
+                        mC.isDone = true;
+                    } else {
+                        mC.isDone = false;
+                    }
+                    modAndBool.add(mC);
+                } else if (split[0].equals("commsD")) {
+                    ModuleCategories mC2 = new ModuleCategories(split[2].trim());
+                    if (split[3].equals("D")) {
+                        mC2.isDone = true;
+                    } else {
+                        mC2.isDone = false;
+                    }
+                    modAndBool.add(mC2);
+
+                } else if (split[0].equals("embB")) {
+                    ModuleCategories mC3 = new ModuleCategories(split[2].trim());
+                    if (split[3].equals("D")) {
+                        mC3.isDone = true;
+                    } else {
+                        mC3.isDone = false;
+                    }
+                    modAndBool.add(mC3);
+                } else if (split[0].equals("embD")) {
+                    ModuleCategories mC4 = new ModuleCategories(split[2].trim());
+                    if (split[3].equals("D")) {
+                        mC4.isDone = true;
+                    } else {
+                        mC4.isDone = false;
+                    }
+                    modAndBool.add(mC4);
+                }
+
+            }
+        }
+        return specMap;
+    }
+        public ArrayList<ArrayList<String>> Read_StudyPlan () throws IOException {
+            ArrayList<ArrayList<String>> studyplan = new ArrayList<ArrayList<String>>();
+            if (new File(absolutePath_StudyPlanner).exists()) {
+                File file = new File(absolutePath_StudyPlanner);
+                Scanner sc = new Scanner(file);
+                for (int i = 0; i < 8; i++) {
+                    if (sc.hasNext()) {
+                        String[] split = sc.nextLine().split(" ");
+                        ArrayList<String> temp = Arrays.stream(split).collect(Collectors.toCollection(ArrayList::new));
+                        studyplan.add(temp);
+                    } else {
+                        ArrayList<String> temp = new ArrayList<String>();
+                        studyplan.add(temp);
+                    }
+                }
+            }
+            return studyplan;
+        }
+
+        public void Storage_StudyPlan (String fileContent) throws IOException {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_StudyPlanner));
+            fileWriter.write(fileContent);
+            fileWriter.flush();
+            fileWriter.close();
+        }
+    }
