@@ -4,18 +4,17 @@ import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.exceptions.OptixException;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 import optix.util.Parser;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 public class AddAliasCommand extends Command {
-    private String newAlias;
-    private String command;
+    private String details;
     private File preferenceFilePath;
 
     //@@ OungKennedy
@@ -25,9 +24,7 @@ public class AddAliasCommand extends Command {
      * @param details String containing "NEW_ALIAS|COMMAND"
      */
     public AddAliasCommand(String details, File filePath) {
-        String[] detailsArray = parseDetails(details);
-        this.newAlias = detailsArray[0];
-        this.command = detailsArray[1];
+        this.details = details;
         this.preferenceFilePath = filePath;
     }
 
@@ -41,6 +38,18 @@ public class AddAliasCommand extends Command {
      */
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        // parse the new alias and command from the details
+        String newAlias;
+        String command;
+        try {
+            String[] detailsArray = parseDetails(this.details);
+            newAlias = detailsArray[0];
+            command = detailsArray[1];
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "";
+        }
+
         String message;
         // create parser object
         Parser dummyParser = new Parser(preferenceFilePath);
@@ -57,8 +66,12 @@ public class AddAliasCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return details.split("\\|", 2);
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.split("\\|",2);
+        if (detailsArray.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 }
 

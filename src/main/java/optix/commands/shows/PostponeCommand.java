@@ -13,9 +13,7 @@ import optix.util.OptixDateFormatter;
 import java.time.LocalDate;
 
 public class PostponeCommand extends Command {
-    private String showName;
-    private String oldDate;
-    private String newDate;
+    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -36,21 +34,23 @@ public class PostponeCommand extends Command {
      * @param splitStr String containing "SHOW_NAME|OLD_DATE|NEW_DATE"
      */
 
-    public PostponeCommand(String splitStr) throws OptixInvalidCommandException {
-        // need to check if both dates are valid if not throw exception
-        // need to check if the event was completed in the past. Past event shouldn't be postponed.
-        String[] details = parseDetails(splitStr);
-        if ((details.length) != 3) {
-            throw new OptixInvalidCommandException();
-        }
-        this.showName = details[0].trim();
-        this.oldDate = details[1].trim();
-        this.newDate = details[2].trim();
-
+    public PostponeCommand(String splitStr) {
+        this.details = splitStr;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        String showName, oldDate, newDate;
+        try {
+            String[] details = parseDetails(this.details);
+            showName = details[0].trim();
+            oldDate = details[1].trim();
+            newDate = details[2].trim();
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "show";
+        }
+
         String message = "";
         LocalDate today = storage.getToday();
 
@@ -85,8 +85,12 @@ public class PostponeCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return details.trim().split("\\|", 3);
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.trim().split("\\|",3);
+        if ((detailsArray.length) != 3) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 
 }

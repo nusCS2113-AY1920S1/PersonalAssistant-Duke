@@ -16,10 +16,7 @@ public class EditCommand extends Command {
     private static final String MESSAGE_UPDATE_SUCCESSFUL = "Show has been successfully updated to ";
 
     private static final String MESSAGE_UPDATE_UNSUCCESSFUL = "☹ OOPS!!! The show you are finding does not exist!\n";
-
-    private String oldShowName;
-    private String showDate;
-    private String newShowName;
+    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -28,18 +25,23 @@ public class EditCommand extends Command {
      *
      * @param splitStr String of format "OLD_SHOW_NAME|SHOW_DATE|NEW_SHOW_NAME"
      */
-    public EditCommand(String splitStr) throws OptixInvalidCommandException {
-        String[] details = parseDetails(splitStr);
-        if (details.length != 3) {
-            throw new OptixInvalidCommandException();
-        }
-        this.oldShowName = details[0].trim();
-        this.showDate = details[1].trim();
-        this.newShowName = details[2].trim();
+    public EditCommand(String splitStr) {
+        this.details = splitStr;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        String oldShowName, showDate, newShowName;
+        try {
+            String[] details = parseDetails(this.details);
+            oldShowName = details[0].trim();
+            showDate = details[1].trim();
+            newShowName = details[2].trim();
+        } catch (OptixInvalidCommandException e){
+            ui.setMessage(e.getMessage());
+            return "show";
+        }
+
         String message;
 
         try {
@@ -65,8 +67,12 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return details.split("\\|");
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.split("\\|");
+        if (detailsArray.length != 3) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 
 }

@@ -12,9 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
-    private String showName;
-    private String[] showDates;
-    private double seatBasePrice;
+    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -29,21 +27,25 @@ public class AddCommand extends Command {
      *
      * @param splitStr String of format "SHOW_NAME|SEAT_BASE_PRICE|DATE_1|DATE_2|etc"
      */
-    public AddCommand(String splitStr) throws OptixInvalidCommandException {
-        String[] details = parseDetails(splitStr);
-        if (details.length != 3) {
-            throw new OptixInvalidCommandException();
-        }
-        // need to check if it is a valid date if not need to throw exception
-
-        this.showName = details[0].trim();
-        this.showDates = details[2].trim().split("\\|");
-        this.seatBasePrice = Double.parseDouble(details[1]);
-
+    public AddCommand(String splitStr) {
+        String details = splitStr;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        String showName;
+        String[] showDates;
+        double seatBasePrice;
+        try {
+            String[] detailsArray = parseDetails(this.details);
+            showName = detailsArray[0].trim();
+            showDates = detailsArray[2].trim().split("\\|"); // do we need exception handling for this line?
+            seatBasePrice = Double.parseDouble(detailsArray[1]); // we should also do exception handling for this number
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "show";
+        }
+
         LocalDate today = storage.getToday();
         ArrayList<String> errorShows = new ArrayList<>();
 
@@ -52,15 +54,15 @@ public class AddCommand extends Command {
 
         int counter = 1;
 
-        for (int i = 0; i < showDates.length; i++) {
-            String date = showDates[i].trim();
+        for (String showDate : showDates) {
+            String date = showDate.trim();
 
 
             if (!hasValidDate(date)) {
                 errorShows.add(date);
                 continue;
             }
-            
+
             LocalDate showLocalDate = formatter.toLocalDate(date);
 
             if (showLocalDate.compareTo(today) <= 0 || model.containsKey(showLocalDate)) {
@@ -87,8 +89,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return details.trim().split("\\|", 3);
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.trim().split("\\|", 3);
+        if (detailsArray.length != 3) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 
     private boolean hasValidDate(String date) {

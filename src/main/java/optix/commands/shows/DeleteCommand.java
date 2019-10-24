@@ -10,8 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
-    private String[] showDates;
-    private String showName;
+    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -27,20 +26,21 @@ public class DeleteCommand extends Command {
      * @param splitStr String of format "SHOW_NAME|DATE_1|DATE_2|etc."
      */
     public DeleteCommand(String splitStr) {
-        String[] details = parseDetails(splitStr);
-        this.showDates = details[1].split("\\|");
-        this.showName = details[0];
+        this.details = splitStr;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        String[] detailsArray = parseDetails(this.details);
+        String[] showDates = detailsArray[1].split("\\|");
+        String showName = detailsArray[0];
         StringBuilder message = new StringBuilder(MESSAGE_SUCCESSFUL);
         ArrayList<String> missingShows = new ArrayList<>();
 
         int counter = 1;
 
-        for (int i = 0; i < showDates.length; i++) {
-            String date = showDates[i].trim();
+        for (String showDate : showDates) {
+            String date = showDate.trim();
 
             if (!hasValidDate(date)) {
                 missingShows.add(date);

@@ -22,14 +22,13 @@ class ViewProfitCommandTest {
 
     @Test
     void execute() {
-        AddCommand addDummyShow = new AddCommand("dummy show name", "10/5/2020", 20);
+        AddCommand addDummyShow = new AddCommand("dummy show name|20|10/5/2020");
         addDummyShow.execute(model, ui, storage);
 
-        SellSeatCommand sellDummySeat = new SellSeatCommand("dummy show name", "10/5/2020",
-                "A1 A2 A3");
+        SellSeatCommand sellDummySeat = new SellSeatCommand("dummy show name|10/5/2020|A1 A2 A3");
         sellDummySeat.execute(model, ui, storage);
 
-        ViewProfitCommand testCommand = new ViewProfitCommand("dummy show name", "10/5/2020");
+        ViewProfitCommand testCommand = new ViewProfitCommand("dummy show name|10/5/2020");
         testCommand.execute(model, ui, storage);
 
         String expected = "__________________________________________________________________________________\n"
@@ -38,7 +37,7 @@ class ViewProfitCommandTest {
 
         assertEquals(expected, ui.showCommandLine());
 
-        ViewProfitCommand testCommand2 = new ViewProfitCommand("dummy show name", "6/5/2020");
+        ViewProfitCommand testCommand2 = new ViewProfitCommand("dummy show name|6/5/2020");
         testCommand2.execute(model, ui, storage);
 
         String expected2 = "__________________________________________________________________________________\n"
@@ -47,7 +46,7 @@ class ViewProfitCommandTest {
 
         assertEquals(expected2, ui.showCommandLine());
 
-        ViewProfitCommand testCommand3 = new ViewProfitCommand("wrong show name", "10/5/2020");
+        ViewProfitCommand testCommand3 = new ViewProfitCommand("wrong show name|10/5/2020");
         testCommand3.execute(model, ui, storage);
 
         String expected3 = "__________________________________________________________________________________\n"

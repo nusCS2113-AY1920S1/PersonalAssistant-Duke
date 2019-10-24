@@ -127,6 +127,8 @@ public class Parser {
                 return new AddAliasCommand(splitStr[1], this.preferenceFilePath);
             case "remove-alias":
                 return new RemoveAliasCommand(splitStr[1], commandAliasMap);
+            case "reassign-seat":
+                return new ReassignSeatCommand(splitStr[1]);
             default:
                 throw new OptixInvalidCommandException();
             }
@@ -208,7 +210,7 @@ public class Parser {
     //@@ OungKennedy
 
     /**
-     * Method to reset preferences to default values.
+     * Method to reset preferences to default values.op
      */
     public static void resetPreferences() {
         commandAliasMap.clear();
@@ -245,17 +247,5 @@ public class Parser {
         return new ListShowCommand(details);
     }
 
-    private static Command parseReassign(String details) throws OptixInvalidCommandException {
-        String[] splitStr = details.trim().split("\\|");
-        if (splitStr.length != 4) {
-            throw new OptixInvalidCommandException();
-        }
 
-        String showName = splitStr[0].trim();
-        String showDate = splitStr[1].trim();
-        String oldSeat = splitStr[2].trim();
-        String newSeat = splitStr[3].trim();
-
-        return new ReassignSeatCommand(showName, showDate, oldSeat, newSeat);
-    }
 }

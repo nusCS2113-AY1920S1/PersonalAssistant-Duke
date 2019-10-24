@@ -13,8 +13,7 @@ import optix.util.OptixDateFormatter;
 import java.time.LocalDate;
 
 public class ViewProfitCommand extends Command {
-    private String showName;
-    private String showDate;
+    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -29,17 +28,21 @@ public class ViewProfitCommand extends Command {
      * Views the profit made from a show on a certain date.
      * @param splitStr String of format "SHOW_NAME|SHOW_DATE"
      */
-    public ViewProfitCommand(String splitStr) throws OptixInvalidCommandException {
-        String[] details = parseDetails(splitStr);
-        if (details.length != 2) {
-            throw new OptixInvalidCommandException();
-        }
-        this.showName = details[0].trim();
-        this.showDate = details[1].trim();
+    public ViewProfitCommand(String splitStr) {
+        this.details = splitStr;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        String showName, showDate;
+        try {
+            String[] detailsArray = parseDetails(this.details);
+            showName = detailsArray[0].trim();
+            showDate = detailsArray[1].trim();
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "show";
+        }
 
         String message = "";
 
@@ -80,8 +83,12 @@ public class ViewProfitCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return details.trim().split("\\|");
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray =  details.trim().split("\\|");
+        if (detailsArray.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 
 }

@@ -2,6 +2,7 @@ package optix.commands;
 
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 
 public abstract class Command {
@@ -17,7 +18,7 @@ public abstract class Command {
      */
     public abstract String execute(Model model, Ui ui, Storage storage);
 
-    public abstract String[] parseDetails(String details);
+    public abstract String[] parseDetails(String details) throws OptixInvalidCommandException;
 
     public boolean isExit() {
         return false;

@@ -3,6 +3,7 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -10,11 +11,7 @@ import optix.util.OptixDateFormatter;
 import java.time.LocalDate;
 
 public class ReassignSeatCommand extends Command {
-
-    private String showName;
-    private String showDate;
-    private String oldSeat;
-    private String newSeat;
+    private String details;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -26,20 +23,27 @@ public class ReassignSeatCommand extends Command {
     /**
      * Changes the seat of an existing customer.
      *
-     * @param showName name of show.
-     * @param showDate date of show.
-     * @param oldSeat  seat to be re-assigned.
-     * @param newSeat  new seat.
+     * @param details String of format "SHOW_NAME|SHOW_DATE|OLD_SEAT|NEW_SEAT"
      */
-    public ReassignSeatCommand(String showName, String showDate, String oldSeat, String newSeat) {
-        this.showName = showName;
-        this.showDate = showDate;
-        this.oldSeat = oldSeat;
-        this.newSeat = newSeat;
+    public ReassignSeatCommand(String details) {
+        this.details = details;
     }
 
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        // get details
+        String showName, showDate, oldSeat, newSeat;
+        try {
+            String[] detailsArray = parseDetails(this.details);
+            showName = detailsArray[0];
+            showDate = detailsArray[1];
+            oldSeat = detailsArray[2];
+            newSeat = detailsArray[3];
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "seat";
+        }
+
         StringBuilder message = new StringBuilder();
         try {
             if (!formatter.isValidDate(showDate)) {
@@ -64,7 +68,11 @@ public class ReassignSeatCommand extends Command {
     }
 
     @Override
-    public String[] parseDetails(String details) {
-        return new String[0];
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.trim().split("\\|");
+        if (detailsArray.length != 4) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 }

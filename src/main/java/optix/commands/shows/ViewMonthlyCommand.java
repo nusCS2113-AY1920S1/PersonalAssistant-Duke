@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class ViewMonthlyCommand extends Command {
-
     private String month;
     private String year;
     private static String[] monthList = {"january", "february", "march", "april", "may", "june", "july", "august",
@@ -49,8 +48,8 @@ public class ViewMonthlyCommand extends Command {
     private int parseInt(String month) {
         int mth = 1;
 
-        for (int i = 0; i < monthList.length; i++) {
-            if (month.toLowerCase().equals(monthList[i])) {
+        for (String s : monthList) {
+            if (month.toLowerCase().equals(s)) {
                 return mth;
             } else {
                 mth++;
@@ -66,8 +65,8 @@ public class ViewMonthlyCommand extends Command {
      * @return True if the description matches any of the months.
      */
     private boolean isValidMonth(String description) {
-        for (int i = 0; i < monthList.length; i++) {
-            if (description.toLowerCase().equals(monthList[i])) {
+        for (String s : monthList) {
+            if (description.toLowerCase().equals(s)) {
                 return true;
             }
         }
@@ -99,7 +98,7 @@ public class ViewMonthlyCommand extends Command {
      * @return A message String that contains the profit to show to the user.
      */
     private String findFromList(ShowMap shows, int mth, int yr) {
-        String message = "";
+        String message;
         double profit = 0.0;
 
         ShowMap showsWanted = new ShowMap();

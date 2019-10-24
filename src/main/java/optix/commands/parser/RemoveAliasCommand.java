@@ -4,6 +4,7 @@ import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.exceptions.OptixException;
+import optix.exceptions.OptixInvalidCommandException;
 import optix.ui.Ui;
 
 import java.io.File;
@@ -13,8 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RemoveAliasCommand extends Command {
-    private String alias;
-    private String command;
+    private String details;
     private HashMap<String, String> commandAliasMap;
 
     /**
@@ -23,14 +23,16 @@ public class RemoveAliasCommand extends Command {
      * @param commandAliasMap the command alias map
      */
     public RemoveAliasCommand(String details, HashMap<String, String> commandAliasMap) {
-        String[] aliasDetails = parseDetails(details);
-        this.alias = aliasDetails[0];
-        this.command = aliasDetails[1];
+        this.details = details;
         this.commandAliasMap = commandAliasMap;
     }
 
-    public String[] parseDetails(String details) {
-        return details.split("\\|",2);
+    public String[] parseDetails(String details) throws OptixInvalidCommandException {
+        String[] detailsArray = details.split("\\|",2);
+        if (detailsArray.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+        return detailsArray;
     }
 
     /**
@@ -43,13 +45,24 @@ public class RemoveAliasCommand extends Command {
      */
     @Override
     public String execute(Model model, Ui ui, Storage storage) {
+        // parse the string to assign the details and command strings to local variables
+        String alias, command;
+        try {
+            String[] detailsArray = parseDetails(this.details);
+            alias = detailsArray[0];
+            command = detailsArray[1];
+        } catch (OptixInvalidCommandException e) {
+            ui.setMessage(e.getMessage());
+            return "";
+        }
+
         try {
         // check if the alias exists
             if (!commandAliasMap.containsValue(command) || !commandAliasMap.containsKey(alias)) {
                 throw new OptixException("Error removing alias.\n");
             }
             // edit command alias map
-            commandAliasMap.remove(this.alias, this.command);
+            commandAliasMap.remove(alias, command);
             // open target file
             File currentDir = new File(System.getProperty("user.dir"));
             File filePath = new File(currentDir.toString() + "\\src\\main\\data\\ParserPreferences.txt");
@@ -59,11 +72,9 @@ public class RemoveAliasCommand extends Command {
                 writer.write(entry.getKey() + "|" + entry.getValue() + '\n');
             }
             writer.close();
-            String successMessage = String.format("Noted. The alias %s has been removed\n", this.alias);
+            String successMessage = String.format("Noted. The alias %s has been removed\n", alias);
             ui.setMessage(successMessage);
-        } catch (IOException e) {
-            ui.setMessage(e.getMessage());
-        } catch (OptixException e) {
+        } catch (IOException | OptixException e) {
             ui.setMessage(e.getMessage());
         }
         return "";

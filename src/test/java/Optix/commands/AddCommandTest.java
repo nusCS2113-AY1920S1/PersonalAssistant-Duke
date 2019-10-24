@@ -21,7 +21,7 @@ class AddCommandTest {
 
     @Test
 
-    void execute() throws OptixInvalidCommandException {
+    void execute() {
         AddCommand testCommand = new AddCommand("dummy show name|20|5/5/2020 | 6/10/2020");
 
         testCommand.execute(model, ui, storage);
