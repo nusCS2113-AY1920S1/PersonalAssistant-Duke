@@ -62,13 +62,31 @@ This is assuming you have a JDK version of `11` and above.
 
 === Architecture
 
+Our integration approach would be bottom-up, since we are morphing the original Duke Assistant into our ModPlanner application, some of the components can be adapted and reused of other purposes. +
+
+The high-level UML Diagram of ModPlan can be seen below:
+
+image::Architecture.png[]
+
+In that way, our implementation approach would also be incremental as oppose to big-bang, since we would need to gradually alter and test out which portions of Duke is reusable in ModPlanner.
+
+
+
 === JsonWrapper
 
-The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing and Natty for relative date processing. Dependant on Storage class for writing data files obtained.
+The main wrapper over requesting data from NUSMODS API, Gson library for JSON parsing. Dependant on Storage class for writing data files obtained.
+
+image::JsonWrapper.png[width="350"]
+
+This class is also dependant on a RequestsData class which serves as the main API caller for ModPlanner, but it is not used anywhere else in the code base.
 
 === Storage
 
 Main class which handles file writing during runtime and for maintaining user data in memory.
+
+image::Storage.png[width="350"]
+
+This class was adapted from the existing Duke storage to suit the needs of ModPlanner.
 
 [[Parser]]
 
@@ -76,7 +94,13 @@ Main class which handles file writing during runtime and for maintaining user da
 
 Parser is implemented as `Parser` class which is a wrapper for the `argparse4j` library to handle user input and manage internal command mapping.
 
+image::Parser.png[]
+
 === PlannerUi
+
+The main class which handles user display, which includes reading user input and printing module, CAP and CCA information back to the user on command-line.
+
+image::PlannerUi.png[]
 
 === Command
 
@@ -88,9 +112,13 @@ The `ModuleCommand` class also receives arguments based on the arguments passed 
 +
 These arguments change how some of the classes function as well, using a switch case system to sort through the different argument types received. These will changes will be explained further under the Implementation section here <<Implementation>>.
 
+image::Command.png[]
+
 === CCA
 
 CCA is implemented as `Cca` class which is the backbone for representing and managing user-defined CCAs. Typically, CCAs are loaded and stored in an `List`-like structure implemented in `CcaList` class which inherits from the builtin `ArrayList`.
+
+image::CCA.png[]
 
 [[Implementation]]
 
@@ -176,6 +204,8 @@ If the module already exists in the task list, (i.e `ModuleTaskList` contains `m
 
 Below is a Sequence Diagram showing how `GradeCommand` works.
 
+image::GradeCommandSequenceDiagram.png[]
+
 ==== Design Considerations
 *How GradeCommand executes*
 
@@ -190,10 +220,12 @@ The `cap` feature is operated by the `CapCommand` class, which is called by the 
 
 Since `CapCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `cap` command. +
 
-The parameter `TYPE` can take three forms according to the user input. +
-`cap overall` Where the user inputs modules of their choosing, as well as the letter grade, and the CAP is calculated accordingly. +
-`cap list` Where the user's CAP is calculated from the modules with letter grades in the module task list. +
-`cap module` Where the CAP of a module of the user's choosing can be calculated using the grades of prerequisite modules that the user has completed. +
+The parameter `TYPE` can take three forms according to the user input: +
+****
+* `cap overall` Where the user inputs modules of their choosing, as well as the letter grade, and the CAP is calculated accordingly.
+* `cap list` Where the user's CAP is calculated from the modules with letter grades in the module task list.
+* `cap module` Where the CAP of a module of the user's choosing can be calculated using the grades of prerequisite modules that the user has completed.
+****
 
 These `TYPE` parameters will be parsed by the `Parser` class and pass the corresponding argument of `toCap` into the `CapCommand` class. A switch case statement will handle the `toCap` argument, and choose to execute from three methods accordingly: +
 `calculateOverallCap`,
@@ -215,9 +247,8 @@ As stated above, there are three methods that can be executed depending upon the
 * Case 1: `cap overall` +
 If the argument read for `toCap` is "overall", the `calculateOverallCap` method will be executed under the `execute` method. +
 Firstly, a new `Scanner` will be created to continue reading in the modules and grades that the user wishes to calculate their CAP for. +
-The user will be prompted to input a module and its respective letter grade.
-
-The user inputs are read in until the user inputs `done`, proceeding which the scanner will close and the calculation is done +
+The user will be prompted to input a module and its respective letter grade. +
+The user inputs are read in until the user inputs `done`, proceeding which the scanner will close and the calculation is done. +
 Finally the user's CAP is calculated and printed.
 
 * Case 2: `cap list` +
@@ -247,8 +278,121 @@ In this case, the modules the user needs to take are: +
 * One of moduleCode1, moduleCode2, moduleCode3 +
 * moduleCode4 +
 * moduleCode5 +
+****
+
+Below is a sequence diagram showing how `CapCommand` works. +
+
+image::CapCommandSequenceDiagram.png[]
+
+=== SortCommand
+
+==== Current implementation
+
+The `sort` feature is operated by the `SortCommand` class, which is called by the `Parser` class. Upon user input of `sort TOSORT TYPE`, the Parser will return a new `SortCommand`.
+
+Since `SortCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `SortCommand`. From the `Parser`, `SortCommand` also receives two additional variable inputs from the user: +
 
 ****
+* The object to sort, e.g. modules or cca.
+* The type of sorting the user specifies.
+****
+
+Below is a Sequence Diagram showing how `SortCommand` works.
+
+image::SortCommandSequentialDiagram.png[align="center"]
+
+=== ShowCommand
+
+==== Current implementation
+
+The `show` feature is opearted by the `ShowCommand` class, which is called by the `Parser` class. Upon user input of `show TYPE`, the Parser will return a new `ShowCommand`. +
+
+Since `ShowCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `show` command. +
+
+The parameter `TYPE` can take five forms according to the user input: + 
+****
+* `show cca`
+* `show core`
+* `show ge`
+* `show ue`
+* `show module`
+****
+
+These `TYPE` parameters will be parsed by the `Parser` class and pass the corresponding argument of `toShow` into the `ShowCommand` class. A switch case statement will handle the `toShow` argument.
+
+Upon construction of the `ShowCommand` class, one variable is involved in the generation of the report are initiazlised, which refers to the `coreModList`. This variable is being used to store the strings of core modules taken by CEG students throughout the four years. The list of core modules are being taken from the NUS module requirements website. +
+
+As stated above, there are five methods that can be executed depending on the `TYPE` that the user inputs.
+
+****
+* Case 1: `show cca` +
+If the arguement read for `toShow` is "cca", an iterator iterates through the array list of `ccas`, which includes the CCAs added, and prints it out.
+
+* Case 2: `show core` +
+If the arguement read for `toShow` is "core", an iterator loops through the array list of `ModuleTask` and checks it against the set of `coreModList`. If the `moduleCode` in `ModuleTask` matches the `moduleCode` from the `coreModList`, that `moduleCode` is being printed out. 
+
+** The second part subtracts the number of core modules taken from the total number of core modules required to be taken, which the information is taken from the NUS module requirements website. Hence, it shows the users the number of core modules left to take for the rest of the years.
+
+* Case 3: `show ge` +
+If the arguement read for `toShow` is "ge", an iterator loops through the array list of `ModuleTask` and checks the starting two letters of the `moduleCode`. If the `moduleCode` starts with a "GE", it is classified as a General Elective(GE) module and will be printed out.
+
+** The second part subtracts the number of GE modules taken from the total number of GE modules required to be taken, which the information is taken from the NUS module requirements website. Hence, it shows the users the number of GE modules left to take for the rest of the years.
+
+* Case 4: `show ue` +
+If the arguement read for `toShow` is "ue", an iterator loops through the array list of `ModuleTask`. It checks the starting two letters of the `moduleCode` and also checks the `moduleCode` against the set of `coreModList`. If the `moduleCode`  does not match the `moduleCode` from the `coreModList` and it does not start with a `GE`, it is classified as a Unrestricted Elective(UE) module and will be printed out.
+
+** The second part subtracts the number of UE modules taken from the total number of UE modules required to be taken, which the information is taken from the NUS module requirements website. Hence, it shows the users the number of UE modules left to take for the rest of the years.
+
+* Case 5: `show module` +
+If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
+****
+
+
+=== JsonWrapper
+
+==== Current implementation
+
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have only, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+
+image::PackageCrawler.png[]
+
+Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
+
+This allows us to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the +
+following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
+
+image::PackageModule.png[]
+
+Since certain modules may not contain data for every field, each of the module classes above are required to have default values on startup so as to prevent `NullPointerExceptions` during runtime when such data is accessed.
+This also extends to choosing the right data type for modelling our module information, since certain fields maybe malformed and thus our implementation of the fields data type in module information classes would mostly contain `strings`, unless it is certain that
+the data type found in the returned JSON string is strictly `boolean` or `double`.
+
+To allow for quick access to the module information classes, after parsing of the module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
+is the string containing the module code, and the value is the `ModuleInfoDetailed`. This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+data is accessible directly to the user.
+
+==== RequestsData
+
+Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
+
+The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
+
+[[Documentation]] 
+== Documentation
+
+(TBD)
+
+[[Testing]] 
+== Testing
+
+(TBD)
+
+[[DevOps]] 
+== Dev Ops
+
+(TBD)
 
 [appendix]
 == Product Scope
@@ -276,6 +420,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |NUS CEG Student |Easy access to my recommended study schedule |Know what modules I should prioritise bidding for 
 |`* *` |NUS CEG Student |Plan to take modules ahead of the current semester |Alter my holiday/graduation plans as required 
 |`* *` |NUS CEG Student |Know what GE modules I have not completed |Plan to take GE modules over a few semesters 
+|`* *` |NUS CEG Student |Know what UE modules I have completed |Plan to take UE modules over a few semesters
 |`* *` |NUS CEG Student |View the total number of Level-1000 modules taken |Check if I have exceeded the 60MC limit for Level-1000 modules
 |`* *` |NUS CEG Student |Know if the module has S/U options |Plan ahead for my S/U usage 
 |`* *` |NUS CEG Student |Project my future CAP based on my expected and past grades |See how hard I must work to hit my target CAP 
