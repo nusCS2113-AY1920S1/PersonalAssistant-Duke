@@ -46,28 +46,34 @@ public class ParserLesson {
      */
     private Storage lessonStorage;
     /**
+     * The ui object responsible for showing things to the user.
+     */
+    private Ui ui;
+    /**
+     * The scanner object responsible for taking in user input.
+     */
+    private Scanner myLessonScan;
+    /**
      * Constructor for ParserLesson.
      *
      * @throws FileNotFoundException
      * @throws ParseException
      */
     public ParserLesson() throws FileNotFoundException, ParseException {
-        Ui ui = new Ui();
+        ui = new Ui();
         lessonStorage = new Storage(
             ".\\src\\main\\java\\duke\\data\\lessons.txt");
         lesson = new Lesson(lessonStorage.loadLesson());
-        ui.lessonHeading(lesson);
+        myLessonScan = new Scanner(System.in);
     }
 
     public void runLesson() {
-        Scanner myLessonScan = new Scanner(System.in);
-        System.out.println("Please enter the date of the day "
-            + "in this format: dd/MM/yyyy");
-
+        ui.showLessonPromptDate();
         String lessonDate = myLessonScan.next();
 
         while (isRunning) {
             try {
+                ui.showLessonAllActions(lessonDate);
                 int executeType = myLessonScan.nextInt();
                 myLessonScan.nextLine();  // This line you have
                 // to add (It consumes the \n character)
@@ -77,8 +83,7 @@ public class ParserLesson {
                     break;
 
                 case 2:
-                    System.out.println("To add a lesson to "
-                        + lessonDate + ", enter the lesson.");
+                    ui.showLessonPromptAddLesson(lessonDate);
                     String myLesson = myLessonScan.nextLine();
                     System.out.println(
                         lesson.addLesson(
@@ -86,8 +91,7 @@ public class ParserLesson {
                     break;
 
                 case INDEX_THREE:
-                    System.out.println("To delete a lesson from "
-                        + lessonDate + ", enter the lesson.");
+                    ui.showLessonPromptDeleteLesson(lessonDate);
                     String message = myLessonScan.nextLine();
                     System.out.println(
                         lesson.removeLesson(
@@ -101,16 +105,13 @@ public class ParserLesson {
 
                 case INDEX_FIVE:
                     isRunning = false;
-                    System.out.println(
-                        "You have quit the lesson of the day.");
-
+                    ui.showQuitLesson();
                 default:
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter the full command.");
+                ui.showFullCommand();
             } catch (ParseException e) {
-                System.out.println(
-                    "Please enter the details in the correct format.");
+                ui.showCorrectFormat();
             }
         }
     }

@@ -22,6 +22,8 @@ import java.util.Date;
  */
 public class Parser {
 
+    Ui ui = new Ui();
+
     /**
      * Constants to represent the index 3.
      */
@@ -163,7 +165,7 @@ public class Parser {
                         schedule.delAllClass(date, scheduleStorage));
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter the full command.");
+                ui.showFullCommand();
             }
             break;
 
@@ -172,21 +174,12 @@ public class Parser {
                 ".\\src\\main\\java\\duke\\data\\goals.txt");
             Goal goal = new Goal(goalStorage.loadGoal());
             Scanner myGoalScan = new Scanner(System.in);
-
-            System.out.println("Please enter the date of the day "
-                + "in this format: dd/MM/yyyy");
+            ui.showGoalPromptDate();
             String goalDate = myGoalScan.next();
-
             boolean isQuittingGoal = false;
             while (!isQuittingGoal) {
                 try {
-                    System.out.println(
-                        "\nWhat would you like to do on " + goalDate + "?\n"
-                            + "1. View goals of the day\n"
-                            + "2. Add a goal of the day\n"
-                            + "3. Delete a goal of the day\n"
-                            + "4. Clear all goals of the day\n"
-                            + "5. Quit goal of the day");
+                    ui.showGoalAllActions(goalDate);
                     int executeType = myGoalScan.nextInt();
                     myGoalScan.nextLine();  // This line you have
                     // to add (It consumes the \n character)
@@ -196,16 +189,14 @@ public class Parser {
                         break;
 
                     case 2:
-                        System.out.println("To add a goal to "
-                            + goalDate + ", enter the goal.");
+                        ui.showGoalPromptAddGoal(goalDate);
                         String myGoal = myGoalScan.nextLine();
                         System.out.println(
                             goal.addGoal(goalDate, myGoal, goalStorage));
                         break;
 
                     case INDEX_THREE:
-                        System.out.println("To delete a goal from "
-                            + goalDate + ", enter the goal.");
+                        ui.showGoalPromptDeleteGoal(goalDate);
                         String message = myGoalScan.nextLine();
                         System.out.println(
                             goal.removeGoal(
@@ -219,22 +210,18 @@ public class Parser {
 
                     case INDEX_FIVE:
                         isQuittingGoal = true;
-                        System.out.println(
-                            "You have quit the lesson of the day.");
-
+                        ui.showQuitGoal();
                     default:
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Please enter the full command.");
+                    ui.showFullCommand();
                 } catch (ParseException e) {
-                    System.out.println(
-                        "Please enter the details in the correct format.");
+                    ui.showCorrectFormat();
                 }
             }
             break;
         default:
-            System.out.println("\u2639 OOPS!!! I'm sorry,"
-                + "but I don't know what that means :-(");
+            ui.showDontKnow();
             break;
         }
     }
