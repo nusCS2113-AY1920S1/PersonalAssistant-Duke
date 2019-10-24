@@ -118,6 +118,20 @@ public final class RegexUtil {
     }
 
     /**
+     * Checks whether input entered by user is alphanumeric with a maximum of 15 characters only.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckCategory(String input) {
+        if (input.isBlank() || input.isEmpty()) {
+            return false;
+        }
+        final String categoryRegex = "^[a-zA-Z ]{1,15}$";
+        return input.matches(categoryRegex);
+    }
+
+    /**
      * Checks whether user input days is less than or equal to 365 days limit set for short term goals.
      *
      * @param input The user input that is subject to Regex checking.

@@ -35,6 +35,7 @@ public class Profile {
     private static final String CARD = "card";
     private static final String ISBANK = "savings transfer";
     private static final String ISINVESTMENT = "investment transfer";
+    private static final String BANK = "bank";
 
     /**
      * Creates a new instance of the user profile.
@@ -551,11 +552,12 @@ public class Profile {
         String fromType = bankList.bankListIsAccountExistToTransfer(from, amount);
         String toType = bankList.bankListIsAccountExistToReceive(to);
         String descriptionTo = "Fund Transfer to " + to;
-        String category = "Transfer Fund";
-        Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, category);
+        String transferCategory = "Transfer Fund";
+        Transaction newExpenditure = new Expenditure(descriptionTo, amount, date, transferCategory);
         bankList.bankListAddExpenditure(from, newExpenditure, ui, checkBankType(fromType));
-        String descriptionFrom = " Fund Received from " + from;
-        Transaction newDeposit = new Deposit(descriptionFrom, amount, date, "deposit");
+        String descriptionFrom = "Fund Received from " + from;
+        String receiveCategory = "Deposit";
+        Transaction newDeposit = new Deposit(descriptionFrom, amount, date, receiveCategory);
         bankList.bankListAddDeposit(to, newDeposit, ui, checkBankType(toType));
     }
 
@@ -601,5 +603,21 @@ public class Profile {
     public void findBond(String name, String from, Ui ui) throws BankException, BondException {
         Bank investmentAccount = bankList.bankListIsInvestmentAccountExist(from);
         investmentAccount.findBondInInvestment(name, ui);
+    }
+
+    /**
+     * Transfers fund from one bank account to another bank account from GoalsList.
+     *
+     * @param name   The account name to be searched for.
+     * @param ui     Required for printing.
+     * @throws BankException If any of the bank does not exist or insufficient fund to transfer.
+     */
+    public void findTransaction(String name, String fromDate, String toDate, String description, String category,
+            String type, Ui ui) throws BankException, TransactionException, CardException {
+        if (type.equals(BANK)) {
+            bankList.bankListFindTransaction(name, fromDate, toDate, description,category, ui);
+        } else if (type.equals(CARD)) {
+            cardList.cardListFindTransaction(name, fromDate, toDate, description,category, ui);
+        }
     }
 }

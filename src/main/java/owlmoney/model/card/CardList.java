@@ -321,4 +321,21 @@ public class CardList {
         }
         ui.printDivider();
     }
+
+    /**
+     * Checks whether the bank object has sufficient amount to transfer.
+     *
+     * @param accName   the bank object.
+     * @throws CardException If bank does not have sufficient fund.
+     */
+    public void cardListFindTransaction(String bankName, String fromDate, String toDate,
+            String description, String category, Ui ui) throws CardException, TransactionException {
+        for (int i = ISZERO; i < getCardListSize(); i++) {
+            if (cardLists.get(i).getName().equals(bankName)) {
+                cardLists.get(i).findTransaction(fromDate, toDate, description, category, ui);
+                return;
+            }
+        }
+        throw new CardException("Card with the following name does not exist: " + bankName);
+    }
 }

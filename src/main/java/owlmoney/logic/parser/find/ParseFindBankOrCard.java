@@ -1,19 +1,21 @@
 package owlmoney.logic.parser.find;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.find.FindBankOrCardCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for finding of bank or card.
+ */
 public class ParseFindBankOrCard extends ParseFind {
 
     /**
-     * Constructor which creates an instance of ParseAddExpenditure.
+     * Creates an instance of ParseFindBankOrCard.
      *
      * @param data Raw user input date.
-     * @param type Represents type of expenditure to be added.
+     * @param type Represents the type of object to be searched.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
     public ParseFindBankOrCard(String data, String type) throws ParserException {
@@ -47,9 +49,9 @@ public class ParseFindBankOrCard extends ParseFind {
     }
 
     /**
-     * Returns the command to add a new expenditure.
+     * Returns the command to find bank or card.
      *
-     * @return Returns AddExpenditureCommand to be executed.
+     * @return Returns FindBankOrCardCommand to be executed.
      */
     public Command getCommand() {
         FindBankOrCardCommand newFindBankOrCardCommand = new FindBankOrCardCommand(findParameters.get(NAME), this.type);

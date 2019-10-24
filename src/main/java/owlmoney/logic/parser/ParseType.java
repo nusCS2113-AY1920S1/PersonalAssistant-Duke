@@ -22,6 +22,7 @@ import owlmoney.logic.parser.card.ParseEditCard;
 import owlmoney.logic.parser.find.ParseFind;
 import owlmoney.logic.parser.find.ParseFindBankOrCard;
 import owlmoney.logic.parser.find.ParseFindBond;
+import owlmoney.logic.parser.find.ParseFindTransaction;
 import owlmoney.logic.parser.goals.ParseAddGoals;
 import owlmoney.logic.parser.goals.ParseDeleteGoals;
 import owlmoney.logic.parser.goals.ParseEditGoals;
@@ -62,7 +63,7 @@ class ParseType extends Parser {
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
-        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund"
+        "/recurbankexp", "/bonds", "/profile", "/deposit", "/fund", "/banktransaction", "/cardtransaction"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
@@ -347,7 +348,23 @@ class ParseType extends Parser {
                 parseTransfer.checkParameter();
                 return parseTransfer.getCommand();
             }
-            throw new ParserException("You entered an invalid type for transfer");
+            throw new ParserException("You entered an invalid type for fund");
+        case "/banktransaction":
+            if ("/find".equals(command)) {
+                ParseFindTransaction parseFindBankTransaction = new ParseFindTransaction(rawData, BANK);
+                parseFindBankTransaction.fillHashTable();
+                parseFindBankTransaction.checkParameter();
+                return parseFindBankTransaction.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for banktransaction");
+        case "/cardtransaction":
+            if ("/find".equals(command)) {
+                ParseFindTransaction parseFindCardTransaction = new ParseFindTransaction(rawData, CARD);
+                parseFindCardTransaction.fillHashTable();
+                parseFindCardTransaction.checkParameter();
+                return parseFindCardTransaction.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for cardtransaction");
         default:
             throw new ParserException("You entered an invalid type");
         }

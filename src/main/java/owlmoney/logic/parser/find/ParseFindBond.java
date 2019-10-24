@@ -1,18 +1,21 @@
 package owlmoney.logic.parser.find;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.find.FindBondCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for finding of bonds.
+ */
 public class ParseFindBond extends ParseFind {
+
     /**
-     * Constructor which creates an instance of ParseAddExpenditure.
+     * Creates an instance of ParseFindBond.
      *
      * @param data Raw user input date.
-     * @param type Represents type of expenditure to be added.
+     * @param type Represents the type of object to be searched.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
     public ParseFindBond(String data, String type) throws ParserException {
@@ -48,9 +51,9 @@ public class ParseFindBond extends ParseFind {
     }
 
     /**
-     * Returns the command to add a new expenditure.
+     * Returns the command to find bonds.
      *
-     * @return Returns AddExpenditureCommand to be executed.
+     * @return Returns FindBondCommand to be executed.
      */
     public Command getCommand() {
         FindBondCommand newFindBondCommand = new FindBondCommand(findParameters.get(NAME), findParameters.get(FROM));

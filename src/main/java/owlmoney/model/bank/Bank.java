@@ -359,4 +359,17 @@ public abstract class Bank {
     public void findBondInInvestment(String bondName, Ui ui) throws BankException, BondException {
         throw new BankException("This account does not support this feature");
     }
+
+    /**
+     * Deletes an expenditure from the current bank account.
+     *
+     * @param exNum Transaction number.
+     * @param ui    Ui of OwlMoney.
+     * @throws TransactionException If invalid transaction.
+     * @throws BankException        If used on investment account.
+     */
+    public void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
+            throws BankException, TransactionException {
+        throw new BankException("This account does not support this feature");
+    }
 }

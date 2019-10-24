@@ -15,6 +15,9 @@ import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
+/**
+ * Abstracts common Find methods and functions where the child parsers will inherit from.
+ */
 public abstract class ParseFind {
     HashMap<String, String> findParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
@@ -32,10 +35,10 @@ public abstract class ParseFind {
     static final String TO = "/to";
 
     /**
-     * Constructor which creates an instance of any ParseExpenditure type object.
+     * Creates an instance of any ParseFind object.
      *
      * @param data Raw user input date.
-     * @param type Represents type of expenditure to be added.
+     * @param type Represents the type of object to be searched.
      */
     ParseFind(String data, String type) {
         this.rawData = data;
@@ -88,7 +91,7 @@ public abstract class ParseFind {
     /**
      * Checks if the description entered by the user does not have special characters and is not too long.
      *
-     * @param descString Deposit description.
+     * @param descString The description of the transaction.
      * @throws ParserException If the string has special characters or is too long.
      */
     void checkDescription(String descString) throws ParserException {
@@ -98,9 +101,23 @@ public abstract class ParseFind {
     }
 
     /**
-     * Checks if the bank name entered by the user does not contain special character and not too long.
+     * Checks if the category entered by the user does not have special characters and is not too long.
      *
-     * @param nameString Name of bank
+     * @param categoryString The category of the transaction.
+     * @throws ParserException If the string has special characters or is too long.
+     */
+    void checkCategory(String categoryString) throws ParserException {
+        if (!RegexUtil.regexCheckCategory(categoryString)) {
+            throw new ParserException
+                    ("/category can only contains letters and at most 15 characters");
+        }
+    }
+
+    /**
+     * Checks if the bank or card name entered by the user does not contain
+     * special character and not too long.
+     *
+     * @param nameString Name of bank or card
      * @throws ParserException If the name is too long or contain special characters.
      */
     void checkName(String nameString) throws ParserException {
@@ -110,7 +127,7 @@ public abstract class ParseFind {
     }
 
     /**
-     * Checks if the deposit date is of valid format and not after now.
+     * Checks if the date is of valid format and not after now.
      *
      * @param dateString Date to be checked.
      * @return Date if checks pass.
@@ -136,14 +153,14 @@ public abstract class ParseFind {
     }
 
     /**
-     * Abstract method where each saving parser performs different checks on the parameters.
+     * Abstract method where each child parser for ParseFind performs different checks on the parameters.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each saving parser creates different commands.
+     * Abstract method where each child parser for ParseFind  creates different commands.
      *
      * @return Command to be executed.
      */

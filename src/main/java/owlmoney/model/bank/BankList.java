@@ -1,7 +1,11 @@
 package owlmoney.model.bank;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
@@ -787,4 +791,22 @@ public class BankList {
         }
         ui.printDivider();
     }
+
+    /**
+     * Checks whether the bank object has sufficient amount to transfer.
+     *
+     * @param accName   the bank object.
+     * @throws BankException If bank does not have sufficient fund.
+     */
+    public void bankListFindTransaction(String bankName, String fromDate, String toDate,
+            String description, String category, Ui ui) throws BankException, TransactionException {
+        for (int i = ISZERO; i < getBankListSize(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)) {
+                bankLists.get(i).findTransaction(fromDate, toDate, description, category, ui);
+                return;
+            }
+        }
+        throw new BankException("Bank with the following name does not exist: " + bankName);
+    }
+
 }

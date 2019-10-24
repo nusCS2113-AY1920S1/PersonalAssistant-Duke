@@ -206,4 +206,17 @@ public class Card {
     public boolean isEmpty() {
         return unpaid.expListIsEmpty();
     }
+
+    /**
+     * Edits expenditure in the current bank account.
+     *
+     * @param category New category.
+     * @param ui       Ui of OwlMoney.
+     * @throws TransactionException If incorrect date format.
+     * @throws BankException        If bank amount becomes negative after editing expenditure.
+     */
+    void findTransaction(String fromDate, String toDate, String description, String category, Ui ui)
+            throws TransactionException {
+        unpaid.findMatchingTransaction(fromDate, toDate, description, category, ui);
+    }
 }
