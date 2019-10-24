@@ -4,7 +4,8 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images
+:imagesDir: ..\images
+:stylesDir: stylesheets
 :xrefstyle: full
 :repoURL: https://github.com/AY1920S1-CS2113T-F11-3/main/tree/doc
 
@@ -86,7 +87,68 @@ method in `TaskList`.
 
 Step 3: The method in `TaskList` will retrieve the specified task and call the related setter to change the value.
 
+== Implementation
+
+=== Email Auto Parsing
+
+The emails fetched or stored locally will be automatically parsed to extract important information for
+tagging, task creation and reminder purposes. The parsing consists of two stages, the *format parsing* and
+*content parsing*. Email format parsing is to parse the email components like subject, sender and body from
+the raw string fetched from the server or stored in local file. The content parsing is to parse the keyword
+included all components of email.
+
+==== Email Format Parsing
+.Email Format Parsing
+[#img-email-format-parsing]
+[caption="Figure N: "]
+image::EmailFormatParseHelper.png[Format Parsing, 800]
+The email format parsing starts at the call of `ParseFetchResponse(response)`. The variable `response` here
+is a string of the http response from the Outlook server to the fetch API call.
+
+It first creates an `EmailList` to store all the emails parsed from the response. This function only
+returns the list instead of directly adding the
+email parsed to the model because the storage or network component will decide whether and how the emails
+are to added to the model.
+
+Then each email contained in the response of is parsed to a `JSONObject` called `emailJson` for easier
+manipulation.
+
+With this `emailJson`, `parseComponentsToEmail(emailJson)` is called to extract different components of the
+json and instantiate an `Email` object to be added to the `emailList` created earlier.
+
+This process repeats until all the email information in the response is processed.
+
+==== Email Content Parsing
+.Email Content Parsing
+[#img-email-content-parsing]
+[caption="Figure N+1: "]
+image::EmailContentParseHelper.png[Content Parsing, 800]
+
+Email content parsing is to parse the keyword from different components of an email.
+
+Email content parsing starts with the calling of `allKeywordInEmail(email)` and parse in the email in
+`Email` type.
+
+It then gets all the `KeywordPair` from the `KeywordList`. A `KeywordPair` contains a human readable
+`keyword` signifying the "meaning" of the keyword. It also contains multiple `expressions` which will be
+looked through the email for matches.
+
+For each email component (subject, sender, body etc), the `keywordInString(emailComponent, keywordPair)` is
+called to search for matches across these components. It will then return a relevance score. Higher
+relevance score means a more occurrence. Keyword with all its expressions absent in the email will get a 0
+relevance score. Also, subject and sender will have a higher weights compared to the email body.
+
+Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be
+added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
+
+== Documentation
+
+== Testing
+
+== Dev Ops
+
 ==== Design considerations
+
 ===== Aspect: Handling updating of tags
 * Alternative 1 (current choice): if at least one tag is entered as part of the command, it will overwrite all current tags of the task being modified.
 ** Pros: makes it consistent with other parameters of the update command and gives users an option to replace/remove tags

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.duke.email.EmailContentParseHelper.editDistance;
 
-public class EmailContentParserTest {
+public class EmailContentParseHelperTest {
     @Test
     public void editDistanceTest() {
         assertEquals(1, editDistance("a", "b"));
