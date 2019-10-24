@@ -159,7 +159,7 @@ public class Parser {
             temp = new FindCommand(splites[1]);
         } else if (splites[0].equals("REMINDER")) {
             if (length < 2) {
-                throw new DukeException("usage: reminder [task] [time before]\n"
+                throw new DukeException("usage: reminder [task index] [time before]\n"
                         + "*Only for tasks with dates\n"
                         + "Time before: e.g. 5m, 10h, 3d");
             }
