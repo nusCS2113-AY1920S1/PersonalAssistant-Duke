@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ContactsCommandTest {
     Ui ui = new Ui();
     Storage storage = new Storage();
-    TriviaManager triviaManager = new TriviaManager();
+    TriviaManager triviaManager = new TriviaManager(storage);
     ArrayList<Task> list = new ArrayList<>();
     Stack<String> commandStack = new Stack<>();
     ArrayList<Task> deletedTask = new ArrayList<>();
@@ -32,6 +32,9 @@ public class ContactsCommandTest {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
+
+    public ContactsCommandTest() throws IOException {
+    }
 
     @BeforeEach
     void setupStream() {

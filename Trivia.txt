@@ -1,0 +1,14 @@
+todo return book
+event group meeting /at 2019-10-18 09:09:09-10:10:10
+deadline return book /by 2019-10-10 09:09:09
+todo dinner
+snooze 1
+deadline return book /by 2008-07-07 03:03:03
+deadline weekly assignment /by 2019-10-10 10:10:10
+todo read book
+todo SHOPPING
+event sleep/at 2019-12-12 12:03:03-14:10:04
+todo DG review
+Love Qinhuai River
+event UG review /at 2019-10-24 08:08:08-12:12:12
+
