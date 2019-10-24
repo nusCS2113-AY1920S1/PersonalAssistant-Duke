@@ -29,7 +29,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
      * @param inputString The command line typed in by the user
      * @throws ParseException The exception for parsing the date
      */
-    //@@ cctt1014
+    //@@author cctt1014
     public CreateBankAccountCommand(String inputString) throws ParseException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String desc = inputString.split(" /amt ")[0];
@@ -72,19 +72,13 @@ public class CreateBankAccountCommand extends MoneyCommand {
         Income newIncome = new Income(newTracker.getAmt(), "Initialize account: " + newTracker.getDescription(), newTracker.getLatestDate());
         account.getIncomeListTotal().add(newIncome);
 
-        Calendar currDate = Calendar.getInstance();
-        int currMonth = currDate.get(Calendar.MONTH) + 1;
-        int currYear = currDate.get(Calendar.YEAR);
-        LocalDate date = newTracker.getLatestDate();
-        if (date.getMonthValue() == currMonth && date.getYear() == currYear) {
-            account.getIncomeListCurrMonth().add(newIncome);
-        }
         storage.writeToFile(account);
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         int lastIndex = account.getBankTrackerList().size() - 1;
         BankTracker b = account.getBankTrackerList().get(lastIndex);

@@ -18,7 +18,7 @@ public class Histogram extends HBox {
     @FXML
     private BarChart<String, Number> barChart;
 
-    //@@ cctt1014
+    //@@author cctt1014
     private Histogram(String title, String xName, String yName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Histogram.fxml"));
         fxmlLoader.setController(this);

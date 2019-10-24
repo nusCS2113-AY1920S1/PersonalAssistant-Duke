@@ -21,7 +21,6 @@ public class Loan extends Item {
     Type type;
 
     private DateTimeFormatter dateTimeFormatter;
-    private static final int SETTLE_ALL_FLAG = -2;
 
     /**
      * Constructor of the Loan Object to record outgoing and incoming loans.
@@ -30,7 +29,7 @@ public class Loan extends Item {
      * @param startDate Date which the loan was made
      * @param type Type determining the loan is incoming or outgoing
      */
-    //@@ chengweixuan
+    //@@author chengweixuan
     public Loan(float amount, String description, LocalDate startDate, Type type) {
         super(amount, description);
         this.startDate = startDate;
@@ -71,14 +70,6 @@ public class Loan extends Item {
         return endDate;
     }
 
-    /**
-     * This method sets the EndDate to the current date
-     * @throws ParseException If invalid date is parsed
-     */
-    private void setEndDate() throws ParseException {
-        this.endDate = Parser.shortcutTime("now");
-    }
-
     public boolean getStatus() {
         return isSettled;
     }
@@ -102,18 +93,13 @@ public class Loan extends Item {
      * @throws ParseException If invalid date is parsed
      */
     public void settleLoanDebt(float amount) throws ParseException {
-        if (amount == SETTLE_ALL_FLAG) {
-            outstandingLoan = 0;
+        outstandingLoan -= amount;
+        if (outstandingLoan == 0) {
             isSettled = true;
-            setEndDate();
-        } else {
-            outstandingLoan -= amount;
-            if (outstandingLoan == 0) {
-                isSettled = true;
-                setEndDate();
-            }
+            endDate = Parser.shortcutTime("now");
         }
     }
+
 
     public String getStartDate() {
         return startDate.format(dateTimeFormatter);

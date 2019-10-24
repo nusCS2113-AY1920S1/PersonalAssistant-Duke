@@ -24,7 +24,7 @@ public class AddGoalCommand extends MoneyCommand {
      * with the goal data within the user input.
      * @param cmd add command inputted from user.
      */
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public AddGoalCommand(String cmd) {
         inputString = cmd;
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -68,6 +68,7 @@ public class AddGoalCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         int lastIndex = account.getShortTermGoals().size() - 1;
         Goal g = account.getShortTermGoals().get(lastIndex);

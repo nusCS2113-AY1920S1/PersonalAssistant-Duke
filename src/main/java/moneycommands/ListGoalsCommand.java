@@ -18,7 +18,7 @@ public class ListGoalsCommand extends MoneyCommand{
     /**
      * Constructor of the list command
      */
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public ListGoalsCommand(){
     }
 
@@ -66,6 +66,7 @@ public class ListGoalsCommand extends MoneyCommand{
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

@@ -4,10 +4,10 @@ import controlpanel.MoneyStorage;
 import money.Account;
 import controlpanel.DukeException;
 import controlpanel.Ui;
-;import controlpanel.Ui;
 import money.Income;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 
 /**
  * This command allows users to check the income
@@ -22,12 +22,24 @@ public class ViewPastMonthIncome extends MoneyCommand {
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
-    //@@ chengweixuan
-    public ViewPastMonthIncome(String command) {
-        String inputString = command.replaceFirst("check income ", "");
-        String[] splitStr = inputString.split(" ");
-        month = Integer.parseInt(splitStr[0]);
-        year = Integer.parseInt(splitStr[1]);
+    //@@author chengweixuan
+    public ViewPastMonthIncome(String command) throws DukeException {
+        if (command.equals("list month")) {
+            LocalDate currDate = LocalDate.now();
+            month = currDate.getMonthValue();
+            year = currDate.getYear();
+        } else {
+            try {
+                String inputString = command.replaceFirst("check income ", "");
+                String[] splitStr = inputString.split(" ", 2);
+                month = Integer.parseInt(splitStr[0]);
+                year = Integer.parseInt(splitStr[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Please include the year!");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Please input in the format: check income <month> <year>\n");
+            }
+        }
     }
 
     /**
@@ -104,18 +116,18 @@ public class ViewPastMonthIncome extends MoneyCommand {
         int counter = 1;
         for (Income i : account.getIncomeListTotal()) {
             if (i.getPayday().getMonthValue() == month && i.getPayday().getYear() == year) {
-                ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
+                ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
                 counter++;
                 totalMonthIncome += i.getPrice();
             }
         }
-
-        ui.appendToOutput("Total income for " + getMonthName(month) + " of " + year + " : $");
-        ui.appendToOutput(totalMonthIncome + "\n");
-
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
+        ui.appendToGraphContainer("Total income for " + getMonthName(month) + " of " + year + " : $");
+        ui.appendToGraphContainer(totalMonthIncome + "\n");
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

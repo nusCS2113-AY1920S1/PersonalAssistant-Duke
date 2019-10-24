@@ -9,6 +9,7 @@ import money.Loan;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * This command adds a loan to the Loan List.
@@ -18,6 +19,11 @@ public class AddLoanCommand extends MoneyCommand {
     private String inputString;
     private Loan.Type type;
 
+    private float amount;
+    private String description;
+    private LocalDate startDate;
+
+
     /**
      * Constructor of the command which initialises the add loan command
      * with the loan data within the user input.
@@ -25,7 +31,7 @@ public class AddLoanCommand extends MoneyCommand {
      * data in user input.
      * @param command add command inputted from user
      */
-    //@@ chengweixuan
+    //@@author chengweixuan
     public AddLoanCommand(String command) {
         if (command.startsWith("lent")) {
             inputString = command.replaceFirst("lent ", "");
@@ -52,11 +58,20 @@ public class AddLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        String[] splitStr = inputString.split(" /amt ", 2);
-        String description = splitStr[0];
-        String[] furSplit = splitStr[1].split("/on ", 2);
-        float amount = Float.parseFloat(furSplit[0]);
-        LocalDate startDate = Parser.shortcutTime(furSplit[1]);
+        try {
+            String[] splitStr = inputString.split(" /amt ", 2);
+            description = splitStr[0];
+            String[] furSplit = splitStr[1].split("/on ", 2);
+            amount = Float.parseFloat(furSplit[0]);
+            startDate = Parser.shortcutTime(furSplit[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Please enter in the format: " +
+                    "lent/borrowed <person> /amt <amount> /on <date>\n");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter the amount in numbers!\n");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date! Please enter date in the format: d/m/yyyy\n");
+        }
         Loan l = new Loan(amount, description, startDate, type);
         account.getLoans().add(l);
         storage.writeToFile(account);
@@ -72,6 +87,7 @@ public class AddLoanCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) {
         int lastIndex = account.getLoans().size() - 1;
         Loan l = account.getLoans().get(lastIndex);

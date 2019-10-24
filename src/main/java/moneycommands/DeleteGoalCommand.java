@@ -21,7 +21,7 @@ public class DeleteGoalCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input
      * @param index delete command inputted from user
      */
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public DeleteGoalCommand(int index){
         serialNo = index;
     }
@@ -61,6 +61,7 @@ public class DeleteGoalCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         Item deletedEntry = storage.getDeletedEntry();
         if (deletedEntry instanceof Goal) {

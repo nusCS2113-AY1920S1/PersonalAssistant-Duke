@@ -4,7 +4,7 @@ public class Item {
     private float price;
     private String description;
 
-    //@@ chengweixuan
+    //@@author chengweixuan
     public Item(float price, String description) {
         this.price = price;
         this.description = description;

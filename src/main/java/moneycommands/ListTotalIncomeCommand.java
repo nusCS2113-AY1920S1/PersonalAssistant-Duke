@@ -14,7 +14,7 @@ public class ListTotalIncomeCommand extends MoneyCommand {
     /**
      * Constructor of the list command.
      */
-    //@@ chengweixuan
+    //@@author chengweixuan
     public ListTotalIncomeCommand(){
     }
 
@@ -43,6 +43,7 @@ public class ListTotalIncomeCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

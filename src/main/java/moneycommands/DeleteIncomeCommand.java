@@ -21,11 +21,15 @@ public class DeleteIncomeCommand extends MoneyCommand {
      * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
-    //@@ chengweixuan
-    public DeleteIncomeCommand(String command) {
-        inputString = command;
-        String temp = inputString.replaceAll("[^0-9]", "");
-        serialNo = Integer.parseInt(temp);
+    //@@author chengweixuan
+    public DeleteIncomeCommand(String command) throws DukeException {
+        try {
+            inputString = command;
+            String temp = inputString.replaceAll("[^0-9]", "");
+            serialNo = Integer.parseInt(temp);
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a numerical number as the index of the income source to be deleted\n");
+        }
     }
 
     @Override
@@ -60,6 +64,7 @@ public class DeleteIncomeCommand extends MoneyCommand {
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         Item deletedEntry = storage.getDeletedEntry();
         if (deletedEntry instanceof  Income) {

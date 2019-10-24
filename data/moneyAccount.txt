@@ -6,6 +6,13 @@ INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
 INC @ 2.0934808E7 @ for fk's sake  @ 24/10/2019
 INC @ 369.0 @ salakau  @ 3/6/2009
+INC @ 20.0 @ From my friends @ 23/10/2019
+INC @ 20.0 @ From my friends @ 23/10/2019
+INC @ 300.0 @ dsd  @ 23/10/2019
+INC @ 300.0 @ From Daniel money for bitches @ 24/10/2019
+INC @ 200.0 @ From null @ 24/10/2019
+INC @ -2.0 @ From null @ 24/10/2019
+EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
@@ -17,6 +24,16 @@ EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 30.0 @ Withdraw from OCBC @ bank @ 19/10/2019
 EXP @ 2.0 @ shit  @ food  @ 22/10/2019
+SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ dood&0 ! dood2and&0
+SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ dood&0 ! dood2&0
+SEX @ 400.0 @ l;dskf  @ food  @ 24/10/2019 @ &0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ gary&0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
+SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ dabboy&0 ! bros&0
+EXP @ 2.0 @ dl;k  @ l;dsaf  @ 24/10/2019
+EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
+EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
@@ -25,4 +42,5 @@ G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
-LOA @ 500.0 @ my friends @ 9/10/1997 @ OUTGOING @  @ 0 @ 500.0
+LOA @ 200000.0 @ guy @ 24/10/2019 @ OUTGOING @  @ 1 @ 0.0
+LOA @ 7032000.0 @ hawt bois @ 17/10/2019 @ INCOMING @  @ 0 @ 7031600.0

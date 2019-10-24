@@ -6,8 +6,10 @@ import moneycommands.MoneyCommand;
 import java.util.Stack;
 
 public class UndoCommandHandler {
+
     private static Stack<MoneyCommand> lastIssuedCommands;
-    private static Stack<Item> deletedEntries;
+
+    //@@ author Chianhaoplanks
     public UndoCommandHandler() {
         lastIssuedCommands = new Stack<>();
     }

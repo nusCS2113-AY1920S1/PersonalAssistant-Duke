@@ -7,7 +7,7 @@ public class startCommand extends MoneyCommand{
 
     private String message;
 
-    //@@ therealnickcheong
+    //@@author therealnickcheong
     public startCommand(boolean isNewUser){
         if(isNewUser){
             message = "You are a new user please type: init [existing savings] [Avg Monthly Expenditure]\n";
@@ -29,6 +29,7 @@ public class startCommand extends MoneyCommand{
     }
 
     @Override
+    //@@author Chianhaoplanks
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         throw new DukeException("Command can't be undone!\n");
     }

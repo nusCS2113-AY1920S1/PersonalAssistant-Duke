@@ -1,5 +1,4 @@
 import controlpanel.MoneyStorage;
-import controlpanel.Parser;
 import money.Loan;
 import moneycommands.*;
 import controlpanel.DukeException;
@@ -11,10 +10,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class LoansTest {
+class LoansTest {
     private Ui ui;
     private Account account;
     private MoneyStorage storage;
@@ -23,7 +24,7 @@ public class LoansTest {
     private LocalDate testDate = LocalDate.parse("9/10/1997", dateTimeFormatter);
 
 
-    public LoansTest() {
+    LoansTest() {
         Path currentDir = Paths.get("data/account-test.txt");
         String filePath = currentDir.toAbsolutePath().toString();
         storage = new MoneyStorage(filePath);
@@ -34,7 +35,7 @@ public class LoansTest {
 
 
     @Test
-    public void testAddOutgoingLoan() throws ParseException, DukeException {
+    void testAddOutgoingLoan() throws ParseException, DukeException {
         String addInput = "lent my friends /amt 500 /on 9/10/1997";
         MoneyCommand addOutgoingLoanCommand = new AddLoanCommand(addInput);
         ui.clearOutputString();
@@ -47,7 +48,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testAddIncomingLoan() throws ParseException, DukeException {
+    void testAddIncomingLoan() throws ParseException, DukeException {
         String addInput = "borrowed my daddy /amt 1000 /on 9/10/1997";
         MoneyCommand addOutgoingLoanCommand = new AddLoanCommand(addInput);
         ui.clearOutputString();
@@ -60,7 +61,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testListAllLoans() throws ParseException, DukeException {
+    void testListAllLoans() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan outgoingLoan = new Loan(500, "my bros", testDate, Loan.Type.OUTGOING);
         Loan incomingLoan = new Loan(1000, "my mama", testDate, Loan.Type.INCOMING);
@@ -78,7 +79,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testListIncomingLoans() throws ParseException, DukeException {
+    void testListIncomingLoans() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan outgoingLoan = new Loan(500, "my bros", testDate, Loan.Type.OUTGOING);
         Loan incomingLoan = new Loan(1000, "my bras", testDate, Loan.Type.INCOMING);
@@ -95,7 +96,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testListOutgoingLoans() throws ParseException, DukeException {
+    void testListOutgoingLoans() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan outgoingLoan = new Loan(500, "my buds", testDate, Loan.Type.OUTGOING);
         Loan incomingLoan = new Loan(1000, "my mama", testDate, Loan.Type.INCOMING);
@@ -112,7 +113,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testSettleOutgoingLoan() throws ParseException, DukeException {
+    void testSettleOutgoingLoan() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan settleLoan = new Loan(500, "my friends", testDate, Loan.Type.OUTGOING);
         account.getLoans().add(settleLoan);
@@ -136,7 +137,7 @@ public class LoansTest {
     }
 
     @Test
-    public void testSettleIncomingLoan() throws ParseException, DukeException {
+    void testSettleIncomingLoan() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan settleLoan = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
         account.getLoans().add(settleLoan);
@@ -160,7 +161,7 @@ public class LoansTest {
     }
 
     @Test
-    public void deleteLoans() throws ParseException, DukeException {
+    void testDeleteLoans() throws ParseException, DukeException {
         account.getLoans().clear();
         Loan outgoingLoan = new Loan(500, "my bros", testDate, Loan.Type.OUTGOING);
         Loan incomingLoan = new Loan(1000, "my daddy", testDate, Loan.Type.INCOMING);
@@ -184,5 +185,70 @@ public class LoansTest {
                 "  [Outstanding] [O] my bros(loan: $500.0) (Lent On: 9/10/1997) " +
                 "Outstanding Amount: $500.0\n" +
                 " Now you have 0 total loans.\n", ui.getOutputString());
+    }
+
+    @Test
+    void testExceedAmount() throws ParseException {
+        account.getLoans().clear();
+        Loan settleLoan = new Loan(500, "my grandfather", testDate, Loan.Type.INCOMING);
+        account.getLoans().add(settleLoan);
+        String exceedInput = "paid 600 /to 1";
+        MoneyCommand exceedSettleCommand = new SettleLoanCommand(exceedInput);
+        ui.clearOutputString();
+        try {
+            exceedSettleCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt"));
+        }
+
+    }
+
+    @Test
+    void testExceedSerialNumber() throws ParseException {
+        account.getLoans().clear();
+        Loan outgoingLoan = new Loan(500, "OutgoingLoan 1", testDate, Loan.Type.OUTGOING);
+        Loan incomingLoan = new Loan(1000, "IncomingLoan 1", testDate, Loan.Type.INCOMING);
+        account.getLoans().add(outgoingLoan);
+        account.getLoans().add(incomingLoan);
+        String settleOutgoingLoanInput = "received 20 /from -1";
+        MoneyCommand exceedOutgoingCommand = new SettleLoanCommand(settleOutgoingLoanInput);
+        ui.clearOutputString();
+        try {
+            exceedOutgoingCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
+        }
+        String settleIncomingLoanInput = "paid 2 /to 100";
+        MoneyCommand exceedIncomingCommand = new SettleLoanCommand(settleIncomingLoanInput);
+        ui.clearOutputString();
+        try {
+            exceedIncomingCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException e) {
+            assertThat(e.getMessage(), is("The serial number of the loan is Out Of Bounds!"));
+        }
+    }
+
+    @Test
+    void testLoanDoesNotExist() {
+        String notExistInput = "received 100 /from Brandon Frasier";
+        MoneyCommand notExistOutgoingCommand = new SettleLoanCommand(notExistInput);
+        ui.clearOutputString();
+        try {
+            notExistOutgoingCommand.execute(account, ui, storage);
+            fail();
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("Brandon Frasier does not have a/an outgoing loan"));
+        }
+        String notExistSecondInput = "paid 400 /to Vivian Hsu";
+        MoneyCommand notExistIncomingCommand = new SettleLoanCommand(notExistSecondInput);
+        ui.clearOutputString();
+        try {
+            notExistIncomingCommand.execute(account, ui, storage);
+        } catch (DukeException | ParseException e) {
+            assertThat(e.getMessage(), is("Vivian Hsu does not have a/an incoming loan"));
+        }
     }
 }
