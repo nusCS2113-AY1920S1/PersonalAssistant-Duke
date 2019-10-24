@@ -4,6 +4,7 @@ import command.Storage;
 import common.TaskList;
 import payment.Payee;
 import payment.Payments;
+import project.Fund;
 import project.Project;
 import task.Task;
 
@@ -314,6 +315,28 @@ public class Ui {
         System.out.println("\t" + "Matric No: " + payee.matricNum);
         System.out.println("\t" + "Phone No: " + payee.phoneNum);
         System.out.print("\t" + "There are " + payeesize + " payees in the record." + "\n");
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message of adding a fund to all projects
+     * @param fund the fund for all projects
+     */
+    public void printSetFundMessage(Fund fund) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've set overall fund as follow:");
+        System.out.print(fund.giveFund());
+        System.out.print(line);
+    }
+
+    /**
+     * Prints message of adding a fund to all projects
+     * @param fund the fund for all projects
+     */
+    public void printAddFundMessage(Fund fund, double amount) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've add " + amount + "to the fund. The new fund is as follow:");
+        System.out.print(fund.giveFund());
         System.out.print(line);
     }
 
