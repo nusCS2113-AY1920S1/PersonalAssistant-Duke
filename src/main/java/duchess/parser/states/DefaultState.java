@@ -21,6 +21,7 @@ import duchess.logic.commands.UndoCommand;
 import duchess.logic.commands.ViewScheduleCommand;
 import duchess.parser.Parser;
 import duchess.parser.Util;
+import duchess.parser.commands.DeleteCommandParser;
 import duchess.parser.commands.ListCommandParser;
 import duchess.parser.states.add.AddState;
 
@@ -58,17 +59,7 @@ public class DefaultState implements ParserState {
         } else if ("find".equals(keyword)) {
             return new FindCommand(arguments);
         } else if ("delete".equals(keyword)) {
-            try {
-                String secondKeyword = words.get(1);
-                if ("task".equals(secondKeyword)) {
-                    return new DeleteTaskCommand(arguments);
-                } else if ("module".equals(secondKeyword)) {
-                    return new DeleteModuleCommand(arguments);
-                }
-                throw new IllegalArgumentException();
-            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                throw new DuchessException("Usage: delete (module|task) <number>");
-            }
+            return DeleteCommandParser.parse(parameters);
         } else if ("done".equals(keyword)) {
             try {
                 return new DoneCommand(Integer.parseInt(words.get(0)) - 1);

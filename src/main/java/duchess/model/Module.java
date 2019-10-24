@@ -34,7 +34,17 @@ public class Module {
         return this.code.equalsIgnoreCase(code);
     }
 
-    public boolean equals(Module that) {
+    /**
+     * Returns true if two modules share the same code.
+     *
+     * @param other the other module to compare
+     * @return the equality status
+     */
+    public boolean equals(Object other) {
+        if (!(other instanceof Module)) {
+            return false;
+        }
+        Module that = (Module) other;
         return this.code.equalsIgnoreCase(that.code);
     }
 

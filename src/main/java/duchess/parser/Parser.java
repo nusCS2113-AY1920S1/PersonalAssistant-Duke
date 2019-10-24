@@ -14,14 +14,18 @@ public class Parser {
     /**
      * Used for list command.
      */
-    public static String TASKS_KEYWORD = "tasks";
-    public static String MODULES_KEYWORD = "modules";
+    public static final String TASKS_KEYWORD = "tasks";
+    public static final String MODULES_KEYWORD = "modules";
+    public static final String TASK_KEYWORD = "task";
+    public static final String MODULE_KEYWORD = "module";
 
     /**
      * Usage for commands.
      */
-    public static String LIST_USAGE =
+    public static final String LIST_USAGE =
             "Usage: list (tasks | modules)";
+    public static final String DELETE_USAGE =
+            "Usage: delete (task | module) /no <number>";
 
     /**
      * Prompts.
