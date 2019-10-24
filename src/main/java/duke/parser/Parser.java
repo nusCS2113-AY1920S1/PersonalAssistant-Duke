@@ -48,6 +48,7 @@ public class Parser {
     private static final int TWO = 2;
     private static final int THREE = 3;
     private static final int FOUR = 4;
+    private static final int SIX = 6;
 
     /**
      * Generates a command based on the user input.
@@ -284,9 +285,9 @@ public class Parser {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 } else {
                     if (unit.contains("min")) {
-                        unit = (duration > 1) ? "minutes" : "minute";
+                        unit = (duration > ONE) ? "minutes" : "minute";
                     } else if (unit.contains("h")) {
-                        unit = (duration > 1) ? "hours" : "hour";
+                        unit = (duration > ONE) ? "hours" : "hour";
                     }
                     FixedDuration fixedDuration = new FixedDuration(taskDesc, duration, unit);
                     return new AddCommand(fixedDuration);
@@ -322,7 +323,7 @@ public class Parser {
                     throw new DukeException("The priority must be an integer");
                 }
 
-                if (!((priority > ZERO) && (priority < 6))) {
+                if (!((priority > ZERO) && (priority < SIX))) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid priority! (1 - High ~ 5 - Low).");
                 }
 
@@ -343,7 +344,7 @@ public class Parser {
                         throw new DukeException("The target priority must be an integer");
                     }
 
-                    if (!((target > ZERO) && (target < 6))) {
+                    if (!((target > ZERO) && (target < SIX))) {
                         throw new DukeException("     (>_<) OOPS!!! Invalid target priority! (1 ~ 5).");
                     }
                     return new FindTasksByPriorityCommand(target);

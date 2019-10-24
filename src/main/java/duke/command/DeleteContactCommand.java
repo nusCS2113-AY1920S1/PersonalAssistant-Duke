@@ -53,7 +53,7 @@ public class DeleteContactCommand extends Command {
             ui.showErrorMsgGui("No contacts to be deleted!");
         } else {
             ui.showErrorMsg("Invalid index! Please choose 1 "
-                    + ((contactList.size() == 1) ? "" : "to " + contactList.size()));
+                    + ((contactList.size() == ONE) ? "" : "to " + contactList.size()));
         }
     }
 
@@ -87,7 +87,7 @@ public class DeleteContactCommand extends Command {
             str = ui.showErrorMsgGui("No contacts to be deleted!");
         } else {
             str = ui.showErrorMsgGui("Invalid index! Please choose 1 "
-                                    + ((contactList.size() == 1) ? "" : "to " + contactList.size()));
+                                    + ((contactList.size() == ONE) ? "" : "to " + contactList.size()));
         }
         return str;
     }

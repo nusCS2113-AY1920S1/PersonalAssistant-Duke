@@ -21,6 +21,7 @@ public class ContactStorage {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
+    private static final int FOUR = 4;
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -66,7 +67,7 @@ public class ContactStorage {
 
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
             String[] contactDetails = st.split(",");
-            if (contactDetails.length != 4) {
+            if (contactDetails.length != FOUR) {
                 ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
             } else {
                 name = contactDetails[ZERO];
