@@ -13,7 +13,7 @@ public class CommandBye extends Command {
      */
     public CommandBye(String userInput) {
         this.userInput = userInput;
-        this.description = "You will exit the program";
+        this.description = "Exits the program";
         this.commandType =  CommandType.BYE;
     }
 

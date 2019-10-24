@@ -16,7 +16,7 @@ public class CommandQueue extends Command {
     public CommandQueue(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.QUEUE;
-        this.description = "Queues userinput task in the list. Syntax: queue [taskindex] [taskdescription]";
+        this.description = "Queues user-inputted task in the list. Syntax: queue [taskindex] [taskdescription]";
     }
 
     @Override
