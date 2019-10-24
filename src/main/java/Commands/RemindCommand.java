@@ -12,7 +12,6 @@ public class RemindCommand extends Command {
 
     private Task task;
     private Date time;
-    private Timer timer;
     private HashMap<Date, Timer> timerHashMap;
     private boolean remind;
     private Reminder reminder;
@@ -28,7 +27,6 @@ public class RemindCommand extends Command {
         this.task = task;
         this.time = time;
         timerHashMap = new HashMap<>();
-        timer = new Timer();
         this.remind = remind;
     }
 

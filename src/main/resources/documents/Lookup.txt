@@ -1,0 +1,240 @@
+Week 1 Mon	:	12/08/2019
+Week 1 Tue	:	13/08/2019
+Week 1 Wed	:	14/08/2019
+Week 1 Thu	:	15/08/2019
+Week 1 Fri	:	16/08/2019
+Week 1 Sat	:	17/08/2019
+Week 1 Sun	:	18/08/2019
+Week 2 Mon	:	19/08/2019
+Week 2 Tue	:	20/08/2019
+Week 2 Wed	:	21/08/2019
+Week 2 Thu	:	22/08/2019
+Week 2 Fri	:	23/08/2019
+Week 2 Sat	:	24/08/2019
+Week 2 Sun	:	25/08/2019
+Week 3 Mon	:	26/08/2019
+Week 3 Tue	:	27/08/2019
+Week 3 Wed	:	28/08/2019
+Week 3 Thu	:	29/08/2019
+Week 3 Fri	:	30/08/2019
+Week 3 Sat	:	31/08/2019
+Week 3 Sun	:	01/09/2019
+Week 4 Mon	:	02/09/2019
+Week 4 Tue	:	03/09/2019
+Week 4 Wed	:	04/09/2019
+Week 4 Thu	:	05/09/2019
+Week 4 Fri	:	06/09/2019
+Week 4 Sat	:	07/09/2019
+Week 4 Sun	:	08/09/2019
+Week 5 Mon	:	09/09/2019
+Week 5 Tue	:	10/09/2019
+Week 5 Wed	:	11/09/2019
+Week 5 Thu	:	12/09/2019
+Week 5 Fri	:	13/09/2019
+Week 5 Sat	:	14/09/2019
+Week 5 Sun	:	15/09/2019
+Week 6 Mon	:	16/09/2019
+Week 6 Tue	:	17/09/2019
+Week 6 Wed	:	18/09/2019
+Week 6 Thu	:	19/09/2019
+Week 6 Fri	:	20/09/2019
+Week 6 Sat	:	21/09/2019
+Week 6 Sun	:	22/09/2019
+Recess Week Mon	:	23/09/2019
+Recess Week Tue	:	24/09/2019
+Recess Week Wed	:	25/09/2019
+Recess Week Thu	:	26/09/2019
+Recess Week Fri	:	27/09/2019
+Recess Week Sat	:	28/09/2019
+Recess Week Sun	:	29/09/2019
+Week 7 Mon :	30/09/2019
+Week 7 Tue	:	01/10/2019
+Week 7 Wed	:	02/10/2019
+Week 7 Thu	:	03/10/2019
+Week 7 Fri	:	04/10/2019
+Week 7 Sat	:	05/10/2019
+Week 7 Sun	:	06/10/2019
+Week 8 Mon	:	07/10/2019
+Week 8 Tue	:	08/10/2019
+Week 8 Wed	:	09/10/2019
+Week 8 Thu	:	10/10/2019
+Week 8 Fri	:	11/10/2019
+Week 8 Sat	:	12/10/2019
+Week 8 Sun	:	13/10/2019
+Week 9 Mon	:	14/10/2019
+Week 9 Tue	:	15/10/2019
+Week 9 Wed	:	16/10/2019
+Week 9 Thu	:	17/10/2019
+Week 9 Fri	:	18/10/2019
+Week 9 Sat	:	19/10/2019
+Week 9 Sun	:	20/10/2019
+Week 10 Mon	:	21/10/2019
+Week 10 Tue	:	22/10/2019
+Week 10 Wed	:	23/10/2019
+Week 10 Thu	:	24/10/2019
+Week 10 Fri	:	25/10/2019
+Week 10 Sat	:	26/10/2019
+Week 10 Sun	:	27/10/2019
+Week 11 Mon	:	28/10/2019
+Week 11 Tue	:	29/10/2019
+Week 11 Wed	:	30/10/2019
+Week 11 Thu	:	31/10/2019
+Week 11 Fri	:	01/11/2019
+Week 11 Sat	:	02/11/2019
+Week 11 Sun	:	03/11/2019
+Week 12 Mon	:	04/11/2019
+Week 12 Tue	:	05/11/2019
+Week 12 Wed	:	06/11/2019
+Week 12 Thu	:	07/11/2019
+Week 12 Fri	:	08/11/2019
+Week 12 Sat	:	09/11/2019
+Week 12 Sun	:	10/11/2019
+Week 13 Mon	:	11/11/2019
+Week 13 Tue	:	12/11/2019
+Week 13 Wed	:	13/11/2019
+Week 13 Thu	:	14/11/2019
+Week 13 Fri	:	15/11/2019
+Week 13 Sat	:	16/11/2019
+Week 13 Sun	:	17/11/2019
+Reading Week Mon	:	18/11/2019
+Reading Week Tue	:	19/11/2019
+Reading Week Wed	:	20/11/2019
+Reading Week Thu	:	21/11/2019
+Reading Week Fri	:	22/11/2019
+Reading Week Sat	:	23/11/2019
+Reading Week Sun	:	24/11/2019
+Exam Week Mon	:	25/11/2019
+Exam Week Tue	:	26/11/2019
+Exam Week Wed	:	27/11/2019
+Exam Week Thu	:	28/11/2019
+Exam Week Fri	:	29/11/2019
+Exam Week Sat	:	30/11/2019
+Exam Week Sun	:	01/12/2019
+Week 1 : 12/08/2019 to 18/08/2019
+Week 2 : 19/08/2019 to 25/08/2019
+Week 3 : 26/08/2019 to 01/09/2019
+Week 4 : 02/09/2019 to 08/09/2019
+Week 5 : 09/09/2019 to 15/09/2019
+Week 6 : 16/09/2019 to 22/09/2019
+Recess Week : 23/09/2019 to 29/09/2019
+Week 7 : 30/09/2019 to 06/10/2019
+Week 8 : 07/10/2019 to 13/10/2019
+Week 9 : 14/10/2019 to 20/10/2019
+Week 10 : 21/10/2019 to 27/10/2019
+Week 11 : 28/10/2019 to 03/11/2019
+Week 12 : 04/11/2019 to 10/11/2019
+Week 13 : 11/11/2019 to 17/11/2019
+Reading Week : 18/11/2019 to 24/11/2019
+Exam Week: 25/11/2019 to 01/12/2019
+12/08/2019	:	Week 1
+13/08/2019	:	Week 1
+14/08/2019	:	Week 1
+15/08/2019	:	Week 1
+16/08/2019	:	Week 1
+17/08/2019	:	Week 1
+18/08/2019	:	Week 1
+19/08/2019	:	Week 2
+20/08/2019	:	Week 2
+21/08/2019	:	Week 2
+22/08/2019	:	Week 2
+23/08/2019	:	Week 2
+24/08/2019	:	Week 2
+25/08/2019	:	Week 2
+26/08/2019	:	Week 3
+27/08/2019	:	Week 3
+28/08/2019	:	Week 3
+29/08/2019	:	Week 3
+30/08/2019	:	Week 3
+31/08/2019	:	Week 3
+01/09/2019	:	Week 3
+02/09/2019	:	Week 4
+03/09/2019	:	Week 4
+04/09/2019	:	Week 4
+05/09/2019	:	Week 4
+06/09/2019	:	Week 4
+07/09/2019	:	Week 4
+08/09/2019	:	Week 4
+09/09/2019	:	Week 5
+10/09/2019	:	Week 5
+11/09/2019	:	Week 5
+12/09/2019	:	Week 5
+13/09/2019	:	Week 5
+14/09/2019	:	Week 5
+15/09/2019	:	Week 5
+16/09/2019	:	Week 6
+17/09/2019	:	Week 6
+18/09/2019	:	Week 6
+19/09/2019	:	Week 6
+20/09/2019	:	Week 6
+21/09/2019	:	Week 6
+22/09/2019	:	Week 6
+23/09/2019	:	Recess Week
+24/09/2019	:	Recess Week
+25/09/2019	:	Recess Week
+26/09/2019	:	Recess Week
+27/09/2019	:	Recess Week
+28/09/2019	:	Recess Week
+29/09/2019	:	Recess Week
+30/09/2019	:	Week 7
+01/10/2019	:	Week 7
+02/10/2019	:	Week 7
+03/10/2019	:	Week 7
+04/10/2019	:	Week 7
+05/10/2019	:	Week 7
+06/10/2019	:	Week 7
+07/10/2019	:	Week 8
+08/10/2019	:	Week 8
+09/10/2019	:	Week 8
+10/10/2019	:	Week 8
+11/10/2019	:	Week 8
+12/10/2019	:	Week 8
+13/10/2019	:	Week 8
+14/10/2019	:	Week 9
+15/10/2019	:	Week 9
+16/10/2019	:	Week 9
+17/10/2019	:	Week 9
+18/10/2019	:	Week 9
+19/10/2019	:	Week 9
+20/10/2019	:	Week 9
+21/10/2019	:	Week 10
+22/10/2019	:	Week 10
+23/10/2019	:	Week 10
+24/10/2019	:	Week 10
+25/10/2019	:	Week 10
+26/10/2019	:	Week 10
+27/10/2019	:	Week 10
+28/10/2019	:	Week 11
+29/10/2019	:	Week 11
+30/10/2019	:	Week 11
+31/10/2019	:	Week 11
+01/11/2019	:	Week 11
+02/11/2019	:	Week 11
+03/11/2019	:	Week 11
+04/11/2019	:	Week 12
+05/11/2019	:	Week 12
+06/11/2019	:	Week 12
+07/11/2019	:	Week 12
+08/11/2019	:	Week 12
+09/11/2019	:	Week 12
+10/11/2019	:	Week 12
+11/11/2019	:	Week 13
+12/11/2019	:	Week 13
+13/11/2019	:	Week 13
+14/11/2019	:	Week 13
+15/11/2019	:	Week 13
+16/11/2019	:	Week 13
+17/11/2019	:	Week 13
+18/11/2019	:	Reading Week
+19/11/2019	:	Reading Week
+20/11/2019	:	Reading Week
+21/11/2019	:	Reading Week
+22/11/2019	:	Reading Week
+23/11/2019	:	Reading Week
+24/11/2019	:	Reading Week
+25/11/2019	:	Exam Week
+26/11/2019	:	Exam Week
+27/11/2019	:	Exam Week
+28/11/2019	:	Exam Week
+29/11/2019	:	Exam Week
+30/11/2019	:	Exam Week
+01/12/2019	:	Exam Week
