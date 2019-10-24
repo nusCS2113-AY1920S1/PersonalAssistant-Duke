@@ -114,7 +114,7 @@ image::DGCheck.png[width = 100%]
           |         |                                       |
           v         v                                       v
     +-----------------+                         +----------------+
-    |      Return     |                         |     Return     |
+    |      Return     |                         |Exception thrown|
     |       null      |                         | clashing event |
     +-----------------+                         +----------------+
             |                                            |
@@ -122,8 +122,8 @@ image::DGCheck.png[width = 100%]
             |                                            |
             v                                            v
     +-----------------+                         +----------------+
-    |    Add Event    |                         |     Cancel     |
-    |     to list     |                         |   event entry  |
+    |    Add Event    |                         | Alert user of  |
+    |     to list     |                         |     clash      |
     +-----------------+                         +----------------+
             |                                            |
             |                                            |
@@ -137,31 +137,55 @@ image::DGCheck.png[width = 100%]
 ====
 
 ==== How is it implemented
-The program is able to detect clashes when creating new events. When the user enters the command
-to add a new Event entry to the list, the method EventList.addEvent is called from the Command
-class upon execution.
+The program is able to *detect clashes when creating new events*. When the user enters the command
+to add a new Event entry to the list, the method `EventList.addEvent` is called from the `Command`
+class object upon execution.
 
-The addEvent method will then call the clashEvent method to check the
+The `addEvent` method will then call the `EventList.clashEvent` method to check the
 existing entries for any clash in schedule. This is done by first searching the list for an event
-that has a matching date with the new event.
+that has a matching date with the new event, done with a simple loop.
 
-If no such event is found, the method returns a null value, indicating that there is no schedule clash.
-If an event is found with a matching date, the method then calls the EventList.timeClash method to check whether
-the two events have overlapping time periods. This is done by simple mathematical comparison using > and
-< operators, comparing the times in 24h format.
+If no such event is found, the method returns a *_null_* value, indicating that there is no schedule clash.
+If an event is found with a matching date, the `clashEvent` then calls the `EventList.timeClash` method to check whether
+the two events have overlapping time periods. This is done by simple mathematical comparison using `>` and
+`<` operators, comparing the times in 24h format as 4 digit integers.
 
-If there is any overlap, the timeClash method will return a true boolean value, indicating there is a schedule clash.
-The clashEvent method then returns the specific task that caused the clash so that the details of the clash can
-be printed for the user, in order for him/her to fix the schedule conflict.
+If there is any overlap, the `timeClash` method will return *_true_* as a boolean, indicating there is a schedule clash.
+The `clashEvent` method then throws an exception `ClashException`, indicating that there was indeed a schedule
+clash between the desired new entry and some pre-existing Event.
+
+The details of the clashing Event are passed back to `Command` object so that it can be used to inform the
+user about the clashing event. The user is then required to fix the conflict before continuing,
+either by rescheduling or deleting the pre-existing event, or by choosing a different date/time for
+the new Event entry.
 
 ==== Why it is implemented this way
-The process of checking for a clash was implemented as small, separate abstracted methods so as to ensure scalability,
+The process of checking for a clash was implemented as small, simple components so as to ensure scalability,
 easier testing, and to reduce dependencies.
 
-Because of the way the clash detection was split into multiple small methods, it was easy to implement this clash
-detection as a part of adding recurrent events (to check for clashes when recurrent events were automatically
-entered) as well as the rescheduling function (to check for clashes when the user attempts to reschedule
+The choice to use exception handling to deal with an event clash
+was done so that it could be easily re-purposed for any incremental extension that required checking for a
+schedule clash. This can be easily done by using `try catch` blocks and catching any `ClashException` thrown
+so that suitable action can be taken, and the info for the clashing event can be easily obtained for said
+action.
+
+By having the `clashEvent` method return a *_null_* value or a reference to a clashing event in the schedule, the
+`clashEvent` method can now be used for any further increments to the code requiring addition of events.
+
+It was thus easy to implement this clash detection as a part of adding recurrent events
+(to check for clashes when recurrent events were automatically entered) as well as the
+rescheduling function (to check for clashes when the user attempts to reschedule
 an existing event, so that he/she does not inadvertently create a new schedule conflict).
+
+Testing is also very simple to implement as it can be done unit by unit or as a whole, due to clash detection
+being broken down into multiple simple components, each with a specific purpose.
+
+==== Expected behaviour of functionality
+When a user attempts to add an event(recurring or otherwise) and the program detects a clash with an existing event
+in the pre-existing list, the following output should be printed: +
+#"That event clashes with another in the schedule! Please resolve the conflict and try again!"# +
+This is followed by the following line indicating the details of the detected clash: +
+#"Clashes with: [E][X] YST Final project review START: Tue, 03 Dec 2019, 15:00 END: Tue, 03 Dec 2019, 18:00#
 
 === Add recurring events
 ==== How it is implemented
@@ -248,28 +272,28 @@ them as mentioned above.
 === Reminders
 
 ==== How it is implemented
-The reminder function filters out the tasks that are due or are happening before 2359 three days after the current date, 
-and prints them out as a reminder for the users. 
+The reminder function filters out the tasks that are due or are happening before 2359 three days after the current date,
+and prints them out as a reminder for the users.
 
-After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the 
+After the user enters 'reminder', the Command.execute method calls Command.remindEvents, which in turn calls the
 Ui.printReminders function. The Ui.printReminders function calls the EventList.getReminder method, which uses the
-EventList.filteredList method to filter out a list of events that are due or are happening before 2359 three 
+EventList.filteredList method to filter out a list of events that are due or are happening before 2359 three
 days after the current date. The EventList.filteredList method filters out events from the stored list of events
-according to a certain input predicate. 
+according to a certain input predicate.
 
-The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the 
-item that is used for the comparison reference (comp) input, and the comparator is the operator that is used for the 
-comparison. The comparator should be either one of the three global integer variables: EQUAL, GREATER_THAN or SMALLER_THAN. 
-The Predicate.check method takes in an input and checks if reference (comp) input is true by calling the appropriate method 
+The constructor of the Predicate class takes in two arguments: the reference and the comparator. The reference is the
+item that is used for the comparison reference (comp) input, and the comparator is the operator that is used for the
+comparison. The comparator should be either one of the three global integer variables: EQUAL, GREATER_THAN or SMALLER_THAN.
+The Predicate.check method takes in an input and checks if reference (comp) input is true by calling the appropriate method
 in the Predicate class depending on the type of the reference and input.
 
-In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to 
-2359 three days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder method 
-calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of Events in 
-`eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the 
-EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true 
+In the EventList.getReminder method, the reference of the input Predicate object is set to an eventDate object set to
+2359 three days after the current date, and the comparator is GREATER_THAN. After that, the EventList.getReminder method
+calls the EventList.filteredList method. In the EventList.filteredList method, the system iterates through the list of Events in
+`eventArrayList`.The EventDate object stored in the the Event object is passed into the Predicate.check method. If the
+EventDate object stored in the the Event object is a date before the reference date, the Predicate.check method returns true
 and the Event object is added to the output. After all the elements in EventList.filteredList are parsed and the
-EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time, 
+EventList.filteredList method terminates, EventList.getReminder method returns a string containing the current date and time,
 the date and time at 2359 three days after the current date, and the filtered list of events. This string is printed to
 stdout in the Ui.printReminders function.
 
@@ -280,9 +304,9 @@ image::reminderSequenceDiagram.png[width = 100%]
 ====
 
 ==== Why it is implemented this way
-The reminder function is split the various components into different methods for easier testing. In this case, Ui.printReminders 
+The reminder function is split the various components into different methods for easier testing. In this case, Ui.printReminders
 prints the output to the user interface, EventList.getReminder is responsible for compiling the output whereas EventList.filteredList
-obtains the filtered list of events from `eventArrayList`. 
+obtains the filtered list of events from `eventArrayList`.
 
 This implementation also implements scalability as the Predicate class and the EventList.filteredList method can be reused for other
 functionalities.
