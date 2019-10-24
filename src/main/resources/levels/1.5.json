@@ -3,8 +3,9 @@
     ":Get Money!",
     "Now that you have some wheat, you can sell them for some extra gold. Hint (you can only buy or sell items at the market)~"
   ],
-  "gold": 25,
+  "gold": 15,
   "seeds": 0,
+  "seedlings": 0,
   "wheat": 0,
   "grain": 0,
   "deadline" : 1,

@@ -6,7 +6,8 @@
   ],
   "gold": 0,
   "seeds": 0,
-  "wheat": 1,
+  "seedlings": 1,
+  "wheat": 0,
   "grain": 0,
   "deadline" : 1,
   "file_path": "Level1.3"

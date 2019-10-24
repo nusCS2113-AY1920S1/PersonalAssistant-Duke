@@ -14,6 +14,7 @@ public class WheatFarm extends Farm {
     private int seedlings;
     private int wheat;
     private int grain;
+    private int dayToGrow;
 
     public boolean hasSeeds() {
         return seeds > 0;
@@ -68,15 +69,20 @@ public class WheatFarm extends Farm {
     public void plantSeeds() {
         seedlings += seeds;
         seeds = 0;
+        dayToGrow = 0;
     }
 
     public void growSeedlings() {
-        wheat += seedlings;
-        seedlings = 0;
+        dayToGrow ++;
+        if (dayToGrow >= 1) {
+            wheat += seedlings;
+            seedlings = 0;
+            dayToGrow = 0;
+        }
     }
     public void harvestWheat() {
         grain += wheat;
-        seedlings = 0;
+        wheat = 0;
     }
     @Override
     public int sell() {

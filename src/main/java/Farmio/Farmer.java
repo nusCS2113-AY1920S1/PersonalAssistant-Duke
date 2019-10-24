@@ -98,12 +98,12 @@ public class Farmer {
 
         if (level >= 3) {
         }
-        if (level >= 2) {
-
-        }
-        if(level >= 1.3) {
+        if (level >= 1.4) {
             assets.put("Wheat", wheatFarm.getWheat());
             assets.put("Grain", wheatFarm.getGrain());
+        }
+        if(level >= 1.3) {
+            assets.put("Seedlings", wheatFarm.getSeedlings());
         }
         if (level >= 1.2) {
             assets.put("Seeds", wheatFarm.getSeeds());

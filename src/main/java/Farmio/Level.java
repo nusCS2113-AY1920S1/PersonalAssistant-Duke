@@ -11,6 +11,7 @@ public class Level {
     ArrayList<String> narratives;
     String filePath;
     int endSeeds;
+    int endSeedlings;
     int endWheat;
     int endGrain;
     int endGold;
@@ -25,6 +26,7 @@ public class Level {
         filePath = (String) object.get("file_path");
         endGold = Math.toIntExact((Long) object.get("gold"));
         endSeeds = Math.toIntExact((Long) object.get("seeds"));
+        endSeedlings = Math.toIntExact((Long) object.get("seedlings"));
         endWheat = Math.toIntExact((Long) object.get("wheat"));
         endGrain = Math.toIntExact((Long) object.get("grain"));
         deadline = Math.toIntExact((Long) object.get("deadline"));
@@ -54,10 +56,12 @@ public class Level {
             return farmer.getLocation().equals("Market");
         }
         int seeds = farmer.wheatFarm.getSeeds();
+        int seedlings = farmer.wheatFarm.getSeedlings();
         int wheat = farmer.wheatFarm.getWheat();
         int grain = farmer.wheatFarm.getGrain();
         int gold = farmer.getMoney();
-        return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (gold >= endGold);
+        return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (seedlings >= endSeedlings)
+                && (gold >= endGold);
     }
 
     public objectiveResult checkAnswer(Farmio farmio){
@@ -138,12 +142,11 @@ public class Level {
         return "";
     }
 
-
-
     public Map<String, Integer> getGoals() {
         Map<String, Integer> goals = new HashMap< String,Integer>();
         goals.put("Gold", endGold);
         goals.put("Seeds", endSeeds);
+        goals.put("Seedlings", endSeedlings);
         goals.put("Wheat", endWheat);
         goals.put("Grain", endGrain);
         return goals;
