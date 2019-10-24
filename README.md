@@ -1,5 +1,7 @@
 # Project Cube
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/AY1920S1-CS2113T-F09-2/main/LICENSE)
+
 Cube is a simple Book-keeping and Inventory Management System targeted for sellers looking to set-up a small online marketplace.
 
 ![Cube](docs/images/Ui.png)
