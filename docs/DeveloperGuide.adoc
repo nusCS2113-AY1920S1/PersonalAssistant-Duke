@@ -176,14 +176,44 @@ Data Structure to support undo/redo:
 *** Have to do all the work of adding, removing and choosing commands within another class, and can result in messy implementations.
 *** Slightly slower than stacks when adding and deleting elements in the `ArrayList`.
 
+
 === Degree-Related Tasks
 ==== Implementation
 
-The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
+The actions involving Degree-Related Tasks are performed mostly using the `DegreeTask` class. It extends the `Task` class, eventhough it does not use many methods from the aforementioned class. 
+
+image::DegreeTaskuml.png[width="900", align="left"]
+
+
+This was done in preparation for some proposed additional changes to this feature that will be discussed later in the document.
 
 
 
-Currently, the `DegreeTask`
+
+Currently, the `DegreeTask` class implements three of the following operations:
+
+* loadDegreeTasks
+
+** This method initializes an Arraylist of TaskLists. When it is called, each of these TaskLists will be populated with the specific tasks that are related to each degree programme. For example, all tasks related to `Computer Engineering` are stored in one of the TaskLists. The other two classes will be able to use this Arraylist to perform operations on the user's TaskList.
+
+* addDegreeTasks
+
+** This method adds all tasks related to a specified degree programme to the user's TaskList.
+
+
+* removeDegreeTasks
+
+** This method removes all tasks related to a specified degree programme to the user's TaskList.
+
+An example usage scenario details how the mechanism behaves at each step:
++
+*Step 1*: The user launches the application, and Duke will initialize an instance of the DegreeTasks command. Duke will call the `loadDegreeTasks` method, and an ArrayList of TaskLists will be instantiated.
++
+*Step 2*: The user inputs the command `add ComE` to add Computer Engineering to his choice of degree programmes
++
+*Step 3*: The degree programme is added to his list of degree programmes by a seperate, unnamed class. Subsequently, `addDegreeTasks` is called to add all Computer Engineering tasks to 
++
+
 
 == Testing
 
