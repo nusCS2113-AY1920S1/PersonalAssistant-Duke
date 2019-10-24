@@ -1,5 +1,3 @@
-//@@author woblek
-
 package task;
 
 import exception.DukeException;
@@ -8,7 +6,9 @@ import storage.Storage;
 
 import java.io.File;
 import java.util.*;
-
+/*
+@@author woblek
+ */
 /**
  * DegreeTask stores an arraylist of tasklists relevant for each degree programme
  * It adds all relevant tasks related to a particular degree, and puts them into the user's tasklist
