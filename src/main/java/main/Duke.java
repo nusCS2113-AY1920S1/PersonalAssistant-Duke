@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import list.DegreeListStorage;
 import parser.Parser;
 import storage.Storage;
+import task.DegreeTask;
 import task.TaskList;
 import ui.UI;
 import list.DegreeList;
@@ -42,6 +43,7 @@ public class Duke extends Application {
     private Map<String, List<String>> degrees = new HashMap<>();
     private Map<String, Degree> degreeInfo = new HashMap<>();
     private ArrayList<String> mydegrees = new ArrayList<>();
+    private DegreeTask degreeTask = new DegreeTask();
 
     public ArrayList<String> getTasks() {
         return mydegrees;
@@ -69,6 +71,7 @@ public class Duke extends Application {
             ui.showLoadingError();
         }
         try{
+            degreeTask.loadDegreeTasks(storage.fetchListOutput("degreeTasks"));
             setDegrees(storage.fetchListOutput("listdegrees"));
             loadDegrees();
         } catch (DukeException e) {
