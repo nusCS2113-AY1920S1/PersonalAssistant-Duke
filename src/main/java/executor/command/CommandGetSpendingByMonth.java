@@ -33,7 +33,7 @@ public class CommandGetSpendingByMonth extends Command {
             int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
             receiptsInMonth = wallet.getReceipts().findReceiptByMonthYear(month, year);
             Double totalMoney = receiptsInMonth.getTotalCashSpent();
-            Ui.dukeSays("The total amount of money spent in " + mon + " " + year + " : " + totalMoney);
+            Ui.dukeSays("The total amount of money spent in " + monthStr + " " + year + " : " + totalMoney);
         } else {
             Ui.dukeSays("Invalid input, CORRECT FORMAT : expended <month> <year> ");
         }
