@@ -1,5 +1,6 @@
 package parser;
 
+import duke.TimeParser;
 import org.junit.jupiter.api.Test;
 
 

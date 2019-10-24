@@ -37,7 +37,7 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 . Double-click the file to start the app. The GUI should appear in a few seconds.
 . Type the command in the command box and press Enter to execute it.
      e.g. typing help and pressing Enter will open the help window.
-. Some example commands you can try:
+. Some example entertainment.pro.logic.parsers.commands you can try:
 * *`search new movie:`* displays all the current movies that are showing on cinemas 
 * *`search upcoming movie:`* displays all the upcoming movies
 * *`display cinema:`* displays the location of all the nearby cinemas
@@ -45,7 +45,7 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 . Refer to Section 4, “Features” for details of each command.
 
 == Overview of the interface
-. Command Box: This is where users type commands.
+. Command Box: This is where users type entertainment.pro.logic.parsers.commands.
 . Command Feedback: This shows the result of command execution in addition to useful tips and error messages.
 . Preferences List: This shows the list of preferences users have set in the app.
 . Movies List: This displays either the set of movies or information related to a particular movie with respect to users’ command.

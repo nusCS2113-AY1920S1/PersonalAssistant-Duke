@@ -12,7 +12,7 @@ type nul > all.javas
 REM find all Java source files
 
 
-javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\duke.Duke.java ..\src\main\java\exceptions\*.java ..\src\main\java\storage\*.java ..\src\main\java\duke.task\*.java ..\src\main\java\parser\*.java ..\src\main\java\duke.ui\*.java ..\src\main\java\wrapper\*.java
+javac  -cp ..\src -Xlint:none -d ..\bin ..\src\main\java\duke.Duke.java ..\src\main\java\duke.exceptions\*.java ..\src\main\java\duke.storage\*.java ..\src\main\java\duke.task\*.java ..\src\main\java\parser\*.java ..\src\main\java\duke.ui\*.java ..\src\main\java\wrapper\*.java
 
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
@@ -20,7 +20,7 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+REM run the program, feed entertainment.pro.logic.parsers.commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ..\bin duke.Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
