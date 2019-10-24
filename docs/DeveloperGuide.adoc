@@ -109,7 +109,7 @@ The Model stores a QuestionList object which itself consists of one or more Ques
 Model also references Storage in order to load and generate the QuestionList object from Storage when a QuestionList object is created.
 
 .Structure of the Model Component
-image::dg_figure3.png[width="500"]
+image::dg_figure3.png[width="600"]
 
 === Storage
 
@@ -118,7 +118,7 @@ The Storage module handles fetching data from and writing data to the hard disk.
 There are also enumeration classes used to keep track of the different types of tasks(TaskType) and different state of the task(TaskState).
 
 .Structure of the Storage Component
-image::dg_figure4.png[width="500"]
+image::dg_figure4.png[width="600"]
 
 The `Storage` component,
 
@@ -131,7 +131,7 @@ The `Storage` component,
 The `UI` module handles the user interface and user interaction with the program. It consists of a MainWindow, which is made up of the following parts: DialogBox, TopBar and AvatarScreen. The API of the `UI` module is implemented by MainWindow.java in GUI mode. The module also contains a Ui class which defines the implementation of the API in CLI mode.
 
 .Structure of the UI Component
-image::dg_figure5.png[width="500"]
+image::dg_figure5.png[width="600"]
 
 The UI component,
 
@@ -151,18 +151,351 @@ This section describes some noteworthy details on how certain features are imple
 
 * The Natty Date Parser library is used to parse relative dates and times in the Deadline feature (see part 4.X for details on its implementation), while the Apache Commons IO library is used to handle file cleanup in the Storage module.
 
+=== Content Browsing feature
+
+==== Proposed Implementation
+
+The browsing of content feature is facilitated by ProgressStack, which allows users to dynamically navigate through the content in the content directory without the need to hardcode any of the content in our codebase. 
+
+.Activity Diagram for Content Browsing in JavaCake
+image::dg_figure6.png[width="600"]
+
+Figure 6 shows the overall activity diagram for content browsing. Two variables of defaultFilePath and currentFilePath are used, in which defaultFilePath stores the file path towards the start of our content directory and currentFilePath is used to store the updated file path towards the content requested by the user. 
+
+When a command such as list, back and goto that requires the program to traverse through the content directory is called, currentFilePath is being updated by concatenating the name of the file to the currentFilePath . 
+
+The files contained in currentFilePath can be either a text file or directories. If the file in currentFilePath is a text file, the currentFilePath will be updated once more to enter the file in order to read the content stored in the file. The content will then be displayed to the user. If the files contained in currentFilePath are directories, the name of the directories will be displayed to the user. 
+
+The name of the file(s) found in the current directory will be stored in listOfFiles, which is a list container for strings.
+
+==== Design Considerations
+
+*Aspect 1: How reading of content works*
+
+* Alternative 1 (current choice): Dynamically reads the name of content.
++
+Pros: Very scalable, no hard-coding required.
++
+Cons: Slightly harder implementation of reading content.
+
+* Alternative 2: Creating individual classes for each subtopic.
++
+Pros: Easier to code since it only requires hard-coding.
++
+Cons: Not scalable, expanding content files require redoing of codebase.
+
+* Alternative 3: Hardcoding location of every file and directory.
++
+Pros: Very easy brute force way to implement.
++
+Cons: Tedious and not scalable when content increases.
+
+*Aspect 2: Data structure to keep track of current location in program*
+
+* Alternative 1 (current choice): Storing current file path in a string variable.
++
+Pros: Very scalable, concatenate string variable with new file path.
++
+Cons: Slightly harder implementation since the file locations are harder to find and keep track in Java ARchive (JAR) files.
+
+* Alternative 2:  Using a stack data structure to store current progress in program.
++
+Pros: Easy to implement.
++
+Cons: Not scalable especially when content files are expanded since every new path location has to be properly indexed.
+
+=== ListCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is list, currentFilePath will be reset to defaultFilePath in which the names of the directories stored within the start of our content file will be displayed. To make it more scalable, we conveniently renamed our directories to have proper indexing.
+
+.Sequence diagram for ListCommand
+image::dg_figure6.png[width="600"]
+
+*ListCommand implements the following methods in ProgressStack as shown in Figure 2*:
+
+* progressStack#setDefaultFilePath() — Resetting the file path back to default.
+
+* progressStack#processQueries() — Storing all possible file paths from current directory.
+
+=== GoToCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is goto [index], currentFilePath will be updated by concatenating the file or directory name found in the index at that particular directory. If the name refers to a new directory, a list of the items in the directory will be shown. Else, content, which may include the quiz, is shown.  If the user knows the location of the file/directory and wishes to view it directly instead of going through the directories one by one, the user just needs to concatenating the index of the content or directory with a ‘.’. The index of files goto command is expected to go through is stored in a queue. The function execute() is recursively called until all the index in the queue is popped as shown in Figure 3 below. 
+
+.Activity diagram for Goto Command
+image::dg_figure6.png[width="600"]
+
+*This feature implements the following methods in ProgressStack*:
+
+* progressStack#gotoFilePath() —  Depending on the index, a particular file path will be selected from the collection of file paths generated from previous command. 
+
+* progressStack#updateFilePath() —  Updates currentFilePath.
+
+* progressStack#insertQueries() —  Insert all possible file paths based on current directory.
+
+* progressStack#displayDirectories() —  Prints out all files that are directories.
+
+* progressStack#readQuery() —  Read the content in a text file.
+
+=== BackCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is back, currentFilePath will be updated depending if the current file is a directory or a text file. If the current file is a directory, the last partition of the currentFilePath will be removed. If the current file is a text file, the last 2 partitions of the currentFilePath will be removed. After which, the appropriate content will be displayed to the user.
+
+*This feature implements the following methods in ProgressStack*:
+
+* progressStack#insertQueries() —  Insert all possible file paths based on current directory.
+
+* progressStack#displayDirectories() —  Prints out all files that are directories.
+
+* progressStack#readQuery() —  Read the content in a text file.
+
+* progressStack#backToPreviousPath() — Checks if current file is a directory or file. If it is a directory, removes last partition of currentFilePath, else removes last 2 partitions of currentFilePath.
+
+
+=== Profile feature
+
+==== Proposed Implementation
+
+When the user first launches the program, the user will be prompted to fill out his username. The Profile keeps a reference of the default file path and creates the respective directories and files if they do not exist.
+
+Three variables of filepath , username and topicsDone are used. The filepath stores the default file path of where the save file should be stored, along with its respective file name. The username is used to store the current user’s username which can be accessed either internally within Profile or externally via external function calls.
+
+*This feature implements the following methods in Profile*:
+
+* profile#getUsername() —  Gets the username of the user.
+
+* profile#resetProfile() —  Resets the current user’s profile, along with their respective data after calling the reset command.
+
+* profile#overwriteName() —  Overwrites the default username of the user, when either first launching the program or when reset is called.
+
+* profile#setMarks() — Sets the marks of the user for a particular quiz (specified in the function parameters).
+
+* profile#getContentMarks() — Gets the marks of the user for a particular quiz (specified in the function parameters).
+
+* profile#getTotalProgress() — Gets the overall marks of the user for all the quizzes.
+
+=== QuizCommand feature
+
+==== Proposed Implementation
+
+When goto [index] leads to the location of the quiz content, the QuizCommand is called to set up a quiz session. A list of Question objects, containing fields question and the question’s correct answer, is first initialized by reading from the Quiz text file in its current location. Depending on the value of MAX_QUESTIONS, that number of questions is then randomly selected from the initialized list into a smaller list called chosenQuestions. chosenQuestions is the list of questions for the user to attempt during the quiz session.
+
+The quiz session starts with a currScore of 0, and displays a question from chosenQuestions. For every question, the question text will be displayed and the program awaits user input. Once user input is received, checkAnswer() will compare the user input to the correct answer of that question and add 1 to currScore if they match. The next question is then displayed to await user input. This continues until all questions in the session are attempted.
+
+If the program is in GUI mode, quiz command will be handled directly by MainWindow.java. MainWindow.java will instantiate a new QuizCommand depending on the topic, and interact with the class in the sequence explained above. If the program is in CLI mode, the QuizCommand.java will directly interact with the user by calling Ui.java.
+
+When the quiz session is complete, a results screen will be shown to the user, displaying the final currscore out of MAX_QUESTIONS. Custom messages will be displayed as well, determined by a scoreGrade of BAD, OKAY or GOOD, which in turn is determined by the calculated percentage score in the quiz session. If the program is in GUI mode, the avatar’s expression on the screen will depend on the scoreGrade. 
+
+*This feature implements the following methods*:
+
+* QuestionList#PickQuestions() chooses random questions from the question bank.
+
+* QuestionList#getQuestions() loads all the questions in text files and stores them. in an array list.
+QuizCommand#checkAnswer() checks the answer given by user and updates user’s score.
+
+* QuizCommand#getQuizScore() gets the score of the attempted quiz.
+
+* QuizCommand#overwriteOldScore() updates the score in profile to the new score from the quiz session if the new score is higher than the score in profile.
+
+==== Design Considerations
+
+*Aspect 1: How quiz content is stored and read*
+
+[none]
+* Alternative 1: (Current choice) Quiz questions are stored with their answers in the text files. The getQuestions() method will iterate through all the files and store them into the quiz array. 
++
+Pros: Very scalable as additional questions and answers can be easily added without having to manually change the code. 
++
+Cons: Each text file that contains the quiz must follow a certain naming format. 
+
+* Alternative 2: A QuestionList class that contains the hardcoded location of all the quizzes and the number of quizzes that each topic contains.  
++
+Pros: Easy to implement and test as it is not susceptible to IO or File exceptions that may arise from reading from an external file.
++
+Cons: As all questions and answers have to be hard coded within the class, it is not scalable as number of quiz questions increases.
+
+=== MegaListCommand feature
+
+==== Proposed Implementation
+
+When the command entered by the user is overview, currentFilePath will be reset to defaultFilePath. By iterating through the files and comparing with defaultFilePath, we store and format the name of the files depending on the number of parent directories it contains.
+
+*This feature implements the following methods in ProgressStack*:
+
+* progressStack#setDefaultFilePath() — Resetting the file path back to default.
+
+* progressStack#insertQueries() — Insert all possible file paths based on current directory.
+
 
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+=== Introduction
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`
+|_not set_
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+=== Running Tests
+
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+=== Types of tests
+
+We have two types of tests:
+
+.  *GUI Tests* - These are tests involving the GUI. They include,
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+..  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `seedu.address.commons.StringUtilTest`
+..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.address.storage.StorageManagerTest`
+..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. `v0.1`
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
 
 == Appendices
 
