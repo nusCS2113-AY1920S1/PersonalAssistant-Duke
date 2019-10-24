@@ -13,17 +13,20 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
 
 public class ShowCommand extends ModuleCommand {
 
     private static Set<String> coreModList = new HashSet<>();
+
 
     public ShowCommand(Arguments args) {
         super(args);
     }
 
     private Set<String> getCoreModList() {
-        if (coreModList == null) {
+        int numOfCoreMods = 22;
+        if (coreModList.size() != numOfCoreMods ) {
             coreModList.add("CG1111");
             coreModList.add("CG1112");
             coreModList.add("CS1010");
@@ -78,6 +81,9 @@ public class ShowCommand extends ModuleCommand {
                         count++;
                     }
                 }
+                plannerUi.coreModLeft();
+                int numOfCoreMods = 22;
+                System.out.println(numOfCoreMods - (count - 1));
                 break;
             }
 
@@ -92,6 +98,9 @@ public class ShowCommand extends ModuleCommand {
                         count++;
                     }
                 }
+                plannerUi.geModLeft();
+                int numOfGEMods = 5;
+                System.out.println(numOfGEMods - (count - 1));
                 break;
             }
 
@@ -107,6 +116,9 @@ public class ShowCommand extends ModuleCommand {
                         count++;
                     }
                 }
+                plannerUi.ueModLeft();
+                int numOfUEMods = 8;
+                System.out.println(numOfUEMods - (count - 1));
                 break;
             }
 
