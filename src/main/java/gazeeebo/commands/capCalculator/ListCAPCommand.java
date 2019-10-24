@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class listCAPCommand {
+public class ListCAPCommand {
     private static final int BLANK_SPACING = 12;
 
     /**
@@ -17,9 +17,9 @@ public class listCAPCommand {
      * @param lineBreak print out a separator to separate each line in the list.
      * @throws IOException catch the error if the read file fails.
      */
-    public listCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList, String lineBreak) throws IOException {
+    public ListCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList, String lineBreak) throws IOException {
         double cap;
-        calculateCAPCommand calculatedGPA = new calculateCAPCommand();
+        CalculateCAPCommand calculatedGPA = new CalculateCAPCommand();
         System.out.print("Which sem do you want to list? all,1,2,3,4,5,6,7,8\n");
         ui.readCommand();
         if (ui.fullCommand.equals("all")) {

@@ -39,15 +39,15 @@ public class CAPCommand extends Command {
         String lineBreak = "------------------------------\n";
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
-            double cap = new calculateCAPCommand().CAPCalculator(CAPList);
+            double cap = new CalculateCAPCommand().CAPCalculator(CAPList);
             if (ui.fullCommand.equals("add")) {
-                new addCAPCommand(ui, CAPList);
+                new AddCAPCommand(ui, CAPList);
             } else if (ui.fullCommand.equals("list")) {
-                new listCAPCommand(ui, CAPList, lineBreak);
+                new ListCAPCommand(ui, CAPList, lineBreak);
             } else if (ui.fullCommand.split(" ")[0].equals("find") && !ui.fullCommand.equals("find")) {
-                new findCAPCommand(ui, CAPList, lineBreak);
+                new FindCAPCommand(ui, CAPList, lineBreak);
             } else if (ui.fullCommand.split(" ")[0].equals("delete") && !ui.fullCommand.equals("delete")) {
-                new deleteCAPCommand(ui, CAPList);
+                new DeleteCAPCommand(ui, CAPList);
             } else if(ui.fullCommand.equals("help")) {
                 System.out.println(helpCAP);
             } else {

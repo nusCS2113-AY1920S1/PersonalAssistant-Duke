@@ -5,7 +5,7 @@ import gazeeebo.UI.Ui;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class findCAPCommand {
+public class FindCAPCommand {
     /*Printing blank spaces*/
     private static final int BLANK_SPACING = 12;
 
@@ -16,7 +16,7 @@ public class findCAPCommand {
      * @param CAPList   deals stores semNumber, moduleCode, moduleCredits and CAP score.
      * @param lineBreak print out a separator to separate each line in the list.
      */
-    public findCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList, String lineBreak) {
+    public FindCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList, String lineBreak) {
         String findInput = ui.fullCommand.split(" ")[1];
         String toPrint = "";
         boolean isExist = false;

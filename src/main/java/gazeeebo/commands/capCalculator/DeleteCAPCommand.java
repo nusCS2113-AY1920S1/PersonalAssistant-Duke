@@ -5,14 +5,14 @@ import gazeeebo.UI.Ui;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class deleteCAPCommand {
+public class DeleteCAPCommand {
     /**
      * Delete the module from CAPList.
      *
      * @param ui      prints things to the user.
      * @param CAPList deals stores semNumber, moduleCode, moduleCredits and GPA score.
      */
-    public deleteCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList) {
+    public DeleteCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList) {
         boolean haveDeleted = false;
         String moduleName = ui.fullCommand.split(" ")[1];
         for (String key : CAPList.keySet()) {

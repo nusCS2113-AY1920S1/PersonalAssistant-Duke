@@ -4,7 +4,7 @@ import gazeeebo.UI.Ui;
 
 import java.util.Map;
 
-public class findContactCommand {
+public class FindContactCommand {
 
     /**
      * Finds the contact number with the contact name.
@@ -13,7 +13,7 @@ public class findContactCommand {
      * @param contactList   map each name to its own phone number
      * @param lineBreak String separator
      */
-    public findContactCommand(Ui ui, Map<String, String> contactList, String lineBreak) {
+    public FindContactCommand(Ui ui, Map<String, String> contactList, String lineBreak) {
         int a = ui.fullCommand.split(" ")[1].toCharArray()[0];
         String nameToFind = "";
         String toPrint = "";

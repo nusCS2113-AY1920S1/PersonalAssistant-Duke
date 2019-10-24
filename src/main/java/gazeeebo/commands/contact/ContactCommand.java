@@ -9,7 +9,7 @@ import gazeeebo.commands.Command;
 import java.io.IOException;
 import java.util.*;
 
-public class ContactsCommand extends Command {
+public class ContactCommand extends Command {
     private static final String LINEBREAK = "------------------------------------------\n";
     /**
      * This method is the list of all the contact numbers and you got add/find/delete contacts.
@@ -37,13 +37,13 @@ public class ContactsCommand extends Command {
         ui.readCommand();
         while (!ui.fullCommand.equals("esc")) {
             if (ui.fullCommand.equals("add")) {
-                new addContactCommand(ui, contactList);
+                new AddContactCommand(ui, contactList);
             } else if (ui.fullCommand.split(" ")[0].equals("find")) {
-                new findContactCommand(ui, contactList, LINEBREAK);
+                new FindContactCommand(ui, contactList, LINEBREAK);
             } else if (ui.fullCommand.equals("list")) {
-                new listContactCommand(contactList, LINEBREAK);
+                new ListContactCommand(contactList, LINEBREAK);
             } else if (ui.fullCommand.contains("delete")) {
-                new deleteContactCommand(ui, contactList);
+                new DeleteContactCommand(ui, contactList);
             }
             String toStore = "";
             for (String key : contactList.keySet()) {

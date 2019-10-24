@@ -3,7 +3,7 @@ package gazeeebo.commands.contact;
 
 import java.util.Map;
 
-public class listContactCommand {
+public class ListContactCommand {
     private static final int HORT_LINE_SEPARATOR = 30;
 
     /**
@@ -12,7 +12,7 @@ public class listContactCommand {
      * @param contactList   to Map each name to its phone number.
      * @param lineBreak to print out a separator to separate each line in the list.
      */
-    public listContactCommand(Map<String, String> contactList, String lineBreak) {
+    public ListContactCommand(Map<String, String> contactList, String lineBreak) {
         System.out.print("Name:                         | Number:\n" + lineBreak);
         for (String key : contactList.keySet()) {
             if (!key.contains("NUS") || !key.contains("CEG")) {

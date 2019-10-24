@@ -40,7 +40,7 @@ public class ContactsCommandTest {
 
     @Test
     void testwelcome() throws IOException {
-        ContactsCommand testc = new ContactsCommand();
+        ContactCommand testc = new ContactCommand();
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         testc.execute(list, ui, storage, commandStack, deletedTask, triviaManager);
@@ -63,7 +63,7 @@ public class ContactsCommandTest {
         Map<String, String> contact = new TreeMap<String, String>(map);
         ByteArrayInputStream in = new ByteArrayInputStream("Test,9625 1822".getBytes());
         System.setIn(in);
-        addContactCommand test = new addContactCommand(ui, contact);
+        AddContactCommand test = new AddContactCommand(ui, contact);
         assertEquals("Input in this format: Name,Number\n"
                 + "Successfully added: Test,9625 1822\n", output.toString());
     }
@@ -74,7 +74,7 @@ public class ContactsCommandTest {
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("jason", "9625 1722");
         ui.fullCommand = "delete jason";
-        deleteContactCommand test = new deleteContactCommand(ui, contact);
+        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("Successfully deleted: jason\n", output.toString());
     }
 
@@ -84,7 +84,7 @@ public class ContactsCommandTest {
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
         ui.fullCommand = "delete jason";
-        deleteContactCommand test = new deleteContactCommand(ui, contact);
+        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason is not found in the list.\n", output.toString());
     }
 
@@ -94,7 +94,7 @@ public class ContactsCommandTest {
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
         ui.fullCommand = "delete";
-        deleteContactCommand test = new deleteContactCommand(ui, contact);
+        DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("Incorrect format: delete name\n", output.toString());
     }
 
@@ -105,7 +105,7 @@ public class ContactsCommandTest {
         String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
-        listContactCommand test = new listContactCommand(contact, LINE_BREAK);
+        ListContactCommand test = new ListContactCommand(contact, LINE_BREAK);
         assertEquals("Name:                         | Number:\n"
                 + LINE_BREAK
                 + "janel                         | 9625 1722\n"
@@ -123,7 +123,7 @@ public class ContactsCommandTest {
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find jason";
-        findContactCommand test = new findContactCommand(ui, contact, LINE_BREAK);
+        FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
         assertEquals("Name:                         | Number:\n"
                 + LINE_BREAK
                 + "jason                         | 9825 1822\n"
@@ -138,7 +138,7 @@ public class ContactsCommandTest {
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ui.fullCommand = "find Elis";
-        findContactCommand test = new findContactCommand(ui, contact, LINE_BREAK);
+        FindContactCommand test = new FindContactCommand(ui, contact, LINE_BREAK);
         assertEquals("Elis is not found in the list.", output.toString());
     }
 }

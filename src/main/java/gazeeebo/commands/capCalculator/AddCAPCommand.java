@@ -10,7 +10,7 @@ import java.util.Map;
  * Adds a new module to the CAP list.
  */
 
-public class addCAPCommand {
+public class AddCAPCommand {
     /**
      * Add a new module into GPAList.
      *
@@ -18,7 +18,7 @@ public class addCAPCommand {
      * @param CAPList    deals stores semNumber, moduleCode, moduleCredits and CAP score.
      * @throws IOException catch the error if the read file fails.
      */
-    public addCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList) throws IOException {
+    public AddCAPCommand(Ui ui, Map<String, ArrayList<CAPCommand>> CAPList) throws IOException {
         System.out.print("Input in this format: semNumber,Module_Code,total_MC,CAP\n");
         ui.readCommand();
         String[] splitAddInput = ui.fullCommand.split(",");

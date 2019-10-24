@@ -10,7 +10,7 @@ import gazeeebo.commands.capCalculator.CAPCommand;
 import gazeeebo.commands.tasks.taskCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
-import gazeeebo.commands.contact.ContactsCommand;
+import gazeeebo.commands.contact.ContactCommand;
 import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.places.PlacesCommand;
 
@@ -21,7 +21,7 @@ public class Parser {
         if (splitCommand[0].equals("help")) {
             return new HelpCommand();
         } else if (command.equals("contacts")) {
-            return new ContactsCommand();
+            return new ContactCommand();
         } else if (command.equals("expenses")) {
             return new ExpenseCommand();
         } else if (command.equals("places")) {

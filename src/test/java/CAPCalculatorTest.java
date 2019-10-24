@@ -1,7 +1,6 @@
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.capCalculator.*;
-import gazeeebo.commands.contact.ContactsCommand;
 import gazeeebo.exception.DukeException;
 import gazeeebo.storage.Storage;
 import gazeeebo.tasks.Task;
@@ -69,7 +68,7 @@ public class CAPCalculatorTest {
     void testAddCAPCommand () throws IOException {
         ByteArrayInputStream in = new ByteArrayInputStream("1,CS1231,4,A".getBytes());
         System.setIn(in);
-        addCAPCommand test = new addCAPCommand(ui, CAPList);
+        AddCAPCommand test = new AddCAPCommand(ui, CAPList);
         assertEquals("Input in this format: semNumber,Module_Code,total_MC,CAP\n"
         + "Successfully added: CS1231\n", output.toString());
     }
@@ -86,7 +85,7 @@ public class CAPCalculatorTest {
         CAPList.put("2",list2);
         ByteArrayInputStream in = new ByteArrayInputStream("all".getBytes());
         System.setIn(in);
-        listCAPCommand test = new listCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
         assertEquals("Which sem do you want to list? all,1,2,3,4,5,6,7,8\n"
                 + "Sem | Module code | MC | CAP\n" + LINEBREAK
                 + "1   | CS1231      | 4  | A\n" +LINEBREAK
@@ -107,7 +106,7 @@ public class CAPCalculatorTest {
         CAPList.put("2",list2);
         ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
         System.setIn(in);
-        listCAPCommand test = new listCAPCommand(ui,CAPList,LINEBREAK);
+        ListCAPCommand test = new ListCAPCommand(ui,CAPList,LINEBREAK);
         assertEquals("Which sem do you want to list? all,1,2,3,4,5,6,7,8\n"
                 + "Sem | Module code | MC | CAP\n" + LINEBREAK
                 + "1   | CS1231      | 4  | A\n"
@@ -126,7 +125,7 @@ public class CAPCalculatorTest {
         CAPList.put("1",list);
         CAPList.put("2",list2);
         ui.fullCommand = "find CG1112";
-        findCAPCommand test = new findCAPCommand(ui, CAPList, LINEBREAK);
+        FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
                 + "2   | CG1112      | 6  | A\n"
                 + LINEBREAK, output.toString());
@@ -143,7 +142,7 @@ public class CAPCalculatorTest {
         CAPList.put("1",list);
         CAPList.put("2",list2);
         ui.fullCommand = "find 1";
-        findCAPCommand test = new findCAPCommand(ui, CAPList, LINEBREAK);
+        FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("Sem | Module code | MC | CAP\n" + LINEBREAK
                 + "1   | CS1231      | 4  | A\n"
                 + LINEBREAK, output.toString());
@@ -160,7 +159,7 @@ public class CAPCalculatorTest {
         CAPList.put("1",list);
         CAPList.put("2",list2);
         ui.fullCommand = "find CS2101";
-        findCAPCommand test = new findCAPCommand(ui, CAPList, LINEBREAK);
+        FindCAPCommand test = new FindCAPCommand(ui, CAPList, LINEBREAK);
         assertEquals("CS2101 is not found in the list.\n", output.toString());
     }
 
@@ -173,7 +172,7 @@ public class CAPCalculatorTest {
         list.add(newCAP);
         CAPList.put("1",list);
         ui.fullCommand = "delete CS1231";
-        deleteCAPCommand test = new deleteCAPCommand(ui, CAPList);
+        DeleteCAPCommand test = new DeleteCAPCommand(ui, CAPList);
         assertEquals("Successfully deleted: CS1231\n", output.toString());
     }
 
@@ -184,13 +183,13 @@ public class CAPCalculatorTest {
         list.add(newCAP);
         CAPList.put("1",list);
         ui.fullCommand = "delete CG1111";
-        deleteCAPCommand test = new deleteCAPCommand(ui, CAPList);
+        DeleteCAPCommand test = new DeleteCAPCommand(ui, CAPList);
         assertEquals("CG1111 is not found in the list.\n", output.toString());
     }
 
     @Test
     void testConvertGradetoScoreCommand() {
-        convertGradetoScoreCommand test = new convertGradetoScoreCommand();
+        ConvertGradeToScoreCommand test = new ConvertGradeToScoreCommand();
         assertEquals(5.0, test.converter("A"));
     }
 

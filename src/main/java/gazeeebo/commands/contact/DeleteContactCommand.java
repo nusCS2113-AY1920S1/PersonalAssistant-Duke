@@ -5,7 +5,7 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;
 
-public class deleteContactCommand {
+public class DeleteContactCommand {
 
     /**
      * Deletes the contact from the contact list.
@@ -13,7 +13,7 @@ public class deleteContactCommand {
      * @param ui      deals with printing things to the user.
      * @param contactList map each name to its own phone number
      */
-    public deleteContactCommand(Ui ui, Map<String, String> contactList) {
+    public DeleteContactCommand(Ui ui, Map<String, String> contactList) {
         String nameToDelete = "";
         for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
             if (i != ui.fullCommand.split(" ").length - 1) {

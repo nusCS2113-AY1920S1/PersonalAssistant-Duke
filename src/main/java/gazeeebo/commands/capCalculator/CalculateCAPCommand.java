@@ -3,7 +3,7 @@ package gazeeebo.commands.capCalculator;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class calculateCAPCommand {
+public class CalculateCAPCommand {
     /**
      * Calculate the CAP of all the modules.
      *
@@ -15,7 +15,7 @@ public class calculateCAPCommand {
         int sumMCS = 0;
         for (String key : CAPList.keySet()) {
             for(int i = 0; i < CAPList.get(key).size(); i++) {
-                double score = new convertGradetoScoreCommand().converter(CAPList.get(key).get(i).grade);
+                double score = new ConvertGradeToScoreCommand().converter(CAPList.get(key).get(i).grade);
                 if(score != 0.1) {
                     sumGPAMCS += CAPList.get(key).get(i).moduleCredit * score;
                     sumMCS += CAPList.get(key).get(i).moduleCredit;
@@ -39,7 +39,7 @@ public class calculateCAPCommand {
         for (String key : CAPList.keySet()) {
             if (key.equals(semNumber)) {
                 for(int i = 0; i < CAPList.get(key).size(); i++) {
-                    double score = new convertGradetoScoreCommand().converter(CAPList.get(key).get(i).grade);
+                    double score = new ConvertGradeToScoreCommand().converter(CAPList.get(key).get(i).grade);
                     if(score != 0.1) {
                         sumGPAMCS += CAPList.get(key).get(i).moduleCredit * score;
                         sumMCS += CAPList.get(key).get(i).moduleCredit;

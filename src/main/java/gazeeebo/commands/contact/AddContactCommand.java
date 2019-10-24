@@ -3,7 +3,7 @@ import gazeeebo.UI.Ui;
 import java.io.IOException;
 import java.util.Map;
 
-public class addContactCommand {
+public class AddContactCommand {
 
     /**
      * Add new contact into the contact page.
@@ -12,7 +12,7 @@ public class addContactCommand {
      * @param contactList map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public addContactCommand(Ui ui, Map<String, String> contactList) throws IOException {
+    public AddContactCommand(Ui ui, Map<String, String> contactList) throws IOException {
         System.out.print("Input in this format: Name,Number\n");
         ui.readCommand();
         String[] splitCommand = ui.fullCommand.split(",");
