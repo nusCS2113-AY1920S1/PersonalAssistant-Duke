@@ -110,6 +110,4 @@ public class MyDate {
         String returnStr = hasEndDate ? startdateStr + " to " + enddateStr : startdateStr;
         return returnStr;
     }
-
-
 }
