@@ -49,7 +49,16 @@ public class AchievementList {
 
     private ArrayList<Achievements> populate() {
 
-
+        achievementList.add(new DoneTask("Bronze"));
+        achievementList.add(new DoneTask("Silver"));
+        achievementList.add(new DoneTask("Gold"));
+        achievementList.add(new AddTask("Bronze"));
+        achievementList.add(new AddTask("Silver"));
+        achievementList.add(new AddTask("Gold"));
+        achievementList.add(new ConsecutiveLogin("Bronze"));
+        achievementList.add(new ConsecutiveLogin("Silver"));
+        achievementList.add(new ConsecutiveLogin("Gold"));
+        achievementList.add(new FirstLogin());
 
         return listAchievement;
     }
