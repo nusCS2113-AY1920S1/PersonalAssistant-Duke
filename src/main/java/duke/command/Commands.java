@@ -34,6 +34,8 @@ public class Commands {
             } else {
                 return null; // TODO: fill in the other contexts
             }
+        case "discharge":
+            return new ReportCommand();
         default:
             return null;
         }
