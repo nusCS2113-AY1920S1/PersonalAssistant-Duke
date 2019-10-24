@@ -124,6 +124,31 @@ This process repeats until all the email information in the response is processe
 [caption="Figure N+1: "]
 image::EmailContentParseHelper.png[Content Parsing, 800]
 
+
+== Implementation
+
+=== Email Tags (Tagging and Searching Emails)
+
+This section describes how Email Manager managing emails by tags, including tagging of email and searching
+of emails with the relevant tags.
+
+==== Tagging Email: `update`
+* Format: `update ITEM_NUMBER [-tag TAG1] [-tag TAG2]...` +
+* Tags the specified item with the tag(s) minimum number of tags is 1.
+
+
+==== Filtering email: 'list`
+Format: `list [-tag TAG1] [-tag TAG2]...` +
+Gives a list of emails with the tags. Minimum number of tags is 1, and the maximum is 2.
+
+The tags associated with emails is stored in HashMap<String, HashMap<String, EmailList>>,
+where the String here refers to the tag name, and EmailList is an ArrayList<Email>.
+
+
+== Testing
+
+== Dev Ops
+=======
 Email content parsing is to parse the keyword from different components of an email.
 
 Email content parsing starts with the calling of `allKeywordInEmail(email)` and parse in the email in
@@ -137,6 +162,7 @@ For each email component (subject, sender, body etc), the `keywordInString(email
 called to search for matches across these components. It will then return a relevance score. Higher
 relevance score means a more occurrence. Keyword with all its expressions absent in the email will get a 0
 relevance score. Also, subject and sender will have a higher weights compared to the email body.
+
 
 Each keyword searched in the email with a relevance score higher than 0 (at least 1 occurrence), will be
 added to the email as a tag by calling `addTag(keywordPair, relevanceScore)`.
