@@ -101,10 +101,8 @@ public class UniqueEntityList<T> implements Iterable<T> {
      */
     public void setAll(List<T> replacement) {
         requireNonNull(replacement);
-
         internalList.setAll(replacement);
     }
-
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

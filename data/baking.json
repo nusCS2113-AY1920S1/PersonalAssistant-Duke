@@ -18,53 +18,60 @@
   }, {
     "ingredient" : {
       "name" : "Cake",
-      "unitPrice" : 5.55,
-      "remarks" : ""
-    },
-    "amount" : 12.0
-  } ],
-  "shoppingList" : [ {
-    "ingredient" : {
-      "name" : "Cake",
       "unitPrice" : 5.56,
       "remarks" : ""
     },
-    "amount" : 5.5
+    "amount" : 17.5
   }, {
     "ingredient" : {
-      "name" : "Bacon",
-      "unitPrice" : 0.0,
+      "name" : "Fish",
+      "unitPrice" : 9.95,
+      "remarks" : ""
+    },
+    "amount" : 10.0
+  } ],
+  "shoppingList" : [ {
+    "ingredient" : {
+      "name" : "Fish",
+      "unitPrice" : 9.95,
+      "remarks" : ""
+    },
+    "amount" : 9.0
+  }, {
+    "ingredient" : {
+      "name" : "Chicken",
+      "unitPrice" : 5.0,
       "remarks" : ""
     },
     "amount" : 5.0
   }, {
     "ingredient" : {
       "name" : "Pork",
+      "unitPrice" : 4.58,
+      "remarks" : ""
+    },
+    "amount" : 6.0
+  }, {
+    "ingredient" : {
+      "name" : "Sotong",
+      "unitPrice" : 1.25,
+      "remarks" : ""
+    },
+    "amount" : 5.0
+  }, {
+    "ingredient" : {
+      "name" : "Bread",
       "unitPrice" : 0.0,
       "remarks" : ""
     },
     "amount" : 0.0
   }, {
     "ingredient" : {
-      "name" : "Chicken",
+      "name" : "Mushroom",
       "unitPrice" : 0.0,
       "remarks" : ""
     },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Fish",
-      "unitPrice" : 0.0,
-      "remarks" : "-"
-    },
-    "amount" : 0.0
-  }, {
-    "ingredient" : {
-      "name" : "Dog",
-      "unitPrice" : 0.0,
-      "remarks" : "NIL"
-    },
-    "amount" : 0.0
+    "amount" : 5.0
   } ],
   "sales" : [ ],
   "shortcuts" : [ ]

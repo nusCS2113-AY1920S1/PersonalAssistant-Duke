@@ -7,6 +7,7 @@ import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
+import javafx.beans.value.ObservableFloatValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -188,16 +189,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addSaleFromShopping(/*String purchaseDescription, double purchaseValue, Date purchaseDate, String purchaseRemarks*/) {
-        /*
+    public void addSaleFromShopping(Double totalCost) {
+        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
+    }
+
+
+    /*
+    public void addSaleFromShopping(String purchaseDescription, double purchaseValue, Date purchaseDate, String purchaseRemarks) {
         String description = "Purchased ingredients!" + purchaseDescription;
         double value = purchaseValue;
         Date date = purchaseDate;
         String remarks = purchaseRemarks;
         bakingHome.addSale(new Sale(description, value, date, remarks));
         updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
-         */
     }
+    */
 
     //========Product operations==========
     @Override
@@ -306,7 +312,6 @@ public class ModelManager implements Model {
     }
 
     //========Shopping List operations==========
-
     @Override
     public void addShoppingList(Item<Ingredient> toAdd) {
         requireNonNull(toAdd);

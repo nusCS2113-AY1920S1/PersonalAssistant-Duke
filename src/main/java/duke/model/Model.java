@@ -194,7 +194,7 @@ public interface Model {
      */
     void addSaleFromOrder(Order order);
 
-    void addSaleFromShopping();
+    void addSaleFromShopping(Double totalCost);
 
     //========Ingredient operations======
     /**
@@ -303,4 +303,5 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
+
 }
