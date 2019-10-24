@@ -1,78 +1,60 @@
 # Eggventory Systems Ltd.
+<p align = "center"> <img src="./docs/assets/eggventory_logo.png" alt="Masterpiece"> </p>
 
-## Introduction
+## What is Eggventory?
+For far too long the Faculty of Engineering's (FoE) lab technicians have had to deal with **convoluted and time-consuming** methods of tracking their inventory through **Excel sheets or even sometimes using pen and paper!**
 
+*Worse still*, when it comes to loaning out items to students, items often go missing without any system to remind lab technicians to recollect items or renew loans.
 
+The time spent on this administrative burden could be better spent on **continually improving lab facilities**, and even opening up the lab to more students to **support an improved culture of innovation** within FoE!
 
+We hope to drive this change by creating an inventory management system that is **specialized and technical enough** to meet the requirements of lab technicians, while being **general enough to be used across multiple Engineering labs**.
 
+## Why the name Eggventory?
+<p align = "center"> <img src="./docs/assets/world_record_egg.png" alt="Majestic" height=50% width=50%> </p>
 
+There are two reasons:
+1. Eggventory stands for **Engineering Got General Inventory**. 
+2. Our **philosophy of the Egg** at Team Eggventory.
 
-## Project scope
+*More on our philosophy:* At Eggventory we believe in the **power of the potential to be, and to do something greater**. Just as the unhatched egg cannot comprehend the infinite possibilities in the world outside until it is hatched, humans can be limited in their perspective and can often enclose their thinking within a box conforming to archaic and inefficient ideas of the past. 
 
-An inventory management system specialised towards laboratory technicians in NUS Faculty of Engineering.
+**The Egg therefore serves as a reminder**, that unless we choose to move past our comfort zones and hatch into something greater, we will be unable to achieve **paradigmatic change**.
 
-## Target Users
+**It is this change that we at Eggventory strive towards timelessly.**
 
-Supervisors of labs
-Lab technician officers
-Professors and teachers
-Teaching assistants and educator assistants
-Students borrowing lab equipment items
-(in the future can extend to other groups like students)
+## Eggventory in action
+<p align="center"> <img src="./docs/images/Ui.png" alt="UI" width=65% height=65%> </p>
 
-Value Proposition https://www.youtube.com/watch?v=VZ5rgVgn5qk
-Eggventory is a system to consolidate the management of inventories that stock electronic components. It is designed to facilitate the tracking of movement of inventory in an engineering laboratory in an easy to use interface. It can also be used to offer additional information specific to electronics, such as datasheets and links to similar components. 
+**Say goodbye to piles of paper records.** Eggventory allows you to quickly and conveniently view all your stock and loan records. With the colour-based status indicator, **hours spent slicing through inventory data can be cut down into seconds.** As students *we care* - you won't have to stay back after 5pm to account for our lab logistics anymore!
 
-In particular, it is to be [deployed in situations like schools where items from the inventory are often loaned out] idk 
+### Seamless switching between CLI and GUI
+<p align = "center"> <img src="./docs/assets/switching_icon.png" alt="CLI/GUI Switching" height=20% width=20%> </p>
 
+Whether you're someone who wants more power at their fingertips, or someone just looking for an intuitive and minimalist interface for their inventory management, Eggventory has the tools for you. Choose between the Augmented CLI or the GUI, and switch seamlessly between them as and when you see fit.
+ 
+### Inventory exporting to CSV
+<p align = "center"> <img src="./docs/assets/csv_icon.png" alt="CSV Exporting" height=20% width=20%> </p>
 
-## Use Cases
+Need to use your inventory with another software? That's easy! Simply export your entire inventory to a CSV file for use with any databasing software - with just a single click! Eggventory does not try to restrict you to its ecosystem, but rather wants to augment yours. :)
 
-/* ASK THE TA THIS: If we want to implement an alternative way to achieve a functionality (e.g. Delete an item through CLI or GUI), do we have to write two use cases for it or combine them in one use case? */
+### Frequent updates and bugfixes
+<p align = "center"> <img src="./docs/assets/bugfix_icon.png" alt="Bugfixes" height=20% width=20%> </p>
 
-Issue #25 
-System: Eggventory
-Actor: Lab Technician
-Use Case: View all items in inventory
-User types in command to list all
-System displays every item in inventory
+Eggventory is an in-house solution - made by NUS students, for NUS. This means that any bugs or feature requests can be met on a timely basis with utmost flexibility.
 
-Issue #26
-System: Eggventory
-Actor: Lab Technician
-Use Case: Search and view item
-User inputs search command and the query term
-System retrieves all items matching the query and item identifier, then displays the items and count as a list on the display.
+## Learn Eggventory
+<p align = "center"> <img src="./docs/assets/learn_icon.png" alt="Learn Eggventory" height=20% width=20%> </p>
 
-Issue #46
-System: Eggventory
-Actor: Lab Technician
-Use Case: Delete an items
-User inputs delete command and item identifier 
-System identifies the item requested and deletes the item object (with all its information).
+If you would like to learn how to use Eggventory to maximize its capabilities, or if you just need help, please view the [User Guide.](./docs/CS2113T-F09-3-Eggventory-UG.docx)
 
+## Meet Team Eggventory
+<p align = "center"> <img src="./docs/assets/team_icon.png" alt="Meet Us" height=20% width=20%> </p>
 
-## Non-Functional Requirements
+Please visit [here](./docs/AboutUs.md) if you would like to learn more about the members of Team Eggventory.
 
-It must be responsive to many commands in succession
-It must be able to store at least 10,000 items
-The saved inventory data must be readable and editable manually.
+## Contribute to Eggventory
+<p align = "center"> <img src="./docs/assets/contribute_icon.png" alt="Contributing" height=20% width=20%> </p>
 
-
-## Glossary
-
-Part/Component/Equipment/Item - The items that our inventory system is managing. 
-
-Item identifier - Item name, serial number of the part, or the index number of the item (within the system). The system will be able to identify the item based on any of these information. 
-
-Instance index - The index number automatically assigned
-
-Lab tech - technician in charge of keeping track of the inventory of the lab. The primary user of our system. 
-
-Professor - educator in charge of creating classes and lab activities. Usually the user who defines what items are required for a class. 
-
-TA - teaching assistant who helps students in their class or lab activities. May need to view and filter inventory lists, but unlikely to need to edit or create their own. 
-
-Student - participant in class or lab activities. May use the lab equipment in class, but may also need to loan out some for projects. Students may loan a fixed inventory list or be allowed to choose what they need for their project. 
-
-
+We welcome you to join us in contributing to Eggventory and to give back to the community. Please see [guidelines on contributing](./CONTRIBUTING.md) for more information.
+If you would like to get familiar with Eggventory's implementation, please view the [Developer Guide.](./docs/CS2113T-F09-3-Eggventory-DG.docx)

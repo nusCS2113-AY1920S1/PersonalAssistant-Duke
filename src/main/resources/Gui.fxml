@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @author Raghav-B -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<Stage title="Eggventory" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene fill="RED">
+            <AnchorPane prefHeight="800.0" prefWidth="720.0">
+            <children>
+               <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <ScrollPane fx:id="outputTableScroll" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <content>
+                           <TableView fx:id="outputTable" editable="true" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="648.0" prefWidth="685.0" />
+                        </content>
+                     </ScrollPane>
+                     <Separator prefWidth="200.0" />
+                     <TextArea fx:id="outputField" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" prefHeight="250.0" prefWidth="710.0" wrapText="true" VBox.vgrow="NEVER">
+                        <font>
+                           <Font name="Monospaced Bold" size="10.0" />
+                        </font>
+                     </TextArea>
+                     <TextField fx:id="inputField" promptText="Enter your commands here...">
+                        <font>
+                           <Font name="Monospaced Regular" size="10.0" />
+                        </font>
+                     </TextField>
+                  </children>
+               </VBox>
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding></AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

@@ -115,7 +115,7 @@ Image|Filename
 public class Duke extends Application {
     // ...
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image eggventory = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     // ...
 }
 ```
@@ -132,7 +132,7 @@ private void handleUserInput() {
     Label dukeText = new Label(getResponse(userInput.getText()));
     dialogContainer.getChildren().addAll(
             new DialogBox(userText, new ImageView(user)),
-            new DialogBox(dukeText, new ImageView(duke))
+            new DialogBox(dukeText, new ImageView(eggventory))
     );
     userInput.clear();
 }
@@ -213,7 +213,7 @@ private void handleUserInput() {
     Label dukeText = new Label(getResponse(userInput.getText()));
     dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(userText, new ImageView(user)),
-            DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+            DialogBox.getDukeDialog(dukeText, new ImageView(eggventory))
     );
     userInput.clear();
 }
