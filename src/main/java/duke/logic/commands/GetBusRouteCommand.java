@@ -1,7 +1,7 @@
 package duke.logic.commands;
 
+import duke.commons.Messages;
 import duke.logic.commands.results.CommandResultText;
-import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
 import duke.model.transports.BusService;
@@ -29,7 +29,7 @@ public class GetBusRouteCommand extends Command {
             return new CommandResultText(MESSAGE_BUS_ROUTE + result);
 
         } catch (Throwable e) {
-            throw new DukeException(MessagesPrompt.PROMPT_NOT_INT);
+            throw new DukeException(Messages.PROMPT_NOT_INT);
         }
     }
 }

@@ -4,6 +4,6 @@ import duke.commons.Messages;
 
 public class DukeDateTimeParseException extends DukeException {
     public DukeDateTimeParseException() {
-        super(Messages.INVALID_FORMAT);
+        super(Messages.ERROR_INPUT_INVALID_FORMAT);
     }
 }

@@ -1,7 +1,6 @@
 package duke.logic.commands;
 
 import duke.commons.Messages;
-import duke.commons.MessagesPrompt;
 import duke.commons.enumerations.Constraint;
 import duke.commons.exceptions.DukeException;
 import duke.logic.commands.results.CommandResultText;
@@ -59,16 +58,16 @@ public class RouteNodeEditCommand extends Command {
                 node.setLongitude(Integer.parseInt(val));
                 break;
             default:
-                throw new DukeException(Messages.UNKNOWN_VAR);
+                throw new DukeException(Messages.ERROR_FIELD_UNKNOWN);
             }
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (NumberFormatException e) {
-            throw new DukeException(MessagesPrompt.PROMPT_NOT_INT);
+            throw new DukeException(Messages.PROMPT_NOT_INT);
         } catch (IllegalArgumentException e) {
-            throw new DukeException(Messages.UNKNOWN_CONSTRAINT);
+            throw new DukeException(Messages.ERROR_CONSTRAINT_UNKNOWN);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
     }
 }

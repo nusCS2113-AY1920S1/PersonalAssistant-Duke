@@ -1,13 +1,16 @@
 package duke.model.transports;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.NullResultException;
+import duke.commons.exceptions.RouteNodeDuplicateException;
 import duke.model.locations.BusStop;
 import duke.model.locations.RouteNode;
 import duke.model.locations.TrainStation;
 
 import java.util.ArrayList;
 
+/**
+ * Class representing a route.
+ */
 public class Route {
     private ArrayList<RouteNode> nodes;
     private String name;
@@ -15,6 +18,7 @@ public class Route {
 
     /**
      * Constructs an empty route object.
+     *
      * @param name The name of the route.
      * @param description The description of the route.
      */
@@ -26,6 +30,7 @@ public class Route {
 
     /**
      * Alternative constructor with predefined nodes.
+     *
      * @param nodes The nodes of the route.
      * @param name The name of the route.
      * @param description The description of the route.
@@ -37,81 +42,24 @@ public class Route {
     }
 
     /**
-     * Adds a new node to the route at a given index.
-     * @param newNode The new node to add.
-     * @param index The index of the node to add to.
-     */
-    public void addNode(RouteNode newNode, int index) throws DukeException {
-        if (index >= 0 && index < nodes.size()) {
-            for (RouteNode node : nodes) {
-                if (node instanceof BusStop && newNode instanceof BusStop
-                        && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
-                    throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
-                }
-                if (node instanceof TrainStation && newNode instanceof TrainStation
-                        && ((TrainStation) node).getTrainCode().equals(((TrainStation) newNode).getTrainCode())) {
-                    throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
-                }
-            }
-            nodes.add(index, newNode);
-            return;
-        }
-
-        throw new DukeException(Messages.OUT_OF_BOUNDS);
-    }
-
-    /**
-     * Alternate method to add a node at the end of the Route.
-     * @param newNode The new node to add.
-     */
-    public void addNode(RouteNode newNode) throws DukeException {
-        for (RouteNode node: nodes) {
-            if (node instanceof BusStop && newNode instanceof BusStop
-                    && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
-                throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
-            }
-            if (node instanceof TrainStation && newNode instanceof TrainStation
-                    && ((TrainStation) node).getTrainCode().equals(((TrainStation) newNode).getTrainCode())) {
-                throw new DukeException(Messages.DUPLICATED_ROUTE_NODE);
-            }
-        }
-
-        nodes.add(newNode);
-    }
-
-    /**
      * Gets the node at index.
+     *
      * @param index The index of node.
      * @return node The node at index.
-     * @throws DukeException The exception when index is out of bounds.
+     * @throws IndexOutOfBoundsException The exception when index is out of bounds.
      */
-    public RouteNode getNode(int index) throws DukeException {
+    public RouteNode getNode(int index) throws IndexOutOfBoundsException {
         try {
             return nodes.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new IndexOutOfBoundsException();
         }
     }
 
     /**
-     * Fetches a node with the given name.
-     * @param name The query name.
-     * @return node The queried node.
-     * @throws DukeException The exception when nothing is found.
-     */
-    public RouteNode fetchNode(String name) throws DukeException {
-        for (RouteNode node: nodes) {
-            if (node.getAddress().equals(name.toLowerCase())) {
-                return node;
-            }
-        }
-
-        throw new DukeException(Messages.DATA_NULL);
-    }
-
-    /**
-     * Gets the arraylist of Route Nodes.
-     * @return nodes The arrayList of Route Nodes.
+     * Gets the Arraylist of Route Nodes.
+     *
+     * @return nodes The ArrayList of Route Nodes.
      */
     public ArrayList<RouteNode> getNodes() {
         return nodes;
@@ -119,6 +67,7 @@ public class Route {
 
     /**
      * Gets the starting node of the route.
+     *
      * @return node The start node.
      */
     public RouteNode getStartNode() {
@@ -153,16 +102,81 @@ public class Route {
         return description;
     }
 
-    public void remove(int index) throws IndexOutOfBoundsException {
-        nodes.remove(index);
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void remove(int index) throws IndexOutOfBoundsException {
+        nodes.remove(index);
+    }
+
+    /**
+     * Adds a new node to the route at a given index.
+     *
+     * @param newNode The new node to add.
+     * @param index The index of the node to add to.
+     * @exception IndexOutOfBoundsException If the index is out of bounds.
+     * @exception RouteNodeDuplicateException If the route is a duplicate.
+     */
+    public void addNode(RouteNode newNode, int index) throws RouteNodeDuplicateException, IndexOutOfBoundsException {
+        if (index >= 0 && index < nodes.size()) {
+            for (RouteNode node : nodes) {
+                if (node instanceof BusStop && newNode instanceof BusStop
+                        && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
+                    throw new RouteNodeDuplicateException();
+                }
+                if (node instanceof TrainStation && newNode instanceof TrainStation
+                        && ((TrainStation) node).getTrainCodes().equals(((TrainStation) newNode).getTrainCodes())) {
+                    throw new RouteNodeDuplicateException();
+                }
+            }
+            nodes.add(index, newNode);
+            return;
+        }
+
+        throw new IndexOutOfBoundsException();
+    }
+
+    /**
+     * Alternate method to add a node at the end of the Route.
+     *
+     * @param newNode The new node to add.
+     * @exception RouteNodeDuplicateException If the route is a duplicate.
+     */
+    public void addNode(RouteNode newNode) throws RouteNodeDuplicateException {
+        for (RouteNode node: nodes) {
+            if (node instanceof BusStop && newNode instanceof BusStop
+                    && ((BusStop) node).getBusCode().equals(((BusStop) newNode).getBusCode())) {
+                throw new RouteNodeDuplicateException();
+            }
+            if (node instanceof TrainStation && newNode instanceof TrainStation
+                    && ((TrainStation) node).getTrainCodes().equals(((TrainStation) newNode).getTrainCodes())) {
+                throw new RouteNodeDuplicateException();
+            }
+        }
+
+        nodes.add(newNode);
+    }
+
+    /**
+     * Fetches a node with the given name.
+     *
+     * @param name The query name.
+     * @return node The queried node.
+     * @throws NullResultException The exception when nothing is found.
+     */
+    public RouteNode fetchNode(String name) throws NullResultException {
+        for (RouteNode node: nodes) {
+            if (node.getAddress().equals(name.toLowerCase())) {
+                return node;
+            }
+        }
+
+        throw new NullResultException();
     }
 
     /**

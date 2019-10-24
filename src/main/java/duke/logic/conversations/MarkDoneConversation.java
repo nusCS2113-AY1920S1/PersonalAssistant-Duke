@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 public class MarkDoneConversation extends Conversation {
     private static final String command = "done";
@@ -8,7 +8,7 @@ public class MarkDoneConversation extends Conversation {
 
     public MarkDoneConversation() {
         super();
-        prompt = MessagesPrompt.MARKDONE_PROMPT_STARTER;
+        prompt = Messages.PROMPT_MARKDONE_STARTER;
     }
 
     @Override

@@ -1,17 +1,21 @@
 package duke.logic.api.requests;
 
-import duke.commons.Messages;
-import duke.commons.exceptions.DukeApiException;
+import duke.commons.exceptions.ApiFailedRequestException;
+import duke.commons.exceptions.ApiNullRequestException;
 import javafx.scene.image.Image;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * URL request to OneMap StaticMap API to get image of location.
+ */
 public class StaticMapUrlRequest extends UrlRequest {
-    private static final String URL = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?";
+    private static final String API_LINK = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?";
 
     /**
      * Construct the URL Request.
-     * @param param The query
+     *
+     * @param param The location query.
      */
     public StaticMapUrlRequest(String param) {
         super(param.replace(" ", "+"));
@@ -19,22 +23,24 @@ public class StaticMapUrlRequest extends UrlRequest {
 
     /**
      * Executes the URL request to StaticMap API.
+     *
      * @return image The static map image
-     * @throws DukeApiException IO or null response exceptions
+     * @throws ApiFailedRequestException If request fails.
+     * @throws ApiNullRequestException If request gives no valid results.
      */
     @Override
-    public Image execute() throws DukeApiException {
+    public Image execute() throws ApiFailedRequestException, ApiNullRequestException {
         Image image;
         try {
-            URL url = new URL(URL + param);
+            URL url = new URL(API_LINK + param);
             image = new Image(url.toExternalForm(), true);
-            assert (image != null);
         } catch (IOException e) {
-            throw new DukeApiException(Messages.DATA_NOT_FOUND);
-        } catch (Throwable e) {
-            throw new DukeApiException(Messages.DATA_NULL);
+            throw new ApiFailedRequestException();
         }
 
-        return image;
+        if (image != null) {
+            return image;
+        }
+        throw new ApiNullRequestException();
     }
 }

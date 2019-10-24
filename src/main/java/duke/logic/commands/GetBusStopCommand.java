@@ -24,7 +24,7 @@ public class GetBusStopCommand extends Command {
                     + allBus.get(this.buscode).getLatitude() + "\n"
                     + allBus.get(this.buscode).getLongitude());
         }
-        throw new DukeException(Messages.DATA_NOT_FOUND);
+        throw new DukeException(Messages.ERROR_API_REQUEST_FAILED);
     }
 
 }

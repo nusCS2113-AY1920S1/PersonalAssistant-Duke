@@ -33,7 +33,7 @@ public class RouteNodeListCommand extends Command {
         try {
             return new CommandResultText(model.getRoutes().get(indexRoute).getNode(indexNode));
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
     }
 }

@@ -14,10 +14,11 @@ import java.util.Map;
 public class ApiConstraintParser {
 
     /**
-     * Get nearest bus stop to location.
-     * @param place Starting location
-     * @param busStopMap Map of all bus stop
-     * @return nearest bus stop
+     * Get nearest Bus Stop to location.
+     *
+     * @param place Starting location.
+     * @param busStopMap Map of all Bus Stop.
+     * @return The nearest Bus Stop.
      */
     public static BusStop getNearestBusStop(Venue place, HashMap<String, BusStop> busStopMap) {
         double minimumDisplacement = 1000;
@@ -43,9 +44,10 @@ public class ApiConstraintParser {
 
     /**
      * Get nearest Train Station to location.
-     * @param place Starting location
-     * @param trainMap Map of all Train Station
-     * @return nearest Train Station
+     *
+     * @param place Starting location.
+     * @param trainMap Map of all Train Station.
+     * @return The nearest Train Station.
      */
     public static TrainStation getNearestTrainStation(Venue place, HashMap<String, TrainStation> trainMap) {
         double minimumDisplacement = 1000;
@@ -65,6 +67,7 @@ public class ApiConstraintParser {
 
     /**
      * Return the nearest transportation from the starting location.
+     *
      * @param start The  starting location
      * @param map All transportation location
      * @return Nearest transportation

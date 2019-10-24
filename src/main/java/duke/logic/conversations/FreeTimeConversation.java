@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 public class FreeTimeConversation extends Conversation {
     private static final String command = "findtime";
@@ -8,7 +8,7 @@ public class FreeTimeConversation extends Conversation {
 
     public FreeTimeConversation() {
         super();
-        prompt = MessagesPrompt.FREETIME_PROMPT_STARTER;
+        prompt = Messages.PROMPT_FREETIME_STARTER;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class RouteNodeAddCommand extends Command {
         } else if (indexNode >= 0) {
             route.addNode(node, indexNode);
         } else {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
 
         model.save();

@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 public class ToDoConversation extends Conversation {
     private static final String command = "todo";
@@ -8,7 +8,7 @@ public class ToDoConversation extends Conversation {
 
     public ToDoConversation() {
         super();
-        prompt = MessagesPrompt.TODO_PROMPT_STARTER;
+        prompt = Messages.PROMPT_TODO_STARTER;
     }
 
     @Override

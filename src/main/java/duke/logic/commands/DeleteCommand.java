@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETE + task);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
     }
 }

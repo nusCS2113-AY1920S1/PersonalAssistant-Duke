@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class representing a Bus Stop.
+ */
 public class BusStop extends RouteNode {
     private String busCode;
     private Set<String> buses;
@@ -13,15 +16,16 @@ public class BusStop extends RouteNode {
     /**
      * Creates a BusStop object.
      *
+     * @param busCode The bus code.
+     * @param address The address.
+     * @param description The description.
+     * @param latitude The latitude.
+     * @param longitude The longitude.
      */
     public BusStop(String busCode, String address, String description, double latitude, double longitude) {
         super(Constraint.valueOf("BUS"), address, description, latitude, longitude);
         this.busCode = busCode;
         this.buses = new HashSet<>();
-    }
-
-    public void addBuses(String bus) {
-        buses.add(bus);
     }
 
     public Set<String> getBuses() {
@@ -33,7 +37,17 @@ public class BusStop extends RouteNode {
     }
 
     /**
-     * Fetch data from model.
+     * Adds a bus in the form of a String to buses.
+     *
+     * @param bus The bus to add.
+     */
+    public void addBuses(String bus) {
+        buses.add(bus);
+    }
+
+    /**
+     * Fetches data from model and updates the bus stop.
+     *
      * @param model The model.
      */
     public void fetchData(Model model) {

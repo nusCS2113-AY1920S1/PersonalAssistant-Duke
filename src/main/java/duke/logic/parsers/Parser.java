@@ -1,6 +1,6 @@
 package duke.logic.parsers;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeUnknownCommandException;
 import duke.logic.commands.AddCommand;
@@ -30,10 +30,10 @@ import duke.logic.commands.StaticMapCommand;
 import duke.logic.commands.ViewScheduleCommand;
 
 /**
- * Parser for commands entered by the user. It reads from standard input and
- * returns Command objects.
+ * Parser for commands entered by the user. It reads from standard input and returns Command objects.
  */
 public class Parser {
+
     /**
      * Parses the userInput and return a Command object.
      *
@@ -68,7 +68,7 @@ public class Parser {
         case "recommend":
             return new RecommendationsCommand(ParserUtil.createRecommendation(input));
         case "cancel":
-            return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
+            return new PromptCommand(Messages.PROMPT_CANCEL);
         case "map":
             return new StaticMapCommand(getWord(input));
         case "routeAdd":
@@ -121,6 +121,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a PromptCommand.
+     *
+     * @param prompt The prompt.
+     * @return The PromptCommand.
+     */
     public static Command parsePromptCommand(String prompt) {
         return new PromptCommand(prompt);
     }
@@ -149,6 +155,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets the field at a given index in a String, delimited by whitespace.
+     *
+     * @param index The index of the field.
+     * @param userInput The userInput read by the user interface.
+     * @return The field.
+     */
     private static String getEventIndexInList(int index, String userInput) {
         if (index == 1) {
             return userInput.strip().split(" ", 4)[2];

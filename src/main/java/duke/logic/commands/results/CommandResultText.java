@@ -8,6 +8,9 @@ import duke.model.transports.Route;
 import duke.model.locations.RouteNode;
 import duke.model.Task;
 
+/**
+ * Class representing a text-based CommandResult.
+ */
 public class CommandResultText extends CommandResult {
     /**
      * Constructs a basic CommandResultImage object.
@@ -49,7 +52,7 @@ public class CommandResultText extends CommandResult {
             if (node instanceof BusStop) {
                 message += ((BusStop) node).getBusCode() + " ";
             } else if (node instanceof TrainStation) {
-                message += ((TrainStation) node).getTrainCode() + " ";
+                message += ((TrainStation) node).getTrainCodes() + " ";
             }
             message += node.getAddress() + "\n";
         }
@@ -63,7 +66,7 @@ public class CommandResultText extends CommandResult {
         if (node instanceof BusStop) {
             message += "Bus Stop:\n" + ((BusStop) node).getBusCode() + "\n";
         } else if (node instanceof TrainStation) {
-            message += "Train Station:\n" + ((TrainStation) node).getTrainCode() + "\n";
+            message += "Train Station:\n" + ((TrainStation) node).getTrainCodes() + "\n";
         }
 
         message +=  node.getAddress() + "\n" + node.getDescription() + "\n"

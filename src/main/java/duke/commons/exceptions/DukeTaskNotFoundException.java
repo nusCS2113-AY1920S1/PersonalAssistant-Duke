@@ -4,6 +4,6 @@ import duke.commons.Messages;
 
 public class DukeTaskNotFoundException extends DukeException {
     public DukeTaskNotFoundException() {
-        super(Messages.TASK_NOT_FOUND);
+        super(Messages.ERROR_TASK_NOT_FOUND);
     }
 }

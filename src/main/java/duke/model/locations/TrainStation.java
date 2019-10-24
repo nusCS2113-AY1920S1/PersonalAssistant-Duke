@@ -1,26 +1,30 @@
 package duke.model.locations;
 
 import duke.commons.enumerations.Constraint;
-
 import java.util.ArrayList;
 
+/**
+ * Class representing a Train Station.
+ */
 public class TrainStation extends RouteNode {
-    private ArrayList<String> trainCode;
+    private ArrayList<String> trainCodes;
 
     /**
-     * Creates a location object.
+     * Creates a TrainStation object.
      *
-     * @param address Name of train station
-     * @param latitude latitude of train station
-     * @param longitude longitude of train station
+     * @param trainCode The ArrayList of train code Strings.
+     * @param description The description of the train station.
+     * @param address The name of train station.
+     * @param latitude The latitude of train station.
+     * @param longitude The longitude of train station.
      */
     public TrainStation(ArrayList<String> trainCode, String description, String address,
                 double latitude, double longitude) {
         super(Constraint.valueOf("MRT"), address, description, latitude, longitude);
-        this.trainCode = trainCode;
+        this.trainCodes = trainCode;
     }
 
-    public ArrayList<String> getTrainCode() {
-        return trainCode;
+    public ArrayList<String> getTrainCodes() {
+        return trainCodes;
     }
 }

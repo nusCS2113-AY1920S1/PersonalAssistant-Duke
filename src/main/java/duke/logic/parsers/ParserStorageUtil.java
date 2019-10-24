@@ -70,7 +70,7 @@ public class ParserStorageUtil {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getStartDate()
                     + " | " + ((Event) task).getEndDate() + " | " + ((Event) task).getLocation();
         }
-        throw new DukeException(Messages.CORRUPTED_TASK);
+        throw new DukeException(Messages.ERROR_TASK_CORRUPTED);
     }
 
     /**
@@ -87,7 +87,7 @@ public class ParserStorageUtil {
                 routeString += "node | BUS | " + ((BusStop) node).getBusCode() + " | " + node.getAddress() + " | "
                         + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude() + "\n";
             } else if (node instanceof TrainStation) {
-                routeString += "node | MRT | " + ((TrainStation) node).getTrainCode() + " | " + node.getAddress()
+                routeString += "node | MRT | " + ((TrainStation) node).getTrainCodes() + " | " + node.getAddress()
                         + " | " + node.getDescription() + " | " + node.getLatitude() + " | " + node.getLongitude()
                         + "\n";
             }
@@ -198,7 +198,7 @@ public class ParserStorageUtil {
             return new TrainStation(new ArrayList<String>(), details[3].strip(), details[4].strip(),
                     Double.parseDouble(details[5].strip()),  Double.parseDouble(details[6].strip()));
         default:
-            throw new DukeException(Messages.CORRUPTED_ROUTE_NODE);
+            throw new DukeException(Messages.ERROR_ROUTE_NODE_CORRUPTED);
         }
     }
 

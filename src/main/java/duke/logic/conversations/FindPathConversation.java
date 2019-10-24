@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 public class FindPathConversation extends Conversation {
     private static final String command = "findPath";
@@ -10,21 +10,21 @@ public class FindPathConversation extends Conversation {
 
     public FindPathConversation() {
         super();
-        prompt = MessagesPrompt.FINDPATH_PROMPT_STARTER;
+        prompt = Messages.FINDPATH_PROMPT_STARTER;
     }
 
     @Override
     public void execute(String input) {
         switch (state) {
         case 1:
-            prompt = MessagesPrompt.STARTING_POINT_PROMPT;
+            prompt = Messages.PROMPT_ROUTE_STARTING_POINT;
             constraint = input;
             state++;
             break;
         case 2:
             if (isIntInput(input)) {
                 startPointIndex = input;
-                prompt = MessagesPrompt.ENDPOINT_PROMPT;
+                prompt = Messages.PROMPT_ROUTE_ENDING_POINT;
                 state++;
                 attempts = 0;
             }
@@ -37,7 +37,7 @@ public class FindPathConversation extends Conversation {
             }
             break;
         default:
-            prompt = MessagesPrompt.PROMPT_ERROR;
+            prompt = Messages.PROMPT_ERROR;
             break;
         }
         tryCancelConversation(input);

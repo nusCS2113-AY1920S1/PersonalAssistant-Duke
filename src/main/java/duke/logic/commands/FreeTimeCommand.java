@@ -25,6 +25,6 @@ public class FreeTimeCommand extends Command {
     @Override
     public CommandResultText execute(Model model) throws DukeException {
 
-        throw new DukeException(Messages.FILE_NOT_FOUND + "Write the code!");
+        throw new DukeException(Messages.ERROR_FILE_NOT_FOUND + "Write the code!");
     }
 }

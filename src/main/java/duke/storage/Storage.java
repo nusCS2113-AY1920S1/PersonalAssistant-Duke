@@ -125,7 +125,7 @@ public class Storage {
             }
             s.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException(Messages.FILE_NOT_FOUND);
+            throw new DukeException(Messages.ERROR_FILE_NOT_FOUND);
         }
         tasks.setTasks(newTasks);
     }
@@ -156,7 +156,7 @@ public class Storage {
 
             s.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException(Messages.FILE_NOT_FOUND);
+            throw new DukeException(Messages.ERROR_FILE_NOT_FOUND);
         }
 
         routes.setRoutes(newRoutes);
@@ -201,7 +201,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.FILE_NOT_SAVE);
+            throw new DukeException(Messages.ERROR_FILE_NOT_SAVED);
         }
     }
 
@@ -215,7 +215,7 @@ public class Storage {
             writer.write(routesString); 
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.FILE_NOT_SAVE);
+            throw new DukeException(Messages.ERROR_FILE_NOT_SAVED);
         }
     }
   
@@ -232,7 +232,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new DukeException(Messages.FILE_NOT_SAVE);
+            throw new DukeException(Messages.ERROR_FILE_NOT_SAVED);
         }
     }
 
@@ -262,7 +262,7 @@ public class Storage {
             s.close();
             itinerary.setTasks(agendaList);
         } catch (FileNotFoundException e) {
-            throw new DukeException(Messages.FILE_NOT_FOUND);
+            throw new DukeException(Messages.ERROR_FILE_NOT_FOUND);
         }
         return itinerary;
     }

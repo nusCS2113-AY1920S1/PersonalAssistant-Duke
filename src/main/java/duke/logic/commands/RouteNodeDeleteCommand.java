@@ -39,7 +39,7 @@ public class RouteNodeDeleteCommand extends Command {
             model.save();
             return new CommandResultText(MESSAGE_DELETION + address);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
     }
 }

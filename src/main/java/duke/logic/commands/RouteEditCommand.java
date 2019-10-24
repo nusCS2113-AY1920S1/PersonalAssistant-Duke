@@ -45,13 +45,13 @@ public class RouteEditCommand extends Command {
                 route.setDescription(newValue);
                 break;
             default:
-                throw new DukeException(Messages.UNKNOWN_VAR);
+                throw new DukeException(Messages.ERROR_FIELD_UNKNOWN);
             }
 
             model.save();
             return new CommandResultText(MESSAGE_SUCCESS);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Messages.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.ERROR_INDEX_OUT_OF_BOUNDS);
         }
     }
 }

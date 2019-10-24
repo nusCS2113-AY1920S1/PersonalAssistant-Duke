@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 public class FindConversation extends Conversation {
     private static final String command = "find";
@@ -8,7 +8,7 @@ public class FindConversation extends Conversation {
 
     public FindConversation() {
         super();
-        prompt = MessagesPrompt.FIND_PROMPT_STARTER;
+        prompt = Messages.PROMPT_FIND_STARTER;
     }
 
     @Override

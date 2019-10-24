@@ -19,7 +19,7 @@ public class LocationSelector {
      */
     public LocationSelector(VenueList venues) throws DukeException {
         if (venues.isEmpty()) {
-            throw new DukeException(Messages.LOCATION_SELECTOR_ERROR);
+            throw new DukeException(Messages.ERROR_LOCATION_SELECTOR_NULL);
         }
         this.venues = venues;
         index = 0;

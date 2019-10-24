@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.logic.parsers.ParserTimeUtil;
@@ -62,7 +62,7 @@ public abstract class Conversation {
             return true;
         } catch (DukeException e) {
             attempts++;
-            prompt = MessagesPrompt.PROMPT_NOT_INT;
+            prompt = Messages.PROMPT_NOT_INT;
             return false;
         }
     }
@@ -78,7 +78,7 @@ public abstract class Conversation {
             return true;
         } catch (DukeDateTimeParseException e) {
             attempts++;
-            prompt = MessagesPrompt.PROMPT_NOT_DATE;
+            prompt = Messages.PROMPT_NOT_DATE;
             return false;
         }
     }

@@ -1,7 +1,6 @@
 package duke.model.lists;
 
 import duke.commons.exceptions.DukeDuplicateRouteException;
-import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeRouteNotFoundException;
 import duke.model.transports.Route;
 
@@ -15,6 +14,9 @@ import java.util.List;
 public class RouteList implements Iterable<Route>, Listable<Route> {
     private List<Route> list;
 
+    /**
+     * Constructs a RouteList object.
+     */
     public RouteList() {
         list = new ArrayList<>();
     }
@@ -24,6 +26,15 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
         return list.get(index);
     }
 
+    public List<Route> getRoutes() {
+        return list;
+    }
+
+    /**
+     * Gets the size of the list.
+     *
+     * @return Size of list.
+     */
     @Override
     public int size() {
         return list.size();
@@ -39,9 +50,12 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     /**
      * Adds a unique Route to the list.
+     *
+     * @param toAdd the Route to add.
+     * @exception DukeDuplicateRouteException If there is a duplicate route.
      */
     @Override
-    public void add(Route toAdd) throws DukeException {
+    public void add(Route toAdd) throws DukeDuplicateRouteException {
         if (contains(toAdd)) {
             throw new DukeDuplicateRouteException();
         }
@@ -50,8 +64,14 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     /**
      * Replaces an existing Route with a new different Route.
+     *
+     * @param target The existing route.
+     * @param editedRoute The new route.
+     * @exception DukeDuplicateRouteException If there is a duplicate route.
+     * @exception DukeRouteNotFoundException If the route is not found.
      */
-    public void setRoute(Route target, Route editedRoute) throws DukeException {
+    public void setRoute(Route target, Route editedRoute) throws DukeDuplicateRouteException,
+            DukeRouteNotFoundException {
         int index = list.indexOf(target);
         if (index == -1) {
             throw new DukeRouteNotFoundException();
@@ -66,8 +86,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     /**
      * Removes an existing Route from the list.
+     *
+     * @param toRemove The route to remove.
+     * @exception DukeRouteNotFoundException If the route is not found.
      */
-    public void remove(Route toRemove) throws DukeException {
+    public void remove(Route toRemove) throws DukeRouteNotFoundException {
         if (!list.remove(toRemove)) {
             throw new DukeRouteNotFoundException();
         }
@@ -75,13 +98,20 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     /**
      * Removes an existing Route from the list and returns it.
+     *
      * @param index The index of the Route.
      * @return route The queried Route.
+     * @exception IndexOutOfBoundsException If the query is out of bound.
      */
     public Route remove(int index) throws IndexOutOfBoundsException {
         return list.remove(index);
     }
 
+    /**
+     * Returns whether the list is empty.
+     *
+     * @return Whether the list is empty.
+     */
     @Override
     public boolean isEmpty() {
         return list.isEmpty();
@@ -89,9 +119,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     /**
      * Replaces the contents of this list with a list of Routes.
+     *
      * @param routes The list of Routes to replace.
+     * @exception DukeDuplicateRouteException If there is a duplicate route.
      */
-    public void setRoutes(List<Route> routes) throws DukeException {
+    public void setRoutes(List<Route> routes) throws DukeDuplicateRouteException {
         if (!routesAreUnique(routes)) {
             throw new DukeDuplicateRouteException();
         }
@@ -99,11 +131,22 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
         list = routes;
     }
 
+    /**
+     * Returns an iterator to the list.
+     *
+     * @return The iterator to the list.
+     */
     @Override
     public Iterator<Route> iterator() {
         return list.iterator();
     }
 
+    /**
+     * Checks if an object is equal to this.
+     *
+     * @param other The other object.
+     * @return Whether this object is equal to the other object.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -111,6 +154,11 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
                 && list.equals(((RouteList) other).list));
     }
 
+    /**
+     * Returns the hash code of the list.
+     *
+     * @return The hash code of the list.
+     */
     @Override
     public int hashCode() {
         return list.hashCode();
@@ -118,6 +166,9 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
 
     /**
      * Returns true if all Routes in list are unique.
+     *
+     * @param routes The routes to check.
+     * @return Whether the routes are unique.
      */
     private boolean routesAreUnique(List<Route> routes) {
         for (int i = 0; i < routes.size() - 1; i++) {
@@ -128,10 +179,6 @@ public class RouteList implements Iterable<Route>, Listable<Route> {
             }
         }
         return true;
-    }
-
-    public List<Route> getRoutes() {
-        return list;
     }
 }
 

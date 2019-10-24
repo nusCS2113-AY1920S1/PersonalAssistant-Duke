@@ -1,7 +1,6 @@
 package duke.logic;
 
 import duke.commons.enumerations.Constraint;
-import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiConstraintParser;
 import duke.model.locations.BusStop;
 import duke.model.locations.TrainStation;
@@ -103,7 +102,7 @@ public class PathFinder {
         path.add(startTrainStation);
         if (!onSameLine(startTrainStation, endTrainStation)) {
             ArrayList<TrainStation> curTrainLine;
-            for (String line : startTrainStation.getTrainCode()) {
+            for (String line : startTrainStation.getTrainCodes()) {
                 curTrainLine = this.map.getTrainLine(line.substring(0,2));
                 assert curTrainLine != null : "Train Code does not exist";
                 for (TrainStation trainStation : curTrainLine) {
@@ -136,8 +135,8 @@ public class PathFinder {
     }
 
     private boolean onSameLine(TrainStation cur, TrainStation endTrainStation) {
-        for (String code : cur.getTrainCode()) {
-            for (String code2 : endTrainStation.getTrainCode()) {
+        for (String code : cur.getTrainCodes()) {
+            for (String code2 : endTrainStation.getTrainCodes()) {
                 if (code2.contains(code.substring(0,2))) {
                     return true;
                 }

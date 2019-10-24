@@ -35,7 +35,7 @@ public class DataMallHttpRequest extends HttpRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new DukeApiException(Messages.DATA_NOT_FOUND);
+            throw new DukeApiException(Messages.ERROR_API_REQUEST_FAILED);
         }
 
         JsonObject result;
@@ -45,7 +45,7 @@ public class DataMallHttpRequest extends HttpRequest {
             JsonElement root = jp.parse(response);
             result = root.getAsJsonObject();
         } catch (Throwable e) {
-            throw new DukeApiException(Messages.DATA_NULL);
+            throw new DukeApiException(Messages.ERROR_API_DATA_NULL);
         }
 
         return result;

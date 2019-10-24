@@ -1,6 +1,6 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
+import duke.commons.Messages;
 
 public class GetBusStopConversation extends Conversation {
     private static final String command = "busStop";
@@ -8,7 +8,7 @@ public class GetBusStopConversation extends Conversation {
 
     public GetBusStopConversation() {
         super();
-        prompt = MessagesPrompt.GETBUSROUTE_PROMPT_STARTER;
+        prompt = Messages.PROMPT_GETBUSROUTE_STARTER;
     }
 
     @Override
