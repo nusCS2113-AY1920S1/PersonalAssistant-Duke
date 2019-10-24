@@ -299,7 +299,7 @@ Since `SortCommand` inherits the `ModuleCommand` class, it must override the `ex
 
 Below is a Sequence Diagram showing how `SortCommand` works.
 
-image::SortCommandSequentialDiagram.png[align="center"]
+image::SortCommandSequentialDiagram.png[width="600"]
 
 === ShowCommand
 
@@ -347,6 +347,9 @@ If the arguement read for `toShow` is "ue", an iterator loops through the array 
 If the arguement read for `toShow` is "module", an iterator loops through the array list of `ModuleTask`. It then prints out the entire list of modules being added.
 ****
 
+Below is a Sequence Diagram showing how `ShowCommand` works.
+
+image::ShowCommandSequenceDiagram.png[width="600"]
 
 === JsonWrapper
 
