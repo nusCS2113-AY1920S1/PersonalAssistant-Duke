@@ -6,8 +6,10 @@ import duke.commands.AddOverlayCommand;
 import duke.commands.ByeCommand;
 import duke.commands.Command;
 import duke.commands.CopyCommand;
+import duke.commands.DeleteBarCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.DoneCommand;
+import duke.commands.EditCommand;
 import duke.commands.FindCommand;
 import duke.commands.GroupCommand;
 import duke.commands.HelpCommand;
@@ -47,6 +49,16 @@ public class Parser {
         case "delete":
             if (message.length() >= 8) {
                 return new DeleteCommand(message);
+            }
+            break;
+        case "deletebar":
+            if (message.length() >= 11) {
+                return new DeleteBarCommand(message);
+            }
+            break;
+        case "edit":
+            if (message.length() >= 6) {
+                return new EditCommand(message);
             }
             break;
         case "find":
