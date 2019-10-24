@@ -24,11 +24,12 @@ public class ReportCommand extends ArgCommand {
                 FileWriter fileWriter = new FileWriter("reports" + File.separator + patientsName + "-"
                         + patientsBenNo + ".txt");
                 fileWriter.write("DISCHARGED PATIENT REPORT\n\nThis report shows all the data that was stored about "
-                        + "a patient at the time of discharge.\n\nPatient Data;\n");
+                        + "a patient at the time of discharge.\n\n");
                 if (getSwitchVal("summary") != null) {
                     fileWriter.write("Report Summary/Note: "
                             + getSwitchVal("summary") + ".\n\n");
                 }
+                fileWriter.write("Patient Data;\n");
                 fileWriter.write(core.patientMap.getPatient(getArg()).toReportString());
                 fileWriter.close();
             } catch (IOException e) {
