@@ -55,16 +55,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === View all the commands available : `menu`
 
-Lists all the commands that are available in the program. +
+This command is for new users, users who are still learning the console commands, or have forgotten a particular command.
+`menu` will list all the commands that are available in the program. +
 Format: `menu`
 
 === Start the game : `start`
-
+This command allows you to start the game from the interface. +
 Format: `start`
 
 === Choose a chapter : `select`
 
-Chooses the chapter of the game to be run. +
+This command allows you to choose the chapter of the game to be run. Chapters are numbered from 1-5, allowing you to
+practice or play a particular chapter to enhance their understanding. +
 Format: `select CHAPTER` +
 
 Example : +
@@ -72,71 +74,82 @@ Example : +
 
 === List results of a chapter : `result`
 
-Provides a comprehensive summary of results for a particular chapter. +
+This command provides a comprehensive summary of results for a particular chapter. You can expect to get a better
+understanding of their skills in a particular chapter from the results shown. +
 Format : `result CHAPTER` +
 Example : +
 `result 1` will print the results of the Sorting chapter.
 
 === Generate an overall report : `report`
 
-Provides a comprehensive summary of results for all the chapters. +
+This command provides a comprehensive summary of results for all the chapters. You can expect to see which chapters you
+need to improve on, and which chapters are good enough from the comments given. +
 Format : `report`
 
 === Return to the previous question : `back`
 
-Allows you to return to the last question if you made a mistake. +
+This command allows users to return to the last question if you made a mistake. This would help prevent any accidental input,
+rendering the answer as wrong. +
 Format : `back`
 
 === List previously entered commands : `history`
 
-Provides a list of commands you have entered. +
+This command provides a list of commands you have entered. This would be useful in the event if some console command has changed
+the your result but you has forgotten what commands you have entered. +
 Format : `history NUMBER` +
 Example : +
 `history 5` will print the last 5 console commands given.
 
 === Undo a console command : `undo`
 
-Provides a way to undo an accidental wrong command. +
+This command provides a way for you to undo an accidental wrong command. This is mainly for inexperienced users who are not yet
+familiar with the results of the numerous commands. +
 Format : `undo`
 
 === Clear results of a chapter : `clear`
 
-Removes all existing results on a particular chapter. +
+This command removes all existing results on a particular chapter. This feature is for users who wish to see how have they
+improved in comparison to the previous round. +
 Format : `clear CHAPTER` +
 Example : +
 `clear 1` will print the results of the Sorting chapter.
 
 === Reset the whole game : `reset`
 
-Provides a way for user to restart the entire game by clearing all progress and results. +
+This command provides a way for you to restart the entire game by clearing all progress and results. This is for users who
+wish to repeat the game after clearing all the stages. +
 Format : `reset`
 
 === Manually save the game : `save`
 
-Provides a way for users to save the game manually +
+This command provides a way for you to save the game manually. Normally, the game would already be saving your game for you at
+certain checkpoints. However, in the event that our auto-save function does not work, it is highly recommended to do a manual save
+from time to time. +
 Format : `save`
 
 === Provides suggestions to users to improve : `help`
 
-Provides a suggestion of problems to solve for the user to improve at a certain chapter. +
+This command provides a suggestion of problems that you can solve to improve at a particular chapter. +
 Format : `help CHAPTER` +
 Example : +
-`help 1` will list a a few problems from Kattis that the user can attempt to increase their
+`help 1` will list a few problems from Kattis that the user can attempt to increase their
 understanding of the chapter selected.
 
 === Exits the game : `exit`
 
-Terminates the game. +
+This command provides a way for you to terminate the game. +
 Format : `exit`
 
 === Print questions : `print` `[coming in v2.0]`
 
-Provides the questions in a text file. +
+This command provides a way for you to print the questions you have experienced in a text file. This is for users who
+want to keep a copy of the questions they found hard, or attempted wrongly. +
 Format : `print`
 
 === Archive questions : `archive` `[coming in v2.0]`
 
-Archives the current question. +
+This command archives the current question. This is for users who found a particular question interesting, or users who are
+not sure of the correct answer and wish to review the question in greater detail in the future. +
 Format: `archive`
 
 == FAQ
