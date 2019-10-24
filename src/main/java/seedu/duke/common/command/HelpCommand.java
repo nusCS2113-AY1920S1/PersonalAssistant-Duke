@@ -99,15 +99,16 @@ public class HelpCommand extends Command {
                 + "be done", "Create a todo. "));
         commandInfoList.add(new CommandInfo("Task", "deadline \'name\'\n"
                 + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline\n"
-                + "or\t-time\'day HHmm\'\t\t (Optional) The time of the deadline."
+                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the deadline\n"
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
-                + "can be added to a single todo. "
+                + "can be added to a single deadline. "
                 + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
                 + "be done", "Create a deadline."));
         commandInfoList.add(new CommandInfo("Task", "event \'name\'\n"
-                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the deadline\n"
+                + "\t-time \'dd/MM/uuuu HHmm\'\t\t (Must) The time of the event\n"
+                + "or\t-time \'day HHmm\'\t\t (Optional) The time of the event\n"
                 + "\t[-tag \'tag content\']\t\t(Optional) Add a tag to the task created. Multiple tags "
-                + "can be added to a single todo. "
+                + "can be added to a single event. "
                 + "\n\t[-doafter \'message\']\t\t(Optional) Add the event/time after which the task should "
                 + "be done", "Create a event."));
 
