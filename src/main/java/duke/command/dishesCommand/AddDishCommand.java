@@ -5,6 +5,7 @@ import duke.dish.DishList;
 import duke.dish.Dish;
 import duke.command.Cmd;
 import duke.exception.DukeException;
+import duke.list.GenericList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -21,7 +22,8 @@ public class AddDishCommand extends AddCommand<Dish> {
         this.amount = amount;
     }
 
-    public void execute(DishList dishList, Ui ui, Storage storage) throws DukeException {
+    @Override
+    public void execute(GenericList<Dish> dishList, Ui ui, Storage storage) throws DukeException {
         boolean flag = true;
         try {
             if(dishList.size() == 0) {

@@ -10,6 +10,7 @@ import duke.dish.Dish;
 import duke.exception.DukeException;
 import duke.command.orderCommand.*;
 import duke.ingredient.Ingredient;
+import duke.order.Order;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
