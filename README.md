@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/322986031c8f449895a76905dddb68dc)](https://www.codacy.com/app/AY1920S1-CS2113T-W17-2/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2113T-W17-2/main&utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![Boot up UI](/docs/images/Ui.png)
+![Boot up UI](/docs/images/Ui.png)
 
 **WalletCLi** is a CLI (Command Line Interface) expenses/loans application that caters to NUS students who prefer to use a desktop application to manage their expenses/loans.
 
