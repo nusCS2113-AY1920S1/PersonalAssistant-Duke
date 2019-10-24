@@ -1,4 +1,4 @@
-package duke.logic;
+package duke.logic.selectors;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
@@ -7,7 +7,10 @@ import duke.model.locations.Venue;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class LocationSelector {
+/**
+ * Iterates through locations using proximity of Venue via arrow keys.
+ */
+public class LocationSelector implements Selector {
     private VenueList venues;
     private int index;
     private boolean isLock;
@@ -26,6 +29,7 @@ public class LocationSelector {
         isLock = false;
     }
 
+    @Override
     public int getIndex() {
         return index;
     }
@@ -35,6 +39,7 @@ public class LocationSelector {
      *
      * @param keyEvent KeyEvent from the Ui.
      */
+    @Override
     public void feedKeyEvent(KeyEvent keyEvent) {
         if (isLock) {
             return;
@@ -46,6 +51,12 @@ public class LocationSelector {
         }
     }
 
+    /**
+     * Finds the next nearest Venue given the KeyCode.
+     *
+     * @param keyCode KeyCode indicating up/down/left/right.
+     * @return The index of the nearest Venue in the given keycode direction.
+     */
     private int find(KeyCode keyCode) {
         Venue currentVenue = venues.get(index);
         double min = Double.POSITIVE_INFINITY;
@@ -76,5 +87,9 @@ public class LocationSelector {
      */
     public void unlock() {
         isLock = false;
+    }
+
+    public boolean isLock() {
+        return isLock;
     }
 }
