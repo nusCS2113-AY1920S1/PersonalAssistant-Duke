@@ -1,18 +1,15 @@
 INIT @ false
 BS @ 0.0
-INC @ 560.0 @ TA  @ 10/12/2040
-INC @ -2.0 @ From somebody @ 16/10/2019
-INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
-INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
-INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 30.0 @ Initialize account: OCBC @ 27/7/2017
 INC @ 100.0 @ Initialize account: DBS @ 14/8/2018
 INC @ 200.0 @ Deposit to OCBC @ 3/3/2018
-EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
+INC @ 2.0934808E7 @ for fk's sake  @ 24/10/2019
+INC @ 369.0 @ salakau  @ 3/6/2009
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
-EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
+EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
+EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
 EXP @ 100.0 @ buy watch @ GS @ 16/10/2019
 EXP @ 500.0 @  utility  @ bills @ 10/10/2019 @ 4/11/2019
 EXP @ 2000.0 @ buy GFG  @ GS @ 18/10/2019

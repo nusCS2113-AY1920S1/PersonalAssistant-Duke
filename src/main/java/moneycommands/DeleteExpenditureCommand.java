@@ -4,6 +4,8 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import money.Expenditure;
+import money.Item;
 import moneycommands.MoneyCommand;
 
 /**
@@ -45,22 +47,28 @@ public class DeleteExpenditureCommand extends MoneyCommand {
         if (serialNo > account.getExpListTotal().size()) {
             throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
         }
-
+        Expenditure deletedEntryExp = account.getExpListTotal().get(serialNo - 1);
         ui.appendToOutput(" Noted. I've removed this expenditure:\n");
-        ui.appendToOutput("  " + account.getExpListTotal().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput("  " + deletedEntryExp.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getExpListTotal().size() - 1) +
                 " expenses in the list.\n");
 
-        storage.markDeletedEntry("EXP", serialNo);
-        account.getExpListTotal().remove(serialNo - 1);
+        account.getExpListTotal().remove(deletedEntryExp);
+        storage.addDeletedEntry(deletedEntryExp);
+        storage.writeToFile(account);
     }
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        storage.undoDeletedEntry(account, "EXP", serialNo);
-        storage.writeToFile(account);
-        ui.appendToOutput(" Last command undone: \n");
-        ui.appendToOutput(account.getExpListTotal().get(serialNo - 1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
+        Item deletedEntry = storage.getDeletedEntry();
+        if (deletedEntry instanceof  Expenditure) {
+            account.getExpListTotal().add(serialNo - 1, (Expenditure)deletedEntry);
+            storage.writeToFile(account);
+            ui.appendToOutput(" Last command undone: \n");
+            ui.appendToOutput(account.getExpListTotal().get(serialNo - 1).toString() + "\n");
+            ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
+        } else  {
+            throw new DukeException("u messed up at expenditure\n");
+        }
     }
 }

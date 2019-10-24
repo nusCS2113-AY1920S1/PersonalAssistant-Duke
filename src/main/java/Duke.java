@@ -56,10 +56,12 @@ public class Duke{
                 System.exit(0);
             } else if (!c.getClass().equals(UndoCommand.class)) {
                 c.execute(account, ui, moneyStorage);
+                undoCommandHandler.updateLastIssuedCommands(c);
             } else {
-                undoCommandHandler.getLastIssuedCommand().undo(account, ui, moneyStorage);
+                c = undoCommandHandler.getLastIssuedCommand();
+                c.undo(account, ui, moneyStorage);
             }
-            undoCommandHandler.updateLastIssuedCommands(c);
+
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));
