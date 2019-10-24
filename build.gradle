@@ -43,17 +43,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/net.sourceforge.argparse4j/argparse4j
     compile group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
-
 }
 
 test {
     useJUnitPlatform()
 }
 
-
 application {
     // Change this to your main class.
-    mainClassName = "planner.Planner"
+    mainClassName = "planner.main.CliLauncher"
 }
 
 run {
