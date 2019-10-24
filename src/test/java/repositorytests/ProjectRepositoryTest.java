@@ -29,6 +29,9 @@ class ProjectRepositoryTest {
 
     @Test
     void addToRepo_correctInputs_projectReturned() {
+        while (projectRepository.getAll().size() != 0) {
+            projectRepository.deleteItem(1);
+        }
         simulatedUserinput = "create Thor Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
         Project simulatedProject = projectRepository.getItem(1);
@@ -52,6 +55,9 @@ class ProjectRepositoryTest {
 
     @Test
     void getItem_projectExists_projectReturned() {
+        while (projectRepository.getAll().size() != 0) {
+            projectRepository.deleteItem(1);
+        }
         assertEquals(projectRepository.getAll().size(), 0);
         simulatedUserinput = "create Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
@@ -68,6 +74,9 @@ class ProjectRepositoryTest {
 
     @Test
     void deleteItem_projectExists_successfulDeletion() {
+        while (projectRepository.getAll().size() != 0) {
+            projectRepository.deleteItem(1);
+        }
         assertEquals(projectRepository.getAll().size(), 0);
         simulatedUserinput = "create Ironman Fanclub";
         projectRepository.addToRepo(simulatedUserinput);
@@ -78,6 +87,9 @@ class ProjectRepositoryTest {
 
     @Test
     void deleteItem_projectDontExist_errorPrinted() {
+        while (projectRepository.getAll().size() != 0) {
+            projectRepository.deleteItem(1);
+        }
         assertEquals(projectRepository.getAll().size(), 0);
         boolean isProjectDeleted = projectRepository.deleteItem(1);
         assertFalse(isProjectDeleted);
