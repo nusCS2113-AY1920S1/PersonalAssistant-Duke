@@ -38,7 +38,8 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList();
         songs = new SongList();
-        storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
+        //storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
+        storage = new Storage(Paths.get("data", "todo_list.txt"));
         try {
             storage.loadToList(songs);
         } catch (DukeException e) {
