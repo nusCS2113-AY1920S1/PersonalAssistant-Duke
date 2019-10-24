@@ -90,6 +90,7 @@ public class AsciiCommand extends Command<SongList> {
             throw new DukeException(message, "AsciiCommand");
         }
         return result;
+        
     }
 
     /**
