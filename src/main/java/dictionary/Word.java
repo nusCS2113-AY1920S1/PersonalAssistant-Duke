@@ -15,7 +15,7 @@ public class Word {
     /**
      * Maximum ratio of difference allowed for 2 words to be considered close.
      */
-    private double MAX_DIFF_ALLOWED = 0.5;
+    private final double MAX_DIF_ALLOWED = 0.5;
 
     /**
      * Number of times that a word is searched.
@@ -110,7 +110,7 @@ public class Word {
      * @return true if 2 words are closed with each other
      */
     public boolean isClosed(String another) {
-        return differenceToWord(another) < MAX_DIFF_ALLOWED;
+        return differenceToWord(another) < MAX_DIF_ALLOWED;
     }
 
     @Override

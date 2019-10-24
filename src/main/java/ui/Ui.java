@@ -259,6 +259,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows to user all words that have a specific beginning.
+     * @param begin begin substring to be searched
+     * @param wordWithBegins list of all words that have that begin substring
+     * @return a string shown to user when the command is completed
+     */
     public String showSearchBegin(String begin, ArrayList<String> wordWithBegins) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append((wordWithBegins.size() == 1) ? "This is a word that has " : "These are words that have");

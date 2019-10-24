@@ -10,7 +10,6 @@ import exception.WordAlreadyExistException;
 import storage.Storage;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.TreeMap;
 
 
@@ -86,6 +85,11 @@ public class WordBank {
         }
     }
 
+    /**
+     * Adds a word to the WordBank.
+     * @param word Word object represents the word to be added
+     * @throws WordAlreadyExistException if the word has already exists in the WordBank
+     */
     public void addWord(Word word) throws WordAlreadyExistException {
         if (wordBank.containsKey(word.getWord())) {
             throw new WordAlreadyExistException(word.getWord());
@@ -111,6 +115,12 @@ public class WordBank {
         return s + wordBank.get(word).getMeaning();
     }
 
+    /**
+     * Searches for all words with a few beginning characters
+     * @param word a string represents the beginning substring
+     * @return list of words that have that beginning substring
+     * @throws NoWordFoundException if no words in the WordBank have that beginning substring
+     */
     public ArrayList<String> searchWordWithBegin(String word) throws NoWordFoundException {
         word = word.toLowerCase();
         ArrayList<String> arrayList = new ArrayList<>();
@@ -122,8 +132,7 @@ public class WordBank {
         for (String s : subMap.keySet()) {
             if (s.startsWith(word)) {
                 arrayList.add(s);
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -196,6 +205,11 @@ public class WordBank {
         }
     }
 
+    /**
+     * Checks spelling when user input a non-existing word
+     * @param word word to be searched
+     * @return list of words that is considered to be close from the word user is looking for
+     */
     public ArrayList<String> getClosedWords(String word) {
         ArrayList<String> closedWords = new ArrayList<>();
         for (Word w : wordBank.values()) {
