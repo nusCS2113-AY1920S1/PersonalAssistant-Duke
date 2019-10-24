@@ -284,15 +284,7 @@ public class EventList {
         int j;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) continue;
-            else {
-                if (eventArrayList.get(i) != null) {
-                    if (!predicate.check(eventArrayList.get(i).getStartDate())) {
-                        continue;
-                    }
-                } else {
-                    continue;
-                }
-            }
+            else if (!predicate.check(eventArrayList.get(i).getStartDate())) continue; 
             j = i + 1;
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";
         }
