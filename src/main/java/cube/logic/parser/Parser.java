@@ -19,7 +19,8 @@ public class Parser {
 	 * add foodName -t foodType -p price -s stock -e expiryDate
 	 * list -sort expiry/name/stock
 	 * find -i index / -n foodName / -t foodType --sort expiry/name/stock
-	 * delete -i index / -n foodName / -t foodType -sort expiry/name/stock
+	 * generaterevenue -i index / -n foodName / -t foodType
+	 * delete -i index / -n foodName / -t foodType
 	 * sold -n foodName -q quantity
 	 * reminder
 	 * help
@@ -35,18 +36,20 @@ public class Parser {
 		String command = inputs[0];
 		command = command.trim().toLowerCase();
 		switch (command) {
+			case "reminder":
+				return new ReminderCommandParser().parse(inputs);
 			case "add":
 				return new AddCommandParser().parse(inputs);
 			case "list":
 				return new ListCommandParser().parse(inputs);
 			case "find":
 				return new FindCommandParser().parse(inputs);
+			case "generaterevenue" :
+				return new GenerateRevenueCommandParser().parse(inputs);
 			case "delete":
 				return new DeleteCommandParser().parse(inputs);
 			case "sold":
 				return new SoldCommandParser().parse(inputs);
-			case "reminder":
-				return new ReminderCommand();
 			case "help":
 				return new HelpCommand();
 			case "bye":

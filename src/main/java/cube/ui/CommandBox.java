@@ -2,6 +2,7 @@ package cube.ui;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
+import cube.logic.command.CommandResult;
 import cube.logic.parser.Parser;
 import cube.model.FoodList;
 import cube.storage.StorageManager;
@@ -17,40 +18,42 @@ public class CommandBox extends UiManager<StackPane> {
     @FXML
     private TextField commandTextField;
 
+    private final CommandExecutor commandExecutor;
+
     private StorageManager storageManager;
     private FileUtilJson storage;
     private FoodList foodList;
 
-    public CommandBox() {
+    public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
-    }
-
-    public CommandBox(StorageManager storageManager, FileUtilJson storage, FoodList foodList) {
-        super(FXML);
-        this.storageManager = storageManager;
-        this.storage = storage;
-        this.foodList = foodList;
+        this.commandExecutor = commandExecutor;
     }
 
     /**
-     * Handles the Enter button pressed event.
-     *
-     * Currently bad implementation, need changes to model to work.
+     * Handles the Enter button pressed event listener.
      */
     @FXML
     private void handleCommandEntered() {
         String fullCommand = commandTextField.getText();
 
         try {
-            Command c = Parser.parse(fullCommand);
-            //c.execute(foodList, new Ui(), storageManager);
-            c.execute(foodList, storageManager);
-            storage.save(storageManager);
+            commandExecutor.execute(fullCommand);
         } catch (CubeException e) {
             e.printStackTrace();
         }
 
         System.out.println(commandTextField.getText());
         commandTextField.clear();
+    }
+
+    /**
+     * Represents a function that can execute commands.
+     */
+    @FunctionalInterface
+    public interface CommandExecutor {
+        /**
+         * Executes the command and returns the result.
+         */
+        CommandResult execute(String commandText) throws CubeException;
     }
 }

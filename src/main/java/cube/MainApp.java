@@ -1,6 +1,7 @@
 package cube;
 
 import cube.exception.CubeException;
+import cube.model.Food;
 import cube.model.FoodList;
 import cube.storage.StorageManager;
 import cube.util.FileUtilJson;
@@ -13,25 +14,23 @@ public class MainApp extends Application {
 
     private StorageManager storageManager;
     private FileUtilJson storage;
-    private FoodList foodList;
 
     public void init(String filePath) {
         storage = new FileUtilJson(filePath);
 
         try {
             storageManager = storage.load();
-            foodList = storageManager.getFoodList();
+            Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
-            foodList = new FoodList();
             storageManager = new StorageManager();
         }
     }
 
     @Override
     public void start(Stage stage) {
-        //MainWindow mwc = new MainWindow(stage);
         init("data");
-        MainWindow mwc = new MainWindow(stage, storageManager, storage, foodList);
+
+        MainWindow mwc = new MainWindow(stage, storageManager, storage);
 
         mwc.initComponents();
         mwc.show();

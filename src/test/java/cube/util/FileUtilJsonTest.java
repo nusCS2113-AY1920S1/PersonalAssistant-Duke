@@ -1,11 +1,10 @@
-package util;
+package cube.util;
 
 import cube.exception.CubeException;
 import cube.logic.command.Command;
 import cube.logic.parser.Parser;
 import cube.storage.StorageManager;
 import cube.model.FoodList;
-import cube.util.FileUtilJson;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,7 +24,7 @@ public class FileUtilJsonTest {
         int NUM_OF_PRODUCTS = 30;
 
         for (int i = 0; i < NUM_OF_PRODUCTS; i += 1) {
-            String command = "add Food_" + i + " -t food -p " + i + " -s " + (i * i) + " -e " + "31/12/2020";
+            String command = "add Food_" + i + " -t food -p " + i + " -s 5000 -e " + "31/12/2020";
             Command c = Parser.parse(command);
             c.execute(foodList, storageManager);
         }
