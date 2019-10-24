@@ -6,6 +6,10 @@ import dolla.task.LogList;
 
 import java.util.ArrayList;
 
+/**
+ * SearchCommand is a command that runs when
+ * the user wants to execute a search command.
+ */
 public class SearchCommand extends Command {
     private String mode;
     private String component;
@@ -14,8 +18,8 @@ public class SearchCommand extends Command {
     /**
      * Instantiates a new SearchCommand.
      * @param mode mode Dolla is in
-     * @param component component
-     * @param searchContent search content
+     * @param component the component to be searched on (description/name/date)
+     * @param searchContent the content that the user wants to search for
      */
     public SearchCommand(String mode, String component, String searchContent) {
         this.mode = mode;
@@ -23,6 +27,11 @@ public class SearchCommand extends Command {
         this.component = component;
     }
 
+    /**
+     * Executes the search command according to the mode and the command
+     * @param dollaData the dolla data
+     * @throws Exception handle exception
+     */
     @Override
     public void execute(DollaData dollaData) throws Exception {
         LogList logList = new LogList(new ArrayList<>());

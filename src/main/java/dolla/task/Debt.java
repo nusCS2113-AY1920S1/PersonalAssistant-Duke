@@ -6,6 +6,9 @@ import dolla.task.Log;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Debt is a Class that stores an instance of the user's owe and borrow cases.
+ */
 public class Debt extends Log {
 
     protected String type;
@@ -15,12 +18,11 @@ public class Debt extends Log {
 
     /**
      * Instantiates a new Debt.
-     *
-     * @param type        the type
-     * @param name        the name
-     * @param amount      the amount
-     * @param description the description
-     * @param date        the date
+     * @param type        Type of the debt (owe or borrow).
+     * @param name        Name of the person who is related to this debt.
+     * @param amount      Amount of money owed or borrowed.
+     * @param description Description of the debt.
+     * @param date        Due date of the debt.
      */
     public Debt(String type, String name, double amount, String description, LocalDate date) {
         this.type = type;
@@ -45,19 +47,35 @@ public class Debt extends Log {
                 + "[/due " + Time.dateToString(date) + "]";
     }
 
+    /**
+     * Returns a string with description about the description part of the debt.
+     * @return String with description about the description part of the debt.
+     */
     @Override
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns a string with the information about the name associated with the debt.
+     * @return String with the information about the name associated with the debt.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns a LocalDate with information about the due date of the debt.
+     * @return LocalDate with information about the due date of the debt.
+     */
     public LocalDate getDate() {
         return date;
     }
 
+    /**
+     * Returns a string with information about the amount of the debt.
+     * @return String with information about the amount of the debt.
+     */
     public String amountToMoney() {
         return "$" + amount;
     }
@@ -76,6 +94,10 @@ public class Debt extends Log {
                 + Time.dateToString(date);
     }
 
+    /**
+     * Returns a string with information about the user input.
+     * @return String with information about the user input.
+     */
     @Override
     public String getUserInput() {
         return userInput;

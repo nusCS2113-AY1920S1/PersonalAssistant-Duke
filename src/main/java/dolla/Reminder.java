@@ -15,7 +15,6 @@ public class Reminder {
 
     /**
      * Instantiates a new Reminder.
-     *
      * @param mode the mode
      */
     public Reminder(String mode) {
@@ -24,7 +23,6 @@ public class Reminder {
 
     /**
      * Show reminder.
-     *
      * @param dollaData the dolla data
      */
     public void showReminder(DollaData dollaData) {
@@ -36,9 +34,8 @@ public class Reminder {
 
     /**
      * Print reminder.
-     *
-     * @param today   the today
-     * @param logList the log list
+     * @param today   Today's date.
+     * @param logList The list of logs of debt.
      */
     public void printReminder(LocalDate today, LogList logList) {
         System.out.println("\tREMINDER!!!");

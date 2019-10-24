@@ -13,14 +13,28 @@ import dolla.command.RemoveCommand;
 
 import java.time.LocalDate;
 
+/**
+ * DebtsParser is a class that handles the input command and
+ * execute the command according to the command under the debt mode.
+ */
 public class DebtsParser extends Parser {
     private static int prevPosition;
     private static int undoFlag = 0;
 
+    /**
+     * Instantiate a new command under the debt mode
+     * @param inputLine command line by the user
+     */
     public DebtsParser(String inputLine) {
         super(inputLine);
     }
 
+    /**
+     * Analise the input command and execute the command
+     * @param mode the current mode
+     * @param inputLine command line input by the user
+     * @return Command according to the user input
+     */
     @Override
     public Command handleInput(String mode, String inputLine) {
         if (commandToRun.equals("debts")) { //show debt list
@@ -64,6 +78,10 @@ public class DebtsParser extends Parser {
         }
     }
 
+    /**
+     * Set the previous position of a log in the list
+     * @param prePosition the index of the log in the list
+     */
     public static void setPrePosition(int prePosition) {
         DebtsParser.prevPosition = prePosition;
         undoFlag = 1;
