@@ -4,12 +4,15 @@ import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
 import duke.model.Model;
 import duke.model.lists.EventList;
+import duke.model.lists.RouteList;
 import duke.model.lists.TaskList;
 import duke.model.lists.VenueList;
-import duke.model.events.Event;
-import duke.model.events.Task;
+import duke.model.Event;
+import duke.model.Task;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
+import duke.model.planning.Agenda;
+import duke.model.planning.Itinerary;
 import duke.model.transports.BusService;
 import duke.storage.Storage;
 
@@ -19,11 +22,16 @@ import java.util.List;
 public class ModelStub implements Model {
     private Storage storage;
     private TaskList tasks;
+    private RouteList routes;
     private CreateMap map;
 
+    /**
+     * Construct the ModelStub for testing.
+     */
     public ModelStub() {
         storage = new Storage();
         tasks = new TaskList();
+        routes = new RouteList();
     }
 
     @Override
@@ -34,6 +42,11 @@ public class ModelStub implements Model {
     @Override
     public CreateMap getMap() {
         return map;
+    }
+
+    @Override
+    public RouteList getRoutes() {
+        return routes;
     }
 
     @Override
@@ -72,8 +85,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Venue> getRecommendations() throws DukeException {
-        return storage.readVenues();
+    public List<Agenda> getRecommendations(int numberOfDays, Itinerary itinerary) throws DukeException {
+        return storage.readVenues(numberOfDays);
     }
 
     @Override
