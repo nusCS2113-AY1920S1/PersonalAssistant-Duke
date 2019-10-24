@@ -183,7 +183,14 @@ public class DegreeList implements Serializable, Cloneable {
         }
     }
 
-
+    /**
+     * Method to swap two degrees.
+     * The user can input 2 indices to rank 2 degrees based on his order of preference.
+     *
+     * @param input
+     * @param dd DegreeList Storage makes changes in the text file
+     * @throws DukeException
+     */
     public void swap(String input, DegreeListStorage dd) throws DukeException {
         String[] split = input.split(Parser.swap);
         if(split.length < 3) {

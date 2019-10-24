@@ -14,6 +14,12 @@ public class UpdateFile {
     private static List<String> lines;
     private static ArrayList<String> list = DegreeList.getDegrees();
 
+    /**
+     * The method changes the value of the ranks of the degrees after a degree has been removed from the list.
+     *
+     * @param degree
+     * @return newLines
+     */
     private static List<String> changeValueOf(String degree){
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
@@ -44,6 +50,11 @@ public class UpdateFile {
         return newLines;
     }
 
+    /**
+     * The method calls changeValueof function to write to the text file the new index of the degrees post removal of a degree.
+     * @param degree
+     * @throws IOException
+     */
 
     public void reduce_index(String degree) throws IOException {
 

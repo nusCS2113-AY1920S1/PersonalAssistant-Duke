@@ -20,7 +20,11 @@ public class DegreeListStorage {
     UpdateFile upd = new UpdateFile();
     List<Pair<String, Integer>> store = new ArrayList<Pair<String, Integer>>();
 
-
+    /**
+     * The method reads the text file upon launching Duke.
+     * The Degreelist of the user is then updated based on the rank each degree is given by the user/
+     *
+     */
     public void ReadFile() {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -56,6 +60,12 @@ public class DegreeListStorage {
         }
     }
 
+    /**
+     * The method deletes an item from the text file if the user wishes to remove a degree.
+     *
+     * @param imp
+     * @return newLines
+     */
     public static List<String> AddRemoved(String imp) {
         List<String> newLines = new ArrayList<String>();
         for(String line: lines){
@@ -69,6 +79,12 @@ public class DegreeListStorage {
         return newLines;
     }
 
+    /**
+     * The method calls the AddRemoved function in order to delete the item from the text file.
+     *
+     * @param imp
+     * @throws IOException
+     */
     public void processing(String imp) throws IOException {
         lines = Files.readAllLines(file.toPath(), Charset.defaultCharset());
         AddRemoved(imp); //the description of the task is passed onto the AddRemoved method which has been described above.
@@ -80,6 +96,13 @@ public class DegreeListStorage {
         //System.out.print(index);
     }
 
+    /**
+     * The method updates the index of the degrees in the text file
+     *
+     * @param degree
+     * @param index
+     * @return newLines
+     */
 
     public static List<String> Swap(String degree, String index) {
         List<String> newLines = new ArrayList<String>();
@@ -94,6 +117,13 @@ public class DegreeListStorage {
         return newLines;
     }
 
+    /**
+     * The method calls the Swap function in order to update the text file with the indices of the degrees post swapping.
+     *
+     * @param degree
+     * @param index
+     * @throws IOException
+     */
     public void work(String degree, String index) throws IOException {
         lines = Files.readAllLines(file.toPath(), Charset.defaultCharset());
         Swap(degree, index);
