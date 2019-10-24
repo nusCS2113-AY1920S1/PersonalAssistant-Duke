@@ -10,6 +10,8 @@ import spinbox.containers.lists.TaskList;
 import java.util.ArrayDeque;
 
 public abstract class Command {
+    private static final String NOT_ON_MODULE_PAGE = "Please be on a module page or indicate "
+            + "the specific module this action is for.";
     private boolean isExit;
     private boolean isFileCommand;
 
@@ -56,8 +58,7 @@ public abstract class Command {
      */
     public boolean checkIfOnModulePage(String moduleCode) throws InputException {
         if (moduleCode == null) {
-            throw new InputException("Please be on a module page or indicate "
-                    + "the specific module this action is for.");
+            throw new InputException(NOT_ON_MODULE_PAGE);
         }
         return true;
     }

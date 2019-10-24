@@ -12,6 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ViewCommand extends Command {
+    private static final String MISSING_PAGE_INPUT = "Please input the page you want to change to.";
+    private static final String SPECIFY_PAGE = "Please specify module before tab.\n"
+            + "E.g. 'view / <moduleCode> <tab>'";
+    private static final String INCORRECT_VIEW_FORMAT = "Please input correct format for view command.";
+    private static final String NON_EXISTENT_PAGE = "Sorry, that page does not exist."
+            + " Please choose 'main', 'calendar', or 'modules'.";
+    private static final String NON_EXISTENT_MODULE = "Sorry, that module does not exist. These are the current "
+            + "modules:";
+    private static final String NON_EXISTENT_TAB = "Sorry, that tab does not exist."
+            + " Please choose 'tasks', 'files', 'notes' or 'grades'.";
     private String page;
     private String moduleCode;
     private String tab;
@@ -26,7 +36,7 @@ public class ViewCommand extends Command {
         String[] contentComponents = content.toLowerCase().split(" ");
 
         if (contentComponents.length == 0) {
-            throw new InputException("Please input the page you want to change to.");
+            throw new InputException(MISSING_PAGE_INPUT);
         // can be page, module, or tab
         } else if (contentComponents.length == 1) {
             switch (contentComponents[0]) {
@@ -49,8 +59,7 @@ public class ViewCommand extends Command {
                 try {
                     moduleCode = pageDataComponents[1];
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new InputException("Please specify module before tab.\n"
-                        + "E.g. 'view / <moduleCode> <tab>'");
+                    throw new InputException(SPECIFY_PAGE);
                 }
                 page = "modules";
                 moduleCode = pageDataComponents[1];
@@ -72,7 +81,7 @@ public class ViewCommand extends Command {
                 moduleCode = contentComponents[0];
                 tab = contentComponents[1];
             } else {
-                throw new InputException("Please input correct format for view command.");
+                throw new InputException(INCORRECT_VIEW_FORMAT);
             }
         // modules <moduleCode> <tab>
         } else if (contentComponents.length == 3) {
@@ -82,7 +91,7 @@ public class ViewCommand extends Command {
                 tab = contentComponents[2];
             }
         } else {
-            throw new InputException("Please input correct format for view command.");
+            throw new InputException(INCORRECT_VIEW_FORMAT);
         }
 
         if (moduleCode != null) {
@@ -114,8 +123,7 @@ public class ViewCommand extends Command {
         if (page.equals("main") || page.equals("calendar") || page.equals("modules")) {
             newPageTrace.addFirst(page);
         } else {
-            throw new InputException("Sorry, that page does not exist."
-                    + " Please choose 'main', 'calendar', or 'modules'.");
+            throw new InputException(NON_EXISTENT_PAGE);
         }
 
         // add module if exists
@@ -128,8 +136,7 @@ public class ViewCommand extends Command {
                 for (HashMap.Entry<String, Module> entry : moduleContainer.getModules().entrySet()) {
                     currentModules = currentModules.concat(entry.getKey() + "\n");
                 }
-                throw new InputException("Sorry, that module does not exist. These are the current modules:\n"
-                    + currentModules);
+                throw new InputException(NON_EXISTENT_MODULE + "\n" + currentModules);
             }
         }
 
@@ -157,8 +164,7 @@ public class ViewCommand extends Command {
                 outputList = module.getNotepad().viewList();
                 break;
             default:
-                throw new InputException("Sorry, that tab does not exist."
-                        + " Please choose 'tasks', 'files', 'notes' or 'grades'.");
+                throw new InputException(NON_EXISTENT_TAB);
             }
         }
 

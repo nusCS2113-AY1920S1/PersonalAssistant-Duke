@@ -21,7 +21,7 @@ public class RemoveCommand extends Command {
     private static final String NOTE_REMOVED = "A note has been successfully removed from ";
     private static final String PROVIDE_INDEX = "Please provide an index to be removed.";
     private static final String INVALID_REMOVE_FORMAT = "Please use valid remove format:\n"
-            + "remove <pageContent> : <type> <index>";
+            + "remove <pageContent> / <type> <index>";
     private static final String INVALID_INDEX = "Please enter a valid index.";
     private String type;
 

@@ -91,7 +91,7 @@ public class UpdateCommand extends Command {
                         throw new InputException(INVALID_VALUE);
                     }
                     outputMessage = outputMessage.concat(HORIZONTAL_LINE + "\n" + TASK_MARKED + taskMarked.toString()
-                            + HORIZONTAL_LINE + "\n");
+                            + "\n" + HORIZONTAL_LINE);
                     return outputMessage;
                 } catch (NumberFormatException e) {
                     throw new InputException(INVALID_INDEX);

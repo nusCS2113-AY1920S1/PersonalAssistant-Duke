@@ -5,9 +5,10 @@ import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
 import spinbox.commands.FindCommand;
 import spinbox.commands.HelpCommand;
-import spinbox.commands.UpdateCommand;
-import spinbox.commands.MultipleCommand;
 import spinbox.commands.RemoveCommand;
+import spinbox.commands.RemoveMultipleCommand;
+import spinbox.commands.UpdateCommand;
+import spinbox.commands.UpdateMultipleCommand;
 import spinbox.commands.ViewCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -126,7 +127,10 @@ public class Parser {
             command = new UpdateCommand(pageDataComponents, content);
             break;
         case "remove-multiple":
-            command = new MultipleCommand(pageDataComponents, content);
+            command = new RemoveMultipleCommand(pageDataComponents, content);
+            break;
+        case "update-multiple":
+            command = new UpdateMultipleCommand(pageDataComponents, content);
             break;
         case "find":
             command = new FindCommand(pageDataComponents, content);
