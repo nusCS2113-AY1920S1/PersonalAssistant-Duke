@@ -96,7 +96,11 @@ public class Duke {
                         || c instanceof ListCommand
                         || c instanceof AsciiCommand) {
                     output = c.execute(songs, ui, storage);
-                    undoRedoStack.add(songs);
+                    if (!(c instanceof HelpCommand
+                        || c instanceof ViewCommand
+                        || c instanceof ListCommand)) {
+                        undoRedoStack.add(songs);
+                    }
                 } else if (c instanceof UndoCommand || c instanceof RedoCommand) {
                     output = c.execute(songs, ui, storage, undoRedoStack);
                     songs = undoRedoStack.getCurrentVersion();

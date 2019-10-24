@@ -58,6 +58,4 @@ public class UndoRedoStack {
     public int numOfRedoLeft() {
         return undoRedoStack.size() - currentVersionIndex - 1;
     }
-
-    // TODO: isModified to reduce change in UndoRedoStack
 }
