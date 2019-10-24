@@ -1,100 +1,248 @@
 package moomoo.command;
 
+import moomoo.stubs.CategoryListStub;
+import moomoo.stubs.CategoryStub;
+import moomoo.stubs.ScheduleListStub;
+import moomoo.stubs.StorageStub;
+import moomoo.stubs.UiStub;
 import moomoo.task.Budget;
-import moomoo.task.Category;
-import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
-import moomoo.task.Storage;
-import moomoo.task.ScheduleList;
-import moomoo.task.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BudgetCommandTest {
     @Test
-    public void testBudgetSubCommands() throws MooMooException, IOException {
+    public void testSetBudgetCommand() throws MooMooException, IOException {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
         File scheduleFile = File.createTempFile("schedule", ".txt");
         scheduleFile.deleteOnExit();
 
-        CategoryList newCatList = new CategoryList();
-        newCatList.getCategoryList().add(new Category("shoes"));
-        newCatList.getCategoryList().add(new Category("food"));
-        newCatList.getCategoryList().add(new Category("window"));
-        newCatList.getCategoryList().add(new Category("places to go"));
+        CategoryListStub newCatList = new CategoryListStub();
 
-        Category newCategory = new Category();
+        newCatList.add(null);
+
+        ArrayList<String> categories = new ArrayList<>();
+
+        categories.add("Shoes");
+        categories.add("Food");
+        categories.add("Places to go");
+        categories.add("Test Value");
+
+        ArrayList<Double> budgets = new ArrayList<>();
+
+        budgets.add(50.0);
+        budgets.add(100.0);
+        budgets.add(150.0);
+        budgets.add(200.0);
+
+        CategoryStub newCategory = new CategoryStub();
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        UiStub newUi = new UiStub();
+        StorageStub newStorage = new StorageStub();
         Budget newBudget = new Budget();
-        Ui newUi = new Ui();
-        Storage newStorage = new Storage(budgetFile.getPath(), scheduleFile.getPath());
 
-        ScheduleList newCalendar = new ScheduleList();
-        BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/shoes b/1000.79 c/food b/500");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
+        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        assertEquals("Your budget for shoes is: $1000.79\nYour budget for food is: $500.00\n", newBudget.toString());
-        assertEquals("You have set $1000.79 as the budget for shoes\n"
-                + "You have set $500.00 as the budget for food", newUi.printResponse());
+        assertEquals("You have set $50.00 as the budget for shoes\n"
+                + "You have set $100.00 as the budget for food\n"
+                + "You have set $150.00 as the budget for places to go\n"
+                + "test value category does not exist. Please add it first.\n", newUi.returnResponse());
+    }
 
-        budgetCommand = new BudgetCommand(false, "budget set c/places to go b/460");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+    @Test
+    public void testEditBudgetCommand() throws MooMooException, IOException  {
+        File budgetFile = File.createTempFile("budget", ".txt");
+        budgetFile.deleteOnExit();
 
-        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $1000.79\n"
-                + "Your budget for food is: $500.00\n", newBudget.toString());
-        assertEquals("You have set $460.00 as the budget for places to go", newUi.printResponse());
+        File scheduleFile = File.createTempFile("schedule", ".txt");
+        scheduleFile.deleteOnExit();
 
-        budgetCommand = new BudgetCommand(false, "budget edit c/shoes b/700 c/food b/400");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        CategoryListStub newCatList = new CategoryListStub();
+        newCatList.add(null);
 
-        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $700.00\n"
-                + "Your budget for food is: $400.00\n", newBudget.toString());
-        assertEquals("You have changed the budget for shoes from $1000.79 to $700.00\n"
-                + "You have changed the budget for food from $500.00 to $400.00", newUi.printResponse());
+        ArrayList<String> categories = new ArrayList<>();
 
-        budgetCommand = new BudgetCommand(false, "budget edit c/shoes b/800 c/food b/400");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        categories.add("shoes");
+        categories.add("window");
+        categories.add("sweets");
+        categories.add("Invalid Value");
 
-        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $800.00\n"
-                + "Your budget for food is: $400.00\n", newBudget.toString());
-        assertEquals("You have changed the budget for shoes from $700.00 to $800.00\n"
-                + "The budget for food is the same.", newUi.printResponse());
+        ArrayList<Double> budgets = new ArrayList<>();
 
-        budgetCommand = new BudgetCommand(false, "budget list");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        budgets.add(123.45);
+        budgets.add(1123.0);
+        budgets.add(217.0);
+        budgets.add(122.23);
 
-        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $800.00\n"
-                + "Your budget for food is: $400.00", newUi.printResponse());
+        CategoryStub newCategory = new CategoryStub();
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        UiStub newUi = new UiStub();
+        StorageStub newStorage = new StorageStub();
+        Budget newBudget = new Budget();
 
-        budgetCommand = new BudgetCommand(false, "budget list c/shoes");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
+        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        assertEquals("Your budget for shoes is: $800.00", newUi.printResponse());
+        budgets.set(0, 300.0);
+        budgets.set(2, 675.0);
 
-        budgetCommand = new BudgetCommand(false, "budget list c/places to go");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        EditBudgetCommand editBudget = new EditBudgetCommand(false, categories, budgets);
+        editBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
 
-        assertEquals("Your budget for places to go is: $460.00", newUi.printResponse());
+        assertEquals("You have changed the budget for shoes from $123.45 to $300.00\n"
+                + "The budget for window is the same.\n"
+                + "You have changed the budget for sweets from $217.00 to $675.00\n"
+                + "invalid value category does not exist. Please add it first.\n", newUi.returnResponse());
+    }
 
-        budgetCommand = new BudgetCommand(false, "budget savings s/10/2019 e/12/2019");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+    @Test
+    public void testListBudgetCommand() throws MooMooException, IOException  {
+        File budgetFile = File.createTempFile("budget", ".txt");
+        budgetFile.deleteOnExit();
 
-        assertEquals("Your total savings from OCTOBER 2019 to DECEMBER 2019 is: ", newUi.printResponse());
+        File scheduleFile = File.createTempFile("schedule", ".txt");
+        scheduleFile.deleteOnExit();
 
-        budgetCommand = new BudgetCommand(false, "budget savings s/01/2018");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        CategoryListStub newCatList = new CategoryListStub();
+        newCatList.add(null);
 
-        assertEquals("Your total savings for JANUARY 2018 is: ", newUi.printResponse());
+        ArrayList<String> categories = new ArrayList<>();
 
-        budgetCommand = new BudgetCommand(false, "budget savings c/shoes c/food s/07/2019 e/09/2019");
-        budgetCommand.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+        categories.add("shoes");
+        categories.add("food");
+        categories.add("places to go");
+        categories.add("Test Value");
+        categories.add("sweets");
+        ArrayList<Double> budgets = new ArrayList<>();
 
-        assertEquals("Your savings for shoes from JULY 2019 to SEPTEMBER 2019 is: $800.00\n"
-                + "Your savings for food from JULY 2019 to SEPTEMBER 2019 is: $400.00", newUi.printResponse());
+        budgets.add(183.0);
+        budgets.add(128.0);
+        budgets.add(527.0);
+        budgets.add(103.34);
+        budgets.add(105.0);
+
+        CategoryStub newCategory = new CategoryStub();
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        UiStub newUi = new UiStub();
+        StorageStub newStorage = new StorageStub();
+
+        Budget newBudget = new Budget();
+
+        SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
+        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        ArrayList<String> listCategories = new ArrayList<>();
+
+        listCategories.add("shoes");
+        listCategories.add("food");
+        listCategories.add("places to go");
+        listCategories.add("Test Value");
+        listCategories.add("sweets");
+
+        ListBudgetCommand listBudget = new ListBudgetCommand(false, listCategories);
+        listBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("Budget for shoes is $183.00\n"
+                + "Budget for food is $128.00\n"
+                + "Budget for places to go is $527.00\n"
+                + "test value category does not exist. Please add it first.\n"
+                + "Budget for sweets is $105.00\n", newUi.returnResponse());
+    }
+
+    @Test
+    public void testSavingsBudgetCommand() throws MooMooException, IOException  {
+        File budgetFile = File.createTempFile("budget", ".txt");
+        budgetFile.deleteOnExit();
+
+        File scheduleFile = File.createTempFile("schedule", ".txt");
+        scheduleFile.deleteOnExit();
+
+        CategoryListStub newCatList = new CategoryListStub();
+        newCatList.add(null);
+
+        ArrayList<String> categories = new ArrayList<>();
+
+        categories.add("slippers");
+        categories.add("window");
+        categories.add("laptop");
+        categories.add("Dogs");
+
+        ArrayList<Double> budgets = new ArrayList<>();
+
+        budgets.add(875.0);
+        budgets.add(938.0);
+        budgets.add(75.89);
+        budgets.add(100.58);
+
+        for (int i = 0; i < newCatList.getCategoryList().size(); ++i) {
+            newCatList.getCategoryList().get(i).add(null);
+        }
+
+        CategoryStub newCategory = new CategoryStub();
+        ScheduleListStub newCalendar = new ScheduleListStub();
+        UiStub newUi = new UiStub();
+        StorageStub newStorage = new StorageStub();
+        Budget newBudget = new Budget();
+
+        SetBudgetCommand setBudget = new SetBudgetCommand(false, categories, budgets);
+        setBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        LocalDate startDate = LocalDate.of(2019, 9, 15);
+        LocalDate endDate = LocalDate.of(2019, 11, 15);
+
+        SavingsBudgetCommand savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("slippers category does not exist. Please create it first.\n"
+                + "Your savings for window from SEPTEMBER 2019 to NOVEMBER 2019 is: $2549.00\n"
+                + "You have overspent for your budget for laptop from SEPTEMBER 2019 to NOVEMBER 2019 by: $37.33\n"
+                + "dogs category does not exist. Please create it first.\n"
+                + "Your total savings: $2511.67\n", newUi.returnResponse());
+
+        savingsBudget = new SavingsBudgetCommand(false, categories, startDate, null);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("slippers category does not exist. Please create it first.\n"
+                + "Your savings for window for SEPTEMBER 2019 is: $788.00\n"
+                + "You have overspent your budget for laptop for SEPTEMBER 2019 by $74.11\n"
+                + "dogs category does not exist. Please create it first.\n"
+                + "Your total savings: $713.89\n", newUi.returnResponse());
+
+        categories.clear();
+        assertEquals(0, categories.size());
+
+        savingsBudget = new SavingsBudgetCommand(false, categories, startDate, null);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("The budget for shoes does not exist. Please set it using budget set.\n"
+                + "The budget for food does not exist. Please set it using budget set.\n"
+                + "Your savings for window for SEPTEMBER 2019 is: $788.00\n"
+                + "The budget for places to go does not exist. Please set it using budget set.\n"
+                + "The budget for sweets does not exist. Please set it using budget set.\n"
+                + "You have overspent your budget for laptop for SEPTEMBER 2019 by $74.11\n"
+                + "Your total savings: $713.89\n", newUi.returnResponse());
+
+        categories.clear();
+        assertEquals(0, categories.size());
+        categories.add("laptop");
+        assertEquals(1, categories.size());
+
+        startDate = LocalDate.of(2017, 9, 15);
+        endDate = LocalDate.of(2019, 2, 15);
+
+        savingsBudget = new SavingsBudgetCommand(false, categories, startDate, endDate);
+        savingsBudget.execute(newCalendar, newBudget, newCatList, newCategory, newUi, newStorage);
+
+        assertEquals("Your savings for laptop from SEPTEMBER 2017 to FEBRUARY 2019 is: $1066.02\n"
+                + "Your total savings: $1066.02\n", newUi.returnResponse());
     }
 }

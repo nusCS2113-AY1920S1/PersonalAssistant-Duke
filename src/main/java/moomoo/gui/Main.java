@@ -1,8 +1,12 @@
+package moomoo.gui;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import moomoo.MooMoo;
+
 /**
  * Represents the Main GUI window to be shown to user when run.
  */
