@@ -6,6 +6,7 @@ import eggventory.items.StockType;
 
 import java.util.ArrayList;
 
+//@@author Deculsion
 public class StockList {
     private ArrayList<StockType> stockList;
 
@@ -61,6 +62,7 @@ public class StockList {
         return null;
     }
 
+    //@@author
     /**
      * Returns a stockType from stockList if it exits else retuns a null StockType.
      * @param stockType The unique string that identifies a stockType

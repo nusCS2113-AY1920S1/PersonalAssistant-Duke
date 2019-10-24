@@ -11,19 +11,38 @@ import eggventory.enums.CommandType;
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 
+/**
+ * Command object for all help command.
+ */
 public class HelpCommand extends Command {
     private String options;
 
+    /**
+     * Constructor for command: "help".
+     * @param type The type of the command
+     */
     public HelpCommand(CommandType type) {
         super(type);
         this.options = null;
     }
 
+    /**
+     * Constructor for command: "help xyz" where xyz are first parsed.
+     * @param type The type of the command
+     * @param options The command syntax for which detailed help is required
+     */
     public HelpCommand(CommandType type, String options) {
         super(type);
         this.options = options;
     }
 
+    /**
+     * Execute the help prompt given to user when user request for help.
+     * @param list The inventory currently managed by the system
+     * @param ui Ui implementation to display help to
+     * @param storage Storage object which handles saving and loading of data
+     * @return The string passed to Ui for parsing.
+     */
     @Override
     public String execute(StockList list, Ui ui, Storage storage) {
         String output = "";
@@ -59,7 +78,6 @@ public class HelpCommand extends Command {
                     ui.print("Error in reading Helpedit.txt");
                 }
                 break;
-
             case "delete":
                 filename = "\\src\\main\\java\\eggventory\\commands\\help\\Helpdelete.txt";
                 try {
