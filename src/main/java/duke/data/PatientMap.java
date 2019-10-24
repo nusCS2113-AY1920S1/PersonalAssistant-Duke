@@ -86,7 +86,7 @@ public class PatientMap {
         int i = 1;
         PatientMap filteredList = new PatientMap();
         for (Map.Entry mapElement : patientObservableMap.entrySet()) {
-            Patient value = (Patient)mapElement.getValue();
+            Patient value = (Patient) mapElement.getValue();
             if (value.toString().contains(searchTerm)) {
                 filteredList.addPatient(value);
                 ++i;
@@ -110,7 +110,7 @@ public class PatientMap {
         int i = 1;
         PatientMap filteredList = new PatientMap();
         for (Map.Entry mapElement : patientObservableMap.entrySet()) {
-            Patient value = (Patient)mapElement.getValue();
+            Patient value = (Patient) mapElement.getValue();
             if (value.isAllergic(searchTerm)) {
                 filteredList.addPatient(value);
                 ++i;
@@ -138,6 +138,10 @@ public class PatientMap {
     public HashMap<String, Patient> getPatientHashMap() {
         HashMap<String, Patient> patientHashMap = new HashMap<String, Patient>(patientObservableMap);
         return patientHashMap;
+    }
+
+    public boolean patientExist(String keyIdentifier) {
+        return patientObservableMap.containsKey(keyIdentifier);
     }
 
     public ObservableMap<String, Patient> getPatientObservableMap() {

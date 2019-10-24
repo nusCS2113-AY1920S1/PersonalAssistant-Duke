@@ -22,6 +22,7 @@ public class Impression extends DukeObject {
      * - evidence the list of evidences contributing to the impression
      * - treatments: the list of treatments determined by a doctor to deal with the impression
      * - patient: the Patient it is tagged to     * @param name the name of the impression
+     *
      * @param description the description of the impression
      */
     public Impression(String name, String description, Patient patient) {
@@ -34,6 +35,7 @@ public class Impression extends DukeObject {
 
     /**
      * This find function returns a list of all DukeObjs related to the impression containing the search term.
+     *
      * @param searchTerm String to be used to filter the DukeObj
      * @return the list of DukeObjs
      */
@@ -41,7 +43,7 @@ public class Impression extends DukeObject {
         int i = 1;
         HashMap<String, DukeData> searchResult = new HashMap<String, DukeData>();
         for (Map.Entry mapElement : this.evidences.entrySet()) {
-            Evidence valueE = (Evidence)mapElement.getValue();
+            Evidence valueE = (Evidence) mapElement.getValue();
             if (valueE.toString().contains(searchTerm)) {
                 searchResult.put(valueE.getName(), valueE);
                 ++i;
@@ -49,7 +51,7 @@ public class Impression extends DukeObject {
         }
 
         for (Map.Entry mapElement : this.treatments.entrySet()) {
-            Treatment valueT = (Treatment)mapElement.getValue();
+            Treatment valueT = (Treatment) mapElement.getValue();
             if (valueT.toString().contains(searchTerm)) {
                 searchResult.put(valueT.getName(), valueT);
                 ++i;
@@ -65,6 +67,7 @@ public class Impression extends DukeObject {
 
     /**
      * This addNewEvidence function adds a new evidence to the evidence list.
+     *
      * @param newEvidence the evidence to be added
      * @return the Evidence added
      */
@@ -75,6 +78,7 @@ public class Impression extends DukeObject {
 
     /**
      * This deleteEvidence function deletes an evidence at the specified index from the evidence list.
+     *
      * @param keyIdentifier name of the evidence
      * @return the deleted Evidence
      */
@@ -90,6 +94,7 @@ public class Impression extends DukeObject {
 
     /**
      * This getEvidence function returns the evidence from the evidence list at the specified index.
+     *
      * @param keyIdentifier name of the evidence
      * @return the evidence specified by the index
      */
@@ -104,6 +109,7 @@ public class Impression extends DukeObject {
 
     /**
      * Adds a new treatment to the treatment list.
+     *
      * @param newTreatment the treatment to be added
      * @return the treatment added
      */
@@ -114,6 +120,7 @@ public class Impression extends DukeObject {
 
     /**
      * This deleteTreatment function deletes a treatment at the specified index from the treatment list.
+     *
      * @param keyIdentifier name of the treatment
      * @return the deleted treatment
      */
@@ -129,7 +136,8 @@ public class Impression extends DukeObject {
 
     /**
      * This getTreatment function returns the treatment from the treatment list at the specified index.
-     * @param keyIdentifier name of the treatment
+     *
+     * @param keyIdentifier index of the treatment
      * @return the treatment specified by the index
      */
     public Treatment getTreatment(String keyIdentifier) throws DukeException {
@@ -146,12 +154,12 @@ public class Impression extends DukeObject {
         String informationString;
         informationString = "Description: " + this.description + "\n";
         informationString += "Patient Bed: " + this.patientbedNo + "\n";
-        for (Map.Entry mapElement: this.evidences.entrySet()) {
-            Evidence valueE = (Evidence)mapElement.getValue();
+        for (Map.Entry mapElement : this.evidences.entrySet()) {
+            Evidence valueE = (Evidence) mapElement.getValue();
             informationString += valueE.toString();
         }
-        for (Map.Entry mapElement: this.treatments.entrySet()) {
-            Treatment valueT = (Treatment)mapElement.getValue();
+        for (Map.Entry mapElement : this.treatments.entrySet()) {
+            Treatment valueT = (Treatment) mapElement.getValue();
             informationString += valueT.toString();
         }
         return super.toString() + informationString;
@@ -165,8 +173,18 @@ public class Impression extends DukeObject {
 
     @Override
     public String toReportString() {
-        // Todo
-        return null;
+        String informationString;
+        informationString = "\n\tDescription of impression: " + this.description + "\n";
+        for (Map.Entry mapElement : this.evidences.entrySet()) {
+            Evidence valueE = (Evidence) mapElement.getValue();
+            informationString += "/t" + valueE.toReportString();
+        }
+
+        for (Map.Entry mapElement : this.treatments.entrySet()) {
+            Treatment valueT = (Treatment) mapElement.getValue();
+            informationString += "\t" + valueT.toReportString();
+        }
+        return informationString;
     }
 
     public String getDescription() {
