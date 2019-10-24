@@ -31,7 +31,6 @@ public class BankList {
     }
 
     /**
-<<<<<<< HEAD
      * Gets the saving account with the specified name.
      *
      * @param bankName The name of the bank account in the arrayList.
@@ -47,8 +46,6 @@ public class BankList {
     }
 
     /**
-=======
->>>>>>> 27aee0393b6e8c1f6eda48bc70eb62e8fe7a9985
      * Adds an instance of a bank account into the BankList.
      *
      * @param newBank a new bank object.
