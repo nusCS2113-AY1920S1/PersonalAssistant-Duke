@@ -72,6 +72,28 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 
 == Implementation
+=== Undo/Redo Feature
+==== Implementation
+(Images to be added later)
+
+The undo/redo mechanism is done using a simplified memento pattern, since the command classes have already been implemented. This works as an extension of the command classes and makes use of existing code without any 3rd party libraries or additional dependencies.
+
+Each command that modifies the task or degree lists saves the complete previous state within itself as a `memento` class. Thus, when we call this command's `memento`, we can "unexecute" the command and get the complete state of the task or degree list before it was modified by the `command`. 
+
+All of these commands are stored in a `commandList` stack, where it will be used to retrieve the latest `command` whenever undo is input, or to be manually retrieve a particular command using `undoRedoPointer` whenever redo is input.
+
+==== Design Considerations
+How undo/redo executes:
+
+* Alternative 1 (Current Choice): Commands saves a complete previous state if it modifies the degrees or task list
+** Pros: Easier to identify and undo/redo states once commands are known and saved. Much easier to implement than a partial state save. Common method in the industry to implement undo/redo. Easier to implement when new commands are added.
+** Cons: Memory issues once too many commands are executed.
+* Alternative 2: Saves a list in a history.
+** Pros: Straightforward method to save previous states that can be called using undo/redo. No work needed when new commands are added.
+** Cons: More work needed to support multiple types of lists. Memory issues once too many states are saved.
+* Alternative 3: Perform the opposite command whenever undo is called. (i.e. undoing add will delete the addition instead of recalling the previous state)
+** Pros: Uses less memory than saving the state every time. Proper implementation of the memento pattern.
+** Cons: A lot of work needed to "unexecute" every command possible. More commands means more "unexecution" is needed, and the workload scales higher than alternative 1.
 
 == Testing
 
