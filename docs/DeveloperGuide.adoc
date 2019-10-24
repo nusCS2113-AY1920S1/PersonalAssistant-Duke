@@ -166,7 +166,7 @@ EventList.filteredList method terminates, EventList.getReminder method returns a
 the date and time at 2359 three days after the current date, and the filtered list of events. This string is printed to
 stdout in the Ui.printReminders function.
 
-=== Why it is implemented this way
+==== Why it is implemented this way
 The reminder function is split the various components into different methods for easier testing. In this case, Ui.printReminders 
 prints the output to the user interface, EventList.getReminder is responsible for compiling the output whereas EventList.filteredList
 obtains the filtered list of events from `eventArrayList`. 
