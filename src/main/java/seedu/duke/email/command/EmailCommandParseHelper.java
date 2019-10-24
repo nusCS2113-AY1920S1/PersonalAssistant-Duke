@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EmailCommandParser {
+public class EmailCommandParseHelper {
     private static UI ui = Duke.getUI();
 
     /**
