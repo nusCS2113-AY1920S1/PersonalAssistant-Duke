@@ -278,6 +278,39 @@ In this case, the modules the user needs to take are: +
 
 ****
 
+=== JsonWrapper
+
+==== Current implementation
+
+`JsonWrapper` contains our usage of the `Gson` library for JSON file processing, as well as to call `RequestsData` to obtained the module data consolidated by `NUSMODS API`.
+
+To prevent multiple requests to NUSMODS, our implementation would check if the user has previously downloaded the module data before. If they have only, only then would `JsonWrapper` call `RequestsData` to initialize the module data file.
+
+image::PackageCrawler.png[]
+
+Since `Gson` is able to internally read a JSON file and when given the same template within a Java object class, it would be able to map the value fields to each of the same keys in the Java Object.
+
+This allows us to have a direct access to all the modules which are currently offered in NUS, by reading the returned JSON string and parsing it directly into a list of Module information. Since the data had to be modelled, the +
+following ModuleInfoDetailed and ModuleInfoSummary was created to capture the data in the JSON file to be used during runtime.
+
+image::PackageModule.png[]
+
+Since certain modules may not contain data for every field, each of the module classes above are required to have default values on startup so as to prevent `NullPointerExceptions` during runtime when such data is accessed.
+This also extends to choosing the right data type for modelling our module information, since certain fields maybe malformed and thus our implementation of the fields data type in module information classes would mostly contain `strings`, unless it is certain that
+the data type found in the returned JSON string is strictly `boolean` or `double`.
+
+To allow for quick access to the module information classes, after parsing of the module information into a list of `ModuleInfoDetailed`, it would then be converted into a `HashMap`, where the key-value pair
+is the string containing the module code, and the value is the `ModuleInfoDetailed`. This is what is exposed to all the command classes during runtime, and this is done automatically on startup so that the module
+data is accessible directly to the user.
+
+==== RequestsData
+
+Internally, this class is responsible for requesting data from the `NUSMODS API` and thus uses Java's Native `HTTPRequest` Library.
+
+The current implementation is fixed to only request data for the current academic year, but this is subject to change in the coming versions to allow for users to choose to update the data once it gets outdated.
+
+
+
 [appendix]
 == Product Scope
 
