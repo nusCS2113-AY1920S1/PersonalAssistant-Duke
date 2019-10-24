@@ -1,4 +1,5 @@
 package JavaFx;
+import Commands.UpdateProgressIndicatorCommand;
 import Interface.*;
 import Tasks.Task;
 import Tasks.TaskList;
@@ -123,7 +124,7 @@ public class MainWindow extends BorderPane implements Initializable {
             //seeList();
             setProgressContainer();
             setListView();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
         }
     }
@@ -155,30 +156,15 @@ public class MainWindow extends BorderPane implements Initializable {
      * This method creates the progress indicator for the different modules.
      * @throws IOException On reading error in the lines of the file
      */
-    private void setProgressContainer() {
+    private void setProgressContainer() throws IOException {
         progressContainer.getChildren().clear();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        }
-        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
-        number_of_modules = result.getKey().keySet().size();
 
-        HashMap<String, String> modules = result.getKey();
-        for (String module : modules.keySet()) {
-            int totalNumTasks = 0;
-            int completedValue = 0;
-            ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
-            for (Pair<String, Pair<String, String>> as : tasks) {
-                if (as.getKey().equals(module)) {
-                    totalNumTasks += 1;
-                    if (as.getValue().getKey().equals("\u2713")) {
-                        completedValue += 1;
-                    }
-                }
-            }
+        UpdateProgressIndicatorCommand updateProgressIndicatorCommand = new UpdateProgressIndicatorCommand(eventsList, deadlinesList);
+        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> wholeData = updateProgressIndicatorCommand.getWholeDate(eventsList, deadlinesList);
+        HashMap<String, String> moduleMap = updateProgressIndicatorCommand.getModuleMap(wholeData);
+
+        HashMap<String, Pair<Integer, Integer>> progressIndicatorValues = updateProgressIndicatorCommand.getValues(moduleMap, wholeData);
+        for (String module : progressIndicatorValues.keySet()) {
             FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
             Parent loads = null;
             try {
@@ -186,7 +172,9 @@ public class MainWindow extends BorderPane implements Initializable {
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, e.toString(), e);
             }
-            fxmlLoad.<ProgressController>getController().getData(module, totalNumTasks, completedValue);
+            int totalNumOfTasks = progressIndicatorValues.get(module).getKey();
+            int completedValue = progressIndicatorValues.get(module).getValue();
+            fxmlLoad.<ProgressController>getController().getData(module, totalNumOfTasks, completedValue);
             progressContainer.getChildren().add(loads);
         }
     }
@@ -302,7 +290,7 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws IOException{
         String input = userInput.getText();
         String response = duke.getResponse(input);
         retrieveList();
@@ -310,10 +298,13 @@ public class MainWindow extends BorderPane implements Initializable {
             setWeek(false, input);
             setListView();
         } else if (input.startsWith("add")) {
-            if(response.startsWith("true|")) {
-                refresh(input);
-                setProgressContainer();
-            }
+            //if(response.startsWith("true|")) {
+            //refresh(input);
+            //setWeek(false, input);
+            setListView();
+            deadlineTable.setItems(setDeadlineTable());
+            setProgressContainer();
+            //}
         } else if (input.startsWith("delete/e" ) || input.startsWith("done/e")) {
             String[] split = input.split("/at");
             String[] dateAndTime = split[1].split("from");
@@ -331,10 +322,13 @@ public class MainWindow extends BorderPane implements Initializable {
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
-        AlertBox.display("", "",
-                response, Alert.AlertType.INFORMATION);
+        if (!input.startsWith("Week")) {
+            AlertBox.display("", "",
+                    response, Alert.AlertType.INFORMATION);
+        }
         userInput.clear();
     }
+
 
     private boolean overdueCheck(Date date) {
         Calendar c = Calendar.getInstance();

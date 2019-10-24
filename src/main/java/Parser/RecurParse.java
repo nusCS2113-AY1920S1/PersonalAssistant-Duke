@@ -52,7 +52,7 @@ public class RecurParse extends Parse {
             startWeekDate = split4[0].trim();
             if (startWeekDate.equalsIgnoreCase("reading") || startWeekDate.equalsIgnoreCase("exam")
                     || startWeekDate.equalsIgnoreCase("week") || startWeekDate.equalsIgnoreCase("recess")) {
-                startWeekDate = LT.getDate(split3[0].trim());
+                startWeekDate = LT.getValue(split3[0].trim());
             } else {
                 startWeekDate = split3[0].trim();
             }
@@ -60,7 +60,7 @@ public class RecurParse extends Parse {
             endWeekDate = split4[0].trim();
             if (endWeekDate.equalsIgnoreCase("reading") || endWeekDate.equalsIgnoreCase("exam")
                     || endWeekDate.equalsIgnoreCase("week") || endWeekDate.equalsIgnoreCase("recess")) {
-                endWeekDate = LT.getDate(split3[1].trim());
+                endWeekDate = LT.getValue(split3[1].trim());
             } else {
                 endWeekDate = split3[1].trim();
             }
