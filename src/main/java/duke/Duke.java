@@ -1,9 +1,14 @@
 package duke;
 
+
 import duke.commands.AddBarCommand;
 import duke.commands.AddOverlayCommand;
+import duke.commands.AsciiCommand;
 import duke.commands.Command;
 import duke.commands.CopyCommand;
+import duke.commands.DeleteBarCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EditCommand;
 import duke.commands.GroupCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
@@ -77,11 +82,15 @@ public class Duke {
                 if (c instanceof AddBarCommand
                         || c instanceof ViewCommand
                         || c instanceof NewCommand
+                        || c instanceof DeleteCommand
+                        || c instanceof DeleteBarCommand
+                        || c instanceof EditCommand
                         || c instanceof HelpCommand
                         || c instanceof GroupCommand
                         || c instanceof CopyCommand
                         || c instanceof AddOverlayCommand
-                        || c instanceof ListCommand) {
+                        || c instanceof ListCommand
+                        || c instanceof AsciiCommand) {
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);

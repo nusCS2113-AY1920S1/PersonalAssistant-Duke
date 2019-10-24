@@ -3,29 +3,31 @@ package duke.commands;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
+import duke.components.Bar;
 import duke.components.Song;
 import duke.components.SongList;
 
 import java.util.ArrayList;
 
-//@@ Sha Long
+//@@author jwyf
 /**
- * A class representing the command to display help: the command list.
+ * A class representing the command to edit a bar of notes in the current song.
  */
-public class HelpCommand extends Command<SongList> {
+public class EditCommand extends Command<SongList> {
 
-    //@@ Sha Long
+    private int songIndex;
+
     /**
-     * Constructor for the command to display help.
+     * Constructor for the command to edit a bar in the current song.
      * @param message the input message that resulted in the creation of the duke.Commands.Command
      */
-    public HelpCommand(String message) {
+    public EditCommand(String message) {
         this.message = message;
+        this.songIndex = 0;
     }
 
-    //@@ Sha Long
     /**
-     * Displays the command list in use; returns the help messages intended to be displayed.
+     * Modifies the song in the song list and returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
      * @param ui the Ui object responsible for the reading of user input and the display of
@@ -35,14 +37,29 @@ public class HelpCommand extends Command<SongList> {
      * @throws DukeException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
-        if (message.length() == 4) {
-            return ui.formatHelp();
+        int barNo;
+        try {
+            String[] sections = message.substring(5).split(" ");
+            barNo = Integer.parseInt(sections[0].substring(4));
+
+            int notesIndex = message.indexOf(sections[1]);
+
+            Bar newBar = new Bar(barNo, message.substring(notesIndex));
+
+            Song song = songList.getSongIndex(songIndex);
+
+            song.getBars().add(barNo - 1, newBar);
+            Bar oldBar = song.getBars().get(barNo);
+            song.getBars().remove(barNo);
+
+            storage.updateFile(songList);
+            ArrayList<Song> temp = songList.getSongList();
+            return ui.formatEdit(oldBar, newBar, song);
+        } catch (Exception e) {
+            throw new DukeException(message, "edit");
         }
-        String helpMessage = message.substring(4).trim();
-        return ui.formatHelp(helpMessage);
     }
 
-    //@@ Sha Long
     /**
      * Returns a boolean value representing whether the program will terminate or not, used in
      * duke.Duke to reassign a boolean variable checked at each iteration of a while loop.

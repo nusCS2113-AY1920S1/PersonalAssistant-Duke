@@ -43,7 +43,9 @@ public class DukeException extends Exception {
     public String getMessage() {
 
         String message = "An unknown exception has occurred.";
-        String word = input.trim().equals("event") || input.trim().equals("overlay") || input.trim().equals("addbar")
+        String word = input.trim().equals("event")
+                || input.trim().equals("overlay")
+                || input.trim().equals("addbar")
                 ? "an " : "a ";
 
         if (hasEmptyDescription(input)) {
@@ -51,7 +53,7 @@ public class DukeException extends Exception {
             message = "OOPS!!! The description of "
                     + word
                     + input.trim()
-                    + " task cannot be empty.";
+                    + " command cannot be empty.";
         } else if (!type.equals("other")) {
             switch (type) {
             case "todo": {
@@ -88,6 +90,10 @@ public class DukeException extends Exception {
             }
             case "addbar": {
                 message = "OOPS!!! New bar cannot be added due to invalid input.";
+                break;
+            }
+            case "edit": {
+                message = "OOPS!!! Bar cannot be edited due to invalid input.";
                 break;
             }
             case "io": {
@@ -137,6 +143,10 @@ public class DukeException extends Exception {
             }
             case "data": {
                 message = "OOPS!!! The data is corrupted.";
+                break;
+            }
+            case "AsciiCommand": {
+                message = "OOPS!!! Your Ascii Command is not recognised.";
                 break;
             }
             default: {
