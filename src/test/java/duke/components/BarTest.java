@@ -14,7 +14,7 @@ public class BarTest {
 
     //@@author rohan-av
     @BeforeAll
-    private static void populateChords() {
+    static void populateChords() {
         Chord chord1 = new Chord();
         chord1.addToChord(new Note("8", Pitch.UPPER_A, true));
         chords.add(chord1);
@@ -34,13 +34,13 @@ public class BarTest {
     }
 
     @Test
-    public void testToString() throws DukeException {
+    void testToString() throws DukeException {
         assertEquals("[[UAs],[UA],[UA],[UA],[MCs],[MC],[MC],[MC]]", new Bar(0, "2_UA 2_MC").toString());
         assertEquals("[[UAs],[UA],[UA],[UA],[MCs],[MC],[MC],[MC]]", new Bar(0, chords).toString());
     }
 
     @Test
-    public void testCompileNotesToChords() {
+    void testCompileNotesToChords() {
         ArrayList<Note> noteList = new ArrayList<>();
         noteList.add(new Note("2", Pitch.UPPER_A, true));
         noteList.add(new Note("2", Pitch.MIDDLE_C, true));
@@ -48,7 +48,7 @@ public class BarTest {
     }
 
     @Test
-    public void testConvertStringToNotes() throws DukeException {
+    void testConvertStringToNotes() throws DukeException {
         ArrayList<Note> noteList = new ArrayList<>();
         noteList.add(new Note("2", Pitch.UPPER_A, true));
         noteList.add(new Note("2", Pitch.MIDDLE_C, true));
@@ -56,7 +56,7 @@ public class BarTest {
     }
 
     @Test
-    public void testCheckLength() {
+    void testCheckLength() {
         try {
             ArrayList<Chord> incompleteBar = new ArrayList<>();
             Chord chord5 = new Chord();
