@@ -4,7 +4,12 @@ import duke.task.ContactList;
 import duke.task.Contacts;
 import duke.ui.Ui;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //@@author e0318465
@@ -60,18 +65,17 @@ public class ContactStorage {
         String office;
 
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
-                String[] contactDetails = st.split(",");
-
-                if(contactDetails.length != 4){
-                    ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
-                } else{
-                    name = contactDetails[ZERO];
-                    contact = contactDetails[ONE];
-                    email = contactDetails[TWO];
-                    office = contactDetails[THREE];
-                    Contacts contactObj = new Contacts(name, contact, email, office);
-                    contacts.add(contactObj);
-                }
+            String[] contactDetails = st.split(",");
+            if (contactDetails.length != 4) {
+                ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
+            } else {
+                name = contactDetails[ZERO];
+                contact = contactDetails[ONE];
+                email = contactDetails[TWO];
+                office = contactDetails[THREE];
+                Contacts contactObj = new Contacts(name, contact, email, office);
+                contacts.add(contactObj);
+            }
         }
         br.close();
         return contacts;
