@@ -274,7 +274,7 @@ the date and time at 2359 three days after the current date, and the filtered li
 stdout in the Ui.printReminders function.
 
 ==== Sequence diagram
-The following sequence diagram shows how the adding recurring event operation works.
+The following sequence diagram shows how the reminder functionality works.
 ====
 image::reminderSequenceDiagram.png[width = 100%]
 ====
