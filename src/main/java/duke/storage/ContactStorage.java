@@ -2,13 +2,9 @@ package duke.storage;
 
 import duke.task.ContactList;
 import duke.task.Contacts;
+import duke.ui.Ui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 //@@author e0318465
@@ -21,30 +17,28 @@ public class ContactStorage {
     private static final int TWO = 2;
     private static final int THREE = 3;
 
-
     /**
      * Creates a storage with a specified filePathForContacts.
      *
      * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
-        int numberofSlash;
+        int numberOfSlash;
         storageClassPath = storageClassPath.replaceAll("%20", " ");
         String[] pathSplitter = storageClassPath.split("/");
-        numberofSlash = pathSplitter.length - ONE;
+        numberOfSlash = pathSplitter.length - ONE;
         for (String directory: pathSplitter) {
-            if (numberofSlash == ZERO) {
+            if (numberOfSlash == ZERO) {
                 break;
             } else if (!directory.isEmpty() && !directory.equals("build") && !directory.equals("out")) {
                 this.filePathForContacts += directory + "/";
             } else if (directory.equals("build") || directory.equals("out")) {
                 break;
             }
-            numberofSlash--;
+            numberOfSlash--;
         }
         this.filePathForContacts += filePathForContacts;
     }
-
 
     /**
      * Updates the contact list from reading the contents of the contacts text file.
@@ -54,6 +48,7 @@ public class ContactStorage {
      */
     public ArrayList<Contacts> read() throws IOException {
         ArrayList<Contacts> contacts = new ArrayList<>();
+        Ui ui = new Ui();
         File file = new File(filePathForContacts);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -63,14 +58,20 @@ public class ContactStorage {
         String contact;
         String email;
         String office;
+
         while ((st = br.readLine()) != null) {  //name + "," + contact + "," + email + "," + office
-            String[] contactDetails = st.split(",");
-            name = contactDetails[ZERO];
-            contact = contactDetails[ONE];
-            email = contactDetails[TWO];
-            office = contactDetails[THREE];
-            Contacts contactObj = new Contacts(name, contact, email, office);
-            contacts.add(contactObj);
+                String[] contactDetails = st.split(",");
+
+                if(contactDetails.length != 4){
+                    ui.showErrorMsg("     Not all contact details entered, please leave a space for empty fields.");
+                } else{
+                    name = contactDetails[ZERO];
+                    contact = contactDetails[ONE];
+                    email = contactDetails[TWO];
+                    office = contactDetails[THREE];
+                    Contacts contactObj = new Contacts(name, contact, email, office);
+                    contacts.add(contactObj);
+                }
         }
         br.close();
         return contacts;

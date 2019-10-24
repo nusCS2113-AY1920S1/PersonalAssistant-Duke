@@ -505,21 +505,19 @@ public class Ui {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - ONE));
         out.println("     Current priority: " + priority);
     }
-    //@@author
 
+    //@@author e0318465
     /**
      * Outputs the contact details that are most recently added.
      *
      * @param contactList The list of contacts.
      */
-    //@@author e0318465
     public void showAddedContact(ContactList contactList) {
-        out.println("     Got it. Contact added:");
         if (contactList.size() == ZERO) {
             out.println("     You have no contacts!");
         } else {
+            out.println("Got it, now you have " + contactList.size() + " contacts. Contact added.");
             out.println(contactList.get(contactList.size() - ONE));
-            out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }
 
@@ -530,12 +528,12 @@ public class Ui {
     * @return String to output list of contacts to GUI.
      */
     public static String showAddedContactGui(ContactList contactList) {
-        String str = "Got it. Contact added:\n";
+        String str = "";
         if (contactList.size() == ZERO) {
-            str += "You have no contacts!";
+            str += "     You have no contacts!";
         } else {
+            str += "\n     Got it, now you have " + contactList.size() + " contacts. Contact added:\n";
             str += contactList.get(contactList.size() - ONE);
-            str += "\nNow you have " + contactList.size() + " contacts.";
         }
         return str;
     }
@@ -547,9 +545,8 @@ public class Ui {
      * @param deletedContact The contact that is deleted.
      */
     public void showContactDeleted(ContactList contactList, String deletedContact) {
-        out.println("Noted. I've removed this contact:");
+        out.println("Now you have " + contactList.size() + " contact(s). I've removed this contact:");
         out.println(deletedContact);
-        out.println("Now you have " + contactList.size() + " contact(s) in the list.");
     }
 
     /**
@@ -560,9 +557,9 @@ public class Ui {
      * @return String of deleted contact to user.
      */
     public static String showContactDeletedGui(ContactList contactList, String deletedContact) {
-        String str = "     Noted. I've removed this contact:\n";
+        String str = "";
+        str += "Now you have " + contactList.size() + " contact(s). I've removed this contact:\n";
         str += deletedContact;
-        str += "\n     Now you have " + contactList.size() + " contact(s) in the list.";
         return str;
     }
 

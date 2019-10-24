@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.ui.Ui;
+
 import java.util.ArrayList;
 
 /**
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 //@@author e0318465
 public class ContactList {
     protected ArrayList<Contacts> contactList;
+    Ui ui = new Ui();
     private static final int ZERO = 0;
     private static final int ONE = 1;
 
