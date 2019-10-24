@@ -35,7 +35,7 @@ public class EditStockCommand extends Command {
     /**
      * Executes the actual editing of the stock's property.
      * @param list StockList containing all the StockTypes.
-     * @param cli  Cli object to display output to.
+     * @param cli Cli object instance to display output to.
      * @param storage  Storage object to handle saving and loading of any data.
      * @return String of the output, for JUnit testing.
      */

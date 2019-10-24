@@ -124,6 +124,8 @@ public class Parser {
     public Command parse(String userInput) throws Exception {
         Command userCommand;
 
+        System.out.println("got input:" + userInput);
+
         //TODO: Make this a do-while that waits for a good input?
         try {
             userCommand = handleListInput(userInput);
