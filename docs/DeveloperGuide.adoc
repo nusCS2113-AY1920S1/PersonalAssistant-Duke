@@ -1,5 +1,5 @@
 = MisterMusik - Developer Guide
-:site-section: UserGuide
+:site-section: DevelopGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -138,7 +138,7 @@ Non-recurring event: <event type> <event description> /dd-MM-yyyy HHmm HHmm
 ==== Sequence diagram
 The following sequence diagram shows how the adding recurring event operation works.
 
-image::recurringEventSequenceDiagram.png[width = "800"]
+image::recurringEventSequenceDiagram.png[width = 100%]
 
 ==== Why it is implemented this way
 . Whether the input command has a period is considered at the first, so that the dependency between adding
