@@ -12,8 +12,11 @@ class Parser {
         if (userInput.equals("quit game")) {
             return new CommandGameQuit();
         }
-        if (userInput.matches("save game")) {
+        if (stage != Farmio.Stage.WELCOME && stage != Farmio.Stage.MENU_START && userInput.matches("^save game$")) {
             return new CommandGameSave();
+        }
+        if (userInput.matches("^load game$")) {
+            return new CommandGameLoad();
         }
         switch (stage) {
             case WELCOME:

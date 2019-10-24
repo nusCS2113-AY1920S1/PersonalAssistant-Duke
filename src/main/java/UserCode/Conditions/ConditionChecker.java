@@ -12,6 +12,13 @@ public class ConditionChecker {
         if (condition == BooleanConditionType.hasSeeds) {
             return farmio.getFarmer().getWheatFarm().hasSeeds();
         }
+        if (condition == BooleanConditionType.hasWheat) {
+            return farmio.getFarmer().getWheatFarm().hasWheat() ;
+        }
+        if (condition == BooleanConditionType.hasGrain)
+        {
+            return farmio.getFarmer().getWheatFarm().hasGrain();
+        }
         if (condition == BooleanConditionType.TRUE) {
             return true;
         }

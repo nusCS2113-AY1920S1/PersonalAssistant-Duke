@@ -5,11 +5,12 @@ import Farmio.Farmio;
 import Exceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
+import org.json.simple.JSONObject;
 
 public class IfTask extends Task {
 
     public IfTask(Condition condition, Action action) {
-        super(condition, action, "if");
+        super(Type.IF, condition, action);
     }
 
     @Override

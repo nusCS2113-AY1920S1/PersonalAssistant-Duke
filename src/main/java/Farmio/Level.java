@@ -1,7 +1,5 @@
 package Farmio;
 
-import Places.Farm;
-import UserCode.Conditions.BooleanCondition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -12,15 +10,11 @@ import java.util.Map;
 public class Level {
     ArrayList<String> narratives;
     String filePath;
-    int endMoney;
-    int endWheatSeed;
-    int endWheatGreen;
-    int endWheatRipe;
-    int endChicken;
-    int endChickenEggs;
-    int endCow;
-    int endCowMilk;
-    int location;
+    int endSeeds;
+    int endWheat;
+    int endGrain;
+    int endGold;
+    int deadline;
 
     public Level(JSONObject object, Farmer farmer) {
         JSONArray array = (JSONArray) object.get("narratives");
@@ -29,15 +23,11 @@ public class Level {
             narratives.add((String) i);
         }
         filePath = (String) object.get("file_path");
-        endMoney = Math.toIntExact((Long) object.get("money"));
-        endWheatSeed = Math.toIntExact((Long) object.get("wheat_seed"));
-        endWheatGreen = Math.toIntExact((Long) object.get("wheat_green"));
-        endWheatRipe = Math.toIntExact((Long) object.get("wheat_ripe"));
-        endChicken = 0;
-        endChickenEggs = 0;
-        endCow = 0;
-        endCowMilk = 0;
-//        location = Math.toIntExact((Long) object.get("location"));
+        endGold = Math.toIntExact((Long) object.get("gold"));
+        endSeeds = Math.toIntExact((Long) object.get("seeds"));
+        endWheat = Math.toIntExact((Long) object.get("wheat"));
+        endGrain = Math.toIntExact((Long) object.get("grain"));
+        deadline = Math.toIntExact((Long) object.get("deadline"));
     }
 
     public ArrayList<String> getNarratives(){
@@ -55,24 +45,107 @@ public class Level {
         INVALID
     }
 
+    private boolean checkDeadlineExceeded(int currentDay){
+        return deadline < currentDay;
+    }
+
+    private boolean allDone(Farmer farmer){
+        if (farmer.getLevel() == 1.1) {
+            return farmer.getLocation().equals("Market");
+        }
+        int seeds = farmer.wheatFarm.getSeeds();
+        int wheat = farmer.wheatFarm.getWheat();
+        int grain = farmer.wheatFarm.getGrain();
+        int gold = farmer.getMoney();
+        return (seeds >= endSeeds) && (wheat >= endWheat) && (grain >= endGrain) && (gold >= endGold);
+    }
+
     public objectiveResult checkAnswer(Farmio farmio){
         if (farmio.getFarmer().isHasfailedCurrentTask()) {
+            farmio.getFarmer().resetTaskFailed();
             return objectiveResult.INVALID;
         }
-        //TODO if (...) to return NOT_DONE, DONE, FAILED
-        return objectiveResult.DONE;
+
+        Farmer farmer = farmio.getFarmer();
+        int day = farmer.getDay();
+        objectiveResult currentLevelState;
+        if(checkDeadlineExceeded(day)){
+            currentLevelState =  objectiveResult.FAILED;
+            getFeedback(farmer, currentLevelState);
+        }
+        else {
+            if (allDone(farmer)) {
+                currentLevelState = objectiveResult.DONE;
+            } else if (checkDeadlineExceeded(day + 1)){
+                currentLevelState = objectiveResult.FAILED;
+            }
+            else{
+                currentLevelState = objectiveResult.NOT_DONE;
+            }
+        }
+        getFeedback(farmer, currentLevelState);
+        return currentLevelState;
     }
+
+    private String checkIncompleteObjectives(Farmer farmer){
+       //compare the differences
+       //check the level types
+        String output = "";
+        int seeds = farmer.wheatFarm.getSeeds();
+        int wheat = farmer.wheatFarm.getWheat();
+        int grain = farmer.wheatFarm.getGrain();
+
+        if(seeds != endSeeds){
+            int balancedWheatSeed = endSeeds - seeds;
+            output += "\nSeeds left :"  + balancedWheatSeed;
+        }
+        else {
+            output += "\nSeeds Completed";
+        }
+        if(wheat != endWheat){
+            int balancedWheatGreen = endWheat - wheat;
+            output += "\n Wheat left :"  + balancedWheatGreen;
+        }
+        else {
+            output += "\nWheat Completed";
+        }
+        if(grain != endGrain){
+            int balancedWheatRipe = endGrain - grain;
+            output += "\nGrain left :" + balancedWheatRipe;
+        }
+        else {
+            output += "\nGrain Completed";
+        }
+
+        return output;
+    }
+
+
+    private String getFeedback(Farmer farmer, objectiveResult currentLevelState){
+       //get Feedback on whats not completed
+        //need to complete.
+        if(currentLevelState == objectiveResult.DONE){
+            return "all tasks has been completed";
+        }
+
+        else if(currentLevelState == objectiveResult.NOT_DONE){
+            return checkIncompleteObjectives(farmer);
+        }
+
+        else if (currentLevelState == objectiveResult.FAILED){
+            return "level failed";
+        }
+        return "";
+    }
+
+
 
     public Map<String, Integer> getGoals() {
         Map<String, Integer> goals = new HashMap< String,Integer>();
-        goals.put("Gold", endMoney);
-        goals.put("Seeds", endWheatSeed);
-        goals.put("Wheat", endWheatGreen);
-        goals.put("Grain", endWheatRipe);
-        goals.put("Chicken", endChicken);
-        goals.put("Egg", endChickenEggs);
-        goals.put("Cow", endCow);
-        goals.put("Milk", endCowMilk);
+        goals.put("Gold", endGold);
+        goals.put("Seeds", endSeeds);
+        goals.put("Wheat", endWheat);
+        goals.put("Grain", endGrain);
         return goals;
     }
 }

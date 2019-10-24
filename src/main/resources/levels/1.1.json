@@ -12,9 +12,10 @@
     "The type of tasks available and the action to be executed can be seen in the middle of the screen.",
     "Enter [Do GoToMarket] to create a task that tells Farmer John to drive to the market.~"
   ],
-  "money": 0,
-  "wheat_seed": 0,
-  "wheat_green": 0,
-  "wheat_ripe": 0,
-  "file_path": "Level1.1"
+  "gold": 0,
+  "seeds": 0,
+  "wheat": 0,
+  "grain": 0,
+  "file_path": "Level1.1",
+  "deadline" : 1
 }
