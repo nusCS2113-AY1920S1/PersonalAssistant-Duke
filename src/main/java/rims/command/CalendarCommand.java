@@ -1,12 +1,5 @@
 package rims.command;
 
-import rims.core.ResourceList;
-import rims.core.Storage;
-import rims.core.Ui;
-
-import static rims.command.CalendarCommand.printTopCells;
-
-
 public abstract class CalendarCommand extends Command{
     protected static int cellLength = 15;
     protected static int cellHeight = 6;
@@ -16,7 +9,6 @@ public abstract class CalendarCommand extends Command{
     public CalendarCommand(){
         printCal();
     }
-
   // @Override
     //public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception {
     public static String Vert = "║";
@@ -31,36 +23,35 @@ public abstract class CalendarCommand extends Command{
     public static String MidRight = "╣";
     public static String MidLeft = "╠";
 
-
-
     public static void printCal() {
-        int month = 31;
-        printTopCells();
+        int days = 29;
+        // todo: check and align days of the week / offset from first box (mon)
+        // todo: add in items and reservation status
+        printTopCells(days);
         for (int row = 2; row < CalHeight; row++) {
            printMidCells(row);
         }
-        printBotCells(CalHeight, month);
+        printBotCells(CalHeight, days);
     }
 
-    public static void printTopCells() {
-
+    public static void printTopCells(int days) {
+        int cellRow = 1;
         for (int i = 0; i <= (cellLength * CalWidth); i++) {
-            if (i == 0){
+            if (i == 0) {
                 System.out.print(TopLeft);
-            }
-            else if (i == (cellLength * CalWidth)){
+            } else if (i == (cellLength * CalWidth)) {
                 System.out.print(TopRight);
-            }
-            else if((i % cellLength) == 0){
+            } else if ((i % cellLength) == 0) {
                 System.out.print(TopCentre);
-            }
-            else {
-                    System.out.print(Horz);
+            } else {
+                System.out.print(Horz);
             }
         }
         System.out.print("\n");
-        for (int row = 2; row < cellHeight; row++) {
-            for (int i = 0; i <=cellLength * CalWidth; i++) {
+       // for (int row = 2; row < cellHeight; row++) {
+            //for (int i = 0; i <= cellLength * CalWidth; i++) {
+                printCellRow(cellRow, days);
+                /*int day = ((i+1) / cellLength) + 1;
                 if ((i % cellLength) == 0){
                     System.out.print(Vert);
                 }
@@ -68,17 +59,19 @@ public abstract class CalendarCommand extends Command{
                     System.out.print(Vert);
                 }
                 else if ((row == 2) && ((i+2) % cellLength == 0)){
-                    System.out.print( ((i+1) / cellLength) + 1);
+                    System.out.print(day) ;
                 }
                 else{
                     System.out.print(" ");
                 }
             }
-            System.out.print("\n");
-        }
+            System.out.print("\n");*/
+            //}
+        //}
     }
 
-    public static void printMidCells( int row){
+    public static void printMidCells(int row){
+
         for (int i = 0; i <= (cellLength * CalWidth); i++) {
             if (i == 0){
                 System.out.print(MidLeft);
@@ -94,9 +87,9 @@ public abstract class CalendarCommand extends Command{
             }
         }
         System.out.print("\n");
-
         for (int r = 2; r < cellHeight; r++) {
             for (int i = 0; i <= cellLength * CalWidth; i++) {
+                int day = ((i+1) / cellLength) + 1 + ((row-1) * 7);
                 if ((i % cellLength) == 0){
                     System.out.print(Vert);
                 }
@@ -104,9 +97,9 @@ public abstract class CalendarCommand extends Command{
                     System.out.print(Vert);
                 }
                 else if ((r == 2) && ((i+2) % cellLength == 0)){
-                    System.out.print( ((i+1) / cellLength) + 1 + ((row-1) * 7));
+                    System.out.print(day);
                 }
-                else if ((r == 2) && ((i+3) % cellLength == 0) && ((((i+1) / cellLength) + 1 + ((row-1) * 7)) > 9) ){
+                else if ((r == 2) && ((i+3) % cellLength == 0) && (day > 9) ){
                     System.out.print("");
                 }
                 else{
@@ -117,7 +110,7 @@ public abstract class CalendarCommand extends Command{
         }
     }
 
-    public static void printBotCells(int row, int month ){
+    public static void printBotCells(int row, int DaysInMonth ){
         for (int i = 0; i <= (cellLength * CalWidth); i++) {
             if (i == 0){
                 System.out.print(MidLeft);
@@ -133,9 +126,9 @@ public abstract class CalendarCommand extends Command{
             }
         }
         System.out.print("\n");
-
         for (int r = 2; r < cellHeight; r++) {
             for (int i = 0; i <= cellLength * CalWidth; i++) {
+                int day = ((i+1) / cellLength) + 1 + ((row-1) * 7);
                 if ((i % cellLength) == 0){
                     System.out.print(Vert);
                 }
@@ -143,10 +136,10 @@ public abstract class CalendarCommand extends Command{
                     System.out.print(Vert);
                 }
 
-                else if ((r == 2) && ((i+2) % cellLength == 0) && (((i+1) / cellLength) + 1 + ((row-1) * 7) <= month)){
-                System.out.print( ((i+1) / cellLength) + 1 + ((row-1) * 7));
+                else if ((r == 2) && ((i+2) % cellLength == 0) && (day<= DaysInMonth)){
+                System.out.print(day);
                  }
-                else if ((r == 2) && ((i+3) % cellLength == 0) && ((((i+1) / cellLength) + 1 + ((row-1) * 7)) > 9) && ((i+1) / cellLength) + 1 + ((row-1) * 7) <= month ){
+                else if ((r == 2) && ((i+3) % cellLength == 0) && (day > 9) && (day <= DaysInMonth) ){
                 System.out.print("");
                 }
                 else{
@@ -155,7 +148,6 @@ public abstract class CalendarCommand extends Command{
             }
             System.out.print("\n");
         }
-
         for (int i = 0; i <= (cellLength * CalWidth); i++) {
             if (i == 0){
                 System.out.print(BotLeft);
@@ -171,6 +163,97 @@ public abstract class CalendarCommand extends Command{
             }
         }
         System.out.print("\n");
+    }
+
+    public static int getLength (String phrase){
+        return phrase.length();
+    }
+
+    public static void printCellRow(int cellRow, int DaysInMonth) {
+        String phrase = "testing12345678";
+        for (int row = 2; row < cellHeight; row++) {
+            if (row == 2) {
+                printDateRow(cellRow, DaysInMonth);
+            } else if (getLength(phrase) == 0) {
+                for (int i = 0; i <= (cellLength * CalWidth); i++) {
+                    int day = ((i + 1) / cellLength) + 1;
+                    if ((i % cellLength) == 0) {
+                        System.out.print(Vert);
+                    } else if (i == (cellLength * CalWidth)) {
+                        System.out.print(Vert);
+                    } else if ((row == 2) && ((i + 2) % cellLength == 0)) {
+                        System.out.print(day);
+                    } else {
+                        System.out.print(" ");
+                    }
+                }
+                System.out.print("\n");
+            } else { // assert there is an entry
+                int length = getLength(phrase);
+                String phraseToPrint = shortenPhrase(phrase);
+
+                for (int i = 0; i <= cellLength * CalWidth; i++) {
+
+                    int day = ((i + 1) / cellLength) + 1 + ((row - 1) * 7);
+
+                    if ((i % cellLength) == 0) {
+                        System.out.print(Vert);
+                    } else if (i == (cellLength * CalWidth)) {
+                        System.out.print(Vert);
+
+                    } else {
+                        System.out.print(" ");
+                        System.out.print(phraseToPrint);
+                        System.out.print(" " + Vert);
+                        i += cellLength;
+                    }
+                }
+            }
+            System.out.print("\n");
+
+        }
+    }
+
+    public static String shortenPhrase(String Phrase){
+        String result = "";
+        String padding ="";
+        int length = getLength(Phrase);
+        if (length <= cellLength - 2){
+            result += Phrase;
+            for (int i = 0; i < cellLength - length - 3; i ++){
+                padding += " ";
+            }
+            result += padding;
+        }
+
+        else{ //assert need to truncate phrase
+            result = Phrase.substring(0, (cellLength-6) );
+            result += "...";
+        }
+        return result;
+    }
+
+    public static void printDateRow(int cellRow, int DaysInMonth){
+        for (int i = 0; i <= CalWidth * cellLength; i++) {
+
+            int day = ((i+1) / cellLength) + 1 + ((cellRow-1) * 7);
+
+            if ((i % cellLength) == 0){
+                System.out.print(Vert);
+            }
+            else if (i == (cellLength * CalWidth)) {
+                System.out.print(Vert);
+            }
+
+            else if (((i + 2) % cellLength == 0) && (day <= DaysInMonth)) {
+                System.out.print(day);
+            } else if (((i + 3) % cellLength == 0) && (day > 9) && (day <= DaysInMonth)) {
+                System.out.print("");
+            }
+            else {
+                System.out.print(" ");
+            }
+        }
     }
 }
 
