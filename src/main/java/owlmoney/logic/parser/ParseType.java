@@ -165,6 +165,11 @@ class ParseType extends Parser {
                 return parseDeleteInvestment.getCommand();
             } else if ("/list".equals(command)) {
                 return new ListInvestmentCommand();
+            } else if ("/find".equals(command)) {
+                ParseFindBankOrCard parseFindInvestment = new ParseFindBankOrCard(rawData, INVESTMENT);
+                parseFindInvestment.fillHashTable();
+                parseFindInvestment.checkParameter();
+                return parseFindInvestment.getCommand();
             }
             throw new ParserException("You entered an invalid type for investment");
         case "/bonds":
