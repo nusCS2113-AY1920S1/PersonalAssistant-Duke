@@ -87,7 +87,7 @@ public class Storage {
      * This method reads the folder.
      *
      */
-    private void load() throws DukeException {
+    public void load() throws DukeException {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(folder)) {
             for (Path path : directoryStream) {
                 String file = path.toString().substring(folderName.length());

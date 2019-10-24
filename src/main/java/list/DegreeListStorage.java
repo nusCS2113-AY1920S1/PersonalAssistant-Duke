@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
 public class DegreeListStorage {
     private static final String filename = "../data/savedegree.txt"; //text file that stores all the information
     File file = new File(filename);
@@ -30,3 +30,5 @@ public class DegreeListStorage {
     }
 
 }
+
+ */

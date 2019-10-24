@@ -61,12 +61,12 @@ public class Duke extends Application {
             myList = new TaskList(storage.getTaskList());
         } catch (DukeException e) {
             myList = new TaskList();
+            ui.showLoadingError();
         }
         try{
             setDegrees(storage.fetchListOutput("listdegrees"));
             loadDegrees();
         } catch (DukeException e) {
-            ui.showLoadingError();
             degrees.clear();
             degreeInfo.clear();
             System.out.println(e.getLocalizedMessage());
@@ -174,7 +174,7 @@ public class Duke extends Application {
         System.setOut(ps);
         try {
             ui.showLine();
-            Degree temp = new Degree(storage.fetchListOutput("ISEP1"));
+/*            Degree temp = new Degree(storage.fetchListOutput("ISEP1"));
             for(Map.Entry<String, List<String>> pair : degrees.entrySet())
             {
                 String degree = pair.getKey();
@@ -189,7 +189,7 @@ public class Duke extends Application {
                     }
                     System.out.println();
                 }
-            }
+            }*/
             Command c = Parser.parse(line);
             c.execute(this.myList, this.ui, this.storage, this.lists);
         } catch (DukeException | NullPointerException e) {
