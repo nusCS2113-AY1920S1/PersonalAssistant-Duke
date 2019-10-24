@@ -42,6 +42,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 This will generate all resources required by the application and tests.
 
 == Design
+=== Architecture
 
 [[Design-Logic]]
 === Project component
@@ -52,11 +53,48 @@ image::ProjectClassDiagram.png[]
 .  Both `Project Manager` and `Payment Manager` takes in user command from `Command`.
 .  The `Project Manager` class manages a HashMap of `Project` objects.
 .  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
-.  Each `Payee` object contains a HashMap of `Payments` objects.
+.  Each `Payee` object contains an ArrayList of `Payments` objects.
 .  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
+=== Logic
+
+==== Parser
+
+==== Instruction
+
+==== Process
+
+=== Model
+
+==== Project
+
+==== Budget
+
+==== Payments Manager
+
+==== Payee
+The `Payee` Class object holds all information regarding the identity of the payee, as well as an ArrayList `payments` of `Payment` objects.
+When a new `Payee` object is created, it is stored in the respective HashMap `managerMap` for the specific project the payee is being paid for. +
+The following are the class members storing the payee's identity information.
+
+** Name : `name`
+** Email Address : `email`
+** Matriculation Number : `matricNum`
+** Phone Number : `phoneNum`
+
+==== Payments
+The `Payments` Class object stores the details of the payment being made. A `Payments` object once constructed will be added to the ArrayList `payments` member of the specified payee the payment is being made to.
+The following are the class members storing the payment's details.
+
+** Description of Payment : `item`
+** Amount being paid : `cost`
+** Invoice Number : `inv`
+** Due date for payment : `deadline`
+
+Note that the due date is automatically set to 30 days after the creation of the `Payments` object
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
+
 
 //tag::deadline
 === Add Invoices
@@ -246,8 +284,8 @@ Use case ends.
 
 *MSS*
 
-1.  User opens the JAR file.
-2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “Payments” and “Payment History”.
+`1.  User opens the JAR file.
+2.  AlphaNUS shows a command line along with different sections such as “Deadlines”, “`Payments” and “Payment History”.
 3.  User types in the command line the deadline description and time.
 4.  AlphaNUS adds the deadline.
 +
