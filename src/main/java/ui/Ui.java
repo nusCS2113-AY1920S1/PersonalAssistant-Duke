@@ -153,14 +153,6 @@ public class Ui {
         }
     }
 
-    public void printTxtfile(String storage) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(storage));
-        String line = null;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-    }
-
     /**
      * Prints the list of payments of a payee.
      * @param paymentList paymentList of the payee.

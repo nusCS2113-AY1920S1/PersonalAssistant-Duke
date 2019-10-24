@@ -12,9 +12,6 @@ import task.Task;
 import task.WithinPeriodTask;
 import ui.Ui;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -480,21 +477,20 @@ public class Process {
         }
     }
 
-    public void commandHistory(String input, Ui ui, ArrayList<String> commandList, Storage storage) throws IOException {
-        if (!input.equals("history")) {
+    public void commandHistory(String input, Ui ui, Storage storage) {
                 Calendar cal = Calendar.getInstance();
                 Date date = cal.getTime();
-                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String formattedDate = dateFormat.format(date);
-                String command_time = input + " at " + formattedDate;
-                //commandList.add(command_time);
-                FileWriter fw = new FileWriter(String.valueOf(storage));
+                String command_time = input + "  | " + formattedDate;
+                storage.save(command_time);
+                /*FileWriter fw = new FileWriter(String.valueOf(storage));
                 BufferedWriter bw = new BufferedWriter(fw);
                 bw.write(command_time);
-            }
-            else{
-                //ui.printArrayList(commandList);
-                ui.printTxtfile(String.valueOf(storage));
-            }
-        }
+                 */
+    }
+    public void history(Ui ui, ArrayList<String> commandList, Storage storage){
+        commandList = storage.load();
+        ui.printArrayList(commandList);
+    }
 }
