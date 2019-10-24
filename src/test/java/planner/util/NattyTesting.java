@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
-import planner.exceptions.original.ModInvalidTimeException;
-import planner.util.commons.NattyWrapper;
+import planner.logic.exceptions.legacy.ModInvalidTimeException;
+import planner.util.datetime.NattyWrapper;
 
 
 public class NattyTesting {
