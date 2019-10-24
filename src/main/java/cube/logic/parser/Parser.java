@@ -36,6 +36,8 @@ public class Parser {
 		String command = inputs[0];
 		command = command.trim().toLowerCase();
 		switch (command) {
+			case "reminder":
+				return new ReminderCommandParser().parse(inputs);
 			case "add":
 				return new AddCommandParser().parse(inputs);
 			case "list":
@@ -48,8 +50,6 @@ public class Parser {
 				return new DeleteCommandParser().parse(inputs);
 			case "sold":
 				return new SoldCommandParser().parse(inputs);
-			case "reminder":
-				return new ReminderCommand();
 			case "help":
 				return new HelpCommand();
 			case "bye":
