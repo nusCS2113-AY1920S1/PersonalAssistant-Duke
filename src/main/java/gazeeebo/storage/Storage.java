@@ -3,7 +3,7 @@ package gazeeebo.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 
-import gazeeebo.commands.specialization.moduleCategories;
+import gazeeebo.commands.specialization.ModuleCategories;
 import gazeeebo.commands.gpacalculator.GPACommand;
 import gazeeebo.tasks.Deadline;
 import gazeeebo.tasks.DoAfter;
@@ -15,7 +15,6 @@ import gazeeebo.TriviaManager.TriviaManager;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -336,16 +335,16 @@ public class Storage {
         fileWriter.close();
     }
 
-    public HashMap<String, ArrayList<moduleCategories>> Specialization() throws IOException {
-        HashMap<String, ArrayList<moduleCategories>> specMap = new HashMap<>();
-        ArrayList<moduleCategories> modAndBool = new ArrayList<>();
+    public HashMap<String, ArrayList<ModuleCategories>> Specialization() throws IOException {
+        HashMap<String, ArrayList<ModuleCategories>> specMap = new HashMap<>();
+        ArrayList<ModuleCategories> modAndBool = new ArrayList<>();
         if (new File(absolutePathSpecialization).exists()) {
             File file = new File(absolutePathSpecialization);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");
                 if (split[0].equals("commsB")) {
-                    moduleCategories mC = new moduleCategories(split[2].trim());
+                    ModuleCategories mC = new ModuleCategories(split[2].trim());
                     if (split[3].equals("D")) {
                         mC.isDone = true;
                     } else {
@@ -353,7 +352,7 @@ public class Storage {
                     }
                     modAndBool.add(mC);
                 } else if (split[0].equals("commsD")) {
-                    moduleCategories mC2 = new moduleCategories(split[2].trim());
+                    ModuleCategories mC2 = new ModuleCategories(split[2].trim());
                     if (split[3].equals("D")) {
                         mC2.isDone = true;
                     } else {
@@ -362,7 +361,7 @@ public class Storage {
                     modAndBool.add(mC2);
 
                 } else if (split[0].equals("embB")) {
-                    moduleCategories mC3 = new moduleCategories(split[2].trim());
+                    ModuleCategories mC3 = new ModuleCategories(split[2].trim());
                     if (split[3].equals("D")) {
                         mC3.isDone = true;
                     } else {
@@ -370,7 +369,7 @@ public class Storage {
                     }
                     modAndBool.add(mC3);
                 } else if (split[0].equals("embD")) {
-                    moduleCategories mC4 = new moduleCategories(split[2].trim());
+                    ModuleCategories mC4 = new ModuleCategories(split[2].trim());
                     if (split[3].equals("D")) {
                         mC4.isDone = true;
                     } else {

@@ -14,7 +14,7 @@ public class EnterSpecialization {
     final static int LARGE_SCALE_COMPUTING_INDEX = 5;
     final static int SYS_DESIGN_INDEX = 6;
 
-    public EnterSpecialization(Ui ui, Storage storage,  HashMap<String, ArrayList<moduleCategories>> specMap) throws IOException {
+    public EnterSpecialization(Ui ui, Storage storage,  HashMap<String, ArrayList<ModuleCategories>> specMap) throws IOException {
         ArrayList<String> specList = new ArrayList<String>();
         specList.add("Communications & Networking"); //index 0
         specList.add("Embedded Computing"); //index 1
@@ -34,17 +34,17 @@ public class EnterSpecialization {
 
         System.out.println("You have chosen " + specList.get(specChosen - 1) + ".");
 
-        HashMap<String, ArrayList<moduleCategories>> collectionOfSpecAndMods = new HashMap<String, ArrayList<moduleCategories>>();
+        HashMap<String, ArrayList<ModuleCategories>> collectionOfSpecAndMods = new HashMap<String, ArrayList<ModuleCategories>>();
         //moduleCategories contain code, bool status, d and b
-        ArrayList<moduleCategories> modAndBool = new ArrayList<>();
+        ArrayList<ModuleCategories> modAndBool = new ArrayList<>();
 
         if (specChosen == COMMS_NETWORKING_INDEX) {
             String CS1231 = "CS1231";
-            moduleCategories mC = new moduleCategories(CS1231);
+            ModuleCategories mC = new ModuleCategories(CS1231);
             mC.breadth = true;
             modAndBool.add(mC);
             String CS4334 = "CS4334";
-            moduleCategories mC2 = new moduleCategories(CS4334);
+            ModuleCategories mC2 = new ModuleCategories(CS4334);
             mC2.depth = true;
             modAndBool.add(mC2);
 
@@ -68,11 +68,11 @@ public class EnterSpecialization {
         } else if (specChosen == EMBEDDED_COMPUTING_INDEX) {
             //   breadth = storage.readfromindex1file();
             String CS1231 = "CS1231";
-            moduleCategories mC3 = new moduleCategories(CS1231);
+            ModuleCategories mC3 = new ModuleCategories(CS1231);
             mC3.breadth = true;
             modAndBool.add(mC3);
             String CS4324 = "CS4324";
-            moduleCategories mC4 = new moduleCategories(CS4324);
+            ModuleCategories mC4 = new ModuleCategories(CS4324);
             mC4.depth = true;
             modAndBool.add(mC4);
 

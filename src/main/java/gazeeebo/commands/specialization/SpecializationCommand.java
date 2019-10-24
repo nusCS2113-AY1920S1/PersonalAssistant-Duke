@@ -14,7 +14,7 @@ import java.util.Stack;
 public class SpecializationCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
-        HashMap<String, ArrayList<moduleCategories>> specMap = storage.Specialization(); //Read the file
+        HashMap<String, ArrayList<ModuleCategories>> specMap = storage.Specialization(); //Read the file
 //        Map<String, ArrayList<moduleCategories>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
    //     ArrayList<moduleCategories> expenseList = new ArrayList<>();
 

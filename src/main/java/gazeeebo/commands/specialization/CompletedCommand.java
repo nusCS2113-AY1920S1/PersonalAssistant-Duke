@@ -4,12 +4,11 @@ import gazeeebo.UI.Ui;
 import gazeeebo.storage.Storage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CompletedCommand {
-    public CompletedCommand (Ui ui, Storage storage, HashMap<String, ArrayList<moduleCategories>> specMap) throws IOException {
+    public CompletedCommand (Ui ui, Storage storage, HashMap<String, ArrayList<ModuleCategories>> specMap) throws IOException {
         System.out.println("Which module have you completed?");
         ui.readCommand();
         //User types in the module code e.g. CS1231
