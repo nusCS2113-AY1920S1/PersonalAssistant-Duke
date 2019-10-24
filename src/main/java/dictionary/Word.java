@@ -15,7 +15,7 @@ public class Word {
     /**
      * Maximum ratio of difference allowed for 2 words to be considered close.
      */
-    private final double MAX_DIF_ALLOWED = 0.5;
+    private static final double MAX_DIF_ALLOWED = 0.5;
 
     /**
      * Number of times that a word is searched.

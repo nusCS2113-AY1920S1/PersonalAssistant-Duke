@@ -49,7 +49,7 @@ public class TagBank {
     }
 
     /**
-     * Adds a word to all tags in TagBank of that the word has
+     * Adds a word to all tags in TagBank of that the word has.
      * @param word word to add tag
      */
     public void addWordAllTags(Word word) {

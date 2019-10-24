@@ -116,7 +116,7 @@ public class WordBank {
     }
 
     /**
-     * Searches for all words with a few beginning characters
+     * Searches for all words with a few beginning characters.
      * @param word a string represents the beginning substring
      * @return list of words that have that beginning substring
      * @throws NoWordFoundException if no words in the WordBank have that beginning substring
@@ -206,7 +206,7 @@ public class WordBank {
     }
 
     /**
-     * Checks spelling when user input a non-existing word
+     * Checks spelling when user input a non-existing word.
      * @param word word to be searched
      * @return list of words that is considered to be close from the word user is looking for
      */
