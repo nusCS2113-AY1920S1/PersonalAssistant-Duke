@@ -1,13 +1,11 @@
 package spinbox;
 
-import spinbox.exceptions.DataReadWriteException;
-import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.InvalidIndexException;
+import javafx.scene.layout.GridPane;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -15,26 +13,17 @@ import java.io.IOException;
  * A GUI for SpinBox using FXML.
  */
 public class Main extends Application {
-
-    private SpinBox spinBox = new SpinBox();
-
     @Override
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
+            GridPane gridPane = fxmlLoader.load();
+            Scene scene = new Scene(gridPane);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setUpMain(spinBox);
+            fxmlLoader.<MainWindow>getController().initializeGui();
             stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DataReadWriteException e) {
-            e.printStackTrace();
-        } catch (FileCreationException e) {
-            e.printStackTrace();
-        } catch (InvalidIndexException e) {
+        } catch (SpinBoxException | IOException e) {
             e.printStackTrace();
         }
     }

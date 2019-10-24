@@ -32,7 +32,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "spinbox.SpinBox"
+    mainClassName = "spinbox.gui.Launcher"
 }
 
 dependencies {

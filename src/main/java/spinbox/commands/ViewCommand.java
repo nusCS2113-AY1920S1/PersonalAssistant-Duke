@@ -180,6 +180,7 @@ public class ViewCommand extends Command {
 
         if (guiMode) {
             outputList.set(0, newTrace.toString());
+            return outputList.get(0);
         } else {
             outputList.set(0, "Changed from page "
                     + oldTrace.toString() + " to " + newTrace.toString());

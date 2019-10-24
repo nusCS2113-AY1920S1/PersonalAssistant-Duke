@@ -68,6 +68,19 @@ public class ModuleContainer {
     }
 
     /**
+     * Gets a specific module from within the container.
+     * @param moduleCode A string containing the module code to be used as the key.
+     * @return a Module object, or null if no such module exists.
+     */
+    public Module getModule(String moduleCode) {
+        if (this.checkModuleExists(moduleCode)) {
+            return this.getModules().get(moduleCode);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Loads data using the localStorage instance from the relevant .txt file.
      * @throws DataReadWriteException I/O error.
      * @throws CorruptedDataException polluted data within txt files.

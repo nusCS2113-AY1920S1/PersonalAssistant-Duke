@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="110.0" prefWidth="403.0" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="fileDetails" layoutX="16.0" layoutY="70.0" prefHeight="34.0" prefWidth="73.0" textAlignment="CENTER" wrapText="true" />
+        <Line endX="302.0" layoutX="101.0" layoutY="110.0" startX="-100.0" />
+    </children>
+</fx:root>

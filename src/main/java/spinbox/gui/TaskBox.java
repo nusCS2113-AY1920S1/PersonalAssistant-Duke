@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -18,13 +19,17 @@ public class TaskBox extends AnchorPane {
 
     private TaskBox(String description, String module, String dates) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/TaskBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/itemBoxes/TaskBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        this.description.setTextFill(Color.WHITE);
+        this.module.setTextFill(Color.WHITE);
+        this.dates.setTextFill(Color.WHITE);
 
         this.description.setText(description);
         this.module.setText(module);

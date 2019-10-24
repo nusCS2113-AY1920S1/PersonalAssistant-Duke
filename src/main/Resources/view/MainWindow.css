@@ -2,7 +2,7 @@
     -fx-pref-width: 250
 }
 .tab-header-background {
-    -fx-background-color:transparent
+    -fx-background-color:#25274D
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {

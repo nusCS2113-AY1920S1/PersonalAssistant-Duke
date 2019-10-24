@@ -1,0 +1,8 @@
+#vBox-pane {
+    -fx-background-color: #2E9CCA;
+}
+
+#vBox-pane:hover {
+    -fx-background-color: #29648A;
+    -fx-cursor: hand;
+}
