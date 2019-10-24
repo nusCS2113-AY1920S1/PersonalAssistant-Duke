@@ -4,7 +4,11 @@ package wallet.logic.parser;
 
 import wallet.logic.LogicManager;
 import wallet.logic.command.ExportCommand;
-import wallet.model.record.*;
+import wallet.model.record.Expense;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.Budget;
+import wallet.model.record.Loan;
+import wallet.model.record.Category;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -70,7 +74,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                         Category category = e.getCategory();
                         String isRecur = (e.isRecurring()) ? "yes" : "no";
                         String frequency = (e.isRecurring()) ? e.getRecFrequency() : "";
-                        data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category), isRecur, frequency});
+                        data.add(new String[]{indexOutput, description, amount, date, String.valueOf(category),
+                            isRecur, frequency});
                         index++;
                     }
                 } else {
@@ -106,7 +111,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         ArrayList<Loan> loanList = LogicManager.getWallet().getLoanList().getLoanList();
         List<String[]> data = new ArrayList<>();
         data.add(new String[]{"S/N", "Description", "Amount", "Created Date", "Name", "Phone",
-                "Other Details", "Lend/Borrow", "Settled"});
+            "Other Details", "Lend/Borrow", "Settled"});
         int index = 1;
         for (Loan l : loanList) {
             String indexOutput = Integer.toString(index);
@@ -125,7 +130,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
                 personDetail = "";
             }
             data.add(new String[]{indexOutput, description, amount, createdDate, personName, personPhone,
-                    personDetail, isLend, isSettled});
+                personDetail, isLend, isSettled});
             index++;
         }
         return data;

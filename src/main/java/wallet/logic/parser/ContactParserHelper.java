@@ -156,7 +156,7 @@ public class ContactParserHelper {
             }
         }
 
-        if (nameIndex >= 0 && phoneIndex >= 0 && detailsIndex >= 0) {
+        if (nameIndex < 0 && phoneIndex < 0 && detailsIndex < 0) {
             return null;
         }
 

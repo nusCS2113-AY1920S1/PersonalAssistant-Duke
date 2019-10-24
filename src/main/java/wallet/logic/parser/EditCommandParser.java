@@ -67,6 +67,10 @@ public class EditCommandParser implements Parser<EditCommand> {
                 int id = Integer.parseInt(arguments[0].trim());
                 ContactParserHelper contactHelper = new ContactParserHelper();
                 Contact contact = contactHelper.updateInput(parameters);
+                if (contact == null) {
+                    System.out.println(MESSAGE_ERROR_EDIT_CONTACT);
+                    return null;
+                }
                 contact.setId(id);
                 return contact;
             } catch (NumberFormatException e) {
