@@ -58,7 +58,7 @@ public class TaskCreator {
         Date from = new Date();
         Date to = new Date();
         if (dateArray.length != 1) {
-            if (dateArray.length <= 2) {
+            if (dateArray.length <= 3) {
                 String dateInput = dateArray[1].trim();
                 try {
                     if (parser.formatDateCustom_1(dateInput) != null)
