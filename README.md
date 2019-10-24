@@ -50,6 +50,6 @@ Simply run the command `gradlew {taskName}` in the terminal and Gradle will run 
 
 This is the Group Component for the Module Project of the Module CS2113T, Software Engineering & Object-Oriented Programming, in Academic Year AY19/20, Semester 1 (AY19/20S1), conducted in School of Computing (SoC), National University of Singapore (NUS).
 
-The authors and the copyright holder of this repository are the AY19/20S1 CS2113T students in the Group CS2113T-F09-2. The authors have built and constantly updated this repository after forking the original repository materials from the NUS SoC CS2113T learning materials ([PersonalAssistant-Duke at NUSCS2113-AY1920S1](https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke)).
+The authors and the copyright holder of this repository are the 5 AY19/20S1 CS2113T students in the Group CS2113T-F09-2. The authors have built and constantly updated this repository after forking the original repository materials from the NUS SoC CS2113T learning materials ([PersonalAssistant-Duke at NUSCS2113-AY1920S1](https://github.com/nusCS2113-AY1920S1/PersonalAssistant-Duke)).
 
 **Plagiarism is strictly prohibited under NUS rules and regulations. No copying of the codes/any of the code segments for any purposes.** Please kindly refer to [the CS2113T Module Policy on plagiarism](https://nuscs2113-ay1920s1.github.io/website/admin/appendixB-policies.html#policy-on-plagiarism) if you attempt to copy the codes/code segments from this repository.
