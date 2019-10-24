@@ -275,8 +275,22 @@ In this case, the modules the user needs to take are: +
 * One of moduleCode1, moduleCode2, moduleCode3 +
 * moduleCode4 +
 * moduleCode5 +
+****
+
+=== SortCommand
+
+==== Current implementation
+
+The `sort` feature is operated by the `SortCommand` class, which is called by the `Parser` class. Upon user input of `sort TOSORT TYPE`, the Parser will return a new `SortCommand`.
+
+Since `SortCommand` inherits the `ModuleCommand` class, it must override the `execute` method to specially execute the `SortCommand`. From the `Parser`, `SortCommand` also receives two additional variable inputs from the user: +
 
 ****
+* The object to sort, e.g. modules or cca.
+* The type of sorting the user specifies.
+****
+
+Below is a Sequence Diagram showing how `SortCommand` works.
 
 === JsonWrapper
 
