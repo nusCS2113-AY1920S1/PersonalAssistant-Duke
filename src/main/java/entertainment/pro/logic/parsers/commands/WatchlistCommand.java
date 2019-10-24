@@ -40,26 +40,51 @@ public class WatchlistCommand  extends CommandSuper {
         try{
             String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
             movie = movie.toLowerCase();
-            String type = this.getFlagMap().get("-d").get(0);
+            String type = this.getFlagMap().get("-t").get(0);
             switch (type) {
                 case "d":
-                    String endDate = this.getFlagMap().get("-e").get(0);
-                    Deadline deadline = new Deadline(movie, "D", endDate);
-                    WatchlistHandler.add(deadline);
+                    AddDeadlineTask(movie);
                     break;
                 case "p":
-                    String stDate = this.getFlagMap().get("-s").get(0);
-                    String enDate = this.getFlagMap().get("-e").get(0);
-                    Period period = new Period(movie, "P", stDate, enDate);
-                    WatchlistHandler.add(period);
+                    AddPeriodTask(movie);
                     break;
                 default:
                     break;
             }
-            WatchlistHandler.print_list((MovieHandler)(this.getUIController()));
         } catch(NullPointerException | IndexOutOfBoundsException e) {
             ((MovieHandler)(this.getUIController())).setFeedbackText("Please enter a valid command in the form of: \n" +
                     "watchlist add <name of movie> -d <type of task> -s <start date only for task> -e <end date for task>");
+        }
+    }
+
+    /**
+     * adds a deadline task to my watchlist
+     * @param movie: name of the movie title to be added to the watchlist
+     */
+    private void AddDeadlineTask(String movie) throws IndexOutOfBoundsException {
+        String endDate = this.getFlagMap().get("-e").get(0);
+        Deadline deadline = new Deadline(movie, "D", endDate);
+        if (!WatchlistHandler.add(deadline)) {
+            ((MovieHandler)this.getUIController()).clearSearchTextField();
+            ((MovieHandler)this.getUIController()).setFeedbackText("No duplicates allowed");
+        } else {
+            WatchlistHandler.print_list((MovieHandler)(this.getUIController()));
+        }
+    }
+
+    /**
+     * adds a period task to my watchlist
+     * @param movie: name of the movie title to be added to the watchlist
+     */
+    private void AddPeriodTask(String movie) throws IndexOutOfBoundsException {
+        String stDate = this.getFlagMap().get("-s").get(0);
+        String enDate = this.getFlagMap().get("-e").get(0);
+        Period period = new Period(movie, "P", stDate, enDate);
+        if (!WatchlistHandler.add(period)) {
+            ((MovieHandler)this.getUIController()).clearSearchTextField();
+            ((MovieHandler)this.getUIController()).setFeedbackText("No duplicates allowed");
+        } else {
+            WatchlistHandler.print_list((MovieHandler)(this.getUIController()));
         }
     }
 
@@ -72,7 +97,7 @@ public class WatchlistCommand  extends CommandSuper {
      */
     private void executeTaskDone()  {
         try {
-            String index = this.getFlagMap().get("-d").get(0);
+            String index = this.getFlagMap().get("-i").get(0);
             index = index.strip();
             int i = Integer.valueOf(index);
             System.out.println(i);
