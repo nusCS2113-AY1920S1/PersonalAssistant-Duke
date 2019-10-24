@@ -206,13 +206,31 @@ Currently, the `DegreeTask` class implements three of the following operations:
 ** This method removes all tasks related to a specified degree programme to the user's TaskList.
 
 An example usage scenario details how the mechanism behaves at each step:
-+
+
 *Step 1*: The user launches the application, and Duke will initialize an instance of the DegreeTasks command. Duke will call the `loadDegreeTasks` method, and an ArrayList of TaskLists will be instantiated.
-+
+
 *Step 2*: The user inputs the command `add ComE` to add Computer Engineering to his choice of degree programmes
-+
-*Step 3*: The degree programme is added to his list of degree programmes by a seperate, unnamed class. Subsequently, `addDegreeTasks` is called to add all Computer Engineering tasks to 
-+
+
+*Step 3*: The degree programme is added to his list of degree programmes by a seperate, unnamed class. Subsequently, `addDegreeTasks` is called to add all Computer Engineering tasks to his TaskList.
+
+
+At this point, the user can choose to remove the degree programme from his list of degree programmes if he chooses. If he does, there will be additional steps to the mechanism:
+
+*Step 4*: The user inputs the command `remove 1` to remove the first-indexed degree programme in his list. In this case, it is `Computer Engineering`
+
+*Step 5*: The tasks related to this degree programme are removed from his TaskList
+
+
+==== [Proposed] Automated Priority for Degree Tasks
+
+
+
+==== Design Considerations
+Aspect: Implementing the Degree Tasks
+* Alternative 1: Implementing Degree Tasks as just Events and Deadlines (current choice):
+
+* Alternative 2: Implementing Degree Tasks as an extension of the Event and Deadline class:
+
 
 
 == Testing
