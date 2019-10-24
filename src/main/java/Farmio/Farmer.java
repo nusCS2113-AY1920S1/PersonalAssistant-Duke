@@ -39,8 +39,8 @@ public class Farmer {
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2));
 
     public Farmer() {
-        this.money = 10;
-        this.level = 1.1;
+        this.money = 95;
+        this.level = 1.6;
         this.day = 1;
         this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm();
@@ -177,8 +177,9 @@ public class Farmer {
         }
     }
 
-    public void nextDay(Farmio farmio) throws FarmioException, FarmioFatalException {
+    public void nextDay() throws FarmioException, FarmioFatalException {
         wheatFarm.growSeedlings();
+        day += 1;
     }
 
 
