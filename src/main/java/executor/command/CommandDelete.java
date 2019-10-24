@@ -8,9 +8,14 @@ public class CommandDelete extends Command {
     protected String userInput;
 
     // Constructor
+    /**
+     * Constructor for CommandDelete subCommand Class.
+     * @param userInput The user input from the CLI
+     */
     public CommandDelete(String userInput) {
         this.userInput = userInput;
         this.description = "Deletes the specific entry that the user wants to remove. FORMAT: delete <Index_of_Entry>";
+        this.commandType = CommandType.DELETE;
     }
 
     @Override

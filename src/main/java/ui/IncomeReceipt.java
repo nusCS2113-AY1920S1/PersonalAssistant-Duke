@@ -18,6 +18,7 @@ public class IncomeReceipt extends Receipt {
         super(-cashGained);
     }
 
+
     // -- Setters & Getters
     /**
      * Sets the cashGained by setting the negative as the cashSpent property of this Receipt Object.
