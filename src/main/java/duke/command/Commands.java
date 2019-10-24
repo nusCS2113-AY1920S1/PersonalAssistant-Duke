@@ -26,6 +26,12 @@ public class Commands {
             } else {
                 return null; // TODO: fill in the other contexts
             }
+        case "help":
+            if (context == Context.HOME) {
+                return new HomeHelpCommand();
+            } else {
+                return null; // TODO: fill in the other contexts
+            }
         case "new":
             if (context == Context.HOME) {
                 return new HomeNewCommand();
