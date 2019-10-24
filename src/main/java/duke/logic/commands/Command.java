@@ -1,6 +1,7 @@
 package duke.logic.commands;
 
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 import duke.commons.exceptions.DukeException;
@@ -27,7 +28,8 @@ public abstract class Command {
      * @param storage the storage object that stores the list of tasks
      * @param in the scanner object to handle secondary command IO
      */
-    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) throws DukeException;
+    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user,
+                                 Scanner in, TransactionList transactions) throws DukeException;
 
     public boolean isExit() {
         return false;

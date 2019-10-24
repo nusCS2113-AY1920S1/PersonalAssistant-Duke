@@ -43,6 +43,10 @@ public class Storage {
         loader.loadHelp(lines, specifiedHelp);
     }
 
+    public void loadTransactions(TransactionList transactions, User user) throws DukeException {
+        loader.loadTransactions(transactions, user);
+    }
+
     /**
      * This is a function that will update the input/output file from the current arraylist of meals.
      * @param mealData the structure that will store the tasks from the input file
@@ -72,5 +76,9 @@ public class Storage {
      */
     public void saveUser(User user) throws DukeException {
         writer.writeUser(user);
+    }
+
+    public void updateTransaction(TransactionList transactionList) throws DukeException {
+        writer.writeTransaction(transactionList);
     }
 }

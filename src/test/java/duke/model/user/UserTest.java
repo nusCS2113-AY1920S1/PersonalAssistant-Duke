@@ -1,5 +1,6 @@
 package duke.model.user;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
-    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, true);
+    private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, true, new BigDecimal("3000"));
 
     @Test
     void user() {

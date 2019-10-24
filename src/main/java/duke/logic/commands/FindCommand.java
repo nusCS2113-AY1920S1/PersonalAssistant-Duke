@@ -2,6 +2,7 @@ package duke.logic.commands;
 
 import duke.model.Meal;
 import duke.model.MealList;
+import duke.model.TransactionList;
 import duke.ui.Ui;
 import duke.storage.Storage;
 
@@ -38,7 +39,7 @@ public class FindCommand extends Command {
      * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in, TransactionList transactions) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         for (Meal element: currentMeals) {

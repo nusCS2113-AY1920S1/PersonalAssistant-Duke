@@ -2,8 +2,10 @@ package duke.ui;
 
 import duke.model.Goal;
 import duke.model.Meal;
+import duke.model.Transaction;
 import duke.model.user.User;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,6 +106,10 @@ public class Ui {
         System.out.println(padding + "Failed to load file.");
     }
 
+    public void showLoadinngTransactionError() {
+        System.out.println(padding + "Failed to load transaction file.");
+    }
+
     public void showUserLoadingError() {
         System.out.println(padding + "Unable to load user file.");
     }
@@ -164,4 +170,11 @@ public class Ui {
             }
         }
     }
+
+    public void showTransactionAdded(Transaction transaction, BigDecimal accountBalance) {
+        System.out.println(padding + "Got it. I've added this transaction:");
+        System.out.println(padding + transaction);
+        System.out.println(padding + "Your account balance is: " + accountBalance + " SGD");
+    }
+
 }

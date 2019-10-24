@@ -80,6 +80,10 @@ public class Parser {
                 return new SetgoalCommandParser().parse(userInput);
             case HELP_COMMAND:
                 return new HelpCommandParser().parse(userInput);
+            case DEPOSIT_COMMAND:
+                return new DepositCommandParser().parse(userInput);
+            case PAYMENT_COMMAND:
+                return new PaymentCommandParser().parse(userInput);
             case HISTORY_COMMAND:
                 // clear history if requested
                 if (!userInput.isEmpty() && userInput.equals("clear")) {

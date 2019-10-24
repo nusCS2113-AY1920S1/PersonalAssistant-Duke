@@ -2,6 +2,7 @@ package duke;
 
 import duke.logic.commands.Command;
 import duke.commons.exceptions.DukeException;
+import duke.model.TransactionList;
 import duke.storage.Storage;
 import duke.model.MealList;
 import duke.ui.Ui;
@@ -23,6 +24,7 @@ public class Main {
     private Scanner in = new Scanner(System.in);
     private User user;
     private Autocorrect autocorrect;
+    private TransactionList transactions = new TransactionList();
 
     /**
      * This is a constructor of Duke to start the program.
@@ -48,18 +50,24 @@ public class Main {
         } catch (DukeException e) {
             ui.showMessage(e.getMessage());
         }
+        try {
+            //TODO: Implement in different function
+            storage.loadTransactions(transactions, user);
+        } catch (DukeException e) {
+            ui.showLoadinngTransactionError();
+        }
     }
 
     /**
      *  Run is a function that generate the flow of duke program from beginning until the end.
      */
     public void run() {
-        if (user.getIsSetup() == false) {
+        if (!user.getIsSetup()) {
             ui.showWelcomeNew();
         } else {
             ui.showWelcomeBack(user);
         }
-        while (user.getIsSetup() == false) { //setup user profile if it's empty
+        while (!user.getIsSetup()) { //setup user profile if it's empty
             try {
                 user.setup();
                 ui.showUserSetupDone(user);
@@ -76,7 +84,7 @@ public class Main {
                 String fullCommand = ui.readCommand(in);
                 ui.showLine();
                 Command c = userParser.parse(fullCommand);
-                c.execute(tasks, ui, storage, user, in);
+                c.execute(tasks, ui, storage, user, in, transactions);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
