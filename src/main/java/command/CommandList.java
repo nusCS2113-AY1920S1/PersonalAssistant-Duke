@@ -7,6 +7,7 @@ import task.Task;
 import task.TaskList;
 import ui.UI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -47,7 +48,7 @@ public class CommandList {
      * @throws DukeException
      */
     public void addCommand(Command newCommand, TaskList tasks, UI ui, Storage storage, DegreeList lists, String input)
-            throws DukeException {
+            throws DukeException, IOException {
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
@@ -116,7 +117,7 @@ public class CommandList {
      *
      * @throws DukeException throws when incorrect number of arguments passed.
      */
-    public void redo() throws DukeException {
+    public void redo() throws DukeException, IOException {
         if (undoRedoPointer == commandList.size() - 1) {
             System.out.println("There are no more commands to redo!");
         }

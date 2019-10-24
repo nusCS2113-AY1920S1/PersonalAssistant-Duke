@@ -1,6 +1,7 @@
 package main;
 
 import command.Command;
+import command.CommandList;
 import degree.Degree;
 import exception.DukeException;
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import task.TaskList;
 import ui.UI;
 import list.DegreeList;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class Duke extends Application {
     public ArrayList<String> getTasks() {
         return mydegrees;
     }
-    
+
     /**
      * The constructor that is called when the GUI is starting up.
      * It will initialise all the classes related to the management of user input and save data.
@@ -192,7 +194,7 @@ public class Duke extends Application {
             }*/
             Command c = Parser.parse(line);
             c.execute(this.myList, this.ui, this.storage, this.lists);
-        } catch (DukeException | NullPointerException e) {
+        } catch (DukeException | NullPointerException | IOException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {
             ui.showLine();
@@ -213,7 +215,7 @@ public class Duke extends Application {
                 Command c = Parser.parse(line);
                 isExit = c.isExit();
                 c.execute(this.myList, this.ui, this.storage, this.lists);
-            } catch (DukeException | NullPointerException e) {
+            } catch (DukeException | NullPointerException | IOException e) {
                 ui.showError(e.getLocalizedMessage());
             } finally {
                 ui.showLine();

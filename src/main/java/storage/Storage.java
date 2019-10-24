@@ -33,8 +33,10 @@ public class Storage {
     private File saveFile;
     private String saveFileString;
     private String input = "";
-    private final Path folder = Paths.get("..\\data\\");
-    private final String folderName = "..\\data\\";
+    private final Path folder = Paths.get("../data/");
+    private final String folderName = "../data/";
+    //private final Path folder = Paths.get("..\\data\\");
+    //private final String folderName = "..\\data\\";
     private HashMap<String, List<String>> data = new HashMap<>();
     private HashMap<String, String> readable = new HashMap<>();
     private List<String> fileNames = new ArrayList<>();
