@@ -1,10 +1,15 @@
 package duke.model.commons;
 
+import static duke.commons.util.AppUtil.checkNegativeDouble;
+
 public class Quantity {
     private static final Double DEFAULT_NUMBER = 0.0;
     private Double number;
 
+    private static final String MESSAGE_CONSTRAINTS_QUANTITY = "Quantity must be a valid non-negative number";
+
     public Quantity(double number) {
+        checkNegativeDouble(number, MESSAGE_CONSTRAINTS_QUANTITY);
         this.number = number;
     }
 
@@ -16,16 +21,8 @@ public class Quantity {
         return number;
     }
 
-    public Double getQuantity() {
-        return number;
-    }
-
     public String toString() {
         return String.valueOf(number);
-    }
-
-    public void setQuantity(Double number) {
-        this.number = number;
     }
 
     public static Quantity getDefaultQuantity() {

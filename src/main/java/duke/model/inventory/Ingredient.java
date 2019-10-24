@@ -11,8 +11,6 @@ public class Ingredient {
 
     private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient name can take any values, "
             + "and should not be blank";
-    private static final String MESSAGE_CONSTRAINTS_UNIT = "Unit can take any values, "
-            + "and should not be blank";
     private static final String MESSAGE_CONSTRAINTS_PRICE = "Price is a float number";
 
     private static final Double DEFAULT_PRICE = 0.0;

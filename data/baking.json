@@ -26,7 +26,7 @@
   "shoppingList" : [ {
     "ingredient" : {
       "name" : "Cake",
-      "unitPrice" : 0.0,
+      "unitPrice" : 5.5555,
       "remarks" : ""
     },
     "amount" : 0.0
