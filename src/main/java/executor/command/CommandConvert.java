@@ -145,7 +145,7 @@ public class CommandConvert extends Command {
     }
 
     /**
-     * roundtheNum is basically a function to round the values to a specific number of decimal places.
+     * roundByDecimalPlace is basically a function to round the values to a specific number of decimal places.
      * @param value this is the value which we want to round
      * @param places number of decimal places
      * @return the rounded double value is returned as the output
