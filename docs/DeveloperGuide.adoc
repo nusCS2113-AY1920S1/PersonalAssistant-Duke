@@ -204,6 +204,8 @@ If the module already exists in the task list, (i.e `ModuleTaskList` contains `m
 
 Below is a Sequence Diagram showing how `GradeCommand` works.
 
+image::GradeCommandSequenceDiagram.png[]
+
 ==== Design Considerations
 *How GradeCommand executes*
 
@@ -277,6 +279,10 @@ In this case, the modules the user needs to take are: +
 * moduleCode4 +
 * moduleCode5 +
 ****
+
+Below is a sequence diagram showing how `CapCommand` works. +
+
+image::CapCommandSequenceDiagram.png[]
 
 === SortCommand
 
