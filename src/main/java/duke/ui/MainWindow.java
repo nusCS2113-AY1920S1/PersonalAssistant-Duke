@@ -67,7 +67,7 @@ class MainWindow extends UiElement<Stage> {
 
         // TODO: Add contexts here.
         context.addListener(evt -> {
-            switch ((UiContext.Context) evt.getNewValue()) {
+            switch ((Context) evt.getNewValue()) {
             case HOME:
                 contextWindowHolder.getSelectionModel().select(homeTab);
                 break;
