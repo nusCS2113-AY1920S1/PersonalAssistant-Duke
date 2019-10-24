@@ -10,7 +10,7 @@ import java.util.*;
  * DegreeTask stores an arraylist of tasklists relevant for each degree programme
  */
 public class DegreeTask extends Task {
-    private ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
+    public static ArrayList<TaskList> fullDegreeTasklist = new ArrayList<TaskList>();
 
     //this map relates all the engineeering programmes with an arbitrary integer
     private static final Map<String, Integer> degreeMap;
@@ -36,9 +36,19 @@ public class DegreeTask extends Task {
     public void loadDegreeTasks(List<String> taskDataRaw) throws DukeException {
         if(taskDataRaw == null)
             throw new DukeException("degreeTasks.txt file not found");
-        for (String line : taskDataRaw) {
-            String[] split = line.split(",");
-            System.out.println(split[0]);
+        String delimiter = taskDataRaw.get(0);
+        System.out.println(delimiter);
+        String toTasklist = "";
+        for (int i = 1; i < taskDataRaw.size(); i++) {
+            if((taskDataRaw.get(i) != null) && (!taskDataRaw.get(i).equals("")) && (taskDataRaw.get(i).matches("^[a-zA-Z]*$"))){
+                toTasklist = "";
+                TaskList thisList = new TaskList(toTasklist);
+                fullDegreeTasklist.add(thisList);
+
+            }
+            else{
+                toTasklist = toTasklist + taskDataRaw.get(i) + "\n";
+            }
         }
     }
 
@@ -50,8 +60,8 @@ public class DegreeTask extends Task {
      */
     public void addDegreeTasks (String degreeName, TaskList userTasklist) throws DukeException {
         if(degreeName.contains("ceg")){
-            for(int i = 0; i < fullDegreeTasklist.get(0).size(); i++){
-                userTasklist.add(fullDegreeTasklist.get(0).get(i));
+            for(int i = 0; i < fullDegreeTasklist.get(degreeMap.get(degreeName)).size(); i++){
+                userTasklist.add(fullDegreeTasklist.get(degreeMap.get(degreeName)).get(i));
             }
         }
     }
