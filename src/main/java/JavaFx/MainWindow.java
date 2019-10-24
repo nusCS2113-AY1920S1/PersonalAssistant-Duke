@@ -322,7 +322,7 @@ public class MainWindow extends BorderPane implements Initializable {
                 String[] dateSplit = date.split(" ");
                 date = dateSplit[0] + " " + dateSplit[1];
             } else {
-                date = LT.getWeek(date);
+                date = LT.getValue(date);
             }
             if (date.equals(week)) setWeek(false, week);
 
@@ -416,7 +416,7 @@ public class MainWindow extends BorderPane implements Initializable {
             for(Map.Entry<String, ArrayList<Task>> item: moduleValue.entrySet()) {
                 String strDate = item.getKey();
                 String[] spilt = strDate.split(" ", 3);
-                String selectedWeek = LT.getWeek(spilt[1]);
+                String selectedWeek = LT.getValue(spilt[1]);
                 if((selectedWeek).equals(week)) {
                     ArrayList<Task> data = item.getValue(); // each item in data has the contents
                     for(Task task: data){
@@ -475,14 +475,14 @@ public class MainWindow extends BorderPane implements Initializable {
             Date dateTime = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String date = dateFormat.format(dateTime);
-            selectedWeek = LT.getWeek(date);
-            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            selectedWeek = LT.getValue(date);
+            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,23));
             currentWeek.setTextFill(Color.GOLDENROD);
         }
         else{
-            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            currentWeek.setText(selectedWeek + " ( " + LT.getValue(selectedWeek.toLowerCase()) + " )");
             week = selectedWeek;
         }
     }
@@ -512,7 +512,7 @@ public class MainWindow extends BorderPane implements Initializable {
             String[] modAndTask = (spiltInput[0].replaceFirst("add/e ", "")).split(" ");
             String[] dateAndTime = spiltInput[1].split(" from ");
             String date = dateAndTime[0].trim();
-            if(date.startsWith("Week")) date = LT.getDates(date.toLowerCase());
+            if(date.startsWith("Week")) date = LT.getValue(date.toLowerCase());
             Date inputDate = null;
             Date currentDate = null;
             try {

@@ -43,17 +43,9 @@ public class LookupTable {
      * @param week_day week and day of activity in academic calender
      * @return date of activity
      */
-    public String getDate(String week_day){
-        String out = map.get(week_day.toLowerCase().trim());//week_day in the format of (week x day x)
-        return out;
+    public String getValue(String week_day){
+       return map.get(week_day.toLowerCase().trim());//week_day in the format of (week x day x)
+
     }
 
-    public String getDates(String week){
-        return map.get(week);
-    }
-
-    public String getWeek(String date){
-        String out = map.get(date);
-        return out;
-    }
 }

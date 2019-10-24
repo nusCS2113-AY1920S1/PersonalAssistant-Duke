@@ -1,5 +1,6 @@
 package Commands;
 
+import Interface.LookupTable;
 import Interface.Storage;
 import Interface.Ui;
 import JavaFx.AlertBox;
@@ -40,7 +41,7 @@ public class DoWithinPeriodTasksCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display reminder message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         if (isValid) {
             AlertBox.display("Reminder Alert", "You have a task to do within a period.",
                     taskDescription + " (from " + startDate + " to " + endDate + ")", Alert.AlertType.INFORMATION);

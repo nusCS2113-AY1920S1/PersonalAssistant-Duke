@@ -12,7 +12,6 @@ public class RemindCommand extends Command {
 
     private Task task;
     private Date time;
-    private Timer timer;
     private HashMap<Date, Timer> timerHashMap;
     private boolean remind;
     private Reminder reminder;
@@ -28,7 +27,6 @@ public class RemindCommand extends Command {
         this.task = task;
         this.time = time;
         timerHashMap = new HashMap<>();
-        timer = new Timer();
         this.remind = remind;
     }
 
@@ -42,7 +40,7 @@ public class RemindCommand extends Command {
      * @throws DukeException On invalid task and time input
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException {
         reminder = storage.getReminderObject();
         reminder.setDeadlines(deadlines);
         HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();

@@ -17,7 +17,7 @@ public class ByeCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display goodbye message
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(LookupTable LT,TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         return ui.showBye();
     }
 }

@@ -22,7 +22,14 @@ public class Duke extends Application {
     private final Ui ui;
     private final Reminder reminder;
     private static final Logger LOGGER = Logger.getLogger(Duke.class.getName());
-
+    private static LookupTable LT;
+    static {
+        try {
+            LT = new LookupTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Creates Duke object.
      */
@@ -58,7 +65,7 @@ public class Duke extends Application {
     private String run(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(events, deadlines, ui, storage);
+            return c.execute(LT,events, deadlines, ui, storage);
         } catch (DukeException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
             return ui.showError(e);
