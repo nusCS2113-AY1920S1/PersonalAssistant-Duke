@@ -13,6 +13,8 @@ INC @ 20.0 @ From my friends @ 23/10/2019
 INC @ 20.0 @ From my friends @ 23/10/2019
 INC @ 300.0 @ dsd  @ 23/10/2019
 INC @ 300.0 @ From Daniel money for bitches @ 24/10/2019
+INC @ 200.0 @ From null @ 24/10/2019
+INC @ -2.0 @ From null @ 24/10/2019
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
 EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
@@ -31,6 +33,9 @@ SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ gary&0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ &0
 SEX @ 300.0 @ mala  @ food  @ 24/10/2019 @ dabboy&0 ! bros&0
+EXP @ 2.0 @ dl;k  @ l;dsaf  @ 24/10/2019
+EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
+EXP @ 200.0 @ To hawt bois @ Loan Repayment @ 24/10/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
@@ -39,5 +44,5 @@ G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 4000.0 @ Macbook Pro 15.6inch  @ GS @ 15/1/2020 @ HIGH
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
-LOA # 500.0 # my friends # 9/10/1997 # OUTGOING #  # 0 # 460.0
-LOA @ 400.0 @ Daniel money for bitches @ 31/10/2019 @ OUTGOING @  @ 0 @ 100.0
+LOA @ 200000.0 @ guy @ 24/10/2019 @ OUTGOING @  @ 1 @ 0.0
+LOA @ 7032000.0 @ hawt bois @ 17/10/2019 @ INCOMING @  @ 0 @ 7031600.0

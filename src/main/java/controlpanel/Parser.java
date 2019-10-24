@@ -134,6 +134,20 @@ public class Parser {
     }
 
     /**
+     * This method checks if a String contains a numeric or non-numeric value.
+     * @param checkStr String to be checked
+     * @return True if the String is  numeric, else returns false
+     */
+    public static boolean isNumeric(String checkStr) {
+        try {
+            int i = Integer.parseInt(checkStr);
+        } catch (NullPointerException | NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Takes user input of date for add commands and checks for shortcut dates.
      * If shortcut is found, converts to the correct date according to shortcut.
      * Returns the formatted Date from user inputted date.
@@ -141,7 +155,6 @@ public class Parser {
      * @return formatted Date based on user inputted date
      * @throws ParseException if invalid date is parsed
      */
-    //@@author chengweixuan
     public static LocalDate shortcutTime(String dateStr) throws ParseException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String time = dateStr.replaceAll(" ", "");

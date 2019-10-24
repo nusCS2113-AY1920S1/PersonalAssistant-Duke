@@ -31,21 +31,6 @@ public class SettleSplitCommand extends MoneyCommand {
         inputString = command.replaceFirst("settle ", "");
     }
 
-    /**
-     * This method determines if the String inputted is a number or the name
-     * of a person.
-     * @param checkStr Name/Number of person
-     * @return Boolean true if the String is a number, false if it is a name
-     */
-    private boolean isNumeric(String checkStr) {
-        try {
-            int i = Integer.parseInt(checkStr);
-        } catch (NullPointerException | NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public boolean isExit() {
         return false;
@@ -68,7 +53,7 @@ public class SettleSplitCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         String[] splitStr = inputString.split(" ");
         int serialNo = Integer.parseInt(splitStr[0]);
-        int settleNo = -1;
+        int settleNo;
         if (serialNo > account.getExpListTotal().size()) {
             throw new DukeException("The serial number of the expenditure is Out Of Bounds!");
         }
@@ -77,7 +62,7 @@ public class SettleSplitCommand extends MoneyCommand {
             throw new DukeException("Oops! Index given is not a Split Expenditure!");
         }
 
-        if (isNumeric(splitStr[1])) {
+        if (Parser.isNumeric(splitStr[1])) {
             settleNo = Integer.parseInt(splitStr[1]) - 1;
         } else {
             Pair<String, Boolean> toSearch = new Pair<>(splitStr[1], false);
