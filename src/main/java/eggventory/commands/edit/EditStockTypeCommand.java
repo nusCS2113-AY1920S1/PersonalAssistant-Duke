@@ -5,7 +5,7 @@ import eggventory.Storage;
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 import eggventory.items.StockType;
-import eggventory.ui.Cli;
+import eggventory.ui.Ui;
 
 /**
  * Edits the attributes of StockType.
@@ -30,12 +30,12 @@ public class EditStockTypeCommand extends Command {
     /**
      * Executes the actual edit of the StockType attribute.
      * @param list The StockList containing all the StockType.
-     * @param cli Cli object instance to display output to.
+     * @param ui Ui implementation to display output to.
      * @param storage Storage object to handle saving and loading of any data.
      * @return
      */
     @Override
-    public String execute(StockList list, Cli cli, Storage storage) {
+    public String execute(StockList list, Ui ui, Storage storage) {
         String output;
 
         if (list.isExistingStockType(newName)) {
@@ -47,7 +47,7 @@ public class EditStockTypeCommand extends Command {
                     edited.getName());
             storage.save(list);
         }
-        cli.print(output);
+        ui.print(output);
         return output;
     }
 }

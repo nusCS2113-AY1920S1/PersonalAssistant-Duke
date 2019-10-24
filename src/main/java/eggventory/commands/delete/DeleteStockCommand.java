@@ -1,6 +1,6 @@
 package eggventory.commands.delete;
 
-import eggventory.ui.Cli;
+import eggventory.ui.Ui;
 import eggventory.StockList;
 import eggventory.Storage;
 import eggventory.commands.Command;
@@ -21,21 +21,21 @@ public class DeleteStockCommand extends Command {
     }
 
     @Override
-    public String execute(StockList list, Cli cli, Storage storage) {
+    public String execute(StockList list, Ui ui, Storage storage) {
 
         Stock deleted = list.deleteStock(stockCode);
         String output;
         if (deleted == null) {
             output = String.format("Sorry, I cannot find the stock that stock code \"%s\" refers to. "
                     + "Please try again.", stockCode);
-            cli.print(output);
+            ui.print(output);
             return output;
         } else {
             output = String.format("I deleted the following stock: StockType: %s StockCode: %s Quantity: %d "
                     + "Description: %s", deleted.getStockType(), stockCode,
                     deleted.getQuantity(), deleted.getDescription());
             storage.save(list);
-            cli.print(output);
+            ui.print(output);
             return output;
         }
     }

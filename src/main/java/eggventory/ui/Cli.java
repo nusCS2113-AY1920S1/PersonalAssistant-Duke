@@ -1,13 +1,14 @@
+//@@author Raghav-B
+
 package eggventory.ui;
 
 import java.util.Scanner;
 
 /**
- * Manages the UI of Eggventory.
+ * Manages the CLI of Eggventory.
  * Prints intro and exit messages, and the standard newline.
  */
-
-public class Cli {
+public class Cli extends Ui {
 
     private Scanner in;
 
@@ -16,19 +17,23 @@ public class Cli {
     }
 
     /**
-     * Prints eggventory introduction message.
+     * Starts the REPL loop.
+     * @param runMethod Function passed in for REPL loop.
      */
-    public void printIntro() {
-        String logo = "  _      __    __                     __         ____         _   __         __               \n"
-                + " | | /| / /__ / /______  __ _  ___   / /____    / __/__ ____ | | / /__ ___  / /____  ______ __\n"
-                + " | |/ |/ / -_) / __/ _ \\/  ' \\/ -_) / __/ _ \\  / _// _ `/ _ `/ |/ / -_) _ \\/ __/ _ \\/"
-                + " __/ // /\n"
-                + " |__/|__/\\__/_/\\__/\\___/_/_/_/\\__/  \\__/\\___/ /___/\\_, /\\_, /|___/\\__/_//_/\\__/\\___/_/"
-                + "  \\_, / \n"
-                + "                                                  /___//___/                           /___/  \n";
+    public void initialize(Runnable runMethod) {
+        printIntro();
 
-        System.out.print(logo);
-        print("Hello! I'm Humpty Dumpty\n" + "What can I do for you?");
+        while (true) {
+            runMethod.run();
+        }
+    }
+
+    /**
+     * Reads input from stdio.
+     * @return Returns String to be used by Parser in REPL loop.
+     */
+    public String read() {
+        return in.nextLine();
     }
 
     /**
@@ -37,15 +42,9 @@ public class Cli {
      * @param printString String to print (passed in from external objects accessing UI)
      */
     public String print(String printString) {
-        String output;
-        output = addIndent() + addLine() + "\n";
-
-        String[] linesToPrint = printString.split("\n", 0);
-        for (int i = 0; i < linesToPrint.length; i++) {
-            output += (addIndent() + linesToPrint[i]) + "\n";
-        }
-        output += addIndent() + addLine() + "\n";
+        String output = printFormatter(printString);
         System.out.print(output);
+
         return output;
     }
 
@@ -65,33 +64,4 @@ public class Cli {
     //                output = "Nothing done";
     //        }
     //    }
-
-    /**
-     * Prints error message to CLI.
-     */
-    public void printError(Exception e) {
-        print("Parser error: \n" + e);
-    }
-
-    /**
-     * Prints the EggVentory exit message.
-     */
-    public void printExitMessage() {
-        print("Bye! Your stonks are safe with me!");
-    }
-
-    public String read() {
-        return in.nextLine();
-    }
-
-    protected static String addIndent() {
-        return "        ";
-    }
-
-    /**
-     * Prints the standard newline.
-     */
-    protected String addLine() {
-        return "____________________________________________________________";
-    }
 }

@@ -1,6 +1,6 @@
 package eggventory.commands;
 
-import eggventory.ui.Cli;
+import eggventory.ui.Ui;
 import eggventory.StockList;
 import eggventory.Storage;
 import eggventory.enums.CommandType;
@@ -21,7 +21,7 @@ public class FindCommand extends Command {
      * Prints the list of stocks that match. Alternatively prints a message if none are found.
      */
     @Override
-    public String execute(StockList list, Cli cli, Storage storage) {
+    public String execute(StockList list, Ui ui, Storage storage) {
         String output;
         //int max = list.getQuantity(); Note by Rebs: changed variable name to be more specific.
         int max = list.getStockQuantity();
@@ -42,10 +42,10 @@ public class FindCommand extends Command {
         if (!found) {
             output = "Sorry, I could not find any tasks containing the description \""
                     + search + "\".\nPlease try a different search string.";
-            cli.print(output);
+            ui.print(output);
         } else {
             output = listString;
-            cli.print(output);
+            ui.print(output);
         }
         return output;
     }

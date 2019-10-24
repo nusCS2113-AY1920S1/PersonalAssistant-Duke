@@ -6,7 +6,7 @@ import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 import eggventory.enums.Property;
 import eggventory.items.Stock;
-import eggventory.ui.Cli;
+import eggventory.ui.Ui;
 
 /**
  * Command objects for editing stocks
@@ -35,18 +35,18 @@ public class EditStockCommand extends Command {
     /**
      * Executes the actual editing of the stock's property.
      * @param list StockList containing all the StockTypes.
-     * @param cli Cli object instance to display output to.
+     * @param ui Ui implementation to display output to.
      * @param storage  Storage object to handle saving and loading of any data.
      * @return String of the output, for JUnit testing.
      */
     @Override
-    public String execute(StockList list, Cli cli, Storage storage) {
+    public String execute(StockList list, Ui ui, Storage storage) {
         String output;
 
         if (property == Property.STOCKCODE && list.isExistingStockCode(newValue)) {
             output = String.format("Sorry, the stock code \"%s\" is already assigned to a stock in the system. "
                     + "Please enter a different stock code.", newValue);
-            cli.print(output);
+            ui.print(output);
             return output;
         }
 
@@ -55,7 +55,7 @@ public class EditStockCommand extends Command {
                 edited.getStockType(), edited.getStockCode(), edited.getQuantity(),
                 edited.getDescription());
         storage.save(list);
-        cli.print(output);
+        ui.print(output);
         return output;
     }
 }
