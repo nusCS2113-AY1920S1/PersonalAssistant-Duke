@@ -24,8 +24,6 @@ public class Parser {
 
     Ui ui = new Ui();
 
-    String helpState = "";
-
     /**
      * Constants to represent the index 3.
      */
@@ -128,7 +126,6 @@ public class Parser {
             break;
 
         case "schedule":
-            helpState = "scheduleState";
             Storage scheduleStorage = new Storage(
                 ".\\src\\main\\java\\duke\\data\\timeslots.txt");
 
@@ -171,65 +168,6 @@ public class Parser {
                 ui.showFullCommand();
             }
             break;
-
-        case "goal":
-            helpState = "goalState";
-            Storage goalStorage = new Storage(
-                ".\\src\\main\\java\\duke\\data\\goals.txt");
-            Goal goal = new Goal(goalStorage.loadGoal());
-            Scanner myGoalScan = new Scanner(System.in);
-            ui.showGoalPromptDate();
-            String goalDate = myGoalScan.next();
-            boolean isQuittingGoal = false;
-            while (!isQuittingGoal) {
-                try {
-                    ui.showGoalAllActions(goalDate);
-                    int executeType = myGoalScan.nextInt();
-                    myGoalScan.nextLine();  // This line you have
-                    // to add (It consumes the \n character)
-                    switch (executeType) {
-                    case 1:
-                        System.out.print(goal.viewGoal(goalDate));
-                        break;
-
-                    case 2:
-                        ui.showGoalPromptAddGoal(goalDate);
-                        String myGoal = myGoalScan.nextLine();
-                        System.out.println(
-                            goal.addGoal(goalDate, myGoal, goalStorage));
-                        break;
-
-                    case INDEX_THREE:
-                        ui.showGoalPromptDeleteGoal(goalDate);
-                        String message = myGoalScan.nextLine();
-                        System.out.println(
-                            goal.removeGoal(
-                                goalDate, message, goalStorage));
-                        break;
-
-                    case INDEX_FOUR:
-                        System.out.println(
-                            goal.removeAllGoal(goalDate, goalStorage));
-                        break;
-
-                    case INDEX_FIVE:
-                        isQuittingGoal = true;
-                        ui.showQuitGoal();
-                    default:
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.showFullCommand();
-                } catch (ParseException e) {
-                    ui.showCorrectFormat();
-                }
-            }
-            break;
-        case "help":
-            if (helpState.equals("goalState")) {
-                ui.showHelpGoal();
-            } else if (helpState.equals("scheduleState")) {
-                //show all possible inputs
-            }
         default:
             ui.showDontKnow();
             break;
