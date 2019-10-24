@@ -74,7 +74,7 @@ https://github.com/AY1920S1-CS2113T-W13-2/main.
 The Architecture diagram given below (Figure 1) explains the high-level design of the app. Below it is a quick overview of each component.
 
 .Architecture Diagram
-image::dg_figure1.png[width="500"]
+image::dg_figure1.png[align="center"]
 
 The figure above showcases the high-level view of how *JavaCake* is run. The program can be abstracted into these five modules which are explained below.
 
