@@ -38,8 +38,8 @@ class ProjectRepositoryTest {
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
         assertEquals(expectedProject.getMembers().getAllMemberDetails(),
                 simulatedProject.getMembers().getAllMemberDetails());
-        assertEquals(expectedProject.getTasks().getAllTaskDetails(),
-                simulatedProject.getTasks().getAllTaskDetails());
+        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers()),
+                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers()));
     }
 
     @Test
@@ -62,8 +62,8 @@ class ProjectRepositoryTest {
         assertEquals(expectedProject.getNumOfTasks(), simulatedProject.getNumOfTasks());
         assertEquals(expectedProject.getMembers().getAllMemberDetails(),
                 simulatedProject.getMembers().getAllMemberDetails());
-        assertEquals(expectedProject.getTasks().getAllTaskDetails(),
-                simulatedProject.getTasks().getAllTaskDetails());
+        assertEquals(expectedProject.getTasks().getAllTaskDetails(expectedProject.getTasksAndAssignedMembers()),
+                simulatedProject.getTasks().getAllTaskDetails(simulatedProject.getTasksAndAssignedMembers()));
     }
 
     @Test

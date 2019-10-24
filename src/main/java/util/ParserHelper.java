@@ -104,6 +104,7 @@ public class ParserHelper {
 
     /**
      * Parses the criteria specified by the user to sort the list of tasks.
+     * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
      * @param taskList A list of all tasks in the project.
      * @param sortCriteria Criteria to sort the list of tasks
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.

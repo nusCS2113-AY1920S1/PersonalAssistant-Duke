@@ -4,8 +4,8 @@ import models.member.Member;
 import models.task.Task;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class SortHelper {
@@ -95,13 +95,14 @@ public class SortHelper {
 
     /**
      * Sorts the list of tasks by the name of the members assigned to the tasks in alphabetical order.
+     * @param tasksAndAssignedMembers HashMap containing tasks with assigned members.
      * @param taskList The list of tasks.
      * @return The list of tasks sorted by the name of the members assigned to the tasks in alphabetical order.
      */
     public ArrayList<String> sortTaskMember(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers,
                                             ArrayList<Task> taskList, String memberName) {
-        ArrayList<String> taskDetails = new ArrayList<>();
         ArrayList<Task> allAssignedTasks = new ArrayList<>();
+        // to be made more efficient
         for (Task task: taskList) {
             for (Member member : tasksAndAssignedMembers.get(task)) {
                 if (member.getName().equals(memberName)) {
