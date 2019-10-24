@@ -1,6 +1,4 @@
-import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.Context;

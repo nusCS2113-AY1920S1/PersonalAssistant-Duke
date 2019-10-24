@@ -1,11 +1,8 @@
 import duke.command.ByeCommand;
-import duke.command.Command;
 import duke.command.NewPatientCommand;
 import duke.command.Parser;
 import duke.exception.DukeException;
 import duke.ui.Context;
-import mocks.DoctorCommand;
-import mocks.TestCommands;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
