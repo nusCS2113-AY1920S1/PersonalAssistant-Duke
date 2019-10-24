@@ -20,7 +20,6 @@ public class ParserException extends Exception {
 
     @Override
     public String toString() {
-        uiUtil.printg("Parsing Exception:\n");
         uiUtil.printg(description);
         return description;
     }
