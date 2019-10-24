@@ -14,11 +14,17 @@ public class NewPatientCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
-        Integer height = CommandHelpers.toInt(getSwitchVal("height"));
-        Integer weight = CommandHelpers.toInt(getSwitchVal("weight"));
-        Integer age = CommandHelpers.toInt(getSwitchVal("age"));
-        Integer number = CommandHelpers.toInt(getSwitchVal("number"));
-        core.patientMap.addPatient(new Patient(getSwitchVal("name"), getSwitchVal("bed"),
+        //ideally, we would pass an array of objects
+        Integer height, weight, age, number;
+        height = CommandHelpers.switchToInt("height", this);
+        weight = CommandHelpers.switchToInt("weight", this);
+        age = CommandHelpers.switchToInt("age", this);
+        number = CommandHelpers.switchToInt("number", this);
+        String bed = getSwitchVal("bed");
+        if (core.patientMap.getPatientHashMap().containsKey(bed)) {
+            throw new DukeException("There is already a patient at that bed!");
+        }
+        core.patientMap.addPatient(new Patient(getSwitchVal("name"), bed,
                 getSwitchVal("allergies"), height, weight, age, number,
                 getSwitchVal("address"), getSwitchVal("history")));
         core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
