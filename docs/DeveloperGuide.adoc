@@ -96,6 +96,8 @@ image::UndoImage1.png[width="900", align="left"]
 
 image::UndoImage2.png[width="900", align="left"]
 
+TIP: `CommandList` supports modifications to both task and degree lists. Undo simply undoes the modification to one of the lists in order of commands.
+
 *Step 4*: The user inputs "list" to double check the addition of the new task. This executes `PrintCommand` to display the contents of `TaskList`, but does not modify it in any way. Thus, it will not be added to `CommandList`.
 
 *Step 5*: The user inputs "done 3" to mark the 3rd task in `TaskList` as done. This constructs a `ModCommand` object to change the contents of an element in `TaskList`. Once `ModCommand` is executed, it saves the current `TaskList` into a memento object, and then marks the 3rd task as done.
@@ -113,6 +115,8 @@ image::UndoImage4.png[width="900", align="left"]
 *Step 8*: The user inputs another "undo" to undo the task addition. Similar to step 7, it will call the `undo` method of `CommandList` again and unexecutes the command that `undoRedoPointer` is pointing to. `AddCommand` will call its `memento` object and replace the current `TaskList` with the one that does not have the new task. The `undoRedoPointer` decrements by 1, and now points to index -1.
 
 image::UndoImage5.png[width="900", align="left"]
+
+NOTE: Attempting to undo when there is nothing left to undo will return an error message. Similarly, attempting to redo when there is nothing left to redo will also return an error message.
 
 
 *Step 9*: The user now inputs "redo" to undo the undo. This will call the `redo` method of `CommandList`. It will first increment the `undoRedoPointer` by 1, and it will then execute the command at the pointed element. This will add "todo Sleep" back to the `TaskList`.
