@@ -101,20 +101,37 @@ There are also enumeration classes used to keep track of the different types of 
 .Structure of the Storage Component
 image::dg_figure4.png[width="500"]
 
-The Storage component,
+The `Storage` component,
 
 [none]
-* can save Profile objects in txt format and read it back.
-* can save the TaskStorage  data in txt format and read it back.
+* can save `Profile` objects in txt format and read it back.
+* can save the `TaskStorage` data in txt format and read it back.
 
 === UI
 
-The [red]#UI# module handles the user interface and user interaction with the program. It consists of a MainWindow, which is made up of the following parts: DialogBox, TopBar and AvatarScreen. The API of the UI module is implemented by MainWindow.java in GUI mode. The module also contains a Ui class which defines the implementation of the API in CLI mode.
+The `UI` module handles the user interface and user interaction with the program. It consists of a MainWindow, which is made up of the following parts: DialogBox, TopBar and AvatarScreen. The API of the `UI` module is implemented by MainWindow.java in GUI mode. The module also contains a Ui class which defines the implementation of the API in CLI mode.
 
 .Structure of the UI Component
 image::dg_figure5.png[width="500"]
 
+The UI component,
+
+[none]
+* In CLI Mode, executes user commands through the `Main` component which executes the respective commands in `Logic`.
+* In GUI Mode, executes user commands through the `Main component which executes the respective commands in `Logic`. The output is then shown in the DialogBox class.
+* Listens for changes to `Main` data so that the `UI` can be updated with the modified data.
+* MainWindow implements Model for displaying output from QuizSession class.
+
 == Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+*Technologies Used*:
+
+* Our source code is written in Java. However, we also leverage on JavaFX, fxml and Cascading Style Sheets (CSS) to design our Graphical User Interface (GUI). The program also uses external libraries Natty Date Parser and Apache Commons IO.
+
+* The Natty Date Parser library is used to parse relative dates and times in the Deadline feature (see part 4.X for details on its implementation), while the Apache Commons IO library is used to handle file cleanup in the Storage module.
+
 
 == Documentation
 
