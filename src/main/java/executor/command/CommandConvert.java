@@ -29,17 +29,13 @@ public class CommandConvert extends Command {
         this.userInput = userInput;
         this.commandType = CommandType.CONVERT;
         this.amount = extractAmount(this.commandType, userInput);
-        this.from = getFromUserInput(userInput);
+        this.from = getCurrencyCovertFrom(userInput);
         this.to = getToUserInput(userInput);
         this.description = "Command that converts the user input cash amount from"
                 + " one currency to another and print it in the User Interface.";
     }
 
 
-    /**
-     * execute is the overall function which calls the converter and ui.
-     * @param wallet wallet is the overall wallet object
-     */
     @Override
     public void execute(Wallet wallet) {
         Double convertedAmount = this.convertCurrency(this.getFrom(), this.getTo(), this.getAmount());
@@ -68,9 +64,9 @@ public class CommandConvert extends Command {
     /**
      * getFromUserInput parses user input for the flag "from".
      * @param userInput this is the user entered input from CLI
-     * @return this function returns the 3 character unique string
+     * @return this function returns the 3 character unique string representing the currency to convert from
      */
-    private String getFromUserInput(String userInput) {
+    private String getCurrencyCovertFrom(String userInput) {
         String fromStr = Parser.parseForFlag("from", userInput);
         return fromStr;
     }
