@@ -111,6 +111,10 @@ If this is an `ArgCommand`, in addition to doing the above for a subclass of `Ar
 .. Define `cmdArgLevel` and `emptyArgMsg`
 .. Construct the switches for the `ArgCommand` and supply them as arguments to `switchInit()`
 
+Switch values are accessed from the `ArgCommand` with the `getSwitchVal()` method, which takes the name of a switch, as a String, as an argument, and returns the String representing the argument supplied for the switch. 
+
+NOTE: If there is no argument given for a switch, `getSwitchVal(<switch name>)` returns `null`. However, if a switch is not given, `getSwitchVal(<switch name>)` also returns `null`. The former case can be distinguished by the fact that `switchVals` will contain `<switch name>` as a key.
+
 ==== Parsing
 
 The `Parser` object scans through a user-supplied string. The first word is extracted, and if the corresponding command is an `ArgCommand`, it uses several nested finite state machines (FSMs) which switch on the characters in the input. Switches are extracted, using the aliases in `switchAliases` to identify the full names of the corresponding switches. The switch arguments are then compared against the requirements of the `ArgCommand`, as stored in the `switchMap`.
