@@ -27,8 +27,8 @@ public class CommandGetSpendingByMonth extends Command {
     @Override
     public void execute(Wallet wallet) {
         ReceiptTracker receiptsInMonth = new ReceiptTracker();
-        String mon = Parser.parseForPrimaryInput(CommandType.EXPENDED, userInput);
-        int month = monthStr(mon);
+        String monthStr = Parser.parseForPrimaryInput(CommandType.EXPENDED, userInput);
+        int month = monthStrToInt(monthStr);
         if (month != 0) {
             int year = Integer.parseInt(Parser.parseForFlag("year", userInput));
             receiptsInMonth = wallet.getReceipts().findReceiptByMonthYear(month, year);
@@ -44,7 +44,7 @@ public class CommandGetSpendingByMonth extends Command {
      * @param month is the name of month from the userInput
      * @return the value of month, eg: march --> 3.
      */
-    public int monthStr(String month) {
+    public int monthStrToInt(String month) {
         switch (month) {
         case "january":
             return 1;
