@@ -16,6 +16,19 @@ endif::[]
 
 By: `AY1920S1-CS2113T-F10-3` Since: `Aug 2019` Licence: `NUS`
 
+
+== Introduction
+
+=== About AlphaNUS
+
+NUS treasurers often come face to face with piles of payment forms for claims and also need to
+keep track of their statuses. Having to manage and allocate club funds to multiple projects, treasurers
+may find it a chore to keep up to date with their finances.
+
+AlphaNUS is a financial management system for treasurers to keep track of payment forms made by payees as well manage the club's funds for projects.
+
+This developer guide includes detailed documentation on the designs and implementations of the project and how developers can make changes it.
+
 == Setting up
 
 === Prerequisites
@@ -42,21 +55,88 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 This will generate all resources required by the application and tests.
 
 == Design
+.Architecture Diagram
+image::ArchitectureDiagram.png[]
 
-[[Design-Logic]]
-=== Project component
-[[fig-ProjectClassDiagram]]
-.Structure of the Project Component
-image::ProjectClassDiagram.png[]
+The *_Architecture Diagram_* given above displays the n-tier architecture design of the AlphaNUS. Given below is a quick overview of each component.
 
-.  Both `Project Manager` and `Payment Manager` takes in user command from `Command`.
-.  The `Project Manager` class manages a HashMap of `Project` objects.
-.  Each `Project` object contains a `Budget` and a HashMap of `Payee` objects.
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Command,*`Command`*>>: The command executor and parser.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+The UI solely consists of a `Ui` object that is initiated at the start of the program.
+
+The `UI` component,
+
+* Executes user commands using the `Command` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+[[Design-Command]]
+=== Command component
+
+.Structure of the Command Component
+image::CommandClassDiagram.png[]
+
+The `Command` component consists of:
+
+* `Parser` to make sense of user input.
+* `Instruction` to determine which process to execute.
+* `Process` to process the execution of the command.
+
+
+[[Design-Model]]
+=== Model component
+[[fig-ModelClassDiagram]]
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+.  Both `ProjectManager` and `PaymentManager` takes in user input from `Command`.
+.  The `ProjectManager` class manages a HashMap of `Project` objects.
+.  Each `Project` object contains a `Budget` object and a HashMap of `Payee` objects.
 .  Each `Payee` object contains a HashMap of `Payments` objects.
-.  The result of the command execution is encapsulated as a `Project` object by `PaymentManager` and passed back to `Command`.
+.  Results of the command execution by `ProjectManager` and `PaymentManager` are encapsulated as a `Project` and `Payments` objects respectively by `ProjectManager` and passed back to `Command`.
+
+[[Design-Storage]]
+=== Storage component
+
+{To be added}
 
 == Implementation
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Project Feature
+The `project` feature is managed by the `ProjectManager` class, which is called by the
+`Process` class in the `Command` component.
+
+This feature supports the following commands:
+
+* `add project pr/PROJECT_NAME` -- Adds a new project to the record.
+* `delete project pr/PROJECT_NAME` -- Deletes a project from the record.
+* `goto project pr/PROJECT_NAME` -- Go to a project in the record.
+* `list project` -- Lists all projects in the record.
+
+A detailed explanation of the use case for the `add project` command is given below to demonstrate how each component interacts with each other.
+
+1. User executes the command `add project pr/RAG` in the CLI. This input is passed from the `Ui` to `Command` where the input will be parsed to determine the command to execute.
+
+2. The `Command` component will process the `add project` command and execute it in the `Model` component, calling `ProjectManager` to add a new `Project` object with the user defined `PROJECT_NAME` to its HashMap of `Project` objects.
+
+3. `ProjectManager` then returns a value of the newly created `Project` object to `Command` which is passed to `Ui` for printing the project details to the user.
+
+Below is a sequence diagram to provide a visual representation of the `add project` command.
+
+[[fig-AddProjectSeqDiagram]]
+.Sequence Diagram of the add project command
+image::AddProjectSeqDiagram.png[]
+
+The `delete project` command is implemented in the same manner to the `add project` command. Both return the `Project` object that was deleted or added to be passed to `Ui` for printing its details to the user. The `delete project` command only differs from the `add project` command when it deletes the `Project` object from the HashMap of `Project` objects, in contrast to adding a `Project` object to the HashMap.
 
 //tag::deadline
 === Add Invoices
@@ -108,12 +188,17 @@ Step 4: The user exit AlphaNUS through `bye` command. When he relaunch the appli
 ** Pros: This method saves memory required and minimize the runtime when the command is called.
 ** Cons: It might be inaccurate when the user applies reschedule. Possible solution is to sort the list everytime the user reschedule a task. This will make the reschedule command to be slow on the other hand.
 
-
 == Documentation
+
+{To be added}
 
 == Testing
 
+{To be added}
+
 == Dev Ops
+
+{To be added}
 
 [appendix]
 == Product Scope

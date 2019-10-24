@@ -132,7 +132,7 @@ public class Parser {
                 process.inVoice(input, tasklist, ui);
                 process.commandHistory(input, ui, storage);
             } else if (instr.isHistory(input)) {
-                process.commandHistory(input, ui,commandList, storage);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isSetFund(input)) {
                 process.setFund(input, ui, fund);
             } else if (instr.isAddFund(input)) {
