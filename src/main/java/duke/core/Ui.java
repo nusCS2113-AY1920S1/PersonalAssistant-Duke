@@ -206,16 +206,17 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
     /**
      * It asks user to choose a task to be deleted from a list of tasks.
      *
      * @param numberOfTasks the number of task contain in the list
-     * @return the number being choosen by user. If return -1, it means user canceled the deletion
+     * @return the index being chosen by user. If return -1, it means user canceled the deletion
      */
     public int chooseTaskToDelete(int numberOfTasks) {
         int chosenNumber = -1;
         while (true) {
-            System.out.println("Enter the number of task to delete, or enter number 0 to cancel: ");
+            System.out.println("Enter the index of task to delete, or enter number 0 to cancel: ");
             String command = readCommand();
             try {
                 chosenNumber = Integer.parseInt(command);
@@ -232,8 +233,8 @@ public class Ui {
                 System.out.println("The task #" + chosenNumber + " does not exist. Please enter a valid number!");
             }
         }
-
     }
+
 
     /**
      * It confirms with user on the deletion of a patient.
@@ -270,12 +271,14 @@ public class Ui {
         System.out.println("Got it. The patient is deleted.");
     }
 
+    //@@author kkeejjuunn
     /**
-     * It shows message of a task being deleted.
+     * It shows message of a task being deleted successfully.
      */
     public void taskDeleted() {
         System.out.println("Got it. The task is deleted.");
     }
+
 
     /**
      * It lists out all info of patients.
@@ -329,17 +332,25 @@ public class Ui {
         }
     }
 
+    //@@author kkeejjuunn
     /**
      * It confirms with user on the deletion of a task.
+     * It alerts user that the deletion will cause the current patient who assigned
+     * to this task will no longer assigned to this task.
      * If user confirms, key in 'Y'. Otherwise key in 'N'.
      *
-     * @param task it contains task's info
+     * @param task contains task's info
+     * @param assignedToAnyPatient indicates whether the task is assigned to any patient
      * @return true if user confirmed the deletion. False otherwise.
      */
-    public boolean confirmTaskToBeDeleted(Task task) {
-        showTaskInfo(task);
+    public boolean confirmTaskToBeDeleted(Task task, boolean assignedToAnyPatient) {
         while (true) {
-            System.out.println("The task is to be deleted. Are you sure (Y/N)? ");
+            if (assignedToAnyPatient) {
+                System.out.println("The task is to be deleted. These patients will no "
+                        + "longer assigned to this task. Are you sure (Y/N)?");
+            } else {
+                System.out.println("The task is to be deleted. Are you sure (Y/N)? ");
+            }
             String command = readCommand();
             if (command.toLowerCase().equals("y")) {
                 return true;
@@ -351,6 +362,7 @@ public class Ui {
             }
         }
     }
+
 
     /**
      * It confirms with user on the deletion of a task.
@@ -444,6 +456,26 @@ public class Ui {
             showLine();
         }
     }
+
+    //@@author kkeejjuunn
+    /**
+     * It shows all info of patientTasks found which are associated with the task given by user.
+     *
+     * @param task     task given by user
+     * @param patientTask list of patienttasks being found associated with the task
+     * @param patients       list of patients relate to task
+     */
+    public void taskPatientFound(Task task, ArrayList<PatientTask> patientTask, ArrayList<Patient> patients) {
+        System.out.println("The task " + task.getID() + " " + task.getDescription()
+                + " assigned to following patient(s) is/are found : \n");
+        for (int i = 0; i < patientTask.size(); i++) {
+            showLine();
+            System.out.println(patients.get(i).getID() + ". " + patients.get(i).getName() + "\n");
+            System.out.println(patientTask.get(i).toString());
+            showLine();
+        }
+    }
+
     //@@author qjie7
     /**
      * Provide the necessary task details from the user for short cut feature.
