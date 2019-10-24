@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AddCommandParser implements Parser<AddCommand> {
+
+    public static final String MESSAGE_ERROR_ADD_CONTACT = "Error in input format when adding contact.";
+
     /**
      * Returns an AddCommand object.
      *
@@ -152,6 +155,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ContactParserHelper contactHelper = new ContactParserHelper();
         Contact contact = contactHelper.newInput(info);
         if (contact == null) {
+            System.out.println(MESSAGE_ERROR_ADD_CONTACT);
             return null;
         } else {
             return contact;

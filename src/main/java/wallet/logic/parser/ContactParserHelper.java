@@ -142,21 +142,21 @@ public class ContactParserHelper {
             name = null;
         }
 
-        if (detailsIndex != -1) {
+        if (detailsIndex >= 0) {
             details = concatList(detailsList);
             if (details.trim().isEmpty()) {
                 details = "";
             }
         }
 
-        if (phoneIndex != -1) {
+        if (phoneIndex >= 0) {
             phone = concatList(phoneList);
             if (phone.trim().isEmpty()) {
                 phone = "";
             }
         }
 
-        if (nameIndex == -1 && phoneIndex == -1 && detailsIndex == -1) {
+        if (nameIndex >= 0 && phoneIndex >= 0 && detailsIndex >= 0) {
             return null;
         }
 
