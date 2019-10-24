@@ -74,7 +74,7 @@ public class AsciiCommand extends Command<SongList> {
                 //Song song = new Song("Test song", "C-Major", 120);
                 ArrayList<Song> songs = songList.findSong(songName);
                 Song song;
-                if(songs.size() == 1){
+                if (songs.size() == 1) {
                     song = songs.get(0);
                 } else {
                     //song does not exist or query returned more than 1 result
