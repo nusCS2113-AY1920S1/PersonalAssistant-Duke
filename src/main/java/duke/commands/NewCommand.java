@@ -51,7 +51,7 @@ public class NewCommand extends Command<SongList> {
             song = new Song(songName, key, tempo);
 
             songList.add(song);
-            //storage.updateFile(songList);
+            storage.updateFile(songList);
             System.out.println("after creating song");
             return ui.formatNewSong(songList.getSongList(), song);
         } catch (Exception e) {
