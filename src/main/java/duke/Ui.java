@@ -243,6 +243,7 @@ public class Ui {
      * @return the formatted command syntax
      */
     public String formatHelp() {
+        String output = CommandSyntaxMessage.getMessage();
         return wrap(CommandSyntaxMessage.getMessage());
     }
 

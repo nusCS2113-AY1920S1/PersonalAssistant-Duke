@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  * CommandSyntaxMessage is a class that cannot be instantiated.
- *
  * To add a new command format, just create a <code>String</code> which indicates the command format,
  * and add the command name and format into nameToSyntax HashMap.
  */
@@ -32,8 +31,9 @@ public abstract class CommandSyntaxMessage {
     private static String clearSyntax = "To be implemented in version 2.0\n";
     private static String deleteSyntax = "To be implemented in version 2.0\n";
     private static String exitSyntax = "To be implemented in version 2.0\n";
-    private String startHelpMessage = String.format("There are %d commands in Ducats.\n", nameToSyntax.size());
-    private static String endInstructionMessage = "Alternatively, you can use help [command] to see format for specific command.\n";
+    private static String startHelpMessage = "Here are the commands in Ducats.\n";
+    private static String endInstructionMessage =
+            "Alternatively, you can use help [command] to see format for specific command.\n";
 
     //@@ Sha Long
     private static Map<String, String> nameToSyntax = new HashMap<String, String>() {
@@ -61,9 +61,9 @@ public abstract class CommandSyntaxMessage {
      * The function is to get ALL the commands including their name and format in a single String.
      * @return a string with all the formats
      */
-    public String getMessage() {
+    public static String getMessage() {
         StringBuilder output = new StringBuilder();
-        output.append(startHelpMessage.toString());
+        output.append(startHelpMessage);
         int i = 0;
         for (Map.Entry<String, String> entry : nameToSyntax.entrySet()) {
             output.append((++i) + "." + entry.getKey() + "\nFormat: " + entry.getValue() + "\n");
@@ -79,7 +79,7 @@ public abstract class CommandSyntaxMessage {
      * @return a string with name and format of the the input command
      * @throws DukeException when you cannot find the command, throw other DukeException
      */
-    public String getMessage(String helpMessage) throws DukeException {
+    public static String getMessage(String helpMessage) throws DukeException {
         if (nameToSyntax.containsKey(helpMessage)) {
             StringBuilder output = new StringBuilder();
             output.append(helpMessage + "\nFormat: " + nameToSyntax.get(helpMessage));
