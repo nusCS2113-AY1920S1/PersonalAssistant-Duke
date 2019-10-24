@@ -4,8 +4,6 @@ import dolla.DollaData;
 import dolla.action.Redo;
 import dolla.action.Repeat;
 import dolla.action.Undo;
-import dolla.parser.DebtsParser;
-import dolla.parser.EntryParser;
 import dolla.parser.MainParser;
 import dolla.parser.Parser;
 
