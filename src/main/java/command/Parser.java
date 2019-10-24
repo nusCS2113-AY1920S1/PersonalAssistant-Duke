@@ -33,18 +33,22 @@ public class Parser {
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      * @param storage Storage for the Tasklist.
-     * @param commandList
+     * @param commandList List of input commands.
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws AlphaNUSException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap, ArrayList<String> commandList, HashMap<String, Project> projectmap) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, ArrayList<String> commandList,
+                                HashMap<String, Payee> managermap, HashMap<String, Project> projectmap) {
         try {
             if (instr.isBye(input)) {
                 //print bye message
                 ui.byeMessage();
                 ui.getIn().close();
                 return true;
+            } else if (instr.isHistory(input)) {
+                process.history(ui,commandList, storage);
             } else if (instr.isAddProject(input)) {
+                process.commandHistory(input, ui, storage);
                 if (currentProject == null) {
                     currentProject = process.addProject(input, ui, projectmap);
                 } else {
@@ -52,38 +56,46 @@ public class Parser {
                 }
             } else if (instr.isDeleteProject(input)) {
                 Project deletedProject = process.deleteProject(input, ui, projectmap);
+                process.commandHistory(input, ui, storage);
                 if (currentProject == deletedProject) {
                     currentProject = null;
                 }
             } else if (instr.isGoToProject(input)) {
+                if (currentProject == null) {
+                    process.noProject(ui);
+                }
                 currentProject = process.goToProject(input, ui, projectmap);
-            } else if (currentProject == null) {
-                process.noProject(ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isList(input)) {
-                //print out current list
-                process.commandHistory(input, ui, commandList,storage);
                 ui.printList(tasklist, "list");
+                process.commandHistory(input, ui, storage);
             } else if (instr.isDone(input)) {
                 process.done(input, tasklist, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isDeadline(input)) {
                 process.deadline(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
+                process.commandHistory(input, ui, storage);
+                //storage.save(tasklist.returnArrayList());
 
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
-                Storage.save(tasklist.returnArrayList());
+                //Storage.save(tasklist.returnArrayList());
             } else if (instr.isDeletePayment(input)) {
                 process.deletePayment(input, managermap, ui);
+                process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
 
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isWithinPeriodTask(input)) {
                 process.within(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
+                process.commandHistory(input, ui, storage);
+                //storage.save(tasklist.returnArrayList());
             } else if (instr.isSnooze(input)) {
                 process.snooze(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
+                process.commandHistory(input, ui, storage);
+                //storage.save(tasklist.returnArrayList());
             /*
             `} else if (instr.isPostpone(input)) {
                 process.postpone(input, tasklist, ui);
@@ -91,31 +103,36 @@ public class Parser {
             */
             } else if (instr.isReschedule(input)) {
                 // process.reschedule(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
+                //storage.save(tasklist.returnArrayList());
             } else if (instr.isViewSchedule(input)) {
                 process.viewSchedule(input, tasklist, ui);
+                process.commandHistory(input, ui, storage);
                 //storage.save(tasklist.returnArrayList());
             } else if (instr.isReminder(input)) {
                 //process.reminder(input, tasklist, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isEdit(input)) {
                 // process.edit(input,tasklist,ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayment(input)) {
                 process.addPayment(input, managermap, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isgetpayee(input)) {
                 process.findPayee(input, ui, managermap);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isAddPayee(input)) {
                 process.addPayee(input, managermap, ui);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isDeletePayee(input)) {
                 process.deletePayee(input, managermap, ui);
-                process.commandHistory(input, ui, commandList, storage);
+                process.commandHistory(input, ui, storage);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
-            } else if (instr.isHistory(input)) {
-                process.commandHistory(input, ui,commandList, storage);
+                process.commandHistory(input, ui, storage);
             } else {
                 throw new AlphaNUSException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (AlphaNUSException | IOException e) {
+        } catch (AlphaNUSException e) {
             process.homePageMessage(currentProject.projectname, projectmap.size(), ui);
         } catch (NullPointerException e) {
             process.homePageMessage(null, projectmap.size(), ui);
