@@ -155,7 +155,7 @@ public class Level {
 
     public Map<String, Integer> getGoals() {
         Map<String, Integer> goals = new HashMap< String,Integer>();
-        goals.put("Gold", endMoney);
+        goals.put("Gold", gold);
         goals.put("Seeds", endWheatSeed);
         goals.put("Wheat", endWheatGreen);
         goals.put("Grain", endWheatRipe);
