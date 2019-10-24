@@ -49,7 +49,7 @@ public class WheatFarm extends Farm {
         return seeds;
     }
 
-    public int getGreenWheat() {
+    public int getSeedlings() {
         return seedlings;
     }
 

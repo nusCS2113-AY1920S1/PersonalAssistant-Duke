@@ -8,10 +8,23 @@
     "'If' can be used when you want an action to be executed after a certain condition is met.",
     "The format of using an 'If' statement is as follows..\nIf [condition] [action], Enter [If hasWheat do harvestWheat]~"
   ],
+<<<<<<< HEAD
   "money": 0,
   "wheat_seed": 0,
   "wheat_green": 0,
   "wheat_ripe": 1,
   "deadline" : 5,
+||||||| merged common ancestors
+  "money": 0,
+  "wheat_seed": 0,
+  "wheat_green": 0,
+  "wheat_ripe": 1,
+=======
+  "gold": 0,
+  "seeds": 0,
+  "wheat": 0,
+  "grain": 1,
+  "deadline" : 2,
+>>>>>>> upstream/master
   "file_path": "Level1.4"
 }

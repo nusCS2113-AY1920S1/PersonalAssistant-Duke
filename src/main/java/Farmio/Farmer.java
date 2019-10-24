@@ -39,7 +39,7 @@ public class Farmer {
     private ArrayList<Double> levelList = new ArrayList<Double>(Arrays.asList(1.1,1.2,1.3,1.4,1.5,1.6,2.1,2.2));
 
     public Farmer() {
-        this.money = 95;
+        this.money = 10;
         this.level = 1.1;
         this.day = 1;
         this.location = "WheatFarm";
@@ -135,6 +135,7 @@ public class Farmer {
         }
         return false;
     }
+    public void resetTaskFailed() {hasfailedCurrentTask = false;}
 
     public void setTaskFailed() {
         hasfailedCurrentTask = true;

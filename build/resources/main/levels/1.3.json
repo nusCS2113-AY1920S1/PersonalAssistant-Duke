@@ -4,10 +4,25 @@
     ":Plant the seeds in your farm!",
     "Note that your current location is at the market. You can only plant your seeds in your farm.~"
   ],
+<<<<<<< HEAD
   "money": 0,
   "wheat_seed": 0,
   "wheat_green": 1,
   "wheat_ripe": 0,
   "deadline" : 5,
   "file_path": "Level1.3",
+||||||| merged common ancestors
+  "money": 0,
+  "wheat_seed": 0,
+  "wheat_green": 1,
+  "wheat_ripe": 0,
+  "file_path": "Level1.3"
+=======
+  "gold": 0,
+  "seeds": 0,
+  "wheat": 1,
+  "grain": 0,
+  "deadline" : 1,
+  "file_path": "Level1.3"
+>>>>>>> upstream/master
 }

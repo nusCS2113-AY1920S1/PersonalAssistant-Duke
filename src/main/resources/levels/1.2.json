@@ -5,10 +5,10 @@
     ":Buy some seeds from the market!",
     "Enter [Task] [Action] to buy seeds from the market.~"
   ],
-  "money": 0,
-  "wheat_seed": 1,
-  "wheat_green": 0,
-  "wheat_ripe": 0,
+  "gold": 0,
+  "seeds": 1,
+  "wheat": 0,
+  "grain": 0,
   "file_path": "Level1.2",
-  "deadline" : 5,
+  "deadline" : 1
 }
