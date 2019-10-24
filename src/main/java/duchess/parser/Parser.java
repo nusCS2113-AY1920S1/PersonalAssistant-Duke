@@ -58,6 +58,9 @@ public class Parser {
      * @throws DuchessException if the user input is invalid
      */
     public Command parse(String input) throws DuchessException {
+        if (input.equals("exit") || input.equals("bye")) {
+            this.parserState = new DefaultState(this);
+        }
         return this.parserState.parse(input);
     }
 

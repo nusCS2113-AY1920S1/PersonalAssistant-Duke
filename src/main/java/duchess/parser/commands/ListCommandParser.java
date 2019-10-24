@@ -10,10 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class ListCommandParser {
-    // Not meant to be instantiated
-    private ListCommandParser() {
-    }
-
     /**
      * Returns a command to list user's resources.
      *
