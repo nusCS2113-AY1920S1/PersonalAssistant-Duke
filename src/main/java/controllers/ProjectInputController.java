@@ -102,8 +102,6 @@ public class ProjectInputController implements IController {
         return isManagingAProject;
     }
 
-
-
     /**
      * Adds a member to the current project.
      * @param projectToManage The project specified by the user.

@@ -1,10 +1,12 @@
 package models.task;
 
+import models.member.Member;
 import util.ParserHelper;
 import util.SortHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -40,9 +42,9 @@ public class TaskList {
      * Returns an ArrayList with String descriptions of task details.
      * @return An ArrayList with String descriptions of task details sorted by name by default.
      */
-    public ArrayList<String> getAllTaskDetails() {
+    public ArrayList<String> getAllTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers) {
         // after implementing task index, change "/PRIORITY" to "/INDEX"
-        return this.parserHelper.parseSortTaskDetails(taskList,"/PRIORITY");
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,"/PRIORITY");
     }
 
     /**
@@ -50,8 +52,8 @@ public class TaskList {
      * @param sortCriteria Criteria to sort chosen by user.
      * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
      */
-    public ArrayList<String> getAllSortedTaskDetails(String sortCriteria) {
-        return this.parserHelper.parseSortTaskDetails(taskList,sortCriteria);
+    public ArrayList<String> getAllSortedTaskDetails(HashMap<Task, ArrayList<Member>> tasksAndAssignedMembers, String sortCriteria) {
+        return this.parserHelper.parseSortTaskDetails(tasksAndAssignedMembers,taskList,sortCriteria);
     }
 
     /**
