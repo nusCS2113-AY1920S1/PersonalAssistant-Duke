@@ -19,7 +19,9 @@ By: `AY1920S1-CS2113T-T12-4`      Since: `Aug 2019`
 == Introduction
 PrivateHomeChefManager is aimed at private home chefs who are familiar with and prefer using the command line for managing the administrative tasks of their business. Main features of PrivateHomeChefManager include help user to keep track of customer’s bookings e.g. customer info, pax, booking dates, orders, etc. Also, it helps users to store current recipes, which includes ingredients needed, preparation steps and rating. Lastly, it helps users to keep track of ingredients in storage and able to check for stock availability.
 
-== Prerequisites
+== Setting up
+
+=== Prerequisites
 
 . *JDK `11`* or above
 . *IntelliJ* IDE
@@ -28,7 +30,7 @@ PrivateHomeChefManager is aimed at private home chefs who are familiar with and 
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-== Setting up the project in your computer
+=== Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -42,14 +44,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
-== Verifying the setup
+=== Verifying the setup
 
 . Run the `seedu.address.Main` and try a few commands
 . <<Testing#,Run the tests>> to ensure they all pass.
 
-== Configurations to do before writing code
+=== Configurations to do before writing code
 
-=== Configuring the coding style
+==== Configuring the coding style
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
@@ -72,7 +74,7 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 . Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
-=== Setting up CI
+==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
 
@@ -86,15 +88,17 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-=== Getting started with coding
+==== Getting started with coding
 
 When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
 
-== Setting up
-
+[[Design-Architecture]]
 == Design
+// tag::architecture[]
 
 === Architecture
+
+// end::architecture[]
 
 === UI component
 
@@ -138,22 +142,29 @@ When you are ready to start coding, we recommend that you get some sense of the 
 
 === Making a Release
 
-== Appendix A: Product Scope
+[appendix]
+== Product Scope
 
-== Appendix B: User Stories
+[appendix]
+== User Stories
 
-== Appendix C: Use Cases
+[appendix]
+== Use Cases
 
-== Appendix D: Non Functional Requirements
+[appendix]
+== Non Functional Requirements
 
-== Appendix E: Glossary
+[appendix]
+== Glossary
 
-== Appendix F: Product Survey
+[appendix]
+== Product Survey
 
-== Appendix G: Instructions for Manual Testing
+[appendix]
+== Instructions for Manual Testing
 
-=== G.1. Launch and Shutdown
+=== Launch and Shutdown
 
-=== G.2. Deleting a person
+=== Deleting a person
 
-=== G.3. Saving data
+=== Saving data
