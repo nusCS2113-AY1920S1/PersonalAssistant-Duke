@@ -21,15 +21,6 @@ public class NonDescriptive extends Module {
         this.mc = mcs;
     }
 
-    /**
-     * Returns the code value only as name is expected to be empty
-     *
-     * @return String which contains code
-     */
-    @Override
-    public String viewFriendly() {
-        return this.getCode();
-    }
 
     /**
      * Returns the code and the allocated mc value
